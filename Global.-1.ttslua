@@ -1,6 +1,6 @@
 -- ~~~~~~
--- Script by dzikakulka
--- Issues, history at: http://github.com/tjakubo2/TTS_xwing
+-- Original script by dzikakulka, adapted to 2.0 by Johnny Cheese
+-- Issues, history at: https://github.com/JohnnyCheese/TTS_X-Wing2.0
 --
 -- Based on a work of: Flolania, Hera Vertigo
 -- ~~~~~~
@@ -13,7 +13,7 @@
 
 -- Should the code execute print functions or skip them?
 -- This should be set to false on every release
-print_debug = trueg
+print_debug = true
 
 TTS_print = print
 function print(...)
@@ -1025,7 +1025,7 @@ ModelDB.data = {
         ['large'] = {
             ['VCX-100'] = {
                 arcType = 'R',
-                meshes = {'http://cloud-3.steamusercontent.com/ugc/918053792681952710/7C4E9FAC8A4CB989CD78327B557F274BBEDFFECD/', 'https://paste.ee/r/VmV6q', 'http://cloud-3.steamusercontent.com/ugc/82591194029104609/DDD1DE36F998F9175669CB459734B1A89AD3549B/', 'http://cloud-3.steamusercontent.com/ugc/918053792681951780/9F10BE8B2BD400C785171CCE2F5C0862B257502E/'} },
+                meshes = {'http://cloud-3.steamusercontent.com/ugc/960842902741036050/16A54202685EF407B73CE0FF2233F1608B41CD2E/'} },
             ['YT-1300'] = {
                 arcType = 'T',
                 meshes = {'http://cloud-3.steamusercontent.com/ugc/916924876571350894/150719F1E1213672B0CC0AC3C62930040CBE83CA/'} },
@@ -1039,13 +1039,13 @@ ModelDB.data = {
         ['small'] = {
             ['Z-95 Headhunter Scum'] = {
                 arcType = 'P',
-                meshes = {'https://paste.ee/r/OZrhd', 'http://cloud-3.steamusercontent.com/ugc/82591194029101027/02AE170F8A35A5619E57B3380F9F7FE0E127E567/'} },
+                meshes = {'http://cloud-3.steamusercontent.com/ugc/960842582370212024/3A03B4797B567B8DB9887BBF912F23014CE9D54F/'} },
             ['Y-Wing Scum'] = {
                 arcType = 'P',
-                meshes = {'https://paste.ee/r/1T0ii', 'http://cloud-3.steamusercontent.com/ugc/82591194029068678/DD4A3DBC4B9ED3E108C39E736F9AA3DD816E1F6F/'} },
+                meshes = {'http://cloud-3.steamusercontent.com/ugc/960842582370227297/72D7DD398EA3CCD217D4282E7FF8268744B57AEA/'} },
             ['HWK-290 Scum'] = {
                 arcType = 'P',
-                meshes = {'https://paste.ee/r/tqTsw', 'http://cloud-3.steamusercontent.com/ugc/82591194029102663/71BDE5DC2D31FF4D365F210F037254E9DD62D6A7/'} },
+                meshes = {'http://cloud-3.steamusercontent.com/ugc/960842582370235209/45F49CFE7AB8B96EBAF71E8E14E0687484645E1C/'} },
             ['M3-A Interceptor'] = {
                 arcType = 'P',
                 meshes = {'https://paste.ee/r/mUFjk', 'http://cloud-3.steamusercontent.com/ugc/82591194029096648/6773CD675FA734358137849555B2868AC513801B/'} },
@@ -1076,7 +1076,7 @@ ModelDB.data = {
                 meshes = {'http://cloud-3.steamusercontent.com/ugc/930441690612990671/6559EDB1F3F0FB1A6C1B9F6434CD5A1B18D43873/', 'http://cloud-3.steamusercontent.com/ugc/82591194029067417/A6D736A64063BC3BC26C10E5EED6848C1FCBADB7/'} },
             ['G-1A StarFighter'] = {
                 arcType = 'B',
-                meshes = {'http://cloud-3.steamusercontent.com/ugc/978856173220650210/1EC5676EAC69E8607F83D1A513E6CB156173D902/', 'http://cloud-3.steamusercontent.com/ugc/82591194029072952/254A466DCA5323546173CA6E3A93EFD37A584FE6/'} },
+                meshes = {'http://cloud-3.steamusercontent.com/ugc/978856173220650210/1EC5676EAC69E8607F83D1A513E6CB156173D902/'} },
             ['M12-L Kimogila Fighter'] = {
                 arcType = 'P',
                 meshes = {'http://cloud-3.steamusercontent.com/ugc/978855856920243568/83B447E4E9DE560880BCADFF6D815972C0463DC5/'} },
@@ -1089,14 +1089,14 @@ ModelDB.data = {
         ['large'] = {
             ['JumpMaster 5000'] = {
                 arcType = 'T',
-                meshes = {'https://paste.ee/r/1af5C', 'http://cloud-3.steamusercontent.com/ugc/82591194029067863/A8F7079195681ECD24028AE766C8216E6C27EE21/'} },
+                meshes = {'http://cloud-3.steamusercontent.com/ugc/82591194029067863/A8F7079195681ECD24028AE766C8216E6C27EE21/'} },
             ['YV-666'] = {
                 arcType = 'S',
-                meshes = {'https://paste.ee/r/lLZ8W', 'http://cloud-3.steamusercontent.com/ugc/82591194029090900/DD6BFD31E1C7254018CF6B03ABA1DA40C9BD0D2D/'} },
+                meshes = {'http://cloud-3.steamusercontent.com/ugc/82591194029090900/DD6BFD31E1C7254018CF6B03ABA1DA40C9BD0D2D/'} },
             ['Lancer-Class Pursuit Craft'] = {
                 arcType = 'M',
-                meshes = {'http://cloud-3.steamusercontent.com/ugc/89352769134140020/49113B3BA0A5C67FD7D40A3F61B6AFAFF02E0D1F/', 'http://cloud-3.steamusercontent.com/ugc/82591194029076583/E561AA8493F86562F48EE85AB0C02F9C4F54D1B3/'} },
-            ['YT-1300 scum'] = {
+                meshes = {'http://cloud-3.steamusercontent.com/ugc/89352769134140020/49113B3BA0A5C67FD7D40A3F61B6AFAFF02E0D1F/'} },
+            ['YT-1300 Scum'] = {
                 arcType = 'T',
                 meshes = {'http://cloud-3.steamusercontent.com/ugc/918053186550884079/F5B923DC454650F390E8DE99F660D662D0BD749F/'}  },
             },
@@ -1151,10 +1151,10 @@ ModelDB.data = {
         ['large'] = {
             ['VT-49 Decimator'] = {
                 arcType = 'T',
-                meshes = {'https://paste.ee/r/MJOFI', 'http://cloud-3.steamusercontent.com/ugc/82591194029091549/10F641F82963B26D42E062ED8366A4D38C717F73/'} },
+                meshes = {'http://cloud-3.steamusercontent.com/ugc/960842902741075419/4C089B9BFCFF2373074DBB1C7BF4C3D6E549F9C5/'} },
             ['Lambda-Class Shuttle'] = {
                 arcType = 'R',
-                meshes = {'http://cloud-3.steamusercontent.com/ugc/946201924931049080/CD9A879D641D91A42968EE6B68E6D0E81576D15C/', 'http://cloud-3.steamusercontent.com/ugc/82591194029069944/4B8CB031A438A8592F0B3EF8FA0473DBB6A5495A/'} },
+                meshes = {'http://cloud-3.steamusercontent.com/ugc/946201924931049080/CD9A879D641D91A42968EE6B68E6D0E81576D15C/'} },
                       }
                     },
     ['First Order'] = {
@@ -5021,16 +5021,7 @@ DialModule.GetInitialButtonsState = function(dial)
     return state
 end
 
---List of pilots with calculate action
-calculateDB = {}
-calculateDB['Guri'] = 0
-calculateDB['"Leebo"'] = 0
-calculateDB['IG-88A'] = 0
-calculateDB['IG-88B'] = 0
-calculateDB['IG-88C'] = 0
-calculateDB['IG-88D'] = 0
-calculateDB['4-LOM'] = 0
-calculateDB['L3-37'] = 0
+
 
 
 -- Set initial buttons state (before flipped over) to desired state
@@ -5346,9 +5337,9 @@ RulerModule.meshes.largeBase = {}
 RulerModule.meshes.largeBase.scale = {0.629, 0.629, 0.629}
 RulerModule.meshes.largeBase.collider = 'http://cloud-3.steamusercontent.com/ugc/909045930378567212/D07FE8989663A82E41F61A774DCCE5BD111B3492/'
 RulerModule.meshes.largeBase.front = 'http://cloud-3.steamusercontent.com/ugc/909045930374502722/3131E1465E0A26187D9ACAF0EB052AD54FCD0AE4/'
-RulerModule.meshes.largeBase.side = 'http://cloud-3.steamusercontent.com/ugc/909045930378565621/CEED87FD4894E5B5E4211F4AE3D76C7DA51DDFB5/'
+RulerModule.meshes.largeBase.side = 'http://cloud-3.steamusercontent.com/ugc/951835833517565310/37AE5B6E2A9E8FB93BBC5584B1FE1D85AAB447E0/'
 RulerModule.meshes.largeBase.rear = 'http://cloud-3.steamusercontent.com/ugc/909045930374500081/074CD1848445D803C1ADFA3991E64469709B096E/'
-RulerModule.meshes.largeBase.sideArc = 'http://cloud-3.steamusercontent.com/ugc/909045930374498241/22B28BAB2D674E533FE20C6D67EB35A8DEC480AB/'
+RulerModule.meshes.largeBase.sideArc = 'http://cloud-3.steamusercontent.com/ugc/951835833517565310/37AE5B6E2A9E8FB93BBC5584B1FE1D85AAB447E0/'
 RulerModule.meshes.largeBase.range = {}
 RulerModule.meshes.largeBase.range[1] = 'http://cloud-3.steamusercontent.com/ugc/909045930378571214/A81647190FF75E89F07E335FD0C8D93E5B1351F0/'
 RulerModule.meshes.largeBase.range[2] = 'http://cloud-3.steamusercontent.com/ugc/909045930378573699/29BEBD09176039C8BA029925F5B4BA86C4C42183/'
@@ -5635,6 +5626,8 @@ BombModule.OnTokenDrop = function(token)
         local destPos = Vect.Sum(drop.dest.pos, Vect.RotateDeg(offset.pos, drop.dest.rot[2]))
         if ModelDB.GetData(drop.ship).baseSize == 'large' then
             destPos = Vect.Sum(destPos, Vect.RotateDeg({0, 0, Convert_mm_igu(-20)}, drop.dest.rot[2]))
+        elseif ModelDB.GetData(drop.ship).baseSize == 'medium' then
+            destPos = Vect.Sum(destPos, Vect.RotateDeg({0, 0, Convert_mm_igu(-10)}, drop.dest.rot[2]))
         end
         local destRot = Vect.Sum(drop.dest.rot, offset.rot)
         destPos[2] = drop.ship.getPosition()[2] + offset.pos[2]
@@ -5945,13 +5938,13 @@ shipShieldsDB['YT-1300'] = 5
 shipShieldsDB['YT-2400'] = 4
 shipShieldsDB['A-Wing'] = 2
 shipShieldsDB['B-Wing'] = 4
-shipShieldsDB['HWK-290 Rebel'] = 2
-shipShieldsDB['VCX-100'] = 6
+shipShieldsDB['HWK-290'] = 2
+shipShieldsDB['VCX-100'] = 4
 shipShieldsDB['Attack Shuttle'] = 1
 shipShieldsDB['T-70 X-Wing'] = 3
 shipShieldsDB['E-Wing'] = 3
 shipShieldsDB['K-Wing'] = 3
-shipShieldsDB['Z-95 Headhunter Rebel'] = 2
+shipShieldsDB['Z-95 Headhunter'] = 2
 shipShieldsDB['TIE Fighter Rebel'] = 0
 shipShieldsDB['U-Wing'] = 3
 shipShieldsDB['ARC-170'] = 3
@@ -5959,22 +5952,22 @@ shipShieldsDB['Auzituck Gunship'] = 2
 shipShieldsDB['Sheathipede-Class Shuttle'] = 1
 
 shipShieldsDB['Firespray-31'] = 4
-shipShieldsDB['Z-95 Headhunter Scum'] = 2
+--shipShieldsDB['Z-95 Headhunter'] = 2
 shipShieldsDB['BTL-A4 Y-Wing'] = 2
-shipShieldsDB['HWK-290 Scum'] = 2
+--shipShieldsDB['HWK-290'] = 2
 shipShieldsDB['M3-A Interceptor'] = 1
 shipShieldsDB['StarViper'] = 1
 shipShieldsDB['Aggressor'] = 3
 shipShieldsDB['YV-666'] = 3
 shipShieldsDB['Kihraxz Fighter'] = 1
-shipShieldsDB['JumpMaster 5000'] = 4
+shipShieldsDB['JumpMaster 5000'] = 3
 shipShieldsDB['G-1A StarFighter'] = 4
-shipShieldsDB['Lancer-Class Pursuit Craft'] = 3
+shipShieldsDB['Lancer-Class Pursuit Craft'] = 2
 shipShieldsDB['Quadjumper'] = 0
 shipShieldsDB['Fang Fighter'] = 0
 shipShieldsDB['Scurrg H-6 Bomber'] = 4
 shipShieldsDB['M12-L Kimogila Fighter'] = 2
-shipShieldsDB['YT-1300 scum'] = 3
+shipShieldsDB['YT-1300 Scum'] = 3
 shipShieldsDB['Escape Craft'] = 2
 
 shipShieldsDB['TIE/ln Fighter'] = 0
@@ -6033,6 +6026,9 @@ upgradeChargesDB['Contraband Cybernetics'] = 1
 upgradeChargesDB['Virago'] = 2
 upgradeChargesDB['Barrage Rockets'] = 5
 upgradeChargesDB['Greedo'] = 1
+upgradeChargesDB['Grand Moff Tarkin'] = 2
+upgradeChargesDB['Moff Jerjerrod'] = 2
+upgradeChargesDB['R5-D8'] = 3
 
 
 --Sores wich pilots have Force Tokens and how many should be Spawned
@@ -6056,12 +6052,17 @@ forceCrewDB['Grand Inquisitor'] = 1
 forceCrewDB['Emperor Palpatine'] = 1
 forceCrewDB['Darth Vader'] = 1
 forceCrewDB['Fifth Brother'] = 1
+forceCrewDB['Seventh Sister'] = 1
 
 --Stores wich pilots have Charge tokens and how many should be spawned
 chargePilotsDB = {}
 chargePilotsDB['Moralo Eval'] = 2
 chargePilotsDB['Dace Bonearm'] = 3
 chargePilotsDB['Chewbacca'] = 1
+chargePilotsDB['Autopilot Drone'] = 3
+chargePilotsDB['Colonel Jendon'] = 2
+chargePilotsDB['Captain Nym'] = 1
+chargePilotsDB['Dalan Oberos'] = 2
 
 
 --Stores wich cards for pilots and upgrades that  should trigger the spawn of the single mobile arc indicator
@@ -6070,8 +6071,7 @@ turretDB['Ion Cannon Turret'] = 1
 turretDB['Dorsal Turret'] = 1
 turretDB['Lancer-Class Pursuit Craft'] = 1
 turretDB['JumpMaster 5000'] = 1
-turretDB['HWK-290 Rebel'] = 1
-turretDB['HWK-290 Scum'] = 1
+turretDB['HWK-290'] = 1
 
 bombsDB = {}
 bombsDB['Seismic Charges'] = 0
@@ -6084,7 +6084,7 @@ bombsDB['Rigged Cargo Chute'] = 0
 --Stores wich cards for pilots that should trigger the spawn of the dual mobile arc Indicator
 dualTurretDB = {}
 dualTurretDB['YT-1300'] = 1
-dualTurretDB['YT-1300 scum'] = 1
+dualTurretDB['YT-1300 Scum'] = 1
 dualTurretDB['YT-2400'] = 1
 dualTurretDB['K-Wing'] = 1
 dualTurretDB['VT-49 Decimator'] = 1
@@ -6105,18 +6105,41 @@ repeatedPilotDB['"zeb" orrelios'] = {['Reb'] = {[1] = 'Attack Shuttle', [2] = 'T
 repeatedPilotDB['fenn rau'] = { ['Scu'] = { [1]='Fang Fighter'}, ['Reb'] = {[1]='Sheathipede-Class Shuttle'}}
 repeatedPilotDB['sabine wren'] = {['Reb'] = {[1] = 'Attack Shuttle', [2] = 'TIE/ln Fighter'}, ['Scu'] = {[1] = 'Lancer-Class Pursuit Craft'}}
 repeatedPilotDB['hera syndulla'] = {['Reb'] = {[1] = 'VCX-100', [2] = 'Attack Shuttle'}}
-repeatedPilotDB['norra wexley'] = {['Reb'] = {[1] = 'BTL-A4 Y-Wing', [2] = 'Arc-170'}}
-repeatedPilotDB['garven dreis'] = {['Reb'] = {[1] = 'T65 X-Wing', [2] = 'Arc-170'}}
-repeatedPilotDB['han solo'] = {['Reb'] = {[1] = 'YT-1300'}, ['Scu'] = {[1] = 'YT-1300 scum'}}
-repeatedPilotDB['lando calrissian'] = {['Reb'] = {[1] = 'YT-1300'}, ['Scu'] = {[1] = 'YT-1300 scum', [2] = 'Escape Craft'}}
-repeatedPilotDB['l3-37'] = {['Scu'] ={[1] = 'YT-1300 scum', [2] = 'Escape Craft'}}
+repeatedPilotDB['norra wexley'] = {['Reb'] = {[1] = 'BTL-A4 Y-Wing', [2] = 'ARC-170'}}
+repeatedPilotDB['garven dreis'] = {['Reb'] = {[1] = 'T65 X-Wing', [2] = 'ARC-170'}}
+repeatedPilotDB['han solo'] = {['Reb'] = {[1] = 'YT-1300'}, ['Scu'] = {[1] = 'YT-1300 Scum'}}
+repeatedPilotDB['lando calrissian'] = {['Reb'] = {[1] = 'YT-1300'}, ['Scu'] = {[1] = 'YT-1300 Scum', [2] = 'Escape Craft'}}
+repeatedPilotDB['l3-37'] = {['Scu'] ={[1] = 'YT-1300 Scum', [2] = 'Escape Craft'}}
 repeatedPilotDB['dalan oberos'] = {['Scu'] ={[1] = 'StarViper', [2] = 'M12-L Kimogila Fighter'}}
+
+--List of pilots with calculate action
+calculateDB = {}
+calculateDB['Guri'] = 0
+calculateDB['"Leebo"'] = 0
+calculateDB['IG-88A'] = 0
+calculateDB['IG-88B'] = 0
+calculateDB['IG-88C'] = 0
+calculateDB['IG-88D'] = 0
+calculateDB['4-LOM'] = 0
+calculateDB['L3-37'] = 0
+calculateDB['Autopilot Drone'] = 0
 
 --Stores cards wich add the Calculate actions
 addCalculateDB = {}
 addCalculateDB['C3-PO'] = 0
 
 --Store pilots
+
+--[[function onLoad()
+    objList=getAllObjects()
+    for k, v in pairs(objList) do
+        i.hide_when_face_down = false
+    end
+end]]
+
+function onObjectSpawned(obj)
+    obj.hide_when_face_down = false
+end
 
 -------
 --spawner function, checks for Pilots and Upgrades lists and spawn the respective objects
@@ -6126,7 +6149,7 @@ function newSpawner(listTable)
 
     --Pilots[x] = string
     --Ship[x] = string
-    --Upgrades[x] = {string1, string2...}
+    --Upgrades[x] = {string1, string2...}as
     --spawnCard = Object reference used to position the spawned material
     --Faction = String
 
@@ -6377,7 +6400,7 @@ function newSpawner(listTable)
                         if acc.name == 'Bomb drop token (unassigned)' then
                             pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
                             bombDrop = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
-                            if pilotName == 'Emon Azzameen' then
+                            if pilotName == 'emon azzameen' then
                                 bombTokenDescription = bombTokenDescription .. ':tr3:te3:s3'
                             end
                             bombDrop.setDescription( bombTokenDescription )
