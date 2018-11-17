@@ -2,29 +2,31 @@
 
 -- List Builder for X-Wing 2.0
 -- ~~~~~~
--- Script by Johnncheese
+-- Script by Johnny Cheese
 --
 -- This module creates a set of buttons and text input on an object.
--- It receives a string containingthe name of all pilots and upgrades and set up a table wich will be passed to the global newSpawner function.
--- The cards with the same name are diferentiated by faction when possible, and will inquire the player wich version is being summoned.
+-- Script has 3 main modules: FFG spawner, TTS spawner and Squad builder.
+-- FFG spawner receives the link for a saved FFG web site squad and spawns said squad.
+-- TTS spawner receives a string containingthe name of all pilots and upgrades and set up a table wich will be passed to the global newSpawner function.
+-- Squad Builder offers options to build a squad, but does not apply any restrictions other than faction specific cards.
+-- The cards with the same name are diferentiated by faction when possible, and will if needed, the script inquires the player wich version is being summoned.
 -- The inquire happens in cases of pilots on the same faction using different ships (Sabine, Ezra, "Zeb") and in cases of upgrades with the same name (R2-D2 crew and astromech)
 -- ~~~~~~
+
 self.interactable = false
 
 -- This database contains all upgrades, including data on faction exclusiveness, slot and points cost as of 27/07/18
 UpDB = {}
 UpDB['Reb'] = {
                 ['Astromech'] = {['"Chopper"v1'] = 2, ['R2-D2v1'] = 8, ['R5-D8'] = 7},
-                ['Configuration'] = {['Pivot Wing'] = 0, ['Servomotor S-Foils'] = 0},
-                ['Crew'] = {['"Zeb" Orrelios'] = 1, ['"Chopper"v2'] = 2, ['Baze Malbus'] = 8, ['C-3PO'] = 12, ['Cassian Andor'] = 6,['Chewbaccav1'] = 5, ['Hera Syndulla'] = 4, ['Jyn Erso'] = 2, ['Kanan Jarrus'] = 14, ['Lando Calrissianv1'] = 5, ['Leia Organa'] = 8, ['Magva Yarro'] = 7,
-                ['Maul'] = 13, ['Nien Nunb'] = 5, ['R2-D2v2']= 8, ['Sabine Wren'] = 3, ['Saw Gerrera'] = 8},
+                ['Crew'] = {['"Chopper"v2'] = 2, ['"Zeb" Orrelios'] = 1, ['Baze Malbus'] = 8, ['C-3PO'] = 12, ['Cassian Andor'] = 6,['Chewbaccav1'] = 5, ['Hera Syndulla'] = 4, ['Jyn Erso'] = 2, ['Kanan Jarrus'] = 14, ['Lando Calrissianv1'] = 5, ['Leia Organa'] = 8, ['Magva Yarro'] = 7,
+                    ['Maul'] = 13, ['Nien Nunb'] = 5, ['R2-D2v2']= 8, ['Sabine Wren'] = 3, ['Saw Gerrera'] = 8},
                 ['Gunner'] = {['Bistan'] = 14, ['Ezra Bridger'] = 18, ['Han Solov1'] = 12, ['Luke Skywalker'] = 30},
                 ['Talent'] = {['Selfless'] = 3},
                 ['Title'] = {['Phantom'] = 2, ['Millenium Falcon'] = 6, ['Moldy Crow'] = 12, ['Gohst'] = 0, ['Outrider'] = 14}
               }
 
 UpDB['Imp'] = {
-                ['Configuration']={['OS-1 Ordnance Loadout'] = 0, ['XG-1 Assault Loadout'] = 0},
                 ['Crew'] = {['0-0-0'] = 3, ['Admiral Sloane'] = 10, ['Agent Kallus'] = 6, ['Ciena Ree'] = 10, ['Darth Vader'] = 14, ['Director Krennic'] = 5, ['Grand Inquisitor'] = 16, ['Grand Moff Tarkin'] = 10, ['Minister Tua'] = 7, ['Moff Jerjerrod'] = 12, ['Seventh Sister'] = 12, ['ISB Slicer'] = 3, ['Death Troopers'] = 6, ['Emperor Palpatine'] = 13},
                 ['Gunner'] = {['BT-1'] = 2, ['Fifth Brother'] = 12},
                 ['Talent'] = {['Ruthless'] = 1},
@@ -36,11 +38,12 @@ UpDB['Scu'] = {
                 ['Crew'] = {['Tobias Beckett'] = 2, ["Qi'ra"] = 2, ['Chewbaccav2'] = 4, ['L3-37'] = 4, ['Lando Calrissianv2'] = 8, ['0-0-0'] = 3, ['4-LOM'] = 3, ['Boba Fett'] = 4, ['Cad Bane'] = 4, ['Cikatro Vizago'] = 2, ['Ig-88D'] = 4, ['Ketsu Onyo'] = 5, ['Latts Razzi'] = 7, ['Maul'] = 13, ['Unkar Plutt'] = 2, ['Zuckuss'] = 3, ['Jabba the Hutt'] = 8},
                 ['Gunner'] = {['Han Solov2'] = 4, ['Bossk'] = 10, ['BT-1'] = 2, ['Dengar'] = 6, ['Greedo'] = 1},
                 ['Talent'] = {['Fearless'] = 3},
-                ['Title'] = {["Lando's Millenium Falcon"] = 6, ['IG-2000'] = 2, ['Marauder'] = 3, ['Andrasta'] = 6, ['Slave I'] = 5, ['Mist Hunter'] = 2, ['Punishing One'] = 8, ['Shadow Caster'] = 6, ['Havoc'] = 4, ['Virago'] = 10, ["Hound's Tooth"] = 1}
+                ['Title'] = {["Lando's Millenium Falcon"] = 6, ['Moldy Crow'] = 12, ['IG-2000'] = 2, ['Marauder'] = 3, ['Andrasta'] = 6, ['Slave I'] = 5, ['Mist Hunter'] = 2, ['Punishing One'] = 8, ['Shadow Caster'] = 6, ['Havoc'] = 4, ['Virago'] = 10, ["Hound's Tooth"] = 1}
               }
 
 UpDB['Neu'] = {
                 ['Astromech'] = {['R2 Astromech'] = 6, ['R3 Astromech'] = 3, ['R4 Astromech'] = 2, ['R5 Astromech'] = 5},
+                ['Configuration'] = {['Pivot Wing'] = 0, ['Servomotor S-Foils'] = 0, ['Os-1 Arsenal Loadout'] = 0, ['Xg-1 Assault Configuration'] = 0},
                 ['Cannon'] = {['Heavy Laser Cannon'] = 4, ['Ion Cannon'] = 5, ['Jamming Beam'] = 2, ['Tractor Beam'] = 3},
                 ['Crew'] = {['Freelance Slicer'] = 3, ['GNK "Gonk" Droid'] = 10, ['Informant'] = 5, ['Novice Technician'] = 4, ['Perceptive Copilot'] = 10, ['Seasoned Navigator'] = 5, ['Tactical Officer'] = 2},
                 ['Device'] = {['Conner Nets'] = 6, ['Proton Bombs'] = 5, ['Proximity Mines'] = 6, ['Seismic Charges'] = 3, ['Bomblet Generator'] = 5},
@@ -48,7 +51,8 @@ UpDB['Neu'] = {
                 ['Gunner'] = {['Agile Gunner'] = 10, ['Hotshot Gunner'] = 7, ['Skilled Bombardier'] = 2, ['Veteran Tail Gunner'] = 4, ['Veteran Turret Gunner'] = 8},
                 ['Ilicit'] = {['Cloaking Device'] = 5, ['Contraband Cybernetics'] = 5, ["Deadman's Switch"] = 2, ['Feedback Array'] = 4, ['Inertial Dampeners'] = 1, ['Rigged Cargo Chute'] = 4},
                 ['Missile'] = {['Cluster Missiles'] = 5, ['Concussion Missiles'] = 6, ['Homing Missiles'] = 3, ['Ion Missiles'] = 4, ['Proton Rockets'] = 7, ['Barrage Rockets'] = 6},
-                ['Modification'] = {['Ablative Plating'] = 4, ['Advanced SLAM'] = 3, ['Afterburners'] = 8, ['Engine Upgrade'] = {3,6,9}, ['Hull Upgrade'] = {2,3,5,7}, ['Munitions Failsafe'] = 2, ['Shield Upgrade'] = {3,4,6,8}, ['Static Discharge Vanes'] = 6, ['Stealth Device'] = {3,4,6,8}},
+                ['Modification'] = {['Electronic Baffle'] = 2, ['Ablative Plating'] = 4, ['Advanced SLAM'] = 3, ['Afterburners'] = 8, ['Engine Upgrade'] = {3,6,9}, ['Hull Upgrade'] = {[0]=2,[1]=3,[2]=5,[3]=7}, ['Munitions Failsafe'] = 2,
+                                ['Shield Upgrade'] = {[0]=3,[1]=4,[2]=6,[3]=8}, ['Static Discharge Vanes'] = 6, ['Stealth Device'] = {[0]=3,[1]=4,[2]=6,[3]=8}, ['Tactical Scrambler'] = 2},
                 ['System'] = {['Advanced Sensors'] = 8, ['Collision Detector'] = 5, ['Fire-Control System'] = 3, ['Trajectory Simulator'] = 3},
                 ['Talent'] = {['Composure'] = 2, ['Crack Shot'] = 1, ['Daredevil'] = 3, ['Debris Gambit'] = 2, ['Elusive'] = 3, ['Expert Handling'] = {2,4,6}, ['Intimidation'] = 3, ['Juke'] = 4, ['Lone Wolf'] = 4, ['Marksmanship'] = 1, ['Outmaneuver'] = 6,
                                 ['Predator'] = 2, ['Saturation Salvo'] = 6, ['Squad Leader'] = 4, ['Swarm Tactics'] = 3, ['Trick Shot'] = 1},
@@ -63,112 +67,137 @@ UpDB['Neu'] = {
 shipPilotsDB = {}
 
 shipPilotsDB['Reb'] = {}
-shipPilotsDB['Reb']['T65 X-Wing'] = {['Luke Skywalker'] = {['Cost'] = 62, ['removeSlot'] = {['Talent'] =1, ['Ilicit'] = 1}}, ['Biggs Darklighter'] = {['Cost'] = 48, ['removeSlot'] = {['Force Power'] = 1, ['Talent'] = 1, ['Ilicit'] = 1}}, ['Blue Squadron Escort'] = {['Cost']  = 41}, ['Garven Dreis'] = {['Cost']  = 47},
-                                    ['Thane Kyrell'] = {['Cost'] = 48}, ['Red Squadron Veteran'] = {['Cost'] = 43}, ['Jek Porkins'] = {['Cost'] = 46}, ['Wedge Antilles'] = {['Cost']  = 52}, ['Edrio Two Tubes'] = {['Cost'] = 45}, ['Leevan Tenza'] = {['Cost'] = 46}, ['Kullbee Sperado'] = {['Cost'] = 48},
-                                        ['Slots'] = {'Talent', 'Force Power', 'Torpedo', 'Astromech', 'Modification', 'Title', 'Ilicit', 'Configuration'}, ['Agility'] = 2, ['Base'] = 'Small'}
-shipPilotsDB['Reb']['BTL-A4 Y-Wing'] = {['Gold Squadron Veteran'] = 34, ['Norra Wexley'] = 43, ['Horton Salm'] = 38, ['"Dutch" Vander'] = 42, ['Evaan Verlaine'] = 36, ['Gray Squadron Bomber'] = 32,
-                                    ['Slots'] = {'Talent', 'Turret', 'Torpedo', 'Gunner', 'Astromech', 'Device', 'Modification'}}
-shipPilotsDB['Reb']['YT-1300'] = {['Han Solo'] = 92, ['Chewbacca'] = 84, ['Lando Calrissian'] = 92, ['Outer Rim Smuggler'] = 78,
-                                    ['Slots'] = {'Talent', 'Missile', 'Gunner', 'Crew', 'Crew', 'Ilicit', 'Title', 'Modification'}, ['Agility'] = 1, ['Base'] = 'Large'}
-shipPilotsDB['Reb']['YT-2400'] = {['Dash Rendar'] = 100, ['"Leebo"'] = 98, ['Wild Space Fringer'] = 88,
-                                    ['Slots'] = {'Talent', 'Missile', 'Crew', 'Gunner', 'Ilicit', 'Modification', 'Title'}, ['Agility'] = 2, ['Base'] = 'Large'}
-shipPilotsDB['Reb']['A-Wing'] = {['Phoenix Squadron Pilot'] = 30, ['Arvel Crynyd'] = 36, ['Jake Farrell'] = 40, ['Green Squadron Pilot'] = 34,
-                                    ['Slots'] = {'Talent', 'Missile'}, ['Agility'] = 3, ['Base'] = 'Small'}
-shipPilotsDB['Reb']['B-Wing'] = {['Blue Squadron Pilot'] = 42, ['Blade Squadron Veteran'] = 44, ['Braylen Stramm'] = 50, ['Ten Numb'] = 50,
-                                    ['Slots'] = {'Talent', 'System', 'Cannon', 'Cannon', 'Torpedo', 'Modification'}, ['Agility'] = 1, ['Base'] = 'Small'}
-shipPilotsDB['Reb']['HWK-290 Rebel'] = {['Rebel Scout'] = 32, ['Jan Ors'] = 42, ['Roark Garnet'] = 38, ['Kyle Katarn'] = 38,
-                                    ['Slots'] = { 'Talent', 'Crew', 'Device', 'Modification', 'Modification', 'Title'}, ['Agilty'] = 2, ['Base'] = 'Small'}
-shipPilotsDB['Reb']['VCX-100'] = {["Chopper"] = 72, ['Kanan Jarrus'] = 90, ['Hera Syndulla'] = 76, ['Lothal Rebel'] = 70,
-                                    ['Slots'] = {'Talent', 'Force Power', 'Turret', 'Torpedo', 'Crew', 'Crew', 'Gunner', 'Modification', 'Title'}, ['Agility'] = 0, ['Base'] = 'Large'}
-shipPilotsDB['Reb']['Attack Shuttle'] = {['Ezra Bridger'] = 41, ['"Zeb" Orrelios'] = 34, ['Sabine Wren'] = 38, ['Hera Syndulla'] = 39,
-                                    ['Slots'] = {'Talent', 'Force Power', 'Turret', 'Crew', 'Modification', 'Title'}, [ 'Agility'] = 2, ['Base'] = 'Small'}
-shipPilotsDB['Reb']['E-Wing'] = {['Rogue Squadron Escort'] = 63, ['Corran Horn'] = 74, ['Knave Squadron Escort'] = 61, ['Gavin Darklighter'] = 68,
-                                    ['Slots'] = {'Talent', 'System', 'Torpedo', 'Astromech', 'Modification'}, ['Agility'] = 3, ['Base'] = 'Small'}
-shipPilotsDB['Reb']['K-Wing'] = {['Miranda Doni'] = 48, ['Esege Tuketu'] = 50, ['Warden Squadron Pilot'] = 40,
-                                    ['Slots'] = {'Torpedo', 'Missile', 'Missile', 'Gunner', 'Crew', 'Device', 'Device', 'Modification'}, ['Agility'] = 1, ['Base'] = 'Medium'}
-shipPilotsDB['Reb']['Z-95 Headhunter Rebel'] = {['Bandit Squadron Pilot'] = 23, ['Tala Squadron Pilot'] = 25, ['Lieutenant Blount'] = 30, ['Airen Cracken'] = 36,
-                                    ['Slots'] = {'Talent', 'Missile', 'Modification'}, ['Agility'] = 2, ['Base'] = 'Small'}
-shipPilotsDB['Reb']['TIE/ln Fighter'] = {['Sabine Wren'] = 28, ['Ezra Bridger'] = 32, ['"Zeb" Orrelios'] = 26, ['Captain Rex'] = 32,
-                                    ['Slots'] = {'Talent', 'Force Power', 'Modification'}, ['Agility'] = 3, ['Base'] = 'Small'}
-shipPilotsDB['Reb']['U-Wing'] = {['Benthic Two Tubes'] = 47, ['Saw Gerrera'] = 52, ['Magva Yarro'] = 50, ['Heff Tobber'] = 45, ['Cassian Andor'] = 47, ['Bodhi Rook'] = 49, ['Blue Squadron Scout'] = 43,['Partisan Renegade'] = 43,
-                                    ['Slots'] = {'Talent', 'System', 'Crew', 'Crew', 'Ilicit', 'Modification', 'Configuration'}, ['Agility'] = 1, ['Base'] = 'Medium' }
-shipPilotsDB['Reb']['ARC-170'] = {['Garven Dreis'] = 51, ['Norra Wexley'] = 55, ['Ibitsam'] = 50, ['Shara Bey'] = 53,
-                                    ['Slots'] = {'Talent', 'Torpedo', 'Crew', 'Gunner', 'Astromech', 'Modification'}, ['Agility'] = 1, ['Base'] = 'Medium'}
-shipPilotsDB['Reb']['Auzituck Gunship'] = {['Kashyyyk Defender'] = 46, ['Wullffwarro'] = 56, ['Lowhhrick'] = 52,
-                                    ['Slots'] = {'Talent', 'Crew', 'Crew', 'Modification'}, ['Agility'] = 1, ['Base'] = 'Small'}
-shipPilotsDB['Reb']['Sheathipede-Class Shuttle'] = {['AP-5'] = 30, ['"Zeb" Orrelios'] = 32, ['Ezra Bridger'] = 42, ['Fenn Rau'] = 52,
-                                    ['Slots'] = {'Talent', 'Force Power', 'Crew', 'Astromech', 'Modification', 'Title'}, ['Agility'] = 2, ['Base'] = 'Small'}
+shipPilotsDB['Reb']['T65 X-Wing'] = {['Luke Skywalker'] = {['Cost'] = 62, ['removeSlot'] = {['Talent'] = true, ['Ilicit'] = true}}, ['Biggs Darklighter'] = {['Cost'] = 48, ['removeSlot'] = {['Force Power'] = true, ['Talent'] = true, ['Ilicit'] = true}},
+                                    ['Blue Squadron Escort'] = {['Cost']  = 41, ['removeSlot'] = {['Force Power'] = true, ['Talent'] = true, ['Ilicit'] = true}}, ['Garven Dreis'] = {['Cost']  = 47, ['removeSlot'] = {['Force Power'] = true, ['Ilicit'] = true}},
+                                    ['Thane Kyrell'] = {['Cost'] = 48, ['removeSlot'] = {['Force Power'] = true, ['Ilicit'] = true}}, ['Red Squadron Veteran'] = {['Cost'] = 43, ['removeSlot'] = {['Force Power'] = true, ['Ilicit'] = true}},
+                                    ['Jek Porkins'] = {['Cost'] = 46, ['removeSlot'] = {['Force Power'] = true, ['Ilicit'] = true}}, ['Wedge Antilles'] = {['Cost']  = 52, ['removeSlot'] = {['Force Power'] = true, ['Ilicit'] = true}},
+                                    ['Edrio Two Tubes'] = {['Cost'] = 45, ['removeSlot'] = {['Force Power'] = true,  ['Talent'] = true}}, ['Cavern Angels Zealot'] = {['Cost'] = 41, ['removeSlot'] = {['Force Power'] = true, ['Talent'] = true}}, ['Leevan Tenza'] = {['Cost'] = 46, ['removeSlot'] = {['Force Power'] = true}}, ['Kullbee Sperado'] = {['Cost'] = 48, ['removeSlot'] = {['Force Power'] = true}},
+                                        ['Slots'] = {'Talent', 'Force Power', 'Torpedo', 'Astromech', 'Modification', 'Ilicit', 'Configuration'}, ['Agility'] = 2, ['Base'] = 'Small'}
+shipPilotsDB['Reb']['BTL-A4 Y-Wing'] = {['Gold Squadron Veteran'] = {['Cost'] = 34, ['removeSlot'] = {}}, ['Norra Wexley'] = {['Cost'] = 43, ['removeSlot'] = {}}, ['Horton Salm'] = {['Cost'] = 38, ['removeSlot'] = {}}, ['"Dutch" Vander'] = {['Cost'] = 42, ['removeSlot'] = {}},
+                                    ['Evaan Verlaine'] = {['Cost'] = 36, ['removeSlot'] = {}}, ['Gray Squadron Bomber'] = {['Cost'] = 32, ['removeSlot'] = {['Talent'] = true}},
+                                        ['Slots'] = {'Talent', 'Turret', 'Torpedo', 'Gunner', 'Astromech', 'Device', 'Modification'}, ['Agility'] = 1, ['Base'] = 'Small'}
+shipPilotsDB['Reb']['YT-1300'] = {['Han Solo'] = {['Cost'] =92, ['removeSlot'] = {}}, ['Chewbacca'] = {['Cost'] = 84, ['removeSlot'] = {}}, ['Lando Calrissian'] = {['Cost'] = 92, ['removeSlot'] = {}}, ['Outer Rim Smuggler'] = {['Cost'] = 78, ['removeSlot'] = {['Talent'] = true}},
+                                        ['Slots'] = {'Talent', 'Missile', 'Gunner', 'Crew', 'Crew', 'Ilicit', 'Title', 'Modification'}, ['Agility'] = 1, ['Base'] = 'Large'}
+shipPilotsDB['Reb']['YT-2400'] = {['Dash Rendar'] = {['Cost'] = 100, ['removeSlot'] = {}}, ['"Leebo"'] = {['Cost'] = 98, ['removeSlot'] = {['Talent'] = true}}, ['Wild Space Fringer'] = {['Cost'] = 88, ['removeSlot'] = {['Talent'] = true}},
+                                        ['Slots'] = {'Talent', 'Missile', 'Crew', 'Gunner', 'Ilicit', 'Modification', 'Title'}, ['Agility'] = 2, ['Base'] = 'Large'}
+shipPilotsDB['Reb']['A-Wing'] = {['Phoenix Squadron Pilot'] = {['Cost'] = 30, ['removeSlot'] = {['Talent'] = true}}, ['Arvel Crynyd'] = {['Cost'] = 36, ['removeSlot'] = {}}, ['Jake Farrell'] = {['Cost'] =40, ['removeSlot'] = {}}, ['Green Squadron Pilot'] = {['Cost'] = 34, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent', 'Missile'}, ['Agility'] = 3, ['Base'] = 'Small'}
+shipPilotsDB['Reb']['B-Wing'] = {['Blue Squadron Pilot'] = {['Cost'] = 42, ['removeSlot'] = {['Talent'] = true}}, ['Blade Squadron Veteran'] = {['Cost'] = 44, ['removeSlot'] = {}}, ['Braylen Stramm'] = {['Cost'] = 50, ['removeSlot'] = {}}, ['Ten Numb'] = {['Cost'] = 50, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent', 'System', 'Cannon', 'Cannon', 'Torpedo', 'Modification'}, ['Agility'] = 1, ['Base'] = 'Small'}
+shipPilotsDB['Reb']['HWK-290'] = {['Rebel Scout'] = {['Cost']=32, ['removeSlot'] = {['Talent'] = true}}, ['Jan Ors'] = {['Cost']=42, ['removeSlot'] = {}}, ['Roark Garnet'] = {['Cost']=38, ['removeSlot'] = {}}, ['Kyle Katarn'] = {['Cost']=38, ['removeSlot'] = {}},
+                                        ['Slots'] = { 'Talent', 'Crew', 'Device', 'Modification', 'Modification', 'Title'}, ['Agility'] = 2, ['Base'] = 'Small'}
+shipPilotsDB['Reb']['VCX-100'] = {["Chopper"] = {['Cost']=72, ['removeSlot'] = {['Force Power'] = true, ['Talent'] = true}}, ['Kanan Jarrus'] = {['Cost']=90, ['removeSlot'] = {['Talent'] = true}}, ['Hera Syndulla'] = {['Cost']=76, ['removeSlot'] = {['Force Power'] = true}},
+                                    ['Lothal Rebel'] = {['Cost']=70, ['removeSlot'] = {['Force Power'] = true, ['Talent'] = true}},
+                                        ['Slots'] = {'Talent', 'Force Power', 'Turret', 'Torpedo', 'Crew', 'Crew', 'Gunner', 'Modification', 'Title'}, ['Agility'] = 0, ['Base'] = 'Large'}
+shipPilotsDB['Reb']['Attack Shuttle'] = {['Ezra Bridger'] = {['Cost']=41, ['removeSlot'] = {['Talent'] = true}}, ['"Zeb" Orrelios'] = {['Cost']=34, ['removeSlot'] = {['Force Power'] = true, ['Talent'] = true}}, ['Sabine Wren'] = {['Cost']=38, ['removeSlot'] = {['Force Power'] = true}},
+                                    ['Hera Syndulla'] = {['Cost']=39, ['removeSlot'] = {['Force Power'] = true}},
+                                        ['Slots'] = {'Talent', 'Force Power', 'Turret', 'Crew', 'Modification', 'Title'}, [ 'Agility'] = 2, ['Base'] = 'Small'}
+shipPilotsDB['Reb']['E-Wing'] = {['Rogue Squadron Escort'] = {['Cost']=63, ['removeSlot'] = {}}, ['Corran Horn'] = {['Cost']=74, ['removeSlot'] = {}}, ['Knave Squadron Escort'] = {['Cost']=61, ['removeSlot'] = {['Talent'] = true}}, ['Gavin Darklighter'] = {['Cost']=68, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent', 'System', 'Torpedo', 'Astromech', 'Modification'}, ['Agility'] = 3, ['Base'] = 'Small'}
+shipPilotsDB['Reb']['K-Wing'] = {['Miranda Doni'] = {['Cost']=48, ['removeSlot'] = {}}, ['Esege Tuketu'] = {['Cost']=50, ['removeSlot'] = {}}, ['Warden Squadron Pilot'] = {['Cost']=40, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Torpedo', 'Missile', 'Missile', 'Gunner', 'Crew', 'Device', 'Device', 'Modification'}, ['Agility'] = 1, ['Base'] = 'Medium'}
+shipPilotsDB['Reb']['Z-95 Headhunter'] = {['Bandit Squadron Pilot'] = {['Cost']=23, ['removeSlot'] = {['Talent'] = true}}, ['Tala Squadron Pilot'] = {['Cost']=25, ['removeSlot'] = {}}, ['Lieutenant Blount'] = {['Cost']=30, ['removeSlot'] = {}}, ['Airen Cracken'] = {['Cost']=36, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent', 'Missile', 'Modification'}, ['Agility'] = 2, ['Base'] = 'Small'}
+shipPilotsDB['Reb']['TIE/ln Fighter'] = {['Sabine Wren'] = {['Cost']=28, ['removeSlot'] = {['Force Power'] = true}}, ['Ezra Bridger'] = {['Cost']=32, ['removeSlot'] = {['Talent'] = true}}, ['"Zeb" Orrelios'] = {['Cost']=26, ['removeSlot'] = {['Force Power'] = true, ['Talent'] = true}},
+                                    ['Captain Rex'] = {['Cost']=32, ['removeSlot'] = {['Force Power'] = true, ['Talent'] = true}},
+                                        ['Slots'] = {'Talent', 'Force Power', 'Modification'}, ['Agility'] = 3, ['Base'] = 'Small'}
+shipPilotsDB['Reb']['U-Wing'] = {['Benthic Two Tubes'] = {['Cost']=47, ['removeSlot'] = {['Talent'] = true}}, ['Saw Gerrera'] = {['Cost']=52, ['removeSlot'] = {}}, ['Magva Yarro'] = {['Cost']=50, ['removeSlot'] = {}},
+                                    ['Heff Tobber'] = {['Cost']=45, ['removeSlot'] = {['Ilicit'] = true}}, ['Cassian Andor'] = {['Cost']=47, ['removeSlot'] = {['Ilicit'] = true}}, ['Bodhi Rook'] = {['Cost']=49, ['removeSlot'] = {['Ilicit'] = true}},
+                                    ['Blue Squadron Scout'] = {['Cost']=43, ['removeSlot'] = {['Talent'] = true, ['Ilicit'] = true}}, ['Partisan Renegade'] = {['Cost']=43, ['removeSlot'] = {['Talent'] = true}},
+                                        ['Slots'] = {'Talent', 'System', 'Crew', 'Crew', 'Ilicit', 'Modification', 'Configuration'}, ['Agility'] = 1, ['Base'] = 'Medium' }
+shipPilotsDB['Reb']['ARC-170'] = {['Garven Dreis'] = {['Cost']=51, ['removeSlot'] = {}}, ['Norra Wexley'] = {['Cost']=55, ['removeSlot'] = {}}, ['Ibitsam'] = {['Cost']=50, ['removeSlot'] = {}}, ['Shara Bey'] = {['Cost']=53, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent', 'Torpedo', 'Crew', 'Gunner', 'Astromech', 'Modification'}, ['Agility'] = 1, ['Base'] = 'Medium'}
+shipPilotsDB['Reb']['Auzituck Gunship'] = {['Kashyyyk Defender'] = {['Cost']=46, ['removeSlot'] = {['Talent'] = true}}, ['Wullffwarro'] = {['Cost']=56, ['removeSlot'] = {}}, ['Lowhhrick'] = {['Cost']=52, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent', 'Crew', 'Crew', 'Modification'}, ['Agility'] = 1, ['Base'] = 'Small'}
+shipPilotsDB['Reb']['Sheathipede-Class Shuttle'] = {['AP-5'] = {['Cost']=30, ['removeSlot'] = {['Force Power'] = true}}, ['"Zeb" Orrelios'] = {['Cost']=32, ['removeSlot'] = {['Force Power'] = true}}, ['Ezra Bridger'] = {['Cost']=42, ['removeSlot'] = {['Talent'] = true}},
+                                    ['Fenn Rau'] = {['Cost']=52, ['removeSlot'] = {['Force Power'] = true}},
+                                        ['Slots'] = {'Talent', 'Force Power', 'Crew', 'Astromech', 'Modification', 'Title'}, ['Agility'] = 2, ['Base'] = 'Small'}
 
 
 shipPilotsDB['Scu'] = {}
-shipPilotsDB['Scu']['Firespray-31'] = {['Bounty Hunter'] = 66, ['Koshka Frost'] = 71, ['Krassis Trelix'] = 70, ['Kath Scarlet'] = 74, ['Emon Azzameen'] = 76, ['Boba Fett'] = 80,
-                                    ['Slots'] = {'Talent', 'Cannon', 'Missile', 'Crew', 'Device', 'Ilicit', 'Modification', 'Title'}, ['Agilty'] = 2, ['Base'] = 'Medium'}
-shipPilotsDB['Scu']['Z-95 Headhunter Scum'] = {['Nashtah Pup'] = 6, ['Binayre Pirate'] = 24, ['Black Sun Soldier'] = 27, ["Kaa'to Leeachos"] = 29, ["N'dru Suhlak"] = 31,
-                                    ['Slots'] = {'Talent', 'Missile', 'Ilicit', 'Modification'}, ['Agility'] = 2, ['Base'] = 'Small'}
-shipPilotsDB['Scu']['BTL-A4 Y-Wing'] = {['Crymorah Goon'] = 32, ['Hired Gun'] = 34, ['Drea Renthal'] = 40, ['Kavil'] = 42,
-                                    ['Slots'] = {'Talent', 'Turret', 'Torpedo', 'Gunner', 'Astromech', 'Device', 'Ilicit', 'Modification'}}
-shipPilotsDB['Scu']['HWK-290 Scum'] = {['Spice Runner'] = 32, ['Torkil Mux'] = 36, ['Palob Godalhi'] = 38, ['Dace Bonearm'] = 36,
-                                    ['Slots'] = {'Talent', 'Crew', 'Device', 'Ilicit', 'Modification', 'Modification', 'Title'}, ['Agility'] = 2, ['Base'] = 'Small'}
-shipPilotsDB['Scu']['M3-A Interceptor'] = {['Cartel Spacer'] = 29, ['Sunny Bounder'] = 31, ['Inaldra'] = 32, ['Tansarii Point Veteran'] = 33, ['Quinn Jast'] = 35, ["Laetin A'shera"] = 35, ['Genesis Red'] = 35, ['Serissu'] = 43,
-                                    ['Slots'] = {'Talent', 'Modification'}, ['Agility'] = 3, ['Base'] = 'Small'}
-shipPilotsDB['Scu']['StarViper'] = {['Black Sun Enforcer'] = 46, ['Black sun Assassin'] = 48, ['Prince Xizor'] = 54, ['Dalan Oberos'] = 54, ['Guri'] = 62,
-                                    ['Slots'] = {'Talent', 'System', 'Torpedo', 'Modification', 'Title'}, ['Agility'] = 3, ['Base'] = 'Small'}
-shipPilotsDB['Scu']['Aggressor'] = {['IG-88A'] = 70, ['IG-88B'] = 70, ['IG-88C'] = 70, ['IG-88D'] = 70,
-                                    ['Slots'] = {'Talent', 'System', 'Cannon', 'Cannon', 'Device', 'Ilicit', 'Modification', 'Title'}, ['Agility'] = 3, ['Base'] = 'Medium'}
-shipPilotsDB['Scu']['YV-666'] = {['Trandoshan Slaver'] = 58, ['Latts Razzi'] = 66, ['Bossk'] = 70, ['Moralo Eval'] = 72,
-                                    ['Slots'] = { 'Talent', 'Cannon', 'Missile', 'Crew', 'Crew', 'Crew', 'Ilicit', 'Modification', 'Title'}, ['Agility'] = 1, ['Base'] = 'Large'}
-shipPilotsDB['Scu']['Kihraxz Fighter'] = {['Cartel Marauder'] = 40, ['Black Sun Ace'] = 42, ['Captain Jostero'] = 43, ['Viktor Hel'] = 45, ['Graz'] = 47, ['Talonbane Cobra'] = 50,
-                                    ['Slots'] = {'Talent',  'Missile', 'Ilicit', 'Modification', 'Modification', 'Modification'}, [ 'Agility'] = 2, ['Base'] = 'Small'}
-shipPilotsDB['Scu']['JumpMaster 5000'] = {['Contracted Scout'] = 52, ['Manaroo'] = 56, ['Tel Trevura'] = 60, ['Dengar'] = 64,
-                                    ['Slots'] = {'Talent', 'Crew', 'Torpedo', 'Ilicit', 'Modification', 'Title'}, ['Agility'] = 2, ['Base'] = 'Large'}
-shipPilotsDB['Scu']['G-1A StarFighter'] = {['Gand Findsman'] = 43, ['4-LOM'] = 49, ['Zuckuss'] = 47,
-                                    ['Slots'] = { 'Talent', 'System', 'Crew', 'Ilicit', 'Modification', 'Title'}, ['Agility'] = 1, ['Base'] = 'Medium'}
-shipPilotsDB['Scu']['Lancer-Class Pursuit Craft'] = {['Shadowport Hunter'] = 64, ['Sabine Wren'] = 68, ['Asajj Ventress'] = 84, ['Ketsu Onyo'] = 74,
-                                    ['Slots'] = {'Talent', 'Force Power', 'Crew', 'Ilicit', 'Ilicit', 'Modification', 'Title'}, ['Agility'] = 2, ['Base'] = 'Large'}
-shipPilotsDB['Scu']['Quadjumper'] = {['Jakku Gunrunner'] = 28, ['Sarco Plank'] = 31, ['Unkar Plutt'] = 30, ['Constable Zuvio'] = 33,
-                                    ['Slots'] = { 'Talent', 'Tech',  'Crew', 'Device', 'Ilicit', 'Modification'}, [ 'Agility'] = 2, ['Base'] = 'Small'}
-shipPilotsDB['Scu']['Fang Fighter'] = {['Zealous Recruit'] = 44, ['Kad Solus'] = 54, ['Joy Rekkoff'] = 52, ['Skull Squadron Pilot'] = 50, ['Old Teroch'] = 56, ['Fenn Rau'] = 68,
-                                    ['Slots'] = {'Talent', 'Torpedo'}, ['Agility'] = 3, ['Base'] = 'Small'}
-shipPilotsDB['Scu']['Scurrg H-6 Bomber'] = {['Lok Revenant'] = 46, ['Sol Sixxa'] = 49, ['Captain Nym'] = 52,
-                                    ['Slots'] = {'Talent', 'Turret', 'Crew', 'Device', 'Device', 'Modification', 'Title'}, ['Agility'] = 1, ['Base'] = 'Medium'}
-shipPilotsDB['Scu']['M12-L Kimogila Fighter'] = {['Cartel Executioner'] = 44, ['Dalan Oberos'] = 48, ['Torani Kulda'] = 50,
-                                    ['Slots'] = {'Talent', 'Torpedo', 'Missile', 'Astromech', 'Ilicit', 'Modification'}, ['Agility'] = 1, ['Base'] = 'Medium'}
-shipPilotsDB['Scu']['YT-1300 scum'] = {['Freighter Captain'] = 46, ['L3-37'] = 47, ['Lando Calrissian'] = 49, ['Han Solo'] = 54,
-                                    ['Slots'] = {'Talent', 'Missile', 'Crew', 'Crew', 'Gunner', 'Ilicit', 'Modification', 'Title'}, ['Agility'] = 1, ['Base'] = 'Large'}
-shipPilotsDB['Scu']['Escape Craft'] = {['Autopilot Drone'] = 12, ['L3-37'] = 22, ['Outer Rim Pioneer'] = 24, ['Lando Calrissian'] = 26,
-                                    ['Slots'] = {'Talent', 'Crew', 'Modification'}, ['Agility'] = 2, ['Base'] = 'Small'}
+shipPilotsDB['Scu']['Firespray-31'] = {['Bounty Hunter'] = {['Cost']=66, ['removeSlot'] = {['Talent'] = true}}, ['Koshka Frost'] = {['Cost']=71, ['removeSlot'] = {}}, ['Krassis Trelix'] = {['Cost']=70, ['removeSlot'] = {}}, ['Kath Scarlet'] = {['Cost']=74, ['removeSlot'] = {}},
+                                    ['Emon Azzameen'] = {['Cost']=76, ['removeSlot'] = {}}, ['Boba Fett'] = {['Cost']=80, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent', 'Cannon', 'Missile', 'Crew', 'Device', 'Ilicit', 'Modification', 'Title'}, ['Agility'] = 2, ['Base'] = 'Medium'}
+shipPilotsDB['Scu']['Z-95 Headhunter'] = {['Nashtah Pup'] = {['Cost']=6, ['removeSlot'] = {['Talent'] = true}}, ['Binayre Pirate'] = {['Cost']=24, ['removeSlot'] = {['Talent'] = true}}, ['Black Sun Soldier'] = {['Cost']=27, ['removeSlot'] = {}}, ["Kaa'to Leeachos"] = {['Cost']=29, ['removeSlot'] = {}},
+                                    ["N'dru Suhlak"] = {['Cost']=31, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent', 'Missile', 'Ilicit', 'Modification'}, ['Agility'] = 2, ['Base'] = 'Small'}
+shipPilotsDB['Scu']['BTL-A4 Y-Wing'] = {['Crymorah Goon'] = {['Cost']=32, ['removeSlot'] = {['Talent'] = true}}, ['Hired Gun'] = {['Cost']=34, ['removeSlot'] = {}}, ['Drea Renthal'] = {['Cost']=40, ['removeSlot'] = {}}, ['Kavil'] = {['Cost']=42, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent', 'Turret', 'Torpedo', 'Gunner', 'Astromech', 'Device', 'Ilicit', 'Modification'}, ['Agility'] = 1, ['Base'] = 'Small'}
+shipPilotsDB['Scu']['HWK-290'] = {['Spice Runner'] = {['Cost']=32, ['removeSlot'] = {['Talent'] = true}}, ['Torkil Mux'] = {['Cost']=36, ['removeSlot'] = {['Talent'] = true}}, ['Palob Godalhi'] = {['Cost']=38, ['removeSlot'] = {}}, ['Dace Bonearm'] = {['Cost']=36, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent', 'Crew', 'Device', 'Ilicit', 'Modification', 'Modification', 'Title'}, ['Agility'] = 2, ['Base'] = 'Small'}
+shipPilotsDB['Scu']['M3-A Interceptor'] = {['Cartel Spacer'] = {['Cost']=29, ['removeSlot'] = {['Talent'] = true}}, ['Sunny Bounder'] = {['Cost']=31, ['removeSlot'] = {['Talent'] = true}}, ['Inaldra'] = {['Cost']=32, ['removeSlot'] = {['Talent'] = true}},
+                                    ['Tansarii Point Veteran'] = {['Cost']=33, ['removeSlot'] = {}}, ['Quinn Jast'] = {['Cost']=35, ['removeSlot'] = {}}, ["Laetin A'shera"] = {['Cost']=35, ['removeSlot'] = {}}, ['Genesis Red'] = {['Cost']=35, ['removeSlot'] = {}}, ['Serissu'] = {['Cost']=43, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent', 'Modification'}, ['Agility'] = 3, ['Base'] = 'Small'}
+shipPilotsDB['Scu']['StarViper'] = {['Black Sun Enforcer'] = {['Cost']=46, ['removeSlot'] = {['Talent'] = true}}, ['Black sun Assassin'] = {['Cost']=48, ['removeSlot'] = {}}, ['Prince Xizor'] = {['Cost']=54, ['removeSlot'] = {}}, ['Dalan Oberos'] = {['Cost']=54, ['removeSlot'] = {}},
+                                    ['Guri'] = {['Cost']=62, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent', 'System', 'Torpedo', 'Modification', 'Title'}, ['Agility'] = 3, ['Base'] = 'Small'}
+shipPilotsDB['Scu']['Aggressor'] = {['IG-88A'] = {['Cost']=70, ['removeSlot'] = {}}, ['IG-88B'] = {['Cost']=70, ['removeSlot'] = {}}, ['IG-88C'] = {['Cost']=70, ['removeSlot'] = {}}, ['IG-88D'] = {['Cost']=70, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent', 'System', 'Cannon', 'Cannon', 'Device', 'Ilicit', 'Modification', 'Title'}, ['Agility'] = 3, ['Base'] = 'Medium'}
+shipPilotsDB['Scu']['YV-666'] = {['Trandoshan Slaver'] = {['Cost']=58, ['removeSlot'] = {['Talent'] = true}}, ['Latts Razzi'] = {['Cost']=66, ['removeSlot'] = {}}, ['Bossk'] = {['Cost']=70, ['removeSlot'] = {}}, ['Moralo Eval'] = {['Cost']=72, ['removeSlot'] = {}},
+                                        ['Slots'] = { 'Talent', 'Cannon', 'Missile', 'Crew', 'Crew', 'Crew', 'Ilicit', 'Modification', 'Title'}, ['Agility'] = 1, ['Base'] = 'Large'}
+shipPilotsDB['Scu']['Kihraxz Fighter'] = {['Cartel Marauder'] = {['Cost']=40, ['removeSlot'] = {['Talent'] = true}}, ['Black Sun Ace'] = {['Cost']=42, ['removeSlot'] = {}}, ['Captain Jostero'] = {['Cost']=43, ['removeSlot'] = {['Talent'] = true}}, ['Viktor Hel'] = {['Cost']=45, ['removeSlot'] = {}}, ['Graz'] = {['Cost']=47, ['removeSlot'] = {}},
+                                    ['Talonbane Cobra'] = {['Cost']=50, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent',  'Missile', 'Ilicit', 'Modification', 'Modification', 'Modification'}, [ 'Agility'] = 2, ['Base'] = 'Small'}
+shipPilotsDB['Scu']['JumpMaster 5000'] = {['Contracted Scout'] = {['Cost']=52, ['removeSlot'] = {['Talent'] = true}}, ['Manaroo'] = {['Cost']=56, ['removeSlot'] = {}}, ['Tel Trevura'] = {['Cost']=60, ['removeSlot'] = {}}, ['Dengar'] = {['Cost']=64, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent', 'Crew', 'Torpedo', 'Ilicit', 'Modification', 'Title'}, ['Agility'] = 2, ['Base'] = 'Large'}
+shipPilotsDB['Scu']['G-1A StarFighter'] = {['Gand Findsman'] = {['Cost']=43, ['removeSlot'] = {['Talent'] = true}}, ['4-LOM'] = {['Cost']=49, ['removeSlot'] = {}}, ['Zuckuss'] = {['Cost']=47, ['removeSlot'] = {}},
+                                        ['Slots'] = { 'Talent', 'System', 'Crew', 'Ilicit', 'Modification', 'Title'}, ['Agility'] = 1, ['Base'] = 'Medium'}
+shipPilotsDB['Scu']['Lancer-Class Pursuit Craft'] = {['Shadowport Hunter'] = {['Cost']=64, ['removeSlot'] = {['Force Power'] = true, ['Talent'] = true}}, ['Sabine Wren'] = {['Cost']=68, ['removeSlot'] = {['Force Power'] = true}}, ['Asajj Ventress'] = {['Cost']=84, ['removeSlot'] = {['Talent'] = true}},
+                                    ['Ketsu Onyo'] = {['Cost']=74, ['removeSlot'] = {['Force Power'] = true}},
+                                        ['Slots'] = {'Talent', 'Force Power', 'Crew', 'Ilicit', 'Ilicit', 'Modification', 'Title'}, ['Agility'] = 2, ['Base'] = 'Large'}
+shipPilotsDB['Scu']['Quadjumper'] = {['Jakku Gunrunner'] = {['Cost']=28, ['removeSlot'] = {['Talent'] = true}}, ['Sarco Plank'] = {['Cost']=31, ['removeSlot'] = {['Talent'] = true}}, ['Unkar Plutt'] = {['Cost']=30, ['removeSlot'] = {['Talent'] = true}},
+                                    ['Constable Zuvio'] = {['Cost']=33, ['removeSlot'] = {}},
+                                        ['Slots'] = { 'Talent', 'Tech',  'Crew', 'Device', 'Ilicit', 'Modification'}, [ 'Agility'] = 2, ['Base'] = 'Small'}
+shipPilotsDB['Scu']['Fang Fighter'] = {['Zealous Recruit'] = {['Cost']=44, ['removeSlot'] = {['Talent'] = true}}, ['Kad Solus'] = {['Cost']=54, ['removeSlot'] = {}}, ['Joy Rekkoff'] = {['Cost']=52, ['removeSlot'] = {}}, ['Skull Squadron Pilot'] = {['Cost']=50, ['removeSlot'] = {}},
+                                    ['Old Teroch'] = {['Cost']=56, ['removeSlot'] = {}}, ['Fenn Rau'] = {['Cost']=68, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent', 'Torpedo'}, ['Agility'] = 3, ['Base'] = 'Small'}
+shipPilotsDB['Scu']['Scurrg H-6 Bomber'] = {['Lok Revenant'] = {['Cost']=46, ['removeSlot'] = {['Talent'] = true}}, ['Sol Sixxa'] = {['Cost']=49, ['removeSlot'] = {}}, ['Captain Nym'] = {['Cost']=52, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent', 'Turret', 'Crew', 'Device', 'Device', 'Modification', 'Title'}, ['Agility'] = 1, ['Base'] = 'Medium'}
+shipPilotsDB['Scu']['M12-L Kimogila Fighter'] = {['Cartel Executioner'] = {['Cost']=44, ['removeSlot'] = {}}, ['Dalan Oberos'] = {['Cost']=48, ['removeSlot'] = {}}, ['Torani Kulda'] = {['Cost']=50, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent', 'Torpedo', 'Missile', 'Astromech', 'Ilicit', 'Modification'}, ['Agility'] = 1, ['Base'] = 'Medium'}
+shipPilotsDB['Scu']['YT-1300 Scum'] = {['Freighter Captain'] = {['Cost']=46, ['removeSlot'] = {['Talent'] = true}}, ['L3-37'] = {['Cost']=47, ['removeSlot'] = {['Talent'] = true}}, ['Lando Calrissian'] = {['Cost']=49, ['removeSlot'] = {}}, ['Han Solo'] = {['Cost']=54, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent', 'Missile', 'Crew', 'Crew', 'Gunner', 'Ilicit', 'Modification', 'Title'}, ['Agility'] = 1, ['Base'] = 'Large'}
+shipPilotsDB['Scu']['Escape Craft'] = {['Autopilot Drone'] = {['Cost']=12, ['removeSlot'] = {['Talent']=true,['Modification']=true,['Crew']=true}}, ['L3-37'] = {['Cost']=22, ['removeSlot'] = {}}, ['Outer Rim Pioneer'] = {['Cost']=24, ['removeSlot'] = {}},
+                                    ['Lando Calrissian'] = {['Cost']=26, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent', 'Crew', 'Modification'}, ['Agility'] = 2, ['Base'] = 'Small'}
 
 
 shipPilotsDB['Imp'] = {}
-shipPilotsDB['Imp']['TIE/ln Fighter'] = {['Academy Pilot'] = 23, ['"Wampa"'] = 30, ['Obsidian Squadron Pilot'] = 24, ['"Night Beast"'] = 26, ['Black Squadron Ace'] = 26, ['Valen Rudor'] = 28, ['Iden Versio'] = 40, ['Seyn Marana'] = 30, ['Gideon Hask'] = 30, ['Del Meeko'] = 30,
-                                        ['"Mauler" Mithel'] = 32, ['"Howlrunner"'] = 40, ['"Scourge" Skutu'] = 32,
-                                    ['Slots'] = {'Talent', 'Modification'}, ['Agility'] = 3, ['Base'] = 'Small'}
-shipPilotsDB['Imp']['TIE Reaper'] = {['Scarif Base Pilot'] = 41, ['"Vizier"'] = 45, ['Captain Feroph'] = 47, ['Major Vermeil'] = 49,
-                                    ['Slots'] = {'Talent', 'Crew', 'Crew', 'Modification'}, ['Agility'] = 1, ['Base'] = 'Medium'}
-shipPilotsDB['Imp']['TIE Interceptor'] = {['Alpha Squadron Pilot'] = 34, ['Saber Squadron Ace'] = 40, ['Turr Phennir'] = 44, ['Soontir Fel'] = 52,
-                                    ['Slots'] = {'Talent', 'Modification', 'Modification'}, ['Agility'] = 3, ['Base'] = 'Small'}
-shipPilotsDB['Imp']['Lambda-Class Shuttle'] = {['Omicron Group Pilot'] = 43, ['Colonel Jendon'] = 46, ['Lieutenant Sai'] = 47, ['Captain Kagi'] = 48,
-                                    ['Slots'] = {'System', 'Cannon', 'Crew', 'Crew', 'Modification', 'Title'}, [ 'Agility'] = 1, ['Base'] = 'Large'}
-shipPilotsDB['Imp']['TIE Bomber'] = {['Scimitar Squadron Pilot'] = 28, ['"Deathfire"'] = 32, ['Gamma Squadron Ace'] = 30, ['Captain Jonus'] = 36, ['Major Rhymer'] = 34, ['Tomax Bren'] = 34,
-                                    ['Slots'] = {'Talent', 'Torpedo', 'Missile', 'Missile', 'Gunner', 'Device', 'Device', 'Modification'}}
-shipPilotsDB['Imp']['TIE Phantom'] = {['Imdaar Test Pilot'] = 44, ['Sigma Squadron Ace'] = 46, ['"Echo"'] = 50, ['"Whisper"'] = 52,
-                                    ['Slots'] = {'Talent', 'System', 'Crew', 'Modification'}, ['Agility'] = 2, ['Base'] = 'Small'}
-shipPilotsDB['Imp']['VT-49 Decimator'] = {['Patrol Leader'] = 80, ['Captain Oicunn'] = 84, ['Rear Admiral Chiraneau'] = 88,
-                                    ['Slots'] = {'Talent', 'Torpedo', 'Crew', 'Crew', 'Gunner', 'Device', 'Modification', 'Title'}, ['Agility'] = 0, ['Base'] = 'Large'}
-shipPilotsDB['Imp']['TIE Advanced x1'] = {['Tempest Squadron Pilot'] = 41, ['Storm Squadron Ace'] = 43, ['Zertik Strom'] = 45, ['Ved Foslo'] = 47, ['Maarek Stele'] = 50, ['Darth Vader'] = 70,
-                                    ['Slots'] = {'Talent', 'Force Power', 'System', 'Missile', 'Modification'}, [ 'Agility'] = 3, ['Base'] = 'Small'}
-shipPilotsDB['Imp']['TIE Punisher'] = {['Cutlass Squadron Pilot'] = 36, ['"Deathrain"'] = 42, ['"Redline"'] = 44,
-                                    ['Slots'] = {'System', 'Torpedo', 'Missile', 'Missile', 'Gunner', 'Device', 'Device', 'Modification'}, ['Agility'] = 1, ['Base'] = 'Small'}
-shipPilotsDB['Imp']['TIE Defender'] = {['Delta Squadron Pilot'] = 72, ['Onyx Squadron Ace'] = 78, ['Countess Ryad'] = 86, ['Colonel Vessery'] = 88, ['Rexler Brath'] = 84,
-                                    ['Slots'] = {'Talent', 'System', 'Cannon', 'Missile'}, ['Agility'] = 3,  ['Base'] = 'Small'}
-shipPilotsDB['Imp']['TIE Adv. Prototype'] = {['Baron of the Empire'] = 34, ['Inquisitor'] = 40, ['Seventh Sister'] = 48, ['Grand Inquisitor'] = 58,
-                                    ['Slots'] = {'Talent', 'Force Power', 'System', 'Missile'}, ['Agility'] = 3, ['Base'] = 'Small'}
-shipPilotsDB['Imp']['TIE Striker'] = {['Planetary Sentinel'] = 34, ['Black Squadron Scout'] = 38, ['"Pure Sabacc"'] = 44, ['"Countdown"'] = 44, ['"Dutchess"'] = 42,
-                                    ['Slots'] = {'Talent', 'Gunner', 'Device', 'Modofication'}, ['Agility'] = 2, ['Base'] = 'Small'}
-shipPilotsDB['Imp']['TIE Aggressor'] = {['Sienar Specialist'] = 30, ['"Double Edge"'] = 33, ['Onyx Squadron Scout'] = 32, ['Lieutenant Kestal'] = 36,
+shipPilotsDB['Imp']['TIE/ln Fighter'] = {['Academy Pilot'] = {['Cost']=23, ['removeSlot'] = {['Talent'] = true}}, ['"Wampa"'] = {['Cost']=30, ['removeSlot'] = {['Talent'] = true}},
+                                    ['Obsidian Squadron Pilot'] = {['Cost']=24, ['removeSlot'] = {['Talent'] = true}}, ['"Night Beast"'] = {['Cost']=26, ['removeSlot'] = {}}, ['Black Squadron Ace'] = {['Cost']=26, ['removeSlot'] = {}}, ['Valen Rudor'] = {['Cost']=28, ['removeSlot'] = {}},
+                                    ['Iden Versio'] = {['Cost']=40, ['removeSlot'] = {}}, ['Seyn Marana'] = {['Cost']=30, ['removeSlot'] = {}}, ['Gideon Hask'] = {['Cost']=30, ['removeSlot'] = {}}, ['Del Meeko'] = {['Cost']=30, ['removeSlot'] = {}},
+                                    ['"Mauler" Mithel'] = {['Cost']=32, ['removeSlot'] = {}}, ['"Howlrunner"'] = {['Cost']=40, ['removeSlot'] = {}}, ['"Scourge" Skutu'] = {['Cost']=32, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent', 'Modification'}, ['Agility'] = 3, ['Base'] = 'Small'}
+shipPilotsDB['Imp']['TIE Reaper'] = {['Scarif Base Pilot'] = {['Cost']=41, ['removeSlot'] = {['Talent'] = true}}, ['"Vizier"'] = {['Cost']=45, ['removeSlot'] = {['Talent'] = true}}, ['Captain Feroph'] = {['Cost']=47, ['removeSlot'] = {}}, ['Major Vermeil'] = {['Cost']=49, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent', 'Crew', 'Crew', 'Modification'}, ['Agility'] = 1, ['Base'] = 'Medium'}
+shipPilotsDB['Imp']['TIE Interceptor'] = {['Alpha Squadron Pilot'] = {['Cost']=34, ['removeSlot'] = {['Talent']=true}}, ['Saber Squadron Ace'] = {['Cost']=40, ['removeSlot'] = {}}, ['Turr Phennir'] = {['Cost']=44, ['removeSlot'] = {}}, ['Soontir Fel'] = {['Cost']=52, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent', 'Modification', 'Modification'}, ['Agility'] = 3, ['Base'] = 'Small'}
+shipPilotsDB['Imp']['Lambda-Class Shuttle'] = {['Omicron Group Pilot'] = {['Cost']=43, ['removeSlot'] = {}}, ['Colonel Jendon'] = {['Cost']=46, ['removeSlot'] = {}}, ['Lieutenant Sai'] = {['Cost']=47, ['removeSlot'] = {}}, ['Captain Kagi'] = {['Cost']=48, ['removeSlot'] = {}},
+                                        ['Slots'] = {'System', 'Cannon', 'Crew', 'Crew', 'Modification', 'Title'}, [ 'Agility'] = 1, ['Base'] = 'Large'}
+shipPilotsDB['Imp']['TIE Bomber'] = {['Scimitar Squadron Pilot'] = {['Cost']=28, ['removeSlot'] = {['Talent']=true}}, ['"Deathfire"'] = {['Cost']=32, ['removeSlot'] = {['Talent']=true}}, ['Gamma Squadron Ace'] = {['Cost']=30, ['removeSlot'] = {}}, ['Captain Jonus'] = {['Cost']=36, ['removeSlot'] = {}},
+                                    ['Major Rhymer'] = {['Cost']=34, ['removeSlot'] = {}}, ['Tomax Bren'] = {['Cost']=34, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent', 'Torpedo', 'Missile', 'Missile', 'Gunner', 'Device', 'Device', 'Modification'}, ['Agility'] = 2,['Base'] = 'Small'}
+shipPilotsDB['Imp']['TIE Phantom'] = {['Imdaar Test Pilot'] = {['Cost']=44, ['removeSlot'] = {['Talent'] = true}}, ['Sigma Squadron Ace'] = {['Cost']=46, ['removeSlot'] = {}}, ['"Echo"'] = {['Cost']=50, ['removeSlot'] = {}}, ['"Whisper"'] = {['Cost']=52, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent', 'System', 'Crew', 'Modification'}, ['Agility'] = 2, ['Base'] = 'Small'}
+shipPilotsDB['Imp']['VT-49 Decimator'] = {['Patrol Leader'] = {['Cost']=80, ['removeSlot'] = {['Talent']=true}}, ['Captain Oicunn'] = {['Cost']=84, ['removeSlot'] = {}}, ['Rear Admiral Chiraneau'] = {['Cost']=88, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent', 'Torpedo', 'Crew', 'Crew', 'Gunner', 'Device', 'Modification', 'Title'}, ['Agility'] = 0, ['Base'] = 'Large'}
+shipPilotsDB['Imp']['TIE Advanced x1'] = {['Tempest Squadron Pilot'] = {['Cost']=41, ['removeSlot'] = {['Force Power'] = true, ['Talent'] = true}}, ['Storm Squadron Ace'] = {['Cost']=43, ['removeSlot'] = {['Force Power'] = true}},
+                                    ['Zertik Strom'] = {['Cost']=45, ['removeSlot'] = {['Force Power'] = true, ['Talent'] = true}}, ['Ved Foslo'] = {['Cost']=47, ['removeSlot'] = {['Force Power'] = true}}, ['Maarek Stele'] = {['Cost']=50, ['removeSlot'] = {['Force Power'] = true}},
+                                    ['Darth Vader'] = {['Cost']=70, ['removeSlot'] = {['Talent'] = true}},
+                                        ['Slots'] = {'Talent', 'Force Power', 'System', 'Missile', 'Modification'}, [ 'Agility'] = 3, ['Base'] = 'Small'}
+shipPilotsDB['Imp']['TIE Punisher'] = {['Cutlass Squadron Pilot'] = {['Cost']=36, ['removeSlot'] = {}}, ['"Deathrain"'] = {['Cost']=42, ['removeSlot'] = {}}, ['"Redline"'] = {['Cost']=44, ['removeSlot'] = {}},
+                                        ['Slots'] = {'System', 'Torpedo', 'Missile', 'Missile', 'Gunner', 'Device', 'Device', 'Modification'}, ['Agility'] = 1, ['Base'] = 'Small'}
+shipPilotsDB['Imp']['TIE Defender'] = {['Delta Squadron Pilot'] = {['Cost']=72, ['removeSlot'] = {['Talent']=true}}, ['Onyx Squadron Ace'] = {['Cost']=78, ['removeSlot'] = {}}, ['Countess Ryad'] = {['Cost']=86, ['removeSlot'] = {}}, ['Colonel Vessery'] = {['Cost']=88, ['removeSlot'] = {}}, ['Rexler Brath'] = {['Cost']=84, ['removeSlot'] = {}},
+                                        ['Slots'] = {'Talent', 'System', 'Cannon', 'Missile'}, ['Agility'] = 3,  ['Base'] = 'Small'}
+shipPilotsDB['Imp']['TIE Adv. Prototype'] = {['Baron of the Empire'] = {['Cost']=34, ['removeSlot'] = {['Force Power'] = true}}, ['Inquisitor'] = {['Cost']=40, ['removeSlot'] = {['Talent'] = true}}, ['Seventh Sister'] = {['Cost']=48, ['removeSlot'] = {['Talent'] = true}},
+                                    ['Grand Inquisitor'] = {['Cost']=58, ['removeSlot'] = {['Talent'] = true}},
+                                        ['Slots'] = {'Talent', 'Force Power', 'System', 'Missile'}, ['Agility'] = 3, ['Base'] = 'Small'}
+shipPilotsDB['Imp']['TIE Striker'] = {['Planetary Sentinel'] = {['Cost']=34, ['removeSlot'] = {['Talent']=true}}, ['Black Squadron Scout'] = {['Cost']=38, ['removeSlot'] = {}}, ['"Pure Sabacc"'] = {['Cost']=44, ['removeSlot'] = {}}, ['"Countdown"'] = {['Cost']=44, ['removeSlot'] = {}}, ['"Duchess"'] = {['Cost']=42, ['removeSlot'] = {}},
+                                    ['Slots'] = {'Talent', 'Gunner', 'Device', 'Modification'}, ['Agility'] = 2, ['Base'] = 'Small'}
+shipPilotsDB['Imp']['TIE Aggressor'] = {['Sienar Specialist'] = {['Cost']=30, ['removeSlot'] = {['Talent']=true}}, ['"Double Edge"'] = {['Cost']=33, ['removeSlot'] = {}}, ['Onyx Squadron Scout'] = {['Cost']=32, ['removeSlot'] = {}}, ['Lieutenant Kestal'] = {['Cost']=36, ['removeSlot'] = {}},
                                     ['Slots'] = {'Talent', 'Turret', 'Missile', 'Missile', 'Gunner', 'Modification'}, ['Agility'] = 2, ['Base'] = 'Small'}
-shipPilotsDB['Imp']['Alpha-Class Star Wing'] = {['Major Vynder'] = 41, ['Lieutenant Karsabi'] = 39, ['Rho Squadron Pilot'] = 37, ['Nu Squadron Pilot'] = 35,
-                                    ['Slots'] = { 'Talent', 'Sysyem', 'Torpedo', 'Missile', 'Modification', 'Configuration'}, ['Agility'] = 2, ['Base'] = 'Small'}
+shipPilotsDB['Imp']['Alpha-Class Star Wing'] = {['Major Vynder'] = {['Cost']=41, ['removeSlot'] = {}}, ['Lieutenant Karsabi'] = {['Cost']=39, ['removeSlot'] = {}}, ['Rho Squadron Pilot'] = {['Cost']=37, ['removeSlot'] = {}}, ['Nu Squadron Pilot'] = {['Cost']=35, ['removeSlot'] = {}},
+                                    ['Slots'] = { 'Talent', 'System', 'Torpedo', 'Missile', 'Modification', 'Configuration'}, ['Agility'] = 2, ['Base'] = 'Small'}
 
 
 
@@ -181,39 +210,39 @@ shipsDB['Reb'][3]='YT-1300'
 shipsDB['Reb'][4]='YT-2400'
 shipsDB['Reb'][5]='A-Wing'
 shipsDB['Reb'][6]='B-Wing'
-shipsDB['Reb'][7]='HWK-290 Rebel'
+shipsDB['Reb'][7]='HWK-290'
 shipsDB['Reb'][8]='VCX-100'
 shipsDB['Reb'][9]='Attack Shuttle'
 shipsDB['Reb'][10]='E-Wing'
 shipsDB['Reb'][11]='K-Wing'
-shipsDB['Reb'][12]='Z-95 Headhunter Rebel'
-shipsDB['Reb'][13]='TIE Fighter Rebel'
+shipsDB['Reb'][12]='Z-95 Headhunter'
+shipsDB['Reb'][13]='TIE/ln Fighter'
 shipsDB['Reb'][14]='U-Wing'
 shipsDB['Reb'][15]='ARC-170'
 shipsDB['Reb'][16]='Auzituck Gunship'
 shipsDB['Reb'][17]='Sheathipede-Class Shuttle'
 
-shipsDB['imp']={}
-shipsDB['imp'][1]='TIE/ln Fighter'
-shipsDB['imp'][2]='TIE Reaper'
-shipsDB['imp'][3]='TIE Interceptor'
-shipsDB['imp'][4]='Lambda-Class Shuttle'
-shipsDB['imp'][5]='TIE Bomber'
-shipsDB['imp'][6]='TIE Phantom'
-shipsDB['imp'][7]='VT-49 Decimator'
-shipsDB['imp'][8]='TIE Advanced x1'
-shipsDB['imp'][9]='TIE Punisher'
-shipsDB['imp'][10]='TIE Defender'
-shipsDB['imp'][11]='TIE Adv. Prototype'
-shipsDB['imp'][12]='TIE Striker'
-shipsDB['imp'][13]='TIE Aggressor'
-shipsDB['imp'][14]='Alpha-Class Star Wing'
+shipsDB['Imp']={}
+shipsDB['Imp'][1]='TIE/ln Fighter'
+shipsDB['Imp'][2]='TIE Reaper'
+shipsDB['Imp'][3]='TIE Interceptor'
+shipsDB['Imp'][4]='Lambda-Class Shuttle'
+shipsDB['Imp'][5]='TIE Bomber'
+shipsDB['Imp'][6]='TIE Phantom'
+shipsDB['Imp'][7]='VT-49 Decimator'
+shipsDB['Imp'][8]='TIE Advanced x1'
+shipsDB['Imp'][9]='TIE Punisher'
+shipsDB['Imp'][10]='TIE Defender'
+shipsDB['Imp'][11]='TIE Adv. Prototype'
+shipsDB['Imp'][12]='TIE Striker'
+shipsDB['Imp'][13]='TIE Aggressor'
+shipsDB['Imp'][14]='Alpha-Class Star Wing'
 
 shipsDB['Scu']={}
 shipsDB['Scu'][1]='Firespray-31'
-shipsDB['Scu'][2]='Z-95 Headhunter Scum'
+shipsDB['Scu'][2]='Z-95 Headhunter'
 shipsDB['Scu'][3]='BTL-A4 Y-Wing'
-shipsDB['Scu'][4]='HWK-290 Scum'
+shipsDB['Scu'][4]='HWK-290'
 shipsDB['Scu'][5]='M3-A Interceptor'
 shipsDB['Scu'][6]='StarViper'
 shipsDB['Scu'][7]='Aggressor'
@@ -226,13 +255,44 @@ shipsDB['Scu'][13]='Quadjumper'
 shipsDB['Scu'][14]='Fang Fighter'
 shipsDB['Scu'][15]='Scurrg H-6 Bomber'
 shipsDB['Scu'][16]='M12-L Kimogila Fighter'
-shipsDB['Scu'][17]='YT-1300 scum'
+shipsDB['Scu'][17]='YT-1300 Scum'
 shipsDB['Scu'][18]='Escape Craft'
 
 
 slotDB={}
 
+specificUpDB = {}
+specificUpDB['Pivot Wing'] = {'U-Wing'}
+specificUpDB['Servomotor S-Foils'] = {'T65 X-Wing'}
+specificUpDB['Os-1 Arsenal Loadout'] = {'Alpha-Class Star Wing'}
+specificUpDB['Xg-1 Assault Configuration'] = {'Alpha-Class Star Wing'}
+specificUpDB['Dauntless'] = {'VT-49 Decimator'}
+specificUpDB['Millenium Falcon'] = {'YT-1300'}
+specificUpDB["Lando's Millenium Falcon"] = {'YT-1300 Scum'}
+specificUpDB['Moldy Crow'] = {'HWK-290'}
+specificUpDB['Outrider'] = {'YT-2400'}
+specificUpDB['Gohst'] = {'VCX-100'}
+specificUpDB['Phantom'] = {'Attack Shuttle', 'Sheathipede-Class Shuttle'}
+specificUpDB['Punishing One'] = {'JumpMaster 5000'}
+specificUpDB['IG-2000'] = {'Aggressor'}
+specificUpDB['Marauder'] = {'Firespray-31'}
+specificUpDB['Andrasta'] = {'Firespray-31'}
+specificUpDB['Slave I'] = {'Firespray-31'}
+specificUpDB['Mist Hunter'] = {'G-1A StarFighter'}
+specificUpDB['Shadow Caster'] = {'Lancer-Class Pursuit Craft'}
+specificUpDB['Havoc'] = {'Scurrg H-6 Bomber'}
+specificUpDB['Virago'] = {'StarViper'}
+specificUpDB["Hound's Tooth"] = {'YV-666'}
+specificUpDB['ST-321'] = {'Lambda-Class Shuttle'}
 
+variableCostSizeDB={}
+variableCostSizeDB['engine upgrade'] = {['Small'] = 3, ['Medium'] = 6,['Large'] = 9}
+variableCostSizeDB['expert handling'] = {['Small'] = 2, ['Medium'] = 4,['Large'] = 6}
+
+variableCostAgiDB={}
+variableCostAgiDB['hull upgrade'] = {[0] = 2,[1] = 3,[2] = 5,[3] = 7}
+variableCostAgiDB['shield upgrade'] = {[0] = 3,[1] = 4,[2] = 6,[3] = 8}
+variableCostAgiDB['stealth device'] = {[0] = 3,[1] = 4,[2] = 6,[3] = 8}
 
 -- This database contains data of pilots wich show up in more than one faction with the same name
 crossPilots = {}
@@ -252,6 +312,17 @@ repeatedUpDB = {}
 repeatedUpDB['r2-d2'] = {'Astromech', 'Crew'}
 repeatedUpDB['"chopper"'] = {'Astromech', 'Crew'}
 
+--[[
+ffgslots:
+10 - Astromech
+8 - Crew
+]]
+repeatedUpDBffg = {}
+repeatedUpDBffg['r2-d2'] = {[10] = 1, [8] = 2}
+repeatedUpDBffg['"chopper"'] = {[10] = 1, [8] = 2}
+
+
+
 -- This database contains data of pilots wich show up in the same faction with different ships
 repeatedPilotDB = {}
 repeatedPilotDB['ezra bridger'] = {['Reb'] = {[1] = 'Attack Shuttle', [2] = 'TIE/ln Fighter', [3] = 'Sheathipede-Class Shuttle'}}
@@ -259,12 +330,78 @@ repeatedPilotDB['"zeb" orrelios'] = {['Reb'] = {[1] = 'Attack Shuttle', [2] = 'T
 repeatedPilotDB['fenn rau'] = { ['Scu'] = { [1]='Fang Fighter'}, ['Reb'] = {[1]='Sheathipede-Class Shuttle'}}
 repeatedPilotDB['sabine wren'] = {['Reb'] = {[1] = 'Attack Shuttle', [2] = 'TIE/ln Fighter'}, ['Scu'] = {[1] = 'Lancer-Class Pursuit Craft'}}
 repeatedPilotDB['hera syndulla'] = {['Reb'] = {[1] = 'VCX-100', [2] = 'Attack Shuttle'}}
-repeatedPilotDB['norra wexley'] = {['Reb'] = {[1] = 'BTL-A4 Y-Wing', [2] = 'Arc-170'}}
-repeatedPilotDB['garven dreis'] = {['Reb'] = {[1] = 'T65 X-Wing', [2] = 'Arc-170'}}
-repeatedPilotDB['han solo'] = {['Reb'] = {[1] = 'YT-1300'}, ['Scu'] = {[1] = 'YT-1300 scum'}}
-repeatedPilotDB['lando calrissian'] = {['Reb'] = {[1] = 'YT-1300'}, ['Scu'] = {[1] = 'YT-1300 scum', [2] = 'Escape Craft'}}
-repeatedPilotDB['l3-37'] = {['Scu'] ={[1] = 'YT-1300 scum', [2] = 'Escape Craft'}}
+repeatedPilotDB['norra wexley'] = {['Reb'] = {[1] = 'BTL-A4 Y-Wing', [2] = 'ARC-170'}}
+repeatedPilotDB['garven dreis'] = {['Reb'] = {[1] = 'T65 X-Wing', [2] = 'ARC-170'}}
+repeatedPilotDB['han solo'] = {['Reb'] = {[1] = 'YT-1300'}, ['Scu'] = {[1] = 'YT-1300 Scum'}}
+repeatedPilotDB['lando calrissian'] = {['Reb'] = {[1] = 'YT-1300'}, ['Scu'] = {[1] = 'YT-1300 Scum', [2] = 'Escape Craft'}}
+repeatedPilotDB['l3-37'] = {['Scu'] ={[1] = 'YT-1300 Scum', [2] = 'Escape Craft'}}
 repeatedPilotDB['dalan oberos'] = {['Scu'] ={[1] = 'StarViper', [2] = 'M12-L Kimogila Fighter'}}
+
+ffgFaction = {}
+ffgFaction['Rebel Alliance'] = 'Reb'
+ffgFaction['Galactic Empire'] = 'Imp'
+ffgFaction['Scum and Villainy'] = 'Scu'
+
+ffgShipType = {}
+ffgShipType[1] = 'YT-1300'
+ffgShipType[2] = ''
+ffgShipType[3] = 'StarViper'
+ffgShipType[4] = 'Scurrg H-6 Bomber'
+ffgShipType[5] = 'YT-2400'
+ffgShipType[6] = ''
+ffgShipType[7] = 'Kihraxz Fighter'
+ffgShipType[8] = 'Sheathipede-Class Shuttle'
+ffgShipType[9] = 'Quadjumper'
+ffgShipType[10] = 'Firespray-31'
+ffgShipType[11] = 'TIE/ln Fighter'
+ffgShipType[12] = 'BTL-A4 Y-Wing'
+ffgShipType[13] = 'TIE Advanced x1'
+ffgShipType[14] = 'Alpha-Class Star Wing'
+ffgShipType[15] = 'U-Wing'
+ffgShipType[16] = 'TIE Striker'
+ffgShipType[17] = 'B-Wing'
+ffgShipType[18] = 'TIE Defender'
+ffgShipType[19] = 'TIE Bomber'
+ffgShipType[20] = 'TIE Punisher'
+ffgShipType[21] = 'Aggressor'
+ffgShipType[22] = 'G-1A StarFighter'
+ffgShipType[23] = 'VCX-100'
+ffgShipType[24] = 'YV-666'
+ffgShipType[25] = 'TIE Adv. Prototype'
+ffgShipType[26] = 'Lambda-Class Shuttle'
+ffgShipType[27] = 'TIE Phantom'
+ffgShipType[28] = 'VT-49 Decimator'
+ffgShipType[29] = 'TIE Aggressor'
+ffgShipType[30] = 'K-Wing'
+ffgShipType[31] = 'ARC-170'
+ffgShipType[32] = 'Attack Shuttle'
+ffgShipType[33] = 'T65 X-Wing'
+ffgShipType[34] = 'HWK-290'
+ffgShipType[35] = 'A-Wing'
+ffgShipType[36] = 'Fang Fighter'
+ffgShipType[37] = ''
+ffgShipType[38] = 'Z-95 Headhunter'
+ffgShipType[39] = 'M12-L Kimogila Fighter'
+ffgShipType[40] = 'E-Wing'
+ffgShipType[41] = 'TIE Interceptor'
+ffgShipType[41] = ''
+ffgShipType[42] = 'Lancer-Class Pursuit Craft'
+ffgShipType[43] = 'TIE Reaper'
+ffgShipType[44] = 'M3-A Interceptor'
+ffgShipType[45] = 'JumpMaster 5000'
+ffgShipType[46] = ''
+ffgShipType[47] = 'YT-1300 Scum'
+ffgShipType[48] = 'Escape Craft'
+ffgShipType[49] = ''
+ffgShipType[50] = ''
+ffgShipType[51] = ''
+ffgShipType[52] = ''
+ffgShipType[53] = ''
+ffgShipType[54] = ''
+ffgShipType[55] = ''
+ffgShipType[56] = ''
+ffgShipType[57] = ''
+
 
 -- on load initiate the process
 function onLoad()
@@ -275,220 +412,958 @@ end
 function initiate()
     self.clearButtons()
     self.clearInputs()
-    self.createButton({click_function = 'spawnerStart', function_owner = self, label = 'Spawner', position = {0,0.45,-0.1}, width = 1600, height = 480, font_size = 300, scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'builderStart', function_owner = self, label = 'Builder', position = {0,0.45,0.5}, width = 1600, height = 480, font_size = 300, scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'ffgStart', function_owner = self, label = 'FFG Spawner', position = {0,0.45,-0.1}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'spawnerStart', function_owner = self, label = 'TTS Spawner', position = {0,0.45,0.2}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'builderStart', function_owner = self, label = 'Builder', position = {0,0.45,0.5}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
 
+end
+
+
+--Spawn from FFG squad shareable link. User must paste his link on the input field, load the squad, then press the spawn squad button. Maybe streamline the process and do it with one button?
+
+function ffgStart()
+    self.clearButtons()
+    self.createButton({click_function = 'DummyFFG', function_owner = self, label = 'Paste squad link', position = {0,0.45,-0.3}, width = 1800, height = 520, font_size = 240,  scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'ffgLoad', function_owner = self, label = 'Load squad', position = {-0.4,0.45,0.6}, width = 1800, height = 520, font_size = 240,  scale = {0.15,0.15,0.15}})
+    self.createButton({click_function = 'ffgSpawn', function_owner = self, label = 'Spawn squad', position = {0.4,0.45,0.6}, width = 1800, height = 520, font_size = 240,  scale = {0.15,0.15,0.15}})
+    self.createInput({input_function = 'action2', function_owner = self, position = {0,0.45,0.2}, width = 1000, height = 500, font_size = 50, scale = {0.5,0.5,0.5}})
+    self.createButton({click_function = 'FFGinitiate', function_owner = self, label = 'Back', position = {-0.5,0.45,0.8}, width = 1000, height = 300, font_size = 150,  scale = {0.21,0.21,0.21}})
+    --self.createButton({click_function = 'printInput', function_owner = self, label = 'Print Input', position = {0,0,0.5}, width = 1000, height = 200, font_size = 150, tooltip = 'Print'})
+    --self.createButton({click_function = 'parseList', function_owner = self, label = 'Parse', position = {0,0,3.2}, width = 1000, height = 200, font_size = 150, tooltip = 'Parse'})
+end
+
+--prepares the link and call the json extractor
+function FFGinitiate()
+    if lista ~= nil then
+        lista =  nil
+    end
+    if partList ~= nil then
+        partList = nil
+    end
+    initiate()
+end
+
+function ffgLoad() --takes a link and converts it for the API link
+    if lista ~= nil then
+        lista = string.gsub(lista, 'saved%-squads', 'api/squads')
+        lista = string.gsub(lista, 'squad%-builder/tool', 'api/squads')
+        ffgLoad2(lista)
+    else
+        print ('Please paste a link')
+    end
+end
+
+--parses and organize the extracted json table and calls the spawner (TO-DO)
+function ffgSpawn()
+    if JSONlist ~=nil then
+        --[[
+        for key,value in pairs (JSONlist.deck[1]['slots'][1]['upgrade_types']) do
+            print (key)
+            print (value)
+            print()
+        end
+        print(lista2.deck[1]['pilot_card']['name'])
+        print(lista2.deck[1]['slots'][1]['name'])
+        print(lista2.deck[1]['slots'][2]['name'])
+        print(lista2.deck[1]['slots'][3]['name'])
+        print(lista2.deck[1]['slots'][4]['name'])
+        print(lista2.deck[2]['pilot_card']['name'])
+        print(lista2.deck[3]['pilot_card']['name'])]]
+        --print(JSONlist.deck[1]['pilot_card']['name'])
+        --print(JSONlist.deck[1]['slots'][1]['name'])
+        --print(JSONlist.deck[1]['slots'][2]['name'])
+
+        --starting to set up the spawnable table
+        partList = {}
+        partList.Pilots = {}
+        partList.Ship = {}
+        partList.Upgrades = {}
+        partList.spawnCard = self
+        partList.Faction = ffgFaction[JSONlist.faction.name]
+        --sets up pilots and upgrades table
+        for k,v in pairs (JSONlist.deck) do
+            local name = v['pilot_card']['name']
+            name = string.gsub(name, '•', '')
+            name = string.gsub(name, '’', '')
+            name = string.gsub(name, '”', '"')
+            name = string.gsub(name, '“', '"')
+            if name == 'Chopper"' then
+                name = '"Chopper"'
+            end
+            partList.Pilots[k] = name
+            print (name)
+            partList.Ship[k] = ffgShipType[v['pilot_card']['ship_type']]
+            partList.Upgrades[k] = {}
+            for key,value in pairs (v['slots']) do
+                local name = value['name']
+                name = string.gsub(name, '•', '')
+                name = string.gsub(name, '’', '')
+                name = string.gsub(name, '”', '"')
+                name = string.gsub(name, '“', '"')
+                name = string.gsub(name, '<italic>', '') --So stupid....
+                name = string.gsub(name, '</italic>', '')
+
+                if crossUp[string.lower(name)] ~= nil then
+                    name = name..'v'..crossUp[string.lower(name)][partList.Faction]
+                end
+                if repeatedUpDBffg[string.lower(name)] ~= nil then
+                    if value['upgrade_types']~=nil then
+                        local n = value['upgrade_types'][1]
+                        name = name..'v'..repeatedUpDBffg[string.lower(name)][n]
+                    end
+                end
+                table.insert(partList.Upgrades[k], name)
+            end
+        end
+        spawnNow(partList)
+        partList = nil
+        JSONlist = nil
+        lista = nil
+        FFGinitiate()
+    else
+        print('Please paste a link')
+    end
+
+end
+
+--Extracts the json table from FFG site, reporting success or failure
+function ffgLoad2(squadId, onLoaded)
+    squadJson = squadId
+    WebRequest.get(squadJson, function(request)
+        if request.is_error then
+            error("Failed to load squad JSON.")
+        elseif request.is_done then
+            --list = JSON.decode(request.text)
+            JSONlist = JSON.decode(request.text)
+            print("You've loaded a squad: "..JSONlist.name)
+            print()
+        end
+    end)
+end
+
+--FFG spawner input field
+function action2(obj, playerColor, value, editing)
+    if not editing then
+        lista = value
+    end
+end
+
+--TTS spawner input field
+function action(obj, playerColor, value, editing)
+    if not editing then
+        lista = value
+    end
 end
 
 -- Builder first step: sets up basic list table and select faction.
 function builderStart()
     self.clearButtons()
-    finalList = {}
-    finalList.Pilots = {}
-    finalList.Ship = {}
-    finalList.Upgrades = {}
-    finalList.Faction = {}
-    finalList.Clone = {}
-    finalList.spawnCard = self
+    partList = {}
+    partList.Pilots = {}
+    partList.Ship = {}
+    partList.Upgrades = {}
+    partList.Clone = {}
+    partList.spawnCard = self
+    availablePilots = {}
+    availableUps = {}
+    shipSlots = {}
+    currentIndex = nil
+    totalCost = nil
     self.createButton({click_function = 'Dummy1', function_owner = self, label = 'Choose Faction', position = {0,0.45,-0.3}, width = 1800, height = 520, font_size = 240,  scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'buiReb', function_owner = self, label = 'Rebel', position = {-0.4,0.45,0.1}, width = 1200, height = 480, font_size = 200,  scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'buiImp', function_owner = self, label = 'Imperial', position = {-0.4,0.45,0.4}, width = 1200, height = 480, font_size = 200,  scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'buiScu', function_owner = self, label = 'Scum', position = {-0.4,0.45,0.7}, width = 1200, height = 480, font_size = 200,  scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'buiRes', function_owner = self, label = 'Resistence', position = {0.4,0.45,0.1}, width = 1200, height = 480, font_size = 200,  scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'buiFor', function_owner = self, label = 'First Order', position = {0.4,0.45,0.4}, width = 1200, height = 480, font_size = 200,  scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'initiate', function_owner = self, label = 'Back', position = {0.55,0.45,0.75}, width = 900, height = 320, font_size = 180,  scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'buiReb', function_owner = self, label = 'Rebel', position = {-0.6,0.45,0.1}, width = 1000, height = 380, font_size = 200,  scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'buiImp', function_owner = self, label = 'Imperial', position = {-0.6,0.45,0.4}, width = 1000, height = 380, font_size = 200,  scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'buiScu', function_owner = self, label = 'Scum', position = {-0.6,0.45,0.7}, width = 1000, height = 380, font_size = 200,  scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'buiRes', function_owner = self, label = 'Resistence', position = {0,0.45,0.1}, width = 1000, height = 380, font_size = 200,  scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'buiFor', function_owner = self, label = 'First Order', position = {0,0.45,0.4}, width = 1000, height = 380, font_size = 200,  scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'initiate', function_owner = self, label = 'Back', position = {0.55,0.45,0.75}, width = 900, height = 320, font_size = 150,  scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'buiRep', function_owner = self, label = 'Republic', position = {0.6,0.45,0.1}, width = 1000, height = 380, font_size = 200,  scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'buiCis', function_owner = self, label = 'CIS', position = {0.6,0.45,0.4}, width = 1000, height = 380, font_size = 200,  scale = {0.25,0.25,0.25}})
 end
 
 
 -- One function for each faction, forwards to main menu.
 function buiReb()
-    finalList.Faction = 'Reb'
+    partList.Faction = 'Reb'
+    Faction = partList.Faction
     mainMenu()
 end
 
 function buiImp()
-    finalList.Faction = 'Imp'
+    partList.Faction = 'Imp'
+    Faction = partList.Faction
     mainMenu()
 end
 
 function buiScu()
-    finalList.Faction = 'Scu'
+    partList.Faction = 'Scu'
+    Faction = partList.Faction
     mainMenu()
 end
 
 function buiRes()
     print('Faction not available yet!')
-    -- finalList.Faction = 'Res'
+    -- partList.Faction = 'Res'
     -- mainMenu()
 end
 
 function buiFor()
     print('Faction not available yet!')
-    -- finalList.Faction = 'For'
+    -- partList.Faction = 'For'
     -- mainMenu()
 end
 
+function buiRep()
+    print('Faction not available yet!')
+    -- partList.Faction = 'Rep'
+    -- mainMenu()
+end
+
+function buiCis()
+    print('Faction not available yet!')
+    -- partList.Faction = 'Fis'
+    -- mainMenu()
+end
+
+function initialSetUp()
+
+end
 
 -- Main Menu: shows wich ship is on the list, indicates how many points is dedicated to each ship.
 -- Offers 3 options: reset (Back to initiate), add ship and spawn.
--- To Do: set up paramaters to manage ship slot!
 function mainMenu()
-    if currentIndex == nil or currentIndex == 0 then
-        currentIndex=0
-        maxIndex=0
+    if totalCost == nil then
+        totalCost = {}
     end
     self.clearButtons()
-    self.createButton({click_function = 'addShip', function_owner = self, label = 'Add Ship', position = {0,0.45,-0.3}, width = 1800, height = 520, font_size = 240,  scale = {0.25,0.25,0.25}})
-    for i, pilot in pairs(finalList.Pilots) do
-        if finalList.Pilots[i]['Cost'] == nil then
-            cost = shipPilotsDB[finalList.Faction][finalList.Ship[i]][pilot]['Cost']
-        else
-            cost = finalList.Pilots[i]['Cost']
-        end
-        self.createButton({click_function = 'selectShip'..1, function_owner = self, label = finalList.Pilots[i]..' ('..cost..')' , position = {-0.4,0.45,i*0.15}, width = 1500, height = 300, font_size = 130,  scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'addShip', function_owner = self, label = 'Add Ship', position = {-0.45,0.45,-0.3}, width = 1300, height = 380, font_size = 200,  scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'builderSpawn', function_owner = self, label = 'Spawn List', position = {0.45,0.45,-0.3}, width = 1300, height = 380, font_size = 200,  scale = {0.25,0.25,0.25}})
+    for i, pilot in ipairs(partList.Pilots) do
+        local cost = totalCost[i]
+        self.createButton({click_function = 'selectShip'..i, function_owner = self, label = pilot[1]..' ('..cost..')' , position = {-0.4,0.45,-0.2+i*0.15}, width = 1500, height = 300, font_size = 130,  scale = {0.25,0.25,0.25}})
     end
-end
-
--- Selecting a ship that is on the main menu will show wich slots are empty and wich ones are taken, indicating how many points are being used on this ship and how many points the list as a whole is using.
--- To Do: Set up auxiliary table with slots and upgrades so the correct buttons are spawned. Stablishes variables for special cases (Froce Powers, dual slots). Show point costs of each ship and full squad.
-function selectShip1()
-    self.clearButtons()
-    local aux = 0
-    local auxB = 0
-    local shipIndex = 1 -- constant for the select ship number
-    local index = 1
-    if availableSlots == nil then
-        availableSlots = {}
+    listCost = 0
+    for i, cost in pairs(totalCost) do
+        listCost = listCost + cost
     end
-    for i, slots in pairs(shipPilotsDB[finalList.Faction][finalList.Ship[shipIndex]]['Slots']) do
-        if finalList.Upgrades[shipIndex][index] == nil then
-            currentSlot = shipPilotsDB[finalList.Faction][finalList.Ship[shipIndex]]['Slots'][index]
-        else
-            currentSlot = slots
-        end
-        if shipPilotsDB[finalList.Faction][finalList.Ship[shipIndex]][finalList.Pilots[shipIndex]]['removeSlot'][slots] ~= 1 then
-            availableSlots[index] = slots
-            aux=aux+1
-            if aux > 5 then
-                aux = 1
-                auxB = auxB+1
-            end
-            self.createButton({click_function = 'selectSlot'..index, function_owner = self, label = currentSlot , position = {-0.4+auxB*0.8,0.45,aux*0.15}, width = 1500, height = 300, font_size = 130,  scale = {0.25,0.25,0.25}})
-        end
-        index=index+1
-    end
-end
-
-function selectSlot2()
-    self.clearButtons()
-    local index = 1
-    local aux = 0
-    auxB = 0
-    availableUps = {}
-    for Upg, cost in pairs(UpDB['Neu'][availableSlots[2]]) do
-        availableUps[index] = Upg
-        if aux > 7 then
-            aux=1
-            auxB=auxB+1
-        end
-        self.createButton({click_function = 'selectUp'..index, label = Upg..' ('..cost..')', function_owner = self, position = {-0.45+auxB*0.6,0.45,aux*0.16-0.18}, width = 1500, height = 220, font_size = 120,  scale = {0.25,0.25,0.25}})
-        aux=aux+1
-        index = index+1
-    end
-end
-
-function selectUp1()
-
-end
-
-function selectShip2()
-    self.clearButtons()
-    local aux = 0
-    local auxB = 0
-    local shipIndex = 2 -- constant for the select ship number
-    local index = 1
-    for i, slots in pairs(shipPilotsDB[finalList.Faction][finalList.Ship[shipIndex]]['Slots']) do
-        if finalList.Upgrades[shipIndex][index] == nil then
-            currentSlot = shipPilotsDB[finalList.Faction][finalList.Ship[shipIndex]]['Slots'][index]
-        else
-            currentSlot = slots
-        end
-        if shipPilotsDB[finalList.Faction][finalList.Ship[shipIndex]][finalList.Pilots[shipIndex]]['removeSlot'][slots] ~= 1 then
-            aux=aux+1
-            if aux > 5 then
-                aux = 1
-                auxB = auxB+1
-            end
-            print(shipPilotsDB[finalList.Faction][finalList.Ship[shipIndex]][finalList.Pilots[shipIndex]]['removeSlot'][slots])
-            self.createButton({click_function = 'selectSlot'..index, function_owner = self, label = currentSlot , position = {-0.4+auxB*0.8,0.45,aux*0.15}, width = 1500, height = 300, font_size = 130,  scale = {0.25,0.25,0.25}})
-        end
-        index=index+1
-    end
+    self.createButton({click_function = 'Dummy1', function_owner = self, label = 'List cost: '..listCost, position = {0.4,0.45,0.8}, width = 1300, height = 320, font_size = 150,  scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'initiate', function_owner = self, label = 'RESET', position = {-0.5,0.45,0.8}, width = 1300, height = 320, font_size = 150,  scale = {0.25,0.25,0.25}})
 end
 
 -- Adding a ship will open a list of all available ship types.
 function addShip()
     self.clearButtons()
-    currentIndex=currentIndex+1
-    local shipIndex=1
+    if partList.Pilots == nil then
+        shipIndex = 1
+    else
+        shipIndex=1
+        for i, pilot in pairs(partList.Pilots) do
+            shipIndex = shipIndex + 1
+        end
+    end
+    local modelIndex = 1
     local aux = 1
     local auxB = 0
-    for i, ship in pairs(shipPilotsDB[finalList.Faction]) do
+    availableShips = {}
+    for i, shipModel in pairs(shipPilotsDB[Faction]) do
         Font=100
+        availableShips[modelIndex] = i
         if aux > 6 then
             aux=1
             auxB=auxB+1
         end
-        if string.len(i)>20 then
+        if string.len(i)>18 then
             Font = 80
         end
-        self.createButton({click_function = 'selectModel'..shipIndex, function_owner = self, label = i, position = {-0.52+auxB*0.6,0.45,aux*0.16-0.2}, width = 1000, height = 220, font_size = Font,  scale = {0.25,0.25,0.25}})
+        self.createButton({click_function = 'selectModel'..modelIndex, function_owner = self, label = availableShips[modelIndex], position = {-0.52+auxB*0.6,0.45,aux*0.16-0.2}, width = 1000, height = 220, font_size = Font,  scale = {0.25,0.25,0.25}})
         aux = aux+1
-        shipIndex=shipIndex+1
+        modelIndex=modelIndex+1
     end
 end
 
---selecting a ship type will open a list of every pilot for that ship. MUST REWRITE! 18 ship types, with more to come. Each option should set a variable and call an unified function to spawn the pilot buttons!
-function selectModel1()
+
+function selectModelGeneric(arg)
+    chosenModel = availableShips[arg]
+    availableShips = {}
     self.clearButtons()
     availablePilots = {}
+
     local aux = 0
     local auxB = 0
     local index = 1
-    finalList.Ship[currentIndex] = shipsDB[finalList.Faction][1]
-    for k,v in pairs(shipPilotsDB[finalList.Faction][shipsDB[finalList.Faction][1]]) do
+    partList.Ship[shipIndex] = chosenModel
+    for k, v in pairs(shipPilotsDB[Faction][chosenModel]) do
         if k ~= 'Slots' and k~='Agility' and k~='Base' then
-            cost = shipPilotsDB[finalList.Faction][shipsDB[finalList.Faction][1]][k]['Cost']
+            cost = shipPilotsDB[Faction][chosenModel][k]['Cost']
+            availablePilots[index] = {}
+            availablePilots[index][1] = k
+            availablePilots[index][2] = cost
             self.createButton({click_function = 'setPilot'..index, function_owner = self, label = k..' ('..cost..')', position = {-0.48+auxB,0.45,-0.2+aux*0.15}, width = 1600, height = 220, font_size = 135,  scale = {0.25,0.25,0.25}})
             aux= aux+1
             if aux>5 then
                 aux = 0
                 auxB = auxB+1
             end
-            availablePilots[index] = k
             index = index+1
         end
     end
+    chosenModel = nil
 end
 
--- Selecting a pilot will add ship model and pilot to final list, update max index and go back to main menu. MUST REWRITE! Each pilot option should set variables and call an unified function to set up the final list!
-function setPilot1()
+--selecting a ship type will open a list of every pilot for that ship. MUST REWRITE! 18 ship types, with more to come. Each option should set a variable and call an unified function to spawn the pilot buttons!
+function selectModel1()
+    selectModelGeneric(1)
+end
+
+function selectModel2()
+    selectModelGeneric(2)
+end
+
+function selectModel3()
+    selectModelGeneric(3)
+end
+
+function selectModel4()
+    selectModelGeneric(4)
+end
+
+function selectModel5()
+    selectModelGeneric(5)
+end
+
+function selectModel6()
+    selectModelGeneric(6)
+end
+
+function selectModel7()
+    selectModelGeneric(7)
+end
+
+function selectModel8()
+    selectModelGeneric(8)
+end
+
+function selectModel9()
+    selectModelGeneric(9)
+end
+
+function selectModel10()
+    selectModelGeneric(10)
+end
+
+function selectModel11()
+    selectModelGeneric(11)
+end
+
+function selectModel12()
+    selectModelGeneric(12)
+end
+
+function selectModel13()
+    selectModelGeneric(13)
+end
+
+function selectModel14()
+    selectModelGeneric(14)
+end
+
+function selectModel15()
+    selectModelGeneric(15)
+end
+
+function selectModel16()
+    selectModelGeneric(16)
+end
+
+function selectModel17()
+    selectModelGeneric(17)
+end
+
+function selectModel18()
+    selectModelGeneric(18)
+end
+
+function selectModel19()
+    selectModelGeneric(19)
+end
+
+function selectModel20()
+    selectModelGeneric(20)
+end
+
+
+-- Selecting a pilot will add ship model and pilot to part list, update max index and go back to main menu. MUST REWRITE! Each pilot option should set variables and call an unified function to set up the part list!
+function setPilotGeneric(arg)
     self.clearButtons()
-    finalList.Pilots[currentIndex] = availablePilots[1]
-    finalList.Upgrades[currentIndex] = {}
-    maxIndex=maxIndex+1
+    partList.Pilots[shipIndex] = {}
+    partList.Pilots[shipIndex][1] = availablePilots[arg][1]
+    partList.Pilots[shipIndex][2] = availablePilots[arg][2]
+    partList.Upgrades[shipIndex] = {}
+    totalCost[shipIndex]=partList.Pilots[shipIndex][2]
+
+    availablePilots = nil
     mainMenu()
+end
+
+
+function setPilot1()
+    setPilotGeneric(1)
 end
 
 function setPilot2()
+    setPilotGeneric(2)
+end
+
+function setPilot3()
+    setPilotGeneric(3)
+end
+
+function setPilot4()
+    setPilotGeneric(4)
+end
+
+function setPilot5()
+    setPilotGeneric(5)
+end
+
+function setPilot6()
+    setPilotGeneric(6)
+end
+
+function setPilot7()
+    setPilotGeneric(7)
+end
+
+function setPilot8()
+    setPilotGeneric(8)
+end
+
+function setPilot9()
+    setPilotGeneric(9)
+end
+
+function setPilot10()
+    setPilotGeneric(10)
+end
+
+function setPilot11()
+    setPilotGeneric(11)
+end
+
+function setPilot12()
+    setPilotGeneric(12)
+end
+
+function setPilot13()
+    setPilotGeneric(13)
+end
+
+function setPilot14()
+    setPilotGeneric(14)
+end
+
+function setPilot15()
+    setPilotGeneric(15)
+end
+
+function builderSpawn()
+    finalList = {}
+    finalList.Pilots = {}
+    for i, pilot in pairs(partList.Pilots) do
+        finalList.Pilots[i] = pilot[1]
+    end
+    finalList.Ship = partList.Ship
+    finalList.Faction = partList.Faction
+    finalList.spawnCard = partList.spawnCard
+    finalList.Upgrades = {}
+    for i, upList in pairs(partList.Upgrades) do
+        finalList.Upgrades[i] = {}
+        for k, Up in pairs(upList) do
+            table.insert(finalList.Upgrades[i], Up[1])
+        end
+    end
+    spawnNow(finalList)
+end
+
+addSlotDB = {}
+addSlotDB['Punishing One'] = {'Astromech'}
+addSlotDB['M3-A Interceptor'] = {'Cannon', 'Torpedo', 'Missile'}
+addSlotDB['T70 X-Wing'] = {'Cannon', 'Torpedo', 'Missile'}
+addSlotDB['Andrasta'] = {'Device'}
+addSlotDB['Slave I'] = {'Torpedo'}
+addSlotDB['Marauder'] = {'Gunner'}
+addSlotDB['Havoc'] = {'System', 'Astromech'}
+addSlotDB['Virago'] = {'Modification'}
+addSlotDB['Mist Hunter'] = {'Cannon'}
+addSlotDB['Xg-1 Assault Configuration'] = {'Cannon'}
+addSlotDB['Os-1 Arsenal Loadout'] = {'Torpedo', 'Missile'}
+
+removeSlotDB = {}
+removeSlotDB['Punishing One'] = {'Crew'}
+removeSlotDB['Havoc'] = {'Crew'}
+
+-- Selecting a ship that is on the main menu will show wich slots are empty and wich ones are taken, indicating how many points are being used on this ship and how many points the list as a whole is using.
+-- To Do: Set up auxiliary table with slots and upgrades so the correct buttons are spawned. Stablishes variables for special cases (Froce Powers, dual slots). Show point costs of each ship and full squad.
+function selectShipGeneric(arg)
     self.clearButtons()
-    finalList.Pilots[currentIndex] = availablePilots[2]
-    finalList.Upgrades[currentIndex] = {}
-    maxIndex=maxIndex+1
+    local aux = 1
+    local auxB = 0
+    shipIndex = arg -- constant for the select ship number
+    local index = 1
+    availableSlots = {}
+    auxSlot = 10
+    lastSlot=0
+    totalCost[shipIndex] = 0
+    shipCost= partList.Pilots[shipIndex][2]
+    shipSlots[shipIndex]={}
+    --Adds all possible slots for given ship
+    for k, v in pairs(shipPilotsDB[Faction][partList.Ship[shipIndex]]['Slots']) do
+        shipSlots[shipIndex][k]=v
+        lastSlot = k
+    end
+    --Checks and adds slot for every upgrade that adds a slot
+    for k, Upg in pairs(partList.Upgrades[shipIndex]) do
+        if addSlotDB[Upg[1]] ~= nil then
+            for i, addSlot in pairs(addSlotDB[Upg[1]]) do
+                lastSlot=lastSlot+1
+                shipSlots[shipIndex][lastSlot] = addSlotDB[Upg[1]][i]
+            end
+        end
+    end
+    --Checks and adds slots for special ship characteristics (M3-A and T-70)
+    local ship = partList.Ship[shipIndex]
+    local occ = false
+    if addSlotDB[ship] ~= nil then
+        for i, addSlot in pairs(addSlotDB[partList.Ship[shipIndex]]) do
+            shipSlots[shipIndex][auxSlot] = addSlot
+            auxSlot = auxSlot+1
+        end
+    end
+    --Adds all slots to availableSlots
+    for i, slot in pairs(shipSlots[shipIndex]) do
+        availableSlots[i] = slot
+    end
+    --fills used slots with upgrades
+    for i, Up  in pairs(availableSlots) do
+        if partList.Upgrades[shipIndex][i] ~= nil then
+            availableSlots[i] = partList.Upgrades[shipIndex][i][1]..' ('..partList.Upgrades[shipIndex][i][2]..')'
+        end
+    end
+    --Removes slots for special ship characteritics (M3-A and T-70)
+    local occ = false
+    if addSlotDB[ship] ~= nil then
+        for i, ups in pairs(partList.Upgrades[shipIndex]) do
+            if i > 9 then
+                occ = true
+            end
+        end
+        if occ == true then
+            for i, Up in pairs (shipSlots[shipIndex]) do
+                if i > 9 then
+                    if partList.Upgrades[shipIndex][i] ~= nil then
+                        availableSlots[i] ={}
+                        availableSlots[i] = partList.Upgrades[shipIndex][i][1]..' ('.. partList.Upgrades[shipIndex][i][2] ..')'
+                    else
+                        shipSlots[shipIndex][i] = nil
+                        availableSlots[i] = nil
+                        partList.Upgrades[shipIndex][i] = nil
+                    end
+                end
+            end
+        end
+    end
+    --Removes slots for upgrades that removes them
+    for i, Up in pairs(partList.Upgrades[shipIndex]) do
+        if removeSlotDB[Up[1]]~=nil then
+            for k, slot in pairs(removeSlotDB[Up[1]]) do
+                for j, exSlot in pairs(shipSlots[shipIndex]) do
+                    if slot == exSlot then
+                        availableSlots[j] = nil
+                        shipSlots[shipIndex][j] = nil
+                        partList.Upgrades[shipIndex][j]=nil
+                    end
+                end
+            end
+        end
+    end
+
+    --Removes slots unused by pilot
+    for k, rSlot in pairs(shipPilotsDB[Faction][partList.Ship[shipIndex]][partList.Pilots[shipIndex][1]]['removeSlot']) do
+        for i, slot in pairs(shipSlots[shipIndex]) do
+            if slot == k then
+                shipSlots[shipIndex][i] = nil
+                availableSlots[i] = nil
+                partList.Upgrades[shipIndex][i] = nil
+            end
+        end
+    end
+    shipCost = partList.Pilots[shipIndex][2]
+    totalCost[shipIndex] = shipCost
+    for i, Up in pairs(partList.Upgrades[shipIndex]) do
+        totalCost[shipIndex] = totalCost[shipIndex] + Up[2]
+    end
+    for i, slots in pairs(availableSlots) do
+        if aux > 5 then
+            aux = 1
+            auxB = auxB+1
+        end
+        self.createButton({click_function = 'selectSlot'..i, function_owner = self, label = string.gsub(availableSlots[i], 'v%d', ''), position = {-0.4+auxB*0.8,0.45,-0.22+aux*0.15}, width = 1500, height = 300, font_size = 120,  scale = {0.25,0.25,0.25}})
+        aux=aux+1
+        local index=index+1
+    end
+    self.createButton({click_function = 'Dummy1', function_owner = self, label = partList.Pilots[shipIndex][1]..' ('..partList.Pilots[shipIndex][2]..')', position = {-0.3,0.45,-0.35}, width = 2000, height = 320, font_size = 150,  scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'mainMenu', function_owner = self, label = 'Back', position = { 0.5,0.45,-0.35}, width = 1000, height = 320, font_size = 150,  scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'removeShip', function_owner = self, label = 'Remove Ship', position = { 0.6,0.45,0.75}, width = 1000, height = 320, font_size = 150,  scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'Dummy1', function_owner = self, label = 'Ship cost: '..totalCost[shipIndex], position = {-0.6,0.45,0.8}, width = 1000, height = 220, font_size = 150,  scale = {0.25,0.25,0.25}})
+    listCost = 0
+    for i, cost in pairs(totalCost) do
+        listCost = listCost+cost
+    end
+    self.createButton({click_function = 'Dummy1', function_owner = self, label = 'List cost: '..listCost, position = {0,0.45,0.8}, width = 1000, height = 220, font_size = 150,  scale = {0.25,0.25,0.25}})
+end
+
+function removeShip()
+    partList.Ship[shipIndex] = nil
+    partList.Pilots[shipIndex] = nil
+    partList.Upgrades[shipIndex] = nil
+    totalCost[shipIndex] = nil
+    for i, index in pairs(partList.Pilots) do
+        if i > shipIndex then
+            partList.Ship[i-1] = partList.Ship[i]
+            partList.Ship[i] = nil
+            partList.Pilots[i-1] = partList.Pilots[i]
+            partList.Pilots[i] = nil
+            partList.Upgrades[i-1] = partList.Upgrades[i]
+            partList.Upgrades[i] = nil
+            totalCost[i-1] = totalCost[i]
+            totalCost[i] = nil
+        end
+    end
     mainMenu()
 end
 
+function selectShip1()
+    selectShipGeneric(1)
+end
 
+function selectShip2()
+    selectShipGeneric(2)
+end
+
+function selectShip3()
+    selectShipGeneric(3)
+end
+
+function selectShip4()
+    selectShipGeneric(4)
+end
+
+function selectShip5()
+    selectShipGeneric(5)
+end
+
+function selectShip6()
+    selectShipGeneric(6)
+end
+
+function selectShip7()
+    selectShipGeneric(7)
+end
+
+function selectShip8()
+    selectShipGeneric(8)
+end
+
+function selectSlotGeneric(arg)
+    self.clearButtons()
+    currSlot = arg          -- Value tied for this function!
+    local index = 1
+    local aux = 1
+    local auxB = 0
+    availableUps = {}
+
+    self.createButton({click_function = 'selectUpNone', label = 'None (0)', function_owner = self, position = {-0.45+auxB*0.6,0.45,-0.2}, width = 1500, height = 220, font_size = 120,  scale = {0.25,0.25,0.25}})
+    if UpDB[Faction][shipSlots[shipIndex][arg]] ~= nil then
+        for Upg, cost in pairs(UpDB[Faction][shipSlots[shipIndex][arg]]) do
+            availableUps[index] = {[1] = Upg, [2] = cost}
+            if aux > 8 then
+                aux=1
+                auxB=auxB+1
+            end
+            if specificUpDB[Upg] ~= nil then
+                if specificUpDB[Upg][1] == partList.Ship[shipIndex] or specificUpDB[Upg][2] == partList.Ship[shipIndex] then
+                    self.createButton({click_function = 'selectUp'..index, label = Upg..' ('..cost..')', function_owner = self, position = {-0.53+auxB*0.58,0.45,aux*0.1-0.1}, width = 1100, height = 200, font_size = 100,  scale = {0.25,0.25,0.25}})
+                end
+            else
+                self.createButton({click_function = 'selectUp'..index, label = string.gsub(availableUps[index][1], 'v%d', '')..' ('..availableUps[index][2]..')', function_owner = self, position = {-0.53+auxB*0.58,0.45,aux*0.1-0.1}, width = 1100, height = 200, font_size = 100,  scale = {0.25,0.25,0.25}})
+            end
+            aux=aux+1
+            index = index+1
+        end
+    end
+    if UpDB['Neu'][shipSlots[shipIndex][arg]] ~= nil then
+        for Upg, cost in pairs(UpDB['Neu'][shipSlots[shipIndex][arg]]) do
+            if variableCostSizeDB[string.lower(Upg)] ~= nil then
+                availableUps[index] = {[1] = Upg, [2] = variableCostSizeDB[string.lower(Upg)][shipPilotsDB[partList.Faction][partList.Ship[shipIndex]]['Base']]}
+            elseif variableCostAgiDB[string.lower(Upg)] ~= nil then
+                local Agi = shipPilotsDB[partList.Faction][partList.Ship[shipIndex]]['Agility']
+                availableUps[index] = {[1] = Upg, [2] = cost[Agi]}
+            else
+                availableUps[index] = {[1] = Upg, [2] = cost}
+            end
+            if aux > 8 then
+                aux=1
+                auxB=auxB+1
+            end
+            if specificUpDB[Upg] ~= nil then
+                if specificUpDB[Upg][1] == partList.Ship[shipIndex] or specificUpDB[Upg][2] == partList.Ship[shipIndex] then
+                    self.createButton({click_function = 'selectUp'..index, label = Upg..' ('..cost..')', function_owner = self, position = {-0.53+auxB*0.58,0.45,aux*0.1-0.1}, width = 1100, height = 200, font_size = 100,  scale = {0.25,0.25,0.25}})
+                end
+            else
+                self.createButton({click_function = 'selectUp'..index, label = string.gsub(availableUps[index][1], 'v%d', '') ..' ('..availableUps[index][2]..')', function_owner = self, position = {-0.53+auxB*0.58,0.45,aux*0.1-0.1}, width = 1100, height = 200, font_size = 100,  scale = {0.25,0.25,0.25}})
+            end
+            aux=aux+1
+            index = index+1
+        end
+    end
+    self.createButton({click_function = 'backFromSelectUp', function_owner = self, label = 'Back', position = { 0.5,0.45,-0.35}, width = 1000, height = 320, font_size = 150,  scale = {0.25,0.25,0.25}})
+
+end
+
+function backFromSelectUp()
+        if shipIndex == 1 then
+            selectShip1()
+        elseif shipIndex == 2 then
+            selectShip2()
+        elseif shipIndex == 3 then
+            selectShip3()
+        elseif shipIndex == 4 then
+            selectShip4()
+        elseif shipIndex == 5 then
+            selectShip5()
+        elseif shipIndex == 6 then
+            selectShip6()
+        elseif shipIndex == 7 then
+            selectShip7()
+        elseif shipIndex == 8 then
+            selectShip8()
+        end
+    end
+
+function selectSlot1()
+    selectSlotGeneric(1)
+end
+
+function selectSlot2()
+    selectSlotGeneric(2)
+end
+
+function selectSlot3()
+    selectSlotGeneric(3)
+end
+
+function selectSlot4()
+    selectSlotGeneric(4)
+end
+
+function selectSlot5()
+    selectSlotGeneric(5)
+end
+
+function selectSlot6()
+    selectSlotGeneric(6)
+end
+
+function selectSlot6()
+    selectSlotGeneric(6)
+end
+
+function selectSlot7()
+    selectSlotGeneric(7)
+end
+
+function selectSlot8()
+    selectSlotGeneric(8)
+end
+
+function selectSlot9()
+    selectSlotGeneric(9)
+end
+
+function selectSlot10()
+    selectSlotGeneric(10)
+end
+
+function selectSlot11()
+    selectSlotGeneric(11)
+end
+
+function selectSlot12()
+    selectSlotGeneric(12)
+end
+
+
+
+function selectUpNone()
+    partList.Upgrades[shipIndex][currSlot]= nil     --first '1' tied to selectUp1, second value indicate the names
+    if shipIndex == 1 then
+        selectShip1()
+    elseif shipIndex == 2 then
+        selectShip2()
+    elseif shipIndex == 3 then
+        selectShip3()
+    elseif shipIndex == 4 then
+        selectShip4()
+    elseif shipIndex == 5 then
+        selectShip5()
+    elseif shipIndex == 6 then
+        selectShip6()
+    elseif shipIndex == 7 then
+        selectShip7()
+    elseif shipIndex == 8 then
+        selectShip8()
+    end
+end
+
+function selectUpGeneric(arg)
+    partList.Upgrades[shipIndex][currSlot] = {}
+    partList.Upgrades[shipIndex][currSlot][1] = availableUps[arg][1]      --first '1' tied to selectUp1, second value indicate the names
+    partList.Upgrades[shipIndex][currSlot][2] = availableUps[arg][2]      --first '1' tied to selectUp1, second value indicate the cost
+    if shipIndex == 1 then
+        selectShip1()
+    elseif shipIndex == 2 then
+        selectShip2()
+    elseif shipIndex == 3 then
+        selectShip3()
+    elseif shipIndex == 4 then
+        selectShip4()
+    elseif shipIndex == 5 then
+        selectShip5()
+    elseif shipIndex == 6 then
+        selectShip6()
+    elseif shipIndex == 7 then
+        selectShip7()
+    elseif shipIndex == 8 then
+        selectShip8()
+    end
+end
+
+function selectUp1()
+    selectUpGeneric(1)
+end
+
+function selectUp2()
+    selectUpGeneric(2)
+end
+
+function selectUp3()
+    selectUpGeneric(3)
+end
+
+function selectUp4()
+    selectUpGeneric(4)
+end
+
+function selectUp5()
+    selectUpGeneric(5)
+end
+
+function selectUp6()
+    selectUpGeneric(6)
+end
+
+function selectUp7()
+    selectUpGeneric(7)
+end
+
+function selectUp8()
+    selectUpGeneric(8)
+end
+
+function selectUp9()
+    selectUpGeneric(9)
+end
+
+function selectUp10()
+    selectUpGeneric(10)
+end
+
+function selectUp11()
+    selectUpGeneric(11)
+end
+
+function selectUp12()
+    selectUpGeneric(12)
+end
+
+function selectUp13()
+    selectUpGeneric(13)
+end
+
+function selectUp14()
+    selectUpGeneric(14)
+end
+
+function selectUp15()
+    selectUpGeneric(15)
+end
+
+function selectUp16()
+    selectUpGeneric(16)
+end
+
+function selectUp17()
+    selectUpGeneric(17)
+end
+
+function selectUp18()
+    selectUpGeneric(18)
+end
+
+function selectUp19()
+    selectUpGeneric(19)
+end
+
+function selectUp20()
+    selectUpGeneric(20)
+end
+
+function selectUp21()
+    selectUpGeneric(21)
+end
+
+function selectUp22()
+    selectUpGeneric(22)
+end
+
+function selectUp23()
+    selectUpGeneric(23)
+end
+
+function selectUp24()
+    selectUpGeneric(24)
+end
+
+function selectUp25()
+    selectUpGeneric(25)
+end
+
+function selectUp26()
+    selectUpGeneric(26)
+end
+
+function selectUp27()
+    selectUpGeneric(27)
+end
+
+function selectUp28()
+    selectUpGeneric(28)
+end
+
+
+
+
+
+-- List Spawner starts here
 -- First step: Create the table that ultimately will be provided to newSpawner. Then, inquires player wich faction his list belongs to.
 function spawnerStart ()
     self.clearButtons()
@@ -637,7 +1512,7 @@ function parseList()
 end
 
 --crossPilots = {}
---crossPilots['Han Solo'] = {['Reb'] = {'YT-1300'} , ['Scu'] = {'YT-1300 scum'}}
+--crossPilots['Han Solo'] = {['Reb'] = {'YT-1300'} , ['Scu'] = {'YT-1300 Scum'}}
 --crossPilots['Sabine Wren'] = {['Reb'] =, 'Scu'}
 --crossPilots['Fenn Rau'] = {'Reb', 'Scu'}
 --crossPilots['Lando Calrissian'] = {'Reb', 'Scu'}
@@ -819,7 +1694,7 @@ function spawnCaller(arg)
     for i, pilot in ipairs(arg.Pilots) do
         for k, pilots in pairs(shipPilotsDB[arg.Faction][arg.Ship[i]]) do
             if string.lower(pilot) == string.lower(k) then
-                cost[i] = pilots
+                cost[i] = pilots['Cost']
             end
         end
         for k, ups in ipairs(arg.Upgrades[index]) do
