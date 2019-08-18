@@ -1,0 +1,681 @@
+-- ~~~~~~
+-- Script by dzikakulka
+-- Issues, history at: http://github.com/tjakubo2/TTS_xwing
+--
+-- Token for easy barrel rolls with StarViper Mk.II title
+-- ~~~~~~
+
+
+-- Scripted token properties
+__XW_Token = false
+__XW_TokenIdle = true
+__XW_TokenType = 'helper:Dial'
+
+-- Ref to assigned ship if there is one
+assignedShip = nil
+currMan = nil
+
+-- Save self state
+function onSave()
+    if assignedShip ~= nil then
+        local state = {assignedShipGUID=assignedShip.getGUID()}
+        return JSON.encode(state)
+    end
+end
+
+faceStat = nil
+firstSet=false
+
+assetTable = {
+    {name="Focus", url="http://tjakubo2.com/static/2.0/assets/dial/actions/focus.png"},
+    {name="Evade", url="http://tjakubo2.com/static/2.0/assets/dial/actions/evade.png"},
+    {name="TL", url="http://tjakubo2.com/static/2.0/assets/dial/actions/TL.png"},
+    {name="Calculate", url="http://tjakubo2.com/static/2.0/assets/dial/actions/calculate.png"},
+    {name="Reinforce", url="http://tjakubo2.com/static/2.0/assets/dial/actions/reinforce.png"},
+    {name="Stress", url="http://tjakubo2.com/static/2.0/assets/dial/actions/stress.png"},
+    {name="Ion", url="http://tjakubo2.com/static/2.0/assets/dial/actions/ion.png"},
+    {name="Cloak", url="http://tjakubo2.com/static/2.0/assets/dial/actions/cloak.png"},
+    {name="Jam", url="http://tjakubo2.com/static/2.0/assets/dial/actions/jam.png"},
+    {name="Disarm", url="http://tjakubo2.com/static/2.0/assets/dial/actions/disarm.png"},
+    {name="Tractor", url="http://tjakubo2.com/static/2.0/assets/dial/actions/tractor.png"},
+    {name="Strain", url="http://tjakubo2.com/static/2.0/assets/dial/actions/strain.png"},
+    {name="RotCW", url="http://tjakubo2.com/static/2.0/assets/dial/actions/RotateHorario.png"},
+    {name="RotACW", url="http://tjakubo2.com/static/2.0/assets/dial/actions/RotateAntiHorario.png"},
+--    {name="", url=""},
+--    {name="", url=""},
+--    {name="", url=""},
+
+    {name="Speed0", url="http://cloud-3.steamusercontent.com/ugc/949606135040409273/B5766B19502F8C850B0EE2A99C9200D3616A9B4B/"},
+    {name="Speed1", url="http://cloud-3.steamusercontent.com/ugc/949606135040406789/9366AC5AE8AD2A2493A04369FF0C084DBA8CDCE3/"},
+    {name="Speed2", url="http://cloud-3.steamusercontent.com/ugc/949606135040407375/2C92F4961A68C0625CF7865C2638DBD0181F2F51/"},
+    {name="Speed3", url="http://cloud-3.steamusercontent.com/ugc/949606135040407761/3806B2D4F8EC94CF02865285E1ECC59E4242829E/"},
+    {name="Speed4", url="http://cloud-3.steamusercontent.com/ugc/949606135040408215/E7FF2F8943812956DE0985BE48379C51C2236225/"},
+    {name="Speed5", url="http://cloud-3.steamusercontent.com/ugc/949606135040408733/3ECFB2033B09DCB6C9D4A552E3A334668A05B83C/"},
+
+    {name="BlueTurnL", url="http://cloud-3.steamusercontent.com/ugc/949606135040395919/D6D60325E0BAEE9AD72BCB330142F08587B90D03/"},
+    {name="BlueBankL", url="http://cloud-3.steamusercontent.com/ugc/949606135040393732/D65A9C470A425A67D5D77BCE53553FBBD60970CF/"},
+    {name="BlueStraight", url="http://cloud-3.steamusercontent.com/ugc/949606135040395007/9EEF382D92D32F2C4061E26E87773A4C2B0AA140/"},
+    {name="BlueBankR", url="http://cloud-3.steamusercontent.com/ugc/949606135040396590/49564AB44B974BA428615D6B3056F594418898A9/"},
+    {name="BlueTurnR", url="http://cloud-3.steamusercontent.com/ugc/949606135040398571/EE7B711A1F5AF010381525D5968D5FB38B1BB3A4/"},
+    {name="WhiteTurnL", url="http://cloud-3.steamusercontent.com/ugc/949606135040403103/59C18BE8E4409CAB8579CEC26B5B9811BD86F6DE/"},
+    {name="WhiteBankL", url="http://cloud-3.steamusercontent.com/ugc/949606135040400730/8328F626B9F36E27CA1CAE65F928A731EACD76D8/"},
+    {name="WhiteStraight", url="http://cloud-3.steamusercontent.com/ugc/949606135040401242/1911B1DD1F0EC64E014A604961C6D91D4ADEB61F/"},
+    {name="WhiteBankR", url="http://cloud-3.steamusercontent.com/ugc/949606135040402027/25C6B189B2223C26DC4DDB7CE56F8B2D24ADC4D5/"},
+    {name="WhiteTurnR", url="http://cloud-3.steamusercontent.com/ugc/949606135040400129/353045C22EF58E506773D69F59366CA6C4A48EE1/"},
+    {name="RedTurnL", url="http://cloud-3.steamusercontent.com/ugc/949606135040455933/B9D823CAD517F42C38890F14048C07E448BB3475/"},
+    {name="RedBankL", url="http://cloud-3.steamusercontent.com/ugc/949606135040456852/68D62F2ABA691A7571844BA72F9064FA8B33D420/"},
+    {name="RedStraight", url="http://cloud-3.steamusercontent.com/ugc/949606135040457715/63688F4A36960C21C088096F5F5676782EBA181A/"},
+    {name="RedBankR", url="http://cloud-3.steamusercontent.com/ugc/949606135040458310/4744BD32E7B3834F85F99C61D895143244FDDBF3/"},
+    {name="RedTurnR", url="http://cloud-3.steamusercontent.com/ugc/949606135040459391/C73C7081EDCA100140E10018789897885850501B/"},
+    --{name="BlueK", url=""},
+    {name="WhiteK", url="http://cloud-3.steamusercontent.com/ugc/816750219422673136/801B2DAC4E6FCD9209D83B41C69E9B3D8797A5C5/"},
+    {name="RedK", url="http://cloud-3.steamusercontent.com/ugc/949606135040405996/F59983D69585362F5D0202FBD069811E921DBBCA/"},
+--    {name="BlueTalonL", url=""},
+--    {name="WhiteTalonL", url=""},
+    {name="RedTalonL", url="http://cloud-3.steamusercontent.com/ugc/949606135040404506/51C35705F386E6BA4C2817A7C551D8A3CCC4FC32/"},
+--    {name="BlueTalonR", url=""},
+--    {name="WhiteTalonR", url=""},
+    {name="RedTalonR", url="http://cloud-3.steamusercontent.com/ugc/949606135040405419/5641C0914D0DC743AE3BE9213EA93BA7DB7D8795/"},
+--    {name="BlueSloopL", url=""},
+--    {name="WhiteSloopL", url=""},
+    {name="RedSloopL", url="http://cloud-3.steamusercontent.com/ugc/814499055610131914/4CA47CC889B08837743A4EB90BE04D5A1A708DB6/"},
+--    {name="BlueSloopR", url=""},
+--    {name="WhiteSloopR", url=""},
+    {name="RedSloopR", url="http://cloud-3.steamusercontent.com/ugc/814499055610132872/B358C74D765B8EEB144C64FEE492555759FDD645/"},
+--    {name="BlueStall", url=""},
+--    {name="WhiteStall", url=""},
+    {name="RedStall", url="http://cloud-3.steamusercontent.com/ugc/814499055610135216/F2DB1B4BCACECEFF376BA36F6CCFD16DAED85A3A/"},
+--    {name="BlueReverseBankL", url=""},
+--    {name="WhiteReverseBankL", url=""},
+    {name="RedReverseBankL", url="http://cloud-3.steamusercontent.com/ugc/814499055610137796/4D0155993F880DFC4BB531AC5D4ECE440B2274B1/"},
+--    {name="BlueReverseBankR", url=""},
+--    {name="WhiteReverseBankR", url=""},
+    {name="RedReverseBankR", url="http://cloud-3.steamusercontent.com/ugc/814499055610138551/B003582B5FDDEBF9084E22B51141F56284CDCC1B/"},
+--    {name="BlueReverseStraight", url=""},
+--    {name="WhiteReverseStraight", url=""},
+    {name="RedReverseStraight", url="http://cloud-3.steamusercontent.com/ugc/814499055610138969/74EF4C6E5AAC459C2693B5A0682D3F58BFEAF40F/"},
+
+    {name="1BG", url="http://cloud-3.steamusercontent.com/ugc/934964330409304036/0843CB1AEB01ACF259B012DEF02F23AE282C50A4/"},
+    {name="2BG", url="http://cloud-3.steamusercontent.com/ugc/934964330409304811/7A86A3E48D5326909A0ACE0B21A814657EDF54F4/"},
+    {name="3BG", url="http://cloud-3.steamusercontent.com/ugc/786353138690743898/496C87762809AD9AC4378ED0658B92CB710BAFCD/"},
+    {name="4BG", url="http://cloud-3.steamusercontent.com/ugc/786353138690743342/17602741DFC8FD5C73D27E04CE30CA2FC3995BA1/"},
+    {name="5BG", url="http://cloud-3.steamusercontent.com/ugc/786353138690741478/7105CD681F12E287097BD6F48F44270E28BB7C93/"},
+    {name="6BG", url="http://cloud-3.steamusercontent.com/ugc/786353138690742185/1D0B70CBDB4C49C821E62FC19087E5519E23B163/"},
+    {name="7BG", url="http://cloud-3.steamusercontent.com/ugc/786353138690740125/42AC09562FF72E57CB989509B6F7A5F58FFB9781/"},
+
+    {name="BoostS", url="http://cloud-3.steamusercontent.com/ugc/816750219423811083/7C1C7A560593EDFF93D9D5DA5A79B44ADF504860/"},
+    {name="BoostL", url="http://cloud-3.steamusercontent.com/ugc/816750219423811582/19142588710573CD84E797611597948407E2951B/"},
+    {name="BoostR", url="http://cloud-3.steamusercontent.com/ugc/816750219423812051/86409446A79DACB2DD084A052CF64EC9C2A56D9F/"},
+    {name="BarrelL", url="http://cloud-3.steamusercontent.com/ugc/816750219423807162/1DA310CD1B412508B5213EE37476F2A2EB9B4A38/"},
+    {name="BarrelLF", url="http://cloud-3.steamusercontent.com/ugc/816750219423808004/8BEBBB8A447DA3F335AE361885BD3E8599C95490/"},
+    {name="BarrelLB", url="http://cloud-3.steamusercontent.com/ugc/816750219423808688/985FC18E99432A2C05B54F2B0E5C151BD6B582D2/"},
+    {name="BarrelR", url="http://cloud-3.steamusercontent.com/ugc/816750219423809409/5196FEE75132E292D9E22F7B3054F396CC4EB04A/"},
+    {name="BarrelRF", url="http://cloud-3.steamusercontent.com/ugc/816750219423809765/75916DF74C1B0A8AC752204D20622EAC349D7723/"},
+    {name="BarrelRB", url="http://cloud-3.steamusercontent.com/ugc/816750219423810373/C796629CCC0BE925B9CCFF9090439C21534EB9EC/"},
+    {name="R1", url="http://cloud-3.steamusercontent.com/ugc/816750219424132946/CE226D94D489E6E73D5E353FB554E019692568B9/"},
+    {name="R2", url="http://cloud-3.steamusercontent.com/ugc/816750219424133737/7FBE68A025DEBDE7CBAFF2F9A7AF984BE022F782/"},
+    {name="R3", url="http://cloud-3.steamusercontent.com/ugc/816750219424134124/4894A4F2C53E47D340AC0EB5D9C474D5C169B27E/"},
+    {name="FrontArc", url="http://cloud-3.steamusercontent.com/ugc/816750219423812542/CF0B3D353F6D321FE0009C424D1FF67BE464F27D/"},
+    {name="RightArc", url="http://cloud-3.steamusercontent.com/ugc/816750219424130273/4149098A1D3A39CBAFB2CD310CDEC7EA94CB8EDA/"},
+    {name="LeftArc", url="http://cloud-3.steamusercontent.com/ugc/816750219424129163/003ACF3DAC38E205CAEADD4346D69C3CE861D6E5/"},
+    {name="BackArc", url="http://cloud-3.steamusercontent.com/ugc/816750219424129702/B56EA3D8C1F8EF0218E87E3CADB1E1A7397D5346/"},
+    {name="TalonFront", url="http://cloud-3.steamusercontent.com/ugc/786352494210806497/32D32173D4BBADD42812384D45F2C6F9E5CAD2DD/"},
+    {name="TalonMid", url="http://cloud-3.steamusercontent.com/ugc/786352494210807090/5F3D06E52F2D1E87BEAFB140AFE39A3FCE472C3B/"},
+    {name="TalonRear", url="http://cloud-3.steamusercontent.com/ugc/786352494210807555/80F4AE45B9A83F73EEB7470DABF4E4DB7F9D0FCE/"},
+    {name="PivotLeft", url="http://cloud-3.steamusercontent.com/ugc/786352494210814563/9C7B99EA26C94649A79975BF5951718855FD6F8C/"},
+    {name="Pivot180", url="http://cloud-3.steamusercontent.com/ugc/786352494210814013/ADD1ABC87102A1FC25681A92DDFD326B05039BDC/"},
+    {name="PivotRight", url="http://cloud-3.steamusercontent.com/ugc/786352494210815312/D3A4DED40146BFC9246E675E324F24062CFB79D7/"},
+}
+
+Data = {}
+Data['movSet'] = {'bbl1', 'bs1', 'bbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'wtl3', 'wbl3', 'ws3', 'wbr3', 'wtr3', 'ws4', 'rtl3t', 'rtr3t', 'rk4' }
+Data['actSet'] = {'BR', 'F', 'B', 'TL'}
+Data['Special'] = nil
+Data['Color'] = nil
+
+
+-- Restore self state
+function onLoad()
+    clearDial()
+  --  self.UI.setCustomAssets(assetTable)
+end
+
+initStat = true
+
+function onObjectSpawned()
+    if initStat==true then
+        initStat=false
+        clearDial()
+    end
+end
+
+function clearDial()
+    self.UI.hide("ActionsFD")
+    self.UI.hide("CenterFD")
+    self.UI.hide("ManWin")
+    self.UI.Hide('CenterFU')
+    self.UI.Hide('BoostFD')
+    self.UI.Hide('ArcFD')
+    self.UI.Hide('BarrelLeftFD')
+    self.UI.Hide('BarrelRightFD')
+    self.UI.Hide('TalonPanel')
+    winStat = false
+    tokStat = false
+    relocStat = false
+    arcStat = false
+end
+
+clearDial()
+function onFixedUpdate()
+    if assignedShip ~= nil then
+        if self.getTransformUp().y >0 then
+            if faceStat ~= 'Down' then
+                faceStat = 'Down'
+                clearDial()
+                self.UI.setAttribute("Main", "rotation", "0 0 0")
+                self.UI.show("CenterFD")
+            end
+        else
+            if faceStat ~= 'Up' then
+                faceStat = 'Up'
+                clearDial()
+                manSetting()
+                self.UI.setAttribute("Main", "rotation", "180 180 180")
+                self.UI.show('CenterFU')
+            end
+        end
+    end
+end
+
+
+function manSelect(Player, option, id)
+    firstSet=true
+    self.UI.setAttribute("ManBtnGroup","allowSwitchOff","false")
+    curMan=string.lower(id)
+    if curMan:sub(1,1) == 'w' then
+        manColor="White"
+    elseif curMan:sub(1,1) == 'b' then
+        manColor="Blue"
+    elseif curMan:sub(1,1) == 'r' then
+        manColor="Red"
+    end
+
+    if curMan:sub(-1,-1) == 't' then
+        manType = "Talon"
+    elseif curMan:sub(-1,-1) == 's' then
+        manType = "Sloop"
+    elseif curMan:sub(-1,-1) == 'r' then
+        if curMan:sub(2,2) == 'b' then
+            manType = "ReverseBank"
+        else
+            manType = "Reverse"
+        end
+    elseif curMan:sub(2,2) == 't' then
+        manType = "Turn"
+    elseif curMan:sub(2,2) == 'b' then
+        manType = "Bank"
+    elseif curMan:sub(2,2) == 's' then
+        manType = "Straight"
+    elseif curMan:sub(2,2) == 'k' then
+        manType = 'K'
+    end
+
+    local Char= curMan:find("%d")
+    manSpeed = curMan:sub(Char,Char)
+
+    if curMan:sub(3,3) == 'l' then
+        manBear = "L"
+    elseif curMan:sub(3,3) == 'r' then
+        manBear = "R"
+    else
+        manBear = ""
+    end
+    if manSpeed=="0" then
+        manType='Stall'
+    end
+    speedIcon="Speed"..manSpeed
+    typeIcon= manColor .. manType .. manBear
+    setMan = curMan:sub(2)
+    befAft = '_B'
+end
+
+function manSetting()
+    if setStat == true then
+        self.UI.setAttribute("TypeIcon", "image", typeIcon)
+        self.UI.setAttribute("SpeedIcon", "image", speedIcon)
+        self.UI.setAttribute("TypeIcon", "active", "true")
+        self.UI.setAttribute("SpeedIcon", "active", "true")
+        self.UI.setAttribute("MoveBtn", "active", "true")
+        self.UI.setAttribute("UndoBtn", "active", "false")
+    else
+        self.UI.setAttribute("TypeIcon", "active", "false")
+        self.UI.setAttribute("SpeedIcon", "active", "false")
+        self.UI.setAttribute("MoveBtn", "active", "false")
+        self.UI.setAttribute("UndoBtn", "active", "false")
+    end
+    if firstSet== false then
+        self.UI.setAttribute("TypeIcon", "active", "false")
+        self.UI.setAttribute("SpeedIcon", "active", "false")
+        self.UI.setAttribute("MoveBtn", "active", "false")
+        self.UI.setAttribute("UndoBtn", "active", "false")
+    end
+end
+
+function Undo()
+    assignedShip.setDescription("q")
+    self.UI.setAttribute("UndoBtn", "active", "false")
+    if setMan:sub(-1,-1) ~='t' then
+        self.UI.setAttribute("MoveBtn", "active", "true")
+    else
+        self.UI.show("TalonPanel")
+    end--]]
+    befAft='_B'
+end
+
+function performMove(P)
+    if setMan~="" then
+        self.UI.setAttribute("MoveBtn", "active", "false")
+        if setMan:sub(-1,-1) ~='t' then
+            self.UI.setAttribute("UndoBtn", "active", "true")
+            assignedShip.setDescription(setMan)
+            befAft = '_A'
+            setDial(P)
+        else
+            self.UI.show("TalonPanel")
+        end
+    end
+end
+
+
+function performTalon(p,option,id)
+    self.UI.hide("TalonPanel")
+    self.UI.setAttribute("UndoBtn", "active", "true")
+    if id=="TalonMidBtn" then
+        self.UI.hide("TalonPanel")
+        self.UI.setAttribute("UndoBtn", "active", "true")
+        assignedShip.setDescription(setMan)
+    elseif id=="TalonReaBtn" then
+        self.UI.hide("TalonPanel")
+        self.UI.setAttribute("UndoBtn", "active", "true")
+        talonMove = setMan:sub(1,3).."b"..setMan:sub(-1,-1)
+        assignedShip.setDescription(talonMove)
+    elseif id=="TalonForBtn" then
+        self.UI.hide("TalonPanel")
+        self.UI.setAttribute("UndoBtn", "active", "true")
+        talonMove = setMan:sub(1,3).."f"..setMan:sub(-1,-1)
+        assignedShip.setDescription(talonMove)
+    end
+    befAft ='_A'
+    setDial(P)
+end
+
+function onPickUp(player_color)
+    if assignedShip == nil then
+        pColor = self.held_by_color
+        self.UI.setCustomAssets(assetTable)
+    end
+end
+
+
+-- Assign on drop near a small base ship
+function onDropped()
+    if assignedShip == nil then
+        local spos = self.getPosition()
+        local nearest = nil
+        local minDist = 2.89 -- 80mm
+        for k,ship in pairs(getAllObjects()) do
+            if ship.tag == 'Figurine' and ship.name ~= '' then
+                local pos = ship.getPosition()
+                local dist = math.sqrt(math.pow((spos[1]-pos[1]),2) + math.pow((spos[3]-pos[3]),2))
+                if dist < minDist then
+                    nearest = ship
+                    minDist = dist
+                end
+            end
+        end
+        if nearest ~= nil then
+            if pColor=="White" then
+                printToAll("Please, pick a color before assigning dials")
+            else
+                assignedShip = nearest
+                playerColor=pColor
+                printToAll('Dial assigned to to ' .. nearest.getName(), {0.2, 0.2, 1})
+                printToAll('Controlled by the '.. playerColor .. ' player')
+                printToAll('')
+                self.setRotation(nearest.getRotation())
+                assignedShip = nearest
+                Name=assignedShip.getName()
+                self.setName(Name)
+                --self.UI.setAttribute("DialName", Name)
+                self.UI.setValue("Name",Name)
+                shipData=assignedShip.getTable("Data")
+                self.UI.setAttribute("BackGround", "image", tostring(shipData['Faction']).."BG")
+                for k,v in pairs(shipData['moveSet']) do
+                    self.UI.setAttribute(string.upper(v), "active", "true")
+                end
+                setMan=""
+                for k,v in pairs(shipData['actSet']) do
+                    if v == 'F' then
+                        self.UI.setAttribute('FocusBtn', 'active', 'true')
+                    elseif v == 'TL' then
+                        self.UI.setAttribute("TargetLockBtn", 'active', 'true')
+                    elseif v == 'E' then
+                        self.UI.setAttribute("EvadeBtn", 'active', 'true')
+                    elseif v == 'R' then
+                        self.UI.setAttribute("ReinforceBtn", 'active', 'true')
+                    elseif v == 'C' then
+                        self.UI.setAttribute("CalculateBtn", 'active', 'true')
+                    elseif v == 'CL' then
+                        self.UI.setAttribute("CloakBtn", 'active', 'true')
+                    elseif v == 'BR' then
+                        self.UI.setAttribute("BarrelRBtn", "active", "true")
+                        self.UI.setAttribute("BarrelRFBtn", "active", "true")
+                        self.UI.setAttribute("BarrelRBBtn", "active", "true")
+                        self.UI.setAttribute("BarrelLBtn", "active", "true")
+                        self.UI.setAttribute("BarrelLFBtn", "active", "true")
+                        self.UI.setAttribute("BarrelLBBtn", "active", "true")
+                        self.UI.setAttribute("BoostSBtn", "active", "true")
+                        self.UI.setAttribute("BoostRBtn", "active", "true")
+                        self.UI.setAttribute("BoostLBtn", "active", "true")
+                    elseif v == 'B' then
+                        self.UI.setAttribute("BarrelRBtn", "active", "true")
+                        self.UI.setAttribute("BarrelRFBtn", "active", "true")
+                        self.UI.setAttribute("BarrelRBBtn", "active", "true")
+                        self.UI.setAttribute("BarrelLBtn", "active", "true")
+                        self.UI.setAttribute("BarrelLFBtn", "active", "true")
+                        self.UI.setAttribute("BarrelLBBtn", "active", "true")
+                        self.UI.setAttribute("BoostSBtn", "active", "true")
+                        self.UI.setAttribute("BoostRBtn", "active", "true")
+                        self.UI.setAttribute("BoostLBtn", "active", "true")
+                    end
+                end
+            end
+        end
+    end
+end
+
+-- functions called when buttons are pressed
+function genericAction(a,b,c,d)
+    print(a)
+    print(b)
+    print(c)
+end
+
+
+function focusTok()
+    Global.call('proxyPerformAction', {assignedShip, 'Focus', pColor})
+end
+
+function evadeTok()
+    Global.call('proxyPerformAction', {assignedShip, 'Evade', pColor})
+end
+
+function tlTok()
+    Global.call('proxyPerformAction', {assignedShip, 'Target Lock', pColor})
+end
+
+function tractorTok()
+    Global.call('proxyPerformAction', {assignedShip, 'Tractor', pColor})
+end
+
+function jamTok()
+    Global.call('proxyPerformAction', {assignedShip, 'Jam', pColor})
+end
+
+function disarmTok()
+    Global.call('proxyPerformAction', {assignedShip, 'Disarm', pColor})
+end
+
+function cloakTok()
+    Global.call('proxyPerformAction', {assignedShip, 'Cloak', pColor})
+end
+
+function calcTok()
+    Global.call('proxyPerformAction', {assignedShip, 'Calculate', pColor})
+end
+
+function reinforceTok()
+    Global.call('proxyPerformAction', {assignedShip, 'Reinforce', pColor})
+end
+
+function stressTok(p,id)
+    if id == '-1' then
+        Global.call('proxyPerformAction', {assignedShip, 'Stress', pColor})
+    else
+        Global.call('proxyPerformAction', {assignedShip, 'unstress', pColor})
+    end
+end
+
+function strainTok(p,id)
+  if id == '-1' then
+      Global.call('proxyPerformAction', {assignedShip, 'Strain', pColor})
+  else
+      Global.call('proxyPerformAction', {assignedShip, 'unstrain', pColor})
+  end
+end
+
+function ionTok()
+    Global.call('proxyPerformAction', {assignedShip, 'Ion', pColor})
+end
+
+function BoostS()
+    assignedShip.setDescription("s1b")
+end
+
+function BoostR()
+    assignedShip.setDescription("br1b")
+end
+
+function BoostL()
+    assignedShip.setDescription("bl1b")
+end
+
+function BarrelL()
+    assignedShip.setDescription("rl2")
+end
+
+function BarrelLF()
+    assignedShip.setDescription("rl1")
+end
+
+function BarrelLB()
+    assignedShip.setDescription("rl3")
+end
+
+function BarrelR()
+    assignedShip.setDescription("rr2")
+end
+
+function BarrelRF()
+    assignedShip.setDescription("rr1")
+end
+
+function BarrelRB()
+    assignedShip.setDescription("rr3")
+end
+
+function range1()
+    assignedShip.setDescription("r1")
+end
+
+function range2()
+    assignedShip.setDescription("r2")
+end
+
+function range3()
+    assignedShip.setDescription("r3")
+end
+
+function arcF()
+    assignedShip.setDescription("f")
+end
+
+function arcL()
+    assignedShip.setDescription("sl")
+end
+
+function arcR()
+    assignedShip.setDescription("sr")
+end
+
+function arcB()
+    assignedShip.setDescription("b")
+end
+
+
+function Window(p)
+    if winStat ==  nil then
+        winStat = false
+    end
+    if p.color == playerColor then
+        if winStat == false then
+            winStat = true
+            self.UI.show("ManWin")
+            self.UI.setAttribute("ManWin", "visibility", playerColor)
+            self.UI.setAttribute("ManBtnGroup", "active", "true")
+        else
+            winStat = false
+            self.UI.setAttribute("ManBtnGroup", "active", "false")
+            self.UI.hide('ManWin')
+        end
+    end
+end
+
+function tokenMenu()
+    if tokStat==nil then
+        tokStat=false
+    end
+    if tokStat== false then
+        self.UI.setAttribute("ActionsFD", "position", "-430 -230 -30")
+        self.UI.setAttribute("ActionsFD", "rotation", "180 180 0")
+        self.UI.show("ActionsFD")
+        tokStat=true
+    else
+        self.UI.hide("ActionsFD")
+        tokStat=false
+    end
+end
+
+function tokenMenuFU()
+    if tokStat==nil then
+        tokStat=false
+    end
+    if tokStat== false then
+        self.UI.setAttribute("ActionsFD", "position", "430 -230 30")
+        self.UI.setAttribute("ActionsFD", "rotation", "180 0 0")
+        self.UI.show("ActionsFD")
+        tokStat=true
+    else
+        self.UI.hide("ActionsFD")
+        tokStat=false
+    end
+end
+
+function arcMenu()
+    if arcStat==nil then
+        arcStat=false
+    end
+    if arcStat== false then
+        self.UI.setAttribute("ArcFD", "rotation", "0 0 180")
+        self.UI.setAttribute("ArcFD", "position", "350 200 -30")
+        self.UI.show("ArcFD")
+        arcStat=true
+    else
+        self.UI.hide("ArcFD")
+        arcStat=false
+    end
+end
+
+function arcMenuFU()
+    if arcStat==nil then
+        arcStat=false
+    end
+    if arcStat== false then
+        self.UI.setAttribute("ArcFD", "rotation", "180 0 0")
+        self.UI.setAttribute("ArcFD", "position", "-350 200 30")
+        self.UI.show("ArcFD")
+        arcStat=true
+    else
+        self.UI.hide("ArcFD")
+        arcStat=false
+    end
+end
+
+function relocMenu()
+    if relocStat==nil then
+        relocStat=false
+    end
+    if relocStat== false then
+        self.UI.setAttribute("BoostFD", "rotation", "180 180 0")
+        self.UI.setAttribute("BoostFD", "position", "0 -270 -30")
+        self.UI.setAttribute("BarrelRightFD", "rotation", "180 180 0")
+        self.UI.setAttribute("BarrelRightFD", "position", "-200 -270 -30")
+        self.UI.setAttribute("BarrelLeftFD", "rotation", "180 180 0")
+        self.UI.setAttribute("BarrelLeftFD", "position", "200 -270 -30")
+        self.UI.show("BoostFD")
+        self.UI.show("BarrelRightFD")
+        self.UI.show("BarrelLeftFD")
+        relocStat=true
+    else
+        self.UI.hide("BoostFD")
+        self.UI.hide("BarrelRightFD")
+        self.UI.hide("BarrelLeftFD")
+        relocStat=false
+    end
+end
+
+function relocMenuFU()
+    if relocStat==nil then
+        relocStat=false
+    end
+    if relocStat== false then
+        self.UI.setAttribute("BoostFD", "rotation", "180 0 0")
+        self.UI.setAttribute("BoostFD", "position", "0 -270 30")
+        self.UI.setAttribute("BarrelRightFD", "rotation", "180 0 0")
+        self.UI.setAttribute("BarrelRightFD", "position", "200 -270 30")
+        self.UI.setAttribute("BarrelLeftFD", "rotation", "180 0 0")
+        self.UI.setAttribute("BarrelLeftFD", "position", "-200 -270 30")
+        self.UI.show("BoostFD")
+        self.UI.show("BarrelRightFD")
+        self.UI.show("BarrelLeftFD")
+        relocStat=true
+    else
+        self.UI.hide("BoostFD")
+        self.UI.hide("BarrelRightFD")
+        self.UI.hide("BarrelLeftFD")
+        relocStat=false
+    end
+end
+
+function setDial(P)
+
+    if firstSet == true then
+        if setStat == nil then
+            setStat = false
+        end
+        if P.color == playerColor then
+            if setStat == false then
+                self.UI.setAttribute("SetBtn", "color", P.color)
+                setStat = true
+                printToAll(P.color.." player has set the maneuver for "..assignedShip.getName(), P.color)
+                if winStat==true then
+                    Window(P)
+                end
+                self.UI.hide("moveWindow")
+            else
+                self.UI.setAttribute("SetBtn", "color", "White")
+                setStat = false
+                self.UI.show("moveWindow")
+            end
+        end
+    else
+        print("Pick a maneuver before setting the dial")
+    end
+end
+
+function spawnTemplate()
+    if setMan~='' then
+        Table={[1]=assignedShip,[2]='spawnMoveTemplate:'..setMan..befAft,[3]=pColor}
+        Global.call("proxyPerformAction",Table)
+    end
+end
