@@ -1,0 +1,262 @@
+#include TTS_lib/Util/Util
+#include TTS_lib/Vector/Vector
+
+#include TTS_lib/ObjType/ObjType
+
+ObjType.AddType('dialBag', function(obj) return (obj.tag == 'Infinite') end)
+
+Layout = {}
+
+#include TTS_xwing/src/Layouts/LayoutElements
+
+Layout.layouts = {}
+
+Layout.AddLayout = function(layoutTable)
+    table.insert(Layout.layouts, layoutTable)
+end
+
+#include TTS_xwing/src/Layouts/Standard
+#include TTS_xwing/src/Layouts/Epic
+
+state = {
+    active = true,
+    index = 1,
+    dialZones = {}
+}
+
+Layout.NearLocal = function(zone, pos)
+    local posAdj = Vect.ScaleEach(Vect.Sub(pos, {0, zone.getPosition()[2], zone.getScale()[3]/2}), Vect.Inverse(zone.getScale()))
+    posAdj[1] = posAdj[1] + 0.5*math.sgn(posAdj[1])
+    return posAdj
+end
+
+Layout.NearGlobal = function(zone, pos)
+    local posAdj = Vect.ScaleEach(Vect.Sub(pos, {0, zone.getPosition()[2], zone.getScale()[3]/2}), Vect.Inverse(zone.getScale()))
+    posAdj[1] = posAdj[1] + 0.5*math.sgn(posAdj[1])
+    return zone.positionToWorld(Vect.ScaleEach(posAdj, {-1, 1, 1}))
+end
+
+Layout.extIndex = 1
+Layout.AddDialZone = function(zone, bPos, sCent, sSize)
+    zone.clearButtons()
+    state.dialZones[zone.getGUID()] = {bPos, sCent, sSize}
+    local extension = Layout.extensions[Layout.extIndex]
+    local zoneColor = zone.getValue()
+    local mainButton = {
+       label = 'Assign Dials',
+       position = Layout.NearLocal(zone, bPos),
+       rotation = {0, 180, 0},
+       scale = Vect.Inverse(zone.getScale()),
+       function_owner = self,
+       height = 750,
+       width = 2500,
+       font_size = 400,
+       color = stringColorToRGB(zoneColor)
+    }
+    mainButton.position[2] = -0.375
+
+    _G['Assign' .. zoneColor] = function(_, playerColor)
+        local playerStuff = ObjType.GetBoxOfType(sCent, {0, 0, 0}, sSize, 'dialBag')
+        Layout.quickAssignModule.call('API_AssignDials', {playerColor, zone, Layout.NearGlobal(zone, bPos), extension, playerStuff})
+    end
+    extension.call('FitToZone', {zone = zone})
+    mainButton.click_function = 'Assign' .. zoneColor
+    Layout.extIndex = Layout.extIndex+1
+    zone.createButton(mainButton)
+end
+
+Layout.required = {}
+function onObjectDestroyed(obj)
+    if state.active and Layout.required[obj] then
+        broadcastToAll('An object that was part of layout system was destroyed, disabling layouts', {1, 0.4, 0})
+        state.active = false
+    end
+    if state.dialZones[obj.getGUID()] then
+        state.dialZones[obj.getGUID()] = nil
+        SaveState()
+    end
+end
+Layout.RequireFromGUID = function(guid)
+    local obj = (getObjectFromGUID(guid) or error('Layout.RequireFromGUID: object with \'' .. guid .. '\' GUID not found'))
+    Layout.required[obj] = true
+    return obj
+end
+
+Layout.GetTableRef = function()
+    local hits = Physics.cast({
+        origin = {0, 0, 0},
+        direction = {0, -1, 0},
+        type = 3,
+        size = {1, 1, 1},
+        orientation = {0, 0, 0},
+        debug = false
+    })
+    for k, hitData in pairs(hits) do
+        if hitData.hit_object.tag == 'Surface' then
+            return hitData.hit_object
+        end
+    end
+    error('Layout.GetTableRef: No surface found')
+end
+
+
+Layout.Hide = function(obj)
+    obj.highlightOff()
+    obj.lock()
+    obj.tooltip = false
+    obj.interactable = false
+    obj.setPositionSmooth({0, -5, 0}, false, true)
+    local handlers = obj.getTable('__XW_LayoutHandlers') or {}
+    if handlers.hide then
+        obj.call(handlers.hide)
+    end
+    obj.setScale(Vect.Scale(obj.getScale(), 0.1))
+end
+
+Layout.Put = function(obj, data)
+    obj.lock()
+    local int = data.int
+    if int == nil then int = true end
+    obj.interactable = int
+    obj.tooltip = int
+    obj.setPositionSmooth(data.pos, false, true)
+    obj.setRotationSmooth(data.rot, false, true)
+    obj.setScale(data.scale)
+    if data.set then
+        data.set(obj)
+    end
+    local handlers = obj.getTable('__XW_LayoutHandlers') or {}
+    if handlers.show then
+        obj.call(handlers.show)
+    end
+end
+
+Layout.GetMats = function()
+    local mats = {}
+    for k,obj in pairs(getAllObjects()) do
+        if obj.getVar('__XW_Mat') then
+            local lay, ID = obj.getVar('__XW_MatLayout'), obj.getVar('__XW_MatID')
+            if not mats[lay] then
+                mats[lay] = {}
+            end
+            mats[lay][ID] = obj
+        end
+    end
+    return mats
+end
+
+Layout.Switch = function(newIndex)
+    if not state.active then
+        broadcastToAll('Layout system disabled', {1, 0.2, 0})
+        return
+    end
+    table.print(Layout.layouts)
+    local lay = Layout.layouts[newIndex]
+    print('Switch to ' .. lay.name)
+    local tabRef = Layout.GetTableRef()
+    local cust = tabRef.getCustomObject()
+    cust.image = lay.tableImage
+    tabRef.setCustomObject(cust)
+    tabRef.reload()
+    for _,el in pairs(Layout.extensions) do
+        Layout.Hide(el)
+    end
+    for name,el in pairs(Layout.elements) do
+        if lay.elements[name] then
+            el.highlightOn({0, 0, 1}, 2)
+            Layout.Put(el, lay.elements[name])
+        else
+            Layout.Hide(el)
+        end
+    end
+
+    Layout.extIndex = 1
+    state.dialZones = {}
+    for k,data in pairs(lay.zoneData) do
+        local zone = Layout.zones[k]
+        zone.setValue(data.color)
+        Layout.Put(zone, data)
+        Layout.AddDialZone(zone, data.bPos, data.sCent, data.sSize)
+    end
+    for k=#lay.zoneData+1,#Layout.zones do
+        Layout.zones[k].clearButtons()
+        Layout.Hide(Layout.zones[k])
+    end
+
+    local matData = Layout.GetMats()
+    for layout, mats in pairs(matData) do
+        if layout ~= lay.name then
+            for _,mat in pairs(mats) do
+                Layout.Hide(mat)
+            end
+        else
+            for id,mat in pairs(mats) do
+                if lay.mats[id] then
+                    Layout.Put(mat, lay.mats[id])
+                else
+                    Layout.Hide(mat)
+                end
+            end
+        end
+    end
+    function setHandsDelayed()
+        for k=1,10 do
+            coroutine.yield()
+        end
+        for color, data in pairs(lay.hands) do
+            Player[color].setHandTransform({
+                position = data.pos,
+                rotation = data.rot,
+                scale    = data.scale,
+            })
+        end
+        return 1
+    end
+    startLuaCoroutine(self, 'setHandsDelayed')
+    state.index = newIndex
+    SaveState()
+end
+
+function onChat(message, player)
+    if message == 'std' then
+        Layout.Switch(1)
+    end
+    if message == 'ep' then
+        Layout.Switch(2)
+    end
+    if message == 'ad' then
+        --getObjectFromGUID('626772').call('API_AssignDials', {'Red', Layout.zones['Zone 1'], {bagInit = {12, 1, -6}, bagStep = {2.6, 0, 0} }})
+        --getObjectFromGUID('626772').call('API_AssignDials', {'Red', Layout.zones['Zone 1'], {bagInit = {12, 1, -6}, bagStep = {2, 0, 2} }})
+        getObjectFromGUID('626772').call('API_AssignDials', {'Red', Layout.zones['Zone 1'], {bagInit = {12, 1, -6}, bagStep = {-2, 0, -2} }})
+    end
+end
+
+
+function onLoad(saveState)
+    print('load[['..saveState..']]')
+    local load = JSON.decode(saveState)
+    state.active = load.active
+    state.index = load.index
+    Layout.FillElements()
+    for guid,data in pairs(load.dialZones) do
+        local zone = getObjectFromGUID(guid)
+        if zone then
+            print('Restore ' .. zone.getValue())
+            Layout.AddDialZone(zone, table.unpack(data))
+        end
+    end
+
+    local sPos = self.getPosition()
+    self.setPosition({sPos[1], 0, sPos[3]})
+    self.interactable = false
+    self.tooltip = false
+    self.lock()
+end
+
+function onSave()
+    return JSON.encode(state)
+end
+
+function SaveState()
+    self.script_state = JSON.encode(state)
+end

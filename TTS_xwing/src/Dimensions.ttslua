@@ -1,0 +1,48 @@
+-- ~~~~~~
+-- Script by dzikakulka
+-- Issues, history at: http://github.com/tjakubo2/TTS_xwing
+--
+-- X-Wing related measurements for TTS
+-- ~~~~~~
+
+-- 40mm = 1.445igu
+-- (s1 length / small base size)
+
+-- 1mm = 0.036125igu
+mm_igu_ratio = 0.036125
+
+-- Milimeter dimensions of ship bases
+mm_smallBase = 40
+mm_mediumBase = 60
+mm_largeBase = 80
+
+mm_baseSize = {}
+mm_baseSize.small = 40
+mm_baseSize.smallBase = 40
+mm_baseSize.medium = 60
+mm_baseSize.mediumBase = 60
+mm_baseSize.large = 80
+mm_baseSize.largeBase = 80
+
+-- Milimeter dimensions for cards
+mm_upgrade_width = 41
+mm_upgrade_height = 63
+mm_pilot_width = 63.5
+mm_pilot_height = 88
+
+mm_cardSize = {}
+mm_cardSize.upgrade = {width = 41, height = 63}
+mm_cardSize.pilot = {width = 63.5, height = 88}
+
+-- Milimeter dimension for dial cards
+mm_dialSize = 54
+
+-- Convert argument from MILIMETERS to IN-GAME UNITS
+function Convert_mm_igu(milimeters)
+    return milimeters*mm_igu_ratio
+end
+
+-- Convert argument from IN-GAME UNITS to MILIMETERS
+function Convert_igu_mm(in_game_units)
+    return in_game_units/mm_igu_ratio
+end

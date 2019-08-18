@@ -1,0 +1,151 @@
+-- ~~~~~~
+-- Script by dzikakulka
+-- Issues, history at: http://github.com/tjakubo2/TTS_xwing
+--
+-- Token for easy barrel rolls with StarViper Mk.II title
+-- ~~~~~~
+
+-- Scripted token properties
+__XW_Token = true
+__XW_TokenIdle = true
+__XW_TokenType = 'helper:viperRoll'
+
+-- Ref to assigned ship if there is one
+assignedShip = nil
+
+-- Save self state
+function onSave()
+    if assignedShip ~= nil then
+        local state = {assignedShipGUID=assignedShip.getGUID()}
+        return JSON.encode(state)
+    end
+end
+
+-- Restore self state
+function onLoad(save_state)
+    self.setName('StarViper Mk.II roll token')
+    if save_state ~= '' and save_state ~= 'null' and save_state ~= nil then
+        local assignedShipGUID = JSON.decode(save_state).assignedShipGUID
+        if assignedShipGUID ~= nil and getObjectFromGUID(assignedShipGUID) ~= nil then
+            assignedShip = getObjectFromGUID(assignedShipGUID)
+            self.setName(assignedShip.getName() .. '\'s roll token')
+            SpawnFirstButtons()
+        end
+    end
+end
+
+-- Spawn initial roll/unassign buttons
+function SpawnFirstButtons()
+    __XW_TokenIdle = true
+    self.clearButtons()
+    local decloakButton = {['function_owner'] = self, ['click_function'] = 'SpawnRollButtons', ['label'] = 'Roll', ['position'] = {0, 0.25, -1.5}, ['rotation'] =  {0, 0, 0}, ['width'] = 1000, ['height'] = 500, ['font_size'] = 250}
+    self.createButton(decloakButton)
+    local deleteButton = {['function_owner'] = self , ['click_function'] = 'selfUnassign', ['label'] = 'Unassign', ['position'] = {0, 0.25, 1.5}, ['rotation'] =  {0, 0, 0}, ['width'] = 1000, ['height'] = 500, ['font_size'] = 250}
+    self.createButton(deleteButton)
+end
+
+-- Assign on drop near a small base ship
+function onDropped()
+    if assignedShip == nil then
+        local spos = self.getPosition()
+        local nearest = nil
+        local minDist = 2.89 -- 80mm
+        for k,ship in pairs(getAllObjects()) do
+            if ship.tag == 'Figurine' and ship.name ~= '' and (Global.call('API_ModelDB_GetData', {ship}).baseSize == 'small') then
+                local pos = ship.getPosition()
+                local dist = math.sqrt(math.pow((spos[1]-pos[1]),2) + math.pow((spos[3]-pos[3]),2))
+                if dist < minDist then
+                    nearest = ship
+                    minDist = dist
+                end
+            end
+        end
+        if nearest ~= nil then
+            printToAll('SV Mk.II roll token assigned to ' .. nearest.getName(), {0.2, 0.2, 1})
+            self.setRotation(nearest.getRotation())
+            SpawnFirstButtons()
+            assignedShip = nearest
+            self.setName(assignedShip.getName() .. '\'s roll token')
+        end
+    end
+end
+
+-- Spawn undo/OK/slide buttons (after a roll)
+function SpawnFinalButtons()
+    undoToBackCount = 1
+    self.clearButtons()
+    local undoButton = {['function_owner'] = self , ['click_function'] = 'performUndo', ['label'] = 'Undo', ['position'] = {0, 0.25, -1.5}, ['rotation'] =  {0, 0, 0}, ['width'] = 1000, ['height'] = 500, ['font_size'] = 250}
+    self.createButton(undoButton)
+    local deleteButton = {['function_owner'] = self , ['click_function'] = 'resetToFirst', ['label'] = 'OK', ['position'] = {0, 0.25, 1.5}, ['rotation'] =  {0, 0, 0}, ['width'] = 1000, ['height'] = 500, ['font_size'] = 250}
+    self.createButton(deleteButton)
+    local slideButton = {['function_owner'] = self , ['click_function'] = 'callSlide', ['label'] = 'Slide', ['position'] = {3, 0.25, 0}, ['rotation'] =  {0, 90, 0}, ['width'] = 2000, ['height'] = 400, ['font_size'] = 250}
+    self.createButton(slideButton)
+end
+
+-- Spawn roll buttons
+function SpawnRollButtons()
+    __XW_TokenIdle = false
+    self.clearButtons()
+    local rollLF_Button = {['function_owner'] = self,['click_function'] = 'rollLF', ['label'] = 'XF', ['position'] = {-1.5, 0.25, -0.6}, ['rotation'] =  {0, 0, 0}, ['width'] = 365, ['height'] = 520, ['font_size'] = 250}
+    self.createButton(rollLF_Button)
+    local rollLB_Button = {['function_owner'] = self,['click_function'] = 'rollLB', ['label'] = 'XB', ['position'] = {-1.5, 0.25, 0.6}, ['rotation'] =  {0, 0, 0}, ['width'] = 365, ['height'] = 520, ['font_size'] = 250}
+    self.createButton(rollLB_Button)
+    local rollRF_Button = {['function_owner'] = self,['click_function'] = 'rollRF', ['label'] = 'XF', ['position'] = {1.5, 0.25, -0.6}, ['rotation'] =  {0, 0, 0}, ['width'] = 365, ['height'] = 520, ['font_size'] = 250}
+    self.createButton(rollRF_Button)
+    local rollRB_Button = {['function_owner'] = self,['click_function'] = 'rollRB', ['label'] = 'XB', ['position'] = {1.5, 0.25, 0.6}, ['rotation'] =  {0, 0, 0}, ['width'] = 365, ['height'] = 520, ['font_size'] = 250}
+    self.createButton(rollRB_Button)
+    local backButton = {['function_owner'] = self , ['click_function'] = 'resetToFirst', ['label'] = 'Back', ['position'] = {0, 0.25, 2}, ['rotation'] =  {0, 0, 0}, ['width'] = 750, ['height'] = 500, ['font_size'] = 250}
+    self.createButton(backButton)
+end
+
+--------
+-- ROLL MOVES
+function rollRF()
+    if Global.call('API_PerformMove', {code='vrrf', ship=assignedShip}) then
+        SpawnFinalButtons()
+    end
+end
+function rollRB()
+    if Global.call('API_PerformMove', {code='vrrb', ship=assignedShip}) then
+        SpawnFinalButtons()
+    end
+end
+function rollLF()
+    if Global.call('API_PerformMove', {code='vref', ship=assignedShip}) then
+        SpawnFinalButtons()
+    end
+end
+function rollLB()
+    if Global.call('API_PerformMove', {code='vreb', ship=assignedShip}) then
+        SpawnFinalButtons()
+    end
+end
+-- END DECLOAK MOVES
+--------
+
+-- Unassign ship
+function selfUnassign()
+    assignedShip = nil
+    __XW_TokenIdle = false
+    self.clearButtons()
+    self.setName('StarViper Mk.II roll token')
+end
+-- Back to first buttons
+function resetToFirst()
+    SpawnFirstButtons()
+end
+-- Undo move, if undid all back to roll buttons
+function performUndo()
+    assignedShip.setDescription('q')
+    undoToBackCount = undoToBackCount - 1
+    if undoToBackCount <= 0 then
+        SpawnRollButtons()
+    end
+end
+-- Start slide
+function callSlide(obj, playerColor)
+    local started = Global.call('API_StartSlide', {obj=obj, playerColor=playerColor})
+    if started then
+        undoToBackCount = undoToBackCount + 1
+    end
+end

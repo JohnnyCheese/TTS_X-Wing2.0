@@ -1,0 +1,151 @@
+-- ~~~~~~
+-- Script by dzikakulka
+-- Issues, history at: http://github.com/tjakubo2/TTS_xwing
+--
+-- All cross-script-callable functions
+-- ~~~~~~
+
+
+-- "API" functions, to be working in TTS:
+-- Must take one and only one argument, of table type
+-- Must return one and only one value
+-- Cannot recieve/return function or thread type values
+-- Have to be called after callee loads (its onLoad triggers)
+
+
+-- Perform a move using a standard move command
+-- Argument: { code = moveCode, ship = shipReference, ignoreCollisions = [true/false] }
+-- Return: TRUE if move completed, FALSE if overlap prevented ship from moving
+-- Return:                         FALSE if invalid (non-move) command or ship not ready
+function API_PerformMove(argTable)
+    local type = XW_cmd.CheckCommand(argTable.code)
+    if (type ~= 'move' and type ~= 'actionMove') or not XW_cmd.isReady(argTable.ship) then
+        return false
+    end
+    return MoveModule.PerformMove(argTable.code, argTable.ship, argTable.ignoreCollisions)
+end
+
+-- Assign a set of dials to a ship
+-- Removes any set ship has when this is called
+-- Uniqueness of set description is checked (warn & skip)
+-- Current owner of dials checked (warn & skip)
+-- *Dial script requirement not checked*
+-- Argument: { ship = shipRef, set = {dialRef1, dialRef2, ... dialRefN} }
+-- Return: TRUE if some dials were assigned, FALSE if none were assigned
+--[[function DialAPI_AssignSet(argTable)
+    -- Remove any current set
+    local actSet = DialModule.GetSet(argTable.ship)
+    if actSet ~= nil then
+        DialModule.RemoveSet(argTable.ship)
+    end
+    -- Filter out duplicate description and already assigned dials
+    local validSet = {}
+    for k,dial in pairs(argTable.set) do
+        if validSet[dial.getDescription()] ~= nil then
+            AnnModule.Announce({type='error_DialModule', note='tried to assign few of same dials (API call)'}, 'all', argTable.ship)
+        else
+            if dial.getVar('assignedShip') == nil then
+                validSet[dial.getDescription()] = {dial=dial, originPos=dial.getPosition()}
+
+                --dial.call('setShip', {argTable.ship})
+                dial.setName(argTable.ship.getName())
+            else
+                AnnModule.Announce({type='error_DialModule', note='tried to assign dial that belong to other ship (API call)'}, 'all', argTable.ship)
+            end
+        end
+    end
+    -- Add those that remain
+    if not table.empty(validSet) then
+        DialModule.AddSet(argTable.ship, validSet)
+        return true
+    else
+        return false
+    end
+end
+]]
+
+
+function DialAPI_AssignSet(argTable)
+    -- Remove any current set
+    local actSet = DialModule.GetSet(argTable.ship)
+    if actSet ~= nil then
+        DialModule.RemoveSet(argTable.ship)
+    end
+    -- Filter out duplicate description and already assigned dials
+    local validSet = {}
+    for k,dial in pairs(argTable.set) do
+        if validSet[dial.getDescription()] ~= nil then
+            AnnModule.Announce({type='error_DialModule', note='tried to assign few of same dials (API call)'}, 'all', argTable.ship)
+        else
+            if dial.getVar('assignedShip') == nil then
+                validSet[dial.getDescription()] = {dial=dial, originPos=dial.getPosition()}
+                --dial.call('setShip', {argTable.ship})
+                local assignFcn = function() dial.call('setShip', {argTable.ship}) end
+                Wait.condition(assignFcn, function() return not dial.spawning end, 2, assignFcn)
+                dial.setName(argTable.ship.getName())
+            else
+                AnnModule.Announce({type='error_DialModule', note='tried to assign dial that belong to other ship (API call)'}, 'all', argTable.ship)
+            end
+        end
+    end
+    -- Add those that remain
+    if not table.empty(validSet) then
+        DialModule.AddSet(argTable.ship, validSet)
+        return true
+    else
+        return false
+    end
+end
+
+
+-- Start ship slide on some object (dial or anything)
+-- "Slide" button for move zone depiction is not created
+-- Control & constraints identical to slide button on a dial
+-- *OBJ NEEDS TO HAVE 'assignedShip' VARIABLE SET TO SHIP REF*
+-- Argument: { obj = objRef, playerColor = clickingPlayerColor }
+function API_StartSlide(argTable)
+    return DialModule.StartSlide(argTable.obj, argTable.playerColor)
+end
+
+-- Queue tokens near a ship for movement
+-- To be called immediately before changing position of a ship
+-- Argument: { ship = shipRef, finPos = { pos = finalPosition, rot = finalRotation} }
+-- finPos field may be nil (no position set after wait then)
+function API_QueueShipTokensMove(argTable)
+    -- Set the ship busy if it's not to try prevent double ready later
+    if XW_cmd.isReady(argTable.ship) then
+        XW_cmd.SetBusy(argTable.ship)
+    end
+    local lockFun = nil
+    if argTable.noLock == true then
+        lockFun = function(ship)
+            ship.unlock()
+        end
+    end
+    TokenModule.QueueShipTokensMove(argTable.ship)
+    MoveModule.WaitForResting(argTable.ship, argTable.finPos, lockFun)
+end
+
+-- Indicate dropping of a bomb token from outside Global
+-- Argument: { token = droppedTokenRef }
+-- Return: true if token snapped, false otherwise
+function API_BombTokenDrop(argTable)
+    return BombModule.OnTokenDrop(argTable.token)
+end
+
+
+--------
+-- OBJECT SPECIFIC VARIABLES
+-- These variables are set per object and have some specific meaning
+-- Some may be linked to another so caution must be kept when modifying
+
+-- objectType : varName         - val / val2 ... / valN     <- meaning
+-- ship : 'hasDials'            - true / (false/nil)        <- Has assigned set of dials (ONLY informative) / Not
+-- ship : 'slideOngoing'        - true / (false/nil)        <- Is in process of manually adjusting slide / Not
+-- ship : 'cmdBusy'             - true / (false/nil)        <- Is currently processing some command / Not
+-- ship : 'missingModelWarned'  - true / (false/nil)        <- Printed a warning that model is unrecognized (once) / Not yet
+-- dial : 'slideOngoing'        - true / (false/nil)        <- Its ship in process of manually adjusting slide / Not
+-- dial : 'assignedShip'        - shipRef / nil             <- Object reference to its owner / No owner
+-- token : 'idle'               - false / (true/nil)        <- This token should be ignored when moving tokens / Not
+
+--------

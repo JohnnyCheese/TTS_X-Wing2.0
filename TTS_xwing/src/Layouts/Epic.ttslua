@@ -1,0 +1,118 @@
+do
+    local epic = {}
+    epic.name = 'Epic'
+    epic.tableImage = 'https://i.imgur.com/oeiISeR.png'
+    epic.elements = {
+        ['TFA Damage Decks']     = { pos = {36.62, 1.13, -17.67},  rot = {0.00, 315.00, 0.00}, scale = {1.50, 1.50, 1.50} },
+        ['Old Damage Decks']     = { pos = {40.82, 1.13, -17.67},  rot = {0.00, 315.00, 0.00}, scale = {1.50, 1.50, 1.50} },
+        ['Tractor Beam']        = { pos = {38.72, 1.10, -15.67},  rot = {0.00, 89.99, 0.00}, scale = {1.00, 1.00, 1.00} },
+        ['Reinforce']           = { pos = {38.72, 1.06, -13.37},  rot = {0.00, 90.00, 0.00}, scale = {0.87, 0.87, 0.87} },
+        ['Ion']                 = { pos = {38.72, 1.10, -10.67},  rot = {0.00, 270.00, 0.00}, scale = {1.25, 1.25, 1.25} },
+        ['Stress']              = { pos = {38.72, 1.01, -7.17},  rot = {0.00, 270.00, 0.00}, scale = {1.25, 1.25, 1.25} },
+        ['Evade']               = { pos = {38.72, 1.10, -4.17},  rot = {0.00, 0.01, 0.00}, scale = {1.25, 1.25, 1.25} },
+        ['X-Wing Attack Die']   = { pos = {38.72, 2.02, -1.17},  rot = {0.00, 45.00, 0.00}, scale = {3.00, 3.00, 3.00} },
+        ['X-Wing Defense Die']  = { pos = {38.72, 2.02, 1.83},  rot = {0.00, 225.00, 0.00}, scale = {3.00, 3.00, 3.00} },
+        ['Target Locks B']      = { pos = {36.22, 1.02, 0.33},  rot = {0.00, 90.00, 0.00}, scale = {0.88, 0.88, 0.88} },
+        ['Target Locks A']      = { pos = {41.22, 1.10, 0.33},  rot = {0.00, 90.00, 180.00}, scale = {0.88, 0.88, 0.88} },
+        ['Focus']               = { pos = {38.72, 1.10, 4.83},  rot = {0.00, 269.99, 0.00}, scale = {1.25, 1.25, 1.25} },
+        ['Shield']              = { pos = {38.72, 1.10, 7.93},  rot = {0.00, 0.00, 0.00}, scale = {1.20, 1.20, 1.20} },
+        ['Critical Hit']        = { pos = {38.72, 1.10, 11.13},  rot = {0.00, 90.00, 0.00}, scale = {1.25, 1.25, 1.25} },
+        ['Cloak']               = { pos = {38.97, 1.07, 14.08},  rot = {0.00, 270.03, 0.00}, scale = {1.00, 1.00, 1.00} },
+        ['Extra Munitions']     = { pos = {39.92, 1.03, 16.53},  rot = {0.00, 90.00, 0.00}, scale = {0.60, 0.60, 0.60} },
+        ['Weapon Disabled']     = { pos = {37.72, 1.04, 16.53},  rot = {0.00, 0.00, 0.00}, scale = {0.60, 0.60, 0.60} },
+        ['All mines tokens']    = { pos = {40.92, 0.98, 18.73},  rot = {0.00, 90.01, 0.00}, scale = {0.25, 0.25, 0.25} },
+        ['Bomb drop tokens']    = { pos = {38.72, 1.02, 18.61},  rot = {0.00, 359.99, 0.00}, scale = {0.58, 0.58, 0.58} },
+        ['All bomb tokens']     = { pos = {36.72, 0.98, 18.73},  rot = {0.00, 90.00, 0.00}, scale = {0.40, 0.40, 0.40} },
+        ['1 Straight Templates']    = { pos = {-38.00, 0.96, -2.25}, rot = {0.00, 180.00, 0.00}, scale = {3.63, 3.63, 3.63} },
+        ['2 Straight Templates']    = { pos = {-40.00, 0.96, -3.00}, rot = {0.00, 0.00, 0.00},   scale = {3.63, 3.63, 3.63} },
+        ['3 Straight Templates']    = { pos = {-38.00, 0.96, 0.80},  rot = {0.00, 0.00, 0.00},   scale = {3.63, 3.63, 3.63} },
+        ['4 Straight Templates']    = { pos = {-40.00, 0.96, 1.50},  rot = {0.00, 0.00, 0.00},   scale = {3.63, 3.63, 3.63} },
+        ['5 Straight Templates']    = { pos = {-39.00, 0.96, 0.00},  rot = {0.00, 0.00, 0.00},   scale = {3.63, 3.63, 3.63} },
+        ['1 Bank Templates']        = { pos = {-38.50, 1.05, -7.50}, rot = {0.00, 270.00, 0.00}, scale = {3.63, 3.63, 3.63} },
+        ['2 Bank Templates']        = { pos = {-39.12, 1.05, -8.50}, rot = {0.00, 270.00, 0.00}, scale = {3.63, 3.63, 3.63} },
+        ['3 Bank Templates']        = { pos = {-39.75, 1.05, -9.50}, rot = {0.00, 270.00, 0.00}, scale = {3.63, 3.63, 3.63} },
+        ['1 Turn Templates']        = { pos = {-38.20, 0.96, 7.50},  rot = {0.00, 0.00, 0.00},   scale = {3.63, 3.63, 3.63} },
+        ['2 Turn Templates']        = { pos = {-38.70, 1.00, 8.50},  rot = {0.00, 0.00, 0.00},   scale = {3.63, 3.63, 3.63} },
+        ['3 Turn Templates']        = { pos = {-39.20, 0.96, 9.50},  rot = {0.00, 0.00, 0.00},   scale = {3.63, 3.63, 3.63} },
+        ['Core Set Asteroids']      = { pos = {-46.00, 0.99, -4.00}, rot = {0.00, 0.00, 0.00},   scale = {0.38, 0.53, 0.38} },
+        ['TFA Set Asteroids']       = { pos = {-46.00, 0.97, 0.00},  rot = {0.00, 0.00, 0.00},   scale = {0.38, 1.65, 0.38} },
+        ['Debris Fields']           = { pos = {-46.00, -0.27, 4.00}, rot = {0.00, 0.00, 0.00},   scale = {0.50, 1.90, 0.50} },
+        ['Range 1 Rulers']          = { pos = {-42.00, 1.00, -4.10}, rot = {0.00, 269.99, 0.00}, scale = {0.63, 0.63, 0.63} },
+        ['Range 1-2 Rulers']        = { pos = {-42.00, 1.00, 2.40}, rot = {0.00, 270.00, 180.00}, scale = {0.63, 0.63, 0.63} },
+        ['Range 1-3 Rulers']        = { pos = {-41.00, 1.00, 0.00}, rot = {0.00, 90.00, 0.00}, scale = {0.63, 0.63, 0.63} },
+        ['Range 1-5 Rulers']        = { pos = {-43.00, 1.00, 0.00}, rot = {0.00, 0.00, 180.00}, scale = {0.63, 0.63, 0.63} },
+        ['Deck Holder 1']   = { pos = {-35.00, 0.90, -14.50}, rot = {0.00, 0.00, 0.00}, scale = {0.65, 0.65, 0.65}},
+        ['Deck Holder 2']   = { pos = {-35.00, 0.90, 14.50}, rot = {0.00, 180.00, 0.00}, scale = {0.65, 0.65, 0.65}},
+    }
+    local zonePos = {5, 2.5, 32}
+    local zoneScale = {100, 4, 12}
+    local assignOffset  = {-5, 1, 2}
+    local stuffCenter   = {0, 0, 18.5}
+    local stuffSize     = {108, 1, 37}
+    local function opposite(data)
+        return Vect.ScaleEach(data, {1, 1, -1})
+    end
+    local function left(data)
+        return Vect.ScaleEach(data, {-1, 1, 1})
+    end
+    epic.zoneData = {
+        {   color = 'Purple',
+            pos = left(opposite(zonePos)),
+            rot = {0, 0, 0},
+            scale = zoneScale,
+            bPos = assignOffset,
+            sCent = opposite(stuffCenter),
+            sSize = stuffSize },
+        {   color = 'Orange',
+            pos = zonePos,
+            rot = {0, 180, 0},
+            scale = zoneScale,
+            bPos = assignOffset,
+            sCent = stuffCenter,
+            sSize = stuffSize },
+    }
+    epic.hands = {
+        ['Red']     = { pos = {-48.00, 5.00, -15.00}, rot = {0.00, 90.00, 0.00}, scale = {5.00, 5.00, 1.00} },
+        ['Green']   = { pos = {-52.00, 5.00, -5.00}, rot = {0.00, 90.00, 0.00}, scale = {5.00, 5.00, 1.00} },
+        ['Blue']    = { pos = {-48.00, 5.00, 5.00}, rot = {0.00, 90.00, 0.00}, scale = {5.00, 5.00, 1.00} },
+        ['Teal']    = { pos = {52.00, 5.00, -15.00}, rot = {0.00, 270.00, 0.00}, scale = {5.00, 5.00, 1.00} },
+        ['Purple']  = { pos = {0.00, 5.00, -40.00}, rot = {0.00, 0.00, 0.00}, scale = {5.00, 5.00, 1.00} },
+        ['Orange']  = { pos = {0.00, 5.00, 40.00}, rot = {0.00, 180.00, 0.00}, scale = {5.00, 5.00, 1.00} },
+        ['Yellow']  = { pos = {-52.00, 5.00, 15.00}, rot = {0.00, 90.00, 0.00}, scale = {5.01, 5.00, 1.00} },
+        ['Brown']   = { pos = {48.00, 5.00, 15.00}, rot = {0.00, 270.00, 0.00}, scale = {5.00, 5.00, 1.00} },
+        ['Pink']    = { pos = {52.00, 5.00, 5.00}, rot = {0.00, 270.00, 0.00}, scale = {5.00, 5.00, 1.00} },
+        ['White']   = { pos = {48.00, 5.00, -5.00}, rot = {0.00, 270.00, 0.00}, scale = {5.00, 5.00, 1.00} },
+    }
+    epic.mats = {
+        ['Main'] = { pos = {0.00, -0.17, 0.00}, rot = {0.00, 180.00, 0.00}, scale = {1.225, 1.2, 1.225}, int = false },
+    }
+    function EpicChangeMat()
+        local mat = Layout.GetMats()[epic.name].Main
+        mat.call('NextImage')
+    end
+    function EpicToggleRulers()
+        local mat = Layout.GetMats()[epic.name].Main
+        mat.call('ToggleRulers')
+    end
+    local bWidth = 2200
+    local bHeight = 500
+    local bFontSize = 230
+    epic.controls = {
+        {   position = {50.5, 1, 0},
+            rotation = {0, 90, 0},
+            click_function = 'EpicChangeMat',
+            label = 'NEXT PLAYMAT'    },
+        {   position = {49, 1, 0},
+            rotation = {0, 90, 0},
+            click_function = 'EpicToggleRulers',
+            label = 'TOGGLE RULERS'    },
+    }
+    for k,button in ipairs(epic.controls) do
+        button.width = bWidth
+        button.height = bHeight
+        button.font_size = bFontSize
+        button.function_owner = self
+    end
+
+    Layout.AddLayout(epic)
+end

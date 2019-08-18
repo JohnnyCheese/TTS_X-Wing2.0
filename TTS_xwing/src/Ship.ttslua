@@ -1,0 +1,196 @@
+-- ~~~~~~
+-- Script by dzikakulka
+-- Issues, history at: http://github.com/tjakubo2/TTS_xwing
+--
+-- Ship class definition, spawn/destroy handling
+-- ~~~~~~
+
+Ship = {}
+
+sMeta = {
+    __call = function(t, ref)
+        return Ship.get(ref)
+    end
+}
+setmetatable(Ship, sMeta)
+
+Ship.list = {}
+--[[
+Ship.ImportModule = function(this, modTable)
+    local core = {
+        ['Name'] = 'string',
+        ['Init'] = 'function',
+        ['OnSave'] = 'function',
+        ['OnLoad'] = 'function',
+        ['OnDestroy'] = 'function'
+    }
+    local excl = {
+        ['Init'] = true,
+        ['Name'] = true
+    }
+    if not modTable.Name then
+        error('Trying to import unnamed module')
+    end
+    if this[modTable.Name] then
+        error('Trying to import existing module (' .. modTable.Name .. ')')
+    else
+        this[modTable.Name] = {}
+    end
+    for k in pairs(modTable) do
+        if not excl[k] then
+            this[modTable.Name][k] = function(...)
+                return modTable[k](this, table.unpack({...}))
+            end
+        end
+        if core[k] then
+            if type(modTable[k]) == core[k] then
+                core[k] = false
+            else
+                error('Mandatory field \'' .. k .. '\' not a ' .. core[k] .. ' (is ' .. type(modTable[k]) .. ')')
+            end
+        else
+            if not this[k] then
+                this[k] = this[modTable.Name][k]
+            end
+        end
+    end
+    modTable.Init(this)
+    table.insert(this.moduleList, modTable.Name)
+    for k,v in pairs(core) do
+        if v then
+            error('Mandatory field \'' .. k .. '\' not defined in module import')
+        end
+    end
+end
+--]]
+Ship.new = function(ref)
+    if not Ship.fitting(ref) then
+        return
+    end
+    print('CREATE SHIP: ' .. ref.guid)
+    assert(ref ~= nil, 'No object ref provided for ship constructor')
+
+    local this = {
+        --moduleList = {}
+    }
+    local ref = ref
+
+    local tMeta = {
+        __index = function(t, k)
+            print('THIS META INDEX')
+            return ref[k]
+        end,
+        __newindex = function(t, k, v)
+            error('Attempt to modify ship object')
+        end
+    }
+
+    this.SwitchRef = function(newRef)
+        assert(newRef ~= nil,'No new object ref provided for ship ref switch')
+        ref = newRef
+    end
+
+    --[[
+    this.Restore = function(saveState)
+        print(ref.getGUID() .. ' restore')
+        for k,modName in pairs(this.moduleList) do
+            this[modName].OnLoad(saveState[modName])
+        end
+    end
+    --]]
+
+    ---[[
+    this.OnSave = function()
+        print(ref.getGUID() .. ' save')
+        local saveTable = {}
+        saveTable.refGUID = ref.getGUID()
+        --[[
+        for k,modName in pairs(this.moduleList) do
+            saveTable[modName] = this[modName].OnSave()
+        end
+        --]]
+        return saveTable
+    end
+    --]]
+
+    --[[
+    this.OnDestroy = function()
+        for k,modName in pairs(this.moduleList) do
+            this[modName].OnDestroy(saveState[modName])
+        end
+    end
+    --]]
+
+    --Ship.ImportModule(this, TestMod)
+
+    setmetatable(this, tMeta)
+    Ship.list[ref] = this
+    return this
+end
+
+Ship.get = function(ref)
+    assert(ref ~= nil, 'No object ref provided for ship getter')
+    if Ship.list[ref] then
+        print('GET SHIP: ' .. ref.guid)
+        return Ship.list[ref], false
+    else
+        return Ship.new(ref), true
+    end
+end
+
+Ship.find = function(ref)
+    if Ship.list[ref] then
+        print('FIND SHIP: ' .. ref.guid)
+        return Ship.list[ref]
+    end
+end
+
+Ship.remove = function(ref)
+    Ship.list[ref] = nil
+end
+EventSub.Register('onObjectDestroy', Ship.remove)
+
+Ship.restore = function(saveTable, overwrite)
+    print('All ships restore')
+    if overwrite then
+        Ship.list = {}
+    end
+    local rCount, mCount = 0, 0
+    for k,shipData in pairs(saveTable) do
+        local shipRef = getObjectFromGUID(shipData.refGUID)
+        if shipRef then
+            print(shipRef.getGUID() .. ' from ship list restore')
+            local newShip = Ship.new(shipRef)
+            newShip.Restore(shipData)
+            rCount = rCount + 1
+        else
+            print(shipData.refGUID .. ' from ship list restore [ff0000]FAIL')
+            mCount = mCount + 1
+        end
+    end
+end
+
+Ship.onSave = function()
+    local saveData = {}
+    print('All ships save')
+    for ref,ship in pairs(Ship.list) do
+        print(ref.getGUID() .. ' from ship list save')
+        table.insert(saveData, ship.OnSave())
+    end
+    return saveData
+end
+
+SaveManager.Register('Ship', Ship.onSave, Ship.restore)
+
+
+Ship.fitting = function(objRef)
+    return (objRef.tag == 'Figurine')
+end
+
+Ship.onLoad = function()
+    local presentShips = table.sieve(getAllObjects(), Ship.fitting)
+    for k,obj in pairs(presentShips) do
+        Ship.get(obj)
+    end
+end
+EventSub.Register('onLoad', Ship.onLoad)

@@ -1,0 +1,234 @@
+-- ~~~~~~
+-- Script by dzikakulka
+-- Issues, history at: http://github.com/tjakubo2/TTS_lib
+--
+-- Misc functions for extending Lua functionality
+-- Description and usage in README.md in this lib folder in repository
+-- ~~~~~~
+
+if not package.loaded['Util'] then
+
+    package.loaded['Util'] = true
+
+    -- Return value limited by min and max bounds
+    math.clamp = function(var, min, max)
+        if min and var < min then
+            return min
+        elseif max and var > max then
+            return max
+        end
+        return var
+    end
+
+    -- Sign function, zero for zero
+    math.sgn = function(arg)
+        if arg < 0 then
+            return -1
+        elseif arg > 0 then
+            return 1
+        end
+        return 0
+    end
+
+    -- Round to decPlaces decimal places
+    -- if decPlaces nil round to nearest integer
+    math.round = function(arg, decPlaces)
+        if decPlaces == nil then decPlaces = 0 end
+        if decPlaces == 0 then
+            frac = arg - math.floor(arg)
+            if frac >= 0.5 then
+                return math.ceil(arg)
+            else
+                return math.floor(arg)
+            end
+        else
+            local mult = 10^(decPlaces or 0)
+            return math.floor(arg * mult + 0.5) / mult
+        end
+    end
+
+    -- Check if table is empty
+    table.empty = function(tab)
+        return (next(tab) == nil)
+    end
+
+    -- Mash together two tables
+    table.join = function(tab1, tab2)
+        local out = {}
+        for k=1,#tab1 do
+            out[k] = tab1[k]
+        end
+        local off = #tab1
+        for k=1,#tab2 do
+            out[k+off] = tab2[k]
+        end
+        return out
+    end
+
+    -- Shallow table copy
+    -- Does not include metatables
+    table.shallowcopy = function(orig)
+        local orig_type = type(orig)
+        local copy
+        if orig_type == 'table' then
+            copy = {}
+            for orig_key, orig_value in pairs(orig) do
+                copy[orig_key] = orig_value
+            end
+        else
+            copy = orig
+        end
+        return copy
+    end
+
+    -- Deep table copy
+    -- Includes metatables, avoids __pairs, recursive
+    table.deepcopy = function(orig)
+        local orig_type = type(orig)
+        local copy
+        if orig_type == 'table' then
+            copy = {}
+            for orig_key, orig_value in next, orig, nil do
+                copy[table.deepcopy(orig_key)] = table.deepcopy(orig_value)
+            end
+            if getmetatable(orig) then
+                setmetatable(copy, table.deepcopy(getmetatable(orig)))
+            end
+        else
+            copy = orig
+        end
+        return copy
+    end
+
+    -- Elements count
+    -- Unlike #table, also counts non-number keyed values
+    table.size = function(tab)
+        local count = 0
+        for _ in pairs(tab) do
+            count = count + 1
+        end
+        return count
+    end
+
+    -- Return the element that return minimal value from eval function
+    -- Only iterates through numeric keys part
+    table.min = function(tab, eval)
+        if not tab[1] then return end
+        local min = { el = tab[1], val = eval(tab[1]) }
+        for k=2,#tab do
+            local val = eval(tab[k])
+            if val < min.val then
+                min.val = val
+                min.el = tab[k]
+            end
+        end
+        return min.el, min.val
+    end
+
+    -- Same as table.min, but takes the maximum
+    table.max = function(tab, eval)
+        local function invEval(el)
+            return -1*eval(el)
+        end
+        local el, min = table.min(tab, invEval)
+        return el, -1*min
+    end
+
+    -- Return those values in tab that return true from valid function
+    table.sieve = function(tab, valid)
+        local passed = {}
+        local rejected = {}
+        for k,v in ipairs(tab) do
+            if valid(v) then
+                if type(k) == 'number' then
+                    table.insert(passed, v)
+                else
+                    passed[k] = v
+                end
+            else
+                if type(k) == 'number' then
+                    table.insert(rejected, v)
+                else
+                    rejected[k] = v
+                end
+            end
+        end
+        return passed, rejected
+    end
+
+    -- Try to find en element in the table, return key if found, nil otherwise
+    table.find = function(tab, el)
+        for k,v in pairs(tab) do
+            if v == el then
+                return k
+            end
+        end
+    end
+
+    -- Shallow table print
+    table.print = function(tab, prefix)
+        prefix = prefix or 'Table'
+        print(prefix .. ':')
+        local function stringify(v)
+            local str = tostring(v)
+            if type(v) == 'string' then
+                str = '\'' .. str .. '\''
+            end
+            return str
+        end
+        for k,v in pairs(tab) do
+            print('   [' .. stringify(k) .. '] -> ' .. stringify(v))
+        end
+        print('')
+    end
+
+    -- Deep table print (sensitive to cycles!)
+    table.print_r = function(tab, prefix, indent)
+        prefix = prefix or 'Table'
+        local indent = indent or 1
+        print(prefix .. ':')
+        local function stringify(v)
+            local str = tostring(v)
+            if type(v) == 'string' then
+                str = '\'' .. str .. '\''
+            end
+            return str
+        end
+        local indentStr = string.rep('    ', indent)
+        for k,v in pairs(tab) do
+            print(indentStr .. '[' .. stringify(k) .. '] -> ' .. stringify(v))
+            if type(v) == 'table' then
+                table.print_r(v, indentStr .. stringify(v), indent+1)
+            end
+        end
+        if indent == 1 then
+            print('')
+        end
+    end
+
+    -- Apply a function on each table element
+    table.process = function(tab, fcn)
+        local out = {}
+        for k,v in pairs(tab) do
+            out[k] = fcn(v)
+        end
+        return out
+    end
+
+    -- Check if string begins with the argument (no regex)
+    string.beginswith = function(str, prefix)
+        return (str:sub(1, prefix:len()) == prefix)
+    end
+    string.startswith = string.beginswith
+
+    -- Check if the string ends with the argument (no regex)
+    string.endswith = function(str, prefix)
+        return (str:sub(-1*prefix:len(), -1) == prefix)
+    end
+
+    -- CHeck if string contains argument anywhere in it (no regex)
+    string.contains = function(str, query)
+        return (str:find(query, 1, true) ~= nil)
+    end
+
+end
