@@ -1402,6 +1402,13 @@ end
 function action3(obj, playerColor, value, editing)
     if not editing then
         single = value
+    else
+        nl_index = string.find(value, '\n')
+        if nl_index != nil then
+            single = string.sub(value, 1,nl_index-1)
+            print("Singlespawn: ".. single)
+            singleSearch()
+        end
     end
 end
 
