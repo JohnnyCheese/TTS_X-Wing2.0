@@ -14,14 +14,7 @@ __XW_TokenType = 'helper:Dial'
 -- Ref to assigned ship if there is one
 assignedShip = nil
 currMan = nil
-
--- Save self state
-function onSave()
-    if assignedShip ~= nil then
-        local state = {assignedShipGUID=assignedShip.getGUID()}
-        return JSON.encode(state)
-    end
-end
+playerColor = nil
 
 faceStat = nil
 firstSet=false
@@ -127,17 +120,33 @@ assetTable = {
     {name="PivotRight", url="http://cloud-3.steamusercontent.com/ugc/786352494210815312/D3A4DED40146BFC9246E675E324F24062CFB79D7/"},
 }
 
-Data = {}
-Data['movSet'] = {'bbl1', 'bs1', 'bbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'wtl3', 'wbl3', 'ws3', 'wbr3', 'wtr3', 'ws4', 'rtl3t', 'rtr3t', 'rk4' }
-Data['actSet'] = {'BR', 'F', 'B', 'TL'}
-Data['Special'] = nil
-Data['Color'] = nil
+-- Data = {}
+-- Data['movSet'] = {'bbl1', 'bs1', 'bbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'wtl3', 'wbl3', 'ws3', 'wbr3', 'wtr3', 'ws4', 'rtl3t', 'rtr3t', 'rk4' }
+-- Data['actSet'] = {'BR', 'F', 'B', 'TL'}
+-- Data['Special'] = nil
+-- Data['Color'] = nil
 
+-- Save self state
+function onSave()
+    if assignedShip ~= nil then
+        local state = {assignedShipGUID=assignedShip.getGUID(),
+                      owningPlayer=playerColor}
+        return JSON.encode(state)
+    end
+end
 
 -- Restore self state
-function onLoad()
+function onLoad(savedData)
     clearDial()
-  --  self.UI.setCustomAssets(assetTable)
+    --print("SavedData: " .. savedData)
+    if savedData ~= nil then
+        state = JSON.decode(savedData)
+        savedShip = getObjectFromGUID(state.assignedShipGUID)
+        playerColor = state.owningPlayer
+        if savedShip ~= nil then
+            assignShip(savedShip)
+        end
+    end
 end
 
 initStat = true
@@ -287,7 +296,7 @@ function performMove(P)
 end
 
 
-function performTalon(p,option,id)
+function performTalon(P,option,id)
     self.UI.hide("TalonPanel")
     self.UI.setAttribute("UndoBtn", "active", "true")
     if id=="TalonMidBtn" then
@@ -317,6 +326,56 @@ function onPickUp(player_color)
 end
 
 
+-- Assign a ship to the dial
+function assignShip(ship)
+    assignedShip = ship
+    Name=assignedShip.getName()
+    self.setName(Name)
+    --self.UI.setAttribute("DialName", Name)
+    self.UI.setValue("Name",Name)
+    shipData=assignedShip.getTable("Data")
+    self.UI.setAttribute("BackGround", "image", tostring(shipData['Faction']).."BG")
+    for k,v in pairs(shipData['moveSet']) do
+        self.UI.setAttribute(string.upper(v), "active", "true")
+    end
+    setMan=""
+    for k,v in pairs(shipData['actSet']) do
+        if v == 'F' then
+            self.UI.setAttribute('FocusBtn', 'active', 'true')
+        elseif v == 'TL' then
+            self.UI.setAttribute("TargetLockBtn", 'active', 'true')
+        elseif v == 'E' then
+            self.UI.setAttribute("EvadeBtn", 'active', 'true')
+        elseif v == 'R' then
+            self.UI.setAttribute("ReinforceBtn", 'active', 'true')
+        elseif v == 'C' then
+            self.UI.setAttribute("CalculateBtn", 'active', 'true')
+        elseif v == 'CL' then
+            self.UI.setAttribute("CloakBtn", 'active', 'true')
+        elseif v == 'BR' then
+            self.UI.setAttribute("BarrelRBtn", "active", "true")
+            self.UI.setAttribute("BarrelRFBtn", "active", "true")
+            self.UI.setAttribute("BarrelRBBtn", "active", "true")
+            self.UI.setAttribute("BarrelLBtn", "active", "true")
+            self.UI.setAttribute("BarrelLFBtn", "active", "true")
+            self.UI.setAttribute("BarrelLBBtn", "active", "true")
+            self.UI.setAttribute("BoostSBtn", "active", "true")
+            self.UI.setAttribute("BoostRBtn", "active", "true")
+            self.UI.setAttribute("BoostLBtn", "active", "true")
+        elseif v == 'B' then
+            self.UI.setAttribute("BarrelRBtn", "active", "true")
+            self.UI.setAttribute("BarrelRFBtn", "active", "true")
+            self.UI.setAttribute("BarrelRBBtn", "active", "true")
+            self.UI.setAttribute("BarrelLBtn", "active", "true")
+            self.UI.setAttribute("BarrelLFBtn", "active", "true")
+            self.UI.setAttribute("BarrelLBBtn", "active", "true")
+            self.UI.setAttribute("BoostSBtn", "active", "true")
+            self.UI.setAttribute("BoostRBtn", "active", "true")
+            self.UI.setAttribute("BoostLBtn", "active", "true")
+        end
+    end
+end
+
 -- Assign on drop near a small base ship
 function onDropped()
     if assignedShip == nil then
@@ -337,58 +396,13 @@ function onDropped()
             if pColor=="White" then
                 printToAll("Please, pick a color before assigning dials")
             else
-                assignedShip = nearest
                 playerColor=pColor
                 printToAll('Dial assigned to to ' .. nearest.getName(), {0.2, 0.2, 1})
                 printToAll('Controlled by the '.. playerColor .. ' player')
                 printToAll('')
                 self.setRotation(nearest.getRotation())
-                assignedShip = nearest
-                Name=assignedShip.getName()
-                self.setName(Name)
-                --self.UI.setAttribute("DialName", Name)
-                self.UI.setValue("Name",Name)
-                shipData=assignedShip.getTable("Data")
-                self.UI.setAttribute("BackGround", "image", tostring(shipData['Faction']).."BG")
-                for k,v in pairs(shipData['moveSet']) do
-                    self.UI.setAttribute(string.upper(v), "active", "true")
-                end
-                setMan=""
-                for k,v in pairs(shipData['actSet']) do
-                    if v == 'F' then
-                        self.UI.setAttribute('FocusBtn', 'active', 'true')
-                    elseif v == 'TL' then
-                        self.UI.setAttribute("TargetLockBtn", 'active', 'true')
-                    elseif v == 'E' then
-                        self.UI.setAttribute("EvadeBtn", 'active', 'true')
-                    elseif v == 'R' then
-                        self.UI.setAttribute("ReinforceBtn", 'active', 'true')
-                    elseif v == 'C' then
-                        self.UI.setAttribute("CalculateBtn", 'active', 'true')
-                    elseif v == 'CL' then
-                        self.UI.setAttribute("CloakBtn", 'active', 'true')
-                    elseif v == 'BR' then
-                        self.UI.setAttribute("BarrelRBtn", "active", "true")
-                        self.UI.setAttribute("BarrelRFBtn", "active", "true")
-                        self.UI.setAttribute("BarrelRBBtn", "active", "true")
-                        self.UI.setAttribute("BarrelLBtn", "active", "true")
-                        self.UI.setAttribute("BarrelLFBtn", "active", "true")
-                        self.UI.setAttribute("BarrelLBBtn", "active", "true")
-                        self.UI.setAttribute("BoostSBtn", "active", "true")
-                        self.UI.setAttribute("BoostRBtn", "active", "true")
-                        self.UI.setAttribute("BoostLBtn", "active", "true")
-                    elseif v == 'B' then
-                        self.UI.setAttribute("BarrelRBtn", "active", "true")
-                        self.UI.setAttribute("BarrelRFBtn", "active", "true")
-                        self.UI.setAttribute("BarrelRBBtn", "active", "true")
-                        self.UI.setAttribute("BarrelLBtn", "active", "true")
-                        self.UI.setAttribute("BarrelLFBtn", "active", "true")
-                        self.UI.setAttribute("BarrelLBBtn", "active", "true")
-                        self.UI.setAttribute("BoostSBtn", "active", "true")
-                        self.UI.setAttribute("BoostRBtn", "active", "true")
-                        self.UI.setAttribute("BoostLBtn", "active", "true")
-                    end
-                end
+                assignShip(nearest)
+
             end
         end
     end
@@ -403,59 +417,59 @@ end
 
 
 function focusTok()
-    Global.call('proxyPerformAction', {assignedShip, 'Focus', pColor})
+    Global.call('proxyPerformAction', {assignedShip, 'Focus', playerColor})
 end
 
 function evadeTok()
-    Global.call('proxyPerformAction', {assignedShip, 'Evade', pColor})
+    Global.call('proxyPerformAction', {assignedShip, 'Evade', playerColor})
 end
 
 function tlTok()
-    Global.call('proxyPerformAction', {assignedShip, 'Target Lock', pColor})
+    Global.call('proxyPerformAction', {assignedShip, 'Target Lock', playerColor})
 end
 
 function tractorTok()
-    Global.call('proxyPerformAction', {assignedShip, 'Tractor', pColor})
+    Global.call('proxyPerformAction', {assignedShip, 'Tractor', playerColor})
 end
 
 function jamTok()
-    Global.call('proxyPerformAction', {assignedShip, 'Jam', pColor})
+    Global.call('proxyPerformAction', {assignedShip, 'Jam', playerColor})
 end
 
 function disarmTok()
-    Global.call('proxyPerformAction', {assignedShip, 'Disarm', pColor})
+    Global.call('proxyPerformAction', {assignedShip, 'Disarm', playerColor})
 end
 
 function cloakTok()
-    Global.call('proxyPerformAction', {assignedShip, 'Cloak', pColor})
+    Global.call('proxyPerformAction', {assignedShip, 'Cloak', playerColor})
 end
 
 function calcTok()
-    Global.call('proxyPerformAction', {assignedShip, 'Calculate', pColor})
+    Global.call('proxyPerformAction', {assignedShip, 'Calculate', playerColor})
 end
 
 function reinforceTok()
-    Global.call('proxyPerformAction', {assignedShip, 'Reinforce', pColor})
+    Global.call('proxyPerformAction', {assignedShip, 'Reinforce', playerColor})
 end
 
 function stressTok(p,id)
     if id == '-1' then
-        Global.call('proxyPerformAction', {assignedShip, 'Stress', pColor})
+        Global.call('proxyPerformAction', {assignedShip, 'Stress', playerColor})
     else
-        Global.call('proxyPerformAction', {assignedShip, 'unstress', pColor})
+        Global.call('proxyPerformAction', {assignedShip, 'unstress', playerColor})
     end
 end
 
 function strainTok(p,id)
   if id == '-1' then
-      Global.call('proxyPerformAction', {assignedShip, 'Strain', pColor})
+      Global.call('proxyPerformAction', {assignedShip, 'Strain', playerColor})
   else
-      Global.call('proxyPerformAction', {assignedShip, 'unstrain', pColor})
+      Global.call('proxyPerformAction', {assignedShip, 'unstrain', playerColor})
   end
 end
 
 function ionTok()
-    Global.call('proxyPerformAction', {assignedShip, 'Ion', pColor})
+    Global.call('proxyPerformAction', {assignedShip, 'Ion', playerColor})
 end
 
 function BoostS()
@@ -675,7 +689,7 @@ end
 
 function spawnTemplate()
     if setMan~='' then
-        Table={[1]=assignedShip,[2]='spawnMoveTemplate:'..setMan..befAft,[3]=pColor}
+        Table={[1]=assignedShip,[2]='spawnMoveTemplate:'..setMan..befAft,[3]=playerColor}
         Global.call("proxyPerformAction",Table)
     end
 end

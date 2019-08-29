@@ -4890,6 +4890,26 @@ function onObjectSpawned(obj)
     obj.hide_when_face_down = false
 end
 
+
+-- Save and load ship data lua scriptState
+saveAndLoadShipStateLua = [[
+-- Save self state
+function onSave()
+    local state = {shipData=self.getTable("Data")}
+    return JSON.encode(state)
+end
+
+-- Restore self state
+function onLoad(savedData)
+    --print("OnLoad: ".. self.getName() .. " " .. savedData)
+    if savedData ~= "" then
+        self.setTable("Data", JSON.decode(savedData).shipData)
+    end
+end
+
+]]
+
+
 -------
 --spawner function, checks for Pilots and Upgrades lists and spawn the respective objects
 
@@ -5077,6 +5097,7 @@ function newSpawner(listTable)
                 end
                 tempBagShp.putObject(shipClone)
                 newShip.setTable("Data", Pilots[shipIndex]['Data'])
+                newShip.setLuaScript(saveAndLoadShipStateLua)
                 if spawnedPilotList[1] ~= nil then
                     for i, spawned in ipairs(spawnedPilotList) do
                         if spawned == pilotName then
