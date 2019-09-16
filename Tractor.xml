@@ -1,0 +1,41 @@
+<Panel id="Center"
+    width="120"
+    height="120"
+    position="0 0 -30"
+    rotation="0 0 180"
+    color="#aaffaa00"
+    onMouseEnter="showBtn"
+    showAnimation="Grow"
+    hideAnimation="Shrink"
+    active="false"
+    raycastTarget='true'>
+</Panel>
+
+<Panel id="BtnPanel"
+    width="400"
+    height="400"
+    position="0 0 -30"
+    rotation="0 0 180"
+    color="#aaffaa00"
+    onMouseExit="hideBtn"
+    showAnimation="Grow"
+    hideAnimation="Shrink"
+    active="false"
+    raycastTarget='true'>
+    <Button id="BoostSbtn" offsetXY="0 150" width="80" height="80" active="true" onClick="BstS" color="#aaffaa00">
+        <Image id="BoostSIcon" image="BoostS" preserveAspect="true"></Image></Button>
+    <Button id="BarrelLFbtn" offsetXY="-150 100" width="80" height="80" active="true" onClick="BlF" color="#aaffaa00">
+        <Image id="BLFIcon" image="BarrelLF" preserveAspect="true"></Image></Button>
+    <Button id="BarrelLbtn" offsetXY="-150 0" width="80" height="80" active="true" onClick="Bl" color="#aaffaa00">
+        <Image id="BLIcon" image="BarrelL" preserveAspect="true"></Image></Button>
+    <Button id="BarrelLBbtn" offsetXY="-150 -100" width="80" height="80" active="true" onClick="BlB" color="#aaffaa00">
+        <Image id="BLBIcon" image="BarrelLB" preserveAspect="true"></Image></Button>
+    <Button id="BarrelRFbtn" offsetXY="150 100" width="80" height="80" active="true" onClick="BrF" color="#aaffaa00">
+        <Image id="BRFIcon" image="BarrelRF" preserveAspect="true"></Image></Button>
+    <Button id="BarrelRbtn" offsetXY="150 0" width="80" height="80" active="true" onClick="Br" color="#aaffaa00">
+        <Image id="BRIcon" image="BarrelR" preserveAspect="true"></Image></Button>
+    <Button id="BarrelRBbtn" offsetXY="150 -100" width="80" height="80" active="true" onClick="BrB" color="#aaffaa00">
+        <Image id="BRBIcon" image="BarrelRB" preserveAspect="true"></Image></Button>
+    <Button id="Delbtn" offsetXY="0 -50" width="100" height="60" active="true" onClick="Delete" color="white" fontStyle='Bold' fontSize='25'>DEL</Button>
+
+</Panel>
