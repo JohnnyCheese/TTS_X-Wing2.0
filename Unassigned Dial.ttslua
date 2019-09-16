@@ -16,6 +16,14 @@ assignedShip = nil
 currMan = nil
 playerColor = nil
 
+-- Save self state
+function onSave()
+    if assignedShip ~= nil then
+        local state = {assignedShipGUID=assignedShip.getGUID()}
+        return JSON.encode(state)
+    end
+end
+
 faceStat = nil
 firstSet=false
 
@@ -120,25 +128,9 @@ assetTable = {
     {name="PivotRight", url="http://cloud-3.steamusercontent.com/ugc/786352494210815312/D3A4DED40146BFC9246E675E324F24062CFB79D7/"},
 }
 
--- Data = {}
--- Data['movSet'] = {'bbl1', 'bs1', 'bbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'wtl3', 'wbl3', 'ws3', 'wbr3', 'wtr3', 'ws4', 'rtl3t', 'rtr3t', 'rk4' }
--- Data['actSet'] = {'BR', 'F', 'B', 'TL'}
--- Data['Special'] = nil
--- Data['Color'] = nil
-
--- Save self state
-function onSave()
-    if assignedShip ~= nil then
-        local state = {assignedShipGUID=assignedShip.getGUID(),
-                      owningPlayer=playerColor}
-        return JSON.encode(state)
-    end
-end
-
 -- Restore self state
-function onLoad(savedData)
+function onLoad()
     clearDial()
-    --print("SavedData: " .. savedData)
     if savedData ~= nil then
         state = JSON.decode(savedData)
         savedShip = getObjectFromGUID(state.assignedShipGUID)
@@ -149,32 +141,18 @@ function onLoad(savedData)
     end
 end
 
-initStat = true
-
-function onObjectSpawned()
-    if initStat==true then
-        initStat=false
-        clearDial()
-    end
-end
 
 function clearDial()
-    self.UI.hide("ActionsFD")
     self.UI.hide("CenterFD")
-    self.UI.hide("ManWin")
     self.UI.Hide('CenterFU')
-    self.UI.Hide('BoostFD')
-    self.UI.Hide('ArcFD')
-    self.UI.Hide('BarrelLeftFD')
-    self.UI.Hide('BarrelRightFD')
+    self.UI.hide("ManWin")
+    self.UI.Hide('arcPanel')
+    self.UI.Hide('relocPanel')
     self.UI.Hide('TalonPanel')
+    self.UI.Hide('tokenPanel')
     winStat = false
-    tokStat = false
-    relocStat = false
-    arcStat = false
 end
 
-clearDial()
 function onFixedUpdate()
     if assignedShip ~= nil then
         if self.getTransformUp().y >0 then
@@ -195,7 +173,6 @@ function onFixedUpdate()
         end
     end
 end
-
 
 function manSelect(Player, option, id)
     firstSet=true
@@ -295,7 +272,6 @@ function performMove(P)
     end
 end
 
-
 function performTalon(P,option,id)
     self.UI.hide("TalonPanel")
     self.UI.setAttribute("UndoBtn", "active", "true")
@@ -324,7 +300,6 @@ function onPickUp(player_color)
         self.UI.setCustomAssets(assetTable)
     end
 end
-
 
 -- Assign a ship to the dial
 function assignShip(ship)
@@ -359,22 +334,22 @@ function assignShip(ship)
             self.UI.setAttribute("BarrelLBtn", "active", "true")
             self.UI.setAttribute("BarrelLFBtn", "active", "true")
             self.UI.setAttribute("BarrelLBBtn", "active", "true")
-            self.UI.setAttribute("BoostSBtn", "active", "true")
-            self.UI.setAttribute("BoostRBtn", "active", "true")
-            self.UI.setAttribute("BoostLBtn", "active", "true")
         elseif v == 'B' then
-            self.UI.setAttribute("BarrelRBtn", "active", "true")
-            self.UI.setAttribute("BarrelRFBtn", "active", "true")
-            self.UI.setAttribute("BarrelRBBtn", "active", "true")
-            self.UI.setAttribute("BarrelLBtn", "active", "true")
-            self.UI.setAttribute("BarrelLFBtn", "active", "true")
-            self.UI.setAttribute("BarrelLBBtn", "active", "true")
             self.UI.setAttribute("BoostSBtn", "active", "true")
             self.UI.setAttribute("BoostRBtn", "active", "true")
             self.UI.setAttribute("BoostLBtn", "active", "true")
+        elseif v =='Ail' then
+            self.UI.setAttribute("AilSBtn", "active", "true")
+            self.UI.setAttribute("AilRBtn", "active", "true")
+            self.UI.setAttribute("AilLBtn", "active", "true")
+        elseif v =='Piv' then
+            self.UI.setAttribute("PivKBtn", "active", "true")
+            self.UI.setAttribute("PivRBtn", "active", "true")
+            self.UI.setAttribute("PivLBtn", "active", "true")
         end
     end
 end
+
 
 -- Assign on drop near a small base ship
 function onDropped()
@@ -396,6 +371,7 @@ function onDropped()
             if pColor=="White" then
                 printToAll("Please, pick a color before assigning dials")
             else
+                assignedShip = nearest
                 playerColor=pColor
                 printToAll('Dial assigned to to ' .. nearest.getName(), {0.2, 0.2, 1})
                 printToAll('Controlled by the '.. playerColor .. ' player')
@@ -413,6 +389,7 @@ function genericAction(a,b,c,d)
     print(a)
     print(b)
     print(c)
+    print(d)
 end
 
 
@@ -484,6 +461,20 @@ function BoostL()
     assignedShip.setDescription("bl1b")
 end
 
+
+function AilS()
+    assignedShip.setDescription("s1")
+    print('flag')
+end
+
+function AilR()
+    assignedShip.setDescription("br1")
+end
+
+function AilL()
+    assignedShip.setDescription("bl1")
+end
+
 function BarrelL()
     assignedShip.setDescription("rl2")
 end
@@ -536,6 +527,17 @@ function arcB()
     assignedShip.setDescription("b")
 end
 
+function pivK()
+    assignedShip.setDescription('k0')
+end
+
+function pivR()
+    assignedShip.setDescription('tr4')
+end
+
+function pivL()
+    assignedShip.setDescription('tl4')
+end
 
 function Window(p)
     if winStat ==  nil then
@@ -555,114 +557,56 @@ function Window(p)
     end
 end
 
-function tokenMenu()
-    if tokStat==nil then
-        tokStat=false
-    end
-    if tokStat== false then
-        self.UI.setAttribute("ActionsFD", "position", "-430 -230 -30")
-        self.UI.setAttribute("ActionsFD", "rotation", "180 180 0")
-        self.UI.show("ActionsFD")
-        tokStat=true
-    else
-        self.UI.hide("ActionsFD")
-        tokStat=false
-    end
+function showTokMFD()
+    self.UI.show("tokenPanel")
+    self.UI.setAttribute("tokenPanel", "position", "-380 -250 -30")
+    self.UI.setAttribute("tokenPanel", "rotation", "180 180 0")
 end
 
-function tokenMenuFU()
-    if tokStat==nil then
-        tokStat=false
-    end
-    if tokStat== false then
-        self.UI.setAttribute("ActionsFD", "position", "430 -230 30")
-        self.UI.setAttribute("ActionsFD", "rotation", "180 0 0")
-        self.UI.show("ActionsFD")
-        tokStat=true
-    else
-        self.UI.hide("ActionsFD")
-        tokStat=false
-    end
+function showTokMFU()
+    self.UI.show("tokenPanel")
+    self.UI.setAttribute("tokenPanel", "position", "380 -250 30")
+    self.UI.setAttribute("tokenPanel", "rotation", "180 0 0")
 end
 
-function arcMenu()
-    if arcStat==nil then
-        arcStat=false
-    end
-    if arcStat== false then
-        self.UI.setAttribute("ArcFD", "rotation", "0 0 180")
-        self.UI.setAttribute("ArcFD", "position", "350 200 -30")
-        self.UI.show("ArcFD")
-        arcStat=true
-    else
-        self.UI.hide("ArcFD")
-        arcStat=false
-    end
+function hideTokM()
+    self.UI.hide("tokenPanel")
 end
 
-function arcMenuFU()
-    if arcStat==nil then
-        arcStat=false
-    end
-    if arcStat== false then
-        self.UI.setAttribute("ArcFD", "rotation", "180 0 0")
-        self.UI.setAttribute("ArcFD", "position", "-350 200 30")
-        self.UI.show("ArcFD")
-        arcStat=true
-    else
-        self.UI.hide("ArcFD")
-        arcStat=false
-    end
+
+function showArcMFD()
+    self.UI.show("arcPanel")
+    self.UI.setAttribute("arcPanel", "position", "300 -270 -30")
+    self.UI.setAttribute("arcPanel", "rotation", "180 180 0")
 end
 
-function relocMenu()
-    if relocStat==nil then
-        relocStat=false
-    end
-    if relocStat== false then
-        self.UI.setAttribute("BoostFD", "rotation", "180 180 0")
-        self.UI.setAttribute("BoostFD", "position", "0 -270 -30")
-        self.UI.setAttribute("BarrelRightFD", "rotation", "180 180 0")
-        self.UI.setAttribute("BarrelRightFD", "position", "-200 -270 -30")
-        self.UI.setAttribute("BarrelLeftFD", "rotation", "180 180 0")
-        self.UI.setAttribute("BarrelLeftFD", "position", "200 -270 -30")
-        self.UI.show("BoostFD")
-        self.UI.show("BarrelRightFD")
-        self.UI.show("BarrelLeftFD")
-        relocStat=true
-    else
-        self.UI.hide("BoostFD")
-        self.UI.hide("BarrelRightFD")
-        self.UI.hide("BarrelLeftFD")
-        relocStat=false
-    end
+function showArcMFU()
+    self.UI.show("arcPanel")
+    self.UI.setAttribute("arcPanel", "position", "-300 -270 30")
+    self.UI.setAttribute("arcPanel", "rotation", "180 0 0")
 end
 
-function relocMenuFU()
-    if relocStat==nil then
-        relocStat=false
-    end
-    if relocStat== false then
-        self.UI.setAttribute("BoostFD", "rotation", "180 0 0")
-        self.UI.setAttribute("BoostFD", "position", "0 -270 30")
-        self.UI.setAttribute("BarrelRightFD", "rotation", "180 0 0")
-        self.UI.setAttribute("BarrelRightFD", "position", "200 -270 30")
-        self.UI.setAttribute("BarrelLeftFD", "rotation", "180 0 0")
-        self.UI.setAttribute("BarrelLeftFD", "position", "-200 -270 30")
-        self.UI.show("BoostFD")
-        self.UI.show("BarrelRightFD")
-        self.UI.show("BarrelLeftFD")
-        relocStat=true
-    else
-        self.UI.hide("BoostFD")
-        self.UI.hide("BarrelRightFD")
-        self.UI.hide("BarrelLeftFD")
-        relocStat=false
-    end
+function hideArcM()
+    self.UI.hide("arcPanel")
+end
+
+function showRelocMFD()
+    self.UI.show("relocPanel")
+    self.UI.setAttribute("relocPanel", "position", "0 -280 -30")
+    self.UI.setAttribute("relocPanel", "rotation", "180 180 0")
+end
+
+function showRelocMFU()
+    self.UI.show("relocPanel")
+    self.UI.setAttribute("relocPanel", "position", "0 -280 30")
+    self.UI.setAttribute("relocPanel", "rotation", "180 0 0")
+end
+
+function hideRelocM()
+    self.UI.hide("relocPanel")
 end
 
 function setDial(P)
-
     if firstSet == true then
         if setStat == nil then
             setStat = false
@@ -691,5 +635,13 @@ function spawnTemplate()
     if setMan~='' then
         Table={[1]=assignedShip,[2]='spawnMoveTemplate:'..setMan..befAft,[3]=playerColor}
         Global.call("proxyPerformAction",Table)
+    end
+end
+
+initStat = true
+function onObjectSpawned()
+    if initStat==true then
+        initStat=false
+        clearDial()
     end
 end
