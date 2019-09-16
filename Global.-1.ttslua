@@ -5061,7 +5061,8 @@ function newSpawner(listTable)
         end
         for k, acc in ipairs(listaAcc) do
             if acc.name == 'Unassigned Dial' then
-                newDial = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
+                local newPos = {}
+                newDial = tempBagAcc.takeObject({position = LocalPos(spawnCard, {0, 3, 12}), rotation = rot, guid = acc.guid})
                 dialClone = newDial.clone()
                 tempBagAcc.putObject(dialClone)
                 newDial.setCustomObject({['diffuse']=dialSkin})
