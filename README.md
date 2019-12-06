@@ -18,9 +18,14 @@ You will have to compile the changes to an existing save game
     * Save the game under Games -> Save & Load
 * While TTS is still opened, switch over to Atom and under `Packages -> Tabletop Simulator`, select `Get LUA Scripts (Ctrl-Shift-L)`
     * This will load the running game scripts into Atom
-* To save and see changes, under `Packages -> Tabletop Simulator`, select `Save and Play (Ctrl-Shift-S)` 
+* To save and see changes, under `Packages -> Tabletop Simulator`, select `Save and Play (Ctrl-Shift-S)`
 
 ## Troubleshooting
 
 Error - `Could not catalog #include - file not found:`
 * Check to make sure you have moved `TTS_Lib` and `TTS_xwing` to the Tabletop Simulator Directory in step 3 of setup
+
+* If they exist, check to make sure the path from the package to the directory is correct.
+    * The default path seems to exclude the `My Games` directory so you may have to manually set it
+    * You can set this in `Settings -> Packages -> Settings -> Base path for files you want to #include`
+    
