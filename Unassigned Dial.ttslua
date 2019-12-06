@@ -174,7 +174,10 @@ function onFixedUpdate()
     end
 end
 
-function manSelect(Player, option, id)
+function manSelect(p, option, id)
+    if spectReturn(p) == true then
+        return
+    end
     firstSet=true
     self.UI.setAttribute("ManBtnGroup","allowSwitchOff","false")
     curMan=string.lower(id)
@@ -247,7 +250,10 @@ function manSetting()
     end
 end
 
-function Undo()
+function Undo(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("q")
     self.UI.setAttribute("UndoBtn", "active", "false")
     if setMan:sub(-1,-1) ~='t' then
@@ -259,6 +265,9 @@ function Undo()
 end
 
 function performMove(P)
+    if spectReturn(P) == true then
+        return
+    end
     if setMan~="" then
         self.UI.setAttribute("MoveBtn", "active", "false")
         if setMan:sub(-1,-1) ~='t' then
@@ -273,6 +282,9 @@ function performMove(P)
 end
 
 function performTalon(P,option,id)
+    if spectReturn(P) == true then
+        return
+    end
     self.UI.hide("TalonPanel")
     self.UI.setAttribute("UndoBtn", "active", "true")
     if id=="TalonMidBtn" then
@@ -392,44 +404,73 @@ function genericAction(a,b,c,d)
     print(d)
 end
 
-
-function focusTok()
+function focusTok(p)
+    if spectReturn(p) == true then
+        return
+    end
     Global.call('proxyPerformAction', {assignedShip, 'Focus', playerColor})
 end
 
-function evadeTok()
+function evadeTok(p)
+    if spectReturn(p) == true then
+        return
+    end
     Global.call('proxyPerformAction', {assignedShip, 'Evade', playerColor})
 end
 
-function tlTok()
+function tlTok(p)
+    if spectReturn(p) == true then
+        return
+    end
     Global.call('proxyPerformAction', {assignedShip, 'Target Lock', playerColor})
 end
 
-function tractorTok()
+function tractorTok(p)
+    if spectReturn(p) == true then
+        return
+    end
     Global.call('proxyPerformAction', {assignedShip, 'Tractor', playerColor})
 end
 
-function jamTok()
+function jamTok(p)
+    if spectReturn(p) == true then
+        return
+    end
     Global.call('proxyPerformAction', {assignedShip, 'Jam', playerColor})
 end
 
-function disarmTok()
+function disarmTok(p)
+    if spectReturn(p) == true then
+        return
+    end
     Global.call('proxyPerformAction', {assignedShip, 'Disarm', playerColor})
 end
 
-function cloakTok()
+function cloakTok(p)
+    if spectReturn(p) == true then
+        return
+    end
     Global.call('proxyPerformAction', {assignedShip, 'Cloak', playerColor})
 end
 
-function calcTok()
+function calcTok(p)
+    if spectReturn(p) == true then
+        return
+    end
     Global.call('proxyPerformAction', {assignedShip, 'Calculate', playerColor})
 end
 
-function reinforceTok()
+function reinforceTok(p)
+    if spectReturn(p) == true then
+        return
+    end
     Global.call('proxyPerformAction', {assignedShip, 'Reinforce', playerColor})
 end
 
 function stressTok(p,id)
+    if spectReturn(p) == true then
+        return
+    end
     if id == '-1' then
         Global.call('proxyPerformAction', {assignedShip, 'Stress', playerColor})
     else
@@ -438,6 +479,9 @@ function stressTok(p,id)
 end
 
 function strainTok(p,id)
+  if spectReturn(p) == true then
+      return
+  end
   if id == '-1' then
       Global.call('proxyPerformAction', {assignedShip, 'Strain', playerColor})
   else
@@ -445,97 +489,165 @@ function strainTok(p,id)
   end
 end
 
-function ionTok()
+function ionTok(p)
+    if spectReturn(p) == true then
+        return
+    end
     Global.call('proxyPerformAction', {assignedShip, 'Ion', playerColor})
 end
 
-function BoostS()
+function BoostS(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("s1b")
 end
 
-function BoostR()
+function BoostR(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("br1b")
 end
 
-function BoostL()
+function BoostL(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("bl1b")
 end
 
 
-function AilS()
+function AilS(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("s1")
-    print('flag')
 end
 
-function AilR()
+function AilR(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("br1")
 end
 
-function AilL()
+function AilL(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("bl1")
 end
 
-function BarrelL()
+function BarrelL(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("rl2")
 end
 
-function BarrelLF()
+function BarrelLF(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("rl1")
 end
 
-function BarrelLB()
+function BarrelLB(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("rl3")
 end
 
-function BarrelR()
+function BarrelR(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("rr2")
 end
 
-function BarrelRF()
+function BarrelRF(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("rr1")
 end
 
-function BarrelRB()
+function BarrelRB(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("rr3")
 end
 
-function range1()
+function range1(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("r1")
 end
 
-function range2()
+function range2(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("r2")
 end
 
-function range3()
+function range3(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("r3")
 end
 
-function arcF()
+function arcF(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("f")
 end
 
-function arcL()
+function arcL(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("sl")
 end
 
-function arcR()
+function arcR(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("sr")
 end
 
-function arcB()
+function arcB(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("b")
 end
 
-function pivK()
+function pivK(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription('k0')
 end
 
-function pivR()
+function pivR(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription('tr4')
 end
 
-function pivL()
+function pivL(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription('tl4')
 end
 
@@ -557,52 +669,90 @@ function Window(p)
     end
 end
 
-function showTokMFD()
+function spectReturn(p)
+    if p.color == 'Grey' then
+        return true
+    elseif p.color == 'White' then
+        return true
+    end
+end
+
+function showTokMFD(p)
+    if spectReturn(p) == true then
+        return
+    end
+    --[[if p.color ==  'Grey' then
+        return
+    end]]
     self.UI.show("tokenPanel")
-    self.UI.setAttribute("tokenPanel", "position", "-380 -250 -30")
+    self.UI.setAttribute("tokenPanel", "position", "-380 -250 -40")
     self.UI.setAttribute("tokenPanel", "rotation", "180 180 0")
 end
 
-function showTokMFU()
+function showTokMFU(p)
+    if spectReturn(p) == true then
+        return
+    end
     self.UI.show("tokenPanel")
-    self.UI.setAttribute("tokenPanel", "position", "380 -250 30")
+    self.UI.setAttribute("tokenPanel", "position", "380 -250 40")
     self.UI.setAttribute("tokenPanel", "rotation", "180 0 0")
 end
 
-function hideTokM()
+function hideTokM(p)
+    if spectReturn(p) == true then
+        return
+    end
     self.UI.hide("tokenPanel")
 end
 
 
-function showArcMFD()
+function showArcMFD(p)
+    if spectReturn(p) == true then
+        return
+    end
     self.UI.show("arcPanel")
-    self.UI.setAttribute("arcPanel", "position", "300 -270 -30")
+    self.UI.setAttribute("arcPanel", "position", "300 -270 -40")
     self.UI.setAttribute("arcPanel", "rotation", "180 180 0")
 end
 
-function showArcMFU()
+function showArcMFU(p)
+    if spectReturn(p) == true then
+        return
+    end
     self.UI.show("arcPanel")
-    self.UI.setAttribute("arcPanel", "position", "-300 -270 30")
+    self.UI.setAttribute("arcPanel", "position", "-300 -270 40")
     self.UI.setAttribute("arcPanel", "rotation", "180 0 0")
 end
 
-function hideArcM()
+function hideArcM(p)
+    if spectReturn(p) == true then
+        return
+    end
     self.UI.hide("arcPanel")
 end
 
-function showRelocMFD()
+function showRelocMFD(p)
+    if spectReturn(p) == true then
+        return
+    end
     self.UI.show("relocPanel")
-    self.UI.setAttribute("relocPanel", "position", "0 -280 -30")
+    self.UI.setAttribute("relocPanel", "position", "0 -280 -40")
     self.UI.setAttribute("relocPanel", "rotation", "180 180 0")
 end
 
-function showRelocMFU()
+function showRelocMFU(p)
+    if spectReturn(p) == true then
+        return
+    end
     self.UI.show("relocPanel")
-    self.UI.setAttribute("relocPanel", "position", "0 -280 30")
+    self.UI.setAttribute("relocPanel", "position", "0 -280 40")
     self.UI.setAttribute("relocPanel", "rotation", "180 0 0")
 end
 
-function hideRelocM()
+function hideRelocM(p)
+    if spectReturn(p) == true then
+        return
+    end
     self.UI.hide("relocPanel")
 end
 
@@ -631,7 +781,10 @@ function setDial(P)
     end
 end
 
-function spawnTemplate()
+function spawnTemplate(p)
+    if spectReturn(p) == true then
+        return
+    end
     if setMan~='' then
         Table={[1]=assignedShip,[2]='spawnMoveTemplate:'..setMan..befAft,[3]=playerColor}
         Global.call("proxyPerformAction",Table)
