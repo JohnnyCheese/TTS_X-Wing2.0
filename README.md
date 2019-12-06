@@ -1,5 +1,5 @@
 # Tabletop Simulator - X-Wing 2.0
-Updated Dec 12, 2019 by infinityLoop
+Updated Dec 6, 2019 by infinityLoop
 
 
 ## Setting Up Your Environment
@@ -28,4 +28,3 @@ Error - `Could not catalog #include - file not found:`
 * If they exist, check to make sure the path from the package to the directory is correct.
     * The default path seems to exclude the `My Games` directory so you may have to manually set it
     * You can set this in `Settings -> Packages -> Settings -> Base path for files you want to #include`
-    
