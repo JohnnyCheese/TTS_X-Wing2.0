@@ -778,70 +778,74 @@ MoveData.DecodeInfo = function (move_code, ship)
             info.collNote = 'tried barrel rolling ' ..info.dir .. ' ' .. info.extra
         end
         -- New Decloak
-        elseif move_code:sub(1,1) == 'c' then
-            info.type = 'deCloak'
-            info.dir = 'right'
-            if move_code:sub(2,2) == 'l' or move_code:sub(2,2) == 'e' then
-                info.dir = 'left'
-            end
-            info.speed = tonumber(move_code:sub(-1,-1))
-            info.traits.full = true
-            info.traits.part = false
-            if tonumber(move_code:sub(-1,-1)) == 1 then
-                info.note = 'decloaked ' .. info.dir .. ' forward'
-                info.collNote = 'tried decloaking ' ..info.dir .. ' forward'
-            elseif tonumber(move_code:sub(-1,-1)) == 2 then
-                info.note = 'decloaked ' .. info.dir .. ' straight'
-                info.collNote = 'tried decloaking ' ..info.dir .. ' straight'
-            elseif tonumber(move_code:sub(-1,-1)) == 3 then
-                info.note = 'decloaked ' .. info.dir .. ' backward'
-                info.collNote = 'tried decloaking ' ..info.dir .. ' backward'
-            end
-            if move_code:sub(2,2) == 's' then
-                info.type = 'straight'
+    elseif move_code:sub(1,1) == 'c' then
+        info.type = 'deCloak'
+        info.dir = 'right'
+        if move_code:sub(2,2) == 'l' or move_code:sub(2,2) == 'e' then
+            info.dir = 'left'
+        end
+        info.speed = tonumber(move_code:sub(-1,-1))
+        info.traits.full = true
+        info.traits.part = false
+        if tonumber(move_code:sub(-1,-1)) == 1 then
+            info.note = 'decloaked ' .. info.dir .. ' forward'
+            info.collNote = 'tried decloaking ' ..info.dir .. ' forward'
+        elseif tonumber(move_code:sub(-1,-1)) == 2 then
+            info.note = 'decloaked ' .. info.dir .. ' straight'
+            info.collNote = 'tried decloaking ' ..info.dir .. ' straight'
+        elseif tonumber(move_code:sub(-1,-1)) == 3 then
+            info.note = 'decloaked ' .. info.dir .. ' backward'
+            info.collNote = 'tried decloaking ' ..info.dir .. ' backward'
+        end
+        if move_code:sub(2,2) == 's' then
+            info.type = 'straight'
+            if info.size == "small" then
                 info.speed = 2
-                info.dir = nil
-                info.note = 'decloaked forward'
-                info.collNote = 'tried decloacking forward'
+            else
+                info.speed = 1
             end
-        --New Echo
-        elseif move_code:sub(1,1) == 'e' then
-            info.type = 'Echo'
-            info.dir = 'right'
-            if move_code:sub(2,2) == 'l' or move_code:sub(2,2) == 'e' then
+            info.dir = nil
+            info.note = 'decloaked forward'
+            info.collNote = 'tried decloacking forward'
+        end
+    --New Echo
+    elseif move_code:sub(1,1) == 'e' then
+        info.type = 'Echo'
+        info.dir = 'right'
+        if move_code:sub(2,2) == 'l' or move_code:sub(2,2) == 'e' then
+            info.dir = 'left'
+        end
+        info.speed = tonumber(move_code:sub(4,4))
+        info.traits.full = true
+        info.traits.part = false
+        if move_code:sub(3,3) == 'f' then
+            info.type = 'echoF'
+            info.extra = 'forward'
+        elseif move_code:sub(3,3) == 'b' then
+            info.type = 'echoB'
+            info.extra = 'backward'
+        end
+        if tonumber(move_code:sub(4,4)) == 1 then
+            info.note = 'decloacked ' .. info.dir .. ' ' .. info.extra .. ' adjusting forward'
+            info.collNote = 'tried decloacking ' ..info.dir .. ' ' .. info.extra
+        elseif tonumber(move_code:sub(4,4)) == 2 then
+            info.note = 'decloacked ' .. info.dir .. ' ' .. info.extra .. ' adjusting straight'
+            info.collNote = 'tried decloacking ' ..info.dir .. ' ' .. info.extra
+        elseif tonumber(move_code:sub(4,4)) == 3 then
+            info.note = 'decloacked ' .. info.dir .. ' ' .. info.extra .. ' adjusting backward'
+            info.collNote = 'tried decloacking ' ..info.dir .. ' ' .. info.extra
+        end
+        if move_code:sub(2,2) == 's' then
+            info.type = 'bank'
+            info.speed = 2
+            info.note = 'decloaked banking right'
+            info.collNote = 'tried decloacking banking right'
+            if move_code:sub(3,3) == 'l' or move_code:sub(3,3) == 'e' then
                 info.dir = 'left'
+                info.note = 'decloaked banking left'
+                info.collNote = 'tried decloacking banking left'
             end
-            info.speed = tonumber(move_code:sub(4,4))
-            info.traits.full = true
-            info.traits.part = false
-            if move_code:sub(3,3) == 'f' then
-                info.type = 'echoF'
-                info.extra = 'forward'
-            elseif move_code:sub(3,3) == 'b' then
-                info.type = 'echoB'
-                info.extra = 'backward'
-            end
-            if tonumber(move_code:sub(4,4)) == 1 then
-                info.note = 'decloacked ' .. info.dir .. ' ' .. info.extra .. ' adjusting forward'
-                info.collNote = 'tried decloacking ' ..info.dir .. ' ' .. info.extra
-            elseif tonumber(move_code:sub(4,4)) == 2 then
-                info.note = 'decloacked ' .. info.dir .. ' ' .. info.extra .. ' adjusting straight'
-                info.collNote = 'tried decloacking ' ..info.dir .. ' ' .. info.extra
-            elseif tonumber(move_code:sub(4,4)) == 3 then
-                info.note = 'decloacked ' .. info.dir .. ' ' .. info.extra .. ' adjusting backward'
-                info.collNote = 'tried decloacking ' ..info.dir .. ' ' .. info.extra
-            end
-            if move_code:sub(2,2) == 's' then
-                info.type = 'bank'
-                info.speed = 2
-                info.note = 'decloaked banking right'
-                info.collNote = 'tried decloacking banking right'
-                if move_code:sub(3,3) == 'l' or move_code:sub(3,3) == 'e' then
-                    info.dir = 'left'
-                    info.note = 'decloaked banking left'
-                    info.collNote = 'tried decloacking banking left'
-                end
-            end
+        end
     -- Barrel rolls and decloaks, spaghetti
 elseif move_code:sub(1,2) == 'ch' or move_code:sub(1,2) == 'vr' then
         -- Echo's fucking bullshit which goes against ALL the standards
@@ -1519,6 +1523,222 @@ MoveModule.FullCastCheck = function(ship, shipPosRot, SelectFun)
     )
 end
 
+-- Return all objects that pass selection function and would overlap a template in some situation
+-- Arguments:
+--      excludeObj   <- Object to exclude from overlapping
+--      collList     <- List of already hit objects (from base overlapping)
+--      templateData <- table with information on origin, orientation, speed, type and direction
+--      SelectFun   <- selection function that returns true/false for an object
+-- Return:
+--      Concatenated table of all objects that would overlap ship in this situation and pass select function
+MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, SelectFun)
+
+    local gTable = {[excludeObj.getGUID()]=true}
+
+    for k, coll in pairs(collList) do
+        gTable[coll.getGUID()] = true
+    end
+
+    -- Find template origin and do special handling of special manouvers
+    local templateOrigin = {}
+    if templateData.extra == "reverse" then
+        templateOrigin = MoveModule.GetTemplateOrigin(templateData.origin, templateData.orientation, templateData.shipSize, "back")
+        if templateData.dir == "left" then
+            templateData.dir = "right"
+        elseif templateData.dir == "right" then
+            templateData.dir = "left"
+        end
+    elseif templateData.type == "straight" or  templateData.type == "bank" or templateData.type == "turn" then
+        templateOrigin = MoveModule.GetTemplateOrigin(templateData.origin, templateData.orientation, templateData.shipSize, "front")
+    elseif templateData.type == "roll" then
+        templateOrigin = MoveModule.GetTemplateOrigin(templateData.origin, templateData.orientation, templateData.shipSize, templateData.dir)
+        templateData.speed = 1
+    elseif templateData.type == "viper" then
+        templateOrigin = MoveModule.GetTemplateOrigin(templateData.origin, templateData.orientation, templateData.shipSize, templateData.dir)
+        if templateData.dir == "right" and templateData.extra =="forward" then
+            templateData.dir = "left"
+        elseif templateData.dir == "left" and templateData.extra == "backward" then
+            templateData.dir = "right"
+        end
+        templateData.speed = 1
+        templateData.type = "bank"
+    elseif templateData.type == "echoF"  then
+        templateOrigin = MoveModule.GetTemplateOrigin(templateData.origin, templateData.orientation, templateData.shipSize, templateData.dir)
+        templateData.speed = 2
+        templateData.type = "bank"
+        if templateData.dir == "right" then
+            templateData.dir = "left"
+        elseif templateData.dir == "left" then
+            templateData.dir = "right"
+        end
+    elseif templateData.type == "echoB"  then
+        templateOrigin = MoveModule.GetTemplateOrigin(templateData.origin, templateData.orientation, templateData.shipSize, templateData.dir)
+        templateData.speed = 2
+        templateData.type = "bank"
+
+    elseif templateData.type == "deCloak" then
+        templateOrigin = MoveModule.GetTemplateOrigin(templateData.origin, templateData.orientation, templateData.shipSize, templateData.dir)
+        if templateData.shipSize == "small" then
+            templateData.speed = 2
+        else
+            templateData.speed = 1
+        end
+    else
+        return
+    end
+
+    if templateData.type == "straight" or templateData.type == "roll" or templateData.type == "deCloak" then
+        local offsetDistance = Convert_mm_igu(20)* tonumber(templateData.speed)
+
+         local size = {Convert_mm_igu(20), Convert_mm_igu(6), templateData.speed*Convert_mm_igu(40)}
+         if (templateData.type =="roll"  or templateData.type == "deCloak") and templateData.shipSize ~= "small" then
+             size = {Convert_mm_igu(40), Convert_mm_igu(6), Convert_mm_igu(20)}
+             offsetDistance = Convert_mm_igu(10)
+         end
+
+         local offset = vector(offsetDistance * math.sin(math.rad(templateOrigin.rot.y)),
+          0, offsetDistance * math.cos(math.rad(templateOrigin.rot.y)) )
+
+         local collissions = Physics.cast({
+             origin       = templateOrigin.pos + offset,
+             orientation  = templateOrigin.rot,
+             direction    = {0,0.001,0},
+             type         = 3,
+             size         = size,
+             max_distance = 1,
+             debug        = true
+         })
+
+         MoveModule.AddCollissionEntry(gTable, collList, collissions, SelectFun)
+    elseif templateData.type == "bank" then
+        local radius = 0
+        if templateData.speed == 1 then
+            radius = Convert_mm_igu(80)
+        elseif templateData.speed == 2 then
+            radius = Convert_mm_igu(130)
+        elseif templateData.speed == 3 then
+            radius = Convert_mm_igu(180)
+        end
+        local iterations = 10
+        local radianStep = math.pi /(4*iterations)
+        local dir_mod = 1
+        if templateData.dir == "left" then
+            dir_mod = -1
+        end
+        local c = math.cos(math.rad(templateOrigin.rot.y))
+        local s = math.sin(math.rad(templateOrigin.rot.y))
+        for i = 0, iterations do
+            local radians = radianStep*i
+            local orientation_offset = vector(0, math.deg(radians), 0)
+            -- Calculate world position for template
+            local pz = math.sin(radians)*radius
+            local px = dir_mod * (1 - math.cos(radians))*radius
+            -- Translate point to template origin
+            local position_offset = vector(px * c + pz * s, 0, pz * c - px * s)
+
+            local collissions = Physics.cast({
+                origin       = templateOrigin.pos + position_offset,
+                orientation  = templateOrigin.rot + orientation_offset * dir_mod,
+                direction    = {0,0.001,0},
+                type         = 3,
+                size         = {Convert_mm_igu(20), Convert_mm_igu(6), Convert_mm_igu(1)},
+                max_distance = 1,
+                debug        = true
+            })
+            MoveModule.AddCollissionEntry(gTable, collList, collissions, SelectFun)
+
+        end
+    elseif templateData.type == "turn" then
+        local radius = 0
+        if templateData.speed == 1 then
+            radius = Convert_mm_igu(35)
+        elseif templateData.speed == 2 then
+            radius = Convert_mm_igu(62)
+        elseif templateData.speed == 3 then
+            radius = Convert_mm_igu(90)
+        end
+        local iterations = 10
+        local radianStep = math.pi /(2*iterations)
+        local dir_mod = 1
+        if templateData.dir == "left" then
+            dir_mod = -1
+        end
+        local c = math.cos(math.rad(templateOrigin.rot.y))
+        local s = math.sin(math.rad(templateOrigin.rot.y))
+        for i = 0, iterations do
+            local radians = radianStep*i
+            local orientation_offset = vector(0, math.deg(radians), 0)
+            -- Calculate world position for template
+            local pz = math.sin(radians)*radius
+            local px = dir_mod * (1 - math.cos(radians))*radius
+            -- Translate point to template origin
+            local position_offset = vector(px * c + pz * s, 0, pz * c - px * s)
+
+            local collissions = Physics.cast({
+                origin       = templateOrigin.pos + position_offset,
+                orientation  = templateOrigin.rot + orientation_offset * dir_mod,
+                direction    = {0,0.001,0},
+                type         = 3,
+                size         = {Convert_mm_igu(20), Convert_mm_igu(6), Convert_mm_igu(1)},
+                max_distance = 1,
+                debug        = true
+            })
+            MoveModule.AddCollissionEntry(gTable, collList, collissions, SelectFun)
+
+        end
+    end
+end
+
+
+-- Adds objects from the collissions table to the collList if it pass the selectfun
+-- and is not already present
+-- Arguments:
+--      gTable          <- GUID table, containing allready present objects
+--      collList        <- List of hit objects that have passed the select fun
+--      collissions     <- Table of hits returned from a Physics.cast()
+--      SelectFun       <- Function that returns true if object if of correct type
+MoveModule.AddCollissionEntry = function(gTable, collList, collissions, SelectFun)
+    for k,hit in pairs(collissions) do
+        if gTable[hit.hit_object.getGUID()] == nil and SelectFun(hit.hit_object) then
+            gTable[hit.hit_object.getGUID()] = true
+            table.insert(collList, hit.hit_object)
+        end
+    end
+end
+
+-- Return all position and rotation for a template originating position based on ship size and direction
+-- Arguments:
+--      shipOrigin      <- The ship origin
+--      shipOrientation <- Orientation of the ship
+--      shipSize        <- Size of the ship (small, medium, large)
+--      templateDir     <- Which direction to get position and orientation for
+-- Return:
+--      TemplateOrigin (position and rotation)
+MoveModule.GetTemplateOrigin = function(shipOrigin, shipOrientation, shipSize, templateDir)
+    -- OBS: Ships are placed backwards
+    local orientation = shipOrientation
+    orientation.y = orientation.y + 180
+    if templateDir == "left" then
+        orientation.y = orientation.y - 90
+    elseif templateDir == "right" then
+        orientation.y = orientation.y + 90
+    elseif templateDir == "back" then
+        orientation.y = orientation.y - 180
+    end
+
+    local distance = Convert_mm_igu(20)
+    if shipSize == "medium" then
+        distance = Convert_mm_igu(30)
+    elseif shipSize == "large" then
+        distance = Convert_mm_igu(40)
+    end
+
+    local position = shipOrigin + vector(distance * math.sin(math.rad(orientation.y)), 0 , distance*math.cos(math.rad(orientation.y)))
+
+    return {pos = position, rot = orientation}
+end
+
+
 -- Check if provided ship in a provided position/rotation would collide with anything from the provided table
 -- Return: {coll=collObject, minMargin=howFarCollisionIsStillCertain, numCheck=numCollideChecks}
 MoveModule.CheckCollisions = function(ship, shipPosRot, collShipTable)
@@ -2032,6 +2252,8 @@ end
 -- Starts the wait coroutine that handles stuff done when ship settles down
 MoveModule.PerformMove = function(move_code, ship, ignoreCollisions)
     ship.lock()
+    local originalPos = ship.getPosition()
+    local origionalRot = ship.getRotation()
     local info = MoveData.DecodeInfo(move_code, ship)
     local finData = MoveModule.GetFinalPosData(move_code, ship, ignoreCollisions)
     local annInfo = {type=finData.finType, note=info.note, code=info.code}
@@ -2055,7 +2277,19 @@ MoveModule.PerformMove = function(move_code, ship, ignoreCollisions)
         end
     end
     AnnModule.Announce(annInfo, 'all', ship)
-    MoveModule.CheckObstacleCollisions(ship, finData.finPos, true)
+
+    local templateData =
+    {
+        origin = originalPos,
+        orientation = origionalRot,
+        dir = info.dir,
+        speed = info.speed,
+        type = info.type,
+        shipSize = info.size,
+        extra = info.extra
+    }
+
+    MoveModule.CheckObstacleCollisions(ship, finData.finPos, true, templateData)
     MoveModule.CheckMineCollisions(ship, finData.finPos, true)
     return (finData.finType ~= 'overlap')
 end
@@ -2084,8 +2318,11 @@ end
 -- Highlight overlapped obstacles red
 -- If 'vocal' set to true, add a notification
 -- Return table of overlapped obstacles
-MoveModule.CheckObstacleCollisions = function(ship, targetPosRot, vocal)
+MoveModule.CheckObstacleCollisions = function(ship, targetPosRot, vocal, templateData)
     local collList = MoveModule.FullCastCheck(ship, targetPosRot,  MoveModule.SelectObstacles)
+    if templateData ~= nil then
+        MoveModule.TemplateCastCheck(ship, collList, templateData, MoveModule.SelectObstacles)
+    end
     if collList[1] ~= nil then
         local obsList = '('
         for k,obs in pairs(collList) do
@@ -2100,13 +2337,18 @@ MoveModule.CheckObstacleCollisions = function(ship, targetPosRot, vocal)
     return collList
 end
 
+
+
 -- Check if a ship in some situation is overlapping any mine tokens
 -- Highlight overlapped tokens red
 -- If 'vocal' set to true, add a notification
 -- Return table of overlapped tokens
 --TODO maybe check mine colision after bomb drop?
-MoveModule.CheckMineCollisions = function(ship, targetPosRot, vocal)
+MoveModule.CheckMineCollisions = function(ship, targetPosRot, vocal, templateData)
     local collList = MoveModule.FullCastCheck(ship, targetPosRot,  MoveModule.SelectMineTokens)
+    if templateData ~= nil then
+        MoveModule.TemplateCastCheck(ship, collList, templateData, MoveModule.SelectObstacles)
+    end
     if collList[1] ~= nil then
         local mineList = '('
         for k,mine in pairs(collList) do
@@ -3809,6 +4051,7 @@ function SlideCoroutine()
     else
         MoveModule.AddHistoryEntry(ship, {pos=ship.getPosition(), rot=ship.getRotation(), move='manual slide', finType='special'})
     end
+
     MoveModule.CheckObstacleCollisions(ship, targetPos, true)
     MoveModule.CheckMineCollisions(ship, targetPos, true)
     return 1
@@ -5061,7 +5304,8 @@ function newSpawner(listTable)
         end
         for k, acc in ipairs(listaAcc) do
             if acc.name == 'Unassigned Dial' then
-                newDial = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
+                local newPos = {}
+                newDial = tempBagAcc.takeObject({position = LocalPos(spawnCard, {0, 3, 12}), rotation = rot, guid = acc.guid})
                 dialClone = newDial.clone()
                 tempBagAcc.putObject(dialClone)
                 newDial.setCustomObject({['diffuse']=dialSkin})
