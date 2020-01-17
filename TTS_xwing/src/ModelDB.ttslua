@@ -130,6 +130,23 @@ fullCollider = {
 --      arcType: 'P' (primary only) / 'T' (turret) / 'R' (rear aux) / 'S' (side aux) / 'M' (mobile)
 --          }
 ModelDB.data = {
+    ['Generic']={
+        ['small']={
+            ['Generic']={
+              meshes={'http://cloud-3.steamusercontent.com/ugc/958613321556914101/498734B480CADED7E71707884DD3B20EB393441C/'}
+            }
+        },
+        ['medium']={
+            ['Generic']={
+              meshes={'http://cloud-3.steamusercontent.com/ugc/958613321557232034/A9D5C914B056BF881E8C9C243D067B154BC32659/'}
+            }
+        },
+        ['large']={
+            ['Generic']={
+              meshes={'http://cloud-3.steamusercontent.com/ugc/958613321557238242/9BC35DE072343C9B239EAA7F0D6341328C8FBD18/'}
+            }
+        }
+    }
     ['Rebel'] = {
         ['small'] = {
             ['X-Wing'] = {
@@ -365,7 +382,9 @@ ModelDB.data = {
             ['Delta-7'] = {
                 meshes={'http://cloud-3.steamusercontent.com/ugc/960842902741967042/314CB73974C7868C1B6E445F08D594BCAD5E33CD/'} },
             ['Naboo Starfighter'] = {
-                meshes={'http://cloud-3.steamusercontent.com/ugc/943970729014570907/DC6C4AA277A2B084827736B3DB8818CCC04266C9/'} }
+                meshes={'http://cloud-3.steamusercontent.com/ugc/943970729014570907/DC6C4AA277A2B084827736B3DB8818CCC04266C9/'} },
+            ['BTL-B Y-Wing'] = {
+                meshes={'http://cloud-3.steamusercontent.com/ugc/958613321556922860/FAAF973F0962EB4A537FC268313AF11F5CA16762/'} }
         },
         ['medium'] = {
             ['ARC-170 Republic'] ={
@@ -381,7 +400,11 @@ ModelDB.data = {
             ['Hyena Bomber'] ={
                 meshes = {'http://cloud-3.steamusercontent.com/ugc/943970922559272193/BC3FE066411B715C5D1336CFB28ABD14605F400C/'} },
             ['Vulture'] = {
-                meshes ={'http://cloud-3.steamusercontent.com/ugc/947346371433468720/9AC0EE35865B9D1813A26E31BA7C1FF777A168D6/'}  }
+                meshes ={'http://cloud-3.steamusercontent.com/ugc/947346371433468720/9AC0EE35865B9D1813A26E31BA7C1FF777A168D6/'}  },
+            ['Nantek'] = {
+                meshes ={'http://cloud-3.steamusercontent.com/ugc/958613321557215803/79F85B59398FF398CC321BDB58445EDE1E99646F/'}  }
+            }
+
         },
         ['medium'] = {},
         ['large'] = {
