@@ -2779,6 +2779,8 @@ function parseList()
                     cardN = 'Pivot Wing (Open)'
                 elseif string.lower(cardN) == 'integrated s-foils' then
                     cardN = 'Integrated S-Foils (Open)'
+                elseif string.lower(cardN) == 'grappling struts' then
+                    cardN = 'Grappling Struts (Open)'
                 end
                 if k == 1 then -- First card, the pilot
                     finalList.Aux[pilotIndex] = {}
