@@ -874,7 +874,7 @@ masterPilotDB[503]={['name']='Darth Maul',['Faction']=7,['ship_type']=60,['cost'
                   ['actSet']={'F','TL','BR'}}
 masterPilotDB[504]={['name']='Count Dooku',['Faction']=7,['ship_type']=60,['cost']=63,['slot']={17,5,4,8,8,20,12,15,14},['Force']=3,['Charge']=nil,['card']='https://sb-cdn.fantasyflightgames.com/card_images/en/88959087710ec5a80a16dd93573f149d.png',['init']=3,
                   ['actSet']={'F','TL','BR'}}
-masterPilotDB[505]={['name']='0-66',['Faction']=7,['ship_type']=60,['cost']=52,['slot']={5,4,8,8,20,12,15,14},['Force']=nil,['Charge']=nil,['card']='https://sb-cdn.fantasyflightgames.com/card_images/en/9edd9bb6846e77723d8f0381bb7909aa.png',['init']=3,
+masterPilotDB[505]={['name']='O-66',['Faction']=7,['ship_type']=60,['cost']=52,['slot']={5,4,8,8,20,12,15,14},['Force']=nil,['Charge']=nil,['card']='https://sb-cdn.fantasyflightgames.com/card_images/en/9edd9bb6846e77723d8f0381bb7909aa.png',['init']=3,
                   ['actSet']={'C','TL','BR'}}
 masterPilotDB[506]={['name']='Dark Courier',['Faction']=7,['ship_type']=60,['cost']=51,['slot']={5,4,8,8,20,12,15,14},['Force']=nil,['Charge']=nil,['card']='https://sb-cdn.fantasyflightgames.com/card_images/en/132f1957b904c890b94bf3aaf2a944ce.png',['init']=2,
                   ['actSet']={'F','TL','BR'}}
@@ -2781,6 +2781,8 @@ function parseList()
                     cardN = 'Integrated S-Foils (Open)'
                 elseif string.lower(cardN) == 'grappling struts' then
                     cardN = 'Grappling Struts (Open)'
+                elseif string.lower(cardN) == '0-66' then
+                    cardN = 'O-66'
                 end
                 if k == 1 then -- First card, the pilot
                     finalList.Aux[pilotIndex] = {}
