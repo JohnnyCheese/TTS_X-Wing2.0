@@ -872,7 +872,7 @@ masterPilotDB[503]={['name']='Darth Maul',['Faction']=7,['ship_type']=60,['cost'
                   ['actSet']={'F','TL','BR'}}
 masterPilotDB[504]={['name']='Count Dooku',['Faction']=7,['ship_type']=60,['cost']=63,['slot']={17,5,3,8,8,20,12,15,14},['Force']=3,['Charge']=nil,['card']='https://sb-cdn.fantasyflightgames.com/card_images/en/88959087710ec5a80a16dd93573f149d.png',['init']=3,
                   ['actSet']={'F','TL','BR'}}
-masterPilotDB[505]={['name']='0-66',['Faction']=7,['ship_type']=60,['cost']=52,['slot']={5,3,8,8,20,12,15,14},['Force']=nil,['Charge']=nil,['card']='https://sb-cdn.fantasyflightgames.com/card_images/en/9edd9bb6846e77723d8f0381bb7909aa.png',['init']=3,
+masterPilotDB[505]={['name']='O-66',['Faction']=7,['ship_type']=60,['cost']=52,['slot']={5,4,8,8,20,12,15,14},['Force']=nil,['Charge']=nil,['card']='https://sb-cdn.fantasyflightgames.com/card_images/en/9edd9bb6846e77723d8f0381bb7909aa.png',['init']=3,
                   ['actSet']={'C','TL','BR'}}
 masterPilotDB[506]={['name']='Dark Courier',['Faction']=7,['ship_type']=60,['cost']=51,['slot']={5,3,8,8,20,12,15,14},['Force']=nil,['Charge']=nil,['card']='https://sb-cdn.fantasyflightgames.com/card_images/en/132f1957b904c890b94bf3aaf2a944ce.png',['init']=2,
                   ['actSet']={'F','TL','BR'}}
@@ -2812,42 +2812,58 @@ function parseList()
                     cardN = 'Pivot Wing (Open)'
                 elseif string.lower(cardN) == 'integrated s-foils' then
                     cardN = 'Integrated S-Foils (Open)'
+                elseif string.lower(cardN) == 'grappling struts' then
+                    cardN = 'Grappling Struts (Open)'
+                elseif string.lower(cardN) == '0-66' then
+                    cardN = 'O-66'
                 end
-                if k == 1 then
+                if k == 1 then -- First card, the pilot
                     finalList.Aux[pilotIndex] = {}
                     finalList.AuxU[pilotIndex] = {}
+                    local found = false
                     for id, pilot in pairs(masterPilotDB) do
                         if string.lower(pilot['name']) == string.lower(cardN) and pilot['Faction'] == finalList.Faction then
                             Aux = Aux + 1
                             finalList.Aux[pilotIndex][Aux] = id
                             finalList.Upgrades[pilotIndex] = {}
+                            found = true
                         end
+                    end
+                    if not found then
+                        printToAll("Unable to find pilot: " .. cardN .. " please check correct spelling", {1,0,0})
+                        break
                     end
                     if Aux == 1 then
                         finalList.Pilots[pilotIndex] = finalList.Aux[pilotIndex][1]
                         finalList.Aux[pilotIndex] = nil
                     end
                     Aux = 0
-                else
+                else -- The remaining cards, the upgrades
                     finalList.AuxU[pilotIndex][k] ={}
+                    local found = false
                     for id, upg in pairs(masterUpgradesDB) do
                         if string.lower(upg['name']) == string.lower(cardN) then
-                            if upg['restriction']['Faction'] == nil then
+                            found = true
+                            if upg['restriction']['Faction'] == nil or upg['restriction']['Faction'][finalList.Faction] == true then
                                 Aux = Aux + 1
                                 finalList.AuxU[pilotIndex][k][Aux] = id
-                            elseif  upg['restriction']['Faction'][finalList.Faction] == true then
-                                Aux = Aux + 1
-                                finalList.AuxU[pilotIndex][k][Aux] = id
+                            else
+                                printToAll('Upgrade "'.. cardN .. '" is restricted to another faction', {1,0,0})
                             end
                         end
+                    end
+                    if not found then
+                        printToAll("Unable to find upgrade: " .. cardN .. " please check correct spelling", {1,0,0})
+                        goto continue
                     end
                     if Aux == 1 then
                         finalList.Upgrades[pilotIndex][k-1] = finalList.AuxU[pilotIndex][k][Aux]
                         finalList.AuxU[pilotIndex][k] = nil
                     end
                     Aux = 0
-                end
-            end
+                end -- if Pilot and upgrade
+                ::continue::
+            end -- for card
         end
         pChecker()
     else
