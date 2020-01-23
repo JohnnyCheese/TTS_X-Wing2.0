@@ -81,23 +81,21 @@ addAction[542]={[1]='CL'}--Scimitar (CL)
 addAction[286]={[1]='CL'}--Cloaking Device (CL)
 addAction[551]={[1]='C'}--R4-P44 (C)
 addAction[577]={[1]='C'}--Passive Sensors(C,TL)
-addAction[376]={[1]='TL'}--Mist Hunter(BR)
+addAction[376]={[1]='BR'}--Mist Hunter(BR)
 addAction[582]={[1]='C'}--GA-97(C)
 addAction[381]={[1]='F'}--Composure(F)
 addAction[587]={[1]='C'}--PZ-4CO (C)
 addAction[593]={[1]='R'}--Angled Deflectors (Reinforce)
 
---table referenced by upgrades that adds actions to all ships in a squad
-addActionSquad={}
-addActionSquad[309]={[1]='E'} --Jyn Erso
-addActionSquad[337]={[1]='Piv'}--Ciena Ree (Pivot)
-addActionSquad[346]={[1]='B'}--Moff Jerjerrod (B)
-addActionSquad[538]={[1]='F'}--Darth Sidious (F)
-addActionSquad[554]={[1]='TL'}--Synchronized Console (TL)
+--table referenced by upgrades that adds actions to all ships in a squad.
+addSqdAction={}
+addSqdAction[309]={[1]='E'} --Jyn Erso
+addSqdAction[337]={[1]='Piv'}--Ciena Ree (Pivot)
+addSqdAction[346]={[1]='B'}--Moff Jerjerrod (B)
+addSqdAction[538]={[1]='F'}--Darth Sidious (F)
+addSqdAction[554]={[1]='TL'}--Synchronized Console (TL)
 
---General Hux (all)
-
--- FFG uses full name on factions, so a conversion is needed.. Sloppy and lazy.
+-- FFG uses full name on factions, so a conversion is needed
 ffgFaction = {}
 ffgFaction[0] = 'Dum'
 ffgFaction[1] = 'Reb'
@@ -196,7 +194,7 @@ masterShipDB[41]={['name']='TIE/in Interceptor',['Shield']=0,['sTurret']=nil,['d
                             ['moveSet']={'wtl1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rbl3s','wtl3','wbl3','bs3','wbr3','wtr3','rbr3s','bs4','rk4','ws5'}}
 masterShipDB[42]={['name']='Lancer Pursuit Craft',['Shield']=2,['sTurret']=1,['dTurret']=nil,['size']=3,['agi']=2,['XWS']='lancerclasspursuitcraft', ['Fac']={[3]=true},
                             ['moveSet']={'wbl1','ws1','wbr1','wtl2','wbl2','bs2','wbr2','wtr2','btl3','bbl3','bs3','bbr3','btr3','bs4','ws5','rk5'}}
-masterShipDB[43]={['name']='TIE/re Reaper',['Shield']=2,['sTurret']=nil,['dTurret']=nil,['size']=1,['agi']=1,['XWS']='tiereaper', ['Fac']={[2]=true},
+masterShipDB[43]={['name']='TIE/re Reaper',['Shield']=2,['sTurret']=nil,['dTurret']=nil,['size']=2,['agi']=1,['XWS']='tiereaper', ['Fac']={[2]=true},
                             ['moveSet']={'rbl1s','rtl1','bbl1','bs1','bbr1','rtr1','rbr1s','rtl2','wbl2','bs2','wbr2','rtr2','wbl3','bs3','wbr3','rs0'}}
 masterShipDB[44]={['name']='M3-A Interceptor',['Shield']=1,['sTurret']=nil,['dTurret']=nil,['size']=1,['agi']=3,['XWS']='m3ainterceptor', ['Fac']={[3]=true},
                             ['moveSet']={'wtl1','bbl1','bbr1','wtr1','wtl2','wbl2','bs2','wbr2','wtr2','wbl3','bs3','wbr3','rk3','ws4','ws5','rk5'}}
@@ -870,13 +868,13 @@ masterPilotDB[501]={['name']='DFS-311',['Faction']=7,['ship_type']=59,['cost']=2
                   ['actSet']={'C','BR','TL'}}
 masterPilotDB[502]={['name']='Haor Chall Prototype',['Faction']=7,['ship_type']=59,['cost']=21,['slot']={6,14,18},['Force']=nil,['Charge']=nil,['card']='https://sb-cdn.fantasyflightgames.com/card_images/en/91421be1f3bbbefd005c1b2682f0bc44.png',['init']=1,
                   ['actSet']={'C','BR','TL'}}
-masterPilotDB[503]={['name']='Darth Maul',['Faction']=7,['ship_type']=60,['cost']=67,['slot']={17,5,4,8,8,20,12,15,14},['Force']=3,['Charge']=nil,['card']='https://sb-cdn.fantasyflightgames.com/card_images/en/95428161db7de4adcea6fa8bcbf9de2f.png',['init']=5,
+masterPilotDB[503]={['name']='Darth Maul',['Faction']=7,['ship_type']=60,['cost']=67,['slot']={17,5,3,8,8,20,12,15,14},['Force']=3,['Charge']=nil,['card']='https://sb-cdn.fantasyflightgames.com/card_images/en/95428161db7de4adcea6fa8bcbf9de2f.png',['init']=5,
                   ['actSet']={'F','TL','BR'}}
-masterPilotDB[504]={['name']='Count Dooku',['Faction']=7,['ship_type']=60,['cost']=63,['slot']={17,5,4,8,8,20,12,15,14},['Force']=3,['Charge']=nil,['card']='https://sb-cdn.fantasyflightgames.com/card_images/en/88959087710ec5a80a16dd93573f149d.png',['init']=3,
+masterPilotDB[504]={['name']='Count Dooku',['Faction']=7,['ship_type']=60,['cost']=63,['slot']={17,5,3,8,8,20,12,15,14},['Force']=3,['Charge']=nil,['card']='https://sb-cdn.fantasyflightgames.com/card_images/en/88959087710ec5a80a16dd93573f149d.png',['init']=3,
                   ['actSet']={'F','TL','BR'}}
 masterPilotDB[505]={['name']='O-66',['Faction']=7,['ship_type']=60,['cost']=52,['slot']={5,4,8,8,20,12,15,14},['Force']=nil,['Charge']=nil,['card']='https://sb-cdn.fantasyflightgames.com/card_images/en/9edd9bb6846e77723d8f0381bb7909aa.png',['init']=3,
                   ['actSet']={'C','TL','BR'}}
-masterPilotDB[506]={['name']='Dark Courier',['Faction']=7,['ship_type']=60,['cost']=51,['slot']={5,4,8,8,20,12,15,14},['Force']=nil,['Charge']=nil,['card']='https://sb-cdn.fantasyflightgames.com/card_images/en/132f1957b904c890b94bf3aaf2a944ce.png',['init']=2,
+masterPilotDB[506]={['name']='Dark Courier',['Faction']=7,['ship_type']=60,['cost']=51,['slot']={5,3,8,8,20,12,15,14},['Force']=nil,['Charge']=nil,['card']='https://sb-cdn.fantasyflightgames.com/card_images/en/132f1957b904c890b94bf3aaf2a944ce.png',['init']=2,
                   ['actSet']={'F','TL','BR'}}
 
 masterPilotDB[507]={['name']='Anakin Skywalker',['Faction']=6,['ship_type']=61,['cost']=62,['slot']={17,10,18,14},['Force']=3,['Charge']=nil,['card']='https://sb-cdn.fantasyflightgames.com/card_images/en/d60f4eca355471465ca3f6b99fb98e56.png',['init']=6,
@@ -1697,6 +1695,7 @@ function idSpawner(idTable)
     end
     fList.factionDial=dialSkin[fList.Faction]
     fList.spawnCard = self
+    fList.sqdAction = {}
     for k,v in pairs (idTable.Pilots) do
         local name = masterPilotDB[v]['name']
         fList.Pilots[k] ={}
@@ -1748,10 +1747,17 @@ function idSpawner(idTable)
             fList.Upgrades[k][key] = {}
             fList.Upgrades[k][key]['name'] = name
             fList.Upgrades[k][key]['card'] = masterUpgradesDB[value]['card']
-            for a,b in pairs(addAction) do
+            for a,b in pairs(addAction) do --Upgrades that adds an action to a ship
                 if a == value then
                     for K,V in pairs(b) do
                         table.insert(fList.Pilots[k]['Data']['actSet'],V)
+                    end
+                end
+            end
+            for a,b in pairs(addSqdAction) do --upgrades that adds an action to the whole squad, sets up a list of actions that will be added later
+                if a == value then
+                    for K,V in pairs(b) do
+                        table.insert(fList.sqdAction,V)
                     end
                 end
             end
@@ -1796,8 +1802,34 @@ function idSpawner(idTable)
             end
         end
     end
-    spawnNow(fList)
+    for k,v in pairs(fList.sqdAction) do -- adds Squad actions coming from specific upgrades
+        for K,V in pairs(fList.Pilots) do
+            table.insert(V['Data']['actSet'],v)
+        end
+    end
+    if savingList == true then
+        saveToDisk(fList)
+    else
+        spawnNow(fList)
+    end
 end
+
+
+function saveToDisk(finalList)
+    print('Saving to Disk')
+    local accBag = getObjectFromGUID('53ad3d')-- Accessories bag
+    local accList = accBag.getObjects()
+    for k, v in pairs(accBag.getObjects()) do
+        if v.name == 'Data Card' then
+            dataDisk = accBag.takeObject({position = {-66,1,-15}, rotation = {0,90,0},scale={3.75,3.75,3.75}, guid = v.guid})
+            dataDiskClone = dataDisk.clone()
+            accBag.putObject(dataDiskClone)
+        end
+    end
+    dataDisk.setTable('List',finalList)
+    print('Spawned')
+end
+
 
 -- Builder first step: sets up basic list table and select faction.
 function builderStart()
@@ -2133,8 +2165,6 @@ function builderSpawn()
     end
     idSpawner(finalList)
 end
-
-
 
 -- Selecting a ship that is on the main menu will show wich slots are empty and wich ones are taken, indicating how many points are being used on this ship and how many points the list as a whole is using.
 -- To Do: Set up auxiliary table with slots and upgrades so the correct buttons are spawned. Stablishes variables for special cases (Froce Powers, dual slots). Show point costs of each ship and full squad.
@@ -2722,6 +2752,7 @@ end
 
 -- Second step: Create the input field where the list should be pasted/typed. Offers a button to spawn the list and a button to save to a data disk (FEATURE NOT IMPLEMENTED YET)
 function inputList()
+    savingList=false
     self.clearButtons()
     self.createButton({click_function = 'Dummy3', function_owner = self, label = 'Please type or paste your list', position = {-0,0.45,-0.4}, width = 2500, height = 280, font_size = 200, scale = {0.4,0.4,0.4}, tooltip = 'Click here to spawn yout list',  scale = {0.25,0.25,0.25}})
     --self.createButton({click_function = 'printInput', function_owner = self, label = 'print', position = {-0.5,0.45,-1}, width = 800, height = 240, font_size = 100, scale = {0.4,0.4,0.4}, tooltip = 'Click here to spawn yout list',  scale = {0.25,0.25,0.25}})
@@ -2734,7 +2765,9 @@ end
 -- The disk can be saved in the TTS chest for easy retrieval. Could it be set up in a way to store and spawn several lists?
 
 function saveList()
-    print('Feature not implemented yet!')
+    print('Saving List')
+    savingList = true
+    validCheck()
 end
 
 -- print function to test the input
