@@ -2902,16 +2902,15 @@ end
         self.clearInputs()
         if lista ~= nil then
             parsedList = {}
-            pilotsList = mysplit(lista, '/')
+            pilotsList = mysplit(lista, '/', true)
             for i, pilot in ipairs(pilotsList) do
-                parsedList[i] = mysplit(pilot,'+')
+                 table.insert(parsedList, mysplit(pilot,'+', true))
             end
             pilotIndex = 0
             Aux = 0
             for i, pilot in ipairs(parsedList) do
                 pilotIndex = pilotIndex + 1
-                for k, item in ipairs(pilot) do
-                    cardN = item:match'^()%s*$' and '' or item:match'^%s*(.*%S)'     --trim excessive spaces before and after words
+                for k, cardN in ipairs(pilot) do
                     cardN = string.gsub(cardN, 'Hardpoint: ', '')
                     if string.lower(cardN) == 'servomotor s-foils' then
                         cardN = 'Servomotor S-Foils (Open)'
@@ -2938,6 +2937,7 @@ end
                         end
                         if not found then
                             printToAll("Unable to find pilot: " .. cardN .. " please check correct spelling", {1,0,0})
+                            pilotIndex = pilotIndex - 1
                             break
                         end
                         if Aux == 1 then
@@ -3234,15 +3234,19 @@ end
 
 
 -- String split function
-function mysplit(inputstr, sep)
+function mysplit(inputstr, sep, trim)
     if inputstr ~= nil then
         if sep == nil then
           sep = "%s"
         end
-        local t={} ; i=1
+        local t={}
         for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
-          t[i] = str
-          i = i + 1
+            if trim then
+                str = str:match'^%s*(.*%S)' or ''
+            end
+            if str ~= "" then
+                table.insert(t, str)
+            end
         end
         return t
     end
