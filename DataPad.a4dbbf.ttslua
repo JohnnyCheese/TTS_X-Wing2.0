@@ -1374,9 +1374,9 @@ masterUpgradesDB[703]={['name']="Proud Tradition",['dual']=1,['slot']=1,['cost']
 masterUpgradesDB[704]={['name']="K-2SO",['slot']=8,['cost']=8,['Force']=nil,['Charge']=nil,['shd']=nil,['addSlot']=nil,['remSlot']=nil,['card']='https://images-cdn.fantasyflightgames.com/filer_public/e9/71/e97130c3-368d-4453-a0ff-51a63d30394c/swz66_k-2so_upgrade.png',
                         ['restriction']={['Faction']={[1]=true}, ['Size']=nil,['ship']=nil}}
 masterUpgradesDB[705]={['name']="Stabilized S-Foils (Open)",['dual']=1,['slot']=18,['cost']=2,['Force']=nil,['Charge']=nil,['shd']=nil,['addSlot']=nil,['remSlot']=nil,['card']='https://images-cdn.fantasyflightgames.com/filer_public/64/9d/649d6f6e-8cba-404f-a00f-9a36a0076e34/swz66_stabilized-s-foils-open.png', ['cardB']='https://images-cdn.fantasyflightgames.com/filer_public/52/d5/52d52e74-c744-40b7-ad74-c98bcb04016c/swz66_stabilized-s-foils-closed.png',
-                        ['restriction']={['Faction']={nil}, ['Size']=nil,['ship']={[17]=true}}}
+                        ['restriction']={['Faction']=nil, ['Size']=nil,['ship']={[17]=true}}}
 masterUpgradesDB[706]={['name']="Stabilized S-Foils (Closed)",['dual']=1,['slot']=18,['cost']=2,['Force']=nil,['Charge']=nil,['shd']=nil,['addSlot']=nil,['remSlot']=nil,['card']='https://images-cdn.fantasyflightgames.com/filer_public/52/d5/52d52e74-c744-40b7-ad74-c98bcb04016c/swz66_stabilized-s-foils-closed.png', ['cardB']='https://images-cdn.fantasyflightgames.com/filer_public/64/9d/649d6f6e-8cba-404f-a00f-9a36a0076e34/swz66_stabilized-s-foils-open.png',
-                        ['restriction']={['Faction']={nil}, ['Size']=nil,['ship']={[17]=true}}}
+                        ['restriction']={['Faction']=nil, ['Size']=nil,['ship']={[17]=true}}}
 masterUpgradesDB[707]={['name']="R1-J5",['slot']=10,['cost']=0,['Force']=nil,['Charge']=3,['shd']=nil,['addSlot']=nil,['remSlot']=nil,['card']='https://images-cdn.fantasyflightgames.com/filer_public/cc/90/cc901ec5-cb47-4b15-8dd5-76e997698d15/swz63_a1_card_upgrade_r1-j5.png',
                         ['restriction']={['Faction']={[4]=true}, ['Size']=nil,['ship']=nil}}
 masterUpgradesDB[708]={['name']="Kaz's Fireball",['slot']=15,['cost']=2,['Force']=nil,['Charge']=nil,['shd']=nil,['addSlot']=nil,['remSlot']=nil,['card']='https://images-cdn.fantasyflightgames.com/filer_public/47/dd/47dd508f-6751-4b19-b3da-d0530aeb9a33/swz63_a1_card_kazs-fireball.png',
@@ -2920,6 +2920,8 @@ end
                         cardN = 'Integrated S-Foils (Open)'
                     elseif string.lower(cardN) == 'grappling struts' then
                         cardN = 'Grappling Struts (Open)'
+                    elseif string.lower(cardN) == 'stabilized s-foils' then
+                        cardN = 'Stabilized S-Foils (Open)'
                     elseif string.lower(cardN) == '0-66' then
                         cardN = 'O-66'
                     end
