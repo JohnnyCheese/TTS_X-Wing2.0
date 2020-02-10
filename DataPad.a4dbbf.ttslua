@@ -1059,7 +1059,7 @@ masterPilotDB[732]={['name']='"Rush"',['Faction']=5,['ship_type']=52,['cost']=57
 masterPilotDB[733]={['name']='Bossk',['Faction']= 3,['ship_type']=38,['cost']=22,['slot']={6, 13, 14},['Shield']=2,['Force']=nil,['Charge']=nil,
                   ['card']='https://images-cdn.fantasyflightgames.com/filer_public/d3/9d/d39d7a92-7829-4bc8-ab2c-05843ab3d099/swz66_bossk.png',['init']=4,['actSet']={'F','TL','BR'}}
 masterPilotDB[734]={['name']='G4R-G0R V/M',['Faction']= 3,['ship_type']=44,['cost']=41,['slot']={1,14,99},['Shield']=1,['Force']=nil,['Charge']=nil,
-                  ['card']='https://images-cdn.fantasyflightgames.com/filer_public/4c/2c/4c2c309f-f9b0-4a93-a3a5-28b43fe981c3/swz66_g4r-g0r_vm.png',['init']=5,['actSet']={'F','E','TL','BR'}}
+                  ['card']='https://images-cdn.fantasyflightgames.com/filer_public/4c/2c/4c2c309f-f9b0-4a93-a3a5-28b43fe981c3/swz66_g4r-g0r_vm.png',['init']=5,['actSet']={'C','E','TL','BR'}}
 masterPilotDB[735]={['name']='Nom Lumb',['Faction']= 3,['ship_type']=45,['cost']=53,['slot']={1, 3, 8, 5, 13, 14, 15, 16},['Shield']=3,['Force']=nil,['Charge']=1,
                   ['card']='https://images-cdn.fantasyflightgames.com/filer_public/f9/67/f96780a9-1fff-460c-8480-4294fd7a7a27/swz66_nom-lumb.png',['init']=1,['actSet']={'F','TL','BR','Rot'}}
 
@@ -2894,6 +2894,18 @@ function validCheck()
     end
 end
 
+pilotsWithDash = {}
+pilotsWithDash["g4r-gor v"] = true
+pilotsWithDash["g4r-g0r v"] = true
+
+alternateSpelling = {}
+alternateSpelling["servomotor s-foils"] = 'Servomotor S-Foils (Open)'
+alternateSpelling["pivot wing"] = 'Pivot Wing (Open)'
+alternateSpelling["integrated s-foils"] = 'Integrated S-Foils (Open)'
+alternateSpelling["grappling struts"] = 'Grappling Struts (Open)'
+alternateSpelling["stabilized s-foils"] = 'Stabilized S-Foils (Open)'
+alternateSpelling["0-66"] = 'O-66'
+alternateSpelling["g4r-gor v/m"] = 'G4R-G0R V/M'
 
 -- Third Step: This function will decompose the input string and will propperly alocate each value on the propper position in the table.
 -- Then, it calls for the next function, either inquiring for ships and version of upgrades or calling the spawner.
@@ -2903,8 +2915,15 @@ end
         if lista ~= nil then
             parsedList = {}
             pilotsList = mysplit(lista, '/', true)
+            local rest = ""
             for i, pilot in ipairs(pilotsList) do
-                 table.insert(parsedList, mysplit(pilot,'+', true))
+                pilot = rest .. pilot
+                if pilotsWithDash[string.lower(pilot)] ~= nil then
+                    rest = pilot .. "/"
+                else
+                    table.insert(parsedList, mysplit(pilot,'+', true))
+                    rest = ""
+                end
             end
             pilotIndex = 0
             Aux = 0
@@ -2912,18 +2931,8 @@ end
                 pilotIndex = pilotIndex + 1
                 for k, cardN in ipairs(pilot) do
                     cardN = string.gsub(cardN, 'Hardpoint: ', '')
-                    if string.lower(cardN) == 'servomotor s-foils' then
-                        cardN = 'Servomotor S-Foils (Open)'
-                    elseif string.lower(cardN) == 'pivot wing' then
-                        cardN = 'Pivot Wing (Open)'
-                    elseif string.lower(cardN) == 'integrated s-foils' then
-                        cardN = 'Integrated S-Foils (Open)'
-                    elseif string.lower(cardN) == 'grappling struts' then
-                        cardN = 'Grappling Struts (Open)'
-                    elseif string.lower(cardN) == 'stabilized s-foils' then
-                        cardN = 'Stabilized S-Foils (Open)'
-                    elseif string.lower(cardN) == '0-66' then
-                        cardN = 'O-66'
+                    if alternateSpelling[string.lower(cardN)] ~= nil then
+                        cardN = alternateSpelling[string.lower(cardN)]
                     end
                     if k == 1 then -- First card, the pilot
                         finalList.Aux[pilotIndex] = {}
