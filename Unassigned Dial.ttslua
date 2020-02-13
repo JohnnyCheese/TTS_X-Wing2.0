@@ -281,10 +281,12 @@ function performMove(P)
     end
 end
 
+
 function performTalon(P,option,id)
     if spectReturn(P) == true then
         return
     end
+
     self.UI.hide("TalonPanel")
     self.UI.setAttribute("UndoBtn", "active", "true")
     if id=="TalonMidBtn" then
