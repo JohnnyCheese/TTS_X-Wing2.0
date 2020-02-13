@@ -14,6 +14,7 @@ __XW_TokenType = 'helper:Dial'
 -- Ref to assigned ship if there is one
 assignedShip = nil
 currMan = nil
+playerColor = nil
 
 -- Save self state
 function onSave()
@@ -127,45 +128,31 @@ assetTable = {
     {name="PivotRight", url="http://cloud-3.steamusercontent.com/ugc/786352494210815312/D3A4DED40146BFC9246E675E324F24062CFB79D7/"},
 }
 
-Data = {}
-Data['movSet'] = {'bbl1', 'bs1', 'bbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'wtl3', 'wbl3', 'ws3', 'wbr3', 'wtr3', 'ws4', 'rtl3t', 'rtr3t', 'rk4' }
-Data['actSet'] = {'BR', 'F', 'B', 'TL'}
-Data['Special'] = nil
-Data['Color'] = nil
-
-
 -- Restore self state
 function onLoad()
     clearDial()
-  --  self.UI.setCustomAssets(assetTable)
-end
-
-initStat = true
-
-function onObjectSpawned()
-    if initStat==true then
-        initStat=false
-        clearDial()
+    if savedData ~= nil then
+        state = JSON.decode(savedData)
+        savedShip = getObjectFromGUID(state.assignedShipGUID)
+        playerColor = state.owningPlayer
+        if savedShip ~= nil then
+            assignShip(savedShip)
+        end
     end
 end
 
+
 function clearDial()
-    self.UI.hide("ActionsFD")
     self.UI.hide("CenterFD")
-    self.UI.hide("ManWin")
     self.UI.Hide('CenterFU')
-    self.UI.Hide('BoostFD')
-    self.UI.Hide('ArcFD')
-    self.UI.Hide('BarrelLeftFD')
-    self.UI.Hide('BarrelRightFD')
+    self.UI.hide("ManWin")
+    self.UI.Hide('arcPanel')
+    self.UI.Hide('relocPanel')
     self.UI.Hide('TalonPanel')
+    self.UI.Hide('tokenPanel')
     winStat = false
-    tokStat = false
-    relocStat = false
-    arcStat = false
 end
 
-clearDial()
 function onFixedUpdate()
     if assignedShip ~= nil then
         if self.getTransformUp().y >0 then
@@ -187,8 +174,10 @@ function onFixedUpdate()
     end
 end
 
-
-function manSelect(Player, option, id)
+function manSelect(p, option, id)
+    if spectReturn(p) == true then
+        return
+    end
     firstSet=true
     self.UI.setAttribute("ManBtnGroup","allowSwitchOff","false")
     curMan=string.lower(id)
@@ -261,7 +250,10 @@ function manSetting()
     end
 end
 
-function Undo()
+function Undo(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("q")
     self.UI.setAttribute("UndoBtn", "active", "false")
     if setMan:sub(-1,-1) ~='t' then
@@ -273,6 +265,9 @@ function Undo()
 end
 
 function performMove(P)
+    if spectReturn(P) == true then
+        return
+    end
     if setMan~="" then
         self.UI.setAttribute("MoveBtn", "active", "false")
         if setMan:sub(-1,-1) ~='t' then
@@ -288,6 +283,10 @@ end
 
 
 function performTalon(P,option,id)
+    if spectReturn(P) == true then
+        return
+    end
+
     self.UI.hide("TalonPanel")
     self.UI.setAttribute("UndoBtn", "active", "true")
     if id=="TalonMidBtn" then
@@ -313,6 +312,55 @@ function onPickUp(player_color)
     if assignedShip == nil then
         pColor = self.held_by_color
         self.UI.setCustomAssets(assetTable)
+    end
+end
+
+-- Assign a ship to the dial
+function assignShip(ship)
+    assignedShip = ship
+    Name=assignedShip.getName()
+    self.setName(Name)
+    --self.UI.setAttribute("DialName", Name)
+    self.UI.setValue("Name",Name)
+    shipData=assignedShip.getTable("Data")
+    self.UI.setAttribute("BackGround", "image", tostring(shipData['Faction']).."BG")
+    for k,v in pairs(shipData['moveSet']) do
+        self.UI.setAttribute(string.upper(v), "active", "true")
+    end
+    setMan=""
+    for k,v in pairs(shipData['actSet']) do
+        if v == 'F' then
+            self.UI.setAttribute('FocusBtn', 'active', 'true')
+        elseif v == 'TL' then
+            self.UI.setAttribute("TargetLockBtn", 'active', 'true')
+        elseif v == 'E' then
+            self.UI.setAttribute("EvadeBtn", 'active', 'true')
+        elseif v == 'R' then
+            self.UI.setAttribute("ReinforceBtn", 'active', 'true')
+        elseif v == 'C' then
+            self.UI.setAttribute("CalculateBtn", 'active', 'true')
+        elseif v == 'CL' then
+            self.UI.setAttribute("CloakBtn", 'active', 'true')
+        elseif v == 'BR' then
+            self.UI.setAttribute("BarrelRBtn", "active", "true")
+            self.UI.setAttribute("BarrelRFBtn", "active", "true")
+            self.UI.setAttribute("BarrelRBBtn", "active", "true")
+            self.UI.setAttribute("BarrelLBtn", "active", "true")
+            self.UI.setAttribute("BarrelLFBtn", "active", "true")
+            self.UI.setAttribute("BarrelLBBtn", "active", "true")
+        elseif v == 'B' then
+            self.UI.setAttribute("BoostSBtn", "active", "true")
+            self.UI.setAttribute("BoostRBtn", "active", "true")
+            self.UI.setAttribute("BoostLBtn", "active", "true")
+        elseif v =='Ail' then
+            self.UI.setAttribute("AilSBtn", "active", "true")
+            self.UI.setAttribute("AilRBtn", "active", "true")
+            self.UI.setAttribute("AilLBtn", "active", "true")
+        elseif v =='Piv' then
+            self.UI.setAttribute("PivKBtn", "active", "true")
+            self.UI.setAttribute("PivRBtn", "active", "true")
+            self.UI.setAttribute("PivLBtn", "active", "true")
+        end
     end
 end
 
@@ -343,52 +391,8 @@ function onDropped()
                 printToAll('Controlled by the '.. playerColor .. ' player')
                 printToAll('')
                 self.setRotation(nearest.getRotation())
-                assignedShip = nearest
-                Name=assignedShip.getName()
-                self.setName(Name)
-                --self.UI.setAttribute("DialName", Name)
-                self.UI.setValue("Name",Name)
-                shipData=assignedShip.getTable("Data")
-                self.UI.setAttribute("BackGround", "image", tostring(shipData['Faction']).."BG")
-                for k,v in pairs(shipData['moveSet']) do
-                    self.UI.setAttribute(string.upper(v), "active", "true")
-                end
-                setMan=""
-                for k,v in pairs(shipData['actSet']) do
-                    if v == 'F' then
-                        self.UI.setAttribute('FocusBtn', 'active', 'true')
-                    elseif v == 'TL' then
-                        self.UI.setAttribute("TargetLockBtn", 'active', 'true')
-                    elseif v == 'E' then
-                        self.UI.setAttribute("EvadeBtn", 'active', 'true')
-                    elseif v == 'R' then
-                        self.UI.setAttribute("ReinforceBtn", 'active', 'true')
-                    elseif v == 'C' then
-                        self.UI.setAttribute("CalculateBtn", 'active', 'true')
-                    elseif v == 'CL' then
-                        self.UI.setAttribute("CloakBtn", 'active', 'true')
-                    elseif v == 'BR' then
-                        self.UI.setAttribute("BarrelRBtn", "active", "true")
-                        self.UI.setAttribute("BarrelRFBtn", "active", "true")
-                        self.UI.setAttribute("BarrelRBBtn", "active", "true")
-                        self.UI.setAttribute("BarrelLBtn", "active", "true")
-                        self.UI.setAttribute("BarrelLFBtn", "active", "true")
-                        self.UI.setAttribute("BarrelLBBtn", "active", "true")
-                        self.UI.setAttribute("BoostSBtn", "active", "true")
-                        self.UI.setAttribute("BoostRBtn", "active", "true")
-                        self.UI.setAttribute("BoostLBtn", "active", "true")
-                    elseif v == 'B' then
-                        self.UI.setAttribute("BarrelRBtn", "active", "true")
-                        self.UI.setAttribute("BarrelRFBtn", "active", "true")
-                        self.UI.setAttribute("BarrelRBBtn", "active", "true")
-                        self.UI.setAttribute("BarrelLBtn", "active", "true")
-                        self.UI.setAttribute("BarrelLFBtn", "active", "true")
-                        self.UI.setAttribute("BarrelLBBtn", "active", "true")
-                        self.UI.setAttribute("BoostSBtn", "active", "true")
-                        self.UI.setAttribute("BoostRBtn", "active", "true")
-                        self.UI.setAttribute("BoostLBtn", "active", "true")
-                    end
-                end
+                assignShip(nearest)
+
             end
         end
     end
@@ -399,129 +403,255 @@ function genericAction(a,b,c,d)
     print(a)
     print(b)
     print(c)
+    print(d)
 end
 
-
-function focusTok()
-    Global.call('proxyPerformAction', {assignedShip, 'Focus', pColor})
+function focusTok(p)
+    if spectReturn(p) == true then
+        return
+    end
+    Global.call('proxyPerformAction', {assignedShip, 'Focus', playerColor})
 end
 
-function evadeTok()
-    Global.call('proxyPerformAction', {assignedShip, 'Evade', pColor})
+function evadeTok(p)
+    if spectReturn(p) == true then
+        return
+    end
+    Global.call('proxyPerformAction', {assignedShip, 'Evade', playerColor})
 end
 
-function tlTok()
-    Global.call('proxyPerformAction', {assignedShip, 'Target Lock', pColor})
+function tlTok(p)
+    if spectReturn(p) == true then
+        return
+    end
+    Global.call('proxyPerformAction', {assignedShip, 'Target Lock', playerColor})
 end
 
-function tractorTok()
-    Global.call('proxyPerformAction', {assignedShip, 'Tractor', pColor})
+function tractorTok(p)
+    if spectReturn(p) == true then
+        return
+    end
+    Global.call('proxyPerformAction', {assignedShip, 'Tractor', playerColor})
 end
 
-function jamTok()
-    Global.call('proxyPerformAction', {assignedShip, 'Jam', pColor})
+function jamTok(p)
+    if spectReturn(p) == true then
+        return
+    end
+    Global.call('proxyPerformAction', {assignedShip, 'Jam', playerColor})
 end
 
-function disarmTok()
-    Global.call('proxyPerformAction', {assignedShip, 'Disarm', pColor})
+function disarmTok(p)
+    if spectReturn(p) == true then
+        return
+    end
+    Global.call('proxyPerformAction', {assignedShip, 'Disarm', playerColor})
 end
 
-function cloakTok()
-    Global.call('proxyPerformAction', {assignedShip, 'Cloak', pColor})
+function cloakTok(p)
+    if spectReturn(p) == true then
+        return
+    end
+    Global.call('proxyPerformAction', {assignedShip, 'Cloak', playerColor})
 end
 
-function calcTok()
-    Global.call('proxyPerformAction', {assignedShip, 'Calculate', pColor})
+function calcTok(p)
+    if spectReturn(p) == true then
+        return
+    end
+    Global.call('proxyPerformAction', {assignedShip, 'Calculate', playerColor})
 end
 
-function reinforceTok()
-    Global.call('proxyPerformAction', {assignedShip, 'Reinforce', pColor})
+function reinforceTok(p)
+    if spectReturn(p) == true then
+        return
+    end
+    Global.call('proxyPerformAction', {assignedShip, 'Reinforce', playerColor})
 end
 
 function stressTok(p,id)
+    if spectReturn(p) == true then
+        return
+    end
     if id == '-1' then
-        Global.call('proxyPerformAction', {assignedShip, 'Stress', pColor})
+        Global.call('proxyPerformAction', {assignedShip, 'Stress', playerColor})
     else
-        Global.call('proxyPerformAction', {assignedShip, 'unstress', pColor})
+        Global.call('proxyPerformAction', {assignedShip, 'unstress', playerColor})
     end
 end
 
 function strainTok(p,id)
+  if spectReturn(p) == true then
+      return
+  end
   if id == '-1' then
-      Global.call('proxyPerformAction', {assignedShip, 'Strain', pColor})
+      Global.call('proxyPerformAction', {assignedShip, 'Strain', playerColor})
   else
-      Global.call('proxyPerformAction', {assignedShip, 'unstrain', pColor})
+      Global.call('proxyPerformAction', {assignedShip, 'unstrain', playerColor})
   end
 end
 
-function ionTok()
-    Global.call('proxyPerformAction', {assignedShip, 'Ion', pColor})
+function ionTok(p)
+    if spectReturn(p) == true then
+        return
+    end
+    Global.call('proxyPerformAction', {assignedShip, 'Ion', playerColor})
 end
 
-function BoostS()
+function BoostS(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("s1b")
 end
 
-function BoostR()
+function BoostR(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("br1b")
 end
 
-function BoostL()
+function BoostL(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("bl1b")
 end
 
-function BarrelL()
+
+function AilS(p)
+    if spectReturn(p) == true then
+        return
+    end
+    assignedShip.setDescription("s1")
+end
+
+function AilR(p)
+    if spectReturn(p) == true then
+        return
+    end
+    assignedShip.setDescription("br1")
+end
+
+function AilL(p)
+    if spectReturn(p) == true then
+        return
+    end
+    assignedShip.setDescription("bl1")
+end
+
+function BarrelL(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("rl2")
 end
 
-function BarrelLF()
+function BarrelLF(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("rl1")
 end
 
-function BarrelLB()
+function BarrelLB(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("rl3")
 end
 
-function BarrelR()
+function BarrelR(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("rr2")
 end
 
-function BarrelRF()
+function BarrelRF(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("rr1")
 end
 
-function BarrelRB()
+function BarrelRB(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("rr3")
 end
 
-function range1()
+function range1(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("r1")
 end
 
-function range2()
+function range2(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("r2")
 end
 
-function range3()
+function range3(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("r3")
 end
 
-function arcF()
+function arcF(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("f")
 end
 
-function arcL()
+function arcL(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("sl")
 end
 
-function arcR()
+function arcR(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("sr")
 end
 
-function arcB()
+function arcB(p)
+    if spectReturn(p) == true then
+        return
+    end
     assignedShip.setDescription("b")
 end
 
+function pivK(p)
+    if spectReturn(p) == true then
+        return
+    end
+    assignedShip.setDescription('k0')
+end
+
+function pivR(p)
+    if spectReturn(p) == true then
+        return
+    end
+    assignedShip.setDescription('tr4')
+end
+
+function pivL(p)
+    if spectReturn(p) == true then
+        return
+    end
+    assignedShip.setDescription('tl4')
+end
 
 function Window(p)
     if winStat ==  nil then
@@ -541,114 +671,94 @@ function Window(p)
     end
 end
 
-function tokenMenu()
-    if tokStat==nil then
-        tokStat=false
-    end
-    if tokStat== false then
-        self.UI.setAttribute("ActionsFD", "position", "-430 -230 -30")
-        self.UI.setAttribute("ActionsFD", "rotation", "180 180 0")
-        self.UI.show("ActionsFD")
-        tokStat=true
-    else
-        self.UI.hide("ActionsFD")
-        tokStat=false
+function spectReturn(p)
+    if p.color == 'Grey' then
+        return true
+    elseif p.color == 'White' then
+        return true
     end
 end
 
-function tokenMenuFU()
-    if tokStat==nil then
-        tokStat=false
+function showTokMFD(p)
+    if spectReturn(p) == true then
+        return
     end
-    if tokStat== false then
-        self.UI.setAttribute("ActionsFD", "position", "430 -230 30")
-        self.UI.setAttribute("ActionsFD", "rotation", "180 0 0")
-        self.UI.show("ActionsFD")
-        tokStat=true
-    else
-        self.UI.hide("ActionsFD")
-        tokStat=false
-    end
+    --[[if p.color ==  'Grey' then
+        return
+    end]]
+    self.UI.show("tokenPanel")
+    self.UI.setAttribute("tokenPanel", "position", "-380 -250 -40")
+    self.UI.setAttribute("tokenPanel", "rotation", "180 180 0")
 end
 
-function arcMenu()
-    if arcStat==nil then
-        arcStat=false
+function showTokMFU(p)
+    if spectReturn(p) == true then
+        return
     end
-    if arcStat== false then
-        self.UI.setAttribute("ArcFD", "rotation", "0 0 180")
-        self.UI.setAttribute("ArcFD", "position", "350 200 -30")
-        self.UI.show("ArcFD")
-        arcStat=true
-    else
-        self.UI.hide("ArcFD")
-        arcStat=false
-    end
+    self.UI.show("tokenPanel")
+    self.UI.setAttribute("tokenPanel", "position", "380 -250 40")
+    self.UI.setAttribute("tokenPanel", "rotation", "180 0 0")
 end
 
-function arcMenuFU()
-    if arcStat==nil then
-        arcStat=false
+function hideTokM(p)
+    if spectReturn(p) == true then
+        return
     end
-    if arcStat== false then
-        self.UI.setAttribute("ArcFD", "rotation", "180 0 0")
-        self.UI.setAttribute("ArcFD", "position", "-350 200 30")
-        self.UI.show("ArcFD")
-        arcStat=true
-    else
-        self.UI.hide("ArcFD")
-        arcStat=false
-    end
+    self.UI.hide("tokenPanel")
 end
 
-function relocMenu()
-    if relocStat==nil then
-        relocStat=false
+
+function showArcMFD(p)
+    if spectReturn(p) == true then
+        return
     end
-    if relocStat== false then
-        self.UI.setAttribute("BoostFD", "rotation", "180 180 0")
-        self.UI.setAttribute("BoostFD", "position", "0 -270 -30")
-        self.UI.setAttribute("BarrelRightFD", "rotation", "180 180 0")
-        self.UI.setAttribute("BarrelRightFD", "position", "-200 -270 -30")
-        self.UI.setAttribute("BarrelLeftFD", "rotation", "180 180 0")
-        self.UI.setAttribute("BarrelLeftFD", "position", "200 -270 -30")
-        self.UI.show("BoostFD")
-        self.UI.show("BarrelRightFD")
-        self.UI.show("BarrelLeftFD")
-        relocStat=true
-    else
-        self.UI.hide("BoostFD")
-        self.UI.hide("BarrelRightFD")
-        self.UI.hide("BarrelLeftFD")
-        relocStat=false
-    end
+    self.UI.show("arcPanel")
+    self.UI.setAttribute("arcPanel", "position", "300 -270 -40")
+    self.UI.setAttribute("arcPanel", "rotation", "180 180 0")
 end
 
-function relocMenuFU()
-    if relocStat==nil then
-        relocStat=false
+function showArcMFU(p)
+    if spectReturn(p) == true then
+        return
     end
-    if relocStat== false then
-        self.UI.setAttribute("BoostFD", "rotation", "180 0 0")
-        self.UI.setAttribute("BoostFD", "position", "0 -270 30")
-        self.UI.setAttribute("BarrelRightFD", "rotation", "180 0 0")
-        self.UI.setAttribute("BarrelRightFD", "position", "200 -270 30")
-        self.UI.setAttribute("BarrelLeftFD", "rotation", "180 0 0")
-        self.UI.setAttribute("BarrelLeftFD", "position", "-200 -270 30")
-        self.UI.show("BoostFD")
-        self.UI.show("BarrelRightFD")
-        self.UI.show("BarrelLeftFD")
-        relocStat=true
-    else
-        self.UI.hide("BoostFD")
-        self.UI.hide("BarrelRightFD")
-        self.UI.hide("BarrelLeftFD")
-        relocStat=false
+    self.UI.show("arcPanel")
+    self.UI.setAttribute("arcPanel", "position", "-300 -270 40")
+    self.UI.setAttribute("arcPanel", "rotation", "180 0 0")
+end
+
+function hideArcM(p)
+    if spectReturn(p) == true then
+        return
     end
+    self.UI.hide("arcPanel")
+end
+
+function showRelocMFD(p)
+    if spectReturn(p) == true then
+        return
+    end
+    self.UI.show("relocPanel")
+    self.UI.setAttribute("relocPanel", "position", "0 -280 -40")
+    self.UI.setAttribute("relocPanel", "rotation", "180 180 0")
+end
+
+function showRelocMFU(p)
+    if spectReturn(p) == true then
+        return
+    end
+    self.UI.show("relocPanel")
+    self.UI.setAttribute("relocPanel", "position", "0 -280 40")
+    self.UI.setAttribute("relocPanel", "rotation", "180 0 0")
+end
+
+function hideRelocM(p)
+    if spectReturn(p) == true then
+        return
+    end
+    self.UI.hide("relocPanel")
 end
 
 function setDial(P)
-
     if firstSet == true then
         if setStat == nil then
             setStat = false
@@ -673,9 +783,20 @@ function setDial(P)
     end
 end
 
-function spawnTemplate()
+function spawnTemplate(p)
+    if spectReturn(p) == true then
+        return
+    end
     if setMan~='' then
-        Table={[1]=assignedShip,[2]='spawnMoveTemplate:'..setMan..befAft,[3]=pColor}
+        Table={[1]=assignedShip,[2]='spawnMoveTemplate:'..setMan..befAft,[3]=playerColor}
         Global.call("proxyPerformAction",Table)
+    end
+end
+
+initStat = true
+function onObjectSpawned()
+    if initStat==true then
+        initStat=false
+        clearDial()
     end
 end

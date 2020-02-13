@@ -7,20 +7,22 @@
     <Button class="topButton" width="40" height="40" rectAlignment="UpperRight"/>
     <Button class="CenterButtons" resizeTextForBestFit="true" fontStyle="Bold" rotation="0 0 180" color="#ffffff" height="40" width="80" active="false"/>
 
-    <ToggleButton class="ManBtn" height="55" width="55" onClick="manSelect" active="false" onValueChanged="test" colors="White|Orange|Red|Orange"/>
+    <ToggleButton class="ManBtn" height="75" width="75" onClick="manSelect" active="false" onValueChanged="test" colors="White|Orange|Red|Orange"/>
 
-    <Panel class="Window" color="Grey" width="600" height="550" rectAlignment="MiddleRight"/>
+    <Panel class="Window" color="#aaffaa00" width="900" height="800" rectAlignment="MiddleRight"/>
     <Panel class="TopBar" color="#aaffaa00" height="30" rectAlignment="UpperCenter"/>
-    <Panel class="BoostPanel" color="#aaffaa00" rotation="0 0 180" position="0 -250 -30" height="100" width="350"/>
+    <Panel class="BoostPanel" color="#aaffaa00" height="100" width="350"/>
+    <Panel class="AileronPanel" color="#aaffaa00" height="100" width="350"/>
+    <Panel class="PivotPanel" color="#aaffaa00" height="100" width="350"/>
     <Panel class="TalonP" color="#aaffaa00" rotation="0 0 0" height="100" width="350"/>
-    <Panel class="BarrelPanel" color="Green" rotation="0 0 180" position="0 -250 -30" height="300" width="100"/>
-    <Panel class="WinElements" color="#aaffaa00" width="600" eight="550" rectAlignment="UpperCenter"/>
+    <Panel class="BarrelPanel" color="Green" height="300" width="100"/>
+    <Panel class="WinElements" color="#aaffaa00" width="600" height="550" rectAlignment="UpperCenter"/>
 
     <Image class="TIcon" color="#ffffff"/>
     <Image class="RIcon" height="60" widht="60" color="#ffffff"/>
-    <Image class="MIcon" height="45" widht="45"/>
+    <Image class="MIcon" />
     <Image class="BGImage" color="#ffffff"/>
-    <Image class="SpeedImg" height="55" width="55" />
+    <Image class="SpeedImg" height="95" width="95" />
     <Image class="SetIcon" rotation="0 0 180" height="55" width="55" preserveAspect="true"/>
 </Defaults>
 
@@ -35,10 +37,10 @@
         <Button id="moveWindow" class="CenterButtons" offsetXY="0 -70" active="true" onClick="Window">Moves</Button>
         <Button id="setBtn" class="CenterButtons" offsetXY="0 0" active="true" onClick="setDial" color="White">Set</Button>
         <Text   id= "Name" class="DialName" offsetXY="0 70" rotation="180 180 0" height="80" fontSize="25" fontStyle="Bold">Name</Text>
-        <Button id="TokenMenu" class="CenterMenuButtons" offsetXY="-150 -70" active="true" onClick="tokenMenu">T</Button>
-        <Button id="ArcMenu" class="CenterMenuButtons" offsetXY="150 -70" active="true" onClick="arcMenu">A</Button>
+        <Button id="TokenMenu" class="CenterMenuButtons" offsetXY="-150 -70" active="true" onMouseEnter="showTokMFD">T</Button>
+        <Button id="ArcMenu" class="CenterMenuButtons" offsetXY="150 -70" active="true" onMouseEnter="showArcMFD">A</Button>
         <Button id="undoFD" class="CenterMenuButtons" offsetXY="-100 0" active="true" onClick="Undo" height="30" width="60"  fontStyle="Bold">Undo</Button>
-        <Button id="RelocMenu" class="CenterMenuButtons" offsetXY="0 -170" active="true" onClick="relocMenu">R</Button>
+        <Button id="RelocMenu" class="CenterMenuButtons" offsetXY="0 -170" active="true" onMouseEnter="showRelocMFD">R</Button>
 </Panel>
 
 <Panel id="CenterFU"
@@ -59,209 +61,411 @@
     </Panel>
     <Button id="MoveBtn" class="CenterButtons" offsetXY="0 -70" active="true" onClick="performMove">Move</Button>
     <Button id="UndoBtn" class="CenterButtons" offsetXY="0 -70" active="false" onClick="Undo">Undo</Button>
-    <Button id="TokenMenuFu" class="CenterMenuButtons" offsetXY="-150 -70" active="true" onClick="tokenMenuFU">T</Button>
-    <Button id="ArcMenuFU" class="CenterMenuButtons" offsetXY="150 -70" active="true" onClick="arcMenuFU">A</Button>
+    <Button id="TokenMenuFu" class="CenterMenuButtons" offsetXY="-150 -70" active="true" onMouseEnter="showTokMFU">T</Button>
+    <Button id="ArcMenuFU" class="CenterMenuButtons" offsetXY="150 -70" active="true" onMouseEnter="showArcMFU">A</Button>
     <Button id="undoFU" class="CenterMenuButtons" offsetXY="-100 0" active="true" onClick="Undo" height="30" width="60"  fontStyle="Bold">Undo</Button>
     <Button id="Templ" class="CenterMenuButtons" offsetXY="100 0" active="true" height="70" widht="120" onClick="spawnTemplate">Templ.</Button>
-    <Button id="RelocMenuFU" class="CenterMenuButtons" offsetXY="0 -170" active="true" onClick="relocMenuFU">R</Button>
+    <Button id="RelocMenuFU" class="CenterMenuButtons" offsetXY="0 -170" active="true" onMouseEnter="showRelocMFU">R</Button>
     <Image id="SpeedIcon" class="SetIcon" active="false" image="Speed1" offsetXY="0 40" height ="60" widht="60"></Image>
     <Image id="TypeIcon" class="SetIcon" active="false" image="BlueStraight" offsetXY="0 -10" height ="60" widht="60"></Image>
 </Panel>
+
+<Panel id="arcPanel"
+    width="400"
+    height="500"
+    color="aaffaa00"
+    showAnimation="Grow"
+    hideAnimation="Shrink"
+    onMouseExit="hideArcM">
+    <Panel id="ArcFD"
+        width="300"
+        height="400"
+        outline="Black"
+        color="#aaffaa00"
+        showAnimation="Grow"
+        hideAnimation="Shrink">
+            <Button id="Range1" class="ArcButtons" onClick="range1" height="80" width="80" offsetXY="-100 150">
+                <Image id="R1Icon" height="80" widht="80" image="R1"></Image></Button>
+            <Button id="Range2" class="ArcButtons" onClick="range2" height="80" width="80" offsetXY="0 150">
+                <Image id="R2Icon" height="80" widht="80" image="R2"></Image></Button>
+            <Button id="Range3" class="ArcButtons" onClick="range3" height="80" width="80" offsetXY="100 150">
+                <Image id="R3Icon" height="80" widht="80" image="R3"></Image></Button>
+            <Button id="FrontArc" class="ArcButtons" onClick="arcF" height="80" width="80" offsetXY="0 50">
+                <Image id="FrontArcIcon" height="80" widht="80" image="FrontArc"></Image></Button>
+            <Button id="LeftArc" class="ArcButtons" onClick="arcL" height="80" width="80" offsetXY="-90 -40">
+                <Image id="LeftArcIcon" height="80" widht="80" image="LeftArc"></Image></Button>
+            <Button id="RightArc" class="ArcButtons" onClick="arcR" height="80" width="80" offsetXY="90 -40">
+                <Image id="RightArcIcon" height="80" widht="80" image="RightArc"></Image></Button>
+            <Button id="RearArc" class="ArcButtons" onClick="arcB" height="80" width="80" offsetXY="0 -130">
+                <Image id="BackArcIcon" height="80" widht="80" image="BackArc"></Image></Button>
+    </Panel>
+</Panel>
+
+<Panel id="tokenPanel"
+    width="600"
+    height="450"
+    color="#aaffaa00"
+    showAnimation="Grow"
+    hideAnimation="Shrink"
+    onMouseExit="hideTokM">
+    <Panel id="TokenButtonPanel"
+        width="400"
+        height="350"
+        rectAlignment="TopRight"
+        outline="Black"
+        color="#aaffaa00"
+        showAnimation="Grow"
+        hideAnimation="Shrink">
+        <HorizontalLayout>
+            <Panel id = "GreenTokens"
+                width="70"
+                height="280"
+                color="#aaffaa00">
+                <VerticalLayout>
+                    <Button id="FocusBtn" class="TokenButtons" onClick="focusTok">
+                        <Image id= "FocusIcon" class="TIcon" image="Focus" preserveAspect="true"></Image>
+                    </Button>
+                    <Button id="EvadeBtn" class="TokenButtons" onClick="evadeTok">
+                        <Image id= "EvadeIcon" class="TIcon" image="Evade" preserveAspect="true"></Image>
+                    </Button>
+                    <Button id="TargetLockBtn" class="TokenButtons"  onClick="tlTok">
+                        <Image id= "TLIcon" class="TIcon" image="TL" preserveAspect="true"></Image>
+                    </Button>
+                    <Button id="CalculateBtn" class="TokenButtons"  onClick="calcTok">
+                        <Image id= "CalculateIcon" class="TIcon" image="Calculate" preserveAspect="true"></Image>
+                    </Button>
+                    <Button id="ReinforceBtn" class="TokenButtons" onClick="reinforceTok">
+                        <Image id= "ReinforceIcon" class="TIcon" image="Reinforce" preserveAspect="true"></Image>
+                    </Button>
+                </VerticalLayout>
+            </Panel>
+            <Panel id = "RedTokenShed"
+                width="70"
+                height="280"
+                color="#aaffaa00">
+                <VerticalLayout>
+                    <Button id="StressBtn" class="TokenButtons" onClick="stressTok" active="true">
+                        <image  id= "StressIcon" class="TIcon" image="Stress" preserveAspect="true"></image></Button>
+                    <Button id="StrainBtn" class="TokenButtons" onClick="strainTok" active="true">
+                        <image  id= "StrainIcon" class="TIcon" image="Strain" preserveAspect="true"></image></Button>
+                    <Button id="IonBtn" class="TokenButtons" onClick="ionTok" active="true">
+                        <image  id= "IonIcon" class="TIcon" image="Ion" preserveAspect="true"></image></Button>
+                </VerticalLayout>
+            </Panel>
+            <Panel id = "OrangeTokens"
+                width="70"
+                height="280"
+                rectAlignment="MiddleLeft"
+                color="#aaffaa00">
+                <VerticalLayout>
+                    <Button id="DisarmBtn" class="TokenButtons" onClick="disarmTok" active="true">
+                        <image  id= "DisarmIcon" class="TIcon" image="Disarm" preserveAspect="true"></image></Button>
+                    <Button id="JamBtn" class="TokenButtons" onClick="jamTok" active="true">
+                        <image  id= "JamIcon" class="TIcon" image="Jam" preserveAspect="true"></image></Button>
+                    <Button id="TractorBtn" class="TokenButtons" onClick="tractorTok" active="true">
+                        <image  id= "TractorIcon" class="TIcon" image="Tractor" preserveAspect="true"></image></Button>
+                </VerticalLayout>
+            </Panel>
+            <Panel id = "BlueTokens"
+                width="70"
+                height="280"
+                rectAlignment="MiddleLeft"
+                color="#aaffaa00">
+                <VerticalLayout>
+                    <Button id="CloakBtn" class="TokenButtons" onClick="cloakTok" active="true">
+                        <image  id= "CloakIcon" class="TIcon" image="Cloak" preserveAspect="true"></image></Button>
+                </VerticalLayout>
+            </Panel>
+        </HorizontalLayout>
+    </Panel>
+</Panel>
+
+<Panel id="relocPanel"
+    width="600"
+    height="300"
+    color="#aaffaa00"
+    showAnimation="Grow"
+    hideAnimation="Shrink"
+    onMouseExit="hideRelocM">
+    <Panel id="BoostFD"
+        class="BoostPanel"
+        color="#aaffaa00"
+        showAnimation="Grow"
+        hideAnimation="Shrink">
+        <Button id="BoostSBtn" class="RelocButtons" onClick="BoostS">
+            <Image id= "BoostSIcon" class="RIcon" image="BoostS" preserveAspect="true"></Image>
+        </Button>
+        <Button id="BoostLBtn" class="RelocButtons" onClick="BoostL" offsetXY="-65 0">
+            <Image id= "BoostLIcon" class="RIcon" image="BoostL" preserveAspect="true"></Image>
+        </Button>
+        <Button id="BoostRBtn" class="RelocButtons" onClick="BoostR" offsetXY="65 0">
+            <Image id= "BoostRIcon" class="RIcon" image="BoostR" preserveAspect="true"></Image>
+        </Button>
+    </Panel>
+
+    <Panel id="AileronFD"
+        class="AileronPanel"
+        color="#aaffaa00"
+        offsetXY="0 100"
+        showAnimation="Grow"
+        hideAnimation="Shrink">
+        <Button id="AilSBtn" class="RelocButtons" onClick="AilS">
+            <Image id= "BoostSIcon" class="RIcon" image="WhiteStraight" preserveAspect="true"></Image>
+        </Button>
+        <Button id="AilLBtn" class="RelocButtons" onClick="AilL" offsetXY="-65 0">
+            <Image id= "BoostLIcon" class="RIcon" image="WhiteBankL" preserveAspect="true"></Image>
+        </Button>
+        <Button id="AilRBtn" class="RelocButtons" onClick="AilR" offsetXY="65 0">
+            <Image id= "BoostRIcon" class="RIcon" image="WhiteBankR" preserveAspect="true"></Image>
+        </Button>
+    </Panel>
+
+    <Panel id="PivotFD"
+        class="PivotPanel"
+        color="#aaffaa00"
+        offsetXY="0 100"
+        showAnimation="Grow"
+        hideAnimation="Shrink">
+        <Button id="PivKBtn" class="RelocButtons" onClick="pivK" offsetXY="0 0">
+            <Image id= "PivKIcon" class="RIcon" image="Pivot180" preserveAspect="true"></Image>
+        </Button>
+        <Button id="pivLBtn" class="RelocButtons" onClick="pivL" offsetXY="-65 0">
+            <Image id= "PivLIcon" class="RIcon" image="PivotLeft" preserveAspect="true"></Image>
+        </Button>
+        <Button id="pivRBtn" class="RelocButtons" onClick="pivR" offsetXY="65 0">
+            <Image id= "PivRIcon" class="RIcon" image="PivotRight" preserveAspect="true"></Image>
+        </Button>
+    </Panel>
+
+    <Panel id="BarrelLeftFD"
+        class="BarrelPanel"
+        offsetXY="-230 0"
+        color="#aaffaa00"
+        showAnimation="Grow"
+        hideAnimation="Shrink">
+        <Button id="BarrelLBtn" class="RelocButtons" onClick="BarrelL">
+            <Image id= "BarrelLIcon" class="RIcon" image="BarrelL" preserveAspect="true"></Image>
+        </Button>
+        <Button id="BarrelLFBtn" class="RelocButtons" onClick="BarrelLF" position="0 70">
+            <Image id= "BarrelLFIcon" class="RIcon" image="BarrelLF" preserveAspect="true"></Image>
+        </Button>
+        <Button id="BarrelLBBtn" class="RelocButtons" onClick="BarrelLB" position="0 -70">
+            <Image id= "BarrelLBIcon" class="RIcon" image="BarrelLB" preserveAspect="true"></Image>
+        </Button>
+    </Panel>
+
+    <Panel id="BarrelRightFD"
+        class="BarrelPanel"
+        offsetXY="230 0"
+        color="#aaffaa00"
+        showAnimation="Grow"
+        hideAnimation="Shrink">
+        <Button id="BarrelRBtn" class="RelocButtons" onClick="BarrelR">
+            <Image id= "BarrelRIcon" class="RIcon" image="BarrelR" preserveAspect="true"></Image>
+        </Button>
+        <Button id="BarrelRFBtn" class="RelocButtons" onClick="BarrelRF" position="0 70">
+            <Image id= "BarrelRFIcon" class="RIcon" image="BarrelRF" preserveAspect="true"></Image>
+        </Button>
+        <Button id="BarrelRBBtn" class="RelocButtons" onClick="BarrelRB" position="0 -70">
+            <Image id= "BarrelRBIcon" class="RIcon" image="BarrelRB" preserveAspect="true"></Image>
+        </Button>
+    </Panel>
+</Panel>
+
 
 <Panel id = "ManWin"
     class="Window"
     position="200 -200 -80"
     rotation="180 180 0"
-    color="#aaffaa00"
     showAnimation="Grow"
     hideAnimation="Shrink">
     <image id="BackGround" class="BGImage" image="1BG" preserveAspect="true"></image>
-    <Image id="Spd0" class="SpeedImg" image="Speed0" offsetXY="-225 -140" color="#ffffff" preserveAspect="true"></Image>
-    <Image id="Spd1" class="SpeedImg" image="Speed1" offsetXY="-225 -80" color="#ffffff" preserveAspect="true"></Image>
-    <Image id="Spd2" class="SpeedImg" image="Speed2" offsetXY="-225 -20" color="#ffffff" preserveAspect="true"></Image>
-    <Image id="Spd3" class="SpeedImg" image="Speed3" offsetXY="-225 40" color="#ffffff" preserveAspect="true"></Image>
-    <Image id="Spd4" class="SpeedImg" image="Speed4" offsetXY="-225 100" color="#ffffff" preserveAspect="true"></Image>
-    <Image id="Spd5" class="SpeedImg" image="Speed5" offsetXY="-225 160" color="#ffffff" preserveAspect="true"></Image>
+    <Image id="Spd0" class="SpeedImg" image="Speed0" offsetXY="-325 -260" color="#ffffff" preserveAspect="true"></Image>
+    <Image id="Spd1" class="SpeedImg" image="Speed1" offsetXY="-325 -160" color="#ffffff" preserveAspect="true"></Image>
+    <Image id="Spd2" class="SpeedImg" image="Speed2" offsetXY="-325 -60" color="#ffffff" preserveAspect="true"></Image>
+    <Image id="Spd3" class="SpeedImg" image="Speed3" offsetXY="-325 40" color="#ffffff" preserveAspect="true"></Image>
+    <Image id="Spd4" class="SpeedImg" image="Speed4" offsetXY="-325 140" color="#ffffff" preserveAspect="true"></Image>
+    <Image id="Spd5" class="SpeedImg" image="Speed5" offsetXY="-325 240" color="#ffffff" preserveAspect="true"></Image>
     <ToggleGroup id="ManBtnGroup" interactable="false" allowSwitchOff="true">
 
-      <ToggleButton id="RS0" class="ManBtn" offsetXY="-55 -140">
+      <ToggleButton id="RS0" class="ManBtn" offsetXY="-60 -260">
           <Image id="RS0Icon" class="MIcon"  image="RedStall"></Image></ToggleButton>
 
-      <ToggleButton id="BTL1" class="ManBtn" offsetXY="-165 -80">
+      <ToggleButton id="BTL1" class="ManBtn" offsetXY="-220 -160">
           <Image id="BTL1Icon" class="MIcon"  image="BlueTurnL"></Image></ToggleButton>
-      <ToggleButton id="BBL1" class="ManBtn" offsetXY="-110 -80">
+      <ToggleButton id="BBL1" class="ManBtn" offsetXY="-140 -160">
           <Image id="BBL1Icon" class="MIcon" image="BlueBankL"></Image></ToggleButton>
-      <ToggleButton id="BS1" class="ManBtn" offsetXY="-55 -80">
+      <ToggleButton id="BS1" class="ManBtn" offsetXY="-60 -160">
           <Image id="BS1Icon" class="MIcon" image="BlueStraight"></Image></ToggleButton>
-      <ToggleButton id="BBR1" class="ManBtn" offsetXY="0 -80">
+      <ToggleButton id="BBR1" class="ManBtn" offsetXY="20 -160">
           <Image id="BBR1Icon" class="MIcon" image="BlueBankR"></Image></ToggleButton>
-      <ToggleButton id="BTR1" class="ManBtn" offsetXY="55 -80">
+      <ToggleButton id="BTR1" class="ManBtn" offsetXY="100 -160">
           <Image id="BTR1Icon" class="MIcon" image="BlueTurnR"></Image></ToggleButton>
 
-      <ToggleButton id="WTL1" class="ManBtn" offsetXY="-165 -80">
+      <ToggleButton id="WTL1" class="ManBtn" offsetXY="-220 -160">
           <Image id="WTL1Icon" class="MIcon"  image="WhiteTurnL"></Image></ToggleButton>
-      <ToggleButton id="WBL1" class="ManBtn" offsetXY="-110 -80">
+      <ToggleButton id="WBL1" class="ManBtn" offsetXY="-140 -160">
           <Image id="WBL1Icon" class="MIcon" image="WhiteBankL"></Image></ToggleButton>
-      <ToggleButton id="WS1" class="ManBtn" offsetXY="-55 -80">
+      <ToggleButton id="WS1" class="ManBtn" offsetXY="-60 -160">
           <Image id="WS1Icon" class="MIcon" image="WhiteStraight"></Image></ToggleButton>
-      <ToggleButton id="WBR1" class="ManBtn" offsetXY="0 -80">
+      <ToggleButton id="WBR1" class="ManBtn" offsetXY="20 -160">
           <Image id="WBR1Icon" class="MIcon" image="WhiteBankR"></Image></ToggleButton>
-      <ToggleButton id="WTR1" class="ManBtn" offsetXY="55 -80">
+      <ToggleButton id="WTR1" class="ManBtn" offsetXY="100 -160">
           <Image id="WTR1Icon" class="MIcon" image="WhiteTurnR"></Image></ToggleButton>
 
-      <ToggleButton id="RTL1" class="ManBtn" offsetXY="-165 -80">
+      <ToggleButton id="RTL1" class="ManBtn" offsetXY="-220 -160">
           <Image id="RTL1Icon" class="MIcon"  image="RedTurnL"></Image></ToggleButton>
-      <ToggleButton id="RBL1" class="ManBtn" offsetXY="-110 -80">
+      <ToggleButton id="RBL1" class="ManBtn" offsetXY="-140 -160">
           <Image id="RBL1Icon" class="MIcon" image="RedBankL"></Image></ToggleButton>
-      <ToggleButton id="RS1" class="ManBtn" offsetXY="-55 -80">
+      <ToggleButton id="RS1" class="ManBtn" offsetXY="-60 -160">
           <Image id="RS1Icon" class="MIcon" image="RedStraight"></Image></ToggleButton>
-      <ToggleButton id="RBR1" class="ManBtn" offsetXY="0 -80">
+      <ToggleButton id="RBR1" class="ManBtn" offsetXY="20 -160">
           <Image id="RBR1Icon" class="MIcon" image="RedBankR"></Image></ToggleButton>
-      <ToggleButton id="RTR1" class="ManBtn" offsetXY="55 -80">
+      <ToggleButton id="RTR1" class="ManBtn" offsetXY="100 -160">
           <Image id="RTR1Icon" class="MIcon"  image="RedTurnR"></Image></ToggleButton>
 
 
-      <ToggleButton id="RBL1R" class="ManBtn" offsetXY="110 -80">
+      <ToggleButton id="RBL1R" class="ManBtn" offsetXY="180 -160">
           <Image id="RBL1RIcon" class="MIcon"  image="RedReverseBankL"></Image></ToggleButton>
-      <ToggleButton id="RBR1R" class="ManBtn" offsetXY="165 -80">
+      <ToggleButton id="RBR1R" class="ManBtn" offsetXY="260 -160">
           <Image id="RBR1RIcon" class="MIcon"  image="RedReverseBankR"></Image></ToggleButton>
 
-      <ToggleButton id="RTR1T" class="ManBtn" offsetXY="165 -80">
-          <Image id="RTR1TIcon" class="MIcon" image="RedTalonR"></Image></ToggleButton>
-      <ToggleButton id="RTL1T" class="ManBtn" offsetXY="110 -80">
+      <ToggleButton id="RTL1T" class="ManBtn" offsetXY="180 -160">
           <Image id="RTL1TIcon" class="MIcon" image="RedTalonL"></Image></ToggleButton>
+      <ToggleButton id="RTR1T" class="ManBtn" offsetXY="260 -160">
+          <Image id="RTR1TIcon" class="MIcon" image="RedTalonR"></Image></ToggleButton>
 
-      <ToggleButton id="RBL1S" class="ManBtn" offsetXY="110 -80">
+      <ToggleButton id="RBL1S" class="ManBtn" offsetXY="180 -160">
           <Image id="RBL1SIcon" class="MIcon" image="RedSloopL"></Image></ToggleButton>
-      <ToggleButton id="RBR1S" class="ManBtn" offsetXY="165 -80">
+      <ToggleButton id="RBR1S" class="ManBtn" offsetXY="260 -160">
           <Image id="RBR1SIcon" class="MIcon" image="RedSloopR"></Image></ToggleButton>
 
-      <ToggleButton id="RK1" class="ManBtn" offsetXY="220 -80">
+      <ToggleButton id="RK1" class="ManBtn" offsetXY="340 -160">
           <Image id="RK1Icon" class="MIcon" image="RedK"></Image></ToggleButton>
-      <ToggleButton id="RS1R" class="ManBtn" offsetXY="220 -80">
+      <ToggleButton id="RS1R" class="ManBtn" offsetXY="340 -160">
           <Image id="RS1RIcon" class="MIcon" image="RedReverseStraight"></Image></ToggleButton>
-      <ToggleButton id="RS2R" class="ManBtn" offsetXY="220 -20">
+      <ToggleButton id="RS2R" class="ManBtn" offsetXY="340 -160">
           <Image id="RS2RIcon" class="MIcon" image="RedReverseStraight"></Image></ToggleButton>
 
 
 
-      <ToggleButton id="BTL2" class="ManBtn" offsetXY="-165 -20">
+      <ToggleButton id="BTL2" class="ManBtn" offsetXY="-220 -60">
           <Image id="BTL2Icon" class="MIcon"  image="BlueTurnL"></Image></ToggleButton>
-      <ToggleButton id="BBL2" class="ManBtn" offsetXY="-110 -20">
+      <ToggleButton id="BBL2" class="ManBtn" offsetXY="-140 -60">
           <Image id="BBL2Icon" class="MIcon" image="BlueBankL"></Image></ToggleButton>
-      <ToggleButton id="BS2" class="ManBtn" offsetXY="-55 -20">
+      <ToggleButton id="BS2" class="ManBtn" offsetXY="-60 -60">
           <Image id="BS2Icon" class="MIcon" image="BlueStraight"></Image></ToggleButton>
-      <ToggleButton id="BBR2" class="ManBtn" offsetXY="0 -20">
+      <ToggleButton id="BBR2" class="ManBtn" offsetXY="20 -60">
           <Image id="BBR2Icon" class="MIcon" image="BlueBankR"></Image></ToggleButton>
-      <ToggleButton id="BTR2" class="ManBtn" offsetXY="55 -20">
+      <ToggleButton id="BTR2" class="ManBtn" offsetXY="100 -60">
           <Image id="BTR2Icon" class="MIcon" image="BlueTurnR"></Image></ToggleButton>
 
-      <ToggleButton id="WTL2" class="ManBtn" offsetXY="-165 -20">
+      <ToggleButton id="WTL2" class="ManBtn" offsetXY="-220 -60">
           <Image id="WTL2Icon" class="MIcon"  image="WhiteTurnL"></Image></ToggleButton>
-      <ToggleButton id="WBL2" class="ManBtn" offsetXY="-110 -20">
+      <ToggleButton id="WBL2" class="ManBtn" offsetXY="-140 -60">
           <Image id="WBL2Icon" class="MIcon" image="WhiteBankL"></Image></ToggleButton>
-      <ToggleButton id="WS2" class="ManBtn" offsetXY="-55 -20">
+      <ToggleButton id="WS2" class="ManBtn" offsetXY="-60 -60">
           <Image id="WS2Icon" class="MIcon" image="WhiteStraight"></Image></ToggleButton>
-      <ToggleButton id="WBR2" class="ManBtn" offsetXY="0 -20">
+      <ToggleButton id="WBR2" class="ManBtn" offsetXY="20 -60">
           <Image id="WBR2Icon" class="MIcon" image="WhiteBankR"></Image></ToggleButton>
-      <ToggleButton id="WTR2" class="ManBtn" offsetXY="55 -20">
+      <ToggleButton id="WTR2" class="ManBtn" offsetXY="100 -60">
           <Image id="WTR2Icon" class="MIcon" image="WhiteTurnR"></Image></ToggleButton>
 
-      <ToggleButton id="RTL2" class="ManBtn" offsetXY="-165 -20">
+      <ToggleButton id="RTL2" class="ManBtn" offsetXY="-220 -60">
           <Image id="RTL2Icon" class="MIcon" image="RedTurnL"></Image></ToggleButton>
-      <ToggleButton id="RBL2" class="ManBtn" offsetXY="-110 -20">
+      <ToggleButton id="RBL2" class="ManBtn" offsetXY="-140 -60">
           <Image id="RBL2Icon" class="MIcon" image="RedBankL"></Image></ToggleButton>
-      <ToggleButton id="RS2" class="ManBtn" offsetXY="-55 -20">
+      <ToggleButton id="RS2" class="ManBtn" offsetXY="-60 -60">
           <Image id="RS2Icon" class="MIcon" image="RedStraight"></Image></ToggleButton>
-      <ToggleButton id="RBR2" class="ManBtn" offsetXY="0 -20">
+      <ToggleButton id="RBR2" class="ManBtn" offsetXY="20 -60">
           <Image id="RBR2Icon" class="MIcon" image="RedBankR"></Image></ToggleButton>
-      <ToggleButton id="RTR2" class="ManBtn" offsetXY="55 -20">
+      <ToggleButton id="RTR2" class="ManBtn" offsetXY="100 -60">
           <Image id="RTR2Icon" class="MIcon" image="RedTurnR"></Image></ToggleButton>
 
-      <ToggleButton id="RTL2T" class="ManBtn" offsetXY="110 -20">
+      <ToggleButton id="RTL2T" class="ManBtn" offsetXY="180 -60">
           <Image id="RTL2TIcon" class="MIcon" image="RedTalonL"></Image></ToggleButton>
-      <ToggleButton id="RTR2T" class="ManBtn" offsetXY="165 -20">
+      <ToggleButton id="RTR2T" class="ManBtn" offsetXY="260 -60">
           <Image id="RTR2TIcon" class="MIcon" image="RedTalonR"></Image></ToggleButton>
-      <ToggleButton id="RBL2S" class="ManBtn" offsetXY="110 -20">
+      <ToggleButton id="RBL2S" class="ManBtn" offsetXY="180 -60">
           <Image id="RBL2SIcon" class="MIcon" image="RedSloopL"></Image></ToggleButton>
-      <ToggleButton id="RBR2S" class="ManBtn" offsetXY="165 -20">
+      <ToggleButton id="RBR2S" class="ManBtn" offsetXY="260 -60">
           <Image id="RBR2SIcon" class="MIcon" image="RedSloopR"></Image></ToggleButton>
 
-      <ToggleButton id="RK2" class="ManBtn" offsetXY="220 -20">
+      <ToggleButton id="RK2" class="ManBtn" offsetXY="340 -60">
           <Image id="RK2Icon" class="MIcon" image="RedK"></Image></ToggleButton>
-      <ToggleButton id="RS2R" class="ManBtn" offsetXY="220 -80">
+      <ToggleButton id="RS2R" class="ManBtn" offsetXY="340 -60">
           <Image id="RS2RIcon" class="MIcon" image="RedReverseStraight"></Image></ToggleButton>
 
 
-      <ToggleButton id="BTL3" class="ManBtn" offsetXY="-165 40">
+      <ToggleButton id="BTL3" class="ManBtn" offsetXY="-220 40">
           <Image id="BTL3Icon" class="MIcon"  image="BlueTurnL"></Image></ToggleButton>
-      <ToggleButton id="BBL3" class="ManBtn" offsetXY="-110 40">
+      <ToggleButton id="BBL3" class="ManBtn" offsetXY="-140 40">
           <Image id="BBL3Icon" class="MIcon" image="BlueBankL"></Image></ToggleButton>
-      <ToggleButton id="BS3" class="ManBtn" offsetXY="-55 40">
+      <ToggleButton id="BS3" class="ManBtn" offsetXY="-60 40">
           <Image id="BS3Icon" class="MIcon" image="BlueStraight"></Image></ToggleButton>
-      <ToggleButton id="BBR3" class="ManBtn" offsetXY="0 40">
+      <ToggleButton id="BBR3" class="ManBtn" offsetXY="20 40">
           <Image id="BBR3Icon" class="MIcon" image="BlueBankR"></Image></ToggleButton>
-      <ToggleButton id="BTR3" class="ManBtn" offsetXY="55 40">
+      <ToggleButton id="BTR3" class="ManBtn" offsetXY="100 40">
           <Image id="BTR3Icon" class="MIcon" image="BlueTurnR"></Image></ToggleButton>
 
-      <ToggleButton id="WTL3" class="ManBtn" offsetXY="-165 40">
+      <ToggleButton id="WTL3" class="ManBtn" offsetXY="-220 40">
           <Image id="WTL3Icon" class="MIcon"  image="WhiteTurnL"></Image></ToggleButton>
-      <ToggleButton id="WBL3" class="ManBtn" offsetXY="-110 40">
+      <ToggleButton id="WBL3" class="ManBtn" offsetXY="-140 40">
           <Image id="WBL3Icon" class="MIcon" image="WhiteBankL"></Image></ToggleButton>
-      <ToggleButton id="WS3" class="ManBtn" offsetXY="-55 40">
+      <ToggleButton id="WS3" class="ManBtn" offsetXY="-60 40">
           <Image id="WS3Icon" class="MIcon" image="WhiteStraight"></Image></ToggleButton>
-      <ToggleButton id="WBR3" class="ManBtn" offsetXY="0 40">
+      <ToggleButton id="WBR3" class="ManBtn" offsetXY="20 40">
           <Image id="WBR3Icon" class="MIcon" image="WhiteBankR"></Image></ToggleButton>
-      <ToggleButton id="WTR3" class="ManBtn" offsetXY="55 40">
+      <ToggleButton id="WTR3" class="ManBtn" offsetXY="100 40">
           <Image id="WTR3Icon" class="MIcon" image="WhiteTurnR"></Image></ToggleButton>
 
-      <ToggleButton id="RTL3" class="ManBtn" offsetXY="-165 40">
+      <ToggleButton id="RTL3" class="ManBtn" offsetXY="-220 40">
           <Image id="RTL3Icon" class="MIcon" image="RedTurnL"></Image></ToggleButton>
-      <ToggleButton id="RBL3" class="ManBtn" offsetXY="-110 40">
+      <ToggleButton id="RBL3" class="ManBtn" offsetXY="-140 40">
           <Image id="RBL3Icon" class="MIcon" image="RedBankL"></Image></ToggleButton>
-      <ToggleButton id="RS3" class="ManBtn" offsetXY="-55 40">
+      <ToggleButton id="RS3" class="ManBtn" offsetXY="-60 40">
           <Image id="RS3Icon" class="MIcon" image="RedStraight"></Image></ToggleButton>
-      <ToggleButton id="RBR3" class="ManBtn" offsetXY="0 40">
+      <ToggleButton id="RBR3" class="ManBtn" offsetXY="20 40">
           <Image id="RBR3Icon" class="MIcon" image="RedBankR"></Image></ToggleButton>
-      <ToggleButton id="RTR3" class="ManBtn" offsetXY="55 40">
+      <ToggleButton id="RTR3" class="ManBtn" offsetXY="100 40">
           <Image id="RTR3Icon" class="MIcon" image="RedTurnR"></Image></ToggleButton>
 
-      <ToggleButton id="RTL3T" class="ManBtn" offsetXY="110 40">
+      <ToggleButton id="RTL3T" class="ManBtn" offsetXY="180 40">
           <Image id="RTL3TIcon" class="MIcon" image="RedTalonL"></Image></ToggleButton>
-      <ToggleButton id="RTR3T" class="ManBtn" offsetXY="165 40">
+      <ToggleButton id="RTR3T" class="ManBtn" offsetXY="260 40">
           <Image id="RTR3TIcon" class="MIcon" image="RedTalonR"></Image></ToggleButton>
-      <ToggleButton id="RBL3S" class="ManBtn" offsetXY="110 40">
+      <ToggleButton id="RBL3S" class="ManBtn" offsetXY="180 40">
           <Image id="RBL3SIcon" class="MIcon" image="RedSloopL"></Image></ToggleButton>
-      <ToggleButton id="RBR3S" class="ManBtn" offsetXY="165 40">
+      <ToggleButton id="RBR3S" class="ManBtn" offsetXY="260 40">
           <Image id="RBR3SIcon" class="MIcon" image="RedSloopR"></Image></ToggleButton>
 
-      <ToggleButton id="RK3" class="ManBtn" offsetXY="220 40">
+      <ToggleButton id="RK3" class="ManBtn" offsetXY="340 40">
           <Image id="RK3Icon" class="MIcon" image="RedK"></Image></ToggleButton>
 
-      <ToggleButton id="BS4" class="ManBtn" offsetXY="-55 100">
+      <ToggleButton id="BS4" class="ManBtn" offsetXY="-60 140">
           <Image id="BS4Icon" class="MIcon" image="BlueStraight"></Image></ToggleButton>
-      <ToggleButton id="WS4" class="ManBtn" offsetXY="-55 100">
+      <ToggleButton id="WS4" class="ManBtn" offsetXY="-60 140">
           <Image id="WS4Icon" class="MIcon" image="WhiteStraight"></Image></ToggleButton>
-      <ToggleButton id="RS4" class="ManBtn" offsetXY="-55 100">
+      <ToggleButton id="RS4" class="ManBtn" offsetXY="-60 140">
           <Image id="RS4Icon" class="MIcon" image="RedStraight"></Image></ToggleButton>
 
-      <ToggleButton id="RK4" class="ManBtn" offsetXY="220 100">
+      <ToggleButton id="RK4" class="ManBtn" offsetXY="340 140">
           <Image id="RK4Icon" class="MIcon" image="RedK"></Image></ToggleButton>
-      <ToggleButton id="WK4" class="ManBtn" offsetXY="220 100">
+      <ToggleButton id="WK4" class="ManBtn" offsetXY="340 140">
           <Image id="WK4Icon" class="MIcon" image="WhiteK"></Image></ToggleButton>
 
 
-      <ToggleButton id="BS5" class="ManBtn" offsetXY="-55 160">
+      <ToggleButton id="BS5" class="ManBtn" offsetXY="-60 240">
           <Image id="BS5Icon" class="MIcon" image="BlueStraight"></Image></ToggleButton>
-      <ToggleButton id="WS5" class="ManBtn" offsetXY="-55 160">
+      <ToggleButton id="WS5" class="ManBtn" offsetXY="-60 240">
           <Image id="WS5Icon" class="MIcon" image="WhiteStraight"></Image></ToggleButton>
-      <ToggleButton id="RS5" class="ManBtn" offsetXY="-55 160">
+      <ToggleButton id="RS5" class="ManBtn" offsetXY="-60 240">
           <Image id="RS5Icon" class="MIcon" image="RedStraight"></Image></ToggleButton>
 
 
-      <ToggleButton id="WK5" class="ManBtn" offsetXY="220 160">
+      <ToggleButton id="WK5" class="ManBtn" offsetXY="340 240">
           <Image id="WK5Icon" class="MIcon" image="WhiteK"></Image></ToggleButton>
-      <ToggleButton id="RK5" class="ManBtn" offsetXY="220 160">
+      <ToggleButton id="RK5" class="ManBtn" offsetXY="340 240">
           <Image id="RK5Icon" class="MIcon" image="RedK"></Image></ToggleButton>
 
     </ToggleGroup>
@@ -272,155 +476,4 @@
     </Panel>
     <Panel id="WinElements">
     </Panel>
-</Panel>
-
-<Panel id="ArcFD"
-    width="300"
-    height="400"
-    position="350 200 -30"
-    rotation="0 0 180"
-    outline="Black"
-    color="#aaffaa00"
-    showAnimation="Grow"
-    hideAnimation="Shrink">
-        <Button id="Range1" class="ArcButtons" onClick="range1" height="80" width="80" offsetXY="-100 150">
-            <Image id="R1Icon" height="80" widht="80" image="R1"></Image></Button>
-        <Button id="Range2" class="ArcButtons" onClick="range2" height="80" width="80" offsetXY="0 150">
-            <Image id="R2Icon" height="80" widht="80" image="R2"></Image></Button>
-        <Button id="Range3" class="ArcButtons" onClick="range3" height="80" width="80" offsetXY="100 150">
-            <Image id="R3Icon" height="80" widht="80" image="R3"></Image></Button>
-        <Button id="FrontArc" class="ArcButtons" onClick="arcF" height="80" width="80" offsetXY="0 50">
-            <Image id="FrontArcIcon" height="80" widht="80" image="FrontArc"></Image></Button>
-        <Button id="LeftArc" class="ArcButtons" onClick="arcL" height="80" width="80" offsetXY="-90 -40">
-            <Image id="LeftArcIcon" height="80" widht="80" image="LeftArc"></Image></Button>
-        <Button id="RightArc" class="ArcButtons" onClick="arcR" height="80" width="80" offsetXY="90 -40">
-            <Image id="RightArcIcon" height="80" widht="80" image="RightArc"></Image></Button>
-        <Button id="RearArc" class="ArcButtons" onClick="arcB" height="80" width="80" offsetXY="0 -130">
-            <Image id="BackArcIcon" height="80" widht="80" image="BackArc"></Image></Button>
-
-</Panel>
-
-
-<Panel id="ActionsFD"
-    width="500"
-    height="400"
-    position="-430 -230 -30"
-    rotation="0 0 180"
-    rectAlignment="TopRight"
-    outline="Black"
-    color="#aaffaa00"
-    showAnimation="Grow"
-    hideAnimation="Shrink">
-    <HorizontalLayout>
-        <Panel id = "GreenTokens"
-            width="70"
-            height="280"
-            color="Green">
-            <VerticalLayout>
-                <Button id="FocusBtn" class="TokenButtons" onClick="focusTok">
-                    <Image id= "FocusIcon" class="TIcon" image="Focus" preserveAspect="true"></Image>
-                </Button>
-                <Button id="EvadeBtn" class="TokenButtons" onClick="evadeTok">
-                    <Image id= "EvadeIcon" class="TIcon" image="Evade" preserveAspect="true"></Image>
-                </Button>
-                <Button id="TargetLockBtn" class="TokenButtons"  onClick="tlTok">
-                    <Image id= "TLIcon" class="TIcon" image="TL" preserveAspect="true"></Image>
-                </Button>
-                <Button id="CalculateBtn" class="TokenButtons"  onClick="calcTok">
-                    <Image id= "CalculateIcon" class="TIcon" image="Calculate" preserveAspect="true"></Image>
-                </Button>
-                <Button id="ReinforceBtn" class="TokenButtons" onClick="reinforceTok">
-                    <Image id= "ReinforceIcon" class="TIcon" image="Reinforce" preserveAspect="true"></Image>
-                </Button>
-            </VerticalLayout>
-        </Panel>
-        <Panel id = "RedTokenShed"
-            width="70"
-            height="280"
-            color="Red">
-            <VerticalLayout>
-                <Button id="StressBtn" class="TokenButtons" onClick="stressTok" active="true">
-                    <image  id= "StressIcon" class="TIcon" image="Stress" preserveAspect="true"></image></Button>
-                <Button id="StrainBtn" class="TokenButtons" onClick="strainTok" active="true">
-                    <image  id= "StrainIcon" class="TIcon" image="Strain" preserveAspect="true"></image></Button>
-                <Button id="IonBtn" class="TokenButtons" onClick="ionTok" active="true">
-                    <image  id= "IonIcon" class="TIcon" image="Ion" preserveAspect="true"></image></Button>
-            </VerticalLayout>
-        </Panel>
-        <Panel id = "OrangeTokens"
-            width="70"
-            height="280"
-            rectAlignment="MiddleLeft"
-            color="Orange">
-            <VerticalLayout>
-                <Button id="DisarmBtn" class="TokenButtons" onClick="disarmTok" active="true">
-                    <image  id= "DisarmIcon" class="TIcon" image="Disarm" preserveAspect="true"></image></Button>
-                <Button id="JamBtn" class="TokenButtons" onClick="jamTok" active="true">
-                    <image  id= "JamIcon" class="TIcon" image="Jam" preserveAspect="true"></image></Button>
-                <Button id="TractorBtn" class="TokenButtons" onClick="tractorTok" active="true">
-                    <image  id= "TractorIcon" class="TIcon" image="Tractor" preserveAspect="true"></image></Button>
-            </VerticalLayout>
-        </Panel>
-        <Panel id = "BlueTokens"
-            width="70"
-            height="280"
-            rectAlignment="MiddleLeft"
-            color="Blue">
-            <VerticalLayout>
-                <Button id="CloakBtn" class="TokenButtons" onClick="cloakTok" active="true">
-                    <image  id= "CloakIcon" class="TIcon" image="Cloak" preserveAspect="true"></image></Button>
-            </VerticalLayout>
-        </Panel>
-    </HorizontalLayout>
-</Panel>
-
-
-<Panel id="BoostFD"
-    class="BoostPanel"
-    color="#aaffaa00"
-    showAnimation="Grow"
-    hideAnimation="Shrink">
-    <Button id="BoostSBtn" class="RelocButtons" onClick="BoostS">
-        <Image id= "BoostSIcon" class="RIcon" image="BoostS" preserveAspect="true"></Image>
-    </Button>
-    <Button id="BoostLBtn" class="RelocButtons" onClick="BoostL" offsetXY="-65 0">
-        <Image id= "BoostLIcon" class="RIcon" image="BoostL" preserveAspect="true"></Image>
-    </Button>
-    <Button id="BoostRBtn" class="RelocButtons" onClick="BoostR" offsetXY="65 0">
-        <Image id= "BoostRIcon" class="RIcon" image="BoostR" preserveAspect="true"></Image>
-    </Button>
-</Panel>
-
-<Panel id="BarrelLeftFD"
-    class="BarrelPanel"
-    offsetXY="230 0"
-    color="#aaffaa00"
-    showAnimation="Grow"
-    hideAnimation="Shrink">
-    <Button id="BarrelLBtn" class="RelocButtons" onClick="BarrelL">
-        <Image id= "BarrelLIcon" class="RIcon" image="BarrelL" preserveAspect="true"></Image>
-    </Button>
-    <Button id="BarrelLFBtn" class="RelocButtons" onClick="BarrelLF" position="0 70">
-        <Image id= "BarrelLFIcon" class="RIcon" image="BarrelLF" preserveAspect="true"></Image>
-    </Button>
-    <Button id="BarrelLBBtn" class="RelocButtons" onClick="BarrelLB" position="0 -70">
-        <Image id= "BarrelLBIcon" class="RIcon" image="BarrelLB" preserveAspect="true"></Image>
-    </Button>
-</Panel>
-
-<Panel id="BarrelRightFD"
-    class="BarrelPanel"
-    offsetXY="-230 0"
-    color="#aaffaa00"
-    showAnimation="Grow"
-    hideAnimation="Shrink">
-    <Button id="BarrelRBtn" class="RelocButtons" onClick="BarrelR">
-        <Image id= "BarrelRIcon" class="RIcon" image="BarrelR" preserveAspect="true"></Image>
-    </Button>
-    <Button id="BarrelRFBtn" class="RelocButtons" onClick="BarrelRF" position="0 70">
-        <Image id= "BarrelRFIcon" class="RIcon" image="BarrelRF" preserveAspect="true"></Image>
-    </Button>
-    <Button id="BarrelRBBtn" class="RelocButtons" onClick="BarrelRB" position="0 -70">
-        <Image id= "BarrelRBIcon" class="RIcon" image="BarrelRB" preserveAspect="true"></Image>
-    </Button>
 </Panel>
