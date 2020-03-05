@@ -313,6 +313,8 @@ XW_cmd.AddCommand('a[12]', 'actionMove')        -- Adjusts
 
 ArcCheck = {}
 ArcCheck.initialized = false
+ArcCheck.arc_check_rulers = {}
+ArcCheck.current_arc = "none"
 
 ArcCheck.arc_line_segments = {}
 ArcCheck.arc_line_segments['small'] = {}
@@ -385,6 +387,16 @@ function CheckArc(args)
     if ArcCheck.initialized == false then
         ArcCheck.Initialize()
     end
+    for k, ruler in pairs(ArcCheck.arc_check_rulers) do
+        ruler.destruct()
+    end
+    ArcCheck.arc_check_rulers = {}
+    if ArcCheck.current_arc == args.arctype then
+        ArcCheck.current_arc = "none"
+        return
+    end
+    ArcCheck.current_arc = args.arctype
+
     args.ship.setLock(true)
     local shipData = ModelDB.GetData(args.ship)
 
@@ -474,6 +486,7 @@ ArcCheck.SpawnObstructionRuler = function(data)
         local rulerscale = ruler.getScale()
         rulerscale.y = 0.1
         ruler.setScale(rulerscale)
+        table.insert(ArcCheck.arc_check_rulers, ruler)
     end
 end
 
@@ -489,11 +502,11 @@ ArcCheck.GetDistanceBetweenLineSegments = function(own_line_segments, target_lin
         B={0,0,0}
     }
     local other = nil
-    local epsilon = 0.002 -- This to dumb down the mathematical accuracy to match the analog game experience
+    local epsilon = 0.001 -- This to dumb down the mathematical accuracy to match the analog game experience
     for k_o, seg_o in pairs(own_line_segments) do
         for k_t, seg_t in pairs(target_line_segments) do
             for k_p, point in pairs(seg_t) do
-                local distance = ArcCheck.GetDistanceBetweenLineSegmentAndPoint(seg_o, point)
+                local distance = ArcCheck.GetDistanceBetweenLineSegmentAndPoint(seg_o, point, false)
                 if not ArcCheck.CheckEqualLineSegments(distance.A, distance.B, closest.A, closest.B ) then
                     if (distance.length <= (closest.length + epsilon)) then
 
@@ -514,7 +527,7 @@ ArcCheck.GetDistanceBetweenLineSegments = function(own_line_segments, target_lin
                 end
             end
             for k_p, point in pairs(seg_o) do
-                local distance = ArcCheck.GetDistanceBetweenLineSegmentAndPoint(seg_t, point)
+                local distance = ArcCheck.GetDistanceBetweenLineSegmentAndPoint(seg_t, point, true)
                 if not ArcCheck.CheckEqualLineSegments(distance.A, distance.B, closest.A, closest.B ) then
                     if (distance.length <= (closest.length + epsilon)) then
                         if math.abs(distance.length - closest.length) < epsilon then
@@ -556,7 +569,7 @@ end
 
 
 -- Gets the closest point on a line segment to a point
-ArcCheck.GetDistanceBetweenLineSegmentAndPoint = function(segment, point)
+ArcCheck.GetDistanceBetweenLineSegmentAndPoint = function(segment, point, reverse)
     local P = {}
     -- Check if the angle at the first segment point is larger than 90 degrees, the point bust be it, and the endpoint will be closest point
     if (math.abs(ArcCheck.GetAngleBetweenPoints(segment[2], segment[1], point)) >= 90) then
@@ -571,15 +584,26 @@ ArcCheck.GetDistanceBetweenLineSegmentAndPoint = function(segment, point)
         local d = Vect.DotProd(Vect.Between(point, segment[1]), baseline_norm)
         P = Vect.Sum(point, Vect.Scale(baseline_norm, d))
     end
+
+    if reverse then
+        A = point
+        B = P
+    else
+        A = P
+        B = point
+    end
     local distance = Vect.Distance(P, point)
-    local midpoint = Vect.Middle(P, point)
+    local range =math.floor(Convert_igu_mm(distance / 100)) + 1
+
+    local midpoint = Vect.Sum(A, Vect.Scale(Vect.ToUnit(Vect.Between(A,B)), Convert_mm_igu(50)*math.min(range,3)))
+    --local midpoint = Vect.Middle(P, point)
     midpoint[2] = 1.52
     return { length=distance,
-             A=P,
-             B=point,
-             range=math.floor(Convert_igu_mm(distance / 100)) + 1,
+             A=A,
+             B=B,
+             range=range,
              midpoint=midpoint,
-             angle = Vect.AngleDeg2D(Vect.Between(P, point), vector(0, 0, 1))
+             angle = Vect.AngleDeg(Vect.Between(A, B), vector(0, 0, 1))
            }
 end
 
@@ -597,7 +621,7 @@ end
 
 -- Finds all potential ships within a little more than range 3 from the ship
 ArcCheck.GetPotentialTargets = function(ship)
-    local cast_radius = Convert_mm_igu(700)
+    local cast_radius = Convert_mm_igu(900)
     local collissions = Physics.cast({
         origin       = ship.getPosition() + vector(0,0.1,0),
         direction    = {0,0.001,0},

@@ -1,0 +1,19 @@
+function onDropped()
+    local spos = self.getPosition()
+    local nearest = nil
+    local minDist = 2.89 -- 80mm
+    for k,ship in pairs(getAllObjects()) do
+        if ship.tag == 'Figurine' and ship.name ~= '' then
+            local pos = ship.getPosition()
+            local dist = math.sqrt(math.pow((spos[1]-pos[1]),2) + math.pow((spos[3]-pos[3]),2))
+            if dist < minDist then
+                nearest = ship
+                minDist = dist
+            end
+        end
+    end
+    if nearest ~= nil then
+        nearest.addContextMenuItem("FireArc check - Front", function(argument) Global.call("CheckArc", {ship=nearest,arctype="front"}) end, false)
+        nearest.addContextMenuItem("FireArc check - FullFront", function(argument) Global.call("CheckArc", {ship=nearest,arctype="fullfront"}) end, false)
+    end
+end
