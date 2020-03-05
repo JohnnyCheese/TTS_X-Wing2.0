@@ -414,10 +414,15 @@ function CheckArc(args)
             end
 
             if #obstructions ~= 0 then
-                if #other_obstructions ~= 0 then
-                    obstructedtext = "is most likely OBSTRUCTED "
+                if other ~= nil then
+                    if #other_obstructions ~= 0 then
+                        obstructedtext = "is most likely OBSTRUCTED "
+                    end
+                    obstructedtext = "can be chosen to be OBSTRUCTED "
+                else
+                    obstructedtext = "OBSTRUCTED "
                 end
-                obstructedtext = "can be chosen to be OBSTRUCTED "
+
             else
                 if #other_obstructions ~= 0 then
                     obstructedtext = "can be chosen to be OBSTRUCTED "
@@ -484,7 +489,7 @@ ArcCheck.GetDistanceBetweenLineSegments = function(own_line_segments, target_lin
         B={0,0,0}
     }
     local other = nil
-    local epsilon = 0.0000001
+    local epsilon = 0.002 -- This to dumb down the mathematical accuracy to match the analog game experience
     for k_o, seg_o in pairs(own_line_segments) do
         for k_t, seg_t in pairs(target_line_segments) do
             for k_p, point in pairs(seg_t) do
@@ -501,7 +506,7 @@ ArcCheck.GetDistanceBetweenLineSegments = function(own_line_segments, target_lin
                                 other = distance
                             end
                         else
-                            --print("Closer: " .. tostring(distance.length))
+                            --print("Closer: " .. tostring(distance.length) .. " - " .. tostring(distance.length - closest.length))
                             closest = distance
                             other = nil
                         end
@@ -521,7 +526,7 @@ ArcCheck.GetDistanceBetweenLineSegments = function(own_line_segments, target_lin
                                 other = distance
                             end
                         else
-                            --print("Closer2: " .. tostring(distance.length))
+                            --print("Closer2: " .. tostring(distance.length) .. " - " .. tostring(distance.length - closest.length))
                             closest = distance
                             other = nil
                         end
@@ -691,7 +696,6 @@ ArcCheck.GetLineLineIntersection = function(p1, p2, p3, p4)
     end
     return nil
 end
-
 
 
 MoveData = {}
