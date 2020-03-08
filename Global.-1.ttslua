@@ -388,14 +388,18 @@ function CheckArc(args)
         ArcCheck.Initialize()
     end
     for k, ruler in pairs(ArcCheck.arc_check_rulers) do
-        ruler.destruct()
+        if ruler != nil then
+            ruler.destruct()
+        end
     end
     ArcCheck.arc_check_rulers = {}
-    if ArcCheck.current_arc == args.arctype then
+    if (ArcCheck.current_arc == args.arctype) and (args.ship == ArcCheck.current_ship) then
         ArcCheck.current_arc = "none"
+        ArcCheck.current_ship = nil
         return
     end
     ArcCheck.current_arc = args.arctype
+    ArcCheck.current_ship = args.ship
 
     args.ship.setLock(true)
     local shipData = ModelDB.GetData(args.ship)
@@ -558,7 +562,7 @@ ArcCheck.GetAngleBetweenPoints = function(A,B,C)
 end
 
 ArcCheck.CheckEqualLineSegments = function(line1A, line1B, line2A, line2B)
-    local epsilon = 0.0000001
+    local epsilon = 0.02
     if Vect.Distance(line1A,line2A) < epsilon then
         return Vect.Distance(line1B,line2B) < epsilon
     elseif Vect.Distance(line1A,line2B) < epsilon then
@@ -595,15 +599,22 @@ ArcCheck.GetDistanceBetweenLineSegmentAndPoint = function(segment, point, revers
     local distance = Vect.Distance(P, point)
     local range =math.floor(Convert_igu_mm(distance / 100)) + 1
 
-    local midpoint = Vect.Sum(A, Vect.Scale(Vect.ToUnit(Vect.Between(A,B)), Convert_mm_igu(50)*math.min(range,3)))
-    --local midpoint = Vect.Middle(P, point)
+    local midpoint = Vect.Middle(A, B)
     midpoint[2] = 1.52
+
+
+    local AB = Vect.Between(A, B)
+    local angle = Vect.AngleDeg(AB, vector(0, 0, 1))
+    if AB[1] < 0 then
+        angle = -angle
+    end
+
     return { length=distance,
              A=A,
              B=B,
              range=range,
              midpoint=midpoint,
-             angle = Vect.AngleDeg(Vect.Between(A, B), vector(0, 0, 1))
+             angle=angle
            }
 end
 
@@ -690,15 +701,20 @@ ArcCheck.GetTargetLineSegmentsInArc = function(ship, target, arcinfo)
             else
                 p1 = rotated_segment[2]
             end
-            p2 = ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, arcinfo.spread))
-                                  , rotated_segment[1], rotated_segment[2])
-            if p2 == nil then
-                -- The other direction had no intersection, it must be the other
+
+            -- Calculate the Y part of the cross product between the center vector and the ship -> p1 vector
+            local sp1 = Vect.Between(ship.getPosition(), p1)
+            local xprodY = arc_center_vector[3]*sp1[1] - arc_center_vector[1]*sp1[3]
+
+            if xprodY > 0 then -- Positive y part means positiv spread
+                p2 = ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, arcinfo.spread))
+                                      , rotated_segment[1], rotated_segment[2])
+            else -- Negative y part means negative spread
                 p2 = ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, -arcinfo.spread))
                                       , rotated_segment[1], rotated_segment[2])
             end
             table.insert(outsegments, {p1, p2})
-            -- One inside other outside
+
         end
     end
     return outsegments
@@ -720,7 +736,6 @@ ArcCheck.GetLineLineIntersection = function(p1, p2, p3, p4)
     end
     return nil
 end
-
 
 
 MoveData = {}
