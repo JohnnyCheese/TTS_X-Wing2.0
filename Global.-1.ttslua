@@ -412,35 +412,34 @@ function CheckArc(args)
             local closest = nil
             closest, other = ArcCheck.GetDistanceBetweenLineSegments(own_line_segments, target_line_segments)
             found = true
-            local obstructions = ArcCheck.CheckObstruction(closest)
+            closest.obstructions = ArcCheck.CheckObstruction(closest)
             pt.setLock(true)
             ArcCheck.SpawnObstructionRuler(closest)
-            local other_obstructions = {}
             local multipletext = " is "
             local obstructedtext = "is "
             if other ~= nil then
                 obstructedtext = "is most likely UNOBSTRUCTED "
                 multipletext = " has multiple closest points and "
-                other_obstructions = ArcCheck.CheckObstruction(other)
+                other.obstructions = ArcCheck.CheckObstruction(other)
                 ArcCheck.SpawnObstructionRuler(other)
             end
-
-            if #obstructions ~= 0 then
+            if #closest.obstructions ~= 0 then
                 if other ~= nil then
-                    if #other_obstructions ~= 0 then
+                    if #other.obstructions ~= 0 then
                         obstructedtext = "is most likely OBSTRUCTED "
                     end
                     obstructedtext = "can be chosen to be OBSTRUCTED "
                 else
                     obstructedtext = "OBSTRUCTED "
                 end
-
             else
-                if #other_obstructions ~= 0 then
+                if other ~=nil and #other.obstructions ~= 0 then
                     obstructedtext = "can be chosen to be OBSTRUCTED "
                 end
             end
             printToAll(" - " .. pt.getName().. multipletext .. obstructedtext .. "at range " ..tostring(closest.range), color(1.0, 1.0, 0.2, 0.9))
+        else
+            printToAll(" - " .. pt.getName() .. " not in arc")
         end
     end
     if found == false then
@@ -469,23 +468,24 @@ end
 
 ArcCheck.SpawnObstructionRuler = function(data)
     if data.range > 0 then
-        local rulerid = nil
-        if data.range == 1 then
-            rulerid = 'bf91d5'
-        elseif data.range == 2 then
-            rulerid = '0f08d4'
-        else
-            rulerid = '4f88fa'
-        end
-        ruler = getObjectFromGUID(rulerid).takeObject({
-            position          = data.midpoint,
-            rotation          = {90, data.angle + 90 ,0},
-            smooth            = false
+        ruler = spawnObject({
+            type              = "Custom_Model",
+            position          = vector(data.A[1], 1.21, data.A[3]),
+            rotation          = {0, data.angle + 90,0},
+            scale             = {0.3617, 0.3617, 0.5},
+            sound             = false,
+            snap_to_grid      = false
         })
+        ruler.setCustomObject({
+            mesh =  "C:\\Users\\sameg\\OneDrive\\Dokumenter\\blender\\range".. data.range .. ".version2.obj",
+            material = 3
+        })
+        local tintcolor = color(1.0, 1.0, 0.2, 1.0) -- Yellow obstructed tint
+        if #data.obstructions == 0 then
+            tintcolor = color(0.2, 0.2, 1.0, 1.0) -- Blue unobstructed tint
+        end
+        ruler.setColorTint(tintcolor)
         ruler.setLock(true)
-        local rulerscale = ruler.getScale()
-        rulerscale.y = 0.1
-        ruler.setScale(rulerscale)
         table.insert(ArcCheck.arc_check_rulers, ruler)
     end
 end
@@ -720,6 +720,7 @@ ArcCheck.GetLineLineIntersection = function(p1, p2, p3, p4)
     end
     return nil
 end
+
 
 
 MoveData = {}
