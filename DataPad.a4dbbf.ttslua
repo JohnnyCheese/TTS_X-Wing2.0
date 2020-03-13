@@ -1333,7 +1333,7 @@ masterUpgradesDB[589]={['name']="R2-C4",['slot']=10,['cost']=5,['card']='https:/
                         ['restriction']={['Faction']={[6]=true}}}
 masterUpgradesDB[590]={['name']="TA-175",['slot']=20,['cost']=9,['card']='https://sb-cdn.fantasyflightgames.com/card_images/en/d71e07aa3147c6fe943bd0c8131a0096.png',
                         ['restriction']={['Faction']={[7]=true}}}
-masterUpgradesDB[591]={['name']="Electro-Proton Bomb",['slot']=12,['cost']=12,['Charge']=1,['remSlot']=14,['card']='https://sb-cdn.fantasyflightgames.com/card_images/en/0f76484cc390fc97d1fe2f863d75944b.png',
+masterUpgradesDB[591]={['name']="Electro-Proton Bomb",['slot']=12,['cost']=12,['Charge']=1,['remSlot']={14},['card']='https://sb-cdn.fantasyflightgames.com/card_images/en/0f76484cc390fc97d1fe2f863d75944b.png',
                         ['restriction']={ }}
 masterUpgradesDB[592]={['name']="Delayed Fuses",['slot']=14,['cost']=1,['card']='https://sb-cdn.fantasyflightgames.com/card_images/en/4572ece39224eeaf2dfce2770b96f919.png',
                         ['restriction']={ }}
@@ -1365,28 +1365,22 @@ masterUpgradesDB[616]={['name']="C-3PO",['slot']=8,['cost']=8,['card']='https://
 masterUpgradesDB[615]={['name']="Ahsoka Tano",['slot']=16,['cost']=12,['Force']=1,['card']='https://sb-cdn.fantasyflightgames.com/card_images/en/bdc101788f827aeaf2f50a513b59aa7e.png',
                         ['restriction']={['Faction']={[6]=true}}}
 --w7
-masterUpgradesDB[701]={['name']="Mag-Pulse Warheads",['slot']=1,['cost']=0,['Charge']=2,['card']='https://images-cdn.fantasyflightgames.com/filer_public/20/a6/20a60741-4adf-485e-bee2-f93b9e5de7bb/swz62_card_mag-pulse-warheads.png',
+masterUpgradesDB[701]={['name']="Mag-Pulse Warheads",['slot']=6,['cost']=6,['Charge']=2,['card']='https://images-cdn.fantasyflightgames.com/filer_public/20/a6/20a60741-4adf-485e-bee2-f93b9e5de7bb/swz62_card_mag-pulse-warheads.png',
                         ['restriction']={ }}
-masterUpgradesDB[702]={['name']="Deuterium Power Cells",['slot']=1,['cost']=0,['Charge']=2,['remSlot']=19,['card']='https://images-cdn.fantasyflightgames.com/filer_public/d1/af/d1afeaf7-166b-4874-8544-982d8c4c445e/swz62_card_deuterium-power-cells.png',
+masterUpgradesDB[702]={['name']="Deuterium Power Cells",['slot']=19,['cost']=9,['Charge']=2,['remSlot']={14},['card']='https://images-cdn.fantasyflightgames.com/filer_public/d1/af/d1afeaf7-166b-4874-8544-982d8c4c445e/swz62_card_deuterium-power-cells.png',
                         ['restriction']={['Faction']={[5]=true}}}
-masterUpgradesDB[703]={['name']="Proud Tradition",['dual']=1,['slot']=1,['cost']=0,['Charge']=2,['card']='https://images-cdn.fantasyflightgames.com/filer_public/38/09/3809c0fe-c113-43ee-bc6e-90e6afadef73/swz62_card_proud-tradition.png', ['cardB']='https://images-cdn.fantasyflightgames.com/filer_public/0b/48/0b48c067-b088-41aa-8af1-6d7f4ff840d1/swz62_card_false-tradition.png',
+masterUpgradesDB[703]={['name']="Proud Tradition",['dual']=1,['slot']=1,['cost']=2,['Charge']=2,['card']='https://images-cdn.fantasyflightgames.com/filer_public/38/09/3809c0fe-c113-43ee-bc6e-90e6afadef73/swz62_card_proud-tradition.png', ['cardB']='https://images-cdn.fantasyflightgames.com/filer_public/0b/48/0b48c067-b088-41aa-8af1-6d7f4ff840d1/swz62_card_false-tradition.png',
                         ['restriction']={['Faction']={[5]=true}}}
 masterUpgradesDB[704]={['name']="K-2SO",['slot']=8,['cost']=8,['card']='https://images-cdn.fantasyflightgames.com/filer_public/e9/71/e97130c3-368d-4453-a0ff-51a63d30394c/swz66_k-2so_upgrade.png',
                         ['restriction']={['Faction']={[1]=true}}}
 masterUpgradesDB[705]={['name']="Stabilized S-Foils (Open)",['dual']=1,['slot']=18,['cost']=2,['card']='https://images-cdn.fantasyflightgames.com/filer_public/64/9d/649d6f6e-8cba-404f-a00f-9a36a0076e34/swz66_stabilized-s-foils-open.png', ['cardB']='https://images-cdn.fantasyflightgames.com/filer_public/52/d5/52d52e74-c744-40b7-ad74-c98bcb04016c/swz66_stabilized-s-foils-closed.png',
-                        ['restriction']={['Faction']={nil}, ['ship']={[17]=true}}}
+                        ['restriction']={['ship']={[17]=true}}}
 masterUpgradesDB[706]={['name']="Stabilized S-Foils (Closed)",['dual']=1,['slot']=18,['cost']=2,['card']='https://images-cdn.fantasyflightgames.com/filer_public/52/d5/52d52e74-c744-40b7-ad74-c98bcb04016c/swz66_stabilized-s-foils-closed.png', ['cardB']='https://images-cdn.fantasyflightgames.com/filer_public/64/9d/649d6f6e-8cba-404f-a00f-9a36a0076e34/swz66_stabilized-s-foils-open.png',
-                        ['restriction']={['Faction']={nil}, ['ship']={[17]=true}}}
-masterUpgradesDB[707]={['name']="R1-J5",['slot']=10,['cost']=0,['Charge']=3,['card']='https://images-cdn.fantasyflightgames.com/filer_public/cc/90/cc901ec5-cb47-4b15-8dd5-76e997698d15/swz63_a1_card_upgrade_r1-j5.png',
+                        ['restriction']={['ship']={[17]=true}}}
+masterUpgradesDB[707]={['name']="R1-J5",['slot']=10,['cost']=6,['Charge']=3,['card']='https://images-cdn.fantasyflightgames.com/filer_public/cc/90/cc901ec5-cb47-4b15-8dd5-76e997698d15/swz63_a1_card_upgrade_r1-j5.png',
                         ['restriction']={['Faction']={[4]=true}}}
 masterUpgradesDB[708]={['name']="Kaz's Fireball",['slot']=15,['cost']=2,['card']='https://images-cdn.fantasyflightgames.com/filer_public/47/dd/47dd508f-6751-4b19-b3da-d0530aeb9a33/swz63_a1_card_kazs-fireball.png',
                         ['restriction']={ ['ship']={[70]=true}}}
-
---[[masterUpgradesDB[704]={['name']="Mag-Pulse Warheads",['slot']=1,['cost']=0,['Charge']=2,['card']='https://images-cdn.fantasyflightgames.com/filer_public/20/a6/20a60741-4adf-485e-bee2-f93b9e5de7bb/swz62_card_mag-pulse-warheads.png',
-                        ['restriction']={ }}
-masterUpgradesDB[705]={['name']="Mag-Pulse Warheads",['slot']=1,['cost']=0,['Charge']=2,['card']='https://images-cdn.fantasyflightgames.com/filer_public/20/a6/20a60741-4adf-485e-bee2-f93b9e5de7bb/swz62_card_mag-pulse-warheads.png',
-                        ['restriction']={ }}
-]]
 
 
 ffgSpecial = {}
