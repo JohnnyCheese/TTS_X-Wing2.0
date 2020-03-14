@@ -500,7 +500,7 @@ ArcCheck.SpawnObstructionRuler = function(data)
             snap_to_grid      = false
         })
         ruler.setCustomObject({
-            mesh =  "C:\\Users\\sameg\\OneDrive\\Dokumenter\\blender\\range".. data.range .. ".version2.obj",
+            mesh =  "https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/models/ArcCheckRuler".. data.range .. ".obj",
             material = 3
         })
         local tintcolor = color(1.0, 1.0, 0.2, 1.0) -- Yellow obstructed tint
