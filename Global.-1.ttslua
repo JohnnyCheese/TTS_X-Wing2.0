@@ -5443,6 +5443,45 @@ function onObjectDestroyed(dying_object)
     BombModule.onObjectDestroyed(dying_object)
 end
 
+-- Report peeking on dials
+function onObjectPeek(object, player_color)
+    local token_type = object.getVar("__XW_TokenType")
+    if token_type == "helper:Dial" then
+        if object.is_face_down == false then
+            local owning_player = object.getVar("pColor")
+            if owning_player == nil then
+                owning_player = "no one"
+            end
+            if player_color ~= owning_player then
+                printToAll(player_color .. " player attempted to peek on ".. object.getName() .. "s dial, owned by " .. owning_player .. "!!",{1,0,0})
+            else
+                printToAll(player_color .. " peeked on " .. object.getName() .. "s dial", {0.6, 0.6, 1})
+                local set_manouver = object.getVar("setMan")
+                if set_manouver == "" then
+                    printToColor(object.getName() .. "s dial is not yet set" , player_color, {0.6, 0.6, 1})
+                else
+                    local info = MoveData.DecodeInfo(set_manouver)
+                    local manouver = info.speed
+                    -- [koiogran] [segnor] [talon] [reverse] [straight] [forward] [backward] [nil]
+                    if info.extra == "koiogran" then
+                        manouver = manouver .. " " .. info.extra
+                    else
+                        manouver = manouver .. " " .. info.type
+                    end
+                    if info.dir ~= nil then
+                        manouver = manouver .. " " .. info.dir
+                    end
+                    if info.extra == "reverse" then
+                        manouver = manouver .. " " .. info.extra
+                    end
+                    printToColor(object.getName() .. "s dial is set to: " .. manouver , player_color, {0.6, 0.6, 1})
+                end
+            end
+        end
+    end
+end
+
+
 -- END DIRECT TTS EVENT HANDLING
 --------
 
