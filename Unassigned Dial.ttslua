@@ -385,6 +385,7 @@ function onDropped()
             else
                 assignedShip = nearest
                 playerColor=pColor
+                nearest.setVar('owningPlayer', pColor)
                 printToAll('Dial assigned to to ' .. nearest.getName(), {0.2, 0.2, 1})
                 printToAll('Controlled by the '.. playerColor .. ' player')
                 printToAll('')
