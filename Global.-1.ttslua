@@ -321,6 +321,16 @@ ArcCheck.arc_line_segments['small'] = {}
 ArcCheck.arc_line_segments['medium'] = {}
 ArcCheck.arc_line_segments['large'] = {}
 
+ArcCheck.bullseye_data =
+{
+    pos={
+        small=vector(0,0,Convert_mm_igu(170)),
+        medium=vector(0,0,Convert_mm_igu(180)),
+        large=vector(0,0,Convert_mm_igu(190))
+    },
+    size=vector(Convert_mm_igu(15), 0.1, Convert_mm_igu(300))
+}
+
 -- ArcCheck.Initialize = function() -- Arc values based on Muon's assesments (vassal)
 --     if ArcCheck.initialized == false then
 --         ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments['small'], 81.24, 20)
@@ -405,11 +415,17 @@ function CheckArc(args)
     local shipData = ModelDB.GetData(args.ship)
 
     local potential_targets = ArcCheck.GetPotentialTargets(args.ship)
+    local bullseye_targets = ArcCheck.GetBullseyeTargets(args.ship, ArcCheck.bullseye_data.pos[shipData.baseSize])
     local own_line_segments = ArcCheck.GetOwnArcLineSegments(args.ship, ArcCheck.arc_line_segments[shipData.baseSize][args.arctype]["segments"])
     printToAll(args.ship.getName() .. " checks for targets in the " .. args.arctype .. " arc:", color(1.0, 1.0, 0.2, 0.9))
     local found = false
     for k, pt in pairs(potential_targets) do
-
+        local in_bullseye = false
+        for i, bt in pairs(bullseye_targets) do
+            if bt == pt then
+                in_bullseye = true
+            end
+        end
         local target_line_segments = ArcCheck.GetTargetLineSegmentsInArc(args.ship, pt, ArcCheck.arc_line_segments[shipData.baseSize][args.arctype]["degrees"])
         if #target_line_segments ~= 0 then
             local other = nil
@@ -417,6 +433,7 @@ function CheckArc(args)
             closest, other = ArcCheck.GetDistanceBetweenLineSegments(own_line_segments, target_line_segments)
             found = true
             closest.obstructions = ArcCheck.CheckObstruction(closest)
+            closest.in_bullseye = in_bullseye
             pt.setLock(true)
             ArcCheck.SpawnObstructionRuler(closest)
             local multipletext = " is "
@@ -425,6 +442,7 @@ function CheckArc(args)
                 obstructedtext = "is most likely UNOBSTRUCTED "
                 multipletext = " has multiple closest points and "
                 other.obstructions = ArcCheck.CheckObstruction(other)
+                other.in_bullseye = in_bullseye
                 ArcCheck.SpawnObstructionRuler(other)
             end
             if #closest.obstructions ~= 0 then
@@ -448,6 +466,7 @@ function CheckArc(args)
     end
     if found == false then
         printToAll(" - No valid targets", color(1.0, 1.0, 0.2, 0.9))
+        ArcCheck.current_arc = "none"
     end
 end
 
@@ -486,8 +505,20 @@ ArcCheck.SpawnObstructionRuler = function(data)
         })
         local tintcolor = color(1.0, 1.0, 0.2, 1.0) -- Yellow obstructed tint
         if #data.obstructions == 0 then
-            tintcolor = color(0.2, 0.2, 1.0, 1.0) -- Blue unobstructed tint
+            if data.in_bullseye then
+                tintcolor = color(1.0, 0.2, 1.0, 1.0) -- Purple unobstructed bullseye tint
+            else
+                tintcolor = color(0.2, 0.2, 1.0, 1.0) -- Blue unobstructed tint
+            end
+        else
+            if data.in_bullseye then
+                tintcolor = color(1.0, 0.2, 0.0, 1.0) -- orange obstructed bullseye tint
+            else
+                tintcolor = color(1.0, 1.0, 0.2, 1.0) -- yellow obstructed tint
+            end
         end
+
+
         ruler.setColorTint(tintcolor)
         ruler.setLock(true)
         table.insert(ArcCheck.arc_check_rulers, ruler)
@@ -620,8 +651,6 @@ end
 
 -- Returns list of line segments which are within a given arc type
 ArcCheck.GetOwnArcLineSegments = function(ship, segments)
-    --local shipData = ModelDB.GetData(ship)
-    --local segments = ArcCheck.arc_line_segments[shipData.baseSize][arctype]["segments"]
     local outsegments = {}
     for k, segment in pairs(segments) do
         table.insert(outsegments, {Vect.Sum(ship.getPosition(), Vect.RotateDeg(segment[1], ship.getRotation()[2] + 180)),
@@ -647,13 +676,36 @@ ArcCheck.GetPotentialTargets = function(ship)
         if hit.hit_object.getGUID() ~= ship.getGUID() and MoveModule.SelectShips(hit.hit_object) then
             if hit.hit_object.getVar("owningPlayer") != myOwningPlayer then
                 table.insert(potential_ships, hit.hit_object)
-            else
-                --print(hit.hit_object.getName().. " is owned by same player")
             end
         end
     end
     return potential_ships
 end
+
+-- Finds all targets in bullseye
+ArcCheck.GetBullseyeTargets = function(ship, pos)
+    local cast_radius = Convert_mm_igu(900)
+    local collissions = Physics.cast({
+        origin       = Vect.Sum(ship.getPosition(), Vect.RotateDeg(pos, ship.getRotation()[2] + 180)),
+        orientation  = ship.getRotation(),
+        direction    = {0,0.001,0},
+        type         = 3,
+        size         = ArcCheck.bullseye_data.size,
+        max_distance = 1,
+        debug        = false
+    })
+    local myOwningPlayer = ship.getVar("owningPlayer")
+    local bullseye_targets = {}
+    for k, hit in pairs(collissions) do
+        if hit.hit_object.getGUID() ~= ship.getGUID() and MoveModule.SelectShips(hit.hit_object) then
+            if hit.hit_object.getVar("owningPlayer") != myOwningPlayer then
+                table.insert(bullseye_targets, hit.hit_object)
+            end
+        end
+    end
+    return bullseye_targets
+end
+
 
 -- Returns a list of line segments which are within the arc
 ArcCheck.GetTargetLineSegmentsInArc = function(ship, target, arcinfo)
@@ -5836,6 +5888,10 @@ function newSpawner(listTable)
                         newShip.addContextMenuItem("FireArc - Full Front", function(argument) Global.call("CheckArc", {ship=newShip,arctype="fullfront"}) end, false)
                     elseif arctype == 'bullseye' then
                         newShip.addContextMenuItem("FireArc - Bullseye", function(argument) Global.call("CheckArc", {ship=newShip,arctype="bullseye"}) end, false)
+                    elseif arctype == 'left' then
+                        newShip.addContextMenuItem("FireArc - Left", function(argument) Global.call("CheckArc", {ship=newShip,arctype="left"}) end, false)
+                    elseif arctype == 'right' then
+                        newShip.addContextMenuItem("FireArc - Right", function(argument) Global.call("CheckArc", {ship=newShip,arctype="right"}) end, false)
                     end
                 end
                 local shipArcs = Pilots[shipIndex]['Ship']
