@@ -360,6 +360,10 @@ ArcCheck.CalculateArcLineSegments = function(table, degree, size)
     table['back'] =     {   segments={ {vector(-a, 0, -size), vector(a, 0, -size)} }, -- Front segment
                             degrees={direction=180, spread=degree/2}
                         }
+    table['bullseye'] = {   segments={ {vector(-Convert_mm_igu(7.5), 0, size), vector(Convert_mm_igu(7.5), 0, size)} }, -- Bullseye segments
+                            degrees={direction=0, spread=0, bullseye=true}
+
+                        }
     table['fullfront'] = {  segments={ {vector(-size, 0, 0), vector(-size, 0, size)},   -- left segment
                                         {vector(-size, 0, size), vector(size, 0, size)}, -- front edge
                                         {vector(size, 0, size), vector(size, 0, 0)}  -- right segment
@@ -410,23 +414,43 @@ function CheckArc(args)
     end
     ArcCheck.current_arc = args.arctype
     ArcCheck.current_ship = args.ship
-
+    local arc_parts = {args.arctype}
+    if args.arctype == "frontback" then
+        arc_parts = {"front", "back"}
+    elseif args.arctype == "leftright" then
+        arc_parts = {"left", "right"}
+    end
     args.ship.setLock(true)
     local shipData = ModelDB.GetData(args.ship)
-
     local potential_targets = ArcCheck.GetPotentialTargets(args.ship)
     local bullseye_targets = ArcCheck.GetBullseyeTargets(args.ship, ArcCheck.bullseye_data.pos[shipData.baseSize])
-    local own_line_segments = ArcCheck.GetOwnArcLineSegments(args.ship, ArcCheck.arc_line_segments[shipData.baseSize][args.arctype]["segments"])
+    local own_line_segments = {}
+    for i, arc in ipairs(arc_parts) do
+        local segments = ArcCheck.GetOwnArcLineSegments(args.ship, ArcCheck.arc_line_segments[shipData.baseSize][arc]["segments"])
+        for k, segment in ipairs(segments) do
+            table.insert(own_line_segments, segment)
+        end
+    end
+
     printToAll(args.ship.getName() .. " checks for targets in the " .. args.arctype .. " arc:", color(1.0, 1.0, 0.2, 0.9))
     local found = false
     for k, pt in pairs(potential_targets) do
         local in_bullseye = false
+        local bullseyetext = ""
         for i, bt in pairs(bullseye_targets) do
             if bt == pt then
                 in_bullseye = true
+                bullseyetext = " in bullseye"
             end
         end
-        local target_line_segments = ArcCheck.GetTargetLineSegmentsInArc(args.ship, pt, ArcCheck.arc_line_segments[shipData.baseSize][args.arctype]["degrees"])
+        local target_line_segments = {}
+        for i, arc in ipairs(arc_parts) do
+            local segments = ArcCheck.GetTargetLineSegmentsInArc(args.ship, pt, ArcCheck.arc_line_segments[shipData.baseSize][arc]["degrees"])
+            for k, segment in ipairs(segments) do
+                table.insert(target_line_segments, segment)
+            end
+        end
+
         if #target_line_segments ~= 0 then
             local other = nil
             local closest = nil
@@ -459,7 +483,7 @@ function CheckArc(args)
                     obstructedtext = "can be chosen to be OBSTRUCTED "
                 end
             end
-            printToAll(" - " .. pt.getName().. multipletext .. obstructedtext .. "at range " ..tostring(closest.range), color(1.0, 1.0, 0.2, 0.9))
+            printToAll(" - " .. pt.getName().. multipletext .. obstructedtext .. "at range " ..tostring(closest.range) .. bullseyetext, color(1.0, 1.0, 0.2, 0.9))
         else
             printToAll(" - " .. pt.getName() .. " not in arc")
         end
@@ -716,57 +740,87 @@ ArcCheck.GetTargetLineSegmentsInArc = function(ship, target, arcinfo)
     local outsegments = {}
     local arc_center_vector = Vect.RotateDeg(vector(0, 0, -1), ship.getRotation()[2] + arcinfo.direction)
     --print("Arc_center_vector = " .. tostring(arc_center_vector[1]).."," .. tostring(arc_center_vector[2]) ..","..tostring(arc_center_vector[3]))
-    for k, segment in pairs(segments) do
-        -- Calculate part of line segment within arc
-        local rotated_segment = {Vect.Sum(target.getPosition(), Vect.RotateDeg(segment[1], target.getRotation()[2])),
-                                   Vect.Sum(target.getPosition(), Vect.RotateDeg(segment[2], target.getRotation()[2]))}
+    if arcinfo.bullseye == nil then
+        for k, segment in pairs(segments) do
+            -- Calculate part of line segment within arc
+            local rotated_segment = {Vect.Sum(target.getPosition(), Vect.RotateDeg(segment[1], target.getRotation()[2])),
+                                       Vect.Sum(target.getPosition(), Vect.RotateDeg(segment[2], target.getRotation()[2]))}
 
-        -- Check if points are in arc
-        local angleoffsets = {Vect.AngleDeg(Vect.Between(ship.getPosition(), rotated_segment[1]), arc_center_vector),
-                        Vect.AngleDeg(Vect.Between(ship.getPosition(), rotated_segment[2]), arc_center_vector)}
+            -- Check if points are in arc
+            local angleoffsets = {Vect.AngleDeg(Vect.Between(ship.getPosition(), rotated_segment[1]), arc_center_vector),
+                            Vect.AngleDeg(Vect.Between(ship.getPosition(), rotated_segment[2]), arc_center_vector)}
 
-        --print("Angle offsets: " .. target.getName() .. "[".. tostring(k) .. "] "..  tostring(angleoffsets[1]) .. " - " .. tostring(angleoffsets[2]) )
+            --print("Angle offsets: " .. target.getName() .. "[".. tostring(k) .. "] "..  tostring(angleoffsets[1]) .. " - " .. tostring(angleoffsets[2]) )
 
-        if angleoffsets[1] < arcinfo.spread and angleoffsets[2] < arcinfo.spread then
-            -- Both points are in arc
-            --print("Both in arc")
-            table.insert(outsegments, rotated_segment)
-        elseif angleoffsets[1] > arcinfo.spread and angleoffsets[2] > arcinfo.spread then
-            -- both outside
-            if Vect.AngleDeg(Vect.Between(ship.getPosition(), Vect.Middle(rotated_segment[1], rotated_segment[2])), arc_center_vector) < arcinfo.spread then
-                -- print("Both out, in front. deg: " .. tostring(Vect.AngleDeg(Vect.Between(ship.getPosition(), Vect.Middle(rotated_segment[1], rotated_segment[2])), arc_center_vector)))
-                -- The target is infront, but both points are outside the arc.
-                local newsegment = {ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, -arcinfo.spread))
-                                      , rotated_segment[1], rotated_segment[2]),
-                              ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, arcinfo.spread))
-                                      , rotated_segment[1], rotated_segment[2])}
-                --print("Newsegment: ".. tostring(newsegment[1]) .. "," .. tostring(newsegment[2]))
-                table.insert(outsegments, newsegment)
+            if angleoffsets[1] < arcinfo.spread and angleoffsets[2] < arcinfo.spread then
+                -- Both points are in arc
+                --print("Both in arc")
+                table.insert(outsegments, rotated_segment)
+            elseif angleoffsets[1] > arcinfo.spread and angleoffsets[2] > arcinfo.spread then
+                -- both outside
+                if Vect.AngleDeg(Vect.Between(ship.getPosition(), Vect.Middle(rotated_segment[1], rotated_segment[2])), arc_center_vector) < arcinfo.spread then
+                    -- print("Both out, in front. deg: " .. tostring(Vect.AngleDeg(Vect.Between(ship.getPosition(), Vect.Middle(rotated_segment[1], rotated_segment[2])), arc_center_vector)))
+                    -- The target is infront, but both points are outside the arc.
+                    local newsegment = {ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, -arcinfo.spread))
+                                          , rotated_segment[1], rotated_segment[2]),
+                                  ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, arcinfo.spread))
+                                          , rotated_segment[1], rotated_segment[2])}
+                    --print("Newsegment: ".. tostring(newsegment[1]) .. "," .. tostring(newsegment[2]))
+                    table.insert(outsegments, newsegment)
+                else
+                    --print("Both out, behind")
+                end
             else
-                --print("Both out, behind")
+                -- one inside, one out
+                local p1 = nil
+                if(angleoffsets[1] < arcinfo.spread) then
+                    p1 = rotated_segment[1]
+                else
+                    p1 = rotated_segment[2]
+                end
+
+                -- Calculate the Y part of the cross product between the center vector and the ship -> p1 vector
+                local sp1 = Vect.Between(ship.getPosition(), p1)
+                local xprodY = arc_center_vector[3]*sp1[1] - arc_center_vector[1]*sp1[3]
+
+                if xprodY > 0 then -- Positive y part means positiv spread
+                    p2 = ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, arcinfo.spread))
+                                          , rotated_segment[1], rotated_segment[2])
+                else -- Negative y part means negative spread
+                    p2 = ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, -arcinfo.spread))
+                                          , rotated_segment[1], rotated_segment[2])
+                end
+                table.insert(outsegments, {p1, p2})
+
             end
-        else
-            -- one inside, one out
-            local p1 = nil
-            if(angleoffsets[1] < arcinfo.spread) then
-                p1 = rotated_segment[1]
-            else
-                p1 = rotated_segment[2]
+        end
+    else -- Special Bullseye handling
+        local half_bullseye = Convert_mm_igu(7.5)
+        for k, segment in pairs(segments) do
+            local rotated_segment = {Vect.Sum(target.getPosition(), Vect.RotateDeg(segment[1], target.getRotation()[2])),
+                                       Vect.Sum(target.getPosition(), Vect.RotateDeg(segment[2], target.getRotation()[2]))}
+            local ownship_oriented_segment = {Vect.RotateDeg(Vect.Between(ship.getPosition(), rotated_segment[1]), -ship.getRotation()[2]),
+                                            Vect.RotateDeg(Vect.Between(ship.getPosition(), rotated_segment[2] ), -ship.getRotation()[2])}
+            local p1 = ownship_oriented_segment[1]
+            local p2 = ownship_oriented_segment[2]
+            if ownship_oriented_segment[2][1] < ownship_oriented_segment[1][1] then
+                p1 = ownship_oriented_segment[2]
+                p2 = ownship_oriented_segment[1]
             end
 
-            -- Calculate the Y part of the cross product between the center vector and the ship -> p1 vector
-            local sp1 = Vect.Between(ship.getPosition(), p1)
-            local xprodY = arc_center_vector[3]*sp1[1] - arc_center_vector[1]*sp1[3]
-
-            if xprodY > 0 then -- Positive y part means positiv spread
-                p2 = ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, arcinfo.spread))
-                                      , rotated_segment[1], rotated_segment[2])
-            else -- Negative y part means negative spread
-                p2 = ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, -arcinfo.spread))
-                                      , rotated_segment[1], rotated_segment[2])
+            local in_arc = true
+            if p1[1] < - half_bullseye then
+                p1[1] = -half_bullseye
+                if p2[1] > -half_bullseye then
+                    p2[1] = math.min(half_bullseye, p2[1])
+                    table.insert(outsegments, { Vect.Sum(Vect.RotateDeg(p1, ship.getRotation()[2]), ship.getPosition()),
+                                                Vect.Sum(Vect.RotateDeg(p2, ship.getRotation()[2]), ship.getPosition())})
+                end
+            elseif p1[1] < half_bullseye then
+                p2[1] = math.min(half_bullseye, p2[1])
+                table.insert(outsegments, { Vect.Sum(Vect.RotateDeg(p1, ship.getRotation()[2]), ship.getPosition()),
+                                            Vect.Sum(Vect.RotateDeg(p2, ship.getRotation()[2]), ship.getPosition())})
             end
-            table.insert(outsegments, {p1, p2})
-
         end
     end
     return outsegments
