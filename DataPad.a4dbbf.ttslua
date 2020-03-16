@@ -1847,7 +1847,11 @@ function idSpawner(idTable)
             if fList.Pilots[k]['Turret'] == nil then
                 if masterUpgradesDB[value]['sTurret']  then
                     fList.Pilots[k]['Turret'] = 1
-                    table.insert(flist.Pilots[k]['Data']['arcs'], 'singleturret')
+                    if fList.Pilots[k]['Data']['arcs'] == nil then
+                        fList.Pilots[k]['Data']['arcs'] = {'singleturret'}
+                    else
+                        table.insert(fList.Pilots[k]['Data']['arcs'], 'singleturret')
+                    end
                 end
             end
             if masterUpgradesDB[value]['Force'] ~= nil then
