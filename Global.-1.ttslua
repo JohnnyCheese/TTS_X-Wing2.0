@@ -809,17 +809,19 @@ ArcCheck.GetTargetLineSegmentsInArc = function(ship, target, arcinfo)
             end
 
             local in_arc = true
-            if p1[1] < - half_bullseye then
-                p1[1] = -half_bullseye
-                if p2[1] > -half_bullseye then
+            if p1[3] < 0 then -- Target in front (Yeah it is backwards)
+                if p1[1] < - half_bullseye then
+                    p1[1] = -half_bullseye
+                    if p2[1] > -half_bullseye then
+                        p2[1] = math.min(half_bullseye, p2[1])
+                        table.insert(outsegments, { Vect.Sum(Vect.RotateDeg(p1, ship.getRotation()[2]), ship.getPosition()),
+                                                    Vect.Sum(Vect.RotateDeg(p2, ship.getRotation()[2]), ship.getPosition())})
+                    end
+                elseif p1[1] < half_bullseye then
                     p2[1] = math.min(half_bullseye, p2[1])
                     table.insert(outsegments, { Vect.Sum(Vect.RotateDeg(p1, ship.getRotation()[2]), ship.getPosition()),
                                                 Vect.Sum(Vect.RotateDeg(p2, ship.getRotation()[2]), ship.getPosition())})
                 end
-            elseif p1[1] < half_bullseye then
-                p2[1] = math.min(half_bullseye, p2[1])
-                table.insert(outsegments, { Vect.Sum(Vect.RotateDeg(p1, ship.getRotation()[2]), ship.getPosition()),
-                                            Vect.Sum(Vect.RotateDeg(p2, ship.getRotation()[2]), ship.getPosition())})
             end
         end
     end
