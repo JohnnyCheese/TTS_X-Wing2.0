@@ -5556,7 +5556,7 @@ function onObjectPeek(object, player_color)
     local token_type = object.getVar("__XW_TokenType")
     if token_type == "helper:Dial" then
         if object.is_face_down == false then
-            local owning_player = object.getVar("pColor")
+            local owning_player = object.getVar("playerColor")
             if owning_player == nil then
                 owning_player = "no one"
             end
@@ -5568,7 +5568,8 @@ function onObjectPeek(object, player_color)
                 if set_manouver == "" then
                     printToColor(object.getName() .. "s dial is not yet set" , player_color, {0.6, 0.6, 1})
                 else
-                    local info = MoveData.DecodeInfo(set_manouver)
+                    print(set_manouver)
+                    local info = MoveData.DecodeInfo(set_manouver, object)
                     local manouver = info.speed
                     -- [koiogran] [segnor] [talon] [reverse] [straight] [forward] [backward] [nil]
                     if info.extra == "koiogran" then
