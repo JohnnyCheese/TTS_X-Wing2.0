@@ -455,35 +455,39 @@ function CheckArc(args)
             local other = nil
             local closest = nil
             closest, other = ArcCheck.GetDistanceBetweenLineSegments(own_line_segments, target_line_segments)
-            found = true
-            closest.obstructions = ArcCheck.CheckObstruction(closest)
-            closest.in_bullseye = in_bullseye
-            pt.setLock(true)
-            ArcCheck.SpawnObstructionRuler(closest)
-            local multipletext = " is "
-            local obstructedtext = "is "
-            if other ~= nil then
-                obstructedtext = "is most likely UNOBSTRUCTED "
-                multipletext = " has multiple closest points and "
-                other.obstructions = ArcCheck.CheckObstruction(other)
-                other.in_bullseye = in_bullseye
-                ArcCheck.SpawnObstructionRuler(other)
-            end
-            if #closest.obstructions ~= 0 then
-                if other ~= nil then
-                    if #other.obstructions ~= 0 then
-                        obstructedtext = "is most likely OBSTRUCTED "
-                    end
-                    obstructedtext = "can be chosen to be OBSTRUCTED "
-                else
-                    obstructedtext = "OBSTRUCTED "
-                end
+            if closest.range > 3 then
+                printToAll(" - " .. pt.getName() .. " not in range")
             else
-                if other ~=nil and #other.obstructions ~= 0 then
-                    obstructedtext = "can be chosen to be OBSTRUCTED "
+                found = true
+                closest.obstructions = ArcCheck.CheckObstruction(closest)
+                closest.in_bullseye = in_bullseye
+                pt.setLock(true)
+                ArcCheck.SpawnObstructionRuler(closest)
+                local multipletext = " is "
+                local obstructedtext = "is "
+                if other ~= nil then
+                    obstructedtext = "is most likely UNOBSTRUCTED "
+                    multipletext = " has multiple closest points and "
+                    other.obstructions = ArcCheck.CheckObstruction(other)
+                    other.in_bullseye = in_bullseye
+                    ArcCheck.SpawnObstructionRuler(other)
                 end
+                if #closest.obstructions ~= 0 then
+                    if other ~= nil then
+                        if #other.obstructions ~= 0 then
+                            obstructedtext = "is most likely OBSTRUCTED "
+                        end
+                        obstructedtext = "can be chosen to be OBSTRUCTED "
+                    else
+                        obstructedtext = "OBSTRUCTED "
+                    end
+                else
+                    if other ~=nil and #other.obstructions ~= 0 then
+                        obstructedtext = "can be chosen to be OBSTRUCTED "
+                    end
+                end
+                printToAll(" - " .. pt.getName().. multipletext .. obstructedtext .. "at range " ..tostring(closest.range) .. bullseyetext, color(1.0, 1.0, 0.2, 0.9))
             end
-            printToAll(" - " .. pt.getName().. multipletext .. obstructedtext .. "at range " ..tostring(closest.range) .. bullseyetext, color(1.0, 1.0, 0.2, 0.9))
         else
             printToAll(" - " .. pt.getName() .. " not in arc")
         end
