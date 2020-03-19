@@ -1135,7 +1135,11 @@ MoveData.DecodeInfo = function (move_code, ship)
         info.traits.slide = true
     end
     ]]
-    info.size = ModelDB.GetData(ship).baseSize or 'small'
+    if ship ~= nil then
+        info.size = ModelDB.GetData(ship).baseSize or 'small'
+    else
+        info.size = 'small'
+    end
     -- Straights and koiograns, regular stuff
     if move_code:sub(1,1) == 's' or move_code:sub(1,1) == 'k' then
         info.type = 'straight'
@@ -5568,8 +5572,7 @@ function onObjectPeek(object, player_color)
                 if set_manouver == "" then
                     printToColor(object.getName() .. "s dial is not yet set" , player_color, {0.6, 0.6, 1})
                 else
-                    print(set_manouver)
-                    local info = MoveData.DecodeInfo(set_manouver, object)
+                    local info = MoveData.DecodeInfo(set_manouver)
                     local manouver = info.speed
                     -- [koiogran] [segnor] [talon] [reverse] [straight] [forward] [backward] [nil]
                     if info.extra == "koiogran" then
@@ -6025,7 +6028,7 @@ function newSpawner(listTable)
                         end
                     end
                 end
-                
+
                 if Pilots[shipIndex]['Turret'] ~= nil then       --Checks if upgrade should trigger the dual mobile arc indicator
                     if Pilots[shipIndex]['Turret'] == 2 then
                         dualTurret = 1
