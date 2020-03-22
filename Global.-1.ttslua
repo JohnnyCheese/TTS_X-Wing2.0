@@ -5804,10 +5804,12 @@ end
 -- Restore self state
 function onLoad(savedData)
     --print("OnLoad: ".. self.getName() .. " " .. savedData)
-    if savedData ~= "" then
+    if savedData ~= "" and Data == nil then
         local state =  JSON.decode(savedData)
         self.setTable("Data", state.shipData)
-        initContextMenu(state.shipData.arcs)
+        if state.shipData.arcs ~= nil then
+            initContextMenu(state.shipData.arcs)
+        end
     end
 end
 
