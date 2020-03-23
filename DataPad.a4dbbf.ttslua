@@ -1790,7 +1790,7 @@ function idSpawner(idTable)
         fList.Pilots[k]['Ship'] = Ship
         fList.Pilots[k]['Size'] = masterShipDB[Ship]['size']
         fList.Pilots[k]['Shield'] = masterShipDB[Ship]['Shield']
-        fList.Pilots[k]['bombD'] = ''
+        fList.Pilots[k]['bombD'] = 's1'
         fList.Pilots[k]['Data'] = {}
         fList.Pilots[k]['Data']['moveSet'] = masterShipDB[Ship]['moveSet']
         fList.Pilots[k]['Data']['arcs'] = masterShipDB[Ship]['arcs']
@@ -1799,8 +1799,8 @@ function idSpawner(idTable)
         fList.Pilots[k]['Data']['Size'] = fList.Pilots[k]['Size']
         if v == 150 then  -- Emon Azzameen special drops
             fList.Pilots[k]['bombD'] = fList.Pilots[k]['bombD'] .. ':s3:tr3:te3'
-        elseif v == 205 then  -- Emon Azzameen special drops
-            fList.Pilots[k]['bombD'] = fList.Pilots[k]['bombD'] .. ':te1:be1:br1:tr1'
+        elseif v == 205 then  -- Sol Sixxa special drops
+            fList.Pilots[k]['bombD'] = fList.Pilots[k]['bombD'] .. ':te1:tr1'
         elseif Ship == 19 then -- TIE Bomber special drops
             fList.Pilots[k]['bombD'] = fList.Pilots[k]['bombD'] .. ':be1:br1'
         end
@@ -1825,6 +1825,7 @@ function idSpawner(idTable)
             fList.Pilots[k]['Force'] = 0
         end
         fList.Upgrades[k] = {}
+        local skilled_bombardier = false
         for key,value in pairs (idTable.Upgrades[k]) do
             local name = masterUpgradesDB[value]['name']
             local upSlot = masterUpgradesDB[value]['slot']
@@ -1885,11 +1886,28 @@ function idSpawner(idTable)
                 fList.Upgrades[k][key]['Config'] = true
             end
             if value == 279 then  -- Skilled Bombardier special drops
-                fList.Pilots[k]['bombD'] = fList.Pilots[k]['bombD'] ..  ':s2:tr2:te2:be2:br2'
-            elseif value == 255 then  -- Tragedy Simulator special drop
+                skilled_bombardier = true
+                --fList.Pilots[k]['bombD'] = fList.Pilots[k]['bombD'] ..  ':s2:tr2:te2:be2:br2'
+            elseif value == 255 then  -- Trajectory Simulator special drop
                 fList.Pilots[k]['bombD'] = fList.Pilots[k]['bombD'] ..  ':s5r'
             end
         end
+        if skilled_bombardier then
+            local bombD = fList.Pilots[k]['bombD']
+            parts = mysplit(bombD,':')
+            for k, part in pairs(parts) do
+                pre, speedstr, post = string.match(part, "(%a+)(%d)(%a*)")
+                speed = tonumber(speedstr)
+                if speed > 1 then
+                    bombD = bombD .. ":" .. pre .. tostring(speed - 1) ..  post
+                end
+                if (pre == 's' and (speed < 5)) or (speed < 3) then
+                    bombD = bombD .. ":" .. pre .. tostring(speed + 1) ..  post
+                end
+            end
+            fList.Pilots[k]['bombD'] = bombD
+        end
+
     end
     for k,v in pairs(fList.sqdAction) do -- adds Squad actions coming from specific upgrades
         for K,V in pairs(fList.Pilots) do
