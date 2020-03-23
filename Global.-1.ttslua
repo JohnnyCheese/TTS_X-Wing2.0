@@ -455,35 +455,39 @@ function CheckArc(args)
             local other = nil
             local closest = nil
             closest, other = ArcCheck.GetDistanceBetweenLineSegments(own_line_segments, target_line_segments)
-            found = true
-            closest.obstructions = ArcCheck.CheckObstruction(closest)
-            closest.in_bullseye = in_bullseye
-            pt.setLock(true)
-            ArcCheck.SpawnObstructionRuler(closest)
-            local multipletext = " is "
-            local obstructedtext = "is "
-            if other ~= nil then
-                obstructedtext = "is most likely UNOBSTRUCTED "
-                multipletext = " has multiple closest points and "
-                other.obstructions = ArcCheck.CheckObstruction(other)
-                other.in_bullseye = in_bullseye
-                ArcCheck.SpawnObstructionRuler(other)
-            end
-            if #closest.obstructions ~= 0 then
-                if other ~= nil then
-                    if #other.obstructions ~= 0 then
-                        obstructedtext = "is most likely OBSTRUCTED "
-                    end
-                    obstructedtext = "can be chosen to be OBSTRUCTED "
-                else
-                    obstructedtext = "OBSTRUCTED "
-                end
+            if closest.range > 3 then
+                printToAll(" - " .. pt.getName() .. " not in range")
             else
-                if other ~=nil and #other.obstructions ~= 0 then
-                    obstructedtext = "can be chosen to be OBSTRUCTED "
+                found = true
+                closest.obstructions = ArcCheck.CheckObstruction(closest)
+                closest.in_bullseye = in_bullseye
+                pt.setLock(true)
+                ArcCheck.SpawnObstructionRuler(closest)
+                local multipletext = " is "
+                local obstructedtext = "is "
+                if other ~= nil then
+                    obstructedtext = "is most likely UNOBSTRUCTED "
+                    multipletext = " has multiple closest points and "
+                    other.obstructions = ArcCheck.CheckObstruction(other)
+                    other.in_bullseye = in_bullseye
+                    ArcCheck.SpawnObstructionRuler(other)
                 end
+                if #closest.obstructions ~= 0 then
+                    if other ~= nil then
+                        if #other.obstructions ~= 0 then
+                            obstructedtext = "is most likely OBSTRUCTED "
+                        end
+                        obstructedtext = "can be chosen to be OBSTRUCTED "
+                    else
+                        obstructedtext = "OBSTRUCTED "
+                    end
+                else
+                    if other ~=nil and #other.obstructions ~= 0 then
+                        obstructedtext = "can be chosen to be OBSTRUCTED "
+                    end
+                end
+                printToAll(" - " .. pt.getName().. multipletext .. obstructedtext .. "at range " ..tostring(closest.range) .. bullseyetext, color(1.0, 1.0, 0.2, 0.9))
             end
-            printToAll(" - " .. pt.getName().. multipletext .. obstructedtext .. "at range " ..tostring(closest.range) .. bullseyetext, color(1.0, 1.0, 0.2, 0.9))
         else
             printToAll(" - " .. pt.getName() .. " not in arc")
         end
@@ -1135,7 +1139,11 @@ MoveData.DecodeInfo = function (move_code, ship)
         info.traits.slide = true
     end
     ]]
-    info.size = ModelDB.GetData(ship).baseSize or 'small'
+    if ship ~= nil then
+        info.size = ModelDB.GetData(ship).baseSize or 'small'
+    else
+        info.size = 'small'
+    end
     -- Straights and koiograns, regular stuff
     if move_code:sub(1,1) == 's' or move_code:sub(1,1) == 'k' then
         info.type = 'straight'
@@ -5556,7 +5564,7 @@ function onObjectPeek(object, player_color)
     local token_type = object.getVar("__XW_TokenType")
     if token_type == "helper:Dial" then
         if object.is_face_down == false then
-            local owning_player = object.getVar("pColor")
+            local owning_player = object.getVar("playerColor")
             if owning_player == nil then
                 owning_player = "no one"
             end
@@ -5735,6 +5743,58 @@ end
 
 -- Save and load ship data lua scriptState
 saveAndLoadShipStateLua = [[
+
+function initContextMenu()
+    local added_arcs = {}
+    for k, arctype in pairs(self.getTable("Data").arcs) do
+        if arctype == 'doubleturret' then
+            self.addContextMenuItem("FireArc - Left & Right", function(argument) Global.call("CheckArc", {ship=self,arctype="leftright"}) end, false)
+            self.addContextMenuItem("FireArc - Front & Back", function(argument) Global.call("CheckArc", {ship=self,arctype="frontback"}) end, false)
+        elseif arctype == 'singleturret' then
+            if added_arcs['front'] == nil then
+                self.addContextMenuItem("FireArc - Front", function(argument) Global.call("CheckArc", {ship=self,arctype="front"}) end, false)
+                added_arcs['front'] = true
+            end
+            if added_arcs['back'] == nil then
+                self.addContextMenuItem("FireArc - Back", function(argument) Global.call("CheckArc", {ship=self,arctype="back"}) end, false)
+                added_arcs['back'] = true
+            end
+            if added_arcs['left'] == nil then
+                self.addContextMenuItem("FireArc - Left", function(argument) Global.call("CheckArc", {ship=self,arctype="left"}) end, false)
+                added_arcs['left'] = true
+            end
+            if added_arcs['right'] == nil then
+                self.addContextMenuItem("FireArc - Right", function(argument) Global.call("CheckArc", {ship=self,arctype="right"}) end, false)
+                added_arcs['right'] = true
+            end
+        elseif arctype == 'front' then
+            if added_arcs['front'] == nil then
+                self.addContextMenuItem("FireArc - Front", function(argument) Global.call("CheckArc", {ship=self,arctype="front"}) end, false)
+                added_arcs['front'] = true
+            end
+        elseif arctype == 'back' then
+            if added_arcs['back'] == nil then
+                self.addContextMenuItem("FireArc - Back", function(argument) Global.call("CheckArc", {ship=self,arctype="back"}) end, false)
+                added_arcs['back'] = true
+            end
+        elseif arctype == 'fullfront' then
+            self.addContextMenuItem("FireArc - Full Front", function(argument) Global.call("CheckArc", {ship=self,arctype="fullfront"}) end, false)
+        elseif arctype == 'bullseye' then
+            self.addContextMenuItem("FireArc - Bullseye", function(argument) Global.call("CheckArc", {ship=self,arctype="bullseye"}) end, false)
+        elseif arctype == 'left' then
+            if added_arcs['left'] == nil then
+                self.addContextMenuItem("FireArc - Left", function(argument) Global.call("CheckArc", {ship=self,arctype="left"}) end, false)
+                added_arcs['left'] = true
+            end
+        elseif arctype == 'right' then
+            if added_arcs['right'] == nil then
+                self.addContextMenuItem("FireArc - Right", function(argument) Global.call("CheckArc", {ship=self,arctype="right"}) end, false)
+                added_arcs['right'] = true
+            end
+        end
+    end
+end
+
 -- Save self state
 function onSave()
     local state = {shipData=self.getTable("Data")}
@@ -5744,8 +5804,12 @@ end
 -- Restore self state
 function onLoad(savedData)
     --print("OnLoad: ".. self.getName() .. " " .. savedData)
-    if savedData ~= "" then
-        self.setTable("Data", JSON.decode(savedData).shipData)
+    if savedData ~= "" and Data == nil then
+        local state =  JSON.decode(savedData)
+        self.setTable("Data", state.shipData)
+        if state.shipData.arcs ~= nil then
+            initContextMenu(state.shipData.arcs)
+        end
     end
 end
 
@@ -5932,7 +5996,11 @@ function newSpawner(listTable)
             if ship.name == tostring(Pilots[shipIndex]['id']) then
                 pos = LocalPos(spawnCard, {0, 0, 9})
                 rot = spawnCard.getRotation()
-                local newShip = tempBagShp.takeObject({position = pos, rotation = rot, guid = ship.guid})
+                local newShip = tempBagShp.takeObject({ position = pos,
+                                                        rotation = rot,
+                                                        guid = ship.guid,
+                                                        callback_function = function(obj) obj.call("initContextMenu") end
+                                                      })
                 shipClone = newShip.clone()
                 newShip.setName(Pilots[shipIndex]['name']) --Corrects ship name for clones
                 if Pilots[shipIndex]['Size'] == 1 then
@@ -5966,54 +6034,7 @@ function newSpawner(listTable)
                         end
                     end
                 end
-                local added_arcs = {}
-                for k, arctype in pairs(Pilots[shipIndex].Data.arcs) do
-                    if arctype == 'doubleturret' then
-                        newShip.addContextMenuItem("FireArc - Left & Right", function(argument) Global.call("CheckArc", {ship=newShip,arctype="leftright"}) end, false)
-                        newShip.addContextMenuItem("FireArc - Front & Back", function(argument) Global.call("CheckArc", {ship=newShip,arctype="frontback"}) end, false)
-                    elseif arctype == 'singleturret' then
-                        if added_arcs['front'] == nil then
-                            newShip.addContextMenuItem("FireArc - Front", function(argument) Global.call("CheckArc", {ship=newShip,arctype="front"}) end, false)
-                            added_arcs['front'] = true
-                        end
-                        if added_arcs['back'] == nil then
-                            newShip.addContextMenuItem("FireArc - Back", function(argument) Global.call("CheckArc", {ship=newShip,arctype="back"}) end, false)
-                            added_arcs['back'] = true
-                        end
-                        if added_arcs['left'] == nil then
-                            newShip.addContextMenuItem("FireArc - Left", function(argument) Global.call("CheckArc", {ship=newShip,arctype="left"}) end, false)
-                            added_arcs['left'] = true
-                        end
-                        if added_arcs['right'] == nil then
-                            newShip.addContextMenuItem("FireArc - Right", function(argument) Global.call("CheckArc", {ship=newShip,arctype="right"}) end, false)
-                            added_arcs['right'] = true
-                        end
-                    elseif arctype == 'front' then
-                        if added_arcs['front'] == nil then
-                            newShip.addContextMenuItem("FireArc - Front", function(argument) Global.call("CheckArc", {ship=newShip,arctype="front"}) end, false)
-                            added_arcs['front'] = true
-                        end
-                    elseif arctype == 'back' then
-                        if added_arcs['back'] == nil then
-                            newShip.addContextMenuItem("FireArc - Back", function(argument) Global.call("CheckArc", {ship=newShip,arctype="back"}) end, false)
-                            added_arcs['back'] = true
-                        end
-                    elseif arctype == 'fullfront' then
-                        newShip.addContextMenuItem("FireArc - Full Front", function(argument) Global.call("CheckArc", {ship=newShip,arctype="fullfront"}) end, false)
-                    elseif arctype == 'bullseye' then
-                        newShip.addContextMenuItem("FireArc - Bullseye", function(argument) Global.call("CheckArc", {ship=newShip,arctype="bullseye"}) end, false)
-                    elseif arctype == 'left' then
-                        if added_arcs['left'] == nil then
-                            newShip.addContextMenuItem("FireArc - Left", function(argument) Global.call("CheckArc", {ship=newShip,arctype="left"}) end, false)
-                            added_arcs['left'] = true
-                        end
-                    elseif arctype == 'right' then
-                        if added_arcs['right'] == nil then
-                            newShip.addContextMenuItem("FireArc - Right", function(argument) Global.call("CheckArc", {ship=newShip,arctype="right"}) end, false)
-                            added_arcs['right'] = true
-                        end
-                    end
-                end
+
                 if Pilots[shipIndex]['Turret'] ~= nil then       --Checks if upgrade should trigger the dual mobile arc indicator
                     if Pilots[shipIndex]['Turret'] == 2 then
                         dualTurret = 1
