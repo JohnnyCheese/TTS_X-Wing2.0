@@ -1,0 +1,437 @@
+-- ~~~~~~
+-- Script by eirikmun
+-- Issues, history at: https://github.com/JohnnyCheese/TTS_X-Wing2.0
+--
+-- Module for arc checking, range and obstruction
+-- ~~~~~~
+ArcCheck = {}
+ArcCheck.initialized = false
+ArcCheck.arc_check_rulers = {}
+ArcCheck.current_arc = "none"
+
+ArcCheck.arc_line_segments = {}
+ArcCheck.arc_line_segments['small'] = {}
+ArcCheck.arc_line_segments['medium'] = {}
+ArcCheck.arc_line_segments['large'] = {}
+
+-- ArcCheck.Initialize = function() -- Arc values based on Muon's assesments (vassal)
+--     if ArcCheck.initialized == false then
+--         ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments['small'], 81.24, 20)
+--         ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments['medium'], 82.8, 30)
+--         ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments['large'], 83.52, 40)
+--         ArcCheck.initialized = true
+--     end
+-- end
+
+ArcCheck.Initialize = function() -- Arc values matching TTS ruler objects
+    if ArcCheck.initialized == false then
+        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments['small'], 79.1, 20)
+        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments['medium'], 82.35, 30)
+        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments['large'], 82.9, 40)
+        ArcCheck.initialized = true
+    end
+end
+
+
+ArcCheck.CalculateArcLineSegments = function(table, degree, size)
+    size = Convert_mm_igu(size)
+    local r = math.rad(degree/2)
+    local a = math.tan(r) * size
+    table['front'] =    {   segments={ {vector(-a, 0, size), vector(a, 0, size)} },-- Front segment
+                            degrees={direction=0, spread=degree/2}
+                        }
+    table['back'] =     {   segments={ {vector(-a, 0, -size), vector(a, 0, -size)} }, -- Front segment
+                            degrees={direction=180, spread=degree/2}
+                        }
+    table['fullfront'] = {  segments={ {vector(-size, 0, 0), vector(-size, 0, size)},   -- left segment
+                                        {vector(-size, 0, size), vector(size, 0, size)}, -- front edge
+                                        {vector(size, 0, size), vector(size, 0, 0)}  -- right segment
+                                       },
+                            degrees={direction=0, spread=90}
+                        }
+    table['fullback'] = {  segments={ {vector(-size, 0, 0), vector(-size, 0, -size)},   -- left segment
+                                       {vector(-size, 0, -size), vector(size, 0, -size)}, -- back edge
+                                       {vector(size, 0, -size), vector(size, 0, 0)}  -- right segment
+                                   },
+                            degrees={direction=180, spread=90}
+                        }
+    table['left'] =     {   segments={ {vector(-a, 0, -size), vector(-size, 0, -size)},   -- back segment
+                                       {vector(-size, 0, -size), vector(-size, 0, size)}, -- left edge
+                                       {vector(-size, 0, size), vector(-a, 0, size)}  -- front segment
+                                   },
+                            degrees={direction=-90, spread=(180-degree)/2}
+                        }
+    table['right'] =    {   segments={ {vector(a, 0, -size), vector(size, 0, -size)},   -- back segment
+                                       {vector(size, 0, -size), vector(size, 0, size)}, -- right edge
+                                       {vector(size, 0, size), vector(a, 0, size)}  -- front segment
+                                   },
+                            degrees={direction=90, spread=(180-degree)/2}
+                        }
+     table['full'] =    {   segments={ {vector(-size, 0, size), vector(size, 0, size)},   -- front edge
+                                       {vector(size, 0, size), vector(size, 0, -size)}, -- right edge
+                                       {vector(size, 0, -size), vector(-size, 0, -size)},  -- back edge
+                                       {vector(-size, 0, -size), vector(-size, 0, size)}  -- left edge
+                                   },
+                            degrees={direction=0, spread=180}
+                        }
+end
+
+function CheckArc(args)
+    if ArcCheck.initialized == false then
+        ArcCheck.Initialize()
+    end
+    for k, ruler in pairs(ArcCheck.arc_check_rulers) do
+        ruler.destruct()
+    end
+    ArcCheck.arc_check_rulers = {}
+    if ArcCheck.current_arc == args.arctype then
+        ArcCheck.current_arc = "none"
+        return
+    end
+    ArcCheck.current_arc = args.arctype
+
+    args.ship.setLock(true)
+    local shipData = ModelDB.GetData(args.ship)
+
+    local potential_targets = ArcCheck.GetPotentialTargets(args.ship)
+    local own_line_segments = ArcCheck.GetOwnArcLineSegments(args.ship, ArcCheck.arc_line_segments[shipData.baseSize][args.arctype]["segments"])
+    printToAll(args.ship.getName() .. " checks for targets in the " .. args.arctype .. " arc:", color(1.0, 1.0, 0.2, 0.9))
+    local found = false
+    for k, pt in pairs(potential_targets) do
+
+        local target_line_segments = ArcCheck.GetTargetLineSegmentsInArc(args.ship, pt, ArcCheck.arc_line_segments[shipData.baseSize][args.arctype]["degrees"])
+        if #target_line_segments ~= 0 then
+            local other = nil
+            local closest = nil
+            closest, other = ArcCheck.GetDistanceBetweenLineSegments(own_line_segments, target_line_segments)
+            found = true
+            closest.obstructions = ArcCheck.CheckObstruction(closest)
+            pt.setLock(true)
+            ArcCheck.SpawnObstructionRuler(closest)
+            local multipletext = " is "
+            local obstructedtext = "is "
+            if other ~= nil then
+                obstructedtext = "is most likely UNOBSTRUCTED "
+                multipletext = " has multiple closest points and "
+                other.obstructions = ArcCheck.CheckObstruction(other)
+                ArcCheck.SpawnObstructionRuler(other)
+            end
+            if #closest.obstructions ~= 0 then
+                if other ~= nil then
+                    if #other.obstructions ~= 0 then
+                        obstructedtext = "is most likely OBSTRUCTED "
+                    end
+                    obstructedtext = "can be chosen to be OBSTRUCTED "
+                else
+                    obstructedtext = "OBSTRUCTED "
+                end
+            else
+                if other ~=nil and #other.obstructions ~= 0 then
+                    obstructedtext = "can be chosen to be OBSTRUCTED "
+                end
+            end
+            printToAll(" - " .. pt.getName().. multipletext .. obstructedtext .. "at range " ..tostring(closest.range), color(1.0, 1.0, 0.2, 0.9))
+        else
+            printToAll(" - " .. pt.getName() .. " not in arc")
+        end
+    end
+    if found == false then
+        printToAll(" - No valid targets", color(1.0, 1.0, 0.2, 0.9))
+    end
+end
+
+ArcCheck.CheckObstruction = function(data)
+    local collissions = Physics.cast({
+        origin       = data.midpoint,
+        orientation  = {0,data.angle, 0},
+        direction    = {0,-0.3,0},
+        type         = 3,
+        size         = {0.1,0.1,data.length},
+        max_distance = 3,
+        debug        = false
+    })
+    local hit_obstacles = {}
+    for k, hit in pairs(collissions) do
+        if MoveModule.SelectObstacles(hit.hit_object) then
+            table.insert(hit_obstacles, hit.hit_object)
+        end
+    end
+    return hit_obstacles;
+end
+
+ArcCheck.SpawnObstructionRuler = function(data)
+    if data.range > 0 then
+        ruler = spawnObject({
+            type              = "Custom_Model",
+            position          = vector(data.A[1], 1.21, data.A[3]),
+            rotation          = {0, data.angle + 90,0},
+            scale             = {0.3617, 0.3617, 0.5},
+            sound             = false,
+            snap_to_grid      = false
+        })
+        ruler.setCustomObject({
+            mesh =  "C:\\Users\\sameg\\OneDrive\\Dokumenter\\blender\\range".. data.range .. ".version2.obj",
+            material = 3
+        })
+        local tintcolor = color(1.0, 1.0, 0.2, 1.0) -- Yellow obstructed tint
+        if #data.obstructions == 0 then
+            tintcolor = color(0.2, 0.2, 1.0, 1.0) -- Blue unobstructed tint
+        end
+        ruler.setColorTint(tintcolor)
+        ruler.setLock(true)
+        table.insert(ArcCheck.arc_check_rulers, ruler)
+    end
+end
+
+
+-- Calculates closest distance between two set of line segments. Returns table with range, and line points
+ArcCheck.GetDistanceBetweenLineSegments = function(own_line_segments, target_line_segments)
+    local closest = {
+        length=10000,
+        range = 0,
+        midpoint={0,0,0},
+        angle=0,
+        A={0,0,0},
+        B={0,0,0}
+    }
+    local other = nil
+    local epsilon = 0.001 -- This to dumb down the mathematical accuracy to match the analog game experience
+    for k_o, seg_o in pairs(own_line_segments) do
+        for k_t, seg_t in pairs(target_line_segments) do
+            for k_p, point in pairs(seg_t) do
+                local distance = ArcCheck.GetDistanceBetweenLineSegmentAndPoint(seg_o, point, false)
+                if not ArcCheck.CheckEqualLineSegments(distance.A, distance.B, closest.A, closest.B ) then
+                    if (distance.length <= (closest.length + epsilon)) then
+
+                        if math.abs(distance.length - closest.length) < epsilon then
+                            --print("Real close: " .. tostring(distance.length).. " - " .. tostring(distance.length - closest.length))
+                            if distance.length < closest.length then
+                                other = closest
+                                closest = distance
+                            else
+                                other = distance
+                            end
+                        else
+                            --print("Closer: " .. tostring(distance.length) .. " - " .. tostring(distance.length - closest.length))
+                            closest = distance
+                            other = nil
+                        end
+                    end
+                end
+            end
+            for k_p, point in pairs(seg_o) do
+                local distance = ArcCheck.GetDistanceBetweenLineSegmentAndPoint(seg_t, point, true)
+                if not ArcCheck.CheckEqualLineSegments(distance.A, distance.B, closest.A, closest.B ) then
+                    if (distance.length <= (closest.length + epsilon)) then
+                        if math.abs(distance.length - closest.length) < epsilon then
+                            --print("Real close2: " .. tostring(distance.length).. " - " .. tostring(distance.length - closest.length))
+                            if distance.length < closest.length then
+                                other = closest
+                                closest = distance
+                            else
+                                other = distance
+                            end
+                        else
+                            --print("Closer2: " .. tostring(distance.length) .. " - " .. tostring(distance.length - closest.length))
+                            closest = distance
+                            other = nil
+                        end
+                    end
+                end
+            end
+        end
+    end
+    return closest, other
+end
+
+ArcCheck.GetAngleBetweenPoints = function(A,B,C)
+    local BA = Vect.Between(B, A)
+    local BC = Vect.Between(B, C)
+    return Vect.AngleDeg(BA, BC)
+end
+
+ArcCheck.CheckEqualLineSegments = function(line1A, line1B, line2A, line2B)
+    local epsilon = 0.0000001
+    if Vect.Distance(line1A,line2A) < epsilon then
+        return Vect.Distance(line1B,line2B) < epsilon
+    elseif Vect.Distance(line1A,line2B) < epsilon then
+        return Vect.Distance(line1B,line2A) < epsilon
+    end
+    return false
+end
+
+
+-- Gets the closest point on a line segment to a point
+ArcCheck.GetDistanceBetweenLineSegmentAndPoint = function(segment, point, reverse)
+    local P = {}
+    -- Check if the angle at the first segment point is larger than 90 degrees, the point bust be it, and the endpoint will be closest point
+    if (math.abs(ArcCheck.GetAngleBetweenPoints(segment[2], segment[1], point)) >= 90) then
+        P = segment[1]
+    elseif (math.abs(ArcCheck.GetAngleBetweenPoints(segment[1], segment[2], point)) >= 90) then
+        -- Similarily for the second segment point
+        P = segment[2]
+    else
+    -- The closest point is somewhere in between, along the normal of the line segment
+        local u = Vect.ToUnit(Vect.Between(segment[1], segment[2]))
+        local baseline_norm = Vector(-u[3], u[2], u[1])
+        local d = Vect.DotProd(Vect.Between(point, segment[1]), baseline_norm)
+        P = Vect.Sum(point, Vect.Scale(baseline_norm, d))
+    end
+
+    if reverse then
+        A = point
+        B = P
+    else
+        A = P
+        B = point
+    end
+    local distance = Vect.Distance(P, point)
+    local range =math.floor(Convert_igu_mm(distance / 100)) + 1
+
+    local midpoint = Vect.Sum(A, Vect.Scale(Vect.ToUnit(Vect.Between(A,B)), Convert_mm_igu(50)*math.min(range,3)))
+    --local midpoint = Vect.Middle(P, point)
+    midpoint[2] = 1.52
+    return { length=distance,
+             A=A,
+             B=B,
+             range=range,
+             midpoint=midpoint,
+             angle = Vect.AngleDeg(Vect.Between(A, B), vector(0, 0, 1))
+           }
+end
+
+-- Returns list of line segments which are within a given arc type
+ArcCheck.GetOwnArcLineSegments = function(ship, segments)
+    --local shipData = ModelDB.GetData(ship)
+    --local segments = ArcCheck.arc_line_segments[shipData.baseSize][arctype]["segments"]
+    local outsegments = {}
+    for k, segment in pairs(segments) do
+        table.insert(outsegments, {Vect.Sum(ship.getPosition(), Vect.RotateDeg(segment[1], ship.getRotation()[2] + 180)),
+                                   Vect.Sum(ship.getPosition(), Vect.RotateDeg(segment[2], ship.getRotation()[2] + 180))})
+    end
+    return outsegments
+end
+
+-- Finds all potential ships within a little more than range 3 from the ship
+ArcCheck.GetPotentialTargets = function(ship)
+    local cast_radius = Convert_mm_igu(900)
+    local collissions = Physics.cast({
+        origin       = ship.getPosition() + vector(0,0.1,0),
+        direction    = {0,0.001,0},
+        type         = 2,
+        size         = {cast_radius,cast_radius,cast_radius},
+        max_distance = 1,
+        debug        = false
+    })
+    local potential_ships = {}
+    for k, hit in pairs(collissions) do
+        if hit.hit_object.getGUID() ~= ship.getGUID() and MoveModule.SelectShips(hit.hit_object) then
+            table.insert(potential_ships, hit.hit_object)
+        end
+    end
+
+    -- for k, pot in pairs(potential_ships) do
+    --     print("Potential ship[".. k .. "] = " .. pot.getName() )
+    -- end
+    return potential_ships
+end
+
+-- Returns a list of line segments which are within the arc
+ArcCheck.GetTargetLineSegmentsInArc = function(ship, target, arcinfo)
+    local targetShipData = ModelDB.GetData(target)
+    -- Get the full line segments for the ship
+    local segments = ArcCheck.arc_line_segments[targetShipData.baseSize]["full"]["segments"]
+
+    local outsegments = {}
+    --local arc_center_angle = ship.getRotation()[2] + arcinfo.direction
+    local arc_center_vector = Vect.RotateDeg(vector(0, 0, -1), ship.getRotation()[2] + arcinfo.direction)
+    --print("Arc_center_vector = " .. tostring(arc_center_vector[1]).."," .. tostring(arc_center_vector[2]) ..","..tostring(arc_center_vector[3]))
+    for k, segment in pairs(segments) do
+        -- Calculate part of line segment within arc
+        local rotated_segment = {Vect.Sum(target.getPosition(), Vect.RotateDeg(segment[1], target.getRotation()[2])),
+                                   Vect.Sum(target.getPosition(), Vect.RotateDeg(segment[2], target.getRotation()[2]))}
+
+        -- Check if points are in arc
+        local angleoffsets = {Vect.AngleDeg(Vect.Between(ship.getPosition(), rotated_segment[1]), arc_center_vector),
+                        Vect.AngleDeg(Vect.Between(ship.getPosition(), rotated_segment[2]), arc_center_vector)}
+
+        --print("Angle offsets: " .. target.getName() .. "[".. tostring(k) .. "] "..  tostring(angleoffsets[1]) .. " - " .. tostring(angleoffsets[2]) )
+
+        if angleoffsets[1] < arcinfo.spread and angleoffsets[2] < arcinfo.spread then
+            -- Both points are in arc
+            --print("Both in arc")
+            table.insert(outsegments, rotated_segment)
+        elseif angleoffsets[1] > arcinfo.spread and angleoffsets[2] > arcinfo.spread then
+            -- both outside
+            if Vect.AngleDeg(Vect.Between(ship.getPosition(), Vect.Middle(rotated_segment[1], rotated_segment[2])), arc_center_vector) < arcinfo.spread then
+                -- print("Both out, in front. deg: " .. tostring(Vect.AngleDeg(Vect.Between(ship.getPosition(), Vect.Middle(rotated_segment[1], rotated_segment[2])), arc_center_vector)))
+                -- The target is infront, but both points are outside the arc.
+                local newsegment = {ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, -arcinfo.spread))
+                                      , rotated_segment[1], rotated_segment[2]),
+                              ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, arcinfo.spread))
+                                      , rotated_segment[1], rotated_segment[2])}
+                --print("Newsegment: ".. tostring(newsegment[1]) .. "," .. tostring(newsegment[2]))
+                table.insert(outsegments, newsegment)
+            else
+                --print("Both out, behind")
+            end
+        else
+            -- one inside, one out
+            local p1 = nil
+            if(angleoffsets[1] < arcinfo.spread) then
+                p1 = rotated_segment[1]
+            else
+                p1 = rotated_segment[2]
+            end
+            p2 = ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, arcinfo.spread))
+                                  , rotated_segment[1], rotated_segment[2])
+            if p2 == nil then
+                -- The other direction had no intersection, it must be the other
+                p2 = ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, -arcinfo.spread))
+                                      , rotated_segment[1], rotated_segment[2])
+            end
+            table.insert(outsegments, {p1, p2})
+            -- One inside other outside
+        end
+    end
+    return outsegments
+end
+
+ArcCheck.GetLineLineIntersection = function(p1, p2, p3, p4)
+
+    if ((p2[3] - p1[3]) / (p2[1] - p1[1])) ~= ((p4[3] - p3[3]) / (p4[1] - p3[1])) then
+        local d = ((p2[1] - p1[1]) * (p4[3] - p3[3])) - ((p2[3] - p1[3]) * (p4[1] - p3[1]))
+        --print("GetLineLineIntersection d=" .. tostring(d))
+        if d ~= 0 then
+            r = (((p1[3] - p3[3]) * (p4[1] - p3[1])) - ((p1[1] - p3[1]) * (p4[3] - p3[3]))) / d
+            --print("R: " .. tostring(r))
+            if r > 0 then
+                -- The point is infront of the first line
+                return Vector(p1[1] + r * (p2[1] - p1[1]), p1[2], p1[3] + r * (p2[3] - p1[3]))
+            end
+        end
+    end
+    return nil
+end
+
+
+-- Precalculated lines: put script on an item and run the on peek function to recalculate
+
+function onPeek(player_color)
+    print("Peeking.. calculating arc lines..")
+    ArcCheck.Initialize()
+    printTable(ArcCheck.arc_line_segments, "ArcCheck.arc_line_segments", 4)
+end
+
+function printTable(table, prefix, depth)
+    if depth > 1 then
+        for k, v in pairs(table) do
+            printTable(table[k], prefix .. "[" .. k .. "]", depth -1 )
+        end
+
+    else
+        for k, v in pairs(table) do
+            print(prefix.."[" .. k .. "] = " .. tostring(v))
+        end
+    end
+end

@@ -28,20 +28,20 @@ faceStat = nil
 firstSet=false
 
 assetTable = {
-    {name="Focus", url="http://tjakubo2.com/static/2.0/assets/dial/actions/focus.png"},
-    {name="Evade", url="http://tjakubo2.com/static/2.0/assets/dial/actions/evade.png"},
-    {name="TL", url="http://tjakubo2.com/static/2.0/assets/dial/actions/TL.png"},
-    {name="Calculate", url="http://tjakubo2.com/static/2.0/assets/dial/actions/calculate.png"},
-    {name="Reinforce", url="http://tjakubo2.com/static/2.0/assets/dial/actions/reinforce.png"},
-    {name="Stress", url="http://tjakubo2.com/static/2.0/assets/dial/actions/stress.png"},
-    {name="Ion", url="http://tjakubo2.com/static/2.0/assets/dial/actions/ion.png"},
-    {name="Cloak", url="http://tjakubo2.com/static/2.0/assets/dial/actions/cloak.png"},
-    {name="Jam", url="http://tjakubo2.com/static/2.0/assets/dial/actions/jam.png"},
-    {name="Disarm", url="http://tjakubo2.com/static/2.0/assets/dial/actions/disarm.png"},
-    {name="Tractor", url="http://tjakubo2.com/static/2.0/assets/dial/actions/tractor.png"},
-    {name="Strain", url="http://tjakubo2.com/static/2.0/assets/dial/actions/strain.png"},
-    {name="RotCW", url="http://tjakubo2.com/static/2.0/assets/dial/actions/RotateHorario.png"},
-    {name="RotACW", url="http://tjakubo2.com/static/2.0/assets/dial/actions/RotateAntiHorario.png"},
+    {name="Focus", url="https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/actions/focus.png"},
+    {name="Evade", url="https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/actions/evade.png"},
+    {name="TL", url="https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/actions/TL.png"},
+    {name="Calculate", url="https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/actions/calculate.png"},
+    {name="Reinforce", url="https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/actions/reinforce.png"},
+    {name="Stress", url="https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/actions/stress.png"},
+    {name="Ion", url="https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/actions/ion.png"},
+    {name="Cloak", url="https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/actions/cloak.png"},
+    {name="Jam", url="https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/actions/jam.png"},
+    {name="Disarm", url="https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/actions/disarm.png"},
+    {name="Tractor", url="https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/actions/tractor.png"},
+    {name="Strain", url="https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/actions/strain.png"},
+    {name="RotCW", url="https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/actions/RotateHorario.png"},
+    {name="RotACW", url="https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/actions/RotateAntiHorario.png"},
 --    {name="", url=""},
 --    {name="", url=""},
 --    {name="", url=""},
@@ -281,10 +281,12 @@ function performMove(P)
     end
 end
 
+
 function performTalon(P,option,id)
     if spectReturn(P) == true then
         return
     end
+
     self.UI.hide("TalonPanel")
     self.UI.setAttribute("UndoBtn", "active", "true")
     if id=="TalonMidBtn" then
@@ -385,6 +387,7 @@ function onDropped()
             else
                 assignedShip = nearest
                 playerColor=pColor
+                nearest.setVar('owningPlayer', pColor)
                 printToAll('Dial assigned to to ' .. nearest.getName(), {0.2, 0.2, 1})
                 printToAll('Controlled by the '.. playerColor .. ' player')
                 printToAll('')
@@ -670,11 +673,13 @@ function Window(p)
 end
 
 function spectReturn(p)
-    if p.color == 'Grey' then
+    --[[if p.color == 'Grey' then
         return true
     elseif p.color == 'White' then
         return true
     end
+    --]]
+    return p.color ~= playerColor
 end
 
 function showTokMFD(p)
@@ -757,27 +762,28 @@ function hideRelocM(p)
 end
 
 function setDial(P)
-    if firstSet == true then
-        if setStat == nil then
-            setStat = false
-        end
-        if P.color == playerColor then
-            if setStat == false then
-                self.UI.setAttribute("SetBtn", "color", P.color)
-                setStat = true
-                printToAll(P.color.." player has set the maneuver for "..assignedShip.getName(), P.color)
-                if winStat==true then
-                    Window(P)
-                end
-                self.UI.hide("moveWindow")
-            else
-                self.UI.setAttribute("SetBtn", "color", "White")
+    if P.color == playerColor then
+        if firstSet == true then
+            if setStat == nil then
                 setStat = false
-                self.UI.show("moveWindow")
             end
+
+                if setStat == false then
+                    self.UI.setAttribute("SetBtn", "color", P.color)
+                    setStat = true
+                    printToAll(P.color.." player has set the maneuver for "..assignedShip.getName(), P.color)
+                    if winStat==true then
+                        Window(P)
+                    end
+                    self.UI.hide("moveWindow")
+                else
+                    self.UI.setAttribute("SetBtn", "color", "White")
+                    setStat = false
+                    self.UI.show("moveWindow")
+                end
+        else
+            print("Pick a maneuver before setting the dial")
         end
-    else
-        print("Pick a maneuver before setting the dial")
     end
 end
 
