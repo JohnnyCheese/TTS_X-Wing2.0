@@ -6004,11 +6004,11 @@ function newSpawner(listTable)
                 shipClone = newShip.clone()
                 newShip.setName(Pilots[shipIndex]['name']) --Corrects ship name for clones
                 if Pilots[shipIndex]['Size'] == 1 then
-                    newShip.setCustomObject({collider='{verifycache}http://cloud-3.steamusercontent.com/ugc/787480374926351622/9FA07C37B1615A416F306081D9152902A9BFE9EE/'})
+                    newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Small_base_Collider.obj'})
                 elseif Pilots[shipIndex]['Size'] == 2 then
-                    newShip.setCustomObject({collider='{verifycache}http://cloud-3.steamusercontent.com/ugc/941699996269775097/8C8491BD45C04862AF39EA80AD45C3B12984F157/'})
+                    newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Medium_base_Collider.obj'})
                 elseif Pilots[shipIndex]['Size'] == 3 then
-                    newShip.setCustomObject({collider='{verifycache}http://cloud-3.steamusercontent.com/ugc/909045930378567212/D07FE8989663A82E41F61A774DCCE5BD111B3492/'})
+                    newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Large_base_Collider.obj'})
                 end
                 tempBagShp.putObject(shipClone)
                 newShip.setTable("Data", Pilots[shipIndex]['Data'])
