@@ -328,7 +328,7 @@ ArcCheck.bullseye_data =
         medium=vector(0,0,Convert_mm_igu(180)),
         large=vector(0,0,Convert_mm_igu(190))
     },
-    size=vector(Convert_mm_igu(15), 0.1, Convert_mm_igu(300))
+    size=vector(Convert_mm_igu(14), 0.1, Convert_mm_igu(300))
 }
 
 -- ArcCheck.Initialize = function() -- Arc values based on Muon's assesments (vassal)
@@ -360,7 +360,7 @@ ArcCheck.CalculateArcLineSegments = function(table, degree, size)
     table['back'] =     {   segments={ {vector(-a, 0, -size), vector(a, 0, -size)} }, -- Front segment
                             degrees={direction=180, spread=degree/2}
                         }
-    table['bullseye'] = {   segments={ {vector(-Convert_mm_igu(7.5), 0, size), vector(Convert_mm_igu(7.5), 0, size)} }, -- Bullseye segments
+    table['bullseye'] = {   segments={ {vector(-ArcCheck.bullseye_data.size[1]/2, 0, size), vector(ArcCheck.bullseye_data.size[1]/2, 0, size)} }, -- Bullseye segments
                             degrees={direction=0, spread=0, bullseye=true}
 
                         }
@@ -799,7 +799,7 @@ ArcCheck.GetTargetLineSegmentsInArc = function(ship, target, arcinfo)
             end
         end
     else -- Special Bullseye handling
-        local half_bullseye = Convert_mm_igu(7.5)
+        local half_bullseye = ArcCheck.bullseye_data.size[1]/2
         for k, segment in pairs(segments) do
             local rotated_segment = {Vect.Sum(target.getPosition(), Vect.RotateDeg(segment[1], target.getRotation()[2])),
                                        Vect.Sum(target.getPosition(), Vect.RotateDeg(segment[2], target.getRotation()[2]))}
@@ -1884,7 +1884,7 @@ end
 -- Selection function for MoveModule.JoinHitTables - obstacles only
 MoveModule.SelectObstacles = function(obj)
     local name = obj.getName()
-    return (name:find('Asteroid') or name:find('Debris') or name:find('Cloud') or name:find('Spare')) ~= nil
+    return (name:find('Asteroid') or name:find('Debris') or name:find('Chute debris') or name:find('Cloud') or name:find('Spare')) ~= nil
 end
 
 -- Selection function for MoveModule.JoinHitTables - mine tokens only
@@ -2154,7 +2154,7 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
              type         = 3,
              size         = size,
              max_distance = 1,
-             debug        = true
+             debug        = false
          })
 
          MoveModule.AddCollissionEntry(gTable, collList, collissions, SelectFun)
@@ -6004,11 +6004,11 @@ function newSpawner(listTable)
                 shipClone = newShip.clone()
                 newShip.setName(Pilots[shipIndex]['name']) --Corrects ship name for clones
                 if Pilots[shipIndex]['Size'] == 1 then
-                    newShip.setCustomObject({collider='{verifycache}http://cloud-3.steamusercontent.com/ugc/787480374926351622/9FA07C37B1615A416F306081D9152902A9BFE9EE/'})
+                    newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Small_base_Collider.obj'})
                 elseif Pilots[shipIndex]['Size'] == 2 then
-                    newShip.setCustomObject({collider='{verifycache}http://cloud-3.steamusercontent.com/ugc/941699996269775097/8C8491BD45C04862AF39EA80AD45C3B12984F157/'})
+                    newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Medium_base_Collider.obj'})
                 elseif Pilots[shipIndex]['Size'] == 3 then
-                    newShip.setCustomObject({collider='{verifycache}http://cloud-3.steamusercontent.com/ugc/909045930378567212/D07FE8989663A82E41F61A774DCCE5BD111B3492/'})
+                    newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Large_base_Collider.obj'})
                 end
                 tempBagShp.putObject(shipClone)
                 newShip.setTable("Data", Pilots[shipIndex]['Data'])
