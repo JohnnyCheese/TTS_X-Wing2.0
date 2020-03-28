@@ -96,30 +96,15 @@ end
 
 ModelDB.colliders = {
     ['small'] = {
-        ['full'] = {'http://cloud-3.steamusercontent.com/ugc/787480374926351622/9FA07C37B1615A416F306081D9152902A9BFE9EE/'},
-        ['box']  = {'http://cloud-3.steamusercontent.com/ugc/82591194029068301/41D4D10265D8B4B9FC1B0C640F9F8D94C816CE89/'}
+        ['full'] = {'{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Small_base_Collider.obj'}
     },
     ['medium'] = {
-        ['full'] = {'http://cloud-3.steamusercontent.com/ugc/941699996269775097/8C8491BD45C04862AF39EA80AD45C3B12984F157/'},
-        ['box']  = {'http://cloud-3.steamusercontent.com/ugc/910171138480721745/24224D6392DD29B35FF017FD4A5D2459A9E66652/'}
+        ['full'] = {'{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Medium_base_Collider.obj'}
     },
 
     ['large'] = {
-        ['full'] = {'http://cloud-3.steamusercontent.com/ugc/909045930378567212/D07FE8989663A82E41F61A774DCCE5BD111B3492/'},
-        ['box']  = {'http://cloud-3.steamusercontent.com/ugc/909045930378581594/0DB3DD458E4F44A1FDC062470957B67878BA4CCB/'}
+        ['full'] = {'{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Large_base_Collider.obj'}
     }
-}
-
-boxCollider = {
-    ['small'] = 'http://cloud-3.steamusercontent.com/ugc/82591194029068301/41D4D10265D8B4B9FC1B0C640F9F8D94C816CE89/',
-    ['medium'] = 'http://cloud-3.steamusercontent.com/ugc/910171138480721745/24224D6392DD29B35FF017FD4A5D2459A9E66652/',
-    ['large'] = 'http://cloud-3.steamusercontent.com/ugc/909045930378581594/0DB3DD458E4F44A1FDC062470957B67878BA4CCB/'
-}
-
-fullCollider = {
-    ['small'] = 'http://cloud-3.steamusercontent.com/ugc/787480374926351622/9FA07C37B1615A416F306081D9152902A9BFE9EE/',
-    ['medium'] = 'http://cloud-3.steamusercontent.com/ugc/941699996269775097/8C8491BD45C04862AF39EA80AD45C3B12984F157/',
-    ['large'] = 'http://cloud-3.steamusercontent.com/ugc/909045930378567212/D07FE8989663A82E41F61A774DCCE5BD111B3492/'
 }
 
 -- Ship data
@@ -133,17 +118,17 @@ ModelDB.data = {
     ['Generic']={
         ['small']={
             ['Generic']={
-              meshes={'http://cloud-3.steamusercontent.com/ugc/958613321556914101/498734B480CADED7E71707884DD3B20EB393441C/'}
+              meshes={'{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Small_base_Collider.obj'}
             }
         },
         ['medium']={
             ['Generic']={
-              meshes={'http://cloud-3.steamusercontent.com/ugc/958613321557232034/A9D5C914B056BF881E8C9C243D067B154BC32659/'}
+              meshes={'{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Medium_base_Collider.obj'}
             }
         },
         ['large']={
             ['Generic']={
-              meshes={'http://cloud-3.steamusercontent.com/ugc/958613321557238242/9BC35DE072343C9B239EAA7F0D6341328C8FBD18/'}
+              meshes={'{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Large_base_Collider.obj'}
             }
         }
     },
