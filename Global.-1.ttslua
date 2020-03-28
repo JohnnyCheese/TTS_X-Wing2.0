@@ -528,7 +528,7 @@ ArcCheck.SpawnObstructionRuler = function(data)
             snap_to_grid      = false
         })
         ruler.setCustomObject({
-            mesh =  "https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/models/ArcCheckRuler".. data.range .. ".obj",
+            mesh =  '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/ArcCheckRuler'.. data.range .. '.obj',
             material = 3
         })
         local tintcolor = color(1.0, 1.0, 0.2, 1.0) -- Yellow obstructed tint
@@ -5045,7 +5045,7 @@ end
 RulerModule.meshes = {}
 RulerModule.meshes.smallBase = {}
 RulerModule.meshes.smallBase.scale = {0.629, 0.629, 0.629}
-RulerModule.meshes.smallBase.collider = 'http://pastebin.com/raw/5G8JN2B6'
+RulerModule.meshes.smallBase.collider = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Small_base_Collider.obj'
 RulerModule.meshes.smallBase.front = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/SmallFront.obj'
 RulerModule.meshes.smallBase.side = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/SmallSide.obj'
 RulerModule.meshes.smallBase.rear = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/SmallRear.obj'
@@ -5054,12 +5054,12 @@ RulerModule.meshes.smallBase.range = {}
 RulerModule.meshes.smallBase.range[1] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/SmallR1.obj'
 RulerModule.meshes.smallBase.range[2] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/SmallR2.obj'
 RulerModule.meshes.smallBase.range[3] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/SmallR3.obj'
-RulerModule.meshes.smallBase.range[4] = 'http://cloud-3.steamusercontent.com/ugc/856096260992686557/6B2001736D0C1DFEFB3B543C58CA725D11A9735F/'
+RulerModule.meshes.smallBase.range[4] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/SmallR4.obj'
 
 -- Ruler meshes for medium base JC
 RulerModule.meshes.mediumBase = {}
 RulerModule.meshes.mediumBase.scale = {0.629, 0.629, 0.629}
-RulerModule.meshes.mediumBase.collider = 'http://pastebin.com/raw/5G8JN2B6'
+RulerModule.meshes.mediumBase.collider = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Medium_base_Collider.obj'
 RulerModule.meshes.mediumBase.front = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/MediumFront.obj'
 RulerModule.meshes.mediumBase.rear = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/MediumRear.obj'
 RulerModule.meshes.mediumBase.sideArc = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/MediumSide.obj'
@@ -5067,12 +5067,12 @@ RulerModule.meshes.mediumBase.range = {}
 RulerModule.meshes.mediumBase.range[1] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/MediumR1.obj'
 RulerModule.meshes.mediumBase.range[2] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/MediumR2.obj'
 RulerModule.meshes.mediumBase.range[3] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/MediumR3.obj'
-RulerModule.meshes.mediumBase.range[4] = 'http://cloud-3.steamusercontent.com/ugc/938336633690687483/BCB854DBAEF152565B18A2BEAD87990913BB0774/'
+RulerModule.meshes.mediumBase.range[4] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/MediumR4.obj'
 
 
 RulerModule.meshes.largeBase = {}
 RulerModule.meshes.largeBase.scale = {0.629, 0.629, 0.629}
-RulerModule.meshes.largeBase.collider = 'http://cloud-3.steamusercontent.com/ugc/909045930378567212/D07FE8989663A82E41F61A774DCCE5BD111B3492/'
+RulerModule.meshes.largeBase.collider = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Large_base_Collider.obj'
 RulerModule.meshes.largeBase.front = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/LargeFront.obj'
 RulerModule.meshes.largeBase.side = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/LargeSide.obj'
 RulerModule.meshes.largeBase.rear = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/LargeRear.obj'
@@ -5081,7 +5081,7 @@ RulerModule.meshes.largeBase.range = {}
 RulerModule.meshes.largeBase.range[1] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/LargeR1.obj'
 RulerModule.meshes.largeBase.range[2] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/LargeR2.obj'
 RulerModule.meshes.largeBase.range[3] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/LargeR3.obj'
-RulerModule.meshes.largeBase.range[4] = 'http://cloud-3.steamusercontent.com/ugc/938336633690686646/01C68ADF5E6D5F1690F340EFB784D47BE7D4167D/'
+RulerModule.meshes.largeBase.range[4] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/LargeR4.obj'
 
 
 -- Avaialble ruler codes:
