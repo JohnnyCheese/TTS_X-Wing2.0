@@ -197,7 +197,7 @@ function manSelect(p, option, id)
         if curMan:sub(2,2) == 'b' then
             manType = "ReverseBank"
         else
-            manType = "Reverse"
+            manType = "ReverseStraight"
         end
     elseif curMan:sub(2,2) == 't' then
         manType = "Turn"
