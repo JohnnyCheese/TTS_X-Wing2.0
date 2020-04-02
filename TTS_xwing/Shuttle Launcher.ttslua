@@ -1,14 +1,14 @@
 -- ~~~~~~
--- Script by dzikakulka
+-- Script by CrazyVulcan, based on BombDrop token by dzikakulka
 -- Issues, history at: http://github.com/tjakubo2/TTS_xwing
 --
--- Bomb drop gizmo token
+-- Shuttle launch gizmo token
 -- ~~~~~~
 
 -- Scripted token properties
 __XW_Token = true
 __XW_TokenIdle = false
-__XW_TokenType = 'helper:bombDrop'
+__XW_TokenType = 'helper:shuttleLaunch'
 
 -- Ref to assigned ship if there is one
 assignedShip = nil
@@ -101,7 +101,7 @@ function SYNCshuttle ()
             assignedShuttle = nearest
             self.setName(assignedShuttle.getName() .. nameAssigned)
         end
-    end	
+    end
 end
 -- <><><><><><><><><><><><> --
 
@@ -121,10 +121,10 @@ local MS_ROT = assignedShip.getRotation()
 		assignedShuttle.setLock(false)
 		assignedShuttle.setPosition({MS_POS.x,MS_POS.y+0.5,MS_POS.z})
 		assignedShuttle.setRotation({MS_ROT.x, MS_ROT.y+180, MS_ROT.z})
-		
+
 		posZ= math.sin(math.rad(MS_ROT.y-90))*(s1*3)
 		posX= math.cos(math.rad(MS_ROT.y-90))*(s1*3)
-				
+
 		assignedShuttle.setPosition({MS_POS.x+posX, MS_POS.y, MS_POS.z-posZ})
 		assignedShuttle.setPositionSmooth({MS_POS.x+posX, MS_POS.y, MS_POS.z-posZ})
 		assignedShuttle.setPosition({MS_POS.x+posX, MS_POS.y, MS_POS.z-posZ})
@@ -137,10 +137,10 @@ local MS_ROT = assignedShip.getRotation()
 		assignedShuttle.setLock(false)
 		assignedShuttle.setPosition({MS_POS.x,MS_POS.y+0.5,MS_POS.z})
 		assignedShuttle.setRotation({MS_ROT.x, MS_ROT.y, MS_ROT.z})
-		
+
 		posZ= math.sin(math.rad(MS_ROT.y+90))*(s1*3)
 		posX= math.cos(math.rad(MS_ROT.y+90))*(s1*3)
-				
+
 		assignedShuttle.setPosition({MS_POS.x+posX, MS_POS.y, MS_POS.z-posZ})
 		assignedShuttle.setPositionSmooth({MS_POS.x+posX, MS_POS.y, MS_POS.z-posZ})
 		assignedShuttle.setPosition({MS_POS.x+posX, MS_POS.y, MS_POS.z-posZ})
