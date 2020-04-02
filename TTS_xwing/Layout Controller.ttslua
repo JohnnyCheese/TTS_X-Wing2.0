@@ -227,7 +227,7 @@ function onChat(message, player)
     if message == 'ad' then
         --getObjectFromGUID('626772').call('API_AssignDials', {'Red', Layout.zones['Zone 1'], {bagInit = {12, 1, -6}, bagStep = {2.6, 0, 0} }})
         --getObjectFromGUID('626772').call('API_AssignDials', {'Red', Layout.zones['Zone 1'], {bagInit = {12, 1, -6}, bagStep = {2, 0, 2} }})
-        getObjectFromGUID('626772').call('API_AssignDials', {'Red', Layout.zones['Zone 1'], {bagInit = {12, 1, -6}, bagStep = {-2, 0, -2} }})
+        --getObjectFromGUID('626772').call('API_AssignDials', {'Red', Layout.zones['Zone 1'], {bagInit = {12, 1, -6}, bagStep = {-2, 0, -2} }})
     end
 end
 
