@@ -690,6 +690,8 @@ function showTokMFD(p)
         return
     end]]
     self.UI.show("tokenPanel")
+    self.UI.hide("arcPanel")
+    self.UI.hide("relocPanel")
     self.UI.setAttribute("tokenPanel", "position", "-380 -250 -40")
     self.UI.setAttribute("tokenPanel", "rotation", "180 180 0")
 end
@@ -699,6 +701,8 @@ function showTokMFU(p)
         return
     end
     self.UI.show("tokenPanel")
+    self.UI.hide("arcPanel")
+    self.UI.hide("relocPanel")
     self.UI.setAttribute("tokenPanel", "position", "380 -250 40")
     self.UI.setAttribute("tokenPanel", "rotation", "180 0 0")
 end
@@ -716,6 +720,8 @@ function showArcMFD(p)
         return
     end
     self.UI.show("arcPanel")
+    self.UI.hide("relocPanel")
+    self.UI.hide("tokenPanel")
     self.UI.setAttribute("arcPanel", "position", "300 -270 -40")
     self.UI.setAttribute("arcPanel", "rotation", "180 180 0")
 end
@@ -725,6 +731,8 @@ function showArcMFU(p)
         return
     end
     self.UI.show("arcPanel")
+    self.UI.hide("relocPanel")
+    self.UI.hide("tokenPanel")
     self.UI.setAttribute("arcPanel", "position", "-300 -270 40")
     self.UI.setAttribute("arcPanel", "rotation", "180 0 0")
 end
@@ -741,6 +749,8 @@ function showRelocMFD(p)
         return
     end
     self.UI.show("relocPanel")
+    self.UI.hide("arcPanel")
+    self.UI.hide("tokenPanel")
     self.UI.setAttribute("relocPanel", "position", "0 -280 -40")
     self.UI.setAttribute("relocPanel", "rotation", "180 180 0")
 end
@@ -750,6 +760,8 @@ function showRelocMFU(p)
         return
     end
     self.UI.show("relocPanel")
+    self.UI.hide("arcPanel")
+    self.UI.hide("tokenPanel")
     self.UI.setAttribute("relocPanel", "position", "0 -280 40")
     self.UI.setAttribute("relocPanel", "rotation", "180 0 0")
 end
