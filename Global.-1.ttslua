@@ -6074,6 +6074,16 @@ function newSpawner(listTable)
                         end
                     end
                 end
+                if Pilots[shipIndex]['Docking'] == true then
+                    for k, acc in ipairs(listaAcc) do
+                        if acc.name == 'Shuttle Launcher (assigned to mothership)' then
+                            pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
+                            shuttleDrop = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
+                            dropClone = shuttleDrop.clone()
+                            tempBagAcc.putObject(dropClone)
+                        end
+                    end
+                end
                 if Pilots[shipIndex]['Charge'] ~= nil then   --Checks and spawns Charge Tokens with appropriate layout (up to 4 tokens)
                     charges = Pilots[shipIndex]['Charge']
                     while charges > 0 do
