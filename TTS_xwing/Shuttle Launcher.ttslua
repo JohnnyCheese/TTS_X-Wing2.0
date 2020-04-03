@@ -118,7 +118,8 @@ end
 function dropShuttleButton()
 local MS_POS = assignedShip.getPosition()
 local MS_ROT = assignedShip.getRotation()
-		assignedShuttle.setLock(false)
+    assignedShip.setLock(true)
+		assignedShuttle.setLock(true)
 		assignedShuttle.setPosition({MS_POS.x,MS_POS.y+0.5,MS_POS.z})
 		assignedShuttle.setRotation({MS_ROT.x, MS_ROT.y+180, MS_ROT.z})
 
@@ -134,7 +135,8 @@ end
 function launchShuttleButton()
 local MS_POS = assignedShip.getPosition()
 local MS_ROT = assignedShip.getRotation()
-		assignedShuttle.setLock(false)
+    assignedShip.setLock(true)
+		assignedShuttle.setLock(true)
 		assignedShuttle.setPosition({MS_POS.x,MS_POS.y+0.5,MS_POS.z})
 		assignedShuttle.setRotation({MS_ROT.x, MS_ROT.y, MS_ROT.z})
 
