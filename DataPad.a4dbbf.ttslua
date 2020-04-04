@@ -238,7 +238,7 @@ masterShipDB[45]={['name']='JumpMaster 5000',['Shield']=3,['sTurret']=1,['size']
                             ['moveSet']={'wtl1','bbl1','bs1','wbr1','rtr1','wtl2','bbl2','bs2','wbr2','rtr2','rbl3s','bbl3','bs3','wbr3','ws4','rk4'}}
 --masterShipDB[46]={['name']='',['Shield']=3,['size']='small',['agi']=1,['XWS']='', ['Fac']={[1]=true}}
 masterShipDB[47]={['name']='Customized YT-1300',['Shield']=3,['dTurret']=1,['size']='large',['agi']=1,['XWS']='customizedyt1300lightfreighter', ['Fac']={[3]=true}, ['arcs']={'doubleturret'},
-                            ['moveSet']={'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rbl3s','rbr3s','ws4','rk4'}}
+                            ['Docking']=true,['moveSet']={'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rbl3s','rbr3s','ws4','rk4'}}
 masterShipDB[48]={['name']='Escape Craft',['Shield']=2,['size']='small',['agi']=2,['XWS']='escapecraft', ['Fac']={[3]=true}, ['arcs']={'front'},
                             ['moveSet']={'bbl1','bs1','bbr1','rtl2','wbl2','bs2','wbr2','rtr2','wbl3','ws3','wbr3','rk3','rs0'}}
 masterShipDB[49]={['name']='TIE/fo FO',['Shield']=1,['size']='small',['agi']=3,['XWS']='', ['Fac']={[5]=true}, ['arcs']={'front'},
@@ -1271,7 +1271,7 @@ masterUpgradesDB[386]={['name']='Tobias Beckett',['slot']=8,['cost']=2,['card']=
 masterUpgradesDB[387]={['name']="Qi'ra",['slot']=8,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_161.png',['restriction']={['Faction']={[3]=true}}}
 masterUpgradesDB[388]={['name']='Agile Gunner',['slot']=16,['cost']=8,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_162.png',['restriction']={ }}
 masterUpgradesDB[389]={['name']='Han Solo',['slot']=10,['cost']=12,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_163.png',['restriction']={['Faction']={[3]=true}}}
-masterUpgradesDB[390]={['name']="Lando's Millennium Falcon",['Docking']=true,['slot']=15,['cost']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_164.png',['restriction']={['Faction']={[3]=true},['ship']={[47]=true}, ['Size']=nil}}
+masterUpgradesDB[390]={['name']="Lando's Millennium Falcon",['slot']=15,['cost']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_164.png',['restriction']={['Faction']={[3]=true},['ship']={[47]=true}, ['Size']=nil}}
 masterUpgradesDB[391]={['name']='ST-321',['slot']=15,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_124.png',['restriction']={['Faction']={[2]=true},['ship']={[26]=true}, ['Size']=nil}}
 masterUpgradesDB[392]={['name']='Bomblet Generator',['slot']=12,['remSlot']={12},['cost']=5,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_63.png',['cardB']=cardBackDB['12b'],['restriction']={ }}
 masterUpgradesDB[393]={['name']='Conner Nets',['slot']=12,['cost']=6,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_64.png',['restriction']={ }}
