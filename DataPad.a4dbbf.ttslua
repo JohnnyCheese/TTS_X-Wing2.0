@@ -87,6 +87,7 @@ addAction[381]={[1]='F'}--Composure(F)
 addAction[587]={[1]='C'}--PZ-4CO (C)
 addAction[593]={[1]='R'}--Angled Deflectors (Reinforce)
 addAction[620]={[1]='C'}--K2SO (C)
+addAction[622]={[1]='TL'}--Targeting Computer (TL)
 
 --table referenced by upgrades that adds actions to all ships in a squad.
 addSqdAction={}
@@ -255,9 +256,9 @@ masterShipDB[67]={['name']='Nantex-Class StarFighter',['Shield']=0,['sTurret']=1
                             ['moveSet']={'wtl1','bbl1','bbr1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','bbl3','bs3','bbr3','wtr3','rbl3s','rbr3s','ws4','ws5','rk5'}}
 
 --w6ship
-masterShipDB[68]={['name']='TIE/Ba Interceptor',['Shield']=2,['sTurret']=nil,['dTurret']=nil,['size']=1,['agi']=3,['XWS']='', ['Fac']={[5]=true},
+masterShipDB[69]={['name']='TIE/Ba Interceptor',['Shield']=2,['sTurret']=nil,['dTurret']=nil,['size']=1,['agi']=3,['XWS']='', ['Fac']={[5]=true},
                             ['moveSet']={'btl1','bbl1','bbr1','btr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rbl2s','rbr2s','bs4','ws5','rk5'}}
-masterShipDB[69]={['name']='Fireball',['Shield']=0,['sTurret']=nil,['dTurret']=nil,['size']=1,['agi']=2,['XWS']='', ['Fac']={[4]=true},
+masterShipDB[70]={['name']='Fireball',['Shield']=0,['sTurret']=nil,['dTurret']=nil,['size']=1,['agi']=2,['XWS']='', ['Fac']={[4]=true},
                             ['moveSet']={'wtl1','bbl1','bbr1','wtr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rtl3t','rtr3t','rs4'}}
 
 
@@ -1050,15 +1051,24 @@ masterPilotDB[622]={['name']='Lieutenant LeHuse',['Faction']=5,['ship_type']=50,
                   ['actSet']={'F','TL','E','BR','Rot'}}
 
 --Major Vonregs Tie
-masterPilotDB[623]={['name']='First Order Provocatur',['Faction']=5,['ship_type']=68,['cost']=45,['slot']={1,19,5,14},['Shield']=2,['Force']=nil,['Charge']=0,['card']='https://images-cdn.fantasyflightgames.com/filer_public/ef/d7/efd7cc94-bdf7-4f63-80eb-476444dfeb28/swz62_card_first-order-provocateur.png',['init']=3,
+masterPilotDB[623]={['name']='First Order Provocatur',['Faction']=5,['ship_type']=69,['cost']=45,['slot']={1,19,5,14},['Shield']=2,['Force']=nil,['Charge']=0,['card']='https://images-cdn.fantasyflightgames.com/filer_public/ef/d7/efd7cc94-bdf7-4f63-80eb-476444dfeb28/swz62_card_first-order-provocateur.png',['init']=3,
                   ['actSet']={'F','TL','E','BR','B'}}
-masterPilotDB[624]={['name']='"Ember" ',['Faction']=5,['ship_type']=68,['cost']=52,['slot']={1,19,5,14},['Shield']=2,['Force']=nil,['Charge']=0,['card']='https://images-cdn.fantasyflightgames.com/filer_public/76/2e/762e6c35-81ce-4c9e-b8c5-f442d9fad0ee/swz62_card_ember.png',['init']=4,
+masterPilotDB[624]={['name']='"Ember" ',['Faction']=5,['ship_type']=69,['cost']=52,['slot']={1,19,5,14},['Shield']=2,['Force']=nil,['Charge']=0,['card']='https://images-cdn.fantasyflightgames.com/filer_public/76/2e/762e6c35-81ce-4c9e-b8c5-f442d9fad0ee/swz62_card_ember.png',['init']=4,
                   ['actSet']={'F','TL','E','BR','B'}}				  
-masterPilotDB[625]={['name']='"Holo"',['Faction']=5,['ship_type']=68,['cost']=54,['slot']={1,19,5,14},['Shield']=2,['Force']=nil,['Charge']=0,['card']='https://images-cdn.fantasyflightgames.com/filer_public/2e/fe/2efe3183-8d4a-402a-9b11-4c8bf56a0b6c/swz62_card_holo.png',['init']=5,
+masterPilotDB[625]={['name']='"Holo"',['Faction']=5,['ship_type']=69,['cost']=54,['slot']={1,19,5,14},['Shield']=2,['Force']=nil,['Charge']=0,['card']='https://images-cdn.fantasyflightgames.com/filer_public/2e/fe/2efe3183-8d4a-402a-9b11-4c8bf56a0b6c/swz62_card_holo.png',['init']=5,
                   ['actSet']={'F','TL','E','BR','B'}}
-masterPilotDB[626]={['name']='Major Vonreg',['Faction']=5,['ship_type']=68,['cost']=57,['slot']={1,19,5,14},['Shield']=2,['Force']=nil,['Charge']=0,['card']='https://images-cdn.fantasyflightgames.com/filer_public/b6/de/b6de4a15-0b5d-4c39-8a2e-c96af5dff9fe/swz62_card_major-vonreg.png',['init']=6,
+masterPilotDB[626]={['name']='Major Vonreg',['Faction']=5,['ship_type']=69,['cost']=57,['slot']={1,19,5,14},['Shield']=2,['Force']=nil,['Charge']=0,['card']='https://images-cdn.fantasyflightgames.com/filer_public/b6/de/b6de4a15-0b5d-4c39-8a2e-c96af5dff9fe/swz62_card_major-vonreg.png',['init']=6,
                   ['actSet']={'F','TL','E','BR','B'}}
 
+--Fireball
+masterPilotDB[627]={['name']='Jarek Yeager',['Faction']=4,['ship_type']=70,['cost']=33,['slot']={1,6,10,13,14,14,15},['Shield']=0,['Force']=nil,['Charge']=0,['card']='https://images-cdn.fantasyflightgames.com/filer_public/85/b2/85b26549-26a7-4f48-88c5-4d52733704ee/swz63_a1_card_jarek-yeager.png',['init']=5,
+                  ['actSet']={'F','E','BR'}}
+masterPilotDB[628]={['name']='Kazuda Xiono',['Faction']=4,['ship_type']=70,['cost']=40,['slot']={1,6,10,13,14,14,15},['Shield']=0,['Force']=nil,['Charge']=0,['card']='https://images-cdn.fantasyflightgames.com/filer_public/16/42/164202d5-47a5-44ea-a96b-49c795005ca8/swz63_a1_card_kazuda-xiono.png',['init']=4,
+                  ['actSet']={'F','TL','E','BR','B'}}				  
+masterPilotDB[629]={['name']='R1-J5',['Faction']=4,['ship_type']=70,['cost']=29,['slot']={6,10,13,14,14,15},['Shield']=0,['Force']=nil,['Charge']=0,['card']='https://images-cdn.fantasyflightgames.com/filer_public/21/b3/21b3db84-a517-41ab-b3b0-dd3e5159b0c3/swz63_a1_card_r1-j5.png',['init']=1,
+                  ['actSet']={'C','TL','E','BR','B'}}
+masterPilotDB[630]={['name']='Colossus Station Mechanic',['Faction']=4,['ship_type']=26,['cost']=57,['slot']={6,10,13,14,14,15},['Shield']=0,['Force']=nil,['Charge']=0,['card']='https://drive.google.com/file/d/107kIAv4wTw64Oabv3mkwl9oIvfHgLAv0/view?usp=sharing',['init']=2,
+                  ['actSet']={'F','TL','E','BR','B'}}
 				  
 masterUpgradesDB={}
 masterUpgradesDB[230]={['name']='Crack Shot',['slot']=1,['cost']=1,['Force']=nil,['Charge']=1,['shd']=nil,['addSlot']=nil,['remSlot']=nil,['card']='https://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_1.png',['restriction']={['Faction']=nil, ['Size']=nil,['ship']=nil}}
@@ -1374,12 +1384,13 @@ masterUpgradesDB[618]={['name']="Proud Tradition",['slot']=1,['cost']=2,['Force'
 masterUpgradesDB[619]={['name']="Stabilized S-Foils (Closed)",['slot']=18,['cost']=2,['Force']=nil,['Charge']=nil,['shd']=nil,['addSlot']=nil,['remSlot']=nil,['card']='https://images-cdn.fantasyflightgames.com/filer_public/52/d5/52d52e74-c744-40b7-ad74-c98bcb04016c/swz66_stabilized-s-foils-closed.png',['cardB']='https://images-cdn.fantasyflightgames.com/filer_public/64/9d/649d6f6e-8cba-404f-a00f-9a36a0076e34/swz66_stabilized-s-foils-open.png',
                         ['restriction']={['Faction']={[nil]=false}, ['Size']=nil,['ship']=17}}
 masterUpgradesDB[620]={['name']="K2SO",['slot']=8,['cost']=8,['Force']=nil,['Charge']=nil,['shd']=nil,['addSlot']=nil,['remSlot']=nil,['card']='https://images-cdn.fantasyflightgames.com/filer_public/e9/71/e97130c3-368d-4453-a0ff-51a63d30394c/swz66_k-2so_upgrade.png',
-                        ['restriction']={['Faction']={[1]=false}, ['Size']=nil,['ship']=nil}}
-masterUpgradesDB[6]={['name']="",['slot']=00,['cost']=00,['Force']=nil,['Charge']=nil,['shd']=nil,['addSlot']=nil,['remSlot']=nil,['card']='',
-                        ['restriction']={['Faction']={[nil]=false}, ['Size']=nil,['ship']=nil}}
-masterUpgradesDB[6]={['name']="",['slot']=00,['cost']=00,['Force']=nil,['Charge']=nil,['shd']=nil,['addSlot']=nil,['remSlot']=nil,['card']='',
-                        ['restriction']={['Faction']={[nil]=false}, ['Size']=nil,['ship']=nil}}
-
+                        ['restriction']={['Faction']={[1]=true}, ['Size']=nil,['ship']=nil}}
+masterUpgradesDB[621]={['name']="R1-J5",['slot']=10,['cost']=6,['Force']=nil,['Charge']=3,['shd']=nil,['addSlot']=nil,['remSlot']=nil,['card']='https://images-cdn.fantasyflightgames.com/filer_public/cc/90/cc901ec5-cb47-4b15-8dd5-76e997698d15/swz63_a1_card_upgrade_r1-j5.png',
+                        ['restriction']={['Faction']={[4]=true}, ['Size']=nil,['ship']=nil}}
+masterUpgradesDB[622]={['name']="Coaxium Hyperfuel",['slot']=13,['cost']=2,['Force']=nil,['Charge']=0,['shd']=nil,['addSlot']=nil,['remSlot']=nil,['card']='https://images-cdn.fantasyflightgames.com/filer_public/01/9c/019c0e75-8e30-4d33-a854-c1e48bdb94fd/swz63_a1_card_coaxium-hyperfuel.png',
+                        ['restriction']={['Faction']={[0]=false}, ['Size']=nil,['ship']=nil}}
+masterUpgradesDB[622]={['name']="Targeting Computer",['slot']=14,['cost']=3,['Force']=nil,['Charge']=0,['shd']=nil,['addSlot']=nil,['remSlot']=nil,['card']='https://images-cdn.fantasyflightgames.com/filer_public/82/17/821761e1-defe-4c3b-b81e-fc2fdb7fa0d1/swz63_a1_card_targeting-computer.png',
+                        ['restriction']={['Faction']={[0]=false}, ['Size']=nil,['ship']=nil}}						
 --w6u
 
 
