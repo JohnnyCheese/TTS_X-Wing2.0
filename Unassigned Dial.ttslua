@@ -376,6 +376,7 @@ function onDropped()
         local nearest = nil
         local minDist = 2.89 -- 80mm
         for k,ship in pairs(getAllObjects()) do
+          print("object: " .. ship.getName())
             if ship.tag == 'Figurine' and ship.name ~= '' then
                 local pos = ship.getPosition()
                 local dist = math.sqrt(math.pow((spos[1]-pos[1]),2) + math.pow((spos[3]-pos[3]),2))
@@ -694,6 +695,8 @@ function showTokMFD(p)
         return
     end]]
     self.UI.show("tokenPanel")
+    self.UI.hide("arcPanel")
+    self.UI.hide("relocPanel")
     self.UI.setAttribute("tokenPanel", "position", "-340 -165 -40")
     self.UI.setAttribute("tokenPanel", "rotation", "180 180 0")
 end
@@ -703,6 +706,8 @@ function showTokMFU(p)
         return
     end
     self.UI.show("tokenPanel")
+    self.UI.hide("arcPanel")
+    self.UI.hide("relocPanel")
     self.UI.setAttribute("tokenPanel", "position", "340 -165 40")
     self.UI.setAttribute("tokenPanel", "rotation", "180 0 0")
 end
@@ -720,6 +725,8 @@ function showArcMFD(p)
         return
     end
     self.UI.show("arcPanel")
+    self.UI.hide("relocPanel")
+    self.UI.hide("tokenPanel")
     self.UI.setAttribute("arcPanel", "position", "260 -185 -40")
     self.UI.setAttribute("arcPanel", "rotation", "180 180 0")
 end
@@ -729,6 +736,8 @@ function showArcMFU(p)
         return
     end
     self.UI.show("arcPanel")
+    self.UI.hide("relocPanel")
+    self.UI.hide("tokenPanel")
     self.UI.setAttribute("arcPanel", "position", "-260 -185 40")
     self.UI.setAttribute("arcPanel", "rotation", "180 0 0")
 end
@@ -745,6 +754,8 @@ function showRelocMFD(p)
         return
     end
     self.UI.show("relocPanel")
+    self.UI.hide("arcPanel")
+    self.UI.hide("tokenPanel")
     self.UI.setAttribute("relocPanel", "position", "0 -215 -40")
     self.UI.setAttribute("relocPanel", "rotation", "180 180 0")
 end
@@ -754,6 +765,8 @@ function showRelocMFU(p)
         return
     end
     self.UI.show("relocPanel")
+    self.UI.hide("arcPanel")
+    self.UI.hide("tokenPanel")
     self.UI.setAttribute("relocPanel", "position", "0 -215 40")
     self.UI.setAttribute("relocPanel", "rotation", "180 0 0")
 end
