@@ -3315,6 +3315,9 @@ DialModule.PerformAction = function(ship, type, playerColor)
         else
             return
         end
+    elseif type:find('deleteMoveTemplate') ~= nil then
+      DialModule.DeleteTemplate(ship)
+      return
     elseif type == 'unstress' then
         local stressInfo = {token=nil, dist=-1}
         for k,tokenInfo in pairs(TokenModule.GetShipTokensInfo(ship)) do
