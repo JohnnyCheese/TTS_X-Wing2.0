@@ -234,17 +234,21 @@ function manSetting()
         self.UI.setAttribute("SpeedIcon", "image", speedIcon)
         self.UI.setAttribute("TypeIcon", "active", "true")
         self.UI.setAttribute("SpeedIcon", "active", "true")
+        self.UI.setAttribute("Templ", "active", "true")
         self.UI.setAttribute("MoveBtn", "active", "true")
+        self.UI.setAttribute("MoveBtn", "textColor", "#FFFFFF")
         self.UI.setAttribute("UndoBtn", "active", "false")
     else
         self.UI.setAttribute("TypeIcon", "active", "false")
         self.UI.setAttribute("SpeedIcon", "active", "false")
+        self.UI.setAttribute("Templ", "active", "false") // why is this needed if not before? and same for other Templs in this func
         self.UI.setAttribute("MoveBtn", "active", "false")
         self.UI.setAttribute("UndoBtn", "active", "false")
     end
     if firstSet== false then
         self.UI.setAttribute("TypeIcon", "active", "false")
         self.UI.setAttribute("SpeedIcon", "active", "false")
+        self.UI.setAttribute("Templ", "active", "false")
         self.UI.setAttribute("MoveBtn", "active", "false")
         self.UI.setAttribute("UndoBtn", "active", "false")
     end
@@ -690,7 +694,7 @@ function showTokMFD(p)
         return
     end]]
     self.UI.show("tokenPanel")
-    self.UI.setAttribute("tokenPanel", "position", "-380 -250 -40")
+    self.UI.setAttribute("tokenPanel", "position", "-340 -165 -40")
     self.UI.setAttribute("tokenPanel", "rotation", "180 180 0")
 end
 
@@ -699,7 +703,7 @@ function showTokMFU(p)
         return
     end
     self.UI.show("tokenPanel")
-    self.UI.setAttribute("tokenPanel", "position", "380 -250 40")
+    self.UI.setAttribute("tokenPanel", "position", "340 -165 40")
     self.UI.setAttribute("tokenPanel", "rotation", "180 0 0")
 end
 
@@ -716,7 +720,7 @@ function showArcMFD(p)
         return
     end
     self.UI.show("arcPanel")
-    self.UI.setAttribute("arcPanel", "position", "300 -270 -40")
+    self.UI.setAttribute("arcPanel", "position", "260 -185 -40")
     self.UI.setAttribute("arcPanel", "rotation", "180 180 0")
 end
 
@@ -725,7 +729,7 @@ function showArcMFU(p)
         return
     end
     self.UI.show("arcPanel")
-    self.UI.setAttribute("arcPanel", "position", "-300 -270 40")
+    self.UI.setAttribute("arcPanel", "position", "-260 -185 40")
     self.UI.setAttribute("arcPanel", "rotation", "180 0 0")
 end
 
@@ -741,7 +745,7 @@ function showRelocMFD(p)
         return
     end
     self.UI.show("relocPanel")
-    self.UI.setAttribute("relocPanel", "position", "0 -280 -40")
+    self.UI.setAttribute("relocPanel", "position", "0 -215 -40")
     self.UI.setAttribute("relocPanel", "rotation", "180 180 0")
 end
 
@@ -750,7 +754,7 @@ function showRelocMFU(p)
         return
     end
     self.UI.show("relocPanel")
-    self.UI.setAttribute("relocPanel", "position", "0 -280 40")
+    self.UI.setAttribute("relocPanel", "position", "0 -215 40")
     self.UI.setAttribute("relocPanel", "rotation", "180 0 0")
 end
 
@@ -761,6 +765,18 @@ function hideRelocM(p)
     self.UI.hide("relocPanel")
 end
 
+function setOrWin(P)
+      if setStat == nil then
+          setStat = false
+      end
+
+          if setStat == false then
+            Window(P)
+          else
+            setDial(P)
+          end
+end
+
 function setDial(P)
     if P.color == playerColor then
         if firstSet == true then
@@ -769,17 +785,23 @@ function setDial(P)
             end
 
                 if setStat == false then
-                    self.UI.setAttribute("SetBtn", "color", P.color)
+                    self.UI.setAttribute("setBtn", "color", P.color)
+                    self.UI.setAttribute("setBtn", "textColor", "#FFFFFF")
+                  --  self.UI.setValue("moveWindow", "Set")
                     setStat = true
                     printToAll(P.color.." player has set the maneuver for "..assignedShip.getName(), P.color)
                     if winStat==true then
                         Window(P)
                     end
+                    --TODO: setvalue wasn't working
                     self.UI.hide("moveWindow")
+                    self.UI.show("setBtn")
                 else
-                    self.UI.setAttribute("SetBtn", "color", "White")
+                  --  self.UI.setValue("moveWindow", "Moves")
                     setStat = false
+
                     self.UI.show("moveWindow")
+                    self.UI.hide("setBtn")
                 end
         else
             print("Pick a maneuver before setting the dial")
