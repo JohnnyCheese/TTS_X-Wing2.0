@@ -268,6 +268,8 @@ masterShipDB[81]={['name']='Xi class Shutle',['Shield']=2,['size']='medium',['ag
 masterShipDB[82]={['name']='Droid Gunship',['Shield']=3,['size']='small',['agi']=1,['XWS']='', ['Fac']={[7]=true}, ['arcs']={'fullfront'},
                             ['moveSet']={'rs0','rbl1','bs1','rbr1','btl2','wbl2','bs2','wbr2','btr2','wtl3','rbl3','ws3','rbr3','wtr3','rs4','rs5'}}
 
+
+
 masterPilotDB={}
 masterPilotDB[0]={['name']='',['Faction']= 0,['ship_type']=0,['cost']=0,['slot']={},['Shield']=0,['Force']=nil,['Charge']=nil,['card']='',['cardB']='',['init']=0}
 
@@ -1320,6 +1322,9 @@ masterUpgradesDB[555]={['name']="Grappling Struts (Closed)",['dual']=1,['slot']=
                         ['restriction']={['Faction']=nil, ['Size']=nil,['ship']={[59]=true}}}
 masterUpgradesDB[556]={['name']="Chancellor Palpatine",['slot']=8,['cost']=14,['Force']=1,['Charge']=nil,['shd']=nil,['addSlot']=nil,['remSlot']=nil,['card']='https://sb-cdn.fantasyflightgames.com/card_images/en/8218d7b903ea8c0c0f88375124a93a5f.png',['cardB']='https://sb-cdn.fantasyflightgames.com/card_images/en/fe4d36bbd6f43ada43a5cf55354211c0.png',
                         ['restriction']={['Faction']={[6]=true,[7]=true}, ['Size']=nil,['ship']=nil}}
+
+
+
 
 ffgSpecial = {}
 ffgSpecial[315] = 'Crew'--r2d2crew
