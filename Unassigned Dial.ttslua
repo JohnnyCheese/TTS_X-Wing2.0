@@ -160,15 +160,6 @@ function onFixedUpdate()
                 clearDial()
                 self.UI.setAttribute("Main", "rotation", "0 0 0")
                 self.UI.show("CenterFD")
-
-                -- Need to hide / show the buttons again here because when a manuver is executed they aren't actually hidden / shown since apparently TTS can't do that when the panel they are in is hidden
-                if ((setStat == nil) or (setStat == false)) then
-                    self.UI.show("moveWindow")
-                    self.UI.hide("setBtnFD")
-                else
-                    self.UI.hide("moveWindow")
-                    self.UI.show("setBtnFD")
-                end
             end
         else
             if faceStat ~= 'Up' then
@@ -178,13 +169,13 @@ function onFixedUpdate()
                 self.UI.setAttribute("Main", "rotation", "180 180 180")
                 self.UI.show('CenterFU')
 
-                -- if a manuver is not set, remove the template (since otherwise there won't be a button to hide it)
-              --  if setStat == false then
-                    deleteTemplate()
-              --  end
+                -- If a manuver is not set, remove the template (since otherwise there won't be a button to hide it)
+                -- Remove template when dial is flipped, since either:
+                -- * There is no manuver set, in which case we no longer show the template button, so there would be no way to remove the template
+                -- * Or there is a new manuver set, and so it could be confusing to still show the old template (and to show the new one you would have to click the button twice, which would be confusing)
+                deleteTemplate()
+                --TODO: move to mansetting or somewhere? maybe
               --TODO: the one case not to delete is if user showed template, double flipped without moving yet. hmmmm -- need a new state to capture that...?
-
-                -- TODO: if a manuver is set but it's different from the one whose template is currently shown, remove the template
 
             end
         end
@@ -258,11 +249,11 @@ function manSetting()
     else
         self.UI.setAttribute("TypeIcon", "active", "false")
         self.UI.setAttribute("SpeedIcon", "active", "false")
-        self.UI.setAttribute("Templ", "active", "false") -- why is this needed if not before? and same for other Templs in this func
+        self.UI.setAttribute("Templ", "active", "false")
         self.UI.setAttribute("MoveBtn", "active", "false")
         self.UI.setAttribute("UndoBtn", "active", "false")
     end
-    if firstSet== false then
+    if firstSet== false then -- CURIOUS: why is this needed?
         self.UI.setAttribute("TypeIcon", "active", "false")
         self.UI.setAttribute("SpeedIcon", "active", "false")
         self.UI.setAttribute("Templ", "active", "false")
@@ -278,7 +269,6 @@ function Undo(p)
 
         printToAll("undoing") --DEBUG
     assignedShip.setDescription("q")
-    deleteTemplate() -- TODO: any feasible way to only delete if you're unding past the template'd move itself?
     self.UI.setAttribute("UndoBtn", "active", "false")
     if setMan:sub(-1,-1) ~='t' then
         self.UI.setAttribute("MoveBtn", "active", "true")
@@ -809,21 +799,22 @@ function setDial(P)
 
                 if setStat == false then
                     self.UI.setAttribute("setBtnFD", "color", P.color)
+                    self.UI.setAttribute("setBtnFD", "active", "true")
                     self.UI.setAttribute("setBtnFD", "textColor", "#FFFFFF")
+                    self.UI.setAttribute("moveWindow", "active", "false")
                     setStat = true
                     printToAll(P.color.." player has set the maneuver for "..assignedShip.getName(), P.color)
                     if winStat==true then
                         Window(P)
                     end
 
-                    self.UI.hide("moveWindow")
-                    self.UI.show("setBtnFD")
                 else
                   --TODO: move to an unset function?
                     setStat = false
 
-                    self.UI.show("moveWindow")
-                    self.UI.hide("setBtnFD")
+                    self.UI.setAttribute("moveWindow", "active", "true")
+                    self.UI.setAttribute("moveWindow", "textColor", "#FFFFFF")
+                    self.UI.setAttribute("setBtnFD", "active", "false")
                 end
         else
             print("Pick a maneuver before setting the dial")
