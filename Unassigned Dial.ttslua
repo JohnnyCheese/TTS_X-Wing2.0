@@ -26,6 +26,8 @@ end
 
 faceStat = nil
 firstSet=false
+setSinceTemplatePlaced = false
+templatePlaced = false
 
 assetTable = {
     {name="Focus", url="https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/actions/focus.png"},
@@ -169,13 +171,11 @@ function onFixedUpdate()
                 self.UI.setAttribute("Main", "rotation", "180 180 180")
                 self.UI.show('CenterFU')
 
-                -- If a manuver is not set, remove the template (since otherwise there won't be a button to hide it)
-                -- Remove template when dial is flipped, since either:
-                -- * There is no manuver set, in which case we no longer show the template button, so there would be no way to remove the template
-                -- * Or there is a new manuver set, and so it could be confusing to still show the old template (and to show the new one you would have to click the button twice, which would be confusing)
-                deleteTemplate()
+                -- Remove template if there is s a new manuver set, since it could be confusing to still show the old template (and to show the new one you would have to click the button twice, which would be confusing)
+                if setSinceTemplatePlaced == true then
+                  deleteTemplate()
+                end
                 --TODO: move to mansetting or somewhere? maybe
-              --TODO: the one case not to delete is if user showed template, double flipped without moving yet. hmmmm -- need a new state to capture that...?
 
             end
         end
@@ -242,23 +242,29 @@ function manSetting()
         self.UI.setAttribute("SpeedIcon", "image", speedIcon)
         self.UI.setAttribute("TypeIcon", "active", "true")
         self.UI.setAttribute("SpeedIcon", "active", "true")
-        self.UI.setAttribute("Templ", "active", "true")
         self.UI.setAttribute("MoveBtn", "active", "true")
         self.UI.setAttribute("MoveBtn", "textColor", "#FFFFFF")
         self.UI.setAttribute("UndoBtn", "active", "false")
+        self.UI.setAttribute("Templ", "active", "true")
+        self.UI.setAttribute("Templ", "textColor", "#FFFFFF")
     else
         self.UI.setAttribute("TypeIcon", "active", "false")
         self.UI.setAttribute("SpeedIcon", "active", "false")
-        self.UI.setAttribute("Templ", "active", "false")
         self.UI.setAttribute("MoveBtn", "active", "false")
         self.UI.setAttribute("UndoBtn", "active", "false")
+        if not templatePlaced then
+          self.UI.setAttribute("Templ", "active", "false")
+        end
     end
-    if firstSet== false then -- CURIOUS: why is this needed?
+    if firstSet== false then -- CURIOUS: why is this needed? same as above?
         self.UI.setAttribute("TypeIcon", "active", "false")
         self.UI.setAttribute("SpeedIcon", "active", "false")
-        self.UI.setAttribute("Templ", "active", "false")
         self.UI.setAttribute("MoveBtn", "active", "false")
         self.UI.setAttribute("UndoBtn", "active", "false")
+
+        if not templatePlaced then
+          self.UI.setAttribute("Templ", "active", "false")
+        end
     end
 end
 
@@ -803,6 +809,7 @@ function setDial(P)
                     self.UI.setAttribute("setBtnFD", "textColor", "#FFFFFF")
                     self.UI.setAttribute("moveWindow", "active", "false")
                     setStat = true
+                    setSinceTemplatePlaced = true
                     printToAll(P.color.." player has set the maneuver for "..assignedShip.getName(), P.color)
                     if winStat==true then
                         Window(P)
@@ -827,12 +834,20 @@ function spawnTemplate(p)
         return
     end
     if setMan~='' then
+        setSinceTemplatePlaced = false
+        templatePlaced = not templatePlaced
+        
+        if setStat == false then
+          self.UI.setAttribute("Templ", "active", "false")
+        end
+
         Table={[1]=assignedShip,[2]='spawnMoveTemplate:'..setMan..befAft,[3]=playerColor}
         Global.call("proxyPerformAction",Table)
     end
 end
 
 function deleteTemplate()
+  templatePlaced = false
   Table={[1]=assignedShip,[2]='deleteMoveTemplate',[3]=playerColor}
   Global.call("proxyPerformAction",Table)
 end

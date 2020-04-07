@@ -34,9 +34,9 @@
         <Button id="moveWindow" class="CenterButtons" height="75" position="0 10 -0.5" active="true" onClick="Window">Moves</Button> <!-- -.5 more ubnrelaibel than -1?? -->
         <Button id="setBtnFD" class="CenterButtons" height="75" position="0 10 -0.5" active="false" onClick="setDial">Set</Button>
         <Text   id="Name" class="DialName" position="0 70 3.5" rotation="180 180 0" height="80" fontSize="25" fontStyle="Bold">Name</Text>
-        <Button id="TokenMenu" class="CenterMenuButtons" offsetXY="-110 15" active="true" onMouseEnter="showTokMFD" fontSize="25">T</Button>-->
+        <Button id="TokenMenu" class="CenterMenuButtons" offsetXY="-110 15" active="true" onMouseEnter="showTokMFD" fontSize="25">T</Button>
         <Button id="ArcMenu" class="CenterMenuButtons" offsetXY="110 15" active="true" onMouseEnter="showArcMFD" fontSize="25">A</Button>
-        <Button id="undoFD" class="CenterMenuButtons" offsetXY="0 -50" active="true" onClick="Undo" height="30" width="60"  fontStyle="Bold">Undo</Button>
+        <Button id="undoFD" class="CenterMenuButtons" offsetXY="0 -50" active="true" onClick="Undo" height="30" width="60"  fontStyle="Bold">Undo</Button> <!-- move bold to style? -->
         <Button id="RelocMenu" class="CenterMenuButtons" offsetXY="0 -105" active="true" onMouseEnter="showRelocMFD" fontSize="25">R</Button>
 </Panel>
 
@@ -54,8 +54,8 @@
         <Button id="TalonReaBtn" class="RelocButtons" offsetXY="60 0" active="true" onClick="performTalon">
             <Image id="TalonReaIcon" class="RIcon"  image="TalonRear" preserveAspect="true"></Image></Button>
     </Panel>
-    <Button id="MoveBtn" class="CenterButtons" offsetXY="0 100" active="true" onClick="performMove">Move</Button> <!-- move down like 5 move at most to give a even margin around manuver? -->
-    <Button id="UndoBtn" class="CenterButtons" offsetXY="0 100" active="false" onClick="Undo">Undo</Button>
+    <Button id="MoveBtn" class="CenterButtons" offsetXY="0 109" active="true" onClick="performMove">Move</Button> <!-- move down like 5 move at most to give a even margin around manuver? -->
+    <Button id="UndoBtn" class="CenterButtons" offsetXY="0 109" active="false" onClick="Undo">Undo</Button>
     <Button id="TokenMenuFu" class="CenterMenuButtons" offsetXY="-110 15" active="true" onMouseEnter="showTokMFU" fontSize="25">T</Button> <!-- make RAT a different class or something? same font size -->
     <Button id="ArcMenuFU" class="CenterMenuButtons" offsetXY="110 15" active="true" onMouseEnter="showArcMFU" fontSize="25">A</Button>
     <Button id="undoFU" class="CenterMenuButtons" offsetXY="0 -50" active="true" onClick="Undo" height="30" width="60"  fontStyle="Bold">Undo</Button>
@@ -69,8 +69,6 @@
     width="400"
     height="500"
     color="#aaffaa00"
-    showAnimation="FadeIn"
-    hideAnimation="FadeOut"
     onMouseExit="hideArcM">
     <Panel id="ArcFD"
         width="300"
@@ -100,8 +98,6 @@
     width="600"
     height="450"
     color="#aaffaa00"
-    showAnimation="FadeIn"
-    hideAnimation="FadeOut"
     onMouseExit="hideTokM">
     <Panel id="TokenButtonPanel"
         width="400"
@@ -179,8 +175,6 @@
     width="600"
     height="300"
     color="#aaffaa00"
-    showAnimation="FadeIn"
-    hideAnimation="FadeOut"
     onMouseExit="hideRelocM">
     <Panel id="BoostFD"
         class="BoostPanel"
