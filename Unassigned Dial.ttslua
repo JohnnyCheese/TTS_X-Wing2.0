@@ -836,8 +836,9 @@ function spawnTemplate(p)
     if setMan~='' then
         setSinceTemplatePlaced = false
         templatePlaced = not templatePlaced
-        
-        if setStat == false then
+
+        -- if manuver is not visible, template button is only here to allow removal, and after that it can be hidden again
+        if self.UI.getAttribute("SpeedIcon", "active") == "false" then
           self.UI.setAttribute("Templ", "active", "false")
         end
 

@@ -36,7 +36,7 @@
         <Text   id="Name" class="DialName" position="0 70 3.5" rotation="180 180 0" height="80" fontSize="25" fontStyle="Bold">Name</Text>
         <Button id="TokenMenu" class="CenterMenuButtons" offsetXY="-110 15" active="true" onMouseEnter="showTokMFD">T</Button>
         <Button id="ArcMenu" class="CenterMenuButtons" offsetXY="110 15" active="true" onMouseEnter="showArcMFD">A</Button>
-        <Button id="undoFD" class="CenterMenuButtons" offsetXY="0 -50" active="true" onClick="Undo" height="30" width="60" fontSize="18" fontStyle="Bold">Undo</Button> <!-- or 14 ft point? move bold to style? -->
+        <Button id="undoFD" class="CenterMenuButtons" offsetXY="0 -51" active="true" onClick="Undo" height="30" width="60" fontSize="18" fontStyle="Bold">Undo</Button> <!-- or 14 ft point? move bold to style? -->
         <Button id="RelocMenu" class="CenterMenuButtons" offsetXY="0 -105" active="true" onMouseEnter="showRelocMFD">R</Button>
 </Panel>
 
@@ -58,12 +58,12 @@
     <Button id="UndoBtn" class="CenterButtons" offsetXY="0 109" active="false" onClick="Undo">Undo</Button>
     <Button id="TokenMenuFu" class="CenterMenuButtons" offsetXY="-110 15" active="true" onMouseEnter="showTokMFU">T</Button>
     <Button id="ArcMenuFU" class="CenterMenuButtons" offsetXY="110 15" active="true" onMouseEnter="showArcMFU">A</Button>
-    <Button id="undoFU" class="CenterMenuButtons" offsetXY="0 -50" active="true" onClick="Undo" height="30" width="60" fontSize="18" fontStyle="Bold">Undo</Button>
-    <Button id="Templ" class="CenterMenuButtons" offsetXY="0 20" active="true" height="110" width="60" fontSize="13" onClick="spawnTemplate">Remove
+    <Button id="undoFU" class="CenterMenuButtons" offsetXY="0 -51" active="true" onClick="Undo" height="30" width="60" fontSize="18" fontStyle="Bold">Undo</Button>
+    <Button id="Templ" class="CenterMenuButtons" offsetXY="0 27" active="true" height="110" width="60" fontSize="13" onClick="spawnTemplate">Remove
       Templ.</Button>
     <Button id="RelocMenuFU" class="CenterMenuButtons" offsetXY="0 -106" active="true" onMouseEnter="showRelocMFU">R</Button>
-    <Image id="SpeedIcon" class="SetIcon" active="false" image="Speed1" offsetXY="0 45" height ="60" width="60"></Image>
-    <Image id="TypeIcon" class="SetIcon" active="false" image="BlueStraight" offsetXY="0 -5" height ="60" width="60"></Image>
+    <Image id="SpeedIcon" class="SetIcon" active="false" image="Speed1" offsetXY="0 52" height ="60" width="60"></Image>
+    <Image id="TypeIcon" class="SetIcon" active="false" image="BlueStraight" offsetXY="0 2" height ="60" width="60"></Image>
 </Panel>
 
 <Panel id="arcPanel"
