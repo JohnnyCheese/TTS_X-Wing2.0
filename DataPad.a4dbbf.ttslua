@@ -17,10 +17,10 @@ self.interactable = false
 
 -- List and cost of variable cost upgrades based on base sizea
 varCostS={}
-varCostS[296] = {[1] = 2, [2] = 4,[3] = 7} --Engine Upgrade
-varCostS[234] = {[1] = 2, [2] = 4,[3] = 6} --Expert Handling
-varCostS[489] = {[1] = 3, [2] = 6,[3] = 9} --Hate
-varCostS[612] = {[1] = 7, [2] = 8,[3] = 9} --Snap Shot
+varCostS[296] = {small = 2, medium = 4, large = 7} --Engine Upgrade
+varCostS[234] = {small = 2, medium = 3, large = 4} --Expert Handling
+varCostS[489] = {small = 3, medium = 6, large = 9} --Hate
+varCostS[612] = {small = 7, medium = 8, large  = 9} --Snap Shot
 
 -- List and cost of variable cost upgrades based on agility value
 varCostA={}
@@ -303,6 +303,18 @@ masterShipDB[81]={['name']='Xi class Shutle',['Shield']=2,['size']='medium',['ag
 masterShipDB[82]={['name']='Droid Gunship',['Shield']=3,['size']='small',['agi']=1,['XWS']='', ['Fac']={[7]=true}, ['arcs']={'fullfront'},
                             ['moveSet']={'rs0','rbl1','bs1','rbr1','btl2','wbl2','bs2','wbr2','btr2','wtl3','rbl3','ws3','rbr3','wtr3','rs4','rs5'}}
 ]]
+
+-- Huge ships
+masterShipDB[90]={['name']='CR-90 Corvette',['Shield']=7,['Energy']=7,['size']='huge',['agi']=0,['XWS']='', ['Fac']={[1]=true, [6]=true}, ['arcs']={'left','right'},
+                            ['moveSet']={'rbl0','rbr0','wbl1','ws1','wbr1','bbl2','bs2','bbr2','rbl3','bs3','rbr3','rs4','rs5'}}
+masterShipDB[91]={['name']='C-ROC Cruiser',['Shield']=4,['Energy']=4,['size']='huge',['agi']=0,['XWS']='', ['Fac']={[3]=true, [7]=true}, ['arcs']={'front'},
+                            ['moveSet']={'rbl0','rs0','rbr0','wbl1','bs1','wbr1','wbl2','bs2','wbr2','rbl3','ws3','rbr3','rs4','rs5'}}
+masterShipDB[92]={['name']='Gozanti-class Cruiser',['Shield']=5,['Energy']=3,['size']='huge',['agi']=0,['XWS']='', ['Fac']={[2]=true, [5]=true}, ['arcs']={'front'},
+                            ['moveSet']={'rbl0','rs0','rbr0','wbl1','bs1','wbr1','rbl2','bs2','rbr2','bs3','rs4'}}
+masterShipDB[93]={['name']='GR-75 Medium Transport',['Shield']=3,['Energy']=4,['size']='huge',['agi']=0,['XWS']='', ['Fac']={[1]=true, [4]=true}, ['arcs']={'front'},
+                            ['moveSet']={'rbl0','rs0','rbr0','bbl1','bs1','bbr1','wbl2','ws2','wbr2','rs3','rs4'}}
+masterShipDB[94]={['name']='Raider-class Corvette',['Shield']=8,['Energy']=6,['size']='huge',['agi']=0,['XWS']='', ['Fac']={[2]=true, [5]=true}, ['arcs']={'fullfront'},
+                            ['moveSet']={'rbl0','rs0','rbr0','bbl1','ws1','bbr1','wbl2','bs2','wbr2','rbl3','bs3','rbr3','ws4','rs5'}}
 
 
 masterPilotDB={}
@@ -1101,15 +1113,31 @@ masterPilotDB[635]={['name']='Bossk',['Faction']= 3,['ship_type']=38,['cost']=22
 masterPilotDB[636]={['name']='G4R-G0R V/M',['Faction']= 3,['ship_type']=44,['cost']=41,['slot']={14,99},['Shield']=1,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/4c/2c/4c2c309f-f9b0-4a93-a3a5-28b43fe981c3/swz66_g4r-g0r_vm.png',['init']=5,['actSet']={'C','E','TL','BR'}}
 masterPilotDB[637]={['name']='Nom Lumb',['Faction']= 3,['ship_type']=45,['cost']=38,['slot']={1, 3, 8, 5, 13, 14, 15, 16},['Shield']=3,['Charge']=1,
-
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/f9/67/f96780a9-1fff-460c-8480-4294fd7a7a27/swz66_nom-lumb.png',['init']=1,['actSet']={'F','TL','BR','Rot'}}
 
-
-
-
+-- Huge ships
+masterPilotDB[1000]={['name']='Alderaanian Guard',['Faction']=1,['ship_type']=90,['cost']=146,['slot']={21, 24, 24, 8, 8, 16, 23, 23, 22, 15},
+                  ['card']='https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/2/2c/Swz55_alderaanian-guard_card.png',['init']=0,['actSet']={'F','TL','R'}}
+masterPilotDB[1001]={['name']='Republic Judiciary',['Faction']=6,['ship_type']=90,['cost']=146,['slot']={21, 24, 24, 8, 8, 16, 23, 23, 22},
+                  ['card']='https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/1/19/Swz55_republic-judiciary_card.png',['init']=0,['actSet']={'F','TL','R'}}
+masterPilotDB[1002]={['name']='Separatist Privateers',['Faction']=7,['ship_type']=91,['cost']=58,['slot']={21, 24, 8, 8, 20, 23, 22, 12, 18},
+                  ['card']='https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/d/df/Separatist_privateers.png',['init']=1,['actSet']={'F','TL','R'}}
+masterPilotDB[1003]={['name']='Syndicate Smugglers',['Faction']=3,['ship_type']=91,['cost']=58,['slot']={21, 24, 8, 8, 23, 22, 12, 13, 15, 18},
+                  ['card']='https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/2/2d/Swz55_syndicate-smugglers_card.png',['init']=1,['actSet']={'F','TL','R'}}
+masterPilotDB[1004]={['name']='First Order Sympathizers',['Docking']=true,['Faction']=5,['ship_type']=92,['cost']=60,['slot']={21, 24, 8, 8, 16, 23, 22, 22},
+                  ['card']='https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/6/6f/First_Order_Sympathizers.png',['init']=1,['actSet']={'F','TL','R'}}
+masterPilotDB[1005]={['name']='Outer Rim Garrison',['Docking']=true,['Faction']=2,['ship_type']=92,['cost']=60,['slot']={21, 24, 8, 8, 16, 23, 22, 22, 15},
+                  ['card']='https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/e/ec/Outer_Rim_Garrison.png',['init']=1,['actSet']={'F','TL','R'}}
+masterPilotDB[1006]={['name']='Echo Base Evacuees',['Faction']=1,['ship_type']=93,['cost']=55,['slot']={21, 24, 4, 8, 8, 23, 22, 22, 15},
+                  ['card']='https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/3/39/Swz53_echo-base-evacuees.png',['init']=1,['actSet']={'F','TL','R'}}
+masterPilotDB[1007]={['name']='New Republic Volunteers',['Faction']=4,['ship_type']=93,['cost']=55,['slot']={21, 24, 4, 8, 8, 23, 22, 22},
+                  ['card']='https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/d/d8/New_Republic_Volunteers.png',['init']=1,['actSet']={'F','TL','R'}}
+masterPilotDB[1008]={['name']='First Order Collaborators',['Faction']=5,['ship_type']=94,['cost']=146,['slot']={21, 5, 6, 24, 24, 8, 23, 23, 22},
+                  ['card']='https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/0/09/First_Order_Collaborators.png',['init']=1,['actSet']={'F','TL','R'}}
+masterPilotDB[1009]={['name']='First Order Collaborators',['Faction']=2,['ship_type']=94,['cost']=146,['slot']={21, 5, 6, 24, 24, 8, 23, 23, 22, 15},
+                  ['card']='https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/b/bf/Outer_Rim_Patrol.png',['init']=1,['actSet']={'F','TL','R'}}
 
 masterUpgradesDB={}
-
 masterUpgradesDB[230]={['name']='Crack Shot',['slot']=1,['cost']=1,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_1.png',['restriction']={ }}
 masterUpgradesDB[231]={['name']='Daredevil',['slot']=1,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_2.png',['restriction']={['Size']={[1]=true}}}
 masterUpgradesDB[232]={['name']='Debris Gambit',['slot']=1,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_3.png',['restriction']={['Size']={[1]=true,[2]=true}}}
@@ -3162,7 +3190,11 @@ slotName[17] = 'Force Talent' -- Force Power
 slotName[18] = 'Configuration' -- Configuration
 slotName[19] = 'Tech' -- Tech
 slotName[20] = 'Relay' -- Relay
-slotName[99] = 'HardPoint' -- Hardpoint
+slotName[21] = 'Command' -- Command
+slotName[22] = 'Cargo' -- Cargo
+slotName[23] = 'Team'  -- Team
+slotName[24] = 'Hardpoint'
+slotName[99] = 'Weapon HardPoint' -- Hardpoint
 
 
 
