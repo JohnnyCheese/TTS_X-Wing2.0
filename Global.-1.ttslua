@@ -787,26 +787,30 @@ ArcCheck.GetTargetLineSegmentsInArc = function(ship, target, arcinfo)
                                        Vect.Sum(target.getPosition(), Vect.RotateDeg(segment[2], target.getRotation()[2]))}
             local ownship_oriented_segment = {Vect.RotateDeg(Vect.Between(ship.getPosition(), rotated_segment[1]), -ship.getRotation()[2]),
                                             Vect.RotateDeg(Vect.Between(ship.getPosition(), rotated_segment[2] ), -ship.getRotation()[2])}
-            local p1 = ownship_oriented_segment[1]
-            local p2 = ownship_oriented_segment[2]
-            if ownship_oriented_segment[2][1] < ownship_oriented_segment[1][1] then
-                p1 = ownship_oriented_segment[2]
-                p2 = ownship_oriented_segment[1]
-            end
+            local x1 = math.min(ownship_oriented_segment[1][1], ownship_oriented_segment[2][1])
+            local x2 = math.max(ownship_oriented_segment[1][1], ownship_oriented_segment[2][1])
 
             local in_arc = true
-            if p1[3] < 0 then -- Target in front (Yeah it is backwards)
-                if p1[1] < - half_bullseye then
-                    p1[1] = -half_bullseye
-                    if p2[1] > -half_bullseye then
-                        p2[1] = math.min(half_bullseye, p2[1])
-                        table.insert(outsegments, { Vect.Sum(Vect.RotateDeg(p1, ship.getRotation()[2]), ship.getPosition()),
-                                                    Vect.Sum(Vect.RotateDeg(p2, ship.getRotation()[2]), ship.getPosition())})
+            if ownship_oriented_segment[1][3] < 0 then -- Target in front (Yeah it is backwards)
+                if x1 < -half_bullseye then
+                    x1 = -half_bullseye
+                    if x2 > -half_bullseye then
+                        x2 = math.min(half_bullseye, x2)
+                        p1 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x1, ownship_oriented_segment[1][2], 0), vector(x1, ownship_oriented_segment[1][2], 20))
+                        p2 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x2, ownship_oriented_segment[1][2], 0), vector(x2, ownship_oriented_segment[1][2], 20))
+                        if p1 ~= nil and p2 ~= nil then
+                          table.insert(outsegments, { Vect.Sum(Vect.RotateDeg(p1, ship.getRotation()[2]), ship.getPosition()),
+                                                      Vect.Sum(Vect.RotateDeg(p2, ship.getRotation()[2]), ship.getPosition())})
+                        end
                     end
-                elseif p1[1] < half_bullseye then
-                    p2[1] = math.min(half_bullseye, p2[1])
-                    table.insert(outsegments, { Vect.Sum(Vect.RotateDeg(p1, ship.getRotation()[2]), ship.getPosition()),
-                                                Vect.Sum(Vect.RotateDeg(p2, ship.getRotation()[2]), ship.getPosition())})
+                elseif x1 < half_bullseye then
+                    x2 = math.min(half_bullseye, x2)
+                    p1 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x1, ownship_oriented_segment[1][2], 0), vector(x1, ownship_oriented_segment[1][2], 20))
+                    p2 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x2, ownship_oriented_segment[1][2], 0), vector(x2, ownship_oriented_segment[1][2], 20))
+                    if p1 ~= nil and p2 ~= nil then
+                      table.insert(outsegments, { Vect.Sum(Vect.RotateDeg(p1, ship.getRotation()[2]), ship.getPosition()),
+                                                  Vect.Sum(Vect.RotateDeg(p2, ship.getRotation()[2]), ship.getPosition())})
+                    end
                 end
             end
         end
