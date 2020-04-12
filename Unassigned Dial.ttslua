@@ -267,7 +267,7 @@ function manSetting()
     end
 
     -- Remove template if a new manuver has been set since it was shown, since it could be confusing to still show the old template (and to show the new one you would have to click the button twice, which would be confusing)
-    if setSinceTemplatePlaced == true then
+    if setSinceTemplatePlaced and templatePlaced then
       deleteTemplate()
     end
 end
