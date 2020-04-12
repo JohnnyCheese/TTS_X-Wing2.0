@@ -26,8 +26,8 @@ end
 
 faceStat = nil
 firstSet=false
-setSinceTemplatePlaced = false
-templatePlaced = false
+setSinceTemplatePlaced = false -- True if the user has set a movement since the movement template was last placed on the table
+templatePlaced = false  -- True if the movement template is currently on the table (as far as we can tell based on just dial button clicks, anyway)
 
 assetTable = {
     {name="Focus", url="https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/actions/focus.png"},
@@ -143,6 +143,7 @@ function onLoad()
     end
 end
 
+
 function clearDial()
     self.UI.hide("CenterFD")
     self.UI.Hide('CenterFU')
@@ -252,16 +253,19 @@ function manSetting()
         self.UI.setAttribute("SpeedIcon", "active", "false")
         self.UI.setAttribute("MoveBtn", "active", "false")
         self.UI.setAttribute("UndoBtn", "active", "false")
+
+        -- Hide the template button when there isn't a manuver set, since it's confusing and undefined in some cases what template should be shown then
         if not templatePlaced then
           self.UI.setAttribute("Templ", "active", "false")
         end
     end
-    if firstSet== false then -- CURIOUS: why is this needed? same as above?
+    if firstSet== false then -- TODO just curious-- why is this needed? same as above?
         self.UI.setAttribute("TypeIcon", "active", "false")
         self.UI.setAttribute("SpeedIcon", "active", "false")
         self.UI.setAttribute("MoveBtn", "active", "false")
         self.UI.setAttribute("UndoBtn", "active", "false")
 
+        -- Hide the template button when there isn't a manuver set, since it's confusing and undefined in some cases what template should be shown then
         if not templatePlaced then
           self.UI.setAttribute("Templ", "active", "false")
         end
@@ -272,7 +276,6 @@ function Undo(p)
     if spectReturn(p) == true then
         return
     end
-
     assignedShip.setDescription("q")
     self.UI.setAttribute("UndoBtn", "active", "false")
     if setMan:sub(-1,-1) ~='t' then
@@ -815,12 +818,11 @@ function setDial(P)
                     end
 
                 else
-                  --TODO: move to an unset function? if it's more readable
-                    setStat = false
-
+                    --TODO: move to an unset function? if it's more readable
+                    self.UI.setAttribute("setBtnFD", "active", "false")
                     self.UI.setAttribute("moveWindow", "active", "true")
                     self.UI.setAttribute("moveWindow", "textColor", "#FFFFFF")
-                    self.UI.setAttribute("setBtnFD", "active", "false")
+                    setStat = false
                 end
         else
             print("Pick a maneuver before setting the dial")
@@ -836,7 +838,7 @@ function spawnTemplate(p)
         setSinceTemplatePlaced = false
         templatePlaced = not templatePlaced
 
-        -- if manuver is not visible, template button is only here to allow removal, and after that it can be hidden again
+        -- if a manuver is not visible on dial, template button is only here to allow removal, and after that it can be hidden again
         if self.UI.getAttribute("SpeedIcon", "active") == "false" then
           self.UI.setAttribute("Templ", "active", "false")
         end
