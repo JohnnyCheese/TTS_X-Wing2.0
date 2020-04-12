@@ -175,7 +175,7 @@ function onFixedUpdate()
                 if setSinceTemplatePlaced == true then
                   deleteTemplate()
                 end
-                --TODO: move to mansetting or somewhere? maybe
+                --TODO: move to mansetting or somewhere? if that makes more sense and functions the same
 
             end
         end
@@ -273,7 +273,6 @@ function Undo(p)
         return
     end
 
-        printToAll("undoing") --DEBUG
     assignedShip.setDescription("q")
     self.UI.setAttribute("UndoBtn", "active", "false")
     if setMan:sub(-1,-1) ~='t' then
@@ -816,7 +815,7 @@ function setDial(P)
                     end
 
                 else
-                  --TODO: move to an unset function?
+                  --TODO: move to an unset function? if it's more readable
                     setStat = false
 
                     self.UI.setAttribute("moveWindow", "active", "true")
