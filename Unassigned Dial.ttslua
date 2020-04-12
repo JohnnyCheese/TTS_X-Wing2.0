@@ -809,6 +809,10 @@ function setDial(P)
                     self.UI.setAttribute("setBtnFD", "color", P.color)
                     self.UI.setAttribute("setBtnFD", "active", "true")
                     self.UI.setAttribute("setBtnFD", "textColor", "#FFFFFF")
+                    if (P.color == "Yellow") then
+                       -- White text on yellow button is pretty hard to read, so for the Yellow player change the text to black instead
+                      self.UI.setAttribute("setBtnFD", "textColor", "#000000")
+                    end
                     self.UI.setAttribute("moveWindow", "active", "false")
                     setStat = true
                     setSinceTemplatePlaced = true
@@ -818,7 +822,7 @@ function setDial(P)
                     end
 
                 else
-                    --TODO: move to an unset function? if it's more readable
+                    --TODO: Now that the set dial and unset dial buttons are 2 different buttons, this file's code would probably be more readable with this function split in to setDial() and unsetDial()
                     self.UI.setAttribute("setBtnFD", "active", "false")
                     self.UI.setAttribute("moveWindow", "active", "true")
                     self.UI.setAttribute("moveWindow", "textColor", "#FFFFFF")
