@@ -171,13 +171,6 @@ function onFixedUpdate()
                 manSetting()
                 self.UI.setAttribute("Main", "rotation", "180 180 180")
                 self.UI.show('CenterFU')
-
-                -- Remove template if there is s a new manuver set, since it could be confusing to still show the old template (and to show the new one you would have to click the button twice, which would be confusing)
-                if setSinceTemplatePlaced == true then
-                  deleteTemplate()
-                end
-                --TODO: move to mansetting or somewhere? if that makes more sense and functions the same
-
             end
         end
     end
@@ -247,28 +240,35 @@ function manSetting()
         self.UI.setAttribute("MoveBtn", "textColor", "#FFFFFF")
         self.UI.setAttribute("UndoBtn", "active", "false")
         self.UI.setAttribute("Templ", "active", "true")
-        self.UI.setAttribute("Templ", "textColor", "#FFFFFF")
+        self.UI.setAttribute("Templ", "textColor", "#222222") -- Make the text same color as the background since goal is to only have the type / speed icons showing anyway
     else
         self.UI.setAttribute("TypeIcon", "active", "false")
         self.UI.setAttribute("SpeedIcon", "active", "false")
         self.UI.setAttribute("MoveBtn", "active", "false")
         self.UI.setAttribute("UndoBtn", "active", "false")
+        self.UI.setAttribute("Templ", "textColor", "#FFFFFF")
 
         -- Hide the template button when there isn't a manuver set, since it's confusing and undefined in some cases what template should be shown then
         if not templatePlaced then
           self.UI.setAttribute("Templ", "active", "false")
         end
     end
-    if firstSet== false then -- TODO just curious-- why is this needed? same as above?
+    if firstSet== false then
         self.UI.setAttribute("TypeIcon", "active", "false")
         self.UI.setAttribute("SpeedIcon", "active", "false")
         self.UI.setAttribute("MoveBtn", "active", "false")
         self.UI.setAttribute("UndoBtn", "active", "false")
+        self.UI.setAttribute("Templ", "textColor", "#FFFFFF")
 
         -- Hide the template button when there isn't a manuver set, since it's confusing and undefined in some cases what template should be shown then
         if not templatePlaced then
           self.UI.setAttribute("Templ", "active", "false")
         end
+    end
+
+    -- Remove template if a new manuver has been set since it was shown, since it could be confusing to still show the old template (and to show the new one you would have to click the button twice, which would be confusing)
+    if setSinceTemplatePlaced == true then
+      deleteTemplate()
     end
 end
 

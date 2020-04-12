@@ -3,6 +3,7 @@
     <Button class="TokenButtons" height="50" width="50" color="#aaffaa00" active="false"/>
     <Button class="RelocButtons" height="60" width="60" color="#aaffaa00" active="false"/>
     <Button class="ArcButtons" height="80" width="80" color="#aaffaa00"/>
+    <Button class="DarkButton" color="#222222" outline="#BBBBBB" outlineSize="2 2" fontSize="22" textColor="#FFFFFF" fontStyle="Bold"/>
     <Button class="CenterMenuButtons" rotation="0 0 180" height="60" width="60" color="#222222" outline="#BBBBBB" outlineSize="2 2" fontSize="22" textColor="#FFFFFF" fontStyle="Bold"/>
     <Button class="topButton" width="40" height="40" rectAlignment="UpperRight"/>
     <Button class="CenterButtons" fontSize="22" fontStyle="Bold" rotation="0 0 180" color="#222222" outline="#BBBBBB" outlineSize="2 2" textColor="#FFFFFF" height="40" width="80" active="false"/>
@@ -461,8 +462,8 @@
 
     </ToggleGroup>
 
-    <Button id="setBtnManWin" class="CenterButtons" fontSize="26" offsetXY="302 -263" width="150" height="75" rotation="0 0 0" active="true" onClick="setDial">Set</Button>
-<!-- TODO :fix class of this btn? -->
+    <Button id="setBtnManWin" class="DarkButton" fontSize="26" offsetXY="302 -263" width="150" height="75" onClick="setDial">Set</Button>
+    
     <Panel
       class="TopBar"
       id="TopBar">
