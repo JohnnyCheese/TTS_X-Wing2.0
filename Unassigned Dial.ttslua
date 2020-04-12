@@ -19,7 +19,8 @@ playerColor = nil
 -- Save self state
 function onSave()
     if assignedShip ~= nil then
-        local state = {assignedShipGUID=assignedShip.getGUID()}
+        local state = {assignedShipGUID=assignedShip.getGUID(),
+                        owningPlayer=playerColor}
         return JSON.encode(state)
     end
 end
@@ -153,7 +154,7 @@ function clearDial()
     winStat = false
 end
 
-function onFixedUpdate()
+function onUpdate()
     if assignedShip ~= nil then
         if self.getTransformUp().y >0 then
             if faceStat ~= 'Down' then
@@ -260,7 +261,7 @@ function Undo(p)
         self.UI.setAttribute("MoveBtn", "active", "true")
     else
         self.UI.show("TalonPanel")
-    end--]]
+    end
     befAft='_B'
 end
 
@@ -674,12 +675,9 @@ function Window(p)
 end
 
 function spectReturn(p)
-    --[[if p.color == 'Grey' then
-        return true
-    elseif p.color == 'White' then
-        return true
+    if p.color == 'Black' then
+      return true
     end
-    --]]
     return p.color ~= playerColor
 end
 
@@ -687,9 +685,6 @@ function showTokMFD(p)
     if spectReturn(p) == true then
         return
     end
-    --[[if p.color ==  'Grey' then
-        return
-    end]]
     self.UI.show("tokenPanel")
     self.UI.hide("arcPanel")
     self.UI.hide("relocPanel")

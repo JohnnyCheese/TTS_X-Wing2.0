@@ -70,8 +70,8 @@ function onCollisionEnter(collision_info)
     end
     rot = {0,self.getRotation().y - 90 - angle,0}
 
-    obj.setRotation(rot)
-    obj.setPosition(self.positionToWorld(pos))
+    obj.setRotationSmooth(rot,false,true)
+    obj.setPositionSmooth(self.positionToWorld(pos),false, true)
     obj.setLock(true)
 end
 

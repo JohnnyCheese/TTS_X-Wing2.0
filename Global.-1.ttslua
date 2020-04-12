@@ -374,6 +374,9 @@ function CheckArc(args)
     end
     ArcCheck.current_arc = args.arctype
     ArcCheck.current_ship = args.ship
+
+    --ArcCheck.SpawnArcVisualization()
+
     local arc_parts = {args.arctype}
     if args.arctype == "frontback" then
         arc_parts = {"front", "back"}
@@ -383,10 +386,10 @@ function CheckArc(args)
     args.ship.setLock(true)
     local shipSize = args.ship.getTable("Data").Size or 'small'
     local potential_targets = ArcCheck.GetPotentialTargets(args.ship)
-    local bullseye_targets = ArcCheck.GetBullseyeTargets(args.ship, ArcCheck.bullseye_data.pos[shipData.Size])
+    local bullseye_targets = ArcCheck.GetBullseyeTargets(args.ship, ArcCheck.bullseye_data.pos[shipSize])
     local own_line_segments = {}
     for i, arc in ipairs(arc_parts) do
-        local segments = ArcCheck.GetOwnArcLineSegments(args.ship, ArcCheck.arc_line_segments[shipData.Size][arc]["segments"])
+        local segments = ArcCheck.GetOwnArcLineSegments(args.ship, ArcCheck.arc_line_segments[shipSize][arc]["segments"])
         for k, segment in ipairs(segments) do
             table.insert(own_line_segments, segment)
         end
@@ -405,7 +408,7 @@ function CheckArc(args)
         end
         local target_line_segments = {}
         for i, arc in ipairs(arc_parts) do
-            local segments = ArcCheck.GetTargetLineSegmentsInArc(args.ship, pt, ArcCheck.arc_line_segments[shipData.baseSize][arc]["degrees"])
+            local segments = ArcCheck.GetTargetLineSegmentsInArc(args.ship, pt, ArcCheck.arc_line_segments[shipSize][arc]["degrees"])
             for k, segment in ipairs(segments) do
                 table.insert(target_line_segments, segment)
             end
@@ -475,6 +478,25 @@ ArcCheck.CheckObstruction = function(data)
         end
     end
     return hit_obstacles;
+end
+
+ArcCheck.SpawnArcVisualization = function()
+
+  arc = spawnObject({
+      type              = "Custom_Model",
+      position          = ArcCheck.current_ship.getPosition(),
+      rotation          = {0,ArcCheck.current_ship.getRotation().y + 180, 0},
+      scale             = {0.3617, 0.3617, 0.3617},
+      sound             = false,
+      snap_to_grid      = false
+  })
+  arc.setCustomObject({
+      mesh =  '{verifycache}http://cloud-3.steamusercontent.com/ugc/1003682288849959172/A155E2713ECFA2E23D35ED451339ECE69BF8BEF8/',
+      material = 3
+  })
+  arc.setLock(true)
+  arc.setColorTint({1,0,0,0.3})
+  table.insert(ArcCheck.arc_check_rulers, arc)
 end
 
 ArcCheck.SpawnObstructionRuler = function(data)
@@ -4211,7 +4233,7 @@ BombModule.OnTokenDrop = function(token)
         -- Move the token to the snap points
         local drop = BombModule.dropTable[closest.pointKey]
         local destPos = Vect.Sum(drop.dest.pos, Vect.RotateDeg(offset.pos, drop.dest.rot[2]))
-        local size = ship.getTable("Data").Size or 'small'
+        local size = drop.ship.getTable("Data").Size or 'small'
         if size == 'large' then
             destPos = Vect.Sum(destPos, Vect.RotateDeg({0, 0, Convert_mm_igu(-20)}, drop.dest.rot[2]))
         elseif size == 'medium' then
@@ -4847,125 +4869,142 @@ function newSpawner(listTable)
                 end
             end
         end
-
+        local newShip = nil
+        pos = LocalPos(spawnCard, {0, 0, 9})
+        rot = spawnCard.getRotation()
         for v, ship in ipairs (listaShp) do
             if ship.name == tostring(Pilots[shipIndex]['id']) then
-                pos = LocalPos(spawnCard, {0, 0, 9})
-                rot = spawnCard.getRotation()
-                local newShip = tempBagShp.takeObject({ position = pos,
-                                                        rotation = rot,
-                                                        guid = ship.guid,
-                                                        callback_function = function(obj) obj.call("initContextMenu") end
-                                                      })
+                newShip = tempBagShp.takeObject({ position = pos,
+                                                  rotation = rot,
+                                                  guid = ship.guid,
+                                                  callback_function = function(obj) obj.call("initContextMenu") end
+                                                })
                 shipClone = newShip.clone()
-                newShip.setName(Pilots[shipIndex]['name']) --Corrects ship name for clones
-                if Pilots[shipIndex]['Size'] == 1 then
-                    newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Small_base_Collider.obj'})
-                elseif Pilots[shipIndex]['Size'] == 2 then
-                    newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Medium_base_Collider.obj'})
-                elseif Pilots[shipIndex]['Size'] == 3 then
-                    newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Large_base_Collider.obj'})
-                end
                 tempBagShp.putObject(shipClone)
-                newShip.setTable("Data", Pilots[shipIndex]['Data'])
-                newShip.setLuaScript(saveAndLoadShipStateLua)
-                if spawnedPilotList[1] ~= nil then
-                    for i, spawned in ipairs(spawnedPilotList) do
-                        if spawned == pilotName then
-                            pilotCount = pilotCount
-                        end
-                        if pilotCount > 1 then
-                            newNum = tostring(pilotCount)
-                            newShip.setName(Pilots[shipIndex]['name'] .. ' '..newNum)
-                        end
-                    end
-                end
-                if Pilots[shipIndex]['Ship'] == 3 then
-                    for k, acc in ipairs(listaAcc) do
-                        if acc.name == 'StarViper Mk.II roll token' then
-                            pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
-                            svToken = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
-                            svClone = svToken.clone()
-                            tempBagAcc.putObject(svClone)
-                        end
-                    end
-                end
+            end
+        end
+        if newShip == nil then
+          newShip = spawnObject({
+              type              = "Custom_Model",
+              position          = pos,
+              rotation          = rot,
+              scale             = {0.63, 0.63, 0.63},
+              sound             = false,
+              snap_to_grid      = false
+          })
+          newShip.setCustomObject({
+              convex = true,
+              mesh =  '{verifycache}'..Pilots[shipIndex].mesh,
+              diffuse = '{verifycache}'..Pilots[shipIndex].texture,
+              material = 1
+          })
+        end
+        newShip.setName(Pilots[shipIndex]['name']) --Corrects ship name for clones
+        if Pilots[shipIndex]['Size'] == "small" then
+            newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Small_base_Collider.obj'})
+        elseif Pilots[shipIndex]['Size'] == "medium" then
+            newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Medium_base_Collider.obj'})
+        elseif Pilots[shipIndex]['Size'] == "large" then
+            newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Large_base_Collider.obj'})
+        end
 
-                if Pilots[shipIndex]['Turret'] ~= nil then       --Checks if upgrade should trigger the dual mobile arc indicator
-                    if Pilots[shipIndex]['Turret'] == 2 then
-                        dualTurret = 1
-                    else
-                        Turret = 1
-                    end
+        newShip.setTable("Data", Pilots[shipIndex]['Data'])
+        newShip.setLuaScript(saveAndLoadShipStateLua)
+        if spawnedPilotList[1] ~= nil then
+            for i, spawned in ipairs(spawnedPilotList) do
+                if spawned == pilotName then
+                    pilotCount = pilotCount
                 end
-                if Turret == 1 and dualTurret == 0 then                                                       --Checks and spawn arc indicator if needed
-                    for k, acc in ipairs(listaAcc) do
-                        if acc.name == 'Arc Indicator'..tostring(Faction) then
-                            arcInd = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
-                            indClone = arcInd.clone()
-                            tempBagAcc.putObject(indClone)
-                            arcInd.setName(string.gsub(arcInd.getName(), Faction, ''))
-                            Turret = 0
-                        end
-                    end
-                elseif dualTurret == 1 then                                               --Checks and spawn dual arc indicator if needed
-                    for k, acc in ipairs(listaAcc) do
-                        if acc.name == 'Dual Arc Indicator'..tostring(Faction) then
-                            dualArcInd = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
-                            indClone = dualArcInd.clone()
-                            tempBagAcc.putObject(indClone)
-                            dualArcInd.setName(string.gsub(dualArcInd.getName(), Faction, ''))
-                            dualTurret = 0
-                        end
-                    end
+                if pilotCount > 1 then
+                    newNum = tostring(pilotCount)
+                    newShip.setName(Pilots[shipIndex]['name'] .. ' '..newNum)
                 end
-                if Pilots[shipIndex]['Bomb'] == true then                                                       --Checks and spawn bomb drop token if needed
-                    for k, acc in ipairs(listaAcc) do
-                        if acc.name == 'Bomb drop token (unassigned)' then
-                            pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
-                            bombDrop = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
-                            dropClone = bombDrop.clone()
-                            tempBagAcc.putObject(dropClone)
-                            bombDrop.setDescription(Pilots[shipIndex]['bombD'])
-                        end
-                    end
+            end
+        end
+        if Pilots[shipIndex]['Ship'] == 3 then
+            for k, acc in ipairs(listaAcc) do
+                if acc.name == 'StarViper Mk.II roll token' then
+                    pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
+                    svToken = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
+                    svClone = svToken.clone()
+                    tempBagAcc.putObject(svClone)
                 end
-                if Pilots[shipIndex]['Docking'] == true then
-                    for k, acc in ipairs(listaAcc) do
-                        if acc.name == 'Shuttle Launcher (assigned to mothership)' then
-                            pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
-                            shuttleDrop = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
-                            dropClone = shuttleDrop.clone()
-                            tempBagAcc.putObject(dropClone)
-                        end
-                    end
+            end
+        end
+
+        if Pilots[shipIndex]['Turret'] ~= nil then       --Checks if upgrade should trigger the dual mobile arc indicator
+            if Pilots[shipIndex]['Turret'] == 2 then
+                dualTurret = 1
+            else
+                Turret = 1
+            end
+        end
+        if Turret == 1 and dualTurret == 0 then                                                       --Checks and spawn arc indicator if needed
+            for k, acc in ipairs(listaAcc) do
+                if acc.name == 'Arc Indicator'..tostring(Faction) then
+                    arcInd = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
+                    indClone = arcInd.clone()
+                    tempBagAcc.putObject(indClone)
+                    arcInd.setName(string.gsub(arcInd.getName(), Faction, ''))
+                    Turret = 0
                 end
-                if Pilots[shipIndex]['Charge'] ~= nil then   --Checks and spawns Charge Tokens with appropriate layout (up to 4 tokens)
-                    charges = Pilots[shipIndex]['Charge']
-                    while charges > 0 do
-                        for k, acc in ipairs(listaAcc) do
-                            if acc.name == 'Charge' then
-                                if charges == 4 then
-                                    pos = LocalPos(spawnCard, {-0.9 ,0, 0.6})
-                                    rot = spawnCard.getRotation()
-                                elseif charges == 3 then
-                                    pos = LocalPos(spawnCard, {0.9 ,0, 1.6})
-                                    rot = spawnCard.getRotation()
-                                elseif charges == 2 then
-                                    pos = LocalPos(spawnCard, {0 ,0, 1.6})
-                                    rot = spawnCard.getRotation()
-                                elseif charges == 1 then
-                                    pos = LocalPos(spawnCard, {-0.9 ,0, 1.6})
-                                    rot = spawnCard.getRotation()
-                                else
-                                    charges = 0
-                                end
-                                chargeToken = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
-                                chargeClone = chargeToken.clone()
-                                tempBagAcc.putObject(chargeClone)
-                                charges = charges-1
-                            end
+            end
+        elseif dualTurret == 1 then                                               --Checks and spawn dual arc indicator if needed
+            for k, acc in ipairs(listaAcc) do
+                if acc.name == 'Dual Arc Indicator'..tostring(Faction) then
+                    dualArcInd = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
+                    indClone = dualArcInd.clone()
+                    tempBagAcc.putObject(indClone)
+                    dualArcInd.setName(string.gsub(dualArcInd.getName(), Faction, ''))
+                    dualTurret = 0
+                end
+            end
+        end
+        if Pilots[shipIndex]['Bomb'] == true then                                                       --Checks and spawn bomb drop token if needed
+            for k, acc in ipairs(listaAcc) do
+                if acc.name == 'Bomb drop token (unassigned)' then
+                    pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
+                    bombDrop = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
+                    dropClone = bombDrop.clone()
+                    tempBagAcc.putObject(dropClone)
+                    bombDrop.setDescription(Pilots[shipIndex]['bombD'])
+                end
+            end
+        end
+        if Pilots[shipIndex]['Docking'] == true then
+            for k, acc in ipairs(listaAcc) do
+                if acc.name == 'Shuttle Launcher (assigned to mothership)' then
+                    pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
+                    shuttleDrop = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
+                    dropClone = shuttleDrop.clone()
+                    tempBagAcc.putObject(dropClone)
+                end
+            end
+        end
+        if Pilots[shipIndex]['Charge'] ~= nil then   --Checks and spawns Charge Tokens with appropriate layout (up to 4 tokens)
+            charges = Pilots[shipIndex]['Charge']
+            while charges > 0 do
+                for k, acc in ipairs(listaAcc) do
+                    if acc.name == 'Charge' then
+                        if charges == 4 then
+                            pos = LocalPos(spawnCard, {-0.9 ,0, 0.6})
+                            rot = spawnCard.getRotation()
+                        elseif charges == 3 then
+                            pos = LocalPos(spawnCard, {0.9 ,0, 1.6})
+                            rot = spawnCard.getRotation()
+                        elseif charges == 2 then
+                            pos = LocalPos(spawnCard, {0 ,0, 1.6})
+                            rot = spawnCard.getRotation()
+                        elseif charges == 1 then
+                            pos = LocalPos(spawnCard, {-0.9 ,0, 1.6})
+                            rot = spawnCard.getRotation()
+                        else
+                            charges = 0
                         end
+                        chargeToken = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
+                        chargeClone = chargeToken.clone()
+                        tempBagAcc.putObject(chargeClone)
+                        charges = charges-1
                     end
                 end
             end

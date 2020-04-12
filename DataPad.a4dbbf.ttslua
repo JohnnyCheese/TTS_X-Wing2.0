@@ -253,7 +253,7 @@ masterShipDB[53]={['name']='T-70 X-Wing',['Shield']=3,['size']='small',['agi']=2
                             ['moveSet']={'bbl1','bs1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3t','wtl3','wbl3','bs3','wbr3','wtr3','rtr3t','ws4','rk4'}}
 masterShipDB[54]={['name']='A-Wing RZ-2',['Shield']=2,['sTurret']=1,['size']='small',['agi']=3,['XWS']='', ['Fac']={[4]=true}, ['arcs']={'front', 'back'},
                             ['moveSet']={'wtl1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rbl3s','wtl3','bbl3','bs3','bbr3','wtr3','rbr3s','bs4','bs5','rk5'}}
-masterShipDB[55]={['name']='MG-100 StarFortress',['Shield']=3,['dTurret']=1,['size']='large',['agi']=1,['XWS']='', ['Fac']={[4]=true}, ['arcs']={'front'},
+masterShipDB[55]={['name']='MG-100 StarFortress',['Shield']=3,['dTurret']=1,['size']='large',['agi']=1,['XWS']='', ['Fac']={[4]=true}, ['arcs']={'front','doubleturret'},
                             ['moveSet']={'rs0','rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rbl3','ws3','rbr3'}}
 masterShipDB[56]={['name']='Mining Guild TIE',['Shield']=0,['size']='small',['agi']=3,['XWS']='', ['Fac']={[3]=true}, ['arcs']={'front'},
                             ['moveSet']={'wtl1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk3','ws4','rs5'}}
@@ -305,16 +305,65 @@ masterShipDB[82]={['name']='Droid Gunship',['Shield']=3,['size']='small',['agi']
 ]]
 
 -- Huge ships
-masterShipDB[90]={['name']='CR-90 Corvette',['Shield']=7,['Energy']=7,['size']='huge',['agi']=0,['XWS']='', ['Fac']={[1]=true, [6]=true}, ['arcs']={'left','right'},
-                            ['moveSet']={'rbl0','rbr0','wbl1','ws1','wbr1','bbl2','bs2','bbr2','rbl3','bs3','rbr3','rs4','rs5'}}
-masterShipDB[91]={['name']='C-ROC Cruiser',['Shield']=4,['Energy']=4,['size']='huge',['agi']=0,['XWS']='', ['Fac']={[3]=true, [7]=true}, ['arcs']={'front'},
-                            ['moveSet']={'rbl0','rs0','rbr0','wbl1','bs1','wbr1','wbl2','bs2','wbr2','rbl3','ws3','rbr3','rs4','rs5'}}
-masterShipDB[92]={['name']='Gozanti-class Cruiser',['Shield']=5,['Energy']=3,['size']='huge',['agi']=0,['XWS']='', ['Fac']={[2]=true, [5]=true}, ['arcs']={'front'},
-                            ['moveSet']={'rbl0','rs0','rbr0','wbl1','bs1','wbr1','rbl2','bs2','rbr2','bs3','rs4'}}
-masterShipDB[93]={['name']='GR-75 Medium Transport',['Shield']=3,['Energy']=4,['size']='huge',['agi']=0,['XWS']='', ['Fac']={[1]=true, [4]=true}, ['arcs']={'front'},
-                            ['moveSet']={'rbl0','rs0','rbr0','bbl1','bs1','bbr1','wbl2','ws2','wbr2','rs3','rs4'}}
-masterShipDB[94]={['name']='Raider-class Corvette',['Shield']=8,['Energy']=6,['size']='huge',['agi']=0,['XWS']='', ['Fac']={[2]=true, [5]=true}, ['arcs']={'fullfront'},
-                            ['moveSet']={'rbl0','rs0','rbr0','bbl1','ws1','bbr1','wbl2','bs2','wbr2','rbl3','bs3','rbr3','ws4','rs5'}}
+masterShipDB[90]={
+    name = 'CR-90 Corvette',
+    Shield = 7,
+    Energy = 7,
+    size = 'huge',
+    agi = 0,
+    Fac = {[1]=true, [6]=true},
+    arcs = {'left','right'},
+    moveSet = {'rbl0','rbr0','wbl1','ws1','wbr1','bbl2','bs2','bbr2','rbl3','bs3','rbr3','rs4','rs5'},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/CR90%20Corvette/CR90%20Corvette.obj'
+  }
+
+masterShipDB[91]={
+    name = 'C-ROC Cruiser',
+    Shield = 4,
+    Energy = 4,
+    size = 'huge',
+    agi = 0,
+    Fac = {[3]=true, [7]=true},
+    arcs = {'front'},
+    moveSet = {'rbl0','rs0','rbr0','wbl1','bs1','wbr1','wbl2','bs2','wbr2','rbl3','ws3','rbr3','rs4','rs5'},
+    mesh = 'missing'
+  }
+
+masterShipDB[92]={
+    name = 'Gozanti-class Cruiser',
+    Shield = 5,
+    Energy = 3,
+    size = 'huge',
+    agi = 0,
+    Fac = {[2]=true, [5]=true},
+    arcs = {'front'},
+    moveSet = {'rbl0','rs0','rbr0','wbl1','bs1','wbr1','rbl2','bs2','rbr2','bs3','rs4'},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/Gozanti-Class%20Cruiser/Gozanti-Class%20Cruiser.obj'
+  }
+
+masterShipDB[93]={
+    name = 'GR-75 Medium Transport',
+    Shield = 3,
+    Energy = 4,
+    size = 'huge',
+    agi = 0,
+    Fac = {[1]=true, [4]=true},
+    arcs = {'front'},
+    moveSet = {'rbl0','rs0','rbr0','bbl1','bs1','bbr1','wbl2','ws2','wbr2','rs3','rs4'},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/GR-75%20Transport/GR-75%20Transport.obj'
+  }
+
+masterShipDB[94]={
+    name = 'Raider-class Corvette',
+    Shield = 8,
+    Energy = 6,
+    size = 'huge',
+    agi = 0,
+    Fac = {[2]=true, [5]=true},
+    arcs = {'fullfront'},
+    moveSet = {'rbl0','rs0','rbr0','bbl1','ws1','bbr1','wbl2','bs2','wbr2','rbl3','bs3','rbr3','ws4','rs5'},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/Raider%20Class%20Corvette/Raider%20Class%20Corvette.obj'
+  }
 
 
 masterPilotDB={}
@@ -359,7 +408,7 @@ masterPilotDB[18]={['name']='Gray Squadron Bomber',['Faction']= 1,['ship_type']=
 masterPilotDB[19]={['name']='Jake Farrell',['Faction']= 1,['ship_type']=35,['cost']=36,['slot']={1,1, 6},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_19.png',['init']=4,['actSet']={'F','TL','E','BR','B'}}
 masterPilotDB[20]={['name']='Arvel Crynyd',['Faction']= 1,['ship_type']=35,['cost']=34,['slot']={1,1, 6},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_20.png',['init']=3,['actSet']={'F','TL','E','B','BR'}}
+                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_20.png',['init']=3,['actSet']={'F','TL','E','Ail','BR'}}
 masterPilotDB[21]={['name']='Green Squadron Pilot',['Faction']= 1,['ship_type']=35,['cost']=32,['slot']={1,1, 6},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_21.png',['init']=3,['actSet']={'F','TL','E','B','BR'}}
 masterPilotDB[22]={['name']='Phoenix Squadron Pilot',['Faction']= 1,['ship_type']=35,['cost']=29,['slot']={1,6},['Shield']=2,
@@ -1116,26 +1165,126 @@ masterPilotDB[637]={['name']='Nom Lumb',['Faction']= 3,['ship_type']=45,['cost']
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/f9/67/f96780a9-1fff-460c-8480-4294fd7a7a27/swz66_nom-lumb.png',['init']=1,['actSet']={'F','TL','BR','Rot'}}
 
 -- Huge ships
-masterPilotDB[1000]={['name']='Alderaanian Guard',['Faction']=1,['ship_type']=90,['cost']=146,['slot']={21, 24, 24, 8, 8, 16, 23, 23, 22, 15},
-                  ['card']='https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/2/2c/Swz55_alderaanian-guard_card.png',['init']=0,['actSet']={'F','TL','R'}}
-masterPilotDB[1001]={['name']='Republic Judiciary',['Faction']=6,['ship_type']=90,['cost']=146,['slot']={21, 24, 24, 8, 8, 16, 23, 23, 22},
-                  ['card']='https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/1/19/Swz55_republic-judiciary_card.png',['init']=0,['actSet']={'F','TL','R'}}
-masterPilotDB[1002]={['name']='Separatist Privateers',['Faction']=7,['ship_type']=91,['cost']=58,['slot']={21, 24, 8, 8, 20, 23, 22, 12, 18},
-                  ['card']='https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/d/df/Separatist_privateers.png',['init']=1,['actSet']={'F','TL','R'}}
-masterPilotDB[1003]={['name']='Syndicate Smugglers',['Faction']=3,['ship_type']=91,['cost']=58,['slot']={21, 24, 8, 8, 23, 22, 12, 13, 15, 18},
-                  ['card']='https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/2/2d/Swz55_syndicate-smugglers_card.png',['init']=1,['actSet']={'F','TL','R'}}
-masterPilotDB[1004]={['name']='First Order Sympathizers',['Docking']=true,['Faction']=5,['ship_type']=92,['cost']=60,['slot']={21, 24, 8, 8, 16, 23, 22, 22},
-                  ['card']='https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/6/6f/First_Order_Sympathizers.png',['init']=1,['actSet']={'F','TL','R'}}
-masterPilotDB[1005]={['name']='Outer Rim Garrison',['Docking']=true,['Faction']=2,['ship_type']=92,['cost']=60,['slot']={21, 24, 8, 8, 16, 23, 22, 22, 15},
-                  ['card']='https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/e/ec/Outer_Rim_Garrison.png',['init']=1,['actSet']={'F','TL','R'}}
-masterPilotDB[1006]={['name']='Echo Base Evacuees',['Faction']=1,['ship_type']=93,['cost']=55,['slot']={21, 24, 4, 8, 8, 23, 22, 22, 15},
-                  ['card']='https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/3/39/Swz53_echo-base-evacuees.png',['init']=1,['actSet']={'F','TL','R'}}
-masterPilotDB[1007]={['name']='New Republic Volunteers',['Faction']=4,['ship_type']=93,['cost']=55,['slot']={21, 24, 4, 8, 8, 23, 22, 22},
-                  ['card']='https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/d/d8/New_Republic_Volunteers.png',['init']=1,['actSet']={'F','TL','R'}}
-masterPilotDB[1008]={['name']='First Order Collaborators',['Faction']=5,['ship_type']=94,['cost']=146,['slot']={21, 5, 6, 24, 24, 8, 23, 23, 22},
-                  ['card']='https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/0/09/First_Order_Collaborators.png',['init']=1,['actSet']={'F','TL','R'}}
-masterPilotDB[1009]={['name']='First Order Collaborators',['Faction']=2,['ship_type']=94,['cost']=146,['slot']={21, 5, 6, 24, 24, 8, 23, 23, 22, 15},
-                  ['card']='https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/b/bf/Outer_Rim_Patrol.png',['init']=1,['actSet']={'F','TL','R'}}
+masterPilotDB[1000]={
+  name = 'Alderaanian Guard',
+  Faction = 1,
+  ship_type = 90,
+  cost = 146,
+  slot = {21, 24, 24, 8, 8, 16, 23, 23, 22, 15},
+  card = 'https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/2/2c/Swz55_alderaanian-guard_card.png',
+  init = 0,
+  actSet = {'F','TL','R'},
+  texture = 'https://github.com/JohnnyCheese/TTS_X-Wing2.0/raw/master/assets/ships/Huge/CR90%20Corvette/CR90%20Corvet%20TTS.png'
+}
+
+masterPilotDB[1001]={
+  name = 'Republic Judiciary',
+  Faction = 6,
+  ship_type = 90,
+  cost = 146,
+  slot = {21, 24, 24, 8, 8, 16, 23, 23, 22},
+  card = 'https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/1/19/Swz55_republic-judiciary_card.png',
+  init = 0,
+  actSet = {'F','TL','R'},
+  texture = 'https://github.com/JohnnyCheese/TTS_X-Wing2.0/raw/master/assets/ships/Huge/CR90%20Corvette/Republic%20Judiciary%20TTS.png'
+}
+
+masterPilotDB[1002]={
+  name = 'Separatist Privateers',
+  Faction = 7,
+  ship_type = 91,
+  cost = 58,
+  slot = {21, 24, 8, 8, 20, 23, 22, 12, 18},
+  card = 'https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/d/df/Separatist_privateers.png',
+  init = 1,
+  actSet = {'F','TL','R'},
+  texture = 'missing'
+}
+
+masterPilotDB[1003]={
+  name = 'Syndicate Smugglers',
+  Faction = 3,
+  ship_type = 91,
+  cost = 58,
+  slot = {21, 24, 8, 8, 23, 22, 12, 13, 15, 18},
+  card = 'https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/2/2d/Swz55_syndicate-smugglers_card.png',
+  init = 1,
+  actSet = {'F','TL','R'},
+  texture = 'missing'
+}
+
+masterPilotDB[1004]={
+  name = 'First Order Sympathizers',
+  Docking = true,
+  Faction = 5,
+  ship_type = 92,
+  cost = 60,
+  slot = {21, 24, 8, 8, 16, 23, 22, 22},
+  card = 'https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/6/6f/First_Order_Sympathizers.png',
+  init = 1,['actSet']={'F','TL','R'},
+  texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Huge/Raider%20Class%20Corvette/FO%20Sympthizers.png'
+}
+
+masterPilotDB[1005]={
+  name = 'Outer Rim Garrison',
+  Docking = true,
+  Faction = 2,
+  ship_type = 92,
+  cost = 60,
+  slot = {21, 24, 8, 8, 16, 23, 22, 22, 15},
+  card = 'https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/e/ec/Outer_Rim_Garrison.png',
+  init = 1,
+  actSet = {'F','TL','R'},
+  texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Huge/Gozanti-Class%20Cruiser/Gozanti-Class%20Cruiser.png'
+}
+
+masterPilotDB[1006]={
+  name = 'Echo Base Evacuees',
+  Faction = 1,
+  ship_type = 93,
+  cost = 55,
+  slot = {21, 24, 4, 8, 8, 23, 22, 22, 15},
+  card = 'https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/3/39/Swz53_echo-base-evacuees.png',
+  init = 1,
+  actSet = {'F','TL','R'},
+  texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Huge/GR-75%20Transport/Echo%20Base%20Evacuees%20TTS.png'
+}
+
+masterPilotDB[1007]={
+  name = 'New Republic Volunteers',
+  Faction = 4,
+  ship_type = 93,
+  cost = 55,
+  slot = {21, 24, 4, 8, 8, 23, 22, 22},
+  card = 'https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/d/d8/New_Republic_Volunteers.png',
+  init = 1,
+  actSet = {'F','TL','R'},
+  texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Huge/GR-75%20Transport/New%20Republic%20Volunteers%20TTS.png'
+}
+
+masterPilotDB[1008]={
+  name = 'First Order Collaborators',
+  Faction = 5,
+  ship_type = 94,
+  cost = 146,
+  slot = {21, 5, 6, 24, 24, 8, 23, 23, 22},
+  card = 'https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/0/09/First_Order_Collaborators.png',
+  init = 1,
+  actSet = {'F','TL','R'},
+  texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Huge/Gozanti-Class%20Cruiser/FO%20Collaborators%20TTS.png'
+}
+
+masterPilotDB[1009]={
+  name = 'Outer Rim Patrol',
+  Faction = 2,
+  ship_type = 94,
+  cost = 146,
+  slot = {21, 5, 6, 24, 24, 8, 23, 23, 22, 15},
+  card = 'https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/b/bf/Outer_Rim_Patrol.png',
+  init = 1,
+  actSet = {'F','TL','R'},
+  texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Huge/Raider%20Class%20Corvette/IMP%20Raider.png'
+}
 
 masterUpgradesDB={}
 masterUpgradesDB[230]={['name']='Crack Shot',['slot']=1,['cost']=1,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_1.png',['restriction']={ }}
@@ -1298,7 +1447,7 @@ masterUpgradesDB[385]={['name']='Lando Calrissian',['slot']=8,['cost']=8,['card'
 masterUpgradesDB[386]={['name']='Tobias Beckett',['slot']=8,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_160.png',['restriction']={['Faction']={[3]=true}}}
 masterUpgradesDB[387]={['name']="Qi'ra",['slot']=8,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_161.png',['restriction']={['Faction']={[3]=true}}}
 masterUpgradesDB[388]={['name']='Agile Gunner',['slot']=16,['cost']=8,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_162.png',['restriction']={ }}
-masterUpgradesDB[389]={['name']='Han Solo',['slot']=10,['cost']=12,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_163.png',['restriction']={['Faction']={[3]=true}}}
+masterUpgradesDB[389]={['name']='Han Solo',['slot']=16,['cost']=12,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_163.png',['restriction']={['Faction']={[3]=true}}}
 masterUpgradesDB[390]={['name']="Lando's Millennium Falcon",['slot']=15,['cost']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_164.png',['restriction']={['Faction']={[3]=true},['ship']={[47]=true}}}
 masterUpgradesDB[391]={['name']='ST-321',['slot']=15,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_124.png',['restriction']={['Faction']={[2]=true},['ship']={[26]=true}}}
 masterUpgradesDB[392]={['name']='Bomblet Generator',['slot']=12,['remSlot']={12},['cost']=5,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_63.png',['cardB']=cardBackDB['12b'],['restriction']={ }}
@@ -1819,6 +1968,8 @@ function idSpawner(idTable)
         fList.Pilots[k]['Ship'] = Ship
         fList.Pilots[k]['Size'] = masterShipDB[Ship]['size']
         fList.Pilots[k]['Shield'] = masterShipDB[Ship]['Shield']
+        fList.Pilots[k].mesh = masterShipDB[Ship].mesh
+        fList.Pilots[k].texture = masterPilotDB[v].texture
         fList.Pilots[k]['bombD'] = 's1'
         fList.Pilots[k]['Docking'] = masterShipDB[Ship]['Docking']
         fList.Pilots[k]['Data'] = {}
@@ -1833,6 +1984,8 @@ function idSpawner(idTable)
             fList.Pilots[k]['bombD'] = fList.Pilots[k]['bombD'] .. ':te1:tr1'
         elseif Ship == 19 then -- TIE Bomber special drops
             fList.Pilots[k]['bombD'] = fList.Pilots[k]['bombD'] .. ':be1:br1'
+        elseif v == 161 then -- Constable Zuvio
+            fList.Pilots[k]['bombD'] = fList.Pilots[k]['bombD'] .. ':s1r'
         end
 
         if masterShipDB[Ship]['sTurret'] ~= nil then
