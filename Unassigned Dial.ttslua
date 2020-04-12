@@ -373,7 +373,6 @@ function onDropped()
         local nearest = nil
         local minDist = 2.89 -- 80mm
         for k,ship in pairs(getAllObjects()) do
-          print("object: " .. ship.getName())
             if ship.tag == 'Figurine' and ship.name ~= '' then
                 local pos = ship.getPosition()
                 local dist = math.sqrt(math.pow((spos[1]-pos[1]),2) + math.pow((spos[3]-pos[3]),2))
@@ -660,11 +659,11 @@ function Window(p)
     if winStat ==  nil then
         winStat = false
     end
-    if p.color == playerColor then
+    if spectReturn(p) == false then
         if winStat == false then
             winStat = true
             self.UI.show("ManWin")
-            self.UI.setAttribute("ManWin", "visibility", playerColor)
+            self.UI.setAttribute("ManWin", "visibility", playerColor .. "|Black")
             self.UI.setAttribute("ManBtnGroup", "active", "true")
         else
             winStat = false
@@ -676,7 +675,7 @@ end
 
 function spectReturn(p)
     if p.color == 'Black' then
-      return true
+      return false
     end
     return p.color ~= playerColor
 end
@@ -770,14 +769,14 @@ function hideRelocM(p)
 end
 
 function setDial(P)
-    if P.color == playerColor then
+    if spectReturn(P) == false then
         if firstSet == true then
             if setStat == nil then
                 setStat = false
             end
 
                 if setStat == false then
-                    self.UI.setAttribute("SetBtn", "color", P.color)
+                    self.UI.setAttribute("SetBtn", "color", playerColor)
                     setStat = true
                     printToAll(P.color.." player has set the maneuver for "..assignedShip.getName(), P.color)
                     if winStat==true then
