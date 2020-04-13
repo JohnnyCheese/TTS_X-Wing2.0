@@ -145,12 +145,12 @@ end
 
 
 function clearDial()
+    self.UI.Hide('TalonPanel') -- Talon has to come before CenterFU which it is inside -- hide doesn't work when the parent is already hidden (could also use active=false instead)
     self.UI.hide("CenterFD")
     self.UI.Hide('CenterFU')
     self.UI.hide("ManWin")
     self.UI.Hide('arcPanel')
     self.UI.Hide('relocPanel')
-    self.UI.Hide('TalonPanel')
     self.UI.Hide('tokenPanel')
     winStat = false
 end
@@ -315,14 +315,11 @@ function performTalon(P,option,id)
     self.UI.setAttribute("UndoBtn", "active", "true")
     self.UI.setAttribute("UndoBtn", "textColor", "#FFFFFF")
     if id=="TalonMidBtn" then
-        self.UI.hide("TalonPanel")
         assignedShip.setDescription(setMan)
     elseif id=="TalonReaBtn" then
-        self.UI.hide("TalonPanel")
         talonMove = setMan:sub(1,3).."b"..setMan:sub(-1,-1)
         assignedShip.setDescription(talonMove)
     elseif id=="TalonForBtn" then
-        self.UI.hide("TalonPanel")
         talonMove = setMan:sub(1,3).."f"..setMan:sub(-1,-1)
         assignedShip.setDescription(talonMove)
     end
