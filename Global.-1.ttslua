@@ -3341,6 +3341,9 @@ DialModule.PerformAction = function(ship, type, playerColor)
         else
             return
         end
+    elseif type:find('deleteMoveTemplate') ~= nil then
+      DialModule.DeleteTemplate(ship)
+      return
     elseif type == 'unstress' then
         local stressInfo = {token=nil, dist=-1}
         for k,tokenInfo in pairs(TokenModule.GetShipTokensInfo(ship)) do
@@ -5541,5 +5544,22 @@ do
             end
         end
         return Decker.Deck(cards, options)
+    end
+end
+
+-- for use with Epic Wing Tool to check if the landing space is empty
+function epicMoveWingmate(table)
+    local ship = table[1]
+    local desiredPosRot = {pos=table[2], rot=table[3]} 
+    print("Ship size=" .. ship.getTable("Data").Size)
+    local info = {size=ship.getTable("Data").Size, code="dummy"}
+    local fullFunc = function(info,ship) return desiredPosRot end
+    result = MoveModule.MoveProbe.TryFullMove(info, ship, fullFunc)
+    if result.done then
+      MoveModule.MoveShip(ship, {finPos=desiredPosRot})
+      return true
+    else
+      -- Todo announce some stuff
+      return false
     end
 end
