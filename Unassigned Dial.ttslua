@@ -26,6 +26,8 @@ end
 
 faceStat = nil
 firstSet=false
+setSinceTemplatePlaced = false -- True if the user has set a movement since the movement template was last placed on the table
+templatePlaced = false  -- True if the movement template is currently on the table (as far as we can tell based on just dial button clicks, anyway)
 
 assetTable = {
     {name="Focus", url="https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/actions/focus.png"},
@@ -235,18 +237,38 @@ function manSetting()
         self.UI.setAttribute("TypeIcon", "active", "true")
         self.UI.setAttribute("SpeedIcon", "active", "true")
         self.UI.setAttribute("MoveBtn", "active", "true")
+        self.UI.setAttribute("MoveBtn", "textColor", "#FFFFFF")
         self.UI.setAttribute("UndoBtn", "active", "false")
+        self.UI.setAttribute("Templ", "active", "true")
+        self.UI.setAttribute("Templ", "textColor", "#222222") -- Make the text same color as the background since goal is to only have the type / speed icons showing anyway
     else
         self.UI.setAttribute("TypeIcon", "active", "false")
         self.UI.setAttribute("SpeedIcon", "active", "false")
         self.UI.setAttribute("MoveBtn", "active", "false")
         self.UI.setAttribute("UndoBtn", "active", "false")
+        self.UI.setAttribute("Templ", "textColor", "#FFFFFF")
+
+        -- Hide the template button when there isn't a manuver set, since it's confusing and undefined in some cases what template should be shown then
+        if not templatePlaced then
+          self.UI.setAttribute("Templ", "active", "false")
+        end
     end
     if firstSet== false then
         self.UI.setAttribute("TypeIcon", "active", "false")
         self.UI.setAttribute("SpeedIcon", "active", "false")
         self.UI.setAttribute("MoveBtn", "active", "false")
         self.UI.setAttribute("UndoBtn", "active", "false")
+        self.UI.setAttribute("Templ", "textColor", "#FFFFFF")
+
+        -- Hide the template button when there isn't a manuver set, since it's confusing and undefined in some cases what template should be shown then
+        if not templatePlaced then
+          self.UI.setAttribute("Templ", "active", "false")
+        end
+    end
+
+    -- Remove template if a new manuver has been set since it was shown, since it could be confusing to still show the old template (and to show the new one you would have to click the button twice, which would be confusing)
+    if setSinceTemplatePlaced and templatePlaced then
+      deleteTemplate()
     end
 end
 
@@ -258,6 +280,7 @@ function Undo(p)
     self.UI.setAttribute("UndoBtn", "active", "false")
     if setMan:sub(-1,-1) ~='t' then
         self.UI.setAttribute("MoveBtn", "active", "true")
+        self.UI.setAttribute("MoveBtn", "textColor", "#FFFFFF")
     else
         self.UI.show("TalonPanel")
     end--]]
@@ -272,6 +295,7 @@ function performMove(P)
         self.UI.setAttribute("MoveBtn", "active", "false")
         if setMan:sub(-1,-1) ~='t' then
             self.UI.setAttribute("UndoBtn", "active", "true")
+            self.UI.setAttribute("UndoBtn", "textColor", "#FFFFFF")
             assignedShip.setDescription(setMan)
             befAft = '_A'
             setDial(P)
@@ -693,7 +717,7 @@ function showTokMFD(p)
     self.UI.show("tokenPanel")
     self.UI.hide("arcPanel")
     self.UI.hide("relocPanel")
-    self.UI.setAttribute("tokenPanel", "position", "-380 -250 -40")
+    self.UI.setAttribute("tokenPanel", "position", "-340 -165 -40")
     self.UI.setAttribute("tokenPanel", "rotation", "180 180 0")
 end
 
@@ -704,7 +728,7 @@ function showTokMFU(p)
     self.UI.show("tokenPanel")
     self.UI.hide("arcPanel")
     self.UI.hide("relocPanel")
-    self.UI.setAttribute("tokenPanel", "position", "380 -250 40")
+    self.UI.setAttribute("tokenPanel", "position", "340 -165 40")
     self.UI.setAttribute("tokenPanel", "rotation", "180 0 0")
 end
 
@@ -723,7 +747,7 @@ function showArcMFD(p)
     self.UI.show("arcPanel")
     self.UI.hide("relocPanel")
     self.UI.hide("tokenPanel")
-    self.UI.setAttribute("arcPanel", "position", "300 -270 -40")
+    self.UI.setAttribute("arcPanel", "position", "260 -185 -40")
     self.UI.setAttribute("arcPanel", "rotation", "180 180 0")
 end
 
@@ -734,7 +758,7 @@ function showArcMFU(p)
     self.UI.show("arcPanel")
     self.UI.hide("relocPanel")
     self.UI.hide("tokenPanel")
-    self.UI.setAttribute("arcPanel", "position", "-300 -270 40")
+    self.UI.setAttribute("arcPanel", "position", "-260 -185 40")
     self.UI.setAttribute("arcPanel", "rotation", "180 0 0")
 end
 
@@ -752,7 +776,7 @@ function showRelocMFD(p)
     self.UI.show("relocPanel")
     self.UI.hide("arcPanel")
     self.UI.hide("tokenPanel")
-    self.UI.setAttribute("relocPanel", "position", "0 -280 -40")
+    self.UI.setAttribute("relocPanel", "position", "0 -215 -40")
     self.UI.setAttribute("relocPanel", "rotation", "180 180 0")
 end
 
@@ -763,7 +787,7 @@ function showRelocMFU(p)
     self.UI.show("relocPanel")
     self.UI.hide("arcPanel")
     self.UI.hide("tokenPanel")
-    self.UI.setAttribute("relocPanel", "position", "0 -280 40")
+    self.UI.setAttribute("relocPanel", "position", "0 -215 40")
     self.UI.setAttribute("relocPanel", "rotation", "180 0 0")
 end
 
@@ -782,17 +806,27 @@ function setDial(P)
             end
 
                 if setStat == false then
-                    self.UI.setAttribute("SetBtn", "color", P.color)
+                    self.UI.setAttribute("setBtnFD", "color", P.color)
+                    self.UI.setAttribute("setBtnFD", "active", "true")
+                    self.UI.setAttribute("setBtnFD", "textColor", "#FFFFFF")
+                    if (P.color == "Yellow") then
+                       -- White text on yellow button is pretty hard to read, so for the Yellow player change the text to black instead
+                      self.UI.setAttribute("setBtnFD", "textColor", "#000000")
+                    end
+                    self.UI.setAttribute("moveWindow", "active", "false")
                     setStat = true
+                    setSinceTemplatePlaced = true
                     printToAll(P.color.." player has set the maneuver for "..assignedShip.getName(), P.color)
                     if winStat==true then
                         Window(P)
                     end
-                    self.UI.hide("moveWindow")
+
                 else
-                    self.UI.setAttribute("SetBtn", "color", "White")
+                    --TODO: Now that the set dial and unset dial buttons are 2 different buttons, this file's code would probably be more readable with this function split in to setDial() and unsetDial()
+                    self.UI.setAttribute("setBtnFD", "active", "false")
+                    self.UI.setAttribute("moveWindow", "active", "true")
+                    self.UI.setAttribute("moveWindow", "textColor", "#FFFFFF")
                     setStat = false
-                    self.UI.show("moveWindow")
                 end
         else
             print("Pick a maneuver before setting the dial")
@@ -805,9 +839,23 @@ function spawnTemplate(p)
         return
     end
     if setMan~='' then
+        setSinceTemplatePlaced = false
+        templatePlaced = not templatePlaced
+
+        -- if a manuver is not visible on dial, template button is only here to allow removal, and after that it can be hidden again
+        if self.UI.getAttribute("SpeedIcon", "active") == "false" then
+          self.UI.setAttribute("Templ", "active", "false")
+        end
+
         Table={[1]=assignedShip,[2]='spawnMoveTemplate:'..setMan..befAft,[3]=playerColor}
         Global.call("proxyPerformAction",Table)
     end
+end
+
+function deleteTemplate()
+  templatePlaced = false
+  Table={[1]=assignedShip,[2]='deleteMoveTemplate',[3]=playerColor}
+  Global.call("proxyPerformAction",Table)
 end
 
 initStat = true
