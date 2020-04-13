@@ -19,7 +19,8 @@ playerColor = nil
 -- Save self state
 function onSave()
     if assignedShip ~= nil then
-        local state = {assignedShipGUID=assignedShip.getGUID()}
+        local state = {assignedShipGUID=assignedShip.getGUID(),
+                        owningPlayer=playerColor}
         return JSON.encode(state)
     end
 end
@@ -155,7 +156,7 @@ function clearDial()
     winStat = false
 end
 
-function onFixedUpdate()
+function onUpdate()
     if assignedShip ~= nil then
         if self.getTransformUp().y >0 then
             if faceStat ~= 'Down' then
@@ -283,7 +284,7 @@ function Undo(p)
         self.UI.setAttribute("MoveBtn", "textColor", "#FFFFFF")
     else
         self.UI.show("TalonPanel")
-    end--]]
+    end
     befAft='_B'
 end
 
@@ -396,7 +397,6 @@ function onDropped()
         local nearest = nil
         local minDist = 2.89 -- 80mm
         for k,ship in pairs(getAllObjects()) do
-          print("object: " .. ship.getName())
             if ship.tag == 'Figurine' and ship.name ~= '' then
                 local pos = ship.getPosition()
                 local dist = math.sqrt(math.pow((spos[1]-pos[1]),2) + math.pow((spos[3]-pos[3]),2))
@@ -683,11 +683,11 @@ function Window(p)
     if winStat ==  nil then
         winStat = false
     end
-    if p.color == playerColor then
+    if spectReturn(p) == false then
         if winStat == false then
             winStat = true
             self.UI.show("ManWin")
-            self.UI.setAttribute("ManWin", "visibility", playerColor)
+            self.UI.setAttribute("ManWin", "visibility", playerColor .. "|Black")
             self.UI.setAttribute("ManBtnGroup", "active", "true")
         else
             winStat = false
@@ -698,12 +698,9 @@ function Window(p)
 end
 
 function spectReturn(p)
-    --[[if p.color == 'Grey' then
-        return true
-    elseif p.color == 'White' then
-        return true
+    if p.color == 'Black' then
+      return false
     end
-    --]]
     return p.color ~= playerColor
 end
 
@@ -711,9 +708,6 @@ function showTokMFD(p)
     if spectReturn(p) == true then
         return
     end
-    --[[if p.color ==  'Grey' then
-        return
-    end]]
     self.UI.show("tokenPanel")
     self.UI.hide("arcPanel")
     self.UI.hide("relocPanel")
@@ -799,14 +793,14 @@ function hideRelocM(p)
 end
 
 function setDial(P)
-    if P.color == playerColor then
+    if spectReturn(P) == false then
         if firstSet == true then
             if setStat == nil then
                 setStat = false
             end
 
                 if setStat == false then
-                    self.UI.setAttribute("setBtnFD", "color", P.color)
+                    self.UI.setAttribute("setBtnFD", "color", playerColor)
                     self.UI.setAttribute("setBtnFD", "active", "true")
                     self.UI.setAttribute("setBtnFD", "textColor", "#FFFFFF")
                     if (P.color == "Yellow") then
