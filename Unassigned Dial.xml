@@ -72,14 +72,14 @@
     width="400"
     height="500"
     color="#aaffaa00"
-    onMouseExit="hideArcM">
+    onMouseExit="hideArcM"
+    showAnimation="FadeIn"
+    hideAnimation="FadeOut">
     <Panel id="ArcFD"
         width="300"
         height="400"
         outline="Black"
-        color="#aaffaa00"
-        showAnimation="FadeIn"
-        hideAnimation="FadeOut">
+        color="#aaffaa00">
             <Button id="Range1" class="ArcButtons" onClick="range1" height="80" width="80" offsetXY="-100 150">
                 <Image id="R1Icon" height="80" widht="80" image="R1"></Image></Button>
             <Button id="Range2" class="ArcButtons" onClick="range2" height="80" width="80" offsetXY="0 150">
@@ -101,15 +101,16 @@
     width="600"
     height="450"
     color="#aaffaa00"
-    onMouseExit="hideTokM">
+    onMouseExit="hideTokM"
+    showAnimation="FadeIn"
+    hideAnimation="FadeOut">
     <Panel id="TokenButtonPanel"
         width="400"
         height="350"
         rectAlignment="TopRight"
         outline="Black"
         color="#aaffaa00"
-        showAnimation="FadeIn"
-        hideAnimation="FadeOut">
+        >
         <HorizontalLayout>
             <Panel id = "GreenTokens"
                 width="70"
@@ -178,12 +179,12 @@
     width="600"
     height="300"
     color="#aaffaa00"
-    onMouseExit="hideRelocM">
+    onMouseExit="hideRelocM"
+    showAnimation="FadeIn"
+    hideAnimation="FadeOut">
     <Panel id="BoostFD"
         class="BoostPanel"
-        color="#aaffaa00"
-        showAnimation="FadeIn"
-        hideAnimation="FadeOut">
+        color="#aaffaa00">
         <Button id="BoostSBtn" class="RelocButtons" onClick="BoostS">
             <Image id= "BoostSIcon" class="RIcon" image="BoostS" preserveAspect="true"></Image>
         </Button>
@@ -198,9 +199,7 @@
     <Panel id="AileronFD"
         class="AileronPanel"
         color="#aaffaa00"
-        offsetXY="0 100"
-        showAnimation="FadeIn"
-        hideAnimation="FadeOut">
+        offsetXY="0 100">
         <Button id="AilSBtn" class="RelocButtons" onClick="AilS">
             <Image id= "BoostSIcon" class="RIcon" image="WhiteStraight" preserveAspect="true"></Image>
         </Button>
@@ -215,9 +214,7 @@
     <Panel id="PivotFD"
         class="PivotPanel"
         color="#aaffaa00"
-        offsetXY="0 100"
-        showAnimation="FadeIn"
-        hideAnimation="FadeOut">
+        offsetXY="0 100">
         <Button id="PivKBtn" class="RelocButtons" onClick="pivK" offsetXY="0 0">
             <Image id= "PivKIcon" class="RIcon" image="Pivot180" preserveAspect="true"></Image>
         </Button>
@@ -232,9 +229,7 @@
     <Panel id="BarrelLeftFD"
         class="BarrelPanel"
         offsetXY="-230 0"
-        color="#aaffaa00"
-        showAnimation="FadeIn"
-        hideAnimation="FadeOut">
+        color="#aaffaa00">
         <Button id="BarrelLBtn" class="RelocButtons" onClick="BarrelL">
             <Image id= "BarrelLIcon" class="RIcon" image="BarrelL" preserveAspect="true"></Image>
         </Button>
@@ -249,9 +244,7 @@
     <Panel id="BarrelRightFD"
         class="BarrelPanel"
         offsetXY="230 0"
-        color="#aaffaa00"
-        showAnimation="FadeIn"
-        hideAnimation="FadeOut">
+        color="#aaffaa00">
         <Button id="BarrelRBtn" class="RelocButtons" onClick="BarrelR">
             <Image id= "BarrelRIcon" class="RIcon" image="BarrelR" preserveAspect="true"></Image>
         </Button>
@@ -463,7 +456,7 @@
     </ToggleGroup>
 
     <Button id="setBtnManWin" class="DarkButton" fontSize="26" offsetXY="302 -263" width="150" height="75" onClick="setDial">Set</Button>
-    
+
     <Panel
       class="TopBar"
       id="TopBar">
