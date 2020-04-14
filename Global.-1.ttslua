@@ -57,7 +57,7 @@ ObjType.AddType('ship', function(obj)
     return (obj.tag == 'Figurine')
 end)
 ObjType.AddType('token', function(obj)
-    return (obj.tag == 'Chip' or (obj.getVar('__XW_Token') and obj.getVar('__XW_TokenIdle')))
+    return (obj.tag == 'Chip' or obj.tag == 'Coin' or (obj.getVar('__XW_Token') and obj.getVar('__XW_TokenIdle')))
 end)
 ObjType.AddType('dial', function(obj)
     return (obj.tag == 'Card' and XW_cmd.CheckCommand(obj.getDescription()) == 'move')
@@ -5550,7 +5550,7 @@ end
 -- for use with Epic Wing Tool to check if the landing space is empty
 function epicMoveWingmate(table)
     local ship = table[1]
-    local desiredPosRot = {pos=table[2], rot=table[3]} 
+    local desiredPosRot = {pos=table[2], rot=table[3]}
     print("Ship size=" .. ship.getTable("Data").Size)
     local info = {size=ship.getTable("Data").Size, code="dummy"}
     local fullFunc = function(info,ship) return desiredPosRot end
