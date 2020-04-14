@@ -48,7 +48,7 @@
     position="0 0 0"
     rotation="0 180 0"
     color="#aaffaa00">
-    <Panel id="TalonPanel" class="TalonP" offsetXY="0 110" active="true">
+    <Panel id="TalonPanel" class="TalonP" offsetXY="0 117" active="true">
         <Button id="TalonMidBtn" class="RelocButtons" offsetXY="0 0" active="true" onClick="performTalon">
             <Image id="TalonMidIcon" class="RIcon"  image="TalonMid" preserveAspect="true"></Image></Button>
         <Button id="TalonForBtn" class="RelocButtons" offsetXY="-60 0" active="true" onClick="performTalon">
@@ -72,14 +72,14 @@
     width="400"
     height="500"
     color="#aaffaa00"
-    onMouseExit="hideArcM">
+    onMouseExit="hideArcM"
+    showAnimation="FadeIn"
+    hideAnimation="FadeOut">
     <Panel id="ArcFD"
         width="300"
         height="400"
         outline="Black"
-        color="#aaffaa00"
-        showAnimation="FadeIn"
-        hideAnimation="FadeOut">
+        color="#aaffaa00">
             <Button id="Range1" class="ArcButtons" onClick="range1" height="80" width="80" offsetXY="-100 150">
                 <Image id="R1Icon" height="80" widht="80" image="R1"></Image></Button>
             <Button id="Range2" class="ArcButtons" onClick="range2" height="80" width="80" offsetXY="0 150">
@@ -101,15 +101,16 @@
     width="600"
     height="450"
     color="#aaffaa00"
-    onMouseExit="hideTokM">
+    onMouseExit="hideTokM"
+    showAnimation="FadeIn"
+    hideAnimation="FadeOut">
     <Panel id="TokenButtonPanel"
         width="400"
         height="350"
         rectAlignment="TopRight"
         outline="Black"
         color="#aaffaa00"
-        showAnimation="FadeIn"
-        hideAnimation="FadeOut">
+        >
         <HorizontalLayout>
             <Panel id = "GreenTokens"
                 width="70"
