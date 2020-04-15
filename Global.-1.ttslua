@@ -4913,6 +4913,8 @@ function newSpawner(listTable)
             newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Medium_base_Collider.obj'})
         elseif Pilots[shipIndex]['Size'] == "large" then
             newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Large_base_Collider.obj'})
+        elseif Pilots[shipIndex]['Size'] == "huge" then
+            newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Huge_base_Collider.obj'})
         end
 
         newShip.setTable("Data", Pilots[shipIndex]['Data'])
@@ -5550,7 +5552,7 @@ end
 -- for use with Epic Wing Tool to check if the landing space is empty
 function epicMoveWingmate(table)
     local ship = table[1]
-    local desiredPosRot = {pos=table[2], rot=table[3]} 
+    local desiredPosRot = {pos=table[2], rot=table[3]}
     print("Ship size=" .. ship.getTable("Data").Size)
     local info = {size=ship.getTable("Data").Size, code="dummy"}
     local fullFunc = function(info,ship) return desiredPosRot end
