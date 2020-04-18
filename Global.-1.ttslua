@@ -57,7 +57,7 @@ ObjType.AddType('ship', function(obj)
     return (obj.tag == 'Figurine')
 end)
 ObjType.AddType('token', function(obj)
-    return (obj.tag == 'Chip' or (obj.getVar('__XW_Token') and obj.getVar('__XW_TokenIdle')))
+    return (obj.tag == 'Chip' or obj.tag == 'Coin' or (obj.getVar('__XW_Token') and obj.getVar('__XW_TokenIdle')))
 end)
 ObjType.AddType('dial', function(obj)
     return (obj.tag == 'Card' and XW_cmd.CheckCommand(obj.getDescription()) == 'move')
@@ -1732,7 +1732,8 @@ MoveModule.castData.small.base = {
     debug=false,
     direction = {0, 0.001, 0},
     type=3,
-    size={Convert_mm_igu(40), Convert_mm_igu(6), Convert_mm_igu(40)}
+    size={Convert_mm_igu(40), Convert_mm_igu(6), Convert_mm_igu(40)},
+    debug=false
     -- + Origin
     -- + Orientation
 }
@@ -1741,7 +1742,8 @@ MoveModule.castData.small.nubFR = {
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(20.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)}
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    debug=false
     -- + Origin
 }
 MoveModule.castData.small.nubFL = {
@@ -1749,7 +1751,8 @@ MoveModule.castData.small.nubFL = {
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(20.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)}
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    debug=false
     -- + Origin
 }
 MoveModule.castData.small.nubBR = {
@@ -1757,7 +1760,8 @@ MoveModule.castData.small.nubBR = {
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(20.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)}
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    debug=false
     -- + Origin
 }
 MoveModule.castData.small.nubBL = {
@@ -1765,7 +1769,8 @@ MoveModule.castData.small.nubBL = {
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(20.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)}
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    debug=false
     -- + Origin
 }
 
@@ -1774,7 +1779,8 @@ MoveModule.castData.medium.base = {
     debug=false,
     direction = {0, 0.001, 0},
     type=3,
-    size={Convert_mm_igu(60), Convert_mm_igu(6), Convert_mm_igu(60)}
+    size={Convert_mm_igu(60), Convert_mm_igu(6), Convert_mm_igu(60)},
+    debug=false
     -- + Origin
     -- + Orientation
 }
@@ -1783,7 +1789,8 @@ MoveModule.castData.medium.nubFR = {
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(30.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)}
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    debug=false
     -- + Origin
 }
 MoveModule.castData.medium.nubFL = {
@@ -1791,7 +1798,8 @@ MoveModule.castData.medium.nubFL = {
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(30.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)}
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    debug=false
     -- + Origin
 }
 MoveModule.castData.medium.nubBR = {
@@ -1799,7 +1807,8 @@ MoveModule.castData.medium.nubBR = {
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(30.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)}
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    debug=false
     -- + Origin
 }
 MoveModule.castData.medium.nubBL = {
@@ -1807,7 +1816,8 @@ MoveModule.castData.medium.nubBL = {
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(30.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)}
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    debug=false
     -- + Origin
 }
 
@@ -1817,7 +1827,8 @@ MoveModule.castData.large.base = {
     debug=false,
     direction = {0, 0.001, 0},
     type=3,
-    size={Convert_mm_igu(80), Convert_mm_igu(6), Convert_mm_igu(80)}
+    size={Convert_mm_igu(80), Convert_mm_igu(6), Convert_mm_igu(80)},
+    debug=false
     -- + Origin
     -- + Orientation
 }
@@ -1826,7 +1837,8 @@ MoveModule.castData.large.nubFR = {
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(40.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)}
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    debug=false
     -- + Origin
 }
 MoveModule.castData.large.nubFL = {
@@ -1834,7 +1846,8 @@ MoveModule.castData.large.nubFL = {
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(40.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)}
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    debug=false
     -- + Origin
 }
 MoveModule.castData.large.nubBR = {
@@ -1842,7 +1855,8 @@ MoveModule.castData.large.nubBR = {
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(40.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)}
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    debug=false
     -- + Origin
 }
 MoveModule.castData.large.nubBL = {
@@ -1850,9 +1864,59 @@ MoveModule.castData.large.nubBL = {
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(40.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)}
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    debug=false
     -- + Origin
 }
+
+MoveModule.castData.huge = {}
+MoveModule.castData.huge.base = {
+    debug=false,
+    direction = {0, 0.001, 0},
+    type=3,
+    size={Convert_mm_igu(80), Convert_mm_igu(6), Convert_mm_igu(221)},
+    debug=false
+    -- + Origin
+    -- + Orientation
+}
+MoveModule.castData.huge.nubFR = {
+    debug=false,
+    localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(111.858)},
+    direction = {0, 0.001, 0},
+    type=2,
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    debug=false
+    -- + Origin
+}
+MoveModule.castData.huge.nubFL = {
+    debug=false,
+    localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(111.858)},
+    direction = {0, 0.001, 0},
+    type=2,
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    debug=false
+    -- + Origin
+}
+MoveModule.castData.huge.nubBR = {
+    debug=false,
+    localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(111.858)},
+    direction = {0, 0.001, 0},
+    type=2,
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    debug=false
+    -- + Origin
+}
+MoveModule.castData.huge.nubBL = {
+    debug=false,
+    localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(111.858)},
+    direction = {0, 0.001, 0},
+    type=2,
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    debug=false
+    -- + Origin
+}
+
+
 
 -- Get cast data for particular ship situation
 -- Arguments:
@@ -4381,7 +4445,7 @@ function newSpawner(listTable)
                 tempBagShp.putObject(shipClone)
             end
         end
-        if newShip == nil and Pilots[shipIndex].id ~= 0 then
+        if (newShip == nil) and (Pilots[shipIndex].id ~= 0) then
           newShip = spawnObject({
               type              = "Custom_Model",
               position          = pos,
@@ -4398,7 +4462,7 @@ function newSpawner(listTable)
               type = 1
           })
         end
-        if newship ~= nil then
+        if newShip ~= nil then
             newShip.setName(Pilots[shipIndex]['name']) --Corrects ship name for clones
             if Pilots[shipIndex]['Size'] == "small" then
                 newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Small_base_Collider.obj'})
