@@ -133,6 +133,7 @@ assetTable = {
 
 -- Restore self state
 function onLoad()
+    --self.UI.setCustomAssets(assetTable)
     clearDial()
     if savedData ~= nil then
         state = JSON.decode(savedData)
@@ -146,13 +147,14 @@ end
 
 
 function clearDial()
-    self.UI.Hide('TalonPanel') -- Talon has to come before CenterFU which it is inside -- hide doesn't work when the parent is already hidden (could also use active=false instead)
+
+    self.UI.hide('TalonPanel') -- Talon has to come before CenterFU which it is inside -- hide doesn't work when the parent is already hidden (could also use active=false instead)
     self.UI.hide("CenterFD")
-    self.UI.Hide('CenterFU')
+    self.UI.hide('CenterFU')
     self.UI.hide("ManWin")
-    self.UI.Hide('arcPanel')
-    self.UI.Hide('relocPanel')
-    self.UI.Hide('tokenPanel')
+    self.UI.hide('arcPanel')
+    self.UI.hide('relocPanel')
+    self.UI.hide('tokenPanel')
     winStat = false
 end
 
@@ -331,12 +333,17 @@ end
 function onPickUp(player_color)
     if assignedShip == nil then
         pColor = self.held_by_color
-        self.UI.setCustomAssets(assetTable)
     end
 end
 
 -- Assign a ship to the dial
 function assignShip(ship)
+    self.UI.setAttribute("CenterFD", "active", "true")
+    self.UI.setAttribute("CenterFU", "active", "true")
+    self.UI.setAttribute("arcPanel", "active", "true")
+    self.UI.setAttribute("tokenPanel", "active", "true")
+    self.UI.setAttribute("relocPanel", "active", "true")
+    self.UI.setAttribute("CenterFD", "active", "true")
     assignedShip = ship
     Name=assignedShip.getName()
     self.setName(Name)
@@ -382,6 +389,7 @@ function assignShip(ship)
             self.UI.setAttribute("PivLBtn", "active", "true")
         end
     end
+
 end
 
 
@@ -845,12 +853,4 @@ function deleteTemplate()
   templatePlaced = false
   Table={[1]=assignedShip,[2]='deleteMoveTemplate',[3]=playerColor}
   Global.call("proxyPerformAction",Table)
-end
-
-initStat = true
-function onObjectSpawned()
-    if initStat==true then
-        initStat=false
-        clearDial()
-    end
 end

@@ -8,6 +8,7 @@ Updated Dec 6, 2019 by infinityLoop
 2.  Install [TTS-Lua](https://atom.io/packages/tabletopsimulator-lua) package through the package manager in Settings->Packages
 3.  Move `TTS_Lib` and `TTS_xwing` from the repository into your tabletop simulator mod directory
     * (Default Windows directory) C:\Users\ {User}\Documents\My Games\Tabletop Simulator\
+    It is also possible to create a symbolic link from the Simulator mod directory to `TTS_Lib` and `TTS_xwing` in your repository.
 
 
 ## Previewing Changes
