@@ -4381,7 +4381,7 @@ function newSpawner(listTable)
                 tempBagShp.putObject(shipClone)
             end
         end
-        if newShip == nil then
+        if newShip == nil and Pilots[shipIndex].id ~= 0 then
           newShip = spawnObject({
               type              = "Custom_Model",
               position          = pos,
@@ -4398,27 +4398,29 @@ function newSpawner(listTable)
               type = 1
           })
         end
-        newShip.setName(Pilots[shipIndex]['name']) --Corrects ship name for clones
-        if Pilots[shipIndex]['Size'] == "small" then
-            newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Small_base_Collider.obj'})
-        elseif Pilots[shipIndex]['Size'] == "medium" then
-            newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Medium_base_Collider.obj'})
-        elseif Pilots[shipIndex]['Size'] == "large" then
-            newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Large_base_Collider.obj'})
-        elseif Pilots[shipIndex]['Size'] == "huge" then
-            newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Huge_base_Collider.obj'})
-        end
+        if newship ~= nil then
+            newShip.setName(Pilots[shipIndex]['name']) --Corrects ship name for clones
+            if Pilots[shipIndex]['Size'] == "small" then
+                newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Small_base_Collider.obj'})
+            elseif Pilots[shipIndex]['Size'] == "medium" then
+                newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Medium_base_Collider.obj'})
+            elseif Pilots[shipIndex]['Size'] == "large" then
+                newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Large_base_Collider.obj'})
+            elseif Pilots[shipIndex]['Size'] == "huge" then
+                newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Huge_base_Collider.obj'})
+            end
 
-        newShip.setTable("Data", Pilots[shipIndex]['Data'])
-        newShip.setLuaScript(saveAndLoadShipStateLua)
-        if spawnedPilotList[1] ~= nil then
-            for i, spawned in ipairs(spawnedPilotList) do
-                if spawned == pilotName then
-                    pilotCount = pilotCount
-                end
-                if pilotCount > 1 then
-                    newNum = tostring(pilotCount)
-                    newShip.setName(Pilots[shipIndex]['name'] .. ' '..newNum)
+            newShip.setTable("Data", Pilots[shipIndex]['Data'])
+            newShip.setLuaScript(saveAndLoadShipStateLua)
+            if spawnedPilotList[1] ~= nil then
+                for i, spawned in ipairs(spawnedPilotList) do
+                    if spawned == pilotName then
+                        pilotCount = pilotCount
+                    end
+                    if pilotCount > 1 then
+                        newNum = tostring(pilotCount)
+                        newShip.setName(Pilots[shipIndex]['name'] .. ' '..newNum)
+                    end
                 end
             end
         end
