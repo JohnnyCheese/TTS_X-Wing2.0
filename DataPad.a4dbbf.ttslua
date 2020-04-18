@@ -1134,7 +1134,7 @@ masterPilotDB[629]={['name']='K-2SO',['Faction']= 1,['ship_type']=15,['cost']=46
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/2f/27/2f277cc2-9cd8-4aa6-bf7c-daf6f7416829/swz66_k-2so.png',['init']=3,['actSet']={'C','TL'}}
 masterPilotDB[631]={['name']='Alexsandr Kallus',['Faction']= 1,['ship_type']=23,['cost']=69,['slot']={1, 2, 4, 5, 8, 8, 16, 14, 15},['Shield']=4,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/d0/bf/d0bf7c63-2c2c-4372-8ace-7299d180c774/swz66_alexsandr-kallus.png',['init']=4,['actSet']={'F','TL','R'}}
-masterPilotDB[630]={['name']='Leia Organa',['Faction']= 1,['ship_type']=1,['cost']=79,['slot']={1, 6, 8, 8, 16, 14, 14, 15},['Shield']=5,
+masterPilotDB[630]={['name']='Leia Organa',['Faction']= 1,['ship_type']=1,['cost']=79,['slot']={17, 6, 8, 8, 16, 14, 14, 15},['Shield']=5,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/5b/ff/5bffb367-cb6e-4b8b-948f-25a70acd3a3f/swz66_leia-organa.png',['init']=5,['actSet']={'F','TL','B'}}
 masterPilotDB[639]={['name']="Ronith Blario",['Faction']=4,['ship_type']=54,['cost']=34,['slot']={1,1,19,6},['Shield']=2,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/27/9a/279ac02a-e274-4bcb-9570-d469cd12936e/swz66_ronith-blario.png',['init']=2,['actSet']={'F','TL','Rot180','E','B','BR'}}
@@ -1305,7 +1305,7 @@ masterUpgradesDB[244]={['name']='Selfless',['slot']=1,['cost']=3,['card']='http:
 masterUpgradesDB[245]={['name']='Squad Leader',['slot']=1,['cost']='i',['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_16.png',['restriction']={ }}
 masterUpgradesDB[246]={['name']='Swarm Tactics',['slot']=1,['cost']='i',['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_17.png',['restriction']={ }}
 masterUpgradesDB[247]={['name']='Trick Shot',['slot']=1,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_18.png',['restriction']={ }}
-masterUpgradesDB[248]={['name']='heightened Perception',['slot']=17,['cost']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_19.png',['restriction']={ }}
+masterUpgradesDB[248]={['name']='Heightened Perception',['slot']=17,['cost']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_19.png',['restriction']={ }}
 masterUpgradesDB[249]={['name']='Instinctive Aim',['slot']=17,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_20.png',['restriction']={ }}
 masterUpgradesDB[250]={['name']='Sense',['slot']=17,['cost']=5,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_21.png',['restriction']={ }}
 masterUpgradesDB[251]={['name']='Supernatural Reflexes',['slot']=17,['cost']='i',['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_22.png',['restriction']={ ['Size']={small=true}}}
@@ -1430,8 +1430,8 @@ masterUpgradesDB[368]={['name']='"Genius"',['slot']=10,['cost']=2,['card']='http
 masterUpgradesDB[369]={['name']='R5-P8',['slot']=10,['cost']=4,['Charge']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_144.png',['restriction']={['Faction']={[3]=true}}}
 masterUpgradesDB[370]={['name']='R5-TK',['slot']=10,['cost']=0,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_145.png',['restriction']={['Faction']={[3]=true}}}
 masterUpgradesDB[371]={['name']='Andrasta',['slot']=15,['cost']=3,['addSlot']={12},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_146.png',['restriction']={['Faction']={[3]=true},['ship']={[10]=true}}}
-masterUpgradesDB[372]={['name']='havoc',['slot']=15,['cost']=2,['addSlot']={2, 10},['remSlot']={8},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_147.png',['restriction']={['Faction']={[3]=true},['ship']={[4]=true}}}
-masterUpgradesDB[373]={['name']="hound's Tooth",['Docking']=true,['slot']=15,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_148.png',['restriction']={['Faction']={[3]=true},['ship']={[24]=true}}}
+masterUpgradesDB[372]={['name']='Havoc',['slot']=15,['cost']=2,['addSlot']={2, 10},['remSlot']={8},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_147.png',['restriction']={['Faction']={[3]=true},['ship']={[4]=true}}}
+masterUpgradesDB[373]={['name']="Hound's Tooth",['Docking']=true,['slot']=15,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_148.png',['restriction']={['Faction']={[3]=true},['ship']={[24]=true}}}
 masterUpgradesDB[374]={['name']='IG-2000',['slot']=15,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_149.png',['restriction']={['Faction']={[3]=true},['ship']={[21]=true}}}
 masterUpgradesDB[375]={['name']='Marauder',['slot']=15,['cost']=6,['addSlot']={16},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_150.png',['restriction']={['Faction']={[3]=true},['ship']={[10]=true}}}
 masterUpgradesDB[376]={['name']='Mist Hunter',['slot']=15,['cost']=1,['addSlot']={3},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_151.png',['restriction']={['Faction']={[3]=true},['ship']={[22]=true}}}
