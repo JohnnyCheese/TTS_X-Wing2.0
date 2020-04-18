@@ -142,12 +142,6 @@ XW_cmd.Diagnose = function(ship)
         printToAll(ship.getName() .. '\'s lingering buttons deleted', {0.1, 0.1, 1})
         issueFound = true
     end
-    -- If ship is tagged as sliding now, reset
-    if ship.getVar('slideOngoing') == true then
-        ship.setVar('slideOngoing', false)
-        printToAll(ship.getName() .. '\'s stuck slide resolved', {0.1, 0.1, 1})
-        issueFound = true
-    end
     -- If ship has unrecognized model and said that before, remind
     if ship.getVar('missingModelWarned') == true then
         printToAll('I hope you do remember that I told you about ' .. ship.getName() .. '\'s model being unrecognized when it was first moved/used', {0.1, 0.1, 1})
@@ -901,146 +895,7 @@ MoveData.MoveLength = function(moveInfo)
     end
 end
 
--- Regex match for moves that support sliding base after execution
-MoveData.slideMatchTable = {    --'x[rle]',
---                                'x[rle][fb]?',
---                                'c[rle][fb]?',
---                                't[rle][123]t',
---                                'b[rle][123]t',
---                                'ch[rle][fb]',
---                                'chadj',
---                                'vr[rle][fb]',
-}--                                'vradj'             }
--- Check if move allows sliding based on above table
--- Argumant can be either move code or move info as per MoveData.DecodeInfo
-MoveData.IsSlideMove = function(moveInfoCode)
-    local code = nil
-    if type(moveInfoCode) == 'table' and type(moveInfoCode.code) == 'string' then
-        code = moveInfoCode.code
-    elseif type(moveInfoCode) == 'string' then
-        code = moveInfoCode
-    else
-        print('MoveData.IsSlideMove: arg of invalid type')
-    end
-    local matched = false
-    for k,pat in pairs(MoveData.slideMatchTable) do
-        if code:match(pat) ~= nil then
-            matched = true
-            break
-        end
-    end
-    return matched
-end
 
--- Get slide length (if move supports sliding) IN MILIMETERS
-MoveData.SlideLength = function(moveInfo)
-    if type(moveInfo) ~= 'table' then
-        print('MoveData.SlideLength: arg of invalid type')
-    end
-    if moveInfo.traits.slide ~= true then
-        return nil
-    else
-        baseSize = mm_baseSize[moveInfo.size]
-        if moveInfo.type == 'roll' then
-            if baseSize == 40 then
-                return baseSize/2
-            elseif baseSize == 60 then
-                return baseSize/3
-            elseif baseSize == 80 then
-                return baseSize/2
-            end
-        elseif moveInfo.extra == 'talon' or moveInfo.type == 'echo' or moveInfo.type == 'viper' then
-            return baseSize/2
-        end
-    end
-    return nil
-end
-
--- Get the position at which slide after move should start
--- This is the position when ship is slid as far BACK as possible (part=0 in later processing)
-MoveData.SlideMoveOrigin = function(moveInfo)
-    local code = moveInfo.code
-    local baseSize = mm_baseSize[moveInfo.size]
-    local data = nil
-    if moveInfo.type == 'roll' then
-        -- Rolls are straights rotated 90deg sideways
-        local ang = -90
-        if moveInfo.dir == 'right' then ang = 90 end
-        if moveInfo.size == 'small' then
-            data = MoveData.LUT.ConstructData({type='straight', speed=moveInfo.speed, size=moveInfo.size, code='s'..moveInfo.speed})
-        else
-            data = {0, 0, baseSize+20, 0}
-        end
-        data = MoveData.RotateEntry(data, ang)
-        data[4] = data[4] - ang
-        data[3] = data[3] - MoveData.SlideLength(moveInfo)/2
-    elseif moveInfo.type == 'echo' or moveInfo.type == 'viper' then
-        -- FUCKING ECHO is appropriate bank 2 rotated 90deg sideways
-        -- Viper is same but bank 1
-        local ang = -90
-        if moveInfo.dir == 'right' then
-            ang = 90
-        end
-        local bankSpeed = 2
-        if moveInfo.type == 'viper' then bankSpeed = 1 end
-        data = MoveData.LUT.ConstructData({type='bank', speed=bankSpeed, size='small', code='br' .. tostring(bankSpeed)})
-        if (moveInfo.dir == 'left' and moveInfo.extra == 'backward') or (moveInfo.dir == 'right' and moveInfo.extra == 'forward') then
-            data = MoveData.LeftVariant(data)
-        end
-        data = MoveData.RotateEntry(data, ang)
-        if moveInfo.dir == 'right' then
-            data[4] = data[4] - 90
-        else
-            data[4] = data[4] + 90
-        end
-        data[3] = data[3] - MoveData.SlideLength(moveInfo)/2
-    elseif moveInfo.type == 'turn' and moveInfo.extra == 'talon' then
-        -- Talon roll are simply talons rolls slid forward
-        -- (forward cause this is initial position relative and talons do a 180)
-        data = MoveData.LUT.ConstructData(moveInfo)
-        data[3] = data[3] + MoveData.SlideLength(moveInfo)/2
-        if moveInfo.dir == 'left' then
-            data = MoveData.LeftVariant(data)
-        end
-        data = MoveData.TurnInwardVariant(data)
-    elseif moveInfo.type == 'bank' and moveInfo.extra == 'talon' then
-        -- Bank talon rolls go half slide length at 45 deg
-        data = MoveData.LUT.ConstructData(moveInfo)
-        local off = Vect.RotateDeg({0, 0, MoveData.SlideLength(moveInfo)/2}, -45)
-        data = Vect.Sum(data, {off[1], off[2], off[3], 0})
-        if moveInfo.dir == 'left' then
-            data = MoveData.LeftVariant(data)
-        end
-        data = MoveData.TurnInwardVariant(data)
-    end
-    return data
-end
-
--- Get the offset sliding by part/maxPart applies to ship position
--- MoveData.SlideMoveOrigin and this provide total offset for some part of a slide
--- THIS IS ZERO-SLIDE-POSITION RELATIVE
-MoveData.SlidePartOffset = function(moveInfo, part)
-
-    if moveInfo.type == 'echox' or moveInfo.type == 'viperx' then
-        if moveInfo.extra == 'adjust' then
-            -- Echo 2nd adjust is similair to a barrel roll
-            -- This is when ship is slid against the template
-            return {0, 0, MoveData.SlideLength(moveInfo)*(part/MoveData.partMax), 0}
-        else
-            -- Echo 1st adjust is a diagonal 45deg line through base
-            -- This is when template is slid against ship before it is moved
-            local dirVec = {-1, 0, 1, 0}
-            if (moveInfo.dir == 'left' and moveInfo.extra == 'backward') or (moveInfo.dir == 'right' and moveInfo.extra == 'forward') then
-                dirVec[1] = -1*dirVec[1]
-            end
-            dirVec = Vect.SetLength(dirVec, MoveData.SlideLength(moveInfo))
-            return Vect.Scale(dirVec, part/MoveData.partMax)
-        end
-    else
-        -- Normal rolls/talons are simply slid forward
-        return {0, 0, MoveData.SlideLength(moveInfo)*(part/MoveData.partMax), 0}
-    end
-end
 
 -- Convert an entry from milimeters to in-game units
 MoveData.ConvertDataToIGU = function(entry)
@@ -1111,7 +966,7 @@ MoveData.DecodeInfo = function (move_code, ship)
                     dir=nil,            -- [left] [right] [nil]
                     extra=nil,          -- [koiogran] [segnor] [talon] [reverse] [straight] [forward] [backward] [nil]
                     traits =
-                    {   slide=false,    -- [true] [false] if this move can be slid afterwards
+                    {
                         full=false,     -- [true] [false] if this move can be attempted as a full move
                         part=false      -- [true] [false] if this move can be attempted as a partial move
                     },
@@ -1120,11 +975,6 @@ MoveData.DecodeInfo = function (move_code, ship)
                     collNote=nil,       -- [string] eg. 'tried to do xxx'  //  [nil]
                     code=move_code      -- [string] eg. 'be2'              //  [nil]
     }
-    --[[ Set to slide-able if it is
-    if MoveData.IsSlideMove(move_code) then
-        info.traits.slide = true
-    end
-    ]]
     if ship ~= nil then
         info.size = ship.getTable("Data").Size or 'small'
     else
@@ -1490,14 +1340,6 @@ MoveData.DecodePartMove = function(move_code, ship, part)
     return data
 end
 
--- Get the offset data for a partial slide
--- Return format: {xPos_offset, yPos_offset, zPos_offset, yRot_offset}
-MoveData.DecodePartSlide = function(move_code, ship, part)
-    local info = MoveData.DecodeInfo(move_code, ship)
-    local slideOrigin = MoveData.SlideMoveOrigin(info)
-    local offset = Vect.RotateDeg(MoveData.SlidePartOffset(info, part), slideOrigin[4])
-    return Vect.Sum(slideOrigin, offset)
-end
 
 -- END MOVEMENT DATA MODULE
 --------
@@ -1543,12 +1385,6 @@ MoveModule.GetPartMove = function(move, ship, part)
     return MoveModule.EntryToPos(entry, ship)
 end
 
--- Get the position for a ship if it did a part of a slide
--- Returned position and rotation are ready to feed TTS functions with
-MoveModule.GetPartSlide = function(move, ship, part)
-    local entry = MoveData.DecodePartSlide(move, ship, part)
-    return MoveModule.EntryToPos(entry, ship)
-end
 
 -- HISTORY HANDLING:
 -- Lets us undo, redo and save positions a ship was seen at
@@ -2446,13 +2282,13 @@ end
 -- Get the FINAL position for a given move, including partial move and collisions
 -- Follows traits from MoveData.DecodeInfo to try different move functions
 -- Return:  {
---      finType     <- 'slide' when did a slide, 'move' when did full/part mvoe
+--      finType     <- 'move' when did full/part mvoe
 --                     'stationary' when there was no position change (rotation change allowed)
 --                     'overlap' if there was no valid free target position
 --                     IF OVERLAP, OTHER KEYS ARE TO BE IGNORED
 --      finPos      <- { pos = finalPosition, rot = finalRotation }
 --      collObj     <- nil if no collision, object ref to colliding ship otherwise
---      finPart     <- part of partial move/slide performed, 'max' if full move, nil if not applicable
+--      finPart     <- part of partial move performed, 'max' if full move, nil if not applicable
 --          }
 MoveModule.GetFinalPosData = function(move_code, ship, ignoreCollisions)
     local out = {finPos = nil, collObj = nil, finType = nil, finPart = nil}
@@ -2465,19 +2301,7 @@ MoveModule.GetFinalPosData = function(move_code, ship, ignoreCollisions)
 
     -- NON-COLLISION VERSION
     if ignoreCollisions then
-        -- If move can slide at the end, get final position including 'backward'/'forward' modifiers
-        if info.traits.slide == true then
-            local initPart = MoveData.partMax/2
-            if info.extra == 'forward' then
-                initPart = MoveData.partMax
-            elseif info.extra == 'backward' then
-                initPart = 0
-            end
-            out.finPos = MoveModule.GetPartSlide(info.code, ship, initPart)
-            out.finType = 'slide'
-            out.finPart = initPart
-            return out
-        elseif info.traits.full == true then
+        if info.traits.full == true then
         -- If full moves are allowed, get a full move
             out.finPos = MoveModule.GetFullMove(info.code, ship)
             if info.speed == 0 then
@@ -2497,31 +2321,6 @@ MoveModule.GetFinalPosData = function(move_code, ship, ignoreCollisions)
 
     -- COLLISION VERSION
     else
-        -- If move can slide at the end, check the slide parts
-        -- Respect the 'forward'/'backward' option as "as far forward/backward as possible"
-        -- Respect the middle slide option by checking for middle once, then treat as forward if obstructed
-        if info.traits.slide == true then
-            local partRange = {from=0, to=MoveData.partMax}
-            if info.extra == 'forward' then
-                partRange = {from=MoveData.partMax, to=0}
-            elseif info.extra ~= 'backward' then
-                local firstCheckRange = {from=500, to=500}
-                local freePartData = MoveModule.MoveProbe.GetFreePart(info, ship, MoveModule.GetPartSlide, firstCheckRange, MoveData.SlideLength(info))
-                if freePartData.info ~= 'overlap' then
-                    out.finPos = MoveModule.GetPartSlide(info.code, ship, freePartData.part)
-                    out.finType = 'slide'
-                    out.finPart = freePartData.part
-                    return out
-                end
-            end
-            local freePartData = MoveModule.MoveProbe.GetFreePart(info, ship, MoveModule.GetPartSlide, partRange, MoveData.SlideLength(info))
-            if freePartData.info ~= 'overlap' then
-                out.finPos = MoveModule.GetPartSlide(info.code, ship, freePartData.part)
-                out.finType = 'slide'
-                out.finPart = freePartData.part
-                return out
-            end
-        end
         -- If move allows for full move check, try it
         if info.traits.full == true then
             local fullData = MoveModule.MoveProbe.TryFullMove(info, ship, MoveModule.GetFullMove)
@@ -2572,16 +2371,6 @@ MoveModule.MoveShip = function(ship, finData, saveName)
     if finData.noSave ~= true then
         MoveModule.SaveStateToHistory(ship, true)
     end
-    --[[ AssetMove data
-
-    Asset = ship.getVar("Asset")
-    print(Asset)
-    assetPos={}
-    assetPos[1]=finPos.pos[1]
-    assetPos[2]=finPos.pos[2]+2
-    assetPos[3]=finPos.pos[3]
-    Asset.setPositionSmooth(finPos.pos, false, true)
-    Asset.setRotationSmooth(finPos.rot, false, true)]]
     ship.setPositionSmooth(finPos.pos, false, true)
     ship.setRotationSmooth(finPos.rot, false, true)
     -- Wait for resting, but provide final position to set so smooth move doesn't fuck with accuracy
@@ -2629,7 +2418,7 @@ function restWaitCoroutine()
     -- Wait
     repeat
         coroutine.yield(0)
-    until actShip.resting == true and actShip.isSmoothMoving() == false and actShip.held_by_color == nil and actShip.getVar('slideOngoing') ~= true
+    until actShip.resting == true and actShip.isSmoothMoving() == false and actShip.held_by_color == nil
 
     if finPos ~= nil then
         actShip.setPosition(finPos.pos)
@@ -2679,8 +2468,6 @@ MoveModule.PerformMove = function(move_code, ship, ignoreCollisions)
     local annInfo = {type=finData.finType, note=info.note, code=info.code}
     if finData.finType == 'overlap' then
         annInfo.note = info.collNote
-    elseif finData.finType == 'slide' then
-        -- I feel like something was supposed to be here
     elseif finData.finType == 'move' then
         if finData.collObj ~= nil then
             annInfo.note = info.collNote
@@ -3593,302 +3380,6 @@ DialModule.GetShortName = function(ship)
     return shortName
 end
 
--- Spawn first buttons on a dial (flip, indication, delete, name, action expand)
-DialModule.SpawnFirstActiveButtons = function(dialTable)
-    dialTable.dial.clearButtons()
-    dialTable.dial.createButton(DialModule.Buttons.deleteFacedown)
-    dialTable.dial.createButton(DialModule.Buttons.flip)
-    dialTable.dial.createButton(DialModule.Buttons.nameButton(dialTable.ship))
-    dialTable.dial.createButton(DialModule.Buttons.toggleInitialExpanded)
-    dialTable.dial.createButton(DialModule.Buttons.flipNotify)
-end
-
--- Spawn main buttons on a dial (move, actions, undo, templade, return) when it is flipped over
-DialModule.SpawnMainActiveButtons = function (dialTable)
-    dialTable.dial.clearButtons()
-    dialTable.dial.createButton(DialModule.Buttons.deleteFaceup)
-    dialTable.dial.createButton(DialModule.Buttons.move)
-    dialTable.dial.createButton(DialModule.Buttons.moveTemplate)
-    dialTable.dial.createButton(DialModule.Buttons.toggleMainExpanded)
-end
-
--- Get the state of initial buttons (before flipped over)
--- Return:
---          -1      <- no buttons at all (error state)
---           0      <- initial buttons set
---           1      <- initial set + expanded actions
-DialModule.GetInitialButtonsState = function(dial)
-    local state = 0
-    local buttons = dial.getButtons()
-    if buttons == nil then return -1 end
-    for k,but in pairs(buttons) do
-        if but.label == 'TL' then state = 1 end
-    end
-    return state
-end
-
-
-
-
--- Set initial buttons state (before flipped over) to desired state
--- newState arg:
---           0      <- initial buttons set
---           1      <- initial set + expanded actions
-DialModule.SetInitialButtonsState = function(dial, newState)
-    local actShip = dial.getVar('assignedShip')
-    local extActionsMatch = ' Br B C Bl Xf X Xb TL Tur Arc 1 2 3 F ! -> E Q Slide '  -- labels for buttons of EXTENDED set
-    local nameButton = DialModule.Buttons.nameButton(actShip)
-    local currentState = DialModule.GetInitialButtonsState(dial)
-
-    if newState > currentState then
-            dial.createButton(DialModule.Buttons.FlipVersion(DialModule.Buttons.boostS))
-            dial.createButton(DialModule.Buttons.FlipVersion(DialModule.Buttons.boostR))
-            dial.createButton(DialModule.Buttons.FlipVersion(DialModule.Buttons.boostL))
-            dial.createButton(DialModule.Buttons.FlipVersion(DialModule.Buttons.rollR))
-            dial.createButton(DialModule.Buttons.FlipVersion(DialModule.Buttons.rollRF))
-            dial.createButton(DialModule.Buttons.FlipVersion(DialModule.Buttons.rollRB))
-            dial.createButton(DialModule.Buttons.FlipVersion(DialModule.Buttons.rollL))
-            dial.createButton(DialModule.Buttons.FlipVersion(DialModule.Buttons.rollLF))
-            dial.createButton(DialModule.Buttons.FlipVersion(DialModule.Buttons.rollLB))
-            dial.createButton(DialModule.Buttons.FlipVersion(DialModule.Buttons.frontArc))
-            dial.createButton(DialModule.Buttons.FlipVersion(DialModule.Buttons.leftArc))
-            dial.createButton(DialModule.Buttons.FlipVersion(DialModule.Buttons.rightArc))
-            dial.createButton(DialModule.Buttons.FlipVersion(DialModule.Buttons.rearArc))
-            dial.createButton(DialModule.Buttons.FlipVersion(DialModule.Buttons.rulerR1))
-            dial.createButton(DialModule.Buttons.FlipVersion(DialModule.Buttons.rulerR2))
-            dial.createButton(DialModule.Buttons.FlipVersion(DialModule.Buttons.rulerR3))
-            dial.createButton(DialModule.Buttons.FlipVersion(DialModule.Buttons.targetLock))
---            dial.createButton(DialModule.Buttons.FlipVersion(DialModule.Buttons.slide))
-            dialName = DialModule.getPilotName(dial)
-            local Calc = false
-            for k, v in pairs(calculateDB) do
-                if string.find(dialName, k) then
-                    Calc = true
-                    if dialName == 'Guri'then
-                        dial.createButton(DialModule.Buttons.FlipVersion(DialModule.Buttons.focus))
-                        dial.createButton(DialModule.Buttons.FlipVersion(DialModule.Buttons.calculateB))
-                    else
-                        dial.createButton(DialModule.Buttons.FlipVersion(DialModule.Buttons.calculate))
-                    end
-                end
-            end
-            if Calc == false then
-                dial.createButton(DialModule.Buttons.FlipVersion(DialModule.Buttons.focus))
-            end
-            dial.createButton(DialModule.Buttons.FlipVersion(DialModule.Buttons.stress))
-            dial.createButton(DialModule.Buttons.FlipVersion(DialModule.Buttons.strain))
-            dial.createButton(DialModule.Buttons.FlipVersion(DialModule.Buttons.evade))
-            dial.createButton(DialModule.Buttons.FlipVersion(DialModule.Buttons.undo))
-            local buttons = dial.getButtons()
-            for k,but in pairs(buttons) do
-                if but.label == nameButton.label then
-                    dial.removeButton(but.index)
-                end
-            end
-            dial.createButton(DialModule.Buttons.nameButtonLifted(actShip))
-        -- if REMOVING buttons
-    elseif newState < currentState then
-        local buttons = dial.getButtons()
-        for k,but in pairs(buttons) do
-            if extActionsMatch:find(' ' .. but.label .. ' ') ~= nil or but.label == nameButton.label then
-                dial.removeButton(but.index)
-            end
-        end
-        dial.createButton(DialModule.Buttons.nameButton(actShip))
-    end
-end
-
-
--- Get the state of main buttons (after flipping over)
--- Return:
---          -1      <- no buttons at all (error state)
---           0      <- basic (move, delete, A etc)
---           1      <- above + FSEQ
---           2      <- above + boosts, rolls, R, TL
-DialModule.GetMainButtonsState = function(dial)
-    local state = 0
-    local buttons = dial.getButtons()
-    if buttons == nil then return -1 end
-    for k,but in pairs(buttons) do
-        if but.label == 'S' then if state == 0 then state = 1 end end
-        if but.label == 'B' then state = 2 end
-    end
-    return state
-end
-
-
--- Set the state of main buttons (after flipping over)
--- newState arg:
---           0      <- basic (move, delete, A etc)
---           1      <- above + FSEQ
---           2      <- above + boosts, rolls, R, TL
-DialModule.SetMainButtonsState = function(dial, newState)
-    local standardActionsMatch = ' -> F ! E Q - --'           -- labels for buttons of STANDARD set
-    local extActionsMatch = ' Br B C Bl Xf X Xb TL Tur Arc 1 2 3 Slide '  -- labels for buttons of EXTENDED set
-
-    local currentState = DialModule.GetMainButtonsState(dial)
-    if newState > currentState then
-        if currentState == 0 then -- BASIC -> STANDARD
-            dialName = DialModule.getPilotName(dial)
-            local Calc = false
-            for k, v in pairs(calculateDB) do
-                if string.find(dialName, k) then
-                    Calc = true
-                    if dialName == 'Guri'then
-                        dial.createButton(DialModule.Buttons.focus)
-                        dial.createButton(DialModule.Buttons.calculateB)
-                    else
-                        dial.createButton(DialModule.Buttons.calculate)
-                    end
-
-                end
-            end
-            if Calc == false then
-                dial.createButton(DialModule.Buttons.focus)
-            end
-            dial.createButton(DialModule.Buttons.stress)
-            dial.createButton(DialModule.Buttons.shedStress)
-            dial.createButton(DialModule.Buttons.strain)
-            dial.createButton(DialModule.Buttons.shedStrain)
-            dial.createButton(DialModule.Buttons.evade)
-            dial.createButton(DialModule.Buttons.undo)
-        end
-        if newState == 2 then -- STANDARD -> EXTENDED
-            dial.createButton(DialModule.Buttons.boostS)
-            dial.createButton(DialModule.Buttons.boostR)
-            dial.createButton(DialModule.Buttons.boostL)
-            dial.createButton(DialModule.Buttons.rollR)
-            dial.createButton(DialModule.Buttons.rollRF)
-            dial.createButton(DialModule.Buttons.rollRB)
-            dial.createButton(DialModule.Buttons.rollL)
-            dial.createButton(DialModule.Buttons.rollLF)
-            dial.createButton(DialModule.Buttons.rollLB)
-            dial.createButton(DialModule.Buttons.frontArc)
-            dial.createButton(DialModule.Buttons.rightArc)
-            dial.createButton(DialModule.Buttons.leftArc)
-            dial.createButton(DialModule.Buttons.rearArc)
-            dial.createButton(DialModule.Buttons.rulerR1)
-            dial.createButton(DialModule.Buttons.rulerR2)
-            dial.createButton(DialModule.Buttons.rulerR3)
-            dial.createButton(DialModule.Buttons.targetLock)
-            if dial.getVar('move'):sub(-1,-1) =='t' then
-                dial.createButton(DialModule.Buttons.slide)
-            end
-        end
-        -- if REMOVING buttons
-    elseif newState < currentState then
-        local buttons = dial.getButtons()
-        if currentState == 2 then -- remove EXTENDED set ones
-            for k,but in pairs(buttons) do
-                if extActionsMatch:find(' ' .. but.label .. ' ') ~= nil then dial.removeButton(but.index) end
-            end
-        end
-        if newState == 0 then -- remove STANDARD set ones
-            for k,but in pairs(buttons) do
-                if standardActionsMatch:find(' ' .. but.label .. ' ') ~= nil then dial.removeButton(but.index) end
-            end
-        end
-    end
-end
-
--- Get the state of the move/undo and template button on activated dial
--- Return:
---      0       <- no button
---      1       <- Move button present
---      2       <- Undo button present
-DialModule.GetMoveUndoButtonState = function(dial)
-    local buttons = dial.getButtons()
-    local state = 0
-    for k,but in pairs(buttons) do
-        if but.label == 'Move' then
-            state = 1
-        elseif but.label == 'Undo' then
-            state = 2
-        end
-    end
-    return state
-end
-
--- Set the state of the move/undo and template button on activated dial
--- newState arg:
---      0 OR 'none'      <- Delete any
---      1 OR 'move'      <- Set to Move and Template
---      2 OR 'undo'      <- Set to Undo and Template
-DialModule.SetMoveUndoButtonState = function(dial, newState)
-    if type(newState) == 'string' then
-        if newState == 'none' then
-            newState = 0
-        elseif newState == 'move' then
-            newState = 1
-        elseif newState == 'undo' then
-            newState = 2
-        end
-    end
-    local buttons = dial.getButtons()
-    for k,but in pairs(buttons) do
-        if but.label == 'Undo' or but.label == 'Move' or but.label == 'T' then
-            dial.removeButton(but.index)
-        end
-    end
-    if newState == 1 then
-        dial.createButton(DialModule.Buttons.move)
-        dial.createButton(DialModule.Buttons.moveTemplate)
-    elseif newState == 2 then
-        dial.createButton(DialModule.Buttons.undoMove)
-        dial.createButton(DialModule.Buttons.moveTemplate)
-    end
-end
-
--- Make said dial a new active one
--- If there is one, return it to origin
-DialModule.MakeNewActive = function(ship, dial)
-    local actSet = DialModule.GetSet(ship)
-    if actSet.dialSet[dial.getVar('move')] ~= nil and actSet.dialSet[dial.getVar('move')].dial == dial then
-        if actSet.activeDial ~= nil then
-            DialModule.RestoreActive(ship)
-        end
-        actSet.activeDial = actSet.dialSet[dial.getVar('move')]
-    end
-end
-
--- Restore active dial for this ship set to origin
-DialModule.RestoreActive = function(ship)
-    local actSet = DialModule.GetSet(ship)
-    if actSet ~= nil and actSet.ship == ship and actSet.activeDial ~= nil then
-        actSet.activeDial.dial.clearButtons()
-        DialModule.DeleteTemplate(ship)
-        actSet.activeDial.dial.setPosition(actSet.activeDial.originPos)
-        actSet.activeDial.dial.setRotation(Dial_FaceupRot(actSet.activeDial.dial))
-        actSet.activeDial = nil
-    end
-end
-
--- Resore said dial to origin
-DialModule.RestoreDial = function(dial)
-    for k, set in pairs(DialModule.ActiveSets) do
-        if set.dialSet[dial.getVar('move')] ~= nil and set.dialSet[dial.getVar('move')].dial == dial then
-            if set.activeDial ~= nil and set.activeDial.dial == dial then
-                DialModule.RestoreActive(set.ship)
-            else
-                dial.clearButtons()
-                dial.setPosition(set.dialSet[dial.getVar('move')].originPos)
-                dial.setRotation(Dial_FaceupRot(dial))
-            end
-        end
-    end
-end
-
--- Get "correct" faceup rotation of a dial based on which half of tabe it is in
-function Dial_FaceupRot(dial)
-    local z_half = nil
-    if(dial.getPosition()[3] < 0) then z_half = -1 else z_half = 1 end
-    if z_half > 0 then
-        return {x=0, y=0, z=0}
-    else
-        return {x=0, y=180, z=0}
-    end
-end
-
 -- END AUTO DIALS MODULE
 --------
 
@@ -4324,7 +3815,7 @@ AnnModule.Announce = function(info, target, shipPrefix)
             shipName = shipPrefix.getName() .. ' '
         end
     end
-    if info.type == 'move' or info.type == 'slide' or info.type == 'stationary' then
+    if info.type == 'move' or info.type == 'stationary' then
         if info.collidedShip == nil then
             annString = shipName .. info.note .. ' (' .. info.code .. ')'
             annColor = AnnModule.announceColor.moveClear
@@ -4890,41 +4381,46 @@ function newSpawner(listTable)
                 tempBagShp.putObject(shipClone)
             end
         end
-        if newShip == nil then
+        if newShip == nil and Pilots[shipIndex].id ~= 0 then
           newShip = spawnObject({
               type              = "Custom_Model",
               position          = pos,
               rotation          = rot,
               scale             = {0.63, 0.63, 0.63},
               sound             = false,
-              snap_to_grid      = false
+              snap_to_grid      = false,
           })
           newShip.setCustomObject({
               convex = true,
               mesh =  '{verifycache}'..Pilots[shipIndex].mesh,
               diffuse = '{verifycache}'..Pilots[shipIndex].texture,
-              material = 1
+              material = 1,
+              type = 1
           })
         end
-        newShip.setName(Pilots[shipIndex]['name']) --Corrects ship name for clones
-        if Pilots[shipIndex]['Size'] == "small" then
-            newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Small_base_Collider.obj'})
-        elseif Pilots[shipIndex]['Size'] == "medium" then
-            newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Medium_base_Collider.obj'})
-        elseif Pilots[shipIndex]['Size'] == "large" then
-            newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Large_base_Collider.obj'})
-        end
+        if newship ~= nil then
+            newShip.setName(Pilots[shipIndex]['name']) --Corrects ship name for clones
+            if Pilots[shipIndex]['Size'] == "small" then
+                newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Small_base_Collider.obj'})
+            elseif Pilots[shipIndex]['Size'] == "medium" then
+                newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Medium_base_Collider.obj'})
+            elseif Pilots[shipIndex]['Size'] == "large" then
+                newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Large_base_Collider.obj'})
+            elseif Pilots[shipIndex]['Size'] == "huge" then
+                newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Huge_base_Collider.obj'})
+            end
 
-        newShip.setTable("Data", Pilots[shipIndex]['Data'])
-        newShip.setLuaScript(saveAndLoadShipStateLua)
-        if spawnedPilotList[1] ~= nil then
-            for i, spawned in ipairs(spawnedPilotList) do
-                if spawned == pilotName then
-                    pilotCount = pilotCount
-                end
-                if pilotCount > 1 then
-                    newNum = tostring(pilotCount)
-                    newShip.setName(Pilots[shipIndex]['name'] .. ' '..newNum)
+            newShip.setTable("Data", Pilots[shipIndex]['Data'])
+            newShip.setLuaScript(saveAndLoadShipStateLua)
+            if spawnedPilotList[1] ~= nil then
+                for i, spawned in ipairs(spawnedPilotList) do
+                    if spawned == pilotName then
+                        pilotCount = pilotCount
+                    end
+                    if pilotCount > 1 then
+                        newNum = tostring(pilotCount)
+                        newShip.setName(Pilots[shipIndex]['name'] .. ' '..newNum)
+                    end
                 end
             end
         end
