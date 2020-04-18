@@ -147,7 +147,8 @@ end
 
 
 function clearDial()
-    self.UI.hide('TalonPanel')
+
+    self.UI.hide('TalonPanel') -- Talon has to come before CenterFU which it is inside -- hide doesn't work when the parent is already hidden (could also use active=false instead)
     self.UI.hide("CenterFD")
     self.UI.hide('CenterFU')
     self.UI.hide("ManWin")
