@@ -21,7 +21,7 @@ local obj = nil
 local shipGUID = nil
 obj = nearest
 shipGUID = obj.getGUID()
-self.addAttachment(obj)
+obj.addAttachment(self)
 self.clearButtons()
 end
 
