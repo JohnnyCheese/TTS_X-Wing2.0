@@ -14,6 +14,16 @@
 
 self.interactable = false
 
+tintColors = {}
+tintColors[0] = nil
+tintColors[1] = color(1,0,0,0.7)
+tintColors[2] = color(1,1,0,0.7)
+tintColors[3] = color(0,0.33,0,0.7)
+tintColors[4] = color(0.5,0.25,0.1,0.7)
+tintColors[5] = color(0,0,1,0.7)
+tintColors[6] = color(1,0,0.8,0.7)
+tintColors[7] = color(1,1,1,0.7)
+tintColors[8] = color(0,0,0,0.7)
 
 -- List and cost of variable cost upgrades based on base sizea
 varCostS={}
@@ -1946,6 +1956,31 @@ dialSkin={
   [6]='http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/Republic.png',
   [7]='http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/CIS.png',}
 
+function calculateShipIndicators(idTable)
+  shipTable = {}
+  for k,v in pairs (idTable.Pilots) do
+      local ship = masterPilotDB[v]['ship_type']
+      if shipTable[ship] == nil then
+        shipTable[ship] = {k}
+      else
+        table.insert(shipTable[ship], k)
+      end
+    end
+    pilotIndicators = {}
+    local i = 1
+    for ship, pilots in pairs(shipTable) do
+      if #pilots > 1 then
+        for k, pilot in pairs(pilots) do
+          pilotIndicators[pilot] = i
+          i = i+1
+        end
+      else
+        pilotIndicators[pilots[1]] = 0
+      end
+    end
+    return pilotIndicators
+end
+
 function idSpawner(idTable)
     fList={}
     fList.Pilots = {}
@@ -1957,11 +1992,15 @@ function idSpawner(idTable)
     end
     fList.factionDial=dialSkin[fList.Faction]
     fList.sqdAction = {}
+
+    pilotIndicators = calculateShipIndicators(idTable)
+
     for k,v in pairs (idTable.Pilots) do
         local name = masterPilotDB[v]['name']
         fList.Pilots[k] ={}
         fList.Pilots[k]['id'] = v
         fList.Pilots[k]['name'] = name
+        fList.Pilots[k]['tint'] = tintColors[pilotIndicators[k]]
         fList.Pilots[k]['card'] = masterPilotDB[v]['card']
         fList.Pilots[k]['cardB'] = cardBackDB[ffgFaction[fList.Faction]]
         local Ship = masterPilotDB[v]['ship_type']
@@ -3138,89 +3177,93 @@ alternateSpelling["g4r-gor v/m"] = 'G4R-G0R V/M'
 
 -- Third Step: This function will decompose the input string and will propperly alocate each value on the propper position in the table.
 -- Then, it calls for the next function, either inquiring for ships and version of upgrades or calling the spawner.
-    function parseList()
-        self.clearButtons()
-        self.clearInputs()
-        if lista ~= nil then
-            parsedList = {}
-            pilotsList = mysplit(lista, '/', true)
-            local rest = ""
-            for i, pilot in ipairs(pilotsList) do
-                pilot = rest .. pilot
-                if pilotsWithDash[string.lower(pilot)] ~= nil then
-                    rest = pilot .. "/"
-                else
-                    table.insert(parsedList, mysplit(pilot,'+', true))
-                    rest = ""
-                end
+function parseList()
+    self.clearButtons()
+    self.clearInputs()
+    if lista ~= nil then
+        parsedList = {}
+        pilotsList = mysplit(lista, '/', true)
+        local rest = ""
+        for i, pilot in ipairs(pilotsList) do
+            pilot = rest .. pilot
+            if pilotsWithDash[string.lower(pilot)] ~= nil then
+                rest = pilot .. "/"
+            else
+                table.insert(parsedList, mysplit(pilot,'+', true))
+                rest = ""
             end
-            pilotIndex = 0
-            Aux = 0
-            for i, pilot in ipairs(parsedList) do
-                pilotIndex = pilotIndex + 1
-                for k, cardN in ipairs(pilot) do
-                    cardN = string.gsub(cardN, 'Hardpoint: ', '')
-                    if alternateSpelling[string.lower(cardN)] ~= nil then
-                        cardN = alternateSpelling[string.lower(cardN)]
-                    end
-                    if k == 1 then -- First card, the pilot
-                        finalList.Aux[pilotIndex] = {}
-                        finalList.AuxU[pilotIndex] = {}
-                        local found = false
-                        for id, pilot in pairs(masterPilotDB) do
-                            if string.lower(pilot['name']) == string.lower(cardN) and pilot['Faction'] == finalList.Faction then
-                                Aux = Aux + 1
-                                finalList.Aux[pilotIndex][Aux] = id
-                                finalList.Upgrades[pilotIndex] = {}
-                                found = true
-                            end
-                        end
-                        if not found then
-                            printToAll("Unable to find pilot: " .. cardN .. " please check correct spelling", {1,0,0})
-                            pilotIndex = pilotIndex - 1
-                            break
-                        end
-                        if Aux == 1 then
-                            finalList.Pilots[pilotIndex] = finalList.Aux[pilotIndex][1]
-                            finalList.Aux[pilotIndex] = nil
-                        end
-                        Aux = 0
-                    else -- The remaining cards, the upgrades
-                        finalList.AuxU[pilotIndex][k] ={}
-                        local found = false
-                        for id, upg in pairs(masterUpgradesDB) do
-                            if string.lower(upg['name']) == string.lower(cardN) then
-                                found = true
-                                if upg['restriction']['Faction'] == nil or upg['restriction']['Faction'][finalList.Faction] == true then
-                                    Aux = Aux + 1
-                                    finalList.AuxU[pilotIndex][k][Aux] = id
-                                else
-                                    printToAll('Upgrade "'.. cardN .. '" is restricted to another faction', {1,0,0})
-                                end
-                            end
-                        end
-                        if not found then
-                            printToAll("Unable to find upgrade: " .. cardN .. " please check correct spelling", {1,0,0})
-                            goto continue
-                        end
-                        if Aux == 1 then
-                            finalList.Upgrades[pilotIndex][k-1] = finalList.AuxU[pilotIndex][k][Aux]
-                            finalList.AuxU[pilotIndex][k] = nil
-                        end
-                        Aux = 0
-                    end -- if Pilot and upgrade
-                    ::continue::
-                end -- for card
-            end
-            pChecker()
-        else
-            Dummy3()
-            initiate()
         end
+        pilotIndex = 0
+        Aux = 0
+        for i, pilot in ipairs(parsedList) do
+            pilotIndex = pilotIndex + 1
+            for k, cardN in ipairs(pilot) do
+                cardN = string.gsub(cardN, 'Hardpoint: ', '')
+                if alternateSpelling[string.lower(cardN)] ~= nil then
+                    cardN = alternateSpelling[string.lower(cardN)]
+                end
+                if k == 1 then -- First card, the pilot
+                    finalList.Aux[pilotIndex] = {}
+                    finalList.AuxU[pilotIndex] = {}
+                    local found = false
+                    for id, pilot in pairs(masterPilotDB) do
+                        if string.lower(pilot['name']) == string.lower(cardN) and pilot['Faction'] == finalList.Faction then
+                            Aux = Aux + 1
+                            finalList.Aux[pilotIndex][Aux] = id
+                            finalList.Upgrades[pilotIndex] = {}
+                            found = true
+                        end
+                    end
+                    if not found then
+                        printToAll("Unable to find pilot: " .. cardN .. " please check correct spelling", {1,0,0})
+                        pilotIndex = pilotIndex - 1
+                        break
+                    end
+                    if Aux == 1 then
+                        finalList.Pilots[pilotIndex] = finalList.Aux[pilotIndex][1]
+                        finalList.Aux[pilotIndex] = nil
+                    end
+                    Aux = 0
+                else -- The remaining cards, the upgrades
+                    finalList.AuxU[pilotIndex][k] ={}
+                    local found = false
+                    for id, upg in pairs(masterUpgradesDB) do
+                        if string.lower(upg['name']) == string.lower(cardN) then
+                            found = true
+                            if upg['restriction']['Faction'] == nil or upg['restriction']['Faction'][finalList.Faction] == true then
+                                Aux = Aux + 1
+                                finalList.AuxU[pilotIndex][k][Aux] = id
+                            else
+                                printToAll('Upgrade "'.. cardN .. '" is restricted to another faction', {1,0,0})
+                            end
+                        end
+                    end
+                    if not found then
+                        printToAll("Unable to find upgrade: " .. cardN .. " please check correct spelling", {1,0,0})
+                        goto continue
+                    end
+                    if Aux == 1 then
+                        finalList.Upgrades[pilotIndex][k-1] = finalList.AuxU[pilotIndex][k][Aux]
+                        finalList.AuxU[pilotIndex][k] = nil
+                    end
+                    Aux = 0
+                end -- if Pilot and upgrade
+                ::continue::
+            end -- for card
+        end
+        pChecker()
+    else
+        Dummy3()
+        initiate()
     end
+end
 
 
--- Fourth step: This function checks for pilots with the same name in the same faction and stores de data por future inquire. If no inquire is needed, it calls the newSpawner function and reset all buttons.
+
+
+-- Fourth step: This function checks for pilots with the same name in the same
+-- faction and stores de data por future inquire. If no inquire is needed, it
+-- calls the newSpawner function and reset all buttons.
 function pChecker()
     repPN=0
     for i, pilot in pairs(finalList.Aux) do
