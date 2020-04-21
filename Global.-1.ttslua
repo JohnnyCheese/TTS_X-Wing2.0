@@ -4237,6 +4237,54 @@ end
 ]]
 
 
+pilotCardScript =
+[[
+dial = nil
+ship = nil
+function addTintObject(params)
+    if params[1] == "ship" then
+      ship = params[2]
+    elseif params[1] == "dial" then
+      dial = params[2]
+    end
+end
+
+function onUpdate()
+    local tint = self.getColorTint()
+    if tint ~= color(1,1,1,1) then
+      self.setColorTint(color(1,1,1,1))
+      if dial ~= nil then
+        dial.setColorTint(tint)
+      end
+
+      for i, attachment in pairs(self.getAttachments()) do
+        id = self.removeAttachment(attachment.index)
+        id.setColorTint(tint)
+        self.addAttachment(id)
+      end
+
+      if ship ~= nil then
+        for i, attachment in pairs(ship.getAttachments()) do
+          id = ship.removeAttachment(attachment.index)
+          id.setColorTint(tint)
+          ship.addAttachment(id)
+        end
+      end
+
+    end
+end
+
+loaded = false
+
+function onLoad(savestate)
+  loaded = true
+end
+
+function isLoadedAndStill()
+  return loaded and self.resting
+end
+]]
+
 -------
 --spawner function, checks for Pilots and Upgrades lists and spawn the respective objects
 
@@ -4367,12 +4415,14 @@ function newSpawner(listTable)
         cardB = Pilots[shipIndex]['cardB']
         pos = LocalPos(spawnCard, {0, 3, 5.5})
         rot = spawnCard.getRotation()
+        local newPil = nil
         if card ~= '' then
             if cardB ~= nil then
                 deck = Decker.Asset(card, cardB)
                 card = Decker.Card(deck,1, 1)
                 newPil = card:spawn({position = pos, rotation=rot})
                 newPil.setName(pilotName)
+                newPil.setLuaScript(pilotCardScript)
                 spawnedPilotList[shipIndex] = pilotName                                            --Counts how many pilots already spawned with same name and rename if needed
                 pilotCount = 0
                 if spawnedPilotList[1] ~= nil then
@@ -4388,27 +4438,53 @@ function newSpawner(listTable)
                 end
             end
         end
-        for k, acc in ipairs(listaAcc) do
-            if pilotName ~= '' then
+        if pilotName ~= '' then
+            local tint = Pilots[shipIndex].tint
+            for k, acc in ipairs(listaAcc) do
+                local card = newPil
                 if acc.name == 'Unassigned Dial' then
                     local newPos = {}
-                    local tint = color(0,0,0,0)
-                    if Pilots[shipIndex].tint ~= nil then
-                      tint = Pilots[shipIndex].tint
-                    end
-                    newDial = tempBagAcc.takeObject(
+                    local newDial = tempBagAcc.takeObject(
                         {position = LocalPos(spawnCard, {0, 3, 12}),
                          rotation = rot,
-                         guid = acc.guid,
-                         callback_function = function(obj)
-                            obj.setCustomObject({['diffuse']=dialSkin})
-                            obj = obj.reload()
-                            obj.setColorTint(tint)
-                         end
+                         guid = acc.guid
                        })
                     dialClone = newDial.clone()
                     tempBagAcc.putObject(dialClone)
+                    newDial.interactable = false
+                    local conditionFunc = function() return (not card.spawning) and (not newDial.spawning) and newDial.resting end
+                    local executeFunc = function()
+                        newDial.setCustomObject({['diffuse']=dialSkin})
+                        newDial = newDial.reload()
+                        newDial.setColorTint(tint)
+                        card.call('addTintObject', {'dial',newDial})
+                        newDial.interactable = true
+                      end
+                    Wait.condition(executeFunc , conditionFunc)
 
+
+                end
+                if acc.name == 'Pilot ID' then
+                    local newPilotId = tempBagAcc.takeObject(
+                          {position = pos,
+                           rotation = rot,
+                           guid = acc.guid
+                         })
+                    idClone = newPilotId.clone()
+                    tempBagAcc.putObject(idClone)
+                    newPilotId.interactable = false
+                    local conditionFunc = function()
+                      return (not card.spawning) and card.call('isLoadedAndStill') and (not newPilotId.spawning) end
+                    local executeFunc = function()
+                        Wait.time(function()
+                          newPilotId.setPositionSmooth(pos, false, true)
+                          newPilotId.setRotationSmooth(rot, false, true)
+                          newPilotId.setColorTint(tint)
+                          newPilotId.call('attachToObject',{card})
+                          newPilotId.interactable = true
+                        end, 3)
+                      end
+                    Wait.condition(executeFunc , conditionFunc)
                 end
             end
         end
@@ -4482,23 +4558,37 @@ function newSpawner(listTable)
             end
         end
 
-        if Pilots[shipIndex].tint ~= nil then
-          local tint = Pilots[shipIndex].tint
-          for k, acc in ipairs(listaAcc) do
-              if acc.name == 'Ship ID' then
-                shipId = tempBagAcc.takeObject(
-                    {
-                        position = pos,
-                        rotation = rot,
-                        guid = acc.guid,
-                        callback_function = function(obj)
-                          obj.setColorTint(tint)
-                        end
-                    })
-                indClone = shipId.clone()
-                tempBagAcc.putObject(indClone)
+        local tint = Pilots[shipIndex].tint
+        for k, acc in ipairs(listaAcc) do
+            if acc.name == 'Ship ID' then
+              local ship = newShip
+              local card = newPil
+              local shipId = tempBagAcc.takeObject(
+                  {
+                      position = pos,
+                      rotation = rot,
+                      guid = acc.guid
+                  })
+
+              indClone = shipId.clone()
+              tempBagAcc.putObject(indClone)
+              shipId.interactable = false
+              ship.interactable = false
+              local conditionFunc = function()
+                return (not ship.spawning) and (not shipId.spawning)
               end
-          end
+              local executeFunc = function()
+                  Wait.time(function()
+                    shipId.setColorTint(tint)
+                    shipId.call('attachToObject', {ship})
+                    card.call('addTintObject', {'ship',ship})
+                    shipId.interactable = true
+                    ship.interactable = true
+                  end
+                  , 3)
+              end
+              Wait.condition(executeFunc , conditionFunc)
+            end
         end
         if Pilots[shipIndex]['Ship'] == 3 then
             for k, acc in ipairs(listaAcc) do

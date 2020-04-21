@@ -15,7 +15,7 @@
 self.interactable = false
 
 tintColors = {}
-tintColors[0] = nil
+tintColors[0] = color(0,0,0,0.0)
 tintColors[1] = color(1,0,0,0.7)
 tintColors[2] = color(1,1,0,0.7)
 tintColors[3] = color(0,0.33,0,0.7)
@@ -1358,7 +1358,7 @@ masterUpgradesDB[287]={['name']='Contraband Cybernetics',['slot']=13,['cost']=2,
 masterUpgradesDB[288]={['name']="Deadman's Switch",['slot']=13,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_59.png',['restriction']={ }}
 masterUpgradesDB[289]={['name']='Feedback Array',['slot']=13,['cost']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_60.png',['restriction']={ }}
 masterUpgradesDB[290]={['name']='Inertial Dampeners',['slot']=13,['cost']='i',['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_61.png',['restriction']={ }}
-masterUpgradesDB[291]={['name']='Rigged Cargo Chute',['slot']=13,['cost']=4,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_62.png',['restriction']={ ['Size']={large=true,medium=true}}}
+masterUpgradesDB[291]={['name']='Rigged Cargo Chute',['slot']=13,['Bomb']=true,['cost']=4,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_62.png',['restriction']={ ['Size']={large=true,medium=true}}}
 masterUpgradesDB[292]={['name']='Ablative Plating',['slot']=14,['cost']=6,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_68.png',['restriction']={ ['Size']={large=true,medium=true}}}
 masterUpgradesDB[293]={['name']='Advanced SLAM',['slot']=14,['cost']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_69.png',['restriction']={ }}
 masterUpgradesDB[294]={['name']='Afterburners',['slot']=14,['cost']=6,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_70.png',['restriction']={ ['Size']={small=true}}}
@@ -1460,11 +1460,11 @@ masterUpgradesDB[388]={['name']='Agile Gunner',['slot']=16,['cost']=8,['card']='
 masterUpgradesDB[389]={['name']='Han Solo',['slot']=16,['cost']=12,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_163.png',['restriction']={['Faction']={[3]=true}}}
 masterUpgradesDB[390]={['name']="Lando's Millennium Falcon",['slot']=15,['cost']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_164.png',['restriction']={['Faction']={[3]=true},['ship']={[47]=true}}}
 masterUpgradesDB[391]={['name']='ST-321',['slot']=15,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_124.png',['restriction']={['Faction']={[2]=true},['ship']={[26]=true}}}
-masterUpgradesDB[392]={['name']='Bomblet Generator',['slot']=12,['remSlot']={12},['cost']=5,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_63.png',['cardB']=cardBackDB['12b'],['restriction']={ }}
-masterUpgradesDB[393]={['name']='Conner Nets',['slot']=12,['cost']=6,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_64.png',['restriction']={ }}
-masterUpgradesDB[394]={['name']='Proton Bombs',['slot']=12,['cost']=5,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_65.png',['restriction']={ }}
-masterUpgradesDB[395]={['name']='Proximity Mines',['slot']=12,['cost']=6,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_66.png',['restriction']={ }}
-masterUpgradesDB[396]={['name']='Seismic Charges',['slot']=12,['cost']=3,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_67.png',['restriction']={ }}
+masterUpgradesDB[392]={['name']='Bomblet Generator',['slot']=12,['remSlot']={12},['Bomb']=true,['cost']=5,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_63.png',['cardB']=cardBackDB['12b'],['restriction']={ }}
+masterUpgradesDB[393]={['name']='Conner Nets',['slot']=12,['Bomb']=true,['cost']=6,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_64.png',['restriction']={ }}
+masterUpgradesDB[394]={['name']='Proton Bombs',['slot']=12,['Bomb']=true,['cost']=5,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_65.png',['restriction']={ }}
+masterUpgradesDB[395]={['name']='Proximity Mines',['slot']=12,['Bomb']=true,['cost']=6,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_66.png',['restriction']={ }}
+masterUpgradesDB[396]={['name']='Seismic Charges',['slot']=12,['Bomb']=true,['cost']=3,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_67.png',['restriction']={ }}
 
 
 
@@ -1564,7 +1564,7 @@ masterUpgradesDB[589]={['name']="R2-C4",['slot']=10,['cost']=5,['card']='http://
                         ['restriction']={['Faction']={[6]=true}}}
 masterUpgradesDB[590]={['name']="TA-175",['slot']=20,['cost']=9,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/d71e07aa3147c6fe943bd0c8131a0096.png',
                         ['restriction']={['Faction']={[7]=true}}}
-masterUpgradesDB[591]={['name']="Electro-Proton Bomb",['slot']=12,['cost']=12,['Charge']=1,['remSlot']={14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/0f76484cc390fc97d1fe2f863d75944b.png',
+masterUpgradesDB[591]={['name']="Electro-Proton Bomb",['slot']=12,['Bomb']=true,['cost']=12,['Charge']=1,['remSlot']={14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/0f76484cc390fc97d1fe2f863d75944b.png',
                         ['restriction']={ }}
 masterUpgradesDB[592]={['name']="Delayed Fuses",['slot']=14,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/4572ece39224eeaf2dfce2770b96f919.png',
                         ['restriction']={ }}
@@ -1604,8 +1604,8 @@ masterUpgradesDB[646]={['name']="Stabilized S-Foils (Closed)",['dual']=1,['slot'
 masterUpgradesDB[647]={['name']="K-2SO",['slot']=8,['cost']=8,['card']='http://images-cdn.fantasyflightgames.com/filer_public/e9/71/e97130c3-368d-4453-a0ff-51a63d30394c/swz66_k-2so_upgrade.png',
                         ['restriction']={['Faction']={[1]=true}}}
 
-masterUpgradesDB[648]={['name']='Cluster Mines',['slot']=12,['cost']=8,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/c27f0dcda78915239450bedf5b931d86.png',['restriction']={ }}
-masterUpgradesDB[649]={['name']='Ion Bombs',['slot']=12,['cost']=6,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/e4c43791c16aea639f2e811c16d1dbcf.png',['restriction']={ }}
+masterUpgradesDB[648]={['name']='Cluster Mines',['slot']=12,['Bomb']=true,['cost']=8,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/c27f0dcda78915239450bedf5b931d86.png',['restriction']={ }}
+masterUpgradesDB[649]={['name']='Ion Bombs',['slot']=12,['Bomb']=true,['cost']=6,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/e4c43791c16aea639f2e811c16d1dbcf.png',['restriction']={ }}
 masterUpgradesDB[650]={['name']="Coaxium Hyperfuel",['slot']=13,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/1622f5d9e279b54d4610820f5dd31a95.png', ['restriction']={}}
 masterUpgradesDB[651]={['name']="Mag-Pulse Warheads",['slot']=6,['cost']=6,['Charge']=2,['card']='http://images-cdn.fantasyflightgames.com/filer_public/20/a6/20a60741-4adf-485e-bee2-f93b9e5de7bb/swz62_card_mag-pulse-warheads.png',
                         ['restriction']={ }}
@@ -2099,11 +2099,8 @@ function idSpawner(idTable)
             else
                 fList.Upgrades[k][key]['Condition'] = false
             end
-            if upSlot == 12 then
+            if masterUpgradesDB[value]['Bomb'] then
                 fList.Pilots[k]['Bomb']= true
-                if name == 'DRK-1 Probe Droids' then
-                    fList.Pilots[k]['Bomb']= false
-                end
             elseif upSlot == 18 then
                 fList.Upgrades[k][key]['Config'] = true
             end
