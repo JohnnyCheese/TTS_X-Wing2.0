@@ -1686,6 +1686,7 @@ function ffgLoad()
     if lista ~= nil then
         lista = string.gsub(lista, 'saved%-squads', 'api/squads')
         lista = string.gsub(lista, 'squad%-builder/tool', 'api/squads')
+        lista = string.gsub(lista, 'squad%-preview', 'api/squads')
         ffgLoad2(lista)
     else
         print ('Please paste a link')
