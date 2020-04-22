@@ -4581,8 +4581,7 @@ function newSpawner(listTable)
             elseif Pilots[shipIndex]['Size'] == "large" then
                 customObj.mesh='https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base%20ID%20LAR.obj'
             elseif Pilots[shipIndex]['Size'] == "huge" then
-                --TODO: Need proper mesh
-                customObj.mesh='https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base%20ID%20LAR.obj'
+                customObj.mesh='https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base_ID_HUGE.obj'
             end
             shipIdSpawnFunc = function()
               local shipId = spawnObject({
