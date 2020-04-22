@@ -1,0 +1,14 @@
+attachingObj = nil
+function attachToObject(arguments)
+
+    startLuaCoroutine(self, 'waitForResting')
+    attachingObj = arguments[1]
+    attachingObj.addAttachment(self)
+end
+
+function waitForResting()
+    while (not self.resting) do
+        coroutine.yield(0)
+    end
+    return 1
+end

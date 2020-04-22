@@ -4229,13 +4229,61 @@ function onLoad(savedData)
         local state =  JSON.decode(savedData)
         self.setTable("Data", state.shipData)
         if state.shipData.arcs ~= nil then
-            initContextMenu(state.shipData.arcs)
+            initContextMenu()
         end
     end
 end
 
 ]]
 
+
+pilotCardScript =
+[[
+dial = nil
+ship = nil
+function addTintObject(params)
+    if params[1] == "ship" then
+      ship = params[2]
+    elseif params[1] == "dial" then
+      dial = params[2]
+    end
+end
+
+function onUpdate()
+    local tint = self.getColorTint()
+    if tint ~= color(1,1,1,1) then
+      self.setColorTint(color(1,1,1,1))
+      if dial ~= nil then
+        dial.setColorTint(tint)
+      end
+
+      for i, attachment in pairs(self.getAttachments()) do
+        id = self.removeAttachment(attachment.index)
+        id.setColorTint(tint)
+        self.addAttachment(id)
+      end
+
+      if ship ~= nil then
+        for i, attachment in pairs(ship.getAttachments()) do
+          id = ship.removeAttachment(attachment.index)
+          id.setColorTint(tint)
+          ship.addAttachment(id)
+        end
+      end
+
+    end
+end
+
+loaded = false
+
+function onLoad(savestate)
+  loaded = true
+end
+
+function isLoadedAndStill()
+  return loaded and self.resting
+end
+]]
 
 -------
 --spawner function, checks for Pilots and Upgrades lists and spawn the respective objects
@@ -4367,12 +4415,15 @@ function newSpawner(listTable)
         cardB = Pilots[shipIndex]['cardB']
         pos = LocalPos(spawnCard, {0, 3, 5.5})
         rot = spawnCard.getRotation()
+        local newPil = nil
         if card ~= '' then
             if cardB ~= nil then
                 deck = Decker.Asset(card, cardB)
                 card = Decker.Card(deck,1, 1)
                 newPil = card:spawn({position = pos, rotation=rot})
                 newPil.setName(pilotName)
+                newPil.setLuaScript(pilotCardScript)
+                newPil.setLock(true)
                 spawnedPilotList[shipIndex] = pilotName                                            --Counts how many pilots already spawned with same name and rename if needed
                 pilotCount = 0
                 if spawnedPilotList[1] ~= nil then
@@ -4386,28 +4437,60 @@ function newSpawner(listTable)
                         end
                     end
                 end
+
+                -- Spawn Pilot Identifier
+                local card = newPil
+                local idpos = pos
+                local idrot = rot
+                local tint = Pilots[shipIndex].tint
+                pilotIdSpawnFunc = function()
+                  local pilotId = spawnObject({
+                      type              = "Custom_Model",
+                      position          = idpos,
+                      rotation          = idrot,
+                      scale             = {0.63, 0.63, 0.63},
+                      sound             = false,
+                      snap_to_grid      = false,
+                  })
+                  pilotId.setCustomObject({
+                      mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/cardid.obj',
+                      convex = true,
+                      material = 1,
+                      type = 1
+                  })
+                  pilotId.setColorTint(tint)
+                  card.addAttachment(pilotId)
+                  card.setLock(false)
+                end
+                Wait.condition(pilotIdSpawnFunc , function() return  (not card.spawning) end)
+
             end
         end
-        for k, acc in ipairs(listaAcc) do
-            if pilotName ~= '' then
+        if pilotName ~= '' then
+            local tint = Pilots[shipIndex].tint
+            for k, acc in ipairs(listaAcc) do
+                local card = newPil
                 if acc.name == 'Unassigned Dial' then
-                    local newPos = {}
-                    local tint = color(0,0,0,0)
-                    if Pilots[shipIndex].tint ~= nil then
-                      tint = Pilots[shipIndex].tint
-                    end
-                    newDial = tempBagAcc.takeObject(
-                        {position = LocalPos(spawnCard, {0, 3, 12}),
-                         rotation = rot,
-                         guid = acc.guid,
-                         callback_function = function(obj)
-                            obj.setCustomObject({['diffuse']=dialSkin})
-                            obj = obj.reload()
-                            obj.setColorTint(tint)
-                         end
+                    local dialpos = LocalPos(spawnCard, {0, 3, 12})
+                    local dialrot = rot
+                    local newDial = tempBagAcc.takeObject(
+                        {position = dialpos,
+                         rotation = dialrot,
+                         guid = acc.guid
                        })
                     dialClone = newDial.clone()
                     tempBagAcc.putObject(dialClone)
+                    local conditionFunc = function() return (not card.spawning) and (not newDial.spawning) end
+                    local executeFunc = function()
+                        newDial.setCustomObject({['diffuse']=dialSkin})
+                        newDial = newDial.reload()
+                        newDial.setColorTint(tint)
+                        newDial.setPosition(dialpos)
+                        newDial.setRotation(dialrot)
+                        card.call('addTintObject', {'dial',newDial})
+                      end
+                    Wait.condition(executeFunc , conditionFunc)
+
 
                 end
             end
@@ -4431,11 +4514,12 @@ function newSpawner(listTable)
             if ship.name == tostring(Pilots[shipIndex]['id']) then
                 newShip = tempBagShp.takeObject({ position = pos,
                                                   rotation = rot,
-                                                  guid = ship.guid,
-                                                  callback_function = function(obj) obj.call("initContextMenu") end
+                                                  guid = ship.guid
                                                 })
                 shipClone = newShip.clone()
                 tempBagShp.putObject(shipClone)
+                newShip.setPosition(pos)
+                newShip.setRotation(rot)
             end
         end
         if (newShip == nil) and (Pilots[shipIndex].id ~= 0) then
@@ -4466,7 +4550,7 @@ function newSpawner(listTable)
             elseif Pilots[shipIndex]['Size'] == "huge" then
                 newShip.setCustomObject({collider='https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Huge_base_Collider.obj'})
             end
-
+            newShip.setLock(true)
             newShip.setTable("Data", Pilots[shipIndex]['Data'])
             newShip.setLuaScript(saveAndLoadShipStateLua)
             if spawnedPilotList[1] ~= nil then
@@ -4480,26 +4564,46 @@ function newSpawner(listTable)
                     end
                 end
             end
+            local ship = newShip
+            local card = newPil
+            local tint = Pilots[shipIndex].tint
+            local idpos = pos
+            local idrot = rot
+            local customObj = {
+                convex = true,
+                material = 1,
+                type = 1
+            }
+            if Pilots[shipIndex]['Size'] == "small" then
+                customObj.mesh='https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base_ID_Marker.obj'
+            elseif Pilots[shipIndex]['Size'] == "medium" then
+                customObj.mesh='https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base%20ID%20MED.obj'
+            elseif Pilots[shipIndex]['Size'] == "large" then
+                customObj.mesh='https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base%20ID%20LAR.obj'
+            elseif Pilots[shipIndex]['Size'] == "huge" then
+                --TODO: Need proper mesh
+                customObj.mesh='https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base%20ID%20LAR.obj'
+            end
+            shipIdSpawnFunc = function()
+              local shipId = spawnObject({
+                  type              = "Custom_Model",
+                  position          = idpos,
+                  rotation          = idrot,
+                  scale             = {0.63, 0.63, 0.63},
+                  sound             = false,
+                  snap_to_grid      = false,
+              })
+              shipId.setCustomObject(customObj)
+              shipId.setColorTint(tint)
+              ship.addAttachment(shipId)
+              ship.setLock(false)
+              card.call('addTintObject', {'ship',ship})
+              ship.call('initContextMenu')
+            end
+            Wait.condition(shipIdSpawnFunc , function() return (not ship.spawning) and (not card.spawning) end)
         end
 
-        if Pilots[shipIndex].tint ~= nil then
-          local tint = Pilots[shipIndex].tint
-          for k, acc in ipairs(listaAcc) do
-              if acc.name == 'Ship ID' then
-                shipId = tempBagAcc.takeObject(
-                    {
-                        position = pos,
-                        rotation = rot,
-                        guid = acc.guid,
-                        callback_function = function(obj)
-                          obj.setColorTint(tint)
-                        end
-                    })
-                indClone = shipId.clone()
-                tempBagAcc.putObject(indClone)
-              end
-          end
-        end
+
         if Pilots[shipIndex]['Ship'] == 3 then
             for k, acc in ipairs(listaAcc) do
                 if acc.name == 'StarViper Mk.II roll token' then
