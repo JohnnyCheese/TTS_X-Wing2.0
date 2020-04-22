@@ -4229,7 +4229,7 @@ function onLoad(savedData)
         local state =  JSON.decode(savedData)
         self.setTable("Data", state.shipData)
         if state.shipData.arcs ~= nil then
-            initContextMenu(state.shipData.arcs)
+            initContextMenu()
         end
     end
 end
@@ -4423,6 +4423,7 @@ function newSpawner(listTable)
                 newPil = card:spawn({position = pos, rotation=rot})
                 newPil.setName(pilotName)
                 newPil.setLuaScript(pilotCardScript)
+                newPil.setLock(true)
                 spawnedPilotList[shipIndex] = pilotName                                            --Counts how many pilots already spawned with same name and rename if needed
                 pilotCount = 0
                 if spawnedPilotList[1] ~= nil then
@@ -4436,6 +4437,33 @@ function newSpawner(listTable)
                         end
                     end
                 end
+
+                -- Spawn Pilot Identifier
+                local card = newPil
+                local idpos = pos
+                local idrot = rot
+                local tint = Pilots[shipIndex].tint
+                pilotIdSpawnFunc = function()
+                  local pilotId = spawnObject({
+                      type              = "Custom_Model",
+                      position          = idpos,
+                      rotation          = idrot,
+                      scale             = {0.63, 0.63, 0.63},
+                      sound             = false,
+                      snap_to_grid      = false,
+                  })
+                  pilotId.setCustomObject({
+                      mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/cardid.obj',
+                      convex = true,
+                      material = 1,
+                      type = 1
+                  })
+                  pilotId.setColorTint(tint)
+                  card.addAttachment(pilotId)
+                  card.setLock(false)
+                end
+                Wait.condition(pilotIdSpawnFunc , function() return  (not card.spawning) end)
+
             end
         end
         if pilotName ~= '' then
@@ -4443,48 +4471,27 @@ function newSpawner(listTable)
             for k, acc in ipairs(listaAcc) do
                 local card = newPil
                 if acc.name == 'Unassigned Dial' then
-                    local newPos = {}
+                    local dialpos = LocalPos(spawnCard, {0, 3, 12})
+                    local dialrot = rot
                     local newDial = tempBagAcc.takeObject(
-                        {position = LocalPos(spawnCard, {0, 3, 12}),
-                         rotation = rot,
+                        {position = dialpos,
+                         rotation = dialrot,
                          guid = acc.guid
                        })
                     dialClone = newDial.clone()
                     tempBagAcc.putObject(dialClone)
-                    newDial.interactable = false
-                    local conditionFunc = function() return (not card.spawning) and (not newDial.spawning) and newDial.resting end
+                    local conditionFunc = function() return (not card.spawning) and (not newDial.spawning) end
                     local executeFunc = function()
                         newDial.setCustomObject({['diffuse']=dialSkin})
                         newDial = newDial.reload()
                         newDial.setColorTint(tint)
+                        newDial.setPosition(dialpos)
+                        newDial.setRotation(dialrot)
                         card.call('addTintObject', {'dial',newDial})
-                        newDial.interactable = true
                       end
                     Wait.condition(executeFunc , conditionFunc)
 
 
-                end
-                if acc.name == 'Pilot ID' then
-                    local newPilotId = tempBagAcc.takeObject(
-                          {position = pos,
-                           rotation = rot,
-                           guid = acc.guid
-                         })
-                    idClone = newPilotId.clone()
-                    tempBagAcc.putObject(idClone)
-                    newPilotId.interactable = false
-                    local conditionFunc = function()
-                      return (not card.spawning) and card.call('isLoadedAndStill') and (not newPilotId.spawning) end
-                    local executeFunc = function()
-                        Wait.time(function()
-                          newPilotId.setPositionSmooth(pos, false, true)
-                          newPilotId.setRotationSmooth(rot, false, true)
-                          newPilotId.setColorTint(tint)
-                          newPilotId.call('attachToObject',{card})
-                          newPilotId.interactable = true
-                        end, 3)
-                      end
-                    Wait.condition(executeFunc , conditionFunc)
                 end
             end
         end
@@ -4507,11 +4514,12 @@ function newSpawner(listTable)
             if ship.name == tostring(Pilots[shipIndex]['id']) then
                 newShip = tempBagShp.takeObject({ position = pos,
                                                   rotation = rot,
-                                                  guid = ship.guid,
-                                                  callback_function = function(obj) obj.call("initContextMenu") end
+                                                  guid = ship.guid
                                                 })
                 shipClone = newShip.clone()
                 tempBagShp.putObject(shipClone)
+                newShip.setPosition(pos)
+                newShip.setRotation(rot)
             end
         end
         if (newShip == nil) and (Pilots[shipIndex].id ~= 0) then
@@ -4542,7 +4550,7 @@ function newSpawner(listTable)
             elseif Pilots[shipIndex]['Size'] == "huge" then
                 newShip.setCustomObject({collider='https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Huge_base_Collider.obj'})
             end
-
+            newShip.setLock(true)
             newShip.setTable("Data", Pilots[shipIndex]['Data'])
             newShip.setLuaScript(saveAndLoadShipStateLua)
             if spawnedPilotList[1] ~= nil then
@@ -4556,40 +4564,46 @@ function newSpawner(listTable)
                     end
                 end
             end
-        end
-
-        local tint = Pilots[shipIndex].tint
-        for k, acc in ipairs(listaAcc) do
-            if acc.name == 'Ship ID' then
-              local ship = newShip
-              local card = newPil
-              local shipId = tempBagAcc.takeObject(
-                  {
-                      position = pos,
-                      rotation = rot,
-                      guid = acc.guid
-                  })
-
-              indClone = shipId.clone()
-              tempBagAcc.putObject(indClone)
-              shipId.interactable = false
-              ship.interactable = false
-              local conditionFunc = function()
-                return (not ship.spawning) and (not shipId.spawning)
-              end
-              local executeFunc = function()
-                  Wait.time(function()
-                    shipId.setColorTint(tint)
-                    shipId.call('attachToObject', {ship})
-                    card.call('addTintObject', {'ship',ship})
-                    shipId.interactable = true
-                    ship.interactable = true
-                  end
-                  , 3)
-              end
-              Wait.condition(executeFunc , conditionFunc)
+            local ship = newShip
+            local card = newPil
+            local tint = Pilots[shipIndex].tint
+            local idpos = pos
+            local idrot = rot
+            local customObj = {
+                convex = true,
+                material = 1,
+                type = 1
+            }
+            if Pilots[shipIndex]['Size'] == "small" then
+                customObj.mesh='https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base_ID_Marker.obj'
+            elseif Pilots[shipIndex]['Size'] == "medium" then
+                customObj.mesh='https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base%20ID%20MED.obj'
+            elseif Pilots[shipIndex]['Size'] == "large" then
+                customObj.mesh='https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base%20ID%20LAR.obj'
+            elseif Pilots[shipIndex]['Size'] == "huge" then
+                --TODO: Need proper mesh
+                customObj.mesh='https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base%20ID%20LAR.obj'
             end
+            shipIdSpawnFunc = function()
+              local shipId = spawnObject({
+                  type              = "Custom_Model",
+                  position          = idpos,
+                  rotation          = idrot,
+                  scale             = {0.63, 0.63, 0.63},
+                  sound             = false,
+                  snap_to_grid      = false,
+              })
+              shipId.setCustomObject(customObj)
+              shipId.setColorTint(tint)
+              ship.addAttachment(shipId)
+              ship.setLock(false)
+              card.call('addTintObject', {'ship',ship})
+              ship.call('initContextMenu')
+            end
+            Wait.condition(shipIdSpawnFunc , function() return (not ship.spawning) and (not card.spawning) end)
         end
+
+
         if Pilots[shipIndex]['Ship'] == 3 then
             for k, acc in ipairs(listaAcc) do
                 if acc.name == 'StarViper Mk.II roll token' then
