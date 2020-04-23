@@ -2027,6 +2027,8 @@ function idSpawner(idTable)
             fList.Pilots[k]['bombD'] = fList.Pilots[k]['bombD'] .. ':be1:br1'
         elseif v == 161 then -- Constable Zuvio
             fList.Pilots[k]['bombD'] = fList.Pilots[k]['bombD'] .. ':s1r'
+        elseif v == 565 then -- Bombardment Drone
+            fList.Pilots[k]['bombD'] = fList.Pilots[k]['bombD'] .. ':s1r'
         end
 
         if masterShipDB[Ship]['sTurret'] ~= nil then
