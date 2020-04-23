@@ -90,13 +90,14 @@ addAction[357]={[1]='C'}--IG-88D (C)
 addAction[542]={[1]='CL'}--Scimitar (CL)
 addAction[286]={[1]='CL'}--Cloaking Device (CL)
 addAction[551]={[1]='C'}--R4-P44 (C)
-addAction[577]={[1]='C'}--Passive Sensors(C,TL)
+addAction[577]={[1]='C',[2]='TL'}--Passive Sensors(C,TL)
 addAction[376]={[1]='BR'}--Mist Hunter(BR)
 addAction[582]={[1]='C'}--GA-97(C)
 addAction[381]={[1]='F'}--Composure(F)
 addAction[587]={[1]='C'}--PZ-4CO (C)
 addAction[593]={[1]='R'}--Angled Deflectors (Reinforce)
 addAction[704]={[1]='C'}--K-2SO (C)
+addAction[391]={[1]='TL'}--ST-321 (TL)
 
 --table referenced by upgrades that adds actions to all ships in a squad.
 addSqdAction={}
@@ -1686,6 +1687,7 @@ function ffgLoad()
     if lista ~= nil then
         lista = string.gsub(lista, 'saved%-squads', 'api/squads')
         lista = string.gsub(lista, 'squad%-builder/tool', 'api/squads')
+        lista = string.gsub(lista, 'squad%-preview', 'api/squads')
         ffgLoad2(lista)
     else
         print ('Please paste a link')
@@ -2024,6 +2026,8 @@ function idSpawner(idTable)
         elseif Ship == 19 then -- TIE Bomber special drops
             fList.Pilots[k]['bombD'] = fList.Pilots[k]['bombD'] .. ':be1:br1'
         elseif v == 161 then -- Constable Zuvio
+            fList.Pilots[k]['bombD'] = fList.Pilots[k]['bombD'] .. ':s1r'
+        elseif v == 565 then -- Bombardment Drone
             fList.Pilots[k]['bombD'] = fList.Pilots[k]['bombD'] .. ':s1r'
         end
 
