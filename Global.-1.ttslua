@@ -3805,7 +3805,7 @@ end
 BombModule.ExpandCluster = function(center)
     local offset = {Convert_mm_igu(43.5), 0, Convert_mm_igu(-1.5)}
     local tParams = {type='Custom_Token'}
-    local tCustom = {image='http://i.imgur.com/MqlYZzR.png', thickness=0.1, merge_distance=5}
+    local tCustom = {image='{verifycache}http://i.imgur.com/MqlYZzR.png', thickness=0.1, merge_distance=5}
 
     local t1 = spawnObject(tParams)
     t1.setCustomObject(tCustom)
@@ -4453,7 +4453,7 @@ function newSpawner(listTable)
                       snap_to_grid      = false,
                   })
                   pilotId.setCustomObject({
-                      mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/cardid.obj',
+                      mesh = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/cardid.obj',
                       convex = true,
                       material = 1,
                       type = 1
@@ -4542,13 +4542,13 @@ function newSpawner(listTable)
         if newShip ~= nil then
             newShip.setName(Pilots[shipIndex]['name']) --Corrects ship name for clones
             if Pilots[shipIndex]['Size'] == "small" then
-                newShip.setCustomObject({collider='https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Small_base_Collider.obj'})
+                newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Small_base_Collider.obj'})
             elseif Pilots[shipIndex]['Size'] == "medium" then
-                newShip.setCustomObject({collider='https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Medium_base_Collider.obj'})
+                newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Medium_base_Collider.obj'})
             elseif Pilots[shipIndex]['Size'] == "large" then
-                newShip.setCustomObject({collider='https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Large_base_Collider.obj'})
+                newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Large_base_Collider.obj'})
             elseif Pilots[shipIndex]['Size'] == "huge" then
-                newShip.setCustomObject({collider='https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Huge_base_Collider.obj'})
+                newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Huge_base_Collider.obj'})
             end
             newShip.setLock(true)
             newShip.setTable("Data", Pilots[shipIndex]['Data'])
@@ -4575,13 +4575,13 @@ function newSpawner(listTable)
                 type = 1
             }
             if Pilots[shipIndex]['Size'] == "small" then
-                customObj.mesh='https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base_ID_Marker.obj'
+                customObj.mesh='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base_ID_Marker.obj'
             elseif Pilots[shipIndex]['Size'] == "medium" then
-                customObj.mesh='https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base%20ID%20MED.obj'
+                customObj.mesh='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base%20ID%20MED.obj'
             elseif Pilots[shipIndex]['Size'] == "large" then
-                customObj.mesh='https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base%20ID%20LAR.obj'
+                customObj.mesh='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base%20ID%20LAR.obj'
             elseif Pilots[shipIndex]['Size'] == "huge" then
-                customObj.mesh='https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base_ID_HUGE.obj'
+                customObj.mesh='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base_ID_HUGE.obj'
             end
             shipIdSpawnFunc = function()
               local shipId = spawnObject({
