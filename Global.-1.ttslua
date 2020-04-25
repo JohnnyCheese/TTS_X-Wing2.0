@@ -2369,6 +2369,9 @@ MoveModule.GetFinalPosData = function(move_code, ship, ignoreCollisions)
         -- If move allows for full move check, try it
         if info.traits.full == true then
             local fullData = MoveModule.MoveProbe.TryFullMove(info, ship, MoveModule.GetFullMove)
+            if info.size == 'huge' then
+              --TODO: Attempt other speeds for huge ships
+            end
             if fullData.done == true then
                 out.finPos = MoveModule.GetFullMove(info.code, ship)
                 out.finType = 'move'
@@ -4542,13 +4545,13 @@ function newSpawner(listTable)
         if newShip ~= nil then
             newShip.setName(Pilots[shipIndex]['name']) --Corrects ship name for clones
             if Pilots[shipIndex]['Size'] == "small" then
-                newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Small_base_Collider.obj'})
+                newShip.setCustomObject({collider= '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Small_base_Collider.obj'})
             elseif Pilots[shipIndex]['Size'] == "medium" then
-                newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Medium_base_Collider.obj'})
+                newShip.setCustomObject({collider= '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Medium_base_Collider.obj'})
             elseif Pilots[shipIndex]['Size'] == "large" then
-                newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Large_base_Collider.obj'})
+                newShip.setCustomObject({collider= '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Large_base_Collider.obj'})
             elseif Pilots[shipIndex]['Size'] == "huge" then
-                newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Huge_base_Collider.obj'})
+                newShip.setCustomObject({collider= '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Huge_base_Collider.obj'})
             end
             newShip.setLock(true)
             newShip.setTable("Data", Pilots[shipIndex]['Data'])
