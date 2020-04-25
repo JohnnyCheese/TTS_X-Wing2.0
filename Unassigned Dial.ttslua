@@ -254,6 +254,7 @@ function assignShip(ship)
         self.UI.setAttribute(string.upper(v), "active", "true")
     end
     setMan=""
+    local repos = false
     for k,v in pairs(shipData['actSet']) do
         if v == 'F' then
             self.UI.setAttribute('FocusBtn', 'active', 'true')
@@ -268,6 +269,7 @@ function assignShip(ship)
         elseif v == 'CL' then
             self.UI.setAttribute("CloakBtn", 'active', 'true')
         elseif v == 'BR' then
+            repos = true
             self.UI.setAttribute("BarrelRBtn", "active", "true")
             self.UI.setAttribute("BarrelRFBtn", "active", "true")
             self.UI.setAttribute("BarrelRBBtn", "active", "true")
@@ -275,18 +277,27 @@ function assignShip(ship)
             self.UI.setAttribute("BarrelLFBtn", "active", "true")
             self.UI.setAttribute("BarrelLBBtn", "active", "true")
         elseif v == 'B' then
+            repos = true
             self.UI.setAttribute("BoostSBtn", "active", "true")
             self.UI.setAttribute("BoostRBtn", "active", "true")
             self.UI.setAttribute("BoostLBtn", "active", "true")
         elseif v =='Ail' then
+            repos = true
             self.UI.setAttribute("AilSBtn", "active", "true")
             self.UI.setAttribute("AilRBtn", "active", "true")
             self.UI.setAttribute("AilLBtn", "active", "true")
         elseif v =='Piv' then
+            repos = true
             self.UI.setAttribute("PivKBtn", "active", "true")
             self.UI.setAttribute("PivRBtn", "active", "true")
             self.UI.setAttribute("PivLBtn", "active", "true")
         end
+    end
+
+    if repos == false then
+        self.UI.setAttribute("RelocMenu", "active", "false")
+        self.UI.setAttribute("RelocMenuFU", "active", "false")
+
     end
 
 end
