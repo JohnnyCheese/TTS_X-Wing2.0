@@ -245,8 +245,8 @@ end
 
 -- Possible commands supported by this module
 XW_cmd.AddCommand('[sk][012345][r]?', 'move')   -- Straights/Koiograns + stationary moves
-XW_cmd.AddCommand('b[rle][123][str]?', 'move')   -- Banks + segnor and reverse versions
-XW_cmd.AddCommand('t[rle][1234][srfbt]?[t]?', 'move')  -- Turns + segnor, talon and reverse versions
+XW_cmd.AddCommand('b[rle][0123][str]?', 'move')   -- Banks + segnor and reverse versions
+XW_cmd.AddCommand('t[rle][01234][srfbt]?[t]?', 'move')  -- Turns + segnor, talon and reverse versions
 
 XW_cmd.AddCommand('r[rle][123]?', 'actionMove')       --New Roll Done
 XW_cmd.AddCommand('v[rle][fb][123]?', 'actionMove')   --New ViperRoll
@@ -865,7 +865,7 @@ MoveData.LUT.ConstructData = function(moveInfo, part)
     if part == nil then
         part = MoveData.partMax
     end
-    if moveInfo.speed == 0 then
+    if moveInfo.speed == 0 and moveInfo.type == 'straight' then
         return {0, 0, 0, 0}
     end
     part = math.clamp(part, 0, MoveData.partMax)
@@ -1062,6 +1062,9 @@ MoveData.DecodeInfo = function (move_code, ship)
         end
     -- Turns, regular stuff
     elseif move_code:sub(1,1) == 't' then
+        if info.size == 'huge' then
+            return info
+        end
         info.type = 'turn'
         info.dir = 'right'
         info.speed = tonumber(move_code:sub(3,3))
@@ -1703,6 +1706,12 @@ MoveModule.SelectShips = function(obj)
     return (obj.tag == 'Figurine')
 end
 
+-- Selection function for MoveModule.JoinHitTables - huge ships only
+MoveModule.SelectHugeShips = function(obj)
+    return (obj.tag == 'Figurine') and (obj.getTable('Data').Size == 'huge')
+end
+
+
 -- Selection function for MoveModule.JoinHitTables - obstacles only
 MoveModule.SelectObstacles = function(obj)
     local name = obj.getName()
@@ -2183,7 +2192,12 @@ MoveModule.CheckCollisions = function(ship, shipPosRot, collShipTable)
         end
     end
     if info.coll == nil then
-        local hTable = MoveModule.FullCastCheck(ship, shipPosRot,  MoveModule.SelectShips)
+        local hTable = {}
+        if shipSize == 'huge' then
+            hTable = MoveModule.FullCastCheck(ship, shipPosRot,  MoveModule.SelectHugeShips)
+        else
+            hTable = MoveModule.FullCastCheck(ship, shipPosRot,  MoveModule.SelectShips)
+        end
         info.coll = hTable[1]
     end
     return info
@@ -2298,6 +2312,17 @@ MoveModule.MoveProbe.GetShipsNearFull = function(info, ship, fullFun)
     local collShipRange = maxShipReach + Convert_mm_igu(mm_largeBase*math.sqrt(2))/2 + Convert_mm_igu(10)
     return ObjType.GetNearOfType(fullFun(info.code, ship).pos, collShipRange, 'ship', {ship})
 end
+
+-- Get near huge ships when trying a move that only allows for full execution
+-- Args: SEE MoveModule.MoveProbe.TryFullMove
+-- Return: {shipRef1, shipRef2, ... , shipRefN}
+MoveModule.MoveProbe.GetHugeShipsNearFull = function(info, ship, fullFun)
+    local shipsfound = MoveModule.MoveProbe.GetShipsNearFull(info, ship, fullFun)
+    print("GetHugeShipsNearFull")
+    shipsfound = table.sieve(shipsfound, function(obj) return (obj.getTable('Data').Size == 'huge') end)
+    return shipsfound
+end
+
 -- Try a full version of a move
 -- Args:
 --      info        <- move info as per MoveData.DecodeInfo
@@ -2308,7 +2333,12 @@ end
 --      collObj     <- nil if completed, object ref to colliding ship otherwise
 --          }
 MoveModule.MoveProbe.TryFullMove = function(info, ship, fullFun)
-    local collShips = MoveModule.MoveProbe.GetShipsNearFull(info, ship, fullFun)
+    local collShips = nil
+    if info.size == 'huge' then
+        collShips = MoveModule.MoveProbe.GetHugeShipsNearFull(info, ship, fullFun)
+    else
+        collShips = MoveModule.MoveProbe.GetShipsNearFull(info, ship, fullFun)
+    end
     local out = {done=nil, collObj=nil}
     local checkNum = 0
 
@@ -2369,8 +2399,16 @@ MoveModule.GetFinalPosData = function(move_code, ship, ignoreCollisions)
         -- If move allows for full move check, try it
         if info.traits.full == true then
             local fullData = MoveModule.MoveProbe.TryFullMove(info, ship, MoveModule.GetFullMove)
-            if info.size == 'huge' then
-              --TODO: Attempt other speeds for huge ships
+            while info.size == 'huge' and fullData.done == false do
+              info.speed = info.speed -1
+              if info.speed == -1 then
+                info.speed = 0
+                info.code = "s0"
+                info.type = "straight"
+              else
+                info.code = string.gsub(info.code, "%d", info.speed)
+              end
+              fullData = MoveModule.MoveProbe.TryFullMove(info, ship, MoveModule.GetFullMove)
             end
             if fullData.done == true then
                 out.finPos = MoveModule.GetFullMove(info.code, ship)
