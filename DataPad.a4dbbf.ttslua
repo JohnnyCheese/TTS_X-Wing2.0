@@ -14,16 +14,28 @@
 
 self.interactable = false
 
+ --[[
+ tintColors = {}
+ tintColors[0] = color(0,0,0,0.0)
+ tintColors[1] = color(255/255, 230/255, 137/255, 0.8)
+ tintColors[2] = color(243/255,  99/255,  28/255, 0.8)
+ tintColors[3] = color(230/255,  40/255,  56/255, 0.8)
+ tintColors[4] = color(173/255, 250/255, 190/255, 0.8)
+ tintColors[5] = color( 21/255,  21/255, 168/255, 0.8)
+ tintColors[6] = color(238/255, 120/255, 234/255 ,0.8)
+ tintColors[7] = color(255/255, 255/255, 255/255, 0.8)
+ tintColors[8] = color(168/255, 241/255, 249/255, 0.8)]]
+
 tintColors = {}
 tintColors[0] = color(0,0,0,0.0)
-tintColors[1] = color(255/255, 230/255, 137/255, 0.8)
-tintColors[2] = color(243/255,  99/255,  28/255, 0.8)
-tintColors[3] = color(230/255,  40/255,  56/255, 0.8)
-tintColors[4] = color(173/255, 250/255, 190/255, 0.8)
-tintColors[5] = color( 21/255,  21/255, 168/255, 0.8)
-tintColors[6] = color(238/255, 120/255, 234/255 ,0.8)
-tintColors[7] = color(255/255, 255/255, 255/255, 0.8)
-tintColors[8] = color(168/255, 241/255, 249/255, 0.8)
+tintColors[1] = color(1,0,0,0.8)
+tintColors[2] = color(1,1,0,0.8)
+tintColors[3] = color(0,0.33,0,0.8)
+tintColors[4] = color(0.5,0.25,0.1,0.8)
+tintColors[5] = color(0,0,1,0.8)
+tintColors[6] = color(1,0,0.8,0.8)
+tintColors[7] = color(1,1,1,0.8)
+tintColors[8] = color(0,0,0,0.8)
 
 -- List and cost of variable cost upgrades based on base sizea
 varCostS={}
@@ -1549,7 +1561,7 @@ masterUpgradesDB[580]={['name']="Diamond-Boron Missiles",['slot']=6,['cost']=6,[
                         ['restriction']={ }}
 masterUpgradesDB[581]={['name']="Amilyn Holdo",['slot']=8,['cost']=8,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/cbe5e849e9daa4f3f968b2ff6e2879b1.png',
                         ['restriction']={['Faction']={[4]=true}}}
-masterUpgradesDB[582]={['name']="GA-97",['slot']=8,['cost']=6,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/3af44c6d32812dc07238b40842d67b47.png',
+masterUpgradesDB[582]={['name']="GA-97",['slot']=8,['cost']=6,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/3af44c6d32812dc07238b40842d67b47.png', ['Charge']=5, ['Condition']="It's the Resistance",
                         ['restriction']={['Faction']={[4]=true}}}
 masterUpgradesDB[583]={['name']="Kaydel Connix",['slot']=8,['cost']=5,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/29a0eb418850a3821c38874daf0a6b0d.png',
                         ['restriction']={['Faction']={[4]=true}}}

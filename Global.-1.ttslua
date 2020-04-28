@@ -245,8 +245,8 @@ end
 
 -- Possible commands supported by this module
 XW_cmd.AddCommand('[sk][012345][r]?', 'move')   -- Straights/Koiograns + stationary moves
-XW_cmd.AddCommand('b[rle][123][str]?', 'move')   -- Banks + segnor and reverse versions
-XW_cmd.AddCommand('t[rle][1234][srfbt]?[t]?', 'move')  -- Turns + segnor, talon and reverse versions
+XW_cmd.AddCommand('b[rle][0123][str]?', 'move')   -- Banks + segnor and reverse versions
+XW_cmd.AddCommand('t[rle][01234][srfbt]?[t]?', 'move')  -- Turns + segnor, talon and reverse versions
 
 XW_cmd.AddCommand('r[rle][123]?', 'actionMove')       --New Roll Done
 XW_cmd.AddCommand('v[rle][fb][123]?', 'actionMove')   --New ViperRoll
@@ -271,16 +271,18 @@ ArcCheck.arc_check_rulers = {}
 ArcCheck.current_arc = "none"
 
 ArcCheck.arc_line_segments = {}
-ArcCheck.arc_line_segments['small'] = {}
-ArcCheck.arc_line_segments['medium'] = {}
-ArcCheck.arc_line_segments['large'] = {}
+ArcCheck.arc_line_segments.small = {}
+ArcCheck.arc_line_segments.medium = {}
+ArcCheck.arc_line_segments.large = {}
+ArcCheck.arc_line_segments.huge = {}
 
 ArcCheck.bullseye_data =
 {
     pos={
         small=vector(0,0,Convert_mm_igu(170)),
         medium=vector(0,0,Convert_mm_igu(180)),
-        large=vector(0,0,Convert_mm_igu(190))
+        large=vector(0,0,Convert_mm_igu(190)),
+        huge=vector(0,0,Convert_mm_igu(110.5))
     },
     size=vector(Convert_mm_igu(14), 0.1, Convert_mm_igu(300))
 }
@@ -296,56 +298,80 @@ ArcCheck.bullseye_data =
 
 ArcCheck.Initialize = function() -- Arc values matching TTS ruler objects
     if ArcCheck.initialized == false then
-        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments['small'], 79.1, 20)
-        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments['medium'], 82.35, 30)
-        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments['large'], 82.9, 40)
+        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.small, 79.1, 20, 20)
+        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.medium, 82.35, 30, 30)
+        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.large, 82.9, 40, 40)
+        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.huge, 82.9, 40, 110.5 )
         ArcCheck.initialized = true
     end
 end
 
 
-ArcCheck.CalculateArcLineSegments = function(table, degree, size)
-    size = Convert_mm_igu(size)
-    local r = math.rad(degree/2)
-    local a = math.tan(r) * size
-    table['front'] =    {   segments={ {vector(-a, 0, size), vector(a, 0, size)} },-- Front segment
-                            degrees={direction=0, spread=degree/2}
-                        }
-    table['back'] =     {   segments={ {vector(-a, 0, -size), vector(a, 0, -size)} }, -- Front segment
-                            degrees={direction=180, spread=degree/2}
-                        }
-    table['bullseye'] = {   segments={ {vector(-ArcCheck.bullseye_data.size[1]/2, 0, size), vector(ArcCheck.bullseye_data.size[1]/2, 0, size)} }, -- Bullseye segments
+ArcCheck.CalculateArcLineSegments = function(table, degree, size_w, size_l)
+    size_w = Convert_mm_igu(size_w)
+    size_l = Convert_mm_igu(size_l)
+    local edge_arc = Vect.AngleDeg2D({-size_w, 0, size_l}, {size_w, 0,size_l})
+    print("Size_W:" .. tostring(size_w) .. " size_l:"..size_l .. " edge_arc=".. tostring(edge_arc))
+    if edge_arc > degree then -- Rectangular base sizes (small, medium and large ships)
+        local r = math.rad(degree/2)
+        local a = math.tan(r) * size_l
+        table['front'] =    {   segments={ {vector(-a, 0, size_l), vector(a, 0, size_l)} },-- Front segment
+                                degrees={direction=0, spread=degree/2}
+                            }
+        table['back'] =     {   segments={ {vector(-a, 0, -size_l), vector(a, 0, -size_l)} }, -- Front segment
+                                degrees={direction=180, spread=degree/2}
+                            }
+        table['left'] =     {   segments={ {vector(-a, 0, -size_l), vector(-size_w, 0, -size_l)},   -- back segment
+                                           {vector(-size_w, 0, -size_l), vector(-size_w, 0, size_l)}, -- left edge
+                                           {vector(-size_w, 0, size_l), vector(-a, 0, size_l)}  -- front segment
+                                       },
+                                degrees={direction=-90, spread=(180-degree)/2}
+                            }
+        table['right'] =    {   segments={ {vector(a, 0, -size_l), vector(size_w, 0, -size_l)},   -- back segment
+                                           {vector(size_w, 0, -size_l), vector(size_w, 0, size_l)}, -- right edge
+                                           {vector(size_w, 0, size_l), vector(a, 0, size_l)}  -- front segment
+                                       },
+                                degrees={direction=90, spread=(180-degree)/2}
+                            }
+    else -- Long base size (huge ships)
+        local r = math.rad(90 - degree/2)
+        local a = math.tan(r) * size_w
+        table['front'] =    {   segments={  {vector(-size_w, 0, a), vector(-size_w, 0, size_l)}, -- left segment
+                                            {vector(-size_w, 0, size_l), vector(size_w, 0, size_l)}, -- front edge
+                                            {vector(size_w, 0, size_l), vector(size_w, 0, a)} },-- right segment
+                                degrees={direction=0, spread=degree/2}
+                            }
+        table['back'] =    {   segments={  {vector(-size_w, 0, -a), vector(-size_w, 0, -size_l)}, -- left segment
+                                            {vector(-size_w, 0, -size_l), vector(size_w, 0, -size_l)}, -- back edge
+                                            {vector(size_w, 0, -size_l), vector(size_w, 0, -a)} },-- right segment
+                                degrees={direction=180, spread=degree/2}
+                            }
+        table['left'] =     {   segments={ {vector(-size_w, 0, -a), vector(-size_w, 0, a)}}, -- left segment
+                                degrees={direction=-90, spread=(180-degree)/2}
+                            }
+        table['right'] =    {   segments={ {vector(size_w, 0, -a), vector(size_w, 0, a)}}, -- right segment
+                                degrees={direction=90, spread=(180-degree)/2}
+                            }
+    end
+    table['bullseye'] = {   segments={ {vector(-ArcCheck.bullseye_data.size[1]/2, 0, size_l), vector(ArcCheck.bullseye_data.size[1]/2, 0, size_l)} }, -- Bullseye segments
                             degrees={direction=0, spread=0, bullseye=true}
-
                         }
-    table['fullfront'] = {  segments={ {vector(-size, 0, 0), vector(-size, 0, size)},   -- left segment
-                                        {vector(-size, 0, size), vector(size, 0, size)}, -- front edge
-                                        {vector(size, 0, size), vector(size, 0, 0)}  -- right segment
+    table['fullfront'] = {  segments={ {vector(-size_w, 0, 0), vector(-size_w, 0, size_l)},   -- left segment
+                                        {vector(-size_w, 0, size_l), vector(size_w, 0, size_l)}, -- front edge
+                                        {vector(size_w, 0, size_l), vector(size_w, 0, 0)}  -- right segment
                                        },
                             degrees={direction=0, spread=90}
                         }
-    table['fullback'] = {  segments={ {vector(-size, 0, 0), vector(-size, 0, -size)},   -- left segment
-                                       {vector(-size, 0, -size), vector(size, 0, -size)}, -- back edge
-                                       {vector(size, 0, -size), vector(size, 0, 0)}  -- right segment
+    table['fullback'] = {  segments={ {vector(-size_w, 0, 0), vector(-size_w, 0, -size_l)},   -- left segment
+                                       {vector(-size_w, 0, -size_l), vector(size_w, 0, -size_l)}, -- back edge
+                                       {vector(size_w, 0, -size_l), vector(size_w, 0, 0)}  -- right segment
                                    },
                             degrees={direction=180, spread=90}
                         }
-    table['left'] =     {   segments={ {vector(-a, 0, -size), vector(-size, 0, -size)},   -- back segment
-                                       {vector(-size, 0, -size), vector(-size, 0, size)}, -- left edge
-                                       {vector(-size, 0, size), vector(-a, 0, size)}  -- front segment
-                                   },
-                            degrees={direction=-90, spread=(180-degree)/2}
-                        }
-    table['right'] =    {   segments={ {vector(a, 0, -size), vector(size, 0, -size)},   -- back segment
-                                       {vector(size, 0, -size), vector(size, 0, size)}, -- right edge
-                                       {vector(size, 0, size), vector(a, 0, size)}  -- front segment
-                                   },
-                            degrees={direction=90, spread=(180-degree)/2}
-                        }
-     table['full'] =    {   segments={ {vector(-size, 0, size), vector(size, 0, size)},   -- front edge
-                                       {vector(size, 0, size), vector(size, 0, -size)}, -- right edge
-                                       {vector(size, 0, -size), vector(-size, 0, -size)},  -- back edge
-                                       {vector(-size, 0, -size), vector(-size, 0, size)}  -- left edge
+     table['full'] =    {   segments={ {vector(-size_w, 0, size_l), vector(size_w, 0, size_l)},   -- front edge
+                                       {vector(size_w, 0, size_l), vector(size_w, 0, -size_l)}, -- right edge
+                                       {vector(size_w, 0, -size_l), vector(-size_w, 0, -size_l)},  -- back edge
+                                       {vector(-size_w, 0, -size_l), vector(-size_w, 0, size_l)}  -- left edge
                                    },
                             degrees={direction=0, spread=180}
                         }
@@ -865,7 +891,7 @@ MoveData.LUT.ConstructData = function(moveInfo, part)
     if part == nil then
         part = MoveData.partMax
     end
-    if moveInfo.speed == 0 then
+    if moveInfo.speed == 0 and moveInfo.type == 'straight' then
         return {0, 0, 0, 0}
     end
     part = math.clamp(part, 0, MoveData.partMax)
@@ -1062,6 +1088,11 @@ MoveData.DecodeInfo = function (move_code, ship)
         end
     -- Turns, regular stuff
     elseif move_code:sub(1,1) == 't' then
+        if info.size == 'huge' then
+            info.note = "tried to turn, but huge ships can't do that"
+            info.collNote = "tried to turn, but huge ships can't do that"
+            return info
+        end
         info.type = 'turn'
         info.dir = 'right'
         info.speed = tonumber(move_code:sub(3,3))
@@ -1703,6 +1734,12 @@ MoveModule.SelectShips = function(obj)
     return (obj.tag == 'Figurine')
 end
 
+-- Selection function for MoveModule.JoinHitTables - huge ships only
+MoveModule.SelectHugeShips = function(obj)
+    return (obj.tag == 'Figurine') and (obj.getTable('Data').Size == 'huge')
+end
+
+
 -- Selection function for MoveModule.JoinHitTables - obstacles only
 MoveModule.SelectObstacles = function(obj)
     local name = obj.getName()
@@ -2183,7 +2220,12 @@ MoveModule.CheckCollisions = function(ship, shipPosRot, collShipTable)
         end
     end
     if info.coll == nil then
-        local hTable = MoveModule.FullCastCheck(ship, shipPosRot,  MoveModule.SelectShips)
+        local hTable = {}
+        if shipSize == 'huge' then
+            hTable = MoveModule.FullCastCheck(ship, shipPosRot,  MoveModule.SelectHugeShips)
+        else
+            hTable = MoveModule.FullCastCheck(ship, shipPosRot,  MoveModule.SelectShips)
+        end
         info.coll = hTable[1]
     end
     return info
@@ -2298,6 +2340,17 @@ MoveModule.MoveProbe.GetShipsNearFull = function(info, ship, fullFun)
     local collShipRange = maxShipReach + Convert_mm_igu(mm_largeBase*math.sqrt(2))/2 + Convert_mm_igu(10)
     return ObjType.GetNearOfType(fullFun(info.code, ship).pos, collShipRange, 'ship', {ship})
 end
+
+-- Get near huge ships when trying a move that only allows for full execution
+-- Args: SEE MoveModule.MoveProbe.TryFullMove
+-- Return: {shipRef1, shipRef2, ... , shipRefN}
+MoveModule.MoveProbe.GetHugeShipsNearFull = function(info, ship, fullFun)
+    local shipsfound = MoveModule.MoveProbe.GetShipsNearFull(info, ship, fullFun)
+    print("GetHugeShipsNearFull")
+    shipsfound = table.sieve(shipsfound, function(obj) return (obj.getTable('Data').Size == 'huge') end)
+    return shipsfound
+end
+
 -- Try a full version of a move
 -- Args:
 --      info        <- move info as per MoveData.DecodeInfo
@@ -2308,7 +2361,12 @@ end
 --      collObj     <- nil if completed, object ref to colliding ship otherwise
 --          }
 MoveModule.MoveProbe.TryFullMove = function(info, ship, fullFun)
-    local collShips = MoveModule.MoveProbe.GetShipsNearFull(info, ship, fullFun)
+    local collShips = nil
+    if info.size == 'huge' then
+        collShips = MoveModule.MoveProbe.GetHugeShipsNearFull(info, ship, fullFun)
+    else
+        collShips = MoveModule.MoveProbe.GetShipsNearFull(info, ship, fullFun)
+    end
     local out = {done=nil, collObj=nil}
     local checkNum = 0
 
@@ -2369,8 +2427,16 @@ MoveModule.GetFinalPosData = function(move_code, ship, ignoreCollisions)
         -- If move allows for full move check, try it
         if info.traits.full == true then
             local fullData = MoveModule.MoveProbe.TryFullMove(info, ship, MoveModule.GetFullMove)
-            if info.size == 'huge' then
-              --TODO: Attempt other speeds for huge ships
+            while info.size == 'huge' and fullData.done == false do
+              info.speed = info.speed -1
+              if info.speed == -1 then
+                info.speed = 0
+                info.code = "s0"
+                info.type = "straight"
+              else
+                info.code = string.gsub(info.code, "%d", info.speed)
+              end
+              fullData = MoveModule.MoveProbe.TryFullMove(info, ship, MoveModule.GetFullMove)
             end
             if fullData.done == true then
                 out.finPos = MoveModule.GetFullMove(info.code, ship)
@@ -4337,6 +4403,7 @@ function newSpawner(listTable)
         hasMob = 0
         pilotCount = 0
         bombTokenDescription = ''
+        local tint = Pilots[shipIndex].tint or color(0,0,0,0)
         -- Spawn Mobile Upgrades
         for j, Up in ipairs(Upgrades[shipIndex]) do
             if  Up['Config'] == true then
@@ -4445,7 +4512,7 @@ function newSpawner(listTable)
                 local card = newPil
                 local idpos = pos
                 local idrot = rot
-                local tint = Pilots[shipIndex].tint
+
                 pilotIdSpawnFunc = function()
                   local pilotId = spawnObject({
                       type              = "Custom_Model",
@@ -4470,7 +4537,6 @@ function newSpawner(listTable)
             end
         end
         if pilotName ~= '' then
-            local tint = Pilots[shipIndex].tint
             for k, acc in ipairs(listaAcc) do
                 local card = newPil
                 if acc.name == 'Unassigned Dial' then
@@ -4569,7 +4635,6 @@ function newSpawner(listTable)
             end
             local ship = newShip
             local card = newPil
-            local tint = Pilots[shipIndex].tint
             local idpos = pos
             local idrot = rot
             local customObj = {
