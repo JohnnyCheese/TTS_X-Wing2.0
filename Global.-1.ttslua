@@ -271,16 +271,18 @@ ArcCheck.arc_check_rulers = {}
 ArcCheck.current_arc = "none"
 
 ArcCheck.arc_line_segments = {}
-ArcCheck.arc_line_segments['small'] = {}
-ArcCheck.arc_line_segments['medium'] = {}
-ArcCheck.arc_line_segments['large'] = {}
+ArcCheck.arc_line_segments.small = {}
+ArcCheck.arc_line_segments.medium = {}
+ArcCheck.arc_line_segments.large = {}
+ArcCheck.arc_line_segments.huge = {}
 
 ArcCheck.bullseye_data =
 {
     pos={
         small=vector(0,0,Convert_mm_igu(170)),
         medium=vector(0,0,Convert_mm_igu(180)),
-        large=vector(0,0,Convert_mm_igu(190))
+        large=vector(0,0,Convert_mm_igu(190)),
+        huge=vector(0,0,Convert_mm_igu(110.5))
     },
     size=vector(Convert_mm_igu(14), 0.1, Convert_mm_igu(300))
 }
@@ -296,56 +298,80 @@ ArcCheck.bullseye_data =
 
 ArcCheck.Initialize = function() -- Arc values matching TTS ruler objects
     if ArcCheck.initialized == false then
-        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments['small'], 79.1, 20)
-        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments['medium'], 82.35, 30)
-        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments['large'], 82.9, 40)
+        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.small, 79.1, 20, 20)
+        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.medium, 82.35, 30, 30)
+        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.large, 82.9, 40, 40)
+        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.huge, 82.9, 40, 110.5 )
         ArcCheck.initialized = true
     end
 end
 
 
-ArcCheck.CalculateArcLineSegments = function(table, degree, size)
-    size = Convert_mm_igu(size)
-    local r = math.rad(degree/2)
-    local a = math.tan(r) * size
-    table['front'] =    {   segments={ {vector(-a, 0, size), vector(a, 0, size)} },-- Front segment
-                            degrees={direction=0, spread=degree/2}
-                        }
-    table['back'] =     {   segments={ {vector(-a, 0, -size), vector(a, 0, -size)} }, -- Front segment
-                            degrees={direction=180, spread=degree/2}
-                        }
-    table['bullseye'] = {   segments={ {vector(-ArcCheck.bullseye_data.size[1]/2, 0, size), vector(ArcCheck.bullseye_data.size[1]/2, 0, size)} }, -- Bullseye segments
+ArcCheck.CalculateArcLineSegments = function(table, degree, size_w, size_l)
+    size_w = Convert_mm_igu(size_w)
+    size_l = Convert_mm_igu(size_l)
+    local edge_arc = Vect.AngleDeg2D({-size_w, 0, size_l}, {size_w, 0,size_l})
+    print("Size_W:" .. tostring(size_w) .. " size_l:"..size_l .. " edge_arc=".. tostring(edge_arc))
+    if edge_arc > degree then -- Rectangular base sizes (small, medium and large ships)
+        local r = math.rad(degree/2)
+        local a = math.tan(r) * size_l
+        table['front'] =    {   segments={ {vector(-a, 0, size_l), vector(a, 0, size_l)} },-- Front segment
+                                degrees={direction=0, spread=degree/2}
+                            }
+        table['back'] =     {   segments={ {vector(-a, 0, -size_l), vector(a, 0, -size_l)} }, -- Front segment
+                                degrees={direction=180, spread=degree/2}
+                            }
+        table['left'] =     {   segments={ {vector(-a, 0, -size_l), vector(-size_w, 0, -size_l)},   -- back segment
+                                           {vector(-size_w, 0, -size_l), vector(-size_w, 0, size_l)}, -- left edge
+                                           {vector(-size_w, 0, size_l), vector(-a, 0, size_l)}  -- front segment
+                                       },
+                                degrees={direction=-90, spread=(180-degree)/2}
+                            }
+        table['right'] =    {   segments={ {vector(a, 0, -size_l), vector(size_w, 0, -size_l)},   -- back segment
+                                           {vector(size_w, 0, -size_l), vector(size_w, 0, size_l)}, -- right edge
+                                           {vector(size_w, 0, size_l), vector(a, 0, size_l)}  -- front segment
+                                       },
+                                degrees={direction=90, spread=(180-degree)/2}
+                            }
+    else -- Long base size (huge ships)
+        local r = math.rad(90 - degree/2)
+        local a = math.tan(r) * size_w
+        table['front'] =    {   segments={  {vector(-size_w, 0, a), vector(-size_w, 0, size_l)}, -- left segment
+                                            {vector(-size_w, 0, size_l), vector(size_w, 0, size_l)}, -- front edge
+                                            {vector(size_w, 0, size_l), vector(size_w, 0, a)} },-- right segment
+                                degrees={direction=0, spread=degree/2}
+                            }
+        table['back'] =    {   segments={  {vector(-size_w, 0, -a), vector(-size_w, 0, -size_l)}, -- left segment
+                                            {vector(-size_w, 0, -size_l), vector(size_w, 0, -size_l)}, -- back edge
+                                            {vector(size_w, 0, -size_l), vector(size_w, 0, -a)} },-- right segment
+                                degrees={direction=180, spread=degree/2}
+                            }
+        table['left'] =     {   segments={ {vector(-size_w, 0, -a), vector(-size_w, 0, a)}}, -- left segment
+                                degrees={direction=-90, spread=(180-degree)/2}
+                            }
+        table['right'] =    {   segments={ {vector(size_w, 0, -a), vector(size_w, 0, a)}}, -- right segment
+                                degrees={direction=90, spread=(180-degree)/2}
+                            }
+    end
+    table['bullseye'] = {   segments={ {vector(-ArcCheck.bullseye_data.size[1]/2, 0, size_l), vector(ArcCheck.bullseye_data.size[1]/2, 0, size_l)} }, -- Bullseye segments
                             degrees={direction=0, spread=0, bullseye=true}
-
                         }
-    table['fullfront'] = {  segments={ {vector(-size, 0, 0), vector(-size, 0, size)},   -- left segment
-                                        {vector(-size, 0, size), vector(size, 0, size)}, -- front edge
-                                        {vector(size, 0, size), vector(size, 0, 0)}  -- right segment
+    table['fullfront'] = {  segments={ {vector(-size_w, 0, 0), vector(-size_w, 0, size_l)},   -- left segment
+                                        {vector(-size_w, 0, size_l), vector(size_w, 0, size_l)}, -- front edge
+                                        {vector(size_w, 0, size_l), vector(size_w, 0, 0)}  -- right segment
                                        },
                             degrees={direction=0, spread=90}
                         }
-    table['fullback'] = {  segments={ {vector(-size, 0, 0), vector(-size, 0, -size)},   -- left segment
-                                       {vector(-size, 0, -size), vector(size, 0, -size)}, -- back edge
-                                       {vector(size, 0, -size), vector(size, 0, 0)}  -- right segment
+    table['fullback'] = {  segments={ {vector(-size_w, 0, 0), vector(-size_w, 0, -size_l)},   -- left segment
+                                       {vector(-size_w, 0, -size_l), vector(size_w, 0, -size_l)}, -- back edge
+                                       {vector(size_w, 0, -size_l), vector(size_w, 0, 0)}  -- right segment
                                    },
                             degrees={direction=180, spread=90}
                         }
-    table['left'] =     {   segments={ {vector(-a, 0, -size), vector(-size, 0, -size)},   -- back segment
-                                       {vector(-size, 0, -size), vector(-size, 0, size)}, -- left edge
-                                       {vector(-size, 0, size), vector(-a, 0, size)}  -- front segment
-                                   },
-                            degrees={direction=-90, spread=(180-degree)/2}
-                        }
-    table['right'] =    {   segments={ {vector(a, 0, -size), vector(size, 0, -size)},   -- back segment
-                                       {vector(size, 0, -size), vector(size, 0, size)}, -- right edge
-                                       {vector(size, 0, size), vector(a, 0, size)}  -- front segment
-                                   },
-                            degrees={direction=90, spread=(180-degree)/2}
-                        }
-     table['full'] =    {   segments={ {vector(-size, 0, size), vector(size, 0, size)},   -- front edge
-                                       {vector(size, 0, size), vector(size, 0, -size)}, -- right edge
-                                       {vector(size, 0, -size), vector(-size, 0, -size)},  -- back edge
-                                       {vector(-size, 0, -size), vector(-size, 0, size)}  -- left edge
+     table['full'] =    {   segments={ {vector(-size_w, 0, size_l), vector(size_w, 0, size_l)},   -- front edge
+                                       {vector(size_w, 0, size_l), vector(size_w, 0, -size_l)}, -- right edge
+                                       {vector(size_w, 0, -size_l), vector(-size_w, 0, -size_l)},  -- back edge
+                                       {vector(-size_w, 0, -size_l), vector(-size_w, 0, size_l)}  -- left edge
                                    },
                             degrees={direction=0, spread=180}
                         }
@@ -1063,6 +1089,7 @@ MoveData.DecodeInfo = function (move_code, ship)
     -- Turns, regular stuff
     elseif move_code:sub(1,1) == 't' then
         if info.size == 'huge' then
+            info.note = "tried to turn, but huge ships can't do that"
             return info
         end
         info.type = 'turn'
