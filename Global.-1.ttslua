@@ -1090,6 +1090,7 @@ MoveData.DecodeInfo = function (move_code, ship)
     elseif move_code:sub(1,1) == 't' then
         if info.size == 'huge' then
             info.note = "tried to turn, but huge ships can't do that"
+            info.collNote = "tried to turn, but huge ships can't do that"
             return info
         end
         info.type = 'turn'
