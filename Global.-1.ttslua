@@ -400,6 +400,7 @@ function CheckArc(args)
     -- Iterate over the potential targets and display their statuses.
     printToAll(args.ship.getName() .. ' checks for targets in the ' .. args.arctype .. ' arc:', color(1.0, 1.0, 0.2, 0.9))
     targets = ArcCheck.GetTargetsInRelationToArc(args.ship, args.arctype)
+    table.sort(targets, ArcCheck.SortTargetsByDesirability)
     local found = false
     for i, target in pairs(targets) do
         ship = target['ship']
@@ -563,6 +564,64 @@ ArcCheck.GetTargetsInRelationToArc = function(ship, arctype)
     end
 
     return targets
+end
+
+--[[ ArcCheck.SortTargetsByDesirability
+This is a table sorting function, used to sort the results of
+GetTargetsInRelationToArc. It sorts based on desirability of selecting a target,
+in the following order:
+- in arc before out of arc
+- closer range band before more distant range band
+- less obstructed before more obstructed
+- GUID as a fallback
+--]]
+ArcCheck.SortTargetsByDesirability = function(e1, e2)
+    if e1['in_arc'] == true and e2['in_arc'] == false then
+        return true
+    elseif e1['in_arc'] == false and e2['in_arc'] == true then
+        return false
+    elseif e1['in_arc'] == true then
+        if e1['closest'].range < e2['closest'].range then
+            return true
+        elseif e1['closest'].range > e2['closest'].range then
+            return false
+        end
+
+        -- Gotta be a better way of doing this...
+        if e1['obstructed'] ~= e2['obstructed'] then
+            if e1['obstructed'] == 'unobstructed' then
+                return true
+            elseif e2['obstructed'] == 'unobstructed' then
+                return false
+            end
+
+            if e1['obstructed'] == 'likely_unobstructed' then
+                return true
+            elseif e2['obstructed'] == 'likely_unobstructed' then
+                return false
+            end
+
+            if e1['obstructed'] == 'chosen_obstructed' then
+                return true
+            elseif e2['obstructed'] == 'chosen_obstructed' then
+                return false
+            end
+
+            if e1['obstructed'] == 'likely_obstructed' then
+                return true
+            elseif e2['obstructed'] == 'likely_obstructed' then
+                return false
+            end
+
+            if e1['obstructed'] == 'obstructed' then
+                return true
+            elseif e2['obstructed'] == 'obstructed' then
+                return false
+            end
+        end
+    end
+
+    return e1['ship'].getGUID() > e2['ship'].getGUID()
 end
 
 ArcCheck.CheckObstruction = function(data)
