@@ -3658,24 +3658,9 @@ RulerModule.CreateCustomTables = function(ship, rulerType)
     paramsTable.type = 'Custom_Model'
     paramsTable.position = ship.getPosition()
     paramsTable.rotation = {0, ship.getRotation()[2], 0}
-    if rulerType == 'B' then
-        local size = ship.getTable("Data").Size or 'small'
-        if size == 'small' then
-            rot = ship.getRotation()[2]
-            paramsTable.rotation={0, rot +180, 0}
-        end
-    end
-    local size = ship.getTable("Data").Size or 'small'
     if rulerType == 'SR' then
         rot = ship.getRotation()[2]
         paramsTable.rotation= {0, rot + 180, 0}
-        if size == 'medium' then                       --Side arc model for medium bases is inverted in relation to small and large bases, so it must be rotated 180 degrees as a workaround
-            paramsTable.rotation= {0, rot, 0}
-        end
-    end
-    if rulerType == 'SL' and size == 'medium' then      --Side arc model for medium bases is inverted in relation to small and large bases, so it must be rotated 180 degrees as a workaround
-        rot = ship.getRotation()[2]
-        paramsTable.rotation= {0, rot + 180 , 0}
     end
 
     paramsTable.scale = rulerData.scale
