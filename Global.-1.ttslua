@@ -3402,7 +3402,9 @@ end
 DialModule.DeleteTemplate = function(ship)
     for k,info in pairs(DialModule.SpawnedTemplates) do
         if info.ship == ship then
-            info.template.destruct()
+            if info.template ~= nil then
+                info.template.destruct()
+            end
             table.remove(DialModule.SpawnedTemplates, k)
             return true
         end
