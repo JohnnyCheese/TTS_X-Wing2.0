@@ -276,8 +276,18 @@ masterShipDB[52]={['name']='TIE Silencer',['Shield']=2,['size']='small',['agi']=
                             ['moveSet']={'wtl1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rtl3t','wtl3','wbl3','bs3','wbr3','wtr3','rtr3t','bs4','rk4','bs5'}}
 masterShipDB[53]={['name']='T-70 X-Wing',['Shield']=3,['size']='small',['agi']=2,['XWS']='', ['Fac']={[4]=true}, ['arcs']={'front'},
                             ['moveSet']={'bbl1','bs1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3t','wtl3','wbl3','bs3','wbr3','wtr3','rtr3t','ws4','rk4'}}
-masterShipDB[54]={['name']='A-Wing RZ-2',['Shield']=2,['sTurret']=1,['size']='small',['agi']=3,['XWS']='', ['Fac']={[4]=true}, ['arcs']={'front', 'back'},
-                            ['moveSet']={'wtl1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rbl3s','wtl3','bbl3','bs3','bbr3','wtr3','rbr3s','bs4','bs5','rk5'}}
+
+masterShipDB[54]={
+    name = 'A-Wing RZ-2',
+    Shield = 2,
+    sTurret = 1,
+    size = 'small',
+    agi = 3,
+    Fac = {[4]=true},
+    arcs = {'front', 'back'},
+    mesh = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/res_awing.obj',
+    moveSet = {'wtl1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rbl3s','wtl3','bbl3','bs3','bbr3','wtr3','rbr3s','bs4','bs5','rk5'}}
+
 masterShipDB[55]={['name']='MG-100 StarFortress',['Shield']=3,['dTurret']=1,['size']='large',['agi']=1,['XWS']='', ['Fac']={[4]=true}, ['arcs']={'front','doubleturret'},
                             ['moveSet']={'rs0','rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rbl3','ws3','rbr3'}}
 masterShipDB[56]={['name']='Mining Guild TIE',['Shield']=0,['size']='small',['agi']=3,['XWS']='', ['Fac']={[3]=true}, ['arcs']={'front'},
@@ -300,10 +310,26 @@ masterShipDB[60]={['name']='Sith Infiltrator',['Shield']=4,['size']='large',['ag
                             ['moveSet']={'rtl1','bbl1','bs1','bbr1','rtr1','rbl2s','wtl2','bbl2','bs2','bbr2','wtr2','rbr2s','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk5'}}
 
 --w4ship
-masterShipDB[64]={['name']='Resistance Transport',['Shield']=3,['size']='small',['agi']=1,['XWS']='', ['Fac']={[4]=true}, ['arcs']={'front'},
-                            ['moveSet']={'rbl1r','rbr1r','rs0','rbl1r','rbr1r','rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rbl3','ws3','rbr3','rs4'}}
-masterShipDB[65]={['name']='Resistance Transport Pod',['Shield']=1,['size']='small',['agi']=2,['XWS']='', ['Fac']={[4]=true}, ['arcs']={'front'},
-                            ['moveSet']={'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rbl3','ws3','rbr3','rk3','rs4'}}
+masterShipDB[64]={
+    name = 'Resistance Transport',
+    Shield = 3,
+    size = 'small',
+    agi = 1,
+    Fac = {[4]=true},
+    arcs = {'front'},
+    mesh = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/transport/transport.obj',
+    moveSet = {'rbl1r','rbr1r','rs0','rbl1r','rbr1r','rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rbl3','ws3','rbr3','rs4'}}
+
+masterShipDB[65]={
+    name = 'Resistance Transport Pod',
+    Shield = 1,
+    size = 'small',
+    agi = 2,
+    Fac = {[4]=true},
+    arcs = {'front'},
+    mesh = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/transport_pod/transport_pod.obj',
+    moveSet = {'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rbl3','ws3','rbr3','rk3','rs4'}}
+
 masterShipDB[63]={['name']='N-1 StarFighter',['Shield']=2,['size']='small',['agi']=2,['XWS']='', ['Fac']={[6]=true}, ['arcs']={'front'},
                             ['moveSet']={'wbl1','ws1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','bbl3','bs3','bbr3','wtr3','rtl3t','rtr3t','ws4','ws5'}}
 masterShipDB[66]={['name']='Hyena-Class Droid Bomber',['Shield']=0,['size']='small',['agi']=2,['XWS']='', ['Fac']={[7]=true}, ['arcs']={'front'},
@@ -929,18 +955,80 @@ masterPilotDB[433]={['name']="Cat",['Faction']=4,['ship_type']=55,['cost']=54,['
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/b386dc25736682ebc785b15551de903b.png',['init']=1,['actSet']={'F','TL','Rot'}}
 masterPilotDB[434]={['name']="Cobalt Squadron Bomber",['Faction']=4,['ship_type']=55,['cost']=52,['slot']={2,19,8,16,16,12,12,14},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/6b6a3bb8049699e2d66fe09531e8bc00.png',['init']=1,['actSet']={'F','TL','Rot'}}
-masterPilotDB[435]={['name']="L'ulo L'ampar",['Faction']=4,['ship_type']=54,['cost']=43,['slot']={1,1,19,6},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/e15d3e2a2fc082b95a64a83df0c96f7f.png',['init']=5,['actSet']={'F','TL','Rot180','E','B','BR'}}
-masterPilotDB[436]={['name']="Tallissan Lintra",['Faction']=4,['ship_type']=54,['cost']=36,['slot']={1,1,19,6},['Shield']=2,['Charge']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/72cb6c4e50b0ad24af0bb84ce0aa53f0.png',['init']=5,['actSet']={'F','TL','Rot180','E','B','BR'}}
-masterPilotDB[437]={['name']="Greer Sonnel",['Faction']=4,['ship_type']=54,['cost']=36,['slot']={1,1,19,6},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/7fc7b194b02ad7af6adf4ef9b79108d1.png',['init']=4,['actSet']={'F','TL','Rot180','E','B','BR'}}
-masterPilotDB[438]={['name']="Zari Bangel",['Faction']=4,['ship_type']=54,['cost']=35,['slot']={1,1,19,6},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/d7f37dbb86bb706dd535e9a65b69149a.png',['init']=3,['actSet']={'F','TL','Rot180','E','B','BR'}}
-masterPilotDB[439]={['name']="Green Squadron Expert",['Faction']=4,['ship_type']=54,['cost']=34,['slot']={1,1,19,6},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/3f7ad9efb4c5af8b4d1f5c07a3c7538b.png',['init']=3,['actSet']={'F','TL','Rot180','E','B','BR'}}
-masterPilotDB[440]={['name']="Blue Squadron Recruit",['Faction']=4,['ship_type']=54,['cost']=32,['slot']={1,19,6},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/e033b2729305ac0b678d6031ada7b2b8.png',['init']=1,['actSet']={'F','TL','Rot180','E','B','BR'}}
+
+masterPilotDB[435]={
+    name = "L'ulo L'ampar",
+    Faction = 4,
+    ship_type = 54,
+    cost = 43,
+    slot = {1,1,19,6},
+    Shield = 2,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/e15d3e2a2fc082b95a64a83df0c96f7f.png',
+    init = 5,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/lulo_lampar.png',
+    actSet = {'F','TL','Rot180','E','B','BR'}}
+
+masterPilotDB[436]={
+    name = "Tallissan Lintra",
+    Faction = 4,
+    ship_type = 54,
+    cost = 36,
+    slot = {1,1,19,6},
+    Shield = 2,
+    Charge = 1,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/72cb6c4e50b0ad24af0bb84ce0aa53f0.png',
+    init = 5,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/talli_lintra.png',
+    actSet = {'F','TL','Rot180','E','B','BR'}}
+
+masterPilotDB[437]={
+    name = "Greer Sonnel",
+    Faction = 4,
+    ship_type = 54,
+    cost = 36,
+    slot = {1,1,19,6},
+    Shield = 2,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/7fc7b194b02ad7af6adf4ef9b79108d1.png',
+    init = 4,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/greer_sonnel.png',
+    actSet = {'F','TL','Rot180','E','B','BR'}}
+
+masterPilotDB[438]={
+    name = "Zari Bangel",
+    Faction = 4,
+    ship_type = 54,
+    cost = 35,
+    slot = {1,1,19,6},
+    Shield = 2,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/d7f37dbb86bb706dd535e9a65b69149a.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/zari_bangel.png',
+    actSet = {'F','TL','Rot180','E','B','BR'}}
+
+masterPilotDB[439]={
+    name = "Green Squadron Expert",
+    Faction = 4,
+    ship_type = 54,
+    cost = 34,
+    slot = {1,1,19,6},
+    Shield = 2,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/3f7ad9efb4c5af8b4d1f5c07a3c7538b.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/green_sq_expert.png',
+    actSet = {'F','TL','Rot180','E','B','BR'}}
+
+masterPilotDB[440]={
+    name = "Blue Squadron Recruit",
+    Faction = 4,
+    ship_type = 54,
+    cost = 32,
+    slot = {1,19,6},
+    Shield = 2,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/e033b2729305ac0b678d6031ada7b2b8.png',
+    init = 1,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/blue_sq_recruit.png',
+    actSet = {'F','TL','Rot180','E','B','BR'}}
+
 masterPilotDB[441]={['name']='Foreman Proach',['Faction']=3,['ship_type']=56,['cost']=32,['slot']={1,14},['Shield']=6,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/cfb3b5fa9d747afc3aa10f3b86f45818.png',['init']=4,['actSet']={'F','E','BR'}}
 masterPilotDB[442]={['name']='Ahhav',['Faction']=3,['ship_type']=56,['cost']=30,['slot']={1,14},['Shield']=6,
@@ -1070,23 +1158,94 @@ masterPilotDB[561]={['name']='Naboo Handmaiden',['Faction']=6,['ship_type']=63,[
 masterPilotDB[562]={['name']='Bravo Flight Officer',['Faction']=6,['ship_type']=63,['cost']=33,['slot']={2,5,10},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/274db1f70ed4da939b9440837a30c39a.png',['init']=2,
                   ['actSet']={'F','TL','B','BR','E'}}
 --Resistance Transport
-masterPilotDB[569]={['name']='Cova Nell',['Faction']=4,['ship_type']=64,['cost']=38,['slot']={1,19,3,5,8,8,10,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/a9ae63785f4cadaa28a74858ff1d1bc4.png',['init']=4,
-                  ['actSet']={'F','TL'}}
-masterPilotDB[570]={['name']='Pammich Nerro Goode',['Faction']=4,['ship_type']=64,['cost']=36,['slot']={19,3,5,8,8,10,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/9d7dd5d0851911412dd5c86603a0ea91.png',['init']=3,
-                  ['actSet']={'F','TL'}}
-masterPilotDB[571]={['name']='Nodin Chavdri',['Faction']=4,['ship_type']=64,['cost']=36,['slot']={19,3,5,8,8,10,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/9f41de269cb1ff091487554fb53b2374.png',['init']=2,
-                  ['actSet']={'F','TL'}}
-masterPilotDB[572]={['name']='Logistics Division Pilot',['Faction']=4,['ship_type']=64,['cost']=32,['slot']={19,3,5,8,8,10,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/57ea37cdb13f52ec3f3e0b745fc9d630.png',['init']=1,
-                  ['actSet']={'F','TL'}}
+masterPilotDB[569]={
+    name = 'Cova Nell',
+    Faction = 4,
+    ship_type = 64,
+    cost = 38,
+    slot = {1,19,3,5,8,8,10,14},
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/a9ae63785f4cadaa28a74858ff1d1bc4.png',
+    init = 4,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/transport/cova_nell.png',
+    actSet = {'F','TL'}}
+
+masterPilotDB[570]={
+    name = 'Pammich Nerro Goode',
+    Faction = 4,
+    ship_type = 64,
+    cost = 36,
+    slot = {19,3,5,8,8,10,14},
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/9d7dd5d0851911412dd5c86603a0ea91.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/transport/pammich_nerro_goode.png',
+    actSet = {'F','TL'}}
+
+masterPilotDB[571]={
+    name = 'Nodin Chavdri',
+    Faction = 4,
+    ship_type = 64,
+    cost = 36,
+    slot = {19,3,5,8,8,10,14},
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/9f41de269cb1ff091487554fb53b2374.png',
+    init = 2,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/transport/nodin_chavdri.png',
+    actSet = {'F','TL'}}
+
+masterPilotDB[572]={
+    name = 'Logistics Division Pilot',
+    Faction = 4,
+    ship_type = 64,
+    cost = 32,
+    slot = {19,3,5,8,8,10,14},
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/57ea37cdb13f52ec3f3e0b745fc9d630.png',
+    init = 1,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/transport/logistics_div_pilot.png',
+    actSet = {'F','TL'}}
+
 --Resistance Pod
-masterPilotDB[574]={['name']='Rose Tico',['Faction']=4,['ship_type']=65,['cost']=26,['slot']={1,19,8,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/1dbf7b355d60f5b3f278522eb702f99f.png',['init']=3,
-                  ['actSet']={'F','TL','BR'}}
-masterPilotDB[573]={['name']='BB-8',['Faction']=4,['ship_type']=65,['cost']=26,['slot']={1,19,8,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/4d2201d40635299aa134acd52c9587af.png',['init']=3,
-                  ['actSet']={'C','TL','BR'}}
-masterPilotDB[575]={['name']='Finn',['Faction']=4,['ship_type']=65,['cost']=29,['slot']={1,19,8,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/311d88e51a039b79e9a422ab3c475288.png',['init']=2,
-                  ['actSet']={'F','TL','BR'}}
-masterPilotDB[576]={['name']='Vi Moradi',['Faction']=4,['ship_type']=65,['cost']=27,['slot']={19,8,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/14139a2d20ff13b01bd5810371a89064.png',['init']=1,
-                  ['actSet']={'F','TL','BR'}}
+masterPilotDB[574]={
+    name = 'Rose Tico',
+    Faction = 4,
+    ship_type = 65,
+    cost = 26,
+    slot = {1,19,8,14},
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/1dbf7b355d60f5b3f278522eb702f99f.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/transport_pod/rose.png',
+    actSet = {'F','TL','BR'}}
+
+masterPilotDB[573]={
+    name = 'BB-8',
+    Faction = 4,
+    ship_type = 65,
+    cost = 26,
+    slot = {1,19,8,14},
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/4d2201d40635299aa134acd52c9587af.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/transport_pod/bb8.png',
+    actSet ={'C','TL','BR'}}
+
+masterPilotDB[575]={
+    name = 'Finn',
+    Faction = 4,
+    ship_type = 65,
+    cost = 29,
+    slot = {1,19,8,14},
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/311d88e51a039b79e9a422ab3c475288.png',
+    init = 2,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/transport_pod/finn.png',
+    actSet = {'F','TL','BR'}}
+
+masterPilotDB[576]={
+    name = 'Vi Moradi',
+    Faction = 4,
+    ship_type = 65,
+    cost = 27,
+    slot = {19,8,14},
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/14139a2d20ff13b01bd5810371a89064.png',
+    init = 1,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/transport_pod/vi_moradi.png',
+    actSet ={'F','TL','BR'}}
 
 --Hyena Bomber
 masterPilotDB[563]={['name']='DBS-404',['Faction']=7,['ship_type']=66,['cost']=30,['slot']={5,6,12,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/3e647295c7237a5eb36b94d887eb8e56.png',['init']=4,
@@ -1161,10 +1320,33 @@ masterPilotDB[631]={['name']='Alexsandr Kallus',['Faction']= 1,['ship_type']=23,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/d0/bf/d0bf7c63-2c2c-4372-8ace-7299d180c774/swz66_alexsandr-kallus.png',['init']=4,['actSet']={'F','TL','R'}}
 masterPilotDB[630]={['name']='Leia Organa',['Faction']= 1,['ship_type']=1,['cost']=79,['slot']={17, 6, 8, 8, 16, 14, 14, 15},['Shield']=5,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/5b/ff/5bffb367-cb6e-4b8b-948f-25a70acd3a3f/swz66_leia-organa.png',['init']=5,['actSet']={'F','TL','B'}}
-masterPilotDB[639]={['name']="Ronith Blario",['Faction']=4,['ship_type']=54,['cost']=34,['slot']={1,1,19,6},['Shield']=2,
-                  ['card']='http://images-cdn.fantasyflightgames.com/filer_public/27/9a/279ac02a-e274-4bcb-9570-d469cd12936e/swz66_ronith-blario.png',['init']=2,['actSet']={'F','TL','Rot180','E','B','BR'}}
-masterPilotDB[638]={['name']="Zizi Tlo",['Faction']=4,['ship_type']=54,['cost']=40,['slot']={1,1,19,6},['Shield']=2,['Charge']=1,
-                  ['card']='http://images-cdn.fantasyflightgames.com/filer_public/bf/4f/bf4f8372-b151-45ee-b38b-5c67bba7d2d8/swz66_zizi-tlo.png',['init']=5,['actSet']={'F','TL','Rot180','E','B','BR'}}
+
+masterPilotDB[638]={
+    name = "Zizi Tlo",
+    Faction = 4,
+    ship_type = 54,
+    cost = 40,
+    slot = {1,1,19,6},
+    Shield = 2,
+    Charge = 1,
+    card = 'http://images-cdn.fantasyflightgames.com/filer_public/bf/4f/bf4f8372-b151-45ee-b38b-5c67bba7d2d8/swz66_zizi-tlo.png',
+    init = 5,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/zizi_tlo.png',
+    actSet = {'F','TL','Rot180','E','B','BR'}}
+
+masterPilotDB[639]={
+    name = "Ronith Blario",
+    Faction = 4,
+    ship_type = 54,
+    cost = 34,
+    slot = {1,1,19,6},
+    Shield = 2,
+    card = 'http://images-cdn.fantasyflightgames.com/filer_public/27/9a/279ac02a-e274-4bcb-9570-d469cd12936e/swz66_ronith-blario.png',
+    init = 2,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/ronith_blario.png',
+    actSet = {'F','TL','Rot180','E','B','BR'}}
+
+
 masterPilotDB[640]={['name']="Paige Tico",['Faction']=4,['ship_type']=55,['cost']=60,['slot']={2,19,8,16,16,12,12,14},['Shield']=3,['Charge']=1,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/48/7e/487e95ce-b13c-4d39-97f6-8e28e633d07f/swz66_paige-tico.png',['init']=5,['actSet']={'F','TL','Rot'}}
 masterPilotDB[632]={['name']='Fifth Brother',['Faction']= 2,['ship_type']=25,['cost']=42,['slot']={17, 2, 6},['Shield']=2,['Force']=2,
