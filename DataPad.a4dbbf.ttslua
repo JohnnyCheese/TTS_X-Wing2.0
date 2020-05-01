@@ -14,6 +14,28 @@
 
 self.interactable = false
 
+ --[[
+ tintColors = {}
+ tintColors[0] = color(0,0,0,0.0)
+ tintColors[1] = color(255/255, 230/255, 137/255, 0.8)
+ tintColors[2] = color(243/255,  99/255,  28/255, 0.8)
+ tintColors[3] = color(230/255,  40/255,  56/255, 0.8)
+ tintColors[4] = color(173/255, 250/255, 190/255, 0.8)
+ tintColors[5] = color( 21/255,  21/255, 168/255, 0.8)
+ tintColors[6] = color(238/255, 120/255, 234/255 ,0.8)
+ tintColors[7] = color(255/255, 255/255, 255/255, 0.8)
+ tintColors[8] = color(168/255, 241/255, 249/255, 0.8)]]
+
+tintColors = {}
+tintColors[0] = color(0,0,0,0.0)
+tintColors[1] = color(1,0,0,0.8)
+tintColors[2] = color(1,1,0,0.8)
+tintColors[3] = color(0,0.33,0,0.8)
+tintColors[4] = color(0.5,0.25,0.1,0.8)
+tintColors[5] = color(0,0,1,0.8)
+tintColors[6] = color(1,0,0.8,0.8)
+tintColors[7] = color(1,1,1,0.8)
+tintColors[8] = color(0,0,0,0.8)
 
 -- List and cost of variable cost upgrades based on base sizea
 varCostS={}
@@ -80,13 +102,16 @@ addAction[357]={[1]='C'}--IG-88D (C)
 addAction[542]={[1]='CL'}--Scimitar (CL)
 addAction[286]={[1]='CL'}--Cloaking Device (CL)
 addAction[551]={[1]='C'}--R4-P44 (C)
-addAction[577]={[1]='C'}--Passive Sensors(C,TL)
+addAction[577]={[1]='C',[2]='TL'}--Passive Sensors(C,TL)
 addAction[376]={[1]='BR'}--Mist Hunter(BR)
 addAction[582]={[1]='C'}--GA-97(C)
 addAction[381]={[1]='F'}--Composure(F)
 addAction[587]={[1]='C'}--PZ-4CO (C)
 addAction[593]={[1]='R'}--Angled Deflectors (Reinforce)
 addAction[704]={[1]='C'}--K-2SO (C)
+addAction[391]={[1]='TL'}--ST-321 (TL)
+addAction[619]={[1]='TL'}--Targeting computer (TL)
+
 
 --table referenced by upgrades that adds actions to all ships in a squad.
 addSqdAction={}
@@ -326,7 +351,7 @@ masterShipDB[91]={
     Fac = {[3]=true, [7]=true},
     arcs = {'front'},
     moveSet = {'rbl0','rs0','rbr0','wbl1','bs1','wbr1','wbl2','bs2','wbr2','rbl3','ws3','rbr3','rs4','rs5'},
-    mesh = 'missing'
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/CR0C/CR0C%20Cruiser.obj'
   }
 
 masterShipDB[92]={
@@ -1040,7 +1065,7 @@ masterPilotDB[559]={['name']='Padmé Amidala',['Faction']=6,['ship_type']=63,['c
                   ['actSet']={'F','TL','B','BR','E'}}
 masterPilotDB[560]={['name']='Dineé Ellberger',['Faction']=6,['ship_type']=63,['cost']=38,['slot']={1,2,5,10},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/06e0863851b95dba4874b211e05661cc.png',['init']=3,
                   ['actSet']={'F','TL','B','BR','E'}}
-masterPilotDB[561]={['name']='Naboo Handmaiden',['Faction']=6,['ship_type']=63,['cost']=42,['slot']={2,5,10},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/4493fe57050175b6a75e3a13e7553b1e.png',['init']=1,
+masterPilotDB[561]={['name']='Naboo Handmaiden',['Faction']=6,['ship_type']=63,['cost']=42,['slot']={2,5,10},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/4493fe57050175b6a75e3a13e7553b1e.png',['init']=1, ['Condition']='Decoyed',
                   ['actSet']={'F','TL','B','BR','E'}}
 masterPilotDB[562]={['name']='Bravo Flight Officer',['Faction']=6,['ship_type']=63,['cost']=33,['slot']={2,5,10},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/274db1f70ed4da939b9440837a30c39a.png',['init']=2,
                   ['actSet']={'F','TL','B','BR','E'}}
@@ -1134,7 +1159,7 @@ masterPilotDB[629]={['name']='K-2SO',['Faction']= 1,['ship_type']=15,['cost']=46
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/2f/27/2f277cc2-9cd8-4aa6-bf7c-daf6f7416829/swz66_k-2so.png',['init']=3,['actSet']={'C','TL'}}
 masterPilotDB[631]={['name']='Alexsandr Kallus',['Faction']= 1,['ship_type']=23,['cost']=69,['slot']={1, 2, 4, 5, 8, 8, 16, 14, 15},['Shield']=4,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/d0/bf/d0bf7c63-2c2c-4372-8ace-7299d180c774/swz66_alexsandr-kallus.png',['init']=4,['actSet']={'F','TL','R'}}
-masterPilotDB[630]={['name']='Leia Organa',['Faction']= 1,['ship_type']=1,['cost']=79,['slot']={1, 6, 8, 8, 16, 14, 14, 15},['Shield']=5,
+masterPilotDB[630]={['name']='Leia Organa',['Faction']= 1,['ship_type']=1,['cost']=79,['slot']={17, 6, 8, 8, 16, 14, 14, 15},['Shield']=5,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/5b/ff/5bffb367-cb6e-4b8b-948f-25a70acd3a3f/swz66_leia-organa.png',['init']=5,['actSet']={'F','TL','B'}}
 masterPilotDB[639]={['name']="Ronith Blario",['Faction']=4,['ship_type']=54,['cost']=34,['slot']={1,1,19,6},['Shield']=2,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/27/9a/279ac02a-e274-4bcb-9570-d469cd12936e/swz66_ronith-blario.png',['init']=2,['actSet']={'F','TL','Rot180','E','B','BR'}}
@@ -1198,7 +1223,7 @@ masterPilotDB[1002]={
   card = 'https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/d/df/Separatist_privateers.png',
   init = 1,
   actSet = {'F','TL','R'},
-  texture = 'missing'
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/CR0C/Separatist%20Privateers.png'
 }
 
 masterPilotDB[1003]={
@@ -1210,7 +1235,7 @@ masterPilotDB[1003]={
   card = 'https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/2/2d/Swz55_syndicate-smugglers_card.png',
   init = 1,
   actSet = {'F','TL','R'},
-  texture = 'missing'
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/CR0C/Syndicate%20Smugglers.png'
 }
 
 masterPilotDB[1004]={
@@ -1222,7 +1247,7 @@ masterPilotDB[1004]={
   slot = {21, 24, 8, 8, 16, 23, 22, 22},
   card = 'https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/6/6f/First_Order_Sympathizers.png',
   init = 1,['actSet']={'F','TL','R'},
-  texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Huge/Raider%20Class%20Corvette/FO%20Sympthizers.png'
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/Gozanti-Class%20Cruiser/FO%20Sympthizers.png'
 }
 
 masterPilotDB[1005]={
@@ -1271,7 +1296,7 @@ masterPilotDB[1008]={
   card = 'https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/0/09/First_Order_Collaborators.png',
   init = 1,
   actSet = {'F','TL','R'},
-  texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Huge/Gozanti-Class%20Cruiser/FO%20Collaborators%20TTS.png'
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/Raider%20Class%20Corvette/FO%20Collaborators%20TTS.png'
 }
 
 masterPilotDB[1009]={
@@ -1305,7 +1330,7 @@ masterUpgradesDB[244]={['name']='Selfless',['slot']=1,['cost']=3,['card']='http:
 masterUpgradesDB[245]={['name']='Squad Leader',['slot']=1,['cost']='i',['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_16.png',['restriction']={ }}
 masterUpgradesDB[246]={['name']='Swarm Tactics',['slot']=1,['cost']='i',['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_17.png',['restriction']={ }}
 masterUpgradesDB[247]={['name']='Trick Shot',['slot']=1,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_18.png',['restriction']={ }}
-masterUpgradesDB[248]={['name']='heightened Perception',['slot']=17,['cost']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_19.png',['restriction']={ }}
+masterUpgradesDB[248]={['name']='Heightened Perception',['slot']=17,['cost']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_19.png',['restriction']={ }}
 masterUpgradesDB[249]={['name']='Instinctive Aim',['slot']=17,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_20.png',['restriction']={ }}
 masterUpgradesDB[250]={['name']='Sense',['slot']=17,['cost']=5,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_21.png',['restriction']={ }}
 masterUpgradesDB[251]={['name']='Supernatural Reflexes',['slot']=17,['cost']='i',['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_22.png',['restriction']={ ['Size']={small=true}}}
@@ -1348,7 +1373,7 @@ masterUpgradesDB[287]={['name']='Contraband Cybernetics',['slot']=13,['cost']=2,
 masterUpgradesDB[288]={['name']="Deadman's Switch",['slot']=13,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_59.png',['restriction']={ }}
 masterUpgradesDB[289]={['name']='Feedback Array',['slot']=13,['cost']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_60.png',['restriction']={ }}
 masterUpgradesDB[290]={['name']='Inertial Dampeners',['slot']=13,['cost']='i',['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_61.png',['restriction']={ }}
-masterUpgradesDB[291]={['name']='Rigged Cargo Chute',['slot']=13,['cost']=4,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_62.png',['restriction']={ ['Size']={large=true,medium=true}}}
+masterUpgradesDB[291]={['name']='Rigged Cargo Chute',['slot']=13,['Bomb']=true,['cost']=4,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_62.png',['restriction']={ ['Size']={large=true,medium=true}}}
 masterUpgradesDB[292]={['name']='Ablative Plating',['slot']=14,['cost']=6,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_68.png',['restriction']={ ['Size']={large=true,medium=true}}}
 masterUpgradesDB[293]={['name']='Advanced SLAM',['slot']=14,['cost']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_69.png',['restriction']={ }}
 masterUpgradesDB[294]={['name']='Afterburners',['slot']=14,['cost']=6,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_70.png',['restriction']={ ['Size']={small=true}}}
@@ -1430,8 +1455,8 @@ masterUpgradesDB[368]={['name']='"Genius"',['slot']=10,['cost']=2,['card']='http
 masterUpgradesDB[369]={['name']='R5-P8',['slot']=10,['cost']=4,['Charge']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_144.png',['restriction']={['Faction']={[3]=true}}}
 masterUpgradesDB[370]={['name']='R5-TK',['slot']=10,['cost']=0,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_145.png',['restriction']={['Faction']={[3]=true}}}
 masterUpgradesDB[371]={['name']='Andrasta',['slot']=15,['cost']=3,['addSlot']={12},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_146.png',['restriction']={['Faction']={[3]=true},['ship']={[10]=true}}}
-masterUpgradesDB[372]={['name']='havoc',['slot']=15,['cost']=2,['addSlot']={2, 10},['remSlot']={8},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_147.png',['restriction']={['Faction']={[3]=true},['ship']={[4]=true}}}
-masterUpgradesDB[373]={['name']="hound's Tooth",['Docking']=true,['slot']=15,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_148.png',['restriction']={['Faction']={[3]=true},['ship']={[24]=true}}}
+masterUpgradesDB[372]={['name']='Havoc',['slot']=15,['cost']=2,['addSlot']={2, 10},['remSlot']={8},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_147.png',['restriction']={['Faction']={[3]=true},['ship']={[4]=true}}}
+masterUpgradesDB[373]={['name']="Hound's Tooth",['Docking']=true,['slot']=15,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_148.png',['restriction']={['Faction']={[3]=true},['ship']={[24]=true}}}
 masterUpgradesDB[374]={['name']='IG-2000',['slot']=15,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_149.png',['restriction']={['Faction']={[3]=true},['ship']={[21]=true}}}
 masterUpgradesDB[375]={['name']='Marauder',['slot']=15,['cost']=6,['addSlot']={16},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_150.png',['restriction']={['Faction']={[3]=true},['ship']={[10]=true}}}
 masterUpgradesDB[376]={['name']='Mist Hunter',['slot']=15,['cost']=1,['addSlot']={3},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_151.png',['restriction']={['Faction']={[3]=true},['ship']={[22]=true}}}
@@ -1450,11 +1475,11 @@ masterUpgradesDB[388]={['name']='Agile Gunner',['slot']=16,['cost']=8,['card']='
 masterUpgradesDB[389]={['name']='Han Solo',['slot']=16,['cost']=12,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_163.png',['restriction']={['Faction']={[3]=true}}}
 masterUpgradesDB[390]={['name']="Lando's Millennium Falcon",['slot']=15,['cost']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_164.png',['restriction']={['Faction']={[3]=true},['ship']={[47]=true}}}
 masterUpgradesDB[391]={['name']='ST-321',['slot']=15,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_124.png',['restriction']={['Faction']={[2]=true},['ship']={[26]=true}}}
-masterUpgradesDB[392]={['name']='Bomblet Generator',['slot']=12,['remSlot']={12},['cost']=5,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_63.png',['cardB']=cardBackDB['12b'],['restriction']={ }}
-masterUpgradesDB[393]={['name']='Conner Nets',['slot']=12,['cost']=6,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_64.png',['restriction']={ }}
-masterUpgradesDB[394]={['name']='Proton Bombs',['slot']=12,['cost']=5,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_65.png',['restriction']={ }}
-masterUpgradesDB[395]={['name']='Proximity Mines',['slot']=12,['cost']=6,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_66.png',['restriction']={ }}
-masterUpgradesDB[396]={['name']='Seismic Charges',['slot']=12,['cost']=3,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_67.png',['restriction']={ }}
+masterUpgradesDB[392]={['name']='Bomblet Generator',['slot']=12,['remSlot']={12},['Bomb']=true,['cost']=5,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_63.png',['cardB']=cardBackDB['12b'],['restriction']={ }}
+masterUpgradesDB[393]={['name']='Conner Nets',['slot']=12,['Bomb']=true,['cost']=6,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_64.png',['restriction']={ }}
+masterUpgradesDB[394]={['name']='Proton Bombs',['slot']=12,['Bomb']=true,['cost']=5,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_65.png',['restriction']={ }}
+masterUpgradesDB[395]={['name']='Proximity Mines',['slot']=12,['Bomb']=true,['cost']=6,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_66.png',['restriction']={ }}
+masterUpgradesDB[396]={['name']='Seismic Charges',['slot']=12,['Bomb']=true,['cost']=3,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_67.png',['restriction']={ }}
 
 
 
@@ -1536,7 +1561,7 @@ masterUpgradesDB[580]={['name']="Diamond-Boron Missiles",['slot']=6,['cost']=6,[
                         ['restriction']={ }}
 masterUpgradesDB[581]={['name']="Amilyn Holdo",['slot']=8,['cost']=8,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/cbe5e849e9daa4f3f968b2ff6e2879b1.png',
                         ['restriction']={['Faction']={[4]=true}}}
-masterUpgradesDB[582]={['name']="GA-97",['slot']=8,['cost']=6,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/3af44c6d32812dc07238b40842d67b47.png',
+masterUpgradesDB[582]={['name']="GA-97",['slot']=8,['cost']=6,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/3af44c6d32812dc07238b40842d67b47.png', ['Charge']=5, ['Condition']="It's the Resistance",
                         ['restriction']={['Faction']={[4]=true}}}
 masterUpgradesDB[583]={['name']="Kaydel Connix",['slot']=8,['cost']=5,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/29a0eb418850a3821c38874daf0a6b0d.png',
                         ['restriction']={['Faction']={[4]=true}}}
@@ -1554,7 +1579,7 @@ masterUpgradesDB[589]={['name']="R2-C4",['slot']=10,['cost']=5,['card']='http://
                         ['restriction']={['Faction']={[6]=true}}}
 masterUpgradesDB[590]={['name']="TA-175",['slot']=20,['cost']=9,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/d71e07aa3147c6fe943bd0c8131a0096.png',
                         ['restriction']={['Faction']={[7]=true}}}
-masterUpgradesDB[591]={['name']="Electro-Proton Bomb",['slot']=12,['cost']=12,['Charge']=1,['remSlot']={14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/0f76484cc390fc97d1fe2f863d75944b.png',
+masterUpgradesDB[591]={['name']="Electro-Proton Bomb",['slot']=12,['Bomb']=true,['cost']=12,['Charge']=1,['remSlot']={14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/0f76484cc390fc97d1fe2f863d75944b.png',
                         ['restriction']={ }}
 masterUpgradesDB[592]={['name']="Delayed Fuses",['slot']=14,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/4572ece39224eeaf2dfce2770b96f919.png',
                         ['restriction']={ }}
@@ -1594,8 +1619,8 @@ masterUpgradesDB[646]={['name']="Stabilized S-Foils (Closed)",['dual']=1,['slot'
 masterUpgradesDB[647]={['name']="K-2SO",['slot']=8,['cost']=8,['card']='http://images-cdn.fantasyflightgames.com/filer_public/e9/71/e97130c3-368d-4453-a0ff-51a63d30394c/swz66_k-2so_upgrade.png',
                         ['restriction']={['Faction']={[1]=true}}}
 
-masterUpgradesDB[648]={['name']='Cluster Mines',['slot']=12,['cost']=8,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/c27f0dcda78915239450bedf5b931d86.png',['restriction']={ }}
-masterUpgradesDB[649]={['name']='Ion Bombs',['slot']=12,['cost']=6,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/e4c43791c16aea639f2e811c16d1dbcf.png',['restriction']={ }}
+masterUpgradesDB[648]={['name']='Cluster Mines',['slot']=12,['Bomb']=true,['cost']=8,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/c27f0dcda78915239450bedf5b931d86.png',['restriction']={ }}
+masterUpgradesDB[649]={['name']='Ion Bombs',['slot']=12,['Bomb']=true,['cost']=6,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/e4c43791c16aea639f2e811c16d1dbcf.png',['restriction']={ }}
 masterUpgradesDB[650]={['name']="Coaxium Hyperfuel",['slot']=13,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/1622f5d9e279b54d4610820f5dd31a95.png', ['restriction']={}}
 masterUpgradesDB[651]={['name']="Mag-Pulse Warheads",['slot']=6,['cost']=6,['Charge']=2,['card']='http://images-cdn.fantasyflightgames.com/filer_public/20/a6/20a60741-4adf-485e-bee2-f93b9e5de7bb/swz62_card_mag-pulse-warheads.png',
                         ['restriction']={ }}
@@ -1676,6 +1701,7 @@ function ffgLoad()
     if lista ~= nil then
         lista = string.gsub(lista, 'saved%-squads', 'api/squads')
         lista = string.gsub(lista, 'squad%-builder/tool', 'api/squads')
+        lista = string.gsub(lista, 'squad%-preview', 'api/squads')
         ffgLoad2(lista)
     else
         print ('Please paste a link')
@@ -1938,13 +1964,38 @@ end
 ]]
 
 dialSkin={
-  [1]='http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/Rebel.png',
-  [2]='http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/Empire.png',
-  [3]='http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/Scum.png',
-  [4]='http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/Resistance.png',
-  [5]='http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/FO.png',
-  [6]='http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/Republic.png',
-  [7]='http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/CIS.png',}
+  [1]='http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/Rebel.png',
+  [2]='http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/Empire.png',
+  [3]='http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/Scum.png',
+  [4]='http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/Resistance.png',
+  [5]='http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/FO.png',
+  [6]='http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/Republic.png',
+  [7]='http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/CIS.png',}
+
+function calculateShipIndicators(idTable)
+  shipTable = {}
+  for k,v in pairs (idTable.Pilots) do
+      local ship = masterPilotDB[v]['ship_type']
+      if shipTable[ship] == nil then
+        shipTable[ship] = {k}
+      else
+        table.insert(shipTable[ship], k)
+      end
+    end
+    pilotIndicators = {}
+    local i = 1
+    for ship, pilots in pairs(shipTable) do
+      if #pilots > 1 then
+        for k, pilot in pairs(pilots) do
+          pilotIndicators[pilot] = i
+          i = i+1
+        end
+      else
+        pilotIndicators[pilots[1]] = 0
+      end
+    end
+    return pilotIndicators
+end
 
 function idSpawner(idTable)
     fList={}
@@ -1957,11 +2008,15 @@ function idSpawner(idTable)
     end
     fList.factionDial=dialSkin[fList.Faction]
     fList.sqdAction = {}
+
+    pilotIndicators = calculateShipIndicators(idTable)
+
     for k,v in pairs (idTable.Pilots) do
         local name = masterPilotDB[v]['name']
         fList.Pilots[k] ={}
         fList.Pilots[k]['id'] = v
         fList.Pilots[k]['name'] = name
+        fList.Pilots[k]['tint'] = tintColors[pilotIndicators[k]]
         fList.Pilots[k]['card'] = masterPilotDB[v]['card']
         fList.Pilots[k]['cardB'] = cardBackDB[ffgFaction[fList.Faction]]
         local Ship = masterPilotDB[v]['ship_type']
@@ -1985,6 +2040,8 @@ function idSpawner(idTable)
         elseif Ship == 19 then -- TIE Bomber special drops
             fList.Pilots[k]['bombD'] = fList.Pilots[k]['bombD'] .. ':be1:br1'
         elseif v == 161 then -- Constable Zuvio
+            fList.Pilots[k]['bombD'] = fList.Pilots[k]['bombD'] .. ':s1r'
+        elseif v == 565 then -- Bombardment Drone
             fList.Pilots[k]['bombD'] = fList.Pilots[k]['bombD'] .. ':s1r'
         end
 
@@ -2060,11 +2117,8 @@ function idSpawner(idTable)
             else
                 fList.Upgrades[k][key]['Condition'] = false
             end
-            if upSlot == 12 then
+            if masterUpgradesDB[value]['Bomb'] then
                 fList.Pilots[k]['Bomb']= true
-                if name == 'DRK-1 Probe Droids' then
-                    fList.Pilots[k]['Bomb']= false
-                end
             elseif upSlot == 18 then
                 fList.Upgrades[k][key]['Config'] = true
             end
@@ -3138,89 +3192,93 @@ alternateSpelling["g4r-gor v/m"] = 'G4R-G0R V/M'
 
 -- Third Step: This function will decompose the input string and will propperly alocate each value on the propper position in the table.
 -- Then, it calls for the next function, either inquiring for ships and version of upgrades or calling the spawner.
-    function parseList()
-        self.clearButtons()
-        self.clearInputs()
-        if lista ~= nil then
-            parsedList = {}
-            pilotsList = mysplit(lista, '/', true)
-            local rest = ""
-            for i, pilot in ipairs(pilotsList) do
-                pilot = rest .. pilot
-                if pilotsWithDash[string.lower(pilot)] ~= nil then
-                    rest = pilot .. "/"
-                else
-                    table.insert(parsedList, mysplit(pilot,'+', true))
-                    rest = ""
-                end
+function parseList()
+    self.clearButtons()
+    self.clearInputs()
+    if lista ~= nil then
+        parsedList = {}
+        pilotsList = mysplit(lista, '/', true)
+        local rest = ""
+        for i, pilot in ipairs(pilotsList) do
+            pilot = rest .. pilot
+            if pilotsWithDash[string.lower(pilot)] ~= nil then
+                rest = pilot .. "/"
+            else
+                table.insert(parsedList, mysplit(pilot,'+', true))
+                rest = ""
             end
-            pilotIndex = 0
-            Aux = 0
-            for i, pilot in ipairs(parsedList) do
-                pilotIndex = pilotIndex + 1
-                for k, cardN in ipairs(pilot) do
-                    cardN = string.gsub(cardN, 'Hardpoint: ', '')
-                    if alternateSpelling[string.lower(cardN)] ~= nil then
-                        cardN = alternateSpelling[string.lower(cardN)]
-                    end
-                    if k == 1 then -- First card, the pilot
-                        finalList.Aux[pilotIndex] = {}
-                        finalList.AuxU[pilotIndex] = {}
-                        local found = false
-                        for id, pilot in pairs(masterPilotDB) do
-                            if string.lower(pilot['name']) == string.lower(cardN) and pilot['Faction'] == finalList.Faction then
-                                Aux = Aux + 1
-                                finalList.Aux[pilotIndex][Aux] = id
-                                finalList.Upgrades[pilotIndex] = {}
-                                found = true
-                            end
-                        end
-                        if not found then
-                            printToAll("Unable to find pilot: " .. cardN .. " please check correct spelling", {1,0,0})
-                            pilotIndex = pilotIndex - 1
-                            break
-                        end
-                        if Aux == 1 then
-                            finalList.Pilots[pilotIndex] = finalList.Aux[pilotIndex][1]
-                            finalList.Aux[pilotIndex] = nil
-                        end
-                        Aux = 0
-                    else -- The remaining cards, the upgrades
-                        finalList.AuxU[pilotIndex][k] ={}
-                        local found = false
-                        for id, upg in pairs(masterUpgradesDB) do
-                            if string.lower(upg['name']) == string.lower(cardN) then
-                                found = true
-                                if upg['restriction']['Faction'] == nil or upg['restriction']['Faction'][finalList.Faction] == true then
-                                    Aux = Aux + 1
-                                    finalList.AuxU[pilotIndex][k][Aux] = id
-                                else
-                                    printToAll('Upgrade "'.. cardN .. '" is restricted to another faction', {1,0,0})
-                                end
-                            end
-                        end
-                        if not found then
-                            printToAll("Unable to find upgrade: " .. cardN .. " please check correct spelling", {1,0,0})
-                            goto continue
-                        end
-                        if Aux == 1 then
-                            finalList.Upgrades[pilotIndex][k-1] = finalList.AuxU[pilotIndex][k][Aux]
-                            finalList.AuxU[pilotIndex][k] = nil
-                        end
-                        Aux = 0
-                    end -- if Pilot and upgrade
-                    ::continue::
-                end -- for card
-            end
-            pChecker()
-        else
-            Dummy3()
-            initiate()
         end
+        pilotIndex = 0
+        Aux = 0
+        for i, pilot in ipairs(parsedList) do
+            pilotIndex = pilotIndex + 1
+            for k, cardN in ipairs(pilot) do
+                cardN = string.gsub(cardN, 'Hardpoint: ', '')
+                if alternateSpelling[string.lower(cardN)] ~= nil then
+                    cardN = alternateSpelling[string.lower(cardN)]
+                end
+                if k == 1 then -- First card, the pilot
+                    finalList.Aux[pilotIndex] = {}
+                    finalList.AuxU[pilotIndex] = {}
+                    local found = false
+                    for id, pilot in pairs(masterPilotDB) do
+                        if string.lower(pilot['name']) == string.lower(cardN) and pilot['Faction'] == finalList.Faction then
+                            Aux = Aux + 1
+                            finalList.Aux[pilotIndex][Aux] = id
+                            finalList.Upgrades[pilotIndex] = {}
+                            found = true
+                        end
+                    end
+                    if not found then
+                        printToAll("Unable to find pilot: " .. cardN .. " please check correct spelling", {1,0,0})
+                        pilotIndex = pilotIndex - 1
+                        break
+                    end
+                    if Aux == 1 then
+                        finalList.Pilots[pilotIndex] = finalList.Aux[pilotIndex][1]
+                        finalList.Aux[pilotIndex] = nil
+                    end
+                    Aux = 0
+                else -- The remaining cards, the upgrades
+                    finalList.AuxU[pilotIndex][k] ={}
+                    local found = false
+                    for id, upg in pairs(masterUpgradesDB) do
+                        if string.lower(upg['name']) == string.lower(cardN) then
+                            found = true
+                            if upg['restriction']['Faction'] == nil or upg['restriction']['Faction'][finalList.Faction] == true then
+                                Aux = Aux + 1
+                                finalList.AuxU[pilotIndex][k][Aux] = id
+                            else
+                                printToAll('Upgrade "'.. cardN .. '" is restricted to another faction', {1,0,0})
+                            end
+                        end
+                    end
+                    if not found then
+                        printToAll("Unable to find upgrade: " .. cardN .. " please check correct spelling", {1,0,0})
+                        goto continue
+                    end
+                    if Aux == 1 then
+                        finalList.Upgrades[pilotIndex][k-1] = finalList.AuxU[pilotIndex][k][Aux]
+                        finalList.AuxU[pilotIndex][k] = nil
+                    end
+                    Aux = 0
+                end -- if Pilot and upgrade
+                ::continue::
+            end -- for card
+        end
+        pChecker()
+    else
+        Dummy3()
+        initiate()
     end
+end
 
 
--- Fourth step: This function checks for pilots with the same name in the same faction and stores de data por future inquire. If no inquire is needed, it calls the newSpawner function and reset all buttons.
+
+
+-- Fourth step: This function checks for pilots with the same name in the same
+-- faction and stores de data por future inquire. If no inquire is needed, it
+-- calls the newSpawner function and reset all buttons.
 function pChecker()
     repPN=0
     for i, pilot in pairs(finalList.Aux) do

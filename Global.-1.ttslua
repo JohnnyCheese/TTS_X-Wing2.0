@@ -57,7 +57,7 @@ ObjType.AddType('ship', function(obj)
     return (obj.tag == 'Figurine')
 end)
 ObjType.AddType('token', function(obj)
-    return (obj.tag == 'Chip' or (obj.getVar('__XW_Token') and obj.getVar('__XW_TokenIdle')))
+    return (obj.tag == 'Chip' or obj.tag == 'Coin' or (obj.getVar('__XW_Token') and obj.getVar('__XW_TokenIdle')))
 end)
 ObjType.AddType('dial', function(obj)
     return (obj.tag == 'Card' and XW_cmd.CheckCommand(obj.getDescription()) == 'move')
@@ -245,8 +245,8 @@ end
 
 -- Possible commands supported by this module
 XW_cmd.AddCommand('[sk][012345][r]?', 'move')   -- Straights/Koiograns + stationary moves
-XW_cmd.AddCommand('b[rle][123][str]?', 'move')   -- Banks + segnor and reverse versions
-XW_cmd.AddCommand('t[rle][1234][srfbt]?[t]?', 'move')  -- Turns + segnor, talon and reverse versions
+XW_cmd.AddCommand('b[rle][0123][str]?', 'move')   -- Banks + segnor and reverse versions
+XW_cmd.AddCommand('t[rle][01234][srfbt]?[t]?', 'move')  -- Turns + segnor, talon and reverse versions
 
 XW_cmd.AddCommand('r[rle][123]?', 'actionMove')       --New Roll Done
 XW_cmd.AddCommand('v[rle][fb][123]?', 'actionMove')   --New ViperRoll
@@ -271,81 +271,108 @@ ArcCheck.arc_check_rulers = {}
 ArcCheck.current_arc = "none"
 
 ArcCheck.arc_line_segments = {}
-ArcCheck.arc_line_segments['small'] = {}
-ArcCheck.arc_line_segments['medium'] = {}
-ArcCheck.arc_line_segments['large'] = {}
+ArcCheck.arc_line_segments.small = {}
+ArcCheck.arc_line_segments.medium = {}
+ArcCheck.arc_line_segments.large = {}
+ArcCheck.arc_line_segments.huge = {}
 
 ArcCheck.bullseye_data =
 {
     pos={
         small=vector(0,0,Convert_mm_igu(170)),
         medium=vector(0,0,Convert_mm_igu(180)),
-        large=vector(0,0,Convert_mm_igu(190))
+        large=vector(0,0,Convert_mm_igu(190)),
+        huge=vector(0,0,Convert_mm_igu(110.5))
     },
     size=vector(Convert_mm_igu(14), 0.1, Convert_mm_igu(300))
 }
 
--- ArcCheck.Initialize = function() -- Arc values based on Muon's assesments (vassal)
---     if ArcCheck.initialized == false then
---         ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments['small'], 81.24, 20)
---         ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments['medium'], 82.8, 30)
---         ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments['large'], 83.52, 40)
---         ArcCheck.initialized = true
---     end
--- end
+ArcCheck.Initialize = function() -- Arc values based on Muon's assesments (vassal)
+     if ArcCheck.initialized == false then
+         ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.small, 81.24, 20, 20)
+         ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.medium, 82.8, 30, 30)
+         ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.large, 83.52, 40, 40)
+         ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.huge, 82.9, 40, 110.5 )
+         ArcCheck.initialized = true
+     end
+ end
 
-ArcCheck.Initialize = function() -- Arc values matching TTS ruler objects
+--[[ArcCheck.Initialize = function() -- Arc values matching TTS ruler objects
     if ArcCheck.initialized == false then
-        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments['small'], 79.1, 20)
-        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments['medium'], 82.35, 30)
-        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments['large'], 82.9, 40)
+        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.small, 79.1, 20, 20)
+        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.medium, 82.35, 30, 30)
+        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.large, 82.9, 40, 40)
+        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.huge, 82.9, 40, 110.5 )
         ArcCheck.initialized = true
     end
-end
+end]]
 
 
-ArcCheck.CalculateArcLineSegments = function(table, degree, size)
-    size = Convert_mm_igu(size)
-    local r = math.rad(degree/2)
-    local a = math.tan(r) * size
-    table['front'] =    {   segments={ {vector(-a, 0, size), vector(a, 0, size)} },-- Front segment
-                            degrees={direction=0, spread=degree/2}
-                        }
-    table['back'] =     {   segments={ {vector(-a, 0, -size), vector(a, 0, -size)} }, -- Front segment
-                            degrees={direction=180, spread=degree/2}
-                        }
-    table['bullseye'] = {   segments={ {vector(-ArcCheck.bullseye_data.size[1]/2, 0, size), vector(ArcCheck.bullseye_data.size[1]/2, 0, size)} }, -- Bullseye segments
+ArcCheck.CalculateArcLineSegments = function(table, degree, size_w, size_l)
+    size_w = Convert_mm_igu(size_w)
+    size_l = Convert_mm_igu(size_l)
+    local edge_arc = Vect.AngleDeg2D({-size_w, 0, size_l}, {size_w, 0,size_l})
+    --print("Size_W:" .. tostring(size_w) .. " size_l:"..size_l .. " edge_arc=".. tostring(edge_arc))
+    if edge_arc > degree then -- Rectangular base sizes (small, medium and large ships)
+        local r = math.rad(degree/2)
+        local a = math.tan(r) * size_l
+        table['front'] =    {   segments={ {vector(-a, 0, size_l), vector(a, 0, size_l)} },-- Front segment
+                                degrees={direction=0, spread=degree/2}
+                            }
+        table['back'] =     {   segments={ {vector(-a, 0, -size_l), vector(a, 0, -size_l)} }, -- Front segment
+                                degrees={direction=180, spread=degree/2}
+                            }
+        table['left'] =     {   segments={ {vector(-a, 0, -size_l), vector(-size_w, 0, -size_l)},   -- back segment
+                                           {vector(-size_w, 0, -size_l), vector(-size_w, 0, size_l)}, -- left edge
+                                           {vector(-size_w, 0, size_l), vector(-a, 0, size_l)}  -- front segment
+                                       },
+                                degrees={direction=-90, spread=(180-degree)/2}
+                            }
+        table['right'] =    {   segments={ {vector(a, 0, -size_l), vector(size_w, 0, -size_l)},   -- back segment
+                                           {vector(size_w, 0, -size_l), vector(size_w, 0, size_l)}, -- right edge
+                                           {vector(size_w, 0, size_l), vector(a, 0, size_l)}  -- front segment
+                                       },
+                                degrees={direction=90, spread=(180-degree)/2}
+                            }
+    else -- Long base size (huge ships)
+        local r = math.rad(90 - degree/2)
+        local a = math.tan(r) * size_w
+        table['front'] =    {   segments={  {vector(-size_w, 0, a), vector(-size_w, 0, size_l)}, -- left segment
+                                            {vector(-size_w, 0, size_l), vector(size_w, 0, size_l)}, -- front edge
+                                            {vector(size_w, 0, size_l), vector(size_w, 0, a)} },-- right segment
+                                degrees={direction=0, spread=degree/2}
+                            }
+        table['back'] =    {   segments={  {vector(-size_w, 0, -a), vector(-size_w, 0, -size_l)}, -- left segment
+                                            {vector(-size_w, 0, -size_l), vector(size_w, 0, -size_l)}, -- back edge
+                                            {vector(size_w, 0, -size_l), vector(size_w, 0, -a)} },-- right segment
+                                degrees={direction=180, spread=degree/2}
+                            }
+        table['left'] =     {   segments={ {vector(-size_w, 0, -a), vector(-size_w, 0, a)}}, -- left segment
+                                degrees={direction=-90, spread=(180-degree)/2}
+                            }
+        table['right'] =    {   segments={ {vector(size_w, 0, -a), vector(size_w, 0, a)}}, -- right segment
+                                degrees={direction=90, spread=(180-degree)/2}
+                            }
+    end
+    table['bullseye'] = {   segments={ {vector(-ArcCheck.bullseye_data.size[1]/2, 0, size_l), vector(ArcCheck.bullseye_data.size[1]/2, 0, size_l)} }, -- Bullseye segments
                             degrees={direction=0, spread=0, bullseye=true}
-
                         }
-    table['fullfront'] = {  segments={ {vector(-size, 0, 0), vector(-size, 0, size)},   -- left segment
-                                        {vector(-size, 0, size), vector(size, 0, size)}, -- front edge
-                                        {vector(size, 0, size), vector(size, 0, 0)}  -- right segment
+    table['fullfront'] = {  segments={ {vector(-size_w, 0, 0), vector(-size_w, 0, size_l)},   -- left segment
+                                        {vector(-size_w, 0, size_l), vector(size_w, 0, size_l)}, -- front edge
+                                        {vector(size_w, 0, size_l), vector(size_w, 0, 0)}  -- right segment
                                        },
                             degrees={direction=0, spread=90}
                         }
-    table['fullback'] = {  segments={ {vector(-size, 0, 0), vector(-size, 0, -size)},   -- left segment
-                                       {vector(-size, 0, -size), vector(size, 0, -size)}, -- back edge
-                                       {vector(size, 0, -size), vector(size, 0, 0)}  -- right segment
+    table['fullback'] = {  segments={ {vector(-size_w, 0, 0), vector(-size_w, 0, -size_l)},   -- left segment
+                                       {vector(-size_w, 0, -size_l), vector(size_w, 0, -size_l)}, -- back edge
+                                       {vector(size_w, 0, -size_l), vector(size_w, 0, 0)}  -- right segment
                                    },
                             degrees={direction=180, spread=90}
                         }
-    table['left'] =     {   segments={ {vector(-a, 0, -size), vector(-size, 0, -size)},   -- back segment
-                                       {vector(-size, 0, -size), vector(-size, 0, size)}, -- left edge
-                                       {vector(-size, 0, size), vector(-a, 0, size)}  -- front segment
-                                   },
-                            degrees={direction=-90, spread=(180-degree)/2}
-                        }
-    table['right'] =    {   segments={ {vector(a, 0, -size), vector(size, 0, -size)},   -- back segment
-                                       {vector(size, 0, -size), vector(size, 0, size)}, -- right edge
-                                       {vector(size, 0, size), vector(a, 0, size)}  -- front segment
-                                   },
-                            degrees={direction=90, spread=(180-degree)/2}
-                        }
-     table['full'] =    {   segments={ {vector(-size, 0, size), vector(size, 0, size)},   -- front edge
-                                       {vector(size, 0, size), vector(size, 0, -size)}, -- right edge
-                                       {vector(size, 0, -size), vector(-size, 0, -size)},  -- back edge
-                                       {vector(-size, 0, -size), vector(-size, 0, size)}  -- left edge
+     table['full'] =    {   segments={ {vector(-size_w, 0, size_l), vector(size_w, 0, size_l)},   -- front edge
+                                       {vector(size_w, 0, size_l), vector(size_w, 0, -size_l)}, -- right edge
+                                       {vector(size_w, 0, -size_l), vector(-size_w, 0, -size_l)},  -- back edge
+                                       {vector(-size_w, 0, -size_l), vector(-size_w, 0, size_l)}  -- left edge
                                    },
                             degrees={direction=0, spread=180}
                         }
@@ -865,7 +892,7 @@ MoveData.LUT.ConstructData = function(moveInfo, part)
     if part == nil then
         part = MoveData.partMax
     end
-    if moveInfo.speed == 0 then
+    if moveInfo.speed == 0 and moveInfo.type == 'straight' then
         return {0, 0, 0, 0}
     end
     part = math.clamp(part, 0, MoveData.partMax)
@@ -1062,6 +1089,11 @@ MoveData.DecodeInfo = function (move_code, ship)
         end
     -- Turns, regular stuff
     elseif move_code:sub(1,1) == 't' then
+        if info.size == 'huge' then
+            info.note = "tried to turn, but huge ships can't do that"
+            info.collNote = "tried to turn, but huge ships can't do that"
+            return info
+        end
         info.type = 'turn'
         info.dir = 'right'
         info.speed = tonumber(move_code:sub(3,3))
@@ -1703,6 +1735,12 @@ MoveModule.SelectShips = function(obj)
     return (obj.tag == 'Figurine')
 end
 
+-- Selection function for MoveModule.JoinHitTables - huge ships only
+MoveModule.SelectHugeShips = function(obj)
+    return (obj.tag == 'Figurine') and (obj.getTable('Data').Size == 'huge')
+end
+
+
 -- Selection function for MoveModule.JoinHitTables - obstacles only
 MoveModule.SelectObstacles = function(obj)
     local name = obj.getName()
@@ -1732,7 +1770,8 @@ MoveModule.castData.small.base = {
     debug=false,
     direction = {0, 0.001, 0},
     type=3,
-    size={Convert_mm_igu(40), Convert_mm_igu(6), Convert_mm_igu(40)}
+    size={Convert_mm_igu(40), Convert_mm_igu(6), Convert_mm_igu(40)},
+    debug=false
     -- + Origin
     -- + Orientation
 }
@@ -1741,7 +1780,7 @@ MoveModule.castData.small.nubFR = {
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(20.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)}
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
     -- + Origin
 }
 MoveModule.castData.small.nubFL = {
@@ -1749,7 +1788,7 @@ MoveModule.castData.small.nubFL = {
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(20.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)}
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
     -- + Origin
 }
 MoveModule.castData.small.nubBR = {
@@ -1757,7 +1796,7 @@ MoveModule.castData.small.nubBR = {
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(20.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)}
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
     -- + Origin
 }
 MoveModule.castData.small.nubBL = {
@@ -1765,7 +1804,7 @@ MoveModule.castData.small.nubBL = {
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(20.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)}
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
     -- + Origin
 }
 
@@ -1774,7 +1813,7 @@ MoveModule.castData.medium.base = {
     debug=false,
     direction = {0, 0.001, 0},
     type=3,
-    size={Convert_mm_igu(60), Convert_mm_igu(6), Convert_mm_igu(60)}
+    size={Convert_mm_igu(60), Convert_mm_igu(6), Convert_mm_igu(60)},
     -- + Origin
     -- + Orientation
 }
@@ -1783,7 +1822,7 @@ MoveModule.castData.medium.nubFR = {
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(30.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)}
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
     -- + Origin
 }
 MoveModule.castData.medium.nubFL = {
@@ -1791,7 +1830,7 @@ MoveModule.castData.medium.nubFL = {
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(30.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)}
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
     -- + Origin
 }
 MoveModule.castData.medium.nubBR = {
@@ -1799,7 +1838,7 @@ MoveModule.castData.medium.nubBR = {
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(30.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)}
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
     -- + Origin
 }
 MoveModule.castData.medium.nubBL = {
@@ -1807,7 +1846,7 @@ MoveModule.castData.medium.nubBL = {
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(30.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)}
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
     -- + Origin
 }
 
@@ -1817,7 +1856,7 @@ MoveModule.castData.large.base = {
     debug=false,
     direction = {0, 0.001, 0},
     type=3,
-    size={Convert_mm_igu(80), Convert_mm_igu(6), Convert_mm_igu(80)}
+    size={Convert_mm_igu(80), Convert_mm_igu(6), Convert_mm_igu(80)},
     -- + Origin
     -- + Orientation
 }
@@ -1826,7 +1865,7 @@ MoveModule.castData.large.nubFR = {
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(40.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)}
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
     -- + Origin
 }
 MoveModule.castData.large.nubFL = {
@@ -1834,7 +1873,7 @@ MoveModule.castData.large.nubFL = {
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(40.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)}
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
     -- + Origin
 }
 MoveModule.castData.large.nubBR = {
@@ -1842,7 +1881,7 @@ MoveModule.castData.large.nubBR = {
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(40.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)}
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
     -- + Origin
 }
 MoveModule.castData.large.nubBL = {
@@ -1850,9 +1889,53 @@ MoveModule.castData.large.nubBL = {
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(40.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)}
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
     -- + Origin
 }
+
+MoveModule.castData.huge = {}
+MoveModule.castData.huge.base = {
+    debug=false,
+    direction = {0, 0.001, 0},
+    type=3,
+    size={Convert_mm_igu(80), Convert_mm_igu(6), Convert_mm_igu(221)},
+    -- + Origin
+    -- + Orientation
+}
+MoveModule.castData.huge.nubFR = {
+    debug=false,
+    localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(111.858)},
+    direction = {0, 0.001, 0},
+    type=2,
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    -- + Origin
+}
+MoveModule.castData.huge.nubFL = {
+    debug=false,
+    localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(111.858)},
+    direction = {0, 0.001, 0},
+    type=2,
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    -- + Origin
+}
+MoveModule.castData.huge.nubBR = {
+    debug=false,
+    localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(111.858)},
+    direction = {0, 0.001, 0},
+    type=2,
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    -- + Origin
+}
+MoveModule.castData.huge.nubBL = {
+    debug=false,
+    localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(111.858)},
+    direction = {0, 0.001, 0},
+    type=2,
+    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    -- + Origin
+}
+
+
 
 -- Get cast data for particular ship situation
 -- Arguments:
@@ -2013,7 +2096,7 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
                 type         = 3,
                 size         = {Convert_mm_igu(20), Convert_mm_igu(6), Convert_mm_igu(1)},
                 max_distance = 1,
-                debug        = true
+                debug        = false
             })
             MoveModule.AddCollissionEntry(gTable, collList, collissions, SelectFun)
 
@@ -2051,7 +2134,7 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
                 type         = 3,
                 size         = {Convert_mm_igu(20), Convert_mm_igu(6), Convert_mm_igu(1)},
                 max_distance = 1,
-                debug        = true
+                debug        = false
             })
             MoveModule.AddCollissionEntry(gTable, collList, collissions, SelectFun)
 
@@ -2138,7 +2221,12 @@ MoveModule.CheckCollisions = function(ship, shipPosRot, collShipTable)
         end
     end
     if info.coll == nil then
-        local hTable = MoveModule.FullCastCheck(ship, shipPosRot,  MoveModule.SelectShips)
+        local hTable = {}
+        if shipSize == 'huge' then
+            hTable = MoveModule.FullCastCheck(ship, shipPosRot,  MoveModule.SelectHugeShips)
+        else
+            hTable = MoveModule.FullCastCheck(ship, shipPosRot,  MoveModule.SelectShips)
+        end
         info.coll = hTable[1]
     end
     return info
@@ -2253,6 +2341,17 @@ MoveModule.MoveProbe.GetShipsNearFull = function(info, ship, fullFun)
     local collShipRange = maxShipReach + Convert_mm_igu(mm_largeBase*math.sqrt(2))/2 + Convert_mm_igu(10)
     return ObjType.GetNearOfType(fullFun(info.code, ship).pos, collShipRange, 'ship', {ship})
 end
+
+-- Get near huge ships when trying a move that only allows for full execution
+-- Args: SEE MoveModule.MoveProbe.TryFullMove
+-- Return: {shipRef1, shipRef2, ... , shipRefN}
+MoveModule.MoveProbe.GetHugeShipsNearFull = function(info, ship, fullFun)
+    local shipsfound = MoveModule.MoveProbe.GetShipsNearFull(info, ship, fullFun)
+    print("GetHugeShipsNearFull")
+    shipsfound = table.sieve(shipsfound, function(obj) return (obj.getTable('Data').Size == 'huge') end)
+    return shipsfound
+end
+
 -- Try a full version of a move
 -- Args:
 --      info        <- move info as per MoveData.DecodeInfo
@@ -2263,7 +2362,12 @@ end
 --      collObj     <- nil if completed, object ref to colliding ship otherwise
 --          }
 MoveModule.MoveProbe.TryFullMove = function(info, ship, fullFun)
-    local collShips = MoveModule.MoveProbe.GetShipsNearFull(info, ship, fullFun)
+    local collShips = nil
+    if info.size == 'huge' then
+        collShips = MoveModule.MoveProbe.GetHugeShipsNearFull(info, ship, fullFun)
+    else
+        collShips = MoveModule.MoveProbe.GetShipsNearFull(info, ship, fullFun)
+    end
     local out = {done=nil, collObj=nil}
     local checkNum = 0
 
@@ -2324,6 +2428,17 @@ MoveModule.GetFinalPosData = function(move_code, ship, ignoreCollisions)
         -- If move allows for full move check, try it
         if info.traits.full == true then
             local fullData = MoveModule.MoveProbe.TryFullMove(info, ship, MoveModule.GetFullMove)
+            while info.size == 'huge' and fullData.done == false do
+              info.speed = info.speed -1
+              if info.speed == -1 then
+                info.speed = 0
+                info.code = "s0"
+                info.type = "straight"
+              else
+                info.code = string.gsub(info.code, "%d", info.speed)
+              end
+              fullData = MoveModule.MoveProbe.TryFullMove(info, ship, MoveModule.GetFullMove)
+            end
             if fullData.done == true then
                 out.finPos = MoveModule.GetFullMove(info.code, ship)
                 out.finType = 'move'
@@ -3419,16 +3534,16 @@ end
 RulerModule.meshes = {}
 RulerModule.meshes.smallBase = {}
 RulerModule.meshes.smallBase.scale = {0.629, 0.629, 0.629}
+RulerModule.meshes.smallBase.diffuse = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/arctexture.png'
 RulerModule.meshes.smallBase.collider = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Small_base_Collider.obj'
-RulerModule.meshes.smallBase.front = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/SmallFront.obj'
-RulerModule.meshes.smallBase.side = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/SmallSide.obj'
-RulerModule.meshes.smallBase.rear = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/SmallRear.obj'
-RulerModule.meshes.smallBase.sideArc = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/SmallSide.obj'
+RulerModule.meshes.smallBase.front = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/small_front.obj'
+RulerModule.meshes.smallBase.rear = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/small_back.obj'
+RulerModule.meshes.smallBase.sideArc = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/small_side_4.obj'
 RulerModule.meshes.smallBase.range = {}
-RulerModule.meshes.smallBase.range[1] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/SmallR1.obj'
-RulerModule.meshes.smallBase.range[2] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/SmallR2.obj'
-RulerModule.meshes.smallBase.range[3] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/SmallR3.obj'
-RulerModule.meshes.smallBase.range[4] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/SmallR4.obj'
+RulerModule.meshes.smallBase.range[1] = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/small_range_1.obj'
+RulerModule.meshes.smallBase.range[2] = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/small_range_2.obj'
+RulerModule.meshes.smallBase.range[3] = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/small_range_3.obj'
+RulerModule.meshes.smallBase.range[4] = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/small_range_4.obj'
 
 -- Ruler meshes for medium base JC
 RulerModule.meshes.mediumBase = {}
@@ -3498,6 +3613,8 @@ RulerModule.GetRulerData = function(ship, rulerType)
     end
     out.scale = RulerModule.meshes[baseSize .. 'Base'].scale
     out.collider = RulerModule.meshes[baseSize .. 'Base'].collider
+    out.diffuse = RulerModule.meshes[baseSize .. 'Base'].diffuse
+    out.material = 3
     return out
 end
 
@@ -3563,6 +3680,7 @@ RulerModule.CreateCustomTables = function(ship, rulerType)
 
     customTable.mesh = rulerData.mesh
     customTable.collider = rulerData.collider
+    customTable.diffuse = rulerData.diffuse
     return {params = paramsTable, custom = customTable}
 end
 
@@ -3572,6 +3690,7 @@ RulerModule.SpawnRuler = function(ship, rulerType, beQuiet)
     local rulerData = RulerModule.CreateCustomTables(ship, rulerType)
     local newRuler = spawnObject(rulerData.params)
     newRuler.setCustomObject(rulerData.custom)
+    newRuler.setColorTint(color(1.0, 0.0, 0.0, 0.3))
     table.insert(RulerModule.spawnedRulers, {ship = ship, ruler = newRuler, type = rulerType})
     newRuler.lock()
     newRuler.setScale(rulerData.params.scale)
@@ -3760,7 +3879,7 @@ end
 BombModule.ExpandCluster = function(center)
     local offset = {Convert_mm_igu(43.5), 0, Convert_mm_igu(-1.5)}
     local tParams = {type='Custom_Token'}
-    local tCustom = {image='http://i.imgur.com/MqlYZzR.png', thickness=0.1, merge_distance=5}
+    local tCustom = {image='{verifycache}http://i.imgur.com/MqlYZzR.png', thickness=0.1, merge_distance=5}
 
     local t1 = spawnObject(tParams)
     t1.setCustomObject(tCustom)
@@ -4184,13 +4303,61 @@ function onLoad(savedData)
         local state =  JSON.decode(savedData)
         self.setTable("Data", state.shipData)
         if state.shipData.arcs ~= nil then
-            initContextMenu(state.shipData.arcs)
+            initContextMenu()
         end
     end
 end
 
 ]]
 
+
+pilotCardScript =
+[[
+dial = nil
+ship = nil
+function addTintObject(params)
+    if params[1] == "ship" then
+      ship = params[2]
+    elseif params[1] == "dial" then
+      dial = params[2]
+    end
+end
+
+function onUpdate()
+    local tint = self.getColorTint()
+    if tint ~= color(1,1,1,1) then
+      self.setColorTint(color(1,1,1,1))
+      if dial ~= nil then
+        dial.setColorTint(tint)
+      end
+
+      for i, attachment in pairs(self.getAttachments()) do
+        id = self.removeAttachment(attachment.index)
+        id.setColorTint(tint)
+        self.addAttachment(id)
+      end
+
+      if ship ~= nil then
+        for i, attachment in pairs(ship.getAttachments()) do
+          id = ship.removeAttachment(attachment.index)
+          id.setColorTint(tint)
+          ship.addAttachment(id)
+        end
+      end
+
+    end
+end
+
+loaded = false
+
+function onLoad(savestate)
+  loaded = true
+end
+
+function isLoadedAndStill()
+  return loaded and self.resting
+end
+]]
 
 -------
 --spawner function, checks for Pilots and Upgrades lists and spawn the respective objects
@@ -4208,7 +4375,7 @@ function newSpawner(listTable)
     Upgrades = listTable.Upgrades
     spawnCard = listTable.spawnCard
     Faction = listTable.Faction
-    dialSkin = listTable.factionDial
+    local dialSkin = listTable.factionDial
     spawnedPilotList = {}
 
     PosBag1 = {5, 5, 0}
@@ -4241,6 +4408,7 @@ function newSpawner(listTable)
         hasMob = 0
         pilotCount = 0
         bombTokenDescription = ''
+        local tint = Pilots[shipIndex].tint or color(0,0,0,0)
         -- Spawn Mobile Upgrades
         for j, Up in ipairs(Upgrades[shipIndex]) do
             if  Up['Config'] == true then
@@ -4322,12 +4490,15 @@ function newSpawner(listTable)
         cardB = Pilots[shipIndex]['cardB']
         pos = LocalPos(spawnCard, {0, 3, 5.5})
         rot = spawnCard.getRotation()
+        local newPil = nil
         if card ~= '' then
             if cardB ~= nil then
                 deck = Decker.Asset(card, cardB)
                 card = Decker.Card(deck,1, 1)
                 newPil = card:spawn({position = pos, rotation=rot})
                 newPil.setName(pilotName)
+                newPil.setLuaScript(pilotCardScript)
+                newPil.setLock(true)
                 spawnedPilotList[shipIndex] = pilotName                                            --Counts how many pilots already spawned with same name and rename if needed
                 pilotCount = 0
                 if spawnedPilotList[1] ~= nil then
@@ -4341,17 +4512,60 @@ function newSpawner(listTable)
                         end
                     end
                 end
+
+                -- Spawn Pilot Identifier
+                local card = newPil
+                local idpos = pos
+                local idrot = rot
+
+                pilotIdSpawnFunc = function()
+                  local pilotId = spawnObject({
+                      type              = "Custom_Model",
+                      position          = idpos,
+                      rotation          = idrot,
+                      scale             = {0.629, 0.629, 0.629},
+                      sound             = false,
+                      snap_to_grid      = false,
+                  })
+                  pilotId.setCustomObject({
+                      mesh = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/cardid.obj',
+                      convex = true,
+                      material = 1,
+                      type = 1
+                  })
+                  pilotId.setColorTint(tint)
+                  card.addAttachment(pilotId)
+                  card.setLock(false)
+                end
+                Wait.condition(pilotIdSpawnFunc , function() return  (not card.spawning) end)
+
             end
         end
-        for k, acc in ipairs(listaAcc) do
-            if pilotName ~= '' then
+        if pilotName ~= '' then
+            for k, acc in ipairs(listaAcc) do
+                local card = newPil
                 if acc.name == 'Unassigned Dial' then
-                    local newPos = {}
-                    newDial = tempBagAcc.takeObject({position = LocalPos(spawnCard, {0, 3, 12}), rotation = rot, guid = acc.guid})
+                    local dialpos = LocalPos(spawnCard, {0, 3, 12})
+                    local dialrot = rot
+                    local newDial = tempBagAcc.takeObject(
+                        {position = dialpos,
+                         rotation = dialrot,
+                         guid = acc.guid
+                       })
                     dialClone = newDial.clone()
                     tempBagAcc.putObject(dialClone)
-                    newDial.setCustomObject({['diffuse']=dialSkin})
-                    --newDial.reload()
+                    local conditionFunc = function() return (not card.spawning) and (not newDial.spawning) end
+                    local executeFunc = function()
+                        newDial.setCustomObject({['diffuse']=dialSkin})
+                        newDial = newDial.reload()
+                        newDial.setColorTint(tint)
+                        newDial.setPosition(dialpos)
+                        newDial.setRotation(dialrot)
+                        card.call('addTintObject', {'dial',newDial})
+                      end
+                    Wait.condition(executeFunc , conditionFunc)
+
+
                 end
             end
         end
@@ -4374,19 +4588,20 @@ function newSpawner(listTable)
             if ship.name == tostring(Pilots[shipIndex]['id']) then
                 newShip = tempBagShp.takeObject({ position = pos,
                                                   rotation = rot,
-                                                  guid = ship.guid,
-                                                  callback_function = function(obj) obj.call("initContextMenu") end
+                                                  guid = ship.guid
                                                 })
                 shipClone = newShip.clone()
                 tempBagShp.putObject(shipClone)
+                newShip.setPosition(pos)
+                newShip.setRotation(rot)
             end
         end
-        if newShip == nil and Pilots[shipIndex].id ~= 0 then
+        if (newShip == nil) and (Pilots[shipIndex].id ~= 0) then
           newShip = spawnObject({
               type              = "Custom_Model",
               position          = pos,
               rotation          = rot,
-              scale             = {0.63, 0.63, 0.63},
+              scale             = {0.629, 0.629, 0.629},
               sound             = false,
               snap_to_grid      = false,
           })
@@ -4398,18 +4613,18 @@ function newSpawner(listTable)
               type = 1
           })
         end
-        if newship ~= nil then
+        if newShip ~= nil then
             newShip.setName(Pilots[shipIndex]['name']) --Corrects ship name for clones
             if Pilots[shipIndex]['Size'] == "small" then
-                newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Small_base_Collider.obj'})
+                newShip.setCustomObject({collider= '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Small_base_Collider.obj'})
             elseif Pilots[shipIndex]['Size'] == "medium" then
-                newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Medium_base_Collider.obj'})
+                newShip.setCustomObject({collider= '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Medium_base_Collider.obj'})
             elseif Pilots[shipIndex]['Size'] == "large" then
-                newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Large_base_Collider.obj'})
+                newShip.setCustomObject({collider= '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Large_base_Collider.obj'})
             elseif Pilots[shipIndex]['Size'] == "huge" then
-                newShip.setCustomObject({collider='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Huge_base_Collider.obj'})
+                newShip.setCustomObject({collider= '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Huge_base_Collider.obj'})
             end
-
+            newShip.setLock(true)
             newShip.setTable("Data", Pilots[shipIndex]['Data'])
             newShip.setLuaScript(saveAndLoadShipStateLua)
             if spawnedPilotList[1] ~= nil then
@@ -4423,7 +4638,44 @@ function newSpawner(listTable)
                     end
                 end
             end
+            local ship = newShip
+            local card = newPil
+            local idpos = pos
+            local idrot = rot
+            local customObj = {
+                convex = true,
+                material = 1,
+                type = 1
+            }
+            if Pilots[shipIndex]['Size'] == "small" then
+                customObj.mesh='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base_ID_Marker.obj'
+            elseif Pilots[shipIndex]['Size'] == "medium" then
+                customObj.mesh='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base%20ID%20MED.obj'
+            elseif Pilots[shipIndex]['Size'] == "large" then
+                customObj.mesh='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base%20ID%20LAR.obj'
+            elseif Pilots[shipIndex]['Size'] == "huge" then
+                customObj.mesh='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base_ID_HUGE.obj'
+            end
+            shipIdSpawnFunc = function()
+              local shipId = spawnObject({
+                  type              = "Custom_Model",
+                  position          = idpos,
+                  rotation          = idrot,
+                  scale             = {0.629, 0.629, 0.629},
+                  sound             = false,
+                  snap_to_grid      = false,
+              })
+              shipId.setCustomObject(customObj)
+              shipId.setColorTint(tint)
+              ship.addAttachment(shipId)
+              ship.setLock(false)
+              card.call('addTintObject', {'ship',ship})
+              ship.call('initContextMenu')
+            end
+            Wait.condition(shipIdSpawnFunc , function() return (not ship.spawning) and (not card.spawning) end)
         end
+
+
         if Pilots[shipIndex]['Ship'] == 3 then
             for k, acc in ipairs(listaAcc) do
                 if acc.name == 'StarViper Mk.II roll token' then
