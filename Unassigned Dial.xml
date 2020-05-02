@@ -279,8 +279,12 @@
     <Image id="Spd5" class="SpeedImg" image="Speed5" offsetXY="-325 240" color="#ffffff" preserveAspect="true"></Image>
     <ToggleGroup id="ManBtnGroup" interactable="false" allowSwitchOff="true">
 
+      <ToggleButton id="RBL0" class="ManBtn" offsetXY="-140 -260">
+          <Image id="RBL0Icon" class="MIcon"  image="RedBankL"></Image></ToggleButton>
       <ToggleButton id="RS0" class="ManBtn" offsetXY="-60 -260">
           <Image id="RS0Icon" class="MIcon"  image="RedStall"></Image></ToggleButton>
+      <ToggleButton id="RBR0" class="ManBtn" offsetXY="-20 -260">
+           <Image id="RBR0Icon" class="MIcon"  image="RedBankR"></Image></ToggleButton>
 
       <ToggleButton id="BTL1" class="ManBtn" offsetXY="-220 -160">
           <Image id="BTL1Icon" class="MIcon"  image="BlueTurnL"></Image></ToggleButton>

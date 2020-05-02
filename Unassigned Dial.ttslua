@@ -123,7 +123,7 @@ function manSelect(p, option, id)
     else
         manBear = ""
     end
-    if manSpeed=="0" then
+    if manSpeed=="0" and manType=="Straight" then
         manType='Stall'
     end
     speedIcon="Speed"..manSpeed
