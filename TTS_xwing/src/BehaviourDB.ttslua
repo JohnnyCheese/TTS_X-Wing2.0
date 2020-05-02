@@ -1,0 +1,160 @@
+-- ~~~~~~
+-- Script by shiprib
+-- Issues, history at: https://github.com/JohnnyCheese/TTS_X-Wing2.0
+--
+-- Module for storing different AI behaviour engines and individual ship
+-- behaviours
+-- ~~~~~~
+
+BehaviourDB = {}
+BehaviourDB.GetRuleSet = function()
+    return BehaviourDB.rule_sets[1]
+end
+
+BehaviourDB.rule_sets = {}
+
+--[[ A "rule set" is an AI ruleset that fits with the HotAC template defined by
+the 0.7 version of Heroes of the Aturi Cluster by Josh Derksen:
+http://dockingbay416.com/campaign/
+HotAC 0.7 is for v1 of X-Wing however there have been several v2 adaptations
+published.
+]]
+
+--[[ Each behaviour set is represented by a table in the following format:
+name: String used to identify which set this is. This should contain the
+    author and the date of last publication
+usesBullseyeArc: A boolean, true if this behaviour set uses the bullseye arc.
+degreesToArc: A function that the AI calls to convert the angle from its ship
+    to its target into the name of the arc in its maneuver lookup table. This
+    is here, rather than generalised, because different behaviour sets have
+    different numbers of arcs.
+    It takes a single argument (float), which is the angle from the AI ship to
+    its target. Sample parameter values are:
+        -180: directly behind
+        -135: behind and to the left
+        -90: directly to the left
+        0: directly ahead
+        90: directly to the right
+        180: directly behind (identical to -180)
+    It returns a table with the following keys:
+        target_arc: String, the name of the arc. This can be anything, as long
+            as it matches the arc names in the ship lookup tables.
+        arc_parts: Table of strings, one or two of "front", "back", "left", or
+            "right". These correspond to the sides of the AI ship that we needs
+            to do range-checking from. These should be the two closest sides to
+            the target arc.
+flipArc: A function that takes one art and flips it left-to-right. HotAC AI
+    tables typically only cover the right half of the arc spectrum and rely
+    on flipping the right arcs when the target is to the left.
+    Takes a single argument (string), the name of the arc to flip
+    Returns a string, which is the opposite of the specified arc.
+targetSelectionFunctions: A table containing custom target selection functions.
+    TODO: This has not been implemented yet!
+ships: A table containing the AI data for each ship. This table is keyed with
+the ID numbers found in the Datapad Lua script. The format for ships is below.
+]]
+
+--[[ Each ship is represted by a table with the following format:
+target_selection: An ordered table containing the function names used for
+    choosing a target, sorted by priority. There is a base set of functions
+    defined in the core AI module, these are:
+        'ClosestInArc': selects the closest ship, in the front arc, at range 1-3
+        'Closest': selects the closest ship. Treats range 0 as range 1 directly
+            behind.
+move_table: A table containing the ship's move data, organised into arcs and
+    distances.
+    The first depth of tbe table, the arc, is defined by the ruleset in
+        the function "degreesToArc". The only one specified by the underlying
+        system is 'bullseye', which is only used if 'usesBullseyeArc' is true.
+    The second depth of the table, the distance, is one of four:
+        'near': the target is at range 0 or 1, or at range 2 and is moving
+            towards the AI ship.
+        'far': the target is at range 3, or at range 2 and is moving away from
+            the AI ship.
+        'distant': the target is at range 4 or beyond.
+        'stress': the AI ship is stressed, and the target's range is irrelevant.
+]]
+
+-- This is the upgrade of HotAC to v2 that Scott Morgan worked on and released
+-- on the HotAC Facebook page in August 2018. It was subsequently abandoned
+-- but the AI is comprehensive, if only for the HotAC Imperials ships.
+-- see: https://www.facebook.com/groups/872507722883025/permalink/1398625470271245/
+BehaviourDB.rule_sets[1] = {}
+BehaviourDB.rule_sets[1]['name'] = 'HotAC-v2-Morgan-2008-08-20'
+BehaviourDB.rule_sets[1]['usesBullseyeArc'] = true
+BehaviourDB.rule_sets[1]['degreesToArc'] = function(angle_to_target)
+    result = {}
+    if angle_to_target < -135 then
+        result.target_arc = 'back_left'
+        result.arc_parts = {'back', 'left'}
+    elseif angle_to_target < -90 then
+        result.target_arc = 'left_back'
+        result.arc_parts = {'left', 'back'}
+    elseif angle_to_target < -45 then
+        result.target_arc = 'left_front'
+        result.arc_parts = {'left', 'front'}
+    elseif angle_to_target < 0 then
+        result.target_arc = 'front_left'
+        result.arc_parts = {'front', 'left'}
+    elseif angle_to_target < 45 then
+        result.target_arc = 'front_right'
+        result.arc_parts = {'front', 'right'}
+    elseif angle_to_target < 90 then
+        result.target_arc = 'right_front'
+        result.arc_parts = {'right', 'front'}
+    elseif angle_to_target < 135 then
+        result.target_arc = 'right_back'
+        result.arc_parts = {'right', 'back'}
+    else
+        result.target_arc = 'back_right'
+        result.arc_parts = {'back', 'right'}
+    end
+
+    return result;
+end
+BehaviourDB.rule_sets[1]['flipArc'] = function(arc)
+    if string.find(arc, 'left') then
+        arc = string.gsub(arc, 'left', 'right')
+    elseif string.find(targetArc, 'right') then
+        arc = string.gsub(arc, 'right', 'left')
+    end
+
+    return arc
+end
+
+BehaviourDB.rule_sets[1].ships = {}
+-- TIE/ln Fighter
+BehaviourDB.rule_sets[1].ships[11] = {}
+BehaviourDB.rule_sets[1].ships[11].target_selection = {[1]='ClosestInArc', [2]='Closest'}
+BehaviourDB.rule_sets[1].ships[11].move_table = {
+    ['bullseye'] = {
+        ['near'] = {[1] = 'k4', [3] = 'bl2',[4] = 'br2', [5] = 's2'},
+        ['far'] = {[1] = 's2', [3] = 's3'},
+        ['distant'] = {[1] = 's4', [2] = 's5'},
+        ['stress'] = {[1] = 'bl2', [3] = 'br2', [5] = 's2'}
+    },
+    ['front_right'] = {
+        ['near'] = {[1] = 'k4', [3] = 'tr1', [5] = 'br2'},
+        ['far'] = {[1] = 'br2', [4] = 'br3', [6] = 's3'},
+        ['distant'] = {[1] = 'br3', [5] = 's4'},
+        ['stress'] = {[1] = 'br2', [4] = 's2', [6] = 's3'}
+    },
+    ['right_front'] = {
+        ['near'] = {[1] = 'k4', [2] = 'tr1', [4] = 'tr2'},
+        ['far'] = {[1] = 'br1', [2] = 'tr2', [3] = 'br2', [5] = 'tr3'},
+        ['distant'] = {[1] = 'tr2', [4] = 'tr3'},
+        ['stress'] = {[1] = 'tr1', [2] = 'br2'}
+    },
+    ['right_back'] = {
+        ['near'] = {[1] = 'k3', [2] = 'tr1', [5] = 'tr2'},
+        ['far'] = {[1] = 'k3', [3] = 'tr1', [5] = 'tr2'},
+        ['distant'] = {[1] = 'k3', [4] = 'tr1'},
+        ['stress'] = {[1] = 'tr1', [2] = 'tr2', [3] = 'br2'}
+    },
+    ['back_right'] = {
+        ['near'] = {[1] = 'k4', [3] = 'k3', [5] = 'tr2'},
+        ['far'] = {[1] = 'k3', [3] = 'tr3'},
+        ['distant'] = {[1] = 'k3', [5] = 'tr1'},
+        ['stress'] = {[1] = 'tr2', [6] = 'tr3'}
+    }
+}

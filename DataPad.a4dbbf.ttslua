@@ -2220,6 +2220,7 @@ function idSpawner(idTable)
         fList.Pilots[k]['bombD'] = 's1'
         fList.Pilots[k]['Docking'] = masterShipDB[Ship]['Docking']
         fList.Pilots[k]['Data'] = {}
+        fList.Pilots[k]['Data']['shipId'] = Ship
         fList.Pilots[k]['Data']['moveSet'] = masterShipDB[Ship]['moveSet']
         fList.Pilots[k]['Data']['arcs'] = masterShipDB[Ship]['arcs']
         fList.Pilots[k]['Data']['actSet'] = masterPilotDB[v]['actSet']
