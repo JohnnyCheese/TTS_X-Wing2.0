@@ -287,16 +287,17 @@ ArcCheck.bullseye_data =
     size=vector(Convert_mm_igu(14), 0.1, Convert_mm_igu(300))
 }
 
--- ArcCheck.Initialize = function() -- Arc values based on Muon's assesments (vassal)
---     if ArcCheck.initialized == false then
---         ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments['small'], 81.24, 20)
---         ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments['medium'], 82.8, 30)
---         ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments['large'], 83.52, 40)
---         ArcCheck.initialized = true
---     end
--- end
+ArcCheck.Initialize = function() -- Arc values based on Muon's assesments (vassal)
+     if ArcCheck.initialized == false then
+         ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.small, 81.24, 20, 20)
+         ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.medium, 82.8, 30, 30)
+         ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.large, 83.52, 40, 40)
+         ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.huge, 82.9, 40, 110.5 )
+         ArcCheck.initialized = true
+     end
+ end
 
-ArcCheck.Initialize = function() -- Arc values matching TTS ruler objects
+--[[ArcCheck.Initialize = function() -- Arc values matching TTS ruler objects
     if ArcCheck.initialized == false then
         ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.small, 79.1, 20, 20)
         ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.medium, 82.35, 30, 30)
@@ -304,14 +305,14 @@ ArcCheck.Initialize = function() -- Arc values matching TTS ruler objects
         ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.huge, 82.9, 40, 110.5 )
         ArcCheck.initialized = true
     end
-end
+end]]
 
 
 ArcCheck.CalculateArcLineSegments = function(table, degree, size_w, size_l)
     size_w = Convert_mm_igu(size_w)
     size_l = Convert_mm_igu(size_l)
     local edge_arc = Vect.AngleDeg2D({-size_w, 0, size_l}, {size_w, 0,size_l})
-    print("Size_W:" .. tostring(size_w) .. " size_l:"..size_l .. " edge_arc=".. tostring(edge_arc))
+    --print("Size_W:" .. tostring(size_w) .. " size_l:"..size_l .. " edge_arc=".. tostring(edge_arc))
     if edge_arc > degree then -- Rectangular base sizes (small, medium and large ships)
         local r = math.rad(degree/2)
         local a = math.tan(r) * size_l
@@ -3401,7 +3402,9 @@ end
 DialModule.DeleteTemplate = function(ship)
     for k,info in pairs(DialModule.SpawnedTemplates) do
         if info.ship == ship then
-            info.template.destruct()
+            if info.template ~= nil then
+                info.template.destruct()
+            end
             table.remove(DialModule.SpawnedTemplates, k)
             return true
         end
@@ -3533,29 +3536,30 @@ end
 RulerModule.meshes = {}
 RulerModule.meshes.smallBase = {}
 RulerModule.meshes.smallBase.scale = {0.629, 0.629, 0.629}
+RulerModule.meshes.smallBase.diffuse = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/arctexture.png'
 RulerModule.meshes.smallBase.collider = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Small_base_Collider.obj'
-RulerModule.meshes.smallBase.front = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/SmallFront.obj'
-RulerModule.meshes.smallBase.side = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/SmallSide.obj'
-RulerModule.meshes.smallBase.rear = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/SmallRear.obj'
-RulerModule.meshes.smallBase.sideArc = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/SmallSide.obj'
+RulerModule.meshes.smallBase.front = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/small_front.obj'
+RulerModule.meshes.smallBase.rear = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/small_back.obj'
+RulerModule.meshes.smallBase.sideArc = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/small_side_4.obj'
 RulerModule.meshes.smallBase.range = {}
-RulerModule.meshes.smallBase.range[1] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/SmallR1.obj'
-RulerModule.meshes.smallBase.range[2] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/SmallR2.obj'
-RulerModule.meshes.smallBase.range[3] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/SmallR3.obj'
-RulerModule.meshes.smallBase.range[4] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/SmallR4.obj'
+RulerModule.meshes.smallBase.range[1] = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/small_range_1.obj'
+RulerModule.meshes.smallBase.range[2] = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/small_range_2.obj'
+RulerModule.meshes.smallBase.range[3] = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/small_range_3.obj'
+RulerModule.meshes.smallBase.range[4] = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/small_range_4.obj'
 
 -- Ruler meshes for medium base JC
 RulerModule.meshes.mediumBase = {}
 RulerModule.meshes.mediumBase.scale = {0.629, 0.629, 0.629}
+RulerModule.meshes.mediumBase.diffuse = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/arctexture.png'
 RulerModule.meshes.mediumBase.collider = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Medium_base_Collider.obj'
-RulerModule.meshes.mediumBase.front = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/MediumFront.obj'
-RulerModule.meshes.mediumBase.rear = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/MediumRear.obj'
-RulerModule.meshes.mediumBase.sideArc = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/MediumSide.obj'
+RulerModule.meshes.mediumBase.front = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/medium_front.obj'
+RulerModule.meshes.mediumBase.rear = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/medium_back.obj'
+RulerModule.meshes.mediumBase.sideArc = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/medium_side_4.obj'
 RulerModule.meshes.mediumBase.range = {}
-RulerModule.meshes.mediumBase.range[1] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/MediumR1.obj'
-RulerModule.meshes.mediumBase.range[2] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/MediumR2.obj'
-RulerModule.meshes.mediumBase.range[3] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/MediumR3.obj'
-RulerModule.meshes.mediumBase.range[4] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/MediumR4.obj'
+RulerModule.meshes.mediumBase.range[1] = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/medium_range_1.obj'
+RulerModule.meshes.mediumBase.range[2] = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/medium_range_2.obj'
+RulerModule.meshes.mediumBase.range[3] = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/medium_range_3.obj'
+RulerModule.meshes.mediumBase.range[4] = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/medium_range_4.obj'
 
 
 RulerModule.meshes.largeBase = {}
@@ -3612,6 +3616,8 @@ RulerModule.GetRulerData = function(ship, rulerType)
     end
     out.scale = RulerModule.meshes[baseSize .. 'Base'].scale
     out.collider = RulerModule.meshes[baseSize .. 'Base'].collider
+    out.diffuse = RulerModule.meshes[baseSize .. 'Base'].diffuse
+    out.material = 3
     return out
 end
 
@@ -3652,24 +3658,9 @@ RulerModule.CreateCustomTables = function(ship, rulerType)
     paramsTable.type = 'Custom_Model'
     paramsTable.position = ship.getPosition()
     paramsTable.rotation = {0, ship.getRotation()[2], 0}
-    if rulerType == 'B' then
-        local size = ship.getTable("Data").Size or 'small'
-        if size == 'small' then
-            rot = ship.getRotation()[2]
-            paramsTable.rotation={0, rot +180, 0}
-        end
-    end
-    local size = ship.getTable("Data").Size or 'small'
     if rulerType == 'SR' then
         rot = ship.getRotation()[2]
         paramsTable.rotation= {0, rot + 180, 0}
-        if size == 'medium' then                       --Side arc model for medium bases is inverted in relation to small and large bases, so it must be rotated 180 degrees as a workaround
-            paramsTable.rotation= {0, rot, 0}
-        end
-    end
-    if rulerType == 'SL' and size == 'medium' then      --Side arc model for medium bases is inverted in relation to small and large bases, so it must be rotated 180 degrees as a workaround
-        rot = ship.getRotation()[2]
-        paramsTable.rotation= {0, rot + 180 , 0}
     end
 
     paramsTable.scale = rulerData.scale
@@ -3677,6 +3668,7 @@ RulerModule.CreateCustomTables = function(ship, rulerType)
 
     customTable.mesh = rulerData.mesh
     customTable.collider = rulerData.collider
+    customTable.diffuse = rulerData.diffuse
     return {params = paramsTable, custom = customTable}
 end
 
@@ -3686,6 +3678,7 @@ RulerModule.SpawnRuler = function(ship, rulerType, beQuiet)
     local rulerData = RulerModule.CreateCustomTables(ship, rulerType)
     local newRuler = spawnObject(rulerData.params)
     newRuler.setCustomObject(rulerData.custom)
+    newRuler.setColorTint(color(1.0, 0.0, 0.0, 0.3))
     table.insert(RulerModule.spawnedRulers, {ship = ship, ruler = newRuler, type = rulerType})
     newRuler.lock()
     newRuler.setScale(rulerData.params.scale)
@@ -4518,7 +4511,7 @@ function newSpawner(listTable)
                       type              = "Custom_Model",
                       position          = idpos,
                       rotation          = idrot,
-                      scale             = {0.63, 0.63, 0.63},
+                      scale             = {0.629, 0.629, 0.629},
                       sound             = false,
                       snap_to_grid      = false,
                   })
@@ -4596,7 +4589,7 @@ function newSpawner(listTable)
               type              = "Custom_Model",
               position          = pos,
               rotation          = rot,
-              scale             = {0.63, 0.63, 0.63},
+              scale             = {0.629, 0.629, 0.629},
               sound             = false,
               snap_to_grid      = false,
           })
@@ -4656,7 +4649,7 @@ function newSpawner(listTable)
                   type              = "Custom_Model",
                   position          = idpos,
                   rotation          = idrot,
-                  scale             = {0.63, 0.63, 0.63},
+                  scale             = {0.629, 0.629, 0.629},
                   sound             = false,
                   snap_to_grid      = false,
               })
