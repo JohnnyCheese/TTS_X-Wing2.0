@@ -39,6 +39,7 @@
         <Text   id="Name" class="DialName" position="0 70 3.5" rotation="180 180 0" height="80" fontSize="25" fontStyle="Bold">Name</Text>
         <Button id="TokenMenu" class="CenterMenuButtons" offsetXY="-110 15" active="true" onMouseEnter="showTokMFD">T</Button>
         <Button id="ArcMenu" class="CenterMenuButtons" offsetXY="110 15" active="true" onMouseEnter="showArcMFD">A</Button>
+        <Button id="undoFD" class="CenterMenuButtons" offsetXY="0 -51" active="true" onClick="Undo" height="30" width="60" fontSize="18" fontStyle="Bold">Undo</Button>
         <Button id="RelocMenu" class="CenterMenuButtons" offsetXY="0 -105" active="true" onMouseEnter="showRelocMFD">R</Button>
 </Panel>
 
