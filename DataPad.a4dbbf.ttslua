@@ -171,114 +171,115 @@ cardBackDB['mc'] = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/
 
 -- Attempt on Unified Data Base, based on XWS (dropped after w1, too much hassle) and FFG conversion table
 masterShipDB={}
-masterShipDB[0]={['name']='',['Shield']=0,['size']='small',['agi']=1,['XWS']='',['Fac']={[0]=true},['arcs']={'front'}}
+masterShipDB[0]={['name']='',['Hull']=0,['Shield']=0,['size']='small',['agi']=1,['XWS']='',['Fac']={[0]=true},['arcs']={'front'}}
 
-masterShipDB[1]={['name']='Modified YT-1300',['Shield']=5,['dTurret']=1,['size']='large',['agi']=1,['XWS']='modifiedyt1300lightfreighter', ['Fac']={[1]=true}, ['arcs']={'doubleturret'},
+masterShipDB[1]={['name']='Modified YT-1300',['Hull']=8,['Shield']=5,['dTurret']=1,['size']='large',['agi']=1,['XWS']='modifiedyt1300lightfreighter', ['Fac']={[1]=true}, ['arcs']={'doubleturret'},
                             ['moveSet']={'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','rbl3s','wtl3','wbl3','bs3','wbr3','wtr3','rbr3s','ws4','rk4'}}
 --masterShipDB[2]={['name']='',['Shield']=0,['size']=0,['agi']=0,['XWS']='', ['Fac']={[0]=true}}
-masterShipDB[3]={['name']='StarViper',['Shield']=1,['size']='small',['agi']=3,['XWS']='starviperclassattackplatform', ['Fac']={[3]=true}, ['arcs']={'front'},
+masterShipDB[3]={['name']='StarViper',['Hull']=4,['Shield']=1,['size']='small',['agi']=3,['XWS']='starviperclassattackplatform', ['Fac']={[3]=true}, ['arcs']={'front'},
                 ['moveSet']={'wtl1','bbl1','bs1','bbr1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','rbl3s','wbl3','bs3','wbr3','rbr3s','ws4' } }
-masterShipDB[4]={['name']='Scurrg H6 Bomber',['Shield']=4,['size']='medium',['agi']=1,['XWS']='scurrgh6bomber', ['Fac']={[3]=true}, ['arcs']={'front'},
+masterShipDB[4]={['name']='Scurrg H6 Bomber',['Hull']=6,['Shield']=4,['size']='medium',['agi']=1,['XWS']='scurrgh6bomber', ['Fac']={[3]=true}, ['arcs']={'front'},
                             ['moveSet']={'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3t','rtl3','wbl3','ws3','wbr3','rtr3','rtr3t','rs4'}}
-masterShipDB[5]={['name']='YT-2400',['Shield']=4,['dTurret']=1,['size']='large',['agi']=2,['XWS']='yt2400lightfreighter', ['Fac']={[1]=true}, ['arcs']={'doubleturret'},
+masterShipDB[5]={['name']='YT-2400',['Hull']=6,['Shield']=4,['dTurret']=1,['size']='large',['agi']=2,['XWS']='yt2400lightfreighter', ['Fac']={[1]=true}, ['arcs']={'doubleturret'},
                             ['moveSet']={'wtl1','bbl1','bs1','bbr1','wtr1','wtl2','wbl2','bs2','wbr2','wtr2','wtl3','wbl3','ws3','wbr3','wtr3','ws4','rk4'}}
-masterShipDB[6]={['name']='Auzituk Gunship',['Shield']=2,['size']='small',['agi']=1,['XWS']='auzituckgunship', ['Fac']={[1]=true}, ['arcs']={'fullfront'},
+masterShipDB[6]={['name']='Auzituk Gunship',['Hull']=6,['Shield']=2,['size']='small',['agi']=1,['XWS']='auzituckgunship', ['Fac']={[1]=true}, ['arcs']={'fullfront'},
                             ['moveSet']={'bbl1', 'bs1', 'bbr1','wtl2','wbl2','bs2','wbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rs0'}}
-masterShipDB[7]={['name']='Khiraxz Fighter',['Shield']=1,['size']='small',['agi']=2,['XWS']='kihraxzfighter', ['Fac']={[3]=true}, ['arcs']={'front'},
+masterShipDB[7]={['name']='Khiraxz Fighter',['Hull']=5,['Shield']=1,['size']='small',['agi']=2,['XWS']='kihraxzfighter', ['Fac']={[3]=true}, ['arcs']={'front'},
                             ['moveSet']={'wtl1','bbl1','bbr1','wtr1','rtl2t','wtl2','bbl2','bs2','bbr2','wtr2','rtr2t','wbl3','bs3','wbr3','ws4','rk4'}}
-masterShipDB[8]={['name']='Sheathipede Shuttle',['Shield']=1,['size']='small',['agi']=2,['XWS']='sheathipedeclassshuttle', ['Fac']={[1]=true}, ['arcs']={'front', 'back'},
+masterShipDB[8]={['name']='Sheathipede Shuttle',['Hull']=3,['Shield']=1,['size']='small',['agi']=2,['XWS']='sheathipedeclassshuttle', ['Fac']={[1]=true}, ['arcs']={'front', 'back'},
                             ['moveSet']={'rs1r','wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','bs3','wbr3','rtr3','rk3','rs4'}}
-masterShipDB[9]={['name']='Quad Jumper',['Shield']=0,['size']='small',['agi']=2,['XWS']='quadrijettransferspacetug', ['Fac']={[3]=true}, ['arcs']={'front'},
+masterShipDB[9]={['name']='Quad Jumper',['Hull']=6,['Shield']=0,['size']='small',['agi']=2,['XWS']='quadrijettransferspacetug', ['Fac']={[3]=true}, ['arcs']={'front'},
                             ['moveSet']={'rbl1r','rbr1r','wtl1','wbl1','ws1','wbr1','wtr1','rs2r','rbl2s','wtl2','bbl2','bs2','bbr2','wtr2','rbr2s','wbl3','bs3','wbr3'}}
-masterShipDB[10]={['name']='FireSpray',['Shield']=4,['size']='medium',['agi']=2,['XWS']='firesprayclasspatrolcraft', ['Fac']={[3]=true}, ['arcs']={'front', 'back'},
+masterShipDB[10]={['name']='FireSpray',['Hull']=6,['Shield']=4,['size']='medium',['agi']=2,['XWS']='firesprayclasspatrolcraft', ['Fac']={[3]=true}, ['arcs']={'front', 'back'},
                             ['moveSet']={'wtl1','bbl1','bs1','bbr1','wtr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3t','wbl3','bs3','wbr3','rtr3t','ws4','rk4'}}
-masterShipDB[11]={['name']='TIE/ln Fighter',['Shield']=0,['size']='small',['agi']=3,['XWS']='tielnfighter', ['Fac']={[1]=true,[2]=true}, ['arcs']={'front'},
+masterShipDB[11]={['name']='TIE/ln Fighter',['Hull']=6,['Shield']=0,['size']='small',['agi']=3,['XWS']='tielnfighter', ['Fac']={[1]=true,[2]=true}, ['arcs']={'front'},
                             ['moveSet']={'wtl1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk3','ws4','rk4','ws5'}}
-masterShipDB[12]={['name']='Y-Wing',['Shield']=2,['size']='small',['agi']=1,['XWS']='btla4ywing', ['Fac']={[1]=true,[3]=true}, ['arcs']={'front'},
+masterShipDB[12]={['name']='Y-Wing',['Hull']=6,['Shield']=2,['size']='small',['agi']=1,['XWS']='btla4ywing', ['Fac']={[1]=true,[3]=true}, ['arcs']={'front'},
                             ['moveSet']={'bbl1', 'bs1', 'bbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs4','rk4'}}
-masterShipDB[13]={['name']='TIE Advanced x1',['Shield']=2,['size']='small',['agi']=3,['XWS']='tieadvancedx1', ['Fac']={[2]=true}, ['arcs']={'front'},
+masterShipDB[13]={['name']='TIE Advanced x1',['Hull']=3,['Shield']=2,['size']='small',['agi']=3,['XWS']='tieadvancedx1', ['Fac']={[2]=true}, ['arcs']={'front'},
                             ['moveSet']={'bbl1','ws1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3t','wtl3','wbl3','bs3','wbr3','wtr3','rtr3t','ws4','rk4','ws5'}}
-masterShipDB[14]={['name']='Alpha Class StarWing',['Shield']=3,['size']='small',['agi']=2,['XWS']='alphaclassstarwing', ['Fac']={[2]=true}, ['arcs']={'front'},
+masterShipDB[14]={['name']='Alpha Class StarWing',['Hull']=4,['Shield']=3,['size']='small',['agi']=2,['XWS']='alphaclassstarwing', ['Fac']={[2]=true}, ['arcs']={'front'},
                             ['moveSet']={'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','ws3','wbr3','wtr3','rs4'}}
-masterShipDB[15]={['name']='U-Wing',['Shield']=3,['size']='medium',['agi']=2,['XWS']='auzituckgunship', ['Fac']={[1]=true}, ['arcs']={'front'},
+masterShipDB[15]={['name']='U-Wing',['Hull']=5,['Shield']=3,['size']='medium',['agi']=2,['XWS']='auzituckgunship', ['Fac']={[1]=true}, ['arcs']={'front'},
                             ['moveSet']={'bbl1', 'bs1', 'bbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2','wbl3','ws3','wbr3','ws4','rs0'}}
-masterShipDB[16]={['name']='TIE/sk Striker',['Shield']=0,['size']='small',['agi']=2,['XWS']='tieskstriker', ['Fac']={[2]=true}, ['arcs']={'front'},
+masterShipDB[16]={['name']='TIE/sk Striker',['Hull']=4,['Shield']=0,['size']='small',['agi']=2,['XWS']='tieskstriker', ['Fac']={[2]=true}, ['arcs']={'front'},
                             ['moveSet']={'wtl1','bbl1','bs1','bbr1','wtr1','rk1','rbl2s','wtl2','bbl2','bs2','bbr2','wtr2','rbr2s','wbl3','bs3','wbr3'}}
-masterShipDB[17]={['name']='B-Wing',['Shield']=4,['size']='small',['agi']=1,['XWS']='asf01bwing', ['Fac']={[1]=true}, ['arcs']={'front'},
+masterShipDB[17]={['name']='B-Wing',['Hull']=4,['Shield']=4,['size']='small',['agi']=1,['XWS']='asf01bwing', ['Fac']={[1]=true}, ['arcs']={'front'},
                             ['moveSet']={'rtl1t','rtl1','bbl1','bs1','bbr1','rtr1','rtr1t','wtl2','wbl2','bs2','wbr2','wtr2','rk2','rbl3','bs3','rbr3','rs4'}}
-masterShipDB[18]={['name']='TIE/de Defender',['Shield']=4,['size']='small',['agi']=3,['XWS']='tieddefender', ['Fac']={[2]=true}, ['arcs']={'front'},
+masterShipDB[18]={['name']='TIE/de Defender',['Hull']=3,['Shield']=4,['size']='small',['agi']=3,['XWS']='tieddefender', ['Fac']={[2]=true}, ['arcs']={'front'},
                             ['moveSet']={'rtl1','bbl1','bbr1','rtr1','rtl2','wbl2','bs2','wbr2','rtr2','rk2','wtl3','wbl3','bs3','wbr3','wtr3','bs4','wk4','bs5'}}
-masterShipDB[19]={['name']='TIE/sa Bomber',['Shield']=0,['size']='small',['agi']=2,['XWS']='tiesabomber', ['Fac']={[2]=true}, ['arcs']={'front'},
+masterShipDB[19]={['name']='TIE/sa Bomber',['Hull']=6,['Shield']=0,['size']='small',['agi']=2,['XWS']='tiesabomber', ['Fac']={[2]=true}, ['arcs']={'front'},
                             ['moveSet']={'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk3','ws4','rk5'}}
-masterShipDB[20]={['name']='TIE/ca Punisher',['Shield']=3,['size']='medium',['agi']=1,['XWS']='tiecapunisher', ['Fac']={[2]=true}, ['arcs']={'front'},
+masterShipDB[20]={['name']='TIE/ca Punisher',['Hull']=6,['Shield']=3,['size']='medium',['agi']=1,['XWS']='tiecapunisher', ['Fac']={[2]=true}, ['arcs']={'front'},
                             ['moveSet']={'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rk4','rs0'}}
-masterShipDB[21]={['name']='Aggressor',['Shield']=3,['size']='medium',['agi']=3,['XWS']='aggressorassaultfighter', ['Fac']={[3]=true}, ['arcs']={'front'},
+masterShipDB[21]={['name']='Aggressor',['Hull']=5,['Shield']=3,['size']='medium',['agi']=3,['XWS']='aggressorassaultfighter', ['Fac']={[3]=true}, ['arcs']={'front'},
                             ['moveSet']={'wtl1','bbl1','bs1','bbr1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','rbl3s','bbl3','bs3','bbr3','rbr3s','ws4','rk4'}}
-masterShipDB[22]={['name']='G-1A StarFighter',['Shield']=4,['size']='medium',['agi']=1,['XWS']='g1astarfighter', ['Fac']={[3]=true}, ['arcs']={'front'},
+masterShipDB[22]={['name']='G-1A StarFighter',['Hull']=5,['Shield']=4,['size']='medium',['agi']=1,['XWS']='g1astarfighter', ['Fac']={[3]=true}, ['arcs']={'front'},
                             ['moveSet']={'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rk2','rbl3','ws3','rbr3','rs4','rk4','rs0'}}
-masterShipDB[23]={['name']='VCX-100',['Shield']=4,['size']='large',['agi']=0,['XWS']='vcx100lightfreighter', ['Fac']={[1]=true}, ['arcs']={'front'},['Docking']=true,
+masterShipDB[23]={['name']='VCX-100',['Hull']=10,['Shield']=4,['size']='large',['agi']=0,['XWS']='vcx100lightfreighter', ['Fac']={[1]=true}, ['arcs']={'front'},['Docking']=true,
                             ['moveSet']={'rtl1','wbl1','bs1','wbr1','rtr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','ws4','rk4'}}
-masterShipDB[24]={['name']='YV-666',['Shield']=3,['size']='large',['agi']=1,['XWS']='yv666lightfreighter', ['Fac']={[3]=true}, ['arcs']={'fullfront'},
+masterShipDB[24]={['name']='YV-666',['Hull']=9,['Shield']=3,['size']='large',['agi']=1,['XWS']='yv666lightfreighter', ['Fac']={[3]=true}, ['arcs']={'fullfront'},
                             ['moveSet']={'bbl1','bs1','bbr1','rtl2','wbl2','bs2','wbr2','rtr2','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rs0'}}
-masterShipDB[25]={['name']='TIE Advanced v1',['Shield']=2,['size']='small',['agi']=1,['XWS']='tieadvancedv1', ['Fac']={[2]=true}, ['arcs']={'front'},
+masterShipDB[25]={['name']='TIE Advanced v1',['Hull']=2,['Shield']=2,['size']='small',['agi']=1,['XWS']='tieadvancedv1', ['Fac']={[2]=true}, ['arcs']={'front'},
                             ['moveSet']={'btl1','bbl1','bbr1','btr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl2t','rtr2t','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk4','ws5'}}
-masterShipDB[26]={['name']='Lambda Class Shuttle',['Shield']=4,['size']='large',['agi']=1,['XWS']='lambdaclasst4ashuttle', ['Fac']={[2]=true}, ['arcs']={'front', 'back'},
+masterShipDB[26]={['name']='Lambda Class Shuttle',['Hull']=6,['Shield']=4,['size']='large',['agi']=1,['XWS']='lambdaclasst4ashuttle', ['Fac']={[2]=true}, ['arcs']={'front', 'back'},
                             ['moveSet']={'bbl1','bs1','bbr1','rtl2','wbl2','bs2','wbr2','rtr2','rbl3','ws3','rbr3','rs0'}}
-masterShipDB[27]={['name']='TIE/ph Phantom',['Shield']=2,['size']='small',['agi']=2,['XWS']='tiephphantom', ['Fac']={[2]=true}, ['arcs']={'front'},
+masterShipDB[27]={['name']='TIE/ph Phantom',['Hull']=3,['Shield']=2,['size']='small',['agi']=2,['XWS']='tiephphantom', ['Fac']={[2]=true}, ['arcs']={'front'},
                             ['moveSet']={'wtl1','wbl1','wbr1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk3','ws4','rk4'}}
-masterShipDB[28]={['name']='VT-49 Decimator',['Shield']=4,['dTurret']=1,['size']='large',['agi']=0,['XWS']='vt49decimator', ['Fac']={[2]=true}, ['arcs']={'doubleturret'},
+masterShipDB[28]={['name']='VT-49 Decimator',['Hull']=12,['Shield']=4,['dTurret']=1,['size']='large',['agi']=0,['XWS']='vt49decimator', ['Fac']={[2]=true}, ['arcs']={'doubleturret'},
                             ['moveSet']={'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','wtl3','wbl3','ws3','wbr3','wtr3','ws4'}}
-masterShipDB[29]={['name']='TIE/ag Aggressor',['Shield']=1,['size']='small',['agi']=2,['XWS']='tieagaggressor', ['Fac']={[2]=true}, ['arcs']={'front'},
+masterShipDB[29]={['name']='TIE/ag Aggressor',['Hull']=4,['Shield']=1,['size']='small',['agi']=2,['XWS']='tieagaggressor', ['Fac']={[2]=true}, ['arcs']={'front'},
                             ['moveSet']={'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk4'}}
-masterShipDB[30]={['name']='K-Wing',['Shield']=3,['dTurret']=1,['size']='medium',['agi']=1,['XWS']='btls8kwing', ['Fac']={[1]=true}, ['arcs']={'singleturret'},
+masterShipDB[30]={['name']='K-Wing',['Hull']=6,['Shield']=3,['dTurret']=1,['size']='medium',['agi']=1,['XWS']='btls8kwing', ['Fac']={[1]=true}, ['arcs']={'singleturret'},
                             ['moveSet']={'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','wbl3','ws3','wbr3'}}
 masterShipDB[31]={['name']='ARC-170',['Shield']=3,['size']='medium',['agi']=1,['XWS']='arc170starfighter', ['Fac']={[1]=true,[6]=true}, ['arcs']={'front', 'back'},
                             ['moveSet']={'bbl1','bs1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs4','rk4'}}
-masterShipDB[32]={['name']='Attack Shuttle',['Shield']=1,['size']='small',['agi']=2,['XWS']='attackshuttle', ['Fac']={[1]=true}, ['arcs']={'front'},
+masterShipDB[32]={['name']='Attack Shuttle',['Hull']=3,['Shield']=1,['size']='small',['agi']=2,['XWS']='attackshuttle', ['Fac']={[1]=true}, ['arcs']={'front'},
                             ['moveSet']={'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','ws4','rk4'}}
-masterShipDB[33]={['name']='X-Wing',['Shield']=2,['size']='small',['agi']=2,['XWS']='t65xwing', ['Fac']={[1]=true}, ['arcs']={'front'},
+masterShipDB[33]={['name']='X-Wing',['Hull']=4,['Shield']=2,['size']='small',['agi']=2,['XWS']='t65xwing', ['Fac']={[1]=true}, ['arcs']={'front'},
                             ['moveSet']={'bbl1', 'bs1', 'bbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'wtl3', 'wbl3', 'ws3', 'wbr3', 'wtr3', 'ws4', 'rtl3t', 'rtr3t', 'rk4' }}
-masterShipDB[34]={['name']='HWK-290',['Shield']=2,['sTurret']=1,['size']='small',['agi']=2,['XWS']='hwk290lightfreighter', ['Fac']={[1]=true,[3]=true}, ['arcs']={'singleturret'},
+masterShipDB[34]={['name']='HWK-290',['Hull']=3,['Shield']=2,['sTurret']=1,['size']='small',['agi']=2,['XWS']='hwk290lightfreighter', ['Fac']={[1]=true,[3]=true}, ['arcs']={'singleturret'},
                             ['moveSet']={'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','bs3','wbr3','rtr3','ws4','rs0'}}
-masterShipDB[35]={['name']='A-Wing',['Shield']=2,['size']='small',['agi']=3,['XWS']='rz1awing', ['Fac']={[1]=true}, ['arcs']={'front'},
+masterShipDB[35]={['name']='A-Wing',['Hull']=2,['Shield']=2,['size']='small',['agi']=3,['XWS']='rz1awing', ['Fac']={[1]=true}, ['arcs']={'front'},
                             ['moveSet']={'wtl1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rbl3s','wtl3','wbl3','bs3','wbr3','wtr3','rbr3s','bs4','bs5','rk5'}}
-masterShipDB[36]={['name']='Fang Fighter',['Shield']=0,['size']='small',['agi']=3,['XWS']='fangfighter', ['Fac']={[3]=true}, ['arcs']={'front'},
+masterShipDB[36]={['name']='Fang Fighter',['Hull']=4,['Shield']=0,['size']='small',['agi']=3,['XWS']='fangfighter', ['Fac']={[3]=true}, ['arcs']={'front'},
                             ['moveSet']={'wtl1','wtr1','rtl2t','btl2','bbl2','bs2','bbr2','btr2','rtr2t','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk4','ws5'}}
 --masterShipDB[37]={['name']='',['Shield']=3,['size']='small',['agi']=1,['XWS']='', ['Fac']={[1]=true}}
-masterShipDB[38]={['name']='Z-95 Headhunter',['Shield']=2,['size']='small',['agi']=2,['XWS']='z95af4headhunter', ['Fac']={[1]=true,[3]=true}, ['arcs']={'front'},
+masterShipDB[38]={['name']='Z-95 Headhunter',['Hull']=2,['Shield']=2,['size']='small',['agi']=2,['XWS']='z95af4headhunter', ['Fac']={[1]=true,[3]=true}, ['arcs']={'front'},
                             ['moveSet']={'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk3','ws4','rk4'}}
-masterShipDB[39]={['name']='M12-L Kimogila',['Shield']=2,['size']='medium',['agi']=2,['XWS']='m12lkimogilafighter', ['Fac']={[3]=true}, ['arcs']={'front'},
+masterShipDB[39]={['name']='M12-L Kimogila',['Hull']=7,['Shield']=2,['size']='medium',['agi']=2,['XWS']='m12lkimogilafighter', ['Fac']={[3]=true}, ['arcs']={'front'},
                             ['moveSet']={'rtl1','wbl1','bs1','wbr1','rtr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk4'}}
-masterShipDB[40]={['name']='E-Wing',['Shield']=3,['size']='small',['agi']=3,['XWS']='ewing', ['Fac']={[1]=true}, ['arcs']={'front'},
+masterShipDB[40]={['name']='E-Wing',['Hull']=3,['Shield']=3,['size']='small',['agi']=3,['XWS']='ewing', ['Fac']={[1]=true}, ['arcs']={'front'},
                             ['moveSet']={'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rbl3s','wtl3','wbl3','bs3','wbr3','wtr3','rbr3s','bs4','rk4','ws5'}}
-masterShipDB[41]={['name']='TIE/in Interceptor',['Shield']=0,['size']='small',['agi']=3,['XWS']='tieininterceptor', ['Fac']={[2]=true}, ['arcs']={'front'},
+masterShipDB[41]={['name']='TIE/in Interceptor',['Hull']=3,['Shield']=0,['size']='small',['agi']=3,['XWS']='tieininterceptor', ['Fac']={[2]=true}, ['arcs']={'front'},
                             ['moveSet']={'wtl1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rbl3s','wtl3','wbl3','bs3','wbr3','wtr3','rbr3s','bs4','rk4','ws5'}}
-masterShipDB[42]={['name']='Lancer Pursuit Craft',['Shield']=2,['sTurret']=1,['size']='large',['agi']=2,['XWS']='lancerclasspursuitcraft', ['Fac']={[3]=true}, ['arcs']={'front','singleturret'},
+masterShipDB[42]={['name']='Lancer Pursuit Craft',['Hull']=8,['Shield']=2,['sTurret']=1,['size']='large',['agi']=2,['XWS']='lancerclasspursuitcraft', ['Fac']={[3]=true}, ['arcs']={'front','singleturret'},
                             ['moveSet']={'wbl1','ws1','wbr1','wtl2','wbl2','bs2','wbr2','wtr2','btl3','bbl3','bs3','bbr3','btr3','bs4','ws5','rk5'}}
-masterShipDB[43]={['name']='TIE/re Reaper',['Shield']=2,['size']='medium',['agi']=1,['XWS']='tiereaper', ['Fac']={[2]=true}, ['arcs']={'front'},
+masterShipDB[43]={['name']='TIE/re Reaper',['Hull']=6,['Shield']=2,['size']='medium',['agi']=1,['XWS']='tiereaper', ['Fac']={[2]=true}, ['arcs']={'front'},
                             ['moveSet']={'rbl1s','rtl1','bbl1','bs1','bbr1','rtr1','rbr1s','rtl2','wbl2','bs2','wbr2','rtr2','wbl3','bs3','wbr3','rs0'}}
-masterShipDB[44]={['name']='M3-A Interceptor',['Shield']=1,['size']='small',['agi']=3,['XWS']='m3ainterceptor', ['Fac']={[3]=true}, ['arcs']={'front'},
+masterShipDB[44]={['name']='M3-A Interceptor',['Hull']=3,['Shield']=1,['size']='small',['agi']=3,['XWS']='m3ainterceptor', ['Fac']={[3]=true}, ['arcs']={'front'},
                             ['moveSet']={'wtl1','bbl1','bbr1','wtr1','wtl2','wbl2','bs2','wbr2','wtr2','wbl3','bs3','wbr3','rk3','ws4','ws5','rk5'}}
-masterShipDB[45]={['name']='JumpMaster 5000',['Shield']=3,['sTurret']=1,['size']='large',['agi']=1,['XWS']='jumpmaster5000', ['Fac']={[3]=true}, ['arcs']={'singleturret'},
+masterShipDB[45]={['name']='JumpMaster 5000',['Hull']=6,['Shield']=3,['sTurret']=1,['size']='large',['agi']=1,['XWS']='jumpmaster5000', ['Fac']={[3]=true}, ['arcs']={'singleturret'},
                             ['moveSet']={'wtl1','bbl1','bs1','wbr1','rtr1','wtl2','bbl2','bs2','wbr2','rtr2','rbl3s','bbl3','bs3','wbr3','ws4','rk4'}}
 --masterShipDB[46]={['name']='',['Shield']=3,['size']='small',['agi']=1,['XWS']='', ['Fac']={[1]=true}}
-masterShipDB[47]={['name']='Customized YT-1300',['Shield']=3,['dTurret']=1,['size']='large',['agi']=1,['XWS']='customizedyt1300lightfreighter', ['Fac']={[3]=true}, ['arcs']={'doubleturret'},
+masterShipDB[47]={['name']='Customized YT-1300',['Hull']=8,['Shield']=3,['dTurret']=1,['size']='large',['agi']=1,['XWS']='customizedyt1300lightfreighter', ['Fac']={[3]=true}, ['arcs']={'doubleturret'},
                             ['Docking']=true,['moveSet']={'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rbl3s','rbr3s','ws4','rk4'}}
-masterShipDB[48]={['name']='Escape Craft',['Shield']=2,['size']='small',['agi']=2,['XWS']='escapecraft', ['Fac']={[3]=true}, ['arcs']={'front'},
+masterShipDB[48]={['name']='Escape Craft',['Hull']=2,['Shield']=2,['size']='small',['agi']=2,['XWS']='escapecraft', ['Fac']={[3]=true}, ['arcs']={'front'},
                             ['moveSet']={'bbl1','bs1','bbr1','rtl2','wbl2','bs2','wbr2','rtr2','wbl3','ws3','wbr3','rk3','rs0'}}
-masterShipDB[49]={['name']='TIE/fo FO',['Shield']=1,['size']='small',['agi']=3,['XWS']='', ['Fac']={[5]=true}, ['arcs']={'front'},
+masterShipDB[49]={['name']='TIE/fo FO',['Hull']=3,['Shield']=1,['size']='small',['agi']=3,['XWS']='', ['Fac']={[5]=true}, ['arcs']={'front'},
                             ['moveSet']={'wtl1','wtr1','rbl2s','btl2','bbl2','bs2','bbr2','btr2','rbr2s','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk4','ws5'}}
-masterShipDB[50]={['name']='TIE/sf SF',['Shield']=3,['sTurret']=1,['size']='small',['agi']=2,['XWS']='', ['Fac']={[5]=true}, ['arcs']={'front', 'back'},
+masterShipDB[50]={['name']='TIE/sf SF',['Hull']=3,['Shield']=3,['sTurret']=1,['size']='small',['agi']=2,['XWS']='', ['Fac']={[5]=true}, ['arcs']={'front', 'back'},
                             ['moveSet']={'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','bbl2','bs2','bbr2','wtr2','rbl3s','wtl3','wbl3','bs3','wbr3','wtr3','rbr3s','ws4','ws5'}}
-masterShipDB[51]={['name']='Upsilon Class Shuttle',['Shield']=6,['size']='large',['agi']=1,['XWS']='', ['Fac']={[5]=true}, ['arcs']={'front'},
+masterShipDB[51]={['name']='Upsilon Class Shuttle',['Hull']=6,['Shield']=6,['size']='large',['agi']=1,['XWS']='', ['Fac']={[5]=true}, ['arcs']={'front'},
                             ['moveSet']={'rtl1','wbl1','bs1','wbr1','rtr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs0'}}
-masterShipDB[52]={['name']='TIE Silencer',['Shield']=2,['size']='small',['agi']=3,['XWS']='', ['Fac']={[5]=true}, ['arcs']={'front'},
+masterShipDB[52]={['name']='TIE Silencer',['Hull']=4,['Shield']=2,['size']='small',['agi']=3,['XWS']='', ['Fac']={[5]=true}, ['arcs']={'front'},
                             ['moveSet']={'wtl1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rtl3t','wtl3','wbl3','bs3','wbr3','wtr3','rtr3t','bs4','rk4','bs5'}}
-masterShipDB[53]={['name']='T-70 X-Wing',['Shield']=3,['size']='small',['agi']=2,['XWS']='', ['Fac']={[4]=true}, ['arcs']={'front'},
+masterShipDB[53]={['name']='T-70 X-Wing',['Hull']=4,['Shield']=3,['size']='small',['agi']=2,['XWS']='', ['Fac']={[4]=true}, ['arcs']={'front'},
                             ['moveSet']={'bbl1','bs1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3t','wtl3','wbl3','bs3','wbr3','wtr3','rtr3t','ws4','rk4'}}
 
 masterShipDB[54]={
     name = 'A-Wing RZ-2',
+    Hull = 2,
     Shield = 2,
     sTurret = 1,
     size = 'small',
@@ -288,30 +289,31 @@ masterShipDB[54]={
     mesh = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/res_awing.obj',
     moveSet = {'wtl1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rbl3s','wtl3','bbl3','bs3','bbr3','wtr3','rbr3s','bs4','bs5','rk5'}}
 
-masterShipDB[55]={['name']='MG-100 StarFortress',['Shield']=3,['dTurret']=1,['size']='large',['agi']=1,['XWS']='', ['Fac']={[4]=true}, ['arcs']={'front','doubleturret'},
+masterShipDB[55]={['name']='MG-100 StarFortress',['Hull']=9, ['Shield']=3,['dTurret']=1,['size']='large',['agi']=1,['XWS']='', ['Fac']={[4]=true}, ['arcs']={'front','doubleturret'},
                             ['moveSet']={'rs0','rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rbl3','ws3','rbr3'}}
-masterShipDB[56]={['name']='Mining Guild TIE',['Shield']=0,['size']='small',['agi']=3,['XWS']='', ['Fac']={[3]=true}, ['arcs']={'front'},
+masterShipDB[56]={['name']='Mining Guild TIE',['Hull']=3,['Shield']=0,['size']='small',['agi']=3,['XWS']='', ['Fac']={[3]=true}, ['arcs']={'front'},
                             ['moveSet']={'wtl1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk3','ws4','rs5'}}
-masterShipDB[57]={['name']='Scavenged YT-1300',['Shield']=3,['dTurret']=1,['size']='large',['agi']=1,['XWS']='', ['Fac']={[4]=true}, ['arcs']={'doubleturret'},
+masterShipDB[57]={['name']='Scavenged YT-1300',['Hull']=8,['Shield']=3,['dTurret']=1,['size']='large',['agi']=1,['XWS']='', ['Fac']={[4]=true}, ['arcs']={'doubleturret'},
                             ['moveSet']={'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','ws3','wbr3','wtr3','rbl3s','rbr3s','rs4'}}
 
 --w3ship
-masterShipDB[61]={['name']='Delta-7',['Shield']=1,['size']='small',['agi']=3,['XWS']='', ['Fac']={[6]=true}, ['arcs']={'front'},
+masterShipDB[61]={['name']='Delta-7',['Hull']=3,['Shield']=1,['size']='small',['agi']=3,['XWS']='', ['Fac']={[6]=true}, ['arcs']={'front'},
                             ['moveSet']={'wtl1','bbl1','bbr1','wtr1','rbl2s','wtl2','bbl2','bs2','bbr2','wtr2','rbr2s','wbl3','bs3','wbr3','ws4','rk4','ws5','rk5'}}
-masterShipDB[62]={['name']='V-19',['Shield']=0,['size']='small',['agi']=2,['XWS']='', ['Fac']={[6]=true}, ['arcs']={'front'},
+masterShipDB[62]={['name']='V-19',['Hull']=5,['Shield']=0,['size']='small',['agi']=2,['XWS']='', ['Fac']={[6]=true}, ['arcs']={'front'},
                             ['moveSet']={'rtl1','bbl1','bs1','bbr1','rtr1','rtl2t','wtl2','wbl2','bs2','wbr2','wtr2','rtr2t','rbl3','bs3','rbr3','rk3','ws4'}}
 
 
-masterShipDB[59]={['name']='Vulture-Class Droid',['Shield']=0,['size']='small',['agi']=2,['XWS']='', ['Fac']={[7]=true}, ['arcs']={'front'},
+masterShipDB[59]={['name']='Vulture-Class Droid',['Hull']=3,['Shield']=0,['size']='small',['agi']=2,['XWS']='', ['Fac']={[7]=true}, ['arcs']={'front'},
                             ['moveSet']={'wtl1','wtr1','rk1','rtl2t','btl2','wbl2','bs2','wbr2','btr2','rtr2t','wtl3','rbl3','bs3','rbr3','wtr3','bs4','ws5'}}
-masterShipDB[58]={['name']='Belbullab-22',['Shield']=2,['size']='small',['agi']=2,['XWS']='', ['Fac']={[7]=true}, ['arcs']={'front'},
+masterShipDB[58]={['name']='Belbullab-22',['Hull']=4,['Shield']=2,['size']='small',['agi']=2,['XWS']='', ['Fac']={[7]=true}, ['arcs']={'front'},
                             ['moveSet']={'wtl1','wbl1','wbr1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','rbl3s','rtl3','wbl3','bs3','wbr3','rtr3','rbr3s','ws4','ws5'}}
-masterShipDB[60]={['name']='Sith Infiltrator',['Shield']=4,['size']='large',['agi']=1,['XWS']='', ['Fac']={[7]=true}, ['arcs']={'front'},
+masterShipDB[60]={['name']='Sith Infiltrator',['Hull']=6,['Shield']=4,['size']='large',['agi']=1,['XWS']='', ['Fac']={[7]=true}, ['arcs']={'front'},
                             ['moveSet']={'rtl1','bbl1','bs1','bbr1','rtr1','rbl2s','wtl2','bbl2','bs2','bbr2','wtr2','rbr2s','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk5'}}
 
 --w4ship
 masterShipDB[64]={
     name = 'Resistance Transport',
+    Hull = 5,
     Shield = 3,
     size = 'small',
     agi = 1,
@@ -323,6 +325,7 @@ masterShipDB[64]={
 masterShipDB[65]={
     name = 'Resistance Transport Pod',
     Shield = 1,
+    Hull = 3,
     size = 'small',
     agi = 2,
     Fac = {[4]=true},
@@ -330,20 +333,20 @@ masterShipDB[65]={
     mesh = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/transport_pod/transport_pod.obj',
     moveSet = {'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rbl3','ws3','rbr3','rk3','rs4'}}
 
-masterShipDB[63]={['name']='N-1 StarFighter',['Shield']=2,['size']='small',['agi']=2,['XWS']='', ['Fac']={[6]=true}, ['arcs']={'front'},
+masterShipDB[63]={['name']='N-1 StarFighter',['Hull']=3,['Shield']=2,['size']='small',['agi']=2,['XWS']='', ['Fac']={[6]=true}, ['arcs']={'front'},
                             ['moveSet']={'wbl1','ws1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','bbl3','bs3','bbr3','wtr3','rtl3t','rtr3t','ws4','ws5'}}
-masterShipDB[66]={['name']='Hyena-Class Droid Bomber',['Shield']=0,['size']='small',['agi']=2,['XWS']='', ['Fac']={[7]=true}, ['arcs']={'front'},
+masterShipDB[66]={['name']='Hyena-Class Droid Bomber',['Hull']=5,['Shield']=0,['size']='small',['agi']=2,['XWS']='', ['Fac']={[7]=true}, ['arcs']={'front'},
                             ['moveSet']={'wtl1','rbl1','ws1','rbr1','wtr1','btl2','wbl2','bs2','wbr2','btr2','rk2','rtl2t','rtr2t','wtl3','bs3','wtr3','ws4','rs5'}}
 
-masterShipDB[68]={['name']='BTL-B Y-Wing',['Shield']=3,['size']='small',['agi']=1,['XWS']='', ['Fac']={[6]=true}, ['arcs']={'front'},
+masterShipDB[68]={['name']='BTL-B Y-Wing',['Hull']=5,['Shield']=3,['size']='small',['agi']=1,['XWS']='', ['Fac']={[6]=true}, ['arcs']={'front'},
                             ['moveSet']={'wbl1','bs1','wbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs4','rk4'}}
-masterShipDB[67]={['name']='Nantex-Class StarFighter',['Shield']=0,['sTurret']=1,['size']='small',['agi']=3,['XWS']='', ['Fac']={[7]=true}, ['arcs']={'left', 'front', 'right', 'bullseye'},
+masterShipDB[67]={['name']='Nantex-Class StarFighter',['Hull']=4,['Shield']=0,['sTurret']=1,['size']='small',['agi']=3,['XWS']='', ['Fac']={[7]=true}, ['arcs']={'left', 'front', 'right', 'bullseye'},
                             ['moveSet']={'wtl1','bbl1','bbr1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','bbl3','bs3','bbr3','wtr3','rbl3s','rbr3s','ws4','ws5','rk5'}}
 
 --w6ship
-masterShipDB[70]={['name']='FireBall',['Shield']=0,['size']='small',['agi']=2,['XWS']='', ['Fac']={[4]=true}, ['arcs']={'front'},
+masterShipDB[70]={['name']='FireBall',['Hull']=6,['Shield']=0,['size']='small',['agi']=2,['XWS']='', ['Fac']={[4]=true}, ['arcs']={'front'},
                             ['moveSet']={'wtl1','bbl1','bs1','bbr1','wtr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rtl3t','rtr3t','rs4'}}
-masterShipDB[71]={['name']='TIE/ba Interceptor',['Shield']=2,['size']='small',['agi']=3,['XWS']='', ['Fac']={[5]=true}, ['arcs']={'front'},
+masterShipDB[71]={['name']='TIE/ba Interceptor',['Hull']=2,['Shield']=2,['size']='small',['agi']=3,['XWS']='', ['Fac']={[5]=true}, ['arcs']={'front'},
                             ['moveSet']={'btl1','bbl1','bbr1','btr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rbl2s','rbr2s','bs4','ws5','rk5'}}
 
 --w7ship
@@ -358,6 +361,7 @@ masterShipDB[82]={['name']='Droid Gunship',['Shield']=3,['size']='small',['agi']
 -- Huge ships
 masterShipDB[90]={
     name = 'CR-90 Corvette',
+    Hull = 18,
     Shield = 7,
     Energy = 7,
     size = 'huge',
@@ -370,6 +374,7 @@ masterShipDB[90]={
 
 masterShipDB[91]={
     name = 'C-ROC Cruiser',
+    Hull = 12,
     Shield = 4,
     Energy = 4,
     size = 'huge',
@@ -382,6 +387,7 @@ masterShipDB[91]={
 
 masterShipDB[92]={
     name = 'Gozanti-class Cruiser',
+    Hull = 11,
     Shield = 5,
     Energy = 3,
     size = 'huge',
@@ -394,6 +400,7 @@ masterShipDB[92]={
 
 masterShipDB[93]={
     name = 'GR-75 Medium Transport',
+    Hull = 12,
     Shield = 3,
     Energy = 4,
     size = 'huge',
@@ -406,6 +413,7 @@ masterShipDB[93]={
 
 masterShipDB[94]={
     name = 'Raider-class Corvette',
+    Hull = 20,
     Shield = 8,
     Energy = 6,
     size = 'huge',
@@ -1743,7 +1751,7 @@ masterUpgradesDB[580]={['name']="Diamond-Boron Missiles",['slot']=6,['cost']=6,[
                         ['restriction']={ }}
 masterUpgradesDB[581]={['name']="Amilyn Holdo",['slot']=8,['cost']=8,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/cbe5e849e9daa4f3f968b2ff6e2879b1.png',
                         ['restriction']={['Faction']={[4]=true}}}
-masterUpgradesDB[582]={['name']="GA-97",['slot']=8,['cost']=6,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/3af44c6d32812dc07238b40842d67b47.png', ['Charge']=5, ['Condition']="It's the Resistance",
+masterUpgradesDB[582]={['name']="GA-97",['slot']=8,['cost']=6,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/3af44c6d32812dc07238b40842d67b47.png',
                         ['restriction']={['Faction']={[4]=true}}}
 masterUpgradesDB[583]={['name']="Kaydel Connix",['slot']=8,['cost']=5,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/29a0eb418850a3821c38874daf0a6b0d.png',
                         ['restriction']={['Faction']={[4]=true}}}
@@ -2190,14 +2198,14 @@ function idSpawner(idTable)
     end
     fList.factionDial=dialSkin[fList.Faction]
     fList.sqdAction = {}
-
     pilotIndicators = calculateShipIndicators(idTable)
-
     for k,v in pairs (idTable.Pilots) do
         local name = masterPilotDB[v]['name']
         fList.Pilots[k] ={}
         fList.Pilots[k]['id'] = v
         fList.Pilots[k]['name'] = name
+        local cost = masterPilotDB[v]['cost']
+        fList.Pilots[k]['cost'] = cost
         fList.Pilots[k]['tint'] = tintColors[pilotIndicators[k]]
         fList.Pilots[k]['card'] = masterPilotDB[v]['card']
         fList.Pilots[k]['cardB'] = cardBackDB[ffgFaction[fList.Faction]]
@@ -2205,6 +2213,8 @@ function idSpawner(idTable)
         fList.Pilots[k]['Ship'] = Ship
         fList.Pilots[k]['Size'] = masterShipDB[Ship]['size']
         fList.Pilots[k]['Shield'] = masterShipDB[Ship]['Shield']
+        fList.Pilots[k]['Hull'] = masterShipDB[Ship]['Hull']
+        fList.Pilots[k]['list'] = name..' - '..masterShipDB[Ship]['name'] ..' (' .. cost .. ')\n'
         fList.Pilots[k].mesh = masterShipDB[Ship].mesh
         fList.Pilots[k].texture = masterPilotDB[v].texture
         fList.Pilots[k]['bombD'] = 's1'
@@ -2253,6 +2263,19 @@ function idSpawner(idTable)
             local upSlot = masterUpgradesDB[value]['slot']
             fList.Upgrades[k][key] = {}
             fList.Upgrades[k][key]['name'] = name
+            local cost = masterUpgradesDB[value]['cost']
+            if cost == 'a' then
+                local agi = masterShipDB[Ship]['agi']
+                cost = varCostA[value][agi]
+            elseif cost == 'i' then
+                local init = masterPilotDB[v]['init']
+                cost = varCostI[value][init]
+            elseif cost == 's' then
+                local shipSize = masterShipDB[Ship]['size']
+                cost = varCostS[value][shipSize]
+            end
+            fList.Pilots[k]['list'] = fList.Pilots[k]['list'] .. '   '..name..' ('..cost..')\n'
+            fList.Pilots[k]['cost'] = fList.Pilots[k]['cost'] + cost
             fList.Upgrades[k][key]['card'] = masterUpgradesDB[value]['card']
             for a,b in pairs(addAction) do --Upgrades that adds an action to a ship
                 if a == value then
@@ -2329,7 +2352,8 @@ function idSpawner(idTable)
             end
             fList.Pilots[k]['bombD'] = bombD
         end
-
+        local threshold = 0
+        fList.Pilots[k]['list'] = fList.Pilots[k]['list'] .. '\nShip Cost = '..cost..'      Half Ship = '..math.ceil(cost/2)..'      Threshold = '.. math.floor( fList.Pilots[k]['Shield'] + fList.Pilots[k]['Hull'] ) ..'\n'
     end
     for k,v in pairs(fList.sqdAction) do -- adds Squad actions coming from specific upgrades
         for K,V in pairs(fList.Pilots) do
@@ -2339,6 +2363,12 @@ function idSpawner(idTable)
     if savingList == true then
         saveToDisk(fList)
     else
+        fList.listCost = 0
+        for k, v in pairs (fList.Pilots) do
+            --print(v['list'])
+            fList.listCost = fList.listCost + v['cost']
+        end
+        --print('Total List Cost = '.. fList.listCost)
         fList.spawnCard = self
         spawnNow(fList)
     end
