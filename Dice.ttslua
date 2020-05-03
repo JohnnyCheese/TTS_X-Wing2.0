@@ -1,0 +1,10 @@
+diceValues = {"Blank", "Eye", "Hit", "Hit", "Blank", "Eye", "Hit", "Crit"}
+--diceValues = {"Blank", "Eye", "Evade", "Evade", "Blank", "Eye", "Evade", "Blank"}
+
+function onNumberTyped(playerColor, number)
+    if not self.resting then
+        printToAll("WARNING! " .. playerColor .. " modified a dice to " .. diceValues[number] .. " while rolling!", color(1,0,0,1))
+    else
+        printToAll(playerColor .. " modified a dice from " .. self.getRotationValue() .. " to " .. diceValues[number])
+    end
+end
