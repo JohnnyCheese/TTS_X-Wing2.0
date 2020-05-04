@@ -232,7 +232,7 @@ masterShipDB[29]={['name']='TIE/ag Aggressor',['Hull']=4,['Shield']=1,['size']='
                             ['moveSet']={'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk4'}}
 masterShipDB[30]={['name']='K-Wing',['Hull']=6,['Shield']=3,['dTurret']=1,['size']='medium',['agi']=1,['XWS']='btls8kwing', ['Fac']={[1]=true}, ['arcs']={'singleturret'},
                             ['moveSet']={'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','wbl3','ws3','wbr3'}}
-masterShipDB[31]={['name']='ARC-170',['Shield']=3,['size']='medium',['agi']=1,['XWS']='arc170starfighter', ['Fac']={[1]=true,[6]=true}, ['arcs']={'front', 'back'},
+masterShipDB[31]={['name']='ARC-170',['Hull']=6, ['Shield']=3,['size']='medium',['agi']=1,['XWS']='arc170starfighter', ['Fac']={[1]=true,[6]=true}, ['arcs']={'front', 'back'},
                             ['moveSet']={'bbl1','bs1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs4','rk4'}}
 masterShipDB[32]={['name']='Attack Shuttle',['Hull']=3,['Shield']=1,['size']='small',['agi']=2,['XWS']='attackshuttle', ['Fac']={[1]=true}, ['arcs']={'front'},
                             ['moveSet']={'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','ws4','rk4'}}
@@ -1313,11 +1313,11 @@ masterPilotDB[624]={['name']='Major Vonreg',['Faction']=5,['ship_type']=71,['cos
 masterPilotDB[620]={['name']='Jarek Yeager',['Faction']=4,['ship_type']=70,['cost']=33,['slot']={1,6,10,13,14,14,15},['Shield']=0,['card']='http://images-cdn.fantasyflightgames.com/filer_public/85/b2/85b26549-26a7-4f48-88c5-4d52733704ee/swz63_a1_card_jarek-yeager.png',['init']=5,
                 ['actSet']={'F','E','BR'}}
 masterPilotDB[621]={['name']='Kazuda Xiono',['Faction']=4,['ship_type']=70,['cost']=40,['slot']={1,6,10,13,14,14,15},['Shield']=0,['card']='http://images-cdn.fantasyflightgames.com/filer_public/16/42/164202d5-47a5-44ea-a96b-49c795005ca8/swz63_a1_card_kazuda-xiono.png',['init']=4,
-                ['actSet']={'F','TL','E','BR','B'}}
+                ['actSet']={'F','E','BR'}}
 masterPilotDB[622]={['name']='R1-J5',['Faction']=4,['ship_type']=70,['cost']=29,['slot']={6,8,13,14,14,15},['Shield']=0,['card']='http://images-cdn.fantasyflightgames.com/filer_public/21/b3/21b3db84-a517-41ab-b3b0-dd3e5159b0c3/swz63_a1_card_r1-j5.png',['init']=1,
-                ['actSet']={'C','TL','E','BR','B'}}
+                ['actSet']={'C','E','BR'}}
 masterPilotDB[623]={['name']='Colossus Station Mechanic',['Faction']=4,['ship_type']=70,['cost']=26,['slot']={6,10,13,14,14,15},['Shield']=0,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/533ab83e881838eb8006c8f8dcf19145.png',['init']=2,
-                ['actSet']={'F','TL','E','BR','B'}}
+                ['actSet']={'F','E','BR'}}
 
 --hotshot and aces
 masterPilotDB[628]={['name']='Gina Moonsong',['Faction']= 1,['ship_type']=17,['cost']=50,['slot']={1, 2, 3, 3, 5, 14},['Shield']=4,
