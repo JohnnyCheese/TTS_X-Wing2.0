@@ -43,7 +43,7 @@ degreesToArc: A function that the AI calls to convert the angle from its ship
             "right". These correspond to the sides of the AI ship that we needs
             to do range-checking from. These should be the two closest sides to
             the target arc.
-flipArc: A function that takes one art and flips it left-to-right. HotAC AI
+flipArc: A function that takes one arc and flips it left-to-right. HotAC AI
     tables typically only cover the right half of the arc spectrum and rely
     on flipping the right arcs when the target is to the left.
     Takes a single argument (string), the name of the arc to flip
@@ -75,12 +75,12 @@ move_table: A table containing the ship's move data, organised into arcs and
         'stress': the AI ship is stressed, and the target's range is irrelevant.
 ]]
 
--- This is the upgrade of HotAC to v2 that Scott Morgan worked on and released
--- on the HotAC Facebook page in August 2018. It was subsequently abandoned
--- but the AI is comprehensive, if only for the HotAC Imperials ships.
--- see: https://www.facebook.com/groups/872507722883025/permalink/1398625470271245/
+-- This is the upgrade of the HotAC-style AI to X-wing v2, ultimately published
+-- by Justin Gan. The AIs cover all three Rebellion-era factions and are made
+-- for the broader Flight Group Alpha ruleset.
+-- see: https://www.facebook.com/groups/872507722883025/permalink/1970166016450518/
 BehaviourDB.rule_sets[1] = {}
-BehaviourDB.rule_sets[1]['name'] = 'HotAC-v2-Morgan-2008-08-20'
+BehaviourDB.rule_sets[1]['name'] = 'XW-v2-FGA-v7-Gan-2020-04-07'
 BehaviourDB.rule_sets[1]['usesBullseyeArc'] = true
 BehaviourDB.rule_sets[1]['degreesToArc'] = function(angle_to_target)
     result = {}
@@ -128,8 +128,8 @@ BehaviourDB.rule_sets[1].ships[11] = {}
 BehaviourDB.rule_sets[1].ships[11].target_selection = {[1]='ClosestInArc', [2]='Closest'}
 BehaviourDB.rule_sets[1].ships[11].move_table = {
     ['bullseye'] = {
-        ['near'] = {[1] = 'k4', [3] = 'bl2',[4] = 'br2', [5] = 's2'},
-        ['far'] = {[1] = 's2', [3] = 's3'},
+        ['near'] = {[1] = 'k4', [3] = 'bl2', [4] = 'br2', [5] = 's2'},
+        ['far'] = {[1] = 's2', [5] = 's3'},
         ['distant'] = {[1] = 's4', [2] = 's5'},
         ['stress'] = {[1] = 'bl2', [3] = 'br2', [5] = 's2'}
     },
@@ -141,7 +141,7 @@ BehaviourDB.rule_sets[1].ships[11].move_table = {
     },
     ['right_front'] = {
         ['near'] = {[1] = 'k4', [2] = 'tr1', [4] = 'tr2'},
-        ['far'] = {[1] = 'br1', [2] = 'tr2', [3] = 'br2', [5] = 'tr3'},
+        ['far'] = {[1] = 'tr1', [2] = 'tr2', [3] = 'br2', [5] = 'tr3'},
         ['distant'] = {[1] = 'tr2', [4] = 'tr3'},
         ['stress'] = {[1] = 'tr1', [2] = 'br2'}
     },
@@ -153,8 +153,265 @@ BehaviourDB.rule_sets[1].ships[11].move_table = {
     },
     ['back_right'] = {
         ['near'] = {[1] = 'k4', [3] = 'k3', [5] = 'tr2'},
-        ['far'] = {[1] = 'k3', [3] = 'tr3'},
+        ['far'] = {[1] = 'k3', [3] = 'tr1', [4] = 'tr3'},
         ['distant'] = {[1] = 'k3', [5] = 'tr1'},
-        ['stress'] = {[1] = 'tr2', [6] = 'tr3'}
+        ['stress'] = {[1] = 'br2', [6] = 'tr3'}
     }
+}
+
+-- TIE/in Interceptor
+BehaviourDB.rule_sets[1].ships[41] = {}
+BehaviourDB.rule_sets[1].ships[41].target_selection = {[1]='ClosestInArc', [2]='Closest'}
+BehaviourDB.rule_sets[1].ships[41].move_table = {
+    ['bullseye'] = {
+        ['near'] = {[1] = 'k4', [2] = 'br3s', [4] = 'bl3s', [6] = 's2'},
+        ['far'] = {[1] = 's2', [4] = 's3'},
+        ['distant'] = {[1] = 's4', [2] = 's5'},
+        ['stress'] = {[1] = 'tl2', [2] = 'tr2', [3] = 's2'},
+    },
+    ['front_right'] = {
+        ['near'] = {[1] = 'bl3s', [3] = 'tr1', [5] = 'br2'},
+        ['far'] = {[1] = 'br2', [4] = 'br3', [6] = 's3'},
+        ['distant'] = {[1] = 'br3', [5] = 's4'},
+        ['stress'] = {[1] = 'bl2', [2] = 'br2', [4] = 's2', [6] = 's4'},
+    },
+    ['right_front'] = {
+        ['near'] = {[1] = 'k4', [2] = 'bl3s', [5] = 'tr1'},
+        ['far'] = {[1] = 'tr2', [3] = 'br2', [5] = 'tr3'},
+        ['distant'] = {[1] = 'tr2', [4] = 'tr3'},
+        ['stress'] = {[1] = 'tr2', [3] = 'bl2', [4] = 'br2', [6] = 's4'},
+    },
+    ['right_back'] = {
+        ['near'] = {[1] = 'bl3s', [4] = 'tr1', [5] = 'tr2'},
+        ['far'] = {[1] = 'k4', [2] = 'bl3s', [5] = 'tr2'},
+        ['distant'] = {[1] = 'bl3s', [4] = 'tr1'},
+        ['stress'] = {[1] = 'tl2', [2] = 'tr2', [5] = 'bl2', [6] = 's4'},
+    },
+    ['back_right'] = {
+        ['near'] = {[1] = 'k4', [3] = 'bl3s', [5] = 'tr2'},
+        ['far'] = {[1] = 'br3s', [3] = 'bl3s'},
+        ['distant'] = {[1] = 'bl3s', [4] = 'tr1'},
+        ['stress'] = {[1] = 'tl2', [4] = 'tr2', [6] = 's4'},
+    },
+}
+
+-- TIE Advanced x1
+BehaviourDB.rule_sets[1].ships[13] = {}
+-- Need to add: Locked enemy within range 3, nearest enemy with lower initiative
+BehaviourDB.rule_sets[1].ships[13].target_selection = {[1]='ClosestInArc', [2]='Closest'}
+BehaviourDB.rule_sets[1].ships[13].move_table = {
+    ['bullseye'] = {
+        ['near'] = {[1] = 'k4', [3] = 's1', [5] = 's2'},
+        ['far'] = {[1] = 's1', [3] = 's2', [6] = 's3'},
+        ['distant'] = {[1] = 's4', [2] = 's5'},
+        ['stress'] = {[1] = 'bl1', [2] = 'br2', [3] = 's2'},
+    },
+    ['front_right'] = {
+        ['near'] = {[1] = 'k4', [3] = 'br1', [6] = 'br2'},
+        ['far'] = {[1] = 'br1', [3] = 'br2', [6] = 's3'},
+        ['distant'] = {[1] = 'br3', [5] = 's4'},
+        ['stress'] = {[1] = 'br1', [3] = 'br2', [4] = 's2'},
+    },
+    ['right_front'] = {
+        ['near'] = {[1] = 'k4', [2] = 'tr3t', [4] = 'tr2'},
+        ['far'] = {[1] = 'br1', [2] = 'tr2', [3] = 'br2', [5] = 'tr3'},
+        ['distant'] = {[1] = 'tr2', [4] = 'tr3'},
+        ['stress'] = {[1] = 'br1', [3] = 'tr2', [4] = 'br2'},
+    },
+    ['right_back'] = {
+        ['near'] = {[1] = 'tr3t', [4] = 'br1', [5] = 'tr2'},
+        ['far'] = {[1] = 'k4', [2] = 'tr3t', [5] = 'tr2'},
+        ['distant'] = {[1] = 'tr3t', [4] = 'tr3'},
+        ['stress'] = {[1] = 'br1', [2] = 'tr2', [4] = 'br2'},
+    },
+    ['back_right'] = {
+        ['near'] = {[1] = 'k4', [3] = 'tr3t', [5] = 'tr2'},
+        ['far'] = {[1] = 'tl3t', [3] = 'tr3t'},
+        ['distant'] = {[1] = 'tr3t', [4] = 'tr2'},
+        ['stress'] = {[1] = 'br1', [4] = 'br2', [6] = 'tr3'},
+    },
+}
+
+-- TIE/sa Bomber
+BehaviourDB.rule_sets[1].ships[19] = {}
+-- Need to add: Locked enemy within range 3
+BehaviourDB.rule_sets[1].ships[19].target_selection = {[1]='ClosestInArc', [2]='Closest'}
+BehaviourDB.rule_sets[1].ships[19].move_table = {
+    ['bullseye'] = {
+        ['near'] = {[1] = 'k5', [3] = 's1', [5] = 's2'},
+        ['far'] = {[1] = 's1', [2] = 's2', [5] = 's3'},
+        ['distant'] = {[1] = 's3', [2] = 's4'},
+        ['stress'] = {[1] = 's1', [4] = 's2'},
+    },
+    ['front_right'] = {
+        ['near'] = {[1] = 'k5', [3] = 'br1', [6] = 'br2'},
+        ['far'] = {[1] = 'br2', [4] = 'br3', [6] = 's3'},
+        ['distant'] = {[1] = 'br3', [5] = 's4'},
+        ['stress'] = {[1] = 'br1', [3] = 'br2', [4] = 's2'},
+    },
+    ['right_front'] = {
+        ['near'] = {[1] = 'k5', [2] = 'k3', [4] = 'tr2'},
+        ['far'] = {[1] = 'br1', [2] = 'tr2', [3] = 'br2', [5] = 'tr3'},
+        ['distant'] = {[1] = 'tr2', [4] = 'tr3'},
+        ['stress'] = {[1] = 'br1', [3] = 'tr2', [4] = 'br2'},
+    },
+    ['right_back'] = {
+        ['near'] = {[1] = 'k3', [4] = 'br1', [5] = 'tr2'},
+        ['far'] = {[1] = 'k5', [2] = 'k3', [5] = 'tr2'}, -- On the card 1 is a k4. This is impossible for this ship so I've changed it to an k5.
+        ['distant'] = {[1] = 'k3', [4] = 'tr2'},
+        ['stress'] = {[1] = 'br1', [2] = 'tr2', [4] = 'br2'},
+    },
+    ['back_right'] = {
+        ['near'] = {[1] = 'k5', [3] = 'k3', [5] = 'tr3'},
+        ['far'] = {[1] = 'k3', [4] = 'tr2'},
+        ['distant'] = {[1] = 'k3', [4] = 'tr2'},
+        ['stress'] = {[1] = 'br1', [4] = 'br2', [6] = 'tr3'},
+    },
+}
+
+-- TIE/de Defender
+BehaviourDB.rule_sets[1].ships[18] = {}
+-- Need to add: Locked enemy within range 3, nearest enemy with lower initiative
+BehaviourDB.rule_sets[1].ships[18].target_selection = {[1]='ClosestInArc', [2]='Closest'}
+BehaviourDB.rule_sets[1].ships[18].move_table = {
+    ['bullseye'] = {
+        ['near'] = {[1] = 'k4', [3] = 'bl1', [4] = 'br1', [5] = 's2'},
+        ['far'] = {[1] = 's2', [4] = 's3'},
+        ['distant'] = {[1] = 's4', [2] = 's5'},
+        ['stress'] = {[1] = 'bl1', [2] = 'br1', [3] = 's2'},
+    },
+    ['front_right'] = {
+        ['near'] = {[1] = 'k4', [3] = 'br1', [6] = 'br2'},
+        ['far'] = {[1] = 'br2', [4] = 'br3', [6] = 's3'},
+        ['distant'] = {[1] = 'br3', [5] = 's4'},
+        ['stress'] = {[1] = 'br1', [3] = 'br2', [4] = 's2'},
+    },
+    ['right_front'] = {
+        ['near'] = {[1] = 'k4', [4] = 'tr1', [6] = 'tr2'},
+        ['far'] = {[1] = 'tr1', [2] = 'br2', [4] = 'tr3'},
+        ['distant'] = {[1] = 'tr1', [2] = 'tr3'},
+        ['stress'] = {[1] = 'br1', [4] = 's2', [5] = 'tr3'},
+    },
+    ['right_back'] = {
+        ['near'] = {[1] = 'k4', [4] = 'br1', [5] = 'tr2'},
+        ['far'] = {[1] = 'k4', [2] = 'tr2', [5] = 'tr3'},
+        ['distant'] = {[1] = 'tr1', [3] = 'tr3'},
+        ['stress'] = {[1] = 'br1', [5] = 'tr3'},
+    },
+    ['back_right'] = {
+        ['near'] = {[1] = 'k4', [5] = 'tr3'},
+        ['far'] = {[1] = 'k4', [5] = 'tr1'},
+        ['distant'] = {[1] = 'tr1', [4] = 'tr3'},
+        ['stress'] = {[1] = 'br1', [5] = 's2', [6] = 'tr3'},
+    },
+}
+
+-- TIE/ph Phantom
+BehaviourDB.rule_sets[1].ships[27] = {}
+-- Need to add decloaking in the system phase
+BehaviourDB.rule_sets[1].ships[27].target_selection = {[1]='ClosestInArc', [2]='Closest'}
+BehaviourDB.rule_sets[1].ships[27].move_table = {
+    ['bullseye'] = {
+        ['near'] = {[1] = 'k4', [4] = 'bl1', [5] = 'br1', [6] = 's2'},
+        ['far'] = {[1] = 's2', [5] = 's3'},
+        ['distant'] = {[1] = 's3', [2] = 's4'},
+        ['stress'] = {[1] = 'bl2', [3] = 'br2', [5] = 's2'},
+    },
+    ['front_right'] = {
+        ['near'] = {[1] = 'k4', [3] = 'br1', [5] = 'br2'},
+        ['far'] = {[1] = 'br2', [4] = 'br3', [6] = 's3'},
+        ['distant'] = {[1] = 'br3', [5] = 's4'},
+        ['stress'] = {[1] = 'br2', [3] = 's2', [5] = 's3'},
+    },
+    ['right_front'] = {
+        ['near'] = {[1] = 'k4', [3] = 'tr1', [5] = 'tr2'},
+        ['far'] = {[1] = 'br1', [2] = 'tr2', [3] = 'br2', [5] = 'tr3'},
+        ['distant'] = {[1] = 'tr2', [4] = 'tr3'},
+        ['stress'] = {[1] = 'tr1', [2] = 'br2'},
+    },
+    ['right_back'] = {
+        ['near'] = {[1] = 'k4', [2] = 'tr1', [5] = 'tr2'},
+        ['far'] = {[1] = 'k4', [2] = 'k3', [4] = 'tr2'},
+        ['distant'] = {[1] = 'k3', [4] = 'tr1'},
+        ['stress'] = {[1] = 'tr1', [2] = 'tr2', [3] = 'br2'},
+    },
+    ['back_right'] = {
+        ['near'] = {[1] = 'k4', [3] = 'k3', [5] = 'tr2'},
+        ['far'] = {[1] = 'k4', [3] = 'k3'},
+        ['distant'] = {[1] = 'k3', [4] = 'tr1'},
+        ['stress'] = {[1] = 'br2', [5] = 's2', [6] = 'tr3'},
+    },
+}
+
+-- T-4a Lambda-class Shuttle
+BehaviourDB.rule_sets[1].ships[26] = {}
+BehaviourDB.rule_sets[1].ships[26].target_selection = {[1]='ClosestInArc', [2]='Closest'}
+BehaviourDB.rule_sets[1].ships[26].move_table = {
+    ['bullseye'] = {
+        ['near'] = {[1] = 's0', [4] = 'bl1', [5] = 'br1', [6] = 's1'},
+        ['far'] = {[1] = 's1', [2] = 's2', [5] = 's3'},
+        ['distant'] = {[1] = 's2', [2] = 's3'},
+        ['stress'] = {[1] = 's1', [4] = 's2'},
+    },
+    ['front_right'] = {
+        ['near'] = {[1] = 's0', [3] = 'br1', [5] = 's1', [6] = 'tr2'},
+        ['far'] = {[1] = 'br2', [4] = 'br3', [6] = 's3'},
+        ['distant'] = {[1] = 'br3', [5] = 's3'}, -- On the card 5-6 is an s4. This is impossible for this ship so I've changed it to an s3.
+        ['stress'] = {[1] = 'br1', [5] = 's1', [6] = 's2'},
+    },
+    ['right_front'] = {
+        ['near'] = {[1] = 's0', [2] = 'br1', [4] = 'tr2'},
+        ['far'] = {[1] = 'br1', [3] = 'tr2', [4] = 'br2'},
+        ['distant'] = {[1] = 'tr2', [2] = 'br2'},
+        ['stress'] = {[1] = 'br1', [5] = 's1'},
+    },
+    ['right_back'] = {
+        ['near'] = {[1] = 's0', [2] = 'br1', [4] = 'tr2'},
+        ['far'] = {[1] = 'br1', [3] = 'tr2'},
+        ['distant'] = {[1] = 'br1', [3] = 'tr2'},
+        ['stress'] = {[1] = 'br1', [6] = 's1'},
+    },
+    ['back_right'] = {
+        ['near'] = {[1] = 's0', [3] = 'br1', [4] = 'tr2', [5] = 'br2'},
+        ['far'] = {[1] = 'br1', [3] = 'tr2'},
+        ['distant'] = {[1] = 'br1', [3] = 'tr2'},
+        ['stress'] = {[1] = 'br1', [6] = 's1'},
+    },
+}
+
+-- VT-49 Decimator
+BehaviourDB.rule_sets[1].ships[28] = {}
+-- Need to add nearest enem in range 3 (no arc)
+BehaviourDB.rule_sets[1].ships[28].target_selection = {[1]='ClosestInArc', [2]='Closest'}
+BehaviourDB.rule_sets[1].ships[28].move_table = {
+    ['bullseye'] = {
+        ['near'] = {[1] = 'tl2', [3] = 'tr2', [5] = 'tl3', [6] = 'tr3'},
+        ['far'] = {[1] = 's1', [2] = 's2', [5] = 's3'},
+        ['distant'] = {[1] = 's3', [2] = 's4'},
+        ['stress'] = {[1] = 's1', [4] = 's2'},
+    },
+    ['front_right'] = {
+        ['near'] = {[1] = 'bl1', [3] = 'tl2', [6] = 'bl2'},
+        ['far'] = {[1] = 'br1', [4] = 'br2', [6] = 's3'},
+        ['distant'] = {[1] = 'br3', [5] = 's3'},
+        ['stress'] = {[1] = 'bl1', [2] = 'br1', [5] = 's2'},
+    },
+    ['right_front'] = {
+        ['near'] = {[1] = 'bl1', [2] = 'br2', [4] = 's2'},
+        ['far'] = {[1] = 'br1', [2] = 'tr2', [3] = 'br2', [5] = 'tr3'},
+        ['distant'] = {[1] = 'tr2', [4] = 'tr3'},
+        ['stress'] = {[1] = 'br1', [5] = 'tr2'},
+    },
+    ['right_back'] = {
+        ['near'] = {[1] = 'tr1', [4] = 'br1', [5] = 'tr2'},
+        ['far'] = {[1] = 'tr1', [2] = 'tr2', [5] = 'tr3'},
+        ['distant'] = {[1] = 'tr1', [3] = 'tr2'},
+        ['stress'] = {[1] = 'br1', [4] = 'br2'},
+    },
+    ['back_right'] = {
+        ['near'] = {[1] = 'br1', [3] = 'tr2', [5] = 'tr3'},
+        ['far'] = {[1] = 'tl2', [3] = 'tr2'},
+        ['distant'] = {[1] = 'tl2', [2] = 'tr3'},
+        ['stress'] = {[1] = 'br1', [4] = 's1', [6] = 'tr3'},
+    },
 }

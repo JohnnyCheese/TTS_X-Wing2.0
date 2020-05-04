@@ -292,6 +292,25 @@ AIModule.current_move.Reset = function()
     AIModule.current_move.stress_count = 0
 end
 
+-- Sanity check, make sure that all the moves for this ship are actually
+-- possible. It won't fix every issue but it'll find most typos. This is not
+-- called except when debugging.
+AIModule.ValidateMoveTables = function(ship)
+    local ship_id = ship.getTable('Data')['shipId']
+    local rule_set = BehaviourDB.GetRuleSet()
+    local behaviour = rule_set.ships[ship_id]
+
+    for arc, range_tables in pairs(behaviour.move_table) do
+        for range, move_table in pairs(range_tables) do
+            for roll, move_code in pairs(move_table) do
+                if AIModule.GetMoveDifficulty(ship, move_code) == nil then
+                    print("Couldn't find maneuver " .. move_code .. " from ship " .. tostring(ship_id) .. "'s move table. Arc: " .. arc .. ", range: " .. range .. ", roll: " .. tostring(roll))
+                end
+            end
+        end
+    end
+end
+
 -- Only choose ships that are in arc and between ranges 1-3
 AIModule.FilterForAITargetting = function(el)
     if el['in_arc'] == false then
@@ -359,6 +378,7 @@ AIModule.PerformManeuver = function(ship)
         printToAll("Can't perform AI maneuver while another ship is moving.", color(1.0, 1.0, 0.2, 0.9))
         return
     end
+    --AIModule.ValidateMoveTables(ship)
     AIModule.current_move.Reset()
     AIModule.current_move.stress_count = TokenModule.GetShipTokenCount(ship, "Stress")
 
