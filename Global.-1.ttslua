@@ -745,7 +745,7 @@ ArcCheck.GetTargetLineSegmentsInArc = function(ship, target, arcinfo)
     local segments = ArcCheck.arc_line_segments[targetShipData.Size]["full"]["segments"]
 
     local outsegments = {}
-    local arc_center_vector = Vect.RotateDeg(vector(0, 0, -1), ship.getRotation()[2] + arcinfo.direction)
+    local arc_center_vector = Vect.RotateDeg(vector(0, 0, -30), ship.getRotation()[2] + arcinfo.direction)
     --print("Arc_center_vector = " .. tostring(arc_center_vector[1]).."," .. tostring(arc_center_vector[2]) ..","..tostring(arc_center_vector[3]))
     if arcinfo.bullseye == nil then
         for k, segment in pairs(segments) do
@@ -779,26 +779,17 @@ ArcCheck.GetTargetLineSegmentsInArc = function(ship, target, arcinfo)
                 end
             else
                 -- one inside, one out
-                local p1 = nil
-                if(angleoffsets[1] < arcinfo.spread) then
-                    p1 = rotated_segment[1]
-                else
+                local p1 = rotated_segment[1]
+                if(angleoffsets[1] > arcinfo.spread) then
                     p1 = rotated_segment[2]
                 end
-
-                -- Calculate the Y part of the cross product between the center vector and the ship -> p1 vector
-                local sp1 = Vect.Between(ship.getPosition(), p1)
-                local xprodY = arc_center_vector[3]*sp1[1] - arc_center_vector[1]*sp1[3]
-
-                if xprodY > 0 then -- Positive y part means positiv spread
-                    p2 = ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, arcinfo.spread))
-                                          , rotated_segment[1], rotated_segment[2])
-                else -- Negative y part means negative spread
-                    p2 = ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, -arcinfo.spread))
-                                          , rotated_segment[1], rotated_segment[2])
+                local p2 = ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, arcinfo.spread)) , rotated_segment[1], rotated_segment[2])
+                if p2 == nil then
+                    p2 = ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, -arcinfo.spread)) , rotated_segment[1], rotated_segment[2])
                 end
-                table.insert(outsegments, {p1, p2})
-
+                if p2 ~= nil then
+                    table.insert(outsegments, {p1, p2})
+                end
             end
         end
     else -- Special Bullseye handling
@@ -839,21 +830,22 @@ ArcCheck.GetTargetLineSegmentsInArc = function(ship, target, arcinfo)
     return outsegments
 end
 
-ArcCheck.GetLineLineIntersection = function(p1, p2, p3, p4)
+ArcCheck.GetLineLineIntersection = function(p0, p1, p2, p3)
 
-    if ((p2[3] - p1[3]) / (p2[1] - p1[1])) ~= ((p4[3] - p3[3]) / (p4[1] - p3[1])) then
-        local d = ((p2[1] - p1[1]) * (p4[3] - p3[3])) - ((p2[3] - p1[3]) * (p4[1] - p3[1]))
-        --print("GetLineLineIntersection d=" .. tostring(d))
-        if d ~= 0 then
-            r = (((p1[3] - p3[3]) * (p4[1] - p3[1])) - ((p1[1] - p3[1]) * (p4[3] - p3[3]))) / d
-            --print("R: " .. tostring(r))
-            if r > 0 then
-                -- The point is infront of the first line
-                return Vector(p1[1] + r * (p2[1] - p1[1]), p1[2], p1[3] + r * (p2[3] - p1[3]))
-            end
-        end
+    local s1_x = p1[1] - p0[1]
+    local s1_y = p1[3] - p0[3]
+    local s2_x = p3[1] - p2[1]
+    local s2_y = p3[3] - p2[3]
+
+    local s = (-s1_y * (p0[1] - p2[1]) + s1_x * (p0[3] - p2[3])) / (-s2_x * s1_y + s1_x * s2_y)
+    local t = ( s2_x * (p0[3] - p2[3]) - s2_y * (p0[1] - p2[1])) / (-s2_x * s1_y + s1_x * s2_y)
+
+    if (s >= 0 and s <= 1 and t >= 0 and t <= 1) then
+        -- Collision detected
+        return vector( p0[1] + (t * s1_x), p0[2], p0[3] + (t * s1_y))
     end
-    return nil
+
+    return nil -- no collission
 end
 
 
