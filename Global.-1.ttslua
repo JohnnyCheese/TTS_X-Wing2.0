@@ -285,11 +285,13 @@ AIModule.current_move.collision = false
 AIModule.current_move.difficulty = nil
 AIModule.current_move.obstacle = false
 AIModule.current_move.stress_count = 0
+AIModule.current_move.is_ionised = false
 AIModule.current_move.Reset = function()
     AIModule.current_move.collision = false
     AIModule.current_move.difficulty = nil
     AIModule.current_move.obstacle = false
     AIModule.current_move.stress_count = 0
+    AIModule.current_move.is_ionised = false
 end
 
 -- Sanity check, make sure that all the moves for this ship are actually
@@ -381,13 +383,16 @@ AIModule.PerformManeuver = function(ship)
     --AIModule.ValidateMoveTables(ship)
     AIModule.current_move.Reset()
     AIModule.current_move.stress_count = TokenModule.GetShipTokenCount(ship, "Stress")
+    local stress = AIModule.current_move.stress_count > 0
 
     local rule_set = BehaviourDB.GetRuleSet()
 
     local ship_id = ship.getTable('Data')['shipId']
     local ship_behaviour = rule_set.ships[ship_id]
+
     if ship_behaviour ~= nil then
         printToAll('Performing AI routine for ' .. ship.GetName(), color(1.0, 1.0, 0.2, 0.9))
+        local move_code = nil
 
         -- Find this ship's target.
         local target_ship = nil
@@ -398,14 +403,17 @@ AIModule.PerformManeuver = function(ship)
             end
         end
 
-        -- TODO: Handle ion tokens. If we're suffering from ion damage, then
-        -- skip the move selection step, pick a 1 straight, remove an ion token,
-        -- and go straight to the action step. Also do the board-edge detection,
-        -- but don't do anything about it.
+        -- Check if we're ionised.
+        local is_ionised = AIModule.IsIonised(ship)
+        AIModule.current_move.is_ionised = is_ionised
+
         if target_ship == nil then
             -- TODO: This is undefined behaviour, and highly unlikely to happen.
             -- Should it default to a 2 straight?
-            printToAll( 'Failed to find target')
+            printToAll('Failed to find target')
+        elseif is_ionised == true then
+            move_code = 's1'
+            printToAll('Ionised, skipping movement selection')
         else
             -- Find out the arc that the target is in.
             local target_arc = nil
@@ -453,7 +461,6 @@ AIModule.PerformManeuver = function(ship)
 
             -- Find the range bracket - one of closing, fleeing, distant, or
             -- stress.
-            local stress = AIModule.current_move.stress_count > 0
             local range_bracket = nil
             if stress then
                 range_bracket = 'stress'
@@ -525,7 +532,6 @@ AIModule.PerformManeuver = function(ship)
 
             -- Roll the d6, and keep substracting 1 until we find a move.
             local d6_roll = math.random(6)
-            local move_code = nil
             while move_code == nil and d6_roll > 0 do
                 move_code = ship_behaviour.move_table[target_arc][range_bracket][d6_roll]
                 d6_roll = d6_roll - 1
@@ -539,77 +545,104 @@ AIModule.PerformManeuver = function(ship)
                     move_code = string.gsub(move_code, 'r', 'l')
                 end
             end
+        end
 
-            -- Check for collisions. Attempt to swerve from an obstacle.
-            local move_info = MoveData.DecodeInfo(move_code, ship)
-            local probe_data = MoveModule.MoveProbe.TryFullMove(move_info, ship, MoveModule.GetFullMove)
-            AIModule.current_move.collision = probe_data.collObj ~= nil
-            if probe_data.collObs ~= nil then
-                print(' Tried ' .. move_code .. ', hit an obstacle')
-                AIModule.current_move.obstacle = true
-                -- We've hit an obstacle! We'll try to swerve. We pick up to two
-                -- maneuvers that are the closest to our current maneuver, and
-                -- possible for our ship and stress level. Whichever of these
-                -- will get us closer to our target is the one that we try. If
-                -- that move avoids an obstacle, then we choose it instead,
-                -- otherwise we stick with our original maneuver.
-                -- TODO: deal with reverse moves
-                local potential_swerve_moves = {}
-                local swerve_speed = tostring(math.max(1, math.min(3, move_info.speed)))
-                if move_info.type == 'straight' then
-                    potential_swerve_moves = {'bl' .. swerve_speed, 'br' .. swerve_speed}
-                elseif move_info.type == 'bank' then
-                    potential_swerve_moves = {'t' .. string.sub(move_info.dir, 1, 1) .. swerve_speed, 's' .. swerve_speed}
-                elseif move_info.type == 'turn' then
-                    potential_swerve_moves = {'b' .. string.sub(move_info.dir, 1, 1) .. swerve_speed}
-                end
-
-                local swerve_moves = {}
-                for _, potential_swerve_move_code in ipairs(potential_swerve_moves) do
-                    -- If we can't do this move, then get the closest move that
-                    -- we can do and try that instead. This may be multiple
-                    -- moves, for example if a two-bank is impossible then we
-                    -- may be able to try a one-bank and a three-bank. They're
-                    -- both the same distance from the original so we'll try
-                    -- both.
-                    local nearest_move_codes = AIModule.GetNearestMoves(ship, potential_swerve_move_code, stress == false)
-                    for _, nearest_move_code in ipairs(nearest_move_codes) do
-                        table.insert(swerve_moves, nearest_move_code)
+        if move_code ~= nil then
+            -- If we weren't ionised, then check for collisions. Attempt to
+            -- swerve to avoid an obstacle.
+            if ship_ionised == false then
+                local move_info = MoveData.DecodeInfo(move_code, ship)
+                local probe_data = MoveModule.MoveProbe.TryFullMove(move_info, ship, MoveModule.GetFullMove)
+                AIModule.current_move.collision = probe_data.collObj ~= nil
+                if probe_data.collObs ~= nil then
+                    print(' Tried ' .. move_code .. ', hit an obstacle')
+                    AIModule.current_move.obstacle = true
+                    -- We've hit an obstacle! We'll try to swerve. We pick up to two
+                    -- maneuvers that are the closest to our current maneuver, and
+                    -- possible for our ship and stress level. Whichever of these
+                    -- will get us closer to our target is the one that we try. If
+                    -- that move avoids an obstacle, then we choose it instead,
+                    -- otherwise we stick with our original maneuver.
+                    -- TODO: deal with reverse moves
+                    local potential_swerve_moves = {}
+                    local swerve_speed = tostring(math.max(1, math.min(3, move_info.speed)))
+                    if move_info.type == 'straight' then
+                        potential_swerve_moves = {'bl' .. swerve_speed, 'br' .. swerve_speed}
+                    elseif move_info.type == 'bank' then
+                        potential_swerve_moves = {'t' .. string.sub(move_info.dir, 1, 1) .. swerve_speed, 's' .. swerve_speed}
+                    elseif move_info.type == 'turn' then
+                        potential_swerve_moves = {'b' .. string.sub(move_info.dir, 1, 1) .. swerve_speed}
                     end
-                end
 
-                -- Loop through all of the possible swerve moves, and find out
-                -- which one will get us the closest to our target. This is the
-                -- maneuver that we'll try again with.
-                local closest_swerve_move_code = nil
-                local closest_swerve_distance = nil
-                for _, swerve_move_code in ipairs(swerve_moves) do
-                    local post_swerve = MoveModule.GetFullMove(swerve_move_code, ship)
-                    local post_swerve_position = Vector(post_swerve.pos[1], post_swerve.pos[2], post_swerve.pos[3])
-                    local distance = Vect.Length(post_swerve_position - target_ship.GetPosition())
-                    if closest_swerve_distance == nil or distance < closest_swerve_distance then
-                        closest_swerve_distance = distance
-                        closest_swerve_move_code = swerve_move_code
+                    local swerve_moves = {}
+                    for _, potential_swerve_move_code in ipairs(potential_swerve_moves) do
+                        -- If we can't do this move, then get the closest move that
+                        -- we can do and try that instead. This may be multiple
+                        -- moves, for example if a two-bank is impossible then we
+                        -- may be able to try a one-bank and a three-bank. They're
+                        -- both the same distance from the original so we'll try
+                        -- both.
+                        local nearest_move_codes = AIModule.GetNearestMoves(ship, potential_swerve_move_code, stress == false)
+                        for _, nearest_move_code in ipairs(nearest_move_codes) do
+                            table.insert(swerve_moves, nearest_move_code)
+                        end
                     end
-                end
 
-                if closest_swerve_move_code ~= nil then
-                    local swerve_move_info = MoveData.DecodeInfo(closest_swerve_move_code, ship)
-                    local swerve_probe_data = MoveModule.MoveProbe.TryFullMove(swerve_move_info, ship, MoveModule.GetFullMove)
-                    if swerve_probe_data.collObs == nil then
-                        move_code = closest_swerve_move_code
-                        print(' Tried ' .. closest_swerve_move_code .. ', avoids the obstacle.')
-                        AIModule.current_move.obstacle = false
-                        AIModule.current_move.collision = swerve_probe_data.collObj ~= nil
-                    else
-                        print(' Tried ' .. closest_swerve_move_code .. ', still hits an obstacle.')
+                    -- Loop through all of the possible swerve moves, and find out
+                    -- which one will get us the closest to our target. This is the
+                    -- maneuver that we'll try again with.
+                    local closest_swerve_move_code = nil
+                    local closest_swerve_distance = nil
+                    for _, swerve_move_code in ipairs(swerve_moves) do
+                        local post_swerve = MoveModule.GetFullMove(swerve_move_code, ship)
+                        local post_swerve_position = Vector(post_swerve.pos[1], post_swerve.pos[2], post_swerve.pos[3])
+                        local distance = Vect.Length(post_swerve_position - target_ship.GetPosition())
+                        if closest_swerve_distance == nil or distance < closest_swerve_distance then
+                            closest_swerve_distance = distance
+                            closest_swerve_move_code = swerve_move_code
+                        end
+                    end
+
+                    if closest_swerve_move_code ~= nil then
+                        local swerve_move_info = MoveData.DecodeInfo(closest_swerve_move_code, ship)
+                        local swerve_probe_data = MoveModule.MoveProbe.TryFullMove(swerve_move_info, ship, MoveModule.GetFullMove)
+                        if swerve_probe_data.collObs == nil then
+                            move_code = closest_swerve_move_code
+                            print(' Tried ' .. closest_swerve_move_code .. ', avoids the obstacle.')
+                            AIModule.current_move.obstacle = false
+                            AIModule.current_move.collision = swerve_probe_data.collObj ~= nil
+                        else
+                            print(' Tried ' .. closest_swerve_move_code .. ', still hits an obstacle.')
+                        end
                     end
                 end
             end
 
             -- TODO: Check for edge of table collision
 
-            AIModule.current_move.difficulty = AIModule.GetMoveDifficulty(ship, move_code)
+            AIModule.current_move.difficulty = 'b'
+
+            -- If we are ionised, then our move is always blue and we remove
+            -- all of our ion tokens. Otherwise, we check for our difficulty.
+            if is_ionised then
+                while TokenModule.GetShipTokenCount(ship, 'Ion') > 0 do
+                    -- BUG: This fails to identify the ion token stack if the
+                    -- ship has exactly two stress tokens. If this occurs, the
+                    -- ship also leaves behind the single remaining stress
+                    -- token. I've done a bit of debugging and it appears that
+                    -- when a token stack has "takeObject" called on it, it
+                    -- changes from a 'chip' type to a 'generic' type. This
+                    -- means that it isn't picked up by ObjType.GetNearOfType.
+                    -- This does correct itself if the tokens are moved around
+                    -- manually, so I assume that this is just a one-frame
+                    -- occurence that wouldn't matter if the AI wasn't doing
+                    -- everything at the same time. Potential fix: set
+                    -- '__XW_Token' on the token afterwards?
+                    DialModule.PerformAction(ship, 'union', ship.getVar('owningPlayer'))
+                end
+            else
+                AIModule.current_move.difficulty = AIModule.GetMoveDifficulty(ship, move_code)
+            end
             -- Remove stress _before_ the move - if we wait till afterwards then
             -- the tokens haven't caught up with the ship and the token module
             -- doesn't count them.
@@ -637,7 +670,11 @@ AIModule.ManeuverPostShipRest = function(ship)
     if AIModule.current_move.difficulty == 'r' then
         DialModule.PerformAction(ship, 'Stress', ship.getVar("owningPlayer"))
     elseif AIModule.current_move.stress_count == 0 and AIModule.current_move.collision == false and AIModule.current_move.obstacle == false then
-        -- TODO: Action selection.
+        if AIModule.current_move.is_ionised then
+            -- TODO: Only perform a focus action (if possible)
+        else
+            -- TODO: Action selection.
+        end
     end
 
     AIModule.current_move.in_progress = false
@@ -748,6 +785,29 @@ AIModule.GetNearestMoves = function(ship, move_code, can_perform_red_maneuvers)
 
         speed_offset = speed_offset + 1
     end
+end
+
+--[[ AIModule.IsIonised
+This function returns whether or not a ship has enough ion tokens to ionise it.
+
+ship: TTS Object, the ship performing the move
+
+returns true if the ship is ionised, false otherwise.
+]]
+AIModule.IsIonised = function(ship)
+    local ion_count = TokenModule.GetShipTokenCount(ship, "Ion")
+    local ship_size = ship.getTable('Data').Size or 'small'
+    if ship_size == 'small' then
+        return ion_count >= 1
+    elseif ship_size == 'medium' then
+        return ion_count >= 2
+    elseif ship_size == 'large' then
+        return ion_count >= 3
+    else
+        return ion_count >= 6
+    end
+
+    return false
 end
 
 
@@ -3671,7 +3731,7 @@ TokenModule.QueueShipTokensMove = function(ship)
                 end
             end
             if active == false then table.insert(tokensExcl, token) end
-        elseif token.getVar('ignoreWhenMoving') ~= true then
+        elseif token.getVar('deleted') ~= true then
             table.insert(tokensExcl, token)
         end
     end
@@ -3826,8 +3886,12 @@ TokenModule.GetShipTokenCount = function(ship, token_name)
     local count = 0;
 
     for _, tokenInfo in pairs(TokenModule.GetShipTokensInfo(ship)) do
-        if tokenInfo.token.getName() == token_name then
-            count = count + 1
+        if tokenInfo.token.getName() == token_name and tokenInfo.token.getVar('deleted') == nil then
+            local quantity = tokenInfo.token.getQuantity()
+            if quantity < 0 then
+                quantity = 1
+            end
+            count = count + quantity
         end
     end
 
@@ -3930,7 +3994,7 @@ DialModule.PerformAction = function(ship, type, playerColor)
     elseif type == 'unstress' then
         local stressInfo = {token=nil, dist=-1}
         for k,tokenInfo in pairs(TokenModule.GetShipTokensInfo(ship)) do
-            if tokenInfo.token.getName() == 'Stress' and tokenInfo.dist > stressInfo.dist then
+            if tokenInfo.token.getName() == 'Stress' and tokenInfo.dist > stressInfo.dist and tokenInfo.token.getVar('deleted') == nil then
                 stressInfo.token = tokenInfo.token
             end
         end
@@ -3943,12 +4007,12 @@ DialModule.PerformAction = function(ship, type, playerColor)
             end
             stressInfo.token.highlightOn({0, 0.7, 0}, 3)
             stressInfo.token.setPositionSmooth(Vect.Sum(TokenModule.tokenSources.Stress.src.getPosition(), {0, 2, 0}))
-            stressInfo.token.setVar('ignoreWhenMoving', true)
+            stressInfo.token.setVar('deleted', true)
         end
     elseif type == 'unstrain' then
         local strainInfo = {token=nil, dist=-1}
         for k,tokenInfo in pairs(TokenModule.GetShipTokensInfo(ship)) do
-            if tokenInfo.token.getName() == 'Strain' and tokenInfo.dist > strainInfo.dist then
+            if tokenInfo.token.getName() == 'Strain' and tokenInfo.dist > strainInfo.dist and tokenInfo.token.getVar('deleted') == nil then
                 strainInfo.token = tokenInfo.token
             end
         end
@@ -3961,7 +4025,22 @@ DialModule.PerformAction = function(ship, type, playerColor)
             end
             strainInfo.token.highlightOn({0, 0.7, 0}, 3)
             strainInfo.token.setPositionSmooth(Vect.Sum(TokenModule.tokenSources.Strain.src.getPosition(), {0, 2, 0}))
-            stressInfo.token.setVar('ignoreWhenMoving', true)
+            strainInfo.token.setVar('deleted', true)
+        end
+    elseif type == 'union' then
+        local ionised = false
+        for k,tokenInfo in pairs(TokenModule.GetShipTokensInfo(ship)) do
+            if tokenInfo.token.getName() == 'Ion' and tokenInfo.token.getVar('deleted') == nil then
+                ionised = true
+                tokenInfo.token.highlightOn({0, 0.7, 0}, 3)
+                tokenInfo.token.setPositionSmooth(Vect.Sum(TokenModule.tokenSources.Ion.src.getPosition(), {0, 2, 0}))
+                tokenInfo.token.setVar('deleted', true)
+            end
+        end
+        if ionised then
+            announceInfo.note = 'sheds all ion tokens'
+        else
+            announceInfo.note = 'tried to shed ion but doesn\'t have any'
         end
     elseif tokenActions:find(' ' .. type .. ' ') ~= nil then
         local dest = TokenModule.VisiblePosition(type, ship)
