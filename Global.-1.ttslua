@@ -13,7 +13,7 @@
 
 -- Should the code execute print functions or skip them?
 -- This should be set to false on every release
-print_debug = true
+print_debug = false
 
 TTS_print = print
 function print(...)
@@ -1736,7 +1736,7 @@ end
 -- Selection function for MoveModule.JoinHitTables - obstacles only
 MoveModule.SelectObstacles = function(obj)
     local name = obj.getName()
-    return (name:find('Asteroid') or name:find('Debris') or name:find('Chute debris') or name:find('Cloud') or name:find('Spare')) ~= nil
+    return (name:find('Asteroid') or name:find('Debris') or name:find('Chute debris') or name:find('Cloud') or name:find('Spare') or name:find('Obstacle')) ~= nil
 end
 
 -- Selection function for MoveModule.JoinHitTables - mine tokens only
@@ -2724,6 +2724,8 @@ MoveModule.GetTokenOwner = function(tokenPos)
             realDist = realDist - Convert_mm_igu(10)
         elseif size == 'medium' then
             realDist = realDist - Convert_mm_igu(5)
+        elseif size == 'huge' then
+            realDist = realDist - Convert_mm_igu(15) -- Todo, check if this arbetary number works
         end
         table.insert(baseDist, {ship=ship, dist=realDist})
     end
@@ -2898,12 +2900,31 @@ TokenModule.nearPos.large.Ion       = {-55,  15}
 TokenModule.nearPos.large.Weapons   = {-55, -15}
 TokenModule.nearPos.large.Lock      = {  0,  50}
 
-TokenModule.nearPos.medium.Reinfoce = {-45,  45}
+TokenModule.nearPos.large.Reinfoce = {-45,  45}
 TokenModule.nearPos.large.Cloak     = {-45, -45}
 TokenModule.nearPos.large.Jam       = { 45, -45}
 TokenModule.nearPos.large.Disarm    = { 45,  45}
 
 TokenModule.nearPos.large.rest      = {-55, -45}
+
+-- Near base - large ships
+TokenModule.nearPos.huge = {}
+TokenModule.nearPos.huge.Focus     = { 55,  30}
+TokenModule.nearPos.huge.Calculate = { 55,  30}
+TokenModule.nearPos.huge.Evade     = { 55,   0}
+TokenModule.nearPos.huge.Stress    = { 55, -30}
+TokenModule.nearPos.huge.Strain    = { 55, -55}
+TokenModule.nearPos.huge.Tractor   = {-55,  45}
+TokenModule.nearPos.huge.Ion       = {-55,  15}
+TokenModule.nearPos.huge.Weapons   = {-55, -15}
+TokenModule.nearPos.huge.Lock      = {  0,  50}
+
+TokenModule.nearPos.huge.Reinfoce = {-45,  45}
+TokenModule.nearPos.huge.Cloak     = {-45, -45}
+TokenModule.nearPos.huge.Jam       = { 45, -45}
+TokenModule.nearPos.huge.Disarm    = { 45,  45}
+
+TokenModule.nearPos.huge.rest      = {-55, -45}
 
 -- Deduct target token position in the world for a ship, token and some entry from TokenModule.basePos or .nearPos
 TokenModule.TokenPos = function(tokenName, ship, posTable)
