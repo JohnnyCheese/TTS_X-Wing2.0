@@ -3690,6 +3690,7 @@ RulerModule.CreateCustomTables = function(ship, rulerType)
     end
 
     paramsTable.scale = rulerData.scale
+    paramsTable.material = 3
     local customTable = {}
 
     customTable.mesh = rulerData.mesh
@@ -3704,7 +3705,7 @@ RulerModule.SpawnRuler = function(ship, rulerType, beQuiet)
     local rulerData = RulerModule.CreateCustomTables(ship, rulerType)
     local newRuler = spawnObject(rulerData.params)
     newRuler.setCustomObject(rulerData.custom)
-    newRuler.setColorTint(color(1.0, 0.0, 0.0, 0.3))
+    newRuler.setColorTint(color(1.0, 0.0, 0.0, 0.6))
     table.insert(RulerModule.spawnedRulers, {ship = ship, ruler = newRuler, type = rulerType})
     newRuler.lock()
     newRuler.setScale(rulerData.params.scale)
