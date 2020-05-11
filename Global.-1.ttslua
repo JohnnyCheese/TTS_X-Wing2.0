@@ -13,7 +13,7 @@
 
 -- Should the code execute print functions or skip them?
 -- This should be set to false on every release
-print_debug = true
+print_debug = false
 
 TTS_print = print
 function print(...)
@@ -859,7 +859,8 @@ ArcCheck.CalculateArcLineSegments = function(table, degree, size_w, size_l)
     size_l = Convert_mm_igu(size_l)
     local edge_arc = Vect.AngleDeg2D({-size_w, 0, size_l}, {size_w, 0,size_l})
     --print("Size_W:" .. tostring(size_w) .. " size_l:"..size_l .. " edge_arc=".. tostring(edge_arc))
-    if edge_arc > degree then -- Rectangular base sizes (small, medium and large ships)
+    if size_w == size_l then -- Rectangular base sizes (small, medium and large ships)
+        print("Rectangular:".. tostring(size_w)..","..tostring(size_l))
         local r = math.rad(degree/2)
         local a = math.tan(r) * size_l
         table['front'] =    {   segments={ {vector(-a, 0, size_l), vector(a, 0, size_l)} },-- Front segment
@@ -881,6 +882,7 @@ ArcCheck.CalculateArcLineSegments = function(table, degree, size_w, size_l)
                                 degrees={direction=90, spread=(180-degree)/2}
                             }
     else -- Long base size (huge ships)
+        print("Long:".. tostring(size_w)..","..tostring(size_l))
         local r = math.rad(90 - degree/2)
         local a = math.tan(r) * size_w
         table['front'] =    {   segments={  {vector(-size_w, 0, a), vector(-size_w, 0, size_l)}, -- left segment
@@ -1437,7 +1439,7 @@ ArcCheck.GetTargetLineSegmentsInArc = function(ship, target, arcinfo)
     local segments = ArcCheck.arc_line_segments[targetShipData.Size]["full"]["segments"]
 
     local outsegments = {}
-    local arc_center_vector = Vect.RotateDeg(vector(0, 0, -1), ship.getRotation()[2] + arcinfo.direction)
+    local arc_center_vector = Vect.RotateDeg(vector(0, 0, -30), ship.getRotation()[2] + arcinfo.direction)
     --print("Arc_center_vector = " .. tostring(arc_center_vector[1]).."," .. tostring(arc_center_vector[2]) ..","..tostring(arc_center_vector[3]))
     if arcinfo.bullseye == nil then
         for k, segment in pairs(segments) do
@@ -1471,26 +1473,17 @@ ArcCheck.GetTargetLineSegmentsInArc = function(ship, target, arcinfo)
                 end
             else
                 -- one inside, one out
-                local p1 = nil
-                if(angleoffsets[1] < arcinfo.spread) then
-                    p1 = rotated_segment[1]
-                else
+                local p1 = rotated_segment[1]
+                if(angleoffsets[1] > arcinfo.spread) then
                     p1 = rotated_segment[2]
                 end
-
-                -- Calculate the Y part of the cross product between the center vector and the ship -> p1 vector
-                local sp1 = Vect.Between(ship.getPosition(), p1)
-                local xprodY = arc_center_vector[3]*sp1[1] - arc_center_vector[1]*sp1[3]
-
-                if xprodY > 0 then -- Positive y part means positiv spread
-                    p2 = ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, arcinfo.spread))
-                                          , rotated_segment[1], rotated_segment[2])
-                else -- Negative y part means negative spread
-                    p2 = ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, -arcinfo.spread))
-                                          , rotated_segment[1], rotated_segment[2])
+                local p2 = ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, arcinfo.spread)) , rotated_segment[1], rotated_segment[2])
+                if p2 == nil then
+                    p2 = ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, -arcinfo.spread)) , rotated_segment[1], rotated_segment[2])
                 end
-                table.insert(outsegments, {p1, p2})
-
+                if p2 ~= nil then
+                    table.insert(outsegments, {p1, p2})
+                end
             end
         end
     else -- Special Bullseye handling
@@ -1531,21 +1524,22 @@ ArcCheck.GetTargetLineSegmentsInArc = function(ship, target, arcinfo)
     return outsegments
 end
 
-ArcCheck.GetLineLineIntersection = function(p1, p2, p3, p4)
+ArcCheck.GetLineLineIntersection = function(p0, p1, p2, p3)
 
-    if ((p2[3] - p1[3]) / (p2[1] - p1[1])) ~= ((p4[3] - p3[3]) / (p4[1] - p3[1])) then
-        local d = ((p2[1] - p1[1]) * (p4[3] - p3[3])) - ((p2[3] - p1[3]) * (p4[1] - p3[1]))
-        --print("GetLineLineIntersection d=" .. tostring(d))
-        if d ~= 0 then
-            r = (((p1[3] - p3[3]) * (p4[1] - p3[1])) - ((p1[1] - p3[1]) * (p4[3] - p3[3]))) / d
-            --print("R: " .. tostring(r))
-            if r > 0 then
-                -- The point is infront of the first line
-                return Vector(p1[1] + r * (p2[1] - p1[1]), p1[2], p1[3] + r * (p2[3] - p1[3]))
-            end
-        end
+    local s1_x = p1[1] - p0[1]
+    local s1_y = p1[3] - p0[3]
+    local s2_x = p3[1] - p2[1]
+    local s2_y = p3[3] - p2[3]
+
+    local s = (-s1_y * (p0[1] - p2[1]) + s1_x * (p0[3] - p2[3])) / (-s2_x * s1_y + s1_x * s2_y)
+    local t = ( s2_x * (p0[3] - p2[3]) - s2_y * (p0[1] - p2[1])) / (-s2_x * s1_y + s1_x * s2_y)
+
+    if (s >= 0 and s <= 1 and t >= 0 and t <= 1) then
+        -- Collision detected
+        return vector( p0[1] + (t * s1_x), p0[2], p0[3] + (t * s1_y))
     end
-    return nil
+
+    return nil -- no collission
 end
 
 
@@ -2436,7 +2430,7 @@ end
 -- Selection function for MoveModule.JoinHitTables - obstacles only
 MoveModule.SelectObstacles = function(obj)
     local name = obj.getName()
-    return (name:find('Asteroid') or name:find('Debris') or name:find('Chute debris') or name:find('Cloud') or name:find('Spare')) ~= nil
+    return (name:find('Asteroid') or name:find('Debris') or name:find('Chute debris') or name:find('Cloud') or name:find('Spare') or name:find('Obstacle')) ~= nil
 end
 
 -- Selection function for MoveModule.JoinHitTables - mine tokens only
@@ -3461,6 +3455,8 @@ MoveModule.GetTokenOwner = function(tokenPos)
             realDist = realDist - Convert_mm_igu(10)
         elseif size == 'medium' then
             realDist = realDist - Convert_mm_igu(5)
+        elseif size == 'huge' then
+            realDist = realDist - Convert_mm_igu(15) -- Todo, check if this arbetary number works
         end
         table.insert(baseDist, {ship=ship, dist=realDist})
     end
@@ -3635,12 +3631,31 @@ TokenModule.nearPos.large.Ion       = {-55,  15}
 TokenModule.nearPos.large.Weapons   = {-55, -15}
 TokenModule.nearPos.large.Lock      = {  0,  50}
 
-TokenModule.nearPos.medium.Reinfoce = {-45,  45}
+TokenModule.nearPos.large.Reinfoce = {-45,  45}
 TokenModule.nearPos.large.Cloak     = {-45, -45}
 TokenModule.nearPos.large.Jam       = { 45, -45}
 TokenModule.nearPos.large.Disarm    = { 45,  45}
 
 TokenModule.nearPos.large.rest      = {-55, -45}
+
+-- Near base - large ships
+TokenModule.nearPos.huge = {}
+TokenModule.nearPos.huge.Focus     = { 55,  30}
+TokenModule.nearPos.huge.Calculate = { 55,  30}
+TokenModule.nearPos.huge.Evade     = { 55,   0}
+TokenModule.nearPos.huge.Stress    = { 55, -30}
+TokenModule.nearPos.huge.Strain    = { 55, -55}
+TokenModule.nearPos.huge.Tractor   = {-55,  45}
+TokenModule.nearPos.huge.Ion       = {-55,  15}
+TokenModule.nearPos.huge.Weapons   = {-55, -15}
+TokenModule.nearPos.huge.Lock      = {  0,  50}
+
+TokenModule.nearPos.huge.Reinfoce = {-45,  45}
+TokenModule.nearPos.huge.Cloak     = {-45, -45}
+TokenModule.nearPos.huge.Jam       = { 45, -45}
+TokenModule.nearPos.huge.Disarm    = { 45,  45}
+
+TokenModule.nearPos.huge.rest      = {-55, -45}
 
 -- Deduct target token position in the world for a ship, token and some entry from TokenModule.basePos or .nearPos
 TokenModule.TokenPos = function(tokenName, ship, posTable)
@@ -4301,7 +4316,9 @@ RulerModule.meshes.smallBase.scale = {0.629, 0.629, 0.629}
 RulerModule.meshes.smallBase.diffuse = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/arctexture.png'
 RulerModule.meshes.smallBase.collider = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Small_base_Collider.obj'
 RulerModule.meshes.smallBase.front = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/small_front.obj'
+RulerModule.meshes.smallBase.fullfront = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/small_fullfront.obj'
 RulerModule.meshes.smallBase.rear = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/small_back.obj'
+RulerModule.meshes.smallBase.fullback = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/small_fullback.obj'
 RulerModule.meshes.smallBase.sideArc = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/small_side_4.obj'
 RulerModule.meshes.smallBase.range = {}
 RulerModule.meshes.smallBase.range[1] = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/small_range_1.obj'
@@ -4315,7 +4332,9 @@ RulerModule.meshes.mediumBase.scale = {0.629, 0.629, 0.629}
 RulerModule.meshes.mediumBase.diffuse = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/arctexture.png'
 RulerModule.meshes.mediumBase.collider = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Medium_base_Collider.obj'
 RulerModule.meshes.mediumBase.front = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/medium_front.obj'
+RulerModule.meshes.mediumBase.fullfront = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/medium_fullfront.obj'
 RulerModule.meshes.mediumBase.rear = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/medium_back.obj'
+RulerModule.meshes.mediumBase.fullback = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/medium_fullback.obj'
 RulerModule.meshes.mediumBase.sideArc = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/medium_side_4.obj'
 RulerModule.meshes.mediumBase.range = {}
 RulerModule.meshes.mediumBase.range[1] = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/medium_range_1.obj'
@@ -4329,7 +4348,9 @@ RulerModule.meshes.largeBase.scale = {0.629, 0.629, 0.629}
 RulerModule.meshes.largeBase.diffuse = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/arctexture.png'
 RulerModule.meshes.largeBase.collider = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Large_base_Collider.obj'
 RulerModule.meshes.largeBase.front = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/large_front.obj'
+RulerModule.meshes.largeBase.fullfront = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/large_fullfront.obj'
 RulerModule.meshes.largeBase.rear = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/large_back.obj'
+RulerModule.meshes.largeBase.fullback = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/large_fullback.obj'
 RulerModule.meshes.largeBase.sideArc = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/large_side_4.obj'
 RulerModule.meshes.largeBase.range = {}
 RulerModule.meshes.largeBase.range[1] = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/large_range_1.obj'
@@ -4342,7 +4363,9 @@ RulerModule.meshes.hugeBase.scale = {0.629, 0.629, 0.629}
 RulerModule.meshes.hugeBase.diffuse = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/arctexture.png'
 RulerModule.meshes.hugeBase.collider = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Huge_base_Collider.obj'
 RulerModule.meshes.hugeBase.front = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/huge_front.obj'
+RulerModule.meshes.hugeBase.fullfront = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/huge_fullfront.obj'
 RulerModule.meshes.hugeBase.rear = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/huge_back.obj'
+RulerModule.meshes.hugeBase.fullback = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/huge_fullback.obj'
 RulerModule.meshes.hugeBase.sideArc = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/huge_side_4.obj'
 RulerModule.meshes.hugeBase.range = {}
 RulerModule.meshes.hugeBase.range[1] = '{verifycache}https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/hugeships/assets/Items/arcranges/new/huge_range_1.obj'
@@ -4362,13 +4385,14 @@ RulerModule.meshes.hugeBase.range[4] = '{verifycache}https://raw.githubuserconte
 -- AT           - turret arc
 -- AM           - mobile arc
 XW_cmd.AddCommand('r[1-3]?', 'rulerHandle')     -- Range "rings"
-XW_cmd.AddCommand('[fbs][lrs]?', 'rulerHandle')  -- Rulers with arc lines
+XW_cmd.AddCommand('[fbs][lrfb]?', 'rulerHandle')  -- Rulers with arc lines
 
 -- Translate ruler code to a mesh entry
 RulerModule.typeToKey = {}
 RulerModule.typeToKey['F'] = 'front'
-RulerModule.typeToKey['FS'] = 'side'
+RulerModule.typeToKey['FF'] = 'fullfront'
 RulerModule.typeToKey['B'] = 'rear'
+RulerModule.typeToKey['FB'] = 'fullback'
 RulerModule.typeToKey['R'] = 'range'
 RulerModule.typeToKey['SL'] = 'sideArc'
 RulerModule.typeToKey['SR'] = 'sideArc'
@@ -4439,11 +4463,13 @@ RulerModule.CreateCustomTables = function(ship, rulerType)
     end
 
     paramsTable.scale = rulerData.scale
+
     local customTable = {}
 
     customTable.mesh = rulerData.mesh
     customTable.collider = rulerData.collider
     customTable.diffuse = rulerData.diffuse
+    customTable.material = 3
     return {params = paramsTable, custom = customTable}
 end
 
@@ -4451,9 +4477,12 @@ end
 -- Returns new ruler reference
 RulerModule.SpawnRuler = function(ship, rulerType, beQuiet)
     local rulerData = RulerModule.CreateCustomTables(ship, rulerType)
+    if rulerData.custom.mesh == nil then
+        return nil
+    end
     local newRuler = spawnObject(rulerData.params)
     newRuler.setCustomObject(rulerData.custom)
-    newRuler.setColorTint(color(1.0, 0.0, 0.0, 0.3))
+    newRuler.setColorTint(color(1.0, 0.0, 0.0, 0.5))
     table.insert(RulerModule.spawnedRulers, {ship = ship, ruler = newRuler, type = rulerType})
     newRuler.lock()
     newRuler.setScale(rulerData.params.scale)
