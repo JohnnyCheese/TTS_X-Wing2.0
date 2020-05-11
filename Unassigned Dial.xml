@@ -89,14 +89,18 @@
                 <Image id="R2Icon" height="80" widht="80" image="R2"></Image></Button>
             <Button id="Range3" class="ArcButtons" onClick="range3" height="80" width="80" offsetXY="100 150">
                 <Image id="R3Icon" height="80" widht="80" image="R3"></Image></Button>
-            <Button id="FrontArc" class="ArcButtons" onClick="arcF" height="80" width="80" offsetXY="0 50">
+            <Button id="FrontArc" class="ArcButtons" onClick="arcF" height="80" width="80" offsetXY="0 30">
                 <Image id="FrontArcIcon" height="80" widht="80" image="FrontArc"></Image></Button>
-            <Button id="LeftArc" class="ArcButtons" onClick="arcL" height="80" width="80" offsetXY="-90 -40">
+            <Button id="LeftArc" class="ArcButtons" onClick="arcL" height="80" width="80" offsetXY="-70 -40">
                 <Image id="LeftArcIcon" height="80" widht="80" image="LeftArc"></Image></Button>
-            <Button id="RightArc" class="ArcButtons" onClick="arcR" height="80" width="80" offsetXY="90 -40">
+            <Button id="RightArc" class="ArcButtons" onClick="arcR" height="80" width="80" offsetXY="70 -40">
                 <Image id="RightArcIcon" height="80" widht="80" image="RightArc"></Image></Button>
-            <Button id="RearArc" class="ArcButtons" onClick="arcB" height="80" width="80" offsetXY="0 -130">
+            <Button id="RearArc" class="ArcButtons" onClick="arcB" height="80" width="80" offsetXY="0 -110">
                 <Image id="BackArcIcon" height="80" widht="80" image="BackArc"></Image></Button>
+            <Button id="FullFrontArc" class="ArcButtons" onClick="arcFF" height="80" width="80" offsetXY="-170 20">
+                <Image id="FullFrontArcIcon" height="80" widht="80" image="FullFront"></Image></Button>
+            <Button id="FullBackArc" class="ArcButtons" onClick="arcFB" height="80" width="80" offsetXY="-170 -100">
+                <Image id="FullBackArcIcon" height="80" widht="80" image="FullBack"></Image></Button>
     </Panel>
 </Panel>
 
@@ -283,7 +287,7 @@
           <Image id="RBL0Icon" class="MIcon"  image="RedBankL"></Image></ToggleButton>
       <ToggleButton id="RS0" class="ManBtn" offsetXY="-60 -260">
           <Image id="RS0Icon" class="MIcon"  image="RedStall"></Image></ToggleButton>
-      <ToggleButton id="RBR0" class="ManBtn" offsetXY="-20 -260">
+      <ToggleButton id="RBR0" class="ManBtn" offsetXY="20 -260">
            <Image id="RBR0Icon" class="MIcon"  image="RedBankR"></Image></ToggleButton>
 
       <ToggleButton id="BTL1" class="ManBtn" offsetXY="-220 -160">
