@@ -8,7 +8,7 @@
     <Button class="topButton" width="40" height="40" rectAlignment="UpperRight"/>
     <Button class="CenterButtons" fontSize="22" fontStyle="Bold" rotation="0 0 180" color="#222222" outline="#BBBBBB" outlineSize="2 2" textColor="#FFFFFF" height="40" width="80" active="false"/>
 
-    <ToggleButton class="ManBtn" height="75" width="75" onClick="manSelect" active="false" onValueChanged="test"  outline="#BBBBBB" colors="#888888|Orange|Red|Orange" deselectedBackgroundColor="#555555" selectedBackgroundColor="#B24915"/>
+    <ToggleButton class="ManBtn" height="75" width="75" active="false" onValueChanged="manSelect"  outline="#BBBBBB" colors="#888888|Orange|Red|Orange" deselectedBackgroundColor="#555555" selectedBackgroundColor="#B24915"/>
 
     <Panel class="Window" color="#aaffaa00" width="900" height="800" rectAlignment="MiddleRight"/>
     <Panel class="TopBar" color="#aaffaa00" height="30" rectAlignment="UpperCenter"/>
@@ -35,7 +35,7 @@
     rotation="180 180 180"
     color="#aaffaa00">
         <Button id="moveWindow" class="CenterButtons" height="75" width="100" position="0 10 -2" active="true" onClick="Window">Moves</Button>
-        <Button id="setBtnFD" class="CenterButtons" height="75" position="0 10 -2" active="false" onClick="setDial">Set</Button>
+        <Button id="setBtnFD" class="CenterButtons" height="75" position="0 10 -2" active="false" onClick="setDial" onMouseEnter="showSetMan" onMouseExit="hideSetMan">Set</Button>
         <Text   id="Name" class="DialName" position="0 70 3.5" rotation="180 180 0" height="80" fontSize="25" fontStyle="Bold">Name</Text>
         <Button id="TokenMenu" class="CenterMenuButtons" offsetXY="-110 15" active="true" onMouseEnter="showTokMFD">T</Button>
         <Button id="ArcMenu" class="CenterMenuButtons" offsetXY="110 15" active="true" onMouseEnter="showArcMFD">A</Button>
@@ -102,6 +102,17 @@
             <Button id="FullBackArc" class="ArcButtons" onClick="arcFB" height="80" width="80" offsetXY="-170 -100">
                 <Image id="FullBackArcIcon" height="80" widht="80" image="FullBack"></Image></Button>
     </Panel>
+</Panel>
+
+<Panel id="setManPeekPanel"
+    active="false"
+    width="70"
+    height="140"
+    color="#ccccccff"
+    showAnimation="FadeIn"
+    hideAnimation="FadeOut">
+        <Image id="setManTypeIcon" height="60" widht="60" image="BlueStraight" offsetXY="0 35"></Image>
+        <Image id="setManSpeedIcon" height="60" widht="60" image="Speed1" offsetXY="0 -35"></Image>
 </Panel>
 
 <Panel id="tokenPanel"
