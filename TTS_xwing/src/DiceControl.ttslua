@@ -144,7 +144,7 @@ function onObjectLeaveScriptingZone(zone, leave_object)
 end ]]
 
 DiceControlModule.onObjectRandomize = function(object, player_color)
-    if DiceControlModule.enabled then --global_mode or dice_in_box[object.getGUID()] ~= nil then
+    if DiceControlModule.enabled and object.tag == "Dice" then --global_mode or dice_in_box[object.getGUID()] ~= nil then
         if DiceControlModule.dice_roller_state == "idle" then
             if object.held_by_color ~= nil then
                 DiceControlModule.dice_roller_state = "error"
