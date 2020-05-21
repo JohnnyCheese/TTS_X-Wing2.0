@@ -186,16 +186,6 @@ DiceControlModule.PresentDiceRollerResult = function(player_color)
                     table.insert(resulttexts, DiceControlModule.highlight_color .. tostring(results[result]).."[-] ".. DiceControlModule.dice_types[dice_color].color .. result..plural_s.. "[-] ")
                 end
             end
-            if any_result then
-                for i = 1,#resulttexts,1 do
-                    resulttext = resulttext .. resulttexts[i]
-                    if #resulttexts - i > 1 then
-                        resulttext = resulttext .. ", "
-                    elseif #resulttexts - i == 1 then
-                        resulttext = resulttext .. " and "
-                    end
-                end
-            end
         else
             for res, num in pairs(results) do
                 resulttext = resulttext ..  DiceControlModule.highlight_color .. tostring(num).."[-]x".. DiceControlModule.dice_types[dice_color].color .. res.. "[-] "
@@ -204,6 +194,15 @@ DiceControlModule.PresentDiceRollerResult = function(player_color)
     end
     if any_result == false then
         resulttext = resulttext ..  DiceControlModule.highlight_color .. "Got nothing![-]"
+    else
+        for i = 1,#resulttexts,1 do
+            resulttext = resulttext .. resulttexts[i]
+            if #resulttexts - i > 1 then
+                resulttext = resulttext .. ", "
+            elseif #resulttexts - i == 1 then
+                resulttext = resulttext .. " and "
+            end
+        end
     end
     printToAll(resulttext, DiceControlModule.info_color)
     DiceControlModule.dice_roller_state[player_color]  = "idle"
