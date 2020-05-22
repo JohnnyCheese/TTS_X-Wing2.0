@@ -54,6 +54,7 @@ function clearDial()
     self.UI.hide('arcPanel')
     self.UI.hide('relocPanel')
     self.UI.hide('tokenPanel')
+    self.UI.hide("setManPeekPanel")
     winStat = false
 end
 
@@ -79,7 +80,7 @@ function onUpdate()
 end
 
 function manSelect(p, option, id)
-    if spectReturn(p) == true then
+    if spectReturn(p) == true or option == false then
         return
     end
     firstSet=true
@@ -243,6 +244,7 @@ function assignShip(ship)
     self.UI.setAttribute("tokenPanel", "active", "true")
     self.UI.setAttribute("relocPanel", "active", "true")
     self.UI.setAttribute("CenterFD", "active", "true")
+    self.UI.setAttribute("setManPeekPanel", "active", "true")
     assignedShip = ship
     Name=assignedShip.getName()
     self.setName(Name)
@@ -630,6 +632,28 @@ function spectReturn(p)
     end
     return p.color ~= playerColor
 end
+
+function showSetMan(p)
+    if spectReturn(p) == true then
+        return
+    end
+    self.UI.show("setManPeekPanel")
+    self.UI.setAttribute("setManPeekPanel", "visibility", playerColor)
+    self.UI.setAttribute("setManTypeIcon", "image", typeIcon)
+    self.UI.setAttribute("setManSpeedIcon", "image", speedIcon)
+    self.UI.setAttribute("setManTypeIcon", "active", "true")
+    self.UI.setAttribute("setManSpeedIcon", "active", "true")
+    self.UI.setAttribute("setManPeekPanel", "position", "-100 -150 -50")
+    self.UI.setAttribute("setManPeekPanel", "rotation", "180 180 0")
+end
+
+function hideSetMan(p)
+    if spectReturn(p) == true then
+        return
+    end
+    self.UI.hide("setManPeekPanel")
+end
+
 
 function showTokMFD(p)
     if spectReturn(p) == true then
