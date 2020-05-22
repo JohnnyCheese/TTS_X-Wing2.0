@@ -550,6 +550,13 @@ function arcF(p)
     assignedShip.setDescription("f")
 end
 
+function arcFF(p)
+    if spectReturn(p) == true then
+        return
+    end
+    assignedShip.setDescription("ff")
+end
+
 function arcL(p)
     if spectReturn(p) == true then
         return
@@ -569,6 +576,13 @@ function arcB(p)
         return
     end
     assignedShip.setDescription("b")
+end
+
+function arcFB(p)
+    if spectReturn(p) == true then
+        return
+    end
+    assignedShip.setDescription("fb")
 end
 
 function pivK(p)

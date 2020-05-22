@@ -1,0 +1,271 @@
+-- Tournament Dice box, By Eirik 'Flippster' Munthe
+DiceControlModule = {}
+
+--DiceControlModule.dice_box_zone = nil
+--DiceControlModule.dice_in_box = {}
+DiceControlModule.dice_roller_state = "idle"
+DiceControlModule.no_rolled_dice = 0
+--DiceControlModule.zone_scale = vector(5,15,5)
+DiceControlModule.dice_statistics = {}
+DiceControlModule.rolling_player = nil
+
+DiceControlModule.enabled = true
+
+DiceControlModule.error_color = color(1.0,0.2,0.1)
+DiceControlModule.info_color = color(1,1,0.4)
+
+DiceControlModule.luck_values = {
+    Red = {
+        Crit = { expected = 1/8,
+                luck = 1.25},
+        Hit  =  { expected = 3/8,
+                 luck = 1},
+        Eye  = { expected = 2/8,
+                 luck = 0.5},
+        Blank = { expected = 2/8,
+                 luck = 0}
+             },
+    Green = {
+        Evade = { expected = 3/8,
+                 luck =  1},
+        Eye = { expected = 2/8,
+                 luck = 0.75},
+        Blank = { expected = 3/8,
+                 luck = 0}
+             }
+         }
+
+--[[ The onLoad event is called after the game save finishes loading. --]]
+DiceControlModule.onLoad = function()
+    --setupScriptZone()
+    addContextMenuItem("Toggle dice control",
+        function()
+            if DiceControlModule.enabled then
+                DiceControlModule.enabled = false
+                printToAll("Dice control is now DISABLED", DiceControlModule.info_color)
+            else
+                DiceControlModule.enabled = true
+                printToAll("Dice control is now ENABLED", DiceControlModule.info_color)
+            end
+        end, false, false)
+    --self.addContextMenuItem("Setup scriptzone", setupScriptZone, false)
+    addContextMenuItem("Present dice statistics", DiceControlModule.presentStatistics, false)
+    addContextMenuItem("Reset dice statistics", function() DiceControlModule.dice_statistics = {} end, false)
+    --[[self.addContextMenuItem("Toggle global scope",
+        function()
+            if global_mode then
+                global_mode = false
+                printToAll("Global mode is now DISABLED", info_color)
+            else
+                global_mode = true
+                printToAll("Global mode is now ENABLED", info_color)
+            end
+        end, false)]]
+end
+
+EventSub.Register('onLoad', DiceControlModule.onLoad)
+
+--[[function setupScriptZone()
+    if dice_box_zone ~= nil then
+        destroyObject(dice_box_zone)
+    end
+    local my_scale = self.getScale()
+    local my_pos = self.getPosition()
+    dice_box_zone = spawnObject(
+    {
+        type =      "ScriptingTrigger",
+        position =  vector(my_pos.x, my_pos.y + zone_scale.y/2, my_pos.z),
+        rotation =  self.getRotation(),
+        scale =     vector(my_scale.x*zone_scale.x, my_scale.y*zone_scale.y, my_scale.z*zone_scale.z)
+    })
+end]]
+
+DiceControlModule.presentStatistics = function()
+    for player, types in pairs(DiceControlModule.dice_statistics) do
+        local total = 0
+        printToAll(player .. " player have rolled:" , DiceControlModule.info_color)
+        local playerluck = nil
+        for type, results in pairs(types) do
+            local typetotal = results.Total
+            total = total + typetotal
+            local luck = 0
+            for result, number in pairs(results) do
+                local percentage = tostring(math.floor(number / typetotal * 1000) / 10)
+                local luckvalue = DiceControlModule.luck_values[type]
+                local luckstring = ""
+                if luckvalue ~= nil and luckvalue[result] ~= nil then
+                    luckstring = " - Expected: " .. tostring(luckvalue[result].expected * typetotal)
+                    luck = luck + ((number - (luckvalue[result].expected * typetotal)) *  luckvalue[result].luck)
+                end
+                printToAll(type .. " ".. result .. ": " .. tostring(number) .. " (".. percentage .. "%)" .. luckstring, DiceControlModule.info_color)
+            end
+            if DiceControlModule.luck_values[type] ~= nil then
+                printToAll(type .. " dice luck score: " .. tostring(luck), DiceControlModule.info_color)
+                playerluck = (playerluck or 0) + luck
+            end
+        end
+        if playerluck ~= nil then
+            printToAll("Total luck score: " .. tostring(playerluck), DiceControlModule.info_color)
+        end
+    end
+end
+
+--[[
+function onObjectEnterScriptingZone(zone, enter_object)
+    if zone == dice_box_zone and global_mode == false then
+        if enter_object.tag == "Dice" then
+            if dice_roller_state == "idle" then
+                dice_in_box[enter_object.getGUID()] = enter_object
+            else
+                destroyObject(enter_object)
+            end
+        end
+    end
+end
+
+function onObjectLeaveScriptingZone(zone, leave_object)
+    if zone == dice_box_zone and global_mode == false then
+        if leave_object.tag == "Dice" then
+            if dice_roller_state == "idle" then
+                dice_in_box[leave_object.getGUID()] = nil
+            else
+                printToAll("Dice fell out of tray, please roll a new die", error_color)
+                for k, dice in pairs(rolled_dice) do
+                    if dice == leave_object then
+                        table.remove(rolled_dice,k)
+                        destroyObject(leave_object)
+                        return
+                    end
+                end
+                destroyObject(leave_object)
+            end
+        end
+    end
+end ]]
+
+DiceControlModule.onObjectRandomize = function(object, player_color)
+    if DiceControlModule.enabled then --global_mode or dice_in_box[object.getGUID()] ~= nil then
+        if DiceControlModule.dice_roller_state == "idle" then
+            if object.held_by_color ~= nil then
+                DiceControlModule.dice_roller_state = "error"
+                --printToAll("Please don't shake dice in the dice box, it doesn't work", error_color)
+                Wait.frames(function() DiceControlModule.dice_roller_state = "idle" end, 1)
+                return
+            end
+            DiceControlModule.rolling_player = player_color
+            DiceControlModule.rolled_dice = {}
+            table.insert(DiceControlModule.rolled_dice, object)
+            --print("We got a roll in the dice box")
+            DiceControlModule.dice_roller_state = "starting"
+            DiceControlModule.no_rolled_dice = 1
+
+            --[[for k, dice in pairs(dice_in_box) do
+                dice.interactable = false
+                players = dice.getSelectingPlayers()
+                for j, player in pairs(players) do
+                    dice.removeFromPlayerSelection(player)
+                end
+            end]]
+            Wait.time(
+            function()
+                DiceControlModule.dice_roller_state = "waiting"
+                printToAll(player_color .. " player rolled " .. tonumber(DiceControlModule.no_rolled_dice) .. " dice", DiceControlModule.info_color)
+                --[[if global_mode == false then
+                    for k, dice in pairs(dice_in_box) do
+                        dice.interactable = false
+                        players = dice.getSelectingPlayers()
+                        for j, player in pairs(players) do
+                            dice.removeFromPlayerSelection(player)
+                        end
+                    end
+                else]]
+                    for k, dice in pairs(DiceControlModule.rolled_dice) do
+                        dice.interactable = false
+                        players = dice.getSelectingPlayers()
+                        for j, player in pairs(players) do
+                            dice.removeFromPlayerSelection(player)
+                        end
+                    end
+                --end
+
+            end, 0.5,0)
+            Wait.condition(DiceControlModule.PresentDiceRollerResult, DiceControlModule.UntilRolledDiceAreStill, 6, DiceControlModule.RollTimeout)
+        elseif DiceControlModule.dice_roller_state == "starting" then
+            if player_color ~= DiceControlModule.rolling_player then
+                printToAll(DiceControlModule.rolling_player .. " is allready rolling dice, please wait!", DiceControlModule.error_color)
+                destroyObject(object)
+            else
+                for i, dice in pairs(DiceControlModule.rolled_dice) do
+                    if dice == object then
+                        return
+                    end
+                end
+                table.insert(DiceControlModule.rolled_dice, object)
+                DiceControlModule.no_rolled_dice = DiceControlModule.no_rolled_dice + 1
+            end
+        elseif DiceControlModule.dice_roller_state == "waiting" then
+            printToAll("New roll while in waiting, shouldn't be possible", DiceControlModule.error_color)
+            destroyObject(object)
+        end
+    end
+end
+
+EventSub.Register('onObjectRandomize', DiceControlModule.onObjectRandomize)
+
+DiceControlModule.RollTimeout = function()
+    printToAll("Roll timed out, please try again", DiceControlModule.error_color)
+    --[[if global_mode == false then
+        for k, dice in pairs(dice_in_box) do
+            dice.interactable = true
+        end
+    else]]
+        for k, dice in pairs(DiceControlModule.rolled_dice) do
+            dice.interactable = true
+        end
+    --end
+    DiceControlModule.dice_roller_state = "idle"
+end
+
+DiceControlModule.PresentDiceRollerResult = function()
+    resulttext = "Result: "
+    resultTable = {}
+    --[[if global_mode == false then
+        for k, dice in pairs(dice_in_box) do
+            dice.interactable = true
+        end
+    else]]
+        for k, dice in pairs(DiceControlModule.rolled_dice) do
+            dice.interactable = true
+        end
+    --end
+
+    for k, dice in pairs(DiceControlModule.rolled_dice) do
+        local dicecolor = dice.getVar("dicecolor") or ""
+        local result = dice.getRotationValue()
+        resultTable[dicecolor .." ".. result] = (resultTable[dicecolor .. " " .. result] or 0) + 1
+        local playerstats = DiceControlModule.dice_statistics[DiceControlModule.rolling_player] or {}
+        if playerstats[dicecolor] == nil then
+            playerstats[dicecolor] = {}
+        end
+        playerstats[dicecolor].Total = (playerstats[dicecolor].Total or 0) + 1
+        playerstats[dicecolor][result] = (playerstats[dicecolor][result] or 0) + 1
+        DiceControlModule.dice_statistics[DiceControlModule.rolling_player] = playerstats
+    end
+    for res, num in pairs(resultTable) do
+        resulttext = resulttext .. tostring(num).." "..res.. " "
+    end
+    printToAll(resulttext, DiceControlModule.info_color)
+    DiceControlModule.dice_roller_state = "idle"
+end
+
+DiceControlModule.UntilRolledDiceAreStill = function()
+    for k, dice in pairs(DiceControlModule.rolled_dice) do
+        if dice == nil then
+            printToAll("A dice dissapeared while rolling!", DiceControlModule.error_color)
+            table.remove(DiceControlModule.rolled_dice, k)
+        elseif not dice.resting then
+            return false
+        end
+    end
+    return true
+end
