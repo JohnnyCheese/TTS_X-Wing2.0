@@ -47,6 +47,9 @@ end
 -- Dice control and dice_statistics
 #include TTS_xwing/src/DiceControl
 
+-- Ship verification
+#include TTS_xwing/src/ShipVerification
+
 -- Modules API, must be loaded last
 #include TTS_xwing/src/API
 
@@ -3189,6 +3192,9 @@ end
 --      saveName    <- move code for history save, no save done if nil
 --      finFunction <- optional, function to call when the ship has come to rest
 MoveModule.MoveShip = function(ship, finData, saveName, finFunction)
+    if not ShipVerification.VerifyShipBase(ship) then
+        return
+    end
     XW_cmd.SetBusy(ship)
     MoveModule.RemoveOverlapReminder(ship)
     if finData.type ~= 'stationary' then
@@ -3209,6 +3215,8 @@ MoveModule.MoveShip = function(ship, finData, saveName, finFunction)
         MoveModule.AddHistoryEntry(ship, {pos=finPos.pos, rot=finPos.rot, move=saveName, part=finData.finPart, finType=finData.finType})
     end
 end
+
+
 
 -- This part controls the waiting part of moving
 -- Basically, if anything needs to be done after the ship rests, this can trigger it
@@ -5321,7 +5329,7 @@ function newSpawner(listTable)
                       type              = "Custom_Model",
                       position          = idpos,
                       rotation          = idrot,
-                      scale             = {0.629, 0.629, 0.629},
+                      scale             = mm_ship_scale,
                       sound             = false,
                       snap_to_grid      = false,
                   })
@@ -5399,7 +5407,7 @@ function newSpawner(listTable)
               type              = "Custom_Model",
               position          = pos,
               rotation          = rot,
-              scale             = {0.629, 0.629, 0.629},
+              scale             = mm_ship_scale,
               sound             = false,
               snap_to_grid      = false,
           })
@@ -5413,15 +5421,7 @@ function newSpawner(listTable)
         end
         if newShip ~= nil then
             newShip.setName(Pilots[shipIndex]['name']) --Corrects ship name for clones
-            if Pilots[shipIndex]['Size'] == "small" then
-                newShip.setCustomObject({collider= '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Small_base_Collider.obj'})
-            elseif Pilots[shipIndex]['Size'] == "medium" then
-                newShip.setCustomObject({collider= '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Medium_base_Collider.obj'})
-            elseif Pilots[shipIndex]['Size'] == "large" then
-                newShip.setCustomObject({collider= '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Large_base_Collider.obj'})
-            elseif Pilots[shipIndex]['Size'] == "huge" then
-                newShip.setCustomObject({collider= '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/Huge_base_Collider.obj'})
-            end
+            newShip.setCustomObject({collider= ShipVerification.colliders[Pilots[shipIndex]['Size']]})
             newShip.setLock(true)
             newShip.setTable("Data", Pilots[shipIndex]['Data'])
             newShip.setLuaScript(saveAndLoadShipStateLua)
@@ -5459,7 +5459,7 @@ function newSpawner(listTable)
                   type              = "Custom_Model",
                   position          = idpos,
                   rotation          = idrot,
-                  scale             = {0.629, 0.629, 0.629},
+                  scale             = mm_ship_scale,
                   sound             = false,
                   snap_to_grid      = false,
               })
