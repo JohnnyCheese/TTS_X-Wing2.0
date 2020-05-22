@@ -1,3 +1,4 @@
+
 -- ~~~~~~
 -- Script by Eirik 'Flippster' Munthe
 --
@@ -52,6 +53,7 @@ DiceControlModule.dice_types = {
           }
 
 DiceControlModule.onLoad = function()
+
     addContextMenuItem("Toggle dice control",
         function()
             if DiceControlModule.enabled then
