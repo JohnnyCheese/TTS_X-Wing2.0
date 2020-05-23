@@ -887,6 +887,7 @@ ArcCheck.CalculateArcLineSegments = function(table, degree, size_w, size_l)
                                        },
                                 degrees={direction=90, spread=(180-degree)/2}
                             }
+                            
     else -- Long base size (huge ships)
         print("Long:".. tostring(size_w)..","..tostring(size_l))
         local r = math.rad(90 - degree/2)
