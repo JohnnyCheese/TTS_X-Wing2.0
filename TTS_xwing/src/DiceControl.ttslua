@@ -113,6 +113,7 @@ DiceControlModule.onObjectRandomize = function(object, player_color)
             DiceControlModule.rolled_dice[player_color] = {}
             table.insert(DiceControlModule.rolled_dice[player_color], object)
             DiceControlModule.dice_roller_state[player_color]  = "starting"
+            object.addForce(vector(0,200,0), 2)
 
             Wait.time(
             function()
@@ -136,6 +137,7 @@ DiceControlModule.onObjectRandomize = function(object, player_color)
                 end
             end
             table.insert(DiceControlModule.rolled_dice[player_color], object)
+            object.addForce(vector(0,200,0), 2)
         elseif DiceControlModule.dice_roller_state[player_color]  == "waiting" then
             for i, dice in pairs(DiceControlModule.rolled_dice[player_color]) do
                 if dice == object then
