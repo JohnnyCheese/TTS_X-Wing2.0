@@ -111,7 +111,18 @@ addAction[593]={[1]='R'}--Angled Deflectors (Reinforce)
 addAction[704]={[1]='C'}--K-2SO (C)
 addAction[391]={[1]='TL'}--ST-321 (TL)
 addAction[619]={[1]='TL'}--Targeting computer (TL)
-
+addAction[1007]={'E'} --Carlist Rieekan (E)
+addAction[1016]={'TL'} --Toryn Farr (TL)
+addAction[1017]={'TL', 'C'} --Bombardment Specialists (TL, C)
+addAction[1018]={'C'} --Comm Teams (C)
+addAction[1019]={'R','C'} --Damage Control Team (R, C)
+addAction[1020]={'C'} -- GunnerySpecialists (C)
+addAction[1021]={'C'} -- IG-RM Droids (C)
+addAction[1022]={'C'} -- Ordinance Team (C)
+addAction[1023]={'TL','C'} --  SensorExperts (TL, C)
+addAction[1031]={'E','F'} -- DodonnasPride (E,F)
+addAction[1040]={'C'} -- Corvus (C)
+addAction[1048]={'E'} -- Merchant One (E)
 
 --table referenced by upgrades that adds actions to all ships in a squad.
 addSqdAction={}
@@ -120,6 +131,7 @@ addSqdAction[337]={[1]='Piv'}--Ciena Ree (Pivot)
 addSqdAction[346]={[1]='B'}--Moff Jerjerrod (B)
 addSqdAction[538]={[1]='F'}--Darth Sidious (F)
 addSqdAction[554]={[1]='TL'}--Synchronized Console (TL)
+addSqdAction[1046]={'E','B'}--Vector (E, B)
 
 -- FFG uses full name on factions, so a conversion is needed
 ffgFaction = {}
@@ -1822,11 +1834,536 @@ masterUpgradesDB[655]={['name']="Kaz's Fireball",['slot']=15,['cost']=2,['card']
                         ['restriction']={ ['ship']={[70]=true}}}
 
 
-
-
-
-
-
+-- Epic upgrade cards
+-- Commands
+masterUpgradesDB[1000]={
+    name = "Agent of the Empire",
+    slot = 21,
+    cost = 4,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/AgentEmpire.png',
+    restriction = {
+        Faction={[2]=true},
+        ship = {[13]=true, [25]=true}
+    }
+}
+masterUpgradesDB[1001]={
+    name = "First Order Elite",
+    slot = 21,
+    cost = 4,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/FOElite.png',
+    restriction = {
+        Faction = {[5]=true},
+        ship = {[50]=true, [52]=true}
+    }
+}
+masterUpgradesDB[1002]={
+    name = "Veteran Wing Leader",
+    slot = 21,
+    cost = 2,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/VeteranWingLeader.png',
+    restriction = {
+        Size={small=true}
+    }
+}
+masterUpgradesDB[1003]={
+    name = "Dreadnought hunter",
+    slot = 21,
+    cost = 6,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/DreadnoughtHunter.png',
+    restriction = {
+        Size={small=true} -- TODO: Add initiative 4 or higher restriction
+    }
+}
+-- Command and Crew
+masterUpgradesDB[1004]={
+    name = "Admiral Ozzel",
+    slot = 21,
+    remSlot = {8},
+    cost = 6,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/AdmiralOzzel.png',
+    cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Epic+Crew.png',
+    restriction = {
+        Faction = {[2]=true},
+        Size={huge=true}
+    }
+}
+masterUpgradesDB[1005]={
+    name = "Azmorigan",
+    slot = 21,
+    remSlot = {8},
+    cost = 4,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/Azmorigan.png',
+    cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Epic+Crew.png',
+    restriction = {
+        Faction = {[3]=true},
+        Size={huge=true}
+    }
+}
+masterUpgradesDB[1006]={
+    name = "Captain Needa",
+    slot = 21,
+    remSlot = {8},
+    cost = 8,
+    Charge = 4,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/CaptainNeeda.png',
+    cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Epic+Crew.png',
+    restriction = {
+        Faction = {[2]=true},
+        Size={huge=true}
+    }
+}
+masterUpgradesDB[1007]={
+    name = "Carlist Rieekan",
+    slot = 21,
+    remSlot = {8},
+    cost = 6,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/CarlistRieekan.png',
+    cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Epic+Crew.png',
+    restriction = {
+        Faction = {[1]=true},
+        Size={huge=true}
+    }
+}
+masterUpgradesDB[1008]={
+    name = "Jan Dodonna",
+    slot = 21,
+    remSlot = {8},
+    cost = 4,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/JanDodonna.png',
+    cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Epic+Crew.png',
+    restriction = {
+        Faction = {[1]=true},
+        Size={huge=true}
+    }
+}
+masterUpgradesDB[1009]={
+    name = "Jan Dodonna",
+    slot = 21,
+    remSlot = {8},
+    cost = 12,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/RaymusAntillies.png',
+    cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Epic+Crew.png',
+    restriction = {
+        Faction = {[1]=true},
+        Size={huge=true}
+    }
+}
+masterUpgradesDB[1010]={
+    name = "Stalwart Captain",
+    slot = 21,
+    remSlot = {8},
+    cost = 6,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/StalwartCaptain.png',
+    cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Epic+Crew.png',
+    restriction = {
+        Faction = {[1]=true},
+        Size={huge=true}
+    }
+}
+-- Hardpoints
+masterUpgradesDB[1011]={
+    name = "Ion Cannon Battery",
+    slot = 24,
+    cost = 5,
+    sTurret = 1,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/IonCannonBattery.png',
+    cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/IonCannonBattery(Offline).png',
+    restriction = {}
+}
+masterUpgradesDB[1012]={
+    name = "Ordinance Tubes",
+    slot = 24,
+    cost = 1,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/OrdnanceTubes.png',
+    cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/OrdnanceTubes(Offline).png',
+    restriction = {}
+}
+masterUpgradesDB[1013]={
+    name = "Point-Defence Battery",
+    slot = 24,
+    cost = 9,
+    dTurret = 1,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/PointDefenseBattery.png',
+    cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/PointDefenseBattery(Offline).png',
+    restriction = {}
+}
+masterUpgradesDB[1014]={
+    name = "Targeting Battery",
+    slot = 24,
+    cost = 6,
+    sTurret = 1,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/TargetingBattery.png',
+    cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/TargetingBattery(Offline).png',
+    restriction = {}
+}
+masterUpgradesDB[1015]={
+    name = "Turbolaser Battery",
+    slot = 24,
+    cost = 13,
+    sTurret = 1,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/TurbolaserBattery.png',
+    cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/TurbolaserBattery(Offline).png',
+    restriction = {
+        -- TODO: Add restriction energy 5 or higher
+    }
+}
+-- Crew
+masterUpgradesDB[1016]={
+    name = "Toryn Farr",
+    slot = 8,
+    cost = 4,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/TorynFarr.png',
+    restriction = {
+        Faction = {[1]=true},
+        Size={huge=true}
+    }
+}
+-- Team
+masterUpgradesDB[1017]={
+    name = "Bombardment Specialists",
+    slot = 23,
+    cost = 6,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/BombardmentSpecialists.png',
+    restriction = {}
+}
+masterUpgradesDB[1018]={
+    name = "Comms Team",
+    slot = 23,
+    cost = 8,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/CommsTeam.png',
+    restriction = {}
+}
+masterUpgradesDB[1019]={
+    name = "Damage Control Team",
+    slot = 23,
+    cost = 3,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/DamageControlTeam.png',
+    restriction = {}
+}
+masterUpgradesDB[1020]={
+    name = "Gunnery Specialists",
+    slot = 23,
+    cost = 8,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/GunnerySpecialists.png',
+    restriction = {}
+}
+masterUpgradesDB[1021]={
+    name = "IG-RM Droids",
+    slot = 23,
+    cost = 2,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/IGRM%20Droids.png',
+    restriction = {
+        Faction = {[3]=true}
+    }
+}
+masterUpgradesDB[1022]={
+    name = "Ordinance Team",
+    slot = 23,
+    cost = 4,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/OrdnanceTeam.png',
+    restriction = {}
+}
+masterUpgradesDB[1023]={
+    name = "Sensor Experts",
+    slot = 23,
+    cost = 10,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/SensorExperts.png',
+    restriction = {}
+}
+-- Cargo
+masterUpgradesDB[1024]={
+    name = "Adaptive Shields",
+    slot = 22,
+    cost = 10,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/AdaptiveShields.png',
+    restriction = {}
+}
+masterUpgradesDB[1025]={
+    name = "Boosted Scanners",
+    slot = 22,
+    cost = 8,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/BoostedScanners.png',
+    restriction = {}
+}
+masterUpgradesDB[1026]={
+    name = "Optimized Power Core",
+    slot = 22,
+    cost = 6,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/OptimizedPowerCore.png',
+    restriction = {}
+}
+masterUpgradesDB[1027]={
+    name = "Tibanna Reserves",
+    slot = 22,
+    cost = 3,
+    Charge = 3,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/TibannaReserves.png',
+    restriction = {}
+}
+-- Illicit
+masterUpgradesDB[1028]={
+    name = "Quick-Release Locks",
+    slot = 13,
+    cost = 5,
+    Charge = 2,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/QuickReleaseLocks.png',
+    restriction = {
+        Size={huge=true}
+    }
+}
+masterUpgradesDB[1029]={
+    name = "Saboteur's Map",
+    slot = 13,
+    cost = 3,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/SaboteursMap.png',
+    restriction = {
+        Size={huge=true}
+    }
+}
+masterUpgradesDB[1030]={
+    name = "Scanner Baffler",
+    slot = 13,
+    cost = 8,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/ScannerBaffler.png',
+    restriction = {
+        Size={huge=true}
+    }
+}
+-- title
+masterUpgradesDB[1031]={
+    name = "Dodonna's Pride",
+    slot = 15,
+    cost = 8,
+    shd = -2,
+    addSlot ={23, 22},
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/DodonnasPride.png',
+    restriction = {
+        Faction={[1]=true},
+        ship = {[90]=true}
+    }
+}
+masterUpgradesDB[1032]={
+    name = "Jaina's Light",
+    slot = 15,
+    cost = 6,
+    shd = 1,
+    Energy = -1,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/JainasLight.png',
+    restriction = {
+        Faction={[1]=true},
+        ship = {[90]=true}
+    }
+}
+masterUpgradesDB[1033]={
+    name = "Liberator",
+    slot = 15,
+    cost = 5,
+    Energy = 1,
+    Docking = true,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/Liberator.png',
+    restriction = {
+        Faction={[1]=true},
+        ship = {[90]=true}
+    }
+}
+masterUpgradesDB[1034]={
+    name = "Tantive IV",
+    slot = 15,
+    cost = 6,
+    addSlot ={8, 8},
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/TantiveIV.png',
+    restriction = {
+        Faction={[1]=true},
+        ship = {[90]=true}
+    }
+}
+masterUpgradesDB[1035]={
+    name = "Thunderstrike",
+    slot = 15,
+    cost = 4,
+    addSlot = {16},
+    shd = -3,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/Thunderstrike.png',
+    restriction = {
+        Faction={[1]=true},
+        ship = {[90]=true}
+    }
+}
+masterUpgradesDB[1036]={
+    name = "Bright Hope",
+    slot = 15,
+    cost = 5,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/BrightHope.png',
+    restriction = {
+        Faction={[1]=true},
+        ship = {[93]=true}
+    }
+}
+masterUpgradesDB[1037]={
+    name = "Luminous",
+    slot = 15,
+    cost = 12,
+    shd = -1,
+    Energy = 2,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/Luminous.png',
+    restriction = {
+        Faction={[1]=true},
+        ship = {[93]=true}
+    }
+}
+masterUpgradesDB[1038]={
+    name = "Quantum Storm",
+    slot = 15,
+    cost = 3,
+    Energy = 1,
+    addSlot = {23, 22},
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/QuantumStorm.png',
+    restriction = {
+        Faction={[1]=true},
+        ship = {[93]=true}
+    }
+}
+masterUpgradesDB[1039]={
+    name = "Assailer",
+    slot = 15,
+    cost = 7,
+    shd = -2,
+    addSlot = {16},
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/Assailer.png',
+    restriction = {
+        Faction={[2]=true},
+        ship = {[94]=true}
+    }
+}
+masterUpgradesDB[1040]={
+    name = "Corvus",
+    slot = 15,
+    cost = 3,
+    Docking = true,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/Corvus.png',
+    restriction = {
+        Faction={[2]=true},
+        ship = {[94]=true}
+    }
+}
+masterUpgradesDB[1041]={
+    name = "Impetuous",
+    slot = 15,
+    cost = 4,
+    shd = -2,
+    Energy = 2
+    addSlot = {8}
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/Impetuous.png',
+    restriction = {
+        Faction={[2]=true},
+        ship = {[94]=true}
+    }
+}
+masterUpgradesDB[1042]={
+    name = "Instigator",
+    slot = 15,
+    cost = 6,
+    addSlot = {23}
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/Instigator.png',
+    restriction = {
+        Faction={[2]=true},
+        ship = {[94]=true}
+    }
+}
+masterUpgradesDB[1043]={
+    name = "Blood Crow",
+    slot = 15,
+    cost = 5,
+    Energy = 2,
+    shd = -1,
+    addSlot = {16}
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/BloodCrow.png',
+    restriction = {
+        Faction={[2]=true},
+        ship = {[92]=true}
+    }
+}
+masterUpgradesDB[1044]={
+    name = "Requiem",
+    slot = 15,
+    cost = 7,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/Requiem.png',
+    restriction = {
+        Faction={[2]=true},
+        ship = {[92]=true}
+    }
+}
+masterUpgradesDB[1045]={
+    name = "Supressor",
+    slot = 15,
+    cost = 6,
+    shd = 2,
+    addSlot = {2}
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/Supressor.png',
+    restriction = {
+        Faction={[2]=true},
+        ship = {[92]=true}
+    }
+}
+masterUpgradesDB[1046]={
+    name = "Vector",
+    slot = 15,
+    cost = 8,
+    addSlot = {8, 22}
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/Vector.png',
+    restriction = {
+        Faction={[2]=true},
+        ship = {[92]=true}
+    }
+}
+masterUpgradesDB[1047]={
+    name = "Broken Horn",
+    slot = 15,
+    cost = 4,
+    addSlot = {8, 13}
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/BrokenHorn.png',
+    restriction = {
+        Faction={[3]=true},
+        ship = {[91]=true}
+    }
+}
+masterUpgradesDB[1048]={
+    name = "Merchant One",
+    slot = 15,
+    cost = 8,
+    addSlot = {4, 23, 22}
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/MerchantOne.png',
+    restriction = {
+        Faction={[3]=true},
+        ship = {[91]=true}
+    }
+}
+masterUpgradesDB[1049]={
+    name = "Insatiable Worrt",
+    slot = 15,
+    cost = 7,
+    shd = -1,
+    Energy = -1,
+    addSlot = {22}
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/InsatiableWorrt.png',
+    restriction = {
+        Faction={[3]=true},
+        ship = {[91]=true}
+    }
+}
+-- Configuration
+masterUpgradesDB[1050]={
+    name = "Corsair Refit",
+    slot = 18,
+    cost = 15,
+    shd = -2,
+    Energy = 1,
+    addSlot = {3, 4, 6}
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/CorsirRefit.png',
+    restriction = {
+        ship = {[91]=true}
+    }
+}
 
 
 
@@ -2317,6 +2854,9 @@ function idSpawner(idTable)
             end
             if masterUpgradesDB[value]['shd'] ~= nil then
                 fList.Pilots[k]['Shield'] = fList.Pilots[k]['Shield'] + masterUpgradesDB[value]['shd']
+            end
+            if masterUpgradesDB[value]['Energy'] ~= nil then
+                fList.Pilots[k]['Energy'] = fList.Pilots[k]['Energy'] + masterUpgradesDB[value]['Energy']
             end
             if masterUpgradesDB[value]['Condition'] ~= nil then
                 fList.Upgrades[k][key]['Condition'] = masterUpgradesDB[value]['Condition']
