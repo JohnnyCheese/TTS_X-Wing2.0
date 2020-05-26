@@ -1947,7 +1947,7 @@ masterUpgradesDB[1008]={
     }
 }
 masterUpgradesDB[1009]={
-    name = "Jan Dodonna",
+    name = "Raymus Antilles",
     slot = 21,
     remSlot = {8},
     cost = 12,
@@ -1981,7 +1981,7 @@ masterUpgradesDB[1011]={
     restriction = {}
 }
 masterUpgradesDB[1012]={
-    name = "Ordinance Tubes",
+    name = "Ordnance Tubes",
     slot = 24,
     cost = 1,
     card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/OrdnanceTubes.png',
@@ -1989,7 +1989,7 @@ masterUpgradesDB[1012]={
     restriction = {}
 }
 masterUpgradesDB[1013]={
-    name = "Point-Defence Battery",
+    name = "Point-Defense Battery",
     slot = 24,
     cost = 9,
     dTurret = 1,
@@ -2067,7 +2067,7 @@ masterUpgradesDB[1021]={
     }
 }
 masterUpgradesDB[1022]={
-    name = "Ordinance Team",
+    name = "Ordnance Team",
     slot = 23,
     cost = 4,
     card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/OrdnanceTeam.png',
@@ -2306,7 +2306,7 @@ masterUpgradesDB[1044]={
     }
 }
 masterUpgradesDB[1045]={
-    name = "Supressor",
+    name = "Suppressor",
     slot = 15,
     cost = 6,
     shd = 2,
@@ -2377,6 +2377,18 @@ masterUpgradesDB[1050]={
     card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/CorsirRefit.png',
     restriction = {
         ship = {[91]=true}
+    }
+}
+
+masterUpgradesDB[1051]={
+    name = "Strategic Commander",
+    slot = 21,
+    remSlot = {8},
+    cost = 6,
+    card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/StrategicCommander.png',
+    cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Epic+Crew.png',
+    restriction = {
+        Size={huge=true}
     }
 }
 
