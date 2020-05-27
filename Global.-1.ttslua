@@ -951,6 +951,12 @@ function CheckArc(args)
     ArcCheck.current_arc = args.arctype
     ArcCheck.current_ship = args.ship
 
+    -- Remove player selection to prevent accidental deletion.
+    local playerColors = args.ship.getSelectingPlayers()
+    for _, player in ipairs(playerColors) do
+        args.ship.removeFromPlayerSelection(player)
+    end
+
     -- Iterate over the potential targets and display their statuses.
     printToAll(args.ship.getName() .. ' checks for targets in the ' .. args.arctype .. ' arc:', color(1.0, 1.0, 0.2, 0.9))
     targets = ArcCheck.GetTargetsInRelationToArc(args.ship, args.arctype)
