@@ -9,7 +9,6 @@
 -- ~~~~~~
 
 DiceControlModule = {}
-DiceControlModule.no_rolled_dice = {}
 DiceControlModule.dice_statistics = {}
 DiceControlModule.rolled_dice = {}
 DiceControlModule.dice_roller_state = {}
@@ -114,18 +113,19 @@ DiceControlModule.onObjectRandomize = function(object, player_color)
             DiceControlModule.rolled_dice[player_color] = {}
             table.insert(DiceControlModule.rolled_dice[player_color], object)
             DiceControlModule.dice_roller_state[player_color]  = "starting"
-            DiceControlModule.no_rolled_dice[player_color] = 1
+            object.addForce(vector(0,200,0), 2)
 
             Wait.time(
             function()
-                DiceControlModule.dice_roller_state[player_color]  = "waiting"
-                --printToAll("[" .. Color.fromString(player_color):toHex() .. "]" .. player_color .. " player[-] rolled " .. tonumber(DiceControlModule.no_rolled_dice[player_color]) .. " dice", DiceControlModule.info_color)
                 for k, dice in pairs(DiceControlModule.rolled_dice[player_color]) do
                     dice.interactable = false
                     players = dice.getSelectingPlayers()
                     for j, player in pairs(players) do
                         dice.removeFromPlayerSelection(player)
                     end
+                end
+                if #DiceControlModule.rolled_dice[player_color] ~= 0 then
+                    DiceControlModule.dice_roller_state[player_color]  = "waiting"
                 end
 
             end, 0.8,0)
@@ -137,8 +137,13 @@ DiceControlModule.onObjectRandomize = function(object, player_color)
                 end
             end
             table.insert(DiceControlModule.rolled_dice[player_color], object)
-            DiceControlModule.no_rolled_dice[player_color] = DiceControlModule.no_rolled_dice[player_color] + 1
+            object.addForce(vector(0,200,0), 2)
         elseif DiceControlModule.dice_roller_state[player_color]  == "waiting" then
+            for i, dice in pairs(DiceControlModule.rolled_dice[player_color]) do
+                if dice == object then
+                    return
+                end
+            end
             printToAll("Please don't start new rolls while waiting for the result of another", DiceControlModule.error_color)
             destroyObject(object)
         end
@@ -174,7 +179,7 @@ DiceControlModule.PresentDiceRollerResult = function(player_color)
         DiceControlModule.dice_statistics[player_color] = playerstats
     end
     local any_result = false
-    local resulttext = "[" .. Color.fromString(player_color):toHex() .. "]" ..  player_color .. "[-] player rolled " .. DiceControlModule.highlight_color .. tostring(DiceControlModule.no_rolled_dice[player_color]) .. "[-] dice and got "
+    local resulttext = "[" .. Color.fromString(player_color):toHex() .. "]" ..  player_color .. "[-] player rolled " .. DiceControlModule.highlight_color .. tostring(#DiceControlModule.rolled_dice[player_color]) .. "[-] dice and got "
     local resulttexts = {}
     for dice_color, results in pairs(resultTable) do
         if DiceControlModule.dice_types[dice_color].result_order ~= nil then
@@ -211,13 +216,19 @@ DiceControlModule.PresentDiceRollerResult = function(player_color)
 end
 
 DiceControlModule.UntilRolledDiceAreStill = function(player_color)
-    for k, dice in pairs(DiceControlModule.rolled_dice[player_color]) do
+    local result = true
+    for k=#DiceControlModule.rolled_dice[player_color], 1, -1 do
+        local dice = DiceControlModule.rolled_dice[player_color][k]
         if dice == nil then
             printToAll("A dice dissapeared while rolling!", DiceControlModule.error_color)
             table.remove(DiceControlModule.rolled_dice[player_color], k)
+        elseif dice.held_by_color ~= nil then
+            printToAll("Please don grab dice that are being rolled!", DiceControlModule.error_color)
+            table.remove(DiceControlModule.rolled_dice[player_color], k)
+            destroyObject(dice)
         elseif not dice.resting then
-            return false
+            result = false
         end
     end
-    return true
+    return result
 end

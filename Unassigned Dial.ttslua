@@ -769,6 +769,7 @@ function setDial(P)
                 else
                     --TODO: Now that the set dial and unset dial buttons are 2 different buttons, this file's code would probably be more readable with this function split in to setDial() and unsetDial()
                     self.UI.setAttribute("setBtnFD", "active", "false")
+                    self.UI.setAttribute("setManPeekPanel", "active", "false")
                     self.UI.setAttribute("moveWindow", "active", "true")
                     self.UI.setAttribute("moveWindow", "textColor", "#FFFFFF")
                     setStat = false
