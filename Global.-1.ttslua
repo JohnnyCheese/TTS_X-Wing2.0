@@ -887,7 +887,7 @@ ArcCheck.CalculateArcLineSegments = function(table, degree, size_w, size_l)
                                        },
                                 degrees={direction=90, spread=(180-degree)/2}
                             }
-                            
+
     else -- Long base size (huge ships)
         print("Long:".. tostring(size_w)..","..tostring(size_l))
         local r = math.rad(90 - degree/2)
@@ -935,7 +935,7 @@ end
 
 function CheckArc(args)
     -- Remove any rulers from old arc checks.
-    for k, ruler in pairs(ArcCheck.arc_check_rulers) do
+    --[[for k, ruler in pairs(ArcCheck.arc_check_rulers) do
         if ruler != nil then
             ruler.destruct()
         end
@@ -951,8 +951,9 @@ function CheckArc(args)
     end
     ArcCheck.current_arc = args.arctype
     ArcCheck.current_ship = args.ship
-
+    --]]
     -- Iterate over the potential targets and display their statuses.
+    local spawnedRulers = {}
     printToAll(args.ship.getName() .. ' checks for targets in the ' .. args.arctype .. ' arc:', color(1.0, 1.0, 0.2, 0.9))
     targets = ArcCheck.GetTargetsInRelationToArc(args.ship, args.arctype)
     table.sort(targets, ArcCheck.SortTargetsByDesirability)
@@ -967,9 +968,9 @@ function CheckArc(args)
         else
             found = true
             ship.setLock(true)
-            ArcCheck.SpawnObstructionRuler(target['closest'])
+            table.insert(spawnedRulers, ArcCheck.SpawnObstructionRuler(target['closest']))
             if target['other_closest'] ~= nil then
-                ArcCheck.SpawnObstructionRuler(target['other_closest'])
+                table.insert(spawnedRulers, ArcCheck.SpawnObstructionRuler(target['other_closest']))
             end
 
             obstructedtext = ' is'
@@ -1000,6 +1001,7 @@ function CheckArc(args)
     if found == false then
         printToAll(' - No valid targets', color(1.0, 1.0, 0.2, 0.9))
     end
+    return spawnedRulers
 end
 
 --[[ GetTargetsInRelationToArc
@@ -1249,7 +1251,8 @@ ArcCheck.SpawnObstructionRuler = function(data)
 
         ruler.setColorTint(tintcolor)
         ruler.setLock(true)
-        table.insert(ArcCheck.arc_check_rulers, ruler)
+        return ruler
+        --table.insert(ArcCheck.arc_check_rulers, ruler)
     end
 end
 
@@ -4304,6 +4307,9 @@ RulerModule.spawnedRulers = {}
 function Ruler_SelfDestruct(obj)
     for k, rTable in pairs(RulerModule.spawnedRulers) do
         if rTable.ruler == obj then
+            for _, arcline in pairs(rTable.arclines) do
+                arcline.destruct()
+            end
             table.remove(RulerModule.spawnedRulers, k)
             break
         end
@@ -4314,7 +4320,12 @@ end
 RulerModule.onObjectDestroyed = function(obj)
     for k,info in pairs(RulerModule.spawnedRulers) do
         if info.ship == obj or info.ruler == obj then
-            if info.ship == obj then info.ruler.destruct() end
+            if info.ship == obj then
+                info.ruler.destruct()
+            end
+            for _, arcline in pairs(info.arclines) do
+                arcline.destruct()
+            end
             table.remove(RulerModule.spawnedRulers, k)
             break
         end
@@ -4409,6 +4420,18 @@ RulerModule.typeToKey['R'] = 'range'
 RulerModule.typeToKey['SL'] = 'sideArc'
 RulerModule.typeToKey['SR'] = 'sideArc'
 
+RulerModule.typeToArc = {}
+RulerModule.typeToArc['F'] = 'front'
+RulerModule.typeToArc['FF'] = 'fullfront'
+RulerModule.typeToArc['B'] = 'back'
+RulerModule.typeToArc['FB'] = 'fullback'
+RulerModule.typeToArc['R1'] = 'full'
+RulerModule.typeToArc['R2'] = 'full'
+RulerModule.typeToArc['R3'] = 'full'
+RulerModule.typeToArc['R'] = 'full'
+RulerModule.typeToArc['SL'] = 'left'
+RulerModule.typeToArc['SR'] = 'right'
+
 -- Get ruler spawn tables for some ship and some ruler code
 -- Return table with "mesh", "collider" and "scale" keys
 --  (for appropriate ruler)
@@ -4495,7 +4518,12 @@ RulerModule.SpawnRuler = function(ship, rulerType, beQuiet)
     local newRuler = spawnObject(rulerData.params)
     newRuler.setCustomObject(rulerData.custom)
     newRuler.setColorTint(color(1.0, 0.0, 0.0, 0.5))
-    table.insert(RulerModule.spawnedRulers, {ship = ship, ruler = newRuler, type = rulerType})
+
+    local arclines = {}
+    if RulerModule.typeToArc[rulerType] then
+        arclines = CheckArc({ship=ship,arctype=RulerModule.typeToArc[rulerType]})
+    end
+    table.insert(RulerModule.spawnedRulers, {ship = ship, ruler = newRuler, arclines = arclines,type = rulerType})
     newRuler.lock()
     newRuler.setScale(rulerData.params.scale)
     local button = {click_function = 'Ruler_SelfDestruct', label = 'DEL', position = {0, 0.5, 0}, rotation =  {0, 0, 0}, width = 900, height = 900, font_size = 250}
@@ -4508,6 +4536,9 @@ end
 RulerModule.DeleteRuler = function(ship)
     for k,rTable in pairs(RulerModule.spawnedRulers) do
         if rTable.ship == ship then
+            for _, arcline in pairs(rTable.arclines) do
+                arcline.destruct()
+            end
             rTable.ruler.destruct()
             local destType = rTable.type
             table.remove(RulerModule.spawnedRulers, k)
