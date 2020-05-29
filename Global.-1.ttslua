@@ -219,6 +219,8 @@ XW_cmd.Process = function(obj, cmd)
         DialModule.PerformAction(obj, cmd)
     elseif type == 'bombDrop' then
         BombModule.ToggleDrop(obj, cmd)
+    elseif type == 'AI' then
+        AIModule.EnableAI(obj, cmd)
     end
     obj.setDescription('')
     return true
@@ -275,7 +277,7 @@ XW_cmd.AddCommand('a[12]', 'actionMove')        -- Adjusts
 --XW_cmd.AddCommand('vr[rle][fb]', 'actionMove')  -- StarViper Mk.II rolls
 
 -- AI Module:
-enable_AI = false
+test_AI = false
 AIModule = {}
 
 -- 2000mm is the length between opposite corners of an epic table.
@@ -298,6 +300,11 @@ AIModule.current_move.Reset = function()
     AIModule.current_move.obstacle = false
     AIModule.current_move.stress_count = 0
     AIModule.current_move.is_ionised = false
+end
+
+-- Description function to add the AI functions to a ship
+AIModule.EnableAI = function(ship, command)
+    ship.AddContextMenuItem("AI maneuver", function(argument) Global.call("PerformAIManeuver", {ship=ship}) end, false)
 end
 
 -- Sanity check, make sure that all the moves for this ship are actually
@@ -815,6 +822,9 @@ AIModule.IsIonised = function(ship)
 
     return false
 end
+
+-- Possible commands supported by the AI module
+XW_cmd.AddCommand('ai', 'AI')   -- Enables the AI on the selected ship
 
 
 ArcCheck = {}
@@ -5168,7 +5178,7 @@ function initContextMenu()
         end
     end
 
-    if Global.getVar('enable_AI') then
+    if Global.getVar('test_AI') then
         self.AddContextMenuItem("AI maneuver", function(argument) Global.call("PerformAIManeuver", {ship=self}) end, false)
     end
 end
