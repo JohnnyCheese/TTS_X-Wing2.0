@@ -952,6 +952,12 @@ function CheckArc(args)
     ArcCheck.current_arc = args.arctype
     ArcCheck.current_ship = args.ship
     --]]
+
+    -- Remove player selection to prevent accidental deletion.
+    local playerColors = args.ship.getSelectingPlayers()
+    for _, player in ipairs(playerColors) do
+        args.ship.removeFromPlayerSelection(player)
+    end
     -- Iterate over the potential targets and display their statuses.
     local spawnedRulers = {}
     printToAll(args.ship.getName() .. ' checks for targets in the ' .. args.arctype .. ' arc:', color(1.0, 1.0, 0.2, 0.9))
@@ -3593,6 +3599,23 @@ TokenModule.basePos.large.Disarm    = { 40,  30}
 
 TokenModule.basePos.large.rest      = {-30, -30}
 
+-- On base - huge ships
+TokenModule.basePos.huge = {}
+TokenModule.basePos.huge.Focus     = { 30,  30}
+TokenModule.basePos.huge.Calculate = { 30,  40}
+TokenModule.basePos.huge.Evade     = { 30,   0}
+TokenModule.basePos.huge.Stress    = { 30, -30}
+TokenModule.basePos.huge.Strain    = { 30, -40}
+TokenModule.basePos.huge.Tractor   = {-30,  30}
+TokenModule.basePos.huge.Ion       = {-30,   0}
+TokenModule.basePos.huge.Lock      = {  0,  30}
+
+TokenModule.basePos.huge.Cloak     = { 30,  30}
+TokenModule.basePos.huge.Reinforce = {-30,  30}
+TokenModule.basePos.huge.Jam       = {-30, -30}
+TokenModule.basePos.huge.Disarm    = { 40,  30}
+
+TokenModule.basePos.huge.rest      = {-30, -30}
 
 -- Positions near the base
 -- Near base - small ships
