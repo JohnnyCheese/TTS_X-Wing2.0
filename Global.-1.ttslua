@@ -3505,6 +3505,8 @@ TokenModule = {}
 -- Table with refs for different token and template sources
 TokenModule.tokenSources = {}
 
+TokenModule.tokenAssignments = {}
+
 -- Update token and template sources on each load
 TokenModule.onLoad = function()
     for k, obj in pairs(getAllObjects()) do
@@ -4006,6 +4008,10 @@ TokenModule.ClearPosition = function(pos, dist, ignoreShip)
     end
 end
 
+TokenModule.AssignToken = function(token, ship)
+    TokenModule.tokenAssignments[token.getGUID()] = ship
+end
+
 -- END TOKEN MODULE
 --------
 
@@ -4098,15 +4104,18 @@ DialModule.PerformAction = function(ship, type, playerColor)
     elseif tokenActions:find(' ' .. type .. ' ') ~= nil then
         local dest = TokenModule.VisiblePosition(type, ship)
         local newToken = TokenModule.TakeToken(type, playerColor, dest)
+
         if type == 'Target Lock' then
             table.insert(TokenModule.locksToBeSet, {lock=newToken, name=ship.getName(), color=playerColor})
             announceInfo.note = 'acquired a target lock'
         elseif type == 'Ion' then
             table.insert(TokenModule.ionsToBeSet, {ion=newToken, ref=ship})
             announceInfo.note = 'takes an ion token'
+            TokenModule.AssignToken(newToken, ship)
         elseif type == 'Tractor' then
             table.insert(TokenModule.tractorsToBeSet, {tractor=newToken, ref=ship})
             announceInfo.note = 'takes a tractor token'
+            TokenModule.AssignToken(newToken, ship)
         else
             if type == 'Evade' then
                 announceInfo.note = 'takes an evade token'
@@ -4115,6 +4124,7 @@ DialModule.PerformAction = function(ship, type, playerColor)
             else
                 announceInfo.note = 'takes a ' .. string.lower(type) .. ' token'
             end
+            TokenModule.AssignToken(newToken, ship)
         end
     end
     AnnModule.Announce(announceInfo, 'all', ship)
