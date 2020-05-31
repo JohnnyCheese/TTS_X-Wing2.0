@@ -219,6 +219,8 @@ XW_cmd.Process = function(obj, cmd)
         DialModule.PerformAction(obj, cmd)
     elseif type == 'bombDrop' then
         BombModule.ToggleDrop(obj, cmd)
+    elseif type == 'AI' then
+        AIModule.EnableAI(obj, cmd)
     end
     obj.setDescription('')
     return true
@@ -275,7 +277,7 @@ XW_cmd.AddCommand('a[12]', 'actionMove')        -- Adjusts
 --XW_cmd.AddCommand('vr[rle][fb]', 'actionMove')  -- StarViper Mk.II rolls
 
 -- AI Module:
-enable_AI = false
+test_AI = false
 AIModule = {}
 
 -- 2000mm is the length between opposite corners of an epic table.
@@ -300,6 +302,11 @@ AIModule.current_move.Reset = function()
     AIModule.current_move.is_ionised = false
 end
 
+-- Description function to add the AI functions to a ship
+AIModule.EnableAI = function(ship, command)
+    ship.AddContextMenuItem("AI maneuver", function(argument) Global.call("PerformAIManeuver", {ship=ship}) end, false)
+end
+
 -- Sanity check, make sure that all the moves for this ship are actually
 -- possible. It won't fix every issue but it'll find most typos. This is not
 -- called except when debugging.
@@ -320,11 +327,16 @@ AIModule.ValidateMoveTables = function(ship)
 end
 
 -- Only choose ships that are in arc and between ranges 1-3
-AIModule.FilterForAITargetting = function(el)
+AIModule.FilterInArc = function(el)
     if el['in_arc'] == false then
         return false
     end
 
+    return true;
+end
+
+-- Only choose ships that are between range one and three
+AIModule.FilterInRange = function(el)
     if el['closest'].range < 1 or el['closest'].range > 3 then
         return false
     end
@@ -351,13 +363,19 @@ function PerformAIManeuver(args)
     AIModule.PerformManeuver(ship)
 end
 
+AIModule.GetSortedTargetsInArc = function(ship, arc)
+    local targets = ArcCheck.GetTargetsInRelationToArc(ship, arc or 'front')
+    targets = table.sieve(targets, AIModule.FilterInArc)
+    targets = table.sieve(targets, AIModule.FilterInRange)
+    table.sort(targets, AIModule.SortTargetsByAIDesirability)
+    return targets
+end
+
 -- Target selection functions. These take a ship, and return a target ship
 AIModule.TargetSelectionFunctions = {}
 AIModule.TargetSelectionFunctions['ClosestInArc'] = function(ship)
-    local targets = ArcCheck.GetTargetsInRelationToArc(ship, 'front')
-    targets = table.sieve(targets, AIModule.FilterForAITargetting)
-    --TODO: Replace this with just a simple distance check. It's faster as it's O(n) not O(log(n))
-    table.sort(targets, AIModule.SortTargetsByAIDesirability)
+    local targets = AIModule.GetSortedTargetsInArc(ship)
+
     -- Get the first ship as it's already been sorted by distance
     for i, target in pairs(targets) do
         return target['ship']
@@ -368,17 +386,59 @@ end
 
 AIModule.TargetSelectionFunctions['Closest'] = function(ship)
     local potential_targets = ArcCheck.GetPotentialTargets(ship, AIModule.max_distance)
+
     local closest_distance = nil
     local closest_target = nil
     for i, target in pairs(potential_targets) do
         local distance = Vect.Length(ship.getPosition() - target.GetPosition())
-        if closest_distance == nil or  distance < closest_distance then
+        if closest_distance == nil or distance < closest_distance then
             closest_distance = distance
             closest_target = target
         end
     end
 
     return closest_target
+end
+
+AIModule.TargetSelectionFunctions['LockedInRange'] = function(ship)
+    local potential_targets = AIModule.GetSortedTargetsInArc(ship, 'all')
+    potential_targets = table.sieve(potential_targets, AIModule.FilterInRange)
+
+    local closest_distance = nil
+    local closest_target = nil
+    for i, target in pairs(potential_targets) do
+        -- Is this ship locked by us?
+        local is_target_locked = false
+        ship_tokens = TokenModule.GetShipTokens(target['ship'])
+        for j, token in pairs(ship_tokens) do
+            is_target_locked = token.GetName() == ship.GetName()
+        end
+
+        if is_target_locked then
+            local distance = Vect.Length(ship.getPosition() - target['ship'].GetPosition())
+            if closest_distance == nil or distance < closest_distance then
+                closest_distance = distance
+                closest_target = target['ship']
+            end
+        end
+    end
+
+    return closest_target
+end
+
+AIModule.TargetSelectionFunctions['ClosestInArcLowerInitiative'] = function(ship)
+    local initiative = ship.getTable('Data')['initiative']
+    local targets = AIModule.GetSortedTargetsInArc(ship)
+
+    -- Get the first ship with a lower initiative as it's already been sorted by
+    -- distance.
+    for i, target in pairs(targets) do
+        if (target['ship'].getTable('Data')['initiative'] < initiative) then
+            return target['ship']
+        end
+    end
+
+    return nil
 end
 
 AIModule.PerformManeuver = function(ship)
@@ -816,6 +876,9 @@ AIModule.IsIonised = function(ship)
     return false
 end
 
+-- Possible commands supported by the AI module
+XW_cmd.AddCommand('ai', 'AI')   -- Enables the AI on the selected ship
+
 
 ArcCheck = {}
 ArcCheck.initialized = false
@@ -1047,6 +1110,8 @@ ArcCheck.GetTargetsInRelationToArc = function(ship, arctype)
         arc_parts = {"front", "back"}
     elseif arctype == "leftright" then
         arc_parts = {"left", "right"}
+    elseif arctype == "all" then
+        arc_parts = {"front", "back", "left", "right"}
     end
     ship.setLock(true)
     local shipSize = ship.getTable("Data").Size or 'small'
@@ -5168,7 +5233,7 @@ function initContextMenu()
         end
     end
 
-    if Global.getVar('enable_AI') then
+    if Global.getVar('test_AI') then
         self.AddContextMenuItem("AI maneuver", function(argument) Global.call("PerformAIManeuver", {ship=self}) end, false)
     end
 end
