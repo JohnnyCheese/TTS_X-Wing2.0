@@ -289,22 +289,30 @@ AIModule.max_distance = 2000
 -- do it a better way.
 AIModule.current_move = {}
 AIModule.current_move.in_progress = false
+AIModule.current_move.take_action = false
 AIModule.current_move.collision = false
 AIModule.current_move.difficulty = nil
 AIModule.current_move.obstacle = false
 AIModule.current_move.stress_count = 0
 AIModule.current_move.is_ionised = false
+AIModule.current_move.target = nil
+AIModule.current_move.probes = {}
+
 AIModule.current_move.Reset = function()
+    AIModule.current_move.take_action = false
     AIModule.current_move.collision = false
     AIModule.current_move.difficulty = nil
     AIModule.current_move.obstacle = false
     AIModule.current_move.stress_count = 0
     AIModule.current_move.is_ionised = false
+    AIModule.current_move.target = nil
+    AIModule.current_move.probes = {}
 end
 
 -- Description function to add the AI functions to a ship
 AIModule.EnableAI = function(ship, command)
-    ship.AddContextMenuItem("AI maneuver", function(argument) Global.call("PerformAIManeuver", {ship=ship}) end, false)
+    ship.AddContextMenuItem("AI move and action", function(argument) Global.call("PerformAIManeuver", {['ship']=ship, ['take_action']=true}) end, false)
+    ship.AddContextMenuItem("AI move only", function(argument) Global.call("PerformAIManeuver", {['ship']=ship, ['take_action']=false}) end, false)
 end
 
 -- Sanity check, make sure that all the moves for this ship are actually
@@ -355,12 +363,6 @@ AIModule.SortTargetsByAIDesirability = function(e1, e2)
     end
 
     return e1['ship'].getGUID() > e2['ship'].getGUID()
-end
-
-function PerformAIManeuver(args)
-    local ship = args.ship
-
-    AIModule.PerformManeuver(ship)
 end
 
 AIModule.GetSortedTargetsInArc = function(ship, arc)
@@ -441,14 +443,243 @@ AIModule.TargetSelectionFunctions['ClosestInArcLowerInitiative'] = function(ship
     return nil
 end
 
-AIModule.PerformManeuver = function(ship)
+
+-- Helper functions for the action functions. These try to cache expensive
+-- calls as often as possible in the AIModule.current_move variable.
+AIModule.ActionHelpers = {}
+
+-- These are iterated over often, so made sense to have them in one place.
+AIModule.barrel_roll_move_codes = {'rl1', 'rr1', 'rl2', 'rr2', 'rl3', 'rr3'}
+AIModule.boost_move_codes = {'bl1', 's1', 'br1'}
+
+-- This function checks a boost or barrel roll action, caches whether the move
+-- was possible, (and the position and rotation if so), and returns the object.
+AIModule.ActionHelpers.GetMoveProbe = function(ship, move)
+    move = move or 's0'
+
+    if AIModule.current_move.probes[move] == nil then
+        AIModule.current_move.probes[move] = {}
+    end
+
+    if AIModule.current_move.probes[move].possible == nil then
+        if move == 's0' then
+            AIModule.current_move.probes[move].possible = true
+            AIModule.current_move.probes[move].position = ship.getPosition()
+            AIModule.current_move.probes[move].rotation = ship.getRotation()
+        else
+            AIModule.current_move.probes[move].possible = false
+            local move_info = MoveData.DecodeInfo(move, ship)
+            local probe_data = MoveModule.MoveProbe.TryFullMove(move_info, ship, MoveModule.GetFullMove)
+            if probe_data.done and probe_data.collObj == nil and probe_data.collObs == nil then
+                AIModule.current_move.probes[move].possible = true
+
+                AIModule.current_move.probes[move].position = probe_data.finalPosRot['pos']
+                AIModule.current_move.probes[move].rotation = probe_data.finalPosRot['rot']
+            end
+        end
+    end
+
+    return AIModule.current_move.probes[move]
+end
+
+AIModule.ActionHelpers.GetPositionAndRotation = function(ship)
+    return {['position'] = ship.GetPosition(), ['rotation'] = ship.GetRotation()}
+end
+
+AIModule.ActionHelpers.SetPositionAndRotation = function(ship, position_rotation)
+    ship.SetPosition(position_rotation['position'])
+    ship.SetRotation(position_rotation['rotation'])
+end
+
+AIModule.ActionHelpers.ApplyProbe = function(ship, probe)
+    ship.SetPosition(probe.position)
+    ship.SetRotation(probe.rotation)
+end
+
+AIModule.ActionHelpers.HasAnyTarget = function(ship, move)
+    probe = AIModule.ActionHelpers.GetMoveProbe(ship, move)
+
+    if probe.possible == false then
+        return nil
+    end
+
+    if probe.any_target ~= nil then
+        return probe.any_target
+    end
+
+    local original_position_rotation = AIModule.ActionHelpers.GetPositionAndRotation(ship)
+    AIModule.ActionHelpers.ApplyProbe(ship, probe)
+
+    probe.any_target = false
+    targets = ArcCheck.GetTargetsInRelationToArc(ship, 'front') -- TODO: Do we need to check for different arc types for different ships?
+    targets = table.sieve(targets, AIModule.FilterInArc)
+    targets = table.sieve(targets, AIModule.FilterInRange)
+    for _ in pairs(targets) do
+        probe.any_target = true
+        break
+    end
+
+    AIModule.ActionHelpers.SetPositionAndRotation(ship, original_position_rotation)
+
+    return probe.any_target
+end
+
+AIModule.ActionHelpers.IsInTargetsArc = function(ship, target, move)
+    probe = AIModule.ActionHelpers.GetMoveProbe(ship, move)
+
+    if probe.possible == false then
+        return nil
+    end
+
+    if probe.in_targets_arc ~= nil then
+        return probe.in_targets_arc
+    end
+
+    local original_position_rotation = AIModule.ActionHelpers.GetPositionAndRotation(ship)
+    AIModule.ActionHelpers.ApplyProbe(ship, probe)
+
+    probe.in_targets_arc = false
+    targets = ArcCheck.GetTargetsInRelationToArc(target, 'front', {ship}) -- TODO: Do we need to check for different arc types for different ships?
+    targets = table.sieve(targets, AIModule.FilterInArc)
+    for _, target_info in pairs(targets) do
+        probe.in_targets_arc = true
+        break
+    end
+
+    AIModule.ActionHelpers.SetPositionAndRotation(ship, original_position_rotation)
+
+    return probe.in_targets_arc
+end
+
+
+-- Action functions. These take a ship and a target, and return true if they were executed.
+AIModule.ActionFunctions = {}
+AIModule.ActionFunctions['BarrelRollToMaintainShotAndAvoidTargetsArc'] = function(ship, target)
+    -- If we don't have a shot, return false.
+    if AIModule.ActionHelpers.HasAnyTarget(ship) == false then
+        return false
+    end
+
+    -- If our target doesn't have a shot on us, return false.
+    if AIModule.ActionHelpers.IsInTargetsArc(ship, target) == false then
+        return false
+    end
+
+    -- Loop over all the possible barrel roll positions, and if we still have
+    -- a shot, and have moved out of our target's arc, then record this as a
+    -- possible barrel roll.
+    local num_barrel_rolls = 0
+    local barrel_rolls = {}
+    for _, move_code in pairs(AIModule.barrel_roll_move_codes) do
+        if AIModule.ActionHelpers.HasAnyTarget(ship, move_code) == true and AIModule.ActionHelpers.IsInTargetsArc(ship, target, move_code) == false then
+            num_barrel_rolls = num_barrel_rolls + 1
+            barrel_rolls[num_barrel_rolls] = move_code
+        end
+    end
+
+    -- If we have any possible barrel rolls, execute a random one and return
+    -- true.
+    if num_barrel_rolls > 0 then
+        move_code = barrel_rolls[math.random(num_barrel_rolls)]
+        MoveModule.PerformMove(move_code, ship)
+        return true
+    end
+
+    -- No options, so return false.
+    return false
+end
+
+AIModule.ActionFunctions['BarrelRollToGetAShot'] = function(ship, target)
+    -- If we have a shot, return false.
+    if AIModule.ActionHelpers.HasAnyTarget(ship) == true then
+        return false
+    end
+
+    -- Loop over all the possible barrel roll positions, and if we have a shot,
+    -- then record this as a possible barrel roll.
+    local num_barrel_rolls = 0
+    local barrel_rolls = {}
+    for _, move_code in pairs(AIModule.barrel_roll_move_codes) do
+        if AIModule.ActionHelpers.HasAnyTarget(ship, move_code) == true then
+            num_barrel_rolls = num_barrel_rolls + 1
+            barrel_rolls[num_barrel_rolls] = move_code
+        end
+    end
+
+    -- If we have any possible barrel rolls, execute a random one and return
+    -- true.
+    if num_barrel_rolls > 0 then
+        move_code = barrel_rolls[math.random(num_barrel_rolls)]
+        MoveModule.PerformMove(move_code, ship)
+        return true
+    end
+
+    -- No options, so return false.
+    return false
+end
+
+AIModule.ActionFunctions['FocusIfHaveAShot'] = function(ship, target)
+    -- If we have a shot, assign a focus and return true.
+    if AIModule.ActionHelpers.HasAnyTarget(ship) == true then
+        DialModule.PerformAction(ship, 'Focus', ship.getVar("owningPlayer"))
+        return true
+    end
+
+    return false
+end
+
+AIModule.ActionFunctions['BarrelRollToAvoidTargetsArc'] = function(ship, target)
+    -- If our target doesn't have a shot on us, return false.
+    if AIModule.ActionHelpers.IsInTargetsArc(ship, target) == false then
+        return false
+    end
+
+    -- Loop over all the possible barrel roll positions, and if we have moved
+    -- out of our target's arc, then record this as a possible barrel roll.
+    local num_barrel_rolls = 0
+    local barrel_rolls = {}
+    for _, move_code in pairs(AIModule.barrel_roll_move_codes) do
+        if AIModule.ActionHelpers.IsInTargetsArc(ship, target, move_code) == false then
+            num_barrel_rolls = num_barrel_rolls + 1
+            barrel_rolls[num_barrel_rolls] = move_code
+        end
+    end
+
+    -- If we have any possible barrel rolls, execute a random one and return
+    -- true.
+    if num_barrel_rolls > 0 then
+        move_code = barrel_rolls[math.random(num_barrel_rolls)]
+        MoveModule.PerformMove(move_code, ship)
+        return true
+    end
+
+    -- No options, so return false.
+    return false
+end
+
+AIModule.ActionFunctions['Evade'] = function(ship, target)
+    DialModule.PerformAction(ship, 'Evade', ship.getVar("owningPlayer"))
+    return true
+end
+
+-- The entry point into AIModule.
+function PerformAIManeuver(args)
+    local ship = args.ship
+    local take_action = args.take_action
+
+    AIModule.PerformManeuver(ship, take_action)
+end
+
+AIModule.PerformManeuver = function(ship, take_action)
     if AIModule.current_move.in_progress then
         printToAll("Can't perform AI maneuver while another ship is moving.", color(1.0, 1.0, 0.2, 0.9))
         return
     end
+
     --AIModule.ValidateMoveTables(ship)
     AIModule.current_move.Reset()
     AIModule.current_move.stress_count = TokenModule.GetShipTokenCount(ship, "Stress")
+    AIModule.current_move.take_action = take_action
     local stress = AIModule.current_move.stress_count > 0
 
     local rule_set = BehaviourDB.GetRuleSet()
@@ -468,6 +699,7 @@ AIModule.PerformManeuver = function(ship)
                 break
             end
         end
+        AIModule.current_move.target = target_ship
 
         -- Check if we're ionised.
         local is_ionised = AIModule.IsIonised(ship)
@@ -614,21 +846,22 @@ AIModule.PerformManeuver = function(ship)
         end
 
         if move_code ~= nil then
-            -- If we weren't ionised, then check for collisions. Attempt to
-            -- swerve to avoid an obstacle.
-            if ship_ionised == false then
-                local move_info = MoveData.DecodeInfo(move_code, ship)
-                local probe_data = MoveModule.MoveProbe.TryFullMove(move_info, ship, MoveModule.GetFullMove)
-                AIModule.current_move.collision = probe_data.collObj ~= nil
-                if probe_data.collObs ~= nil then
-                    print(' Tried ' .. move_code .. ', hit an obstacle')
-                    AIModule.current_move.obstacle = true
-                    -- We've hit an obstacle! We'll try to swerve. We pick up to two
-                    -- maneuvers that are the closest to our current maneuver, and
-                    -- possible for our ship and stress level. Whichever of these
-                    -- will get us closer to our target is the one that we try. If
-                    -- that move avoids an obstacle, then we choose it instead,
-                    -- otherwise we stick with our original maneuver.
+            -- Check for collisions.
+            local move_info = MoveData.DecodeInfo(move_code, ship)
+            local probe_data = MoveModule.MoveProbe.TryFullMove(move_info, ship, MoveModule.GetFullMove)
+            AIModule.current_move.collision = probe_data.collObj ~= nil
+            if probe_data.collObs ~= nil then
+                printToAll(' Tried ' .. move_code .. ', hit an obstacle')
+                AIModule.current_move.obstacle = true
+                -- We've hit an obstacle! If we aren't ionised then We'll try to
+                -- swerve.
+                if is_ionised == false then
+                    -- We pick up to two maneuvers that are the closest to our
+                    -- current maneuver, and possible for our ship and stress
+                    -- level. Whichever of these will get us closer to our
+                    -- target is the one that we try. If that move avoids an
+                    -- obstacle, then we choose it instead, otherwise we stick
+                    -- with our original maneuver.
                     -- TODO: deal with reverse moves
                     local potential_swerve_moves = {}
                     local swerve_speed = tostring(math.max(1, math.min(3, move_info.speed)))
@@ -735,11 +968,26 @@ end
 AIModule.ManeuverPostShipRest = function(ship)
     if AIModule.current_move.difficulty == 'r' then
         DialModule.PerformAction(ship, 'Stress', ship.getVar("owningPlayer"))
-    elseif AIModule.current_move.stress_count == 0 and AIModule.current_move.collision == false and AIModule.current_move.obstacle == false then
+    elseif AIModule.current_move.take_action == true and AIModule.current_move.stress_count == 0 and AIModule.current_move.collision == false and AIModule.current_move.obstacle == false then
         if AIModule.current_move.is_ionised then
             -- TODO: Only perform a focus action (if possible)
         else
-            -- TODO: Action selection.
+            -- Run through the ship's actions and try them in order.
+            local rule_set = BehaviourDB.GetRuleSet()
+            local ship_id = ship.getTable('Data')['shipId']
+            local ship_behaviour = rule_set.ships[ship_id]
+
+            local any_actions = false
+            for _, action_function in ipairs(ship_behaviour.action_selection) do
+                any_actions = true
+                if AIModule.ActionFunctions[action_function](ship, AIModule.current_move.target) then
+                    break
+                end
+            end
+
+            if any_actions == false then
+                printToAll('No AI actions found for ship ID ' .. tostring(ship_id) .. ', please make actions manually.', color(1.0, 1.0, 0.2, 0.9))
+            end
         end
     end
 
@@ -1080,6 +1328,8 @@ information based on the provided arc type for each one.
 ship: TTS Object, the ship whose arc will be tested.
 arctype: String, the arc of the ship being tested. 'front', 'bullseye', etc.
     See DataPad for full list.
+fixed_targets: [optional]A list of TTS Objects, if passed in these are the only
+    ships that will be checked.
 
 returns a table of targets, each containing the following:
     ship: TTS Object, the ship being targetted
@@ -1100,7 +1350,7 @@ returns a table of targets, each containing the following:
     other_closest: Table, the other closest point. See 'closest' and
         'multiple_points'. This is nil if only one closest point.
 --]]
-ArcCheck.GetTargetsInRelationToArc = function(ship, arctype)
+ArcCheck.GetTargetsInRelationToArc = function(ship, arctype, fixed_targets)
     if ArcCheck.initialized == false then
         ArcCheck.Initialize()
     end
@@ -1115,8 +1365,10 @@ ArcCheck.GetTargetsInRelationToArc = function(ship, arctype)
     end
     ship.setLock(true)
     local shipSize = ship.getTable("Data").Size or 'small'
-    local potential_targets = ArcCheck.GetPotentialTargets(ship)
+
+    local potential_targets = fixed_targets or ArcCheck.GetPotentialTargets(ship)
     local bullseye_targets = ArcCheck.GetBullseyeTargets(ship, ArcCheck.bullseye_data.pos[shipSize])
+
     local own_line_segments = {}
     for i, arc in ipairs(arc_parts) do
         local segments = ArcCheck.GetOwnArcLineSegments(ship, ArcCheck.arc_line_segments[shipSize][arc]["segments"])
@@ -3126,6 +3378,7 @@ end
 --      fullFun     <- function that takes (moveInfo, shipRef) and returns {pos=position, rot=rotation} (pure data, ignores collisions)
 -- Return:  {
 --      done        <- TRUE if move was completed, FALSE if it was obstructed
+--      finalPosRot <- the final position and rotation after this move
 --      collObj     <- nil if completed, object ref to colliding ship otherwise
 --      collObs     <- nil if no obstacle moved over, object ref to obstacle if otherwise
 --          }
@@ -3136,11 +3389,12 @@ MoveModule.MoveProbe.TryFullMove = function(info, ship, fullFun)
     else
         collShips = MoveModule.MoveProbe.GetShipsNearFull(info, ship, fullFun)
     end
-    local out = {done=nil, collObj=nil, collObs=nil}
+    local out = {done=nil, finalPosRot=nil, collObj=nil, collObs=nil}
     local checkNum = 0
 
     local startPosRot = {['pos']=ship.GetPosition(), ['rot']=ship.GetRotation()}
     local finalPosRot = fullFun(info.code, ship)
+    out.finalPosRot = finalPosRot
 
     -- Ship-to-ship collisions
     fullInfo = MoveModule.CheckCollisions(ship, finalPosRot, collShips)
@@ -5254,7 +5508,8 @@ function initContextMenu()
     end
 
     if Global.getVar('test_AI') then
-        self.AddContextMenuItem("AI maneuver", function(argument) Global.call("PerformAIManeuver", {ship=self}) end, false)
+        self.AddContextMenuItem("AI move and action", function(argument) Global.call("PerformAIManeuver", {['ship']=self, ['take_action']=true}) end, false)
+        self.AddContextMenuItem("AI move", function(argument) Global.call("PerformAIManeuver", {['ship']=self, ['take_action']=false}) end, false)
     end
 end
 
