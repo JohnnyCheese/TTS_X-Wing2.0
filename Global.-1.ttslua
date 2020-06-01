@@ -411,8 +411,8 @@ AIModule.TargetSelectionFunctions['LockedInRange'] = function(ship)
     for i, target in pairs(potential_targets) do
         -- Is this ship locked by us?
         local is_target_locked = false
-        ship_tokens = TokenModule.GetShipTokens(target['ship'])
-        for j, token in pairs(ship_tokens) do
+        local lock_tokens = ship.call("GetTokens",{type="targetLock"})
+        for j, token in pairs(lock_tokens) do
             is_target_locked = token.GetName() == ship.GetName()
         end
 
@@ -3858,10 +3858,34 @@ EventSub.Register('onLoad', TokenModule.onLoad)
 
 TokenModule.onObjectDestroyed = function(destroyed_object)
     if TokenModule.tokenAssignments[destroyed_object.getGUID()] ~= nil then
-        TokenModule.tokenAssignments[destroyed_object.getGUID()].call("RemoveToken",{destroyed_object.getGUID()})
+        TokenModule.tokenAssignments[destroyed_object.getGUID()].call("RemoveToken",{token=destroyed_object})
         TokenModule.tokenAssignments[destroyed_object.getGUID()] = nil
     end
 end
+
+TokenModule.onObjectDropped = function(player_color, object)
+    if ObjType.IsOfType(object, 'token') then
+        if object.getVar('__XW_TokenType') ~= 'targetLock' then -- Target lock has special onDrop handling on its own
+            local spos = object.getPosition()
+            local spos = object.getPosition()
+            local nearest = nil
+            local minDist = 3.6125 -- 100 mm
+            for k,ship in pairs(getAllObjects()) do
+                if ship.tag == 'Figurine' and ship.name ~= '' then
+                    local pos = ship.getPosition()
+                    local dist = math.sqrt(math.pow((spos[1]-pos[1]),2) + math.pow((spos[3]-pos[3]),2))
+                    if dist < minDist then
+                        nearest = ship
+                        minDist = dist
+                    end
+                end
+            end
+            TokenModule.AssignToken(object, nearest)
+        end
+    end
+end
+
+EventSub.Register('onObjectDropped', TokenModule.onObjectDropped)
 
 
 -- How far can tokens be to be considered owned bya  ship
@@ -4297,11 +4321,13 @@ end
 -- Return table of object references for all tokens that are owned by given ship
 TokenModule.GetShipTokens = function(ship)
     -- Check for nearby tokens
-    local shipTokensInfo = TokenModule.GetShipTokensInfo(ship)
+    --[[local shipTokensInfo = TokenModule.GetShipTokensInfo(ship)
     local tokens = {}
     for k,tokenInfo in pairs(shipTokensInfo) do
         table.insert(tokens, tokenInfo.token)
     end
+    return tokens]]
+    local tokens = ship.call("GetTokens")
     return tokens
 end
 
@@ -4336,7 +4362,28 @@ TokenModule.ClearPosition = function(pos, dist, ignoreShip)
 end
 
 TokenModule.AssignToken = function(token, ship)
-    TokenModule.tokenAssignments[token.getGUID()] = ship
+    local guid = token.getGUID()
+    if (TokenModule.tokenAssignments[guid] ~= nil) and (TokenModule.tokenAssignments[guid].tag == 'Figurine') then
+        TokenModule.tokenAssignments[guid].call("RemoveToken", {token=token})
+    end
+    TokenModule.tokenAssignments[guid] = ship
+    if ship ~= nil then
+        token.setDescription("Assigned to " .. ship.getName())
+        if ship.tag == 'Figurine' then
+            ship.call("AddToken", {token=token})
+        end
+    else
+        token.setDescription("Unassigned")
+    end
+end
+
+TokenModule.UnAssignToken = function(token)
+    local guid = token.getGUID()
+    if (TokenModule.tokenAssignments[guid] ~= nil) and (TokenModule.tokenAssignments[guid].tag == 'Figurine') then
+        TokenModule.tokenAssignments[guid].call("RemoveToken", {token=token})
+    end
+    TokenModule.tokenAssignments[guid] = nil
+    token.setDescription("Unassigned")
 end
 
 -- END TOKEN MODULE
@@ -4435,6 +4482,7 @@ DialModule.PerformAction = function(ship, type, playerColor)
         if type == 'Target Lock' then
             table.insert(TokenModule.locksToBeSet, {lock=newToken, name=ship.getName(), color=playerColor})
             announceInfo.note = 'acquired a target lock'
+            TokenModule.UnAssignToken(newToken) -- Target locks are not assigned to the spawning ship
         elseif type == 'Ion' then
             table.insert(TokenModule.ionsToBeSet, {ion=newToken, ref=ship})
             announceInfo.note = 'takes an ion token'
@@ -5529,8 +5577,8 @@ end
 function GetTokens(args)
     local tokens = {}
     for guid, token in pairs(assigned_tokens) do
-        if args.type == nil or args.token == token.getVar("__XW_TokenType") then
-            tokens[guid] = assigned_tokens[guid]
+        if (args == nil) or (args.type == nil) or (args.type == token.getVar("__XW_TokenType")) then
+            table.insert(tokens, assigned_tokens[guid])
         end
     end
     return tokens
