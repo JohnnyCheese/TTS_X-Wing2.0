@@ -614,21 +614,22 @@ AIModule.PerformManeuver = function(ship)
         end
 
         if move_code ~= nil then
-            -- If we weren't ionised, then check for collisions. Attempt to
-            -- swerve to avoid an obstacle.
-            if ship_ionised == false then
-                local move_info = MoveData.DecodeInfo(move_code, ship)
-                local probe_data = MoveModule.MoveProbe.TryFullMove(move_info, ship, MoveModule.GetFullMove)
-                AIModule.current_move.collision = probe_data.collObj ~= nil
-                if probe_data.collObs ~= nil then
-                    print(' Tried ' .. move_code .. ', hit an obstacle')
-                    AIModule.current_move.obstacle = true
-                    -- We've hit an obstacle! We'll try to swerve. We pick up to two
-                    -- maneuvers that are the closest to our current maneuver, and
-                    -- possible for our ship and stress level. Whichever of these
-                    -- will get us closer to our target is the one that we try. If
-                    -- that move avoids an obstacle, then we choose it instead,
-                    -- otherwise we stick with our original maneuver.
+            -- Check for collisions.
+            local move_info = MoveData.DecodeInfo(move_code, ship)
+            local probe_data = MoveModule.MoveProbe.TryFullMove(move_info, ship, MoveModule.GetFullMove)
+            AIModule.current_move.collision = probe_data.collObj ~= nil
+            if probe_data.collObs ~= nil then
+                printToAll(' Tried ' .. move_code .. ', hit an obstacle')
+                AIModule.current_move.obstacle = true
+                -- We've hit an obstacle! If we aren't ionised then We'll try to
+                -- swerve.
+                if is_ionised == false then
+                    -- We pick up to two maneuvers that are the closest to our
+                    -- current maneuver, and possible for our ship and stress
+                    -- level. Whichever of these will get us closer to our
+                    -- target is the one that we try. If that move avoids an
+                    -- obstacle, then we choose it instead, otherwise we stick
+                    -- with our original maneuver.
                     -- TODO: deal with reverse moves
                     local potential_swerve_moves = {}
                     local swerve_speed = tostring(math.max(1, math.min(3, move_info.speed)))
