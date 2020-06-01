@@ -3602,6 +3602,14 @@ TokenModule.onLoad = function()
 end
 EventSub.Register('onLoad', TokenModule.onLoad)
 
+TokenModule.onObjectDestroyed = function(destroyed_object)
+    if TokenModule.tokenAssignments[destroyed_object.getGUID()] ~= nil then
+        TokenModule.tokenAssignments[destroyed_object.getGUID()].call("RemoveToken",{destroyed_object.getGUID()})
+        TokenModule.tokenAssignments[destroyed_object.getGUID()] = nil
+    end
+end
+
+
 -- How far can tokens be to be considered owned bya  ship
 TokenModule.tokenReachDistance = Convert_mm_igu(100)
 -- By how much this token has to be distant from other ship "interception zone" to be visible
@@ -5007,6 +5015,8 @@ function onObjectDestroyed(dying_object)
     RulerModule.onObjectDestroyed(dying_object)
     -- Handle killing bomb drop templates
     BombModule.onObjectDestroyed(dying_object)
+    -- Handle killing tokens
+    TokenModule.onObjectDestroyed(dying_object)
 end
 
 -- Report peeking on dials
@@ -5246,6 +5256,29 @@ function initContextMenu()
     if Global.getVar('test_AI') then
         self.AddContextMenuItem("AI maneuver", function(argument) Global.call("PerformAIManeuver", {ship=self}) end, false)
     end
+end
+
+assigned_tokens = {}
+
+-- Add token
+function AddToken(args)
+    assigned_tokens[args.token.getGUID()] = args.token
+end
+
+-- Remove token
+function RemoveToken(args)
+    assigned_tokens[args.token.getGUID()] = nil
+end
+
+-- Get Tokens
+function GetTokens(args)
+    local tokens = {}
+    for guid, token in pairs(assigned_tokens) do
+        if args.type == nil or args.token == token.getVar("__XW_TokenType") then
+            tokens[guid] = assigned_tokens[guid]
+        end
+    end
+    return tokens
 end
 
 -- Save self state
