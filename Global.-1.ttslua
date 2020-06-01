@@ -289,12 +289,14 @@ AIModule.max_distance = 2000
 -- do it a better way.
 AIModule.current_move = {}
 AIModule.current_move.in_progress = false
+AIModule.current_move.take_action = false
 AIModule.current_move.collision = false
 AIModule.current_move.difficulty = nil
 AIModule.current_move.obstacle = false
 AIModule.current_move.stress_count = 0
 AIModule.current_move.is_ionised = false
 AIModule.current_move.Reset = function()
+    AIModule.current_move.take_action = false
     AIModule.current_move.collision = false
     AIModule.current_move.difficulty = nil
     AIModule.current_move.obstacle = false
@@ -304,7 +306,8 @@ end
 
 -- Description function to add the AI functions to a ship
 AIModule.EnableAI = function(ship, command)
-    ship.AddContextMenuItem("AI maneuver", function(argument) Global.call("PerformAIManeuver", {ship=ship}) end, false)
+    ship.AddContextMenuItem("AI move and action", function(argument) Global.call("PerformAIManeuver", {['ship']=ship, ['take_action']=true}) end, false)
+    ship.AddContextMenuItem("AI move only", function(argument) Global.call("PerformAIManeuver", {['ship']=ship, ['take_action']=false}) end, false)
 end
 
 -- Sanity check, make sure that all the moves for this ship are actually
@@ -355,12 +358,6 @@ AIModule.SortTargetsByAIDesirability = function(e1, e2)
     end
 
     return e1['ship'].getGUID() > e2['ship'].getGUID()
-end
-
-function PerformAIManeuver(args)
-    local ship = args.ship
-
-    AIModule.PerformManeuver(ship)
 end
 
 AIModule.GetSortedTargetsInArc = function(ship, arc)
@@ -441,14 +438,24 @@ AIModule.TargetSelectionFunctions['ClosestInArcLowerInitiative'] = function(ship
     return nil
 end
 
-AIModule.PerformManeuver = function(ship)
+-- The entry point into AIModule.
+function PerformAIManeuver(args)
+    local ship = args.ship
+    local take_action = args.take_action
+
+    AIModule.PerformManeuver(ship, take_action)
+end
+
+AIModule.PerformManeuver = function(ship, take_action)
     if AIModule.current_move.in_progress then
         printToAll("Can't perform AI maneuver while another ship is moving.", color(1.0, 1.0, 0.2, 0.9))
         return
     end
+
     --AIModule.ValidateMoveTables(ship)
     AIModule.current_move.Reset()
     AIModule.current_move.stress_count = TokenModule.GetShipTokenCount(ship, "Stress")
+    AIModule.current_move.take_action = take_action
     local stress = AIModule.current_move.stress_count > 0
 
     local rule_set = BehaviourDB.GetRuleSet()
@@ -736,7 +743,7 @@ end
 AIModule.ManeuverPostShipRest = function(ship)
     if AIModule.current_move.difficulty == 'r' then
         DialModule.PerformAction(ship, 'Stress', ship.getVar("owningPlayer"))
-    elseif AIModule.current_move.stress_count == 0 and AIModule.current_move.collision == false and AIModule.current_move.obstacle == false then
+    elseif AIModule.current_move.take_action == true and AIModule.current_move.stress_count == 0 and AIModule.current_move.collision == false and AIModule.current_move.obstacle == false then
         if AIModule.current_move.is_ionised then
             -- TODO: Only perform a focus action (if possible)
         else
@@ -5235,7 +5242,8 @@ function initContextMenu()
     end
 
     if Global.getVar('test_AI') then
-        self.AddContextMenuItem("AI maneuver", function(argument) Global.call("PerformAIManeuver", {ship=self}) end, false)
+        self.AddContextMenuItem("AI move and action", function(argument) Global.call("PerformAIManeuver", {['ship']=self, ['take_action']=true}) end, false)
+        self.AddContextMenuItem("AI move", function(argument) Global.call("PerformAIManeuver", {['ship']=self, ['take_action']=false}) end, false)
     end
 end
 
