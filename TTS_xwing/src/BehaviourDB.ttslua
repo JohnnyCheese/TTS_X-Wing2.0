@@ -126,6 +126,7 @@ BehaviourDB.rule_sets[1].ships = {}
 -- TIE/ln Fighter
 BehaviourDB.rule_sets[1].ships[11] = {}
 BehaviourDB.rule_sets[1].ships[11].target_selection = {[1]='ClosestInArc', [2]='Closest'}
+BehaviourDB.rule_sets[1].ships[11].action_selection = {[1]='BarrelRollToMaintainShotAndAvoidTargetsArc', [2]='BarrelRollToGetAShot', [3] = 'FocusIfHaveAShot', [4] = 'BarrelRollToAvoidTargetsArc', [5] = 'Evade'}
 BehaviourDB.rule_sets[1].ships[11].move_table = {
     ['bullseye'] = {
         ['near'] = {[1] = 'k4', [3] = 'bl2', [4] = 'br2', [5] = 's2'},
@@ -162,6 +163,7 @@ BehaviourDB.rule_sets[1].ships[11].move_table = {
 -- TIE/in Interceptor
 BehaviourDB.rule_sets[1].ships[41] = {}
 BehaviourDB.rule_sets[1].ships[41].target_selection = {[1]='ClosestInArc', [2]='Closest'}
+BehaviourDB.rule_sets[1].ships[41].action_selection = {}
 BehaviourDB.rule_sets[1].ships[41].move_table = {
     ['bullseye'] = {
         ['near'] = {[1] = 'k4', [2] = 'br3s', [4] = 'bl3s', [6] = 's2'},
@@ -198,6 +200,7 @@ BehaviourDB.rule_sets[1].ships[41].move_table = {
 -- TIE Advanced x1
 BehaviourDB.rule_sets[1].ships[13] = {}
 BehaviourDB.rule_sets[1].ships[13].target_selection = {[1]='LockedInRange', [2]='ClosestInArcLowerInitiative', [3]='ClosestInArc', [4]='Closest'}
+BehaviourDB.rule_sets[1].ships[13].action_selection = {}
 BehaviourDB.rule_sets[1].ships[13].move_table = {
     ['bullseye'] = {
         ['near'] = {[1] = 'k4', [3] = 's1', [5] = 's2'},
@@ -234,6 +237,7 @@ BehaviourDB.rule_sets[1].ships[13].move_table = {
 -- TIE/sa Bomber
 BehaviourDB.rule_sets[1].ships[19] = {}
 BehaviourDB.rule_sets[1].ships[19].target_selection = {[1]='LockedInRange', [2]='ClosestInArc', [3]='Closest'}
+BehaviourDB.rule_sets[1].ships[19].action_selection = {}
 BehaviourDB.rule_sets[1].ships[19].move_table = {
     ['bullseye'] = {
         ['near'] = {[1] = 'k5', [3] = 's1', [5] = 's2'},
@@ -270,6 +274,7 @@ BehaviourDB.rule_sets[1].ships[19].move_table = {
 -- TIE/de Defender
 BehaviourDB.rule_sets[1].ships[18] = {}
 BehaviourDB.rule_sets[1].ships[18].target_selection = {[1]='LockedInRange', [2]='ClosestInArcLowerInitiative', [3]='ClosestInArc', [4]='Closest'}
+BehaviourDB.rule_sets[1].ships[18].action_selection = {}
 BehaviourDB.rule_sets[1].ships[18].move_table = {
     ['bullseye'] = {
         ['near'] = {[1] = 'k4', [3] = 'bl1', [4] = 'br1', [5] = 's2'},
@@ -307,6 +312,7 @@ BehaviourDB.rule_sets[1].ships[18].move_table = {
 BehaviourDB.rule_sets[1].ships[27] = {}
 -- Need to add decloaking in the system phase
 BehaviourDB.rule_sets[1].ships[27].target_selection = {[1]='ClosestInArc', [2]='Closest'}
+BehaviourDB.rule_sets[1].ships[27].action_selection = {}
 BehaviourDB.rule_sets[1].ships[27].move_table = {
     ['bullseye'] = {
         ['near'] = {[1] = 'k4', [4] = 'bl1', [5] = 'br1', [6] = 's2'},
@@ -343,6 +349,7 @@ BehaviourDB.rule_sets[1].ships[27].move_table = {
 -- T-4a Lambda-class Shuttle
 BehaviourDB.rule_sets[1].ships[26] = {}
 BehaviourDB.rule_sets[1].ships[26].target_selection = {[1]='ClosestInArc', [2]='Closest'}
+BehaviourDB.rule_sets[1].ships[26].action_selection = {}
 BehaviourDB.rule_sets[1].ships[26].move_table = {
     ['bullseye'] = {
         ['near'] = {[1] = 's0', [4] = 'bl1', [5] = 'br1', [6] = 's1'},
@@ -379,6 +386,7 @@ BehaviourDB.rule_sets[1].ships[26].move_table = {
 -- VT-49 Decimator
 BehaviourDB.rule_sets[1].ships[28] = {}
 BehaviourDB.rule_sets[1].ships[28].target_selection = {[1]='LockedInRange', [2]='ClosestInArc', [3]='Closest'}
+BehaviourDB.rule_sets[1].ships[28].action_selection = {}
 BehaviourDB.rule_sets[1].ships[28].move_table = {
     ['bullseye'] = {
         ['near'] = {[1] = 'tl2', [3] = 'tr2', [5] = 'tl3', [6] = 'tr3'},
