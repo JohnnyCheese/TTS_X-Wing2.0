@@ -63,7 +63,7 @@ function TTS_Serialize(pos)
 end
 
 ObjType.AddType('ship', function(obj)
-    return (obj.tag == 'Figurine')
+    return (obj.tag == 'Figurine') and obj.getVar('__XW_Ship')
 end)
 ObjType.AddType('token', function(obj)
     return (obj.tag == 'Chip' or obj.tag == 'Coin' or (obj.getVar('__XW_Token') and obj.getVar('__XW_TokenIdle')))
@@ -2751,12 +2751,12 @@ end
 
 -- Selection function for MoveModule.JoinHitTables - ships only
 MoveModule.SelectShips = function(obj)
-    return (obj.tag == 'Figurine')
+    return (obj.tag == 'Figurine') and obj.getVar('__XW_Ship')
 end
 
 -- Selection function for MoveModule.JoinHitTables - huge ships only
 MoveModule.SelectHugeShips = function(obj)
-    return (obj.tag == 'Figurine') and (obj.getTable('Data').Size == 'huge')
+    return MoveModule.SelectShips() and (obj.getTable('Data').Size == 'huge')
 end
 
 
@@ -2966,6 +2966,7 @@ MoveModule.castData.huge.nubBL = {
 MoveModule.GetCast = function(ship, shipPosRot, castType)
     local baseSize = ship.getTable("Data").Size or 'small'
     local castTable = MoveModule.castData[baseSize][castType]
+    --castTable.debug = true
     if castType == 'base' then
         castTable.origin = shipPosRot.pos
         castTable.orientation = shipPosRot.rot
@@ -3871,7 +3872,7 @@ TokenModule.onObjectDropped = function(player_color, object)
             local nearest = nil
             local minDist = 3.6125 -- 100 mm
             for k,ship in pairs(getAllObjects()) do
-                if ship.tag == 'Figurine' and ship.name ~= '' then
+                if MoveModule.SelectShips(ship) then
                     local pos = ship.getPosition()
                     local dist = math.sqrt(math.pow((spos[1]-pos[1]),2) + math.pow((spos[3]-pos[3]),2))
                     if dist < minDist then
@@ -4364,13 +4365,17 @@ end
 TokenModule.AssignToken = function(token, ship)
     local guid = token.getGUID()
     if (TokenModule.tokenAssignments[guid] ~= nil) and (TokenModule.tokenAssignments[guid].tag == 'Figurine') then
-        TokenModule.tokenAssignments[guid].call("RemoveToken", {token=token})
+        if TokenModule.tokenAssignments[guid].getVar("RemoveToken") ~= nil then
+            TokenModule.tokenAssignments[guid].call("RemoveToken", {token=token})
+        end
     end
     TokenModule.tokenAssignments[guid] = ship
     if ship ~= nil then
         token.setDescription("Assigned to " .. ship.getName())
         if ship.tag == 'Figurine' then
-            ship.call("AddToken", {token=token})
+            if ship.getVar("AddToken") ~= nil then
+                ship.call("AddToken", {token=token})
+            end
         end
     else
         token.setDescription("Unassigned")
@@ -4380,7 +4385,9 @@ end
 TokenModule.UnAssignToken = function(token)
     local guid = token.getGUID()
     if (TokenModule.tokenAssignments[guid] ~= nil) and (TokenModule.tokenAssignments[guid].tag == 'Figurine') then
-        TokenModule.tokenAssignments[guid].call("RemoveToken", {token=token})
+        if TokenModule.tokenAssignments[guid].getVar("RemoveToken") ~= nil then
+            TokenModule.tokenAssignments[guid].call("RemoveToken", {token=token})
+        end
     end
     TokenModule.tokenAssignments[guid] = nil
     token.setDescription("Unassigned")
@@ -4989,7 +4996,8 @@ RulerModule.ToggleRuler = function(ship, rulerType, beQuiet)
             annInfo.note = 'spawned a ' .. RulerModule.DescriptiveName(ship, rulerType) .. ' (' .. rulerType .. ')'
             AnnModule.Announce(annInfo, 'all', ship)
         end
-        return RulerModule.SpawnRuler(ship, rulerType, beQuiet)
+        ship.setLock(true)
+        Wait.frames(function() RulerModule.SpawnRuler(ship, rulerType, beQuiet) end,1)
     end
 end
 
@@ -5505,6 +5513,8 @@ end
 -- Save and load ship data lua scriptState
 saveAndLoadShipStateLua = [[
 
+__XW_Ship = true
+
 function initContextMenu()
     local added_arcs = {}
     for k, arctype in pairs(self.getTable("Data").arcs) do
@@ -5825,7 +5835,7 @@ function newSpawner(listTable)
                       mesh = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/cardid.obj',
                       convex = true,
                       material = 1,
-                      type = 1
+                      type = 0
                   })
                   pilotId.setColorTint(tint)
                   card.addAttachment(pilotId)

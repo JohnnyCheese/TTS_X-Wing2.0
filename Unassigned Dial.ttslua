@@ -15,6 +15,10 @@ __XW_TokenType = 'helper:Dial'
 assignedShip = nil
 currMan = nil
 playerColor = nil
+openpanel = nil
+openbutton = nil
+opencolor = "#555555"
+closedcolor = "#222222"
 
 -- Save self state
 function onSave()
@@ -44,6 +48,15 @@ function onLoad()
     end
 end
 
+function clearOpenPanel()
+    if openpanel ~= nil then
+        self.UI.hide(openpanel)
+        self.UI.setAttribute(openbutton, "color", closedcolor)
+        self.UI.setAttribute(openbutton, "textColor", "#FFFFFF")
+    end
+    openpanel = nil
+    openbutton = nil
+end
 
 function clearDial()
 
@@ -56,6 +69,7 @@ function clearDial()
     self.UI.hide('tokenPanel')
     self.UI.hide("setManPeekPanel")
     winStat = false
+    clearOpenPanel()
 end
 
 function onUpdate()
@@ -660,9 +674,11 @@ function showTokMFD(p)
         return
     end
     self.UI.show("tokenPanel")
-    self.UI.hide("arcPanel")
-    self.UI.hide("relocPanel")
-    self.UI.setAttribute("tokenPanel", "position", "-340 -165 -40")
+    self.UI.setAttribute("TokenMenu", "color", opencolor)
+    clearOpenPanel()
+    openpanel = "tokenPanel"
+    openbutton = "TokenMenu"
+    self.UI.setAttribute("tokenPanel", "position", "-360 -165 -40")
     self.UI.setAttribute("tokenPanel", "rotation", "180 180 0")
 end
 
@@ -671,9 +687,11 @@ function showTokMFU(p)
         return
     end
     self.UI.show("tokenPanel")
-    self.UI.hide("arcPanel")
-    self.UI.hide("relocPanel")
-    self.UI.setAttribute("tokenPanel", "position", "340 -165 40")
+    self.UI.setAttribute("TokenMenuFu", "color", opencolor)
+    clearOpenPanel()
+    openpanel = "tokenPanel"
+    openbutton = "TokenMenuFu"
+    self.UI.setAttribute("tokenPanel", "position", "360 -165 40")
     self.UI.setAttribute("tokenPanel", "rotation", "180 0 0")
 end
 
@@ -681,8 +699,15 @@ function hideTokM(p)
     if spectReturn(p) == true then
         return
     end
-    self.UI.hide("tokenPanel")
+    if openpanel == "tokenPanel" then
+        self.UI.hide(openpanel)
+        self.UI.setAttribute(openbutton, "color", closedcolor)
+        self.UI.setAttribute(openbutton, "textColor", "#FFFFFF")
+    end
+    openpanel = nil
+    openbutton = nil
 end
+
 
 
 function showArcMFD(p)
@@ -690,9 +715,12 @@ function showArcMFD(p)
         return
     end
     self.UI.show("arcPanel")
-    self.UI.hide("relocPanel")
-    self.UI.hide("tokenPanel")
-    self.UI.setAttribute("arcPanel", "position", "260 -185 -40")
+    self.UI.setAttribute("ArcMenu", "color", opencolor)
+    clearOpenPanel()
+    openpanel = "arcPanel"
+    openbutton = "ArcMenu"
+
+    self.UI.setAttribute("arcPanel", "position", "250 -150 -40")
     self.UI.setAttribute("arcPanel", "rotation", "180 180 0")
 end
 
@@ -701,9 +729,12 @@ function showArcMFU(p)
         return
     end
     self.UI.show("arcPanel")
-    self.UI.hide("relocPanel")
-    self.UI.hide("tokenPanel")
-    self.UI.setAttribute("arcPanel", "position", "-260 -185 40")
+    self.UI.setAttribute("ArcMenuFu", "color", opencolor)
+    clearOpenPanel()
+    openpanel = "arcPanel"
+    openbutton = "ArcMenuFu"
+
+    self.UI.setAttribute("arcPanel", "position", "-250 -150 40")
     self.UI.setAttribute("arcPanel", "rotation", "180 0 0")
 end
 
@@ -711,16 +742,26 @@ function hideArcM(p)
     if spectReturn(p) == true then
         return
     end
-    self.UI.hide("arcPanel")
+    if openpanel == "arcPanel" then
+        self.UI.hide(openpanel)
+        self.UI.setAttribute(openbutton, "color", closedcolor)
+        self.UI.setAttribute(openbutton, "textColor", "#FFFFFF")
+    end
+    openpanel = nil
+    openbutton = nil
 end
 
 function showRelocMFD(p)
     if spectReturn(p) == true then
         return
     end
+
     self.UI.show("relocPanel")
-    self.UI.hide("arcPanel")
-    self.UI.hide("tokenPanel")
+    self.UI.setAttribute("RelocMenu", "color", opencolor)
+    clearOpenPanel()
+    openpanel = "relocPanel"
+    openbutton = "RelocMenu"
+
     self.UI.setAttribute("relocPanel", "position", "0 -215 -40")
     self.UI.setAttribute("relocPanel", "rotation", "180 180 0")
 end
@@ -730,8 +771,11 @@ function showRelocMFU(p)
         return
     end
     self.UI.show("relocPanel")
-    self.UI.hide("arcPanel")
-    self.UI.hide("tokenPanel")
+    self.UI.setAttribute("RelocMenuFu", "color", opencolor)
+    clearOpenPanel()
+    openpanel = "relocPanel"
+    openbutton = "RelocMenuFu"
+
     self.UI.setAttribute("relocPanel", "position", "0 -215 40")
     self.UI.setAttribute("relocPanel", "rotation", "180 0 0")
 end
@@ -740,7 +784,13 @@ function hideRelocM(p)
     if spectReturn(p) == true then
         return
     end
-    self.UI.hide("relocPanel")
+    if openpanel == "relocPanel" then
+        self.UI.hide(openpanel)
+        self.UI.setAttribute(openbutton, "color", closedcolor)
+        self.UI.setAttribute(openbutton, "textColor", "#FFFFFF")
+    end
+    openpanel = nil
+    openbutton = nil
 end
 
 function setDial(P)

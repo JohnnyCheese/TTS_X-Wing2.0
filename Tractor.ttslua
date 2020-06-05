@@ -8,7 +8,7 @@
 -- Scripted token properties
 __XW_Token = true
 __XW_TokenIdle = true
-__XW_TokenType = 'Ion'
+__XW_TokenType = 'Tractor'
 
 -- Was this lock tinted and named already?
 set = false
@@ -58,7 +58,7 @@ function onDropped()
         local nearest = nil
         local minDist = 3.6125 -- 100 mm
         for k,ship in pairs(getAllObjects()) do
-            if ship.tag == 'Figurine' and ship.name ~= '' then
+            if ship.tag == 'Figurine' and ship.getName() ~= '' then
                 local pos = ship.getPosition()
                 local dist = math.sqrt(math.pow((spos[1]-pos[1]),2) + math.pow((spos[3]-pos[3]),2))
                 if dist < minDist then
