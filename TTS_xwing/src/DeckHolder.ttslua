@@ -10,16 +10,18 @@ state = {
 
 function Enable()
     state.active = true
-    if not state.deck then
-        function DelayedDrawCoroutine()
-            repeat
-                coroutine.yield(0)
-            until (not self.isSmoothMoving()) and self.resting
+    function DelayedDrawCoroutine()
+        repeat
+            coroutine.yield(0)
+        until (not self.isSmoothMoving()) and self.resting
+        if state.deck then
+            SnapDeck(state.deck)
+        else
             DrawDeck()
-            return 1
         end
-        startLuaCoroutine(self, 'DelayedDrawCoroutine')
+        return 1
     end
+    startLuaCoroutine(self, 'DelayedDrawCoroutine')
 end
 
 function Disable()
