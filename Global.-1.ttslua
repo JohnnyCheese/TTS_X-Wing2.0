@@ -5686,6 +5686,7 @@ function newSpawner(listTable)
     Upgrades = listTable.Upgrades
     spawnCard = listTable.spawnCard
     Faction = listTable.Faction
+    Configuration = listTable.Configuration or {}
     local dialSkin = listTable.factionDial
     spawnedPilotList = {}
 
@@ -5717,9 +5718,7 @@ function newSpawner(listTable)
         dualTurret = 0
         Bombs = 0
         hasMob = 0
-        pilotCount = 0
         bombTokenDescription = ''
-        local tint = Pilots[shipIndex].tint or color(0,0,0,0)
         -- Spawn Mobile Upgrades
         for j, Up in ipairs(Upgrades[shipIndex]) do
             if  Up['Config'] == true then
@@ -5797,6 +5796,11 @@ function newSpawner(listTable)
 
         --Pilot and Ship Spawn
         pilotName = Pilots[shipIndex]['name']
+
+        local tint = color(0,0,0,0)
+        if Configuration[pilotName] ~= nil then
+            tint = Configuration[pilotName].tint or  color(0,0,0,0)
+        end
         card = Pilots[shipIndex]['card']
         cardB = Pilots[shipIndex]['cardB']
         pos = LocalPos(spawnCard, {0, 3, 5.5})
@@ -5810,19 +5814,6 @@ function newSpawner(listTable)
                 newPil.setName(pilotName)
                 newPil.setLuaScript(pilotCardScript)
                 newPil.setLock(true)
-                spawnedPilotList[shipIndex] = pilotName                                            --Counts how many pilots already spawned with same name and rename if needed
-                pilotCount = 0
-                if spawnedPilotList[1] ~= nil then
-                    for i, spawned in ipairs(spawnedPilotList) do
-                        if spawned == pilotName then
-                            pilotCount = pilotCount+1
-                        end
-                        if pilotCount > 1 then
-                            newNum = tostring(pilotCount)
-                            newPil.setName(Pilots[shipIndex]['name'] .. ' '..newNum)
-                        end
-                    end
-                end
 
                 -- Spawn Pilot Identifier
                 local card = newPil
@@ -5916,31 +5907,35 @@ function newSpawner(listTable)
               sound             = false,
               snap_to_grid      = false,
           })
-          newShip.setCustomObject({
-              convex = true,
-              mesh =  '{verifycache}'..Pilots[shipIndex].mesh,
-              diffuse = '{verifycache}'..Pilots[shipIndex].texture,
-              material = 1,
-              type = 1
-          })
         end
+
         if newShip ~= nil then
-            newShip.setName(Pilots[shipIndex]['name']) --Corrects ship name for clones
+            local model = nil
+            if Configuration[pilotName].model ~= nil then
+                model = Configuration[pilotName].model
+            elseif Pilots[shipIndex].mesh ~= nil then
+                model = '{verifycache}'..Pilots[shipIndex].mesh
+            end
+            if model then
+                newShip.setCustomObject({mesh = model})
+            end
+            local texture = nil
+            if Configuration[pilotName].texture ~= nil then
+                texture = Configuration[pilotName].texture
+            elseif Pilots[shipIndex].mesh ~= nil then
+                texture = '{verifycache}'..Pilots[shipIndex].texture
+            end
+            if texture then
+                newShip.setCustomObject({diffuse = texture})
+            end
+            if Configuration[pilotName].modeltint ~= nil then
+                newShip.setColorTint(Configuration[pilotName].modeltint)
+            end
+            newShip.setName(pilotName)
             newShip.setCustomObject({collider= ShipVerification.colliders[Pilots[shipIndex]['Size']]})
             newShip.setLock(true)
             newShip.setTable("Data", Pilots[shipIndex]['Data'])
             newShip.setLuaScript(saveAndLoadShipStateLua)
-            if spawnedPilotList[1] ~= nil then
-                for i, spawned in ipairs(spawnedPilotList) do
-                    if spawned == pilotName then
-                        pilotCount = pilotCount
-                    end
-                    if pilotCount > 1 then
-                        newNum = tostring(pilotCount)
-                        newShip.setName(Pilots[shipIndex]['name'] .. ' '..newNum)
-                    end
-                end
-            end
             local ship = newShip
             local card = newPil
             local idpos = pos
@@ -6192,6 +6187,7 @@ function newSpawner(listTable)
                 spawnCard.setPosition(finalPos)
             end
         end
+        tempObstacleBag.destruct()
     end
 
     --returns Quick Build Card to initial position
