@@ -1245,43 +1245,27 @@ ArcCheck.CalculateArcLineSegments = function(table, degree, size_w, size_l)
 end
 
 function CheckArc(args)
-    -- Remove any rulers from old arc checks.
-    --[[for k, ruler in pairs(ArcCheck.arc_check_rulers) do
-        if ruler != nil then
-            ruler.destruct()
-        end
-    end
-    ArcCheck.arc_check_rulers = {}
-
-    -- If we are repeating the exact same arc check, then just toggle the rulers
-    -- off and don't actually perform the check.
-    if (ArcCheck.current_arc == args.arctype) and (args.ship == ArcCheck.current_ship) then
-        ArcCheck.current_arc = "none"
-        ArcCheck.current_ship = nil
-        return
-    end
-    ArcCheck.current_arc = args.arctype
-    ArcCheck.current_ship = args.ship
-    --]]
-
     -- Remove player selection to prevent accidental deletion.
     local playerColors = args.ship.getSelectingPlayers()
     for _, player in ipairs(playerColors) do
         args.ship.removeFromPlayerSelection(player)
     end
+
+    range = args.range or 3
     -- Iterate over the potential targets and display their statuses.
     local spawnedRulers = {}
-    printToAll(args.ship.getName() .. ' checks for targets in the ' .. args.arctype .. ' arc:', color(1.0, 1.0, 0.2, 0.9))
-    targets = ArcCheck.GetTargetsInRelationToArc(args.ship, args.arctype)
+    if args.arctype ~= "full" then
+        printToAll(args.ship.getName() .. ' checks for targets in the ' .. args.arctype .. ' arc:', color(1.0, 1.0, 0.2, 0.9))
+    end
+    targets = ArcCheck.GetTargetsInRelationToArc(args.ship, args.arctype, nil, range)
     table.sort(targets, ArcCheck.SortTargetsByDesirability)
     local found = false
     for i, target in pairs(targets) do
         ship = target['ship']
-
         if target['in_arc'] == false then
-            printToAll(' - ' .. ship.getName() .. ' not in arc')
-        elseif target['closest'].range > 3 then
-            printToAll(' - ' .. ship.getName() .. ' not in range')
+            --printToAll(' - ' .. ship.getName() .. ' not in arc')
+        elseif target['closest'].range > range then
+            --printToAll(' - ' .. ship.getName() .. ' not in range')
         else
             found = true
             ship.setLock(true)
@@ -1290,28 +1274,32 @@ function CheckArc(args)
                 table.insert(spawnedRulers, ArcCheck.SpawnObstructionRuler(target['other_closest']))
             end
 
-            obstructedtext = ' is'
-            if (target['obstructed'] == 'likely_unobstructed') then
-                obstructedtext = ' is most likely UNOBSTRUCTED'
-            elseif (target['obstructed'] == 'obstructed') then
-                obstructedtext = ' is OBSTRUCTED'
-            elseif (target['obstructed'] == 'likely_obstructed') then
-                obstructedtext = ' is most likely OBSTRUCTED'
-            elseif (target['obstructed'] == 'chosen_obstructed') then
-                obstructedtext = ' can be chosen to be OBSTRUCTED'
-            end
+            if args.arctype == "full" then
+                printToAll(" - " .. ship.getName().. " in range", color(1.0, 1.0, 0.2, 0.9))
+            else
 
-            multipletext = ''
-            if target['multiple_points'] == true then
-                multipletext = ' has multiple closest points and'
-            end
+                obstructedtext = ' is'
+                if (target['obstructed'] == 'likely_unobstructed') then
+                    obstructedtext = ' is most likely UNOBSTRUCTED'
+                elseif (target['obstructed'] == 'obstructed') then
+                    obstructedtext = ' is OBSTRUCTED'
+                elseif (target['obstructed'] == 'likely_obstructed') then
+                    obstructedtext = ' is most likely OBSTRUCTED'
+                elseif (target['obstructed'] == 'chosen_obstructed') then
+                    obstructedtext = ' can be chosen to be OBSTRUCTED'
+                end
 
-            bullseyetext = ''
-            if target['bullseye'] == true then
-                bullseyetext = ' in bullseye'
-            end
+                multipletext = ''
+                if target['multiple_points'] == true then
+                    multipletext = ' has multiple closest points and'
+                end
 
-            printToAll(" - " .. ship.getName().. multipletext .. obstructedtext .. ' at range ' ..tostring(target['closest'].range) .. bullseyetext, color(1.0, 1.0, 0.2, 0.9))
+                bullseyetext = ''
+                if target['bullseye'] == true then
+                    bullseyetext = ' in bullseye'
+                end
+                printToAll(" - " .. ship.getName().. multipletext .. obstructedtext .. ' at range ' ..tostring(target['closest'].range) .. bullseyetext, color(1.0, 1.0, 0.2, 0.9))
+            end
         end
     end
 
@@ -1350,10 +1338,12 @@ returns a table of targets, each containing the following:
     other_closest: Table, the other closest point. See 'closest' and
         'multiple_points'. This is nil if only one closest point.
 --]]
-ArcCheck.GetTargetsInRelationToArc = function(ship, arctype, fixed_targets)
+ArcCheck.GetTargetsInRelationToArc = function(ship, arctype, fixed_targets, range)
     if ArcCheck.initialized == false then
         ArcCheck.Initialize()
     end
+
+    range = range or 3
 
     local arc_parts = {arctype}
     if arctype == "frontback" then
@@ -1367,7 +1357,7 @@ ArcCheck.GetTargetsInRelationToArc = function(ship, arctype, fixed_targets)
     local shipSize = ship.getTable("Data").Size or 'small'
 
     local potential_targets = fixed_targets or ArcCheck.GetPotentialTargets(ship)
-    local bullseye_targets = ArcCheck.GetBullseyeTargets(ship, ArcCheck.bullseye_data.pos[shipSize])
+    local bullseye_targets = ArcCheck.GetBullseyeTargets(ship, ArcCheck.bullseye_data.pos[shipSize], range)
 
     local own_line_segments = {}
     for i, arc in ipairs(arc_parts) do
@@ -1404,7 +1394,7 @@ ArcCheck.GetTargetsInRelationToArc = function(ship, arctype, fixed_targets)
             target['closest'] = closest
             target['multiple_points'] = false
 
-            if closest.range <= 3 then
+            if closest.range <= range then
                 found = true
                 target['closest'].obstructions = ArcCheck.CheckObstruction(closest)
                 target['closest'].in_bullseye = target['bullseye']
@@ -2799,7 +2789,7 @@ MoveModule.castData.small.nubFR = {
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(20.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
 }
 MoveModule.castData.small.nubFL = {
@@ -2807,7 +2797,7 @@ MoveModule.castData.small.nubFL = {
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(20.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
 }
 MoveModule.castData.small.nubBR = {
@@ -2815,7 +2805,7 @@ MoveModule.castData.small.nubBR = {
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(20.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
 }
 MoveModule.castData.small.nubBL = {
@@ -2823,7 +2813,7 @@ MoveModule.castData.small.nubBL = {
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(20.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
 }
 
@@ -2841,7 +2831,7 @@ MoveModule.castData.medium.nubFR = {
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(30.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
 }
 MoveModule.castData.medium.nubFL = {
@@ -2849,7 +2839,7 @@ MoveModule.castData.medium.nubFL = {
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(30.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
 }
 MoveModule.castData.medium.nubBR = {
@@ -2857,7 +2847,7 @@ MoveModule.castData.medium.nubBR = {
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(30.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
 }
 MoveModule.castData.medium.nubBL = {
@@ -2865,7 +2855,7 @@ MoveModule.castData.medium.nubBL = {
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(30.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
 }
 
@@ -2884,7 +2874,7 @@ MoveModule.castData.large.nubFR = {
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(40.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
 }
 MoveModule.castData.large.nubFL = {
@@ -2892,7 +2882,7 @@ MoveModule.castData.large.nubFL = {
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(40.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
 }
 MoveModule.castData.large.nubBR = {
@@ -2900,7 +2890,7 @@ MoveModule.castData.large.nubBR = {
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(40.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
 }
 MoveModule.castData.large.nubBL = {
@@ -2908,7 +2898,7 @@ MoveModule.castData.large.nubBL = {
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(40.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
 }
 
@@ -2926,7 +2916,7 @@ MoveModule.castData.huge.nubFR = {
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(111.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
 }
 MoveModule.castData.huge.nubFL = {
@@ -2934,7 +2924,7 @@ MoveModule.castData.huge.nubFL = {
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(111.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
 }
 MoveModule.castData.huge.nubBR = {
@@ -2942,7 +2932,7 @@ MoveModule.castData.huge.nubBR = {
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(111.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
 }
 MoveModule.castData.huge.nubBL = {
@@ -2950,7 +2940,7 @@ MoveModule.castData.huge.nubBL = {
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(111.858)},
     direction = {0, 0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.6), Convert_mm_igu(8), Convert_mm_igu(3.6)},
+    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
 }
 
@@ -3338,7 +3328,7 @@ MoveModule.MoveProbe.GetFreePart = function(info, ship, partFun, partRange, move
             end
             actPart = actPart + partDelta
         until collision == true or (partRange.from - actPart)*math.sgn(partDelta) < 0
-        actPart = actPart - partDelta
+        actPart = actPart - 2*partDelta
         out.collObj = collInfo.coll -- This is what we hit
         out.part = actPart
     elseif collision == false then
@@ -4869,6 +4859,23 @@ RulerModule.typeToArc['FRONTBACK'] = 'frontback'
 RulerModule.typeToArc['LEFTRIGHT'] = 'leftright'
 RulerModule.typeToArc['BULL'] = 'bullseye'
 
+RulerModule.typeToRange = {}
+RulerModule.typeToRange['F'] = 3
+RulerModule.typeToRange['FF'] = 3
+RulerModule.typeToRange['B'] = 3
+RulerModule.typeToRange['FB'] = 3
+RulerModule.typeToRange['R1'] = 1
+RulerModule.typeToRange['R2'] = 2
+RulerModule.typeToRange['R3'] = 3
+RulerModule.typeToRange['R'] = 3
+RulerModule.typeToRange['SL'] = 3
+RulerModule.typeToRange['SR'] = 3
+RulerModule.typeToRange['FRONTBACK'] = 3
+RulerModule.typeToRange['LEFTRIGHT'] = 3
+RulerModule.typeToRange['BULL'] = 3
+
+
+
 -- Get ruler spawn tables for some ship and some ruler code
 -- Return table with "mesh", "collider" and "scale" keys
 --  (for appropriate ruler)
@@ -4958,7 +4965,7 @@ RulerModule.SpawnRuler = function(ship, rulerType, beQuiet)
 
     local arclines = {}
     if RulerModule.typeToArc[rulerType] then
-        arclines = CheckArc({ship=ship,arctype=RulerModule.typeToArc[rulerType]})
+        arclines = CheckArc({ship=ship,arctype=RulerModule.typeToArc[rulerType], range=RulerModule.typeToRange[rulerType]})
     end
     table.insert(RulerModule.spawnedRulers, {ship = ship, ruler = newRuler, arclines = arclines,type = rulerType})
     newRuler.lock()
@@ -5957,7 +5964,7 @@ function newSpawner(listTable)
                   type              = "Custom_Model",
                   position          = idpos,
                   rotation          = idrot,
-                  scale             = mm_ship_scale,
+                  scale             = mm_ship_scale*0.99,
                   sound             = false,
                   snap_to_grid      = false,
               })
@@ -6032,6 +6039,17 @@ function newSpawner(listTable)
                 end
             end
         end
+        if Pilots[shipIndex]['wingleader'] == true then
+            for k, acc in ipairs(listaAcc) do
+                if acc.name == 'Epic Wing Token' then
+                    pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
+                    wingtoken = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
+                    wingtokenclone = wingtoken.clone()
+                    tempBagAcc.putObject(wingtokenclone)
+                end
+            end
+        end
+
         if Pilots[shipIndex]['Charge'] ~= nil then   --Checks and spawns Charge Tokens with appropriate layout (up to 4 tokens)
             charges = Pilots[shipIndex]['Charge']
             while charges > 0 do
