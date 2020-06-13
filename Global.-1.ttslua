@@ -13,7 +13,7 @@
 
 -- Should the code execute print functions or skip them?
 -- This should be set to false on every release
-print_debug = false
+print_debug = true
 
 TTS_print = print
 function print(...)
@@ -63,7 +63,7 @@ function TTS_Serialize(pos)
 end
 
 ObjType.AddType('ship', function(obj)
-    return (obj.tag == 'Figurine') and obj.getVar('__XW_Ship')
+    return ((obj.tag == 'Figurine') and (obj.getVar('__XW_Ship') == true))
 end)
 ObjType.AddType('token', function(obj)
     return (obj.tag == 'Chip' or obj.tag == 'Coin' or (obj.getVar('__XW_Token') and obj.getVar('__XW_TokenIdle')))
@@ -2751,12 +2751,12 @@ end
 
 -- Selection function for MoveModule.JoinHitTables - ships only
 MoveModule.SelectShips = function(obj)
-    return (obj.tag == 'Figurine') and obj.getVar('__XW_Ship')
+    return ((obj.tag == 'Figurine') and (obj.getVar('__XW_Ship')==true))
 end
 
 -- Selection function for MoveModule.JoinHitTables - huge ships only
 MoveModule.SelectHugeShips = function(obj)
-    return MoveModule.SelectShips() and (obj.getTable('Data').Size == 'huge')
+    return MoveModule.SelectShips(obj) and (obj.getTable('Data').Size == 'huge')
 end
 
 
@@ -6140,6 +6140,9 @@ function newSpawner(listTable)
             end
         end
 
+
+
+
         finalPos = LocalPos(spawnCard, {-4 - 2*UpNum, 0, 0})
         spawnCard.setPosition(finalPos)
         shipIndex = shipIndex + 1
@@ -6147,6 +6150,32 @@ function newSpawner(listTable)
         tempBagAcc.destruct()
         tempBagShp.destruct()
     end
+
+    if listTable.Obstacles ~= nil then
+        tempObstacleBag = getObjectFromGUID('203cb8').clone({position = PosBag3}) -- Obstacles bag
+        obstacleAcc = tempObstacleBag.getObjects()
+        for i, obstacleName in ipairs(listTable.Obstacles) do
+            local found = false
+            for j, obstacle in ipairs(obstacleAcc) do
+                if obstacle.name:find(obstacleName) then
+                    pos =  LocalPos(spawnCard, {0, 3, 5.5})
+                    rot = spawnCard.getRotation()
+                    obstacleToken = tempObstacleBag.takeObject({position = pos, rotation = rot, guid = obstacle.guid})
+                    obstacleClone = obstacleToken.clone()
+                    tempObstacleBag.putObject(obstacleClone)
+                    found = true
+                    break
+                end
+            end
+            if not found then
+                print("Couldnt find obstacle: " .. obstacleName)
+            else
+                finalPos = LocalPos(spawnCard, {-4, 0, 0})
+                spawnCard.setPosition(finalPos)
+            end
+        end
+    end
+
     --returns Quick Build Card to initial position
     spawnCard.setPosition(storePos)
     spawnCard.setRotation(storeRot)

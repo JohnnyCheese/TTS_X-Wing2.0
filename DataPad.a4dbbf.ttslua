@@ -2755,6 +2755,7 @@ function idSpawner(idTable)
     fList={}
     fList.Pilots = {}
     fList.Upgrades = {}
+    fList.Obstacles = idTable.Obstacles
     if idTable.Faction == nil then
         fList.Faction = masterPilotDB[idTable.Pilots[1]]['Faction']
     else
@@ -3975,6 +3976,33 @@ alternateSpelling["stabilized s-foils"] = 'Stabilized S-Foils (Open)'
 alternateSpelling["0-66"] = 'O-66'
 alternateSpelling["g4r-gor v/m"] = 'G4R-G0R V/M'
 
+obstacleNames = {
+    coreasteroid0 = "Asteroid 6",
+    coreasteroid1 = "Asteroid 3",
+    coreasteroid2 = "Asteroid 5",
+    coreasteroid3 = "Asteroid 4",
+    coreasteroid4 = "Asteroid 2",
+    coreasteroid5 = "Asteroid 1",
+    yt2400debris0 = "Debrisfield 6",
+    yt2400debris1 = "Debrisfield 5",
+    yt2400debris2 = "Debrisfield 1",
+    vt49decimatordebris0 = "Debrisfield 4",
+    vt49decimatordebris1 = "Debrisfield 2",
+    vt49decimatordebris2 = "Debrisfield 3",
+    core2asteroid0 = "TFA Asteroid 4",
+    core2asteroid1 = "TFA Asteroid 5",
+    core2asteroid2 = "TFA Asteroid 6",
+    core2asteroid3 = "TFA Asteroid 3",
+    core2asteroid4 = "TFA Asteroid 1",
+    core2asteroid5 = "TFA Asteroid 2",
+    gascloud1 = "Gas Cloud 3",
+    gascloud2 = "Gas Cloud 2",
+    gascloud3 = "Gas Cloud 1",
+    gascloud4 = "Gas Cloud 6",
+    gascloud5 = "Gas Cloud 4",
+    gascloud6 = "Gas Cloud 5",
+}
+
 -- Third Step: This function will decompose the input string and will propperly alocate each value on the propper position in the table.
 -- Then, it calls for the next function, either inquiring for ships and version of upgrades or calling the spawner.
 function parseList()
@@ -3982,7 +4010,21 @@ function parseList()
     self.clearInputs()
     if lista ~= nil then
         parsedList = {}
-        pilotsList = mysplit(lista, '/', true)
+        splitlist = mysplit(lista, '|', true)
+        ships = splitlist[1]
+        obstacles = splitlist[2]
+
+        obstacleList = mysplit(obstacles, '/', true)
+        finalList.Obstacles = {}
+        for i, obstacle in ipairs(obstacleList) do
+            if obstacleNames[obstacle] ~= nil then
+                table.insert(finalList.Obstacles, obstacleNames[obstacle])
+            else
+                printToAll("Unable to find obstacle: " .. obstacle .. " please check correct spelling", {1,0,0})
+            end
+        end
+
+        pilotsList = mysplit(ships, '/', true)
         local rest = ""
         for i, pilot in ipairs(pilotsList) do
             pilot = rest .. pilot
