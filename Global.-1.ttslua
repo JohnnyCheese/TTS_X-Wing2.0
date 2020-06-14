@@ -5932,7 +5932,12 @@ function newSpawner(listTable)
                 newShip.setColorTint(Configuration[pilotName].modeltint)
             end
             newShip.setName(pilotName)
-            newShip.setCustomObject({collider= ShipVerification.colliders[Pilots[shipIndex]['Size']]})
+            newShip.setCustomObject({
+                collider= ShipVerification.colliders[Pilots[shipIndex]['Size']],
+                convex = true,
+                material = 1,
+                type = 1
+            })
             newShip.setLock(true)
             newShip.setTable("Data", Pilots[shipIndex]['Data'])
             newShip.setLuaScript(saveAndLoadShipStateLua)
