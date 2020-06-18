@@ -1138,7 +1138,7 @@ AIModule.ProcessActionStack = function(ship)
         elseif action_code == 'evade' then
             DialModule.PerformAction(ship, 'Evade', ship.getVar('owningPlayer'))
         elseif action_code == 'targetLock' then
-            DialModule.PerformAction(ship, 'Target Lock', ship.getVar('owningPlayer')) -- TODO: Actually assign the target lock token properly.
+            DialModule.PerformAction(ship, 'Target Lock', ship.getVar('owningPlayer'), {['ship'] = ship, ['target'] = AIModule.current_move.target})
         elseif MoveModule.PerformMove(action_code, ship, false, AIModule.ProcessActionStack) then
             break
         end
@@ -4392,6 +4392,14 @@ function TokenModule_SetLocks()
     for k,info in pairs(TokenModule.locksToBeSet) do
         info.lock.call('manualSet', {color=info.color, name=info.name})
         info.lock.highlightOn({0,0,0}, 0.01)
+
+        if info.ship ~= nil then
+            info.lock.call('setOwner', {ship=info.ship})
+        end
+
+        if info.target ~= nil then
+            info.lock.call('assignToShip', {ship=info.target})
+        end
     end
     TokenModule.locksToBeSet = {}
 end
@@ -4637,7 +4645,7 @@ end
 DialModule = {}
 -- Perform an automated action
 -- Can be called externally for stuff like range ruler spawning
-DialModule.PerformAction = function(ship, type, playerColor)
+DialModule.PerformAction = function(ship, type, playerColor, args)
     local tokenActions = ' Focus Calculate Evade Stress Strain Target Lock Ion Cloak Jam Reinforce Disarm Tractor Dummy '
     announceInfo = {type='action'}
     -- Ruler spawning
@@ -4713,11 +4721,22 @@ DialModule.PerformAction = function(ship, type, playerColor)
             announceInfo.note = 'tried to shed ion but doesn\'t have any'
         end
     elseif tokenActions:find(' ' .. type .. ' ') ~= nil then
-        local dest = TokenModule.VisiblePosition(type, ship)
+        local destinationShip = ship
+        if args ~= nil and args['target'] ~= nil then
+            destinationShip = args['target']
+        end
+        local dest = TokenModule.VisiblePosition(type, destinationShip)
         local newToken = TokenModule.TakeToken(type, playerColor, dest)
 
         if type == 'Target Lock' then
-            table.insert(TokenModule.locksToBeSet, {lock=newToken, name=ship.getName(), color=playerColor})
+            local lockArguments = {lock=newToken, name=ship.getName(), color=playerColor}
+            if args ~= nil and args['ship'] ~= nil and args['target'] ~= nil then
+                -- The AI system passes in arguments to automatically assign the
+                -- lock. Process these if they've been passed in.
+                lockArguments.ship=args['ship']
+                lockArguments.target=args['target']
+            end
+            table.insert(TokenModule.locksToBeSet, lockArguments)
             announceInfo.note = 'acquired a target lock'
             TokenModule.UnAssignToken(newToken) -- Target locks are not assigned to the spawning ship
         elseif type == 'Ion' then
