@@ -374,9 +374,9 @@ BehaviourDB.rule_sets[1].ships[19].action_selection = {
     },
     [2] = { --  Barrel roll > target lock to avoid target arc and still get a shot (with the > target lock)
         ['description'] = {['text'] = "%s barrel rolled and target locked to avoid %s's arc and still get a shot.", ['strings'] = {'ship', 'target'}},
-        ['preconditions'] = {['inTargetsArc'] = true, ['hasShot'] = true, ['targetLocked'] = false, ['targetWithinRange3'] = true},
+        ['preconditions'] = {['inTargetsArc'] = true, ['hasShot'] = true, ['targetLocked'] = false},
         ['action'] = {['barrelRoll'] = false, ['targetLock'] = true},
-        ['postconditions'] = {['inTargetsArc'] = false, ['hasShot'] = true},
+        ['postconditions'] = {['inTargetsArc'] = false, ['hasShot'] = true, ['targetWithinRange3'] = true},
     },
     [3] = { --  Barrel roll > target lock to avoid target arc and still get a shot (without the > target lock)
         ['description'] = {['text'] = "%s barrel rolled to avoid %s's arc and still get a shot.", ['strings'] = {'ship', 'target'}},
@@ -386,9 +386,9 @@ BehaviourDB.rule_sets[1].ships[19].action_selection = {
     },
     [4] = { --  Barrel roll > target lock to get a shot (with the > target lock)
         ['description'] = "%s barrel rolled and target locked to get a shot.",
-        ['preconditions'] = {['hasShot'] = false, ['targetLocked'] = false, ['targetWithinRange3'] = true},
+        ['preconditions'] = {['hasShot'] = false, ['targetLocked'] = false},
         ['action'] = {['barrelRoll'] = false, ['targetLock'] = true},
-        ['postconditions'] = {['hasShot'] = true},
+        ['postconditions'] = {['hasShot'] = true, ['targetWithinRange3'] = true},
     },
     [5] = { --  Barrel roll > target lock to get a shot (without the > target lock)
         ['description'] = "%s barrel rolled to get a shot.",
