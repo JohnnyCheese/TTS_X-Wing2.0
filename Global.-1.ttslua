@@ -4505,10 +4505,6 @@ TokenModule.TokenOwnerInfo = function(tokenPos)
     else
         out.margin = (nextNearest.dist-nearest.dist)/2
     end
-    local owner = 'nil'
-    if out.owner ~= nil then
-        owner = out.owner.getName()
-    end
     return out
 end
 
@@ -4530,9 +4526,9 @@ end
 TokenModule.GetShipTokenCount = function(ship, token_name)
     local count = 0;
 
-    for _, tokenInfo in pairs(TokenModule.GetShipTokensInfo(ship)) do
-        if tokenInfo.token.getName() == token_name and tokenInfo.token.getVar('deleted') == nil then
-            local quantity = tokenInfo.token.getQuantity()
+    for _, token in pairs(TokenModule.GetShipTokens(ship)) do
+        if token.getName() == token_name and token.getVar('deleted') == nil then
+            local quantity = token.getQuantity()
             if quantity < 0 then
                 quantity = 1
             end
@@ -4545,29 +4541,18 @@ end
 
 -- Return table of MoveModule.GetTokenInfo enties for all tokens that are owned by given ship
 TokenModule.GetShipTokensInfo = function(ship)
-    -- Check for nearby tokens
-    local nearTokens = ObjType.GetNearOfType(ship.getPosition(), TokenModule.tokenReachDistance, 'token')
+    local shipTokens = TokenModule.GetShipTokens(ship)
     local shipTokensInfo = {}
-    for k,token in pairs(nearTokens) do
-        local tokenInfo = TokenModule.TokenOwnerInfo(token)
-        if tokenInfo.owner == ship then
-            table.insert(shipTokensInfo, tokenInfo)
-        end
+    for k,token in pairs(shipTokens) do
+        table.insert(shipTokensInfo, TokenModule.TokenOwnerInfo(token))
     end
+
     return shipTokensInfo
 end
 
 -- Return table of object references for all tokens that are owned by given ship
 TokenModule.GetShipTokens = function(ship)
-    -- Check for nearby tokens
-    --[[local shipTokensInfo = TokenModule.GetShipTokensInfo(ship)
-    local tokens = {}
-    for k,tokenInfo in pairs(shipTokensInfo) do
-        table.insert(tokens, tokenInfo.token)
-    end
-    return tokens]]
-    local tokens = ship.call("GetTokens")
-    return tokens
+    return ship.call("GetTokens")
 end
 
 -- Clear given distance within position from tokens
