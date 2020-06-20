@@ -291,6 +291,7 @@ AIModule.current_move = {}
 AIModule.current_move.in_progress = false
 AIModule.current_move.Reset = function()
     AIModule.current_move.take_action = false
+    AIModule.current_move.move_code = nil
     AIModule.current_move.collision = false
     AIModule.current_move.difficulty = nil
     AIModule.current_move.obstacle = false
@@ -654,6 +655,8 @@ AIModule.PerformManeuver = function(ship, take_action)
             end
         end
 
+        AIModule.current_move.move_code = move_code
+
         if move_code ~= nil then
             -- Check for collisions.
             local move_info = MoveData.DecodeInfo(move_code, ship)
@@ -783,6 +786,9 @@ AIModule.ManeuverPostShipRest = function(ship)
         if AIModule.current_move.is_ionised then
             -- TODO: Only perform a focus action (if possible)
         else
+            -- Check for Full Throttle and apply it now if appropriate.
+            AIModule.ApplySpecialAbility(ship, 'fullThrottle')
+
             -- Run through the ship's actions and try them in order.
             action_selected = AIModule.SelectAction(ship)
         end
@@ -900,6 +906,42 @@ AIModule.GetNearestMoves = function(ship, move_code, can_perform_red_maneuvers)
 
         speed_offset = speed_offset + 1
     end
+end
+
+AIModule.ApplySpecialAbility = function(ship, ability)
+    if AIModule.HasSpecialAbility(ship, ability) then
+        if ability == 'fullThrottle' then
+            -- Take an evade action if the ship fully executed (ie, no
+            -- ship-to-ship collision) a 3-5 maneuver. We're assumed to not be
+            -- stressed as this is only called right before actions are
+            -- selected.
+            if AIModule.current_move.collision == false then
+                local move_code = AIModule.current_move.move_code
+                if string.find(move_code, '3') or string.find(move_code, '4') or string.find(move_code, '5') then
+                    printToAll(string.format('%s used full throttle to evade.', ship.getName()))
+                    DialModule.PerformAction(ship, 'Evade', ship.getVar('owningPlayer'))
+                end
+            end
+        end
+    end
+end
+
+AIModule.HasSpecialAbility = function(ship, ability)
+    local rule_set = BehaviourDB.GetRuleSet()
+    local ship_id = ship.getTable('Data')['shipId']
+    local ship_behaviour = rule_set.ships[ship_id]
+
+    if ship_behaviour.special_rules == nil then
+        return false
+    end
+
+    for _, ship_ability in pairs(ship_behaviour.special_rules) do
+        if ability == ship_ability then
+            return true
+        end
+    end
+
+    return false
 end
 
 --[[ AIModule.IsIonised
@@ -1288,25 +1330,43 @@ end
 
 AIModule.condition_functions = {}
 AIModule.condition_functions['hasShot'] = function(ship, target, probe)
-    if probe.has_shot ~= nil then
-        return probe.has_shot
+    if probe.shot_range ~= nil then
+        return probe.shot_range ~= -1 and probe.shot_range <= 3
     end
+
+    probe.shot_range = AIModule.GetShotRange(ship, probe)
+
+    return probe.shot_range ~= -1 and probe.shot_range <= 3
+end
+
+AIModule.condition_functions['hasShotWithinRange1'] = function(ship, target, probe) -- TODO: Generalise this and the above function? Would require being able to pass in parameters to condition functions, so a hefty refactor.
+    if probe.shot_range ~= nil then
+        return probe.shot_range ~= -1 and probe.shot_range <= 1
+    end
+
+    probe.shot_range = AIModule.GetShotRange(ship, probe)
+
+    return probe.shot_range ~= -1 and probe.shot_range <= 1
+end
+
+AIModule.GetShotRange = function(ship, probe)
+    local closest_range = -1
 
     local original_position_rotation = AIModule.GetPositionAndRotation(ship)
     AIModule.ApplyProbe(ship, probe)
 
-    probe.has_shot = false
     targets = ArcCheck.GetTargetsInRelationToArc(ship, 'front') -- TODO: Do we need to check for different arc types for different ships?
     targets = table.sieve(targets, AIModule.FilterInArc)
     targets = table.sieve(targets, AIModule.FilterInRange)
     for _ in pairs(targets) do
-        probe.has_shot = true
-        break
+        if closest_range == -1 or target.closest.range < closest_range then
+            closest_range = target.closest.range
+        end
     end
 
     AIModule.SetPositionAndRotation(ship, original_position_rotation)
 
-    return probe.has_shot
+    return closest_range
 end
 
 AIModule.condition_functions['inTargetsArc'] = function(ship, target, probe)
@@ -1364,6 +1424,16 @@ AIModule.condition_functions['targetWithinRange3'] = function(ship, target, prob
     end
 
     return probe.target_range <= 3
+end
+
+AIModule.condition_functions['evading'] = function(ship, target, probe)
+    if probe.evading ~= nil then
+        return probe.evading
+    end
+
+    probe.evading = TokenModule.GetShipTokenCount(ship, 'Evade') > 0
+
+    return probe.evading
 end
 
 

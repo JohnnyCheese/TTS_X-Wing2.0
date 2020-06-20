@@ -449,6 +449,50 @@ BehaviourDB.rule_sets[1].ships[18].move_table = {
         ['stress'] = {[1] = 'br1', [5] = 's2', [6] = 'tr3'},
     },
 }
+BehaviourDB.rule_sets[1].ships[18].action_selection = {
+    [1] = { -- (target moved) Target lock
+        ['description'] = {['text'] = "%s target locked %s.", ['strings'] = {'ship', 'target'}},
+        ['preconditions'] = {['targetMoved'] = true, ['targetLocked'] = false, ['targetWithinRange3'] = true},
+        ['action'] = 'targetLock'
+    },
+    [2] = { -- (target moved) Boost or barrel roll to get a shot at range 1
+        ['description'] = "%s barrel rolled/boosted to get a close range shot.",
+        ['preconditions'] = {['targetMoved'] = true, ['hasShotWithinRange1'] = false},
+        ['action'] = {
+            [1] = {['boost'] = false},
+            [2] = {['barrelRoll'] = false}
+        },
+        ['postconditions'] = {['hasShotWithinRange1'] = true},
+    },
+    [3] = { -- (target moved) Boost or barrel roll to get a shot
+        ['description'] = "%s barrel rolled/boosted to get a shot.",
+        ['preconditions'] = {['targetMoved'] = true, ['hasShot'] = false},
+        ['action'] = {
+            [1] = {['boost'] = false},
+            [2] = {['barrelRoll'] = false}
+        },
+        ['postconditions'] = {['hasShot'] = true},
+    },
+    [4] = { -- Barrel roll or boost to avoid target's arc
+        ['description'] = {['text'] = "%s barrel roll/boosted to avoid %s's arc.", ['strings'] = {'ship', 'target'}},
+        ['preconditions'] = {['inTargetsArc'] = true},
+        ['action'] = {
+            [1] = {['boost'] = false},
+            [2] = {['barrelRoll'] = false}
+        },
+        ['postconditions'] = {['inTargetsArc'] = false},
+    },
+    [5] = { -- Evade, if not already
+        ['description'] = "%s evaded.",
+        ['preconditions'] = {['evading'] = false},
+        ['action'] = 'evade'
+    },
+    [6] = { -- Focus
+        ['description'] = "%s focused.",
+        ['action'] = 'focus'
+    }
+}
+BehaviourDB.rule_sets[1].ships[18].special_rules = {'fullThrottle'}
 
 -- TIE/ph Phantom
 BehaviourDB.rule_sets[1].ships[27] = {}
