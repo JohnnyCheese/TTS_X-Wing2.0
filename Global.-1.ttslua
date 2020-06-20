@@ -1380,6 +1380,7 @@ AIModule.condition_functions['inTargetsArc'] = function(ship, target, probe)
     probe.in_targets_arc = false
     targets = ArcCheck.GetTargetsInRelationToArc(target, 'front', {ship}) -- TODO: Do we need to check for different arc types for different ships?
     targets = table.sieve(targets, AIModule.FilterInArc)
+    targets = table.sieve(targets, AIModule.FilterInRange)
     for _, target_info in pairs(targets) do
         probe.in_targets_arc = true
         break
