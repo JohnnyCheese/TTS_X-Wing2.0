@@ -1674,7 +1674,7 @@ ArcCheck.GetTargetsInRelationToArc = function(ship, arctype, fixed_targets, rang
     local shipSize = ship.getTable("Data").Size or 'small'
 
     local potential_targets = fixed_targets or ArcCheck.GetPotentialTargets(ship)
-    local bullseye_targets = ArcCheck.GetBullseyeTargets(ship, ArcCheck.bullseye_data.pos[shipSize], range)
+    local bullseye_targets = ArcCheck.GetBullseyeTargets(ship, ArcCheck.bullseye_data.pos[shipSize])
 
     local own_line_segments = {}
     for i, arc in ipairs(arc_parts) do
