@@ -300,12 +300,12 @@ BehaviourDB.rule_sets[1].ships[13].move_table = {
 BehaviourDB.rule_sets[1].ships[13].action_selection = {
     [1] = { -- (target not moved) Target lock if not in target's arc
         ['description'] = {['text'] = "%s target locked them %s.", ['strings'] = {'ship', 'target'}},
-        ['preconditions'] = {['targetMoved'] = false, ['targetLocked'] = false, ['inTargetsArc'] = false, ['targetWithinRange3'] = true},
+        ['preconditions'] = {['targetMoved'] = false, ['targetLocked'] = false, ['inTargetsArc'] = false, ['targetWithinRange'] = true},
         ['action'] = 'targetLock'
     },
     [2] = { -- (target moved) Target lock
         ['description'] = {['text'] = "%s target locked %s.", ['strings'] = {'ship', 'target'}},
-        ['preconditions'] = {['targetMoved'] = true, ['targetLocked'] = false, ['targetWithinRange3'] = true},
+        ['preconditions'] = {['targetMoved'] = true, ['targetLocked'] = false, ['targetWithinRange'] = true},
         ['action'] = 'targetLock'
     },
     [3] = { -- (target moved) Focus > barrel roll to avoid target's arc and still get a shot
@@ -376,7 +376,7 @@ BehaviourDB.rule_sets[1].ships[19].action_selection = {
         ['description'] = {['text'] = "%s barrel rolled and target locked to avoid %s's arc and still get a shot.", ['strings'] = {'ship', 'target'}},
         ['preconditions'] = {['inTargetsArc'] = true, ['hasShot'] = true, ['targetLocked'] = false},
         ['action'] = {['barrelRoll'] = false, ['targetLock'] = true},
-        ['postconditions'] = {['inTargetsArc'] = false, ['hasShot'] = true, ['targetWithinRange3'] = true},
+        ['postconditions'] = {['inTargetsArc'] = false, ['hasShot'] = true, ['targetWithinRange'] = true},
     },
     [3] = { --  Barrel roll > target lock to avoid target arc and still get a shot (without the > target lock)
         ['description'] = {['text'] = "%s barrel rolled to avoid %s's arc and still get a shot.", ['strings'] = {'ship', 'target'}},
@@ -388,7 +388,7 @@ BehaviourDB.rule_sets[1].ships[19].action_selection = {
         ['description'] = "%s barrel rolled and target locked to get a shot.",
         ['preconditions'] = {['hasShot'] = false, ['targetLocked'] = false},
         ['action'] = {['barrelRoll'] = false, ['targetLock'] = true},
-        ['postconditions'] = {['hasShot'] = true, ['targetWithinRange3'] = true},
+        ['postconditions'] = {['hasShot'] = true, ['targetWithinRange'] = true},
     },
     [5] = { --  Barrel roll > target lock to get a shot (without the > target lock)
         ['description'] = "%s barrel rolled to get a shot.",
@@ -398,7 +398,7 @@ BehaviourDB.rule_sets[1].ships[19].action_selection = {
     },
     [6] = { -- Target lock
         ['description'] = {['text'] = "%s target locked %s.", ['strings'] = {'ship', 'target'}},
-        ['preconditions'] = {['targetLocked'] = false, ['targetWithinRange3'] = true},
+        ['preconditions'] = {['targetLocked'] = false, ['targetWithinRange'] = true},
         ['action'] = 'targetLock'
     },
     [7] = { -- Barrel roll to avoid target's arc
@@ -452,17 +452,17 @@ BehaviourDB.rule_sets[1].ships[18].move_table = {
 BehaviourDB.rule_sets[1].ships[18].action_selection = {
     [1] = { -- (target moved) Target lock
         ['description'] = {['text'] = "%s target locked %s.", ['strings'] = {'ship', 'target'}},
-        ['preconditions'] = {['targetMoved'] = true, ['targetLocked'] = false, ['targetWithinRange3'] = true},
+        ['preconditions'] = {['targetMoved'] = true, ['targetLocked'] = false, ['targetWithinRange'] = true},
         ['action'] = 'targetLock'
     },
     [2] = { -- (target moved) Boost or barrel roll to get a shot at range 1
         ['description'] = "%s barrel rolled/boosted to get a close range shot.",
-        ['preconditions'] = {['targetMoved'] = true, ['hasShotWithinRange1'] = false},
+        ['preconditions'] = {['targetMoved'] = true, ['hasShot'] = {['arguments'] = {['maxRange'] = 1}, ['requiredResult'] = false}},
         ['action'] = {
             [1] = {['boost'] = false},
             [2] = {['barrelRoll'] = false}
         },
-        ['postconditions'] = {['hasShotWithinRange1'] = true},
+        ['postconditions'] = {['hasShot'] = {['arguments'] = {['maxRange'] = 1}, ['requiredResult'] = true}},
     },
     [3] = { -- (target moved) Boost or barrel roll to get a shot
         ['description'] = "%s barrel rolled/boosted to get a shot.",

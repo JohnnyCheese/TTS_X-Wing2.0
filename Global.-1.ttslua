@@ -1227,8 +1227,17 @@ AIModule.CheckProbeConditions = function(ship, target, probe, conditions)
 
     local probe_result = true
 
-    for condition, required_result in pairs(conditions) do
-        local actual_result = AIModule.condition_functions[condition](ship, target, probe)
+    for condition, parameters in pairs(conditions) do
+        local required_result = parameters
+        local arguments = nil
+        -- Conditions can either point just to the required result, in which
+        -- case they have no arguments, or point to a table which contains both
+        -- the required result and arguments.
+        if type(parameters) == 'table' then
+            required_result = parameters.requiredResult
+            arguments = parameters.arguments
+        end
+        local actual_result = AIModule.condition_functions[condition](ship, target, probe, arguments)
         if actual_result ~= required_result then
             probe_result = false
             break
@@ -1335,110 +1344,96 @@ AIModule.ApplyProbe = function(ship, probe)
 end
 
 AIModule.condition_functions = {}
-AIModule.condition_functions['hasShot'] = function(ship, target, probe)
-    if probe.shot_range ~= nil then
-        return probe.shot_range ~= -1 and probe.shot_range <= 3
+AIModule.condition_functions['hasShot'] = function(ship, target, probe, arguments)
+    local min_range = 1
+    local max_range = 3
+    if arguments ~= nil then
+        min_range = arguments.minRange or min_range
+        max_range = arguments.maxRange or max_range
     end
 
-    probe.shot_range = AIModule.GetShotRange(ship, probe)
+    if probe.shot_range == nil then
+        probe.shot_range = -1
 
-    return probe.shot_range ~= -1 and probe.shot_range <= 3
-end
+        local original_position_rotation = AIModule.GetPositionAndRotation(ship)
+        AIModule.ApplyProbe(ship, probe)
+        targets = ArcCheck.GetTargetsInRelationToArc(ship, 'front') -- TODO: Do we need to check for different arc types for different ships?
+        targets = table.sieve(targets, AIModule.FilterInArc)
+        targets = table.sieve(targets, AIModule.FilterInRange)
 
-AIModule.condition_functions['hasShotWithinRange1'] = function(ship, target, probe) -- TODO: Generalise this and the above function? Would require being able to pass in parameters to condition functions, so a hefty refactor.
-    if probe.shot_range ~= nil then
-        return probe.shot_range ~= -1 and probe.shot_range <= 1
-    end
-
-    probe.shot_range = AIModule.GetShotRange(ship, probe)
-
-    return probe.shot_range ~= -1 and probe.shot_range <= 1
-end
-
-AIModule.GetShotRange = function(ship, probe)
-    local closest_range = -1
-
-    local original_position_rotation = AIModule.GetPositionAndRotation(ship)
-    AIModule.ApplyProbe(ship, probe)
-
-    targets = ArcCheck.GetTargetsInRelationToArc(ship, 'front') -- TODO: Do we need to check for different arc types for different ships?
-    targets = table.sieve(targets, AIModule.FilterInArc)
-    targets = table.sieve(targets, AIModule.FilterInRange)
-    for _ in pairs(targets) do
-        if closest_range == -1 or target.closest.range < closest_range then
-            closest_range = target.closest.range
+        for _, target in pairs(targets) do
+            if probe.shot_range == -1 or target.closest.range < probe.shot_range then
+                probe.shot_range = target.closest.range
+            end
         end
+
+        AIModule.SetPositionAndRotation(ship, original_position_rotation)
     end
 
-    AIModule.SetPositionAndRotation(ship, original_position_rotation)
-
-    return closest_range
+    return probe.shot_range ~= -1 and probe.shot_range >= min_range and probe.shot_range <= max_range
 end
 
-AIModule.condition_functions['inTargetsArc'] = function(ship, target, probe)
-    if probe.in_targets_arc ~= nil then
-        return probe.in_targets_arc
+AIModule.condition_functions['inTargetsArc'] = function(ship, target, probe, arguments)
+    if probe.in_targets_arc == nil then
+        local original_position_rotation = AIModule.GetPositionAndRotation(ship)
+        AIModule.ApplyProbe(ship, probe)
+
+        probe.in_targets_arc = false
+        targets = ArcCheck.GetTargetsInRelationToArc(target, 'front', {ship}) -- TODO: Do we need to check for different arc types for different ships?
+        targets = table.sieve(targets, AIModule.FilterInArc)
+        targets = table.sieve(targets, AIModule.FilterInRange)
+        for _, target_info in pairs(targets) do
+            probe.in_targets_arc = true
+            break
+        end
+
+        AIModule.SetPositionAndRotation(ship, original_position_rotation)
     end
-
-    local original_position_rotation = AIModule.GetPositionAndRotation(ship)
-    AIModule.ApplyProbe(ship, probe)
-
-    probe.in_targets_arc = false
-    targets = ArcCheck.GetTargetsInRelationToArc(target, 'front', {ship}) -- TODO: Do we need to check for different arc types for different ships?
-    targets = table.sieve(targets, AIModule.FilterInArc)
-    targets = table.sieve(targets, AIModule.FilterInRange)
-    for _, target_info in pairs(targets) do
-        probe.in_targets_arc = true
-        break
-    end
-
-    AIModule.SetPositionAndRotation(ship, original_position_rotation)
 
     return probe.in_targets_arc
 end
 
-AIModule.condition_functions['targetMoved'] = function(ship, target, probe)
-    if probe.target_moved ~= nil then
-        return probe.target_moved
+AIModule.condition_functions['targetMoved'] = function(ship, target, probe, arguments)
+    if probe.target_moved == nil then
+        local ship_initiative = ship.getTable('Data')['initiative']
+        local target_initiative = target.getTable('Data')['initiative']
+        probe.target_moved = ship_initiative > target_initiative -- TODO: This assumes that the AI moves first on ties like in HotAC.
     end
-
-    local ship_initiative = ship.getTable('Data')['initiative']
-    local target_initiative = target.getTable('Data')['initiative']
-    probe.target_moved = ship_initiative > target_initiative -- TODO: This assumes that the AI moves first on ties like in HotAC.
 
     return probe.target_moved
 end
 
-AIModule.condition_functions['targetLocked'] = function(ship, target, probe)
-    if probe.target_locked ~= nil then
-        return probe.target_locked
+AIModule.condition_functions['targetLocked'] = function(ship, target, probe, arguments)
+    if probe.target_locked == nil then
+        probe.target_locked = AIModule.HasTargetLockOnShip(ship, target)
     end
-
-    probe.target_locked = AIModule.HasTargetLockOnShip(ship, target)
 
     return probe.target_locked
 end
 
-AIModule.condition_functions['targetWithinRange3'] = function(ship, target, probe)
-    if probe.target_range ~= nil then
-        return probe.target_range <= 3
+AIModule.condition_functions['targetWithinRange'] = function(ship, target, probe, arguments)
+    local min_range = 1
+    local max_range = 3
+    if arguments ~= nil then
+        min_range = arguments.minRange or min_range
+        max_range = arguments.maxRange or max_range
     end
 
-    local targets = ArcCheck.GetTargetsInRelationToArc(ship, 'all', {target})
-    for _, target_info in pairs(targets) do
-        probe.target_range = target_info.closest.range
-        break
+    if probe.target_range == nil then
+        local targets = ArcCheck.GetTargetsInRelationToArc(ship, 'all', {target})
+        for _, target_info in pairs(targets) do
+            probe.target_range = target_info.closest.range
+            break
+        end
     end
 
-    return probe.target_range <= 3
+    return probe.target_range >= min_range and probe.target_range <= max_range
 end
 
-AIModule.condition_functions['evading'] = function(ship, target, probe)
-    if probe.evading ~= nil then
-        return probe.evading
+AIModule.condition_functions['evading'] = function(ship, target, probe, arguments)
+    if probe.evading == nil then
+        probe.evading = TokenModule.GetShipTokenCount(ship, 'Evade') > 0
     end
-
-    probe.evading = TokenModule.GetShipTokenCount(ship, 'Evade') > 0
 
     return probe.evading
 end
