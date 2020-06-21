@@ -13,7 +13,7 @@
 
 -- Should the code execute print functions or skip them?
 -- This should be set to false on every release
-print_debug = true
+print_debug = false
 
 TTS_print = print
 function print(...)
@@ -3910,7 +3910,7 @@ function restWaitCoroutine()
                 local dest = Vect.Sum(offset, actShip.getPosition())
                 dest[2] = dest[2]+0.5
                 dest = TokenModule.VisiblePosition(tokenData.ref, tokenSetInfo.ship, dest)
-                tokenData.ref.setPositionSmooth(dest)
+                tokenData.ref.setPositionSmooth(dest, false,true)
                 local tRot = tokenData.ref.getRotation()
                 tokenData.ref.setRotationSmooth({tRot[1], actShip.getRotation()[2] + tokenData.relRot, tRot[3]})
                 tokenData.ref.highlightOn({0, 1, 0}, 2)
@@ -4430,29 +4430,10 @@ end
 -- Needs the MoveModule.WaitForResting fired to actually use stuff from this queue
 TokenModule.QueueShipTokensMove = function(ship)
     local selfTokens = TokenModule.GetShipTokens(ship)
-    if selfTokens[1] == nil then
-        return
-    end
-    -- Exclude currently used cloak tokens
-    local tokensExcl = {}
-    for k,token in pairs(selfTokens) do
-        if token.getName() == 'Cloak' then
-            local active = true
-            local buttons = token.getButtons()
-            if buttons ~= nil then
-                for k2, but in pairs(buttons) do
-                    if but.label == 'Decloak' then active = false break end
-                end
-            end
-            if active == false then table.insert(tokensExcl, token) end
-        elseif token.getVar('deleted') ~= true then
-            table.insert(tokensExcl, token)
-        end
-    end
-    selfTokens = tokensExcl
     local waitTable = {tokens = {}, ship=ship}
     -- Save relative position/rotation
     for k,token in pairs(selfTokens) do
+        print("QueueShipTokensMove: " .. token.getName())
         local relPos = Vect.RotateDeg(Vect.Between(ship.getPosition(), token.getPosition()), -1*ship.getRotation()[2])
         local relRot = token.getRotation()[2] - ship.getRotation()[2]
         table.insert(waitTable.tokens, {ref=token, relPos=relPos, relRot=relRot})
@@ -4663,23 +4644,27 @@ TokenModule.ClearPosition = function(pos, dist, ignoreShip)
 end
 
 TokenModule.AssignToken = function(token, ship)
-    local guid = token.getGUID()
-    if (TokenModule.tokenAssignments[guid] ~= nil) and (TokenModule.tokenAssignments[guid].tag == 'Figurine') then
-        if TokenModule.tokenAssignments[guid].getVar("RemoveToken") ~= nil then
-            TokenModule.tokenAssignments[guid].call("RemoveToken", {token=token})
-        end
-    end
-    TokenModule.tokenAssignments[guid] = ship
-    if ship ~= nil then
-        token.setDescription("Assigned to " .. ship.getName())
-        if ship.tag == 'Figurine' then
-            if ship.getVar("AddToken") ~= nil then
-                ship.call("AddToken", {token=token})
+    Wait.condition(function()
+        local guid = token.getGUID()
+        if (TokenModule.tokenAssignments[guid] ~= nil) and (TokenModule.tokenAssignments[guid].tag == 'Figurine') then
+            if TokenModule.tokenAssignments[guid].getVar("RemoveToken") ~= nil then
+                TokenModule.tokenAssignments[guid].call("RemoveToken", {token=token})
             end
         end
-    else
-        token.setDescription("Unassigned")
-    end
+        TokenModule.tokenAssignments[guid] = ship
+        if ship ~= nil then
+            token.setDescription("Assigned to " .. ship.getName())
+            if ship.tag == 'Figurine' then
+                if ship.getVar("AddToken") ~= nil then
+                    ship.call("AddToken", {token=token})
+                end
+            end
+        else
+            token.setDescription("Unassigned")
+        end
+    end,
+    function() return  (not token.spawning) end)
+
 end
 
 TokenModule.UnAssignToken = function(token)
@@ -4812,8 +4797,6 @@ DialModule.PerformAction = function(ship, type, playerColor, args)
         else
             if type == 'Evade' then
                 announceInfo.note = 'takes an evade token'
-            elseif type == 'Ion' then
-                announceInfo.note = 'takes an ion token'
             else
                 announceInfo.note = 'takes a ' .. string.lower(type) .. ' token'
             end
@@ -5133,7 +5116,8 @@ RulerModule.meshes.hugeBase.range = {}
 RulerModule.meshes.hugeBase.range[1] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/new/huge_range_1.obj'
 RulerModule.meshes.hugeBase.range[2] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/new/huge_range_2.obj'
 RulerModule.meshes.hugeBase.range[3] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/new/huge_range_3.obj'
-RulerModule.meshes.hugeBase.range[4] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/new/huge_range_4.obj'
+RulerModule.meshes.hugeBase.range[4] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/new/huge_range_15.obj'
+RulerModule.meshes.hugeBase.range[5] = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/new/huge_range_5.obj'
 
 
 -- Avaialble ruler codes:
@@ -5146,7 +5130,7 @@ RulerModule.meshes.hugeBase.range[4] = '{verifycache}https://raw.githubuserconte
 -- AR           - rear arc
 -- AT           - turret arc
 -- AM           - mobile arc
-XW_cmd.AddCommand('r[1-3]?', 'rulerHandle')     -- Range "rings"
+XW_cmd.AddCommand('r[1-5]?', 'rulerHandle')     -- Range "rings"
 XW_cmd.AddCommand('[fbs][lrfb]?', 'rulerHandle')  -- Rulers with arc lines
 XW_cmd.AddCommand('leftright', 'rulerHandle')
 XW_cmd.AddCommand('frontback', 'rulerHandle')
@@ -5206,7 +5190,12 @@ RulerModule.GetRulerData = function(ship, rulerType)
     if rulerType:sub(1,1) == 'R' then
         rKey = tonumber(rulerType:sub(2,2))
         if rKey == nil then
-            rKey = 4
+            if baseSize == huge then
+                rKey = 6
+            else
+                rKey = 4
+            end
+
         end
         out.mesh = RulerModule.meshes[baseSize .. 'Base'].range[rKey]
     else
@@ -5915,7 +5904,9 @@ end
 function GetTokens(args)
     local tokens = {}
     for guid, token in pairs(assigned_tokens) do
-        if (args == nil) or (args.type == nil) or (args.type == token.getVar("__XW_TokenType")) then
+        if token == nil then
+            assigned_tokens[guid] = nil
+        elseif ((args == nil) or (args.type == nil) or (args.type == token.getVar("__XW_TokenType"))) then
             table.insert(tokens, assigned_tokens[guid])
         end
     end
