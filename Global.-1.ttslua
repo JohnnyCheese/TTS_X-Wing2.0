@@ -466,7 +466,7 @@ the move tables in BehaviourDB.ttslua. It also cover stress, ion, and obstacle
 avoidance.
 
 Worth noting is that due to having to wait for ships to finish moving, part of
-the functionality of AIModule.PerformManeuver had to split out to a callback
+the functionality of AIModule.PerformManeuver had to be split out to a callback
 function, AIModule.ManeuverPostShipRest. This handles everything after the
 maneuver is executed, including calling the action submodule.
 
@@ -1059,7 +1059,6 @@ AIModule.AttemptAction = function(ship, target, action_definition)
                 -- This action is a move action, so expand our current set of
                 -- possible action probes further.
                 if initial_move == true then
-                    -- TODO: set the set index on the probe index, and only add the simple actions of the chosen probe's set index.
                     probe_sets[set_index] = table.join(probe_sets[set_index], AIModule.ExpandActionProbe(ship, initial_probe, AIModule.move_actions[action]))
                     initial_move = false
                 else
@@ -1083,7 +1082,11 @@ AIModule.AttemptAction = function(ship, target, action_definition)
                 end
             else
                 -- There's one instance that we skip the action - we don't take
-                -- a target lock action if the target is already locked.
+                -- a target lock action if the target is already locked. This is
+                -- often handled by the preconditions anyway, but sometimes it's
+                -- not so we double-check here. Also, range must be checked by
+                -- the postconditions as doing a range check now would be from
+                -- the post-maneuver position, not the post-action position.
                 local skip_action = false
                 if action == 'targetLock' then
                     skip_action = AIModule.HasTargetLockOnShip(ship, target)
@@ -1102,7 +1105,7 @@ AIModule.AttemptAction = function(ship, target, action_definition)
 
     -- We merge together all of the probe sets into one table so we can rank
     -- them and compare them to each other. We need to select a random one, so
-    -- we'll randomise the list and pick the first one that passess all the
+    -- we'll randomise the list and pick the first one that passes all the
     -- postconditions. If the list is empty, or if no probe passes the
     -- postconditions, then we can't complete the action and must return false.
 
@@ -1113,7 +1116,8 @@ AIModule.AttemptAction = function(ship, target, action_definition)
     end
 
     -- Randomise the probes, then sort by difficulty so we avoid stress if
-    -- possible.
+    -- possible. We set the index here as it is used by SortProbesByDifficulty
+    -- to guarantee a stable sort.
     all_possible_probes = table.shuffle(all_possible_probes)
     for index, probe in ipairs(all_possible_probes) do
         probe.index = index
