@@ -83,11 +83,25 @@ function onDropped()
 
     if not set then
         if nearest ~= nil then
-            self.setName(nearest.getName())
-            printToAll('Target lock named for ' .. nearest.getName(), {0.2, 0.2, 1})
-            set = true
+            setOwner({ship=nearest})
         end
     else -- Allready set, now Assign to target
-        Global.call("API_AssignToken", {token=self, ship=nearest})
+        assignToShip({ship=nearest})
     end
+end
+
+-- Sets the owner of the token. This is the ship responsible for the target
+-- lock, and who it is named after. Externally accessible.
+function setOwner(args)
+    local ship = args.ship
+    self.setName(ship.getName())
+    printToAll('Target lock named for ' .. ship.getName(), {0.2, 0.2, 1})
+    set = true
+end
+
+-- Assigns the token to a ship. This is the ship being target locked, and which
+-- the token sits beside. Externally accessible
+function assignToShip(args)
+    local ship = args.ship
+    Global.call("API_AssignToken", {token=self, ship=ship})
 end
