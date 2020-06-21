@@ -531,6 +531,28 @@ BehaviourDB.rule_sets[1].ships[27].move_table = {
         ['stress'] = {[1] = 'br2', [5] = 's2', [6] = 'tr3'},
     },
 }
+BehaviourDB.rule_sets[1].ships[27].action_selection = {
+    [1] = { -- Cloak if no shot
+        ['description'] = "%s cloaked.",
+        ['preconditions'] = {['hasShot'] = false},
+        ['action'] = 'cloak'
+    },
+    [2] = { -- Evade if not already evading
+        ['description'] = "%s evaded.",
+        ['preconditions'] = {['evading'] = false},
+        ['action'] = 'evade'
+    },
+    [3] = { -- Barrel roll to avoid target's arc and still get a shot
+        ['description'] = {['text'] = "%s barrel rolled to avoid %s's arc and still get a shot.", ['strings'] = {'ship', 'target'}},
+        ['preconditions'] = {['hasShot'] = true, ['inTargetsArc'] = true},
+        ['action'] = 'barrelRoll',
+        ['postconditions'] = {['hasShot'] = true, ['inTargetsArc'] = false},
+    },
+    [4] = { -- Focus
+        ['description'] = "%s focused.",
+        ['action'] = 'focus'
+    }
+}
 
 -- T-4a Lambda-class Shuttle
 BehaviourDB.rule_sets[1].ships[26] = {}

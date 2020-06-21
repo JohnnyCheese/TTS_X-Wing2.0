@@ -1181,6 +1181,8 @@ AIModule.ProcessActionStack = function(ship)
             DialModule.PerformAction(ship, 'Evade', ship.getVar('owningPlayer'))
         elseif action_code == 'targetLock' then
             DialModule.PerformAction(ship, 'Target Lock', ship.getVar('owningPlayer'), {['ship'] = ship, ['target'] = AIModule.current_move.target})
+        elseif action_code == 'cloak' then
+            DialModule.PerformAction(ship, 'Cloak', ship.getVar('owningPlayer'))
         elseif MoveModule.PerformMove(action_code, ship, false, AIModule.ProcessActionStack) then
             break
         end
