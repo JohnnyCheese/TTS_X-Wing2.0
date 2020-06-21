@@ -3910,7 +3910,7 @@ function restWaitCoroutine()
                 local dest = Vect.Sum(offset, actShip.getPosition())
                 dest[2] = dest[2]+0.5
                 dest = TokenModule.VisiblePosition(tokenData.ref, tokenSetInfo.ship, dest)
-                tokenData.ref.setPositionSmooth(dest)
+                tokenData.ref.setPositionSmooth(dest, false,true)
                 local tRot = tokenData.ref.getRotation()
                 tokenData.ref.setRotationSmooth({tRot[1], actShip.getRotation()[2] + tokenData.relRot, tRot[3]})
                 tokenData.ref.highlightOn({0, 1, 0}, 2)
@@ -4430,29 +4430,10 @@ end
 -- Needs the MoveModule.WaitForResting fired to actually use stuff from this queue
 TokenModule.QueueShipTokensMove = function(ship)
     local selfTokens = TokenModule.GetShipTokens(ship)
-    if selfTokens[1] == nil then
-        return
-    end
-    -- Exclude currently used cloak tokens
-    local tokensExcl = {}
-    for k,token in pairs(selfTokens) do
-        if token.getName() == 'Cloak' then
-            local active = true
-            local buttons = token.getButtons()
-            if buttons ~= nil then
-                for k2, but in pairs(buttons) do
-                    if but.label == 'Decloak' then active = false break end
-                end
-            end
-            if active == false then table.insert(tokensExcl, token) end
-        elseif token.getVar('deleted') ~= true then
-            table.insert(tokensExcl, token)
-        end
-    end
-    selfTokens = tokensExcl
     local waitTable = {tokens = {}, ship=ship}
     -- Save relative position/rotation
     for k,token in pairs(selfTokens) do
+        print("QueueShipTokensMove: " .. token.getName())
         local relPos = Vect.RotateDeg(Vect.Between(ship.getPosition(), token.getPosition()), -1*ship.getRotation()[2])
         local relRot = token.getRotation()[2] - ship.getRotation()[2]
         table.insert(waitTable.tokens, {ref=token, relPos=relPos, relRot=relRot})
@@ -4663,23 +4644,27 @@ TokenModule.ClearPosition = function(pos, dist, ignoreShip)
 end
 
 TokenModule.AssignToken = function(token, ship)
-    local guid = token.getGUID()
-    if (TokenModule.tokenAssignments[guid] ~= nil) and (TokenModule.tokenAssignments[guid].tag == 'Figurine') then
-        if TokenModule.tokenAssignments[guid].getVar("RemoveToken") ~= nil then
-            TokenModule.tokenAssignments[guid].call("RemoveToken", {token=token})
-        end
-    end
-    TokenModule.tokenAssignments[guid] = ship
-    if ship ~= nil then
-        token.setDescription("Assigned to " .. ship.getName())
-        if ship.tag == 'Figurine' then
-            if ship.getVar("AddToken") ~= nil then
-                ship.call("AddToken", {token=token})
+    Wait.condition(function()
+        local guid = token.getGUID()
+        if (TokenModule.tokenAssignments[guid] ~= nil) and (TokenModule.tokenAssignments[guid].tag == 'Figurine') then
+            if TokenModule.tokenAssignments[guid].getVar("RemoveToken") ~= nil then
+                TokenModule.tokenAssignments[guid].call("RemoveToken", {token=token})
             end
         end
-    else
-        token.setDescription("Unassigned")
-    end
+        TokenModule.tokenAssignments[guid] = ship
+        if ship ~= nil then
+            token.setDescription("Assigned to " .. ship.getName())
+            if ship.tag == 'Figurine' then
+                if ship.getVar("AddToken") ~= nil then
+                    ship.call("AddToken", {token=token})
+                end
+            end
+        else
+            token.setDescription("Unassigned")
+        end
+    end,
+    function() return  (not token.spawning) end)
+
 end
 
 TokenModule.UnAssignToken = function(token)
@@ -4812,8 +4797,6 @@ DialModule.PerformAction = function(ship, type, playerColor, args)
         else
             if type == 'Evade' then
                 announceInfo.note = 'takes an evade token'
-            elseif type == 'Ion' then
-                announceInfo.note = 'takes an ion token'
             else
                 announceInfo.note = 'takes a ' .. string.lower(type) .. ' token'
             end
@@ -5921,7 +5904,9 @@ end
 function GetTokens(args)
     local tokens = {}
     for guid, token in pairs(assigned_tokens) do
-        if (args == nil) or (args.type == nil) or (args.type == token.getVar("__XW_TokenType")) then
+        if token == nil then
+            assigned_tokens[guid] = nil
+        elseif ((args == nil) or (args.type == nil) or (args.type == token.getVar("__XW_TokenType"))) then
             table.insert(tokens, assigned_tokens[guid])
         end
     end
