@@ -4686,7 +4686,8 @@ function proxyPerformAction(table)
     ship = table[1]
     actionType = table[2]
     playerColor = table[3]
-    DialModule.PerformAction(ship, actionType, playerColor)
+    args = {remove= (table[4] or false)}
+    DialModule.PerformAction(ship, actionType, playerColor, args)
 end
 
 DialModule = {}
@@ -4716,91 +4717,58 @@ DialModule.PerformAction = function(ship, type, playerColor, args)
     elseif type:find('deleteMoveTemplate') ~= nil then
       DialModule.DeleteTemplate(ship)
       return
-    elseif type == 'unstress' then
-        local stressInfo = {token=nil, dist=-1}
-        for k,tokenInfo in pairs(TokenModule.GetShipTokensInfo(ship)) do
-            if tokenInfo.token.getName() == 'Stress' and tokenInfo.dist > stressInfo.dist and tokenInfo.token.getVar('deleted') == nil then
-                stressInfo.token = tokenInfo.token
-            end
-        end
-        if stressInfo.token == nil then
-            announceInfo.note = 'tried to shed a stress but doesn\'t have any'
-        else
-            announceInfo.note = 'sheds a stress token'
-            if stressInfo.token.getQuantity() > 0 then
-                stressInfo.token = stressInfo.token.takeObject({})
-            end
-            stressInfo.token.highlightOn({0, 0.7, 0}, 3)
-            stressInfo.token.setPositionSmooth(Vect.Sum(TokenModule.tokenSources.Stress.src.getPosition(), {0, 2, 0}))
-            stressInfo.token.setVar('deleted', true)
-        end
-    elseif type == 'unstrain' then
-        local strainInfo = {token=nil, dist=-1}
-        for k,tokenInfo in pairs(TokenModule.GetShipTokensInfo(ship)) do
-            if tokenInfo.token.getName() == 'Strain' and tokenInfo.dist > strainInfo.dist and tokenInfo.token.getVar('deleted') == nil then
-                strainInfo.token = tokenInfo.token
-            end
-        end
-        if strainInfo.token == nil then
-            announceInfo.note = 'tried to shed a strain but doesn\'t have any'
-        else
-            announceInfo.note = 'sheds a strain token'
-            if strainInfo.token.getQuantity() > 0 then
-                strainInfo.token = strainInfo.token.takeObject({})
-            end
-            strainInfo.token.highlightOn({0, 0.7, 0}, 3)
-            strainInfo.token.setPositionSmooth(Vect.Sum(TokenModule.tokenSources.Strain.src.getPosition(), {0, 2, 0}))
-            strainInfo.token.setVar('deleted', true)
-        end
-    elseif type == 'union' then
-        local ionised = false
-        for k,tokenInfo in pairs(TokenModule.GetShipTokensInfo(ship)) do
-            if tokenInfo.token.getName() == 'Ion' and tokenInfo.token.getVar('deleted') == nil then
-                ionised = true
-                tokenInfo.token.highlightOn({0, 0.7, 0}, 3)
-                tokenInfo.token.setPositionSmooth(Vect.Sum(TokenModule.tokenSources.Ion.src.getPosition(), {0, 2, 0}))
-                tokenInfo.token.setVar('deleted', true)
-            end
-        end
-        if ionised then
-            announceInfo.note = 'sheds all ion tokens'
-        else
-            announceInfo.note = 'tried to shed ion but doesn\'t have any'
-        end
     elseif tokenActions:find(' ' .. type .. ' ') ~= nil then
-        local destinationShip = ship
-        if args ~= nil and args['target'] ~= nil then
-            destinationShip = args['target']
-        end
-        local dest = TokenModule.VisiblePosition(type, destinationShip)
-        local newToken = TokenModule.TakeToken(type, playerColor, dest)
-
-        if type == 'Target Lock' then
-            local lockArguments = {lock=newToken, name=ship.getName(), color=playerColor}
-            if args ~= nil and args['ship'] ~= nil and args['target'] ~= nil then
-                -- The AI system passes in arguments to automatically assign the
-                -- lock. Process these if they've been passed in.
-                lockArguments.ship=args['ship']
-                lockArguments.target=args['target']
+        if args ~= nil and args.remove == true then
+            local tokens = ship.call("GetTokens",{type=string.lower(type)})
+            local delToken = nil
+            for k,token in pairs(tokens) do
+                if token.getVar('deleted') == nil then
+                    delToken = token
+                end
             end
-            table.insert(TokenModule.locksToBeSet, lockArguments)
-            announceInfo.note = 'acquired a target lock'
-            TokenModule.UnAssignToken(newToken) -- Target locks are not assigned to the spawning ship
-        elseif type == 'Ion' then
-            table.insert(TokenModule.ionsToBeSet, {ion=newToken, ref=ship})
-            announceInfo.note = 'takes an ion token'
-            TokenModule.AssignToken(newToken, ship)
-        elseif type == 'Tractor' then
-            table.insert(TokenModule.tractorsToBeSet, {tractor=newToken, ref=ship})
-            announceInfo.note = 'takes a tractor token'
-            TokenModule.AssignToken(newToken, ship)
-        else
-            if type == 'Evade' then
-                announceInfo.note = 'takes an evade token'
+            if delToken == nil then
+                announceInfo.note = 'tried to shed a ' .. type .. ' but doesn\'t have any'
             else
-                announceInfo.note = 'takes a ' .. string.lower(type) .. ' token'
+                announceInfo.note = 'sheds a ' .. type .. ' token'
+                TokenModule.UnAssignToken(delToken)
+                delToken.destruct()
             end
-            TokenModule.AssignToken(newToken, ship)
+        else
+
+            local destinationShip = ship
+            if args ~= nil and args['target'] ~= nil then
+                destinationShip = args['target']
+            end
+            local dest = TokenModule.VisiblePosition(type, destinationShip)
+            local newToken = TokenModule.TakeToken(type, playerColor, dest)
+
+            if type == 'Target Lock' then
+                local lockArguments = {lock=newToken, name=ship.getName(), color=playerColor}
+                if args ~= nil and args['ship'] ~= nil and args['target'] ~= nil then
+                    -- The AI system passes in arguments to automatically assign the
+                    -- lock. Process these if they've been passed in.
+                    lockArguments.ship=args['ship']
+                    lockArguments.target=args['target']
+                end
+                table.insert(TokenModule.locksToBeSet, lockArguments)
+                announceInfo.note = 'acquired a target lock'
+                TokenModule.UnAssignToken(newToken) -- Target locks are not assigned to the spawning ship
+            elseif type == 'Ion' then
+                table.insert(TokenModule.ionsToBeSet, {ion=newToken, ref=ship})
+                announceInfo.note = 'takes an ion token'
+                TokenModule.AssignToken(newToken, ship)
+            elseif type == 'Tractor' then
+                table.insert(TokenModule.tractorsToBeSet, {tractor=newToken, ref=ship})
+                announceInfo.note = 'takes a tractor token'
+                TokenModule.AssignToken(newToken, ship)
+            else
+                if type == 'Evade' then
+                    announceInfo.note = 'takes an evade token'
+                else
+                    announceInfo.note = 'takes a ' .. string.lower(type) .. ' token'
+                end
+                TokenModule.AssignToken(newToken, ship)
+            end
         end
     end
     AnnModule.Announce(announceInfo, 'all', ship)
