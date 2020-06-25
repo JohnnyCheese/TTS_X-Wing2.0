@@ -3330,6 +3330,9 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
         end
     elseif templateData.type == "straight" or  templateData.type == "bank" or templateData.type == "turn" then
         templateOrigin = MoveModule.GetTemplateOrigin(templateData.origin, templateData.orientation, templateData.shipSize, "front")
+    elseif templateData.type:find("talon") then
+        templateOrigin = MoveModule.GetTemplateOrigin(templateData.origin, templateData.orientation, templateData.shipSize, "front")
+        templateData.type = "turn"
     elseif templateData.type == "roll" then
         templateOrigin = MoveModule.GetTemplateOrigin(templateData.origin, templateData.orientation, templateData.shipSize, templateData.dir)
         templateData.speed = 1
