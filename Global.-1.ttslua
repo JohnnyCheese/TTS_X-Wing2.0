@@ -579,6 +579,7 @@ AIModule.PerformManeuver = function(ship, take_action)
                 -- TODO: If a ship is at range 0, then treat it as range 1 and
                 -- behind our ship. (pg 19, "Touching")
                 if target_range == nil then
+                    -- TODO: Wrap up this code in a re-useable function
                     local own_line_segments = {}
                     for i, arc in ipairs(arc_parts) do
                         local segments = ArcCheck.GetOwnArcLineSegments(ship, ArcCheck.arc_line_segments[ship_size][arc]["segments"])
@@ -1001,6 +1002,19 @@ AIModule.move_actions = {
     ['boost'] = {'bl1', 's1', 'br1'}
 }
 
+-- Which arcs are adjacent to each arc, used for checking whether a ship is
+-- wholly within an arc or not.
+AIModule.arc_adjacencies = {
+    ['front'] = {'left', 'right'},
+    ['back'] = {'left', 'right'},
+    ['left'] = {'front', 'back'},
+    ['right'] = {'front', 'back'},
+    ['leftRight'] = {'front', 'back'},
+    ['frontBack'] = {'left', 'right'},
+    ['fullfront'] = {'fullback'},
+    ['fullback'] = {'fullfront'}
+}
+
 AIModule.SelectAction = function(ship)
     local rule_set = BehaviourDB.GetRuleSet()
     local ship_id = ship.getTable('Data')['shipId']
@@ -1108,6 +1122,7 @@ AIModule.AttemptAction = function(ship, target, action_definition)
     -- we'll randomise the list and pick the first one that passes all the
     -- postconditions. If the list is empty, or if no probe passes the
     -- postconditions, then we can't complete the action and must return false.
+    selected_probe = initial_probe
 
     -- Group all the probe sets together
     local all_possible_probes = {}
@@ -1131,6 +1146,7 @@ AIModule.AttemptAction = function(ship, target, action_definition)
     local set_index = 1
     for _, probe in pairs(all_possible_probes) do
         if AIModule.CheckProbeConditions(ship, target, probe, action_definition.postconditions) == true then
+            selected_probe = probe
             set_index = probe.set_index
 
             for _, move_code in pairs(probe.moves) do
@@ -1159,7 +1175,7 @@ AIModule.AttemptAction = function(ship, target, action_definition)
     end
 
     if #AIModule.current_move.action_stack > 0 then
-        AIModule.PrintActionDescription(action_definition.description, ship, target)
+        AIModule.PrintActionDescription(action_definition.description, ship, target, selected_probe)
         return true
     end
 
@@ -1187,6 +1203,13 @@ AIModule.ProcessActionStack = function(ship)
             DialModule.PerformAction(ship, 'Target Lock', ship.getVar('owningPlayer'), {['ship'] = ship, ['target'] = AIModule.current_move.target})
         elseif action_code == 'cloak' then
             DialModule.PerformAction(ship, 'Cloak', ship.getVar('owningPlayer'))
+        elseif action_code == 'reinforceFore' then
+            DialModule.PerformAction(ship, 'Reinforce', ship.getVar('owningPlayer'), {['flip'] = true})
+        elseif action_code == 'reinforceAft' then
+            DialModule.PerformAction(ship, 'Reinforce', ship.getVar('owningPlayer'))
+        elseif action_code == 'coordinate' then
+            printToAll('Please manage the coordinate action manually.', color(1.0, 1.0, 0.2, 0.9))
+        elseif action_code == 'jam' then
         elseif MoveModule.PerformMove(action_code, ship, false, AIModule.ProcessActionStack) then
             break
         end
@@ -1195,7 +1218,7 @@ AIModule.ProcessActionStack = function(ship)
     AIModule.current_move.in_progress = #AIModule.current_move.action_stack > 0
 end
 
-AIModule.PrintActionDescription = function(description, ship, target)
+AIModule.PrintActionDescription = function(description, ship, target, probe)
     local text = description
     local text_parameters = {}
     if type(description) == 'table' then
@@ -1205,6 +1228,20 @@ AIModule.PrintActionDescription = function(description, ship, target)
                 table.insert(text_parameters, ship.getName())
             elseif string_id == 'target' then
                 table.insert(text_parameters, target.getName())
+            else
+                -- If it's not 'ship' or 'target', then it's an action target
+                -- that is stored in the chain of the selected action probes.
+                -- We'll look up the chain until we find it.
+                action_target = ''
+                current_probe = probe
+                while current_probe ~= nil and action_target == '' do
+                    if current_probe.action_targets[string_id] ~= nil then
+                        action_target = current_probe.action_targets[string_id].getName()
+                    end
+                    current_probe = current_probe.parent
+                end
+
+                table.insert(text_parameters, action_target)
             end
         end
     else
@@ -1256,6 +1293,8 @@ AIModule.GetActionProbe = function(ship)
     end
 
     if AIModule.current_move.probes[move].possible == nil then
+        AIModule.current_move.probes[move].parent = nil
+        AIModule.current_move.probes[move].action_targets = {}
         AIModule.current_move.probes[move].moves = {move}
         AIModule.current_move.probes[move].possible = true
         AIModule.current_move.probes[move].difficulty = 'w'
@@ -1300,8 +1339,9 @@ AIModule.ExpandActionProbe = function(ship, probe, moves)
             local move_info = MoveData.DecodeInfo(move, ship)
             local probe_data = MoveModule.MoveProbe.TryFullMove(move_info, ship, MoveModule.GetFullMove)
             if probe_data.done and probe_data.collObj == nil and probe_data.collObs == nil then
+                new_probe.parent = probe
+                new_probe.action_targets = {}
                 new_probe.possible = true
-                new_probe.difficulty = difficulty
                 new_probe.position = probe_data.finalPosRot['pos']
                 new_probe.rotation = probe_data.finalPosRot['rot']
                 table.insert(possible_probes, new_probe)
@@ -1357,7 +1397,7 @@ AIModule.condition_functions['hasShot'] = function(ship, target, probe, argument
 
         local original_position_rotation = AIModule.GetPositionAndRotation(ship)
         AIModule.ApplyProbe(ship, probe)
-        targets = ArcCheck.GetTargetsInRelationToArc(ship, 'front') -- TODO: Do we need to check for different arc types for different ships?
+        targets = ArcCheck.GetTargetsInRelationToArc(ship, ship.getTable('Data').arcs) -- TODO: turrets won't work yet.
         targets = table.sieve(targets, AIModule.FilterInArc)
         targets = table.sieve(targets, AIModule.FilterInRange)
 
@@ -1379,7 +1419,7 @@ AIModule.condition_functions['inTargetsArc'] = function(ship, target, probe, arg
         AIModule.ApplyProbe(ship, probe)
 
         probe.in_targets_arc = false
-        targets = ArcCheck.GetTargetsInRelationToArc(target, 'front', {ship}) -- TODO: Do we need to check for different arc types for different ships?
+        targets = ArcCheck.GetTargetsInRelationToArc(target, target.getTable('Data').arcs, {ship}) -- TODO: turrets won't work yet
         targets = table.sieve(targets, AIModule.FilterInArc)
         targets = table.sieve(targets, AIModule.FilterInRange)
         for _, target_info in pairs(targets) do
@@ -1414,10 +1454,17 @@ end
 AIModule.condition_functions['targetWithinRange'] = function(ship, target, probe, arguments)
     local min_range = 1
     local max_range = 3
+    local find_closest = false
+    local action_target = nil
     if arguments ~= nil then
         min_range = arguments.minRange or min_range
         max_range = arguments.maxRange or max_range
+        find_closest = arguments.find_closest or find_closest
+        action_target = arguments.action_target or action_target
     end
+
+    find_closest
+    action_target
 
     if probe.target_range == nil then
         local targets = ArcCheck.GetTargetsInRelationToArc(ship, 'all', {target})
@@ -1438,6 +1485,106 @@ AIModule.condition_functions['evading'] = function(ship, target, probe, argument
     return probe.evading
 end
 
+AIModule.condition_functions['inEnemyArc'] = function(ship, target, probe, arguments)
+    local arc = 'all'
+    local wholly_within_arc = true
+    local min_enemies = 1
+    if arguments ~= nil then
+        arc = arguments.arc or arc
+        wholly_within_arc = arguments.whollyWithinArc or wholly_within_arc
+        min_enemies = arguments.enemyCount or min_enemies
+    end
+
+    -- This counts the number of enemies whose arc we are within, and who are
+    -- within our specified arc. This is mainly used for the reinforce action
+    -- and the fullfront/fullback arc.
+    local condition_index = arc .. ',' .. tostring(wholly_within_arc)
+    if probe.num_enemy_arcs == nil or probe.num_enemy_arcs[condition_index] == nil then
+        if probe.num_enemy_arcs == nil then
+            probe.num_enemy_arcs = {}
+        end
+        probe.num_enemy_arcs[condition_index] = 0
+
+        local original_position_rotation = AIModule.GetPositionAndRotation(ship)
+        AIModule.ApplyProbe(ship, probe)
+
+        -- Get all ships within the specified arc.
+        enemies_in_arc = ArcCheck.GetTargetsInRelationToArc(ship, arc)
+        enemies_in_arc = table.sieve(enemies_in_arc, AIModule.FilterInArc)
+
+        -- If we only want ships that are fully within the arc, then we loop
+        -- through all adjacent arcs and remove any ship that appears in both.
+        -- So, if we checked the fullfront arc, then we reject all ships that
+        -- is also int eh fullback arc.
+        if wholly_within_arc and AIModule.arc_adjacencies[arc] ~= nil then
+            for _, adjacent_arc in pairs(AIModule.arc_adjacencies[arc]) do
+                if #enemies_in_arc > 0 then -- Quick check to avoid unnecessary calls to ArcCheck.GetTargetsInRelationToArc
+                    enemies_in_adjacent_arc = ArcCheck.GetTargetsInRelationToArc(ship, adjacent_arc)
+                    enemies_in_adjacent_arc = table.sieve(targets, AIModule.FilterInArc)
+                    enemies_in_arc = table.sieve(enemies_in_arc,
+                        -- Return false if this ship appears in arc_targets.
+                        function(el)
+                            for _, enemy in pairs(enemies_in_adjacent_arc) do
+                                if el['ship'] == enemy['ship'] then
+                                    return false
+                                end
+                            end
+
+                            return true
+                        end
+                    )
+                end
+            end
+        end
+
+        -- Lastly, we iterate over all targets that remain and check if we are
+        -- within their arc. For each ship that can fire at us we increment the
+        -- number of arcs.
+        for _, enemy_ship in pairs(enemies_in_arc) do
+            local enemy_arc = ArcCheck.GetTargetsInRelationToArc(enemy_ship['ship'], enemy_ship['ship'].getTable('Data').arcs, {ship}) -- TODO: turrets won't work yet
+            enemy_arc = table.sieve(enemy_arc, AIModule.FilterInArc)
+            enemy_arc = table.sieve(enemy_arc, AIModule.FilterInRange)
+            for _ in pairs(enemy_arc) do
+                probe.num_enemy_arcs[condition_index] = probe.num_enemy_arcs[condition_index] + 1
+                break
+            end
+        end
+
+        AIModule.SetPositionAndRotation(ship, original_position_rotation)
+    end
+
+    return probe.num_enemy_arcs[condition_index] >= min_enemies
+end
+
+AIModule.condition_functions['hasCoordinateTarget'] = function(ship, target, probe, arguments)
+    if probe.action_targets['coordinate'] == nil then
+        probe.action_targets['coordinate'] = false
+
+        -- Range two is 200mm, so triple it to 600mm to be sure of not missing
+        -- anything once we take bases into account.
+        local friendly_ships = ArcCheck.GetShipsWithinRange(ship, 600, false, true)
+
+        local closest_distance = nil
+        for _, friendly_ship in pairs(friendly_ships) do
+            local distance = ArcCheck.GetDistanceBetweenShips(ship, friendly_ship)
+            if distance ~= nil then
+                -- Are we are the right range for coordinate?
+                if distance.range >= 1 and distance.range <= 2 then
+                    -- Is the ship not stressed?
+                    if TokenModule.GetShipTokenCount(friendly_ship, "Stress") == 0 then -- TODO: appears to be an error with counting stress tokens?
+                        -- Are we closer than the previously closest ship?
+                        if closest_distance == nil or closest_distance > distance.length then
+                            probe.action_targets['coordinate'] = friendly_ship
+                            closest_distance = distance.length
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    return probe.action_targets['coordinate'] ~= false
+end
 
 
 ArcCheck = {}
@@ -1626,8 +1773,11 @@ This function returns a table containing all non-friendly ships within 900mm and
 information based on the provided arc type for each one.
 
 ship: TTS Object, the ship whose arc will be tested.
-arctype: String, the arc of the ship being tested. 'front', 'bullseye', etc.
-    See DataPad for full list.
+arc: Table or String. The arc/s of the ship being tested. If a string, it is an
+    arc description such as 'front', 'bullseye', etc. See DataPad for full list.
+    If a table, it is a list of arc descriptions. Note that a single string
+    is expanded (so "frontback" becomes "front", "back"), but table entries are
+    not.
 fixed_targets: [optional]A list of TTS Objects, if passed in these are the only
     ships that will be checked.
 
@@ -1650,20 +1800,23 @@ returns a table of targets, each containing the following:
     other_closest: Table, the other closest point. See 'closest' and
         'multiple_points'. This is nil if only one closest point.
 --]]
-ArcCheck.GetTargetsInRelationToArc = function(ship, arctype, fixed_targets, range)
+ArcCheck.GetTargetsInRelationToArc = function(ship, arc, fixed_targets, range)
     if ArcCheck.initialized == false then
         ArcCheck.Initialize()
     end
 
     range = range or 3
 
-    local arc_parts = {arctype}
-    if arctype == "frontback" then
-        arc_parts = {"front", "back"}
-    elseif arctype == "leftright" then
-        arc_parts = {"left", "right"}
-    elseif arctype == "all" then
-        arc_parts = {"front", "back", "left", "right"}
+    local arc_parts = arc
+    if type(arc) == 'string' then
+        arc_parts = {arc}
+        if arc == "frontback" then
+            arc_parts = {"front", "back"}
+        elseif arc == "leftright" then
+            arc_parts = {"left", "right"}
+        elseif arc == "all" then
+            arc_parts = {"front", "back", "left", "right"}
+        end
     end
     ship.setLock(true)
     local shipSize = ship.getTable("Data").Size or 'small'
@@ -2017,26 +2170,7 @@ end
 
 -- Finds all potential ships within a little more than range 3 from the ship
 ArcCheck.GetPotentialTargets = function(ship, length)
-    length = length or 900
-    local cast_radius = Convert_mm_igu(length)
-    local collissions = Physics.cast({
-        origin       = ship.getPosition() + vector(0,0.1,0),
-        direction    = {0,0.001,0},
-        type         = 2,
-        size         = {cast_radius,cast_radius,cast_radius},
-        max_distance = 1,
-        debug        = false
-    })
-    local myOwningPlayer = ship.getVar("owningPlayer")
-    local potential_ships = {}
-    for k, hit in pairs(collissions) do
-        if hit.hit_object.getGUID() ~= ship.getGUID() and MoveModule.SelectShips(hit.hit_object) then
-            if hit.hit_object.getVar("owningPlayer") != myOwningPlayer then
-                table.insert(potential_ships, hit.hit_object)
-            end
-        end
-    end
-    return potential_ships
+    return ArcCheck.GetShipsWithinRange(ship, length)
 end
 
 -- Finds all targets in bullseye
@@ -2064,6 +2198,69 @@ ArcCheck.GetBullseyeTargets = function(ship, pos, length)
         end
     end
     return bullseye_targets
+end
+
+
+-- Finds friendly or enemy ships within a particular range
+ArcCheck.GetShipsWithinRange = function(ship, range, include_enemy_ships, include_friendly_ships)
+    range = range or 900
+    if include_enemy_ships == nil then
+        include_enemy_ships = true
+    end
+    if include_friendly_ships == nil then
+        include_friendly_ships = false
+    end
+
+    local cast_radius = Convert_mm_igu(range)
+    local collisions = Physics.cast({
+        origin       = ship.getPosition() + vector(0,0.1,0),
+        direction    = {0,0.001,0},
+        type         = 2,
+        size         = {cast_radius, cast_radius, cast_radius},
+        max_distance = 1,
+        debug        = false
+    })
+
+    local ship_owning_player = ship.getVar("owningPlayer")
+    local potential_ships = {}
+    for k, hit in pairs(collisions) do
+        if hit.hit_object.getGUID() ~= ship.getGUID() and MoveModule.SelectShips(hit.hit_object) then
+            local is_enemy_ship = hit.hit_object.getVar("owningPlayer") != ship_owning_player
+            if (include_enemy_ships and is_enemy_ship) or (include_friendly_ships and not is_enemy_ship) then
+                table.insert(potential_ships, hit.hit_object)
+            end
+        end
+    end
+
+    return potential_ships
+end
+
+
+ArcCheck.GetDistanceBetweenShips = function(ship, target, arcs)
+    local arcs = arcs or {'front', 'back', 'left', 'right'}
+    local ship_size = ship.getTable("Data").Size or 'small'
+
+    local ship_line_segments = {}
+    local target_line_segments = {}
+    for _, arc in pairs(arcs) do
+        local ship_segments = ArcCheck.GetOwnArcLineSegments(ship, ArcCheck.arc_line_segments[ship_size][arc]["segments"])
+        for _, ship_segment in pairs(ship_segments) do
+            table.insert(ship_line_segments, ship_segment)
+        end
+
+        local target_segments = ArcCheck.GetTargetLineSegmentsInArc(ship, target, ArcCheck.arc_line_segments[ship_size][arc]["degrees"])
+        for _, target_segment in pairs(target_segments) do
+            table.insert(target_line_segments, target_segment)
+        end
+    end
+
+    if #target_line_segments ~= 0 then
+        local closest = nil
+        closest, _ = ArcCheck.GetDistanceBetweenLineSegments(ship_line_segments, target_line_segments)
+        return closest
+    end
+
+    return nil
 end
 
 
@@ -4473,6 +4670,17 @@ function TokenModule_SetTractors()
     TokenModule.tractorsToBeSet = {}
 end
 
+-- Table for tokens to be flipped and callback to trigger their flipping
+-- Entry: token
+TokenModule.tokensToBeFlipped = {}
+
+function TokenModule_FlipTokens()
+    for _, token in pairs(TokenModule.tokensToBeFlipped) do
+        token.flip()
+    end
+    TokenModule.tokensToBeFlipped = {}
+end
+
 
 -- Table for locks to be set and callback to trigger their naming and coloring
 -- Entry: {lock=targetLockRef, color=colorToTint, name=nameToSet}
@@ -4491,7 +4699,7 @@ end
 -- Player color argument only matters when taking target locks
 -- Returns ref to a newly taken token
 -- Highlights the token with type-aware color
-TokenModule.TakeToken = function(type, playerColor, dest)
+TokenModule.TakeToken = function(type, playerColor, dest, flip)
     local takeTable = {}
     if dest ~= nil then
         takeTable.position = dest
@@ -4500,13 +4708,14 @@ TokenModule.TakeToken = function(type, playerColor, dest)
     if type == 'Target Lock' then
         takeTable.callback = 'TokenModule_SetLocks'
         takeTable.callback_owner = Global
-    end
-    if type == 'Ion' then
+    elseif type == 'Ion' then
         takeTable.callback = 'TokenModule_SetIons'
         takeTable.callback_owner = Global
-    end
-    if type == 'Tractor' then
+    elseif type == 'Tractor' then
         takeTable.callback = 'TokenModule_SetTractors'
+        takeTable.callback_owner = Global
+    elseif flip == true then
+        takeTable.callback = 'TokenModule_FlipTokens'
         takeTable.callback_owner = Global
     end
     local newToken = TokenModule.tokenSources[type].src.takeObject(takeTable)
@@ -4760,6 +4969,10 @@ DialModule.PerformAction = function(ship, type, playerColor, args)
                 announceInfo.note = 'takes a tractor token'
                 TokenModule.AssignToken(newToken, ship)
             else
+                local flipToken = args ~= nil and args['flip'] == true
+                if flipToken == true then
+                    table.insert(TokenModule.tokensToBeFlipped, newToken)
+                end
                 if type == 'Evade' then
                     announceInfo.note = 'takes an evade token'
                 else
