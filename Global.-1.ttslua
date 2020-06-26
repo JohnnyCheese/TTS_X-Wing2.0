@@ -289,17 +289,9 @@ AIModule.max_distance = 2000
 -- do it a better way.
 AIModule.current_move = {}
 AIModule.current_move.in_progress = false
-AIModule.current_move.take_action = false
-AIModule.current_move.collision = false
-AIModule.current_move.difficulty = nil
-AIModule.current_move.obstacle = false
-AIModule.current_move.stress_count = 0
-AIModule.current_move.is_ionised = false
-AIModule.current_move.target = nil
-AIModule.current_move.probes = {}
-
 AIModule.current_move.Reset = function()
     AIModule.current_move.take_action = false
+    AIModule.current_move.move_code = nil
     AIModule.current_move.collision = false
     AIModule.current_move.difficulty = nil
     AIModule.current_move.obstacle = false
@@ -307,7 +299,14 @@ AIModule.current_move.Reset = function()
     AIModule.current_move.is_ionised = false
     AIModule.current_move.target = nil
     AIModule.current_move.probes = {}
+    AIModule.current_move.action_stack = {}
 end
+AIModule.current_move.Reset()
+
+
+
+-- Possible commands supported by the AI module
+XW_cmd.AddCommand('ai', 'AI')   -- Enables the AI on the selected ship
 
 -- Description function to add the AI functions to a ship
 AIModule.EnableAI = function(ship, command)
@@ -332,6 +331,78 @@ AIModule.ValidateMoveTables = function(ship)
             end
         end
     end
+end
+
+--[[ AI target selection
+
+Target selection is the simplest of the AI submodules. It consists of a set of
+functions for different selection types, each of which takes the querying ship
+and returns a target ship. There are also some helper methods for filtering
+targets by various metrics.
+]]
+
+-- Target selection functions. These take a ship, and return a target ship
+AIModule.TargetSelectionFunctions = {}
+AIModule.TargetSelectionFunctions['ClosestInArc'] = function(ship)
+    local targets = AIModule.GetSortedTargetsInArc(ship)
+
+    -- Get the first ship as it's already been sorted by distance
+    for i, target in pairs(targets) do
+        return target['ship']
+    end
+
+    return nil
+end
+
+AIModule.TargetSelectionFunctions['Closest'] = function(ship)
+    local potential_targets = ArcCheck.GetPotentialTargets(ship, AIModule.max_distance)
+
+    local closest_distance = nil
+    local closest_target = nil
+    for i, target in pairs(potential_targets) do
+        local distance = Vect.Length(ship.getPosition() - target.GetPosition())
+        if closest_distance == nil or distance < closest_distance then
+            closest_distance = distance
+            closest_target = target
+        end
+    end
+
+    return closest_target
+end
+
+AIModule.TargetSelectionFunctions['LockedInRange'] = function(ship)
+    local potential_targets = AIModule.GetSortedTargetsInArc(ship, 'all')
+    potential_targets = table.sieve(potential_targets, AIModule.FilterInRange)
+
+    local closest_distance = nil
+    local closest_target = nil
+    for i, target in pairs(potential_targets) do
+        -- Is this ship locked by us?
+        if AIModule.HasTargetLockOnShip(ship, target['ship']) then
+            local distance = Vect.Length(ship.getPosition() - target['ship'].GetPosition())
+            if closest_distance == nil or distance < closest_distance then
+                closest_distance = distance
+                closest_target = target['ship']
+            end
+        end
+    end
+
+    return closest_target
+end
+
+AIModule.TargetSelectionFunctions['ClosestInArcLowerInitiative'] = function(ship)
+    local initiative = ship.getTable('Data')['initiative']
+    local targets = AIModule.GetSortedTargetsInArc(ship)
+
+    -- Get the first ship with a lower initiative as it's already been sorted by
+    -- distance.
+    for i, target in pairs(targets) do
+        if (target['ship'].getTable('Data')['initiative'] < initiative) then
+            return target['ship']
+        end
+    end
+
+    return nil
 end
 
 -- Only choose ships that are in arc and between ranges 1-3
@@ -373,296 +444,35 @@ AIModule.GetSortedTargetsInArc = function(ship, arc)
     return targets
 end
 
--- Target selection functions. These take a ship, and return a target ship
-AIModule.TargetSelectionFunctions = {}
-AIModule.TargetSelectionFunctions['ClosestInArc'] = function(ship)
-    local targets = AIModule.GetSortedTargetsInArc(ship)
-
-    -- Get the first ship as it's already been sorted by distance
-    for i, target in pairs(targets) do
-        return target['ship']
-    end
-
-    return nil
-end
-
-AIModule.TargetSelectionFunctions['Closest'] = function(ship)
-    local potential_targets = ArcCheck.GetPotentialTargets(ship, AIModule.max_distance)
-
-    local closest_distance = nil
-    local closest_target = nil
-    for i, target in pairs(potential_targets) do
-        local distance = Vect.Length(ship.getPosition() - target.GetPosition())
-        if closest_distance == nil or distance < closest_distance then
-            closest_distance = distance
-            closest_target = target
+AIModule.HasTargetLockOnShip = function(locking_ship, locked_ship)
+    local lock_tokens = locked_ship.call("GetTokens", {type="targetLock"})
+    for j, token in pairs(lock_tokens) do
+        if token.GetName() == locking_ship.GetName() then -- TODO: this really should be guid
+            return true
         end
-    end
-
-    return closest_target
-end
-
-AIModule.TargetSelectionFunctions['LockedInRange'] = function(ship)
-    local potential_targets = AIModule.GetSortedTargetsInArc(ship, 'all')
-    potential_targets = table.sieve(potential_targets, AIModule.FilterInRange)
-
-    local closest_distance = nil
-    local closest_target = nil
-    for i, target in pairs(potential_targets) do
-        -- Is this ship locked by us?
-        local is_target_locked = false
-        local lock_tokens = ship.call("GetTokens",{type="targetLock"})
-        for j, token in pairs(lock_tokens) do
-            is_target_locked = token.GetName() == ship.GetName()
-        end
-
-        if is_target_locked then
-            local distance = Vect.Length(ship.getPosition() - target['ship'].GetPosition())
-            if closest_distance == nil or distance < closest_distance then
-                closest_distance = distance
-                closest_target = target['ship']
-            end
-        end
-    end
-
-    return closest_target
-end
-
-AIModule.TargetSelectionFunctions['ClosestInArcLowerInitiative'] = function(ship)
-    local initiative = ship.getTable('Data')['initiative']
-    local targets = AIModule.GetSortedTargetsInArc(ship)
-
-    -- Get the first ship with a lower initiative as it's already been sorted by
-    -- distance.
-    for i, target in pairs(targets) do
-        if (target['ship'].getTable('Data')['initiative'] < initiative) then
-            return target['ship']
-        end
-    end
-
-    return nil
-end
-
-
--- Helper functions for the action functions. These try to cache expensive
--- calls as often as possible in the AIModule.current_move variable.
-AIModule.ActionHelpers = {}
-
--- These are iterated over often, so made sense to have them in one place.
-AIModule.barrel_roll_move_codes = {'rl1', 'rr1', 'rl2', 'rr2', 'rl3', 'rr3'}
-AIModule.boost_move_codes = {'bl1', 's1', 'br1'}
-
--- This function checks a boost or barrel roll action, caches whether the move
--- was possible, (and the position and rotation if so), and returns the object.
-AIModule.ActionHelpers.GetMoveProbe = function(ship, move)
-    move = move or 's0'
-
-    if AIModule.current_move.probes[move] == nil then
-        AIModule.current_move.probes[move] = {}
-    end
-
-    if AIModule.current_move.probes[move].possible == nil then
-        if move == 's0' then
-            AIModule.current_move.probes[move].possible = true
-            AIModule.current_move.probes[move].position = ship.getPosition()
-            AIModule.current_move.probes[move].rotation = ship.getRotation()
-        else
-            AIModule.current_move.probes[move].possible = false
-            local move_info = MoveData.DecodeInfo(move, ship)
-            local probe_data = MoveModule.MoveProbe.TryFullMove(move_info, ship, MoveModule.GetFullMove)
-            if probe_data.done and probe_data.collObj == nil and probe_data.collObs == nil then
-                AIModule.current_move.probes[move].possible = true
-
-                AIModule.current_move.probes[move].position = probe_data.finalPosRot['pos']
-                AIModule.current_move.probes[move].rotation = probe_data.finalPosRot['rot']
-            end
-        end
-    end
-
-    return AIModule.current_move.probes[move]
-end
-
-AIModule.ActionHelpers.GetPositionAndRotation = function(ship)
-    return {['position'] = ship.GetPosition(), ['rotation'] = ship.GetRotation()}
-end
-
-AIModule.ActionHelpers.SetPositionAndRotation = function(ship, position_rotation)
-    ship.SetPosition(position_rotation['position'])
-    ship.SetRotation(position_rotation['rotation'])
-end
-
-AIModule.ActionHelpers.ApplyProbe = function(ship, probe)
-    ship.SetPosition(probe.position)
-    ship.SetRotation(probe.rotation)
-end
-
-AIModule.ActionHelpers.HasAnyTarget = function(ship, move)
-    probe = AIModule.ActionHelpers.GetMoveProbe(ship, move)
-
-    if probe.possible == false then
-        return nil
-    end
-
-    if probe.any_target ~= nil then
-        return probe.any_target
-    end
-
-    local original_position_rotation = AIModule.ActionHelpers.GetPositionAndRotation(ship)
-    AIModule.ActionHelpers.ApplyProbe(ship, probe)
-
-    probe.any_target = false
-    targets = ArcCheck.GetTargetsInRelationToArc(ship, 'front') -- TODO: Do we need to check for different arc types for different ships?
-    targets = table.sieve(targets, AIModule.FilterInArc)
-    targets = table.sieve(targets, AIModule.FilterInRange)
-    for _ in pairs(targets) do
-        probe.any_target = true
-        break
-    end
-
-    AIModule.ActionHelpers.SetPositionAndRotation(ship, original_position_rotation)
-
-    return probe.any_target
-end
-
-AIModule.ActionHelpers.IsInTargetsArc = function(ship, target, move)
-    probe = AIModule.ActionHelpers.GetMoveProbe(ship, move)
-
-    if probe.possible == false then
-        return nil
-    end
-
-    if probe.in_targets_arc ~= nil then
-        return probe.in_targets_arc
-    end
-
-    local original_position_rotation = AIModule.ActionHelpers.GetPositionAndRotation(ship)
-    AIModule.ActionHelpers.ApplyProbe(ship, probe)
-
-    probe.in_targets_arc = false
-    targets = ArcCheck.GetTargetsInRelationToArc(target, 'front', {ship}) -- TODO: Do we need to check for different arc types for different ships?
-    targets = table.sieve(targets, AIModule.FilterInArc)
-    for _, target_info in pairs(targets) do
-        probe.in_targets_arc = true
-        break
-    end
-
-    AIModule.ActionHelpers.SetPositionAndRotation(ship, original_position_rotation)
-
-    return probe.in_targets_arc
-end
-
-
--- Action functions. These take a ship and a target, and return true if they were executed.
-AIModule.ActionFunctions = {}
-AIModule.ActionFunctions['BarrelRollToMaintainShotAndAvoidTargetsArc'] = function(ship, target)
-    -- If we don't have a shot, return false.
-    if AIModule.ActionHelpers.HasAnyTarget(ship) == false then
-        return false
-    end
-
-    -- If our target doesn't have a shot on us, return false.
-    if AIModule.ActionHelpers.IsInTargetsArc(ship, target) == false then
-        return false
-    end
-
-    -- Loop over all the possible barrel roll positions, and if we still have
-    -- a shot, and have moved out of our target's arc, then record this as a
-    -- possible barrel roll.
-    local num_barrel_rolls = 0
-    local barrel_rolls = {}
-    for _, move_code in pairs(AIModule.barrel_roll_move_codes) do
-        if AIModule.ActionHelpers.HasAnyTarget(ship, move_code) == true and AIModule.ActionHelpers.IsInTargetsArc(ship, target, move_code) == false then
-            num_barrel_rolls = num_barrel_rolls + 1
-            barrel_rolls[num_barrel_rolls] = move_code
-        end
-    end
-
-    -- If we have any possible barrel rolls, execute a random one and return
-    -- true.
-    if num_barrel_rolls > 0 then
-        move_code = barrel_rolls[math.random(num_barrel_rolls)]
-        MoveModule.PerformMove(move_code, ship)
-        return true
-    end
-
-    -- No options, so return false.
-    return false
-end
-
-AIModule.ActionFunctions['BarrelRollToGetAShot'] = function(ship, target)
-    -- If we have a shot, return false.
-    if AIModule.ActionHelpers.HasAnyTarget(ship) == true then
-        return false
-    end
-
-    -- Loop over all the possible barrel roll positions, and if we have a shot,
-    -- then record this as a possible barrel roll.
-    local num_barrel_rolls = 0
-    local barrel_rolls = {}
-    for _, move_code in pairs(AIModule.barrel_roll_move_codes) do
-        if AIModule.ActionHelpers.HasAnyTarget(ship, move_code) == true then
-            num_barrel_rolls = num_barrel_rolls + 1
-            barrel_rolls[num_barrel_rolls] = move_code
-        end
-    end
-
-    -- If we have any possible barrel rolls, execute a random one and return
-    -- true.
-    if num_barrel_rolls > 0 then
-        move_code = barrel_rolls[math.random(num_barrel_rolls)]
-        MoveModule.PerformMove(move_code, ship)
-        return true
-    end
-
-    -- No options, so return false.
-    return false
-end
-
-AIModule.ActionFunctions['FocusIfHaveAShot'] = function(ship, target)
-    -- If we have a shot, assign a focus and return true.
-    if AIModule.ActionHelpers.HasAnyTarget(ship) == true then
-        DialModule.PerformAction(ship, 'Focus', ship.getVar("owningPlayer"))
-        return true
     end
 
     return false
 end
 
-AIModule.ActionFunctions['BarrelRollToAvoidTargetsArc'] = function(ship, target)
-    -- If our target doesn't have a shot on us, return false.
-    if AIModule.ActionHelpers.IsInTargetsArc(ship, target) == false then
-        return false
-    end
 
-    -- Loop over all the possible barrel roll positions, and if we have moved
-    -- out of our target's arc, then record this as a possible barrel roll.
-    local num_barrel_rolls = 0
-    local barrel_rolls = {}
-    for _, move_code in pairs(AIModule.barrel_roll_move_codes) do
-        if AIModule.ActionHelpers.IsInTargetsArc(ship, target, move_code) == false then
-            num_barrel_rolls = num_barrel_rolls + 1
-            barrel_rolls[num_barrel_rolls] = move_code
-        end
-    end
+--[[ AI maneuver selection
 
-    -- If we have any possible barrel rolls, execute a random one and return
-    -- true.
-    if num_barrel_rolls > 0 then
-        move_code = barrel_rolls[math.random(num_barrel_rolls)]
-        MoveModule.PerformMove(move_code, ship)
-        return true
-    end
+The maneuver selection is the main submodule of the AI, as well as the one that
+ties most of the others together. It is home to one of the entry points,
+"PerformAIManever". The main function, AIModule.PerformManeuver, uses the
+target selection functions to pick a target, then plots a maneuver based on
+the move tables in BehaviourDB.ttslua. It also cover stress, ion, and obstacle
+avoidance.
 
-    -- No options, so return false.
-    return false
-end
+Worth noting is that due to having to wait for ships to finish moving, part of
+the functionality of AIModule.PerformManeuver had to be split out to a callback
+function, AIModule.ManeuverPostShipRest. This handles everything after the
+maneuver is executed, including calling the action submodule.
 
-AIModule.ActionFunctions['Evade'] = function(ship, target)
-    DialModule.PerformAction(ship, 'Evade', ship.getVar("owningPlayer"))
-    return true
-end
-
--- The entry point into AIModule.
+It also includes various helper functions for searching through and transforming
+manveuvers.
+]]
 function PerformAIManeuver(args)
     local ship = args.ship
     local take_action = args.take_action
@@ -845,6 +655,8 @@ AIModule.PerformManeuver = function(ship, take_action)
             end
         end
 
+        AIModule.current_move.move_code = move_code
+
         if move_code ~= nil then
             -- Check for collisions.
             local move_info = MoveData.DecodeInfo(move_code, ship)
@@ -966,32 +778,27 @@ AIModule.PerformManeuver = function(ship, take_action)
 end
 
 AIModule.ManeuverPostShipRest = function(ship)
+    local action_selected = false;
+
     if AIModule.current_move.difficulty == 'r' then
         DialModule.PerformAction(ship, 'Stress', ship.getVar("owningPlayer"))
     elseif AIModule.current_move.take_action == true and AIModule.current_move.stress_count == 0 and AIModule.current_move.collision == false and AIModule.current_move.obstacle == false then
         if AIModule.current_move.is_ionised then
             -- TODO: Only perform a focus action (if possible)
         else
+            -- Check for Full Throttle and apply it now if appropriate.
+            AIModule.ApplySpecialAbility(ship, 'fullThrottle')
+
             -- Run through the ship's actions and try them in order.
-            local rule_set = BehaviourDB.GetRuleSet()
-            local ship_id = ship.getTable('Data')['shipId']
-            local ship_behaviour = rule_set.ships[ship_id]
-
-            local any_actions = false
-            for _, action_function in ipairs(ship_behaviour.action_selection) do
-                any_actions = true
-                if AIModule.ActionFunctions[action_function](ship, AIModule.current_move.target) then
-                    break
-                end
-            end
-
-            if any_actions == false then
-                printToAll('No AI actions found for ship ID ' .. tostring(ship_id) .. ', please make actions manually.', color(1.0, 1.0, 0.2, 0.9))
-            end
+            action_selected = AIModule.SelectAction(ship)
         end
     end
 
-    AIModule.current_move.in_progress = false
+    if action_selected then
+        AIModule.ProcessActionStack(ship)
+    else
+        AIModule.current_move.in_progress = false
+    end
 end
 
 --[[ AIModule.GetMoveDifficulty
@@ -1101,6 +908,42 @@ AIModule.GetNearestMoves = function(ship, move_code, can_perform_red_maneuvers)
     end
 end
 
+AIModule.ApplySpecialAbility = function(ship, ability)
+    if AIModule.HasSpecialAbility(ship, ability) then
+        if ability == 'fullThrottle' then
+            -- Take an evade action if the ship fully executed (ie, no
+            -- ship-to-ship collision) a 3-5 maneuver. We're assumed to not be
+            -- stressed as this is only called right before actions are
+            -- selected.
+            if AIModule.current_move.collision == false then
+                local move_code = AIModule.current_move.move_code
+                if string.find(move_code, '3') or string.find(move_code, '4') or string.find(move_code, '5') then
+                    printToAll(string.format('%s used full throttle to evade.', ship.getName()))
+                    DialModule.PerformAction(ship, 'Evade', ship.getVar('owningPlayer'))
+                end
+            end
+        end
+    end
+end
+
+AIModule.HasSpecialAbility = function(ship, ability)
+    local rule_set = BehaviourDB.GetRuleSet()
+    local ship_id = ship.getTable('Data')['shipId']
+    local ship_behaviour = rule_set.ships[ship_id]
+
+    if ship_behaviour.special_rules == nil then
+        return false
+    end
+
+    for _, ship_ability in pairs(ship_behaviour.special_rules) do
+        if ability == ship_ability then
+            return true
+        end
+    end
+
+    return false
+end
+
 --[[ AIModule.IsIonised
 This function returns whether or not a ship has enough ion tokens to ionise it.
 
@@ -1124,8 +967,482 @@ AIModule.IsIonised = function(ship)
     return false
 end
 
--- Possible commands supported by the AI module
-XW_cmd.AddCommand('ai', 'AI')   -- Enables the AI on the selected ship
+--[[ AI action selection
+
+This submodule is smaller than the maneuver system, but probably more complex.
+The main function is AIModule.AttemptAction, which takes an action definition
+and checks if it is possible to execute. This involves checking the action's
+pre-conditions (if the ship is in the right situation to attempt it), then if
+the ship can actually execute the action, and finally checking the action's
+post-conditions (if the action met with the desired result).
+
+Where this gets complicated is the use of action probes, which are hypothetical
+future positions of the ship. So if a ship makes a boost, then we create a probe
+for each type of boost (bl1, s1, br1) and evaluate the post-conditions for each
+probe. Where this gets _really_ complicated is when handling ships that can
+string together more than one move action, such as the Interceptor's boost
+action linking to a barrel roll action. For this we have to "expand" the first
+set of probes by the second action - so the probe "bl1" expands into six more
+probes: "bl1 > rl1", "bl1 > rl2", "bl1 > rl3", "bl1 > rr1", "bl1 > rr2", and
+"bl1 > rr3". These permutations can get quite large (45 in the case of the
+Interceptor) so these are cached where possible, but even so they can lead to
+long execution times.
+
+Finally, the actions are packed into a stack and processed one-by-one. Just like
+the maneuver submodule these have to be dealt with in a callback to wait for the
+TTS components to come to a rest.
+]]
+
+-- List which actions are move actions, and therefore have to be expanded into
+-- a list of potential move codes. Any action not listed here is assumed to be
+-- possible to made at any time (such as 'focus', 'evade', etc)
+AIModule.move_actions = {
+    ['barrelRoll'] = {'rl1', 'rr1', 'rl2', 'rr2', 'rl3', 'rr3'},
+    ['boost'] = {'bl1', 's1', 'br1'}
+}
+
+AIModule.SelectAction = function(ship)
+    local rule_set = BehaviourDB.GetRuleSet()
+    local ship_id = ship.getTable('Data')['shipId']
+    local ship_behaviour = rule_set.ships[ship_id]
+
+    for _, action in ipairs(ship_behaviour.action_selection) do
+        if AIModule.AttemptAction(ship, AIModule.current_move.target, action) then
+            return true
+        end
+    end
+
+    printToAll('No AI actions found for ship ID ' .. tostring(ship_id) .. ', please make actions manually.', color(1.0, 1.0, 0.2, 0.9))
+end
+
+AIModule.AttemptAction = function(ship, target, action_definition)
+    if action_definition.pass_through then
+        AIModule.PrintActionDescription(action_definition.description, ship, target)
+        return false
+    end
+
+    -- Generate a static action probe to start our moves from.
+    local initial_probe = AIModule.GetActionProbe(ship)
+    -- The list of possible probe moves, if any. Group by the set index.
+    local probe_sets = {}
+    -- The simple actions that we'll take, grouped by the set index.
+    local simple_actions = {}
+
+    -- Check for preconditions
+    if AIModule.CheckProbeConditions(ship, target, initial_probe, action_definition.preconditions) == false then
+        return false
+    end
+
+    -- There are three ways that an action can be defined in the behaviour
+    -- database, so look for the shorthands and expand them out to the full
+    -- definition if necessary.
+    local action_set = action_definition.action
+    if type(action_definition.action) == 'string' then
+        action_set = {[1] = {[action_definition.action] = false}}
+    elseif action_definition.action[1] == nil then
+        action_set = {[1] = action_definition.action}
+    end
+
+    -- Iterate over each item in the action list, attempting each one in turn.
+    -- The action could be a move action (barrelRoll or boost) in which case
+    -- we need to expand it into all possible moves.
+    local action_includes_move_component = false
+    for set_index, action_list in ipairs(action_set) do
+        probe_sets[set_index] = {}
+        simple_actions[set_index] = {}
+        local initial_move = true
+
+        for action, stress in pairs(action_list) do
+            if AIModule.move_actions[action] ~= nil then
+                action_includes_move_component = true
+
+                -- This action is a move action, so expand our current set of
+                -- possible action probes further.
+                if initial_move == true then
+                    probe_sets[set_index] = table.join(probe_sets[set_index], AIModule.ExpandActionProbe(ship, initial_probe, AIModule.move_actions[action]))
+                    initial_move = false
+                else
+                    new_probes = {}
+                    for _, probe in pairs(probe_sets[set_index]) do
+                        new_probes = table.join(new_probes, AIModule.ExpandActionProbe(ship, probe, AIModule.move_actions[action]))
+                    end
+
+                    probe_sets[set_index] = table.join(probe_sets[set_index], new_probes)
+                end
+
+                -- Set the move difficulty and the set index on each probe.
+                local move_difficulty = 'w'
+                if stress then
+                    move_difficulty = 'r'
+                end
+
+                for _, probe in pairs(probe_sets[set_index]) do
+                    probe.set_index = set_index
+                    probe.difficulty = move_difficulty
+                end
+            else
+                -- There's one instance that we skip the action - we don't take
+                -- a target lock action if the target is already locked. This is
+                -- often handled by the preconditions anyway, but sometimes it's
+                -- not so we double-check here. Also, range must be checked by
+                -- the postconditions as doing a range check now would be from
+                -- the post-maneuver position, not the post-action position.
+                local skip_action = false
+                if action == 'targetLock' then
+                    skip_action = AIModule.HasTargetLockOnShip(ship, target)
+                end
+
+                if skip_action == false then
+                    table.insert(simple_actions[set_index], action)
+
+                    if stress == true then
+                        table.insert(simple_actions[set_index], 'stress')
+                    end
+                end
+            end
+        end
+    end
+
+    -- We merge together all of the probe sets into one table so we can rank
+    -- them and compare them to each other. We need to select a random one, so
+    -- we'll randomise the list and pick the first one that passes all the
+    -- postconditions. If the list is empty, or if no probe passes the
+    -- postconditions, then we can't complete the action and must return false.
+
+    -- Group all the probe sets together
+    local all_possible_probes = {}
+    for _, probe_set in pairs(probe_sets) do
+        all_possible_probes = table.join(all_possible_probes, probe_set)
+    end
+
+    -- Randomise the probes, then sort by difficulty so we avoid stress if
+    -- possible. We set the index here as it is used by SortProbesByDifficulty
+    -- to guarantee a stable sort.
+    all_possible_probes = table.shuffle(all_possible_probes)
+    for index, probe in ipairs(all_possible_probes) do
+        probe.index = index
+    end
+    table.sort(all_possible_probes, AIModule.SortProbesByDifficulty)
+
+    -- Iterate over the probes. The first successful one we find we store
+    -- in the move_actions array that gets processed later, and we also record
+    -- the set index so we know which set of simple actions to use.
+    local move_actions = {}
+    local set_index = 1
+    for _, probe in pairs(all_possible_probes) do
+        if AIModule.CheckProbeConditions(ship, target, probe, action_definition.postconditions) == true then
+            set_index = probe.set_index
+
+            for _, move_code in pairs(probe.moves) do
+                if move_code ~= 's0' then
+                    table.insert(move_actions, move_code)
+                end
+            end
+
+            if probe.difficulty == 'r' then
+                table.insert(simple_actions[set_index], 'stress')
+            end
+
+            break
+        end
+    end
+
+    if action_includes_move_component and #move_actions == 0 then
+        return false
+    end
+
+    for index = 1, #simple_actions[set_index] do
+        table.insert(AIModule.current_move.action_stack, simple_actions[set_index][#simple_actions[set_index] + 1 - index])
+    end
+    for index = 1, #move_actions do
+        table.insert(AIModule.current_move.action_stack, move_actions[#move_actions + 1 - index])
+    end
+
+    if #AIModule.current_move.action_stack > 0 then
+        AIModule.PrintActionDescription(action_definition.description, ship, target)
+        return true
+    end
+
+    return false
+end
+
+-- Processes the queued actions in order, movement first and then simple
+-- actions. Will wait for the callback to keep processing actions in the case of
+-- a movement action
+AIModule.ProcessActionStack = function(ship)
+    if AIModule.current_move.in_progress == false then
+        return
+    end
+
+    while #AIModule.current_move.action_stack > 0 do
+        local action_code = table.remove(AIModule.current_move.action_stack)
+
+        if action_code == 'stress' then
+            DialModule.PerformAction(ship, 'Stress', ship.getVar('owningPlayer'))
+        elseif action_code == 'focus' then
+            DialModule.PerformAction(ship, 'Focus', ship.getVar('owningPlayer'))
+        elseif action_code == 'evade' then
+            DialModule.PerformAction(ship, 'Evade', ship.getVar('owningPlayer'))
+        elseif action_code == 'targetLock' then
+            DialModule.PerformAction(ship, 'Target Lock', ship.getVar('owningPlayer'), {['ship'] = ship, ['target'] = AIModule.current_move.target})
+        elseif action_code == 'cloak' then
+            DialModule.PerformAction(ship, 'Cloak', ship.getVar('owningPlayer'))
+        elseif MoveModule.PerformMove(action_code, ship, false, AIModule.ProcessActionStack) then
+            break
+        end
+    end
+
+    AIModule.current_move.in_progress = #AIModule.current_move.action_stack > 0
+end
+
+AIModule.PrintActionDescription = function(description, ship, target)
+    local text = description
+    local text_parameters = {}
+    if type(description) == 'table' then
+        text = description.text
+        for _, string_id in pairs(description.strings) do
+            if string_id == 'ship' then
+                table.insert(text_parameters, ship.getName())
+            elseif string_id == 'target' then
+                table.insert(text_parameters, target.getName())
+            end
+        end
+    else
+        text_parameters = {ship.getName()}
+    end
+
+    printToAll(string.format(text, unpack(text_parameters)))
+end
+
+--[[ The action probe system, part of the AI action submodule.
+
+These functions deal the creating action probes, expanding them, sorting them,
+and checking conditions on them.
+]]
+AIModule.CheckProbeConditions = function(ship, target, probe, conditions)
+    -- No conditions, then we can't fail.
+    if conditions == nil then
+        return true
+    end
+
+    local probe_result = true
+
+    for condition, required_result in pairs(conditions) do
+        local actual_result = AIModule.condition_functions[condition](ship, target, probe)
+        if actual_result ~= required_result then
+            probe_result = false
+            break
+        end
+    end
+
+    return probe_result
+end
+
+-- This creates the origin action probe and returns it.
+AIModule.GetActionProbe = function(ship)
+    local move = 's0'
+
+    if AIModule.current_move.probes[move] == nil then
+        AIModule.current_move.probes[move] = {}
+    end
+
+    if AIModule.current_move.probes[move].possible == nil then
+        AIModule.current_move.probes[move].moves = {move}
+        AIModule.current_move.probes[move].possible = true
+        AIModule.current_move.probes[move].difficulty = 'w'
+        AIModule.current_move.probes[move].position = ship.getPosition()
+        AIModule.current_move.probes[move].rotation = ship.getRotation()
+    end
+
+    return AIModule.current_move.probes[move]
+end
+
+-- This function takes an existing probe, and appends all possible moves in
+-- a move list onto it, returning a list of those that are possible.
+AIModule.ExpandActionProbe = function(ship, probe, moves)
+    local possible_probes = {}
+
+    local probe_name = ''
+    for _, existing_move in pairs(probe.moves) do
+        if string.len(probe_name) > 0 then
+            probe_name = probe_name .. ','
+        end
+        probe_name = probe_name .. existing_move
+    end
+
+    for _, move in pairs(moves) do
+        -- First check if this exists. If it does, and it's possible, then just
+        -- return it and skip to the next one.
+        local new_probe_name = probe_name .. ',' .. move
+        new_probe = AIModule.current_move.probes[new_probe_name]
+        if new_probe ~= nil then
+            if new_probe.possible == true then
+                table.insert(possible_probes, new_probe)
+            end
+        else
+            -- The probe hasn't been made before. Make a new one and test if it
+            -- is possible or not.
+            local original_position_rotation = AIModule.GetPositionAndRotation(ship)
+            AIModule.ApplyProbe(ship, probe)
+
+            new_probe = {["possible"] = false, ["moves"] = table.shallowcopy(probe.moves)}
+            table.insert(new_probe.moves, move)
+
+            local move_info = MoveData.DecodeInfo(move, ship)
+            local probe_data = MoveModule.MoveProbe.TryFullMove(move_info, ship, MoveModule.GetFullMove)
+            if probe_data.done and probe_data.collObj == nil and probe_data.collObs == nil then
+                new_probe.possible = true
+                new_probe.difficulty = difficulty
+                new_probe.position = probe_data.finalPosRot['pos']
+                new_probe.rotation = probe_data.finalPosRot['rot']
+                table.insert(possible_probes, new_probe)
+            end
+            AIModule.current_move.probes[new_probe_name] = new_probe
+
+            AIModule.SetPositionAndRotation(ship, original_position_rotation)
+        end
+    end
+
+    return possible_probes
+end
+
+AIModule.SortProbesByDifficulty = function(e1, e2)
+    if e1.difficulty == 'b' and e2.difficulty ~= 'b' then
+        return true
+    elseif e2.difficulty == 'b' and e1.difficulty ~= 'b' then
+        return false
+    elseif e1.difficulty == 'w' and e2.difficulty == 'r' then
+        return true
+    elseif e2.difficulty == 'w' and e1.difficulty == 'r' then
+        return false
+    end
+
+    return e1.index < e2.index
+end
+
+AIModule.GetPositionAndRotation = function(ship)
+    return {['position'] = ship.GetPosition(), ['rotation'] = ship.GetRotation()}
+end
+
+AIModule.SetPositionAndRotation = function(ship, position_rotation)
+    ship.SetPosition(position_rotation['position'])
+    ship.SetRotation(position_rotation['rotation'])
+end
+
+AIModule.ApplyProbe = function(ship, probe)
+    ship.SetPosition(probe.position)
+    ship.SetRotation(probe.rotation)
+end
+
+AIModule.condition_functions = {}
+AIModule.condition_functions['hasShot'] = function(ship, target, probe)
+    if probe.shot_range ~= nil then
+        return probe.shot_range ~= -1 and probe.shot_range <= 3
+    end
+
+    probe.shot_range = AIModule.GetShotRange(ship, probe)
+
+    return probe.shot_range ~= -1 and probe.shot_range <= 3
+end
+
+AIModule.condition_functions['hasShotWithinRange1'] = function(ship, target, probe) -- TODO: Generalise this and the above function? Would require being able to pass in parameters to condition functions, so a hefty refactor.
+    if probe.shot_range ~= nil then
+        return probe.shot_range ~= -1 and probe.shot_range <= 1
+    end
+
+    probe.shot_range = AIModule.GetShotRange(ship, probe)
+
+    return probe.shot_range ~= -1 and probe.shot_range <= 1
+end
+
+AIModule.GetShotRange = function(ship, probe)
+    local closest_range = -1
+
+    local original_position_rotation = AIModule.GetPositionAndRotation(ship)
+    AIModule.ApplyProbe(ship, probe)
+
+    targets = ArcCheck.GetTargetsInRelationToArc(ship, 'front') -- TODO: Do we need to check for different arc types for different ships?
+    targets = table.sieve(targets, AIModule.FilterInArc)
+    targets = table.sieve(targets, AIModule.FilterInRange)
+    for _ in pairs(targets) do
+        if closest_range == -1 or target.closest.range < closest_range then
+            closest_range = target.closest.range
+        end
+    end
+
+    AIModule.SetPositionAndRotation(ship, original_position_rotation)
+
+    return closest_range
+end
+
+AIModule.condition_functions['inTargetsArc'] = function(ship, target, probe)
+    if probe.in_targets_arc ~= nil then
+        return probe.in_targets_arc
+    end
+
+    local original_position_rotation = AIModule.GetPositionAndRotation(ship)
+    AIModule.ApplyProbe(ship, probe)
+
+    probe.in_targets_arc = false
+    targets = ArcCheck.GetTargetsInRelationToArc(target, 'front', {ship}) -- TODO: Do we need to check for different arc types for different ships?
+    targets = table.sieve(targets, AIModule.FilterInArc)
+    targets = table.sieve(targets, AIModule.FilterInRange)
+    for _, target_info in pairs(targets) do
+        probe.in_targets_arc = true
+        break
+    end
+
+    AIModule.SetPositionAndRotation(ship, original_position_rotation)
+
+    return probe.in_targets_arc
+end
+
+AIModule.condition_functions['targetMoved'] = function(ship, target, probe)
+    if probe.target_moved ~= nil then
+        return probe.target_moved
+    end
+
+    local ship_initiative = ship.getTable('Data')['initiative']
+    local target_initiative = target.getTable('Data')['initiative']
+    probe.target_moved = ship_initiative > target_initiative -- TODO: This assumes that the AI moves first on ties like in HotAC.
+
+    return probe.target_moved
+end
+
+AIModule.condition_functions['targetLocked'] = function(ship, target, probe)
+    if probe.target_locked ~= nil then
+        return probe.target_locked
+    end
+
+    probe.target_locked = AIModule.HasTargetLockOnShip(ship, target)
+
+    return probe.target_locked
+end
+
+AIModule.condition_functions['targetWithinRange3'] = function(ship, target, probe)
+    if probe.target_range ~= nil then
+        return probe.target_range <= 3
+    end
+
+    local targets = ArcCheck.GetTargetsInRelationToArc(ship, 'all', {target})
+    for _, target_info in pairs(targets) do
+        probe.target_range = target_info.closest.range
+        break
+    end
+
+    return probe.target_range <= 3
+end
+
+AIModule.condition_functions['evading'] = function(ship, target, probe)
+    if probe.evading ~= nil then
+        return probe.evading
+    end
+
+    probe.evading = TokenModule.GetShipTokenCount(ship, 'Evade') > 0
+
+    return probe.evading
+end
+
 
 
 ArcCheck = {}
@@ -1357,7 +1674,7 @@ ArcCheck.GetTargetsInRelationToArc = function(ship, arctype, fixed_targets, rang
     local shipSize = ship.getTable("Data").Size or 'small'
 
     local potential_targets = fixed_targets or ArcCheck.GetPotentialTargets(ship)
-    local bullseye_targets = ArcCheck.GetBullseyeTargets(ship, ArcCheck.bullseye_data.pos[shipSize], range)
+    local bullseye_targets = ArcCheck.GetBullseyeTargets(ship, ArcCheck.bullseye_data.pos[shipSize])
 
     local own_line_segments = {}
     for i, arc in ipairs(arc_parts) do
@@ -3013,6 +3330,9 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
         end
     elseif templateData.type == "straight" or  templateData.type == "bank" or templateData.type == "turn" then
         templateOrigin = MoveModule.GetTemplateOrigin(templateData.origin, templateData.orientation, templateData.shipSize, "front")
+    elseif templateData.type:find("talon") then
+        templateOrigin = MoveModule.GetTemplateOrigin(templateData.origin, templateData.orientation, templateData.shipSize, "front")
+        templateData.type = "turn"
     elseif templateData.type == "roll" then
         templateOrigin = MoveModule.GetTemplateOrigin(templateData.origin, templateData.orientation, templateData.shipSize, templateData.dir)
         templateData.speed = 1
@@ -3593,7 +3913,7 @@ function restWaitCoroutine()
                 local dest = Vect.Sum(offset, actShip.getPosition())
                 dest[2] = dest[2]+0.5
                 dest = TokenModule.VisiblePosition(tokenData.ref, tokenSetInfo.ship, dest)
-                tokenData.ref.setPositionSmooth(dest)
+                tokenData.ref.setPositionSmooth(dest, false,true)
                 local tRot = tokenData.ref.getRotation()
                 tokenData.ref.setRotationSmooth({tRot[1], actShip.getRotation()[2] + tokenData.relRot, tRot[3]})
                 tokenData.ref.highlightOn({0, 1, 0}, 2)
@@ -4113,29 +4433,10 @@ end
 -- Needs the MoveModule.WaitForResting fired to actually use stuff from this queue
 TokenModule.QueueShipTokensMove = function(ship)
     local selfTokens = TokenModule.GetShipTokens(ship)
-    if selfTokens[1] == nil then
-        return
-    end
-    -- Exclude currently used cloak tokens
-    local tokensExcl = {}
-    for k,token in pairs(selfTokens) do
-        if token.getName() == 'Cloak' then
-            local active = true
-            local buttons = token.getButtons()
-            if buttons ~= nil then
-                for k2, but in pairs(buttons) do
-                    if but.label == 'Decloak' then active = false break end
-                end
-            end
-            if active == false then table.insert(tokensExcl, token) end
-        elseif token.getVar('deleted') ~= true then
-            table.insert(tokensExcl, token)
-        end
-    end
-    selfTokens = tokensExcl
     local waitTable = {tokens = {}, ship=ship}
     -- Save relative position/rotation
     for k,token in pairs(selfTokens) do
+        print("QueueShipTokensMove: " .. token.getName())
         local relPos = Vect.RotateDeg(Vect.Between(ship.getPosition(), token.getPosition()), -1*ship.getRotation()[2])
         local relRot = token.getRotation()[2] - ship.getRotation()[2]
         table.insert(waitTable.tokens, {ref=token, relPos=relPos, relRot=relRot})
@@ -4152,6 +4453,14 @@ function TokenModule_SetLocks()
     for k,info in pairs(TokenModule.locksToBeSet) do
         info.lock.call('manualSet', {color=info.color, name=info.name})
         info.lock.highlightOn({0,0,0}, 0.01)
+
+        if info.ship ~= nil then
+            info.lock.call('setOwner', {ship=info.ship})
+        end
+
+        if info.target ~= nil then
+            info.lock.call('assignToShip', {ship=info.target})
+        end
     end
     TokenModule.locksToBeSet = {}
 end
@@ -4257,10 +4566,6 @@ TokenModule.TokenOwnerInfo = function(tokenPos)
     else
         out.margin = (nextNearest.dist-nearest.dist)/2
     end
-    local owner = 'nil'
-    if out.owner ~= nil then
-        owner = out.owner.getName()
-    end
     return out
 end
 
@@ -4282,9 +4587,9 @@ end
 TokenModule.GetShipTokenCount = function(ship, token_name)
     local count = 0;
 
-    for _, tokenInfo in pairs(TokenModule.GetShipTokensInfo(ship)) do
-        if tokenInfo.token.getName() == token_name and tokenInfo.token.getVar('deleted') == nil then
-            local quantity = tokenInfo.token.getQuantity()
+    for _, token in pairs(TokenModule.GetShipTokens(ship)) do
+        if token.getName() == token_name and token.getVar('deleted') == nil then
+            local quantity = token.getQuantity()
             if quantity < 0 then
                 quantity = 1
             end
@@ -4297,29 +4602,18 @@ end
 
 -- Return table of MoveModule.GetTokenInfo enties for all tokens that are owned by given ship
 TokenModule.GetShipTokensInfo = function(ship)
-    -- Check for nearby tokens
-    local nearTokens = ObjType.GetNearOfType(ship.getPosition(), TokenModule.tokenReachDistance, 'token')
+    local shipTokens = TokenModule.GetShipTokens(ship)
     local shipTokensInfo = {}
-    for k,token in pairs(nearTokens) do
-        local tokenInfo = TokenModule.TokenOwnerInfo(token)
-        if tokenInfo.owner == ship then
-            table.insert(shipTokensInfo, tokenInfo)
-        end
+    for k,token in pairs(shipTokens) do
+        table.insert(shipTokensInfo, TokenModule.TokenOwnerInfo(token))
     end
+
     return shipTokensInfo
 end
 
 -- Return table of object references for all tokens that are owned by given ship
 TokenModule.GetShipTokens = function(ship)
-    -- Check for nearby tokens
-    --[[local shipTokensInfo = TokenModule.GetShipTokensInfo(ship)
-    local tokens = {}
-    for k,tokenInfo in pairs(shipTokensInfo) do
-        table.insert(tokens, tokenInfo.token)
-    end
-    return tokens]]
-    local tokens = ship.call("GetTokens")
-    return tokens
+    return ship.call("GetTokens")
 end
 
 -- Clear given distance within position from tokens
@@ -4353,23 +4647,27 @@ TokenModule.ClearPosition = function(pos, dist, ignoreShip)
 end
 
 TokenModule.AssignToken = function(token, ship)
-    local guid = token.getGUID()
-    if (TokenModule.tokenAssignments[guid] ~= nil) and (TokenModule.tokenAssignments[guid].tag == 'Figurine') then
-        if TokenModule.tokenAssignments[guid].getVar("RemoveToken") ~= nil then
-            TokenModule.tokenAssignments[guid].call("RemoveToken", {token=token})
-        end
-    end
-    TokenModule.tokenAssignments[guid] = ship
-    if ship ~= nil then
-        token.setDescription("Assigned to " .. ship.getName())
-        if ship.tag == 'Figurine' then
-            if ship.getVar("AddToken") ~= nil then
-                ship.call("AddToken", {token=token})
+    Wait.condition(function()
+        local guid = token.getGUID()
+        if (TokenModule.tokenAssignments[guid] ~= nil) and (TokenModule.tokenAssignments[guid].tag == 'Figurine') then
+            if TokenModule.tokenAssignments[guid].getVar("RemoveToken") ~= nil then
+                TokenModule.tokenAssignments[guid].call("RemoveToken", {token=token})
             end
         end
-    else
-        token.setDescription("Unassigned")
-    end
+        TokenModule.tokenAssignments[guid] = ship
+        if ship ~= nil then
+            token.setDescription("Assigned to " .. ship.getName())
+            if ship.tag == 'Figurine' then
+                if ship.getVar("AddToken") ~= nil then
+                    ship.call("AddToken", {token=token})
+                end
+            end
+        else
+            token.setDescription("Unassigned")
+        end
+    end,
+    function() return  (not token.spawning) end)
+
 end
 
 TokenModule.UnAssignToken = function(token)
@@ -4391,13 +4689,14 @@ function proxyPerformAction(table)
     ship = table[1]
     actionType = table[2]
     playerColor = table[3]
-    DialModule.PerformAction(ship, actionType, playerColor)
+    args = {remove= (table[4] or false)}
+    DialModule.PerformAction(ship, actionType, playerColor, args)
 end
 
 DialModule = {}
 -- Perform an automated action
 -- Can be called externally for stuff like range ruler spawning
-DialModule.PerformAction = function(ship, type, playerColor)
+DialModule.PerformAction = function(ship, type, playerColor, args)
     local tokenActions = ' Focus Calculate Evade Stress Strain Target Lock Ion Cloak Jam Reinforce Disarm Tractor Dummy '
     announceInfo = {type='action'}
     -- Ruler spawning
@@ -4421,82 +4720,58 @@ DialModule.PerformAction = function(ship, type, playerColor)
     elseif type:find('deleteMoveTemplate') ~= nil then
       DialModule.DeleteTemplate(ship)
       return
-    elseif type == 'unstress' then
-        local stressInfo = {token=nil, dist=-1}
-        for k,tokenInfo in pairs(TokenModule.GetShipTokensInfo(ship)) do
-            if tokenInfo.token.getName() == 'Stress' and tokenInfo.dist > stressInfo.dist and tokenInfo.token.getVar('deleted') == nil then
-                stressInfo.token = tokenInfo.token
-            end
-        end
-        if stressInfo.token == nil then
-            announceInfo.note = 'tried to shed a stress but doesn\'t have any'
-        else
-            announceInfo.note = 'sheds a stress token'
-            if stressInfo.token.getQuantity() > 0 then
-                stressInfo.token = stressInfo.token.takeObject({})
-            end
-            stressInfo.token.highlightOn({0, 0.7, 0}, 3)
-            stressInfo.token.setPositionSmooth(Vect.Sum(TokenModule.tokenSources.Stress.src.getPosition(), {0, 2, 0}))
-            stressInfo.token.setVar('deleted', true)
-        end
-    elseif type == 'unstrain' then
-        local strainInfo = {token=nil, dist=-1}
-        for k,tokenInfo in pairs(TokenModule.GetShipTokensInfo(ship)) do
-            if tokenInfo.token.getName() == 'Strain' and tokenInfo.dist > strainInfo.dist and tokenInfo.token.getVar('deleted') == nil then
-                strainInfo.token = tokenInfo.token
-            end
-        end
-        if strainInfo.token == nil then
-            announceInfo.note = 'tried to shed a strain but doesn\'t have any'
-        else
-            announceInfo.note = 'sheds a strain token'
-            if strainInfo.token.getQuantity() > 0 then
-                strainInfo.token = strainInfo.token.takeObject({})
-            end
-            strainInfo.token.highlightOn({0, 0.7, 0}, 3)
-            strainInfo.token.setPositionSmooth(Vect.Sum(TokenModule.tokenSources.Strain.src.getPosition(), {0, 2, 0}))
-            strainInfo.token.setVar('deleted', true)
-        end
-    elseif type == 'union' then
-        local ionised = false
-        for k,tokenInfo in pairs(TokenModule.GetShipTokensInfo(ship)) do
-            if tokenInfo.token.getName() == 'Ion' and tokenInfo.token.getVar('deleted') == nil then
-                ionised = true
-                tokenInfo.token.highlightOn({0, 0.7, 0}, 3)
-                tokenInfo.token.setPositionSmooth(Vect.Sum(TokenModule.tokenSources.Ion.src.getPosition(), {0, 2, 0}))
-                tokenInfo.token.setVar('deleted', true)
-            end
-        end
-        if ionised then
-            announceInfo.note = 'sheds all ion tokens'
-        else
-            announceInfo.note = 'tried to shed ion but doesn\'t have any'
-        end
     elseif tokenActions:find(' ' .. type .. ' ') ~= nil then
-        local dest = TokenModule.VisiblePosition(type, ship)
-        local newToken = TokenModule.TakeToken(type, playerColor, dest)
-
-        if type == 'Target Lock' then
-            table.insert(TokenModule.locksToBeSet, {lock=newToken, name=ship.getName(), color=playerColor})
-            announceInfo.note = 'acquired a target lock'
-            TokenModule.UnAssignToken(newToken) -- Target locks are not assigned to the spawning ship
-        elseif type == 'Ion' then
-            table.insert(TokenModule.ionsToBeSet, {ion=newToken, ref=ship})
-            announceInfo.note = 'takes an ion token'
-            TokenModule.AssignToken(newToken, ship)
-        elseif type == 'Tractor' then
-            table.insert(TokenModule.tractorsToBeSet, {tractor=newToken, ref=ship})
-            announceInfo.note = 'takes a tractor token'
-            TokenModule.AssignToken(newToken, ship)
-        else
-            if type == 'Evade' then
-                announceInfo.note = 'takes an evade token'
-            elseif type == 'Ion' then
-                announceInfo.note = 'takes an ion token'
-            else
-                announceInfo.note = 'takes a ' .. string.lower(type) .. ' token'
+        if args ~= nil and args.remove == true then
+            local tokens = ship.call("GetTokens",{type=string.lower(type)})
+            local delToken = nil
+            for k,token in pairs(tokens) do
+                if token.getVar('deleted') == nil then
+                    delToken = token
+                end
             end
-            TokenModule.AssignToken(newToken, ship)
+            if delToken == nil then
+                announceInfo.note = 'tried to shed a ' .. type .. ' but doesn\'t have any'
+            else
+                announceInfo.note = 'sheds a ' .. type .. ' token'
+                TokenModule.UnAssignToken(delToken)
+                delToken.destruct()
+            end
+        else
+
+            local destinationShip = ship
+            if args ~= nil and args['target'] ~= nil then
+                destinationShip = args['target']
+            end
+            local dest = TokenModule.VisiblePosition(type, destinationShip)
+            local newToken = TokenModule.TakeToken(type, playerColor, dest)
+
+            if type == 'Target Lock' then
+                local lockArguments = {lock=newToken, name=ship.getName(), color=playerColor}
+                if args ~= nil and args['ship'] ~= nil and args['target'] ~= nil then
+                    -- The AI system passes in arguments to automatically assign the
+                    -- lock. Process these if they've been passed in.
+                    lockArguments.ship=args['ship']
+                    lockArguments.target=args['target']
+                end
+                table.insert(TokenModule.locksToBeSet, lockArguments)
+                announceInfo.note = 'acquired a target lock'
+                TokenModule.UnAssignToken(newToken) -- Target locks are not assigned to the spawning ship
+            elseif type == 'Ion' then
+                table.insert(TokenModule.ionsToBeSet, {ion=newToken, ref=ship})
+                announceInfo.note = 'takes an ion token'
+                TokenModule.AssignToken(newToken, ship)
+            elseif type == 'Tractor' then
+                table.insert(TokenModule.tractorsToBeSet, {tractor=newToken, ref=ship})
+                announceInfo.note = 'takes a tractor token'
+                TokenModule.AssignToken(newToken, ship)
+            else
+                if type == 'Evade' then
+                    announceInfo.note = 'takes an evade token'
+                else
+                    announceInfo.note = 'takes a ' .. string.lower(type) .. ' token'
+                end
+                TokenModule.AssignToken(newToken, ship)
+            end
         end
     end
     AnnModule.Announce(announceInfo, 'all', ship)
@@ -5600,7 +5875,9 @@ end
 function GetTokens(args)
     local tokens = {}
     for guid, token in pairs(assigned_tokens) do
-        if (args == nil) or (args.type == nil) or (args.type == token.getVar("__XW_TokenType")) then
+        if token == nil then
+            assigned_tokens[guid] = nil
+        elseif ((args == nil) or (args.type == nil) or (args.type == token.getVar("__XW_TokenType"))) then
             table.insert(tokens, assigned_tokens[guid])
         end
     end

@@ -215,6 +215,19 @@ if not package.loaded['Util'] then
         return out
     end
 
+    -- Returns a copy of a table with the elements in a random order.
+    table.shuffle = function(tab)
+        local shuffled_table = {}
+        for i = 1, #tab do
+            shuffled_table[i] = tab[i]
+        end
+        for i = #shuffled_table, 2, -1 do
+            local j = math.random(i)
+            shuffled_table[i], shuffled_table[j] = shuffled_table[j], shuffled_table[i]
+        end
+        return shuffled_table
+    end
+
     -- Check if string begins with the argument (no regex)
     string.beginswith = function(str, prefix)
         return (str:sub(1, prefix:len()) == prefix)

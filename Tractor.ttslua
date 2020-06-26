@@ -8,7 +8,7 @@
 -- Scripted token properties
 __XW_Token = true
 __XW_TokenIdle = true
-__XW_TokenType = 'Tractor'
+__XW_TokenType = 'tractor'
 
 -- Was this lock tinted and named already?
 set = false
@@ -52,7 +52,6 @@ end
 
 -- Set name on drop near a ship
 function onDropped()
-    if not set then
         local spos = self.getPosition()
         local spos = self.getPosition()
         local nearest = nil
@@ -75,7 +74,6 @@ function onDropped()
             self.UI.setAttribute("Center", "active", "true")
             self.UI.hide("Move")
         end
-    end
 end
 
 stat=false
