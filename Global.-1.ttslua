@@ -750,7 +750,7 @@ AIModule.PerformManeuver = function(ship, take_action)
                     -- occurence that wouldn't matter if the AI wasn't doing
                     -- everything at the same time. Potential fix: set
                     -- '__XW_Token' on the token afterwards?
-                    DialModule.PerformAction(ship, 'union', ship.getVar('owningPlayer'))
+                    DialModule.PerformAction(ship, 'Ion', ship.getVar('owningPlayer'), {['remove'] = true})
                 end
             else
                 AIModule.current_move.difficulty = AIModule.GetMoveDifficulty(ship, move_code)
@@ -759,7 +759,7 @@ AIModule.PerformManeuver = function(ship, take_action)
             -- the tokens haven't caught up with the ship and the token module
             -- doesn't count them.
             if stress and AIModule.current_move.difficulty == 'b' then
-                DialModule.PerformAction(ship, 'unstress', ship.getVar('owningPlayer'))
+                DialModule.PerformAction(ship, 'Stress', ship.getVar('owningPlayer'), {['remove'] = true})
                 AIModule.current_move.stress_count = AIModule.current_move.stress_count - 1
             end
 
