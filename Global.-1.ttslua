@@ -2753,7 +2753,7 @@ end
 -- Selection function for MoveModule.JoinHitTables - obstacles only
 MoveModule.SelectObstacles = function(obj)
     local name = obj.getName()
-    return (name:find('Asteroid') or name:find('Debris') or name:find('Chute debris') or name:find('Cloud') or name:find('Spare') or name:find('Obstacle')) ~= nil
+    return (name:find('Asteroid') or name:find('Debris') or name:find('Chute debris') or name:find('Cloud') or name:find('Spare') or name:find('Obstacle')) or MoveModule.SelectHugeShips(obj) ~= nil
 end
 
 -- Selection function for MoveModule.JoinHitTables - mine tokens only
