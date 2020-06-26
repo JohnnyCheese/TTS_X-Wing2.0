@@ -590,6 +590,37 @@ BehaviourDB.rule_sets[1].ships[26].move_table = {
         ['stress'] = {[1] = 'br1', [6] = 's1'},
     },
 }
+BehaviourDB.rule_sets[1].ships[26].action_selection = {
+    [1] = { -- Focus if have a shot
+        ['description'] = "%s has a shot so focused.",
+        ['preconditions'] = {['hasShot'] = true}, --TODO: This has to respect front/back arcs, not just front.
+        ['action'] = 'focus'
+    },
+    [2] = { -- Reinforce the fore if within arc of two or more enemies in that full arc
+        ['description'] = "%s reinforced fore.",
+        ['preconditions'] = {['inEnemyArc'] = {['arguments'] = {['arc'] = 'fullfront', ['enemyCount'] = 2}, ['requiredResult'] = true}},
+        ['action'] = 'reinforceFore'
+    },
+    [3] = { -- Reinforce the aft if within arc of two or more enemies in that full arc
+        ['description'] = "%s reinforced aft.",
+        ['preconditions'] = {['inEnemyArc'] = {['arguments'] = {['arc'] = 'fullback', ['enemyCount'] = 2}, ['requiredResult'] = true}},
+        ['action'] = 'reinforceAft'
+    },
+    [4] = { -- Coordinate the nearest friendly (unstressed) ship
+        ['description'] = {['text'] = "%s coordinated %s.", ['strings'] = {'ship', 'coordinate'}},
+        ['preconditions'] = {['hasCoordinateTarget'] = true},
+        ['action'] = 'coordinate'
+    },
+    [5] = { -- Jam the target
+        ['description'] = {['text'] = "%s jammed %s.", ['strings'] = {'ship', 'target'}},
+        ['preconditions'] = {['targetWithinRange'] = {['arguments'] = {['maxRange'] = 1, ['findClosest'] = true, ['actionTarget'] = 'jam'}, ['requiredResult'] = true}},
+        ['action'] = 'jam'
+    },
+    [6] = { -- Focus
+        ['description'] = "%s focused.",
+        ['action'] = 'focus'
+    },
+}
 
 -- VT-49 Decimator
 BehaviourDB.rule_sets[1].ships[28] = {}
