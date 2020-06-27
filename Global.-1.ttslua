@@ -758,7 +758,7 @@ AIModule.PerformManeuver = function(ship, take_action)
             -- the tokens haven't caught up with the ship and the token module
             -- doesn't count them.
             if stress and AIModule.current_move.difficulty == 'b' then
-                DialModule.PerformAction(ship, 'unstress', ship.getVar('owningPlayer'))
+                DialModule.PerformAction(ship, 'Stress', ship.getVar('owningPlayer'), {['remove'] = true})
                 AIModule.current_move.stress_count = AIModule.current_move.stress_count - 1
             end
 
@@ -1713,13 +1713,13 @@ ArcCheck.GetTargetsInRelationToArc = function(ship, arctype, fixed_targets, rang
 
             if closest.range <= range then
                 found = true
-                target['closest'].obstructions = ArcCheck.CheckObstruction(closest)
+                target['closest'].obstructions = ArcCheck.CheckObstruction(closest, target.ship)
                 target['closest'].in_bullseye = target['bullseye']
                 if other ~= nil then
                     target['obstructed'] = 'likely_unobstructed'
                     target['multiple_points'] = true
 
-                    other.obstructions = ArcCheck.CheckObstruction(other)
+                    other.obstructions = ArcCheck.CheckObstruction(other, target.ship)
                     other.in_bullseye = target['bullseye']
                     target['other_closest'] = other
                 end
@@ -1811,7 +1811,7 @@ ArcCheck.SortTargetsByDesirability = function(e1, e2)
     return e1['ship'].getGUID() > e2['ship'].getGUID()
 end
 
-ArcCheck.CheckObstruction = function(data)
+ArcCheck.CheckObstruction = function(data, ship)
     local collissions = Physics.cast({
         origin       = data.midpoint,
         orientation  = {0,data.angle, 0},
@@ -1823,7 +1823,7 @@ ArcCheck.CheckObstruction = function(data)
     })
     local hit_obstacles = {}
     for k, hit in pairs(collissions) do
-        if MoveModule.SelectObstacles(hit.hit_object) then
+        if (hit.hit_object ~= ship) and (MoveModule.SelectObstacles(hit.hit_object) or MoveModule.SelectHugeShips(hit.hit_object)) then
             table.insert(hit_obstacles, hit.hit_object)
         end
     end
@@ -3070,7 +3070,7 @@ end
 -- Selection function for MoveModule.JoinHitTables - obstacles only
 MoveModule.SelectObstacles = function(obj)
     local name = obj.getName()
-    return (name:find('Asteroid') or name:find('Debris') or name:find('Chute debris') or name:find('Cloud') or name:find('Spare') or name:find('Obstacle')) or MoveModule.SelectHugeShips(obj) ~= nil
+    return ((name:find('Asteroid') or name:find('Debris') or name:find('Chute debris') or name:find('Cloud') or name:find('Spare') or name:find('Obstacle')) ~= nil)
 end
 
 -- Selection function for MoveModule.JoinHitTables - mine tokens only
