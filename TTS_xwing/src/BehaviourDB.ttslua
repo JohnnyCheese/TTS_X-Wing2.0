@@ -613,8 +613,8 @@ BehaviourDB.rule_sets[1].ships[26].action_selection = {
     },
     [5] = { -- Jam the target
         ['description'] = {['text'] = "%s jammed %s.", ['strings'] = {'ship', 'target'}},
-        ['preconditions'] = {['targetWithinRange'] = {['arguments'] = {['maxRange'] = 1, ['findClosest'] = true, ['actionTarget'] = 'jam'}, ['requiredResult'] = true}},
-        ['action'] = 'jam'
+        ['preconditions'] = {['targetWithinRange'] = {['arguments'] = {['maxRange'] = 1}, ['requiredResult'] = true}},
+        ['action'] = {['jam'] = true},
     },
     [6] = { -- Focus
         ['description'] = "%s focused.",

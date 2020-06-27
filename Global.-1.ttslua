@@ -1210,6 +1210,9 @@ AIModule.ProcessActionStack = function(ship)
         elseif action_code == 'coordinate' then
             printToAll('Please manage the coordinate action manually.', color(1.0, 1.0, 0.2, 0.9))
         elseif action_code == 'jam' then
+            target = AIModule.current_move.target
+            DialModule.PerformAction(target, 'Jam', target.getVar('owningPlayer'))
+            printToAll('Please manage the effects of the jam token manually.', color(1.0, 1.0, 0.2, 0.9))
         elseif MoveModule.PerformMove(action_code, ship, false, AIModule.ProcessActionStack) then
             break
         end
@@ -1454,17 +1457,10 @@ end
 AIModule.condition_functions['targetWithinRange'] = function(ship, target, probe, arguments)
     local min_range = 1
     local max_range = 3
-    local find_closest = false
-    local action_target = nil
     if arguments ~= nil then
         min_range = arguments.minRange or min_range
         max_range = arguments.maxRange or max_range
-        find_closest = arguments.find_closest or find_closest
-        action_target = arguments.action_target or action_target
     end
-
-    find_closest
-    action_target
 
     if probe.target_range == nil then
         local targets = ArcCheck.GetTargetsInRelationToArc(ship, 'all', {target})
@@ -4947,7 +4943,8 @@ DialModule.PerformAction = function(ship, type, playerColor, args)
                 destinationShip = args['target']
             end
             local dest = TokenModule.VisiblePosition(type, destinationShip)
-            local newToken = TokenModule.TakeToken(type, playerColor, dest)
+            local flipToken = args ~= nil and args['flip'] == true
+            local newToken = TokenModule.TakeToken(type, playerColor, dest, flipToken)
 
             if type == 'Target Lock' then
                 local lockArguments = {lock=newToken, name=ship.getName(), color=playerColor}
@@ -4969,7 +4966,6 @@ DialModule.PerformAction = function(ship, type, playerColor, args)
                 announceInfo.note = 'takes a tractor token'
                 TokenModule.AssignToken(newToken, ship)
             else
-                local flipToken = args ~= nil and args['flip'] == true
                 if flipToken == true then
                     table.insert(TokenModule.tokensToBeFlipped, newToken)
                 end
