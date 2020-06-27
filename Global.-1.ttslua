@@ -7131,7 +7131,7 @@ function epicMoveWingmate(table)
     local ship = table[1]
     local desiredPosRot = {pos=table[2], rot=table[3]}
     print("Ship size=" .. ship.getTable("Data").Size)
-    local info = {size=ship.getTable("Data").Size, code="dummy"}
+    local info = {size=ship.getTable("Data").Size, code="dummy", type=""}
     local fullFunc = function(info,ship) return desiredPosRot end
     result = MoveModule.MoveProbe.TryFullMove(info, ship, fullFunc)
     if result.done then
