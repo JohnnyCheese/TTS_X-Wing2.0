@@ -27,8 +27,7 @@ end
 function onLoad(save_state)
     if save_state ~= '' and save_state ~= 'null' and save_state ~= nil then
         set = JSON.decode(save_state).set
-        self.UI.hide("Move")
-        ----[[
+        --[[
         assetTable = {
             {name="BoostS", url="http://cloud-3.steamusercontent.com/ugc/816750219423811083/7C1C7A560593EDFF93D9D5DA5A79B44ADF504860/"},
             {name="BarrelL", url="http://cloud-3.steamusercontent.com/ugc/816750219423807162/1DA310CD1B412508B5213EE37476F2A2EB9B4A38/"},
@@ -47,33 +46,31 @@ function manualSet(arg)
     ship=arg.ref
     set = true
     self.UI.setAttribute("Center", "active", "true")
-    self.UI.hide("Move")
 end
 
 -- Set name on drop near a ship
 function onDropped()
-        local spos = self.getPosition()
-        local spos = self.getPosition()
-        local nearest = nil
-        local minDist = 3.6125 -- 100 mm
-        for k,ship in pairs(getAllObjects()) do
-            if ship.tag == 'Figurine' and ship.getName() ~= '' then
-                local pos = ship.getPosition()
-                local dist = math.sqrt(math.pow((spos[1]-pos[1]),2) + math.pow((spos[3]-pos[3]),2))
-                if dist < minDist then
-                    nearest = ship
-                    minDist = dist
-                end
+    local spos = self.getPosition()
+    local spos = self.getPosition()
+    local nearest = nil
+    local minDist = 3.6125 -- 100 mm
+    for k,ship in pairs(getAllObjects()) do
+        if ship.tag == 'Figurine' and ship.getName() ~= '' then
+            local pos = ship.getPosition()
+            local dist = math.sqrt(math.pow((spos[1]-pos[1]),2) + math.pow((spos[3]-pos[3]),2))
+            if dist < minDist then
+                nearest = ship
+                minDist = dist
             end
         end
-        if nearest ~= nil then
-            ship = nearest
-            set = true
+    end
+    if nearest ~= nil then
+        ship = nearest
+        set = true
 
-            printToAll(ship.getName().." takes a tractor token")
-            self.UI.setAttribute("Center", "active", "true")
-            self.UI.hide("Move")
-        end
+        printToAll(ship.getName().." takes a tractor token")
+        self.UI.setAttribute("Center", "active", "true")
+    end
 end
 
 stat=false

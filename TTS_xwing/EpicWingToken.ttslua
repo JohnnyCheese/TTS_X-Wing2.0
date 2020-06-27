@@ -53,8 +53,8 @@ wingConfigurations = {
 			[4] = "rightSupport"},
 	[6] = {	[1] = "leftFlank",
 	 		[2] = "rightFlank",
-			[3] = "leftSupport",
-			[4] = "rearSupport",
+			[3] = "rearSupport",
+			[4] = "leftSupport",
 			[5] = "rightSupport"}
 }
 
@@ -147,6 +147,10 @@ function AddWingmate ()
 			leader = nearest
         	SpawnFirstButtons()
 		elseif #assignedShips < 5 then
+			if nearest == leader then
+				printToAll("Unable to add " .. nearest.getName() .." to " .. wingName .. ", it is allready in it")
+				return
+			end
 			for i, assignment in pairs(assignedShips) do
 				if assignment.ship == nearest then
 					printToAll("Unable to add " .. nearest.getName() .." to " .. wingName .. ", it is allready in it")
