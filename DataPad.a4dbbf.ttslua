@@ -1647,7 +1647,7 @@ masterUpgradesDB[348]={['name']='Fifth Brother',['slot']=16,['cost']=11,['Force'
 masterUpgradesDB[349]={['name']='Dauntless',['slot']=15,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_123.png',['restriction']={['Faction']={[2]=true},['ship']={[28]=true}}}
 masterUpgradesDB[350]={['name']='Os-1 Arsenal Loadout',['slot']=18,['cost']=0,['addSlot']={5, 6},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_125.png',['restriction']={['Faction']={[2]=true},['ship']={[14]=true}}}
 masterUpgradesDB[351]={['name']='Xg-1 Assault Configuration',['slot']=18,['cost']=0,['addSlot']={3},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_126.png',['restriction']={['Faction']={[2]=true},['ship']={[14]=true}}}
-masterUpgradesDB[352]={['name']='0-0-0',['slot']=8,['cost']=5,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_127.png',['restriction']={['Faction']={[3]=true},['card_id']=343}}
+masterUpgradesDB[352]={['name']='0-0-0',['slot']=8,['cost']=5,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_127.png',['restriction']={['Faction']={[2]=true, [3]=true},['card_id']=343}}
 masterUpgradesDB[353]={['name']='4-LOM',['slot']=8,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_128.png',['restriction']={['Faction']={[3]=true}}}
 masterUpgradesDB[354]={['name']='Boba Fett',['slot']=8,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_129.png',['restriction']={['Faction']={[3]=true}}}
 masterUpgradesDB[355]={['name']='Cad Bane',['slot']=8,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_130.png',['restriction']={['Faction']={[3]=true}}}
@@ -1660,7 +1660,7 @@ masterUpgradesDB[361]={['name']='Maul',['slot']=8,['cost']=12,['Force']=1,['card
 masterUpgradesDB[362]={['name']='Unkar Plutt',['slot']=8,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_137.png',['restriction']={['Faction']={[3]=true}}}
 masterUpgradesDB[363]={['name']='Zuckuss',['slot']=8,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_138.png',['restriction']={['Faction']={[3]=true}}}
 masterUpgradesDB[364]={['name']='Bossk',['slot']=16,['cost']=10,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_139.png',['restriction']={['Faction']={[3]=true}}}
-masterUpgradesDB[365]={['name']='BT-1',['slot']=16,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_140.png',['restriction']={['Faction']={[3]=true},['card_id']=343}}
+masterUpgradesDB[365]={['name']='BT-1',['slot']=16,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_140.png',['restriction']={['Faction']={[2]=true, [3]=true},['card_id']=343}}
 masterUpgradesDB[366]={['name']='Dengar',['slot']=16,['cost']=6,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_141.png',['restriction']={['Faction']={[3]=true}}}
 masterUpgradesDB[367]={['name']='Greedo',['slot']=16,['cost']=1,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_142.png',['restriction']={['Faction']={[3]=true}}}
 masterUpgradesDB[368]={['name']='"Genius"',['slot']=10,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_143.png',['restriction']={['Faction']={[3]=true}}}
@@ -4110,19 +4110,24 @@ function parseList()
                 else -- The remaining cards, the upgrades
                     finalList.AuxU[pilotIndex][k] ={}
                     local found = false
+                    local restricted = false
                     for id, upg in pairs(masterUpgradesDB) do
                         if string.lower(upg['name']) == string.lower(cardN) then
-                            found = true
                             if upg['restriction']['Faction'] == nil or upg['restriction']['Faction'][finalList.Faction] == true then
                                 Aux = Aux + 1
                                 finalList.AuxU[pilotIndex][k][Aux] = id
+                                found = true
                             else
-                                printToAll('Upgrade "'.. cardN .. '" is restricted to another faction', {1,0,0})
+                                restricted = true
                             end
                         end
                     end
                     if not found then
-                        printToAll("Unable to find upgrade: " .. cardN .. " please check correct spelling", {1,0,0})
+                        if restricted then
+                            printToAll('Upgrade "'.. cardN .. '" is restricted to another faction', {1,0,0})
+                        else
+                            printToAll("Unable to find upgrade: " .. cardN .. " please check correct spelling", {1,0,0})
+                        end
                         goto continue
                     end
                     if Aux == 1 then
