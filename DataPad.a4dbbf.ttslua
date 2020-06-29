@@ -215,8 +215,23 @@ masterShipDB[13]={['name']='TIE Advanced x1',['Hull']=3,['Shield']=2,['size']='s
                             ['moveSet']={'bbl1','ws1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3t','wtl3','wbl3','bs3','wbr3','wtr3','rtr3t','ws4','rk4','ws5'}}
 masterShipDB[14]={['name']='Alpha Class StarWing',['Hull']=4,['Shield']=3,['size']='small',['agi']=2,['XWS']='alphaclassstarwing', ['Fac']={[2]=true}, ['arcs']={'front'},
                             ['moveSet']={'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','ws3','wbr3','wtr3','rs4'}}
-masterShipDB[15]={['name']='U-Wing',['Hull']=5,['Shield']=3,['size']='medium',['agi']=2,['XWS']='auzituckgunship', ['Fac']={[1]=true}, ['arcs']={'front'},
-                            ['moveSet']={'bbl1', 'bs1', 'bbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2','wbl3','ws3','wbr3','ws4','rs0'}}
+masterShipDB[15]={
+    name = 'U-Wing',
+    Hull = 5,
+    Shield = 3,
+    size = 'medium',
+    agi = 2,
+    XWS = 'ut60duwing',
+    Fac = {[1]=true},
+    arcs = {'front'},
+    moveSet = {'bbl1', 'bs1', 'bbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2','wbl3','ws3','wbr3','ws4','rs0'},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/UTD60DUWing/UWing.obj',
+    config = {
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/UTD60DUWing/UWing_Open.obj',
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/UTD60DUWing/UWing_Close.obj'
+    }
+}
+
 masterShipDB[16]={['name']='TIE/sk Striker',['Hull']=4,['Shield']=0,['size']='small',['agi']=2,['XWS']='tieskstriker', ['Fac']={[2]=true}, ['arcs']={'front'},
                             ['moveSet']={'wtl1','bbl1','bs1','bbr1','wtr1','rk1','rbl2s','wtl2','bbl2','bs2','bbr2','wtr2','rbr2s','wbl3','bs3','wbr3'}}
 masterShipDB[17]={['name']='B-Wing',['Hull']=4,['Shield']=4,['size']='small',['agi']=1,['XWS']='asf01bwing', ['Fac']={[1]=true}, ['arcs']={'front'},
@@ -549,22 +564,111 @@ masterPilotDB[52]={['name']='Rogue Squadron Escort',['Faction']= 1,['ship_type']
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_52.png',['init']=4,['actSet']={'F','E','BR','B','TL'}}
 masterPilotDB[53]={['name']='Knave Squadron Escort',['Faction']= 1,['ship_type']=40,['cost']=50,['slot']={21, 2, 5, 10, 14},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_53.png',['init']=2,['actSet']={'F','E','BR','B','TL'}}
-masterPilotDB[54]={['name']='Bodhi Rook',['Faction']= 1,['ship_type']=15,['cost']=48,['slot']={21, 1, 2, 8, 8, 14, 18},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_54.png',['init']=4,['actSet']={'F','TL'}}
-masterPilotDB[55]={['name']='Saw Gerrera',['Faction']= 1,['ship_type']=15,['cost']=52,['slot']={21, 1, 2, 8, 8, 13, 14, 18},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_55.png',['init']=4,['actSet']={'F','TL'}}
-masterPilotDB[56]={['name']='Cassian Andor',['Faction']= 1,['ship_type']=15,['cost']=51,['slot']={21, 1, 2, 8, 8, 14, 18},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_56.png',['init']=3,['actSet']={'F','TL'}}
-masterPilotDB[57]={['name']='Magva Yarro',['Faction']= 1,['ship_type']=15,['cost']=50,['slot']={21, 1, 2, 8, 8, 13, 14, 18},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_57.png',['init']=3,['actSet']={'F','TL'}}
-masterPilotDB[58]={['name']='Benthic Two Tubes',['Faction']= 1,['ship_type']=15,['cost']=46,['slot']={21, 2, 8, 8, 13, 14, 18},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_58.png',['init']=2,['actSet']={'F','TL'}}
-masterPilotDB[59]={['name']='Heff Tobber',['Faction']= 1,['ship_type']=15,['cost']=44,['slot']={21, 1, 2, 8, 8, 14, 18},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_59.png',['init']=2,['actSet']={'F','TL'}}
-masterPilotDB[60]={['name']='Blue Squadron Scout',['Faction']= 1,['ship_type']=15,['cost']=43,['slot']={21, 2, 8, 8, 14, 18},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_60.png',['init']=2,['actSet']={'F','TL'}}
-masterPilotDB[61]={['name']='Partisan Renegade',['Faction']= 1,['ship_type']=15,['cost']=43,['slot']={21, 2, 8, 8, 13, 14, 18},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_61.png',['init']=1,['actSet']={'F','TL'}}
+
+masterPilotDB[54]={
+    name = 'Bodhi Rook',
+    Faction = 1,
+    ship_type = 15,
+    cost = 48,
+    slot = {21, 1, 2, 8, 8, 14, 18},
+    Shield = 3,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_54.png',
+    init = 4,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/UTD60DUWing/bodhirook.png',
+    actSet = {'F','TL'}
+}
+
+masterPilotDB[55]={
+    name = 'Saw Gerrera',
+    Faction = 1,
+    ship_type = 15,
+    cost = 52,
+    slot = {21, 1, 2, 8, 8, 14, 18},
+    Shield = 3,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_55.png',
+    init = 4,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/UTD60DUWing/sawgerrera.png',
+    actSet = {'F','TL'}
+}
+
+masterPilotDB[56]={
+    name = 'Cassian Andor',
+    Faction = 1,
+    ship_type = 15,
+    cost = 51,
+    slot = {21, 1, 2, 8, 8, 14, 18},
+    Shield = 3,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_56.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/UTD60DUWing/cassianandor.png',
+    actSet = {'F','TL'}
+}
+
+masterPilotDB[57]={
+    name = 'Magva Yarro',
+    Faction = 1,
+    ship_type = 15,
+    cost = 50,
+    slot = {21, 1, 2, 8, 8, 13, 14, 18},
+    Shield = 3,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_57.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/UTD60DUWing/magvayarro.png',
+    actSet = {'F','TL'}
+}
+
+masterPilotDB[58]={
+    name = 'Benthic Two Tubes',
+    Faction = 1,
+    ship_type = 15,
+    cost = 46,
+    slot = {21, 2, 8, 8, 13, 14, 18},
+    Shield = 3,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_58.png',
+    init = 2,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/UTD60DUWing/benthictwotubes.png',
+    actSet = {'F','TL'}
+}
+
+masterPilotDB[59]={
+    name = 'Heff Tobber',
+    Faction = 1,
+    ship_type = 15,
+    cost = 44,
+    slot = {21, 1, 2, 8, 8, 14, 18},
+    Shield = 3,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_59.png',
+    init = 2,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/UTD60DUWing/hefftobber.png',
+    actSet = {'F','TL'}
+}
+
+masterPilotDB[60]={
+    name = 'Blue Squadron Scout',
+    Faction = 1,
+    ship_type = 15,
+    cost = 43,
+    slot = {21, 2, 8, 8, 14, 18},
+    Shield = 3,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_60.png',
+    init = 2,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/UTD60DUWing/bluesquadronscout.png',
+    actSet = {'F','TL'}
+}
+
+masterPilotDB[61]={
+    name = 'Partisan Renegade',
+    Faction = 1,
+    ship_type = 15,
+    cost = 43,
+    slot = {21, 2, 8, 8, 13, 14, 18},
+    Shield = 3,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_61.png',
+    init = 1,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/UTD60DUWing/partisanrenegade.png',
+    actSet = {'F','TL'}
+}
+
 masterPilotDB[62]={['name']='Miranda Doni',['Faction']= 1,['ship_type']=30,['cost']=42,['slot']={21, 5, 6, 6, 16, 8, 12, 12, 14},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_62.png',['init']=4,['actSet']={'F','TL','Rot'}}
 masterPilotDB[63]={['name']='Esege Tuketu',['Faction']= 1,['ship_type']=30,['cost']=44,['slot']={21, 5, 6, 6, 16, 8, 12, 12, 14},['Shield']=3,
@@ -1337,8 +1441,20 @@ masterPilotDB[623]={['name']='Colossus Station Mechanic',['Faction']=4,['ship_ty
 --hotshot and aces
 masterPilotDB[628]={['name']='Gina Moonsong',['Faction']= 1,['ship_type']=17,['cost']=50,['slot']={21, 1, 2, 3, 3, 5, 14},['Shield']=4,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/32/8a/328a4f31-c01e-4966-a418-59c6fd42739e/swz66_gina-moonsong.png',['init']=5,['actSet']={'F','TL', 'BR'}}
-masterPilotDB[629]={['name']='K-2SO',['Faction']= 1,['ship_type']=15,['cost']=46,['slot']={21, 1, 2, 8, 8, 14, 18},['Shield']=3,
-                  ['card']='http://images-cdn.fantasyflightgames.com/filer_public/2f/27/2f277cc2-9cd8-4aa6-bf7c-daf6f7416829/swz66_k-2so.png',['init']=3,['actSet']={'C','TL'}}
+
+masterPilotDB[629]={
+    name = 'K-2SO',
+    Faction = 1,
+    ship_type = 15,
+    cost = 46,
+    slot = {21, 1, 2, 8, 8, 14, 18},
+    Shield = 3,
+    card = 'http://images-cdn.fantasyflightgames.com/filer_public/2f/27/2f277cc2-9cd8-4aa6-bf7c-daf6f7416829/swz66_k-2so.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/UTD60DUWing/k2so.png',
+    actSet = {'C','TL'}
+}
+
 masterPilotDB[631]={['name']='Alexsandr Kallus',['Faction']= 1,['ship_type']=23,['cost']=69,['slot']={21, 1, 2, 4, 5, 8, 8, 16, 14, 15},['Shield']=4,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/d0/bf/d0bf7c63-2c2c-4372-8ace-7299d180c774/swz66_alexsandr-kallus.png',['init']=4,['actSet']={'F','TL','R'}}
 masterPilotDB[630]={['name']='Leia Organa',['Faction']= 1,['ship_type']=1,['cost']=79,['slot']={21, 17, 6, 8, 8, 16, 14, 14, 15},['Shield']=5,
@@ -2794,6 +2910,7 @@ function idSpawner(idTable)
         fList.Pilots[k]['list'] = pilotName..' - '..masterShipDB[Ship]['name'] ..' (' .. cost .. ')\n'
         fList.Pilots[k].mesh = masterShipDB[Ship].mesh
         fList.Pilots[k].texture = masterPilotDB[v].texture
+        fList.Pilots[k].config = masterShipDB[Ship].config
         fList.Pilots[k]['bombD'] = 's1'
         fList.Pilots[k]['Docking'] = masterShipDB[Ship]['Docking']
         fList.Pilots[k]['Data'] = {}
