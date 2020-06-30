@@ -1070,29 +1070,28 @@ AIModule.AttemptAction = function(ship, target, action_definition)
             if AIModule.move_actions[action] ~= nil then
                 action_includes_move_component = true
 
-                -- This action is a move action, so expand our current set of
-                -- possible action probes further.
-                if initial_move == true then
-                    probe_sets[set_index] = table.join(probe_sets[set_index], AIModule.ExpandActionProbe(ship, initial_probe, AIModule.move_actions[action]))
-                    initial_move = false
-                else
-                    new_probes = {}
-                    for _, probe in pairs(probe_sets[set_index]) do
-                        new_probes = table.join(new_probes, AIModule.ExpandActionProbe(ship, probe, AIModule.move_actions[action]))
-                    end
-
-                    probe_sets[set_index] = table.join(probe_sets[set_index], new_probes)
-                end
-
-                -- Set the move difficulty and the set index on each probe.
                 local move_difficulty = 'w'
                 if stress then
                     move_difficulty = 'r'
                 end
 
+                -- This action is a move action, so expand our current set of
+                -- possible action probes further.
+                if initial_move == true then
+                    probe_sets[set_index] = table.join(probe_sets[set_index], AIModule.ExpandActionProbe(ship, initial_probe, AIModule.move_actions[action], move_difficulty))
+                    initial_move = false
+                else
+                    new_probes = {}
+                    for _, probe in pairs(probe_sets[set_index]) do
+                        new_probes = table.join(new_probes, AIModule.ExpandActionProbe(ship, probe, AIModule.move_actions[action], move_difficulty))
+                    end
+
+                    probe_sets[set_index] = table.join(probe_sets[set_index], new_probes)
+                end
+
+                -- Set the set index on each probe.
                 for _, probe in pairs(probe_sets[set_index]) do
                     probe.set_index = set_index
-                    probe.difficulty = move_difficulty
                 end
             else
                 -- There's one instance that we skip the action - we don't take
@@ -1310,7 +1309,7 @@ end
 
 -- This function takes an existing probe, and appends all possible moves in
 -- a move list onto it, returning a list of those that are possible.
-AIModule.ExpandActionProbe = function(ship, probe, moves)
+AIModule.ExpandActionProbe = function(ship, probe, moves, difficulty)
     local possible_probes = {}
 
     local probe_name = ''
@@ -1328,6 +1327,7 @@ AIModule.ExpandActionProbe = function(ship, probe, moves)
         new_probe = AIModule.current_move.probes[new_probe_name]
         if new_probe ~= nil then
             if new_probe.possible == true then
+                new_probe.difficulty = difficulty
                 table.insert(possible_probes, new_probe)
             end
         else
@@ -1345,6 +1345,7 @@ AIModule.ExpandActionProbe = function(ship, probe, moves)
                 new_probe.parent = probe
                 new_probe.action_targets = {}
                 new_probe.possible = true
+                new_probe.difficulty = difficulty
                 new_probe.position = probe_data.finalPosRot['pos']
                 new_probe.rotation = probe_data.finalPosRot['rot']
                 table.insert(possible_probes, new_probe)
