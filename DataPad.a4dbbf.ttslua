@@ -2572,7 +2572,7 @@ function xwsClick(obj, playerColor, alt_click)
     xwsLoad(playerColor)
 end
 
---Extracts the json table from FFG site, reporting success or failure
+--Load list and ffg <-> xws map
 XWS_TO_FFG = nil
 function xwsLoad(playerColor)
     if lista ~= nil then
