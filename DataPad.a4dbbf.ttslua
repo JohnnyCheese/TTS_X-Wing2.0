@@ -2537,10 +2537,121 @@ end
 function initiate()
     self.clearButtons()
     self.clearInputs()
-    self.createButton({click_function = 'ffgStart', function_owner = self, label = 'FFG Spawner', position = {0,0.45,-0.2}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'singleSpawner', function_owner = self, label = 'Single Spawner', position = {0,0.45,0.1}, width = 1600, height = 380, font_size = 200, scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'spawnerStart', function_owner = self, label = 'TTS Spawner', position = {0,0.45,0.4}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'builderStart', function_owner = self, label = 'Builder', position = {0,0.45,0.7}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'ffgStart', function_owner = self, label = 'FFG Spawner', position = {-0.45,0.45,-0.1}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'xwsStart', function_owner = self, label = 'XWS Spawner', position = {0.5,0.45,-0.1}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'singleSpawner', function_owner = self, label = 'Single Spawner', position = {-0.45,0.45,0.2}, width = 1600, height = 380, font_size = 200, scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'spawnerStart', function_owner = self, label = 'TTS Spawner', position = {0.5,0.45,0.2}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'builderStart', function_owner = self, label = 'Builder', position = {0,0.45,0.5}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
+end
+
+
+--Spawn from XWS JSON
+function xwsStart()
+    self.clearButtons()
+    self.createButton({click_function = 'DummyFFG', function_owner = self, label = 'Paste XWS', position = {0,0.45,-0.3}, width = 1800, height = 520, font_size = 240,  scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'xwsClick', function_owner = self, label = 'Load Squad', position = {0,0.45,0.6}, width = 1800, height = 520, font_size = 240,  scale = {0.15,0.15,0.15}})
+    self.createInput({input_function = 'xwsAction', function_owner = self, position = {0,0.45,0.2}, width = 1000, height = 500, font_size = 50, scale = {0.5,0.5,0.5}})
+    self.createButton({click_function = 'initiate', function_owner = self, label = 'Back', position = {-0.5,0.45,0.8}, width = 1000, height = 300, font_size = 150,  scale = {0.21,0.21,0.21}})
+end
+
+--XWS spawner input field
+function xwsAction(obj, playerColor, value, editing)
+    if not editing then
+        lista = value
+    else
+        nl_index = string.find(value, '\n')
+        if nl_index != nil then
+            lista = string.sub(value, 1, nl_index - 1)
+            xwsLoad(playerColor)
+        end
+    end
+end
+
+--XWS spawner button
+function xwsClick(obj, playerColor, alt_click)
+    xwsLoad(playerColor)
+end
+
+--Load list and ffg <-> xws map
+XWS_TO_FFG = nil
+function xwsLoad(playerColor)
+    if lista ~= nil then
+        local list = JSON.decode(lista)
+
+        -- Load ffg <-> xws map if it hasn't been loaded yet
+        if XWS_TO_FFG == nil then
+            WebRequest.get('https://raw.githubusercontent.com/guidokessels/xwing-data2/master/data/ffg-xws.json', function(request)
+                if request.is_error then
+                    print("Failed to load ffg-xws.json which is required to map XWS ids to FFG ids.")
+                    print("Cannot spawn squad... Please try again later");
+                elseif request.is_done then
+                    local ffgToXws = JSON.decode(request.text)
+                    XWS_TO_FFG = {}
+                    XWS_TO_FFG.pilots = table_invert(ffgToXws.pilots)
+                    XWS_TO_FFG.upgrades = table_invert(ffgToXws.upgrades)
+                    XWS_TO_FFG.factions = table_invert(ffgToXws.factions)
+                    xwsSpawn(list, XWS_TO_FFG, playerColor)
+                end
+            end)
+        else
+            xwsSpawn(list, XWS_TO_FFG, playerColor)
+        end
+    else
+        print('Please paste XWS')
+    end
+end
+
+function table_invert(t)
+    local s = {}
+    for k,v in pairs (t) do
+        s[v] = k
+    end
+    return s
+end
+
+--Takes the XWS JSON and the xws <-> FFG ID map and constructs a parts list to pass to idSpawner
+function xwsSpawn(list, XWS_TO_FFG, playerColor)
+    if list then
+        local parts = {}
+        parts.Pilots = {}
+        parts.Upgrades = {}
+        parts.spawnCard = self
+        parts.Faction = tonumber(XWS_TO_FFG.factions[list.faction])
+
+        for k,v in pairs (list.pilots) do
+            parts.Pilots[k] = tonumber(XWS_TO_FFG.pilots[v.id])
+            parts.Upgrades[k] = {}
+
+            if v.upgrades then
+                local upgradeCount = 1
+                for slot,upgrades in pairs (v.upgrades) do
+                    for i,upgrade in pairs (upgrades) do
+                        parts.Upgrades[k][upgradeCount] = tonumber(XWS_TO_FFG.upgrades[upgrade])
+                        upgradeCount = upgradeCount + 1
+                    end
+                end
+            end
+        end
+
+        idSpawner(parts)
+
+        local player = Player[playerColor]
+        local message  = player.steam_name .. " spawned a list"
+
+        if list.name then
+            message = message .. " \"" .. list.name .. "\""
+        end
+
+        if list.points then
+            message = message .. ". The list reports " .. list.points .. " points"
+        end
+
+        print(message .. ".");
+
+        FFGinitiate()
+    else
+        print('Please paste XWS')
+    end
 end
 
 
