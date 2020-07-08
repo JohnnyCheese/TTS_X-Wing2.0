@@ -6177,9 +6177,12 @@ end
 function onSave()
     local state = {shipData=self.getTable("Data")}
 
-    state.tokenData = {arcs={}}
+    state.tokenData = {tokens={},arcs={}}
     for location, indicator in pairs(assigned_arc_indicators) do
         state.tokenData.arcs[location] = indicator.getGUID()
+    end
+    for guid, _ in pairs(assigned_tokens) do
+        table.insert(state.tokenData.tokens, guid)
     end
 
     return JSON.encode(state)
@@ -6196,12 +6199,15 @@ function onLoad(savedData)
             initContextMenu()
         end
 
+        for _, guid in ipairs(state.tokenData.tokens) do
+            assigned_tokens[guid] = getObjectFromGUID(guid)
+        end
+
         local any_arcs = false
         for location, guid in pairs(state.tokenData.arcs) do
             any_arcs = true
             break
         end
-
         if any_arcs then
             arc_indicator_queue = state.tokenData.arcs
             startLuaCoroutine(self, 'waitForArcIndicatorsLoading')
