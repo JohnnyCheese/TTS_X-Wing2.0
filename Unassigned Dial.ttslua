@@ -440,6 +440,13 @@ function strainTok(p,id)
   Global.call('proxyPerformAction', {assignedShip, 'Strain', playerColor, id ~= '-1'})
 end
 
+function depleteTok(p,id)
+  if spectReturn(p) == true then
+      return
+  end
+  Global.call('proxyPerformAction', {assignedShip, 'Deplete', playerColor, id ~= '-1'})
+end
+
 function ionTok(p,id)
     if spectReturn(p) == true then
         return

@@ -4334,6 +4334,7 @@ TokenModule.onLoad = function()
             elseif obj.getName() == 'Evade' then TokenModule.tokenSources.Evade = {src=obj, hlColor={0, 1, 0}}
             elseif obj.getName() == 'Stress' then TokenModule.tokenSources.Stress = {src=obj, hlColor={0.8, 0, 0}}
             elseif obj.getName() == 'Strain' then TokenModule.tokenSources.Strain = {src=obj, hlColor={0.8, 0, 0}}
+            elseif obj.getName() == 'Deplete' then TokenModule.tokenSources.Deplete = {src=obj, hlColor={0.8, 0, 0}}
             elseif obj.getName() == 'Ion' then TokenModule.tokenSources.Ion = {src=obj, hlColor={0.8, 0, 0}}
             elseif obj.getName() == 'Jam' then TokenModule.tokenSources.Jam = {src=obj, hlColor={0.8, 0, 0}}
             elseif obj.getName() == 'Tractor' then TokenModule.tokenSources.Tractor = {src=obj, hlColor={0.8, 0, 0}}
@@ -4407,6 +4408,7 @@ TokenModule.basePos.small.Evade     = { 12, -12}
 TokenModule.basePos.small.Stress    = {-12,  12}
 TokenModule.basePos.small.Ion       = {-12,  -24}
 TokenModule.basePos.small.Strain    = {-12,  24}
+TokenModule.basePos.small.Deplete    = {-12,  36}
 
 TokenModule.basePos.small.Reinforce = {-24,  24}
 TokenModule.basePos.small.Cloak     = {-24, -24}
@@ -4424,6 +4426,7 @@ TokenModule.basePos.medium.Evade     = { 25, -25}
 TokenModule.basePos.medium.Stress    = {-25,  25}
 TokenModule.basePos.medium.Ion       = {-25, -35}
 TokenModule.basePos.medium.Strain    = {-25,  35}
+TokenModule.basePos.medium.Deplete   = {-25,  -45}
 
 TokenModule.basePos.medium.Reinfoce  = {-35,  35}
 TokenModule.basePos.medium.Cloak     = {-35, -35}
@@ -4440,6 +4443,7 @@ TokenModule.basePos.large.Calculate = { 30,  40}
 TokenModule.basePos.large.Evade     = { 30,   0}
 TokenModule.basePos.large.Stress    = { 30, -30}
 TokenModule.basePos.large.Strain    = { 30, -40}
+TokenModule.basePos.large.Deplete   = {-30, -40}
 TokenModule.basePos.large.Tractor   = {-30,  30}
 TokenModule.basePos.large.Ion       = {-30,   0}
 TokenModule.basePos.large.Lock      = {  0,  30}
@@ -4458,6 +4462,7 @@ TokenModule.basePos.huge.Calculate = { 30,  40}
 TokenModule.basePos.huge.Evade     = { 30,   0}
 TokenModule.basePos.huge.Stress    = { 30, -30}
 TokenModule.basePos.huge.Strain    = { 30, -40}
+TokenModule.basePos.huge.Deplete   = {-30, -40}
 TokenModule.basePos.huge.Tractor   = {-30,  30}
 TokenModule.basePos.huge.Ion       = {-30,   0}
 TokenModule.basePos.huge.Lock      = {  0,  30}
@@ -4479,6 +4484,7 @@ TokenModule.nearPos.small.Calculate = { 15,  35}
 TokenModule.nearPos.small.Evade     = { 35,   0}
 TokenModule.nearPos.small.Stress    = { 35, -25}
 TokenModule.nearPos.small.Strain    = { 35, -35}
+TokenModule.nearPos.small.Deplete   = {-35, -35}
 TokenModule.nearPos.small.Ion       = {-35,  25}
 TokenModule.nearPos.small.Tractor   = {-35,   0}
 TokenModule.nearPos.small.Lock      = {  0,  40}
@@ -4498,6 +4504,7 @@ TokenModule.nearPos.medium.Calculate = { 45,  56}
 TokenModule.nearPos.medium.Evade     = { 45,   0}
 TokenModule.nearPos.medium.Stress    = { 45, -28}
 TokenModule.nearPos.medium.Strain    = { 45, -45}
+TokenModule.nearPos.medium.Deplete   = {-45, -45}
 TokenModule.nearPos.medium.Ion       = {-45,  28}
 TokenModule.nearPos.medium.Tractor   = {-45,   0}
 TokenModule.nearPos.medium.Lock      = {  0,  45}
@@ -4516,6 +4523,7 @@ TokenModule.nearPos.large.Calculate = { 55,  30}
 TokenModule.nearPos.large.Evade     = { 55,   0}
 TokenModule.nearPos.large.Stress    = { 55, -30}
 TokenModule.nearPos.large.Strain    = { 55, -55}
+TokenModule.nearPos.large.Deplete   = {-55, -55}
 TokenModule.nearPos.large.Tractor   = {-55,  45}
 TokenModule.nearPos.large.Ion       = {-55,  15}
 TokenModule.nearPos.large.Weapons   = {-55, -15}
@@ -4535,6 +4543,7 @@ TokenModule.nearPos.huge.Calculate = { 55,  30}
 TokenModule.nearPos.huge.Evade     = { 55,   0}
 TokenModule.nearPos.huge.Stress    = { 55, -30}
 TokenModule.nearPos.huge.Strain    = { 55, -55}
+TokenModule.nearPos.huge.Deplete   = {-55, -55}
 TokenModule.nearPos.huge.Tractor   = {-55,  45}
 TokenModule.nearPos.huge.Ion       = {-55,  15}
 TokenModule.nearPos.huge.Weapons   = {-55, -15}
@@ -4897,7 +4906,7 @@ DialModule = {}
 -- Perform an automated action
 -- Can be called externally for stuff like range ruler spawning
 DialModule.PerformAction = function(ship, type, playerColor, args)
-    local tokenActions = ' Focus Calculate Evade Stress Strain Target Lock Ion Cloak Jam Reinforce Disarm Tractor Dummy '
+    local tokenActions = ' Focus Calculate Evade Stress Strain Deplete Target Lock Ion Cloak Jam Reinforce Disarm Tractor Dummy '
     announceInfo = {type='action'}
     -- Ruler spawning
     if type:find('ruler') ~= nil then
