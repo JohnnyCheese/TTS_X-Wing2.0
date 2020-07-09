@@ -2548,7 +2548,8 @@ end
 function xwsStart()
     self.clearButtons()
     self.createButton({click_function = 'DummyFFG', function_owner = self, label = 'Paste XWS', position = {0,0.45,-0.3}, width = 1800, height = 520, font_size = 240,  scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'xwsClick', function_owner = self, label = 'Load Squad', position = {0,0.45,0.6}, width = 1800, height = 520, font_size = 240,  scale = {0.15,0.15,0.15}})
+    self.createButton({click_function = 'xwsClick', function_owner = self, label = 'Spawn Ships', position = {-0.3,0.45,0.6}, width = 1800, height = 520, font_size = 240,  scale = {0.15,0.15,0.15}})
+    self.createButton({click_function = 'xwsSave', function_owner = self, label = 'Spawn as Disk', position = {0.3,0.45,0.6}, width = 1800, height = 520, font_size = 240,  scale = {0.15,0.15,0.15}})
     self.createInput({input_function = 'xwsAction', function_owner = self, position = {0,0.45,0.2}, width = 1000, height = 500, font_size = 50, scale = {0.5,0.5,0.5}})
     self.createButton({click_function = 'initiate', function_owner = self, label = 'Back', position = {-0.5,0.45,0.8}, width = 1000, height = 300, font_size = 150,  scale = {0.21,0.21,0.21}})
 end
@@ -2568,6 +2569,13 @@ end
 
 --XWS spawner button
 function xwsClick(obj, playerColor, alt_click)
+    savingList = false
+    xwsLoad(playerColor)
+end
+
+--XWS spawner disk button
+function xwsSave(obj, playerColor, alt_click)
+    savingList = true
     xwsLoad(playerColor)
 end
 
@@ -2818,6 +2826,7 @@ function singleSpawner()
 end
 
 function singleSearch()
+    savingList = false
     self.clearButtons()
     self.clearInputs()
     singleSpawner()
@@ -2921,6 +2930,7 @@ function singlePilotSpawn(Id)
     partList.Upgrades = {}
     partList.Upgrades[1] = {}
     partList.Faction = masterPilotDB[Id]['Faction']
+
     idSpawner(partList)
     singleSpawner()
 end
@@ -4199,8 +4209,8 @@ function inputList()
     self.createButton({click_function = 'Dummy3', function_owner = self, label = 'Please type or paste your list', position = {-0,0.45,-0.4}, width = 2500, height = 280, font_size = 200, scale = {0.4,0.4,0.4}, tooltip = 'Click here to spawn yout list',  scale = {0.25,0.25,0.25}})
     --self.createButton({click_function = 'printInput', function_owner = self, label = 'print', position = {-0.5,0.45,-1}, width = 800, height = 240, font_size = 100, scale = {0.4,0.4,0.4}, tooltip = 'Click here to spawn yout list',  scale = {0.25,0.25,0.25}})
     self.createInput({input_function = 'action', function_owner = self, position = {0,0.45,0.12}, width = 3200, height = 1600, font_size = 200, scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'validCheck', function_owner = self, label = 'Spawn List', position = {-0.5,0.45,0.7}, width = 1400, height = 400, font_size = 200, scale = {0.4,0.4,0.4}, tooltip = 'Click here to spawn yout list',  scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'saveList', function_owner = self, label = 'Save to Disk', position = {0.5,0.45,0.7}, width = 1400, height = 400, font_size = 200, scale = {0.4,0.4,0.4}, tooltip = 'Click here to save your list in a data disk', scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'validCheck', function_owner = self, label = 'Spawn Ships', position = {-0.5,0.45,0.7}, width = 1400, height = 400, font_size = 200, scale = {0.4,0.4,0.4}, tooltip = 'Click here to spawn yout list',  scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'saveList', function_owner = self, label = 'Spawn as Disk', position = {0.5,0.45,0.7}, width = 1400, height = 400, font_size = 200, scale = {0.4,0.4,0.4}, tooltip = 'Click here to save your list in a data disk', scale = {0.25,0.25,0.25}})
 end
 
 -- This function is supposed to store the list in the script of the data disk object and set up a button wich will spawn the stored list calling the list parser and providing the string.
