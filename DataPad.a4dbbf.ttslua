@@ -188,9 +188,20 @@ cardBackDB['mc'] = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/
 masterShipDB={}
 masterShipDB[0]={['name']='',['Hull']=0,['Shield']=0,['size']='small',['agi']=1,['XWS']='',['Fac']={[0]=true},['arcs']={'front'}}
 
-masterShipDB[1]={['name']='Modified YT-1300',['Hull']=8,['Shield']=5,['dTurret']=1,['size']='large',['agi']=1,['XWS']='modifiedyt1300lightfreighter', ['Fac']={[1]=true}, ['arcs']={'doubleturret'},
-                            ['moveSet']={'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','rbl3s','wtl3','wbl3','bs3','wbr3','wtr3','rbr3s','ws4','rk4'}}
---masterShipDB[2]={['name']='',['Shield']=0,['size']=0,['agi']=0,['XWS']='', ['Fac']={[0]=true}}
+masterShipDB[1]={
+    name = 'Modified YT-1300',
+    Hull = 8,
+    Shield = 5,
+    dTurret = 1,
+    size = 'large',
+    agi = 1,
+    XWS = 'modifiedyt1300lightfreighter',
+    Fac = {[1]=true},
+    arcs = {'doubleturret'},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/rebel_falcon/rebel_falcon.obj',
+    moveSet = {'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','rbl3s','wtl3','wbl3','bs3','wbr3','wtr3','rbr3s','ws4','rk4'}
+}
+
 masterShipDB[3]={['name']='StarViper',['Hull']=4,['Shield']=1,['size']='small',['agi']=3,['XWS']='starviperclassattackplatform', ['Fac']={[3]=true}, ['arcs']={'front'},
                 ['moveSet']={'wtl1','bbl1','bs1','bbr1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','rbl3s','wbl3','bs3','wbr3','rbr3s','ws4' } }
 masterShipDB[4]={['name']='Scurrg H6 Bomber',['Hull']=6,['Shield']=4,['size']='medium',['agi']=1,['XWS']='scurrgh6bomber', ['Fac']={[3]=true}, ['arcs']={'front'},
@@ -696,14 +707,60 @@ masterPilotDB[67]={['name']='Shara Bey',['Faction']= 1,['ship_type']=31,['cost']
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_67.png',['init']=4,['actSet']={'F','TL','BR'}}
 masterPilotDB[68]={['name']='Ibtisam',['Faction']= 1,['ship_type']=31,['cost']=46,['slot']={21, 1, 5, 8, 16, 10, 14},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_68.png',['init']=3,['actSet']={'F','TL','BR'}}
-masterPilotDB[69]={['name']='Han Solo',['Faction']= 1,['ship_type']=1,['cost']=80,['slot']={21, 1, 6, 8, 8, 16, 14, 14, 15},['Shield']=5,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_69.png',['init']=6,['actSet']={'F','TL','B'}}
-masterPilotDB[70]={['name']='Lando Calrissian',['Faction']= 1,['ship_type']=1,['cost']=79,['slot']={21, 1, 6, 8, 8, 16, 14, 14, 15},['Shield']=5,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_70.png',['init']=5,['actSet']={'F','TL','B'}}
-masterPilotDB[71]={['name']='Chewbacca',['Faction']= 1,['ship_type']=1,['cost']=71,['slot']={21, 1, 6, 8, 8, 16, 14, 14, 15},['Shield']=5,['Charge']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_71.png',['init']=4,['actSet']={'F','TL','B'}}
-masterPilotDB[72]={['name']='Outer Rim Smuggler',['Faction']= 1,['ship_type']=1,['cost']=67,['slot']={21, 6, 8, 8, 16, 14, 14, 15},['Shield']=5,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_72.png',['init']=1,['actSet']={'F','TL','B'}}
+
+masterPilotDB[69]={
+    name = 'Han Solo',
+    Faction = 1,
+    ship_type = 1,
+    cost = 80,
+    slot = {21, 1, 6, 8, 8, 16, 14, 14, 15},
+    Shield = 5,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_69.png',
+    init = 6,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/modYT300/hansolo.png',
+    actSet = {'F','TL','B'}
+}
+
+masterPilotDB[70]={
+    name = 'Lando Calrissian',
+    Faction = 1,
+    ship_type = 1,
+    cost = 79,
+    slot = {21, 1, 6, 8, 8, 16, 14, 14, 15},
+    Shield = 5,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_70.png',
+    init = 5,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/modYT300/landocalrissian.png',
+    actSet = {'F','TL','B'}
+}
+
+masterPilotDB[71]={
+    name = 'Chewbacca',
+    Faction = 1,
+    ship_type = 1,
+    cost = 71,
+    slot = {21, 1, 6, 8, 8, 16, 14, 14, 15},
+    Shield = 5,
+    Charge = 1,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_71.png',
+    init = 4,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/modYT300/chewbacca.png',
+    actSet = {'F','TL','B'}
+}
+
+masterPilotDB[72]={
+    name = 'Outer Rim Smuggler',
+    Faction = 1,
+    ship_type = 1,
+    cost = 67,
+    slot = {21, 6, 8, 8, 16, 14, 14, 15},
+    Shield = 5,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_72.png',
+    init = 1,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/modYT300/outerrimsmuggler.png',
+    actSet = {'F','TL','B'}
+}
+
 masterPilotDB[73]={['name']='Hera Syndulla',['Faction']= 1,['ship_type']=23,['cost']=72,['slot']={21, 1,2, 4, 5, 8, 8, 16, 14, 15},['Shield']=4,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_73.png',['init']=5,['actSet']={'F','TL','R'}}
 masterPilotDB[74]={['name']='Kanan Jarrus',['Faction']= 1,['ship_type']=23,['cost']=80,['slot']={21, 17,2, 4, 5, 8, 8, 16, 14, 15},['Shield']=4,['Force']=2,
@@ -1513,8 +1570,19 @@ masterPilotDB[629]={
 
 masterPilotDB[631]={['name']='Alexsandr Kallus',['Faction']= 1,['ship_type']=23,['cost']=69,['slot']={21, 1, 2, 4, 5, 8, 8, 16, 14, 15},['Shield']=4,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/d0/bf/d0bf7c63-2c2c-4372-8ace-7299d180c774/swz66_alexsandr-kallus.png',['init']=4,['actSet']={'F','TL','R'}}
-masterPilotDB[630]={['name']='Leia Organa',['Faction']= 1,['ship_type']=1,['cost']=79,['slot']={21, 17, 6, 8, 8, 16, 14, 14, 15},['Shield']=5,
-                  ['card']='http://images-cdn.fantasyflightgames.com/filer_public/5b/ff/5bffb367-cb6e-4b8b-948f-25a70acd3a3f/swz66_leia-organa.png',['init']=5,['actSet']={'F','TL','B'}}
+
+masterPilotDB[630]={
+    name = 'Leia Organa',
+    Faction = 1,
+    ship_type = 1,
+    cost = 79,
+    slot = {21, 17, 6, 8, 8, 16, 14, 14, 15},
+    Shield = 5,
+    card = 'http://images-cdn.fantasyflightgames.com/filer_public/5b/ff/5bffb367-cb6e-4b8b-948f-25a70acd3a3f/swz66_leia-organa.png',
+    init = 5,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/modYT300/leia.png',
+    actSet = {'F','TL','B'}
+}
 
 masterPilotDB[638]={
     name = "Zizi Tlo",
