@@ -316,7 +316,7 @@ masterShipDB[54]={
     agi = 3,
     Fac = {[4]=true},
     arcs = {'front', 'back'},
-    mesh = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/res_awing.obj',
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/res_awing.obj',
     moveSet = {'wtl1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rbl3s','wtl3','bbl3','bs3','bbr3','wtr3','rbr3s','bs4','bs5','rk5'}}
 
 masterShipDB[55]={['name']='MG-100 StarFortress',['Hull']=9, ['Shield']=3,['dTurret']=1,['size']='large',['agi']=1,['XWS']='', ['Fac']={[4]=true}, ['arcs']={'front','doubleturret'},
@@ -349,8 +349,9 @@ masterShipDB[64]={
     agi = 1,
     Fac = {[4]=true},
     arcs = {'front'},
-    mesh = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/transport/transport.obj',
-    moveSet = {'rbl1r','rbr1r','rs0','rbl1r','rbr1r','rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rbl3','ws3','rbr3','rs4'}}
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/transport/transport.obj',
+    moveSet = {'rbl1r','rbr1r','rs0','rbl1r','rbr1r','rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rbl3','ws3','rbr3','rs4'}
+}
 
 masterShipDB[65]={
     name = 'Resistance Transport Pod',
@@ -360,8 +361,9 @@ masterShipDB[65]={
     agi = 2,
     Fac = {[4]=true},
     arcs = {'front'},
-    mesh = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/transport_pod/transport_pod.obj',
-    moveSet = {'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rbl3','ws3','rbr3','rk3','rs4'}}
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/transport_pod/transport_pod.obj',
+    moveSet = {'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rbl3','ws3','rbr3','rk3','rs4'}
+}
 
 masterShipDB[63]={['name']='N-1 StarFighter',['Hull']=3,['Shield']=2,['size']='small',['agi']=2,['XWS']='', ['Fac']={[6]=true}, ['arcs']={'front'},
                             ['moveSet']={'wbl1','ws1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','bbl3','bs3','bbr3','wtr3','rtl3t','rtr3t','ws4','ws5'}}
@@ -376,8 +378,19 @@ masterShipDB[67]={['name']='Nantex-Class StarFighter',['Hull']=4,['Shield']=0,['
 --w6ship
 masterShipDB[70]={['name']='FireBall',['Hull']=6,['Shield']=0,['size']='small',['agi']=2,['XWS']='', ['Fac']={[4]=true}, ['arcs']={'front'},
                             ['moveSet']={'wtl1','bbl1','bs1','bbr1','wtr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rtl3t','rtr3t','rs4'}}
-masterShipDB[71]={['name']='TIE/ba Interceptor',['Hull']=2,['Shield']=2,['size']='small',['agi']=3,['XWS']='', ['Fac']={[5]=true}, ['arcs']={'front'},
-                            ['moveSet']={'btl1','bbl1','bbr1','btr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rbl2s','rbr2s','bs4','ws5','rk5'}}
+
+masterShipDB[71]={
+    name = 'TIE/ba Interceptor',
+    Hull = 2,
+    Shield = 2,
+    size = 'small',
+    agi = 3,
+    XWS = '',
+    Fac = {[5]=true},
+    arcs = {'front'},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/Tie_Ba/TieBa.obj',
+    moveSet = {'btl1','bbl1','bbr1','btr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rbl2s','rbr2s','bs4','ws5','rk5'}
+}
 
 --w7ship
 --[[masterShipDB[80]={['name']='LAAT/i Gunship',['Shield']=2,['dTurret']=1,['size']='medium',['agi']=1,['XWS']='', ['Fac']={[6]=true}, ['arcs']={'doubleturret'},
@@ -1092,7 +1105,7 @@ masterPilotDB[435]={
     Shield = 2,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/e15d3e2a2fc082b95a64a83df0c96f7f.png',
     init = 5,
-    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/lulo_lampar.png',
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/lulo_lampar.png',
     actSet = {'F','TL','Rot180','E','B','BR'}}
 
 masterPilotDB[436]={
@@ -1105,7 +1118,7 @@ masterPilotDB[436]={
     Charge = 1,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/72cb6c4e50b0ad24af0bb84ce0aa53f0.png',
     init = 5,
-    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/talli_lintra.png',
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/talli_lintra.png',
     actSet = {'F','TL','Rot180','E','B','BR'}}
 
 masterPilotDB[437]={
@@ -1117,7 +1130,7 @@ masterPilotDB[437]={
     Shield = 2,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/7fc7b194b02ad7af6adf4ef9b79108d1.png',
     init = 4,
-    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/greer_sonnel.png',
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/greer_sonnel.png',
     actSet = {'F','TL','Rot180','E','B','BR'}}
 
 masterPilotDB[438]={
@@ -1129,7 +1142,7 @@ masterPilotDB[438]={
     Shield = 2,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/d7f37dbb86bb706dd535e9a65b69149a.png',
     init = 3,
-    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/zari_bangel.png',
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/zari_bangel.png',
     actSet = {'F','TL','Rot180','E','B','BR'}}
 
 masterPilotDB[439]={
@@ -1141,7 +1154,7 @@ masterPilotDB[439]={
     Shield = 2,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/3f7ad9efb4c5af8b4d1f5c07a3c7538b.png',
     init = 3,
-    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/green_sq_expert.png',
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/green_sq_expert.png',
     actSet = {'F','TL','Rot180','E','B','BR'}}
 
 masterPilotDB[440]={
@@ -1153,7 +1166,7 @@ masterPilotDB[440]={
     Shield = 2,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/e033b2729305ac0b678d6031ada7b2b8.png',
     init = 1,
-    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/blue_sq_recruit.png',
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/blue_sq_recruit.png',
     actSet = {'F','TL','Rot180','E','B','BR'}}
 
 masterPilotDB[441]={['name']='Foreman Proach',['Faction']=3,['ship_type']=56,['cost']=32,['slot']={21, 1,14},['Shield']=6,
@@ -1293,7 +1306,7 @@ masterPilotDB[569]={
     slot = {21, 1,19,3,5,8,8,10,14},
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/a9ae63785f4cadaa28a74858ff1d1bc4.png',
     init = 4,
-    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/transport/cova_nell.png',
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/transport/cova_nell.png',
     actSet = {'F','TL'}}
 
 masterPilotDB[570]={
@@ -1304,7 +1317,7 @@ masterPilotDB[570]={
     slot = {21, 19,3,5,8,8,10,14},
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/9d7dd5d0851911412dd5c86603a0ea91.png',
     init = 3,
-    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/transport/pammich_nerro_goode.png',
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/transport/pammich_nerro_goode.png',
     actSet = {'F','TL'}}
 
 masterPilotDB[571]={
@@ -1315,7 +1328,7 @@ masterPilotDB[571]={
     slot = {21, 19,3,5,8,8,10,14},
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/9f41de269cb1ff091487554fb53b2374.png',
     init = 2,
-    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/transport/nodin_chavdri.png',
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/transport/nodin_chavdri.png',
     actSet = {'F','TL'}}
 
 masterPilotDB[572]={
@@ -1326,7 +1339,7 @@ masterPilotDB[572]={
     slot = {21, 19,3,5,8,8,10,14},
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/57ea37cdb13f52ec3f3e0b745fc9d630.png',
     init = 1,
-    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/transport/logistics_div_pilot.png',
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/transport/logistics_div_pilot.png',
     actSet = {'F','TL'}}
 
 --Resistance Pod
@@ -1338,7 +1351,7 @@ masterPilotDB[574]={
     slot = {21, 1,19,8,14},
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/1dbf7b355d60f5b3f278522eb702f99f.png',
     init = 3,
-    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/transport_pod/rose.png',
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/transport_pod/rose.png',
     actSet = {'F','TL','BR'}}
 
 masterPilotDB[573]={
@@ -1349,7 +1362,7 @@ masterPilotDB[573]={
     slot = {21, 1,19,8,14},
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/4d2201d40635299aa134acd52c9587af.png',
     init = 3,
-    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/transport_pod/bb8.png',
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/transport_pod/bb8.png',
     actSet ={'C','TL','BR'}}
 
 masterPilotDB[575]={
@@ -1360,7 +1373,7 @@ masterPilotDB[575]={
     slot = {21, 1,19,8,14},
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/311d88e51a039b79e9a422ab3c475288.png',
     init = 2,
-    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/transport_pod/finn.png',
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/transport_pod/finn.png',
     actSet = {'F','TL','BR'}}
 
 masterPilotDB[576]={
@@ -1371,7 +1384,7 @@ masterPilotDB[576]={
     slot = {21, 19,8,14},
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/14139a2d20ff13b01bd5810371a89064.png',
     init = 1,
-    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/transport_pod/vi_moradi.png',
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/transport_pod/vi_moradi.png',
     actSet ={'F','TL','BR'}}
 
 --Hyena Bomber
@@ -1419,16 +1432,59 @@ masterPilotDB[609]={['name']='Stalgasin Hive Guard',['Faction']=7,['ship_type']=
                   ['actSet']={'F','E'}}
 --w7
 --TIE/ba
-masterPilotDB[627]={['name']='First Order Provocateur',['Faction']=5,['ship_type']=71,['cost']=45,['slot']={21, 1,19,6,14},['Shield']=2,['card']='http://images-cdn.fantasyflightgames.com/filer_public/ef/d7/efd7cc94-bdf7-4f63-80eb-476444dfeb28/swz62_card_first-order-provocateur.png',['init']=3,
-                ['actSet']={'F','TL','E','BR','B'}}
-masterPilotDB[626]={['name']='"Ember"',['Faction']=5,['ship_type']=71,['cost']=52,['slot']={21, 1,19,6,14},['Shield']=2, ['card']='http://images-cdn.fantasyflightgames.com/filer_public/76/2e/762e6c35-81ce-4c9e-b8c5-f442d9fad0ee/swz62_card_ember.png',['init']=4,
-                ['actSet']={'F','TL','E','BR','B'}}
-masterPilotDB[625]={['name']='"Holo"',['Faction']=5,['ship_type']=71,['cost']=54,['slot']={21, 1,19,6,14},['Shield']=2,['card']='http://images-cdn.fantasyflightgames.com/filer_public/2e/fe/2efe3183-8d4a-402a-9b11-4c8bf56a0b6c/swz62_card_holo.png',['init']=5,
-                ['actSet']={'F','TL','E','BR','B'}}
-masterPilotDB[624]={['name']='Major Vonreg',['Faction']=5,['ship_type']=71,['cost']=57,['slot']={21, 1,19,6,14},['Shield']=2,['card']='http://images-cdn.fantasyflightgames.com/filer_public/b6/de/b6de4a15-0b5d-4c39-8a2e-c96af5dff9fe/swz62_card_major-vonreg.png',['init']=6,
-                ['actSet']={'F','TL','E','BR','B'}}
---FireBall
+masterPilotDB[627]={
+    name = 'First Order Provocateur',
+    Faction = 5,
+    ship_type = 71,
+    cost = 45,
+    slot = {21, 1,19,6,14},
+    Shield = 2,
+    card = 'http://images-cdn.fantasyflightgames.com/filer_public/ef/d7/efd7cc94-bdf7-4f63-80eb-476444dfeb28/swz62_card_first-order-provocateur.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/FO/TIEba/provocateur.png',
+    actSet = {'F','TL','E','BR','B'}
+}
 
+masterPilotDB[626]={
+    name = '"Ember"',
+    Faction = 5,
+    ship_type = 71,
+    cost = 52,
+    slot = {21, 1,19,6,14},
+    Shield = 2,
+    card = 'http://images-cdn.fantasyflightgames.com/filer_public/76/2e/762e6c35-81ce-4c9e-b8c5-f442d9fad0ee/swz62_card_ember.png',
+    init = 4,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/FO/TIEba/ember.png',
+    actSet = {'F','TL','E','BR','B'}
+}
+
+masterPilotDB[625]= {
+    name = '"Holo"',
+    Faction = 5,
+    ship_type = 71,
+    cost = 54,
+    slot = {21, 1,19,6,14},
+    Shield = 2,
+    card = 'http://images-cdn.fantasyflightgames.com/filer_public/2e/fe/2efe3183-8d4a-402a-9b11-4c8bf56a0b6c/swz62_card_holo.png',
+    init = 5,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/FO/TIEba/holo.png',
+    actSet = {'F','TL','E','BR','B'}
+}
+
+masterPilotDB[624]={
+    name = 'Major Vonreg',
+    Faction = 5,
+    ship_type = 71,
+    cost = 57,
+    slot = {21, 1,19,6,14},
+    Shield = 2,
+    card = 'http://images-cdn.fantasyflightgames.com/filer_public/b6/de/b6de4a15-0b5d-4c39-8a2e-c96af5dff9fe/swz62_card_major-vonreg.png',
+    init = 6,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/FO/TIEba/vonreg.png',
+    actSet = {'F','TL','E','BR','B'}
+}
+
+--FireBall
 masterPilotDB[620]={['name']='Jarek Yeager',['Faction']=4,['ship_type']=70,['cost']=33,['slot']={21, 1,6,10,13,14,14,15},['Shield']=0,['card']='http://images-cdn.fantasyflightgames.com/filer_public/85/b2/85b26549-26a7-4f48-88c5-4d52733704ee/swz63_a1_card_jarek-yeager.png',['init']=5,
                 ['actSet']={'F','E','BR'}}
 masterPilotDB[621]={['name']='Kazuda Xiono',['Faction']=4,['ship_type']=70,['cost']=40,['slot']={21, 1,6,10,13,14,14,15},['Shield']=0,['card']='http://images-cdn.fantasyflightgames.com/filer_public/16/42/164202d5-47a5-44ea-a96b-49c795005ca8/swz63_a1_card_kazuda-xiono.png',['init']=4,
@@ -1470,7 +1526,7 @@ masterPilotDB[638]={
     Charge = 1,
     card = 'http://images-cdn.fantasyflightgames.com/filer_public/bf/4f/bf4f8372-b151-45ee-b38b-5c67bba7d2d8/swz66_zizi-tlo.png',
     init = 5,
-    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/zizi_tlo.png',
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/zizi_tlo.png',
     actSet = {'F','TL','Rot180','E','B','BR'}}
 
 masterPilotDB[639]={
@@ -1482,7 +1538,7 @@ masterPilotDB[639]={
     Shield = 2,
     card = 'http://images-cdn.fantasyflightgames.com/filer_public/27/9a/279ac02a-e274-4bcb-9570-d469cd12936e/swz66_ronith-blario.png',
     init = 2,
-    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/ronith_blario.png',
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/ronith_blario.png',
     actSet = {'F','TL','Rot180','E','B','BR'}}
 
 
@@ -1581,7 +1637,7 @@ masterPilotDB[1005]={
   card = 'https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/e/ec/Outer_Rim_Garrison.png',
   init = 1,
   actSet = {'F','TL','R'},
-  texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Huge/Gozanti-Class%20Cruiser/Gozanti-Class%20Cruiser.png'
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/Gozanti-Class%20Cruiser/Gozanti-Class%20Cruiser.png'
 }
 
 masterPilotDB[1006]={
@@ -1593,7 +1649,7 @@ masterPilotDB[1006]={
   card = 'https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/3/39/Swz53_echo-base-evacuees.png',
   init = 1,
   actSet = {'F','TL','R'},
-  texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Huge/GR-75%20Transport/Echo%20Base%20Evacuees%20TTS.png'
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/GR-75%20Transport/Echo%20Base%20Evacuees%20TTS.png'
 }
 
 masterPilotDB[1007]={
@@ -1605,7 +1661,7 @@ masterPilotDB[1007]={
   card = 'https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/d/d8/New_Republic_Volunteers.png',
   init = 1,
   actSet = {'F','TL','R'},
-  texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Huge/GR-75%20Transport/New%20Republic%20Volunteers%20TTS.png'
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/GR-75%20Transport/New%20Republic%20Volunteers%20TTS.png'
 }
 
 masterPilotDB[1008]={
@@ -1629,7 +1685,7 @@ masterPilotDB[1009]={
   card = 'https://vignette.wikia.nocookie.net/xwing-miniatures-second-edition/images/b/bf/Outer_Rim_Patrol.png',
   init = 1,
   actSet = {'F','TL','R'},
-  texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Huge/Raider%20Class%20Corvette/IMP%20Raider.png'
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/Raider%20Class%20Corvette/IMP%20Raider.png'
 }
 
 masterUpgradesDB={}
