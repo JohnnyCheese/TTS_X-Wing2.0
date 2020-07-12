@@ -6671,7 +6671,8 @@ function newSpawner(listTable)
         for i, obstacleName in ipairs(listTable.Obstacles) do
             local found = false
             for j, obstacle in ipairs(obstacleAcc) do
-                if obstacle.name:find(obstacleName) then
+                if obstacle.name == obstacleName then
+                    print("Found obstacle: " .. obstacle.name .. " - " .. obstacleName)
                     pos =  LocalPos(spawnCard, {0, 3, 5.5})
                     rot = spawnCard.getRotation()
                     obstacleToken = tempObstacleBag.takeObject({position = pos, rotation = rot, guid = obstacle.guid})
