@@ -1857,13 +1857,13 @@ ArcCheck.GetTargetsInRelationToArc = function(ship, arc, fixed_targets, range)
 
             if closest.range <= range then
                 found = true
-                target['closest'].obstructions = ArcCheck.CheckObstruction(closest, target.ship)
+                target['closest'].obstructions = ArcCheck.CheckObstruction(closest, target.ship, ship)
                 target['closest'].in_bullseye = target['bullseye']
                 if other ~= nil then
                     target['obstructed'] = 'likely_unobstructed'
                     target['multiple_points'] = true
 
-                    other.obstructions = ArcCheck.CheckObstruction(other, target.ship)
+                    other.obstructions = ArcCheck.CheckObstruction(other, target.ship, ship)
                     other.in_bullseye = target['bullseye']
                     target['other_closest'] = other
                 end
@@ -1955,7 +1955,7 @@ ArcCheck.SortTargetsByDesirability = function(e1, e2)
     return e1['ship'].getGUID() > e2['ship'].getGUID()
 end
 
-ArcCheck.CheckObstruction = function(data, ship)
+ArcCheck.CheckObstruction = function(data, ship, ownship)
     local collissions = Physics.cast({
         origin       = data.midpoint,
         orientation  = {0,data.angle, 0},
@@ -1967,7 +1967,7 @@ ArcCheck.CheckObstruction = function(data, ship)
     })
     local hit_obstacles = {}
     for k, hit in pairs(collissions) do
-        if (hit.hit_object ~= ship) and (MoveModule.SelectObstacles(hit.hit_object) or MoveModule.SelectHugeShips(hit.hit_object)) then
+        if (hit.hit_object ~= ship) and (hit.hit_object ~= ownship) and (MoveModule.SelectObstacles(hit.hit_object) or MoveModule.SelectHugeShips(hit.hit_object)) then
             table.insert(hit_obstacles, hit.hit_object)
         end
     end
