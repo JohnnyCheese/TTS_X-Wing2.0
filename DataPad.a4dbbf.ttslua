@@ -255,14 +255,58 @@ masterShipDB[6]={
     moveSet = {'bbl1', 'bs1', 'bbr1','wtl2','wbl2','bs2','wbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rs0'}
 }
 
-masterShipDB[7]={['name']='Khiraxz Fighter',['Hull']=5,['Shield']=1,['size']='small',['agi']=2,['XWS']='kihraxzfighter', ['Fac']={[3]=true}, ['arcs']={'front'},
-                            ['moveSet']={'wtl1','bbl1','bbr1','wtr1','rtl2t','wtl2','bbl2','bs2','bbr2','wtr2','rtr2t','wbl3','bs3','wbr3','ws4','rk4'}}
-masterShipDB[8]={['name']='Sheathipede Shuttle',['Hull']=3,['Shield']=1,['size']='small',['agi']=2,['XWS']='sheathipedeclassshuttle', ['Fac']={[1]=true}, ['arcs']={'front', 'back'},
-                            ['moveSet']={'rs1r','wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','bs3','wbr3','rtr3','rk3','rs4'}}
-masterShipDB[9]={['name']='Quad Jumper',['Hull']=6,['Shield']=0,['size']='small',['agi']=2,['XWS']='quadrijettransferspacetug', ['Fac']={[3]=true}, ['arcs']={'front'},
-                            ['moveSet']={'rbl1r','rbr1r','wtl1','wbl1','ws1','wbr1','wtr1','rs2r','rbl2s','wtl2','bbl2','bs2','bbr2','wtr2','rbr2s','wbl3','bs3','wbr3'}}
-masterShipDB[10]={['name']='FireSpray',['Hull']=6,['Shield']=4,['size']='medium',['agi']=2,['XWS']='firesprayclasspatrolcraft', ['Fac']={[3]=true}, ['arcs']={'front', 'back'},
-                            ['moveSet']={'wtl1','bbl1','bs1','bbr1','wtr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3t','wbl3','bs3','wbr3','rtr3t','ws4','rk4'}}
+masterShipDB[7]={
+    name = 'Khiraxz Fighter',
+    Hull = 5,
+    Shield = 1,
+    size = 'small',
+    agi = 2,
+    XWS = 'kihraxzfighter',
+    Fac = {[3]=true},
+    arcs = {'front'},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/khiraxz/khiraxz.obj',
+    moveSet = {'wtl1','bbl1','bbr1','wtr1','rtl2t','wtl2','bbl2','bs2','bbr2','wtr2','rtr2t','wbl3','bs3','wbr3','ws4','rk4'}
+}
+
+masterShipDB[8]={
+    name = 'Sheathipede Shuttle',
+    Hull = 3,
+    Shield = 1,
+    size = 'small',
+    agi = 2,
+    XWS = 'sheathipedeclassshuttle',
+    Fac = {[1]=true},
+    arcs = {'front', 'back'},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/sheathipede/sheathipede.obj',
+    moveSet = {'rs1r','wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','bs3','wbr3','rtr3','rk3','rs4'}
+}
+
+masterShipDB[9]={
+    name = 'Quad Jumper',
+    Hull = 6,
+    Shield = 0,
+    size = 'small',
+    agi = 2,
+    XWS = 'quadrijettransferspacetug',
+    Fac = {[3]=true},
+    arcs = {'front'},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/quadjumper/quadjumper.obj',
+    moveSet = {'rbl1r','rbr1r','wtl1','wbl1','ws1','wbr1','wtr1','rs2r','rbl2s','wtl2','bbl2','bs2','bbr2','wtr2','rbr2s','wbl3','bs3','wbr3'}
+}
+
+masterShipDB[10]={
+    name = 'FireSpray',
+    Hull = 6,
+    Shield = 4,
+    size = 'medium',
+    agi = 2,
+    XWS = 'firesprayclasspatrolcraft',
+    Fac = {[3]=true},
+    arcs = {'front', 'back'},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/firespray/firespray.obj',
+    moveSet = {'wtl1','bbl1','bs1','bbr1','wtr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3t','wbl3','bs3','wbr3','rtr3t','ws4','rk4'}
+}
+
 masterShipDB[11]={['name']='TIE/ln Fighter',['Hull']=6,['Shield']=0,['size']='small',['agi']=3,['XWS']='tielnfighter', ['Fac']={[1]=true,[2]=true}, ['arcs']={'front'},
                             ['moveSet']={'wtl1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk3','ws4','rk4','ws5'}}
 masterShipDB[12]={['name']='Y-Wing',['Hull']=6,['Shield']=2,['size']='small',['agi']=1,['XWS']='btla4ywing', ['Fac']={[1]=true,[3]=true}, ['arcs']={'front'},
@@ -635,14 +679,60 @@ masterPilotDB[36]={['name']='Ezra Bridger',['Faction']= 1,['ship_type']=32,['cos
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_36.png',['init']=3,['actSet']={'F','E','BR'}}
 masterPilotDB[37]={['name']='"Zeb" Orrelios',['Faction']= 1,['ship_type']=32,['cost']=32,['slot']={21, 4, 8, 14, 15},['Shield']=1,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_37.png',['init']=2,['actSet']={'F','E','BR'}}
-masterPilotDB[38]={['name']='Fenn Rau',['Faction']= 1,['ship_type']=8,['cost']=50,['slot']={21, 1, 8, 10, 14, 15},['Shield']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_38.png',['init']=6,['actSet']={'F'}}
-masterPilotDB[39]={['name']='Ezra Bridger',['Faction']= 1,['ship_type']=8,['cost']=42,['slot']={21, 17, 8, 10, 14, 15},['Shield']=1,['Force']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_39.png',['init']=3,['actSet']={'F'}}
-masterPilotDB[40]={['name']='"Zeb" Orrelios',['Faction']= 1,['ship_type']=8,['cost']=34,['slot']={21, 1, 8, 10, 14, 15},['Shield']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_40.png',['init']=2,['actSet']={'F'}}
-masterPilotDB[41]={['name']='AP-5',['Faction']= 1,['ship_type']=8,['cost']=32,['slot']={21, 1, 8, 10, 14, 15},['Shield']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_41.png',['init']=1,['actSet']={'C'}}
+
+masterPilotDB[38]={
+    name = 'Fenn Rau',
+    Faction = 1,
+    ship_type = 8,
+    cost = 50,
+    slot = {21, 1, 8, 10, 14, 15},
+    Shield = 1,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_38.png',
+    init = 6,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/Sheathipede/fennrau.png',
+    actSet = {'F'}
+}
+
+masterPilotDB[39]={
+    name = 'Ezra Bridger',
+    Faction = 1,
+    ship_type = 8,
+    cost = 42,
+    slot = {21, 17, 8, 10, 14, 15},
+    Shield = 1,
+    Force=1,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_39.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/Sheathipede/ezrabridger.png',
+    actSet = {'F'}
+}
+
+masterPilotDB[40]={
+    name = '"Zeb" Orrelios',
+    Faction = 1,
+    ship_type = 8,
+    cost = 34,
+    slot = {21, 1, 8, 10, 14, 15},
+    Shield = 1,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_40.png',
+    init = 2,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/Sheathipede/zeborrelios.png',
+    actSet = {'F'}
+}
+
+masterPilotDB[41]={
+    name = 'AP-5',
+    Faction = 1,
+    ship_type = 8,
+    cost = 32,
+    slot = {21, 1, 8, 10, 14, 15},
+    Shield = 1,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_41.png',
+    init = 1,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/Sheathipede/ap5.png',
+    actSet = {'C'}
+}
+
 masterPilotDB[42]={['name']='Jan Ors',['Faction']= 1,['ship_type']=34,['cost']=41,['slot']={21, 1, 8, 12, 14, 14, 15},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_42.png',['init']=5,['actSet']={'F','TL','B','Rot','BR'}}
 masterPilotDB[43]={['name']='Kyle Katarn',['Faction']= 1,['ship_type']=34,['cost']=38,['slot']={21, 1, 8, 12, 14, 14, 15},['Shield']=2,
@@ -1026,18 +1116,85 @@ masterPilotDB[147]={['name']='Rear Admiral Chiraneau',['Faction']= 2,['ship_type
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_147.png',['init']=5,['actSet']={'F','R','TL','Rot'}}
 masterPilotDB[148]={['name']='Patrol Leader',['Faction']= 2,['ship_type']=28,['cost']=67,['slot']={21, 5, 8, 8, 8, 16, 12, 14, 15},['Shield']=4,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_148.png',['init']=2,['actSet']={'F','R','TL','Rot'}}
-masterPilotDB[149]={['name']='Boba Fett',['Faction']= 3,['ship_type']=10,['cost']=85,['slot']={21, 1, 3, 6, 8, 12, 13, 14, 15},['Shield']=4,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_149.png',['init']=5,['actSet']={'F','R','TL','B'}}
-masterPilotDB[150]={['name']='Emon Azzameen',['Faction']= 3,['ship_type']=10,['cost']=71,['slot']={21, 1, 3, 6, 8, 12, 13, 14, 15},['Shield']=4,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_150.png',['init']=4,['actSet']={'F','R','TL','B'}}
-masterPilotDB[151]={['name']='Kath Scarlet',['Faction']= 3,['ship_type']=10,['cost']=72,['slot']={21, 1, 3, 6, 8, 12, 13, 14, 15},['Shield']=4,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_151.png',['init']=4,['actSet']={'F','R','TL','B'}}
-masterPilotDB[152]={['name']='Koshka Frost',['Faction']= 3,['ship_type']=10,['cost']=70,['slot']={21, 1, 3, 6, 8, 12, 13, 14, 15},['Shield']=4,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_152.png',['init']=3,['actSet']={'F','R','TL','B'}}
-masterPilotDB[153]={['name']='Krassis Trelix',['Faction']= 3,['ship_type']=10,['cost']=65,['slot']={21, 1, 3, 6, 8, 12, 13, 14, 15},['Shield']=4,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_153.png',['init']=3,['actSet']={'F','R','TL','B'}}
-masterPilotDB[154]={['name']='Bounty Hunter',['Faction']= 3,['ship_type']=10,['cost']=62,['slot']={21, 3, 6, 8, 12, 13, 14, 15},['Shield']=4,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_154.png',['init']=2,['actSet']={'F','R','TL','B'}}
+
+masterPilotDB[149]={
+    name = 'Boba Fett',
+    Faction = 3,
+    ship_type = 10,
+    cost = 85,
+    slot = {21, 1, 3, 6, 8, 12, 13, 14, 15},
+    Shield = 4,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_149.png',
+    init = 5,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/Firespray/bobafett.png',
+    actSet = {'F','R','TL','B'}
+}
+
+masterPilotDB[150]={
+    name = 'Emon Azzameen',
+    Faction = 3,
+    ship_type = 10,
+    cost = 71,
+    slot = {21, 1, 3, 6, 8, 12, 13, 14, 15},
+    Shield = 4,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_150.png',
+    init = 4,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/Firespray/emonazzameen.png',
+    actSet = {'F','R','TL','B'}
+}
+
+masterPilotDB[151]={
+    name = 'Kath Scarlet',
+    Faction = 3,
+    ship_type = 10,
+    cost = 72,
+    slot = {21, 1, 3, 6, 8, 12, 13, 14, 15},
+    Shield = 4,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_151.png',
+    init = 4,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/Firespray/kathscarlet.png',
+    actSet = {'F','R','TL','B'}
+}
+
+masterPilotDB[152]={
+    name = 'Koshka Frost',
+    Faction = 3,
+    ship_type = 10,
+    cost = 70,
+    slot = {21, 1, 3, 6, 8, 12, 13, 14, 15},
+    Shield = 4,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_152.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/Firespray/koshkafrost.png',
+    actSet = {'F','R','TL','B'}
+}
+
+masterPilotDB[153]={
+    name = 'Krassis Trelix',
+    Faction = 3,
+    ship_type = 10,
+    cost = 65,
+    slot = {21, 1, 3, 6, 8, 12, 13, 14, 15},
+    Shield = 4,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_153.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/Firespray/krassistrelix.png',
+    actSet = {'F','R','TL','B'}
+}
+
+masterPilotDB[154]={
+    name = 'Bounty Hunter',
+    Faction = 3,
+    ship_type = 10,
+    cost = 62,
+    slot = {21, 3, 6, 8, 12, 13, 14, 15},
+    Shield = 4,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_154.png',
+    init = 2,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/Firespray/bountyhunter.png',
+    actSet = {'F','R','TL','B'}
+}
+
 masterPilotDB[155]={['name']='Fenn Rau',['Faction']= 3,['ship_type']=36,['cost']=68,['slot']={21, 1, 5},['Shield']=0,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_155.png',['init']=6,['actSet']={'F','TL','B','BR'}}
 masterPilotDB[156]={['name']='Old Teroch',['Faction']= 3,['ship_type']=36,['cost']=56,['slot']={21, 1, 5},['Shield']=0,
@@ -1050,14 +1207,58 @@ masterPilotDB[159]={['name']='Skull Squadron Pilot',['Faction']= 3,['ship_type']
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_159.png',['init']=4,['actSet']={'F','TL','B','BR'}}
 masterPilotDB[160]={['name']='Zealous Recruit',['Faction']= 3,['ship_type']=36,['cost']=41,['slot']={21, 5},['Shield']=0,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_160.png',['init']=1,['actSet']={'F','TL','B','BR'}}
-masterPilotDB[161]={['name']='Constable Zuvio',['Faction']= 3,['ship_type']=9,['cost']=33,['slot']={21, 1, 19, 8, 12, 13, 14},['Shield']=0,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_161.png',['init']=4,['actSet']={'F','E','BR'}}
-masterPilotDB[162]={['name']='Sarco Plank',['Faction']= 3,['ship_type']=9,['cost']=32,['slot']={21, 19, 8, 12, 13, 14},['Shield']=0,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_162.png',['init']=2,['actSet']={'F','E','BR'}}
-masterPilotDB[163]={['name']='Unkar Plutt',['Faction']= 3,['ship_type']=9,['cost']=30,['slot']={21, 19, 8, 12, 13, 14},['Shield']=0,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_163.png',['init']=2,['actSet']={'F','E','BR'}}
-masterPilotDB[164]={['name']='Jakku Gunrunner',['Faction']= 3,['ship_type']=9,['cost']=30,['slot']={21, 19, 8, 12, 13, 14},['Shield']=0,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_164.png',['init']=1,['actSet']={'F','E','BR'}}
+
+masterPilotDB[161]={
+    name = 'Constable Zuvio',
+    Faction = 3,
+    ship_type = 9,
+    cost = 33,
+    slot = {21, 1, 19, 8, 12, 13, 14},
+    Shield = 0,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_161.png',
+    init = 4,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/quadrijet/constablezuvio.png',
+    actSet = {'F','E','BR'}
+}
+
+masterPilotDB[162]={
+    name = 'Sarco Plank',
+    Faction = 3,
+    ship_type = 9,
+    cost = 32,slot = {21, 19, 8, 12, 13, 14},
+    Shield = 0,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_162.png',
+    init = 2,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/quadrijet/sarcoplank.png',
+    actSet = {'F','E','BR'}
+}
+
+masterPilotDB[163]={
+    name = 'Unkar Plutt',
+    Faction = 3,
+    ship_type = 9,
+    cost = 30,
+    slot = {21, 19, 8, 12, 13, 14},
+    Shield = 0,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_163.png',
+    init = 2,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/quadrijet/unkarplutt.png',
+    actSet = {'F','E','BR'}
+}
+
+masterPilotDB[164]={
+    name = 'Jakku Gunrunner',
+    Faction = 3,
+    ship_type = 9,
+    cost = 30,
+    slot = {21, 19, 8, 12, 13, 14},
+    Shield = 0,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_164.png',
+    init = 1,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/quadrijet/jakkugunrunner.png',
+    actSet = {'F','E','BR'}
+}
+
 masterPilotDB[165]={['name']='Kavil',['Faction']= 3,['ship_type']=12,['cost']=43,['slot']={21, 1, 4, 5, 16, 10, 12, 13, 14},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_165.png',['init']=5,['actSet']={'F','TL','BR'}}
 masterPilotDB[166]={['name']='Drea Renthal',['Faction']= 3,['ship_type']=12,['cost']=49,['slot']={21, 1, 4, 5, 16, 10, 12, 13, 14},['Shield']=2,
@@ -1166,18 +1367,85 @@ masterPilotDB[189]={['name']='Tansarii Point Veteran',['Faction']= 3,['ship_type
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_189.png',['init']=3,['actSet']={'F','E','TL','BR'}}
 masterPilotDB[190]={['name']='Cartel Spacer',['Faction']= 3,['ship_type']=44,['cost']=25,['slot']={21, 14,99},['Shield']=1,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_190.png',['init']=1,['actSet']={'F','E','TL','BR'}}
-masterPilotDB[191]={['name']='Talonbane Cobra',['Faction']= 3,['ship_type']=7,['cost']=50,['slot']={21, 1, 6, 13, 13, 14, 14},['Shield']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_191.png',['init']=5,['actSet']={'F','TL','BR'}}
-masterPilotDB[192]={['name']='Graz',['Faction']= 3,['ship_type']=7,['cost']=46,['slot']={21, 1, 6, 13, 13, 14, 14},['Shield']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_192.png',['init']=4,['actSet']={'F','TL','BR'}}
-masterPilotDB[193]={['name']='Viktor Hel',['Faction']= 3,['ship_type']=7,['cost']=44,['slot']={21, 1, 6, 13, 13, 14, 14},['Shield']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_193.png',['init']=4,['actSet']={'F','TL','BR'}}
-masterPilotDB[194]={['name']='Captain Jostero',['Faction']= 3,['ship_type']=7,['cost']=42,['slot']={21, 6, 13, 13, 14, 14},['Shield']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_194.png',['init']=3,['actSet']={'F','TL','BR'}}
-masterPilotDB[195]={['name']='Black Sun Ace',['Faction']= 3,['ship_type']=7,['cost']=40,['slot']={21, 1, 6, 13, 13, 14, 14},['Shield']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_195.png',['init']=3,['actSet']={'F','TL','BR'}}
-masterPilotDB[196]={['name']='Cartel Marauder',['Faction']= 3,['ship_type']=7,['cost']=38,['slot']={21, 6, 13, 13, 14, 14},['Shield']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_196.png',['init']=2,['actSet']={'F','TL','BR'}}
+
+masterPilotDB[191]={
+    name = 'Talonbane Cobra',
+    Faction = 3,
+    ship_type = 7,
+    cost = 50,
+    slot = {21, 1, 6, 13, 13, 14, 14},
+    Shield = 1,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_191.png',
+    init = 5,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/Kihraxz/talonbanecobra.png',
+    actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[192]={
+    name = 'Graz',
+    Faction = 3,
+    ship_type = 7,
+    cost = 46,
+    slot = {21, 1, 6, 13, 13, 14, 14},
+    Shield = 1,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_192.png',
+    init = 4,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/Kihraxz/graz.png',
+    actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[193]={
+    name = 'Viktor Hel',
+    Faction = 3,
+    ship_type = 7,
+    cost = 44,
+    slot = {21, 1, 6, 13, 13, 14, 14},
+    Shield = 1,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_193.png',
+    init = 4,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/Kihraxz/viktorhel.png',
+    actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[194]={
+    name = 'Captain Jostero',
+    Faction = 3,
+    ship_type = 7,
+    cost = 42,
+    slot = {21, 6, 13, 13, 14, 14},
+    Shield = 1,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_194.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/Kihraxz/captainjostero.png',
+    actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[195]={
+    name = 'Black Sun Ace',
+    Faction = 3,
+    ship_type = 7,
+    cost = 40,
+    slot = {21, 1, 6, 13, 13, 14, 14},
+    Shield = 1,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_195.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/Kihraxz/blacksunace.png',
+    actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[196]={
+    name = 'Cartel Marauder',
+    Faction = 3,
+    ship_type = 7,
+    cost = 38,
+    slot = {21, 6, 13, 13, 14, 14},
+    Shield = 1,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_196.png',
+    init = 2,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/Kihraxz/cartelmarauder.png',
+    actSet = {'F','TL','BR'}
+}
+
 masterPilotDB[197]={['name']='IG-88A',['Faction']= 3,['ship_type']=21,['cost']=67,['slot']={21, 1, 2, 3, 3, 12, 13, 14, 15},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_197.png',['init']=4,['actSet']={'C','E','TL','B'}}
 masterPilotDB[198]={['name']='IG-88B',['Faction']= 3,['ship_type']=21,['cost']=63,['slot']={21, 1, 2, 3, 3, 12, 13, 14, 15},['Shield']=3,
