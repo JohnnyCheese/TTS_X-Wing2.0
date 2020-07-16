@@ -211,7 +211,7 @@ masterShipDB[3]={
     XWS = 'starviperclassattackplatform',
     Fac = {[3]=true},
     arcs = {'front'},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/starviper/starviper.obj',
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/S&V_starviper/starviper.obj',
     moveSet = {'wtl1','bbl1','bs1','bbr1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','rbl3s','wbl3','bs3','wbr3','rbr3s','ws4' }
 }
 
@@ -224,7 +224,7 @@ masterShipDB[4]={
     XWS = 'scurrgh6bomber',
     Fac = {[3]=true},
     arcs = {'front'},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/scurrg/scurrg.obj',
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/S&V_scurrg/scurrg.obj',
     moveSet = {'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3t','rtl3','wbl3','ws3','wbr3','rtr3','rtr3t','rs4'}
 }
 
@@ -251,7 +251,7 @@ masterShipDB[6]={
     XWS = 'auzituckgunship',
     Fac = {[1]=true},
     arcs = {'fullfront'},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/auzituk/auzituk.obj',
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_auzituk/auzituk.obj',
     moveSet = {'bbl1', 'bs1', 'bbr1','wtl2','wbl2','bs2','wbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rs0'}
 }
 
@@ -264,7 +264,7 @@ masterShipDB[7]={
     XWS = 'kihraxzfighter',
     Fac = {[3]=true},
     arcs = {'front'},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/khiraxz/khiraxz.obj',
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/S&V_khiraxz/khiraxz.obj',
     moveSet = {'wtl1','bbl1','bbr1','wtr1','rtl2t','wtl2','bbl2','bs2','bbr2','wtr2','rtr2t','wbl3','bs3','wbr3','ws4','rk4'}
 }
 
@@ -277,7 +277,7 @@ masterShipDB[8]={
     XWS = 'sheathipedeclassshuttle',
     Fac = {[1]=true},
     arcs = {'front', 'back'},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/sheathipede/sheathipede.obj',
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_sheathipede/sheathipede.obj',
     moveSet = {'rs1r','wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','bs3','wbr3','rtr3','rk3','rs4'}
 }
 
@@ -290,7 +290,7 @@ masterShipDB[9]={
     XWS = 'quadrijettransferspacetug',
     Fac = {[3]=true},
     arcs = {'front'},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/quadjumper/quadjumper.obj',
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/S&V_quadjumper/quadjumper.obj',
     moveSet = {'rbl1r','rbr1r','wtl1','wbl1','ws1','wbr1','wtr1','rs2r','rbl2s','wtl2','bbl2','bs2','bbr2','wtr2','rbr2s','wbl3','bs3','wbr3'}
 }
 
@@ -303,7 +303,7 @@ masterShipDB[10]={
     XWS = 'firesprayclasspatrolcraft',
     Fac = {[3]=true},
     arcs = {'front', 'back'},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/firespray/firespray.obj',
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/S&V_firespray/firespray.obj',
     moveSet = {'wtl1','bbl1','bs1','bbr1','wtr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3t','wbl3','bs3','wbr3','rtr3t','ws4','rk4'}
 }
 
@@ -396,14 +396,57 @@ masterShipDB[47]={['name']='Customized YT-1300',['Hull']=8,['Shield']=3,['dTurre
                             ['Docking']=true,['moveSet']={'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rbl3s','rbr3s','ws4','rk4'}}
 masterShipDB[48]={['name']='Escape Craft',['Hull']=2,['Shield']=2,['size']='small',['agi']=2,['XWS']='escapecraft', ['Fac']={[3]=true}, ['arcs']={'front'},
                             ['moveSet']={'bbl1','bs1','bbr1','rtl2','wbl2','bs2','wbr2','rtr2','wbl3','ws3','wbr3','rk3','rs0'}}
-masterShipDB[49]={['name']='TIE/fo FO',['Hull']=3,['Shield']=1,['size']='small',['agi']=3,['XWS']='', ['Fac']={[5]=true}, ['arcs']={'front'},
-                            ['moveSet']={'wtl1','wtr1','rbl2s','btl2','bbl2','bs2','bbr2','btr2','rbr2s','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk4','ws5'}}
-masterShipDB[50]={['name']='TIE/sf SF',['Hull']=3,['Shield']=3,['sTurret']=1,['size']='small',['agi']=2,['XWS']='', ['Fac']={[5]=true}, ['arcs']={'front', 'back'},
-                            ['moveSet']={'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','bbl2','bs2','bbr2','wtr2','rbl3s','wtl3','wbl3','bs3','wbr3','wtr3','rbr3s','ws4','ws5'}}
-masterShipDB[51]={['name']='Upsilon Class Shuttle',['Hull']=6,['Shield']=6,['size']='large',['agi']=1,['XWS']='', ['Fac']={[5]=true}, ['arcs']={'front'},
-                            ['moveSet']={'rtl1','wbl1','bs1','wbr1','rtr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs0'}}
-masterShipDB[52]={['name']='TIE Silencer',['Hull']=4,['Shield']=2,['size']='small',['agi']=3,['XWS']='', ['Fac']={[5]=true}, ['arcs']={'front'},
-                            ['moveSet']={'wtl1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rtl3t','wtl3','wbl3','bs3','wbr3','wtr3','rtr3t','bs4','rk4','bs5'}}
+masterShipDB[49]={
+	name = 'TIE/fo FO',
+	Hull = 3,
+	Shield = 1,
+	size = 'small',
+	agi = 3,
+	XWS = 'tiefofighter', 
+	Fac = {[5]=true}, 
+	arcs' = {'front'},
+	moveSet' = {'wtl1','wtr1','rbl2s','btl2','bbl2','bs2','bbr2','btr2','rbr2s','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk4','ws5'},
+	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/assets/ships/Small/FO_Tie_FO/Tie_FO.obj'
+}
+	 
+masterShipDB[50]={
+	name = 'TIE/sf SF',
+	Hull = 3,
+	Shield = 3,
+	Turret = 1,
+	size = 'small',
+	agi = 2,
+	XWS = 'tiesffighter', 
+	Fac = {[5]=true}, 
+	arcs = {'front', 'back'},
+	moveSet = {'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','bbl2','bs2','bbr2','wtr2','rbl3s','wtl3','wbl3','bs3','wbr3','wtr3','rbr3s','ws4','ws5'},
+	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/assets/ships/Small/FO_Tie_SF/Tie_SF.obj'
+}
+masterShipDB[51]={
+	name = 'Upsilon Class Shuttle',
+	Hull = 6,
+	Shield = 6,
+	size = 'large',
+	agi = 1,
+	XWS = 'upsilonclasscommandshuttle', 
+	Fac = {[5]=true}, 
+	arcs = {'front'},
+	moveSet = {'rtl1','wbl1','bs1','wbr1','rtr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs0'}
+	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/assets/ships/Large/FO_Upsilon_Shuttle/Upsilon_Shuttle.obj'
+}
+masterShipDB[52]={
+	name = 'TIE Silencer',
+	Hull = 4,
+	Shield = 2,
+	size = 'small',
+	agi = 3,
+	XWS = 'tievnsilencer',
+	Fac = {[5]=true},
+	arcs = {'front'},
+	moveSet={'wtl1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rtl3t','wtl3','wbl3','bs3','wbr3','wtr3','rtr3t','bs4','rk4','bs5'},
+	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/assets/ships/Small/FO_Tie_VN/Tie_VN'
+}
+
 masterShipDB[53]={['name']='T-70 X-Wing',['Hull']=4,['Shield']=3,['size']='small',['agi']=2,['XWS']='', ['Fac']={[4]=true}, ['arcs']={'front'},
                             ['moveSet']={'bbl1','bs1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3t','wtl3','wbl3','bs3','wbr3','wtr3','rtr3t','ws4','rk4'}}
 
@@ -416,7 +459,7 @@ masterShipDB[54]={
     agi = 3,
     Fac = {[4]=true},
     arcs = {'front', 'back'},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/res_awing/res_awing.obj',
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_awing/res_awing.obj',
     moveSet = {'wtl1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rbl3s','wtl3','bbl3','bs3','bbr3','wtr3','rbr3s','bs4','bs5','rk5'}}
 
 masterShipDB[55]={['name']='MG-100 StarFortress',['Hull']=9, ['Shield']=3,['dTurret']=1,['size']='large',['agi']=1,['XWS']='', ['Fac']={[4]=true}, ['arcs']={'front','doubleturret'},
@@ -427,10 +470,30 @@ masterShipDB[57]={['name']='Scavenged YT-1300',['Hull']=8,['Shield']=3,['dTurret
                             ['moveSet']={'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','ws3','wbr3','wtr3','rbl3s','rbr3s','rs4'}}
 
 --w3ship
-masterShipDB[61]={['name']='Delta-7',['Hull']=3,['Shield']=1,['size']='small',['agi']=3,['XWS']='', ['Fac']={[6]=true}, ['arcs']={'front'},
-                            ['moveSet']={'wtl1','bbl1','bbr1','wtr1','rbl2s','wtl2','bbl2','bs2','bbr2','wtr2','rbr2s','wbl3','bs3','wbr3','ws4','rk4','ws5','rk5'}}
-masterShipDB[62]={['name']='V-19',['Hull']=5,['Shield']=0,['size']='small',['agi']=2,['XWS']='', ['Fac']={[6]=true}, ['arcs']={'front'},
-                            ['moveSet']={'rtl1','bbl1','bs1','bbr1','rtr1','rtl2t','wtl2','wbl2','bs2','wbr2','wtr2','rtr2t','rbl3','bs3','rbr3','rk3','ws4'}}
+masterShipDB[61]={
+	name = 'Delta-7',
+	Hull = 3,
+	Shield = 1,
+	size = 'small', 
+	agi = 3, 
+	XWS = '', 
+	Fac = {[6]=true}, 
+	arcs = {'front'},
+	moveSet={'wtl1','bbl1','bbr1','wtr1','rbl2s','wtl2','bbl2','bs2','bbr2','wtr2','rbr2s','wbl3','bs3','wbr3','ws4','rk4','ws5','rk5'},
+	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/Jedi_Delta7.obj'
+}
+masterShipDB[62]={
+	name = 'V-19', 
+	Hull = 5, 
+	Shield = 0, 
+	size = 'small', 
+	agi = 2, 
+	XWS = '', 
+	Fac = {[6]=true}, 
+	arcs = {'front'},
+	moveSet ={'rtl1','bbl1','bs1','bbr1','rtr1','rtl2t','wtl2','wbl2','bs2','wbr2','wtr2','rtr2t','rbl3','bs3','rbr3','rk3','ws4'},
+	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_V-19_Torrent/V-19_Torrent.obj'
+}
 
 
 masterShipDB[59]={['name']='Vulture-Class Droid',['Hull']=3,['Shield']=0,['size']='small',['agi']=2,['XWS']='', ['Fac']={[7]=true}, ['arcs']={'front'},
@@ -449,7 +512,7 @@ masterShipDB[64]={
     agi = 1,
     Fac = {[4]=true},
     arcs = {'front'},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/transport/transport.obj',
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_transport/transport.obj',
     moveSet = {'rbl1r','rbr1r','rs0','rbl1r','rbr1r','rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rbl3','ws3','rbr3','rs4'}
 }
 
@@ -461,17 +524,38 @@ masterShipDB[65]={
     agi = 2,
     Fac = {[4]=true},
     arcs = {'front'},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/transport_pod/transport_pod.obj',
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_transport_pod/transport_pod.obj',
     moveSet = {'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rbl3','ws3','rbr3','rk3','rs4'}
 }
 
-masterShipDB[63]={['name']='N-1 StarFighter',['Hull']=3,['Shield']=2,['size']='small',['agi']=2,['XWS']='', ['Fac']={[6]=true}, ['arcs']={'front'},
-                            ['moveSet']={'wbl1','ws1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','bbl3','bs3','bbr3','wtr3','rtl3t','rtr3t','ws4','ws5'}}
+masterShipDB[63]={ 
+	name ='N-1 StarFighter', 
+	Hull = 3, 
+	Shield = 2, 
+	size = 'small', 
+	agi = 2, 
+	XWS = '',  
+	Fac = {[6]=true}, 
+	arcs = {'front'},
+	moveSet = {'wbl1','ws1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','bbl3','bs3','bbr3','wtr3','rtl3t','rtr3t','ws4','ws5'},
+	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_N1/Naboo_Royal_N1.obj'
+}
+
 masterShipDB[66]={['name']='Hyena-Class Droid Bomber',['Hull']=5,['Shield']=0,['size']='small',['agi']=2,['XWS']='', ['Fac']={[7]=true}, ['arcs']={'front'},
                             ['moveSet']={'wtl1','rbl1','ws1','rbr1','wtr1','btl2','wbl2','bs2','wbr2','btr2','rk2','rtl2t','rtr2t','wtl3','bs3','wtr3','ws4','rs5'}}
 
-masterShipDB[68]={['name']='BTL-B Y-Wing',['Hull']=5,['Shield']=3,['size']='small',['agi']=1,['XWS']='', ['Fac']={[6]=true}, ['arcs']={'front'},
-                            ['moveSet']={'wbl1','bs1','wbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs4','rk4'}}
+masterShipDB[68]={
+	name = 'BTL-B Y-Wing', 
+	Hull = 5, 
+	Shield = 3, 
+	size = 'small', 
+	agi = 1, 
+	XWS = '', 
+	Fac = {[6]=true}, 
+	arcs = {'front'}, 
+	moveSet = {'wbl1','bs1','wbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs4','rk4'},
+	mesh = ''
+}
 masterShipDB[67]={['name']='Nantex-Class StarFighter',['Hull']=4,['Shield']=0,['sTurret']=1,['size']='small',['agi']=3,['XWS']='', ['Fac']={[7]=true}, ['arcs']={'left', 'front', 'right', 'bullseye'},
                             ['moveSet']={'wtl1','bbl1','bbr1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','bbl3','bs3','bbr3','wtr3','rbl3s','rbr3s','ws4','ws5','rk5'}}
 
@@ -488,7 +572,7 @@ masterShipDB[71]={
     XWS = '',
     Fac = {[5]=true},
     arcs = {'front'},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/Tie_Ba/TieBa.obj',
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_Tie_Ba/TieBa.obj',
     moveSet = {'btl1','bbl1','bbr1','btr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rbl2s','rbr2s','bs4','ws5','rk5'}
 }
 
@@ -1548,48 +1632,70 @@ masterPilotDB[228]={['name']='L3-37',['Faction']= 3,['ship_type']=48,['cost']=26
 masterPilotDB[229]={['name']='Autopilot Drone',['Faction']= 3,['ship_type']=48,['cost']=12,['slot']={21, 0},['Shield']=2,['Charge']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_229.png',['init']=1,['actSet']={'C','BR'}}
 
-masterPilotDB[397]={['name']='"Midnight"',['Faction']=5,['ship_type']=49,['cost']=42,['slot']={21, 1,19,14},['Shield']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/c7994885b38757f92bdf3a98c37b3c96.png',['init']=6,['actSet']={'F','TL','E','BR'}}
-masterPilotDB[398]={['name']='"Scorch"',['Faction']=5,['ship_type']=49,['cost']=33,['slot']={21, 1,19,14},['Shield']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/9dd11d408bb869cb947663fc29622833.png',['init']=4,['actSet']={'F','TL','E','BR'}}
+masterPilotDB[397]={
+name = '"Midnight"',
+Faction = 5, 
+ship_type = 49, 
+cost =42, 
+slot = {21, 1,19,14}, 
+Shield =1,
+card='http://sb-cdn.fantasyflightgames.com/card_images/en/c7994885b38757f92bdf3a98c37b3c96.png'
+init = 6,
+texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/assets/ships/Small/FO_Tie_FO/Midnight.png',
+actSet = {'F','TL','E','BR'}
+}
+masterPilotDB[398]={
+name = '"Scorch"', 
+Faction = 5, 
+ship_type = 49, 
+cost =33 , 
+slot = {21, 1,19,14}, 
+Shield = 1,
+card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/9dd11d408bb869cb947663fc29622833.png', 
+init = 4, 
+texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/assets/ships/Small/FO_Tie_FO/Scorch.png', 
+actSet = {'F','TL','E','BR'}
+}
 masterPilotDB[399]={['name']='"Static"',['Faction']=5,['ship_type']=49,['cost']=33,['slot']={21, 1,19,14},['Shield']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/2481fe5d98026e086a901d83dbe87018.png',['init']=4,['actSet']={'F','TL','E','BR'}}
+                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/2481fe5d98026e086a901d83dbe87018.png',['init']=4,texture = '',['actSet']={'F','TL','E','BR'}}
 masterPilotDB[400]={['name']='"Longshot"',['Faction']=5,['ship_type']=49,['cost']=31,['slot']={21, 1,19,14},['Shield']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/d0e698f59696c15b60d7eaa1e2d51eeb.png',['init']=3,['actSet']={'F','TL','E','BR'}}
+                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/d0e698f59696c15b60d7eaa1e2d51eeb.png',['init']=3,texture = '',['actSet']={'F','TL','E','BR'}}
 masterPilotDB[401]={['name']='"Muse"',['Faction']=5,['ship_type']=49,['cost']=30,['slot']={21, 1,19,14},['Shield']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/7de4e91de0906eb548bfe3a08a1b6abe.png',['init']=2,['actSet']={'F','TL','E','BR'}}
+                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/7de4e91de0906eb548bfe3a08a1b6abe.png',['init']=2,texture = '',['actSet']={'F','TL','E','BR'}}
 masterPilotDB[402]={['name']='"Null"',['Faction']=5,['ship_type']=49,['cost']=30,['slot']={21, 19,14},['Shield']=1,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/79a9d780d3540647af1e057113869294.png',['init']=0,['actSet']={'F','TL','E','BR'}}
 masterPilotDB[403]={['name']='Omega Squadron Ace',['Faction']=5,['ship_type']=49,['cost']=28,['slot']={21, 1,19,14},['Shield']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/97e72d0f5dc8c2dd21a355e3258f37dd.png',['init']=3,['actSet']={'F','TL','E','BR'}}
+                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/97e72d0f5dc8c2dd21a355e3258f37dd.png',['init']=3,texture = '',['actSet']={'F','TL','E','BR'}}
 masterPilotDB[404]={['name']='Zeta Squadron Pilot',['Faction']=5,['ship_type']=49,['cost']=26,['slot']={21, 19,14},['Shield']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/be1062b6a7a8e4644223146342990a02.png',['init']=2,['actSet']={'F','TL','E','BR'}}
+                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/be1062b6a7a8e4644223146342990a02.png',['init']=2,texture = '',['actSet']={'F','TL','E','BR'}}
 masterPilotDB[405]={['name']='Epsilon Squadron Cadet',['Faction']=5,['ship_type']=49,['cost']=25,['slot']={21, 19,14},['Shield']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/e911cd18f04225bbd36c48114b56f3cc.png',['init']=1,['actSet']={'F','TL','E','BR'}}
+                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/e911cd18f04225bbd36c48114b56f3cc.png',['init']=1,texture = '',['actSet']={'F','TL','E','BR'}}
 masterPilotDB[406]={['name']='"Quickdraw"',['Faction']=5,['ship_type']=50,['cost']=45,['slot']={21, 1,2,19,6,16,14},['Shield']=3,['Charge']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/d038dadd7a62bbe2de89d3866e1a3639.png',['init']=6,['actSet']={'F','TL','E','BR','Rot'}}
+                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/d038dadd7a62bbe2de89d3866e1a3639.png',['init']=6,texture = '',['actSet']={'F','TL','E','BR','Rot'}}
 masterPilotDB[407]={['name']='"Backdraft"',['Faction']=5,['ship_type']=50,['cost']=39,['slot']={21, 1,2,19,6,16,14},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/317cc5350980277f1d389ed618030d85.png',['init']=4,['actSet']={'F','TL','E','BR','Rot'}}
+                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/317cc5350980277f1d389ed618030d85.png',['init']=4,texture = '',['actSet']={'F','TL','E','BR','Rot'}}
 masterPilotDB[408]={['name']='Omega Squadron Expert',['Faction']=5,['ship_type']=50,['cost']=34,['slot']={21, 1,2,19,6,16,14},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/784d00f653ff7cd58cb634c7a59e47c1.png',['init']=3,['actSet']={'F','TL','E','BR','Rot'}}
+                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/784d00f653ff7cd58cb634c7a59e47c1.png',['init']=3,texture = '',['actSet']={'F','TL','E','BR','Rot'}}
 masterPilotDB[409]={['name']='Zeta Squadron Survivor',['Faction']=5,['ship_type']=50,['cost']=32,['slot']={21, 2,19,6,16,14},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/848db1993150bda19217e2c14b3c3df6.png',['init']=2,['actSet']={'F','TL','E','BR','Rot'}}
+                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/848db1993150bda19217e2c14b3c3df6.png',['init']=2,texture = '',['actSet']={'F','TL','E','BR','Rot'}}
 masterPilotDB[410]={['name']='Major Stridan',['Faction']=5,['ship_type']=51,['cost']=61,['slot']={21, 2,19,19,3,8,8,8,14},['Shield']=6,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/8420beca035dedf1596c7c99255fb2e7.png',['init']=4,['actSet']={'F','TL','R'}}
+                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/8420beca035dedf1596c7c99255fb2e7.png',['init']=4,texture = '',['actSet']={'F','TL','R'}}
 masterPilotDB[411]={['name']='Lieutenant Tavson',['Faction']=5,['ship_type']=51,['cost']=64,['slot']={21, 2,19,19,3,8,8,8,14},['Shield']=6,['Charge']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/20fbf3ed79c50d2082cdb44caac26064.png',['init']=3,['actSet']={'F','TL','R'}}
+                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/20fbf3ed79c50d2082cdb44caac26064.png',['init']=3,texture = '',['actSet']={'F','TL','R'}}
 masterPilotDB[412]={['name']='Lieutenant Dormitz',['Faction']=5,['ship_type']=51,['cost']=70,['slot']={21, 2,19,19,3,8,8,8,14},['Shield']=6,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/e4acd80da2c39e25d4f999cb7c314fe5.png',['init']=2,['actSet']={'F','TL','R'}}
+                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/e4acd80da2c39e25d4f999cb7c314fe5.png',['init']=2,texture = '',['actSet']={'F','TL','R'}}
 masterPilotDB[413]={['name']='Starkiller Base Pilot',['Faction']=5,['ship_type']=51,['cost']=58,['slot']={21, 2,19,19,3,8,8,8,14},['Shield']=6,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/41f6d936f14a058ed1c5e6ac12de37c2.png',['init']=2,['actSet']={'F','TL','R'}}
+                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/41f6d936f14a058ed1c5e6ac12de37c2.png',['init']=2,texture = '',['actSet']={'F','TL','R'}}
 masterPilotDB[414]={['name']='Kylo Ren',['Condition']="I'll Show You the Dark Side",['Faction']=5,['ship_type']=52,['cost']=76,['slot']={21, 17,19,5,6},['Shield']=2,['Force']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/71dbde337b9ff5aab897781d40d8f653.png',['init']=5,['actSet']={'F','TL','BR','B'}}
+                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/71dbde337b9ff5aab897781d40d8f653.png',['init']=5,texture = '',['actSet']={'F','TL','BR','B'}}
 masterPilotDB[415]={['name']='"Blackout"',['Faction']=5,['ship_type']=52,['cost']=63,['slot']={21, 1,19,5,6},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/c5659b210e13b4e11fdd5f1396f2847c.png',['init']=5,['actSet']={'F','TL','BR','B'}}
+                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/c5659b210e13b4e11fdd5f1396f2847c.png',['init']=5,texture = '',['actSet']={'F','TL','BR','B'}}
 masterPilotDB[416]={['name']='First Order Test Pilot',['Faction']=5,['ship_type']=52,['cost']=56,['slot']={21, 1,19,5,6},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/568abbcd68bb174173da4e7ee92051e3.png',['init']=4,['actSet']={'F','TL','BR','B'}}
+                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/568abbcd68bb174173da4e7ee92051e3.png',['init']=4,texture = '',['actSet']={'F','TL','BR','B'}}
 masterPilotDB[417]={['name']='Sienar-Jaemus Engineer',['Faction']=5,['ship_type']=52,['cost']=51,['slot']={21, 19,5,6},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/8f7c4680fbc001169baf6538ab259e9b.png',['init']=1,['actSet']={'F','TL','BR','B'}}
+                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/8f7c4680fbc001169baf6538ab259e9b.png',['init']=1,texture = '',['actSet']={'F','TL','BR','B'}}
+
+
 masterPilotDB[418]={['name']='Poe Dameron',['Faction']=4,['ship_type']=53,['cost']=68,['slot']={21, 1,19,14,18,15,10,99},['Shield']=3,['Charge']=1,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/14c504c0815213a66010c4013d9296ee.png',['init']=6,['actSet']={'F','TL','B'}}
 masterPilotDB[419]={['name']='Ello Asty',['Faction']=4,['ship_type']=53,['cost']=55,['slot']={21, 1,19,14,18,15,10,99},['Shield']=3,
