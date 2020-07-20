@@ -6012,6 +6012,24 @@ function onObjectSpawned(obj)
     obj.hide_when_face_down = false
 end
 
+-- Positions for arc indicator tokens around the ship mounts
+-- Used so arc indicators can snap to the relevant positions
+mountPositions = {
+    ['small'] = {
+        ['main'] = {0, 0}
+    },
+    ['medium'] = {
+        ['main'] = {0, 0}
+    },
+    ['large'] = {
+        ['main'] = {0, 0}
+    },
+    ['huge'] = {
+        ['front'] = {0, -2.63},
+        ['rear'] = {0, 2.63}
+    }
+}
+
 -- Save and load ship data lua scriptState
 saveAndLoadShipStateLua = [[
 
@@ -6113,6 +6131,27 @@ function RemoveArcIndicator(args)
     end
 end
 
+function GetAvailableMountPositions(args)
+    local mount_positions = Global.getTable('mountPositions')[self.getTable("Data").Size]
+
+    for location, _ in pairs(assigned_arc_indicators) do
+        mount_positions[location] = nil
+    end
+
+    local ship_position = self.getPosition()
+    local ship_rotation = math.rad(self.GetRotation().y) * -1
+    for location, position in pairs(mount_positions) do
+        local transformed_position = {
+            ship_position.x + math.cos(ship_rotation) * position[1] - math.sin(ship_rotation) * position[2],
+            ship_position.y,
+            ship_position.z + math.sin(ship_rotation) * position[1] + math.cos(ship_rotation) * position[2]
+        }
+        mount_positions[location] = transformed_position
+    end
+
+    return mount_positions
+end
+
 function GetFixedArcs(args)
     local fixed_arcs = {}
     for _, arc in pairs(self.getTable("Data").arcs) do
@@ -6170,7 +6209,7 @@ end
 
 function SetTurretArc(args)
     local turret_position = args.turret or 'main'
-    assigned_arc_indicators[turret_position].call('setArc', {arc=args.arc})
+    assigned_arc_indicators[turret_position].call('setArc', {arc=args.arc, snap=args.snap})
 end
 
 -- Save self state
