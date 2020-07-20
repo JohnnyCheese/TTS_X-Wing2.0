@@ -1401,7 +1401,7 @@ AIModule.condition_functions['hasShot'] = function(ship, target, probe, argument
 
         local original_position_rotation = AIModule.GetPositionAndRotation(ship)
         AIModule.ApplyProbe(ship, probe)
-        targets = ArcCheck.GetTargetsInRelationToArc(ship, ship.getTable('Data').arcs) -- TODO: turrets won't work yet.
+        targets = ArcCheck.GetTargetsInRelationToArc(ship, ship.call('GetAllArcs'))
         targets = table.sieve(targets, AIModule.FilterInArc)
         targets = table.sieve(targets, AIModule.FilterInRange)
 
@@ -1423,7 +1423,7 @@ AIModule.condition_functions['inTargetsArc'] = function(ship, target, probe, arg
         AIModule.ApplyProbe(ship, probe)
 
         probe.in_targets_arc = false
-        targets = ArcCheck.GetTargetsInRelationToArc(target, target.getTable('Data').arcs, {ship}) -- TODO: turrets won't work yet
+        targets = ArcCheck.GetTargetsInRelationToArc(target, ship.call('GetAllArcs'), {ship})
         targets = table.sieve(targets, AIModule.FilterInArc)
         targets = table.sieve(targets, AIModule.FilterInRange)
         for _, target_info in pairs(targets) do
@@ -1538,7 +1538,7 @@ AIModule.condition_functions['inEnemyArc'] = function(ship, target, probe, argum
         -- within their arc. For each ship that can fire at us we increment the
         -- number of arcs.
         for _, enemy_ship in pairs(enemies_in_arc) do
-            local enemy_arc = ArcCheck.GetTargetsInRelationToArc(enemy_ship['ship'], enemy_ship['ship'].getTable('Data').arcs, {ship}) -- TODO: turrets won't work yet
+            local enemy_arc = ArcCheck.GetTargetsInRelationToArc(enemy_ship['ship'], enemy_ship['ship'].call('GetAllArcs'), {ship})
             enemy_arc = table.sieve(enemy_arc, AIModule.FilterInArc)
             enemy_arc = table.sieve(enemy_arc, AIModule.FilterInRange)
             for _ in pairs(enemy_arc) do
