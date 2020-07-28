@@ -320,8 +320,19 @@ masterShipDB[11]={
     moveSet = {'wtl1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk3','ws4','rk4','ws5'}
 }
 
-masterShipDB[12]={['name']='Y-Wing',['Hull']=6,['Shield']=2,['size']='small',['agi']=1,['XWS']='btla4ywing', ['Fac']={[1]=true,[3]=true}, ['arcs']={'front'},
-                            ['moveSet']={'bbl1', 'bs1', 'bbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs4','rk4'}}
+masterShipDB[12]={
+    name = 'Y-Wing',
+    Hull = 6,
+    Shield = 2,
+    size = 'small',
+    agi = 1,
+    XWS = 'btla4ywing',
+    Fac = {[1]=true,[3]=true},
+    arcs = {'front'},
+    mesh = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/Small/btla4_ywing/btla4_ywing.obj',
+    moveSet = {'bbl1', 'bs1', 'bbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs4','rk4'}
+}
+
 masterShipDB[13]={['name']='TIE Advanced x1',['Hull']=3,['Shield']=2,['size']='small',['agi']=3,['XWS']='tieadvancedx1', ['Fac']={[2]=true}, ['arcs']={'front'},
                             ['moveSet']={'bbl1','ws1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3t','wtl3','wbl3','bs3','wbr3','wtr3','rtr3t','ws4','rk4','ws5'}}
 masterShipDB[14]={['name']='Alpha Class StarWing',['Hull']=4,['Shield']=3,['size']='small',['agi']=2,['XWS']='alphaclassstarwing', ['Fac']={[2]=true}, ['arcs']={'front'},
@@ -690,18 +701,85 @@ masterPilotDB[11]={['name']='Blue Squadron Escort',['Faction']= 1,['ship_type']=
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_11.png',['init']=2,['actSet']={'F','TL', 'BR'}}
 masterPilotDB[12]={['name']='Cavern Angels Zealot',['Faction']= 1,['ship_type']=33,['cost']=39,['slot']={21, 5, 10, 13, 14, 18},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_12.png',['init']=1,['actSet']={'F','TL', 'BR'}}
-masterPilotDB[13]={['name']='Norra Wexley',['Faction']= 1,['ship_type']=12,['cost']=41,['slot']={21, 1, 4, 5, 16, 10, 12, 14},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_13.png',['init']=5,['actSet']={'F','TL', 'BR'}}
-masterPilotDB[14]={['name']='"Dutch" Vander',['Faction']= 1,['ship_type']=12,['cost']=40,['slot']={21, 1, 4, 5, 16, 10, 12, 14},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_14.png',['init']=4,['actSet']={'F','TL', 'BR'}}
-masterPilotDB[15]={['name']='Horton Salm',['Faction']= 1,['ship_type']=12,['cost']=37,['slot']={21, 1, 4, 5, 16, 10, 12, 14},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_15.png',['init']=4,['actSet']={'F','TL', 'BR'}}
-masterPilotDB[16]={['name']='Evaan Verlaine',['Faction']= 1,['ship_type']=12,['cost']=35,['slot']={21, 1, 4, 5, 16, 10, 12, 14},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_16.png',['init']=3,['actSet']={'F','TL', 'BR'}}
-masterPilotDB[17]={['name']='Gold Squadron Veteran',['Faction']= 1,['ship_type']=12,['cost']=32,['slot']={21, 1, 4, 5, 16, 10, 12, 14},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_17.png',['init']=3,['actSet']={'F','TL', 'BR'}}
-masterPilotDB[18]={['name']='Gray Squadron Bomber',['Faction']= 1,['ship_type']=12,['cost']=30,['slot']={21, 4, 5, 16, 10, 12, 14},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_18.png',['init']=2,['actSet']={'F','TL', 'BR'}}
+
+masterPilotDB[13]={
+    name = 'Norra Wexley',
+    Faction = 1,
+    ship_type = 12,
+    cost = 41,
+    slot = {21, 1, 4, 5, 16, 10, 12, 14},
+    Shield = 2,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_13.png',
+    init = 5,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Rebel/BTLA4YWing/norrawexley.png',
+    actSet = {'F','TL', 'BR'}
+}
+
+masterPilotDB[14]={
+    name = '"Dutch" Vander',
+    Faction = 1,
+    ship_type = 12,
+    cost = 40,
+    slot = {21, 1, 4, 5, 16, 10, 12, 14},
+    Shield = 2,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_14.png',
+    init = 4,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Rebel/BTLA4YWing/dutchvander.png',
+    actSet = {'F','TL', 'BR'}
+}
+
+masterPilotDB[15]={
+    name = 'Horton Salm',
+    Faction = 1,
+    ship_type = 12,
+    cost = 37,
+    slot = {21, 1, 4, 5, 16, 10, 12, 14},
+    Shield = 2,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_15.png',
+    init = 4,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Rebel/BTLA4YWing/hortonsalm.png',
+    actSet = {'F','TL', 'BR'}
+}
+
+masterPilotDB[16]={
+    name = 'Evaan Verlaine',
+    Faction = 1,
+    ship_type = 12,
+    cost = 35,
+    slot = {21, 1, 4, 5, 16, 10, 12, 14},
+    Shield = 2,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_16.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Rebel/BTLA4YWing/evaanverlaine.png',
+    actSet = {'F','TL', 'BR'}
+}
+
+masterPilotDB[17]={
+    name = 'Gold Squadron Veteran',
+    Faction = 1,
+    ship_type = 12,
+    cost = 32,
+    slot = {21, 1, 4, 5, 16, 10, 12, 14},
+    Shield = 2,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_17.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Rebel/BTLA4YWing/goldsquadronveteran.png',
+    actSet = {'F','TL', 'BR'}
+}
+
+masterPilotDB[18]={
+    name = 'Gray Squadron Bomber',
+    Faction = 1,
+    ship_type = 12,
+    cost = 30,
+    slot = {21, 4, 5, 16, 10, 12, 14},
+    Shield = 2,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_18.png',
+    init = 2,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Rebel/BTLA4YWing/graysquadronbomber.png',
+    actSet = {'F','TL', 'BR'}
+}
+
 masterPilotDB[19]={['name']='Jake Farrell',['Faction']= 1,['ship_type']=35,['cost']=36,['slot']={21, 1,1, 6},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_19.png',['init']=4,['actSet']={'F','TL','E','BR','B'}}
 masterPilotDB[20]={['name']='Arvel Crynyd',['Faction']= 1,['ship_type']=35,['cost']=34,['slot']={21, 1,1, 6},['Shield']=2,
@@ -1546,14 +1624,58 @@ masterPilotDB[164]={
     actSet = {'F','E','BR'}
 }
 
-masterPilotDB[165]={['name']='Kavil',['Faction']= 3,['ship_type']=12,['cost']=43,['slot']={21, 1, 4, 5, 16, 10, 12, 13, 14},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_165.png',['init']=5,['actSet']={'F','TL','BR'}}
-masterPilotDB[166]={['name']='Drea Renthal',['Faction']= 3,['ship_type']=12,['cost']=49,['slot']={21, 1, 4, 5, 16, 10, 12, 13, 14},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_166.png',['init']=4,['actSet']={'F','TL','BR'}}
-masterPilotDB[167]={['name']='Hired Gun',['Faction']= 3,['ship_type']=12,['cost']=32,['slot']={21, 1, 4, 5, 16, 10, 12, 13, 14},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_167.png',['init']=2,['actSet']={'F','TL','BR'}}
-masterPilotDB[168]={['name']='Crymorah Goon',['Faction']= 3,['ship_type']=12,['cost']=30,['slot']={21, 4, 5, 16, 10, 12, 13, 14},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_168.png',['init']=1,['actSet']={'F','TL','BR'}}
+masterPilotDB[165]={
+    name = 'Kavil',
+    Faction = 3,
+    ship_type = 12,
+    cost = 43,
+    slot = {21, 1, 4, 5, 16, 10, 12, 13, 14},
+    Shield = 2,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_165.png',
+    init = 5,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Scum/BTLA4YWing/kavil.png',
+    actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[166]={
+    name = 'Drea Renthal',
+    Faction = 3,
+    ship_type = 12,
+    cost = 49,
+    slot = {21, 1, 4, 5, 16, 10, 12, 13, 14},
+    Shield = 2,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_166.png',
+    init = 4,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Scum/BTLA4YWing/drearenthal.png',
+    actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[167]={
+    name = 'Hired Gun',
+    Faction = 3,
+    ship_type = 12,
+    cost = 32,
+    slot = {21, 1, 4, 5, 16, 10, 12, 13, 14},
+    Shield = 2,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_167.png',
+    init = 2,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Scum/BTLA4YWing/hiredgun.png',
+    actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[168]={
+    name = 'Crymorah Goon',
+    Faction = 3,
+    ship_type = 12,
+    cost = 30,
+    slot = {21, 4, 5, 16, 10, 12, 13, 14},
+    Shield = 2,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_168.png',
+    init = 1,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Scum/BTLA4YWing/crymorahgun.png',
+    actSet = {'F','TL','BR'}
+}
+
 masterPilotDB[169]={['name']="N'dru Suhlak",['Faction']= 3,['ship_type']=38,['cost']=30,['slot']={21, 1, 6, 13, 14},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_169.png',['init']=4,['actSet']={'F','TL','BR'}}
 masterPilotDB[170]={['name']="Kaa'to Leeachos",['Faction']= 3,['ship_type']=38,['cost']=27,['slot']={21, 1, 6, 13, 14},['Shield']=2,
