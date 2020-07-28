@@ -2179,7 +2179,7 @@ ArcCheck.GetBullseyeTargets = function(ship, pos, length)
     local collissions = Physics.cast({
         origin       = Vect.Sum(ship.getPosition(), Vect.RotateDeg(pos, ship.getRotation()[2] + 180)),
         orientation  = ship.getRotation(),
-        direction    = {0,0.001,0},
+        direction    = {0,-0.001,0},
         type         = 3,
         size         = castSize,
         max_distance = 1,
@@ -2211,7 +2211,7 @@ ArcCheck.GetShipsWithinRange = function(ship, range, include_enemy_ships, includ
     local cast_radius = Convert_mm_igu(range)
     local collisions = Physics.cast({
         origin       = ship.getPosition() + vector(0,0.1,0),
-        direction    = {0,0.001,0},
+        direction    = {0,-0.001,0},
         type         = 2,
         size         = {cast_radius, cast_radius, cast_radius},
         max_distance = 1,
@@ -3283,17 +3283,16 @@ MoveModule.castData = {}
 MoveModule.castData.small = {}
 MoveModule.castData.small.base = {
     debug=false,
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=3,
     size={Convert_mm_igu(40), Convert_mm_igu(6), Convert_mm_igu(40)},
-    debug=false
     -- + Origin
     -- + Orientation
 }
 MoveModule.castData.small.nubFR = {
     debug=false,
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(20.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3301,7 +3300,7 @@ MoveModule.castData.small.nubFR = {
 MoveModule.castData.small.nubFL = {
     debug=false,
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(20.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3309,7 +3308,7 @@ MoveModule.castData.small.nubFL = {
 MoveModule.castData.small.nubBR = {
     debug=false,
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(20.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3317,7 +3316,7 @@ MoveModule.castData.small.nubBR = {
 MoveModule.castData.small.nubBL = {
     debug=false,
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(20.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3326,7 +3325,7 @@ MoveModule.castData.small.nubBL = {
 MoveModule.castData.medium = {}
 MoveModule.castData.medium.base = {
     debug=false,
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=3,
     size={Convert_mm_igu(60), Convert_mm_igu(6), Convert_mm_igu(60)},
     -- + Origin
@@ -3335,7 +3334,7 @@ MoveModule.castData.medium.base = {
 MoveModule.castData.medium.nubFR = {
     debug=false,
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(30.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3343,7 +3342,7 @@ MoveModule.castData.medium.nubFR = {
 MoveModule.castData.medium.nubFL = {
     debug=false,
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(30.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3351,7 +3350,7 @@ MoveModule.castData.medium.nubFL = {
 MoveModule.castData.medium.nubBR = {
     debug=false,
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(30.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3359,7 +3358,7 @@ MoveModule.castData.medium.nubBR = {
 MoveModule.castData.medium.nubBL = {
     debug=false,
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(30.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3369,7 +3368,7 @@ MoveModule.castData.medium.nubBL = {
 MoveModule.castData.large = {}
 MoveModule.castData.large.base = {
     debug=false,
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=3,
     size={Convert_mm_igu(80), Convert_mm_igu(6), Convert_mm_igu(80)},
     -- + Origin
@@ -3378,7 +3377,7 @@ MoveModule.castData.large.base = {
 MoveModule.castData.large.nubFR = {
     debug=false,
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(40.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3386,7 +3385,7 @@ MoveModule.castData.large.nubFR = {
 MoveModule.castData.large.nubFL = {
     debug=false,
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(40.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3394,7 +3393,7 @@ MoveModule.castData.large.nubFL = {
 MoveModule.castData.large.nubBR = {
     debug=false,
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(40.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3402,7 +3401,7 @@ MoveModule.castData.large.nubBR = {
 MoveModule.castData.large.nubBL = {
     debug=false,
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(40.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3411,7 +3410,7 @@ MoveModule.castData.large.nubBL = {
 MoveModule.castData.huge = {}
 MoveModule.castData.huge.base = {
     debug=false,
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=3,
     size={Convert_mm_igu(80), Convert_mm_igu(6), Convert_mm_igu(221)},
     -- + Origin
@@ -3420,7 +3419,7 @@ MoveModule.castData.huge.base = {
 MoveModule.castData.huge.nubFR = {
     debug=false,
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(111.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3428,7 +3427,7 @@ MoveModule.castData.huge.nubFR = {
 MoveModule.castData.huge.nubFL = {
     debug=false,
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(111.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3436,7 +3435,7 @@ MoveModule.castData.huge.nubFL = {
 MoveModule.castData.huge.nubBR = {
     debug=false,
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(111.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3444,7 +3443,7 @@ MoveModule.castData.huge.nubBR = {
 MoveModule.castData.huge.nubBL = {
     debug=false,
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(111.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3574,7 +3573,7 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
          local collissions = Physics.cast({
              origin       = templateOrigin.pos + offset,
              orientation  = templateOrigin.rot,
-             direction    = {0,0.001,0},
+             direction    = {0,-0.001,0},
              type         = 3,
              size         = size,
              max_distance = 1,
@@ -3611,7 +3610,7 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
             local collissions = Physics.cast({
                 origin       = templateOrigin.pos + position_offset,
                 orientation  = templateOrigin.rot + orientation_offset * dir_mod,
-                direction    = {0,0.001,0},
+                direction    = {0,-0.001,0},
                 type         = 3,
                 size         = {Convert_mm_igu(20), Convert_mm_igu(6), Convert_mm_igu(1)},
                 max_distance = 1,
@@ -3649,7 +3648,7 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
             local collissions = Physics.cast({
                 origin       = templateOrigin.pos + position_offset,
                 orientation  = templateOrigin.rot + orientation_offset * dir_mod,
-                direction    = {0,0.001,0},
+                direction    = {0,-0.001,0},
                 type         = 3,
                 size         = {Convert_mm_igu(20), Convert_mm_igu(6), Convert_mm_igu(1)},
                 max_distance = 1,
@@ -6227,6 +6226,30 @@ function onSave()
     return JSON.encode(state)
 end
 
+function linkArcIndicators()
+    Wait.condition(
+        function()
+            for location, guid in pairs(arc_indicator_queue) do
+                local arc_indicator = getObjectFromGUID(guid)
+                assigned_arc_indicators[location] = arc_indicator
+                arc_indicator.call('linkToShip', {ship=self})
+            end
+
+            arc_indicator_queue = {}
+        end,
+        function()
+            for location, guid in pairs(arc_indicator_queue) do
+                local arc_indicator = getObjectFromGUID(guid)
+                if arc_indicator == nil or arc_indicator.getVar('loaded') == false then
+                    return false
+                end
+            end
+
+            return true
+        end
+    )
+end
+
 -- Restore self state
 arc_indicator_queue = {}
 function onLoad(savedData)
@@ -6253,31 +6276,6 @@ function onLoad(savedData)
         end
     end
 end
-
-function linkArcIndicators()
-    Wait.condition(
-        function()
-            for location, guid in pairs(arc_indicator_queue) do
-                local arc_indicator = getObjectFromGUID(guid)
-                assigned_arc_indicators[location] = arc_indicator
-                arc_indicator.call('linkToShip', {ship=self})
-            end
-
-            arc_indicator_queue = {}
-        end,
-        function()
-            for location, guid in pairs(arc_indicator_queue) do
-                local arc_indicator = getObjectFromGUID(guid)
-                if arc_indicator == nil or arc_indicator.getVar('loaded') == false then
-                    return false
-                end
-            end
-
-            return true
-        end
-    )
-end
-
 ]]
 
 
