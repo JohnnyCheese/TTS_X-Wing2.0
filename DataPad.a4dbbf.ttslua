@@ -44,6 +44,8 @@ varCostS[234] = {small = 2, medium = 3, large = 4, huge = 0} --Expert Handling
 varCostS[489] = {small = 3, medium = 6, large = 9, huge = 0} --Hate
 varCostS[612] = {small = 8, medium = 9, large = 10, huge = 12} --Snap Shot
 varCostS[281] = {small = 12, medium = 9, large = 7, huge = 7} --Veteran turret gunner
+varCostS[388] = {small = 7, medium = 6, large = 5, huge = 4} -- Agile gunner
+
 -- List and cost of variable cost upgrades based on agility value
 varCostA={}
 varCostA[282] = {[0] = 3,[1] = 5,[2] = 7,[3] = 9} --R2 Astromech
@@ -66,6 +68,7 @@ varCostI[548]={[0]=14,[1]=15,[2]=16,[3]=15,[4]=18,[5]=21,[6]=24} -- Delta-7B
 varCostI[549]={[0]=0,[1]=0,[2]=1,[3]=2,[4]=3,[5]=4,[6]=5} -- Calibrated laser Targeting
 varCostI[614]={[0]=3,[1]=3,[2]=3,[3]=4,[4]=7,[5]=10,[6]=13} -- Precognitive Reflexes
 varCostI[610]={[0]=21,[1]=21,[2]=21,[3]=21,[4]=21,[5]=24,[6]=28} -- Ensnare
+varCostI[577]={[0]=2,[1]=2,[2]=2,[3]=2,[4]=2,[5]=4,[6]=6} -- Passive Sensors
 
 --tables referenced by upgrades that adds actions to ships
 addAction={}
@@ -2743,7 +2746,7 @@ masterPilotDB[630]={
     name = 'Leia Organa',
     Faction = 1,
     ship_type = 1,
-    cost = 79,
+    cost = 77,
     slot = {21, 17, 6, 8, 8, 16, 14, 14, 15},
     Shield = 5,
     card = 'http://images-cdn.fantasyflightgames.com/filer_public/5b/ff/5bffb367-cb6e-4b8b-948f-25a70acd3a3f/swz66_leia-organa.png',
@@ -2828,7 +2831,7 @@ masterPilotDB[643]={
 
 masterPilotDB[635]={['name']='Bossk',['Faction']= 3,['ship_type']=38,['cost']=22,['slot']={21, 6, 13, 14},['Shield']=2,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/d3/9d/d39d7a92-7829-4bc8-ab2c-05843ab3d099/swz66_bossk.png',['init']=4,['actSet']={'F','TL','BR'}}
-masterPilotDB[636]={['name']='G4R-G0R V/M',['Faction']= 3,['ship_type']=44,['cost']=41,['slot']={21, 14,99},['Shield']=1,
+masterPilotDB[636]={['name']='G4R-G0R V/M',['Faction']= 3,['ship_type']=44,['cost']=28,['slot']={21, 14,99},['Shield']=1,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/4c/2c/4c2c309f-f9b0-4a93-a3a5-28b43fe981c3/swz66_g4r-g0r_vm.png',['init']=5,['actSet']={'C','E','TL','BR'}}
 masterPilotDB[637]={['name']='Nom Lumb',['Faction']= 3,['ship_type']=45,['cost']=38,['slot']={21, 1, 3, 8, 5, 13, 14, 15, 16},['Shield']=3,['Charge']=1,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/f9/67/f96780a9-1fff-460c-8480-4294fd7a7a27/swz66_nom-lumb.png',['init']=1,['actSet']={'F','TL','BR','Rot'}}
@@ -2956,7 +2959,7 @@ masterPilotDB[1009]={
 }
 
 masterUpgradesDB={}
-masterUpgradesDB[230]={['name']='Crack Shot',['slot']=1,['cost']=1,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_1.png',['restriction']={ }}
+masterUpgradesDB[230]={['name']='Crack Shot',['slot']=1,['cost']=2,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_1.png',['restriction']={ }}
 masterUpgradesDB[231]={['name']='Daredevil',['slot']=1,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_2.png',['restriction']={['Size']={small=true}}}
 masterUpgradesDB[232]={['name']='Debris Gambit',['slot']=1,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_3.png',['restriction']={['Size']={small=true,medium=true}}}
 masterUpgradesDB[233]={['name']='Elusive',['slot']=1,['cost']=3,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_4.png',['restriction']={['Size']={small=true,medium=true}}}
@@ -3122,7 +3125,7 @@ masterUpgradesDB[384]={['name']="L3-37's Programming",['dual']=1,['slot']=18,['c
 masterUpgradesDB[385]={['name']='Lando Calrissian',['slot']=8,['cost']=8,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_159.png',['restriction']={['Faction']={[3]=true}}}
 masterUpgradesDB[386]={['name']='Tobias Beckett',['slot']=8,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_160.png',['restriction']={['Faction']={[3]=true}}}
 masterUpgradesDB[387]={['name']="Qi'ra",['slot']=8,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_161.png',['restriction']={['Faction']={[3]=true}}}
-masterUpgradesDB[388]={['name']='Agile Gunner',['slot']=16,['cost']=8,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_162.png',['restriction']={ }}
+masterUpgradesDB[388]={['name']='Agile Gunner',['slot']=16,['cost']='s',['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_162.png',['restriction']={ }}
 masterUpgradesDB[389]={['name']='Han Solo',['slot']=16,['cost']=12,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_163.png',['restriction']={['Faction']={[3]=true}}}
 masterUpgradesDB[390]={['name']="Lando's Millennium Falcon",['slot']=15,['cost']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_164.png',['restriction']={['Faction']={[3]=true},['ship']={[47]=true}}}
 masterUpgradesDB[391]={['name']='ST-321',['slot']=15,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_124.png',['restriction']={['Faction']={[2]=true},['ship']={[26]=true}}}
@@ -3202,7 +3205,7 @@ masterUpgradesDB[556]={['name']="Chancellor Palpatine",['slot']=8,['cost']=14,['
                         ['restriction']={['Faction']={[6]=true,[7]=true}}}
 
 --w4
-masterUpgradesDB[577]={['name']="Passive Sensors",['slot']=2,['cost']=3,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/08a980b359fb73dbcb9a315e94d505f0.png',
+masterUpgradesDB[577]={['name']="Passive Sensors",['slot']=2,['cost']='i',['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/08a980b359fb73dbcb9a315e94d505f0.png',
                         ['restriction']={ }}
 masterUpgradesDB[578]={['name']="Autoblasters",['slot']=3,['cost']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/59d4a52e3a534dd090259bd5546e7bab.png',
                         ['restriction']={ }}
