@@ -39,11 +39,11 @@ tintColors[8] = color(0.5,0.5,0.5,1.0)
 
 -- List and cost of variable cost upgrades based on base sizea
 varCostS={}
-varCostS[296] = {small = 2, medium = 4, large = 7} --Engine Upgrade
-varCostS[234] = {small = 2, medium = 3, large = 4} --Expert Handling
-varCostS[489] = {small = 3, medium = 6, large = 9} --Hate
-varCostS[612] = {small = 7, medium = 8, large  = 9} --Snap Shot
-
+varCostS[296] = {small = 2, medium = 4, large = 7, huge = 0} --Engine Upgrade
+varCostS[234] = {small = 2, medium = 3, large = 4, huge = 0} --Expert Handling
+varCostS[489] = {small = 3, medium = 6, large = 9, huge = 0} --Hate
+varCostS[612] = {small = 8, medium = 9, large = 10, huge = 12} --Snap Shot
+varCostS[281] = {small = 12, medium = 9, large = 7, huge = 7} --Veteran turret gunner
 -- List and cost of variable cost upgrades based on agility value
 varCostA={}
 varCostA[282] = {[0] = 3,[1] = 5,[2] = 7,[3] = 9} --R2 Astromech
@@ -61,11 +61,11 @@ varCostI[463]={[0]=4,[1]=5,[2]=6,[3]=7,[4]=8,[5]=9,[6]=10} -- Primed Thrusters
 varCostI[251]={[0]=4,[1]=4,[2]=4,[3]=8,[4]=16,[5]=24,[6]=32} --Supernatural Reflexes
 varCostI[479]={[0]=2,[1]=3,[2]=4,[3]=5,[4]=6,[5]=7,[6]=8} -- BB8
 varCostI[480]={[0]=0,[1]=1,[2]=2,[3]=3,[4]=4,[5]=5,[6]=6} -- bb astromech
-varCostI[545]={[0]=0,[1]=2,[2]=4,[3]=6,[4]=8,[5]=10,[6]=12} -- Battle Meditation
-varCostI[548]={[0]=14,[1]=15,[2]=16,[3]=17,[4]=18,[5]=19,[6]=20} -- Delta-7B
-varCostI[549]={[0]=0,[1]=0,[2]=1,[3]=2,[4]=3,[5]=5,[6]=5} -- Calibrated laser Targeting
+varCostI[545]={[0]=0,[1]=2,[2]=4,[3]=4,[4]=6,[5]=8,[6]=10} -- Battle Meditation
+varCostI[548]={[0]=14,[1]=15,[2]=16,[3]=15,[4]=18,[5]=21,[6]=24} -- Delta-7B
+varCostI[549]={[0]=0,[1]=0,[2]=1,[3]=2,[4]=3,[5]=4,[6]=5} -- Calibrated laser Targeting
 varCostI[614]={[0]=3,[1]=3,[2]=3,[3]=4,[4]=7,[5]=10,[6]=13} -- Precognitive Reflexes
-varCostI[610]={[0]=12,[1]=12,[2]=12,[3]=12,[4]=14,[5]=21,[6]=28} -- Ensnare
+varCostI[610]={[0]=21,[1]=21,[2]=21,[3]=21,[4]=21,[5]=24,[6]=28} -- Ensnare
 
 --tables referenced by upgrades that adds actions to ships
 addAction={}
@@ -809,7 +809,7 @@ masterPilotDB[31]={
     name = 'Wullffwarro',
     Faction = 1,
     ship_type = 6,
-    cost = 56,
+    cost = 54,
     slot = {21, 1, 8, 8, 14},
     Shield = 2,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_31.png',
@@ -822,7 +822,7 @@ masterPilotDB[32]={
     name = 'Lowhhrick',
     Faction = 1,
     ship_type = 6,
-    cost = 52,
+    cost = 51,
     slot = {21, 1, 8, 8, 14},
     Shield = 2,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_32.png',
@@ -835,7 +835,7 @@ masterPilotDB[33]={
     name = 'Kashyyyk Defender',
     Faction = 1,
     ship_type = 6,
-    cost = 44,
+    cost = 42,
     slot = {21, 8, 8, 14},
     Shield = 2,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_33.png',
@@ -870,7 +870,7 @@ masterPilotDB[39]={
     name = 'Ezra Bridger',
     Faction = 1,
     ship_type = 8,
-    cost = 42,
+    cost = 40,
     slot = {21, 17, 8, 10, 14, 15},
     Shield = 1,
     Force=1,
@@ -884,7 +884,7 @@ masterPilotDB[40]={
     name = '"Zeb" Orrelios',
     Faction = 1,
     ship_type = 8,
-    cost = 34,
+    cost = 33,
     slot = {21, 1, 8, 10, 14, 15},
     Shield = 1,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_40.png',
@@ -908,18 +908,18 @@ masterPilotDB[41]={
 
 masterPilotDB[42]={['name']='Jan Ors',['Faction']= 1,['ship_type']=34,['cost']=41,['slot']={21, 1, 8, 12, 14, 14, 15},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_42.png',['init']=5,['actSet']={'F','TL','B','Rot','BR'}}
-masterPilotDB[43]={['name']='Kyle Katarn',['Faction']= 1,['ship_type']=34,['cost']=38,['slot']={21, 1, 8, 12, 14, 14, 15},['Shield']=2,
+masterPilotDB[43]={['name']='Kyle Katarn',['Faction']= 1,['ship_type']=34,['cost']=33,['slot']={21, 1, 8, 12, 14, 14, 15},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_43.png',['init']=3,['actSet']={'F','TL','B','Rot','BR'}}
-masterPilotDB[44]={['name']='Roark Garnet',['Faction']= 1,['ship_type']=34,['cost']=34,['slot']={21, 1, 8, 12, 14, 14, 15},['Shield']=2,
+masterPilotDB[44]={['name']='Roark Garnet',['Faction']= 1,['ship_type']=34,['cost']=38,['slot']={21, 1, 8, 12, 14, 14, 15},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_44.png',['init']=4,['actSet']={'F','TL','B','Rot','BR'}}
-masterPilotDB[45]={['name']='Rebel Scout',['Faction']= 1,['ship_type']=34,['cost']=30,['slot']={21, 8, 12, 14, 14, 15},['Shield']=2,
+masterPilotDB[45]={['name']='Rebel Scout',['Faction']= 1,['ship_type']=34,['cost']=29,['slot']={21, 8, 12, 14, 14, 15},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_45.png',['init']=2,['actSet']={'F','TL','B','Rot','BR'}}
 
 masterPilotDB[46]={
     name = 'Ezra Bridger',
     Faction = 1,
     ship_type = 11,
-    cost = 31,
+    cost = 30,
     slot = {21, 17, 14},
     Shield = 0,
     Force = 1,
@@ -933,7 +933,7 @@ masterPilotDB[47]={
     name = 'Sabine Wren',
     Faction = 1,
     ship_type = 11,
-    cost = 29,
+    cost = 28,
     slot = {21, 1, 14},
     Shield = 0,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_47.png',
@@ -947,7 +947,7 @@ masterPilotDB[48]={
     Condition = 'Suppressive Fire',
     Faction = 1,
     ship_type = 11,
-    cost = 30,
+    cost = 29,
     slot = {21, 14},
     Shield = 0,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_48.png',
@@ -969,13 +969,13 @@ masterPilotDB[49]={
     actSet = {'F','E','BR'}
 }
 
-masterPilotDB[50]={['name']='Corran Horn',['Faction']= 1,['ship_type']=40,['cost']=66,['slot']={21, 1, 2, 5, 10, 14},['Shield']=3,
+masterPilotDB[50]={['name']='Corran Horn',['Faction']= 1,['ship_type']=40,['cost']=64,['slot']={21, 1, 2, 5, 10, 14},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_50.png',['init']=5,['actSet']={'F','E','BR','B','TL'}}
-masterPilotDB[51]={['name']='Gavin Darklighter',['Faction']= 1,['ship_type']=40,['cost']=61,['slot']={21, 1, 2, 5, 10, 14},['Shield']=3,
+masterPilotDB[51]={['name']='Gavin Darklighter',['Faction']= 1,['ship_type']=40,['cost']=60,['slot']={21, 1, 2, 5, 10, 14},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_51.png',['init']=4,['actSet']={'F','E','BR','B','TL'}}
-masterPilotDB[52]={['name']='Rogue Squadron Escort',['Faction']= 1,['ship_type']=40,['cost']=53,['slot']={21, 1, 2, 5, 10, 14},['Shield']=3,
+masterPilotDB[52]={['name']='Rogue Squadron Escort',['Faction']= 1,['ship_type']=40,['cost']=51,['slot']={21, 1, 2, 5, 10, 14},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_52.png',['init']=4,['actSet']={'F','E','BR','B','TL'}}
-masterPilotDB[53]={['name']='Knave Squadron Escort',['Faction']= 1,['ship_type']=40,['cost']=50,['slot']={21, 2, 5, 10, 14},['Shield']=3,
+masterPilotDB[53]={['name']='Knave Squadron Escort',['Faction']= 1,['ship_type']=40,['cost']=49,['slot']={21, 2, 5, 10, 14},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_53.png',['init']=2,['actSet']={'F','E','BR','B','TL'}}
 
 masterPilotDB[54]={
@@ -1082,7 +1082,7 @@ masterPilotDB[61]={
     actSet = {'F','TL'}
 }
 
-masterPilotDB[62]={['name']='Miranda Doni',['Faction']= 1,['ship_type']=30,['cost']=42,['slot']={21, 5, 6, 6, 16, 8, 12, 12, 14},['Shield']=3,
+masterPilotDB[62]={['name']='Miranda Doni',['Faction']= 1,['ship_type']=30,['cost']=40,['slot']={21, 5, 6, 6, 16, 8, 12, 12, 14},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_62.png',['init']=4,['actSet']={'F','TL','Rot'}}
 masterPilotDB[63]={['name']='Esege Tuketu',['Faction']= 1,['ship_type']=30,['cost']=44,['slot']={21, 5, 6, 6, 16, 8, 12, 12, 14},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_63.png',['init']=3,['actSet']={'F','TL','Rot'}}
@@ -1101,7 +1101,7 @@ masterPilotDB[69]={
     name = 'Han Solo',
     Faction = 1,
     ship_type = 1,
-    cost = 80,
+    cost = 79,
     slot = {21, 1, 6, 8, 8, 16, 14, 14, 15},
     Shield = 5,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_69.png',
@@ -1114,7 +1114,7 @@ masterPilotDB[70]={
     name = 'Lando Calrissian',
     Faction = 1,
     ship_type = 1,
-    cost = 79,
+    cost = 78,
     slot = {21, 1, 6, 8, 8, 16, 14, 14, 15},
     Shield = 5,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_70.png',
@@ -1127,7 +1127,7 @@ masterPilotDB[71]={
     name = 'Chewbacca',
     Faction = 1,
     ship_type = 1,
-    cost = 71,
+    cost = 70,
     slot = {21, 1, 6, 8, 8, 16, 14, 14, 15},
     Shield = 5,
     Charge = 1,
@@ -1152,9 +1152,9 @@ masterPilotDB[72]={
 
 masterPilotDB[73]={['name']='Hera Syndulla',['Faction']= 1,['ship_type']=23,['cost']=72,['slot']={21, 1,2, 4, 5, 8, 8, 16, 14, 15},['Shield']=4,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_73.png',['init']=5,['actSet']={'F','TL','R'}}
-masterPilotDB[74]={['name']='Kanan Jarrus',['Faction']= 1,['ship_type']=23,['cost']=80,['slot']={21, 17,2, 4, 5, 8, 8, 16, 14, 15},['Shield']=4,['Force']=2,
+masterPilotDB[74]={['name']='Kanan Jarrus',['Faction']= 1,['ship_type']=23,['cost']=76,['slot']={21, 17,2, 4, 5, 8, 8, 16, 14, 15},['Shield']=4,['Force']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_74.png',['init']=3,['actSet']={'F','TL','R'}}
-masterPilotDB[75]={['name']='"Chopper"',['Faction']= 1,['ship_type']=23,['cost']=68,['slot']={21, 4,2, 5, 8, 8, 16, 14, 15},['Shield']=4,
+masterPilotDB[75]={['name']='"Chopper"',['Faction']= 1,['ship_type']=23,['cost']=67,['slot']={21, 4,2, 5, 8, 8, 16, 14, 15},['Shield']=4,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_75.png',['init']=2,['actSet']={'C','TL','R'}}
 masterPilotDB[76]={['name']='Lothal Rebel',['Faction']= 1,['ship_type']=23,['cost']=67,['slot']={21, 4,2, 5, 8, 8, 16, 14, 15},['Shield']=4,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_76.png',['init']=2,['actSet']={'F','TL','R'}}
@@ -1163,7 +1163,7 @@ masterPilotDB[77]={
     name = 'Dash Rendar',
     Faction = 1,
     ship_type = 5,
-    cost = 91,
+    cost = 85,
     slot = {21, 1, 6, 8, 16, 13, 14, 15},
     Shield = 4,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_77.png',
@@ -1176,7 +1176,7 @@ masterPilotDB[78]={
     name = '"Leebo"',
     Faction = 1,
     ship_type = 5,
-    cost = 91,
+    cost = 76,
     slot = {21, 6,16, 13, 14, 15},
     Shield = 4,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_78.png',
@@ -1189,7 +1189,7 @@ masterPilotDB[79]={
     name = 'Wild Space Fringer',
     Faction = 1,
     ship_type = 5,
-    cost = 77,
+    cost = 72,
     slot = {21, 6, 8, 16, 13, 14, 15},
     Shield = 4,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_79.png',
@@ -1385,11 +1385,11 @@ masterPilotDB[99]={['name']='Grand Inquisitor',['Faction']= 2,['ship_type']=25,[
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_99.png',['init']=5,['actSet']={'F','E','TL','BR','B'}}
 masterPilotDB[100]={['name']='Seventh Sister',['Faction']= 2,['ship_type']=25,['cost']=43,['slot']={21, 17, 2, 6},['Shield']=2,['Force']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_100.png',['init']=4,['actSet']={'F','E','TL','BR','B'}}
-masterPilotDB[101]={['name']='Baron of the Empire',['Faction']= 2,['ship_type']=25,['cost']=30,['slot']={21, 1, 2, 6},['Shield']=2,
+masterPilotDB[101]={['name']='Baron of the Empire',['Faction']= 2,['ship_type']=25,['cost']=28,['slot']={21, 1, 2, 6},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_101.png',['init']=3,['actSet']={'F','E','TL','BR','B'}}
-masterPilotDB[102]={['name']='Inquisitor',['Faction']= 2,['ship_type']=25,['cost']=35,['slot']={21, 17, 2, 6},['Shield']=2,['Force']=1,
+masterPilotDB[102]={['name']='Inquisitor',['Faction']= 2,['ship_type']=25,['cost']=36,['slot']={21, 17, 2, 6},['Shield']=2,['Force']=1,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_102.png',['init']=3,['actSet']={'F','E','TL','BR','B'}}
-masterPilotDB[103]={['name']='Soontir Fel',['Faction']= 2,['ship_type']=41,['cost']=53,['slot']={21, 1, 14, 14},['Shield']=0,
+masterPilotDB[103]={['name']='Soontir Fel',['Faction']= 2,['ship_type']=41,['cost']=54,['slot']={21, 1, 14, 14},['Shield']=0,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_103.png',['init']=6,['actSet']={'F','E','BR','B'}}
 masterPilotDB[104]={['name']='Turr Phennir',['Faction']= 2,['ship_type']=41,['cost']=42,['slot']={21, 1, 14, 14},['Shield']=0,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_104.png',['init']=4,['actSet']={'F','E','BR','B'}}
@@ -1417,35 +1417,35 @@ masterPilotDB[115]={['name']='"Vizier"',['Faction']= 2,['ship_type']=43,['cost']
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_115.png',['init']=2,['actSet']={'F','E','Ail'}}
 masterPilotDB[116]={['name']='Scarif Base Pilot',['Faction']= 2,['ship_type']=43,['cost']=39,['slot']={21, 8, 8, 14},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_116.png',['init']=1,['actSet']={'F','E','Ail'}}
-masterPilotDB[117]={['name']='"Duchess"',['Faction']= 2,['ship_type']=16,['cost']=42,['slot']={21, 1, 16, 12, 14},['Shield']=0,
+masterPilotDB[117]={['name']='"Duchess"',['Faction']= 2,['ship_type']=16,['cost']=44,['slot']={21, 1, 16, 12, 14},['Shield']=0,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_117.png',['init']=5,['actSet']={'F','E','BR','Ail'}}
-masterPilotDB[118]={['name']='"Countdown"',['Faction']= 2,['ship_type']=16,['cost']=44,['slot']={21, 1, 16, 12, 14},['Shield']=0,
+masterPilotDB[118]={['name']='"Countdown"',['Faction']= 2,['ship_type']=16,['cost']=43,['slot']={21, 1, 16, 12, 14},['Shield']=0,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_118.png',['init']=4,['actSet']={'F','E','BR','Ail'}}
-masterPilotDB[119]={['name']='"Pure Sabacc"',['Faction']= 2,['ship_type']=16,['cost']=44,['slot']={21, 1, 16, 12, 14},['Shield']=0,
+masterPilotDB[119]={['name']='"Pure Sabacc"',['Faction']= 2,['ship_type']=16,['cost']=43,['slot']={21, 1, 16, 12, 14},['Shield']=0,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_119.png',['init']=4,['actSet']={'F','E','BR','Ail'}}
-masterPilotDB[120]={['name']='Black Squadron Scout',['Faction']= 2,['ship_type']=16,['cost']=34,['slot']={21, 1, 16, 12, 14},['Shield']=0,
+masterPilotDB[120]={['name']='Black Squadron Scout',['Faction']= 2,['ship_type']=16,['cost']=33,['slot']={21, 1, 16, 12, 14},['Shield']=0,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_120.png',['init']=3,['actSet']={'F','E','BR','Ail'}}
 masterPilotDB[121]={['name']='Planetary Sentinel',['Faction']= 2,['ship_type']=16,['cost']=31,['slot']={21, 16, 12, 14},['Shield']=0,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_121.png',['init']=1,['actSet']={'F','E','BR','Ail'}}
-masterPilotDB[122]={['name']='Rexler Brath',['Faction']= 2,['ship_type']=18,['cost']=81,['slot']={21, 1, 2, 3, 6},['Shield']=4,
+masterPilotDB[122]={['name']='Rexler Brath',['Faction']= 2,['ship_type']=18,['cost']=79,['slot']={21, 1, 2, 3, 6},['Shield']=4,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_122.png',['init']=5,['actSet']={'F','E','BR','TL','B'}}
-masterPilotDB[123]={['name']='Colonel Vessery',['Faction']= 2,['ship_type']=18,['cost']=84,['slot']={21, 1, 2, 3, 6},['Shield']=4,
+masterPilotDB[123]={['name']='Colonel Vessery',['Faction']= 2,['ship_type']=18,['cost']=82,['slot']={21, 1, 2, 3, 6},['Shield']=4,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_123.png',['init']=4,['actSet']={'F','E','BR','TL','B'}}
-masterPilotDB[124]={['name']='Countess Ryad',['Faction']= 2,['ship_type']=18,['cost']=82,['slot']={21, 1, 2, 3, 6},['Shield']=4,
+masterPilotDB[124]={['name']='Countess Ryad',['Faction']= 2,['ship_type']=18,['cost']=80,['slot']={21, 1, 2, 3, 6},['Shield']=4,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_124.png',['init']=4,['actSet']={'F','E','BR','TL','B'}}
 masterPilotDB[125]={['name']='Onyx Squadron Ace',['Faction']= 2,['ship_type']=18,['cost']=74,['slot']={21, 1, 2, 3, 6},['Shield']=4,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_125.png',['init']=4,['actSet']={'F','E','BR','TL','B'}}
 masterPilotDB[126]={['name']='Delta Squadron Pilot',['Faction']= 2,['ship_type']=18,['cost']=67,['slot']={21, 2, 3, 2006},['Shield']=4,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_126.png',['init']=1,['actSet']={'F','E','BR','TL','B'}}
-masterPilotDB[127]={['name']='Lieutenant Kestal',['Faction']= 2,['ship_type']=29,['cost']=31,['slot']={21, 1, 4, 6, 6, 16, 14},['Shield']=1,
+masterPilotDB[127]={['name']='Lieutenant Kestal',['Faction']= 2,['ship_type']=29,['cost']=30,['slot']={21, 1, 4, 6, 6, 16, 14},['Shield']=1,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_127.png',['init']=4,['actSet']={'F','E','BR','TL'}}
-masterPilotDB[128]={['name']='"Double Edge"',['Faction']= 2,['ship_type']=29,['cost']=29,['slot']={21, 1, 4, 6, 6, 16, 14},['Shield']=1,
+masterPilotDB[128]={['name']='"Double Edge"',['Faction']= 2,['ship_type']=29,['cost']=28,['slot']={21, 1, 4, 6, 6, 16, 14},['Shield']=1,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_128.png',['init']=2,['actSet']={'F','E','BR','TL'}}
 masterPilotDB[129]={['name']='Onyx Squadron Scout',['Faction']= 2,['ship_type']=29,['cost']=28,['slot']={21, 1, 4, 6, 6, 16, 14},['Shield']=1,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_129.png',['init']=3,['actSet']={'F','E','BR','TL'}}
 masterPilotDB[130]={['name']='Sienar Specialist',['Faction']= 2,['ship_type']=29,['cost']=26,['slot']={21, 4, 6, 6, 16, 14},['Shield']=1,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_130.png',['init']=2,['actSet']={'F','E','BR','TL'}}
-masterPilotDB[131]={['name']='"Whisper"',['Faction']= 2,['ship_type']=27,['cost']=57,['slot']={21, 1, 2, 16, 14},['Shield']=2,
+masterPilotDB[131]={['name']='"Whisper"',['Faction']= 2,['ship_type']=27,['cost']=60,['slot']={21, 1, 2, 16, 14},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_131.png',['init']=5,['actSet']={'F','E','BR','CL'}}
 masterPilotDB[132]={['name']='"Echo"',['Faction']= 2,['ship_type']=27,['cost']=51,['slot']={21, 1, 2, 16, 14},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_132.png',['init']=4,['actSet']={'F','E','BR','CL'}}
@@ -1453,23 +1453,23 @@ masterPilotDB[133]={['name']='Sigma Squadron Ace',['Faction']= 2,['ship_type']=2
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_133.png',['init']=4,['actSet']={'F','E','BR','CL'}}
 masterPilotDB[134]={['name']='Imdaar Test Pilot',['Faction']= 2,['ship_type']=27,['cost']=43,['slot']={21, 2, 16, 14},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_134.png',['init']=3,['actSet']={'F','E','BR','CL'}}
-masterPilotDB[135]={['name']='Major Vynder',['Faction']= 2,['ship_type']=14,['cost']=41,['slot']={21, 1, 2, 5, 6, 14, 18},['Shield']=3,
+masterPilotDB[135]={['name']='Major Vynder',['Faction']= 2,['ship_type']=14,['cost']=40,['slot']={21, 1, 2, 5, 6, 14, 18},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_135.png',['init']=4,['actSet']={'F','TL'}}
-masterPilotDB[136]={['name']='Lieutenant Karsabi',['Faction']= 2,['ship_type']=14,['cost']=37,['slot']={21, 1, 2, 5, 6, 14, 18},['Shield']=3,
+masterPilotDB[136]={['name']='Lieutenant Karsabi',['Faction']= 2,['ship_type']=14,['cost']=36,['slot']={21, 1, 2, 5, 6, 14, 18},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_136.png',['init']=3,['actSet']={'F','TL'}}
-masterPilotDB[137]={['name']='Rho Squadron Pilot',['Faction']= 2,['ship_type']=14,['cost']=35,['slot']={21, 1, 2, 5, 6, 14, 18},['Shield']=3,
+masterPilotDB[137]={['name']='Rho Squadron Pilot',['Faction']= 2,['ship_type']=14,['cost']=34,['slot']={21, 1, 2, 5, 6, 14, 18},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_137.png',['init']=3,['actSet']={'F','TL'}}
 masterPilotDB[138]={['name']='Nu Squadron Pilot',['Faction']= 2,['ship_type']=14,['cost']=32,['slot']={21, 2, 5, 6, 14, 18},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_138.png',['init']=2,['actSet']={'F','TL'}}
-masterPilotDB[139]={['name']='"Redline"',['Faction']= 2,['ship_type']=20,['cost']=52,['slot']={21, 2, 5, 6, 6, 16, 12, 12, 14},['Shield']=3,
+masterPilotDB[139]={['name']='"Redline"',['Faction']= 2,['ship_type']=20,['cost']=51,['slot']={21, 2, 5, 6, 6, 16, 12, 12, 14},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_139.png',['init']=5,['actSet']={'F','TL','BR',"B"}}
-masterPilotDB[140]={['name']='"Deathrain"',['Faction']= 2,['ship_type']=20,['cost']=44,['slot']={21, 2, 5, 6, 6, 16, 12, 12, 14},['Shield']=3,
+masterPilotDB[140]={['name']='"Deathrain"',['Faction']= 2,['ship_type']=20,['cost']=43,['slot']={21, 2, 5, 6, 6, 16, 12, 12, 14},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_140.png',['init']=4,['actSet']={'F','TL','BR',"B"}}
-masterPilotDB[141]={['name']='Cutlass Squadron Pilot',['Faction']= 2,['ship_type']=20,['cost']=36,['slot']={21, 2, 5, 6, 6, 16, 12, 12, 14},['Shield']=3,
+masterPilotDB[141]={['name']='Cutlass Squadron Pilot',['Faction']= 2,['ship_type']=20,['cost']=35,['slot']={21, 2, 5, 6, 6, 16, 12, 12, 14},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_141.png',['init']=2,['actSet']={'F','TL','BR',"B"}}
 masterPilotDB[142]={['name']='Captain Kagi',['Faction']= 2,['ship_type']=26,['cost']=48,['slot']={21, 2, 3, 8, 8, 14, 15},['Shield']=4,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_142.png',['init']=4,['actSet']={'F','R'}}
-masterPilotDB[143]={['name']='Colonel Jendon',['Faction']= 2,['ship_type']=26,['cost']=48,['slot']={21, 2, 3, 8, 8, 14, 15},['Shield']=4,['Charge']=2,
+masterPilotDB[143]={['name']='Colonel Jendon',['Faction']= 2,['ship_type']=26,['cost']=49,['slot']={21, 2, 3, 8, 8, 14, 15},['Shield']=4,['Charge']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_143.png',['init']=3,['actSet']={'F','R'}}
 masterPilotDB[144]={['name']='Lieutenant Sai',['Faction']= 2,['ship_type']=26,['cost']=47,['slot']={21, 2, 3, 8, 8, 14, 15},['Shield']=4,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_144.png',['init']=3,['actSet']={'F','R'}}
@@ -1486,7 +1486,7 @@ masterPilotDB[149]={
     name = 'Boba Fett',
     Faction = 3,
     ship_type = 10,
-    cost = 85,
+    cost = 86,
     slot = {21, 1, 3, 6, 8, 12, 13, 14, 15},
     Shield = 4,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_149.png',
@@ -1577,7 +1577,7 @@ masterPilotDB[161]={
     name = 'Constable Zuvio',
     Faction = 3,
     ship_type = 9,
-    cost = 33,
+    cost = 30,
     slot = {21, 1, 19, 8, 12, 13, 14},
     Shield = 0,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_161.png',
@@ -1590,7 +1590,8 @@ masterPilotDB[162]={
     name = 'Sarco Plank',
     Faction = 3,
     ship_type = 9,
-    cost = 32,slot = {21, 19, 8, 12, 13, 14},
+    cost = 29,
+    slot = {21, 19, 8, 12, 13, 14},
     Shield = 0,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_162.png',
     init = 2,
@@ -1602,7 +1603,7 @@ masterPilotDB[163]={
     name = 'Unkar Plutt',
     Faction = 3,
     ship_type = 9,
-    cost = 30,
+    cost = 29,
     slot = {21, 19, 8, 12, 13, 14},
     Shield = 0,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_163.png',
@@ -1615,7 +1616,7 @@ masterPilotDB[164]={
     name = 'Jakku Gunrunner',
     Faction = 3,
     ship_type = 9,
-    cost = 30,
+    cost = 29,
     slot = {21, 19, 8, 12, 13, 14},
     Shield = 0,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_164.png',
@@ -1686,13 +1687,13 @@ masterPilotDB[172]={['name']='Black Sun Soldier',['Faction']= 3,['ship_type']=38
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_172.png',['init']=3,['actSet']={'F','TL','BR'}}
 masterPilotDB[173]={['name']='Binayre Pirate',['Faction']= 3,['ship_type']=38,['cost']=22,['slot']={21, 6, 13, 14},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_173.png',['init']=1,['actSet']={'F','TL','BR'}}
-masterPilotDB[174]={['name']='Dace Bonearm',['Faction']= 3,['ship_type']=34,['cost']=33,['slot']={21, 1, 8, 12, 13, 14, 14, 15},['Shield']=2,['Charge']=3,
+masterPilotDB[174]={['name']='Dace Bonearm',['Faction']= 3,['ship_type']=34,['cost']=31,['slot']={21, 1, 8, 12, 13, 14, 14, 15},['Shield']=2,['Charge']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_174.png',['init']=4,['actSet']={'F','TL','B','Rot'}}
 masterPilotDB[175]={['name']='Palob Godalhi',['Faction']= 3,['ship_type']=34,['cost']=40,['slot']={21, 1, 8, 12, 13, 14, 14, 15},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_175.png',['init']=3,['actSet']={'F','TL','B','Rot'}}
 masterPilotDB[176]={['name']='Torkil Mux',['Faction']= 3,['ship_type']=34,['cost']=38,['slot']={21, 8, 12, 13, 14, 14, 15},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_176.png',['init']=2,['actSet']={'F','TL','B','Rot'}}
-masterPilotDB[177]={['name']='Spice Runner',['Faction']= 3,['ship_type']=34,['cost']=30,['slot']={21, 8, 12, 13, 14, 14, 15},['Shield']=2,
+masterPilotDB[177]={['name']='Spice Runner',['Faction']= 3,['ship_type']=34,['cost']=28,['slot']={21, 8, 12, 13, 14, 14, 15},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_177.png',['init']=1,['actSet']={'F','TL','B','Rot'}}
 
 masterPilotDB[178]={
@@ -1855,13 +1856,13 @@ masterPilotDB[196]={
     actSet = {'F','TL','BR'}
 }
 
-masterPilotDB[197]={['name']='IG-88A',['Faction']= 3,['ship_type']=21,['cost']=67,['slot']={21, 1, 2, 3, 3, 12, 13, 14, 15},['Shield']=3,
+masterPilotDB[197]={['name']='IG-88A',['Faction']= 3,['ship_type']=21,['cost']=66,['slot']={21, 1, 2, 3, 3, 12, 13, 14, 15},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_197.png',['init']=4,['actSet']={'C','E','TL','B'}}
-masterPilotDB[198]={['name']='IG-88B',['Faction']= 3,['ship_type']=21,['cost']=63,['slot']={21, 1, 2, 3, 3, 12, 13, 14, 15},['Shield']=3,
+masterPilotDB[198]={['name']='IG-88B',['Faction']= 3,['ship_type']=21,['cost']=62,['slot']={21, 1, 2, 3, 3, 12, 13, 14, 15},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_198.png',['init']=4,['actSet']={'C','E','TL','B'}}
-masterPilotDB[199]={['name']='IG-88C',['Faction']= 3,['ship_type']=21,['cost']=64,['slot']={21, 1, 2, 3, 3, 12, 13, 14, 15},['Shield']=3,
+masterPilotDB[199]={['name']='IG-88C',['Faction']= 3,['ship_type']=21,['cost']=63,['slot']={21, 1, 2, 3, 3, 12, 13, 14, 15},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_199.png',['init']=4,['actSet']={'C','E','TL','B'}}
-masterPilotDB[200]={['name']='IG-88D',['Faction']= 3,['ship_type']=21,['cost']=63,['slot']={21, 1, 2, 3, 3, 12, 13, 14, 15},['Shield']=3,
+masterPilotDB[200]={['name']='IG-88D',['Faction']= 3,['ship_type']=21,['cost']=62,['slot']={21, 1, 2, 3, 3, 12, 13, 14, 15},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_200.png',['init']=4,['actSet']={'C','E','TL','B'}}
 masterPilotDB[201]={['name']='4-LOM',['Faction']= 3,['ship_type']=22,['cost']=49,['slot']={21, 1, 2, 8, 13, 14, 15},['Shield']=4,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_201.png',['init']=3,['actSet']={'C','TL'}}
@@ -1874,7 +1875,7 @@ masterPilotDB[204]={
     name = 'Captain Nym',
     Faction = 3,
     ship_type = 4,
-    cost = 48,
+    cost = 47,
     slot = {21, 1, 4, 8, 12, 12, 16, 14, 15},
     Shield = 4,
     Charge = 1,
@@ -1916,13 +1917,13 @@ masterPilotDB[208]={['name']='Dalan Oberos',['Faction']= 3,['ship_type']=39,['co
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_208.png',['init']=3,['actSet']={'F','TL','BR'}}
 masterPilotDB[209]={['name']='Cartel Executioner',['Faction']= 3,['ship_type']=39,['cost']=41,['slot']={21, 1, 5, 6, 10, 13, 14},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_209.png',['init']=3,['actSet']={'F','TL','BR'}}
-masterPilotDB[210]={['name']='Bossk',['Faction']= 3,['ship_type']=24,['cost']=62,['slot']={21, 1, 3, 6, 8, 8, 16, 13, 14, 15},['Shield']=3,
+masterPilotDB[210]={['name']='Bossk',['Faction']= 3,['ship_type']=24,['cost']=60,['slot']={21, 1, 3, 6, 8, 8, 16, 13, 14, 15},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_210.png',['init']=4,['actSet']={'F','TL','R'}}
 masterPilotDB[211]={['name']='Moralo Eval',['Faction']= 3,['ship_type']=24,['cost']=66,['slot']={21, 1, 3, 6, 8, 8, 16, 13, 14, 15},['Shield']=3,['Charge']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_211.png',['init']=4,['actSet']={'F','TL','R'}}
-masterPilotDB[212]={['name']='Latts Razzi',['Faction']= 3,['ship_type']=24,['cost']=57,['slot']={21, 1, 3, 6, 8, 8, 16, 13, 14, 15},['Shield']=3,
+masterPilotDB[212]={['name']='Latts Razzi',['Faction']= 3,['ship_type']=24,['cost']=56,['slot']={21, 1, 3, 6, 8, 8, 16, 13, 14, 15},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_212.png',['init']=3,['actSet']={'F','TL','R'}}
-masterPilotDB[213]={['name']='Trandoshan Slaver',['Faction']= 3,['ship_type']=24,['cost']=52,['slot']={21, 3, 6, 8, 8, 16, 13, 14, 15},['Shield']=3,
+masterPilotDB[213]={['name']='Trandoshan Slaver',['Faction']= 3,['ship_type']=24,['cost']=51,['slot']={21, 3, 6, 8, 8, 16, 13, 14, 15},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_213.png',['init']=2,['actSet']={'F','TL','R'}}
 masterPilotDB[214]={['name']='Dengar',['Faction']= 3,['ship_type']=45,['cost']=53,['slot']={21, 1, 3, 8, 5, 13, 14, 15, 16},['Shield']=3,['Charge']=1,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_214.png',['init']=6,['actSet']={'F','TL','BR','Rot'}}
@@ -1932,21 +1933,21 @@ masterPilotDB[216]={['name']='Tel Trevura',['Faction']= 3,['ship_type']=45,['cos
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_216.png',['init']=4,['actSet']={'F','TL','BR','Rot'}}
 masterPilotDB[217]={['name']='Contracted Scout',['Faction']= 3,['ship_type']=45,['cost']=41,['slot']={21, 8, 3, 5, 13, 14, 15, 16},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_217.png',['init']=2,['actSet']={'F','TL','BR','Rot'}}
-masterPilotDB[218]={['name']='Ketsu Onyo',['Faction']= 3,['ship_type']=42,['cost']=69,['slot']={21, 1, 8, 13, 13, 14, 15},['Shield']=2,
+masterPilotDB[218]={['name']='Ketsu Onyo',['Faction']= 3,['ship_type']=42,['cost']=67,['slot']={21, 1, 8, 13, 13, 14, 15},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_218.png',['init']=5,['actSet']={'F','TL','E','Rot'}}
-masterPilotDB[219]={['name']='Asajj Ventress',['Faction']= 3,['ship_type']=42,['cost']=72,['slot']={21, 17, 8, 13, 13, 14, 15},['Shield']=2,['Force']=2,
+masterPilotDB[219]={['name']='Asajj Ventress',['Faction']= 3,['ship_type']=42,['cost']=69,['slot']={21, 17, 8, 13, 13, 14, 15},['Shield']=2,['Force']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_219.png',['init']=4,['actSet']={'F','TL','E','Rot'}}
-masterPilotDB[220]={['name']='Sabine Wren',['Faction']= 3,['ship_type']=42,['cost']=61,['slot']={21, 1, 8, 13, 13, 14, 15},['Shield']=2,
+masterPilotDB[220]={['name']='Sabine Wren',['Faction']= 3,['ship_type']=42,['cost']=59,['slot']={21, 1, 8, 13, 13, 14, 15},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_220.png',['init']=3,['actSet']={'F','TL','E','Rot'}}
-masterPilotDB[221]={['name']='Shadowport Hunter',['Faction']= 3,['ship_type']=42,['cost']=56,['slot']={21, 8, 13, 13, 14, 15},['Shield']=2,
+masterPilotDB[221]={['name']='Shadowport Hunter',['Faction']= 3,['ship_type']=42,['cost']=55,['slot']={21, 8, 13, 13, 14, 15},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_221.png',['init']=2,['actSet']={'F','TL','E','Rot'}}
-masterPilotDB[222]={['name']='Han Solo',['Faction']= 3,['ship_type']=47,['cost']=54,['slot']={21, 1, 6, 8, 8, 16, 13, 14, 15},['Shield']=3,
+masterPilotDB[222]={['name']='Han Solo',['Faction']= 3,['ship_type']=47,['cost']=48,['slot']={21, 1, 6, 8, 8, 16, 13, 14, 15},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_222.png',['init']=6,['actSet']={'F','TL','B','Rot'}}
-masterPilotDB[223]={['name']='Lando Calrissian',['Faction']= 3,['ship_type']=47,['cost']=49,['slot']={21, 1, 6, 8, 8, 16, 13, 14, 15},['Shield']=3,
+masterPilotDB[223]={['name']='Lando Calrissian',['Faction']= 3,['ship_type']=47,['cost']=42,['slot']={21, 1, 6, 8, 8, 16, 13, 14, 15},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_223.png',['init']=4,['actSet']={'F','TL','B','Rot'}}
-masterPilotDB[224]={['name']='L3-37',['Faction']= 3,['ship_type']=47,['cost']=47,['slot']={21, 6, 8, 8, 16, 13, 14, 15},['Shield']=3,
+masterPilotDB[224]={['name']='L3-37',['Faction']= 3,['ship_type']=47,['cost']=41,['slot']={21, 6, 8, 8, 16, 13, 14, 15},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_224.png',['init']=2,['actSet']={'C','TL','B','Rot'}}
-masterPilotDB[225]={['name']='Freighter Captain',['Faction']= 3,['ship_type']=47,['cost']=46,['slot']={21, 6, 8, 8, 16, 13, 14, 15},['Shield']=3,
+masterPilotDB[225]={['name']='Freighter Captain',['Faction']= 3,['ship_type']=41,['cost']=46,['slot']={21, 6, 8, 8, 16, 13, 14, 15},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_225.png',['init']=1,['actSet']={'F','TL','B','Rot'}}
 masterPilotDB[226]={['name']='Lando Calrissian',['Faction']= 3,['ship_type']=48,['cost']=29,['slot']={21, 1, 8, 14},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_226.png',['init']=4,['actSet']={'F','BR'}}
@@ -2057,19 +2058,21 @@ masterPilotDB[405]={
 	card ='http://sb-cdn.fantasyflightgames.com/card_images/en/e911cd18f04225bbd36c48114b56f3cc.png',
 	init =1,
 	texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/FO_Tie_FO/EpsilonSquadronCadet.png',
-	actSet ={'F','TL','E','BR'}}
+	actSet ={'F','TL','E','BR'}
+}
 masterPilotDB[406]={
 	name ='"Quickdraw"',
-	Faction =5,
-	ship_type =50,
-	cost =45,
-	slot ={21, 1,2,19,6,16,14},
-	Shield =3,
-	Charge =1,
-	card ='http://sb-cdn.fantasyflightgames.com/card_images/en/d038dadd7a62bbe2de89d3866e1a3639.png',
-	init =6,
+	Faction = 5,
+	ship_type = 50,
+	cost = 47,
+	slot = {21, 1,2,19,6,16,14},
+	Shield = 3,
+	Charge = 1,
+	card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/d038dadd7a62bbe2de89d3866e1a3639.png',
+	init = 6,
 	texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/FO_Tie_SF/Quickdraw.png',
-	actSet ={'F','TL','E','BR','Rot'}}
+	actSet = {'F','TL','E','BR','Rot'}
+}
 masterPilotDB[407]={
 	name ='"Backdraft"',
 	Faction =5,
@@ -2193,7 +2196,7 @@ masterPilotDB[417]={
 	name ='Sienar-Jaemus Engineer',
 	Faction =5,
 	ship_type =52,
-	cost =51,
+	cost =48,
 	slot ={21, 19,5,6},
 	Shield =2,
 	card ='http://sb-cdn.fantasyflightgames.com/card_images/en/8f7c4680fbc001169baf6538ab259e9b.png',
@@ -2203,7 +2206,7 @@ masterPilotDB[417]={
 }
 
 
-masterPilotDB[418]={['name']='Poe Dameron',['Faction']=4,['ship_type']=53,['cost']=68,['slot']={21, 1,19,14,18,15,10,99},['Shield']=3,['Charge']=1,
+masterPilotDB[418]={['name']='Poe Dameron',['Faction']=4,['ship_type']=53,['cost']=67, ['slot']={21, 1,19,14,18,15,10,99},['Shield']=3,['Charge']=1,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/14c504c0815213a66010c4013d9296ee.png',['init']=6,['actSet']={'F','TL','B'}}
 masterPilotDB[419]={['name']='Ello Asty',['Faction']=4,['ship_type']=53,['cost']=55,['slot']={21, 1,19,14,18,15,10,99},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/f77180ae05fd919a0dff2225380246a6.png',['init']=5,['actSet']={'F','TL','B'}}
@@ -2215,27 +2218,27 @@ masterPilotDB[422]={['name']='Temmin Wexley',['Faction']=4,['ship_type']=53,['co
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/bb98b7ea3a580542b586a9999fd352c9.png',['init']=4,['actSet']={'F','TL','B'}}
 masterPilotDB[423]={['name']='Jessika Pava',['Faction']=4,['ship_type']=53,['cost']=51,['slot']={21, 19,14,18,15,10,99},['Shield']=3,['Charge']=1,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/bc26d8864f421f1362473aa4982108ba.png',['init']=3,['actSet']={'F','TL','B'}}
-masterPilotDB[424]={['name']='Joph Seastriker',['Faction']=4,['ship_type']=53,['cost']=51,['slot']={21, 1,19,14,18,15,10,99},['Shield']=3,
+masterPilotDB[424]={['name']='Joph Seastriker',['Faction']=4,['ship_type']=53,['cost']=49,['slot']={21, 1,19,14,18,15,10,99},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/df85f5b77e16363a05c8f68792440166.png',['init']=3,['actSet']={'F','TL','B'}}
 masterPilotDB[425]={['name']='Red Squadron Expert',['Faction']=4,['ship_type']=53,['cost']=44,['slot']={21, 1,19,14,18,15,10,99},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/58967d94cfef285c4df2fdbb77fd0502.png',['init']=3,['actSet']={'F','TL','B'}}
 masterPilotDB[426]={['name']='Blue Squadron Rookie',['Faction']=4,['ship_type']=53,['cost']=42,['slot']={21, 19,14,18,15,10,99},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/a82a39a4c9baf883fbc6ae353abdd2ec.png',['init']=1,['actSet']={'F','TL','B'}}
-masterPilotDB[427]={['name']="Han Solo",['Faction']=4,['ship_type']=57,['cost']=65,['slot']={21, 1,8,8,16,13,14,15},['Shield']=3,
+masterPilotDB[427]={['name']="Han Solo",['Faction']=4,['ship_type']=57,['cost']=63,['slot']={21, 1,8,8,16,13,14,15},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/5816bd53c272ed50096e22ae1af2b38a.png',['init']=6,['actSet']={'F','TL','B','Rot'}}
-masterPilotDB[428]={['name']="Rey",['Faction']=4,['ship_type']=57,['cost']=70,['slot']={21, 17,8,8,16,13,14,15},['Shield']=3,['Force']=2,
+masterPilotDB[428]={['name']="Rey",['Faction']=4,['ship_type']=57,['cost']=68,['slot']={21, 17,8,8,16,13,14,15},['Shield']=3,['Force']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/0ee7006e6cc51d8c08b784c9b770f1b0.png',['init']=5,['actSet']={'F','TL','B','Rot'}}
-masterPilotDB[429]={['name']="Chewbacca",['Faction']=4,['ship_type']=57,['cost']=63,['slot']={21, 1,8,8,16,13,14,15},['Shield']=3,
+masterPilotDB[429]={['name']="Chewbacca",['Faction']=4,['ship_type']=57,['cost']=61,['slot']={21, 1,8,8,16,13,14,15},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/422fc30e0e10445e80b304ef2d96dc06.png',['init']=4,['actSet']={'F','TL','B','Rot'}}
-masterPilotDB[430]={['name']="Resistance Sympathizer",['Faction']=4,['ship_type']=57,['cost']=60,['slot']={21, 8,8,16,13,14,15},['Shield']=3,
+masterPilotDB[430]={['name']="Resistance Sympathizer",['Faction']=4,['ship_type']=57,['cost']=59,['slot']={21, 8,8,16,13,14,15},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/28411b84c1b15f0bfa9928f2206e44f5.png',['init']=2,['actSet']={'F','TL','B','Rot'}}
-masterPilotDB[431]={['name']="Finch Dallow",['Faction']=4,['ship_type']=55,['cost']=60,['slot']={21, 2,19,8,16,16,12,12,14},['Shield']=3,
+masterPilotDB[431]={['name']="Finch Dallow",['Faction']=4,['ship_type']=55,['cost']=58,['slot']={21, 2,19,8,16,16,12,12,14},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/43d9a0555f719a4cbe1ffe905fd38c46.png',['init']=4,['actSet']={'F','TL','Rot'}}
-masterPilotDB[432]={['name']="Ben Teene",['Faction']=4,['ship_type']=55,['cost']=58,['slot']={21, 2,19,8,16,16,12,12,14},['Shield']=3,
+masterPilotDB[432]={['name']="Ben Teene",['Faction']=4,['ship_type']=55,['cost']=56,['slot']={21, 2,19,8,16,16,12,12,14},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/c9189c7e510b4d734d4d78c4f595010f.png',['init']=3,['actSet']={'F','TL','Rot'}}
-masterPilotDB[433]={['name']="Cat",['Faction']=4,['ship_type']=55,['cost']=54,['slot']={21, 2,19,8,16,16,12,12,14},['Shield']=3,
+masterPilotDB[433]={['name']="Cat",['Faction']=4,['ship_type']=55,['cost']=52,['slot']={21, 2,19,8,16,16,12,12,14},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/b386dc25736682ebc785b15551de903b.png',['init']=1,['actSet']={'F','TL','Rot'}}
-masterPilotDB[434]={['name']="Cobalt Squadron Bomber",['Faction']=4,['ship_type']=55,['cost']=52,['slot']={21, 2,19,8,16,16,12,12,14},['Shield']=3,
+masterPilotDB[434]={['name']="Cobalt Squadron Bomber",['Faction']=4,['ship_type']=55,['cost']=51,['slot']={21, 2,19,8,16,16,12,12,14},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/6b6a3bb8049699e2d66fe09531e8bc00.png',['init']=1,['actSet']={'F','TL','Rot'}}
 
 masterPilotDB[435]={
@@ -2323,9 +2326,9 @@ masterPilotDB[445]={['name']='Mining Guild Surveyor',['Faction']=3,['ship_type']
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/3e5872dea32f2015bb6737592c21efaf.png',['init']=2,['actSet']={'F','E','BR'}}
 masterPilotDB[446]={['name']='Mining Guild Sentry',['Faction']=3,['ship_type']=56,['cost']=22,['slot']={21, 1,14},['Shield']=6,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/6d67112b15c3c97bd3d4acf2c8d000ed.png',['init']=1,['actSet']={'F','E','BR'}}
-masterPilotDB[447]={['name']="Edon Kappehl",['Faction']=4,['ship_type']=55,['cost']=60,['slot']={21, 2,19,8,16,16,12,12,14},['Shield']=3,
+masterPilotDB[447]={['name']="Edon Kappehl",['Faction']=4,['ship_type']=55,['cost']=58,['slot']={21, 2,19,8,16,16,12,12,14},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/f58fe0b57dc4a9c878627f0fea9cf1ef.png',['init']=3,['actSet']={'F','TL','Rot'}}
-masterPilotDB[448]={['name']="Vennie",['Faction']=4,['ship_type']=55,['cost']=56,['slot']={21, 2,19,8,16,16,12,12,14},['Shield']=3,
+masterPilotDB[448]={['name']="Vennie",['Faction']=4,['ship_type']=55,['cost']=54,['slot']={21, 2,19,8,16,16,12,12,14},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/0d494986a24e6c55efae066a43161b0d.png',['init']=2,['actSet']={'F','TL','Rot'}}
 masterPilotDB[449]={['name']='Lieutenant Bastian',['Faction']=4,['ship_type']=53,['cost']=47,['slot']={21, 19,14,18,15,10},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/3f43d6b3c6e87bde6a681e9d4421dec8.png',['init']=2,['actSet']={'F','TL','B'}}
@@ -2440,9 +2443,9 @@ masterPilotDB[495]={['name']='Skakoan Ace',['Faction']=7,['ship_type']=58,['cost
                   ['actSet']={'F','TL','B','BR'}}
 masterPilotDB[496]={['name']='Feethan Ottraw Autopilot',['Faction']=7,['ship_type']=58,['cost']=35,['slot']={21, 14,15,20},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/538c4833605af80b226da9e5f800e6ef.png',['init']=1,
                   ['actSet']={'C','TL','B','BR'}}
-masterPilotDB[497]={['name']='Separatist Drone',['Faction']=7,['ship_type']=59,['cost']=21,['slot']={21, 6,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/64e75b9a1024ac0c909634e62e165b2e.png',['init']=3,
+masterPilotDB[497]={['name']='Separatist Drone',['Faction']=7,['ship_type']=59,['cost']=22,['slot']={21, 6,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/64e75b9a1024ac0c909634e62e165b2e.png',['init']=3,
                   ['actSet']={'C','BR','TL'}}
-masterPilotDB[498]={['name']='Trade Federation Drone',['Faction']=7,['ship_type']=59,['cost']=19,['slot']={21, 6,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/4d8ed38f907fb4869611add738abda11.png',['init']=1,
+masterPilotDB[498]={['name']='Trade Federation Drone',['Faction']=7,['ship_type']=59,['cost']=20,['slot']={21, 6,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/4d8ed38f907fb4869611add738abda11.png',['init']=1,
                   ['actSet']={'C','BR','TL'}}
 masterPilotDB[499]={['name']='DFS-081',['Faction']=7,['ship_type']=59,['cost']=26,['slot']={21, 6,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/808de8db6d43921b4e3124f01d5d4947.png',['init']=3,
                   ['actSet']={'C','BR','TL'}}
@@ -2456,7 +2459,7 @@ masterPilotDB[503]={['name']='Darth Maul',['Faction']=7,['ship_type']=60,['cost'
                   ['actSet']={'F','TL','BR'}}
 masterPilotDB[504]={['name']='Count Dooku',['Faction']=7,['ship_type']=60,['cost']=63,['slot']={21, 17,5,3,8,8,20,12,15,14},['Force']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/88959087710ec5a80a16dd93573f149d.png',['init']=3,
                   ['actSet']={'F','TL','BR'}}
-masterPilotDB[505]={['name']='O-66',['Faction']=7,['ship_type']=60,['cost']=51,['slot']={21, 1,5,3,8,8,20,12,15,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/9edd9bb6846e77723d8f0381bb7909aa.png',['init']=3,
+masterPilotDB[505]={['name']='O-66',['Faction']=7,['ship_type']=60,['cost']=49,['slot']={21, 1,5,3,8,8,20,12,15,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/9edd9bb6846e77723d8f0381bb7909aa.png',['init']=3,
                   ['actSet']={'C','TL','BR'}}
 masterPilotDB[506]={['name']='Dark Courier',['Faction']=7,['ship_type']=60,['cost']=51,['slot']={21, 5,3,8,8,20,12,15,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/132f1957b904c890b94bf3aaf2a944ce.png',['init']=2,
                   ['actSet']={'F','TL','BR'}}
@@ -2469,31 +2472,31 @@ masterPilotDB[509]={['name']='Barriss Offee',['Faction']=6,['ship_type']=61,['co
                   ['actSet']={'F','E','TL','BR','B'}}
 masterPilotDB[510]={['name']='Ahsoka Tano',['Faction']=6,['ship_type']=61,['cost']=44,['slot']={21, 17,10,18,14},['Force']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/15f6bf84f63970c982dd722a5473217f.png',['init']=3,
                   ['actSet']={'F','E','TL','BR','B'}}
-masterPilotDB[511]={['name']='Obi-Wan Kenobi',['Faction']=6,['ship_type']=61,['cost']=48,['slot']={21, 17,10,18,14},['Force']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/fcf515534a722b581bc2f85f36cb5c30.png',['init']=5,
+masterPilotDB[511]={['name']='Obi-Wan Kenobi',['Faction']=6,['ship_type']=61,['cost']=49,['slot']={21, 17,10,18,14},['Force']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/fcf515534a722b581bc2f85f36cb5c30.png',['init']=5,
                   ['actSet']={'F','E','TL','BR','B'}}
-masterPilotDB[512]={['name']='Mace Windu',['Faction']=6,['ship_type']=61,['cost']=45,['slot']={21, 17,10,18,14},['Force']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/f0c905f162de8d77dd78c3d49cca77f1.png',['init']=4,
+masterPilotDB[512]={['name']='Mace Windu',['Faction']=6,['ship_type']=61,['cost']=46,['slot']={21, 17,10,18,14},['Force']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/f0c905f162de8d77dd78c3d49cca77f1.png',['init']=4,
                   ['actSet']={'F','E','TL','BR','B'}}
-masterPilotDB[513]={['name']='Plo Koon',['Faction']=6,['ship_type']=61,['cost']=44,['slot']={21, 17,10,18,14},['Force']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/c0936c57c897ea7bacadf723cfcbd0b6.png',['init']=5,
+masterPilotDB[513]={['name']='Plo Koon',['Faction']=6,['ship_type']=61,['cost']=45,['slot']={21, 17,10,18,14},['Force']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/c0936c57c897ea7bacadf723cfcbd0b6.png',['init']=5,
                   ['actSet']={'F','E','TL','BR','B'}}
 masterPilotDB[514]={['name']='Saesee Tiin',['Faction']=6,['ship_type']=61,['cost']=43,['slot']={21, 17,10,18,14},['Force']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/e0fdedf1af8fd1e5b36c2fba17b4f6b0.png',['init']=4,
                   ['actSet']={'F','E','TL','BR','B'}}
 masterPilotDB[515]={['name']='Jedi Knight',['Faction']=6,['ship_type']=61,['cost']=37,['slot']={21, 17,10,18,14},['Force']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/13d08d0d1131e7a11f6d10fd1626bff9.png',['init']=3,
                   ['actSet']={'F','E','TL','BR','B'}}
-masterPilotDB[516]={['name']='"Odd Ball"',['Faction']=6,['ship_type']=62,['cost']=34,['slot']={21, 1,6,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/9ecf7600f20da9a9eff5d3e244934ccb.png',['init']=5,
+masterPilotDB[516]={['name']='"Odd Ball"',['Faction']=6,['ship_type']=62,['cost']=31,['slot']={21, 1,6,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/9ecf7600f20da9a9eff5d3e244934ccb.png',['init']=5,
                   ['actSet']={'F','E','TL','BR'}}
-masterPilotDB[517]={['name']='"Kickback"',['Faction']=6,['ship_type']=62,['cost']=33,['slot']={21, 1,6,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/76c1228dd4c70dc4e56ac99284a11b0f.png',['init']=4,
+masterPilotDB[517]={['name']='"Kickback"',['Faction']=6,['ship_type']=62,['cost']=30,['slot']={21, 1,6,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/76c1228dd4c70dc4e56ac99284a11b0f.png',['init']=4,
                   ['actSet']={'F','E','TL','BR'}}
-masterPilotDB[518]={['name']='"Axe"',['Faction']=6,['ship_type']=62,['cost']=32,['slot']={21, 1,6,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/89ade203dec6b0fa5ed6360aae3b3022.png',['init']=3,
+masterPilotDB[518]={['name']='"Axe"',['Faction']=6,['ship_type']=62,['cost']=29,['slot']={21, 1,6,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/89ade203dec6b0fa5ed6360aae3b3022.png',['init']=3,
                   ['actSet']={'F','E','TL','BR'}}
-masterPilotDB[519]={['name']='"Swoop"',['Faction']=6,['ship_type']=62,['cost']=31,['slot']={21, 1,6,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/8ae255235c0c1d3892344fb43fcab773.png',['init']=3,
+masterPilotDB[519]={['name']='"Swoop"',['Faction']=6,['ship_type']=62,['cost']=28,['slot']={21, 1,6,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/8ae255235c0c1d3892344fb43fcab773.png',['init']=3,
                   ['actSet']={'F','E','TL','BR'}}
-masterPilotDB[520]={['name']='"Tucker"',['Faction']=6,['ship_type']=62,['cost']=29,['slot']={21, 6,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/a457cc2ab3038736cb37541ad94b9b34.png',['init']=2,
+masterPilotDB[520]={['name']='"Tucker"',['Faction']=6,['ship_type']=62,['cost']=27,['slot']={21, 6,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/a457cc2ab3038736cb37541ad94b9b34.png',['init']=2,
                   ['actSet']={'F','E','TL','BR'}}
-masterPilotDB[521]={['name']='Blue Squadron Protector',['Faction']=6,['ship_type']=62,['cost']=27,['slot']={21, 1,6,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/77b2dfdca20865d8d667c41539a7356e.png',['init']=3,
+masterPilotDB[521]={['name']='Blue Squadron Protector',['Faction']=6,['ship_type']=62,['cost']=26,['slot']={21, 1,6,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/77b2dfdca20865d8d667c41539a7356e.png',['init']=3,
                   ['actSet']={'F','E','TL','BR'}}
 masterPilotDB[522]={['name']='Gold Squadron Trooper',['Faction']=6,['ship_type']=62,['cost']=25,['slot']={21, 6,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/ed881318b45485a197e514b2d13e178c.png',['init']=2,
                   ['actSet']={'F','E','TL','BR'}}
-masterPilotDB[523]={['name']='"Odd Ball"',['Faction']=6,['ship_type']=31,['cost']=51,['slot']={21, 1,5,14,8,16,10},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/b0e39e35b57982a9cdffe663ff47b2dc.png',['init']=5,
+masterPilotDB[523]={['name']='"Odd Ball"',['Faction']=6,['ship_type']=31,['cost']=49,['slot']={21, 1,5,14,8,16,10},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/b0e39e35b57982a9cdffe663ff47b2dc.png',['init']=5,
                   ['actSet']={'F','TL','BR'}}
 masterPilotDB[524]={['name']='"Wolffe"',['Faction']=6,['ship_type']=31,['cost']=50,['slot']={21, 1,5,14,8,16,10},['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/2a15fd003a7fc1d475b562a958c6c263.png',['init']=4,
                   ['actSet']={'F','TL','BR'}}
@@ -2507,7 +2510,7 @@ masterPilotDB[528]={['name']='104th Battalion Pilot',['Faction']=6,['ship_type']
                   ['actSet']={'F','TL','BR'}}
 --w4 Pilots
 --N-1
-masterPilotDB[557]={['name']='Ric Olié',['Faction']=6,['ship_type']=63,['cost']=42,['slot']={21, 1,2,5,10},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/87829b7b808c535eb1e2c8314b04971a.png',['init']=5,
+masterPilotDB[557]={['name']='Ric Olié',['Faction']=6,['ship_type']=63,['cost']=45,['slot']={21, 1,2,5,10},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/87829b7b808c535eb1e2c8314b04971a.png',['init']=5,
                   ['actSet']={'F','TL','B','BR','E'}}
 masterPilotDB[558]={['name']='Anakin Skywalker',['Faction']=6,['ship_type']=63,['cost']=41,['slot']={21, 1,2,5,10},['Force']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/21e28ea4e8784dce5a554a33888d8be0.png',['init']=4,
                   ['actSet']={'F','TL','B','BR','E'}}
@@ -2623,34 +2626,34 @@ masterPilotDB[567]={['name']='Separatist Bomber',['Faction']=7,['ship_type']=66,
 masterPilotDB[568]={['name']='Techno Union Bomber',['Faction']=7,['ship_type']=66,['cost']=25,['slot']={21, 5,6,12,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/749bdc89c3da6b8034154780959e9c34.png',['init']=1,
                   ['actSet']={'C','TL','BR'}}
 --Republic Y-Wing
-masterPilotDB[596]={['name']='Anakin Skywalker',['Faction']=6,['ship_type']=68,['cost']=60,['slot']={21, 17, 4, 5, 16, 10, 12, 14},['Force']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/c7c979a7d90961d2e3afe377a71285df.png',['init']=6,
+masterPilotDB[596]={['name']='Anakin Skywalker',['Faction']=6,['ship_type']=68,['cost']=55,['slot']={21, 17, 4, 5, 16, 10, 12, 14},['Force']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/c7c979a7d90961d2e3afe377a71285df.png',['init']=6,
                   ['actSet']={'F','TL','BR'}}
-masterPilotDB[597]={['name']='"Odd Ball"',['Faction']=6,['ship_type']=68,['cost']=44,['slot']={21, 1, 4, 5, 16, 10, 12, 14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/3b260355bd12266e08ff25ec16d278fe.png',['init']=5,
+masterPilotDB[597]={['name']='"Odd Ball"',['Faction']=6,['ship_type']=68,['cost']=42,['slot']={21, 1, 4, 5, 16, 10, 12, 14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/3b260355bd12266e08ff25ec16d278fe.png',['init']=5,
                   ['actSet']={'F','TL','BR'}}
 masterPilotDB[598]={['name']='"Matchstick"',['Faction']=6,['ship_type']=68,['cost']=43,['slot']={21, 1, 4, 5, 16, 10, 12, 14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/6aa658fe4082ed67500d2ac92c7731a0.png',['init']=4,
                   ['actSet']={'F','TL','BR'}}
 masterPilotDB[599]={['name']='"Broadside"',['Faction']=6,['ship_type']=68,['cost']=36,['slot']={21, 1, 4, 5, 16, 10, 12, 14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/1f0842573067d73acd7bb7589707ec4e.png',['init']=3,
                   ['actSet']={'F','TL','BR'}}
-masterPilotDB[600]={['name']='R2-D2',['Faction']=6,['ship_type']=68,['cost']=35,['slot']={21, 1, 4, 5, 16, 8, 12, 14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/b37b960f2e79ab5eb905bc3593de8961.png',['init']=2,
+masterPilotDB[600]={['name']='R2-D2',['Faction']=6,['ship_type']=68,['cost']=32,['slot']={21, 1, 4, 5, 16, 8, 12, 14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/b37b960f2e79ab5eb905bc3593de8961.png',['init']=2,
                   ['actSet']={'C','TL','BR'}}
-masterPilotDB[601]={['name']='"Goji"',['Faction']=6,['ship_type']=68,['cost']=32,['slot']={21, 4, 5, 16, 10, 12, 14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/8ac74252d260a910a7990e6e806aa612.png',['init']=2,
+masterPilotDB[601]={['name']='"Goji"',['Faction']=6,['ship_type']=68,['cost']=29,['slot']={21, 4, 5, 16, 10, 12, 14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/8ac74252d260a910a7990e6e806aa612.png',['init']=2,
                   ['actSet']={'F','TL','BR'}}
-masterPilotDB[602]={['name']='Shadow Squadron Veteran',['Faction']=6,['ship_type']=68,['cost']=32,['slot']={21, 1, 4, 5, 16, 10, 12, 14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/fe59b8b8bd7ca5d4104030b50a30a299.png',['init']=3,
+masterPilotDB[602]={['name']='Shadow Squadron Veteran',['Faction']=6,['ship_type']=68,['cost']=31,['slot']={21, 1, 4, 5, 16, 10, 12, 14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/fe59b8b8bd7ca5d4104030b50a30a299.png',['init']=3,
                   ['actSet']={'F','TL','BR'}}
-masterPilotDB[603]={['name']='Red Squadron Bomber',['Faction']=6,['ship_type']=68,['cost']=30,['slot']={21, 4, 5, 16, 10, 12, 14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/692a1f1d4b5f5370dad7cacf2f19d699.png',['init']=2,
+masterPilotDB[603]={['name']='Red Squadron Bomber',['Faction']=6,['ship_type']=68,['cost']=29,['slot']={21, 4, 5, 16, 10, 12, 14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/692a1f1d4b5f5370dad7cacf2f19d699.png',['init']=2,
                   ['actSet']={'F','TL','BR'}}
 --Nantex
-masterPilotDB[604]={['name']='Sun Fac',['Faction']=7,['ship_type']=67,['cost']=54,['slot']={21, 1,1},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/42265df53c90026a58ac96b0acd3c1f8.png',['init']=6,
+masterPilotDB[604]={['name']='Sun Fac',['Faction']=7,['ship_type']=67,['cost']=45,['slot']={21, 1,1},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/42265df53c90026a58ac96b0acd3c1f8.png',['init']=6,
                   ['actSet']={'F','E'}}
-masterPilotDB[605]={['name']='Berwer Kret',['Faction']=7,['ship_type']=67,['cost']=40,['slot']={21, 1,1},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/f1c76ce6ff266c23099686392efef565.png',['init']=5,
+masterPilotDB[605]={['name']='Berwer Kret',['Faction']=7,['ship_type']=67,['cost']=36,['slot']={21, 1,1},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/f1c76ce6ff266c23099686392efef565.png',['init']=5,
                   ['actSet']={'F','E'}}
-masterPilotDB[606]={['name']='Chertek',['Faction']=7,['ship_type']=67,['cost']=39,['slot']={21, 1,1},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/07504533be45d13cb82d71ea11d234f7.png',['init']=4,
+masterPilotDB[606]={['name']='Chertek',['Faction']=7,['ship_type']=67,['cost']=34,['slot']={21, 1,1},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/07504533be45d13cb82d71ea11d234f7.png',['init']=4,
                   ['actSet']={'F','E'}}
-masterPilotDB[607]={['name']='Gorgol',['Faction']=7,['ship_type']=67,['cost']=36,['slot']={21, 1,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/d2d0764f83a2740f407082e934986ff2.png',['init']=2,
+masterPilotDB[607]={['name']='Gorgol',['Faction']=7,['ship_type']=67,['cost']=28,['slot']={21, 1,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/d2d0764f83a2740f407082e934986ff2.png',['init']=2,
                   ['actSet']={'F','E'}}
-masterPilotDB[608]={['name']='Petranaki Arena Ace',['Faction']=7,['ship_type']=67,['cost']=38,['slot']={21, 1,1},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/d2d62b6070fdf59b58db79aadb845d54.png',['init']=4,
+masterPilotDB[608]={['name']='Petranaki Arena Ace',['Faction']=7,['ship_type']=67,['cost']=30,['slot']={21, 1,1},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/d2d62b6070fdf59b58db79aadb845d54.png',['init']=4,
                   ['actSet']={'F','E'}}
-masterPilotDB[609]={['name']='Stalgasin Hive Guard',['Faction']=7,['ship_type']=67,['cost']=34,['slot']={21, 1},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/e97a0ae22847e0b71d920a0df9dfcfab.png',['init']=3,
+masterPilotDB[609]={['name']='Stalgasin Hive Guard',['Faction']=7,['ship_type']=67,['cost']=29,['slot']={21, 1},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/e97a0ae22847e0b71d920a0df9dfcfab.png',['init']=3,
                   ['actSet']={'F','E'}}
 --w7
 --TIE/ba
@@ -2658,7 +2661,7 @@ masterPilotDB[627]={
     name = 'First Order Provocateur',
     Faction = 5,
     ship_type = 71,
-    cost = 45,
+    cost = 41,
     slot = {21, 1,19,6,14},
     Shield = 2,
     card = 'http://images-cdn.fantasyflightgames.com/filer_public/ef/d7/efd7cc94-bdf7-4f63-80eb-476444dfeb28/swz62_card_first-order-provocateur.png',
@@ -2671,7 +2674,7 @@ masterPilotDB[626]={
     name = '"Ember"',
     Faction = 5,
     ship_type = 71,
-    cost = 52,
+    cost = 48,
     slot = {21, 1,19,6,14},
     Shield = 2,
     card = 'http://images-cdn.fantasyflightgames.com/filer_public/76/2e/762e6c35-81ce-4c9e-b8c5-f442d9fad0ee/swz62_card_ember.png',
@@ -2684,7 +2687,7 @@ masterPilotDB[625]= {
     name = '"Holo"',
     Faction = 5,
     ship_type = 71,
-    cost = 54,
+    cost = 53,
     slot = {21, 1,19,6,14},
     Shield = 2,
     card = 'http://images-cdn.fantasyflightgames.com/filer_public/2e/fe/2efe3183-8d4a-402a-9b11-4c8bf56a0b6c/swz62_card_holo.png',
@@ -2697,7 +2700,7 @@ masterPilotDB[624]={
     name = 'Major Vonreg',
     Faction = 5,
     ship_type = 71,
-    cost = 57,
+    cost = 55,
     slot = {21, 1,19,6,14},
     Shield = 2,
     card = 'http://images-cdn.fantasyflightgames.com/filer_public/b6/de/b6de4a15-0b5d-4c39-8a2e-c96af5dff9fe/swz62_card_major-vonreg.png',
@@ -2733,7 +2736,7 @@ masterPilotDB[629]={
     actSet = {'C','TL'}
 }
 
-masterPilotDB[631]={['name']='Alexsandr Kallus',['Faction']= 1,['ship_type']=23,['cost']=69,['slot']={21, 1, 2, 4, 5, 8, 8, 16, 14, 15},['Shield']=4,
+masterPilotDB[631]={['name']='Alexsandr Kallus',['Faction']= 1,['ship_type']=23,['cost']=68,['slot']={21, 1, 2, 4, 5, 8, 8, 16, 14, 15},['Shield']=4,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/d0/bf/d0bf7c63-2c2c-4372-8ace-7299d180c774/swz66_alexsandr-kallus.png',['init']=4,['actSet']={'F','TL','R'}}
 
 masterPilotDB[630]={
@@ -2775,11 +2778,11 @@ masterPilotDB[639]={
     actSet = {'F','TL','Rot180','E','B','BR'}}
 
 
-masterPilotDB[640]={['name']="Paige Tico",['Faction']=4,['ship_type']=55,['cost']=60,['slot']={21, 2,19,8,16,16,12,12,14},['Shield']=3,['Charge']=1,
+masterPilotDB[640]={['name']="Paige Tico",['Faction']=4,['ship_type']=55,['cost']=58,['slot']={21, 2,19,8,16,16,12,12,14},['Shield']=3,['Charge']=1,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/48/7e/487e95ce-b13c-4d39-97f6-8e28e633d07f/swz66_paige-tico.png',['init']=5,['actSet']={'F','TL','Rot'}}
 masterPilotDB[632]={['name']='Fifth Brother',['Faction']= 2,['ship_type']=25,['cost']=42,['slot']={21, 17, 2, 6},['Shield']=2,['Force']=2,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/c9/64/c964c977-9c57-4f50-a077-ac4fb7b70ebd/swz66_fifth-brother.png',['init']=4,['actSet']={'F','E','TL','BR','B'}}
-masterPilotDB[633]={['name']='"Vagabond"',['Faction']= 2,['ship_type']=16,['cost']=35,['slot']={21, 1, 16, 12, 14},['Shield']=0,
+masterPilotDB[633]={['name']='"Vagabond"',['Faction']= 2,['ship_type']=16,['cost']=34,['slot']={21, 1, 16, 12, 14},['Shield']=0,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/98/a8/98a8c9cc-53b2-4b57-ac0b-96da7c064740/swz66_vagabond.png',['init']=2,['actSet']={'F','E','BR','Ail'}}
 masterPilotDB[634]={['name']='Morna Kee',['Faction']= 2,['ship_type']=28,['cost']=75,['slot']={21, 1, 5, 8, 8, 8, 16, 12, 14, 15},['Shield']=4,['Charge']=3,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/53/16/53162173-c0c4-423e-8bbe-d5d0be9554cb/swz66_morna-kee.png',['init']=4,['actSet']={'F','R','TL','Rot'}}
@@ -2788,7 +2791,7 @@ masterPilotDB[641]={
     name = 'Lieutenant LeHuse',
     Faction = 5,
     ship_type = 50,
-    cost = 39,
+    cost = 38,
     slot = {21, 1, 2, 19, 6, 16, 14},
     Shield = 3,
     card = 'http://images-cdn.fantasyflightgames.com/filer_public/5d/d9/5dd92afa-a038-4f4c-869d-19b108c6bb6a/swz66_lieutenant-lehuse.png',
@@ -2966,7 +2969,7 @@ masterUpgradesDB[239]={['name']='Marksmanship',['slot']=1,['cost']=1,['card']='h
 masterUpgradesDB[240]={['name']='Outmaneuver',['slot']=1,['cost']=6,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_11.png',['restriction']={ }}
 masterUpgradesDB[241]={['name']='Predator',['slot']=1,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_12.png',['restriction']={ }}
 masterUpgradesDB[242]={['name']='Ruthless',['slot']=1,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_13.png',['restriction']={['Faction']={[2]=true}}}
-masterUpgradesDB[243]={['name']='Saturation Salvo',['slot']=1,['cost']=5,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_14.png',['restriction']={ }}
+masterUpgradesDB[243]={['name']='Saturation Salvo',['slot']=1,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_14.png',['restriction']={ }}
 masterUpgradesDB[244]={['name']='Selfless',['slot']=1,['cost']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_15.png',['restriction']={['Faction']={[1]=true}}}
 masterUpgradesDB[245]={['name']='Squad Leader',['slot']=1,['cost']='i',['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_16.png',['restriction']={ }}
 masterUpgradesDB[246]={['name']='Swarm Tactics',['slot']=1,['cost']='i',['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_17.png',['restriction']={ }}
@@ -2983,17 +2986,17 @@ masterUpgradesDB[256]={['name']='Heavy Laser Cannon',['slot']=3,['cost']=5,['car
 masterUpgradesDB[257]={['name']='Ion Cannon',['slot']=3,['cost']=6,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_28.png',['restriction']={ }}
 masterUpgradesDB[258]={['name']='Jamming Beam',['slot']=3,['cost']=0,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_29.png',['restriction']={ }}
 masterUpgradesDB[259]={['name']='Tractor Beam',['slot']=3,['cost']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_30.png',['restriction']={ }}
-masterUpgradesDB[260]={['name']='Dorsal Turret',['sTurret']=1,['slot']=4,['cost']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_31.png',['restriction']={ }}
+masterUpgradesDB[260]={['name']='Dorsal Turret',['sTurret']=1,['slot']=4,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_31.png',['restriction']={ }}
 masterUpgradesDB[261]={['name']='Ion Cannon Turret',['sTurret']=1,['slot']=4,['cost']=5,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_32.png',['restriction']={ }}
-masterUpgradesDB[262]={['name']='Adv. Proton Torpedoes',['slot']=5,['cost']=6,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_33.png',['restriction']={ }}
-masterUpgradesDB[263]={['name']='Ion Torpedoes',['slot']=5,['cost']=6,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_34.png',['restriction']={ }}
+masterUpgradesDB[262]={['name']='Adv. Proton Torpedoes',['slot']=5,['cost']=5,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_33.png',['restriction']={ }}
+masterUpgradesDB[263]={['name']='Ion Torpedoes',['slot']=5,['cost']=5,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_34.png',['restriction']={ }}
 masterUpgradesDB[264]={['name']='Proton Torpedoes',['slot']=5,['cost']=13,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_35.png',['restriction']={ }}
 masterUpgradesDB[265]={['name']='Barrage Rockets',['slot']=6,['remSlot']={6}, ['cost']=8,['Charge']=5,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_36.png',['cardB']=cardBackDB['6b'],['restriction']={ }}
-masterUpgradesDB[266]={['name']='Cluster Missiles',['slot']=6,['cost']=5,['Charge']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_37.png',['restriction']={ }}
+masterUpgradesDB[266]={['name']='Cluster Missiles',['slot']=6,['cost']=4,['Charge']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_37.png',['restriction']={ }}
 masterUpgradesDB[267]={['name']='Concussion Missiles',['slot']=6,['cost']=6,['Charge']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_38.png',['restriction']={ }}
 masterUpgradesDB[268]={['name']='homing Missiles',['slot']=6,['cost']=5,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_39.png',['restriction']={ }}
-masterUpgradesDB[269]={['name']='Ion Missiles',['slot']=6,['cost']=4,['Charge']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_40.png',['restriction']={ }}
-masterUpgradesDB[270]={['name']='Proton Rockets',['slot']=6,['cost']=7,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_41.png',['restriction']={ }}
+masterUpgradesDB[269]={['name']='Ion Missiles',['slot']=6,['cost']=3,['Charge']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_40.png',['restriction']={ }}
+masterUpgradesDB[270]={['name']='Proton Rockets',['slot']=6,['cost']=6,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_41.png',['restriction']={ }}
 masterUpgradesDB[271]={['name']='Freelance Slicer',['slot']=8,['cost']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_42.png',['restriction']={ }}
 masterUpgradesDB[272]={['name']='GNK "Gonk" Droid',['slot']=8,['cost']=10,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_43.png',['restriction']={ }}
 masterUpgradesDB[273]={['name']='Informant',['Condition']="Listening Device",['slot']=8,['cost']=5,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_44.png',['restriction']={ }}
@@ -3004,7 +3007,7 @@ masterUpgradesDB[277]={['name']='Tactical Officer',['slot']=8,['cost']=6,['card'
 masterUpgradesDB[278]={['name']='Hotshot Gunner',['slot']=16,['cost']=7,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_49.png',['restriction']={ }}
 masterUpgradesDB[279]={['name']='Skilled Bombardier',['slot']=16,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_50.png',['restriction']={ }}
 masterUpgradesDB[280]={['name']='Veteran Tail Gunner',['slot']=16,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_51.png',['restriction']={ }}
-masterUpgradesDB[281]={['name']='Veteran Turret Gunner',['slot']=16,['cost']=10,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_52.png',['restriction']={ }}
+masterUpgradesDB[281]={['name']='Veteran Turret Gunner',['slot']=16,['cost']='s',['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_52.png',['restriction']={ }}
 masterUpgradesDB[282]={['name']='R2 Astromech',['slot']=10,['cost']='a',['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_53.png',['restriction']={ }}
 masterUpgradesDB[283]={['name']='R3 Astromech',['slot']=10,['cost']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_54.png',['restriction']={ }}
 masterUpgradesDB[284]={['name']='R4 Astromech',['slot']=10,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_55.png',['restriction']={ ['Size']={small=true}}}
@@ -3038,7 +3041,7 @@ masterUpgradesDB[304]={['name']='C-3PO',['slot']=8,['cost']=8,['card']='http://s
                                 ['restriction']={['Faction']={[1]=true}}}
 masterUpgradesDB[305]={['name']='Cassian Andor',['slot']=8,['cost']=6,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_81.png',['restriction']={['Faction']={[1]=true}}}
 masterUpgradesDB[306]={['name']='Chewbacca',['slot']=8,['cost']=4,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_82.png',['restriction']={['Faction']={[1]=true}}}
-masterUpgradesDB[307]={['name']='"Chopper"',['slot']=8,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_83.png',['restriction']={['Faction']={[1]=true}}}
+masterUpgradesDB[307]={['name']='"Chopper"',['slot']=8,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_83.png',['restriction']={['Faction']={[1]=true}}}
 masterUpgradesDB[308]={['name']='hera Syndulla',['slot']=8,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_84.png',['restriction']={['Faction']={[1]=true}}}
 masterUpgradesDB[309]={['name']='Jyn Erso',['slot']=8,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_85.png',['restriction']={['Faction']={[1]=true}}}
 masterUpgradesDB[310]={['name']='Kanan Jarrus',['slot']=8,['cost']=12,['Force']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_86.png',['restriction']={['Faction']={[1]=true}}}
@@ -3050,9 +3053,9 @@ masterUpgradesDB[315]={['name']='R2-D2',['slot']=8,['cost']='a',['card']='http:/
 masterUpgradesDB[316]={['name']='Sabine Wren',['slot']=8,['cost']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_92.png',['restriction']={['Faction']={[1]=true}}}
 masterUpgradesDB[317]={['name']='Saw Gerrera',['slot']=8,['cost']=9,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_93.png',['restriction']={['Faction']={[1]=true}}}
 masterUpgradesDB[318]={['name']='"Zeb" Orrelios',['slot']=8,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_94.png',['restriction']={['Faction']={[1]=true}}}
-masterUpgradesDB[319]={['name']='Bistan',['slot']=16,['cost']=14,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_95.png',['restriction']={['Faction']={[1]=true}}}
-masterUpgradesDB[320]={['name']='Ezra Bridger',['slot']=16,['cost']=14,['Force']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_96.png',['restriction']={['Faction']={[1]=true}}}
-masterUpgradesDB[321]={['name']='Han Solo',['slot']=16,['cost']=14,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_97.png',['restriction']={['Faction']={[1]=true}}}
+masterUpgradesDB[319]={['name']='Bistan',['slot']=16,['cost']=10,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_95.png',['restriction']={['Faction']={[1]=true}}}
+masterUpgradesDB[320]={['name']='Ezra Bridger',['slot']=16,['cost']=12,['Force']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_96.png',['restriction']={['Faction']={[1]=true}}}
+masterUpgradesDB[321]={['name']='Han Solo',['slot']=16,['cost']=12,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_97.png',['restriction']={['Faction']={[1]=true}}}
 masterUpgradesDB[322]={['name']='Luke Skywalker',['slot']=16,['cost']=26,['Force']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_98.png',['restriction']={['Faction']={[1]=true}}}
 masterUpgradesDB[323]={['name']='"Chopper"',['slot']=10,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_99.png',['restriction']={['Faction']={[1]=true}}}
 masterUpgradesDB[324]={['name']='R2-D2',['slot']=10,['cost']=10,['Charge']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_100.png',['restriction']={['Faction']={[1]=true}}}
@@ -3079,7 +3082,7 @@ masterUpgradesDB[344]={['name']='ISB Slicer',['slot']=8,['cost']=3,['card']='htt
 masterUpgradesDB[345]={['name']='Minister Tua',['slot']=8,['cost']=7,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_119.png',['restriction']={['Faction']={[2]=true}}}
 masterUpgradesDB[346]={['name']='Moff Jerjerrod',['slot']=8,['cost']=8,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_120.png',['restriction']={['Faction']={[2]=true}}}
 masterUpgradesDB[347]={['name']='Seventh Sister',['slot']=8,['cost']=9,['Force']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_121.png',['restriction']={['Faction']={[2]=true}}}
-masterUpgradesDB[348]={['name']='Fifth Brother',['slot']=16,['cost']=11,['Force']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_122.png',['restriction']={['Faction']={[2]=true}}}
+masterUpgradesDB[348]={['name']='Fifth Brother',['slot']=16,['cost']=12,['Force']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_122.png',['restriction']={['Faction']={[2]=true}}}
 masterUpgradesDB[349]={['name']='Dauntless',['slot']=15,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_123.png',['restriction']={['Faction']={[2]=true},['ship']={[28]=true}}}
 masterUpgradesDB[350]={['name']='Os-1 Arsenal Loadout',['slot']=18,['cost']=0,['addSlot']={5, 6},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_125.png',['restriction']={['Faction']={[2]=true},['ship']={[14]=true}}}
 masterUpgradesDB[351]={['name']='Xg-1 Assault Configuration',['slot']=18,['cost']=0,['addSlot']={3},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_126.png',['restriction']={['Faction']={[2]=true},['ship']={[14]=true}}}
@@ -3095,7 +3098,7 @@ masterUpgradesDB[360]={['name']='Latts Razzi',['slot']=8,['cost']=7,['card']='ht
 masterUpgradesDB[361]={['name']='Maul',['slot']=8,['cost']=12,['Force']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_136.png',['restriction']={['Faction']={[1]=true,[3]=true},['card_id']=325}}
 masterUpgradesDB[362]={['name']='Unkar Plutt',['slot']=8,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_137.png',['restriction']={['Faction']={[3]=true}}}
 masterUpgradesDB[363]={['name']='Zuckuss',['slot']=8,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_138.png',['restriction']={['Faction']={[3]=true}}}
-masterUpgradesDB[364]={['name']='Bossk',['slot']=16,['cost']=10,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_139.png',['restriction']={['Faction']={[3]=true}}}
+masterUpgradesDB[364]={['name']='Bossk',['slot']=16,['cost']=9,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_139.png',['restriction']={['Faction']={[3]=true}}}
 masterUpgradesDB[365]={['name']='BT-1',['slot']=16,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_140.png',['restriction']={['Faction']={[2]=true, [3]=true},['card_id']=343}}
 masterUpgradesDB[366]={['name']='Dengar',['slot']=16,['cost']=6,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_141.png',['restriction']={['Faction']={[3]=true}}}
 masterUpgradesDB[367]={['name']='Greedo',['slot']=16,['cost']=1,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_142.png',['restriction']={['Faction']={[3]=true}}}
@@ -3110,7 +3113,7 @@ masterUpgradesDB[375]={['name']='Marauder',['slot']=15,['cost']=6,['addSlot']={1
 masterUpgradesDB[376]={['name']='Mist Hunter',['slot']=15,['cost']=1,['addSlot']={3},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_151.png',['restriction']={['Faction']={[3]=true},['ship']={[22]=true}}}
 masterUpgradesDB[377]={['name']='Punishing One',['slot']=15,['cost']=5,['addSlot']={10},['remSlot']={8},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_152.png',['restriction']={['Faction']={[3]=true},['ship']={[45]=true}}}
 masterUpgradesDB[378]={['name']='Shadow Caster',['slot']=15,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_153.png',['restriction']={['Faction']={[3]=true},['ship']={[42]=true}}}
-masterUpgradesDB[379]={['name']='Slave I',['slot']=15,['cost']=1,['addSlot']={5},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_154.png',['restriction']={['Faction']={[3]=true},['ship']={[10]=true}}}
+masterUpgradesDB[379]={['name']='Slave I',['slot']=15,['cost']=5,['addSlot']={5},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_154.png',['restriction']={['Faction']={[3]=true},['ship']={[10]=true}}}
 masterUpgradesDB[380]={['name']='Virago',['slot']=15,['cost']=8,['Charge']=2,['shd']=1,['addSlot']={14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_155.png',['restriction']={['ship']={[3]=true}}}
 masterUpgradesDB[381]={['name']='Composure',['slot']=1,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_156.png',['restriction']={ }}
 masterUpgradesDB[382]={['name']='Chewbacca',['slot']=8,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_157.png',['restriction']={['Faction']={[3]=true}}}
@@ -3124,7 +3127,7 @@ masterUpgradesDB[389]={['name']='Han Solo',['slot']=16,['cost']=12,['card']='htt
 masterUpgradesDB[390]={['name']="Lando's Millennium Falcon",['slot']=15,['cost']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_164.png',['restriction']={['Faction']={[3]=true},['ship']={[47]=true}}}
 masterUpgradesDB[391]={['name']='ST-321',['slot']=15,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_124.png',['restriction']={['Faction']={[2]=true},['ship']={[26]=true}}}
 masterUpgradesDB[392]={['name']='Bomblet Generator',['slot']=12,['remSlot']={12},['Bomb']=true,['cost']=5,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_63.png',['cardB']=cardBackDB['12b'],['restriction']={ }}
-masterUpgradesDB[393]={['name']='Conner Nets',['slot']=12,['Bomb']=true,['cost']=6,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_64.png',['restriction']={ }}
+masterUpgradesDB[393]={['name']='Conner Nets',['slot']=12,['Bomb']=true,['cost']=5,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_64.png',['restriction']={ }}
 masterUpgradesDB[394]={['name']='Proton Bombs',['slot']=12,['Bomb']=true,['cost']=5,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_65.png',['restriction']={ }}
 masterUpgradesDB[395]={['name']='Proximity Mines',['slot']=12,['Bomb']=true,['cost']=6,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_66.png',['restriction']={ }}
 masterUpgradesDB[396]={['name']='Seismic Charges',['slot']=12,['Bomb']=true,['cost']=3,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_67.png',['restriction']={ }}
@@ -3136,13 +3139,13 @@ masterUpgradesDB[460]={['name']="Advanced Optics",['slot']=19,['cost']=4,['card'
 masterUpgradesDB[461]={['name']="Hyperspace Tracking Data",['slot']=19,['cost']=10,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/a48713c6784bf33bd3f8b36eb19221c3.png',['restriction']={['Faction']={[5]=true}}}
 masterUpgradesDB[462]={['name']="Pattern Analyzer",['slot']=19,['cost']=5,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/ace963fc4fe9d97f64ab8564dc4beae7.png',['restriction']={ }}
 masterUpgradesDB[463]={['name']="Primed Thrusters",['slot']=19,['cost']='i',['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/a114625347a0f3088f4679f8107ab631.png',['restriction']={ }}
-masterUpgradesDB[464]={['name']="Targeting Synchronizer",['slot']=19,['cost']=6,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/83782f01cd3486006c4d279864d2983a.png',['restriction']={ }}
+masterUpgradesDB[464]={['name']="Targeting Synchronizer",['slot']=19,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/83782f01cd3486006c4d279864d2983a.png',['restriction']={ }}
 masterUpgradesDB[465]={['name']="Captain Phasma",['slot']=8,['cost']=5,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/784566afc8c540d5e392689865207059.png',['restriction']={['Faction']={[5]=true}}}
 masterUpgradesDB[466]={['name']="General Hux",['slot']=8,['cost']=6,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/fa0b8492eff625bc66f00bd561015465.png',['restriction']={['Faction']={[5]=true}}}
 masterUpgradesDB[467]={['name']="Kylo Ren",['Condition']="I'll Show You the Dark Side",['slot']=8,['cost']=11,['Force']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/f60322a1f5ace7e45f6c7e0fa0200705.png',['restriction']={['Faction']={[5]=true}}}
 masterUpgradesDB[468]={['name']="Petty Officer Thanisson",['slot']=8,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/900397d209adfd3f7bd6429909cc20cc.png',['restriction']={['Faction']={[5]=true}}}
 masterUpgradesDB[469]={['name']="Supreme Leader Snoke",['slot']=8,['remSlot']={8},['cost']=13,['Force']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/5b699f8b5268e5290c42adce0fd2ee3e.png',['cardB']=cardBackDB['8b'],['restriction']={['Faction']={[5]=true}}}
-masterUpgradesDB[470]={['name']="Special Forces Gunner",['slot']=16,['cost']=10,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/d3aed19c7eb6f9ebc2352ac49cdd6b87.png',['restriction']={['Faction']={[5]=true}}}
+masterUpgradesDB[470]={['name']="Special Forces Gunner",['slot']=16,['cost']=9,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/d3aed19c7eb6f9ebc2352ac49cdd6b87.png',['restriction']={['Faction']={[5]=true}}}
 masterUpgradesDB[471]={['name']="Heroic",['slot']=1,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/9f8baf4893cd90288df44b69b50fa788.png',['restriction']={['Faction']={[4]=true}}}
 masterUpgradesDB[472]={['name']="C-3PO",['slot']=8,['cost']=10,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/a0e80bb89748e7415e945a050f82ba84.png',['restriction']={['Faction']={[4]=true}}}
 masterUpgradesDB[473]={['name']="Chewbacca",['slot']=8,['cost']=5,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/3090c218acff7dc71a81e791ce15860e.png',['restriction']={['Faction']={[4]=true}}}
@@ -3160,7 +3163,7 @@ masterUpgradesDB[484]={['name']="Black One",['slot']=15,['cost']=2,['Charge']=1,
 masterUpgradesDB[485]={['name']="Rey's Millennium Falcon",['slot']=15,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/23627443c7f5e7447c306ea7c6242634.png',['restriction']={ ['ship']={[57]=true}}}
 masterUpgradesDB[486]={['name']="Integrated S-foils (Open)",['dual']=1,['slot']=18,['cost']=0,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/e3b44142faf0f13e541bf674a6c06dbc.png',['cardB']='http://sb-cdn.fantasyflightgames.com/card_images/en/49372b4efb974ff673a1b79441186fd5.png',['restriction']={['Faction']={[4]=true}, ['ship']={[53]=true}}}
 masterUpgradesDB[487]={['name']="Integrated S-foils (Closed)",['dual']=1,['slot']=18,['cost']=0,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/49372b4efb974ff673a1b79441186fd5.png',['cardB']='http://sb-cdn.fantasyflightgames.com/card_images/en/e3b44142faf0f13e541bf674a6c06dbc.png',['restriction']={['Faction']={[4]=true}, ['ship']={[53]=true}}}
-masterUpgradesDB[488]={['name']="Ferrosphere Paint",['slot']=19,['cost']=6,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/55d8ff7d35b714d9c9a6ef1fd7732a60.png',['restriction']={['Faction']={[4]=true}}}
+masterUpgradesDB[488]={['name']="Ferrosphere Paint",['slot']=19,['cost']=5,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/55d8ff7d35b714d9c9a6ef1fd7732a60.png',['restriction']={['Faction']={[4]=true}}}
 masterUpgradesDB[489]={['name']="Hate",['slot']=17,['cost']='s',['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/4a10b5c8a3d796116163a741d145f4e9.png',['restriction']={ }}
 masterUpgradesDB[490]={['name']="Predictive Shot",['slot']=17,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/e0100c63b2753daf68a9d3948824b086.png',['restriction']={ }}
 masterUpgradesDB[491]={['name']="Biohexacrypt Codes",['slot']=19,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/094f3bbc6e3041886398e9eaf692d4ab.png',['restriction']={['Faction']={[5]=true}}}
@@ -3169,7 +3172,7 @@ masterUpgradesDB[491]={['name']="Biohexacrypt Codes",['slot']=19,['cost']=1,['ca
 masterUpgradesDB[544]={['name']="Dedicated",['slot']=1,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/31c6723d7e5670c257acfa8788160437.png',['restriction']={['Faction']={[6]=true}}}
 masterUpgradesDB[529]={['name']="Treacherous",['slot']=1,['cost']=2,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/a10d907fea50e32ab28d924c67486d37.png',['restriction']={['Faction']={[7]=true}}}
 masterUpgradesDB[530]={['name']="TV-94",['slot']=20,['cost']=5,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/633a34a139c912116c1b034fc2765484.png',['restriction']={['Faction']={[7]=true}}}
-masterUpgradesDB[531]={['name']="Kraken",['slot']=20,['cost']=10,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/47dae8a3ecd27a48f3dc35aff03a1a75.png',['restriction']={['Faction']={[7]=true}}}
+masterUpgradesDB[531]={['name']="Kraken",['slot']=20,['cost']=11,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/47dae8a3ecd27a48f3dc35aff03a1a75.png',['restriction']={['Faction']={[7]=true}}}
 masterUpgradesDB[532]={['name']="Energy-Shell Charges",['slot']=6,['cost']=5,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/4b6213e5ed13735bb381df08bdd1398d.png',['restriction']={['Faction']={[7]=true}}}
 masterUpgradesDB[533]={['name']="Soulless One",['slot']=15,['cost']=6,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/36b33e7330846570087096cb55fba140.png',['restriction']={ ['ship']={[58]=true}}}
 masterUpgradesDB[534]={['name']="Impervium Plating",['slot']=14,['cost']=4,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/93e0fe1b2931944d128126b854c4ad33.png',['restriction']={ ['ship']={[58]=true}}}
@@ -3184,12 +3187,12 @@ masterUpgradesDB[541]={['name']="DRK-1 Probe Droids",['Condition']='DRK-1 Probe 
 masterUpgradesDB[542]={['name']="Scimitar",['slot']=15,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/73d545fd02afd29fa8aa9e9015e7be6e.png',['restriction']={ ['ship']={[60]=true}}}
 masterUpgradesDB[543]={['name']="Discord Missiles",['Condition']="Buzz Droid Swarm",['slot']=6,['cost']=4,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/ee2f0b906cb4f1dbcafc274f44b76d3d.png',['restriction']={['Faction']={[7]=true}}}
 masterUpgradesDB[545]={['name']="Battle Meditation",['slot']=17,['cost']='i',['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/d0641df31a0fc40c501055dcd34094f6.png',['restriction']={['Faction']={[6]=true}}}
-masterUpgradesDB[546]={['name']="R4-P Astromech",['slot']=10,['cost']=4,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/26f6dd68ba6bb37fa5315f45a6237c88.png',['restriction']={['Faction']={[6]=true}}}
+masterUpgradesDB[546]={['name']="R4-P Astromech",['slot']=10,['cost']=2,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/26f6dd68ba6bb37fa5315f45a6237c88.png',['restriction']={['Faction']={[6]=true}}}
 masterUpgradesDB[547]={['name']="R4-P17",['slot']=10,['cost']=5,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/80c71951bb28b45b9ffdc84c9e7e69f8.png',['restriction']={['Faction']={[6]=true}}}
 masterUpgradesDB[548]={['name']="Delta-7B",['slot']=18,['cost']='i',['shd']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/515903e04a0d06a9200860698326896d.png',['restriction']={ ['ship']={[61]=true}}}
 masterUpgradesDB[549]={['name']="Calibrated laser Targeting",['slot']=18,['cost']='i',['remSlot']={14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/f3e06326ab525e07f9a85363b6d69580.png',['cardB']=cardBackDB['mc'],['restriction']={ ['ship']={[61]=true}}}
 masterUpgradesDB[550]={['name']="Spare Parts Canisters",['slot']=14,['cost']=4,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/79d9f2b2bc32bd78ab67dc82eece696a.png',['restriction']={ }}
-masterUpgradesDB[551]={['name']="R4-P44",['slot']=10,['cost']=5,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/749fa54f44bc3327349aa3f8b1742a67.png',['restriction']={['Faction']={[6]=true}}}
+masterUpgradesDB[551]={['name']="R4-P44",['slot']=10,['cost']=3,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/749fa54f44bc3327349aa3f8b1742a67.png',['restriction']={['Faction']={[6]=true}}}
 masterUpgradesDB[552]={['name']="Clone Commander Cody",['slot']=16,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/1da8e9de468d456f724d0c1f37e90d28.png',['restriction']={['Faction']={[6]=true}}}
 masterUpgradesDB[553]={['name']="Seventh Fleet Gunner",['slot']=16,['cost']=9,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/a532c1de311e8d0a288af8232495a007.png',['restriction']={['Faction']={[6]=true}}}
 masterUpgradesDB[554]={['name']="Synchronized Console",['slot']=14,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/e3e5bd38f39f904fbaaa75293e56fb38.png',['restriction']={['Faction']={[6]=true}}}
@@ -3203,7 +3206,7 @@ masterUpgradesDB[577]={['name']="Passive Sensors",['slot']=2,['cost']=3,['Charge
                         ['restriction']={ }}
 masterUpgradesDB[578]={['name']="Autoblasters",['slot']=3,['cost']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/59d4a52e3a534dd090259bd5546e7bab.png',
                         ['restriction']={ }}
-masterUpgradesDB[579]={['name']="Plasma Torpedoes",['slot']=5,['cost']=9,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/60fb85c3782c235904678bac8a106150.png',
+masterUpgradesDB[579]={['name']="Plasma Torpedoes",['slot']=5,['cost']=8,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/60fb85c3782c235904678bac8a106150.png',
                         ['restriction']={ }}
 masterUpgradesDB[580]={['name']="Diamond-Boron Missiles",['slot']=6,['cost']=6,['Charge']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/f2c1893053af65ce47300fb133a30312.png',
                         ['restriction']={ }}
@@ -3225,9 +3228,9 @@ masterUpgradesDB[588]={['name']="R2-A6",['slot']=10,['cost']=6,['card']='http://
                         ['restriction']={['Faction']={[6]=true}}}
 masterUpgradesDB[589]={['name']="R2-C4",['slot']=10,['cost']=5,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/8fce75228aa2c4eaaf3e9666c4da8caf.png',
                         ['restriction']={['Faction']={[6]=true}}}
-masterUpgradesDB[590]={['name']="TA-175",['slot']=20,['cost']=9,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/d71e07aa3147c6fe943bd0c8131a0096.png',
+masterUpgradesDB[590]={['name']="TA-175",['slot']=20,['cost']=11,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/d71e07aa3147c6fe943bd0c8131a0096.png',
                         ['restriction']={['Faction']={[7]=true}}}
-masterUpgradesDB[591]={['name']="Electro-Proton Bomb",['slot']=12,['Bomb']=true,['cost']=12,['Charge']=1,['remSlot']={14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/0f76484cc390fc97d1fe2f863d75944b.png',
+masterUpgradesDB[591]={['name']="Electro-Proton Bomb",['slot']=12,['Bomb']=true,['cost']=11,['Charge']=1,['remSlot']={14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/0f76484cc390fc97d1fe2f863d75944b.png',
                         ['restriction']={ }}
 masterUpgradesDB[592]={['name']="Delayed Fuses",['slot']=14,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/4572ece39224eeaf2dfce2770b96f919.png',
                         ['restriction']={ }}
@@ -3268,7 +3271,7 @@ masterUpgradesDB[647]={['name']="K-2SO",['slot']=8,['cost']=8,['card']='http://i
                         ['restriction']={['Faction']={[1]=true}}}
 
 masterUpgradesDB[648]={['name']='Cluster Mines',['slot']=12,['Bomb']=true,['cost']=8,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/c27f0dcda78915239450bedf5b931d86.png',['restriction']={ }}
-masterUpgradesDB[649]={['name']='Ion Bombs',['slot']=12,['Bomb']=true,['cost']=6,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/e4c43791c16aea639f2e811c16d1dbcf.png',['restriction']={ }}
+masterUpgradesDB[649]={['name']='Ion Bombs',['slot']=12,['Bomb']=true,['cost']=5,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/e4c43791c16aea639f2e811c16d1dbcf.png',['restriction']={ }}
 masterUpgradesDB[650]={['name']="Coaxium Hyperfuel",['slot']=13,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/1622f5d9e279b54d4610820f5dd31a95.png', ['restriction']={}}
 masterUpgradesDB[651]={['name']="Mag-Pulse Warheads",['slot']=6,['cost']=6,['Charge']=2,['card']='http://images-cdn.fantasyflightgames.com/filer_public/20/a6/20a60741-4adf-485e-bee2-f93b9e5de7bb/swz62_card_mag-pulse-warheads.png',
                         ['restriction']={ }}
