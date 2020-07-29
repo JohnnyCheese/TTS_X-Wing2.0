@@ -336,10 +336,31 @@ masterShipDB[12]={
     moveSet = {'bbl1', 'bs1', 'bbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs4','rk4'}
 }
 
-masterShipDB[13]={['name']='TIE Advanced x1',['Hull']=3,['Shield']=2,['size']='small',['agi']=3,['XWS']='tieadvancedx1', ['Fac']={[2]=true}, ['arcs']={'front'},
-                            ['moveSet']={'bbl1','ws1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3t','wtl3','wbl3','bs3','wbr3','wtr3','rtr3t','ws4','rk4','ws5'}}
-masterShipDB[14]={['name']='Alpha Class StarWing',['Hull']=4,['Shield']=3,['size']='small',['agi']=2,['XWS']='alphaclassstarwing', ['Fac']={[2]=true}, ['arcs']={'front'},
-                            ['moveSet']={'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','ws3','wbr3','wtr3','rs4'}}
+masterShipDB[13]={
+    name = 'TIE Advanced x1',
+    Hull = 3,
+    Shield = 2,
+    size = 'small',
+    agi = 3,
+    XWS = 'tieadvancedx1',
+    Fac = {[2]=true},
+    arcs = {'front'},
+    mesh = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieadvx1/tieadvx1.obj',
+    moveSet = {'bbl1','ws1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3t','wtl3','wbl3','bs3','wbr3','wtr3','rtr3t','ws4','rk4','ws5'}
+}
+
+masterShipDB[14]={
+    name = 'Alpha Class StarWing',
+    Hull = 4,
+    Shield = 3,
+    size = 'small',
+    agi = 2,
+    XWS ='alphaclassstarwing',
+    Fac = {[2]=true},
+    arcs = {'front'},
+    mesh = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/EMP_starwing/starwing.obj',
+    moveSet = {'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','ws3','wbr3','wtr3','rs4'}
+}
 masterShipDB[15]={
     name = 'U-Wing',
     Hull = 5,
@@ -1372,18 +1393,85 @@ masterPilotDB[92]={
     actSet = {'F','E','BR'}
 }
 
-masterPilotDB[93]={['name']='Darth Vader',['Faction']= 2,['ship_type']=13,['cost']=67,['slot']={21, 17, 2, 6, 14},['Shield']=2,['Force']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_93.png',['init']=6,['actSet']={'F','TL','BR'}}
-masterPilotDB[94]={['name']='Maarek Stele',['Faction']= 2,['ship_type']=13,['cost']=45,['slot']={21, 1, 2, 6, 14},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_94.png',['init']=5,['actSet']={'F','TL','BR'}}
-masterPilotDB[95]={['name']='Ved Foslo',['Faction']= 2,['ship_type']=13,['cost']=44,['slot']={21, 1, 2, 6, 14},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_95.png',['init']=4,['actSet']={'F','TL','BR'}}
-masterPilotDB[96]={['name']='Zertik Strom',['Faction']= 2,['ship_type']=13,['cost']=41,['slot']={21, 2, 6, 14},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_96.png',['init']=3,['actSet']={'F','TL','BR'}}
-masterPilotDB[97]={['name']='Storm Squadron Ace',['Faction']= 2,['ship_type']=13,['cost']=39,['slot']={21, 1, 2, 6, 14},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_97.png',['init']=3,['actSet']={'F','TL','BR'}}
-masterPilotDB[98]={['name']='Tempest Squadron Pilot',['Faction']= 2,['ship_type']=13,['cost']=36,['slot']={21, 2, 6, 14},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_98.png',['init']=2,['actSet']={'F','TL','BR'}}
+masterPilotDB[93]={
+    name = 'Darth Vader',
+    Faction = 2,
+    ship_type = 13,
+    cost = 67,
+    slot = {21, 17, 2, 6, 14},
+    Shield = 2,
+    Force = 3,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_93.png',
+    init = 6,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Empire/TIEAdvancedX1/darthvader.png',
+    actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[94]={
+    name = 'Maarek Stele',
+    Faction = 2,
+    ship_type = 13,
+    cost = 45,
+    slot = {21, 1, 2, 6, 14},
+    Shield = 2,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_94.png',
+    init = 5,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Empire/TIEAdvancedX1/maarekstele.png',
+    actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[95]={
+    name = 'Ved Foslo',
+    Faction = 2,
+    ship_type = 13,
+    cost = 44,
+    slot = {21, 1, 2, 6, 14},
+    Shield = 2,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_95.png',
+    init = 4,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Empire/TIEAdvancedX1/vedfoslo.png',
+    actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[96]={
+    name = 'Zertik Strom',
+    Faction = 2,
+    ship_type = 13,
+    cost = 41,
+    slot = {21, 2, 6, 14},
+    Shield = 2,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_96.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Empire/TIEAdvancedX1/zertikstrom.png',
+    actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[97]={
+    name = 'Storm Squadron Ace',
+    Faction = 2,
+    ship_type = 13,
+    cost = 39,
+    slot = {21, 1, 2, 6, 14},
+    Shield = 2,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_97.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Empire/TIEAdvancedX1/stormsquadronace.png',
+    actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[98]={
+    name = 'Tempest Squadron Pilot',
+    Faction = 2,
+    ship_type = 13,
+    cost = 36,
+    slot = {21, 2, 6, 14},
+    Shield = 2,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_98.png',
+    init = 2,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Empire/TIEAdvancedX1/tempestsquadronpilot.png',
+    actSet = {'F','TL','BR'}
+}
+
 masterPilotDB[99]={['name']='Grand Inquisitor',['Faction']= 2,['ship_type']=25,['cost']=52,['slot']={21, 17, 2, 6},['Shield']=2,['Force']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_99.png',['init']=5,['actSet']={'F','E','TL','BR','B'}}
 masterPilotDB[100]={['name']='Seventh Sister',['Faction']= 2,['ship_type']=25,['cost']=43,['slot']={21, 17, 2, 6},['Shield']=2,['Force']=2,
@@ -1456,14 +1544,59 @@ masterPilotDB[133]={['name']='Sigma Squadron Ace',['Faction']= 2,['ship_type']=2
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_133.png',['init']=4,['actSet']={'F','E','BR','CL'}}
 masterPilotDB[134]={['name']='Imdaar Test Pilot',['Faction']= 2,['ship_type']=27,['cost']=43,['slot']={21, 2, 16, 14},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_134.png',['init']=3,['actSet']={'F','E','BR','CL'}}
-masterPilotDB[135]={['name']='Major Vynder',['Faction']= 2,['ship_type']=14,['cost']=40,['slot']={21, 1, 2, 5, 6, 14, 18},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_135.png',['init']=4,['actSet']={'F','TL'}}
-masterPilotDB[136]={['name']='Lieutenant Karsabi',['Faction']= 2,['ship_type']=14,['cost']=36,['slot']={21, 1, 2, 5, 6, 14, 18},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_136.png',['init']=3,['actSet']={'F','TL'}}
-masterPilotDB[137]={['name']='Rho Squadron Pilot',['Faction']= 2,['ship_type']=14,['cost']=34,['slot']={21, 1, 2, 5, 6, 14, 18},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_137.png',['init']=3,['actSet']={'F','TL'}}
-masterPilotDB[138]={['name']='Nu Squadron Pilot',['Faction']= 2,['ship_type']=14,['cost']=32,['slot']={21, 2, 5, 6, 14, 18},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_138.png',['init']=2,['actSet']={'F','TL'}}
+
+masterPilotDB[135]={
+    name = 'Major Vynder',
+    Faction = 2,
+    ship_type = 14,
+    cost = 40,
+    slot = {21, 1, 2, 5, 6, 14, 18},
+    Shield = 3,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_135.png',
+    init = 4,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Empire/Alphaclass/majorvynder.png',
+    actSet = {'F','TL'}
+}
+
+masterPilotDB[136]={
+    name = 'Lieutenant Karsabi',
+    Faction = 2,
+    ship_type = 14,
+    cost = 36,
+    slot = {21, 1, 2, 5, 6, 14, 18},
+    Shield = 3,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_136.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Empire/Alphaclass/lieutenantkarsabi.png',
+    actSet = {'F','TL'}
+}
+
+masterPilotDB[137]={
+    name = 'Rho Squadron Pilot',
+    Faction = 2,
+    ship_type = 14,
+    cost = 34,
+    slot = {21, 1, 2, 5, 6, 14, 18},
+    Shield = 3,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_137.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Empire/Alphaclass/rhosquadronpilot.png',
+    actSet = {'F','TL'}
+}
+
+masterPilotDB[138]={
+    name = 'Nu Squadron Pilot',
+    Faction = 2,
+    ship_type = 14,
+    cost = 32,
+    slot = {21, 2, 5, 6, 14, 18},
+    Shield = 3,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_138.png',
+    init = 2,
+    texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Empire/Alphaclass/nusquadronpilot.png',
+    actSet = {'F','TL'}
+}
+
 masterPilotDB[139]={['name']='"Redline"',['Faction']= 2,['ship_type']=20,['cost']=51,['slot']={21, 2, 5, 6, 6, 16, 12, 12, 14},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_139.png',['init']=5,['actSet']={'F','TL','BR',"B"}}
 masterPilotDB[140]={['name']='"Deathrain"',['Faction']= 2,['ship_type']=20,['cost']=43,['slot']={21, 2, 5, 6, 6, 16, 12, 12, 14},['Shield']=3,
