@@ -256,8 +256,8 @@ end
 
 -- Possible commands supported by this module
 XW_cmd.AddCommand('[sk][012345][r]?', 'move')   -- Straights/Koiograns + stationary moves
-XW_cmd.AddCommand('b[rle][0123][str]?', 'move')   -- Banks + segnor and reverse versions
-XW_cmd.AddCommand('t[rle][01234][srfbt]?[t]?', 'move')  -- Turns + segnor, talon and reverse versions
+XW_cmd.AddCommand('b[rle][0123][strz]?', 'move')   -- Banks + segnor and reverse versions
+XW_cmd.AddCommand('t[rle][01234][srfbtz]?[t]?', 'move')
 
 XW_cmd.AddCommand('r[rle][123]?', 'actionMove')       --New Roll Done
 XW_cmd.AddCommand('v[rle][fb][123]?', 'actionMove')   --New ViperRoll
@@ -2503,7 +2503,7 @@ end
 MoveData.DecodeInfo = function (move_code, ship)
     local info = {
                                         -- [option1] [option2] ... [optionN]  // [errorOption]
-                    type='invalid',     -- [straight] [bank] [turn] [roll] [viper] [cloak] [echo] //  [invalid]
+                    type='invalid',     -- [straight] [bank] [turn] [roll] [viper] [cloak] [echo] [slipBank] [ slipTurn]//  [invalid]
                     speed=nil,          -- [1] [2] [3] [4] [5]  //  [nil]
                     dir=nil,            -- [left] [right] [nil]
                     extra=nil,          -- [koiogran] [segnor] [talon] [reverse] [straight] [forward] [backward] [nil]
@@ -2590,6 +2590,11 @@ MoveData.DecodeInfo = function (move_code, ship)
             info.extra = 'reverse'
             info.note = 'flew reverse bank ' .. info.dir .. ' ' .. info.speed
             info.collNote = 'tried to fly reverse bank ' .. info.dir .. ' ' .. info.speed
+        elseif move_code:sub(-1,-1) == 'z' then
+            info.type = 'slipBank'
+            info.extra = 'slipBank'
+            info.note = 'sliped bank ' .. info.dir .. ' ' .. info.speed
+            info.collNote = 'tried to slip bank ' .. info.dir .. ' ' .. info.speed
         elseif move_code:sub(-1,-1) == 'b' then
             info.traits.part = false
             local boostSpd = ''
@@ -2638,6 +2643,11 @@ MoveData.DecodeInfo = function (move_code, ship)
             info.extra = 'reverse'
             info.note = 'flew reverse turn ' .. info.dir .. ' ' .. info.speed
             info.collNote = 'tried to fly reverse turn ' .. info.dir .. ' ' .. info.speed
+        elseif move_code:sub(-1,-1) == 'z' then
+            info.type = 'slipTurn'
+            info.extra = 'slipTurn'
+            info.note = 'sliped turn ' .. info.dir .. ' ' .. info.speed
+            info.collNote = 'tried to slip turn ' .. info.dir .. ' ' .. info.speed
         elseif move_code:sub(-1,-1) == 'b' then
             info.traits.part = false
             local boostSpd = ''
@@ -3500,7 +3510,6 @@ end
 -- Return:
 --      Concatenated table of all objects that would overlap ship in this situation and pass select function
 MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, SelectFun)
-
     local gTable = {[excludeObj.getGUID()]=true}
 
     for k, coll in pairs(collList) do
@@ -3533,6 +3542,9 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
         end
         templateData.speed = 1
         templateData.type = "bank"
+    elseif templateData.type == "slipBank" then
+        templateOrigin = MoveModule.GetTemplateOrigin(templateData.origin, templateData.orientation, templateData.shipSize, templateData.dir)
+        templateData.type = "bank"
     elseif templateData.type == "echoF"  then
         templateOrigin = MoveModule.GetTemplateOrigin(templateData.origin, templateData.orientation, templateData.shipSize, templateData.dir)
         templateData.speed = 2
@@ -3560,27 +3572,25 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
 
     if templateData.type == "straight" or templateData.type == "roll" or templateData.type == "deCloak" then
         local offsetDistance = Convert_mm_igu(20)* tonumber(templateData.speed)
+        local size = {Convert_mm_igu(20), Convert_mm_igu(6), templateData.speed*Convert_mm_igu(40)}
+        if (templateData.type =="roll"  or templateData.type == "deCloak") and templateData.shipSize ~= "small" then
+            size = {Convert_mm_igu(40), Convert_mm_igu(6), Convert_mm_igu(20)}
+            offsetDistance = Convert_mm_igu(10)
+        end
+        local offset = vector(offsetDistance * math.sin(math.rad(templateOrigin.rot.y)),
+        0, offsetDistance * math.cos(math.rad(templateOrigin.rot.y)) )
 
-         local size = {Convert_mm_igu(20), Convert_mm_igu(6), templateData.speed*Convert_mm_igu(40)}
-         if (templateData.type =="roll"  or templateData.type == "deCloak") and templateData.shipSize ~= "small" then
-             size = {Convert_mm_igu(40), Convert_mm_igu(6), Convert_mm_igu(20)}
-             offsetDistance = Convert_mm_igu(10)
-         end
+        local collissions = Physics.cast({
+            origin       = templateOrigin.pos + offset,
+            orientation  = templateOrigin.rot,
+            direction    = {0,-0.001,0},
+            type         = 3,
+            size         = size,
+            max_distance = 1,
+            debug        = false
+        })
 
-         local offset = vector(offsetDistance * math.sin(math.rad(templateOrigin.rot.y)),
-          0, offsetDistance * math.cos(math.rad(templateOrigin.rot.y)) )
-
-         local collissions = Physics.cast({
-             origin       = templateOrigin.pos + offset,
-             orientation  = templateOrigin.rot,
-             direction    = {0,-0.001,0},
-             type         = 3,
-             size         = size,
-             max_distance = 1,
-             debug        = false
-         })
-
-         MoveModule.AddCollissionEntry(gTable, collList, collissions, SelectFun)
+        MoveModule.AddCollissionEntry(gTable, collList, collissions, SelectFun)
     elseif templateData.type == "bank" then
         local radius = 0
         if templateData.speed == 1 then
@@ -5010,6 +5020,12 @@ DialModule.TemplateData.bank.trim = { left = {{-2,0,-4,0}, {-5.5,0,-5.2,0}, {-9.
 DialModule.TemplateData.bank[1] = {80*(1-math.cos(math.pi/8)), 0, 80*math.sin(math.pi/8), 180}
 DialModule.TemplateData.bank[2] = {130*(1-math.cos(math.pi/8)), 0, 130*math.sin(math.pi/8), 180}
 DialModule.TemplateData.bank[3] = {180*(1-math.cos(math.pi/8)), 0, 180*math.sin(math.pi/8), 180}
+DialModule.TemplateData.slipBank = {}
+DialModule.TemplateData.slipBank.leftRot = 45
+DialModule.TemplateData.slipBank.trim = { left = {{-2,0,-4,0}, {-5.5,0,-5.2,0}, {-9.3,0,-6.45,0}}, right={{4.2,0,1.2,0}, {7.8,0,-0.3,0}, {11.5,0,-1.4,0}} }
+DialModule.TemplateData.slipBank[1] = {80*(1-math.cos(math.pi/8)), 0, 80*math.sin(math.pi/8), 180}
+DialModule.TemplateData.slipBank[2] = {130*(1-math.cos(math.pi/8)), 0, 130*math.sin(math.pi/8), 180}
+DialModule.TemplateData.slipBank[3] = {180*(1-math.cos(math.pi/8)), 0, 180*math.sin(math.pi/8), 180}
 DialModule.TemplateData.turn = {}
 DialModule.TemplateData.turn.leftRot = 90
 DialModule.TemplateData.turn.trim = { left = {{0,-2.5,0,0}, {-3,-2.5,-3.66,0}, {-4.7,-2.5,-7.5,0}}, right={{0,-2.5,0,0}, {3,-2.5,-4.1,0}, {4.5,-2.5,-7.8,0}} }
@@ -5970,43 +5986,6 @@ function LocalPos(object, position)
 end
 
 ------
-
-
---Databases with data for special spawning conditions
---Provides data for the spawner regarding tokens and other accessories
-
---List of pilots with calculate action
-calculateDB = {}
-calculateDB['Guri'] = 0
-calculateDB['"Leebo"'] = 0
-calculateDB['IG%-88A'] = 0
-calculateDB['IG%-88B'] = 0
-calculateDB['IG%-88C'] = 0
-calculateDB['IG%-88D'] = 0
-calculateDB['4%-LOM'] = 0
-calculateDB['L3%-37'] = 0
-calculateDB['Autopilot Drone'] = 0
-calculateDB['Feethan Ottraw Autopilot'] = 0
-calculateDB['0%-66'] = 0
-calculateDB['Precise Hunter'] = 0
-calculateDB['DFS%-081'] = 0
-calculateDB['Separatist Drone'] = 0
-calculateDB['Haor Chall Prototype'] = 0
-calculateDB['DFS%-311'] = 0
-calculateDB['Trade Federation Drone'] = 0
-
---Stores cards wich add the Calculate actions
-addCalculateDB = {}
-addCalculateDB['C3-PO'] = 0
-
---Store pilots
-
---[[function onLoad()
-    objList=getAllObjects()
-    for k, v in pairs(objList) do
-        i.hide_when_face_down = false
-    end
-end]]
 
 function onObjectSpawned(obj)
     obj.hide_when_face_down = false
