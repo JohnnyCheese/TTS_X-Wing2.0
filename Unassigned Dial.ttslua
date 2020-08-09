@@ -679,7 +679,7 @@ function showTokMFD(p)
     clearOpenPanel()
     openpanel = "tokenPanel"
     openbutton = "TokenMenu"
-    self.UI.setAttribute("tokenPanel", "position", "-360 -165 -40")
+    self.UI.setAttribute("tokenPanel", "position", "-360 -165 -25")
     self.UI.setAttribute("tokenPanel", "rotation", "180 180 0")
 end
 
@@ -692,7 +692,7 @@ function showTokMFU(p)
     clearOpenPanel()
     openpanel = "tokenPanel"
     openbutton = "TokenMenuFu"
-    self.UI.setAttribute("tokenPanel", "position", "360 -165 40")
+    self.UI.setAttribute("tokenPanel", "position", "360 -165 1")
     self.UI.setAttribute("tokenPanel", "rotation", "180 0 0")
 end
 
@@ -721,7 +721,7 @@ function showArcMFD(p)
     openpanel = "arcPanel"
     openbutton = "ArcMenu"
 
-    self.UI.setAttribute("arcPanel", "position", "250 -150 -40")
+    self.UI.setAttribute("arcPanel", "position", "250 -150 -25")
     self.UI.setAttribute("arcPanel", "rotation", "180 180 0")
 end
 
@@ -735,7 +735,7 @@ function showArcMFU(p)
     openpanel = "arcPanel"
     openbutton = "ArcMenuFu"
 
-    self.UI.setAttribute("arcPanel", "position", "-250 -150 40")
+    self.UI.setAttribute("arcPanel", "position", "-250 -150 1")
     self.UI.setAttribute("arcPanel", "rotation", "180 0 0")
 end
 
@@ -763,7 +763,7 @@ function showRelocMFD(p)
     openpanel = "relocPanel"
     openbutton = "RelocMenu"
 
-    self.UI.setAttribute("relocPanel", "position", "0 -215 -40")
+    self.UI.setAttribute("relocPanel", "position", "0 -215 -25")
     self.UI.setAttribute("relocPanel", "rotation", "180 180 0")
 end
 
@@ -777,7 +777,7 @@ function showRelocMFU(p)
     openpanel = "relocPanel"
     openbutton = "RelocMenuFu"
 
-    self.UI.setAttribute("relocPanel", "position", "0 -215 40")
+    self.UI.setAttribute("relocPanel", "position", "0 -215 1")
     self.UI.setAttribute("relocPanel", "rotation", "180 0 0")
 end
 
