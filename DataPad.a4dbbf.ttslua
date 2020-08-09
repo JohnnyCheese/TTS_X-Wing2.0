@@ -4082,6 +4082,7 @@ function xwsSpawn(list, XWS_TO_FFG, playerColor)
         parts.Upgrades = {}
         parts.spawnCard = self
         parts.Faction = tonumber(XWS_TO_FFG.factions[list.faction])
+        parts.Obstacles = {}
 
         for k,v in pairs (list.pilots) do
             parts.Pilots[k] = tonumber(XWS_TO_FFG.pilots[v.id])
@@ -4094,6 +4095,16 @@ function xwsSpawn(list, XWS_TO_FFG, playerColor)
                         parts.Upgrades[k][upgradeCount] = tonumber(XWS_TO_FFG.upgrades[upgrade])
                         upgradeCount = upgradeCount + 1
                     end
+                end
+            end
+        end
+
+        if list.obstacles then
+            for i, obstacle in ipairs(list.obstacles) do
+                if obstacleNames[obstacle] then
+                    table.insert(parts.Obstacles, obstacleNames[obstacle])
+                else
+                    printToAll("Unable to find obstacle: " .. obstacle .. " please check correct spelling", {1,0,0})
                 end
             end
         end
