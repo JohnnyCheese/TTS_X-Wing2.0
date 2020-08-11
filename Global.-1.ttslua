@@ -1603,7 +1603,7 @@ ArcCheck.bullseye_data =
         large=vector(0,0,Convert_mm_igu(190)),
         huge=vector(0,0,Convert_mm_igu(110.5))
     },
-    size=vector(Convert_mm_igu(14), 0.1, Convert_mm_igu(300))
+    size=vector(Convert_mm_igu(12.1), 0.1, Convert_mm_igu(300))
 }
 
 ArcCheck.Initialize = function() -- Arc values based on Muon's assesments (vassal)
@@ -2190,11 +2190,47 @@ ArcCheck.GetBullseyeTargets = function(ship, pos, length)
     for k, hit in pairs(collissions) do
         if hit.hit_object.getGUID() ~= ship.getGUID() and MoveModule.SelectShips(hit.hit_object) then
             if hit.hit_object.getVar("owningPlayer") != myOwningPlayer then
-                table.insert(bullseye_targets, hit.hit_object)
+                -- remove false targets, where only the nub is hit
+                if ArcCheck.VerifyBullseye(ship, hit.hit_object) then
+                    table.insert(bullseye_targets, hit.hit_object)
+                end
             end
         end
     end
     return bullseye_targets
+end
+
+ArcCheck.VerifyBullseye = function(ship, target)
+    local left = false
+    local right = false
+    local half_bullseye = (ArcCheck.bullseye_data.size[1]/2)
+    print("Half_bullseye = " .. tostring(half_bullseye))
+
+    -- Translate target corners into ship object Space
+    local size = Convert_mm_igu((mm_baseSize[target.getTable("Data").Size]/2))
+    local t_rotation = target.getRotation().y
+    local s_rotation = ship.getRotation().y
+    local target_corners = {}
+    target_corners[1] = vector(-size, 0, size)
+    target_corners[2] = vector(-size, 0, -size)
+    target_corners[3] = vector(size, 0, size)
+    target_corners[4] = vector(size, 0, -size)
+    for _, target_corner in pairs(target_corners) do
+        local world_corner = target_corner:rotateOver('y',t_rotation) + target.getPosition() - ship.getPosition()
+        local local_corner = world_corner:rotateOver('y', - s_rotation)
+        print ("Local corner: " .. tostring(local_corner[1]) .. "," .. tostring(local_corner[2]) ..  "," .. tostring(local_corner[3]))
+        if local_corner.x > -half_bullseye then
+            right = true
+        end
+        if local_corner.x < half_bullseye then
+            left = true
+        end
+        if left and right then
+            return true
+        end
+
+    end
+    return false
 end
 
 
@@ -2324,25 +2360,28 @@ ArcCheck.GetTargetLineSegmentsInArc = function(ship, target, arcinfo)
                                             Vect.RotateDeg(Vect.Between(ship.getPosition(), rotated_segment[2] ), -ship.getRotation()[2])}
             local x1 = math.min(ownship_oriented_segment[1][1], ownship_oriented_segment[2][1])
             local x2 = math.max(ownship_oriented_segment[1][1], ownship_oriented_segment[2][1])
-
+            print("x1:" .. tostring(x1) .. " x2:" .. tostring(x2))
+            print("ownship_oriented_segment[1][3]:" .. tostring(ownship_oriented_segment[1][3]))
             local in_arc = true
             if ownship_oriented_segment[1][3] < 0 then -- Target in front (Yeah it is backwards)
                 if x1 < -half_bullseye then
                     x1 = -half_bullseye
                     if x2 > -half_bullseye then
                         x2 = math.min(half_bullseye, x2)
-                        p1 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x1, ownship_oriented_segment[1][2], 0), vector(x1, ownship_oriented_segment[1][2], 20))
-                        p2 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x2, ownship_oriented_segment[1][2], 0), vector(x2, ownship_oriented_segment[1][2], 20))
+                        p1 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x1, ownship_oriented_segment[1][2], 0), vector(x1, ownship_oriented_segment[1][2], -20))
+                        p2 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x2, ownship_oriented_segment[1][2], 0), vector(x2, ownship_oriented_segment[1][2], -20))
                         if p1 ~= nil and p2 ~= nil then
+                            print("test1")
                           table.insert(outsegments, { Vect.Sum(Vect.RotateDeg(p1, ship.getRotation()[2]), ship.getPosition()),
                                                       Vect.Sum(Vect.RotateDeg(p2, ship.getRotation()[2]), ship.getPosition())})
                         end
                     end
                 elseif x1 < half_bullseye then
                     x2 = math.min(half_bullseye, x2)
-                    p1 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x1, ownship_oriented_segment[1][2], 0), vector(x1, ownship_oriented_segment[1][2], 20))
-                    p2 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x2, ownship_oriented_segment[1][2], 0), vector(x2, ownship_oriented_segment[1][2], 20))
+                    p1 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x1, ownship_oriented_segment[1][2], 0), vector(x1, ownship_oriented_segment[1][2], -20))
+                    p2 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x2, ownship_oriented_segment[1][2], 0), vector(x2, ownship_oriented_segment[1][2], -20))
                     if p1 ~= nil and p2 ~= nil then
+                        print("test2")
                       table.insert(outsegments, { Vect.Sum(Vect.RotateDeg(p1, ship.getRotation()[2]), ship.getPosition()),
                                                   Vect.Sum(Vect.RotateDeg(p2, ship.getRotation()[2]), ship.getPosition())})
                     end
@@ -5140,7 +5179,7 @@ StringLen.charWidthTable = {
         ['avg'] = 2500
     }
 
--- Get real string lenght per char table
+-- Get real string length per char table
 StringLen.GetStringLength = function(str)
     local len = 0
     for i = 1, #str do
@@ -6050,7 +6089,7 @@ function initContextMenu()
         elseif arctype == 'fullfront' then
             self.addContextMenuItem("FireArc - Full Front", function(argument) self.setDescription("ff") end, false)
         elseif arctype == 'bullseye' then
-            self.addContextMenuItem("FireArc - Bullseye", function(argument) self.setDescription("bullseye") end, false)
+            self.addContextMenuItem("FireArc - Bullseye", function(argument) self.setDescription("bull") end, false)
         elseif arctype == 'left' then
             if added_arcs['left'] == nil then
                 self.addContextMenuItem("FireArc - Left", function(argument) self.setDescription("sl") end, false)
