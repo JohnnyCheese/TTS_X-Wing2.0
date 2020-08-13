@@ -34,6 +34,12 @@ firstSet=false
 setSinceTemplatePlaced = false -- True if the user has set a movement since the movement template was last placed on the table
 templatePlaced = false  -- True if the movement template is currently on the table (as far as we can tell based on just dial button clicks, anyway)
 
+exOptions = {}
+exOptSelected = false
+exOptValue = {}
+exOptButtons = { "ExOpt1", "ExOpt2", "ExOpt3"}
+
+
 -- Restore self state
 function onLoad()
     --self.UI.setCustomAssets(assetTable)
@@ -61,6 +67,7 @@ end
 function clearDial()
 
     self.UI.hide('TalonPanel') -- Talon has to come before CenterFU which it is inside -- hide doesn't work when the parent is already hidden (could also use active=false instead)
+    self.UI.hide("ExecutionOptionsPanel")
     self.UI.hide("CenterFD")
     self.UI.hide('CenterFU')
     self.UI.hide("ManWin")
@@ -93,47 +100,46 @@ function onUpdate()
     end
 end
 
-function manSelect(p, option, id)
-    if spectReturn(p) == true or option == false then
-        return
-    end
-    firstSet=true
-    self.UI.setAttribute("ManBtnGroup","allowSwitchOff","false")
-    curMan=string.lower(id)
-    if curMan:sub(1,1) == 'w' then
+function getManouverIcons(manouver)
+    if manouver:sub(1,1) == 'w' then
         manColor="White"
-    elseif curMan:sub(1,1) == 'b' then
+    elseif manouver:sub(1,1) == 'b' then
         manColor="Blue"
-    elseif curMan:sub(1,1) == 'r' then
+    elseif manouver:sub(1,1) == 'r' then
         manColor="Red"
     end
 
-    if curMan:sub(-1,-1) == 't' then
+    if manouver:sub(-1,-1) == 't' then
         manType = "Talon"
-    elseif curMan:sub(-1,-1) == 's' then
-        manType = "Sloop"
-    elseif curMan:sub(-1,-1) == 'r' then
-        if curMan:sub(2,2) == 'b' then
+    elseif manouver:sub(-1,-1) == 's' then
+        if manouver:sub(2,2) == 't' then
+            manType = "TurnSloop"
+        else
+            manType = "Sloop"
+        end
+
+    elseif manouver:sub(-1,-1) == 'r' then
+        if manouver:sub(2,2) == 'b' then
             manType = "ReverseBank"
         else
             manType = "ReverseStraight"
         end
-    elseif curMan:sub(2,2) == 't' then
+    elseif manouver:sub(2,2) == 't' then
         manType = "Turn"
-    elseif curMan:sub(2,2) == 'b' then
+    elseif manouver:sub(2,2) == 'b' then
         manType = "Bank"
-    elseif curMan:sub(2,2) == 's' then
+    elseif manouver:sub(2,2) == 's' then
         manType = "Straight"
-    elseif curMan:sub(2,2) == 'k' then
+    elseif manouver:sub(2,2) == 'k' then
         manType = 'K'
     end
 
-    local Char= curMan:find("%d")
-    manSpeed = curMan:sub(Char,Char)
+    local Char= manouver:find("%d")
+    manSpeed = manouver:sub(Char,Char)
 
-    if curMan:sub(3,3) == 'l' then
+    if manouver:sub(3,3) == 'l' then
         manBear = "L"
-    elseif curMan:sub(3,3) == 'r' then
+    elseif manouver:sub(3,3) == 'r' then
         manBear = "R"
     else
         manBear = ""
@@ -141,8 +147,20 @@ function manSelect(p, option, id)
     if manSpeed=="0" and manType=="Straight" then
         manType='Stall'
     end
-    speedIcon="Speed"..manSpeed
-    typeIcon= manColor .. manType .. manBear
+
+    return {speed = "Speed"..manSpeed, type = manColor .. manType .. manBear }
+end
+
+function manSelect(p, option, id)
+    if spectReturn(p) == true or option == false then
+        return
+    end
+    firstSet=true
+    self.UI.setAttribute("ManBtnGroup","allowSwitchOff","false")
+    curMan=string.lower(id)
+    icons = getManouverIcons(curMan)
+    speedIcon= icons.speed
+    typeIcon= icons.type
     setMan = curMan:sub(2)
     befAft = '_B'
 end
@@ -208,18 +226,61 @@ function performMove(P)
     if spectReturn(P) == true then
         return
     end
-    if setMan~="" then
+    if setMan ~= nil and setMan ~="" then
         self.UI.setAttribute("MoveBtn", "active", "false")
-        if setMan:sub(-1,-1) ~='t' then
+        -- Check alternate execution options
+        --print("curMan:" .. curMan)
+        if exOptions[curMan] ~= nil and exOptSelected == false then
+            setupAlternateExecutionPanel(P, exOptions[curMan])
+        elseif setMan:sub(-1,-1) == 't' then
+            self.UI.show("TalonPanel")
+        else
             self.UI.setAttribute("UndoBtn", "active", "true")
             self.UI.setAttribute("UndoBtn", "textColor", "#FFFFFF")
             assignedShip.setDescription(setMan)
+            exOptSelected = false
             befAft = '_A'
             setDial(P)
-        else
-            self.UI.show("TalonPanel")
         end
     end
+end
+
+function setupAlternateExecutionPanel(P, executionOptions)
+    self.UI.setAttribute("TypeIcon", "active", "false")
+    self.UI.setAttribute("SpeedIcon", "active", "false")
+    self.UI.setAttribute("Templ", "active", "false")
+    self.UI.setAttribute("undoFU", "active", "false")
+    self.UI.show("ExecutionOptionsPanel")
+    for i, button in pairs(exOptButtons) do
+        self.UI.setAttribute(button .. 'But', "active", "false")
+    end
+    for i, option in pairs(executionOptions) do
+        self.UI.setAttribute(exOptButtons[i] .. "But", "active", "true")
+        exOptValue[exOptButtons[i] .. 'But'] = option
+        local icons = getManouverIcons(option)
+        self.UI.setAttribute(exOptButtons[i] .. "TypeIcon", "image", icons.type)
+        self.UI.setAttribute(exOptButtons[i] .. "SpeedIcon", "image", icons.speed)
+    end
+end
+
+function selectExecuteOption(P, option, id)
+    if spectReturn(P) == true then
+        return
+    end
+    self.UI.hide("ExecutionOptionsPanel")
+    exOptSelected = true
+    setMan = exOptValue[id]:sub(2)
+    local icons = getManouverIcons(exOptValue[id])
+    self.UI.setAttribute("TypeIcon", "active", "true")
+    self.UI.setAttribute("SpeedIcon", "active", "true")
+    self.UI.setAttribute("Templ", "active", "true")
+    self.UI.setAttribute("Templ", "textColor", "#222222")
+    self.UI.setAttribute("undoFU", "active", "true")
+    self.UI.setAttribute("undoFU", "textColor", "#FFFFFF")
+    self.UI.setAttribute("TypeIcon", "image", icons.type)
+    self.UI.setAttribute("SpeedIcon", "image", icons.speed)
+    performMove(P)
+
 end
 
 
@@ -265,6 +326,7 @@ function assignShip(ship)
     --self.UI.setAttribute("DialName", Name)
     self.UI.setValue("Name",Name)
     shipData=assignedShip.getTable("Data")
+    exOptions = shipData.executeOptions
     self.UI.setAttribute("BackGround", "image", tostring(shipData['Faction']).."BG")
     for k,v in pairs(shipData['moveSet']) do
         self.UI.setAttribute(string.upper(v), "active", "true")

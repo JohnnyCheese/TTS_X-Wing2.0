@@ -1426,6 +1426,26 @@ masterPilotDB[95]={
     ship_type = 13,
     cost = 44,
     slot = {21, 1, 2, 6, 14},
+    executeOptions = {
+        ws1  = {[1]='ws1', [2]='ws2'},
+        bs2  = {[1]='bs1', [2]='bs2', [3]='bs3'},
+        bs3  = {[1]='bs2', [2]='bs3', [3]='bs4'},
+        ws4  = {[1]='ws3', [2]='ws4', [3]='ws5'},
+        ws5  = {[1]='ws4', [2]='ws5'},
+        bbl1 = {[1]='bbl1', [2]='bbl2'},
+        bbr1 = {[1]='bbr1', [2]='bbr2'},
+        bbl2 = {[1]='bbl1', [2]='bbl2', [3]='bbl3'},
+        bbr2 = {[1]='bbr1', [2]='bbr2', [3]='bbr3'},
+        wbl3 = {[1]='wbl2', [2]='wbl3'},
+        wbr3 = {[1]='wbr2', [2]='wbr3'},
+        wtl2 = {[1]='wtl1', [2]='wtl2', [3]='wtl3'},
+        wtr2 = {[1]='wtr1', [2]='wtr2', [3]='wtr3'},
+        wtl3 = {[1]='wtl2', [2]='wtl3'},
+        wtr3 = {[1]='wtr2', [2]='wtr3'},
+        rtl3t = {[1]='rtl2t', [2]='rtl3t'},
+        rtr3t = {[1]='rtr2t', [2]='rtr3t'},
+        rk4  = {[1]='rk3', [2]='rk4', [3]='rk5'}
+    },
     Shield = 2,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_95.png',
     init = 4,
@@ -1522,8 +1542,23 @@ masterPilotDB[122]={['name']='Rexler Brath',['Faction']= 2,['ship_type']=18,['co
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_122.png',['init']=5,['actSet']={'F','E','BR','TL','B'}}
 masterPilotDB[123]={['name']='Colonel Vessery',['Faction']= 2,['ship_type']=18,['cost']=82,['slot']={21, 1, 2, 3, 6},['Shield']=4,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_123.png',['init']=4,['actSet']={'F','E','BR','TL','B'}}
-masterPilotDB[124]={['name']='Countess Ryad',['Faction']= 2,['ship_type']=18,['cost']=80,['slot']={21, 1, 2, 3, 6},['Shield']=4,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_124.png',['init']=4,['actSet']={'F','E','BR','TL','B'}}
+masterPilotDB[124]={
+    name = 'Countess Ryad',
+    Faction = 2,
+    ship_type = 18,
+    cost = 80,
+    slot = {21, 1, 2, 3, 6},
+    Shield = 4,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_124.png',
+    init = 4,
+    executeOptions = {
+        bs2 = {[1]='bs2', [2]='wk2'},
+        bs3 = {[1]='bs3', [2]='wk3'},
+        bs4 = {[1]='bs4', [2]='wk4'},
+        bs5 = {[1]='bs5', [2]='wk5'}
+    },
+    actSet = {'F','E','BR','TL','B'}
+}
 masterPilotDB[125]={['name']='Onyx Squadron Ace',['Faction']= 2,['ship_type']=18,['cost']=74,['slot']={21, 1, 2, 3, 6},['Shield']=4,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_125.png',['init']=4,['actSet']={'F','E','BR','TL','B'}}
 masterPilotDB[126]={['name']='Delta Squadron Pilot',['Faction']= 2,['ship_type']=18,['cost']=67,['slot']={21, 2, 3, 2006},['Shield']=4,
@@ -1999,6 +2034,10 @@ masterPilotDB[198]={['name']='IG-88B',['Faction']= 3,['ship_type']=21,['cost']=6
 masterPilotDB[199]={['name']='IG-88C',['Faction']= 3,['ship_type']=21,['cost']=63,['slot']={21, 1, 2, 3, 3, 12, 13, 14, 15},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_199.png',['init']=4,['actSet']={'C','E','TL','B'}}
 masterPilotDB[200]={['name']='IG-88D',['Faction']= 3,['ship_type']=21,['cost']=62,['slot']={21, 1, 2, 3, 3, 12, 13, 14, 15},['Shield']=3,
+                    executeOptions = {
+                        rbl3s = {[1]='rtl3s', [2]='rbl3s', [3]='rk3'},
+                        rbr3s = {[1]='rk3', [2]='rbr3s', [3]='rtr3s'}
+                    },
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_200.png',['init']=4,['actSet']={'C','E','TL','B'}}
 masterPilotDB[201]={['name']='4-LOM',['Faction']= 3,['ship_type']=22,['cost']=49,['slot']={21, 1, 2, 8, 13, 14, 15},['Shield']=4,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_201.png',['init']=3,['actSet']={'C','TL'}}
@@ -3249,7 +3288,29 @@ masterUpgradesDB[375]={['name']='Marauder',['slot']=15,['cost']=6,['addSlot']={1
 masterUpgradesDB[376]={['name']='Mist Hunter',['slot']=15,['cost']=1,['addSlot']={3},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_151.png',['restriction']={['Faction']={[3]=true},['ship']={[22]=true}}}
 masterUpgradesDB[377]={['name']='Punishing One',['slot']=15,['cost']=5,['addSlot']={10},['remSlot']={8},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_152.png',['restriction']={['Faction']={[3]=true},['ship']={[45]=true}}}
 masterUpgradesDB[378]={['name']='Shadow Caster',['slot']=15,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_153.png',['restriction']={['Faction']={[3]=true},['ship']={[42]=true}}}
-masterUpgradesDB[379]={['name']='Slave I',['slot']=15,['cost']=5,['addSlot']={5},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_154.png',['restriction']={['Faction']={[3]=true},['ship']={[10]=true}}}
+masterUpgradesDB[379]={
+    name = 'Slave I',
+    slot = 15,
+    cost = 5,
+    addSlot = {5},
+    executeOptions = {
+        bbl1 = {[1]='bbl1', [2]='bbr1'},
+        wbl2 = {[1]='wbl2', [2]='wbr2'},
+        wbl3 = {[1]='wbl3', [2]='wbr3'},
+        bbr1 = {[1]='bbr1', [2]='bbl1'},
+        wbr2 = {[1]='wbr2', [2]='wbl2'},
+        wbr3 = {[1]='wbr3', [2]='wbl3'},
+        wtl1 = {[1]='wtl1', [2]='wtr1'},
+        wtl2 = {[1]='wtl2', [2]='wtr2'},
+        wtr1 = {[1]='wtr1', [2]='wtl1'},
+        wtr2 = {[1]='wtr2', [2]='wtl2'},
+    },
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_154.png',
+    restriction = {
+        Faction = {[3]=true},
+        ship = {[10]=true}
+    }
+}
 masterUpgradesDB[380]={['name']='Virago',['slot']=15,['cost']=8,['Charge']=2,['shd']=1,['addSlot']={14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_155.png',['restriction']={['ship']={[3]=true}}}
 masterUpgradesDB[381]={['name']='Composure',['slot']=1,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_156.png',['restriction']={ }}
 masterUpgradesDB[382]={['name']='Chewbacca',['slot']=8,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_157.png',['restriction']={['Faction']={[3]=true}}}
@@ -4509,6 +4570,7 @@ function idSpawner(idTable)
         fList.Pilots[k]['Data']['moveSet'] = masterShipDB[Ship]['moveSet']
         fList.Pilots[k]['Data']['arcs'] = masterShipDB[Ship]['arcs']
         fList.Pilots[k]['Data']['actSet'] = masterPilotDB[v]['actSet']
+        fList.Pilots[k]['Data']['executeOptions'] = masterPilotDB[v]['executeOptions'] or {}
         fList.Pilots[k]['Data']['Faction'] = fList.Faction
         fList.Pilots[k]['Data']['Size'] = fList.Pilots[k]['Size']
         if v == 150 then  -- Emon Azzameen special drops
@@ -4624,6 +4686,11 @@ function idSpawner(idTable)
             end
             if masterUpgradesDB[value].wingleader ~= nil then
                 fList.Pilots[k].wingleader = masterUpgradesDB[value].wingleader
+            end
+            if masterUpgradesDB[value].executeOptions ~= nil then
+                for move, options in pairs(masterUpgradesDB[value].executeOptions) do
+                    fList.Pilots[k].Data.executeOptions[move] = options
+                end
             end
 
             if value == 279 then  -- Skilled Bombardier special drops

@@ -58,13 +58,36 @@
         <Button id="TalonReaBtn" class="RelocButtons" offsetXY="60 0" active="true" onClick="performTalon">
             <Image id="TalonReaIcon" class="RIcon"  image="TalonRear" preserveAspect="true"></Image></Button>
     </Panel>
+
+    <Panel id="ExecutionOptionsPanel" position="0 0 -10" rotation="0 0 0" color="#aaffaacc" width="200" height="100" offsetXY="0 117" active="true">
+        <HorizontalLayout>
+            <Button id="ExOpt1But" class="DarkButton" active="true" onClick="selectExecuteOption">
+                <VerticalLayout>
+                    <Image id="ExOpt1TypeIcon" class="SetIcon" preserveAspect="true"></Image>
+                    <Image id="ExOpt1SpeedIcon" class="SetIcon" preserveAspect="true"></Image>
+                </VerticalLayout>
+            </Button>
+            <Button id="ExOpt2But" class="DarkButton" active="true" onClick="selectExecuteOption">
+                <VerticalLayout>
+                    <Image id="ExOpt2TypeIcon" class="SetIcon" preserveAspect="true"></Image>
+                    <Image id="ExOpt2SpeedIcon" class="SetIcon" preserveAspect="true"></Image>
+                </VerticalLayout>
+            </Button>
+            <Button id="ExOpt3But" class="DarkButton" active="true" onClick="selectExecuteOption">
+                <VerticalLayout>
+                    <Image id="ExOpt3TypeIcon" class="SetIcon" preserveAspect="true"></Image>
+                    <Image id="ExOpt3SpeedIcon" class="SetIcon" preserveAspect="true"></Image>
+                </VerticalLayout>
+            </Button>
+        </HorizontalLayout>
+    </Panel>
+
     <Button id="MoveBtn" class="CenterButtons" offsetXY="0 97" height="60" width="120" active="true" fontSize="24" onClick="performMove">Move</Button>
     <Button id="UndoBtn" class="CenterButtons" offsetXY="0 97" height="60" width="120" active="false"  fontSize="24" onClick="Undo">Undo</Button>
     <Button id="TokenMenuFu" class="CenterMenuButtons" offsetXY="-110 15" active="true" onMouseEnter="showTokMFU">T</Button>
     <Button id="ArcMenuFU" class="CenterMenuButtons" offsetXY="110 15" active="true" onMouseEnter="showArcMFU">A</Button>
     <Button id="undoFU" class="CenterMenuButtons" offsetXY="0 -51" active="true" onClick="Undo" height="30" width="60" fontSize="18" fontStyle="Bold">Undo</Button>
-    <Button id="Templ" class="CenterMenuButtons" offsetXY="0 15" active="true" height="60" width="120" fontSize="18" onClick="spawnTemplate">Remove
-      Template</Button>
+    <Button id="Templ" class="CenterMenuButtons" offsetXY="0 15" active="true" height="60" width="120" fontSize="18" onClick="spawnTemplate"></Button>
     <Button id="RelocMenuFU" class="CenterMenuButtons" offsetXY="0 -106" active="true" onMouseEnter="showRelocMFU">R</Button>
     <Image id="SpeedIcon" class="SetIcon" active="false" image="Speed1" offsetXY="30 15" height="60" width="60"></Image>
     <Image id="TypeIcon" class="SetIcon" active="false" image="BlueStraight" offsetXY="-30 15" height="60" width="60"></Image>
