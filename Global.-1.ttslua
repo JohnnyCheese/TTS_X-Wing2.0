@@ -5256,7 +5256,9 @@ function Ruler_SelfDestruct(obj)
     for k, rTable in pairs(RulerModule.spawnedRulers) do
         if rTable.ruler == obj then
             for _, arcline in pairs(rTable.arclines) do
-                arcline.destruct()
+                if arcline ~= nil then
+                    arcline.destruct()
+                end
             end
             table.remove(RulerModule.spawnedRulers, k)
             break
