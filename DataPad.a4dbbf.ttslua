@@ -868,7 +868,19 @@ masterPilotDB[33]={
     actSet = {'F','R', 'BR'}
 }
 
-masterPilotDB[34]={['name']='Hera Syndulla',['Faction']= 1,['ship_type']=32,['cost']=38,['slot']={21, 1, 4, 8, 14, 15},['Shield']=1,
+masterPilotDB[34]={['name']='Hera Syndulla',['Faction']= 1,['ship_type']=32,['cost']=38,['slot']={21, 1, 4, 8, 14, 15},
+    executeOptions = {
+        rtl1  = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
+        rtr1  = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
+        rtl3  = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
+        rtr3  = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
+        rk4   = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
+        bs1   = {[1]='bs1',  [2]='bbl1', [3]='bbr1', [4]='bs2'},
+        bbl1  = {[1]='bs1',  [2]='bbl1', [3]='bbr1', [4]='bs2'},
+        bbr1  = {[1]='bs1',  [2]='bbl1', [3]='bbr1', [4]='bs2'},
+        bs2   = {[1]='bs1',  [2]='bbl1', [3]='bbr1', [4]='bs2'}
+    },
+    ['Shield']=1,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_34.png',['init']=5,['actSet']={'F','E','BR'}}
 masterPilotDB[35]={['name']='Sabine Wren',['Faction']= 1,['ship_type']=32,['cost']=41,['slot']={21, 1, 4, 8, 14, 15},['Shield']=1,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_35.png',['init']=3,['actSet']={'F','E','B', 'BR'}}
@@ -1175,7 +1187,18 @@ masterPilotDB[72]={
 }
 
 masterPilotDB[73]={['name']='Hera Syndulla',['Faction']= 1,['ship_type']=23,['cost']=72,['slot']={21, 1,2, 4, 5, 8, 8, 16, 14, 15},['Shield']=4,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_73.png',['init']=5,['actSet']={'F','TL','R'}}
+    executeOptions = {
+        rtl1  = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
+        rtr1  = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
+        rtl3  = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
+        rtr3  = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
+        rk4   = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
+        bs1   = {[1]='bs1',  [2]='bbl2', [3]='bbr2', [4]='bs2'},
+        bbl2  = {[1]='bs1',  [2]='bbl2', [3]='bbr2', [4]='bs2'},
+        bbr2  = {[1]='bs1',  [2]='bbl2', [3]='bbr2', [4]='bs2'},
+        bs2   = {[1]='bs1',  [2]='bbl2', [3]='bbr2', [4]='bs2'}
+    },
+    ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_73.png',['init']=5,['actSet']={'F','TL','R'}}
 masterPilotDB[74]={['name']='Kanan Jarrus',['Faction']= 1,['ship_type']=23,['cost']=76,['slot']={21, 17,2, 4, 5, 8, 8, 16, 14, 15},['Shield']=4,['Force']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_74.png',['init']=3,['actSet']={'F','TL','R'}}
 masterPilotDB[75]={['name']='"Chopper"',['Faction']= 1,['ship_type']=23,['cost']=67,['slot']={21, 4,2, 5, 8, 8, 16, 14, 15},['Shield']=4,
@@ -3217,7 +3240,7 @@ masterUpgradesDB[304]={['name']='C-3PO',['slot']=8,['cost']=8,['card']='http://s
 masterUpgradesDB[305]={['name']='Cassian Andor',['slot']=8,['cost']=6,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_81.png',['restriction']={['Faction']={[1]=true}}}
 masterUpgradesDB[306]={['name']='Chewbacca',['slot']=8,['cost']=4,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_82.png',['restriction']={['Faction']={[1]=true}}}
 masterUpgradesDB[307]={['name']='"Chopper"',['slot']=8,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_83.png',['restriction']={['Faction']={[1]=true}}}
-masterUpgradesDB[308]={['name']='hera Syndulla',['slot']=8,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_84.png',['restriction']={['Faction']={[1]=true}}}
+masterUpgradesDB[308]={['name']='Hera Syndulla',['slot']=8,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_84.png',['restriction']={['Faction']={[1]=true}}}
 masterUpgradesDB[309]={['name']='Jyn Erso',['slot']=8,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_85.png',['restriction']={['Faction']={[1]=true}}}
 masterUpgradesDB[310]={['name']='Kanan Jarrus',['slot']=8,['cost']=12,['Force']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_86.png',['restriction']={['Faction']={[1]=true}}}
 masterUpgradesDB[311]={['name']='Lando Calrissian',['slot']=8,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_87.png',['restriction']={['Faction']={[1]=true}}}
