@@ -3396,7 +3396,26 @@ masterUpgradesDB[531]={['name']="Kraken",['slot']=20,['cost']=11,['card']='http:
 masterUpgradesDB[532]={['name']="Energy-Shell Charges",['slot']=6,['cost']=5,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/4b6213e5ed13735bb381df08bdd1398d.png',['restriction']={['Faction']={[7]=true}}}
 masterUpgradesDB[533]={['name']="Soulless One",['slot']=15,['cost']=6,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/36b33e7330846570087096cb55fba140.png',['restriction']={ ['ship']={[58]=true}}}
 masterUpgradesDB[534]={['name']="Impervium Plating",['slot']=14,['cost']=4,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/93e0fe1b2931944d128126b854c4ad33.png',['restriction']={ ['ship']={[58]=true}}}
-masterUpgradesDB[535]={['name']="Grappling Struts (Open)",['dual']=1,['slot']=18,['cost']=1,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/be82da17cfd39003fda380bead210eb9.png',['cardB']='http://sb-cdn.fantasyflightgames.com/card_images/en/ca74271f47c42b390ca0ba0b389144a5.png',
+masterUpgradesDB[535]={['name']="Grappling Struts (Open)",['dual']=1,['slot']=18,['cost']=1,['Charge']=1,
+    executeOptions = {
+        rk1  = {[1]='rk1', [2]='bs0'},
+        wtl1 = {[1]='wtl1', [2]='btl0'},
+        wtr1 = {[1]='wtr1', [2]='btr0'},
+        wbl2 = {[1]='wbl2', [2]='btl0'},
+        wbr2 = {[1]='wbr2', [2]='btr0'},
+        btl2 = {[1]='btl2', [2]='btl0'},
+        btr2 = {[1]='btr2', [2]='btr0'},
+        rtl2t = {[1]='rtl2t', [2]='btl0'},
+        rtr2t = {[1]='rtr2t', [2]='btr0'},
+        rbl3 = {[1]='rbl3', [2]='btl0'},
+        rbr3 = {[1]='rbr3', [2]='btr0'},
+        wtl3 = {[1]='wtl3', [2]='btl0'},
+        wtr3 = {[1]='wtr3', [2]='btr0'},
+        bs3  = {[1]='bs3', [2]='bs0'},
+        ws4  = {[1]='ws4', [2]='bs0'},
+        rs5  = {[1]='rs5', [2]='bs0'},
+    },
+    ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/be82da17cfd39003fda380bead210eb9.png',['cardB']='http://sb-cdn.fantasyflightgames.com/card_images/en/ca74271f47c42b390ca0ba0b389144a5.png',
                         ['restriction']={ ['ship']={[59]=true}}}
 masterUpgradesDB[536]={['name']="Brilliant Evasion",['slot']=17,['cost']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/24b175ad35d035f33a35056b0d1d7a36.png',['restriction']={ }}
 masterUpgradesDB[537]={['name']="K2-B4",['slot']=20,['cost']=5,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/2178079ef9488899e51e927b2e136572.png',['restriction']={['Faction']={[7]=true}}}
@@ -3416,7 +3435,26 @@ masterUpgradesDB[551]={['name']="R4-P44",['slot']=10,['cost']=3,['Charge']=2,['c
 masterUpgradesDB[552]={['name']="Clone Commander Cody",['slot']=16,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/1da8e9de468d456f724d0c1f37e90d28.png',['restriction']={['Faction']={[6]=true}}}
 masterUpgradesDB[553]={['name']="Seventh Fleet Gunner",['slot']=16,['cost']=9,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/a532c1de311e8d0a288af8232495a007.png',['restriction']={['Faction']={[6]=true}}}
 masterUpgradesDB[554]={['name']="Synchronized Console",['slot']=14,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/e3e5bd38f39f904fbaaa75293e56fb38.png',['restriction']={['Faction']={[6]=true}}}
-masterUpgradesDB[555]={['name']="Grappling Struts (Closed)",['dual']=1,['slot']=18,['cost']=1,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/ca74271f47c42b390ca0ba0b389144a5.png',['cardB']='http://sb-cdn.fantasyflightgames.com/card_images/en/be82da17cfd39003fda380bead210eb9.png',
+masterUpgradesDB[555]={['name']="Grappling Struts (Closed)",['dual']=1,['slot']=18,['cost']=1,
+    executeOptions = {
+        rk1  = {[1]='rk1', [2]='bs0'},
+        wtl1 = {[1]='wtl1', [2]='btl0'},
+        wtr1 = {[1]='wtr1', [2]='btr0'},
+        wbl2 = {[1]='wbl2', [2]='btl0'},
+        wbr2 = {[1]='wbr2', [2]='btr0'},
+        btl2 = {[1]='btl2', [2]='btl0'},
+        btr2 = {[1]='btr2', [2]='btr0'},
+        rtl2t = {[1]='rtl2t', [2]='btl0'},
+        rtr2t = {[1]='rtr2t', [2]='btr0'},
+        rbl3 = {[1]='rbl3', [2]='btl0'},
+        rbr3 = {[1]='rbr3', [2]='btr0'},
+        wtl3 = {[1]='wtl3', [2]='btl0'},
+        wtr3 = {[1]='wtr3', [2]='btr0'},
+        bs3  = {[1]='bs3', [2]='bs0'},
+        ws4  = {[1]='ws4', [2]='bs0'},
+        rs5  = {[1]='rs5', [2]='bs0'},
+    },
+    ['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/ca74271f47c42b390ca0ba0b389144a5.png',['cardB']='http://sb-cdn.fantasyflightgames.com/card_images/en/be82da17cfd39003fda380bead210eb9.png',
                         ['restriction']={ ['ship']={[59]=true}}}
 masterUpgradesDB[556]={['name']="Chancellor Palpatine",['slot']=8,['cost']=14,['Force']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/8218d7b903ea8c0c0f88375124a93a5f.png',['cardB']='http://sb-cdn.fantasyflightgames.com/card_images/en/fe4d36bbd6f43ada43a5cf55354211c0.png',
                         ['restriction']={['Faction']={[6]=true,[7]=true}}}
@@ -3434,7 +3472,9 @@ masterUpgradesDB[581]={['name']="Amilyn Holdo",['slot']=8,['cost']=8,['card']='h
                         ['restriction']={['Faction']={[4]=true}}}
 masterUpgradesDB[582]={['name']="GA-97",['slot']=8,['cost']=6,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/3af44c6d32812dc07238b40842d67b47.png',
                         ['restriction']={['Faction']={[4]=true}}}
-masterUpgradesDB[583]={['name']="Kaydel Connix",['slot']=8,['cost']=5,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/29a0eb418850a3821c38874daf0a6b0d.png',
+masterUpgradesDB[583]={['name']="Kaydel Connix",['slot']=8,['cost']=5,
+
+    ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/29a0eb418850a3821c38874daf0a6b0d.png',
                         ['restriction']={['Faction']={[4]=true}}}
 masterUpgradesDB[584]={['name']="Korr Sella",['slot']=8,['cost']=6,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/dd102b8e517399d12b17756a863d19ee.png',
                         ['restriction']={['Faction']={[4]=true}}}
@@ -3530,9 +3570,47 @@ masterUpgradesDB[592]={['name']="Delayed Fuses",['slot']=14,['cost']=1,['card']=
                         ['restriction']={ }}
 masterUpgradesDB[593]={['name']="Angled Deflectors",['slot']=14,['cost']=6,['shd']=-1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/41cf9c90abcd8ff5c668bb447967b75c.png',
                         ['restriction']={ }}
-masterUpgradesDB[594]={['name']="Landing Struts (Closed)",['slot']=18,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/c23a0130bad7330c0abb6218745910aa.png', ['cardB']='http://sb-cdn.fantasyflightgames.com/card_images/en/aba79159308e850b635f6c43721ccdee.png',
+masterUpgradesDB[594]={['name']="Landing Struts (Closed)",['slot']=18,['cost']=1,
+    executeOptions = {
+        ws1  = {[1]='ws1', [2]='bs0'},
+        rbl1 = {[1]='rbl1', [2]='btl0'},
+        rbr1 = {[1]='rbr1', [2]='btr0'},
+        wtl1 = {[1]='wtl1', [2]='btl0'},
+        wtr1 = {[1]='wtr1', [2]='btr0'},
+        wbl2 = {[1]='wbl2', [2]='btl0'},
+        wbr2 = {[1]='wbr2', [2]='btr0'},
+        btl2 = {[1]='btl2', [2]='btl0'},
+        btr2 = {[1]='btr2', [2]='btr0'},
+        rtl2t = {[1]='rtl2t', [2]='btl0'},
+        rtr2t = {[1]='rtr2t', [2]='btr0'},
+        wtl3 = {[1]='wtl3', [2]='btl0'},
+        wtr3 = {[1]='wtr3', [2]='btr0'},
+        bs3  = {[1]='bs3', [2]='bs0'},
+        ws4  = {[1]='ws4', [2]='bs0'},
+        rs5  = {[1]='rs5', [2]='bs0'},
+    },
+    ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/c23a0130bad7330c0abb6218745910aa.png', ['cardB']='http://sb-cdn.fantasyflightgames.com/card_images/en/aba79159308e850b635f6c43721ccdee.png',
                         ['restriction']={['Faction']={[7]=true}, ['ship']={[66]=true}}}
-masterUpgradesDB[595]={['name']="Landing Struts (Open)",['slot']=18,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/aba79159308e850b635f6c43721ccdee.png', ['cardB']='http://sb-cdn.fantasyflightgames.com/card_images/en/c23a0130bad7330c0abb6218745910aa.png',
+masterUpgradesDB[595]={['name']="Landing Struts (Open)",['slot']=18,['cost']=1,
+    executeOptions = {
+        ws1  = {[1]='ws1', [2]='bs0'},
+        rbl1 = {[1]='rbl1', [2]='btl0'},
+        rbr1 = {[1]='rbr1', [2]='btr0'},
+        wtl1 = {[1]='wtl1', [2]='btl0'},
+        wtr1 = {[1]='wtr1', [2]='btr0'},
+        wbl2 = {[1]='wbl2', [2]='btl0'},
+        wbr2 = {[1]='wbr2', [2]='btr0'},
+        btl2 = {[1]='btl2', [2]='btl0'},
+        btr2 = {[1]='btr2', [2]='btr0'},
+        rtl2t = {[1]='rtl2t', [2]='btl0'},
+        rtr2t = {[1]='rtr2t', [2]='btr0'},
+        wtl3 = {[1]='wtl3', [2]='btl0'},
+        wtr3 = {[1]='wtr3', [2]='btr0'},
+        bs3  = {[1]='bs3', [2]='bs0'},
+        ws4  = {[1]='ws4', [2]='bs0'},
+        rs5  = {[1]='rs5', [2]='bs0'},
+    },
+    ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/aba79159308e850b635f6c43721ccdee.png', ['cardB']='http://sb-cdn.fantasyflightgames.com/card_images/en/c23a0130bad7330c0abb6218745910aa.png',
                         ['restriction']={['Faction']={[7]=true}, ['ship']={[66]=true}}}
 
 masterUpgradesDB[613]={['name']="Foresight",['slot']=17,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/12c948b9a0fe9f619ecda00f9fdcc437.png',
