@@ -2368,8 +2368,8 @@ ArcCheck.GetTargetLineSegmentsInArc = function(ship, target, arcinfo)
                     x1 = -half_bullseye
                     if x2 > -half_bullseye then
                         x2 = math.min(half_bullseye, x2)
-                        p1 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x1, ownship_oriented_segment[1][2], 0), vector(x1, ownship_oriented_segment[1][2], -20))
-                        p2 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x2, ownship_oriented_segment[1][2], 0), vector(x2, ownship_oriented_segment[1][2], -20))
+                        p1 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x1, ownship_oriented_segment[1][2], 0), vector(x1, ownship_oriented_segment[1][2], -20), true)
+                        p2 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x2, ownship_oriented_segment[1][2], 0), vector(x2, ownship_oriented_segment[1][2], -20), true)
                         if p1 ~= nil and p2 ~= nil then
                             print("test1")
                           table.insert(outsegments, { Vect.Sum(Vect.RotateDeg(p1, ship.getRotation()[2]), ship.getPosition()),
@@ -2378,8 +2378,8 @@ ArcCheck.GetTargetLineSegmentsInArc = function(ship, target, arcinfo)
                     end
                 elseif x1 < half_bullseye then
                     x2 = math.min(half_bullseye, x2)
-                    p1 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x1, ownship_oriented_segment[1][2], 0), vector(x1, ownship_oriented_segment[1][2], -20))
-                    p2 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x2, ownship_oriented_segment[1][2], 0), vector(x2, ownship_oriented_segment[1][2], -20))
+                    p1 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x1, ownship_oriented_segment[1][2], 0), vector(x1, ownship_oriented_segment[1][2], -20), true)
+                    p2 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x2, ownship_oriented_segment[1][2], 0), vector(x2, ownship_oriented_segment[1][2], -20), true)
                     if p1 ~= nil and p2 ~= nil then
                         print("test2")
                       table.insert(outsegments, { Vect.Sum(Vect.RotateDeg(p1, ship.getRotation()[2]), ship.getPosition()),
@@ -2392,7 +2392,14 @@ ArcCheck.GetTargetLineSegmentsInArc = function(ship, target, arcinfo)
     return outsegments
 end
 
-ArcCheck.GetLineLineIntersection = function(p0, p1, p2, p3)
+ArcCheck.GetLineLineIntersection = function(p0, p1, p2, p3, expect_intersection)
+
+    local max = 1
+    local min = 0
+    if expect_intersection then
+        max = 1.00001
+        min = -0.00001
+    end
 
     local s1_x = p1[1] - p0[1]
     local s1_y = p1[3] - p0[3]
@@ -2401,8 +2408,7 @@ ArcCheck.GetLineLineIntersection = function(p0, p1, p2, p3)
 
     local s = (-s1_y * (p0[1] - p2[1]) + s1_x * (p0[3] - p2[3])) / (-s2_x * s1_y + s1_x * s2_y)
     local t = ( s2_x * (p0[3] - p2[3]) - s2_y * (p0[1] - p2[1])) / (-s2_x * s1_y + s1_x * s2_y)
-
-    if (s >= 0 and s <= 1 and t >= 0 and t <= 1) then
+    if (s >= 0 and s <= max and t >= 0 and t <= max) then
         -- Collision detected
         return vector( p0[1] + (t * s1_x), p0[2], p0[3] + (t * s1_y))
     end
