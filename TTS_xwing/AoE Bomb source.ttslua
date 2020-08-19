@@ -1,9 +1,9 @@
 -- ~~~~~~
--- Script by dzikakulka
--- Issues, history at: http://github.com/tjakubo2/TTS_xwing
+-- Script by Eirik 'Flippster' Munthe
 --
--- Bomb ruler modeled by Flolania
 -- ~~~~~~
+
+#include TTS_xwing/src/Dimensions
 
 -- Call bomb drop stick
 function onDropped()
@@ -11,7 +11,8 @@ function onDropped()
 end
 
 local spawnedRuler = nil
-function update()    if self.getDescription() == 'r' then
+function update()
+    if self.getDescription() == 'r' then
         if ToggleRuler() then
             printToAll('Spawning ' .. self.getName() .. ' guide', {0, 1, 1})
         end
@@ -32,14 +33,14 @@ function ToggleRuler()
         scale = self.getScale()
     }
     local custom = {
-        mesh = 'http://pastebin.com/raw/qPcTJZyP',
-        collider = 'http://pastebin.com/raw.php?i=UK3Urmw1'
+        mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/new/bomb_range_2.obj',
+        collider = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/new/bomb_collider.obj'
     }
     local removeButton = {
         click_function = 'ToggleRuler',
         label = 'DEL',
         function_owner = self,
-        position = {0, 0.5, 0},
+        position = {0, 0.1, 0},
         rotation = {0, 270, 0},
         width = 750,
         height = 750,
@@ -48,10 +49,32 @@ function ToggleRuler()
     }
     spawnedRuler = spawnObject(params)
     spawnedRuler.setCustomObject(custom)
+    spawnedRuler.setColorTint(color(1,1,0,0.2))
+    vector_lines = {}
+    for k,obj in pairs(getAllObjects()) do
+        if obj ~= nil and obj.tag == 'Figurine' and obj.getVar('__XW_Ship') == true then
+            my_pos = self.getNearestPointFromObject(obj)
+            other_pos = obj.getNearestPointFromObject(self)
+            other_pos.y = my_pos.y
+
+            distance = Convert_igu_mm(math.sqrt(math.pow(my_pos.x - other_pos.x,2) + math.pow(my_pos.z - other_pos.z,2)))
+            if distance < 200 then
+                table.insert(vector_lines, {
+                    points = {self.positionToLocal(my_pos), self.positionToLocal(other_pos)},
+                    color = {1,1,1},
+                    thickness = 0.1,
+                    rotation = vector(0,0,0)
+                })
+            end
+        end
+    end
+    spawnedRuler.setVectorLines(vector_lines)
     spawnedRuler.createButton(removeButton)
     spawnedRuler.lock()
     return true
 end
+
+
 
 function onLoad()
     if self.getName() == 'AoE Bomb source' then
@@ -61,5 +84,8 @@ function onLoad()
         self.tooltip = false
         self.interactable = false
         update = nil
+    else
+        self.addContextMenuItem("Toggle Range 1", ToggleRuler, false)
     end
+
 end
