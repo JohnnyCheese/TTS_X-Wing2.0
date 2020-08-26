@@ -579,8 +579,17 @@ masterShipDB[71]={
 --w7ship
 --[[masterShipDB[80]={['name']='LAAT/i Gunship',['Shield']=2,['dTurret']=1,['size']='medium',['agi']=1,['XWS']='', ['Fac']={[6]=true}, ['arcs']={'doubleturret'},
                             ['moveSet']={'rs0','wbl1','bs1','wbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs4'}}
-masterShipDB[81]={['name']='Xi class Shutle',['Shield']=2,['size']='medium',['agi']=2,['XWS']='', ['Fac']={[5]=true}, ['arcs']={'front'},
-                            ['moveSet']={'rs0','bbl1','bs1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','ws4'}}
+masterShipDB[81]={
+	name= 'Xi class Shutle',
+	Shield = 2,
+	size = 'medium',
+	agi = 2,
+	XWS = '', 
+	Fac = {[5]=true},  
+	arcs = {'front'},
+	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/Xi_Shuttle/XiClassLightShuttle.obj',
+	moveSet = {'rs0','bbl1','bs1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','ws4'}}
+	
 masterShipDB[82]={['name']='Droid Gunship',['Shield']=3,['size']='small',['agi']=1,['XWS']='', ['Fac']={[7]=true}, ['arcs']={'fullfront'},
                             ['moveSet']={'rs0','rbl1','bs1','rbr1','btl2','wbl2','bs2','wbr2','btr2','wtl3','rbl3','ws3','rbr3','wtr3','rs4','rs5'}}
 ]]
@@ -2387,6 +2396,55 @@ masterPilotDB[636]={['name']='G4R-G0R V/M',['Faction']= 3,['ship_type']=44,['cos
 masterPilotDB[637]={['name']='Nom Lumb',['Faction']= 3,['ship_type']=45,['cost']=38,['slot']={21, 1, 3, 8, 5, 13, 14, 15, 16},['Shield']=3,['Charge']=1,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/f9/67/f96780a9-1fff-460c-8480-4294fd7a7a27/swz66_nom-lumb.png',['init']=1,['actSet']={'F','TL','BR','Rot'}}
 
+masterPilotDB[644]={
+    name = "First Order Courier",
+    Faction = 5,
+    ship_type = 81,
+    cost = 200,
+    slot = {},
+    Shield = 2,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/9f/49/9f490467-49a5-456f-b649-42cb74ecdd8a/swz69_a1_ship_courier.png',
+    init = 2,
+    texture = 'https://github.com/JohnnyCheese/TTS_X-Wing2.0/blob/master/assets/ships/Medium/Xi_Shuttle/First%20Order%20Courier.jpg',
+    actSet = {'F','TL'}}
+	
+masterPilotDB[644]={
+    name = "Agent Terex",
+    Faction = 5,
+    ship_type = 81,
+    cost = 200,
+    slot = {},
+    Shield = 2,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/9a/27/9a27c06f-58be-49b7-ab36-63dc2fae3b9a/swz69_a1_ship_terex.png',
+    init = 3,
+    texture = 'https://github.com/JohnnyCheese/TTS_X-Wing2.0/blob/master/assets/ships/Medium/Xi_Shuttle/Agent%20Terex.jpg',
+    actSet = {'F','TL'}}
+	
+masterPilotDB[644]={
+    name = "Gideon Hask",
+    Faction = 5,
+    ship_type = 81,
+    cost = 200,
+    slot = {},
+    Shield = 2,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/fc/47/fc47d552-1b3f-4281-8a0e-5ced929d7ec8/swz69_a1_ship_hask.png',
+    init = 4,
+    texture = '',
+    actSet = {'F','TL'}}
+
+masterPilotDB[644]={
+    name = "Commander Malarus",
+    Faction = 5,
+    ship_type = 81,
+    cost = 200,
+    slot = {},
+    Shield = 2,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/85/c4/85c41c14-3071-401b-b3ee-89d048acd9f0/swz69_a1_ship_malarus.png',
+    init = 5,
+    texture = '',
+    actSet = {'F','TL'}}
+	
+
 -- Huge ships
 masterPilotDB[1000]={
   name = 'Alderaanian Guard',
@@ -2835,8 +2893,15 @@ masterUpgradesDB[654]={['name']="Deuterium Power Cells",['slot']=19,['cost']=9,[
                         ['restriction']={['Faction']={[5]=true}}}
 masterUpgradesDB[655]={['name']="Kaz's Fireball",['slot']=15,['cost']=2,['card']='http://images-cdn.fantasyflightgames.com/filer_public/47/dd/47dd508f-6751-4b19-b3da-d0530aeb9a33/swz63_a1_card_kazs-fireball.png',
                         ['restriction']={ ['ship']={[70]=true}}}
-
-
+masterUpgradesDB[656]={['name']="Commander Malarus Perfected",['dual']=1,['slot']=8,['cost']=200,['cardB']='https://images-cdn.fantasyflightgames.com/filer_public/42/ed/42edc96c-938a-4bd4-88de-7be1e449d96b/swz69_malarus-perfected_card.png', ['card']='https://images-cdn.fantasyflightgames.com/filer_public/6d/2a/6d2a8204-2de1-4b1e-8980-456501628a24/swz69_malarus_card.png', ['restriction']={['Faction']={[5]=true}}}
+masterUpgradesDB[657]={['name']="Commander Malarus",['dual']=1,['slot']=8,['cost']=200,['card']='https://images-cdn.fantasyflightgames.com/filer_public/6d/2a/6d2a8204-2de1-4b1e-8980-456501628a24/swz69_malarus_card.png', ['cardB']='https://images-cdn.fantasyflightgames.com/filer_public/42/ed/42edc96c-938a-4bd4-88de-7be1e449d96b/swz69_malarus-perfected_card.png', ['restriction']={['Faction']={[5]=true}}}
+masterUpgradesDB[658]={['name']='Commander Pyre',['slot']=8,['cost']=200,['card']='https://images-cdn.fantasyflightgames.com/filer_public/10/5d/105d386c-ff1b-44be-9b9c-a2c1dc2877ec/swz69_pyre_card.png',['restriction']={ ['Faction']={[5]=true}}}
+masterUpgradesDB[659]={['name']="Agent Terex Cyborg",['dual']=1,['slot']=8,['cost']=200,['cardB']='https://images-cdn.fantasyflightgames.com/filer_public/ae/fc/aefc02a4-e435-4842-964d-ec54d70913f6/swz69_cyborg-terex_card.png', ['card']='https://images-cdn.fantasyflightgames.com/filer_public/27/56/27568de2-a0be-4de5-8107-8c8c584fdd18/swz69_terex_card.png', ['restriction']={['Faction']={[5]=true}}}
+masterUpgradesDB[660]={['name']="Agent Terex",['dual']=1,['slot']=8,['cost']=200,['card']='https://images-cdn.fantasyflightgames.com/filer_public/27/56/27568de2-a0be-4de5-8107-8c8c584fdd18/swz69_terex_card.png', ['cardB']='https://images-cdn.fantasyflightgames.com/filer_public/ae/fc/aefc02a4-e435-4842-964d-ec54d70913f6/swz69_cyborg-terex_card.png', ['restriction']={['Faction']={[5]=true}}}
+masterUpgradesDB[661]={['name']="Automated Target Priority",['slot']=19,['cost']=200['card']='https://images-cdn.fantasyflightgames.com/filer_public/e9/e2/e9e2f789-fc77-4ac5-861d-6c08b97ea244/swz69_target-priority_card.png',
+                        ['restriction']={ }} -- int 3 or less
+masterUpgradesDB[662]={['name']="Sensor Buoy Suites",['slot']=19,['cost']=200['card']='https://images-cdn.fantasyflightgames.com/filer_public/7d/19/7d199d6b-808a-47d2-9aa1-1fc3432e7d3f/swz69_sensor-buoy-suite_card.png',
+                        ['restriction']={ ['Faction']={[5]=true} }} -- FO Med/Large Ship
 -- Epic upgrade cards
 -- Commands
 masterUpgradesDB[1000]={
