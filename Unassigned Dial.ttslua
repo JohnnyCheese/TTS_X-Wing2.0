@@ -117,7 +117,12 @@ function getManouverIcons(manouver)
         else
             manType = "Sloop"
         end
-
+    elseif manouver:sub(-1,-1) == 'z' then
+        if manouver:sub(2,2) == 't' then
+            manType = "TurnSlip"
+        else
+            manType = "BankSlip"
+        end
     elseif manouver:sub(-1,-1) == 'r' then
         if manouver:sub(2,2) == 'b' then
             manType = "ReverseBank"
