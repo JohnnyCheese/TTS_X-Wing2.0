@@ -5532,7 +5532,9 @@ RulerModule.DeleteRuler = function(ship)
     for k,rTable in pairs(RulerModule.spawnedRulers) do
         if rTable.ship == ship then
             for _, arcline in pairs(rTable.arclines) do
-                arcline.destruct()
+                if arcline ~= nil then
+                    arcline.destruct()
+                end
             end
             rTable.ruler.destruct()
             local destType = rTable.type
