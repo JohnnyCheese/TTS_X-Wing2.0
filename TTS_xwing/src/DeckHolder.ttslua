@@ -10,16 +10,18 @@ state = {
 
 function Enable()
     state.active = true
-    if not state.deck then
-        function DelayedDrawCoroutine()
-            repeat
-                coroutine.yield(0)
-            until (not self.isSmoothMoving()) and self.resting
+    function DelayedDrawCoroutine()
+        repeat
+            coroutine.yield(0)
+        until (not self.isSmoothMoving()) and self.resting
+        if state.deck then
+            SnapDeck(state.deck)
+        else
             DrawDeck()
-            return 1
         end
-        startLuaCoroutine(self, 'DelayedDrawCoroutine')
+        return 1
     end
+    startLuaCoroutine(self, 'DelayedDrawCoroutine')
 end
 
 function Disable()
@@ -49,6 +51,7 @@ function SnapDeck(deck)
     deck.setPositionSmooth({sPos[1], sPos[2]+0.3, sPos[3]}, false, true)
     deck.setRotationSmooth({sRot[1]+180, sRot[2], sRot[3]}, false, true)
     state.deck = deck
+    deck.randomize()
 end
 
 function onObjectDestroyed(obj)
@@ -74,6 +77,7 @@ function onLoad(saveState)
         state.active = loadState.active
         if loadState.deckGUID then
             state.deck = getObjectFromGUID(loadState.deckGUID)
+            state.deck.randomize()
         end
     end
     self.tooltip = false

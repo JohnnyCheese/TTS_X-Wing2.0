@@ -134,6 +134,11 @@ function API_BombTokenDrop(argTable)
 end
 
 
+function API_AssignToken(argTable)
+    TokenModule.AssignToken(argTable.token, argTable.ship)
+end
+
+
 --------
 -- OBJECT SPECIFIC VARIABLES
 -- These variables are set per object and have some specific meaning

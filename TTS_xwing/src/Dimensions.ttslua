@@ -5,11 +5,15 @@
 -- X-Wing related measurements for TTS
 -- ~~~~~~
 
+-- adjusted length = 40mm = 1.4536igu
+-- 1mm = 0.03634igu
+mm_igu_ratio = 0.03637
+
 -- 40mm = 1.445igu
 -- (s1 length / small base size)
 
 -- 1mm = 0.036125igu
-mm_igu_ratio = 0.036125
+--mm_igu_ratio = 0.036125
 
 -- Milimeter dimensions of ship bases
 mm_smallBase = 40
@@ -31,6 +35,8 @@ mm_upgrade_width = 41
 mm_upgrade_height = 63
 mm_pilot_width = 63.5
 mm_pilot_height = 88
+
+mm_ship_scale = vector(0.629, 0.629, 0.629)
 
 mm_cardSize = {}
 mm_cardSize.upgrade = {width = 41, height = 63}

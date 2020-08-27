@@ -15,6 +15,10 @@ __XW_TokenType = 'helper:Dial'
 assignedShip = nil
 currMan = nil
 playerColor = nil
+openpanel = nil
+openbutton = nil
+opencolor = "#555555"
+closedcolor = "#222222"
 
 -- Save self state
 function onSave()
@@ -44,6 +48,15 @@ function onLoad()
     end
 end
 
+function clearOpenPanel()
+    if openpanel ~= nil then
+        self.UI.hide(openpanel)
+        self.UI.setAttribute(openbutton, "color", closedcolor)
+        self.UI.setAttribute(openbutton, "textColor", "#FFFFFF")
+    end
+    openpanel = nil
+    openbutton = nil
+end
 
 function clearDial()
 
@@ -54,7 +67,9 @@ function clearDial()
     self.UI.hide('arcPanel')
     self.UI.hide('relocPanel')
     self.UI.hide('tokenPanel')
+    self.UI.hide("setManPeekPanel")
     winStat = false
+    clearOpenPanel()
 end
 
 function onUpdate()
@@ -79,7 +94,7 @@ function onUpdate()
 end
 
 function manSelect(p, option, id)
-    if spectReturn(p) == true then
+    if spectReturn(p) == true or option == false then
         return
     end
     firstSet=true
@@ -243,6 +258,7 @@ function assignShip(ship)
     self.UI.setAttribute("tokenPanel", "active", "true")
     self.UI.setAttribute("relocPanel", "active", "true")
     self.UI.setAttribute("CenterFD", "active", "true")
+    self.UI.setAttribute("setManPeekPanel", "active", "true")
     assignedShip = ship
     Name=assignedShip.getName()
     self.setName(Name)
@@ -345,96 +361,97 @@ function genericAction(a,b,c,d)
     print(d)
 end
 
-function focusTok(p)
+function focusTok(p,id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Focus', playerColor})
+    Global.call('proxyPerformAction', {assignedShip, 'Focus', playerColor, id ~= '-1'})
 end
 
-function evadeTok(p)
+function evadeTok(p,id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Evade', playerColor})
+    Global.call('proxyPerformAction', {assignedShip, 'Evade', playerColor, id ~= '-1'})
 end
 
-function tlTok(p)
+function tlTok(p, id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Target Lock', playerColor})
+    if id == '-1' then
+        Global.call('proxyPerformAction', {assignedShip, 'Target Lock', playerColor})
+    end
 end
 
-function tractorTok(p)
+function tractorTok(p,id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Tractor', playerColor})
+    Global.call('proxyPerformAction', {assignedShip, 'Tractor', playerColor, id ~= '-1'})
 end
 
-function jamTok(p)
+function jamTok(p,id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Jam', playerColor})
+    Global.call('proxyPerformAction', {assignedShip, 'Jam', playerColor, id ~= '-1'})
 end
 
-function disarmTok(p)
+function disarmTok(p,id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Disarm', playerColor})
+    Global.call('proxyPerformAction', {assignedShip, 'Disarm', playerColor, id ~= '-1'})
 end
 
-function cloakTok(p)
+function cloakTok(p,id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Cloak', playerColor})
+    Global.call('proxyPerformAction', {assignedShip, 'Cloak', playerColor, id ~= '-1'})
 end
 
-function calcTok(p)
+function calcTok(p,id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Calculate', playerColor})
+    Global.call('proxyPerformAction', {assignedShip, 'Calculate', playerColor, id ~= '-1'})
 end
 
-function reinforceTok(p)
+function reinforceTok(p,id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Reinforce', playerColor})
+    Global.call('proxyPerformAction', {assignedShip, 'Reinforce', playerColor, id ~= '-1'})
 end
 
 function stressTok(p,id)
     if spectReturn(p) == true then
         return
     end
-    if id == '-1' then
-        Global.call('proxyPerformAction', {assignedShip, 'Stress', playerColor})
-    else
-        Global.call('proxyPerformAction', {assignedShip, 'unstress', playerColor})
-    end
+    Global.call('proxyPerformAction', {assignedShip, 'Stress', playerColor, id ~= '-1'})
 end
 
 function strainTok(p,id)
   if spectReturn(p) == true then
       return
   end
-  if id == '-1' then
-      Global.call('proxyPerformAction', {assignedShip, 'Strain', playerColor})
-  else
-      Global.call('proxyPerformAction', {assignedShip, 'unstrain', playerColor})
-  end
+  Global.call('proxyPerformAction', {assignedShip, 'Strain', playerColor, id ~= '-1'})
 end
 
-function ionTok(p)
+function depleteTok(p,id)
+  if spectReturn(p) == true then
+      return
+  end
+  Global.call('proxyPerformAction', {assignedShip, 'Deplete', playerColor, id ~= '-1'})
+end
+
+function ionTok(p,id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Ion', playerColor})
+    Global.call('proxyPerformAction', {assignedShip, 'Ion', playerColor, id ~= '-1'})
 end
 
 function BoostS(p)
@@ -550,6 +567,13 @@ function arcF(p)
     assignedShip.setDescription("f")
 end
 
+function arcFF(p)
+    if spectReturn(p) == true then
+        return
+    end
+    assignedShip.setDescription("ff")
+end
+
 function arcL(p)
     if spectReturn(p) == true then
         return
@@ -569,6 +593,13 @@ function arcB(p)
         return
     end
     assignedShip.setDescription("b")
+end
+
+function arcFB(p)
+    if spectReturn(p) == true then
+        return
+    end
+    assignedShip.setDescription("fb")
 end
 
 function pivK(p)
@@ -617,14 +648,38 @@ function spectReturn(p)
     return p.color ~= playerColor
 end
 
+function showSetMan(p)
+    if spectReturn(p) == true then
+        return
+    end
+    self.UI.show("setManPeekPanel")
+    self.UI.setAttribute("setManPeekPanel", "visibility", playerColor)
+    self.UI.setAttribute("setManTypeIcon", "image", typeIcon)
+    self.UI.setAttribute("setManSpeedIcon", "image", speedIcon)
+    self.UI.setAttribute("setManTypeIcon", "active", "true")
+    self.UI.setAttribute("setManSpeedIcon", "active", "true")
+    self.UI.setAttribute("setManPeekPanel", "position", "-100 -150 -50")
+    self.UI.setAttribute("setManPeekPanel", "rotation", "180 180 0")
+end
+
+function hideSetMan(p)
+    if spectReturn(p) == true then
+        return
+    end
+    self.UI.hide("setManPeekPanel")
+end
+
+
 function showTokMFD(p)
     if spectReturn(p) == true then
         return
     end
     self.UI.show("tokenPanel")
-    self.UI.hide("arcPanel")
-    self.UI.hide("relocPanel")
-    self.UI.setAttribute("tokenPanel", "position", "-340 -165 -40")
+    self.UI.setAttribute("TokenMenu", "color", opencolor)
+    clearOpenPanel()
+    openpanel = "tokenPanel"
+    openbutton = "TokenMenu"
+    self.UI.setAttribute("tokenPanel", "position", "-360 -165 -25")
     self.UI.setAttribute("tokenPanel", "rotation", "180 180 0")
 end
 
@@ -633,9 +688,11 @@ function showTokMFU(p)
         return
     end
     self.UI.show("tokenPanel")
-    self.UI.hide("arcPanel")
-    self.UI.hide("relocPanel")
-    self.UI.setAttribute("tokenPanel", "position", "340 -165 40")
+    self.UI.setAttribute("TokenMenuFu", "color", opencolor)
+    clearOpenPanel()
+    openpanel = "tokenPanel"
+    openbutton = "TokenMenuFu"
+    self.UI.setAttribute("tokenPanel", "position", "360 -165 1")
     self.UI.setAttribute("tokenPanel", "rotation", "180 0 0")
 end
 
@@ -643,8 +700,15 @@ function hideTokM(p)
     if spectReturn(p) == true then
         return
     end
-    self.UI.hide("tokenPanel")
+    if openpanel == "tokenPanel" then
+        self.UI.hide(openpanel)
+        self.UI.setAttribute(openbutton, "color", closedcolor)
+        self.UI.setAttribute(openbutton, "textColor", "#FFFFFF")
+    end
+    openpanel = nil
+    openbutton = nil
 end
+
 
 
 function showArcMFD(p)
@@ -652,9 +716,12 @@ function showArcMFD(p)
         return
     end
     self.UI.show("arcPanel")
-    self.UI.hide("relocPanel")
-    self.UI.hide("tokenPanel")
-    self.UI.setAttribute("arcPanel", "position", "260 -185 -40")
+    self.UI.setAttribute("ArcMenu", "color", opencolor)
+    clearOpenPanel()
+    openpanel = "arcPanel"
+    openbutton = "ArcMenu"
+
+    self.UI.setAttribute("arcPanel", "position", "250 -150 -25")
     self.UI.setAttribute("arcPanel", "rotation", "180 180 0")
 end
 
@@ -663,9 +730,12 @@ function showArcMFU(p)
         return
     end
     self.UI.show("arcPanel")
-    self.UI.hide("relocPanel")
-    self.UI.hide("tokenPanel")
-    self.UI.setAttribute("arcPanel", "position", "-260 -185 40")
+    self.UI.setAttribute("ArcMenuFu", "color", opencolor)
+    clearOpenPanel()
+    openpanel = "arcPanel"
+    openbutton = "ArcMenuFu"
+
+    self.UI.setAttribute("arcPanel", "position", "-250 -150 1")
     self.UI.setAttribute("arcPanel", "rotation", "180 0 0")
 end
 
@@ -673,17 +743,27 @@ function hideArcM(p)
     if spectReturn(p) == true then
         return
     end
-    self.UI.hide("arcPanel")
+    if openpanel == "arcPanel" then
+        self.UI.hide(openpanel)
+        self.UI.setAttribute(openbutton, "color", closedcolor)
+        self.UI.setAttribute(openbutton, "textColor", "#FFFFFF")
+    end
+    openpanel = nil
+    openbutton = nil
 end
 
 function showRelocMFD(p)
     if spectReturn(p) == true then
         return
     end
+
     self.UI.show("relocPanel")
-    self.UI.hide("arcPanel")
-    self.UI.hide("tokenPanel")
-    self.UI.setAttribute("relocPanel", "position", "0 -215 -40")
+    self.UI.setAttribute("RelocMenu", "color", opencolor)
+    clearOpenPanel()
+    openpanel = "relocPanel"
+    openbutton = "RelocMenu"
+
+    self.UI.setAttribute("relocPanel", "position", "0 -215 -25")
     self.UI.setAttribute("relocPanel", "rotation", "180 180 0")
 end
 
@@ -692,9 +772,12 @@ function showRelocMFU(p)
         return
     end
     self.UI.show("relocPanel")
-    self.UI.hide("arcPanel")
-    self.UI.hide("tokenPanel")
-    self.UI.setAttribute("relocPanel", "position", "0 -215 40")
+    self.UI.setAttribute("RelocMenuFu", "color", opencolor)
+    clearOpenPanel()
+    openpanel = "relocPanel"
+    openbutton = "RelocMenuFu"
+
+    self.UI.setAttribute("relocPanel", "position", "0 -215 1")
     self.UI.setAttribute("relocPanel", "rotation", "180 0 0")
 end
 
@@ -702,7 +785,13 @@ function hideRelocM(p)
     if spectReturn(p) == true then
         return
     end
-    self.UI.hide("relocPanel")
+    if openpanel == "relocPanel" then
+        self.UI.hide(openpanel)
+        self.UI.setAttribute(openbutton, "color", closedcolor)
+        self.UI.setAttribute(openbutton, "textColor", "#FFFFFF")
+    end
+    openpanel = nil
+    openbutton = nil
 end
 
 function setDial(P)
@@ -731,6 +820,7 @@ function setDial(P)
                 else
                     --TODO: Now that the set dial and unset dial buttons are 2 different buttons, this file's code would probably be more readable with this function split in to setDial() and unsetDial()
                     self.UI.setAttribute("setBtnFD", "active", "false")
+                    self.UI.setAttribute("setManPeekPanel", "active", "false")
                     self.UI.setAttribute("moveWindow", "active", "true")
                     self.UI.setAttribute("moveWindow", "textColor", "#FFFFFF")
                     setStat = false

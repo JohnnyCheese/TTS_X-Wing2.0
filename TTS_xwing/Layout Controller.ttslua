@@ -9,6 +9,8 @@ Layout = {}
 
 #include TTS_xwing/src/Layouts/LayoutElements
 
+
+
 Layout.layouts = {}
 
 Layout.AddLayout = function(layoutTable)
@@ -18,11 +20,25 @@ end
 #include TTS_xwing/src/Layouts/Standard
 #include TTS_xwing/src/Layouts/Epic
 
+self.setPosition({0,3,0})
+
 state = {
     active = true,
     index = 1,
-    dialZones = {}
+    dialZones = {},
+    tempObjs = {}
 }
+
+Layout.AddTempObj = function(obj)
+    state.tempObj[obj.getGUID()] = true
+end
+
+Layout.ClearTempObjs = function()
+    for guid in pairs(state.tempObj) do
+        local obj = getObjectFromGUID(guid)
+        if obj then obj.destruct() end
+    end
+end
 
 Layout.NearLocal = function(zone, pos)
     local posAdj = Vect.ScaleEach(Vect.Sub(pos, {0, zone.getPosition()[2], zone.getScale()[3]/2}), Vect.Inverse(zone.getScale()))
@@ -37,38 +53,12 @@ Layout.NearGlobal = function(zone, pos)
 end
 
 Layout.extIndex = 1
-Layout.AddDialZone = function(zone, bPos, sCent, sSize)
-    zone.clearButtons()
-    state.dialZones[zone.getGUID()] = {bPos, sCent, sSize}
-    local extension = Layout.extensions[Layout.extIndex]
-    local zoneColor = zone.getValue()
-    local mainButton = {
-       label = 'Assign Dials',
-       position = Layout.NearLocal(zone, bPos),
-       rotation = {0, 180, 0},
-       scale = Vect.Inverse(zone.getScale()),
-       function_owner = self,
-       height = 750,
-       width = 2500,
-       font_size = 400,
-       color = stringColorToRGB(zoneColor)
-    }
-    mainButton.position[2] = -0.375
-
-    _G['Assign' .. zoneColor] = function(_, playerColor)
-        local playerStuff = ObjType.GetBoxOfType(sCent, {0, 0, 0}, sSize, 'dialBag')
-        Layout.quickAssignModule.call('API_AssignDials', {playerColor, zone, Layout.NearGlobal(zone, bPos), extension, playerStuff})
-    end
-    extension.call('FitToZone', {zone = zone})
-    mainButton.click_function = 'Assign' .. zoneColor
-    Layout.extIndex = Layout.extIndex+1
-    zone.createButton(mainButton)
-end
 
 Layout.required = {}
 function onObjectDestroyed(obj)
     if state.active and Layout.required[obj] then
-        broadcastToAll('An object that was part of layout system was destroyed, disabling layouts', {1, 0.4, 0})
+        --broadcastToAll('An object that was part of layout system was destroyed, disabling layouts', {1, 0.4, 0})
+        broadcastToAll('You\'re breaking the game, please don\'t', {1, 0.4, 0})
         state.active = false
     end
     if state.dialZones[obj.getGUID()] then
@@ -114,7 +104,7 @@ Layout.Hide = function(obj)
 end
 
 Layout.Put = function(obj, data)
-    obj.lock()
+    obj.setLock(data.lock ~= false)
     local int = data.int
     if int == nil then int = true end
     obj.interactable = int
@@ -146,6 +136,7 @@ Layout.GetMats = function()
 end
 
 Layout.Switch = function(newIndex)
+    self.clearButtons()
     if not state.active then
         broadcastToAll('Layout system disabled', {1, 0.2, 0})
         return
@@ -158,9 +149,6 @@ Layout.Switch = function(newIndex)
     cust.image = lay.tableImage
     tabRef.setCustomObject(cust)
     tabRef.reload()
-    for _,el in pairs(Layout.extensions) do
-        Layout.Hide(el)
-    end
     for name,el in pairs(Layout.elements) do
         if lay.elements[name] then
             el.highlightOn({0, 0, 1}, 2)
@@ -168,19 +156,6 @@ Layout.Switch = function(newIndex)
         else
             Layout.Hide(el)
         end
-    end
-
-    Layout.extIndex = 1
-    state.dialZones = {}
-    for k,data in pairs(lay.zoneData) do
-        local zone = Layout.zones[k]
-        zone.setValue(data.color)
-        Layout.Put(zone, data)
-        Layout.AddDialZone(zone, data.bPos, data.sCent, data.sSize)
-    end
-    for k=#lay.zoneData+1,#Layout.zones do
-        Layout.zones[k].clearButtons()
-        Layout.Hide(Layout.zones[k])
     end
 
     local matData = Layout.GetMats()
@@ -199,6 +174,7 @@ Layout.Switch = function(newIndex)
             end
         end
     end
+    Layout.CreateControls(newIndex)
     function setHandsDelayed()
         for k=1,10 do
             coroutine.yield()
@@ -217,40 +193,38 @@ Layout.Switch = function(newIndex)
     SaveState()
 end
 
+Layout.CreateControls = function(index)
+    local lay = Layout.layouts[index]
+    for k,button in pairs(lay.controls) do
+        self.createButton(button)
+    end
+end
+
 function onChat(message, player)
+    --[[
     if message == 'std' then
         Layout.Switch(1)
     end
     if message == 'ep' then
         Layout.Switch(2)
     end
-    if message == 'ad' then
-        --getObjectFromGUID('626772').call('API_AssignDials', {'Red', Layout.zones['Zone 1'], {bagInit = {12, 1, -6}, bagStep = {2.6, 0, 0} }})
-        --getObjectFromGUID('626772').call('API_AssignDials', {'Red', Layout.zones['Zone 1'], {bagInit = {12, 1, -6}, bagStep = {2, 0, 2} }})
-        --getObjectFromGUID('626772').call('API_AssignDials', {'Red', Layout.zones['Zone 1'], {bagInit = {12, 1, -6}, bagStep = {-2, 0, -2} }})
-    end
+    --]]
 end
 
 
 function onLoad(saveState)
-    print('load[['..saveState..']]')
     local load = JSON.decode(saveState)
-    state.active = load.active
+    state.active = true --load.active
     state.index = load.index
     Layout.FillElements()
-    for guid,data in pairs(load.dialZones) do
-        local zone = getObjectFromGUID(guid)
-        if zone then
-            print('Restore ' .. zone.getValue())
-            Layout.AddDialZone(zone, table.unpack(data))
-        end
-    end
-
+    Layout.CreateControls(load.index)
     local sPos = self.getPosition()
     self.setPosition({sPos[1], 0, sPos[3]})
     self.interactable = false
     self.tooltip = false
     self.lock()
+    addContextMenuItem("Standard setup", function() Layout.Switch(1) end, false)
+    addContextMenuItem("Epic setup", function() Layout.Switch(2) end, false)
 end
 
 function onSave()
