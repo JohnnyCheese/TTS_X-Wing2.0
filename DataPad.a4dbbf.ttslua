@@ -623,13 +623,46 @@ masterShipDB[71]={
 }
 
 --w7ship
---[[masterShipDB[80]={['name']='LAAT/i Gunship',['Shield']=2,['dTurret']=1,['size']='medium',['agi']=1,['XWS']='', ['Fac']={[6]=true}, ['arcs']={'doubleturret'},
-                            ['moveSet']={'rs0','wbl1','bs1','wbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs4'}}
-masterShipDB[81]={['name']='Xi class Shutle',['Shield']=2,['size']='medium',['agi']=2,['XWS']='', ['Fac']={[5]=true}, ['arcs']={'front'},
-                            ['moveSet']={'rs0','bbl1','bs1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','ws4'}}
-masterShipDB[82]={['name']='Droid Gunship',['Shield']=3,['size']='small',['agi']=1,['XWS']='', ['Fac']={[7]=true}, ['arcs']={'fullfront'},
-                            ['moveSet']={'rs0','rbl1','bs1','rbr1','btl2','wbl2','bs2','wbr2','btr2','wtl3','rbl3','ws3','rbr3','wtr3','rs4','rs5'}}
-]]
+--[[masterShipDB[80]={
+    name = 'LAAT/i Gunship',
+    Hull = 8,
+    Shield = 2,
+    dTurret = 1,
+    size = 'medium',
+    agi = 1,
+    XWS = '',
+    Fac = {[6]=true},
+    arcs = {'doubleturret'},
+    mesh = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/FO_Tie_Ba/TieBa.obj',
+    moveSet = {'rs0','wbl1','bs1','wbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs4'}
+}]]
+
+masterShipDB[81]={
+    name = 'Xi-class Light Shuttle',
+    Hull = 5,
+    Shield = 2,
+    size = 'medium',
+    agi = 2,
+    XWS = '',
+    Fac = {[5]=true},
+    arcs = {'front'},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/Xi_Shuttle/XiClassLightShuttle.obj',
+    moveSet = {'rs0','bbl1','bs1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','ws4'}
+}
+
+masterShipDB[82]={
+    name = 'HMP Droid Gunship',
+    Hull = 5,
+    Shield = 3,
+    size = 'small',
+    agi = 1,
+    XWS = '',
+    Fac = {[7]=true},
+    arcs = {'fullfront'},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/HMP_Gunship.obj',
+    moveSet = {'rs0','rbl1','bs1','rbr1','btl2','wbl2','bs2','wbr2','btr2','wtl3','rbl3','ws3','rbr3','wtr3','rs4','rs5'},
+}
+
 
 -- Huge ships
 masterShipDB[90]={
@@ -3031,6 +3064,87 @@ masterPilotDB[636]={['name']='G4R-G0R V/M',['Faction']= 3,['ship_type']=44,['cos
 masterPilotDB[637]={['name']='Nom Lumb',['Faction']= 3,['ship_type']=45,['cost']=38,['slot']={21, 1, 3, 8, 5, 13, 14, 15, 16},['Shield']=3,['Charge']=1,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/f9/67/f96780a9-1fff-460c-8480-4294fd7a7a27/swz66_nom-lumb.png',['init']=1,['actSet']={'F','TL','BR','Rot'}}
 
+
+-- w7
+masterPilotDB[700]={
+    name = 'Commander Malarus',
+    Faction = 5,
+    ship_type = 81,
+    cost = 0,
+    slot = {1,19,8,8,14},
+    Shield = 2,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/85/c4/85c41c14-3071-401b-b3ee-89d048acd9f0/swz69_a1_ship_malarus.png',
+    init = 5,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/Xi_Shuttle/Commander%20Malarus.jpg',
+    actSet = {'F','TL'}
+}
+
+masterPilotDB[701]={
+    name = 'Gideon Hask',
+    Faction = 5,
+    ship_type = 81,
+    cost = 0,
+    slot = {1,19,8,8,14},
+    Shield = 2,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/fc/47/fc47d552-1b3f-4281-8a0e-5ced929d7ec8/swz69_a1_ship_hask.png',
+    init = 4,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/Xi_Shuttle/Gideon%20Hask.jpg',
+    actSet = {'F','TL'}
+}
+
+masterPilotDB[702]={
+    name = 'Agent Terex',
+    Faction = 5,
+    ship_type = 81,
+    cost = 0,
+    slot = {1,19,8,8,13,13,13,14},
+    Shield = 2,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/9a/27/9a27c06f-58be-49b7-ab36-63dc2fae3b9a/swz69_a1_ship_terex.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/Xi_Shuttle/Agent%20Terex.jpg',
+    actSet = {'F','TL'}
+}
+
+masterPilotDB[703]={
+    name = 'First Order Courier',
+    Faction = 5,
+    ship_type = 81,
+    cost = 0,
+    slot = {19,8,8,14},
+    Shield = 2,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/9f/49/9f490467-49a5-456f-b649-42cb74ecdd8a/swz69_a1_ship_courier.png',
+    init = 2,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/Xi_Shuttle/First%20Order%20Courier.jpg',
+    actSet = {'F','TL'}
+}
+
+
+masterPilotDB[705]={
+    name = 'Seperatist Predator',
+    Faction = 7,
+    ship_type = 82,
+    cost = 0,
+    slot = {1,6,6,8,14},
+    Shield = 2,
+    card = 'https://cdn.discordapp.com/attachments/693114202763558912/748518047504924722/separatist_predator.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/HMP%20Base%20Texture.jpg',
+    actSet = {'C','TL','BR'},
+    executeOptions = {
+        rbl1 = {'rbl1', 'rbr1z'},
+        rbr1 = {'rbr1', 'rbl1z'},
+        btl2 = {'btl2', 'btr2z'},
+        wbl2 = {'wbl2', 'wbr2z'},
+        wbr2 = {'wbr2', 'wbl2z'},
+        btr2 = {'btr2', 'btl2z'},
+        wtl3 = {'wtl3', 'wtr3z'},
+        rbl3 = {'rbl3', 'rbr3z'},
+        rbr3 = {'rbr3', 'rbl3z'},
+        wtr3 = {'wtr3', 'wtl3z'}
+    }
+}
+
+
 -- Huge ships
 masterPilotDB[1000]={
   name = 'Alderaanian Guard',
@@ -3654,6 +3768,29 @@ masterUpgradesDB[654]={['name']="Deuterium Power Cells",['slot']=19,['cost']=9,[
 masterUpgradesDB[655]={['name']="Kaz's Fireball",['slot']=15,['cost']=2,['card']='http://images-cdn.fantasyflightgames.com/filer_public/47/dd/47dd508f-6751-4b19-b3da-d0530aeb9a33/swz63_a1_card_kazs-fireball.png',
                         ['restriction']={ ['ship']={[70]=true}}}
 
+masterUpgradesDB[656]={
+    name = "Commander Malarus Perfected",
+    dual = 1,
+    slot = 8,
+    cost = 200,
+    cardB = 'https://images-cdn.fantasyflightgames.com/filer_public/42/ed/42edc96c-938a-4bd4-88de-7be1e449d96b/swz69_malarus-perfected_card.png',
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/6d/2a/6d2a8204-2de1-4b1e-8980-456501628a24/swz69_malarus_card.png',
+    restriction = {
+        Faction = {[5]=true}
+    }
+}
+
+masterUpgradesDB[657]={
+    name = "Commander Malarus",
+    dual = 1,
+    slot = 8,
+    cost = 200,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/6d/2a/6d2a8204-2de1-4b1e-8980-456501628a24/swz69_malarus_card.png',
+    cardB = 'https://images-cdn.fantasyflightgames.com/filer_public/42/ed/42edc96c-938a-4bd4-88de-7be1e449d96b/swz69_malarus-perfected_card.png',
+    restriction = {
+        Faction = {[5]=true}
+    }
+}
 
 -- Epic upgrade cards
 -- Commands
