@@ -3418,15 +3418,24 @@ masterUpgradesDB[370]={['name']='R5-TK',['slot']=10,['cost']=0,['card']='http://
 masterUpgradesDB[371]={['name']='Andrasta',['slot']=15,['cost']=3,['addSlot']={12},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_146.png',['restriction']={['Faction']={[3]=true},['ship']={[10]=true}}}
 masterUpgradesDB[372]={['name']='Havoc',['slot']=15,['cost']=2,['addSlot']={2, 10},['remSlot']={8},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_147.png',['restriction']={['Faction']={[3]=true},['ship']={[4]=true}}}
 masterUpgradesDB[373]={['name']="Hound's Tooth",['Docking']=true,['slot']=15,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_148.png',['restriction']={['Faction']={[3]=true},['ship']={[24]=true}}}
-masterUpgradesDB[374]={['name']='IG-2000',['slot']=15,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_149.png',['restriction']={['Faction']={[3]=true},
+
+masterUpgradesDB[374]={
+    name = 'IG-2000',
+    slot = 15,
+    cost = 1,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_149.png',
+    restriction = {
+        Faction = {[3]=true},
+        ship =  {[21]=true}
+    },
     executeOptions = function(list, me)
         print("Execute options for IG-2000")
-        for k, pilot in pairs(list.Pilots) do
-            print("Pilot: " .. pilot.name)
-            if pilot ~= me and pilot.name == "IG-88D" then
-                for _, upgrade in pairs(list.Upgrades[k]) do
-                    print("Upgr:"  .. upgrade.name)
-                    if upgrade.name == "IG-2000" then
+        for k, pid in pairs(list.Pilots) do
+            pilot = masterPilotDB[pid]
+            if pid ~= me and pilot.name == "IG-88D" then
+                for _, uid in pairs(list.Upgrades[k]) do
+                    print("Upgr:"  .. masterUpgradesDB[uid].name)
+                    if  masterUpgradesDB[uid].name == "IG-2000" then
                         return {
                             rbl3s = {[1]='rtl3s', [2]='rbl3s', [3]='rk3'},
                             rbr3s = {[1]='rk3', [2]='rbr3s', [3]='rtr3s'}
@@ -3436,8 +3445,8 @@ masterUpgradesDB[374]={['name']='IG-2000',['slot']=15,['cost']=1,['card']='http:
             end
         end
         return {}
-    end,
-['ship']={[21]=true}}}
+    end
+}
 masterUpgradesDB[375]={['name']='Marauder',['slot']=15,['cost']=6,['addSlot']={16},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_150.png',['restriction']={['Faction']={[3]=true},['ship']={[10]=true}}}
 masterUpgradesDB[376]={['name']='Mist Hunter',['slot']=15,['cost']=1,['addSlot']={3},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_151.png',['restriction']={['Faction']={[3]=true},['ship']={[22]=true}}}
 masterUpgradesDB[377]={['name']='Punishing One',['slot']=15,['cost']=5,['addSlot']={10},['remSlot']={8},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_152.png',['restriction']={['Faction']={[3]=true},['ship']={[45]=true}}}
