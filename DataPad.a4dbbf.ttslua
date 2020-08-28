@@ -844,13 +844,13 @@ masterPilotDB[21]={['name']='Green Squadron Pilot',['Faction']= 1,['ship_type']=
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_21.png',['init']=3,['actSet']={'F','TL','E','B','BR'}}
 masterPilotDB[22]={['name']='Phoenix Squadron Pilot',['Faction']= 1,['ship_type']=35,['cost']=29,['slot']={21, 1,6},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_22.png',['init']=1,['actSet']={'F','TL','E','B','BR'}}
-masterPilotDB[23]={['name']='Braylen Stramm',['Faction']= 1,['ship_type']=17,['cost']=52,['slot']={21, 1, 2, 3, 3, 5, 14},['Shield']=4,
+masterPilotDB[23]={['name']='Braylen Stramm',['Faction']= 1,['ship_type']=17,['cost']=52,['slot']={21, 1, 2, 3, 3, 5, 14, 18},['Shield']=4,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_23.png',['init']=4,['actSet']={'F','TL', 'BR'}}
-masterPilotDB[24]={['name']='Ten Numb',['Faction']= 1,['ship_type']=17,['cost']=48,['slot']={21, 1, 2, 3, 3, 5, 14},['Shield']=4,
+masterPilotDB[24]={['name']='Ten Numb',['Faction']= 1,['ship_type']=17,['cost']=48,['slot']={21, 1, 2, 3, 3, 5, 14, 18},['Shield']=4,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_24.png',['init']=4,['actSet']={'F','TL', 'BR'}}
-masterPilotDB[25]={['name']='Blade Squadron Veteran',['Faction']= 1,['ship_type']=17,['cost']=42,['slot']={21, 1, 2, 3, 3, 5, 14},['Shield']=4,
+masterPilotDB[25]={['name']='Blade Squadron Veteran',['Faction']= 1,['ship_type']=17,['cost']=42,['slot']={21, 1, 2, 3, 3, 5, 14, 18},['Shield']=4,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_25.png',['init']=3,['actSet']={'F','TL', 'BR'}}
-masterPilotDB[26]={['name']='Blue Squadron Pilot',['Faction']= 1,['ship_type']=17,['cost']=41,['slot']={21, 2, 3, 3, 5, 14},['Shield']=4,
+masterPilotDB[26]={['name']='Blue Squadron Pilot',['Faction']= 1,['ship_type']=17,['cost']=41,['slot']={21, 2, 3, 3, 5, 14, 18},['Shield']=4,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_26.png',['init']=2,['actSet']={'F','TL', 'BR'}}
 masterPilotDB[27]={['name']='Airen Cracken',['Faction']= 1,['ship_type']=38,['cost']=36,['slot']={21, 1, 6, 14},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_27.png',['init']=5,['actSet']={'F','TL', 'BR'}}
@@ -2950,7 +2950,7 @@ masterPilotDB[623]={['name']='Colossus Station Mechanic',['Faction']=4,['ship_ty
                 ['actSet']={'F','E','BR'}}
 
 --hotshot and aces
-masterPilotDB[628]={['name']='Gina Moonsong',['Faction']= 1,['ship_type']=17,['cost']=50,['slot']={21, 1, 2, 3, 3, 5, 14},['Shield']=4,
+masterPilotDB[628]={['name']='Gina Moonsong',['Faction']= 1,['ship_type']=17,['cost']=50,['slot']={21, 1, 2, 3, 3, 5, 14, 18},['Shield']=4,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/32/8a/328a4f31-c01e-4966-a418-59c6fd42739e/swz66_gina-moonsong.png',['init']=5,['actSet']={'F','TL', 'BR'}}
 
 masterPilotDB[629]={
@@ -3418,7 +3418,26 @@ masterUpgradesDB[370]={['name']='R5-TK',['slot']=10,['cost']=0,['card']='http://
 masterUpgradesDB[371]={['name']='Andrasta',['slot']=15,['cost']=3,['addSlot']={12},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_146.png',['restriction']={['Faction']={[3]=true},['ship']={[10]=true}}}
 masterUpgradesDB[372]={['name']='Havoc',['slot']=15,['cost']=2,['addSlot']={2, 10},['remSlot']={8},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_147.png',['restriction']={['Faction']={[3]=true},['ship']={[4]=true}}}
 masterUpgradesDB[373]={['name']="Hound's Tooth",['Docking']=true,['slot']=15,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_148.png',['restriction']={['Faction']={[3]=true},['ship']={[24]=true}}}
-masterUpgradesDB[374]={['name']='IG-2000',['slot']=15,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_149.png',['restriction']={['Faction']={[3]=true},['ship']={[21]=true}}}
+masterUpgradesDB[374]={['name']='IG-2000',['slot']=15,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_149.png',['restriction']={['Faction']={[3]=true},
+    executeOptions = function(list, me)
+        print("Execute options for IG-2000")
+        for k, pilot in pairs(list.Pilots) do
+            print("Pilot: " .. pilot.name)
+            if pilot ~= me and pilot.name == "IG-88D" then
+                for _, upgrade in pairs(list.Upgrades[k]) do
+                    print("Upgr:"  .. upgrade.name)
+                    if upgrade.name == "IG-2000" then
+                        return {
+                            rbl3s = {[1]='rtl3s', [2]='rbl3s', [3]='rk3'},
+                            rbr3s = {[1]='rk3', [2]='rbr3s', [3]='rtr3s'}
+                        }
+                    end
+                end
+            end
+        end
+        return {}
+    end,
+['ship']={[21]=true}}}
 masterUpgradesDB[375]={['name']='Marauder',['slot']=15,['cost']=6,['addSlot']={16},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_150.png',['restriction']={['Faction']={[3]=true},['ship']={[10]=true}}}
 masterUpgradesDB[376]={['name']='Mist Hunter',['slot']=15,['cost']=1,['addSlot']={3},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_151.png',['restriction']={['Faction']={[3]=true},['ship']={[22]=true}}}
 masterUpgradesDB[377]={['name']='Punishing One',['slot']=15,['cost']=5,['addSlot']={10},['remSlot']={8},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_152.png',['restriction']={['Faction']={[3]=true},['ship']={[45]=true}}}
@@ -3428,18 +3447,20 @@ masterUpgradesDB[379]={
     slot = 15,
     cost = 5,
     addSlot = {5},
-    executeOptions = {
-        bbl1 = {[1]='bbl1', [2]='bbr1'},
-        wbl2 = {[1]='wbl2', [2]='wbr2'},
-        wbl3 = {[1]='wbl3', [2]='wbr3'},
-        bbr1 = {[1]='bbr1', [2]='bbl1'},
-        wbr2 = {[1]='wbr2', [2]='wbl2'},
-        wbr3 = {[1]='wbr3', [2]='wbl3'},
-        wtl1 = {[1]='wtl1', [2]='wtr1'},
-        wtl2 = {[1]='wtl2', [2]='wtr2'},
-        wtr1 = {[1]='wtr1', [2]='wtl1'},
-        wtr2 = {[1]='wtr2', [2]='wtl2'},
-    },
+    executeOptions = function(pilot)
+        return {
+            bbl1 = {[1]='bbl1', [2]='bbr1'},
+            wbl2 = {[1]='wbl2', [2]='wbr2'},
+            wbl3 = {[1]='wbl3', [2]='wbr3'},
+            bbr1 = {[1]='bbr1', [2]='bbl1'},
+            wbr2 = {[1]='wbr2', [2]='wbl2'},
+            wbr3 = {[1]='wbr3', [2]='wbl3'},
+            wtl1 = {[1]='wtl1', [2]='wtr1'},
+            wtl2 = {[1]='wtl2', [2]='wtr2'},
+            wtr1 = {[1]='wtr1', [2]='wtl1'},
+            wtr2 = {[1]='wtr2', [2]='wtl2'},
+        }
+    end,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_154.png',
     restriction = {
         Faction = {[3]=true},
@@ -3509,24 +3530,26 @@ masterUpgradesDB[532]={['name']="Energy-Shell Charges",['slot']=6,['cost']=5,['C
 masterUpgradesDB[533]={['name']="Soulless One",['slot']=15,['cost']=6,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/36b33e7330846570087096cb55fba140.png',['restriction']={ ['ship']={[58]=true}}}
 masterUpgradesDB[534]={['name']="Impervium Plating",['slot']=14,['cost']=4,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/93e0fe1b2931944d128126b854c4ad33.png',['restriction']={ ['ship']={[58]=true}}}
 masterUpgradesDB[535]={['name']="Grappling Struts (Open)",['dual']=1,['slot']=18,['cost']=1,['Charge']=1,
-    executeOptions = {
-        rk1  = {[1]='rk1', [2]='bs0'},
-        wtl1 = {[1]='wtl1', [2]='btl0'},
-        wtr1 = {[1]='wtr1', [2]='btr0'},
-        wbl2 = {[1]='wbl2', [2]='btl0'},
-        wbr2 = {[1]='wbr2', [2]='btr0'},
-        btl2 = {[1]='btl2', [2]='btl0'},
-        btr2 = {[1]='btr2', [2]='btr0'},
-        rtl2t = {[1]='rtl2t', [2]='btl0'},
-        rtr2t = {[1]='rtr2t', [2]='btr0'},
-        rbl3 = {[1]='rbl3', [2]='btl0'},
-        rbr3 = {[1]='rbr3', [2]='btr0'},
-        wtl3 = {[1]='wtl3', [2]='btl0'},
-        wtr3 = {[1]='wtr3', [2]='btr0'},
-        bs3  = {[1]='bs3', [2]='bs0'},
-        ws4  = {[1]='ws4', [2]='bs0'},
-        rs5  = {[1]='rs5', [2]='bs0'},
-    },
+    executeOptions = function(moves)
+        return {
+            rk1  = {[1]='rk1', [2]='bs0'},
+            wtl1 = {[1]='wtl1', [2]='btl0'},
+            wtr1 = {[1]='wtr1', [2]='btr0'},
+            wbl2 = {[1]='wbl2', [2]='btl0'},
+            wbr2 = {[1]='wbr2', [2]='btr0'},
+            btl2 = {[1]='btl2', [2]='btl0'},
+            btr2 = {[1]='btr2', [2]='btr0'},
+            rtl2t = {[1]='rtl2t', [2]='btl0'},
+            rtr2t = {[1]='rtr2t', [2]='btr0'},
+            rbl3 = {[1]='rbl3', [2]='btl0'},
+            rbr3 = {[1]='rbr3', [2]='btr0'},
+            wtl3 = {[1]='wtl3', [2]='btl0'},
+            wtr3 = {[1]='wtr3', [2]='btr0'},
+            bs3  = {[1]='bs3', [2]='bs0'},
+            bs4  = {[1]='bs4', [2]='bs0'},
+            ws5  = {[1]='ws5', [2]='bs0'},
+        }
+    end,
     ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/be82da17cfd39003fda380bead210eb9.png',['cardB']='http://sb-cdn.fantasyflightgames.com/card_images/en/ca74271f47c42b390ca0ba0b389144a5.png',
                         ['restriction']={ ['ship']={[59]=true}}}
 masterUpgradesDB[536]={['name']="Brilliant Evasion",['slot']=17,['cost']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/24b175ad35d035f33a35056b0d1d7a36.png',['restriction']={ }}
@@ -3548,24 +3571,26 @@ masterUpgradesDB[552]={['name']="Clone Commander Cody",['slot']=16,['cost']=4,['
 masterUpgradesDB[553]={['name']="Seventh Fleet Gunner",['slot']=16,['cost']=9,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/a532c1de311e8d0a288af8232495a007.png',['restriction']={['Faction']={[6]=true}}}
 masterUpgradesDB[554]={['name']="Synchronized Console",['slot']=14,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/e3e5bd38f39f904fbaaa75293e56fb38.png',['restriction']={['Faction']={[6]=true}}}
 masterUpgradesDB[555]={['name']="Grappling Struts (Closed)",['dual']=1,['slot']=18,['cost']=1,
-    executeOptions = {
-        rk1  = {[1]='rk1', [2]='bs0'},
-        wtl1 = {[1]='wtl1', [2]='btl0'},
-        wtr1 = {[1]='wtr1', [2]='btr0'},
-        wbl2 = {[1]='wbl2', [2]='btl0'},
-        wbr2 = {[1]='wbr2', [2]='btr0'},
-        btl2 = {[1]='btl2', [2]='btl0'},
-        btr2 = {[1]='btr2', [2]='btr0'},
-        rtl2t = {[1]='rtl2t', [2]='btl0'},
-        rtr2t = {[1]='rtr2t', [2]='btr0'},
-        rbl3 = {[1]='rbl3', [2]='btl0'},
-        rbr3 = {[1]='rbr3', [2]='btr0'},
-        wtl3 = {[1]='wtl3', [2]='btl0'},
-        wtr3 = {[1]='wtr3', [2]='btr0'},
-        bs3  = {[1]='bs3', [2]='bs0'},
-        ws4  = {[1]='ws4', [2]='bs0'},
-        rs5  = {[1]='rs5', [2]='bs0'},
-    },
+    executeOptions = function(moves)
+        return {
+            rk1  = {[1]='rk1', [2]='bs0'},
+            wtl1 = {[1]='wtl1', [2]='btl0'},
+            wtr1 = {[1]='wtr1', [2]='btr0'},
+            wbl2 = {[1]='wbl2', [2]='btl0'},
+            wbr2 = {[1]='wbr2', [2]='btr0'},
+            btl2 = {[1]='btl2', [2]='btl0'},
+            btr2 = {[1]='btr2', [2]='btr0'},
+            rtl2t = {[1]='rtl2t', [2]='btl0'},
+            rtr2t = {[1]='rtr2t', [2]='btr0'},
+            rbl3 = {[1]='rbl3', [2]='btl0'},
+            rbr3 = {[1]='rbr3', [2]='btr0'},
+            wtl3 = {[1]='wtl3', [2]='btl0'},
+            wtr3 = {[1]='wtr3', [2]='btr0'},
+            bs3  = {[1]='bs3', [2]='bs0'},
+            bs4  = {[1]='bs4', [2]='bs0'},
+            ws5  = {[1]='ws5', [2]='bs0'},
+        }
+    end,
     ['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/ca74271f47c42b390ca0ba0b389144a5.png',['cardB']='http://sb-cdn.fantasyflightgames.com/card_images/en/be82da17cfd39003fda380bead210eb9.png',
                         ['restriction']={ ['ship']={[59]=true}}}
 masterUpgradesDB[556]={['name']="Chancellor Palpatine",['slot']=8,['cost']=14,['Force']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/8218d7b903ea8c0c0f88375124a93a5f.png',['cardB']='http://sb-cdn.fantasyflightgames.com/card_images/en/fe4d36bbd6f43ada43a5cf55354211c0.png',
@@ -3597,79 +3622,81 @@ masterUpgradesDB[586]={['name']="Leia Organa",['slot']=8,['remSlot']={8},['cost'
 masterUpgradesDB[587]={['name']="PZ-4CO",['slot']=8,['cost']=6,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/11c5bdf18a62dc43bdda0834026dace2.png',
                         ['restriction']={['Faction']={[4]=true}}}
 masterUpgradesDB[588]={['name']="R2-A6",['slot']=10,['cost']=6,
-    executeOptions = {
-        rs1  = {[1]='rs1', [2]='rs2'},
-        rs2  = {[1]='rs1', [2]='rs2', [3]='rs3'},
-        rs3  = {[1]='rs2', [2]='rs3', [3]='rs4'},
-        rs4  = {[1]='rs3', [2]='rs4', [3]='rs5'},
-        rs5  = {[1]='rs4', [2]='rs5'},
-        ws1  = {[1]='ws1', [2]='ws2'},
-        ws2  = {[1]='ws1', [2]='ws2', [3]='ws3'},
-        ws3  = {[1]='ws2', [2]='ws3', [3]='ws4'},
-        ws4  = {[1]='ws3', [2]='ws4', [3]='ws5'},
-        ws5  = {[1]='ws4', [2]='ws5'},
-        bs1  = {[1]='bs1', [2]='bs2'},
-        bs2  = {[1]='bs1', [2]='bs2', [3]='bs3'},
-        bs3  = {[1]='bs2', [2]='bs3', [3]='bs4'},
-        bs4  = {[1]='bs3', [2]='bs4', [3]='bs5'},
-        bs5  = {[1]='bs4', [2]='bs5'},
-        rtl1 = {[1]='rtl1', [2]='rtl2'},
-        rtl2 = {[1]='rtl1', [2]='rtl2', [3]='rtl3'},
-        rtl3 = {[1]='rtl2', [2]='rtl3'},
-        rtr1 = {[1]='rtr1', [2]='rtr2'},
-        rtr2 = {[1]='rtr1', [2]='rtr2', [3]='rtr3'},
-        rtr3 = {[1]='rtr2', [2]='rtr3'},
-        wtl1 = {[1]='wtl1', [2]='wtl2'},
-        wtl2 = {[1]='wtl1', [2]='wtl2', [3]='wtl3'},
-        wtl3 = {[1]='wtl2', [2]='wtl3'},
-        wtr1 = {[1]='wtr1', [2]='wtr2'},
-        wtr2 = {[1]='wtr1', [2]='wtr2', [3]='wtr3'},
-        wtr3 = {[1]='wtr2', [2]='wtr3'},
-        btl1 = {[1]='btl1', [2]='btl2'},
-        btl2 = {[1]='btl1', [2]='btl2', [3]='btl3'},
-        btl3 = {[1]='btl2', [2]='btl3'},
-        btr1 = {[1]='btr1', [2]='btr2'},
-        btr2 = {[1]='btr1', [2]='btr2', [3]='btr3'},
-        btr3 = {[1]='btr2', [2]='btr3'},
-        rbl1 = {[1]='rbl1', [2]='rbl2'},
-        rbl2 = {[1]='rbl1', [2]='rbl2', [3]='rbl3'},
-        rbl3 = {[1]='rbl2', [2]='rbl3'},
-        rbr1 = {[1]='rbr1', [2]='rbr2'},
-        rbr2 = {[1]='rbr1', [2]='rbr2', [3]='rbr3'},
-        rbr3 = {[1]='rbr2', [2]='rbr3'},
-        wbl1 = {[1]='wbl1', [2]='wbl2'},
-        wbl2 = {[1]='wbl1', [2]='wbl2', [3]='wbl3'},
-        wbl3 = {[1]='wbl2', [2]='wbl3'},
-        wbr1 = {[1]='wbr1', [2]='wbr2'},
-        wbr2 = {[1]='wbr1', [2]='wbr2', [3]='wbr3'},
-        wbr3 = {[1]='wbr2', [2]='wbr3'},
-        bbl1 = {[1]='bbl1', [2]='bbl2'},
-        bbl2 = {[1]='bbl1', [2]='bbl2', [3]='bbl3'},
-        bbl3 = {[1]='bbl2', [2]='bbl3'},
-        bbr1 = {[1]='bbr1', [2]='bbr2'},
-        bbr2 = {[1]='bbr1', [2]='bbr2', [3]='bbr3'},
-        bbr3 = {[1]='bbr2', [2]='bbr3'},
-        rk1  = {[1]='rs1', [2]='rs2'},
-        rk2  = {[1]='rk1', [2]='rk2', [3]='rk3'},
-        rk3  = {[1]='rk2', [2]='rk3', [3]='rk4'},
-        rk4  = {[1]='rk3', [2]='rk4', [3]='rk5'},
-        rk5  = {[1]='rk4', [2]='rk5'},
-        rtl1t = {[1]='rtl1t', [2]='rtl2t'},
-        rtl2t = {[1]='rtl1t', [2]='rtl2t', [3]='rtl3t'},
-        rtl3t = {[1]='rtl2t', [2]='rtl3t'},
-        rtr1t = {[1]='rtr1t', [2]='rtr2t'},
-        rtr2t = {[1]='rtr1t', [2]='rtr2t', [3]='rtr3t'},
-        rtr3t = {[1]='rtr2t', [2]='rtr3t'},
-        rbl1s = {[1]='rbl1s', [2]='rbl2s'},
-        rbl2s = {[1]='rbl1s', [2]='rbl2s', [3]='rbl3s'},
-        rbl3s = {[1]='rbl2s', [2]='rbl3s'},
-        rbr1s = {[1]='rbr1s', [2]='rbr2s'},
-        rbr2s = {[1]='rbr1s', [2]='rbr2s', [3]='rbr3s'},
-        rbr3s = {[1]='rbr2s', [2]='rbr3s'},
-        rs1r  = {[1]='rs1r', [2]='rs2r'},
-        rs2r  = {[1]='rs1r', [2]='rs2r', [3]='rs3r'},
-        rbl1r = {[1]='rbl1r', [2]='rbl2r'}
-    },
+    executeOptions = function(moves)
+        return {
+            rs1  = {[1]='rs1', [2]='rs2'},
+            rs2  = {[1]='rs1', [2]='rs2', [3]='rs3'},
+            rs3  = {[1]='rs2', [2]='rs3', [3]='rs4'},
+            rs4  = {[1]='rs3', [2]='rs4', [3]='rs5'},
+            rs5  = {[1]='rs4', [2]='rs5'},
+            ws1  = {[1]='ws1', [2]='ws2'},
+            ws2  = {[1]='ws1', [2]='ws2', [3]='ws3'},
+            ws3  = {[1]='ws2', [2]='ws3', [3]='ws4'},
+            ws4  = {[1]='ws3', [2]='ws4', [3]='ws5'},
+            ws5  = {[1]='ws4', [2]='ws5'},
+            bs1  = {[1]='bs1', [2]='bs2'},
+            bs2  = {[1]='bs1', [2]='bs2', [3]='bs3'},
+            bs3  = {[1]='bs2', [2]='bs3', [3]='bs4'},
+            bs4  = {[1]='bs3', [2]='bs4', [3]='bs5'},
+            bs5  = {[1]='bs4', [2]='bs5'},
+            rtl1 = {[1]='rtl1', [2]='rtl2'},
+            rtl2 = {[1]='rtl1', [2]='rtl2', [3]='rtl3'},
+            rtl3 = {[1]='rtl2', [2]='rtl3'},
+            rtr1 = {[1]='rtr1', [2]='rtr2'},
+            rtr2 = {[1]='rtr1', [2]='rtr2', [3]='rtr3'},
+            rtr3 = {[1]='rtr2', [2]='rtr3'},
+            wtl1 = {[1]='wtl1', [2]='wtl2'},
+            wtl2 = {[1]='wtl1', [2]='wtl2', [3]='wtl3'},
+            wtl3 = {[1]='wtl2', [2]='wtl3'},
+            wtr1 = {[1]='wtr1', [2]='wtr2'},
+            wtr2 = {[1]='wtr1', [2]='wtr2', [3]='wtr3'},
+            wtr3 = {[1]='wtr2', [2]='wtr3'},
+            btl1 = {[1]='btl1', [2]='btl2'},
+            btl2 = {[1]='btl1', [2]='btl2', [3]='btl3'},
+            btl3 = {[1]='btl2', [2]='btl3'},
+            btr1 = {[1]='btr1', [2]='btr2'},
+            btr2 = {[1]='btr1', [2]='btr2', [3]='btr3'},
+            btr3 = {[1]='btr2', [2]='btr3'},
+            rbl1 = {[1]='rbl1', [2]='rbl2'},
+            rbl2 = {[1]='rbl1', [2]='rbl2', [3]='rbl3'},
+            rbl3 = {[1]='rbl2', [2]='rbl3'},
+            rbr1 = {[1]='rbr1', [2]='rbr2'},
+            rbr2 = {[1]='rbr1', [2]='rbr2', [3]='rbr3'},
+            rbr3 = {[1]='rbr2', [2]='rbr3'},
+            wbl1 = {[1]='wbl1', [2]='wbl2'},
+            wbl2 = {[1]='wbl1', [2]='wbl2', [3]='wbl3'},
+            wbl3 = {[1]='wbl2', [2]='wbl3'},
+            wbr1 = {[1]='wbr1', [2]='wbr2'},
+            wbr2 = {[1]='wbr1', [2]='wbr2', [3]='wbr3'},
+            wbr3 = {[1]='wbr2', [2]='wbr3'},
+            bbl1 = {[1]='bbl1', [2]='bbl2'},
+            bbl2 = {[1]='bbl1', [2]='bbl2', [3]='bbl3'},
+            bbl3 = {[1]='bbl2', [2]='bbl3'},
+            bbr1 = {[1]='bbr1', [2]='bbr2'},
+            bbr2 = {[1]='bbr1', [2]='bbr2', [3]='bbr3'},
+            bbr3 = {[1]='bbr2', [2]='bbr3'},
+            rk1  = {[1]='rs1', [2]='rs2'},
+            rk2  = {[1]='rk1', [2]='rk2', [3]='rk3'},
+            rk3  = {[1]='rk2', [2]='rk3', [3]='rk4'},
+            rk4  = {[1]='rk3', [2]='rk4', [3]='rk5'},
+            rk5  = {[1]='rk4', [2]='rk5'},
+            rtl1t = {[1]='rtl1t', [2]='rtl2t'},
+            rtl2t = {[1]='rtl1t', [2]='rtl2t', [3]='rtl3t'},
+            rtl3t = {[1]='rtl2t', [2]='rtl3t'},
+            rtr1t = {[1]='rtr1t', [2]='rtr2t'},
+            rtr2t = {[1]='rtr1t', [2]='rtr2t', [3]='rtr3t'},
+            rtr3t = {[1]='rtr2t', [2]='rtr3t'},
+            rbl1s = {[1]='rbl1s', [2]='rbl2s'},
+            rbl2s = {[1]='rbl1s', [2]='rbl2s', [3]='rbl3s'},
+            rbl3s = {[1]='rbl2s', [2]='rbl3s'},
+            rbr1s = {[1]='rbr1s', [2]='rbr2s'},
+            rbr2s = {[1]='rbr1s', [2]='rbr2s', [3]='rbr3s'},
+            rbr3s = {[1]='rbr2s', [2]='rbr3s'},
+            rs1r  = {[1]='rs1r', [2]='rs2r'},
+            rs2r  = {[1]='rs1r', [2]='rs2r', [3]='rs3r'},
+            rbl1r = {[1]='rbl1r', [2]='rbl2r'}
+        }
+    end,
     ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/1d90c6b2f87d17c061e07a92373310b4.png',
                         ['restriction']={['Faction']={[6]=true}}}
 masterUpgradesDB[589]={['name']="R2-C4",['slot']=10,['cost']=5,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/8fce75228aa2c4eaaf3e9666c4da8caf.png',
@@ -3683,45 +3710,51 @@ masterUpgradesDB[592]={['name']="Delayed Fuses",['slot']=14,['cost']=1,['card']=
 masterUpgradesDB[593]={['name']="Angled Deflectors",['slot']=14,['cost']=6,['shd']=-1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/41cf9c90abcd8ff5c668bb447967b75c.png',
                         ['restriction']={ }}
 masterUpgradesDB[594]={['name']="Landing Struts (Closed)",['slot']=18,['cost']=1,
-    executeOptions = {
-        ws1  = {[1]='ws1', [2]='bs0'},
-        rbl1 = {[1]='rbl1', [2]='btl0'},
-        rbr1 = {[1]='rbr1', [2]='btr0'},
-        wtl1 = {[1]='wtl1', [2]='btl0'},
-        wtr1 = {[1]='wtr1', [2]='btr0'},
-        wbl2 = {[1]='wbl2', [2]='btl0'},
-        wbr2 = {[1]='wbr2', [2]='btr0'},
-        btl2 = {[1]='btl2', [2]='btl0'},
-        btr2 = {[1]='btr2', [2]='btr0'},
-        rtl2t = {[1]='rtl2t', [2]='btl0'},
-        rtr2t = {[1]='rtr2t', [2]='btr0'},
-        wtl3 = {[1]='wtl3', [2]='btl0'},
-        wtr3 = {[1]='wtr3', [2]='btr0'},
-        bs3  = {[1]='bs3', [2]='bs0'},
-        ws4  = {[1]='ws4', [2]='bs0'},
-        rs5  = {[1]='rs5', [2]='bs0'},
-    },
+    executeOptions = function(moves)
+        return {
+            ws1  = {[1]='ws1', [2]='bs0'},
+            rbl1 = {[1]='rbl1', [2]='btl0'},
+            rbr1 = {[1]='rbr1', [2]='btr0'},
+            wtl1 = {[1]='wtl1', [2]='btl0'},
+            wtr1 = {[1]='wtr1', [2]='btr0'},
+            wbl2 = {[1]='wbl2', [2]='btl0'},
+            wbr2 = {[1]='wbr2', [2]='btr0'},
+            btl2 = {[1]='btl2', [2]='btl0'},
+            btr2 = {[1]='btr2', [2]='btr0'},
+            rk2 = {[1]='rk2', [2]='bs0'},
+            rtl2t = {[1]='rtl2t', [2]='btl0'},
+            rtr2t = {[1]='rtr2t', [2]='btr0'},
+            wtl3 = {[1]='wtl3', [2]='btl0'},
+            wtr3 = {[1]='wtr3', [2]='btr0'},
+            bs3  = {[1]='bs3', [2]='bs0'},
+            ws4  = {[1]='ws4', [2]='bs0'},
+            rs5  = {[1]='rs5', [2]='bs0'},
+        }
+    end,
     ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/c23a0130bad7330c0abb6218745910aa.png', ['cardB']='http://sb-cdn.fantasyflightgames.com/card_images/en/aba79159308e850b635f6c43721ccdee.png',
                         ['restriction']={['Faction']={[7]=true}, ['ship']={[66]=true}}}
 masterUpgradesDB[595]={['name']="Landing Struts (Open)",['slot']=18,['cost']=1,
-    executeOptions = {
-        ws1  = {[1]='ws1', [2]='bs0'},
-        rbl1 = {[1]='rbl1', [2]='btl0'},
-        rbr1 = {[1]='rbr1', [2]='btr0'},
-        wtl1 = {[1]='wtl1', [2]='btl0'},
-        wtr1 = {[1]='wtr1', [2]='btr0'},
-        wbl2 = {[1]='wbl2', [2]='btl0'},
-        wbr2 = {[1]='wbr2', [2]='btr0'},
-        btl2 = {[1]='btl2', [2]='btl0'},
-        btr2 = {[1]='btr2', [2]='btr0'},
-        rtl2t = {[1]='rtl2t', [2]='btl0'},
-        rtr2t = {[1]='rtr2t', [2]='btr0'},
-        wtl3 = {[1]='wtl3', [2]='btl0'},
-        wtr3 = {[1]='wtr3', [2]='btr0'},
-        bs3  = {[1]='bs3', [2]='bs0'},
-        ws4  = {[1]='ws4', [2]='bs0'},
-        rs5  = {[1]='rs5', [2]='bs0'},
-    },
+    executeOptions = function(moves)
+        return {
+            ws1  = {[1]='ws1', [2]='bs0'},
+            rbl1 = {[1]='rbl1', [2]='btl0'},
+            rbr1 = {[1]='rbr1', [2]='btr0'},
+            wtl1 = {[1]='wtl1', [2]='btl0'},
+            wtr1 = {[1]='wtr1', [2]='btr0'},
+            wbl2 = {[1]='wbl2', [2]='btl0'},
+            wbr2 = {[1]='wbr2', [2]='btr0'},
+            btl2 = {[1]='btl2', [2]='btl0'},
+            btr2 = {[1]='btr2', [2]='btr0'},
+            rk2 = {[1]='rk2', [2]='bs0'},
+            rtl2t = {[1]='rtl2t', [2]='btl0'},
+            rtr2t = {[1]='rtr2t', [2]='btr0'},
+            wtl3 = {[1]='wtl3', [2]='btl0'},
+            wtr3 = {[1]='wtr3', [2]='btr0'},
+            bs3  = {[1]='bs3', [2]='bs0'},
+            ws4  = {[1]='ws4', [2]='bs0'},
+            rs5  = {[1]='rs5', [2]='bs0'},
+        }
+    end,
     ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/aba79159308e850b635f6c43721ccdee.png', ['cardB']='http://sb-cdn.fantasyflightgames.com/card_images/en/c23a0130bad7330c0abb6218745910aa.png',
                         ['restriction']={['Faction']={[7]=true}, ['ship']={[66]=true}}}
 
@@ -4315,7 +4348,7 @@ masterUpgradesDB[1045]={
     shd = 2,
     Hull = -2,
     addSlot = {2},
-    card = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/textures/EpicCards/Supressor.png',
+    card = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/textures/EpicCards/Suppressor.png',
     restriction = {
         Faction={[2]=true},
         ship = {[92]=true}
@@ -4889,6 +4922,7 @@ end
 function idSpawner(idTable)
     spawnedPilotList = {}
     fList={}
+    fList.SqdExecOptions = {}
     fList.Pilots = {}
     fList.Upgrades = {}
     fList.Obstacles = idTable.Obstacles
@@ -4935,7 +4969,11 @@ function idSpawner(idTable)
         fList.Pilots[k]['Data']['moveSet'] = masterShipDB[Ship]['moveSet']
         fList.Pilots[k]['Data']['arcs'] = masterShipDB[Ship]['arcs']
         fList.Pilots[k]['Data']['actSet'] = masterPilotDB[v]['actSet']
-        fList.Pilots[k]['Data']['executeOptions'] = masterPilotDB[v]['executeOptions'] or {}
+        fList.Pilots[k]['Data'].executeOptions = masterPilotDB[v].executeOptions or {}
+        if masterPilotDB[v].sqdExecuteOptions ~= nil then
+            table.insert(fList.SqdExecOptions, masterPilotDB[v].sqdExecuteOptionss )
+        end
+
         fList.Pilots[k]['Data']['Faction'] = fList.Faction
         fList.Pilots[k]['Data']['Size'] = fList.Pilots[k]['Size']
         if v == 150 then  -- Emon Azzameen special drops
@@ -5052,10 +5090,16 @@ function idSpawner(idTable)
             if masterUpgradesDB[value].wingleader ~= nil then
                 fList.Pilots[k].wingleader = masterUpgradesDB[value].wingleader
             end
+            print("Test value:".. tostring(value) .. " name:" .. masterUpgradesDB[value].name .. tostring(masterUpgradesDB[value].executeOptions))
             if masterUpgradesDB[value].executeOptions ~= nil then
-                for move, options in pairs(masterUpgradesDB[value].executeOptions) do
-                    fList.Pilots[k].Data.executeOptions[move] = options
-                end
+                print("Got upgrade execute options")
+                local newexecuteoptions = masterUpgradesDB[value].executeOptions(idTable, idTable.Pilots[k])
+                print("Test " .. masterUpgradesDB[value].name)
+                combineExecuteOptions(fList.Pilots[k].Data.executeOptions, newexecuteoptions)
+            end
+
+            if masterUpgradesDB[value].sqdExecuteOptions ~= nil then
+                table.insert(fList.SqdExecOptions,masterUpgradesDB[value].sqdExecuteOptions)
             end
 
             if value == 279 then  -- Skilled Bombardier special drops
@@ -5086,6 +5130,13 @@ function idSpawner(idTable)
     for k,v in pairs(fList.sqdAction) do -- adds Squad actions coming from specific upgrades
         for K,V in pairs(fList.Pilots) do
             table.insert(V['Data']['actSet'],v)
+        end
+    end
+
+    for _, sqExOpt in pairs(fList.SqdExecOptions) do
+        for k, pilot in pairs(fList.Pilots) do
+            local newexecuteoptions = sqExOpt(fList, fList.Pilots[k])
+            combineExecuteOptions(pilot.Data.executeOptions, newexecuteoptions)
         end
     end
     fList.listCost = 0
@@ -6566,7 +6617,20 @@ function mysplit(inputstr, sep, trim)
     end
 end
 
-
+-- Combine two execute option tables
+function combineExecuteOptions(tab1, tab2)
+    for k, newOptions in pairs(tab2) do
+        if tab1[k] ~= nil then
+            for i, opt in pairs(newOptions) do
+                if table.find(tab1[k],opt) == false then
+                    table.insert(tab1, opt)
+                end
+            end
+        else
+            tab1[k] = newOptions
+        end
+    end
+end
 
 
 -------
