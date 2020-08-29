@@ -59,24 +59,18 @@
             <Image id="TalonReaIcon" class="RIcon"  image="TalonRear" preserveAspect="true"></Image></Button>
     </Panel>
 
-    <Panel id="ExecutionOptionsPanel" position="0 0 -10" rotation="0 0 0" color="#aaffaacc" width="200" height="100" offsetXY="0 117" active="true">
+    <Panel id="ExecutionOptionsPanel" position="0 0 -10" rotation="0 0 0" color="#aaffaacc" width="300" height="100" offsetXY="0 117" active="true">
         <HorizontalLayout>
-            <Button id="ExOpt1But" class="DarkButton" active="true" onClick="selectExecuteOption">
+            <Button id="ExOpt6But" class="DarkButton" active="true" onClick="selectExecuteOption">
                 <VerticalLayout>
-                    <Image id="ExOpt1TypeIcon" class="SetIcon" preserveAspect="true"></Image>
-                    <Image id="ExOpt1SpeedIcon" class="SetIcon" preserveAspect="true"></Image>
+                    <Image id="ExOpt6TypeIcon" class="SetIcon" preserveAspect="true"></Image>
+                    <Image id="ExOpt6SpeedIcon" class="SetIcon" preserveAspect="true"></Image>
                 </VerticalLayout>
             </Button>
-            <Button id="ExOpt2But" class="DarkButton" active="true" onClick="selectExecuteOption">
+            <Button id="ExOpt5But" class="DarkButton" active="true" onClick="selectExecuteOption">
                 <VerticalLayout>
-                    <Image id="ExOpt2TypeIcon" class="SetIcon" preserveAspect="true"></Image>
-                    <Image id="ExOpt2SpeedIcon" class="SetIcon" preserveAspect="true"></Image>
-                </VerticalLayout>
-            </Button>
-            <Button id="ExOpt3But" class="DarkButton" active="true" onClick="selectExecuteOption">
-                <VerticalLayout>
-                    <Image id="ExOpt3TypeIcon" class="SetIcon" preserveAspect="true"></Image>
-                    <Image id="ExOpt3SpeedIcon" class="SetIcon" preserveAspect="true"></Image>
+                    <Image id="ExOpt5TypeIcon" class="SetIcon" preserveAspect="true"></Image>
+                    <Image id="ExOpt5SpeedIcon" class="SetIcon" preserveAspect="true"></Image>
                 </VerticalLayout>
             </Button>
             <Button id="ExOpt4But" class="DarkButton" active="true" onClick="selectExecuteOption">
@@ -85,10 +79,22 @@
                     <Image id="ExOpt4SpeedIcon" class="SetIcon" preserveAspect="true"></Image>
                 </VerticalLayout>
             </Button>
-            <Button id="ExOpt5But" class="DarkButton" active="true" onClick="selectExecuteOption">
+            <Button id="ExOpt3But" class="DarkButton" active="true" onClick="selectExecuteOption">
                 <VerticalLayout>
-                    <Image id="ExOpt5TypeIcon" class="SetIcon" preserveAspect="true"></Image>
-                    <Image id="ExOpt5SpeedIcon" class="SetIcon" preserveAspect="true"></Image>
+                    <Image id="ExOpt3TypeIcon" class="SetIcon" preserveAspect="true"></Image>
+                    <Image id="ExOpt3SpeedIcon" class="SetIcon" preserveAspect="true"></Image>
+                </VerticalLayout>
+            </Button>
+            <Button id="ExOpt2But" class="DarkButton" active="true" onClick="selectExecuteOption">
+                <VerticalLayout>
+                    <Image id="ExOpt2TypeIcon" class="SetIcon" preserveAspect="true"></Image>
+                    <Image id="ExOpt2SpeedIcon" class="SetIcon" preserveAspect="true"></Image>
+                </VerticalLayout>
+            </Button>
+            <Button id="ExOpt1But" class="DarkButton" active="true" onClick="selectExecuteOption">
+                <VerticalLayout>
+                    <Image id="ExOpt1TypeIcon" class="SetIcon" preserveAspect="true"></Image>
+                    <Image id="ExOpt1SpeedIcon" class="SetIcon" preserveAspect="true"></Image>
                 </VerticalLayout>
             </Button>
         </HorizontalLayout>

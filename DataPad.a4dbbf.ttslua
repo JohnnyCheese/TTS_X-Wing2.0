@@ -3456,7 +3456,7 @@ masterUpgradesDB[379]={
     slot = 15,
     cost = 5,
     addSlot = {5},
-    executeOptions = function(pilot)
+    executeOptions = function(list, pid)
         return {
             bbl1 = {[1]='bbl1', [2]='bbr1'},
             wbl2 = {[1]='wbl2', [2]='wbr2'},
@@ -3618,10 +3618,48 @@ masterUpgradesDB[581]={['name']="Amilyn Holdo",['slot']=8,['cost']=8,['card']='h
                         ['restriction']={['Faction']={[4]=true}}}
 masterUpgradesDB[582]={['name']="GA-97",['slot']=8,['cost']=6,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/3af44c6d32812dc07238b40842d67b47.png',
                         ['restriction']={['Faction']={[4]=true}}}
-masterUpgradesDB[583]={['name']="Kaydel Connix",['slot']=8,['cost']=5,
+masterUpgradesDB[583]={
+    name = "Kaydel Connix",
+    slot = 8,
+    cost = 5,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/29a0eb418850a3821c38874daf0a6b0d.png',
+    restriction = {
+        Faction = {[4]=true}
+    },
+    executeOptions = function(list, pilotid)
+        exopts = {}
+        nextdiff = { b = "w", w = "r", r = "r", p = "p"}
+        basicman = { [0] = {"tl1", "bl1", "s1", "br1", "tr1"},
+                     [1] = {"tl2", "bl2", "s2", "br2", "tr2"},
+                     [2] = {"tl3", "bl3", "s3", "br3", "tr3"},
+                     [3] = {"s4"},
+                     [4] = {"s5"},
+                     [5] = {}
+                   }
+        for _, man in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
+            local Char= man:find("%d")
+            local speed = tonumber(man:sub(Char,Char))
+            --print("Man:" .. man .. " lower:" .. lower .. " higher:" .. higher)
+            exopt = {man}
+            for _, man2 in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
+                local diff = man2:sub(1,1)
+                if nextdiff[diff] ~= nil then
+                    for _, bman in pairs(basicman[speed]) do
+                        if man2:sub(2) == bman then
+                            exopt[#exopt+1]= nextdiff[diff] .. bman
+                        end
+                    end
+                end
+            end
+            if #exopt > 1 then
+                --table.print(exopt)
+                exopts[man] = exopt
+            end
+        end
+        return exopts
+    end
+}
 
-    ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/29a0eb418850a3821c38874daf0a6b0d.png',
-                        ['restriction']={['Faction']={[4]=true}}}
 masterUpgradesDB[584]={['name']="Korr Sella",['slot']=8,['cost']=6,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/dd102b8e517399d12b17756a863d19ee.png',
                         ['restriction']={['Faction']={[4]=true}}}
 masterUpgradesDB[585]={['name']="Larma D'Acy",['slot']=8,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/555a815e60cd7bf4612109c3fd65beaa.png',
