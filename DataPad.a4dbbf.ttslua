@@ -3314,7 +3314,39 @@ masterUpgradesDB[272]={['name']='GNK "Gonk" Droid',['slot']=8,['cost']=10,['Char
 masterUpgradesDB[273]={['name']='Informant',['Condition']="Listening Device",['slot']=8,['cost']=5,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_44.png',['restriction']={ }}
 masterUpgradesDB[274]={['name']='Novice Technician',['slot']=8,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_45.png',['restriction']={ }}
 masterUpgradesDB[275]={['name']='Perceptive Copilot',['slot']=8,['cost']=8,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_46.png',['restriction']={ }}
-masterUpgradesDB[276]={['name']='Seasoned Navigator',['slot']=8,['cost']='i',['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_47.png',['restriction']={ }}
+masterUpgradesDB[276]={
+    name = 'Seasoned Navigator',
+    slot = 8,
+    cost = 'i',
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_47.png',
+    restriction = { },
+    executeOptions = function(list, pilotid)
+        exopts = {}
+        nextdiff = { b = "w", w = "r"}
+        for i, man in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
+            local Char= man:find("%d")
+            local speed = tonumber(man:sub(Char,Char))
+            local exopt = {man}
+            for k, man2 in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
+
+                local diff = man2:sub(1,1)
+                Char = man2:find("%d")
+                local thisspeed = tonumber(man2:sub(Char,Char))
+                if (thisspeed == speed) and (nextdiff[diff] ~= nil) and (man ~= man2) then
+                    --print(man .. " " .. man2 .. " " .. tostring(thisspeed))
+                    exopt[#exopt+1] = nextdiff[diff] .. man2:sub(2)
+                end
+            end
+            if #exopt > 1 then
+                --table.print(exopt)
+                exopts[man] = exopt
+
+            end
+        end
+        return exopts
+    end
+
+}
 masterUpgradesDB[277]={['name']='Tactical Officer',['slot']=8,['cost']=6,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_48.png',['restriction']={ }}
 masterUpgradesDB[278]={['name']='Hotshot Gunner',['slot']=16,['cost']=7,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_49.png',['restriction']={ }}
 masterUpgradesDB[279]={['name']='Skilled Bombardier',['slot']=16,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_50.png',['restriction']={ }}
