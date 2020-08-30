@@ -78,6 +78,10 @@ end
 
 stat=false
 
+function onContextOpen(player_color)
+    showBtn()
+end
+
 function showBtn()
     if stat==false and ship~=nil then
         self.UI.show("btnPanel")
