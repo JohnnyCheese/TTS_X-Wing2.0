@@ -138,7 +138,19 @@ function linkToShip(args)
     end
 end
 
--- Externally accessible call that returns which arc this indicator is pointing
+-- Externally accessible call that returns which arcs this indicator is pointing
+-- in. Differs from "getArcs" in that it doesn't split dual arcs and returns a
+-- single string.
+function getArc(args)
+    local arcs = getArcs(args)
+    local arc_name = ''
+    for _, arc in pairs(arcs) do
+        arc_name = arc_name .. arc
+    end
+    return arc_name
+end
+
+-- Externally accessible call that returns which arcs this indicator is pointing
 -- in.
 function getArcs(args)
     if ship == nil then
