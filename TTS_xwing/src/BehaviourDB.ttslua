@@ -299,7 +299,7 @@ BehaviourDB.rule_sets[1].ships[13].move_table = {
 }
 BehaviourDB.rule_sets[1].ships[13].action_selection = {
     [1] = { -- (target not moved) Target lock if not in target's arc
-        ['description'] = {['text'] = "%s target locked them %s.", ['strings'] = {'ship', 'target'}},
+        ['description'] = {['text'] = "%s target locked %s.", ['strings'] = {'ship', 'target'}},
         ['preconditions'] = {['targetMoved'] = false, ['targetLocked'] = false, ['inTargetsArc'] = false, ['targetWithinRange'] = true},
         ['action'] = 'targetLock'
     },
@@ -593,7 +593,7 @@ BehaviourDB.rule_sets[1].ships[26].move_table = {
 BehaviourDB.rule_sets[1].ships[26].action_selection = {
     [1] = { -- Focus if have a shot
         ['description'] = "%s has a shot so focused.",
-        ['preconditions'] = {['hasShot'] = true}, --TODO: This has to respect front/back arcs, not just front.
+        ['preconditions'] = {['hasShot'] = true},
         ['action'] = 'focus'
     },
     [2] = { -- Reinforce the fore if within arc of two or more enemies in that full arc
@@ -656,5 +656,37 @@ BehaviourDB.rule_sets[1].ships[28].move_table = {
         ['far'] = {[1] = 'tl2', [3] = 'tr2'},
         ['distant'] = {[1] = 'tl2', [2] = 'tr3'},
         ['stress'] = {[1] = 'br1', [4] = 's1', [6] = 'tr3'},
+    },
+}
+BehaviourDB.rule_sets[1].ships[28].action_selection = {
+    [1] = { -- Rotate turret to get a shot
+        ['description'] = "%s rotated its turret to get a shot.",
+        ['preconditions'] = {['hasShot'] = {['arguments'] = {['includeArcs'] = {'front'}}, ['requiredResult'] = false}},
+        ['action'] = {['rotateTurret'] = {['mount'] = 'main'}},
+        ['postconditions'] = {['hasShot'] = {['arguments'] = {['includeArcs'] = {'front'}}, ['requiredResult'] = true}},
+    },
+    [2] = { -- (target not moved) Target lock if not in any arcs
+        ['description'] = {['text'] = "%s target locked %s.", ['strings'] = {'ship', 'target'}},
+        ['preconditions'] = {['targetMoved'] = false, ['targetLocked'] = false, ['inEnemyArc'] = false, ['targetWithinRange'] = true},
+        ['action'] = 'targetLock'
+    },
+    [3] = { -- (target moved) Target lock
+        ['description'] = {['text'] = "%s target locked %s.", ['strings'] = {'ship', 'target'}},
+        ['preconditions'] = {['targetMoved'] = true, ['targetLocked'] = false, ['targetWithinRange'] = true},
+        ['action'] = 'targetLock'
+    },
+    [4] = { -- Reinforce the fore if within arc of two or more enemies in that full arc
+        ['description'] = "%s reinforced fore.",
+        ['preconditions'] = {['inEnemyArc'] = {['arguments'] = {['arc'] = 'fullfront', ['enemyCount'] = 2}, ['requiredResult'] = true}},
+        ['action'] = 'reinforceFore'
+    },
+    [5] = { -- Reinforce the aft if within arc of two or more enemies in that full arc
+        ['description'] = "%s reinforced aft.",
+        ['preconditions'] = {['inEnemyArc'] = {['arguments'] = {['arc'] = 'fullback', ['enemyCount'] = 2}, ['requiredResult'] = true}},
+        ['action'] = 'reinforceAft'
+    },
+    [6] = { -- Focus
+        ['description'] = "%s focused.",
+        ['action'] = 'focus'
     },
 }

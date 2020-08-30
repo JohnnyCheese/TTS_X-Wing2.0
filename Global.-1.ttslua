@@ -764,7 +764,7 @@ AIModule.PerformManeuver = function(ship, take_action)
             end
 
             AIModule.current_move.in_progress = true
-            if MoveModule.PerformMove(move_code, ship, false, AIModule.ManeuverPostShipRest) == false then
+            if MoveModule.PerformMove(move_code, ship, false, AIModule.ManeuverPostShipRest, true) == false then
                 -- If the PerformMove function retured false, then the ship
                 -- could not move at all. In this case the post-rest callback
                 -- won't be fired, so we'll call it ourselves. Also, just in
@@ -994,12 +994,14 @@ the maneuver submodule these have to be dealt with in a callback to wait for the
 TTS components to come to a rest.
 ]]
 
--- List which actions are move actions, and therefore have to be expanded into
--- a list of potential move codes. Any action not listed here is assumed to be
--- possible to made at any time (such as 'focus', 'evade', etc)
-AIModule.move_actions = {
+-- List which actions are expandable actions, and therefore have to be expanded
+-- into a list of potential move codes or turret rotations. Any action not
+-- listed here is assumed to be possible to made at any time (such as 'focus',
+-- 'evade', etc)
+AIModule.expandable_actions = {
     ['barrelRoll'] = {'rl1', 'rr1', 'rl2', 'rr2', 'rl3', 'rr3'},
-    ['boost'] = {'bl1', 's1', 'br1'}
+    ['boost'] = {'bl1', 's1', 'br1'},
+    ['rotateTurret'] = true -- These are calculated at run-time based on the turret type and current rotation.
 }
 
 -- Which arcs are adjacent to each arc, used for checking whether a ship is
@@ -1052,7 +1054,7 @@ AIModule.AttemptAction = function(ship, target, action_definition)
     -- definition if necessary.
     local action_set = action_definition.action
     if type(action_definition.action) == 'string' then
-        action_set = {[1] = {[action_definition.action] = false}}
+        action_set = {[1] = {[action_definition.action] = {['stress'] = false}}}
     elseif action_definition.action[1] == nil then
         action_set = {[1] = action_definition.action}
     end
@@ -1064,26 +1066,44 @@ AIModule.AttemptAction = function(ship, target, action_definition)
     for set_index, action_list in ipairs(action_set) do
         probe_sets[set_index] = {}
         simple_actions[set_index] = {}
-        local initial_move = true
+        local initial_action = true
 
-        for action, stress in pairs(action_list) do
-            if AIModule.move_actions[action] ~= nil then
-                action_includes_move_component = true
+        for action, arguments in pairs(action_list) do
+            -- Check for the stress shorthand in the arguments parameter.
+            if type(arguments) ~= 'table' then
+                arguments = {['stress'] = arguments}
+            end
 
-                local move_difficulty = 'w'
-                if stress then
-                    move_difficulty = 'r'
+            if AIModule.expandable_actions[action] ~= nil then
+                -- Get or build the list of actions to expand into.
+                local expanded_actions = AIModule.expandable_actions[action]
+                if type(expanded_actions) == 'table' then
+                    action_includes_move_component = true
+                else
+                    expanded_actions = {}
+                    if action == 'rotateTurret' then
+                        local mount = arguments['mount'] or 'main'
+                        local turret_rotation_options = AIModule.GetTurretRotationOptions(ship, mount)
+                        for _, rotation in pairs(turret_rotation_options) do
+                            table.insert(expanded_actions, {['action'] = 'rotateTurret', ['mount'] = mount, ['arc'] = rotation})
+                        end
+                    end
                 end
 
-                -- This action is a move action, so expand our current set of
-                -- possible action probes further.
-                if initial_move == true then
-                    probe_sets[set_index] = table.join(probe_sets[set_index], AIModule.ExpandActionProbe(ship, initial_probe, AIModule.move_actions[action], move_difficulty))
-                    initial_move = false
+                local action_difficulty = 'w'
+                if arguments['stress'] == true then
+                    action_difficulty = 'r'
+                end
+
+                -- This action is an expanded action, so expand our current set
+                -- of possible action probes further.
+                if initial_action == true then
+                    probe_sets[set_index] = table.join(probe_sets[set_index], AIModule.ExpandActionProbe(ship, initial_probe, expanded_actions, action_difficulty))
+                    initial_action = false
                 else
                     new_probes = {}
                     for _, probe in pairs(probe_sets[set_index]) do
-                        new_probes = table.join(new_probes, AIModule.ExpandActionProbe(ship, probe, AIModule.move_actions[action], move_difficulty))
+                        new_probes = table.join(new_probes, AIModule.ExpandActionProbe(ship, probe, expanded_actions, action_difficulty))
                     end
 
                     probe_sets[set_index] = table.join(probe_sets[set_index], new_probes)
@@ -1108,7 +1128,7 @@ AIModule.AttemptAction = function(ship, target, action_definition)
                 if skip_action == false then
                     table.insert(simple_actions[set_index], action)
 
-                    if stress == true then
+                    if arguments['stress'] == true then
                         table.insert(simple_actions[set_index], 'stress')
                     end
                 end
@@ -1139,18 +1159,24 @@ AIModule.AttemptAction = function(ship, target, action_definition)
     table.sort(all_possible_probes, AIModule.SortProbesByDifficulty)
 
     -- Iterate over the probes. The first successful one we find we store
-    -- in the move_actions array that gets processed later, and we also record
+    -- in the probe_actions array that gets processed later, and we also record
     -- the set index so we know which set of simple actions to use.
-    local move_actions = {}
+    local probe_actions = {}
     local set_index = 1
+    local move_count = 0
     for _, probe in pairs(all_possible_probes) do
         if AIModule.CheckProbeConditions(ship, target, probe, action_definition.postconditions) == true then
             selected_probe = probe
             set_index = probe.set_index
 
-            for _, move_code in pairs(probe.moves) do
-                if move_code ~= 's0' then
-                    table.insert(move_actions, move_code)
+            for _, action in pairs(probe.actions) do
+                -- Keep track of how many actual moves we make.
+                if action['action'] == nil then
+                    move_count = move_count + 1
+                end
+
+                if action ~= 's0' then
+                    table.insert(probe_actions, action)
                 end
             end
 
@@ -1162,15 +1188,15 @@ AIModule.AttemptAction = function(ship, target, action_definition)
         end
     end
 
-    if action_includes_move_component and #move_actions == 0 then
+    if action_includes_move_component and move_count == 0 then
         return false
     end
 
     for index = 1, #simple_actions[set_index] do
         table.insert(AIModule.current_move.action_stack, simple_actions[set_index][#simple_actions[set_index] + 1 - index])
     end
-    for index = 1, #move_actions do
-        table.insert(AIModule.current_move.action_stack, move_actions[#move_actions + 1 - index])
+    for index = 1, #probe_actions do
+        table.insert(AIModule.current_move.action_stack, probe_actions[#probe_actions + 1 - index])
     end
 
     if #AIModule.current_move.action_stack > 0 then
@@ -1190,29 +1216,31 @@ AIModule.ProcessActionStack = function(ship)
     end
 
     while #AIModule.current_move.action_stack > 0 do
-        local action_code = table.remove(AIModule.current_move.action_stack)
+        local action = table.remove(AIModule.current_move.action_stack)
 
-        if action_code == 'stress' then
+        if action['action'] == 'rotateTurret' then
+            ship.call('SetTurretArc', {['mount'] = action['mount'], ['arc'] = action['arc'], ['snap'] = false})
+        elseif action == 'stress' then
             DialModule.PerformAction(ship, 'Stress', ship.getVar('owningPlayer'))
-        elseif action_code == 'focus' then
+        elseif action == 'focus' then
             DialModule.PerformAction(ship, 'Focus', ship.getVar('owningPlayer'))
-        elseif action_code == 'evade' then
+        elseif action == 'evade' then
             DialModule.PerformAction(ship, 'Evade', ship.getVar('owningPlayer'))
-        elseif action_code == 'targetLock' then
+        elseif action == 'targetLock' then
             DialModule.PerformAction(ship, 'Target Lock', ship.getVar('owningPlayer'), {['ship'] = ship, ['target'] = AIModule.current_move.target})
-        elseif action_code == 'cloak' then
+        elseif action == 'cloak' then
             DialModule.PerformAction(ship, 'Cloak', ship.getVar('owningPlayer'))
-        elseif action_code == 'reinforceFore' then
+        elseif action == 'reinforceFore' then
             DialModule.PerformAction(ship, 'Reinforce', ship.getVar('owningPlayer'), {['flip'] = true})
-        elseif action_code == 'reinforceAft' then
+        elseif action == 'reinforceAft' then
             DialModule.PerformAction(ship, 'Reinforce', ship.getVar('owningPlayer'))
-        elseif action_code == 'coordinate' then
+        elseif action == 'coordinate' then
             printToAll('Please manage the coordinate action manually.', color(1.0, 1.0, 0.2, 0.9))
-        elseif action_code == 'jam' then
+        elseif action == 'jam' then
             target = AIModule.current_move.target
             DialModule.PerformAction(target, 'Jam', target.getVar('owningPlayer'))
             printToAll('Please manage the effects of the jam token manually.', color(1.0, 1.0, 0.2, 0.9))
-        elseif MoveModule.PerformMove(action_code, ship, false, AIModule.ProcessActionStack) then
+        elseif MoveModule.PerformMove(action, ship, false, AIModule.ProcessActionStack) then
             break
         end
     end
@@ -1297,7 +1325,7 @@ AIModule.GetActionProbe = function(ship)
     if AIModule.current_move.probes[move].possible == nil then
         AIModule.current_move.probes[move].parent = nil
         AIModule.current_move.probes[move].action_targets = {}
-        AIModule.current_move.probes[move].moves = {move}
+        AIModule.current_move.probes[move].actions = {move}
         AIModule.current_move.probes[move].possible = true
         AIModule.current_move.probes[move].difficulty = 'w'
         AIModule.current_move.probes[move].position = ship.getPosition()
@@ -1307,23 +1335,23 @@ AIModule.GetActionProbe = function(ship)
     return AIModule.current_move.probes[move]
 end
 
--- This function takes an existing probe, and appends all possible moves in
--- a move list onto it, returning a list of those that are possible.
-AIModule.ExpandActionProbe = function(ship, probe, moves, difficulty)
+-- This function takes an existing probe, and appends all possible moves/actions
+-- in the action list onto it, returning a list of those that are possible.
+AIModule.ExpandActionProbe = function(ship, probe, actions, difficulty)
     local possible_probes = {}
 
     local probe_name = ''
-    for _, existing_move in pairs(probe.moves) do
+    for _, previous_action in pairs(probe.actions) do
         if string.len(probe_name) > 0 then
             probe_name = probe_name .. ','
         end
-        probe_name = probe_name .. existing_move
+        probe_name = probe_name .. AIModule.GetActionProbeName(previous_action)
     end
 
-    for _, move in pairs(moves) do
+    for _, action in pairs(actions) do
         -- First check if this exists. If it does, and it's possible, then just
         -- return it and skip to the next one.
-        local new_probe_name = probe_name .. ',' .. move
+        local new_probe_name = probe_name .. ',' .. AIModule.GetActionProbeName(action)
         new_probe = AIModule.current_move.probes[new_probe_name]
         if new_probe ~= nil then
             if new_probe.possible == true then
@@ -1331,32 +1359,59 @@ AIModule.ExpandActionProbe = function(ship, probe, moves, difficulty)
                 table.insert(possible_probes, new_probe)
             end
         else
-            -- The probe hasn't been made before. Make a new one and test if it
-            -- is possible or not.
-            local original_position_rotation = AIModule.GetPositionAndRotation(ship)
-            AIModule.ApplyProbe(ship, probe)
+            local new_probe = {
+                ['parent'] = probe,
+                ['possible'] = false,
+                ['actions'] = table.shallowcopy(probe.actions),
+                ['action_targets'] = {},
+                ['difficulty'] = difficulty,
+            }
+            table.insert(new_probe.actions, action)
 
-            new_probe = {["possible"] = false, ["moves"] = table.shallowcopy(probe.moves)}
-            table.insert(new_probe.moves, move)
+            if action['action'] == nil then
+                -- If the action doesn't contain an 'action' key, then it's a move.
+                local move_code = action
 
-            local move_info = MoveData.DecodeInfo(move, ship)
-            local probe_data = MoveModule.MoveProbe.TryFullMove(move_info, ship, MoveModule.GetFullMove)
-            if probe_data.done and probe_data.collObj == nil and probe_data.collObs == nil then
-                new_probe.parent = probe
-                new_probe.action_targets = {}
+                -- Test whether this probe is even possible.
+                local original_ship_state = AIModule.GetShipState(ship)
+                AIModule.ApplyProbe(ship, probe)
+
+                local move_info = MoveData.DecodeInfo(move_code, ship)
+                local probe_data = MoveModule.MoveProbe.TryFullMove(move_info, ship, MoveModule.GetFullMove)
+                if probe_data.done and probe_data.collObj == nil and probe_data.collObs == nil then
+                    new_probe.possible = true
+                    new_probe.position = probe_data.finalPosRot['pos']
+                    new_probe.rotation = probe_data.finalPosRot['rot']
+                    table.insert(possible_probes, new_probe)
+                end
+                AIModule.current_move.probes[new_probe_name] = new_probe
+
+                AIModule.SetShipState(ship, original_ship_state)
+            elseif action['action'] == 'rotateTurret' then
+                -- Turret rotations are always possible so we don't need to test
+                -- the action.
                 new_probe.possible = true
-                new_probe.difficulty = difficulty
-                new_probe.position = probe_data.finalPosRot['pos']
-                new_probe.rotation = probe_data.finalPosRot['rot']
+                new_probe.position = probe.position
+                new_probe.rotation = probe.rotation
+                new_probe.turrets = {[action['mount']] = action['arc']}
                 table.insert(possible_probes, new_probe)
-            end
-            AIModule.current_move.probes[new_probe_name] = new_probe
 
-            AIModule.SetPositionAndRotation(ship, original_position_rotation)
+                AIModule.current_move.probes[new_probe_name] = new_probe
+            end
         end
     end
 
     return possible_probes
+end
+
+AIModule.GetActionProbeName = function(action)
+    if action['action'] == nil then
+        return action
+    elseif action['action'] == 'rotateTurret' then
+        return string.format('rotateTurret(%s,%s)', action['mount'], action['arc'])
+    else
+        return ''
+    end
 end
 
 AIModule.SortProbesByDifficulty = function(e1, e2)
@@ -1373,22 +1428,68 @@ AIModule.SortProbesByDifficulty = function(e1, e2)
     return e1.index < e2.index
 end
 
-AIModule.GetPositionAndRotation = function(ship)
-    return {['position'] = ship.GetPosition(), ['rotation'] = ship.GetRotation()}
+AIModule.GetShipState = function(ship)
+    local state = {['position'] = ship.GetPosition(), ['rotation'] = ship.GetRotation(), ['turrets'] = {}}
+
+    local turret_mounts = ship.call('GetAssignedMounts')
+    for _, mount in pairs(turret_mounts) do
+        state.turrets[mount] = ship.call('GetTurretArc', {['mount'] = mount})
+    end
+
+    return state
 end
 
-AIModule.SetPositionAndRotation = function(ship, position_rotation)
-    ship.SetPosition(position_rotation['position'])
-    ship.SetRotation(position_rotation['rotation'])
+AIModule.SetShipState = function(ship, state)
+    ship.SetPosition(state['position'])
+    ship.SetRotation(state['rotation'])
+
+    if state['turrets'] ~= nil then
+        for mount, arc in pairs(state['turrets']) do
+            ship.call('SetTurretArc', {['mount'] = mount, ['arc'] = arc, ['snap'] = true})
+        end
+    end
 end
 
 AIModule.ApplyProbe = function(ship, probe)
     ship.SetPosition(probe.position)
     ship.SetRotation(probe.rotation)
+
+    if probe['turrets'] ~= nil then
+        for mount, arc in pairs(probe['turrets']) do
+            ship.call('SetTurretArc', {['mount'] = mount, ['arc'] = arc, ['snap'] = true})
+        end
+    end
+end
+
+AIModule.GetTurretRotationOptions = function(ship, mount)
+    -- Build up our list of possible rotations.
+    local rotation_options = {}
+    local turret_type = ship.call('GetTurretType', {['mount'] = mount})
+    if turret_type == 'singleturret' then
+        rotation_options = {'front', 'right', 'back', 'left'}
+    elseif turret_type == 'doubleturret' then
+        rotation_options = {'frontback', 'leftright'}
+    end
+
+    -- Remove our current option arc from the list of options.
+    local turret_arc = ship.call('GetTurretArc', {['mount'] = mount})
+    i = 1
+    while i <= #rotation_options do
+        if rotation_options[i] == current_arc then
+            table.remove(rotation_options, i)
+        else
+            i = i + 1
+        end
+    end
+
+    return rotation_options
 end
 
 AIModule.condition_functions = {}
 AIModule.condition_functions['hasShot'] = function(ship, target, probe, arguments)
+    -- TODO: This should favour a shot at the target. To do so we might need to
+    -- create a different condition function "hasShotOnTarget" and have it occur
+    -- before the generic hasShot checks.
     local min_range = 1
     local max_range = 3
     if arguments ~= nil then
@@ -1399,7 +1500,7 @@ AIModule.condition_functions['hasShot'] = function(ship, target, probe, argument
     if probe.shot_range == nil then
         probe.shot_range = -1
 
-        local original_position_rotation = AIModule.GetPositionAndRotation(ship)
+        local original_position_rotation = AIModule.GetShipState(ship)
         AIModule.ApplyProbe(ship, probe)
         targets = ArcCheck.GetTargetsInRelationToArc(ship, ship.call('GetAllArcs'))
         targets = table.sieve(targets, AIModule.FilterInArc)
@@ -1411,7 +1512,7 @@ AIModule.condition_functions['hasShot'] = function(ship, target, probe, argument
             end
         end
 
-        AIModule.SetPositionAndRotation(ship, original_position_rotation)
+        AIModule.SetShipState(ship, original_position_rotation)
     end
 
     return probe.shot_range ~= -1 and probe.shot_range >= min_range and probe.shot_range <= max_range
@@ -1419,11 +1520,11 @@ end
 
 AIModule.condition_functions['inTargetsArc'] = function(ship, target, probe, arguments)
     if probe.in_targets_arc == nil then
-        local original_position_rotation = AIModule.GetPositionAndRotation(ship)
+        local original_position_rotation = AIModule.GetShipState(ship)
         AIModule.ApplyProbe(ship, probe)
 
         probe.in_targets_arc = false
-        targets = ArcCheck.GetTargetsInRelationToArc(target, ship.call('GetAllArcs'), {ship})
+        targets = ArcCheck.GetTargetsInRelationToArc(target, target.call('GetAllArcs'), {ship})
         targets = table.sieve(targets, AIModule.FilterInArc)
         targets = table.sieve(targets, AIModule.FilterInRange)
         for _, target_info in pairs(targets) do
@@ -1431,7 +1532,7 @@ AIModule.condition_functions['inTargetsArc'] = function(ship, target, probe, arg
             break
         end
 
-        AIModule.SetPositionAndRotation(ship, original_position_rotation)
+        AIModule.SetShipState(ship, original_position_rotation)
     end
 
     return probe.in_targets_arc
@@ -1502,7 +1603,7 @@ AIModule.condition_functions['inEnemyArc'] = function(ship, target, probe, argum
         end
         probe.num_enemy_arcs[condition_index] = 0
 
-        local original_position_rotation = AIModule.GetPositionAndRotation(ship)
+        local original_position_rotation = AIModule.GetShipState(ship)
         AIModule.ApplyProbe(ship, probe)
 
         -- Get all ships within the specified arc.
@@ -1547,7 +1648,7 @@ AIModule.condition_functions['inEnemyArc'] = function(ship, target, probe, argum
             end
         end
 
-        AIModule.SetPositionAndRotation(ship, original_position_rotation)
+        AIModule.SetShipState(ship, original_position_rotation)
     end
 
     return probe.num_enemy_arcs[condition_index] >= min_enemies
@@ -4075,7 +4176,8 @@ end
 --      finData     <- {pos = targetPos, rot=targetRot}
 --      saveName    <- move code for history save, no save done if nil
 --      finFunction <- optional, function to call when the ship has come to rest
-MoveModule.MoveShip = function(ship, finData, saveName, finFunction)
+--      waitForTokens <- optional, whether or not we have to wait for the ships tokens to also come to a rest
+MoveModule.MoveShip = function(ship, finData, saveName, finFunction, waitForTokens)
     if not ShipVerification.VerifyShipBase(ship) then
         return
     end
@@ -4094,7 +4196,7 @@ MoveModule.MoveShip = function(ship, finData, saveName, finFunction)
     ship.setPositionSmooth(finPos.pos, false, true)
     ship.setRotationSmooth(finPos.rot, false, true)
     -- Wait for resting, but provide final position to set so smooth move doesn't fuck with accuracy
-    MoveModule.WaitForResting(ship, finPos, finFunction)
+    MoveModule.WaitForResting(ship, finPos, finFunction, waitForTokens)
     if saveName ~= nil then
         MoveModule.AddHistoryEntry(ship, {pos=finPos.pos, rot=finPos.rot, move=saveName, part=finData.finPart, finType=finData.finType})
     end
@@ -4118,8 +4220,9 @@ MoveModule.tokenWaitQueue = {}
 -- Add ship to the queue so it fires once it completes the move
 -- OPTIONAL: finPos     <- position to be set at the end of the wait
 -- OPTIONAL: finFun     <- function to be execeuted at the end of the wait (argument: waiting ship)
-MoveModule.WaitForResting = function(ship, finPos, finFun)
-    table.insert(MoveModule.restWaitQueue, {ship=ship, finPos=finPos, finFun=finFun})
+-- OPTIONAL: tokens     <- whether we also have to wait for the ship's tokens to finish moving afterwards.
+MoveModule.WaitForResting = function(ship, finPos, finFun, waitForTokens)
+    table.insert(MoveModule.restWaitQueue, {ship=ship, finPos=finPos, finFun=finFun, waitForTokens=waitForTokens})
     startLuaCoroutine(Global, 'restWaitCoroutine')
 end
 
@@ -4136,6 +4239,7 @@ function restWaitCoroutine()
     local actShip = waitData.ship
     local finPos = waitData.finPos
     local finFun = waitData.finFun
+    local waitForTokens = waitData.waitForTokens
     table.remove(MoveModule.restWaitQueue, #MoveModule.restWaitQueue)
     -- Wait
     repeat
@@ -4167,6 +4271,12 @@ function restWaitCoroutine()
         end
     end
 
+    if waitForTokens == true then
+        repeat
+            coroutine.yield(0)
+        until TokenModule.DoesShipHasAnySmoothMovingTokens(actShip) == false
+    end
+
     MoveModule.tokenWaitQueue = newTokenTable
     actShip.lock()
     actShip.highlightOn({0, 1, 0}, 0.1)
@@ -4181,8 +4291,10 @@ end
 -- How move is preformed generally relies on MoveData.DecodeInfo for its code
 -- Includes token handling so nothing obscurs the final position
 -- Starts the wait coroutine that handles stuff done when ship settles down
--- Takes an optional parameter, the function to call at the end of the move.
-MoveModule.PerformMove = function(move_code, ship, ignoreCollisions, finishFunction)
+-- Takes two optional parameters, the function to call at the end of the move,
+-- and whether we have to wait for the tokens to come to a rest before calling
+-- it.
+MoveModule.PerformMove = function(move_code, ship, ignoreCollisions, finishFunction, waitForTokens)
     ship.lock()
     local originalPos = ship.getPosition()
     local origionalRot = ship.getRotation()
@@ -4201,7 +4313,7 @@ MoveModule.PerformMove = function(move_code, ship, ignoreCollisions, finishFunct
     end
 
     if finData.finType ~= 'overlap' then
-        MoveModule.MoveShip(ship, finData, move_code, finishFunction)
+        MoveModule.MoveShip(ship, finData, move_code, finishFunction, waitForTokens)
         if finData.collObj ~= nil then
             MoveModule.SpawnOverlapReminder(ship)
         end
@@ -4878,6 +4990,18 @@ end
 -- Return table of object references for all tokens that are owned by given ship
 TokenModule.GetShipTokens = function(ship)
     return ship.call("GetTokens")
+end
+
+-- Returns whether any of this ships tokens are currently smooth moving.
+TokenModule.DoesShipHasAnySmoothMovingTokens = function(ship)
+    local ship_tokens = TokenModule.GetShipTokens(ship)
+    for _, token in pairs(ship_tokens) do
+        if token.isSmoothMoving() then
+            return true
+        end
+    end
+
+    return false
 end
 
 -- Clear given distance within position from tokens
@@ -6191,7 +6315,7 @@ function GetFixedArcs(args)
     return fixed_arcs
 end
 
-function GetTurretArcs(args)
+function GetAllTurretArcs(args)
     local turret_arcs = {}
     for _, arc_indicator in pairs(assigned_arc_indicators) do
         local new_turret_arcs = arc_indicator.call('getArcs')
@@ -6216,7 +6340,7 @@ end
 
 function GetAllArcs(args)
     local arcs = GetFixedArcs()
-    local turret_arcs = GetTurretArcs()
+    local turret_arcs = GetAllTurretArcs()
 
     for _, turret_arc in pairs(turret_arcs) do
         local found = false
@@ -6235,9 +6359,37 @@ function GetAllArcs(args)
     return arcs
 end
 
+function GetAssignedMounts()
+    local assigned_mounts = {}
+    for mount, _ in pairs(assigned_arc_indicators) do
+        table.insert(assigned_mounts, mount)
+    end
+    return assigned_mounts
+end
+
+function GetTurretArcs(args)
+    local turret_mount = args.mount or 'main'
+    return assigned_arc_indicators[turret_mount].call('getArcs')
+end
+
+function GetTurretArc(args)
+    local turret_mount = args.mount or 'main'
+    return assigned_arc_indicators[turret_mount].call('getArc')
+end
+
 function SetTurretArc(args)
-    local turret_position = args.turret or 'main'
-    assigned_arc_indicators[turret_position].call('setArc', {arc=args.arc, snap=args.snap})
+    local turret_mount = args.mount or 'main'
+    assigned_arc_indicators[turret_mount].call('setArc', {arc=args.arc, snap=args.snap})
+end
+
+function GetTurretType(args)
+    local turret_mount = args.mount or 'main'
+    local arc_indicator_name = assigned_arc_indicators[turret_mount].GetName()
+    if arc_indicator_name.find(self.getName(), 'Dual') ~= nil then
+        return 'doubleturret'
+    else
+        return 'singleturret'
+    end
 end
 
 -- Save self state
