@@ -3323,6 +3323,9 @@ masterUpgradesDB[276]={
     executeOptions = function(list, pilotid)
         exopts = {}
         nextdiff = { b = "w", w = "r"}
+        if pilotid == 0 then
+            return {}
+        end
         for i, man in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
             local Char= man:find("%d")
             local speed = tonumber(man:sub(Char,Char))
@@ -3668,6 +3671,9 @@ masterUpgradesDB[583]={
                      [4] = {"s5"},
                      [5] = {}
                    }
+       if pilotid == 0 then
+           return {}
+       end
         for _, man in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
             local Char= man:find("%d")
             local speed = tonumber(man:sub(Char,Char))
