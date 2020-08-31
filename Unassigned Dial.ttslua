@@ -332,7 +332,7 @@ function assignShip(ship)
     --self.UI.setAttribute("DialName", Name)
     self.UI.setValue("Name",Name)
     shipData=assignedShip.getTable("Data")
-    exOptions = shipData.executeOptions
+    exOptions = shipData.executeOptions or {}
     self.UI.setAttribute("BackGround", "image", tostring(shipData['Faction']).."BG")
     for k,v in pairs(shipData['moveSet']) do
         self.UI.setAttribute(string.upper(v), "active", "true")
