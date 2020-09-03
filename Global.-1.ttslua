@@ -759,12 +759,20 @@ AIModule.PerformManeuver = function(ship, take_action)
             else
                 AIModule.current_move.difficulty = AIModule.GetMoveDifficulty(ship, move_code)
             end
-            -- Remove stress _before_ the move - if we wait till afterwards then
+            -- Remove tokens _before_ the move - if we wait till afterwards then
             -- the tokens haven't caught up with the ship and the token module
             -- doesn't count them.
-            if stress and AIModule.current_move.difficulty == 'b' then
-                DialModule.PerformAction(ship, 'Stress', ship.getVar('owningPlayer'), {['remove'] = true})
-                AIModule.current_move.stress_count = AIModule.current_move.stress_count - 1
+            if AIModule.current_move.difficulty == 'b' then
+                if stress then
+                    DialModule.PerformAction(ship, 'Stress', ship.getVar('owningPlayer'), {['remove'] = true})
+                    AIModule.current_move.stress_count = AIModule.current_move.stress_count - 1
+                end
+                if TokenModule.GetShipTokenCount(ship, 'Strain') > 0 then
+                    DialModule.PerformAction(ship, 'Strain', ship.getVar('owningPlayer'), {['remove'] = true})
+                end
+                if TokenModule.GetShipTokenCount(ship, 'Deplete') > 0 then
+                    DialModule.PerformAction(ship, 'Deplete', ship.getVar('owningPlayer'), {['remove'] = true})
+                end
             end
 
             AIModule.current_move.in_progress = true
