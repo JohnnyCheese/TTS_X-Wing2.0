@@ -797,7 +797,14 @@ AIModule.ManeuverPostShipRest = function(ship)
         DialModule.PerformAction(ship, 'Stress', ship.getVar("owningPlayer"))
     elseif AIModule.current_move.take_action == true and AIModule.current_move.stress_count == 0 and AIModule.current_move.collision == false and AIModule.current_move.obstacle == false then
         if AIModule.current_move.is_ionised then
-            -- TODO: Only perform a focus action (if possible)
+            -- Ionised ships can only perform a focus action, if possible.
+            for _, action in pairs(ship.getTable('Data')['actSet']) do
+                if action == 'F' then
+                    table.insert(AIModule.current_move.action_stack, 'focus')
+                    action_selected = true
+                    break
+                end
+            end
         else
             -- Check for Full Throttle and apply it now if appropriate.
             AIModule.ApplySpecialAbility(ship, 'fullThrottle')
