@@ -303,6 +303,7 @@ AIModule.current_move.Reset = function()
     AIModule.current_move.target = nil
     AIModule.current_move.probes = {}
     AIModule.current_move.action_stack = {}
+    AIModule.current_move.actions = {}
 end
 AIModule.current_move.Reset()
 
@@ -758,12 +759,20 @@ AIModule.PerformManeuver = function(ship, take_action)
             else
                 AIModule.current_move.difficulty = AIModule.GetMoveDifficulty(ship, move_code)
             end
-            -- Remove stress _before_ the move - if we wait till afterwards then
+            -- Remove tokens _before_ the move - if we wait till afterwards then
             -- the tokens haven't caught up with the ship and the token module
             -- doesn't count them.
-            if stress and AIModule.current_move.difficulty == 'b' then
-                DialModule.PerformAction(ship, 'Stress', ship.getVar('owningPlayer'), {['remove'] = true})
-                AIModule.current_move.stress_count = AIModule.current_move.stress_count - 1
+            if AIModule.current_move.difficulty == 'b' then
+                if stress then
+                    DialModule.PerformAction(ship, 'Stress', ship.getVar('owningPlayer'), {['remove'] = true})
+                    AIModule.current_move.stress_count = AIModule.current_move.stress_count - 1
+                end
+                if TokenModule.GetShipTokenCount(ship, 'Strain') > 0 then
+                    DialModule.PerformAction(ship, 'Strain', ship.getVar('owningPlayer'), {['remove'] = true})
+                end
+                if TokenModule.GetShipTokenCount(ship, 'Deplete') > 0 then
+                    DialModule.PerformAction(ship, 'Deplete', ship.getVar('owningPlayer'), {['remove'] = true})
+                end
             end
 
             AIModule.current_move.in_progress = true
@@ -924,6 +933,7 @@ AIModule.ApplySpecialAbility = function(ship, ability)
                 if string.find(move_code, '3') or string.find(move_code, '4') or string.find(move_code, '5') then
                     printToAll(string.format('%s used full throttle to evade.', ship.getName()))
                     DialModule.PerformAction(ship, 'Evade', ship.getVar('owningPlayer'))
+                    table.insert(AIModule.current_move.actions, 'evade')
                 end
             end
         end
@@ -1227,22 +1237,30 @@ AIModule.ProcessActionStack = function(ship)
             DialModule.PerformAction(ship, 'Stress', ship.getVar('owningPlayer'))
         elseif action == 'focus' then
             DialModule.PerformAction(ship, 'Focus', ship.getVar('owningPlayer'))
+            table.insert(AIModule.current_move.actions, 'focus')
         elseif action == 'evade' then
             DialModule.PerformAction(ship, 'Evade', ship.getVar('owningPlayer'))
+            table.insert(AIModule.current_move.actions, 'evade')
         elseif action == 'targetLock' then
             DialModule.PerformAction(ship, 'Target Lock', ship.getVar('owningPlayer'), {['ship'] = ship, ['target'] = AIModule.current_move.target})
+            table.insert(AIModule.current_move.actions, 'targetLock')
         elseif action == 'cloak' then
             DialModule.PerformAction(ship, 'Cloak', ship.getVar('owningPlayer'))
+            table.insert(AIModule.current_move.actions, 'cloak')
         elseif action == 'reinforceFore' then
             DialModule.PerformAction(ship, 'Reinforce', ship.getVar('owningPlayer'), {['flip'] = true})
+            table.insert(AIModule.current_move.actions, 'reinforce')
         elseif action == 'reinforceAft' then
             DialModule.PerformAction(ship, 'Reinforce', ship.getVar('owningPlayer'))
+            table.insert(AIModule.current_move.actions, 'reinforce')
         elseif action == 'coordinate' then
             printToAll('Please manage the coordinate action manually.', color(1.0, 1.0, 0.2, 0.9))
+            table.insert(AIModule.current_move.actions, 'coordinate')
         elseif action == 'jam' then
             target = AIModule.current_move.target
             DialModule.PerformAction(target, 'Jam', target.getVar('owningPlayer'))
             printToAll('Please manage the effects of the jam token manually.', color(1.0, 1.0, 0.2, 0.9))
+            table.insert(AIModule.current_move.actions, 'jam')
         elseif MoveModule.PerformMove(action, ship, false, AIModule.ProcessActionStack) then
             break
         end
@@ -1581,6 +1599,15 @@ end
 AIModule.condition_functions['evading'] = function(ship, target, probe, arguments)
     if probe.evading == nil then
         probe.evading = TokenModule.GetShipTokenCount(ship, 'Evade') > 0
+    end
+
+    if probe.evading ~= true then
+        for _, action in pairs(AIModule.current_move.actions) do
+            if action == 'evade' then
+                probe.evading = true
+                break
+            end
+        end
     end
 
     return probe.evading
