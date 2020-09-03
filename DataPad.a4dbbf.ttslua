@@ -128,6 +128,7 @@ addAction[1023]={'TL','C'} --  SensorExperts (TL, C)
 addAction[1031]={'E','F'} -- DodonnasPride (E,F)
 addAction[1040]={'C'} -- Corvus (C)
 addAction[1048]={'E'} -- Merchant One (E)
+addAction[645]={'E'} -- Stabilized S-foils (B-wing config) (E)
 
 --table referenced by upgrades that adds actions to all ships in a squad.
 addSqdAction={}
@@ -2973,6 +2974,7 @@ masterPilotDB[631]={['name']='Alexsandr Kallus',['Faction']= 1,['ship_type']=23,
 
 masterPilotDB[630]={
     name = 'Leia Organa',
+    Force = 1,
     Faction = 1,
     ship_type = 1,
     cost = 77,

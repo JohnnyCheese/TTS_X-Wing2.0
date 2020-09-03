@@ -5654,7 +5654,7 @@ RulerModule.SpawnRuler = function(ship, rulerType, beQuiet)
     table.insert(RulerModule.spawnedRulers, {ship = ship, ruler = newRuler, arclines = arclines,type = rulerType})
     newRuler.lock()
     newRuler.setScale(rulerData.params.scale)
-    local button = {click_function = 'Ruler_SelfDestruct', label = 'DEL', position = {0, 0.5, 0}, rotation =  {0, 0, 0}, width = 900, height = 900, font_size = 250}
+    local button = {click_function = 'Ruler_SelfDestruct', label = 'DEL', position = {0, 0.55, 0}, rotation =  {0, 0, 0}, width = 1200, height = 1200, font_size = 250}
     newRuler.createButton(button)
     return newRuler
 end
