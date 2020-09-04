@@ -129,6 +129,10 @@ addAction[1031]={'E','F'} -- DodonnasPride (E,F)
 addAction[1040]={'C'} -- Corvus (C)
 addAction[1048]={'E'} -- Merchant One (E)
 addAction[645]={'E'} -- Stabilized S-foils (B-wing config) (E)
+addAction[667]={'F'} -- Ghost company
+addAction[669]={'E'} -- Kit Fisto crew
+addAction[670]={'R'} -- Plo Koon crew
+
 
 --table referenced by upgrades that adds actions to all ships in a squad.
 addSqdAction={}
@@ -3969,6 +3973,120 @@ masterUpgradesDB[662]={
         Size = { medium=true, large=true}
     }
 }
+
+masterUpgradesDB[663]={
+    name = "Deadeye Shot",
+    slot = 1,
+    cost = 200,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/4d/84/4d84d319-d6ad-425b-b05e-4e679a54a508/swz70_a1_deadeye-shot_upgrade.png',
+    restriction = {
+        Size = { small=true, medium=true}
+    }
+}
+
+masterUpgradesDB[664]={
+    name = "Clone Captain Rex",
+    limited = 1,
+    slot = 16,
+    cost = 200,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/41/90/4190fb29-a8d8-4576-b112-48df9944fc4c/swz70_a1_cpt-rex_upgrade.png',
+    restriction = {
+        Faction = {[6]=true}
+    }
+}
+
+masterUpgradesDB[665]={
+    name = '"Fives"',
+    limited = 1,
+    slot = 8,
+    cost = 200,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/fa/fe/fafeeec4-919f-4968-b26f-93f3cdda03b3/swz70_a1_fives_upgrade.png',
+    restriction = {
+        Faction = {[6]=true}
+    }
+}
+
+masterUpgradesDB[666]={
+    name = "Supressive Gunner",
+    slot = 16,
+    cost = 200,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/71/36/7136b2b9-dc7c-494a-9509-4ffbe0d2870d/swz70_a1_suppressive-gunner_upgrade.png',
+    restriction = {}
+}
+
+masterUpgradesDB[667]={
+    name = "Ghost Company",
+    limited = 1,
+    slot = 16,
+    remSlot = {8},
+    cost = 200,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/7e/83/7e836a20-1ed5-44c3-9f21-3e0e5e7f9347/swz70_a1_ghost-company_upgrade.png',
+    restriction = {
+        Faction = {[6]=true}
+        -- Todo: Add rotate requirement
+    }
+}
+
+masterUpgradesDB[668]={
+    name = "Wolfpack",
+    limited = 1,
+    slot = 16,
+    remSlot = {8},
+    cost = 200,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/11/69/116909f3-2f9f-4a5d-b8b4-6beed48e7a03/swz70_a1_wolfpack_upgrade.png',
+    restriction = {
+        Faction = {[6]=true}
+    }
+}
+
+masterUpgradesDB[669]={
+    name = "Kit Fisto",
+    Force = 1,
+    limited = 1,
+    slot = 8,
+    cost = 200,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/18/f5/18f5a7f6-8fce-4dba-b6cf-f5c739f807ca/swz70_a1_kit-fisto_upgrade.png',
+    restriction = {
+        Faction = {[6]=true}
+    }
+}
+
+masterUpgradesDB[670]={
+    name = "Plo Koon",
+    Force = 1,
+    limited = 1,
+    slot = 8,
+    cost = 200,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/9a/a5/9aa5ef62-7c41-425d-9f27-01369d3e1571/swz70_a1_plo-koon_upgrade.png',
+    restriction = {
+        Faction = {[6]=true}
+    }
+}
+
+masterUpgradesDB[671]={
+    name = "Aayla Secura",
+    Force = 1,
+    limited = 1,
+    slot = 8,
+    cost = 200,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/40/9a/409a5444-ec9c-48ae-a91c-0301bc0575df/swz70_a1_aayla_upgrade.png',
+    restriction = {
+        Faction = {[6]=true}
+    }
+}
+
+masterUpgradesDB[672]={
+    name = "Yoda",
+    Force = 2,
+    limited = 1,
+    slot = 8,
+    cost = 200,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/27/8a/278a7c83-c1e0-4ea4-b36b-2114e95fde99/swz70_a1_yoda_upgrade.png',
+    restriction = {
+        Faction = {[6]=true}
+    }
+}
+
 
 -- Epic upgrade cards
 -- Commands
