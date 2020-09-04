@@ -67,6 +67,9 @@ function onDropped()
     if nearest ~= nil then
         ship = nearest
         set = true
+ 
+
+        self.setRotation(nearest.getRotation())
 
         printToAll(ship.getName().." takes a tractor token")
         self.UI.setAttribute("Center", "active", "true")
@@ -74,6 +77,10 @@ function onDropped()
 end
 
 stat=false
+
+function onContextOpen(player_color)
+    showBtn()
+end
 
 function showBtn()
     if stat==false and ship~=nil then

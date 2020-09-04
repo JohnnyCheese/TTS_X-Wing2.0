@@ -277,7 +277,6 @@ function WingMateLand(index, recursive)
 	local ship = assignedShips[index].ship
 	local wingpos = wingPositions[wingConfigurations[configuration][index]]
 	if ship ~= nil and assignedShips[index].active then
-		ship.clearButtons()
 		desiredpos = LocalPos(leader,wingpos.posOffset)
 
 		local success = Global.call("epicMoveWingmate",{ship, desiredpos, leader.getRotation()})
