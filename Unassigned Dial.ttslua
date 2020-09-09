@@ -666,6 +666,15 @@ function arcB(p)
     assignedShip.setDescription("b")
 end
 
+function arcBullseye(p)
+    if spectReturn(p) == true then
+        return
+    end
+    assignedShip.setDescription("bull")
+end
+
+
+
 function arcFB(p)
     if spectReturn(p) == true then
         return
@@ -767,15 +776,6 @@ hover_functions = {
     tokenPanel = function() hideTokM() end,
 }
 
-menu_open = {
-    ArcMenu = false,
-    ArcMenuFU = false,
-    RelocMenu = false,
-    RelocMenuFU = false,
-    TokenMenu = false,
-    TokenMenuFU = false
-}
-
 function toggleMode()
     self.UI.setAttribute("arcPanel", "raycastTarget", clickMode)
     self.UI.setAttribute("tokenPanel", "raycastTarget", clickMode)
@@ -787,14 +787,11 @@ function menuClick(p, option, id)
     if clickMode == false or spectReturn(p) == true then
         return
     end
-    if menu_open[id] then
+    if openbutton == id then
         click_functions[id].hide(p)
     else
         click_functions[id].show(p)
     end
-
-    menu_open[id] = not menu_open[id]
-
 end
 
 function menuHover(p, option, id)

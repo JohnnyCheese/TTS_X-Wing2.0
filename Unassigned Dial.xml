@@ -125,23 +125,25 @@
         color="#aaffaa00"
         showAnimation="FadeIn"
         hideAnimation="FadeOut">
-            <Button id="Range1" class="ArcButtons" onClick="range1" height="80" width="80" offsetXY="-100 150">
+            <Button id="Range1" class="ArcButtons" onClick="range1" height="80" width="80" offsetXY="-140 150">
                 <Image id="R1Icon" height="80" widht="80" image="R1"></Image></Button>
-            <Button id="Range2" class="ArcButtons" onClick="range2" height="80" width="80" offsetXY="0 150">
+            <Button id="Range2" class="ArcButtons" onClick="range2" height="80" width="80" offsetXY="-40 150">
                 <Image id="R2Icon" height="80" widht="80" image="R2"></Image></Button>
-            <Button id="Range3" class="ArcButtons" onClick="range3" height="80" width="80" offsetXY="100 150">
+            <Button id="Range3" class="ArcButtons" onClick="range3" height="80" width="80" offsetXY="60 150">
                 <Image id="R3Icon" height="80" widht="80" image="R3"></Image></Button>
-            <Button id="FrontArc" class="ArcButtons" onClick="arcF" height="80" width="80" offsetXY="50 30">
+            <Button id="FrontArc" class="ArcButtons" onClick="arcF" height="80" width="80" offsetXY="50 50">
                 <Image id="FrontArcIcon" height="80" widht="80" image="FrontArc"></Image></Button>
-            <Button id="LeftArc" class="ArcButtons" onClick="arcL" height="80" width="80" offsetXY="-20 -40">
+            <Button id="LeftArc" class="ArcButtons" onClick="arcL" height="80" width="80" offsetXY="-40 -40">
                 <Image id="LeftArcIcon" height="80" widht="80" image="LeftArc"></Image></Button>
-            <Button id="RightArc" class="ArcButtons" onClick="arcR" height="80" width="80" offsetXY="120 -40">
+            <Button id="RightArc" class="ArcButtons" onClick="arcR" height="80" width="80" offsetXY="140 -40">
                 <Image id="RightArcIcon" height="80" widht="80" image="RightArc"></Image></Button>
-            <Button id="RearArc" class="ArcButtons" onClick="arcB" height="80" width="80" offsetXY="50 -110">
+            <Button id="RearArc" class="ArcButtons" onClick="arcB" height="80" width="80" offsetXY="50 -130">
                 <Image id="BackArcIcon" height="80" widht="80" image="BackArc"></Image></Button>
-            <Button id="FullFrontArc" class="ArcButtons" onClick="arcFF" height="80" width="80" offsetXY="-120 20">
+            <Button id="BullseyeArc" class="ArcButtons" onClick="arcBullseye" height="80" width="80" offsetXY="50 -40">
+                <Image id="BullseyeIcon" height="80" widht="80" image="Bullseye"></Image></Button>
+            <Button id="FullFrontArc" class="ArcButtons" onClick="arcFF" height="80" width="80" offsetXY="-140 50">
                 <Image id="FullFrontArcIcon" height="80" widht="80" image="FullFront"></Image></Button>
-            <Button id="FullBackArc" class="ArcButtons" onClick="arcFB" height="80" width="80" offsetXY="-120 -100">
+            <Button id="FullBackArc" class="ArcButtons" onClick="arcFB" height="80" width="80" offsetXY="-140 -130">
                 <Image id="FullBackArcIcon" height="80" widht="80" image="FullBack"></Image></Button>
     </Panel>
 </Panel>
