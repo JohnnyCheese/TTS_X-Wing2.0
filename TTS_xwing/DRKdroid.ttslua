@@ -187,7 +187,7 @@ function dorkDropTL()
     newRot[1]=rot[1]
     newRot[2]=rot[2]+90
     newRot[3]=rot[3]
-    dorkMove(dork,pos,newRot)
+    dorkMove(pos,newRot)
     mainSet()
 end
 
@@ -201,7 +201,7 @@ function dorkDropBL()
     newRot[1]=rot[1]
     newRot[2]=rot[2]+135
     newRot[3]=rot[3]
-    dorkMove(dork,pos,newRot)
+    dorkMove(pos,newRot)
     mainSet()
 end
 
@@ -215,7 +215,7 @@ function dorkDropS()
     newRot[1]=rot[1]
     newRot[2]=rot[2]+180
     newRot[3]=rot[3]
-    dorkMove(dork,pos,newRot)
+    dorkMove(pos,newRot)
     mainSet()
 end
 
@@ -229,7 +229,7 @@ function dorkDropBR()
     newRot[1]=rot[1]
     newRot[2]=rot[2]+225
     newRot[3]=rot[3]
-    dorkMove(dork,pos,newRot)
+    dorkMove(pos,newRot)
     mainSet()
 end
 
@@ -243,7 +243,7 @@ function dorkDropTR()
     newRot[1]=rot[1]
     newRot[2]=rot[2]+270
     newRot[3]=rot[3]
-    dorkMove(dork,pos,newRot)
+    dorkMove(pos,newRot)
     mainSet()
 end
 
@@ -392,38 +392,38 @@ function dorkMoveS()
     newRot[1]=rot[1]
     newRot[2]=rot[2]+180
     newRot[3]=rot[3]
-    dorkMove(dork,pos,newRot)
+    dorkMove(pos,newRot)
     mainSet()
 end
 
 
 function dorkMoveL()
     dork=self
-    pos = LocalPos(dork,{1.75, 0, -4.49})
+    pos = LocalPos(dork,{1.84, 0, -4.44})
     local rot = self.getRotation()
     local newRot={}
     newRot[1]=rot[1]
     newRot[2]=rot[2]+135
     newRot[3]=rot[3]
-    dorkMove(dork,pos,newRot)
+    dorkMove(pos,newRot)
     mainSet()
 end
 
 function dorkMoveR()
     dork=self
-    pos = LocalPos(dork,{-1.75, 0, -4.49})
+    pos = LocalPos(dork,{-1.84, 0, -4.44})
     local rot = self.getRotation()
     local newRot={}
     newRot[1]=rot[1]
     newRot[2]=rot[2]+225
     newRot[3]=rot[3]
-    dorkMove(dork,pos,newRot)
+    dorkMove(pos,newRot)
     mainSet()
 end
 
-function dorkMove(dork,pos,rot)
+function dorkMove(pos,rot)
     self.setPosition(pos)
-    dork.setRotation(newRot)
+    self.setRotation(rot)
 end
 
 
