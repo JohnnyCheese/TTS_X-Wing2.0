@@ -134,7 +134,6 @@ addAction[669]={'E'} -- Kit Fisto crew
 addAction[670]={'R'} -- Plo Koon crew
 addAction[674]={'C'} -- Kalani
 
-
 --table referenced by upgrades that adds actions to all ships in a squad.
 addSqdAction={}
 addSqdAction[309]={[1]='E'} --Jyn Erso
@@ -167,6 +166,7 @@ cardBackDB.Cis = 'http://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master
 cardBackDB['1'] = 'http://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/textures/cardback/Eptupgrade.png' -- EPT
 cardBackDB['2'] = 'http://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/textures/cardback/systemupg.png' -- Sensor
 cardBackDB['3'] = 'http://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/textures/cardback/Cannonup.png' -- Cannon
+cardBackDB['3b'] = 'http://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/textures/cardback/Cannonup.png' -- Dule Cannon NEEDS ART
 cardBackDB['4'] = 'http://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/textures/cardback/turrups.png' -- Turret
 cardBackDB['5'] = 'http://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/textures/cardback/torpups.png' -- Torpedo
 cardBackDB['6'] = 'http://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/textures/cardback/missileupg.png' -- Missile
@@ -3181,7 +3181,6 @@ masterPilotDB[707]={
     actSet = {'F','R','TL','Rot'},
 }
 
-
 masterPilotDB[708]={
     name = 'Onderon Oppressor',
     limited = 2,
@@ -3192,7 +3191,7 @@ masterPilotDB[708]={
     Shield = 2,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/d7/74/d774cd1d-eadc-4cf4-bf7f-f8169f9d14a3/swz71_card_oppressor.png',
     init = 3,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/HMP%20Base%20Texture.jpg',
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/Onderon%20Oppressor.png',
     actSet = {'C','TL','BR'},
 }
 
@@ -3206,7 +3205,7 @@ masterPilotDB[709]={
     Shield = 2,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/46/92/469279ec-b2cc-4168-81e2-f1bc616b0037/swz71_card_prototype.png',
     init = 2,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/HMP%20Base%20Texture.jpg',
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/Geonosian%20Prototype.png',
     actSet = {'C','TL','BR'},
 }
 
@@ -3220,7 +3219,7 @@ masterPilotDB[710]={
     Shield = 2,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/27/e8/27e89f93-eaa8-40bc-b62f-d8d009e54b82/swz71_card_dgs047.png',
     init = 2,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/HMP%20Base%20Texture.jpg',
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/DGS-047.png',
     actSet = {'C','TL','BR'},
 }
 
@@ -3234,7 +3233,7 @@ masterPilotDB[711]={
     Shield = 2,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/26/c0/26c041f8-90e4-4cc6-8fa4-219b87ac502b/swz71_card_dgs286.png',
     init = 2,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/HMP%20Base%20Texture.jpg',
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/DGS-286.png',
     actSet = {'C','TL','BR'},
 }
 
@@ -3247,7 +3246,7 @@ masterPilotDB[712]={
     Shield = 2,
     card = 'https://cdn.discordapp.com/attachments/693114202763558912/748518047504924722/separatist_predator.png',
     init = 3,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/HMP%20Base%20Texture.jpg',
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/Seperatist%20Predator.png',
     actSet = {'C','TL','BR'},
 }
 
@@ -3260,10 +3259,9 @@ masterPilotDB[713]={
     Shield = 2,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/7c/61/7c61a6d9-0c5a-4bc0-9d4d-f38e3723a2c1/swz71_card_baktoid.png',
     init = 1,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/HMP%20Base%20Texture.jpg',
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/Baktoid%20Drones.png',
     actSet = {'C','TL','BR'},
 }
-
 
 
 -- Huge ships
@@ -4223,14 +4221,6 @@ masterUpgradesDB[677]={
     restriction = {},
     Bomb = true
 }
-
-
-
-
-
-
-
-
 
 -- Epic upgrade cards
 -- Commands
