@@ -132,7 +132,7 @@ addAction[645]={'E'} -- Stabilized S-foils (B-wing config) (E)
 addAction[667]={'F'} -- Ghost company
 addAction[669]={'E'} -- Kit Fisto crew
 addAction[670]={'R'} -- Plo Koon crew
-
+addAction[673]={'C'} -- Kalani Tac Relay 
 
 --table referenced by upgrades that adds actions to all ships in a squad.
 addSqdAction={}
@@ -166,6 +166,7 @@ cardBackDB.Cis = 'http://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master
 cardBackDB['1'] = 'http://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/textures/cardback/Eptupgrade.png' -- EPT
 cardBackDB['2'] = 'http://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/textures/cardback/systemupg.png' -- Sensor
 cardBackDB['3'] = 'http://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/textures/cardback/Cannonup.png' -- Cannon
+cardBackDB['3b'] = 'http://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/textures/cardback/Cannonup.png' -- Dule Cannon NEEDS ART
 cardBackDB['4'] = 'http://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/textures/cardback/turrups.png' -- Turret
 cardBackDB['5'] = 'http://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/textures/cardback/torpups.png' -- Torpedo
 cardBackDB['6'] = 'http://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/textures/cardback/missileupg.png' -- Missile
@@ -3180,17 +3181,16 @@ masterPilotDB[707]={
     actSet = {'F','R','TL','Rot'},
 }
 
-
 masterPilotDB[710]={
-    name = 'Seperatist Predator',
+    name = 'Baktoid Drones',
     Faction = 7,
     ship_type = 82,
     cost = 200,
     slot = {1,6,6,8,14},
     Shield = 2,
-    card = 'https://cdn.discordapp.com/attachments/693114202763558912/748518047504924722/separatist_predator.png',
-    init = 3,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/HMP%20Base%20Texture.jpg',
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/7c/61/7c61a6d9-0c5a-4bc0-9d4d-f38e3723a2c1/swz71_card_baktoid.png',
+    init = 1,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/Baktoid%20Drones.png',
     actSet = {'C','TL','BR'},
     executeOptions = {
         rbl1 = {'rbl1', 'rbr1z'},
@@ -3206,6 +3206,130 @@ masterPilotDB[710]={
     }
 }
 
+masterPilotDB[711]={
+    name = 'Seperatist Predator',
+    Faction = 7,
+    ship_type = 82,
+    cost = 200,
+    slot = {1,6,6,8,14},
+    Shield = 2,
+    card = 'https://cdn.discordapp.com/attachments/693114202763558912/748518047504924722/separatist_predator.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/Seperatist%20Predator.png',
+    actSet = {'C','TL','BR'},
+    executeOptions = {
+        rbl1 = {'rbl1', 'rbr1z'},
+        rbr1 = {'rbr1', 'rbl1z'},
+        btl2 = {'btl2', 'btr2z'},
+        wbl2 = {'wbl2', 'wbr2z'},
+        wbr2 = {'wbr2', 'wbl2z'},
+        btr2 = {'btr2', 'btl2z'},
+        wtl3 = {'wtl3', 'wtr3z'},
+        rbl3 = {'rbl3', 'rbr3z'},
+        rbr3 = {'rbr3', 'rbl3z'},
+        wtr3 = {'wtr3', 'wtl3z'}
+    }
+}
+
+masterPilotDB[712]={
+    name = 'DGS-047',
+    Faction = 7,
+    ship_type = 82,
+    cost = 200,
+    slot = {1,6,6,8,14},
+    Shield = 2,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/27/e8/27e89f93-eaa8-40bc-b62f-d8d009e54b82/swz71_card_dgs047.png',
+    init = 1,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/DGS-047.png',
+    actSet = {'C','TL','BR'},
+    executeOptions = {
+        rbl1 = {'rbl1', 'rbr1z'},
+        rbr1 = {'rbr1', 'rbl1z'},
+        btl2 = {'btl2', 'btr2z'},
+        wbl2 = {'wbl2', 'wbr2z'},
+        wbr2 = {'wbr2', 'wbl2z'},
+        btr2 = {'btr2', 'btl2z'},
+        wtl3 = {'wtl3', 'wtr3z'},
+        rbl3 = {'rbl3', 'rbr3z'},
+        rbr3 = {'rbr3', 'rbl3z'},
+        wtr3 = {'wtr3', 'wtl3z'}
+    }
+}
+
+masterPilotDB[713]={
+    name = 'Geonosian Prototype',
+    Faction = 7,
+    ship_type = 82,
+    cost = 200,
+    slot = {1,6,6,8,14},
+    Shield = 2,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/46/92/469279ec-b2cc-4168-81e2-f1bc616b0037/swz71_card_prototype.png',
+    init = 2,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/Geonosian%20Prototype.png',
+    actSet = {'C','TL','BR'},
+    executeOptions = {
+        rbl1 = {'rbl1', 'rbr1z'},
+        rbr1 = {'rbr1', 'rbl1z'},
+        btl2 = {'btl2', 'btr2z'},
+        wbl2 = {'wbl2', 'wbr2z'},
+        wbr2 = {'wbr2', 'wbl2z'},
+        btr2 = {'btr2', 'btl2z'},
+        wtl3 = {'wtl3', 'wtr3z'},
+        rbl3 = {'rbl3', 'rbr3z'},
+        rbr3 = {'rbr3', 'rbl3z'},
+        wtr3 = {'wtr3', 'wtl3z'}
+    }
+}
+
+masterPilotDB[714]={
+    name = 'DGS-286',
+    Faction = 7,
+    ship_type = 82,
+    cost = 200,
+    slot = {1,6,6,8,14},
+    Shield = 2,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/26/c0/26c041f8-90e4-4cc6-8fa4-219b87ac502b/swz71_card_dgs286.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/DGS-286.png',
+    actSet = {'C','TL','BR'},
+    executeOptions = {
+        rbl1 = {'rbl1', 'rbr1z'},
+        rbr1 = {'rbr1', 'rbl1z'},
+        btl2 = {'btl2', 'btr2z'},
+        wbl2 = {'wbl2', 'wbr2z'},
+        wbr2 = {'wbr2', 'wbl2z'},
+        btr2 = {'btr2', 'btl2z'},
+        wtl3 = {'wtl3', 'wtr3z'},
+        rbl3 = {'rbl3', 'rbr3z'},
+        rbr3 = {'rbr3', 'rbl3z'},
+        wtr3 = {'wtr3', 'wtl3z'}
+    }
+}
+
+masterPilotDB[714]={
+    name = 'Onderon Oppressor',
+    Faction = 7,
+    ship_type = 82,
+    cost = 200,
+    slot = {1,6,6,8,14},
+    Shield = 2,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/d7/74/d774cd1d-eadc-4cf4-bf7f-f8169f9d14a3/swz71_card_oppressor.png',
+    init = 2,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/Onderon%20Oppressor.png',
+    actSet = {'C','TL','BR'},
+    executeOptions = {
+        rbl1 = {'rbl1', 'rbr1z'},
+        rbr1 = {'rbr1', 'rbl1z'},
+        btl2 = {'btl2', 'btr2z'},
+        wbl2 = {'wbl2', 'wbr2z'},
+        wbr2 = {'wbr2', 'wbl2z'},
+        btr2 = {'btr2', 'btl2z'},
+        wtl3 = {'wtl3', 'wtr3z'},
+        rbl3 = {'rbl3', 'rbr3z'},
+        rbr3 = {'rbr3', 'rbl3z'},
+        wtr3 = {'wtr3', 'wtl3z'}
+    }
+}
 
 -- Huge ships
 masterPilotDB[1000]={
@@ -4087,6 +4211,40 @@ masterUpgradesDB[672]={
     }
 }
 
+masterUpgradesDB[673]={
+    name = "Kalani",
+	charge = 3,
+    limited = 1,
+    slot = 21,
+    cost = 200,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/81/b3/81b32459-3421-4da7-8a45-9bbdbcf1bc31/swz71_upgrade_kalani.png',
+    restriction = {
+        Faction = {[7]=true}
+    }
+}
+
+masterUpgradesDB[674]={
+    name = "Multi Missile Pod",
+	charge = 5,
+    slot = 6b,
+    cost = 200,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/2b/f1/2bf158e3-099c-4969-a882-b52af5a88273/swz71_upgrade_multi-missile-pod.png'
+}
+
+masterUpgradesDB[675]={
+    name = "Synced Laser Cannons",
+    slot = 3b,
+    cost = 200,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/9b/11/9b115a04-a49d-40f0-ac06-5accb903aa5c/swz71_upgrade_synced-cannons.png'
+    }
+}
+masterUpgradesDB[676]={
+    name = "Concussion Bombs",
+	charge = 3,
+    slot = 12,
+    cost = 200,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/00/c6/00c65f3f-e738-4a5d-80a8-6b3aef6e8074/swz71_upgrade_concussion-bomb.png'
+}
 
 -- Epic upgrade cards
 -- Commands
