@@ -37,10 +37,10 @@
         <Button id="moveWindow" class="CenterButtons" height="75" width="100" position="0 10 -2" active="true" onClick="Window">Moves</Button>
         <Button id="setBtnFD" class="CenterButtons" height="75" position="0 10 -2" active="false" onClick="setDial" onMouseEnter="showSetMan" onMouseExit="hideSetMan">Set</Button>
         <Text   id="Name" class="DialName" position="0 70 3" rotation="180 180 0" height="80" fontSize="25" fontStyle="Bold">Name</Text>
-        <Button id="TokenMenu" class="CenterMenuButtons" offsetXY="-110 15" active="true" onMouseEnter="showTokMFD">T</Button>
-        <Button id="ArcMenu" class="CenterMenuButtons" offsetXY="110 15" active="true" onMouseEnter="showArcMFD">A</Button>
+        <Button id="TokenMenu" class="CenterMenuButtons" offsetXY="-110 15" active="true" onClick="menuClick" onMouseEnter="menuHover">T</Button>
+        <Button id="ArcMenu" class="CenterMenuButtons" offsetXY="110 15" active="true" onClick="menuClick" onMouseEnter="menuHover">A</Button>
         <Button id="undoFD" class="CenterMenuButtons" offsetXY="0 -51" active="true" onClick="Undo" height="30" width="60" fontSize="18" fontStyle="Bold">Undo</Button>
-        <Button id="RelocMenu" class="CenterMenuButtons" offsetXY="0 -105" active="true" onMouseEnter="showRelocMFD">R</Button>
+        <Button id="RelocMenu" class="CenterMenuButtons" offsetXY="0 -105" active="true" onClick="menuClick" onMouseEnter="menuHover">R</Button>
 </Panel>
 
 <Panel id="CenterFU"
@@ -102,11 +102,11 @@
 
     <Button id="MoveBtn" class="CenterButtons" offsetXY="0 97" height="60" width="120" active="true" fontSize="24" onClick="performMove">Move</Button>
     <Button id="UndoBtn" class="CenterButtons" offsetXY="0 97" height="60" width="120" active="false"  fontSize="24" onClick="Undo">Undo</Button>
-    <Button id="TokenMenuFu" class="CenterMenuButtons" offsetXY="-110 15" active="true" onMouseEnter="showTokMFU">T</Button>
-    <Button id="ArcMenuFU" class="CenterMenuButtons" offsetXY="110 15" active="true" onMouseEnter="showArcMFU">A</Button>
+    <Button id="TokenMenuFU" class="CenterMenuButtons" offsetXY="-110 15" active="true" onClick="menuClick" onMouseEnter="menuHover">T</Button>
+    <Button id="ArcMenuFU" class="CenterMenuButtons" offsetXY="110 15" active="true" onClick="menuClick" onMouseEnter="menuHover">A</Button>
     <Button id="undoFU" class="CenterMenuButtons" offsetXY="0 -51" active="true" onClick="Undo" height="30" width="60" fontSize="18" fontStyle="Bold">Undo</Button>
     <Button id="Templ" class="CenterMenuButtons" offsetXY="0 15" active="true" height="60" width="120" fontSize="18" onClick="spawnTemplate"></Button>
-    <Button id="RelocMenuFU" class="CenterMenuButtons" offsetXY="0 -106" active="true" onMouseEnter="showRelocMFU">R</Button>
+    <Button id="RelocMenuFU" class="CenterMenuButtons" offsetXY="0 -106" active="true" onClick="menuClick" onMouseEnter="menuHover">R</Button>
     <Image id="SpeedIcon" class="SetIcon" active="false" image="Speed1" offsetXY="30 15" height="60" width="60"></Image>
     <Image id="TypeIcon" class="SetIcon" active="false" image="BlueStraight" offsetXY="-30 15" height="60" width="60"></Image>
 </Panel>
@@ -116,7 +116,8 @@
     width="400"
     height="500"
     color="#ffaaaa00"
-    onMouseExit="hideArcM">
+    raycastTarget="false"
+    onMouseExit="menuHover">
     <Panel id="ArcFD"
         width="380"
         height="400"
@@ -124,23 +125,25 @@
         color="#aaffaa00"
         showAnimation="FadeIn"
         hideAnimation="FadeOut">
-            <Button id="Range1" class="ArcButtons" onClick="range1" height="80" width="80" offsetXY="-100 150">
+            <Button id="Range1" class="ArcButtons" onClick="range1" height="80" width="80" offsetXY="-140 150">
                 <Image id="R1Icon" height="80" widht="80" image="R1"></Image></Button>
-            <Button id="Range2" class="ArcButtons" onClick="range2" height="80" width="80" offsetXY="0 150">
+            <Button id="Range2" class="ArcButtons" onClick="range2" height="80" width="80" offsetXY="-40 150">
                 <Image id="R2Icon" height="80" widht="80" image="R2"></Image></Button>
-            <Button id="Range3" class="ArcButtons" onClick="range3" height="80" width="80" offsetXY="100 150">
+            <Button id="Range3" class="ArcButtons" onClick="range3" height="80" width="80" offsetXY="60 150">
                 <Image id="R3Icon" height="80" widht="80" image="R3"></Image></Button>
-            <Button id="FrontArc" class="ArcButtons" onClick="arcF" height="80" width="80" offsetXY="50 30">
+            <Button id="FrontArc" class="ArcButtons" onClick="arcF" height="80" width="80" offsetXY="50 50">
                 <Image id="FrontArcIcon" height="80" widht="80" image="FrontArc"></Image></Button>
-            <Button id="LeftArc" class="ArcButtons" onClick="arcL" height="80" width="80" offsetXY="-20 -40">
+            <Button id="LeftArc" class="ArcButtons" onClick="arcL" height="80" width="80" offsetXY="-40 -40">
                 <Image id="LeftArcIcon" height="80" widht="80" image="LeftArc"></Image></Button>
-            <Button id="RightArc" class="ArcButtons" onClick="arcR" height="80" width="80" offsetXY="120 -40">
+            <Button id="RightArc" class="ArcButtons" onClick="arcR" height="80" width="80" offsetXY="140 -40">
                 <Image id="RightArcIcon" height="80" widht="80" image="RightArc"></Image></Button>
-            <Button id="RearArc" class="ArcButtons" onClick="arcB" height="80" width="80" offsetXY="50 -110">
+            <Button id="RearArc" class="ArcButtons" onClick="arcB" height="80" width="80" offsetXY="50 -130">
                 <Image id="BackArcIcon" height="80" widht="80" image="BackArc"></Image></Button>
-            <Button id="FullFrontArc" class="ArcButtons" onClick="arcFF" height="80" width="80" offsetXY="-120 20">
+            <Button id="BullseyeArc" class="ArcButtons" onClick="arcBullseye" height="80" width="80" offsetXY="50 -40">
+                <Image id="BullseyeIcon" height="80" widht="80" image="Bullseye"></Image></Button>
+            <Button id="FullFrontArc" class="ArcButtons" onClick="arcFF" height="80" width="80" offsetXY="-140 50">
                 <Image id="FullFrontArcIcon" height="80" widht="80" image="FullFront"></Image></Button>
-            <Button id="FullBackArc" class="ArcButtons" onClick="arcFB" height="80" width="80" offsetXY="-120 -100">
+            <Button id="FullBackArc" class="ArcButtons" onClick="arcFB" height="80" width="80" offsetXY="-140 -130">
                 <Image id="FullBackArcIcon" height="80" widht="80" image="FullBack"></Image></Button>
     </Panel>
 </Panel>
@@ -161,7 +164,8 @@
     width="600"
     height="450"
     color="#aaffaa00"
-    onMouseExit="hideTokM">
+    raycastTarget="false"
+    onMouseExit="menuHover">
     <Panel id="TokenButtonPanel"
         width="400"
         height="350"
@@ -241,7 +245,8 @@
     width="600"
     height="300"
     color="#aaffaa00"
-    onMouseExit="hideRelocM">
+    raycastTarget="false"
+    onMouseExit="menuHover">
     <Panel id="BoostFD"
         class="BoostPanel"
         color="#aaffaa00"

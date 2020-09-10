@@ -20,6 +20,8 @@ openbutton = nil
 opencolor = "#555555"
 closedcolor = "#222222"
 
+clickMode = true
+
 -- Save self state
 function onSave()
     if assignedShip ~= nil then
@@ -44,6 +46,7 @@ exOptButtons = { "ExOpt1", "ExOpt2", "ExOpt3", "ExOpt4", "ExOpt5",  "ExOpt6"}
 function onLoad()
     --self.UI.setCustomAssets(assetTable)
     clearDial()
+    self.addContextMenuItem("Toggle mode", toggleMode, false)
     if savedData ~= nil then
         state = JSON.decode(savedData)
         savedShip = getObjectFromGUID(state.assignedShipGUID)
@@ -663,6 +666,15 @@ function arcB(p)
     assignedShip.setDescription("b")
 end
 
+function arcBullseye(p)
+    if spectReturn(p) == true then
+        return
+    end
+    assignedShip.setDescription("bull")
+end
+
+
+
 function arcFB(p)
     if spectReturn(p) == true then
         return
@@ -737,11 +749,61 @@ function hideSetMan(p)
     self.UI.hide("setManPeekPanel")
 end
 
+click_functions = {
+    ArcMenu = {show= function() showArcMFD() end,
+                hide= function() hideArcM() end },
+    ArcMenuFU = {show= function() showArcMFU() end,
+                hide= function() hideArcM() end },
+    RelocMenu = {show= function() showRelocMFD() end,
+                hide= function() hideRelocM() end },
+    RelocMenuFU = {show= function() showRelocMFU() end,
+                hide= function() hideRelocM() end },
+    TokenMenu = {show= function() showTokMFD() end,
+                hide= function() hideTokM() end },
+    TokenMenuFU = {show= function() showTokMFU() end,
+                hide= function() hideTokM() end },
+}
 
-function showTokMFD(p)
-    if spectReturn(p) == true then
+hover_functions = {
+    ArcMenu = function() showArcMFD() end,
+    ArcMenuFU = function() showArcMFU() end,
+    arcPanel = function() hideArcM() end,
+    RelocMenu = function() showRelocMFD() end,
+    RelocMenuFU = function() showRelocMFU() end,
+    relocPanel = function() hideRelocM() end,
+    TokenMenu = function() showTokMFD() end,
+    TokenMenuFU = function() showTokMFU() end,
+    tokenPanel = function() hideTokM() end,
+}
+
+function toggleMode()
+    self.UI.setAttribute("arcPanel", "raycastTarget", clickMode)
+    self.UI.setAttribute("tokenPanel", "raycastTarget", clickMode)
+    self.UI.setAttribute("relocPanel", "raycastTarget", clickMode)
+    clickMode = not clickMode
+end
+
+function menuClick(p, option, id)
+    if clickMode == false or spectReturn(p) == true then
         return
     end
+    if openbutton == id then
+        click_functions[id].hide(p)
+    else
+        click_functions[id].show(p)
+    end
+end
+
+function menuHover(p, option, id)
+    if clickMode == true or spectReturn(p) == true then
+        return
+    end
+    hover_functions[id]()
+end
+
+
+
+function showTokMFD()
     self.UI.show("tokenPanel")
     self.UI.setAttribute("TokenMenu", "color", opencolor)
     clearOpenPanel()
@@ -751,23 +813,17 @@ function showTokMFD(p)
     self.UI.setAttribute("tokenPanel", "rotation", "180 180 0")
 end
 
-function showTokMFU(p)
-    if spectReturn(p) == true then
-        return
-    end
+function showTokMFU()
     self.UI.show("tokenPanel")
-    self.UI.setAttribute("TokenMenuFu", "color", opencolor)
+    self.UI.setAttribute("TokenMenuFU", "color", opencolor)
     clearOpenPanel()
     openpanel = "tokenPanel"
-    openbutton = "TokenMenuFu"
+    openbutton = "TokenMenuFU"
     self.UI.setAttribute("tokenPanel", "position", "360 -165 1")
     self.UI.setAttribute("tokenPanel", "rotation", "180 0 0")
 end
 
-function hideTokM(p)
-    if spectReturn(p) == true then
-        return
-    end
+function hideTokM()
     if openpanel == "tokenPanel" then
         self.UI.hide(openpanel)
         self.UI.setAttribute(openbutton, "color", closedcolor)
@@ -779,10 +835,7 @@ end
 
 
 
-function showArcMFD(p)
-    if spectReturn(p) == true then
-        return
-    end
+function showArcMFD()
     self.UI.show("arcPanel")
     self.UI.setAttribute("ArcMenu", "color", opencolor)
     clearOpenPanel()
@@ -793,10 +846,7 @@ function showArcMFD(p)
     self.UI.setAttribute("arcPanel", "rotation", "180 180 0")
 end
 
-function showArcMFU(p)
-    if spectReturn(p) == true then
-        return
-    end
+function showArcMFU()
     self.UI.show("arcPanel")
     self.UI.setAttribute("ArcMenuFu", "color", opencolor)
     clearOpenPanel()
@@ -807,10 +857,7 @@ function showArcMFU(p)
     self.UI.setAttribute("arcPanel", "rotation", "180 0 0")
 end
 
-function hideArcM(p)
-    if spectReturn(p) == true then
-        return
-    end
+function hideArcM()
     if openpanel == "arcPanel" then
         self.UI.hide(openpanel)
         self.UI.setAttribute(openbutton, "color", closedcolor)
@@ -820,11 +867,7 @@ function hideArcM(p)
     openbutton = nil
 end
 
-function showRelocMFD(p)
-    if spectReturn(p) == true then
-        return
-    end
-
+function showRelocMFD()
     self.UI.show("relocPanel")
     self.UI.setAttribute("RelocMenu", "color", opencolor)
     clearOpenPanel()
@@ -835,10 +878,7 @@ function showRelocMFD(p)
     self.UI.setAttribute("relocPanel", "rotation", "180 180 0")
 end
 
-function showRelocMFU(p)
-    if spectReturn(p) == true then
-        return
-    end
+function showRelocMFU()
     self.UI.show("relocPanel")
     self.UI.setAttribute("RelocMenuFu", "color", opencolor)
     clearOpenPanel()
@@ -849,10 +889,7 @@ function showRelocMFU(p)
     self.UI.setAttribute("relocPanel", "rotation", "180 0 0")
 end
 
-function hideRelocM(p)
-    if spectReturn(p) == true then
-        return
-    end
+function hideRelocM()
     if openpanel == "relocPanel" then
         self.UI.hide(openpanel)
         self.UI.setAttribute(openbutton, "color", closedcolor)

@@ -2679,7 +2679,7 @@ end
 MoveData.DecodeInfo = function (move_code, ship)
     local info = {
                                         -- [option1] [option2] ... [optionN]  // [errorOption]
-                    type='invalid',     -- [straight] [bank] [turn] [roll] [viper] [cloak] [echo] [slipBank] [ slipTurn]//  [invalid]
+                    type='invalid',     -- [straight] [bank] [turn] [roll] [viper] [cloak] [echo] [bankSlip] [ turnSlip]//  [invalid]
                     speed=nil,          -- [1] [2] [3] [4] [5]  //  [nil]
                     dir=nil,            -- [left] [right] [nil]
                     extra=nil,          -- [koiogran] [segnor] [talon] [reverse] [straight] [forward] [backward] [nil]
@@ -2767,8 +2767,8 @@ MoveData.DecodeInfo = function (move_code, ship)
             info.note = 'flew reverse bank ' .. info.dir .. ' ' .. info.speed
             info.collNote = 'tried to fly reverse bank ' .. info.dir .. ' ' .. info.speed
         elseif move_code:sub(-1,-1) == 'z' then
-            info.type = 'slipBank'
-            info.extra = 'slipBank'
+            info.type = 'bankSlip'
+            info.extra = 'bankSlip'
             info.note = 'sliped bank ' .. info.dir .. ' ' .. info.speed
             info.collNote = 'tried to slip bank ' .. info.dir .. ' ' .. info.speed
         elseif move_code:sub(-1,-1) == 'b' then
@@ -2820,8 +2820,8 @@ MoveData.DecodeInfo = function (move_code, ship)
             info.note = 'flew reverse turn ' .. info.dir .. ' ' .. info.speed
             info.collNote = 'tried to fly reverse turn ' .. info.dir .. ' ' .. info.speed
         elseif move_code:sub(-1,-1) == 'z' then
-            info.type = 'slipTurn'
-            info.extra = 'slipTurn'
+            info.type = 'turnSlip'
+            info.extra = 'turnSlip'
             info.note = 'sliped turn ' .. info.dir .. ' ' .. info.speed
             info.collNote = 'tried to slip turn ' .. info.dir .. ' ' .. info.speed
         elseif move_code:sub(-1,-1) == 'b' then
@@ -3718,7 +3718,7 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
         end
         templateData.speed = 1
         templateData.type = "bank"
-    elseif templateData.type == "slipBank" then
+    elseif templateData.type == "bankSlip" then
         templateOrigin = MoveModule.GetTemplateOrigin(templateData.origin, templateData.orientation, templateData.shipSize, templateData.dir)
         templateData.type = "bank"
     elseif templateData.type == "echoF"  then
@@ -5219,12 +5219,12 @@ DialModule.TemplateData.bank.trim = { left = {{-2,0,-4,0}, {-5.5,0,-5.2,0}, {-9.
 DialModule.TemplateData.bank[1] = {80*(1-math.cos(math.pi/8)), 0, 80*math.sin(math.pi/8), 180}
 DialModule.TemplateData.bank[2] = {130*(1-math.cos(math.pi/8)), 0, 130*math.sin(math.pi/8), 180}
 DialModule.TemplateData.bank[3] = {180*(1-math.cos(math.pi/8)), 0, 180*math.sin(math.pi/8), 180}
-DialModule.TemplateData.slipBank = {}
-DialModule.TemplateData.slipBank.leftRot = 45
-DialModule.TemplateData.slipBank.trim = { left = {{-2,0,-4,0}, {-5.5,0,-5.2,0}, {-9.3,0,-6.45,0}}, right={{4.2,0,1.2,0}, {7.8,0,-0.3,0}, {11.5,0,-1.4,0}} }
-DialModule.TemplateData.slipBank[1] = {80*(1-math.cos(math.pi/8)), 0, 80*math.sin(math.pi/8), 180}
-DialModule.TemplateData.slipBank[2] = {130*(1-math.cos(math.pi/8)), 0, 130*math.sin(math.pi/8), 180}
-DialModule.TemplateData.slipBank[3] = {180*(1-math.cos(math.pi/8)), 0, 180*math.sin(math.pi/8), 180}
+DialModule.TemplateData.bankSlip = {}
+DialModule.TemplateData.bankSlip.leftRot = 45
+DialModule.TemplateData.bankSlip.trim = { left = {{-2,0,-4,0}, {-5.5,0,-5.2,0}, {-9.3,0,-6.45,0}}, right={{4.2,0,1.2,0}, {7.8,0,-0.3,0}, {11.5,0,-1.4,0}} }
+DialModule.TemplateData.bankSlip[1] = {80*(1-math.cos(math.pi/8)), 0, 80*math.sin(math.pi/8), 180}
+DialModule.TemplateData.bankSlip[2] = {130*(1-math.cos(math.pi/8)), 0, 130*math.sin(math.pi/8), 180}
+DialModule.TemplateData.bankSlip[3] = {180*(1-math.cos(math.pi/8)), 0, 180*math.sin(math.pi/8), 180}
 DialModule.TemplateData.turn = {}
 DialModule.TemplateData.turn.leftRot = 90
 DialModule.TemplateData.turn.trim = { left = {{0,-2.5,0,0}, {-3,-2.5,-3.66,0}, {-4.7,-2.5,-7.5,0}}, right={{0,-2.5,0,0}, {3,-2.5,-4.1,0}, {4.5,-2.5,-7.8,0}} }
