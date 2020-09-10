@@ -1,0 +1,76 @@
+#include TTS_xwing/src/Dimensions
+
+
+__XW_Obstacle = 'asteroid'
+
+r1_visible = false
+held = false
+waiting = false
+waitduration = 0.1
+
+function onLoad(save_state)
+    self.addContextMenuItem("Toggle Range 1", toggleR1, false)
+end
+
+function toggleR1()
+    if r1_visible then
+        self.setColorTint(color(0,0,0,0))
+        self.setVectorLines({})
+    else
+        self.setColorTint(color(1,1,0,0.2))
+        vector_lines = {}
+        for k,obj in pairs(getAllObjects()) do
+            if obj ~= nil and obj.tag == 'Figurine' and obj.getVar('__XW_Ship') == true then
+                my_pos = self.getNearestPointFromObject(obj)
+                other_pos = obj.getNearestPointFromObject(self)
+                other_pos.y = my_pos.y
+
+                distance = Convert_igu_mm(math.sqrt(math.pow(my_pos.x - other_pos.x,2) + math.pow(my_pos.z - other_pos.z,2)))
+                if distance < 100 then
+                    table.insert(vector_lines, {
+                        points = {self.positionToLocal(my_pos), self.positionToLocal(other_pos)},
+                        color = {1,1,1},
+                        thickness = 0.1,
+                        rotation = vector(0,0,0)
+                    })
+                end
+            end
+        end
+        self.setVectorLines(vector_lines)
+    end
+    r1_visible = not r1_visible
+end
+
+function onUpdate()
+    if not waiting and held then
+        vector_lines = {}
+        for k,obj in pairs(getAllObjects()) do
+            if obj ~= nil and obj ~= self and obj.getVar("__XW_Obstacle") ~= nil then
+                my_pos = self.getNearestPointFromObject(obj)
+                other_pos = obj.getNearestPointFromObject(self)
+                other_pos.y = my_pos.y
+
+                distance = Convert_igu_mm(math.sqrt(math.pow(my_pos.x - other_pos.x,2) + math.pow(my_pos.z - other_pos.z,2)))
+                if distance < 100 then
+                    table.insert(vector_lines, {
+                        points = {self.positionToLocal(my_pos), self.positionToLocal(other_pos)},
+                        color = {1,1,1},
+                        thickness = 0.1,
+                        rotation = vector(0,0,0)
+                    })
+                end
+            end
+        end
+        self.setVectorLines(vector_lines)
+        waiting = true
+        Wait.time(function() waiting = false end, waitduration)
+    end
+end
+
+function onPickUp(player_color)
+    held = true
+end
+
+function onDrop(player_color)
+    held = false
+end

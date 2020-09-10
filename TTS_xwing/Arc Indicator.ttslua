@@ -13,22 +13,27 @@ __XW_TokenType = 'arcIndicator'
 -- Should it snap on the next collision
 snap = true
 
+-- The ship that we're mounted on
+ship = nil
+
+
 -- When colliding with a ship, set position to its center and rotation to nearest 90deg point
 -- Wait until resting after every snap
 function onCollisionEnter(collision_info)
     local body = collision_info.collision_object
     if (not loaded) or (not snap) or (not body) or body.tag ~= 'Figurine' then return end
-    local relRot = self.getRotation()[2] - body.getRotation()[2]
-    local tRot = math.round(relRot/90)*90 + body.getRotation()[2]
-    local tPos = body.getPosition()
-    self.setPositionSmooth({tPos[1], tPos[2]+0.3, tPos[3]}, false, true)
-    self.setRotationSmooth({0, tRot, 0}, false, true)
-    snap = false
-    startLuaCoroutine(self, 'waitForResting')
-end
 
-function onLoad(save_state)
-    loaded = true
+    -- ship should always be nil, but just in case:
+    if ship == body then
+        snapToArc()
+    else
+        detachFromShip()
+        attachToShip(body)
+    end
+
+    snap = false
+
+    startLuaCoroutine(self, 'waitForResting')
 end
 
 function waitForResting()
@@ -37,6 +42,75 @@ function waitForResting()
     end
     snap = true
     return 1
+end
+
+function onLoad(save_state)
+    loaded = true
+end
+
+function onPickUp(player_color)
+    detachFromShip()
+end
+
+function attachToShip(new_ship)
+    -- Get the mount positions and, if there are more than one, see which
+    -- one we're closest to.
+    local mount_positions = new_ship.call('GetAvailableMountPositions')
+    local closest_mount_position = nil
+    local closest_squared_distance = nil
+
+    for mount, position in pairs(mount_positions) do
+        local x_distance = self.getPosition()[1] - position[1]
+        local z_distance = self.getPosition()[3] - position[3]
+        local squared_distance = x_distance * x_distance + z_distance * z_distance
+        if closest_squared_distance == nil or closest_squared_distance > squared_distance then
+            closest_mount_position = mount
+            closest_squared_distance = squared_distance
+        end
+    end
+
+    -- If we couldn't find an available mount position, then we can't attach
+    -- to this ship.
+    if closest_mount_position == nil then
+        return false
+    end
+    ship = new_ship
+
+    -- Set our position to the chosen mount.
+    self.setPositionSmooth({mount_positions[closest_mount_position][1], mount_positions[closest_mount_position][2] + 0.3, mount_positions[closest_mount_position][3]}, false, true)
+
+    snapToArc()
+
+    -- Set up the ship-side attachment.
+    ship.call('AddArcIndicator', {indicator=self, location=closest_mount_position})
+end
+
+function detachFromShip()
+    if ship ~= nil then
+        ship.call('RemoveArcIndicator', {indicator=self})
+        ship = nil
+    end
+end
+
+function snapToArc()
+    self.setRotationSmooth({0, getRelativeRotation(true), 0}, false, true)
+end
+
+function getRelativeRotation(roundToCardinal)
+    local relative_rotation = self.getRotation()[2] - ship.getRotation()[2]
+
+    -- Normalise to within 0 - 360
+    while relative_rotation < 0 do
+        relative_rotation = relative_rotation + 360
+    end
+    while relative_rotation > 360 do
+        relative_rotation = relative_rotation - 360
+    end
+
+    if roundToCardinal == true then
+        relative_rotation = math.round(relative_rotation/90)*90 + ship.getRotation()[2]
+    end
+    return relative_rotation
 end
 
 -- Round to decPlaces decimal places
@@ -54,5 +128,83 @@ function math.round(arg, decPlaces)
     else
         local mult = 10^(decPlaces or 0)
         return math.floor(arg * mult + 0.5) / mult
+    end
+end
+
+-- Called by the ship upon loading a save game.
+function linkToShip(args)
+    if ship ~= args.ship then
+        ship = args.ship
+    end
+end
+
+-- Externally accessible call that returns which arcs this indicator is pointing
+-- in. Differs from "getArcs" in that it doesn't split dual arcs and returns a
+-- single string.
+function getArc(args)
+    local arcs = getArcs(args)
+    local arc_name = ''
+    for _, arc in pairs(arcs) do
+        arc_name = arc_name .. arc
+    end
+    return arc_name
+end
+
+-- Externally accessible call that returns which arcs this indicator is pointing
+-- in.
+function getArcs(args)
+    if ship == nil then
+        return {}
+    end
+
+    local relative_rotation = getRelativeRotation(false)
+
+    -- TODO: Should we replace this with different scripts instead?
+    if string.find(self.getName(), 'Dual') ~= nil then
+        if relative_rotation < 45 then
+            return {'front', 'back'}
+        elseif relative_rotation < 135 then
+            return {'left', 'right'}
+        elseif relative_rotation < 225 then
+            return {'front', 'back'}
+        elseif relative_rotation < 315 then
+            return {'left', 'right'}
+        else
+            return {'front', 'back'}
+        end
+    else
+        if relative_rotation < 45 then
+            return {'front'}
+        elseif relative_rotation < 135 then
+            return {'right'}
+        elseif relative_rotation < 225 then
+            return {'back'}
+        elseif relative_rotation < 315 then
+            return {'left'}
+        else
+            return {'front'}
+        end
+    end
+end
+
+function setArc(args)
+    if ship == nil then
+        return
+    end
+
+    relRot = 0
+    if args.arc == 'right' or args.arc == 'leftright' then
+        relRot = 90
+    elseif args.arc == 'back' then
+        relRot = 180
+    elseif args.arc == 'left' then
+        relRot = 270
+    end
+
+    local tRot = relRot + ship.getRotation()[2]
+    if args.snap == true then
+        self.setRotation({0, tRot, 0})
+    else
+        self.setRotationSmooth({0, tRot, 0}, false, true)
     end
 end

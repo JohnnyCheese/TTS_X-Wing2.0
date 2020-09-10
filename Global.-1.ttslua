@@ -50,6 +50,9 @@ end
 -- Ship verification
 #include TTS_xwing/src/ShipVerification
 
+-- ContextGui
+#include TTS_xwing/src/ContextGui
+
 
 -- Modules API, must be loaded last
 #include TTS_xwing/src/API
@@ -256,8 +259,8 @@ end
 
 -- Possible commands supported by this module
 XW_cmd.AddCommand('[sk][012345][r]?', 'move')   -- Straights/Koiograns + stationary moves
-XW_cmd.AddCommand('b[rle][0123][str]?', 'move')   -- Banks + segnor and reverse versions
-XW_cmd.AddCommand('t[rle][01234][srfbt]?[t]?', 'move')  -- Turns + segnor, talon and reverse versions
+XW_cmd.AddCommand('b[rle][0123][strz]?', 'move')   -- Banks + segnor and reverse versions
+XW_cmd.AddCommand('t[rle][01234][srfbtz]?[t]?', 'move')
 
 XW_cmd.AddCommand('r[rle][123]?', 'actionMove')       --New Roll Done
 XW_cmd.AddCommand('v[rle][fb][123]?', 'actionMove')   --New ViperRoll
@@ -300,6 +303,7 @@ AIModule.current_move.Reset = function()
     AIModule.current_move.target = nil
     AIModule.current_move.probes = {}
     AIModule.current_move.action_stack = {}
+    AIModule.current_move.actions = {}
 end
 AIModule.current_move.Reset()
 
@@ -343,18 +347,18 @@ targets by various metrics.
 
 -- Target selection functions. These take a ship, and return a target ship
 AIModule.TargetSelectionFunctions = {}
-AIModule.TargetSelectionFunctions['ClosestInArc'] = function(ship)
+AIModule.TargetSelectionFunctions.ClosestInArc = function(ship)
     local targets = AIModule.GetSortedTargetsInArc(ship)
 
     -- Get the first ship as it's already been sorted by distance
     for i, target in pairs(targets) do
-        return target['ship']
+        return target.ship
     end
 
     return nil
 end
 
-AIModule.TargetSelectionFunctions['Closest'] = function(ship)
+AIModule.TargetSelectionFunctions.Closest = function(ship)
     local potential_targets = ArcCheck.GetPotentialTargets(ship, AIModule.max_distance)
 
     local closest_distance = nil
@@ -370,7 +374,7 @@ AIModule.TargetSelectionFunctions['Closest'] = function(ship)
     return closest_target
 end
 
-AIModule.TargetSelectionFunctions['LockedInRange'] = function(ship)
+AIModule.TargetSelectionFunctions.LockedInRange = function(ship)
     local potential_targets = AIModule.GetSortedTargetsInArc(ship, 'all')
     potential_targets = table.sieve(potential_targets, AIModule.FilterInRange)
 
@@ -378,11 +382,11 @@ AIModule.TargetSelectionFunctions['LockedInRange'] = function(ship)
     local closest_target = nil
     for i, target in pairs(potential_targets) do
         -- Is this ship locked by us?
-        if AIModule.HasTargetLockOnShip(ship, target['ship']) then
-            local distance = Vect.Length(ship.getPosition() - target['ship'].GetPosition())
+        if AIModule.HasTargetLockOnShip(ship, target.ship) then
+            local distance = Vect.Length(ship.getPosition() - target.ship.GetPosition())
             if closest_distance == nil or distance < closest_distance then
                 closest_distance = distance
-                closest_target = target['ship']
+                closest_target = target.ship
             end
         end
     end
@@ -390,15 +394,15 @@ AIModule.TargetSelectionFunctions['LockedInRange'] = function(ship)
     return closest_target
 end
 
-AIModule.TargetSelectionFunctions['ClosestInArcLowerInitiative'] = function(ship)
+AIModule.TargetSelectionFunctions.ClosestInArcLowerInitiative = function(ship)
     local initiative = ship.getTable('Data')['initiative']
     local targets = AIModule.GetSortedTargetsInArc(ship)
 
     -- Get the first ship with a lower initiative as it's already been sorted by
     -- distance.
     for i, target in pairs(targets) do
-        if (target['ship'].getTable('Data')['initiative'] < initiative) then
-            return target['ship']
+        if (target.ship.getTable('Data')['initiative'] < initiative) then
+            return target.ship
         end
     end
 
@@ -407,7 +411,7 @@ end
 
 -- Only choose ships that are in arc and between ranges 1-3
 AIModule.FilterInArc = function(el)
-    if el['in_arc'] == false then
+    if el.in_arc == false then
         return false
     end
 
@@ -416,7 +420,7 @@ end
 
 -- Only choose ships that are between range one and three
 AIModule.FilterInRange = function(el)
-    if el['closest'].range < 1 or el['closest'].range > 3 then
+    if el.closest.range < 1 or el.closest.range > 3 then
         return false
     end
 
@@ -425,15 +429,15 @@ end
 
 -- Assumed to have been filtered first
 AIModule.SortTargetsByAIDesirability = function(e1, e2)
-    if e1['closest'] ~= nil and e2['closest'] ~= nil then
-        if e1['closest'].length < e2['closest'].length then
+    if e1.closest ~= nil and e2.closest ~= nil then
+        if e1.closest.length < e2.closest.length then
             return true
-        elseif e1['closest'].length > e2['closest'].length then
+        elseif e1.closest.length > e2.closest.length then
             return false
         end
     end
 
-    return e1['ship'].getGUID() > e2['ship'].getGUID()
+    return e1.ship.getGUID() > e2.ship.getGUID()
 end
 
 AIModule.GetSortedTargetsInArc = function(ship, arc)
@@ -755,16 +759,24 @@ AIModule.PerformManeuver = function(ship, take_action)
             else
                 AIModule.current_move.difficulty = AIModule.GetMoveDifficulty(ship, move_code)
             end
-            -- Remove stress _before_ the move - if we wait till afterwards then
+            -- Remove tokens _before_ the move - if we wait till afterwards then
             -- the tokens haven't caught up with the ship and the token module
             -- doesn't count them.
-            if stress and AIModule.current_move.difficulty == 'b' then
-                DialModule.PerformAction(ship, 'Stress', ship.getVar('owningPlayer'), {['remove'] = true})
-                AIModule.current_move.stress_count = AIModule.current_move.stress_count - 1
+            if AIModule.current_move.difficulty == 'b' then
+                if stress then
+                    DialModule.PerformAction(ship, 'Stress', ship.getVar('owningPlayer'), {['remove'] = true})
+                    AIModule.current_move.stress_count = AIModule.current_move.stress_count - 1
+                end
+                if TokenModule.GetShipTokenCount(ship, 'Strain') > 0 then
+                    DialModule.PerformAction(ship, 'Strain', ship.getVar('owningPlayer'), {['remove'] = true})
+                end
+                if TokenModule.GetShipTokenCount(ship, 'Deplete') > 0 then
+                    DialModule.PerformAction(ship, 'Deplete', ship.getVar('owningPlayer'), {['remove'] = true})
+                end
             end
 
             AIModule.current_move.in_progress = true
-            if MoveModule.PerformMove(move_code, ship, false, AIModule.ManeuverPostShipRest) == false then
+            if MoveModule.PerformMove(move_code, ship, false, AIModule.ManeuverPostShipRest, true) == false then
                 -- If the PerformMove function retured false, then the ship
                 -- could not move at all. In this case the post-rest callback
                 -- won't be fired, so we'll call it ourselves. Also, just in
@@ -921,6 +933,7 @@ AIModule.ApplySpecialAbility = function(ship, ability)
                 if string.find(move_code, '3') or string.find(move_code, '4') or string.find(move_code, '5') then
                     printToAll(string.format('%s used full throttle to evade.', ship.getName()))
                     DialModule.PerformAction(ship, 'Evade', ship.getVar('owningPlayer'))
+                    table.insert(AIModule.current_move.actions, 'evade')
                 end
             end
         end
@@ -994,12 +1007,14 @@ the maneuver submodule these have to be dealt with in a callback to wait for the
 TTS components to come to a rest.
 ]]
 
--- List which actions are move actions, and therefore have to be expanded into
--- a list of potential move codes. Any action not listed here is assumed to be
--- possible to made at any time (such as 'focus', 'evade', etc)
-AIModule.move_actions = {
+-- List which actions are expandable actions, and therefore have to be expanded
+-- into a list of potential move codes or turret rotations. Any action not
+-- listed here is assumed to be possible to made at any time (such as 'focus',
+-- 'evade', etc)
+AIModule.expandable_actions = {
     ['barrelRoll'] = {'rl1', 'rr1', 'rl2', 'rr2', 'rl3', 'rr3'},
-    ['boost'] = {'bl1', 's1', 'br1'}
+    ['boost'] = {'bl1', 's1', 'br1'},
+    ['rotateTurret'] = true -- These are calculated at run-time based on the turret type and current rotation.
 }
 
 -- Which arcs are adjacent to each arc, used for checking whether a ship is
@@ -1052,7 +1067,7 @@ AIModule.AttemptAction = function(ship, target, action_definition)
     -- definition if necessary.
     local action_set = action_definition.action
     if type(action_definition.action) == 'string' then
-        action_set = {[1] = {[action_definition.action] = false}}
+        action_set = {[1] = {[action_definition.action] = {['stress'] = false}}}
     elseif action_definition.action[1] == nil then
         action_set = {[1] = action_definition.action}
     end
@@ -1064,35 +1079,52 @@ AIModule.AttemptAction = function(ship, target, action_definition)
     for set_index, action_list in ipairs(action_set) do
         probe_sets[set_index] = {}
         simple_actions[set_index] = {}
-        local initial_move = true
+        local initial_action = true
 
-        for action, stress in pairs(action_list) do
-            if AIModule.move_actions[action] ~= nil then
-                action_includes_move_component = true
+        for action, arguments in pairs(action_list) do
+            -- Check for the stress shorthand in the arguments parameter.
+            if type(arguments) ~= 'table' then
+                arguments = {['stress'] = arguments}
+            end
 
-                -- This action is a move action, so expand our current set of
-                -- possible action probes further.
-                if initial_move == true then
-                    probe_sets[set_index] = table.join(probe_sets[set_index], AIModule.ExpandActionProbe(ship, initial_probe, AIModule.move_actions[action]))
-                    initial_move = false
+            if AIModule.expandable_actions[action] ~= nil then
+                -- Get or build the list of actions to expand into.
+                local expanded_actions = AIModule.expandable_actions[action]
+                if type(expanded_actions) == 'table' then
+                    action_includes_move_component = true
+                else
+                    expanded_actions = {}
+                    if action == 'rotateTurret' then
+                        local mount = arguments.mount or 'main'
+                        local turret_rotation_options = AIModule.GetTurretRotationOptions(ship, mount)
+                        for _, rotation in pairs(turret_rotation_options) do
+                            table.insert(expanded_actions, {['action'] = 'rotateTurret', ['mount'] = mount, ['arc'] = rotation})
+                        end
+                    end
+                end
+
+                local action_difficulty = 'w'
+                if arguments.stress == true then
+                    action_difficulty = 'r'
+                end
+
+                -- This action is an expanded action, so expand our current set
+                -- of possible action probes further.
+                if initial_action == true then
+                    probe_sets[set_index] = table.join(probe_sets[set_index], AIModule.ExpandActionProbe(ship, initial_probe, expanded_actions, action_difficulty))
+                    initial_action = false
                 else
                     new_probes = {}
                     for _, probe in pairs(probe_sets[set_index]) do
-                        new_probes = table.join(new_probes, AIModule.ExpandActionProbe(ship, probe, AIModule.move_actions[action]))
+                        new_probes = table.join(new_probes, AIModule.ExpandActionProbe(ship, probe, expanded_actions, action_difficulty))
                     end
 
                     probe_sets[set_index] = table.join(probe_sets[set_index], new_probes)
                 end
 
-                -- Set the move difficulty and the set index on each probe.
-                local move_difficulty = 'w'
-                if stress then
-                    move_difficulty = 'r'
-                end
-
+                -- Set the set index on each probe.
                 for _, probe in pairs(probe_sets[set_index]) do
                     probe.set_index = set_index
-                    probe.difficulty = move_difficulty
                 end
             else
                 -- There's one instance that we skip the action - we don't take
@@ -1109,7 +1141,7 @@ AIModule.AttemptAction = function(ship, target, action_definition)
                 if skip_action == false then
                     table.insert(simple_actions[set_index], action)
 
-                    if stress == true then
+                    if arguments.stress == true then
                         table.insert(simple_actions[set_index], 'stress')
                     end
                 end
@@ -1140,18 +1172,24 @@ AIModule.AttemptAction = function(ship, target, action_definition)
     table.sort(all_possible_probes, AIModule.SortProbesByDifficulty)
 
     -- Iterate over the probes. The first successful one we find we store
-    -- in the move_actions array that gets processed later, and we also record
+    -- in the probe_actions array that gets processed later, and we also record
     -- the set index so we know which set of simple actions to use.
-    local move_actions = {}
+    local probe_actions = {}
     local set_index = 1
+    local move_count = 0
     for _, probe in pairs(all_possible_probes) do
         if AIModule.CheckProbeConditions(ship, target, probe, action_definition.postconditions) == true then
             selected_probe = probe
             set_index = probe.set_index
 
-            for _, move_code in pairs(probe.moves) do
-                if move_code ~= 's0' then
-                    table.insert(move_actions, move_code)
+            for _, action in pairs(probe.actions) do
+                -- Keep track of how many actual moves we make.
+                if action.action == nil then
+                    move_count = move_count + 1
+                end
+
+                if action ~= 's0' then
+                    table.insert(probe_actions, action)
                 end
             end
 
@@ -1163,15 +1201,15 @@ AIModule.AttemptAction = function(ship, target, action_definition)
         end
     end
 
-    if action_includes_move_component and #move_actions == 0 then
+    if action_includes_move_component and move_count == 0 then
         return false
     end
 
     for index = 1, #simple_actions[set_index] do
         table.insert(AIModule.current_move.action_stack, simple_actions[set_index][#simple_actions[set_index] + 1 - index])
     end
-    for index = 1, #move_actions do
-        table.insert(AIModule.current_move.action_stack, move_actions[#move_actions + 1 - index])
+    for index = 1, #probe_actions do
+        table.insert(AIModule.current_move.action_stack, probe_actions[#probe_actions + 1 - index])
     end
 
     if #AIModule.current_move.action_stack > 0 then
@@ -1191,29 +1229,39 @@ AIModule.ProcessActionStack = function(ship)
     end
 
     while #AIModule.current_move.action_stack > 0 do
-        local action_code = table.remove(AIModule.current_move.action_stack)
+        local action = table.remove(AIModule.current_move.action_stack)
 
-        if action_code == 'stress' then
+        if action.action == 'rotateTurret' then
+            ship.call('SetTurretArc', {['mount'] = action.mount, ['arc'] = action.arc, ['snap'] = false})
+        elseif action == 'stress' then
             DialModule.PerformAction(ship, 'Stress', ship.getVar('owningPlayer'))
-        elseif action_code == 'focus' then
+        elseif action == 'focus' then
             DialModule.PerformAction(ship, 'Focus', ship.getVar('owningPlayer'))
-        elseif action_code == 'evade' then
+            table.insert(AIModule.current_move.actions, 'focus')
+        elseif action == 'evade' then
             DialModule.PerformAction(ship, 'Evade', ship.getVar('owningPlayer'))
-        elseif action_code == 'targetLock' then
+            table.insert(AIModule.current_move.actions, 'evade')
+        elseif action == 'targetLock' then
             DialModule.PerformAction(ship, 'Target Lock', ship.getVar('owningPlayer'), {['ship'] = ship, ['target'] = AIModule.current_move.target})
-        elseif action_code == 'cloak' then
+            table.insert(AIModule.current_move.actions, 'targetLock')
+        elseif action == 'cloak' then
             DialModule.PerformAction(ship, 'Cloak', ship.getVar('owningPlayer'))
-        elseif action_code == 'reinforceFore' then
+            table.insert(AIModule.current_move.actions, 'cloak')
+        elseif action == 'reinforceFore' then
             DialModule.PerformAction(ship, 'Reinforce', ship.getVar('owningPlayer'), {['flip'] = true})
-        elseif action_code == 'reinforceAft' then
+            table.insert(AIModule.current_move.actions, 'reinforce')
+        elseif action == 'reinforceAft' then
             DialModule.PerformAction(ship, 'Reinforce', ship.getVar('owningPlayer'))
-        elseif action_code == 'coordinate' then
+            table.insert(AIModule.current_move.actions, 'reinforce')
+        elseif action == 'coordinate' then
             printToAll('Please manage the coordinate action manually.', color(1.0, 1.0, 0.2, 0.9))
-        elseif action_code == 'jam' then
+            table.insert(AIModule.current_move.actions, 'coordinate')
+        elseif action == 'jam' then
             target = AIModule.current_move.target
             DialModule.PerformAction(target, 'Jam', target.getVar('owningPlayer'))
             printToAll('Please manage the effects of the jam token manually.', color(1.0, 1.0, 0.2, 0.9))
-        elseif MoveModule.PerformMove(action_code, ship, false, AIModule.ProcessActionStack) then
+            table.insert(AIModule.current_move.actions, 'jam')
+        elseif MoveModule.PerformMove(action, ship, false, AIModule.ProcessActionStack) then
             break
         end
     end
@@ -1298,7 +1346,7 @@ AIModule.GetActionProbe = function(ship)
     if AIModule.current_move.probes[move].possible == nil then
         AIModule.current_move.probes[move].parent = nil
         AIModule.current_move.probes[move].action_targets = {}
-        AIModule.current_move.probes[move].moves = {move}
+        AIModule.current_move.probes[move].actions = {move}
         AIModule.current_move.probes[move].possible = true
         AIModule.current_move.probes[move].difficulty = 'w'
         AIModule.current_move.probes[move].position = ship.getPosition()
@@ -1308,54 +1356,83 @@ AIModule.GetActionProbe = function(ship)
     return AIModule.current_move.probes[move]
 end
 
--- This function takes an existing probe, and appends all possible moves in
--- a move list onto it, returning a list of those that are possible.
-AIModule.ExpandActionProbe = function(ship, probe, moves)
+-- This function takes an existing probe, and appends all possible moves/actions
+-- in the action list onto it, returning a list of those that are possible.
+AIModule.ExpandActionProbe = function(ship, probe, actions, difficulty)
     local possible_probes = {}
 
     local probe_name = ''
-    for _, existing_move in pairs(probe.moves) do
+    for _, previous_action in pairs(probe.actions) do
         if string.len(probe_name) > 0 then
             probe_name = probe_name .. ','
         end
-        probe_name = probe_name .. existing_move
+        probe_name = probe_name .. AIModule.GetActionProbeName(previous_action)
     end
 
-    for _, move in pairs(moves) do
+    for _, action in pairs(actions) do
         -- First check if this exists. If it does, and it's possible, then just
         -- return it and skip to the next one.
-        local new_probe_name = probe_name .. ',' .. move
+        local new_probe_name = probe_name .. ',' .. AIModule.GetActionProbeName(action)
         new_probe = AIModule.current_move.probes[new_probe_name]
         if new_probe ~= nil then
             if new_probe.possible == true then
+                new_probe.difficulty = difficulty
                 table.insert(possible_probes, new_probe)
             end
         else
-            -- The probe hasn't been made before. Make a new one and test if it
-            -- is possible or not.
-            local original_position_rotation = AIModule.GetPositionAndRotation(ship)
-            AIModule.ApplyProbe(ship, probe)
+            local new_probe = {
+                ['parent'] = probe,
+                ['possible'] = false,
+                ['actions'] = table.shallowcopy(probe.actions),
+                ['action_targets'] = {},
+                ['difficulty'] = difficulty,
+            }
+            table.insert(new_probe.actions, action)
 
-            new_probe = {["possible"] = false, ["moves"] = table.shallowcopy(probe.moves)}
-            table.insert(new_probe.moves, move)
+            if action.action == nil then
+                -- If the action doesn't contain an 'action' key, then it's a move.
+                local move_code = action
 
-            local move_info = MoveData.DecodeInfo(move, ship)
-            local probe_data = MoveModule.MoveProbe.TryFullMove(move_info, ship, MoveModule.GetFullMove)
-            if probe_data.done and probe_data.collObj == nil and probe_data.collObs == nil then
-                new_probe.parent = probe
-                new_probe.action_targets = {}
+                -- Test whether this probe is even possible.
+                local original_ship_state = AIModule.GetShipState(ship)
+                AIModule.ApplyProbe(ship, probe)
+
+                local move_info = MoveData.DecodeInfo(move_code, ship)
+                local probe_data = MoveModule.MoveProbe.TryFullMove(move_info, ship, MoveModule.GetFullMove)
+                if probe_data.done and probe_data.collObj == nil and probe_data.collObs == nil then
+                    new_probe.possible = true
+                    new_probe.position = probe_data.finalPosRot.pos
+                    new_probe.rotation = probe_data.finalPosRot.rot
+                    table.insert(possible_probes, new_probe)
+                end
+                AIModule.current_move.probes[new_probe_name] = new_probe
+
+                AIModule.SetShipState(ship, original_ship_state)
+            elseif action.action == 'rotateTurret' then
+                -- Turret rotations are always possible so we don't need to test
+                -- the action.
                 new_probe.possible = true
-                new_probe.position = probe_data.finalPosRot['pos']
-                new_probe.rotation = probe_data.finalPosRot['rot']
+                new_probe.position = probe.position
+                new_probe.rotation = probe.rotation
+                new_probe.turrets = {[action.mount] = action.arc}
                 table.insert(possible_probes, new_probe)
-            end
-            AIModule.current_move.probes[new_probe_name] = new_probe
 
-            AIModule.SetPositionAndRotation(ship, original_position_rotation)
+                AIModule.current_move.probes[new_probe_name] = new_probe
+            end
         end
     end
 
     return possible_probes
+end
+
+AIModule.GetActionProbeName = function(action)
+    if action.action == nil then
+        return action
+    elseif action.action == 'rotateTurret' then
+        return string.format('rotateTurret(%s,%s)', action.mount, action.arc)
+    else
+        return ''
+    end
 end
 
 AIModule.SortProbesByDifficulty = function(e1, e2)
@@ -1372,22 +1449,68 @@ AIModule.SortProbesByDifficulty = function(e1, e2)
     return e1.index < e2.index
 end
 
-AIModule.GetPositionAndRotation = function(ship)
-    return {['position'] = ship.GetPosition(), ['rotation'] = ship.GetRotation()}
+AIModule.GetShipState = function(ship)
+    local state = {['position'] = ship.GetPosition(), ['rotation'] = ship.GetRotation(), ['turrets'] = {}}
+
+    local turret_mounts = ship.call('GetAssignedMounts')
+    for _, mount in pairs(turret_mounts) do
+        state.turrets[mount] = ship.call('GetTurretArc', {['mount'] = mount})
+    end
+
+    return state
 end
 
-AIModule.SetPositionAndRotation = function(ship, position_rotation)
-    ship.SetPosition(position_rotation['position'])
-    ship.SetRotation(position_rotation['rotation'])
+AIModule.SetShipState = function(ship, state)
+    ship.SetPosition(state.position)
+    ship.SetRotation(state.rotation)
+
+    if state.turrets ~= nil then
+        for mount, arc in pairs(state.turrets) do
+            ship.call('SetTurretArc', {['mount'] = mount, ['arc'] = arc, ['snap'] = true})
+        end
+    end
 end
 
 AIModule.ApplyProbe = function(ship, probe)
     ship.SetPosition(probe.position)
     ship.SetRotation(probe.rotation)
+
+    if probe.turrets ~= nil then
+        for mount, arc in pairs(probe.turrets) do
+            ship.call('SetTurretArc', {['mount'] = mount, ['arc'] = arc, ['snap'] = true})
+        end
+    end
+end
+
+AIModule.GetTurretRotationOptions = function(ship, mount)
+    -- Build up our list of possible rotations.
+    local rotation_options = {}
+    local turret_type = ship.call('GetTurretType', {['mount'] = mount})
+    if turret_type == 'singleturret' then
+        rotation_options = {'front', 'right', 'back', 'left'}
+    elseif turret_type == 'doubleturret' then
+        rotation_options = {'frontback', 'leftright'}
+    end
+
+    -- Remove our current option arc from the list of options.
+    local turret_arc = ship.call('GetTurretArc', {['mount'] = mount})
+    i = 1
+    while i <= #rotation_options do
+        if rotation_options[i] == current_arc then
+            table.remove(rotation_options, i)
+        else
+            i = i + 1
+        end
+    end
+
+    return rotation_options
 end
 
 AIModule.condition_functions = {}
-AIModule.condition_functions['hasShot'] = function(ship, target, probe, arguments)
+AIModule.condition_functions.hasShot = function(ship, target, probe, arguments)
+    -- TODO: This should favour a shot at the target. To do so we might need to
+    -- create a different condition function "hasShotOnTarget" and have it occur
+    -- before the generic hasShot checks.
     local min_range = 1
     local max_range = 3
     if arguments ~= nil then
@@ -1398,9 +1521,9 @@ AIModule.condition_functions['hasShot'] = function(ship, target, probe, argument
     if probe.shot_range == nil then
         probe.shot_range = -1
 
-        local original_position_rotation = AIModule.GetPositionAndRotation(ship)
+        local original_position_rotation = AIModule.GetShipState(ship)
         AIModule.ApplyProbe(ship, probe)
-        targets = ArcCheck.GetTargetsInRelationToArc(ship, ship.getTable('Data').arcs) -- TODO: turrets won't work yet.
+        targets = ArcCheck.GetTargetsInRelationToArc(ship, ship.call('GetAllArcs'))
         targets = table.sieve(targets, AIModule.FilterInArc)
         targets = table.sieve(targets, AIModule.FilterInRange)
 
@@ -1410,19 +1533,19 @@ AIModule.condition_functions['hasShot'] = function(ship, target, probe, argument
             end
         end
 
-        AIModule.SetPositionAndRotation(ship, original_position_rotation)
+        AIModule.SetShipState(ship, original_position_rotation)
     end
 
     return probe.shot_range ~= -1 and probe.shot_range >= min_range and probe.shot_range <= max_range
 end
 
-AIModule.condition_functions['inTargetsArc'] = function(ship, target, probe, arguments)
+AIModule.condition_functions.inTargetsArc = function(ship, target, probe, arguments)
     if probe.in_targets_arc == nil then
-        local original_position_rotation = AIModule.GetPositionAndRotation(ship)
+        local original_position_rotation = AIModule.GetShipState(ship)
         AIModule.ApplyProbe(ship, probe)
 
         probe.in_targets_arc = false
-        targets = ArcCheck.GetTargetsInRelationToArc(target, target.getTable('Data').arcs, {ship}) -- TODO: turrets won't work yet
+        targets = ArcCheck.GetTargetsInRelationToArc(target, target.call('GetAllArcs'), {ship})
         targets = table.sieve(targets, AIModule.FilterInArc)
         targets = table.sieve(targets, AIModule.FilterInRange)
         for _, target_info in pairs(targets) do
@@ -1430,13 +1553,13 @@ AIModule.condition_functions['inTargetsArc'] = function(ship, target, probe, arg
             break
         end
 
-        AIModule.SetPositionAndRotation(ship, original_position_rotation)
+        AIModule.SetShipState(ship, original_position_rotation)
     end
 
     return probe.in_targets_arc
 end
 
-AIModule.condition_functions['targetMoved'] = function(ship, target, probe, arguments)
+AIModule.condition_functions.targetMoved = function(ship, target, probe, arguments)
     if probe.target_moved == nil then
         local ship_initiative = ship.getTable('Data')['initiative']
         local target_initiative = target.getTable('Data')['initiative']
@@ -1446,7 +1569,7 @@ AIModule.condition_functions['targetMoved'] = function(ship, target, probe, argu
     return probe.target_moved
 end
 
-AIModule.condition_functions['targetLocked'] = function(ship, target, probe, arguments)
+AIModule.condition_functions.targetLocked = function(ship, target, probe, arguments)
     if probe.target_locked == nil then
         probe.target_locked = AIModule.HasTargetLockOnShip(ship, target)
     end
@@ -1454,7 +1577,7 @@ AIModule.condition_functions['targetLocked'] = function(ship, target, probe, arg
     return probe.target_locked
 end
 
-AIModule.condition_functions['targetWithinRange'] = function(ship, target, probe, arguments)
+AIModule.condition_functions.targetWithinRange = function(ship, target, probe, arguments)
     local min_range = 1
     local max_range = 3
     if arguments ~= nil then
@@ -1473,15 +1596,24 @@ AIModule.condition_functions['targetWithinRange'] = function(ship, target, probe
     return probe.target_range >= min_range and probe.target_range <= max_range
 end
 
-AIModule.condition_functions['evading'] = function(ship, target, probe, arguments)
+AIModule.condition_functions.evading = function(ship, target, probe, arguments)
     if probe.evading == nil then
         probe.evading = TokenModule.GetShipTokenCount(ship, 'Evade') > 0
+    end
+
+    if probe.evading ~= true then
+        for _, action in pairs(AIModule.current_move.actions) do
+            if action == 'evade' then
+                probe.evading = true
+                break
+            end
+        end
     end
 
     return probe.evading
 end
 
-AIModule.condition_functions['inEnemyArc'] = function(ship, target, probe, arguments)
+AIModule.condition_functions.inEnemyArc = function(ship, target, probe, arguments)
     local arc = 'all'
     local wholly_within_arc = true
     local min_enemies = 1
@@ -1501,7 +1633,7 @@ AIModule.condition_functions['inEnemyArc'] = function(ship, target, probe, argum
         end
         probe.num_enemy_arcs[condition_index] = 0
 
-        local original_position_rotation = AIModule.GetPositionAndRotation(ship)
+        local original_position_rotation = AIModule.GetShipState(ship)
         AIModule.ApplyProbe(ship, probe)
 
         -- Get all ships within the specified arc.
@@ -1521,7 +1653,7 @@ AIModule.condition_functions['inEnemyArc'] = function(ship, target, probe, argum
                         -- Return false if this ship appears in arc_targets.
                         function(el)
                             for _, enemy in pairs(enemies_in_adjacent_arc) do
-                                if el['ship'] == enemy['ship'] then
+                                if el.ship == enemy.ship then
                                     return false
                                 end
                             end
@@ -1537,7 +1669,7 @@ AIModule.condition_functions['inEnemyArc'] = function(ship, target, probe, argum
         -- within their arc. For each ship that can fire at us we increment the
         -- number of arcs.
         for _, enemy_ship in pairs(enemies_in_arc) do
-            local enemy_arc = ArcCheck.GetTargetsInRelationToArc(enemy_ship['ship'], enemy_ship['ship'].getTable('Data').arcs, {ship}) -- TODO: turrets won't work yet
+            local enemy_arc = ArcCheck.GetTargetsInRelationToArc(enemy_ship.ship, enemy_ship.ship.call('GetAllArcs'), {ship})
             enemy_arc = table.sieve(enemy_arc, AIModule.FilterInArc)
             enemy_arc = table.sieve(enemy_arc, AIModule.FilterInRange)
             for _ in pairs(enemy_arc) do
@@ -1546,15 +1678,15 @@ AIModule.condition_functions['inEnemyArc'] = function(ship, target, probe, argum
             end
         end
 
-        AIModule.SetPositionAndRotation(ship, original_position_rotation)
+        AIModule.SetShipState(ship, original_position_rotation)
     end
 
     return probe.num_enemy_arcs[condition_index] >= min_enemies
 end
 
-AIModule.condition_functions['hasCoordinateTarget'] = function(ship, target, probe, arguments)
-    if probe.action_targets['coordinate'] == nil then
-        probe.action_targets['coordinate'] = false
+AIModule.condition_functions.hasCoordinateTarget = function(ship, target, probe, arguments)
+    if probe.action_targets.coordinate == nil then
+        probe.action_targets.coordinate = false
 
         -- Range two is 200mm, so triple it to 600mm to be sure of not missing
         -- anything once we take bases into account.
@@ -1570,7 +1702,7 @@ AIModule.condition_functions['hasCoordinateTarget'] = function(ship, target, pro
                     if TokenModule.GetShipTokenCount(friendly_ship, "Stress") == 0 then -- TODO: appears to be an error with counting stress tokens?
                         -- Are we closer than the previously closest ship?
                         if closest_distance == nil or closest_distance > distance.length then
-                            probe.action_targets['coordinate'] = friendly_ship
+                            probe.action_targets.coordinate = friendly_ship
                             closest_distance = distance.length
                         end
                     end
@@ -1579,7 +1711,7 @@ AIModule.condition_functions['hasCoordinateTarget'] = function(ship, target, pro
         end
     end
 
-    return probe.action_targets['coordinate'] ~= false
+    return probe.action_targets.coordinate ~= false
 end
 
 
@@ -1602,7 +1734,7 @@ ArcCheck.bullseye_data =
         large=vector(0,0,Convert_mm_igu(190)),
         huge=vector(0,0,Convert_mm_igu(110.5))
     },
-    size=vector(Convert_mm_igu(14), 0.1, Convert_mm_igu(300))
+    size=vector(Convert_mm_igu(12.1), 0.1, Convert_mm_igu(300))
 }
 
 ArcCheck.Initialize = function() -- Arc values based on Muon's assesments (vassal)
@@ -1635,19 +1767,19 @@ ArcCheck.CalculateArcLineSegments = function(table, degree, size_w, size_l)
         print("Rectangular:".. tostring(size_w)..","..tostring(size_l))
         local r = math.rad(degree/2)
         local a = math.tan(r) * size_l
-        table['front'] =    {   segments={ {vector(-a, 0, size_l), vector(a, 0, size_l)} },-- Front segment
+        table.front =    {   segments={ {vector(-a, 0, size_l), vector(a, 0, size_l)} },-- Front segment
                                 degrees={direction=0, spread=degree/2}
                             }
-        table['back'] =     {   segments={ {vector(-a, 0, -size_l), vector(a, 0, -size_l)} }, -- Front segment
+        table.back =     {   segments={ {vector(-a, 0, -size_l), vector(a, 0, -size_l)} }, -- Front segment
                                 degrees={direction=180, spread=degree/2}
                             }
-        table['left'] =     {   segments={ {vector(-a, 0, -size_l), vector(-size_w, 0, -size_l)},   -- back segment
+        table.left =     {   segments={ {vector(-a, 0, -size_l), vector(-size_w, 0, -size_l)},   -- back segment
                                            {vector(-size_w, 0, -size_l), vector(-size_w, 0, size_l)}, -- left edge
                                            {vector(-size_w, 0, size_l), vector(-a, 0, size_l)}  -- front segment
                                        },
                                 degrees={direction=-90, spread=(180-degree)/2}
                             }
-        table['right'] =    {   segments={ {vector(a, 0, -size_l), vector(size_w, 0, -size_l)},   -- back segment
+        table.right =    {   segments={ {vector(a, 0, -size_l), vector(size_w, 0, -size_l)},   -- back segment
                                            {vector(size_w, 0, -size_l), vector(size_w, 0, size_l)}, -- right edge
                                            {vector(size_w, 0, size_l), vector(a, 0, size_l)}  -- front segment
                                        },
@@ -1658,39 +1790,39 @@ ArcCheck.CalculateArcLineSegments = function(table, degree, size_w, size_l)
         print("Long:".. tostring(size_w)..","..tostring(size_l))
         local r = math.rad(90 - degree/2)
         local a = math.tan(r) * size_w
-        table['front'] =    {   segments={  {vector(-size_w, 0, a), vector(-size_w, 0, size_l)}, -- left segment
+        table.front =    {   segments={  {vector(-size_w, 0, a), vector(-size_w, 0, size_l)}, -- left segment
                                             {vector(-size_w, 0, size_l), vector(size_w, 0, size_l)}, -- front edge
                                             {vector(size_w, 0, size_l), vector(size_w, 0, a)} },-- right segment
                                 degrees={direction=0, spread=degree/2}
                             }
-        table['back'] =    {   segments={  {vector(-size_w, 0, -a), vector(-size_w, 0, -size_l)}, -- left segment
+        table.back =    {   segments={  {vector(-size_w, 0, -a), vector(-size_w, 0, -size_l)}, -- left segment
                                             {vector(-size_w, 0, -size_l), vector(size_w, 0, -size_l)}, -- back edge
                                             {vector(size_w, 0, -size_l), vector(size_w, 0, -a)} },-- right segment
                                 degrees={direction=180, spread=degree/2}
                             }
-        table['left'] =     {   segments={ {vector(-size_w, 0, -a), vector(-size_w, 0, a)}}, -- left segment
+        table.left =     {   segments={ {vector(-size_w, 0, -a), vector(-size_w, 0, a)}}, -- left segment
                                 degrees={direction=-90, spread=(180-degree)/2}
                             }
-        table['right'] =    {   segments={ {vector(size_w, 0, -a), vector(size_w, 0, a)}}, -- right segment
+        table.right =    {   segments={ {vector(size_w, 0, -a), vector(size_w, 0, a)}}, -- right segment
                                 degrees={direction=90, spread=(180-degree)/2}
                             }
     end
-    table['bullseye'] = {   segments={ {vector(-ArcCheck.bullseye_data.size[1]/2, 0, size_l), vector(ArcCheck.bullseye_data.size[1]/2, 0, size_l)} }, -- Bullseye segments
+    table.bullseye = {   segments={ {vector(-ArcCheck.bullseye_data.size[1]/2, 0, size_l), vector(ArcCheck.bullseye_data.size[1]/2, 0, size_l)} }, -- Bullseye segments
                             degrees={direction=0, spread=0, bullseye=true}
                         }
-    table['fullfront'] = {  segments={ {vector(-size_w, 0, 0), vector(-size_w, 0, size_l)},   -- left segment
+    table.fullfront = {  segments={ {vector(-size_w, 0, 0), vector(-size_w, 0, size_l)},   -- left segment
                                         {vector(-size_w, 0, size_l), vector(size_w, 0, size_l)}, -- front edge
                                         {vector(size_w, 0, size_l), vector(size_w, 0, 0)}  -- right segment
                                        },
                             degrees={direction=0, spread=90}
                         }
-    table['fullback'] = {  segments={ {vector(-size_w, 0, 0), vector(-size_w, 0, -size_l)},   -- left segment
+    table.fullback = {  segments={ {vector(-size_w, 0, 0), vector(-size_w, 0, -size_l)},   -- left segment
                                        {vector(-size_w, 0, -size_l), vector(size_w, 0, -size_l)}, -- back edge
                                        {vector(size_w, 0, -size_l), vector(size_w, 0, 0)}  -- right segment
                                    },
                             degrees={direction=180, spread=90}
                         }
-     table['full'] =    {   segments={ {vector(-size_w, 0, size_l), vector(size_w, 0, size_l)},   -- front edge
+     table.full =    {   segments={ {vector(-size_w, 0, size_l), vector(size_w, 0, size_l)},   -- front edge
                                        {vector(size_w, 0, size_l), vector(size_w, 0, -size_l)}, -- right edge
                                        {vector(size_w, 0, -size_l), vector(-size_w, 0, -size_l)},  -- back edge
                                        {vector(-size_w, 0, -size_l), vector(-size_w, 0, size_l)}  -- left edge
@@ -1716,17 +1848,17 @@ function CheckArc(args)
     table.sort(targets, ArcCheck.SortTargetsByDesirability)
     local found = false
     for i, target in pairs(targets) do
-        ship = target['ship']
-        if target['in_arc'] == false then
+        ship = target.ship
+        if target.in_arc == false then
             --printToAll(' - ' .. ship.getName() .. ' not in arc')
-        elseif target['closest'].range > range then
+        elseif target.closest.range > range then
             --printToAll(' - ' .. ship.getName() .. ' not in range')
         else
             found = true
             ship.setLock(true)
-            table.insert(spawnedRulers, ArcCheck.SpawnObstructionRuler(target['closest']))
-            if target['other_closest'] ~= nil then
-                table.insert(spawnedRulers, ArcCheck.SpawnObstructionRuler(target['other_closest']))
+            table.insert(spawnedRulers, ArcCheck.SpawnObstructionRuler(target.closest))
+            if target.other_closest ~= nil then
+                table.insert(spawnedRulers, ArcCheck.SpawnObstructionRuler(target.other_closest))
             end
 
             if args.arctype == "full" then
@@ -1734,26 +1866,26 @@ function CheckArc(args)
             else
 
                 obstructedtext = ' is'
-                if (target['obstructed'] == 'likely_unobstructed') then
+                if (target.obstructed == 'likely_unobstructed') then
                     obstructedtext = ' is most likely UNOBSTRUCTED'
-                elseif (target['obstructed'] == 'obstructed') then
+                elseif (target.obstructed == 'obstructed') then
                     obstructedtext = ' is OBSTRUCTED'
-                elseif (target['obstructed'] == 'likely_obstructed') then
+                elseif (target.obstructed == 'likely_obstructed') then
                     obstructedtext = ' is most likely OBSTRUCTED'
-                elseif (target['obstructed'] == 'chosen_obstructed') then
+                elseif (target.obstructed == 'chosen_obstructed') then
                     obstructedtext = ' can be chosen to be OBSTRUCTED'
                 end
 
                 multipletext = ''
-                if target['multiple_points'] == true then
+                if target.multiple_points == true then
                     multipletext = ' has multiple closest points and'
                 end
 
                 bullseyetext = ''
-                if target['bullseye'] == true then
+                if target.bullseye == true then
                     bullseyetext = ' in bullseye'
                 end
-                printToAll(" - " .. ship.getName().. multipletext .. obstructedtext .. ' at range ' ..tostring(target['closest'].range) .. bullseyetext, color(1.0, 1.0, 0.2, 0.9))
+                printToAll(" - " .. ship.getName().. multipletext .. obstructedtext .. ' at range ' ..tostring(target.closest.range) .. bullseyetext, color(1.0, 1.0, 0.2, 0.9))
             end
         end
     end
@@ -1835,7 +1967,7 @@ ArcCheck.GetTargetsInRelationToArc = function(ship, arc, fixed_targets, range)
 
         for i, bt in pairs(bullseye_targets) do
             if bt == pt then
-                target['bullseye'] = true
+                target.bullseye = true
             end
         end
         local target_line_segments = {}
@@ -1850,42 +1982,42 @@ ArcCheck.GetTargetsInRelationToArc = function(ship, arc, fixed_targets, range)
             local other = nil
             local closest = nil
             closest, other = ArcCheck.GetDistanceBetweenLineSegments(own_line_segments, target_line_segments)
-            target['in_arc'] = true
-            target['obstructed'] = 'unobstructed'
-            target['closest'] = closest
-            target['multiple_points'] = false
+            target.in_arc = true
+            target.obstructed = 'unobstructed'
+            target.closest = closest
+            target.multiple_points = false
 
             if closest.range <= range then
                 found = true
-                target['closest'].obstructions = ArcCheck.CheckObstruction(closest, target.ship, ship)
-                target['closest'].in_bullseye = target['bullseye']
+                target.closest.obstructions = ArcCheck.CheckObstruction(closest, target.ship, ship)
+                target.closest.in_bullseye = target.bullseye
                 if other ~= nil then
-                    target['obstructed'] = 'likely_unobstructed'
-                    target['multiple_points'] = true
+                    target.obstructed = 'likely_unobstructed'
+                    target.multiple_points = true
 
                     other.obstructions = ArcCheck.CheckObstruction(other, target.ship, ship)
-                    other.in_bullseye = target['bullseye']
-                    target['other_closest'] = other
+                    other.in_bullseye = target.bullseye
+                    target.other_closest = other
                 end
 
                 if #closest.obstructions ~= 0 then
                     if other ~= nil then
                         if #other.obstructions ~= 0 then
-                            target['obstructed'] = 'likely_obstructed'
+                            target.obstructed = 'likely_obstructed'
                         else
-                            target['obstructed'] = 'chosen_obstructed'
+                            target.obstructed = 'chosen_obstructed'
                         end
                     else
-                        target['obstructed'] = 'obstructed'
+                        target.obstructed = 'obstructed'
                     end
                 else
                     if other ~=nil and #other.obstructions ~= 0 then
-                        target['obstructed'] = 'chosen_obstructed'
+                        target.obstructed = 'chosen_obstructed'
                     end
                 end
             end
         else
-            target['in_arc'] = false
+            target.in_arc = false
         end
 
         table.insert(targets, target)
@@ -1907,52 +2039,52 @@ in the following order:
 - GUID as a fallback
 --]]
 ArcCheck.SortTargetsByDesirability = function(e1, e2)
-    if e1['in_arc'] == true and e2['in_arc'] == false then
+    if e1.in_arc == true and e2.in_arc == false then
         return true
-    elseif e1['in_arc'] == false and e2['in_arc'] == true then
+    elseif e1.in_arc == false and e2.in_arc == true then
         return false
-    elseif e1['in_arc'] == true then
-        if e1['closest'].range < e2['closest'].range then
+    elseif e1.in_arc == true then
+        if e1.closest.range < e2.closest.range then
             return true
-        elseif e1['closest'].range > e2['closest'].range then
+        elseif e1.closest.range > e2.closest.range then
             return false
         end
 
         -- Gotta be a better way of doing this...
-        if e1['obstructed'] ~= e2['obstructed'] then
-            if e1['obstructed'] == 'unobstructed' then
+        if e1.obstructed ~= e2.obstructed then
+            if e1.obstructed == 'unobstructed' then
                 return true
-            elseif e2['obstructed'] == 'unobstructed' then
+            elseif e2.obstructed == 'unobstructed' then
                 return false
             end
 
-            if e1['obstructed'] == 'likely_unobstructed' then
+            if e1.obstructed == 'likely_unobstructed' then
                 return true
-            elseif e2['obstructed'] == 'likely_unobstructed' then
+            elseif e2.obstructed == 'likely_unobstructed' then
                 return false
             end
 
-            if e1['obstructed'] == 'chosen_obstructed' then
+            if e1.obstructed == 'chosen_obstructed' then
                 return true
-            elseif e2['obstructed'] == 'chosen_obstructed' then
+            elseif e2.obstructed == 'chosen_obstructed' then
                 return false
             end
 
-            if e1['obstructed'] == 'likely_obstructed' then
+            if e1.obstructed == 'likely_obstructed' then
                 return true
-            elseif e2['obstructed'] == 'likely_obstructed' then
+            elseif e2.obstructed == 'likely_obstructed' then
                 return false
             end
 
-            if e1['obstructed'] == 'obstructed' then
+            if e1.obstructed == 'obstructed' then
                 return true
-            elseif e2['obstructed'] == 'obstructed' then
+            elseif e2.obstructed == 'obstructed' then
                 return false
             end
         end
     end
 
-    return e1['ship'].getGUID() > e2['ship'].getGUID()
+    return e1.ship.getGUID() > e2.ship.getGUID()
 end
 
 ArcCheck.CheckObstruction = function(data, ship, ownship)
@@ -2178,7 +2310,7 @@ ArcCheck.GetBullseyeTargets = function(ship, pos, length)
     local collissions = Physics.cast({
         origin       = Vect.Sum(ship.getPosition(), Vect.RotateDeg(pos, ship.getRotation()[2] + 180)),
         orientation  = ship.getRotation(),
-        direction    = {0,0.001,0},
+        direction    = {0,-0.001,0},
         type         = 3,
         size         = castSize,
         max_distance = 1,
@@ -2189,11 +2321,47 @@ ArcCheck.GetBullseyeTargets = function(ship, pos, length)
     for k, hit in pairs(collissions) do
         if hit.hit_object.getGUID() ~= ship.getGUID() and MoveModule.SelectShips(hit.hit_object) then
             if hit.hit_object.getVar("owningPlayer") != myOwningPlayer then
-                table.insert(bullseye_targets, hit.hit_object)
+                -- remove false targets, where only the nub is hit
+                if ArcCheck.VerifyBullseye(ship, hit.hit_object) then
+                    table.insert(bullseye_targets, hit.hit_object)
+                end
             end
         end
     end
     return bullseye_targets
+end
+
+ArcCheck.VerifyBullseye = function(ship, target)
+    local left = false
+    local right = false
+    local half_bullseye = (ArcCheck.bullseye_data.size[1]/2)
+    print("Half_bullseye = " .. tostring(half_bullseye))
+
+    -- Translate target corners into ship object Space
+    local size = Convert_mm_igu((mm_baseSize[target.getTable("Data").Size]/2))
+    local t_rotation = target.getRotation().y
+    local s_rotation = ship.getRotation().y
+    local target_corners = {}
+    target_corners[1] = vector(-size, 0, size)
+    target_corners[2] = vector(-size, 0, -size)
+    target_corners[3] = vector(size, 0, size)
+    target_corners[4] = vector(size, 0, -size)
+    for _, target_corner in pairs(target_corners) do
+        local world_corner = target_corner:rotateOver('y',t_rotation) + target.getPosition() - ship.getPosition()
+        local local_corner = world_corner:rotateOver('y', - s_rotation)
+        print ("Local corner: " .. tostring(local_corner[1]) .. "," .. tostring(local_corner[2]) ..  "," .. tostring(local_corner[3]))
+        if local_corner.x > -half_bullseye then
+            right = true
+        end
+        if local_corner.x < half_bullseye then
+            left = true
+        end
+        if left and right then
+            return true
+        end
+
+    end
+    return false
 end
 
 
@@ -2210,7 +2378,7 @@ ArcCheck.GetShipsWithinRange = function(ship, range, include_enemy_ships, includ
     local cast_radius = Convert_mm_igu(range)
     local collisions = Physics.cast({
         origin       = ship.getPosition() + vector(0,0.1,0),
-        direction    = {0,0.001,0},
+        direction    = {0,-0.001,0},
         type         = 2,
         size         = {cast_radius, cast_radius, cast_radius},
         max_distance = 1,
@@ -2323,25 +2491,28 @@ ArcCheck.GetTargetLineSegmentsInArc = function(ship, target, arcinfo)
                                             Vect.RotateDeg(Vect.Between(ship.getPosition(), rotated_segment[2] ), -ship.getRotation()[2])}
             local x1 = math.min(ownship_oriented_segment[1][1], ownship_oriented_segment[2][1])
             local x2 = math.max(ownship_oriented_segment[1][1], ownship_oriented_segment[2][1])
-
+            print("x1:" .. tostring(x1) .. " x2:" .. tostring(x2))
+            print("ownship_oriented_segment[1][3]:" .. tostring(ownship_oriented_segment[1][3]))
             local in_arc = true
             if ownship_oriented_segment[1][3] < 0 then -- Target in front (Yeah it is backwards)
                 if x1 < -half_bullseye then
                     x1 = -half_bullseye
                     if x2 > -half_bullseye then
                         x2 = math.min(half_bullseye, x2)
-                        p1 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x1, ownship_oriented_segment[1][2], 0), vector(x1, ownship_oriented_segment[1][2], 20))
-                        p2 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x2, ownship_oriented_segment[1][2], 0), vector(x2, ownship_oriented_segment[1][2], 20))
+                        p1 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x1, ownship_oriented_segment[1][2], 0), vector(x1, ownship_oriented_segment[1][2], -20), true)
+                        p2 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x2, ownship_oriented_segment[1][2], 0), vector(x2, ownship_oriented_segment[1][2], -20), true)
                         if p1 ~= nil and p2 ~= nil then
+                            print("test1")
                           table.insert(outsegments, { Vect.Sum(Vect.RotateDeg(p1, ship.getRotation()[2]), ship.getPosition()),
                                                       Vect.Sum(Vect.RotateDeg(p2, ship.getRotation()[2]), ship.getPosition())})
                         end
                     end
                 elseif x1 < half_bullseye then
                     x2 = math.min(half_bullseye, x2)
-                    p1 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x1, ownship_oriented_segment[1][2], 0), vector(x1, ownship_oriented_segment[1][2], 20))
-                    p2 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x2, ownship_oriented_segment[1][2], 0), vector(x2, ownship_oriented_segment[1][2], 20))
+                    p1 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x1, ownship_oriented_segment[1][2], 0), vector(x1, ownship_oriented_segment[1][2], -20), true)
+                    p2 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x2, ownship_oriented_segment[1][2], 0), vector(x2, ownship_oriented_segment[1][2], -20), true)
                     if p1 ~= nil and p2 ~= nil then
+                        print("test2")
                       table.insert(outsegments, { Vect.Sum(Vect.RotateDeg(p1, ship.getRotation()[2]), ship.getPosition()),
                                                   Vect.Sum(Vect.RotateDeg(p2, ship.getRotation()[2]), ship.getPosition())})
                     end
@@ -2352,7 +2523,14 @@ ArcCheck.GetTargetLineSegmentsInArc = function(ship, target, arcinfo)
     return outsegments
 end
 
-ArcCheck.GetLineLineIntersection = function(p0, p1, p2, p3)
+ArcCheck.GetLineLineIntersection = function(p0, p1, p2, p3, expect_intersection)
+
+    local max = 1
+    local min = 0
+    if expect_intersection then
+        max = 1.00001
+        min = -0.00001
+    end
 
     local s1_x = p1[1] - p0[1]
     local s1_y = p1[3] - p0[3]
@@ -2361,8 +2539,7 @@ ArcCheck.GetLineLineIntersection = function(p0, p1, p2, p3)
 
     local s = (-s1_y * (p0[1] - p2[1]) + s1_x * (p0[3] - p2[3])) / (-s2_x * s1_y + s1_x * s2_y)
     local t = ( s2_x * (p0[3] - p2[3]) - s2_y * (p0[1] - p2[1])) / (-s2_x * s1_y + s1_x * s2_y)
-
-    if (s >= 0 and s <= 1 and t >= 0 and t <= 1) then
+    if (s >= 0 and s <= max and t >= 0 and t <= max) then
         -- Collision detected
         return vector( p0[1] + (t * s1_x), p0[2], p0[3] + (t * s1_y))
     end
@@ -2502,7 +2679,7 @@ end
 MoveData.DecodeInfo = function (move_code, ship)
     local info = {
                                         -- [option1] [option2] ... [optionN]  // [errorOption]
-                    type='invalid',     -- [straight] [bank] [turn] [roll] [viper] [cloak] [echo] //  [invalid]
+                    type='invalid',     -- [straight] [bank] [turn] [roll] [viper] [cloak] [echo] [slipBank] [ slipTurn]//  [invalid]
                     speed=nil,          -- [1] [2] [3] [4] [5]  //  [nil]
                     dir=nil,            -- [left] [right] [nil]
                     extra=nil,          -- [koiogran] [segnor] [talon] [reverse] [straight] [forward] [backward] [nil]
@@ -2589,6 +2766,11 @@ MoveData.DecodeInfo = function (move_code, ship)
             info.extra = 'reverse'
             info.note = 'flew reverse bank ' .. info.dir .. ' ' .. info.speed
             info.collNote = 'tried to fly reverse bank ' .. info.dir .. ' ' .. info.speed
+        elseif move_code:sub(-1,-1) == 'z' then
+            info.type = 'slipBank'
+            info.extra = 'slipBank'
+            info.note = 'sliped bank ' .. info.dir .. ' ' .. info.speed
+            info.collNote = 'tried to slip bank ' .. info.dir .. ' ' .. info.speed
         elseif move_code:sub(-1,-1) == 'b' then
             info.traits.part = false
             local boostSpd = ''
@@ -2637,6 +2819,11 @@ MoveData.DecodeInfo = function (move_code, ship)
             info.extra = 'reverse'
             info.note = 'flew reverse turn ' .. info.dir .. ' ' .. info.speed
             info.collNote = 'tried to fly reverse turn ' .. info.dir .. ' ' .. info.speed
+        elseif move_code:sub(-1,-1) == 'z' then
+            info.type = 'slipTurn'
+            info.extra = 'slipTurn'
+            info.note = 'sliped turn ' .. info.dir .. ' ' .. info.speed
+            info.collNote = 'tried to slip turn ' .. info.dir .. ' ' .. info.speed
         elseif move_code:sub(-1,-1) == 'b' then
             info.traits.part = false
             local boostSpd = ''
@@ -3282,17 +3469,16 @@ MoveModule.castData = {}
 MoveModule.castData.small = {}
 MoveModule.castData.small.base = {
     debug=false,
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=3,
     size={Convert_mm_igu(40), Convert_mm_igu(6), Convert_mm_igu(40)},
-    debug=false
     -- + Origin
     -- + Orientation
 }
 MoveModule.castData.small.nubFR = {
     debug=false,
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(20.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3300,7 +3486,7 @@ MoveModule.castData.small.nubFR = {
 MoveModule.castData.small.nubFL = {
     debug=false,
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(20.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3308,7 +3494,7 @@ MoveModule.castData.small.nubFL = {
 MoveModule.castData.small.nubBR = {
     debug=false,
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(20.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3316,7 +3502,7 @@ MoveModule.castData.small.nubBR = {
 MoveModule.castData.small.nubBL = {
     debug=false,
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(20.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3325,7 +3511,7 @@ MoveModule.castData.small.nubBL = {
 MoveModule.castData.medium = {}
 MoveModule.castData.medium.base = {
     debug=false,
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=3,
     size={Convert_mm_igu(60), Convert_mm_igu(6), Convert_mm_igu(60)},
     -- + Origin
@@ -3334,7 +3520,7 @@ MoveModule.castData.medium.base = {
 MoveModule.castData.medium.nubFR = {
     debug=false,
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(30.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3342,7 +3528,7 @@ MoveModule.castData.medium.nubFR = {
 MoveModule.castData.medium.nubFL = {
     debug=false,
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(30.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3350,7 +3536,7 @@ MoveModule.castData.medium.nubFL = {
 MoveModule.castData.medium.nubBR = {
     debug=false,
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(30.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3358,7 +3544,7 @@ MoveModule.castData.medium.nubBR = {
 MoveModule.castData.medium.nubBL = {
     debug=false,
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(30.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3368,7 +3554,7 @@ MoveModule.castData.medium.nubBL = {
 MoveModule.castData.large = {}
 MoveModule.castData.large.base = {
     debug=false,
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=3,
     size={Convert_mm_igu(80), Convert_mm_igu(6), Convert_mm_igu(80)},
     -- + Origin
@@ -3377,7 +3563,7 @@ MoveModule.castData.large.base = {
 MoveModule.castData.large.nubFR = {
     debug=false,
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(40.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3385,7 +3571,7 @@ MoveModule.castData.large.nubFR = {
 MoveModule.castData.large.nubFL = {
     debug=false,
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(40.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3393,7 +3579,7 @@ MoveModule.castData.large.nubFL = {
 MoveModule.castData.large.nubBR = {
     debug=false,
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(40.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3401,7 +3587,7 @@ MoveModule.castData.large.nubBR = {
 MoveModule.castData.large.nubBL = {
     debug=false,
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(40.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3410,7 +3596,7 @@ MoveModule.castData.large.nubBL = {
 MoveModule.castData.huge = {}
 MoveModule.castData.huge.base = {
     debug=false,
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=3,
     size={Convert_mm_igu(80), Convert_mm_igu(6), Convert_mm_igu(221)},
     -- + Origin
@@ -3419,7 +3605,7 @@ MoveModule.castData.huge.base = {
 MoveModule.castData.huge.nubFR = {
     debug=false,
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(111.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3427,7 +3613,7 @@ MoveModule.castData.huge.nubFR = {
 MoveModule.castData.huge.nubFL = {
     debug=false,
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(111.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3435,7 +3621,7 @@ MoveModule.castData.huge.nubFL = {
 MoveModule.castData.huge.nubBR = {
     debug=false,
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(111.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3443,7 +3629,7 @@ MoveModule.castData.huge.nubBR = {
 MoveModule.castData.huge.nubBL = {
     debug=false,
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(111.858)},
-    direction = {0, 0.001, 0},
+    direction = {0, -0.001, 0},
     type=2,
     size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
     -- + Origin
@@ -3500,7 +3686,6 @@ end
 -- Return:
 --      Concatenated table of all objects that would overlap ship in this situation and pass select function
 MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, SelectFun)
-
     local gTable = {[excludeObj.getGUID()]=true}
 
     for k, coll in pairs(collList) do
@@ -3533,6 +3718,9 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
         end
         templateData.speed = 1
         templateData.type = "bank"
+    elseif templateData.type == "slipBank" then
+        templateOrigin = MoveModule.GetTemplateOrigin(templateData.origin, templateData.orientation, templateData.shipSize, templateData.dir)
+        templateData.type = "bank"
     elseif templateData.type == "echoF"  then
         templateOrigin = MoveModule.GetTemplateOrigin(templateData.origin, templateData.orientation, templateData.shipSize, templateData.dir)
         templateData.speed = 2
@@ -3560,27 +3748,25 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
 
     if templateData.type == "straight" or templateData.type == "roll" or templateData.type == "deCloak" then
         local offsetDistance = Convert_mm_igu(20)* tonumber(templateData.speed)
+        local size = {Convert_mm_igu(20), Convert_mm_igu(6), templateData.speed*Convert_mm_igu(40)}
+        if (templateData.type =="roll"  or templateData.type == "deCloak") and templateData.shipSize ~= "small" then
+            size = {Convert_mm_igu(40), Convert_mm_igu(6), Convert_mm_igu(20)}
+            offsetDistance = Convert_mm_igu(10)
+        end
+        local offset = vector(offsetDistance * math.sin(math.rad(templateOrigin.rot.y)),
+        0, offsetDistance * math.cos(math.rad(templateOrigin.rot.y)) )
 
-         local size = {Convert_mm_igu(20), Convert_mm_igu(6), templateData.speed*Convert_mm_igu(40)}
-         if (templateData.type =="roll"  or templateData.type == "deCloak") and templateData.shipSize ~= "small" then
-             size = {Convert_mm_igu(40), Convert_mm_igu(6), Convert_mm_igu(20)}
-             offsetDistance = Convert_mm_igu(10)
-         end
+        local collissions = Physics.cast({
+            origin       = templateOrigin.pos + offset,
+            orientation  = templateOrigin.rot,
+            direction    = {0,-0.001,0},
+            type         = 3,
+            size         = size,
+            max_distance = 1,
+            debug        = false
+        })
 
-         local offset = vector(offsetDistance * math.sin(math.rad(templateOrigin.rot.y)),
-          0, offsetDistance * math.cos(math.rad(templateOrigin.rot.y)) )
-
-         local collissions = Physics.cast({
-             origin       = templateOrigin.pos + offset,
-             orientation  = templateOrigin.rot,
-             direction    = {0,0.001,0},
-             type         = 3,
-             size         = size,
-             max_distance = 1,
-             debug        = false
-         })
-
-         MoveModule.AddCollissionEntry(gTable, collList, collissions, SelectFun)
+        MoveModule.AddCollissionEntry(gTable, collList, collissions, SelectFun)
     elseif templateData.type == "bank" then
         local radius = 0
         if templateData.speed == 1 then
@@ -3610,7 +3796,7 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
             local collissions = Physics.cast({
                 origin       = templateOrigin.pos + position_offset,
                 orientation  = templateOrigin.rot + orientation_offset * dir_mod,
-                direction    = {0,0.001,0},
+                direction    = {0,-0.001,0},
                 type         = 3,
                 size         = {Convert_mm_igu(20), Convert_mm_igu(6), Convert_mm_igu(1)},
                 max_distance = 1,
@@ -3648,7 +3834,7 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
             local collissions = Physics.cast({
                 origin       = templateOrigin.pos + position_offset,
                 orientation  = templateOrigin.rot + orientation_offset * dir_mod,
-                direction    = {0,0.001,0},
+                direction    = {0,-0.001,0},
                 type         = 3,
                 size         = {Convert_mm_igu(20), Convert_mm_igu(6), Convert_mm_igu(1)},
                 max_distance = 1,
@@ -4020,7 +4206,8 @@ end
 --      finData     <- {pos = targetPos, rot=targetRot}
 --      saveName    <- move code for history save, no save done if nil
 --      finFunction <- optional, function to call when the ship has come to rest
-MoveModule.MoveShip = function(ship, finData, saveName, finFunction)
+--      waitForTokens <- optional, whether or not we have to wait for the ships tokens to also come to a rest
+MoveModule.MoveShip = function(ship, finData, saveName, finFunction, waitForTokens)
     if not ShipVerification.VerifyShipBase(ship) then
         return
     end
@@ -4039,7 +4226,7 @@ MoveModule.MoveShip = function(ship, finData, saveName, finFunction)
     ship.setPositionSmooth(finPos.pos, false, true)
     ship.setRotationSmooth(finPos.rot, false, true)
     -- Wait for resting, but provide final position to set so smooth move doesn't fuck with accuracy
-    MoveModule.WaitForResting(ship, finPos, finFunction)
+    MoveModule.WaitForResting(ship, finPos, finFunction, waitForTokens)
     if saveName ~= nil then
         MoveModule.AddHistoryEntry(ship, {pos=finPos.pos, rot=finPos.rot, move=saveName, part=finData.finPart, finType=finData.finType})
     end
@@ -4063,8 +4250,9 @@ MoveModule.tokenWaitQueue = {}
 -- Add ship to the queue so it fires once it completes the move
 -- OPTIONAL: finPos     <- position to be set at the end of the wait
 -- OPTIONAL: finFun     <- function to be execeuted at the end of the wait (argument: waiting ship)
-MoveModule.WaitForResting = function(ship, finPos, finFun)
-    table.insert(MoveModule.restWaitQueue, {ship=ship, finPos=finPos, finFun=finFun})
+-- OPTIONAL: tokens     <- whether we also have to wait for the ship's tokens to finish moving afterwards.
+MoveModule.WaitForResting = function(ship, finPos, finFun, waitForTokens)
+    table.insert(MoveModule.restWaitQueue, {ship=ship, finPos=finPos, finFun=finFun, waitForTokens=waitForTokens})
     startLuaCoroutine(Global, 'restWaitCoroutine')
 end
 
@@ -4081,6 +4269,7 @@ function restWaitCoroutine()
     local actShip = waitData.ship
     local finPos = waitData.finPos
     local finFun = waitData.finFun
+    local waitForTokens = waitData.waitForTokens
     table.remove(MoveModule.restWaitQueue, #MoveModule.restWaitQueue)
     -- Wait
     repeat
@@ -4112,6 +4301,12 @@ function restWaitCoroutine()
         end
     end
 
+    if waitForTokens == true then
+        repeat
+            coroutine.yield(0)
+        until TokenModule.DoesShipHasAnySmoothMovingTokens(actShip) == false
+    end
+
     MoveModule.tokenWaitQueue = newTokenTable
     actShip.lock()
     actShip.highlightOn({0, 1, 0}, 0.1)
@@ -4126,8 +4321,10 @@ end
 -- How move is preformed generally relies on MoveData.DecodeInfo for its code
 -- Includes token handling so nothing obscurs the final position
 -- Starts the wait coroutine that handles stuff done when ship settles down
--- Takes an optional parameter, the function to call at the end of the move.
-MoveModule.PerformMove = function(move_code, ship, ignoreCollisions, finishFunction)
+-- Takes two optional parameters, the function to call at the end of the move,
+-- and whether we have to wait for the tokens to come to a rest before calling
+-- it.
+MoveModule.PerformMove = function(move_code, ship, ignoreCollisions, finishFunction, waitForTokens)
     ship.lock()
     local originalPos = ship.getPosition()
     local origionalRot = ship.getRotation()
@@ -4146,7 +4343,7 @@ MoveModule.PerformMove = function(move_code, ship, ignoreCollisions, finishFunct
     end
 
     if finData.finType ~= 'overlap' then
-        MoveModule.MoveShip(ship, finData, move_code, finishFunction)
+        MoveModule.MoveShip(ship, finData, move_code, finishFunction, waitForTokens)
         if finData.collObj ~= nil then
             MoveModule.SpawnOverlapReminder(ship)
         end
@@ -4825,6 +5022,18 @@ TokenModule.GetShipTokens = function(ship)
     return ship.call("GetTokens")
 end
 
+-- Returns whether any of this ships tokens are currently smooth moving.
+TokenModule.DoesShipHasAnySmoothMovingTokens = function(ship)
+    local ship_tokens = TokenModule.GetShipTokens(ship)
+    for _, token in pairs(ship_tokens) do
+        if token.isSmoothMoving() then
+            return true
+        end
+    end
+
+    return false
+end
+
 -- Clear given distance within position from tokens
 -- If given third argument, this hip tokens will be ignored
 -- Tokens that have an owner will be moved near(er)/on it
@@ -4948,20 +5157,20 @@ DialModule.PerformAction = function(ship, type, playerColor, args)
         else
 
             local destinationShip = ship
-            if args ~= nil and args['target'] ~= nil then
-                destinationShip = args['target']
+            if args ~= nil and args.target ~= nil then
+                destinationShip = args.target
             end
             local dest = TokenModule.VisiblePosition(type, destinationShip)
-            local flipToken = args ~= nil and args['flip'] == true
+            local flipToken = args ~= nil and args.flip == true
             local newToken = TokenModule.TakeToken(type, playerColor, dest, flipToken)
 
             if type == 'Target Lock' then
                 local lockArguments = {lock=newToken, name=ship.getName(), color=playerColor}
-                if args ~= nil and args['ship'] ~= nil and args['target'] ~= nil then
+                if args ~= nil and args.ship ~= nil and args.target ~= nil then
                     -- The AI system passes in arguments to automatically assign the
                     -- lock. Process these if they've been passed in.
-                    lockArguments.ship=args['ship']
-                    lockArguments.target=args['target']
+                    lockArguments.ship=args.ship
+                    lockArguments.target=args.target
                 end
                 table.insert(TokenModule.locksToBeSet, lockArguments)
                 announceInfo.note = 'acquired a target lock'
@@ -5010,6 +5219,12 @@ DialModule.TemplateData.bank.trim = { left = {{-2,0,-4,0}, {-5.5,0,-5.2,0}, {-9.
 DialModule.TemplateData.bank[1] = {80*(1-math.cos(math.pi/8)), 0, 80*math.sin(math.pi/8), 180}
 DialModule.TemplateData.bank[2] = {130*(1-math.cos(math.pi/8)), 0, 130*math.sin(math.pi/8), 180}
 DialModule.TemplateData.bank[3] = {180*(1-math.cos(math.pi/8)), 0, 180*math.sin(math.pi/8), 180}
+DialModule.TemplateData.slipBank = {}
+DialModule.TemplateData.slipBank.leftRot = 45
+DialModule.TemplateData.slipBank.trim = { left = {{-2,0,-4,0}, {-5.5,0,-5.2,0}, {-9.3,0,-6.45,0}}, right={{4.2,0,1.2,0}, {7.8,0,-0.3,0}, {11.5,0,-1.4,0}} }
+DialModule.TemplateData.slipBank[1] = {80*(1-math.cos(math.pi/8)), 0, 80*math.sin(math.pi/8), 180}
+DialModule.TemplateData.slipBank[2] = {130*(1-math.cos(math.pi/8)), 0, 130*math.sin(math.pi/8), 180}
+DialModule.TemplateData.slipBank[3] = {180*(1-math.cos(math.pi/8)), 0, 180*math.sin(math.pi/8), 180}
 DialModule.TemplateData.turn = {}
 DialModule.TemplateData.turn.leftRot = 90
 DialModule.TemplateData.turn.trim = { left = {{0,-2.5,0,0}, {-3,-2.5,-3.66,0}, {-4.7,-2.5,-7.5,0}}, right={{0,-2.5,0,0}, {3,-2.5,-4.1,0}, {4.5,-2.5,-7.8,0}} }
@@ -5124,7 +5339,7 @@ StringLen.charWidthTable = {
         ['avg'] = 2500
     }
 
--- Get real string lenght per char table
+-- Get real string length per char table
 StringLen.GetStringLength = function(str)
     local len = 0
     for i = 1, #str do
@@ -5201,7 +5416,9 @@ function Ruler_SelfDestruct(obj)
     for k, rTable in pairs(RulerModule.spawnedRulers) do
         if rTable.ruler == obj then
             for _, arcline in pairs(rTable.arclines) do
-                arcline.destruct()
+                if arcline ~= nil then
+                    arcline.destruct()
+                end
             end
             table.remove(RulerModule.spawnedRulers, k)
             break
@@ -5322,46 +5539,46 @@ XW_cmd.AddCommand('bull', 'rulerHandle')
 
 -- Translate ruler code to a mesh entry
 RulerModule.typeToKey = {}
-RulerModule.typeToKey['F'] = 'front'
-RulerModule.typeToKey['FF'] = 'fullfront'
-RulerModule.typeToKey['B'] = 'rear'
-RulerModule.typeToKey['FB'] = 'fullback'
-RulerModule.typeToKey['R'] = 'range'
-RulerModule.typeToKey['SL'] = 'sideArc'
-RulerModule.typeToKey['SR'] = 'sideArc'
-RulerModule.typeToKey['FRONTBACK'] = 'frontback'
-RulerModule.typeToKey['LEFTRIGHT'] = 'leftright'
-RulerModule.typeToKey['BULL'] = 'bullseye'
+RulerModule.typeToKey.F = 'front'
+RulerModule.typeToKey.FF = 'fullfront'
+RulerModule.typeToKey.B = 'rear'
+RulerModule.typeToKey.FB = 'fullback'
+RulerModule.typeToKey.R = 'range'
+RulerModule.typeToKey.SL = 'sideArc'
+RulerModule.typeToKey.SR = 'sideArc'
+RulerModule.typeToKey.FRONTBACK = 'frontback'
+RulerModule.typeToKey.LEFTRIGHT = 'leftright'
+RulerModule.typeToKey.BULL = 'bullseye'
 
 RulerModule.typeToArc = {}
-RulerModule.typeToArc['F'] = 'front'
-RulerModule.typeToArc['FF'] = 'fullfront'
-RulerModule.typeToArc['B'] = 'back'
-RulerModule.typeToArc['FB'] = 'fullback'
-RulerModule.typeToArc['R1'] = 'full'
-RulerModule.typeToArc['R2'] = 'full'
-RulerModule.typeToArc['R3'] = 'full'
-RulerModule.typeToArc['R'] = 'full'
-RulerModule.typeToArc['SL'] = 'left'
-RulerModule.typeToArc['SR'] = 'right'
-RulerModule.typeToArc['FRONTBACK'] = 'frontback'
-RulerModule.typeToArc['LEFTRIGHT'] = 'leftright'
-RulerModule.typeToArc['BULL'] = 'bullseye'
+RulerModule.typeToArc.F = 'front'
+RulerModule.typeToArc.FF = 'fullfront'
+RulerModule.typeToArc.B = 'back'
+RulerModule.typeToArc.FB = 'fullback'
+RulerModule.typeToArc.R1 = 'full'
+RulerModule.typeToArc.R2 = 'full'
+RulerModule.typeToArc.R3 = 'full'
+RulerModule.typeToArc.R = 'full'
+RulerModule.typeToArc.SL = 'left'
+RulerModule.typeToArc.SR = 'right'
+RulerModule.typeToArc.FRONTBACK = 'frontback'
+RulerModule.typeToArc.LEFTRIGHT = 'leftright'
+RulerModule.typeToArc.BULL = 'bullseye'
 
 RulerModule.typeToRange = {}
-RulerModule.typeToRange['F'] = 3
-RulerModule.typeToRange['FF'] = 3
-RulerModule.typeToRange['B'] = 3
-RulerModule.typeToRange['FB'] = 3
-RulerModule.typeToRange['R1'] = 1
-RulerModule.typeToRange['R2'] = 2
-RulerModule.typeToRange['R3'] = 3
-RulerModule.typeToRange['R'] = 3
-RulerModule.typeToRange['SL'] = 3
-RulerModule.typeToRange['SR'] = 3
-RulerModule.typeToRange['FRONTBACK'] = 3
-RulerModule.typeToRange['LEFTRIGHT'] = 3
-RulerModule.typeToRange['BULL'] = 3
+RulerModule.typeToRange.F = 3
+RulerModule.typeToRange.FF = 3
+RulerModule.typeToRange.B = 3
+RulerModule.typeToRange.FB = 3
+RulerModule.typeToRange.R1 = 1
+RulerModule.typeToRange.R2 = 2
+RulerModule.typeToRange.R3 = 3
+RulerModule.typeToRange.R = 3
+RulerModule.typeToRange.SL = 3
+RulerModule.typeToRange.SR = 3
+RulerModule.typeToRange.FRONTBACK = 3
+RulerModule.typeToRange.LEFTRIGHT = 3
+RulerModule.typeToRange.BULL = 3
 
 
 
@@ -5464,7 +5681,7 @@ RulerModule.SpawnRuler = function(ship, rulerType, beQuiet)
     table.insert(RulerModule.spawnedRulers, {ship = ship, ruler = newRuler, arclines = arclines,type = rulerType})
     newRuler.lock()
     newRuler.setScale(rulerData.params.scale)
-    local button = {click_function = 'Ruler_SelfDestruct', label = 'DEL', position = {0, 0.5, 0}, rotation =  {0, 0, 0}, width = 900, height = 900, font_size = 250}
+    local button = {click_function = 'Ruler_SelfDestruct', label = 'DEL', position = {0, 0.55, 0}, rotation =  {0, 0, 0}, width = 1200, height = 1200, font_size = 250}
     newRuler.createButton(button)
     return newRuler
 end
@@ -5475,7 +5692,9 @@ RulerModule.DeleteRuler = function(ship)
     for k,rTable in pairs(RulerModule.spawnedRulers) do
         if rTable.ship == ship then
             for _, arcline in pairs(rTable.arclines) do
-                arcline.destruct()
+                if arcline ~= nil then
+                    arcline.destruct()
+                end
             end
             rTable.ruler.destruct()
             local destType = rTable.type
@@ -5594,7 +5813,8 @@ BombModule.snapTable['Ion Bomb'] = 'standardAoE'
 BombModule.snapTable['Proton Bomb'] = 'standardAoE'
 BombModule.snapTable['Seismic Charge'] = 'standardAoE'
 BombModule.snapTable['Thermal Detonator'] = 'standardAoE'
-BombModule.snapTable['Bomblet'] = 'standardAoE'
+BombModule.snapTable.Bomblet = 'standardAoE'
+BombModule.snapTable['Electro-Proton Bomb'] = 'standardAoE'
 BombModule.snapTable['Proximity Mine'] = 'prox'
 BombModule.snapTable['Cluster Mine (middle)'] = 'cluster'
 BombModule.snapTable['Connor Net'] = 'connor'
@@ -5958,11 +6178,11 @@ function LocalPos(object, position)
     local rot = object.getRotation()
     local lPos = {position[1], position[2], position[3]}
     -- Z-X-Y extrinsic
-    local zRot = RotMatrix('z', rot['z'])
+    local zRot = RotMatrix('z', rot.z)
     lPos = RotateVector(zRot, lPos)
-    local xRot = RotMatrix('x', rot['x'])
+    local xRot = RotMatrix('x', rot.x)
     lPos = RotateVector(xRot, lPos)
-    local yRot = RotMatrix('y', rot['y'])
+    local yRot = RotMatrix('y', rot.y)
     lPos = RotateVector(yRot, lPos)
 
     return Vect_Sum(lPos, object.getPosition())
@@ -5970,46 +6190,27 @@ end
 
 ------
 
-
---Databases with data for special spawning conditions
---Provides data for the spawner regarding tokens and other accessories
-
---List of pilots with calculate action
-calculateDB = {}
-calculateDB['Guri'] = 0
-calculateDB['"Leebo"'] = 0
-calculateDB['IG%-88A'] = 0
-calculateDB['IG%-88B'] = 0
-calculateDB['IG%-88C'] = 0
-calculateDB['IG%-88D'] = 0
-calculateDB['4%-LOM'] = 0
-calculateDB['L3%-37'] = 0
-calculateDB['Autopilot Drone'] = 0
-calculateDB['Feethan Ottraw Autopilot'] = 0
-calculateDB['0%-66'] = 0
-calculateDB['Precise Hunter'] = 0
-calculateDB['DFS%-081'] = 0
-calculateDB['Separatist Drone'] = 0
-calculateDB['Haor Chall Prototype'] = 0
-calculateDB['DFS%-311'] = 0
-calculateDB['Trade Federation Drone'] = 0
-
---Stores cards wich add the Calculate actions
-addCalculateDB = {}
-addCalculateDB['C3-PO'] = 0
-
---Store pilots
-
---[[function onLoad()
-    objList=getAllObjects()
-    for k, v in pairs(objList) do
-        i.hide_when_face_down = false
-    end
-end]]
-
 function onObjectSpawned(obj)
     obj.hide_when_face_down = false
 end
+
+-- Positions for arc indicator tokens around the ship mounts
+-- Used so arc indicators can snap to the relevant positions
+mountPositions = {
+    ['small'] = {
+        ['main'] = {0, 0}
+    },
+    ['medium'] = {
+        ['main'] = {0, 0}
+    },
+    ['large'] = {
+        ['main'] = {0, 0}
+    },
+    ['huge'] = {
+        ['front'] = {0, -2.63},
+        ['rear'] = {0, 2.63}
+    }
+}
 
 -- Save and load ship data lua scriptState
 saveAndLoadShipStateLua = [[
@@ -6023,45 +6224,45 @@ function initContextMenu()
             self.addContextMenuItem("FireArc - Left & Right", function(argument) self.setDescription("leftright") end, false)
             self.addContextMenuItem("FireArc - Front & Back", function(argument) self.setDescription("frontback") end, false)
         elseif arctype == 'singleturret' then
-            if added_arcs['front'] == nil then
+            if added_arcs.front == nil then
                 self.addContextMenuItem("FireArc - Front", function(argument) self.setDescription("f") end, false)
-                added_arcs['front'] = true
+                added_arcs.front = true
             end
-            if added_arcs['back'] == nil then
+            if added_arcs.back == nil then
                 self.addContextMenuItem("FireArc - Back", function(argument) self.setDescription("b") end, false)
-                added_arcs['back'] = true
+                added_arcs.back = true
             end
-            if added_arcs['left'] == nil then
+            if added_arcs.left == nil then
                 self.addContextMenuItem("FireArc - Left", function(argument) self.setDescription("sl") end, false)
-                added_arcs['left'] = true
+                added_arcs.left = true
             end
-            if added_arcs['right'] == nil then
+            if added_arcs.right == nil then
                 self.addContextMenuItem("FireArc - Right", function(argument) self.setDescription("sr") end, false)
-                added_arcs['right'] = true
+                added_arcs.right = true
             end
         elseif arctype == 'front' then
-            if added_arcs['front'] == nil then
+            if added_arcs.front == nil then
                 self.addContextMenuItem("FireArc - Front", function(argument) self.setDescription("f") end, false)
-                added_arcs['front'] = true
+                added_arcs.front = true
             end
         elseif arctype == 'back' then
-            if added_arcs['back'] == nil then
+            if added_arcs.back == nil then
                 self.addContextMenuItem("FireArc - Back", function(argument) self.setDescription("b") end, false)
-                added_arcs['back'] = true
+                added_arcs.back = true
             end
         elseif arctype == 'fullfront' then
             self.addContextMenuItem("FireArc - Full Front", function(argument) self.setDescription("ff") end, false)
         elseif arctype == 'bullseye' then
-            self.addContextMenuItem("FireArc - Bullseye", function(argument) self.setDescription("bullseye") end, false)
+            self.addContextMenuItem("FireArc - Bullseye", function(argument) self.setDescription("bull") end, false)
         elseif arctype == 'left' then
-            if added_arcs['left'] == nil then
+            if added_arcs.left == nil then
                 self.addContextMenuItem("FireArc - Left", function(argument) self.setDescription("sl") end, false)
-                added_arcs['left'] = true
+                added_arcs.left = true
             end
         elseif arctype == 'right' then
-            if added_arcs['right'] == nil then
+            if added_arcs.right == nil then
                 self.addContextMenuItem("FireArc - Right", function(argument) self.setDescription("sr") end, false)
-                added_arcs['right'] = true
+                added_arcs.right = true
             end
         end
     end
@@ -6097,13 +6298,171 @@ function GetTokens(args)
     return tokens
 end
 
+assigned_arc_indicators = {}
+
+function AddArcIndicator(args)
+    assigned_arc_indicators[args.location] = args.indicator
+end
+
+function RemoveArcIndicator(args)
+    for location, indicator in pairs(assigned_arc_indicators) do
+        if indicator == args.indicator then
+            assigned_arc_indicators[location] = nil
+            break
+        end
+    end
+end
+
+function GetAvailableMountPositions(args)
+    local mount_positions = Global.getTable('mountPositions')[self.getTable("Data").Size]
+
+    for location, _ in pairs(assigned_arc_indicators) do
+        mount_positions[location] = nil
+    end
+
+    local ship_position = self.getPosition()
+    local ship_rotation = math.rad(self.GetRotation().y) * -1
+    for location, position in pairs(mount_positions) do
+        local transformed_position = {
+            ship_position.x + math.cos(ship_rotation) * position[1] - math.sin(ship_rotation) * position[2],
+            ship_position.y,
+            ship_position.z + math.sin(ship_rotation) * position[1] + math.cos(ship_rotation) * position[2]
+        }
+        mount_positions[location] = transformed_position
+    end
+
+    return mount_positions
+end
+
+function GetFixedArcs(args)
+    local fixed_arcs = {}
+    for _, arc in pairs(self.getTable("Data").arcs) do
+        if arc ~= 'doubleturret' and arc ~= 'singleturret' then
+            table.insert(fixed_arcs, arc)
+        end
+    end
+
+    return fixed_arcs
+end
+
+function GetAllTurretArcs(args)
+    local turret_arcs = {}
+    for _, arc_indicator in pairs(assigned_arc_indicators) do
+        local new_turret_arcs = arc_indicator.call('getArcs')
+
+        for _, new_arc in pairs(new_turret_arcs) do
+            local found = false
+            for _, existing_arc in pairs(turret_arcs) do
+                if new_arc == existing_arc then
+                    found = true
+                    break
+                end
+            end
+
+            if found == false then
+                table.insert(turret_arcs, new_arc)
+            end
+        end
+    end
+
+    return turret_arcs
+end
+
+function GetAllArcs(args)
+    local arcs = GetFixedArcs()
+    local turret_arcs = GetAllTurretArcs()
+
+    for _, turret_arc in pairs(turret_arcs) do
+        local found = false
+        for _, existing_arc in pairs(arcs) do
+            if turret_arc == existing_arc then
+                found = true
+                break
+            end
+        end
+
+        if found == false then
+            table.insert(arcs, turret_arc)
+        end
+    end
+
+    return arcs
+end
+
+function GetAssignedMounts()
+    local assigned_mounts = {}
+    for mount, _ in pairs(assigned_arc_indicators) do
+        table.insert(assigned_mounts, mount)
+    end
+    return assigned_mounts
+end
+
+function GetTurretArcs(args)
+    local turret_mount = args.mount or 'main'
+    return assigned_arc_indicators[turret_mount].call('getArcs')
+end
+
+function GetTurretArc(args)
+    local turret_mount = args.mount or 'main'
+    return assigned_arc_indicators[turret_mount].call('getArc')
+end
+
+function SetTurretArc(args)
+    local turret_mount = args.mount or 'main'
+    assigned_arc_indicators[turret_mount].call('setArc', {arc=args.arc, snap=args.snap})
+end
+
+function GetTurretType(args)
+    local turret_mount = args.mount or 'main'
+    local arc_indicator_name = assigned_arc_indicators[turret_mount].GetName()
+    if arc_indicator_name.find(self.getName(), 'Dual') ~= nil then
+        return 'doubleturret'
+    else
+        return 'singleturret'
+    end
+end
+
 -- Save self state
 function onSave()
     local state = {shipData=self.getTable("Data")}
+
+    state.tokenData = {tokens={},arcs={}}
+    for location, indicator in pairs(assigned_arc_indicators) do
+        state.tokenData.arcs[location] = indicator.getGUID()
+    end
+    for guid, _ in pairs(assigned_tokens) do
+        table.insert(state.tokenData.tokens, guid)
+    end
+
     return JSON.encode(state)
 end
 
+function linkArcIndicators()
+    Wait.condition(
+        function()
+            for location, guid in pairs(arc_indicator_queue) do
+                local arc_indicator = getObjectFromGUID(guid)
+                assigned_arc_indicators[location] = arc_indicator
+                arc_indicator.call('linkToShip', {ship=self})
+            end
+
+            arc_indicator_queue = {}
+        end,
+        function()
+            for location, guid in pairs(arc_indicator_queue) do
+                local arc_indicator = getObjectFromGUID(guid)
+                if arc_indicator == nil or arc_indicator.getVar('loaded') == false then
+                    return false
+                end
+            end
+
+            return true
+        end
+    )
+end
+
 -- Restore self state
+arc_indicator_queue = {}
 function onLoad(savedData)
     --print("OnLoad: ".. self.getName() .. " " .. savedData)
     if savedData ~= "" and Data == nil then
@@ -6112,9 +6471,22 @@ function onLoad(savedData)
         if state.shipData.arcs ~= nil then
             initContextMenu()
         end
+
+        for _, guid in ipairs(state.tokenData.tokens) do
+            assigned_tokens[guid] = getObjectFromGUID(guid)
+        end
+
+        local any_arcs = false
+        for location, guid in pairs(state.tokenData.arcs) do
+            any_arcs = true
+            break
+        end
+        if any_arcs then
+            arc_indicator_queue = state.tokenData.arcs
+            linkArcIndicators()
+        end
     end
 end
-
 ]]
 
 
@@ -6217,37 +6589,37 @@ function newSpawner(listTable)
         bombTokenDescription = ''
         -- Spawn Mobile Upgrades
         for j, Up in ipairs(Upgrades[shipIndex]) do
-            if  Up['Config'] == true then
+            if  Up.Config == true then
                 finalPos = LocalPos(spawnCard, {-2, 0, 0})      --Layout adjustment
                 spawnCard.setPosition(finalPos)
                 pos = LocalPos(spawnCard, {1.5, 0, 5.5})
                 rot = spawnCard.getRotation()
                 rot.y = rot.y
-                cardLink = (Up['card'])
-                cardBackLink = (Up['cardB'])
+                cardLink = (Up.card)
+                cardBackLink = (Up.cardB)
                 deck = Decker.Asset(cardLink, cardBackLink)
                 card = Decker.Card(deck,1, 1)
                 newUp = card:spawn({position = pos, rotation=rot, scale={0.68,0.68,0.68}})
-                newUp.setName(Up['name'])
+                newUp.setName(Up.name)
                 hasMob = 1
             end
         end
         for j, Up in ipairs(Upgrades[shipIndex]) do
-            if Up['Config'] ~= true then                               --Indicates there's a card left of the pilot card, for layout purposes
+            if Up.Config ~= true then                               --Indicates there's a card left of the pilot card, for layout purposes
                 pos = LocalPos(spawnCard, {-1.5 - 2*UpNum, 2-0.2*UpNum, 5.5})
                 rot = spawnCard.getRotation()
                 rot.y = rot.y - 90
-                cardLink = (Up['card'])
-                cardBLink = (Up['cardB'])
+                cardLink = (Up.card)
+                cardBLink = (Up.cardB)
                 deck = Decker.Asset(cardLink, cardBLink)
                 card = Decker.Card(deck,1, 1)
                 local rotUp = rot
                 rotUp.y = rotUp.y+90
                 newUp = card:spawn({position = pos, rotation=rotUp, scale={0.68,0.68,0.68}})
-                newUp.setName(Up['name'])
-                if Up['Condition'] ~= nil then                                            --Checks and spawn conditions associated to pilots
+                newUp.setName(Up.name)
+                if Up.Condition ~= nil then                                            --Checks and spawn conditions associated to pilots
                     for k, acc in ipairs(listaAcc) do
-                        if acc.name == Up['Condition'] then
+                        if acc.name == Up.Condition then
                             pos = LocalPos(spawnCard, {-2 - 2*UpNum, 2-0.2*UpNum, 8})
                             rot = spawnCard.getRotation()
                             newAsset = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
@@ -6257,7 +6629,7 @@ function newSpawner(listTable)
                     end
                 end
                 --Checks and spawns Charge Tokens with appropriate layout (up to 4 tokens)
-                charges = Up['Charge']
+                charges = Up.Charge
                 while charges > 0 do
                     for k, acc in ipairs(listaAcc) do
                         if acc.name == 'Charge' then
@@ -6291,14 +6663,14 @@ function newSpawner(listTable)
         end
 
         --Pilot and Ship Spawn
-        pilotName = Pilots[shipIndex]['name']
+        pilotName = Pilots[shipIndex].name
 
         local tint = color(0,0,0,0)
         if Configuration[pilotName] ~= nil then
             tint = Configuration[pilotName].tint or  color(0,0,0,0)
         end
-        card = Pilots[shipIndex]['card']
-        cardB = Pilots[shipIndex]['cardB']
+        card = Pilots[shipIndex].card
+        cardB = Pilots[shipIndex].cardB
         pos = LocalPos(spawnCard, {0, 3, 5.5})
         rot = spawnCard.getRotation()
         local newPil = nil
@@ -6367,10 +6739,10 @@ function newSpawner(listTable)
                 end
             end
         end
-        forceValue = Pilots[shipIndex]['Force'] --Checks for force value on Pilot and update forceValue
-        if Pilots[shipIndex]['Condition'] ~= nil then                                            --Checks and spawn conditions associated to pilots
+        forceValue = Pilots[shipIndex].Force --Checks for force value on Pilot and update forceValue
+        if Pilots[shipIndex].Condition ~= nil then                                            --Checks and spawn conditions associated to pilots
             for k, acc in ipairs(listaAcc) do
-                if acc.name == Pilots[shipIndex]['Condition'] then
+                if acc.name == Pilots[shipIndex].Condition then
                     pos = LocalPos(spawnCard, {-2 - 2*UpNum, 2-0.2*UpNum, 8})
                     rot = spawnCard.getRotation()
                     newAsset = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
@@ -6383,7 +6755,7 @@ function newSpawner(listTable)
         pos = LocalPos(spawnCard, {0, 0, 9})
         rot = spawnCard.getRotation()
         for v, ship in ipairs (listaShp) do
-            if ship.name == tostring(Pilots[shipIndex]['id']) then
+            if ship.name == tostring(Pilots[shipIndex].id) then
                 newShip = tempBagShp.takeObject({ position = pos,
                                                   rotation = rot,
                                                   guid = ship.guid
@@ -6429,13 +6801,13 @@ function newSpawner(listTable)
             end
             newShip.setName(pilotName)
             newShip.setCustomObject({
-                collider= ShipVerification.colliders[Pilots[shipIndex]['Size']],
+                collider= ShipVerification.colliders[Pilots[shipIndex].Size],
                 convex = true,
                 material = 1,
                 type = 1
             })
             newShip.setLock(true)
-            newShip.setTable("Data", Pilots[shipIndex]['Data'])
+            newShip.setTable("Data", Pilots[shipIndex].Data)
             newShip.setLuaScript(saveAndLoadShipStateLua)
             local ship = newShip
             local card = newPil
@@ -6446,13 +6818,13 @@ function newSpawner(listTable)
                 material = 1,
                 type = 1
             }
-            if Pilots[shipIndex]['Size'] == "small" then
+            if Pilots[shipIndex].Size == "small" then
                 customObj.mesh='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base_ID_Marker.obj'
-            elseif Pilots[shipIndex]['Size'] == "medium" then
+            elseif Pilots[shipIndex].Size == "medium" then
                 customObj.mesh='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base%20ID%20MED.obj'
-            elseif Pilots[shipIndex]['Size'] == "large" then
+            elseif Pilots[shipIndex].Size == "large" then
                 customObj.mesh='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base%20ID%20LAR.obj'
-            elseif Pilots[shipIndex]['Size'] == "huge" then
+            elseif Pilots[shipIndex].Size == "huge" then
                 customObj.mesh='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base_ID_HUGE.obj'
             end
             shipIdSpawnFunc = function()
@@ -6475,7 +6847,7 @@ function newSpawner(listTable)
         end
 
 
-        if Pilots[shipIndex]['Ship'] == 3 then
+        if Pilots[shipIndex].Ship == 3 then
             for k, acc in ipairs(listaAcc) do
                 if acc.name == 'StarViper Mk.II roll token' then
                     pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
@@ -6486,8 +6858,8 @@ function newSpawner(listTable)
             end
         end
 
-        if Pilots[shipIndex]['Turret'] ~= nil then       --Checks if upgrade should trigger the dual mobile arc indicator
-            if Pilots[shipIndex]['Turret'] == 2 then
+        if Pilots[shipIndex].Turret ~= nil then       --Checks if upgrade should trigger the dual mobile arc indicator
+            if Pilots[shipIndex].Turret == 2 then
                 dualTurret = 1
             else
                 Turret = 1
@@ -6514,18 +6886,18 @@ function newSpawner(listTable)
                 end
             end
         end
-        if Pilots[shipIndex]['Bomb'] == true then                                                       --Checks and spawn bomb drop token if needed
+        if Pilots[shipIndex].Bomb == true then                                                       --Checks and spawn bomb drop token if needed
             for k, acc in ipairs(listaAcc) do
                 if acc.name == 'Bomb drop token (unassigned)' then
                     pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
                     bombDrop = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
                     dropClone = bombDrop.clone()
                     tempBagAcc.putObject(dropClone)
-                    bombDrop.setDescription(Pilots[shipIndex]['bombD'])
+                    bombDrop.setDescription(Pilots[shipIndex].bombD)
                 end
             end
         end
-        if Pilots[shipIndex]['Docking'] == true then
+        if Pilots[shipIndex].Docking == true then
             for k, acc in ipairs(listaAcc) do
                 if acc.name == 'Shuttle Launcher (assigned to mothership)' then
                     pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
@@ -6535,7 +6907,7 @@ function newSpawner(listTable)
                 end
             end
         end
-        if Pilots[shipIndex]['wingleader'] == true then
+        if Pilots[shipIndex].wingleader == true then
             for k, acc in ipairs(listaAcc) do
                 if acc.name == 'Epic Wing Token' then
                     pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
@@ -6546,8 +6918,8 @@ function newSpawner(listTable)
             end
         end
 
-        if Pilots[shipIndex]['Charge'] ~= nil then   --Checks and spawns Charge Tokens with appropriate layout (up to 4 tokens)
-            charges = Pilots[shipIndex]['Charge']
+        if Pilots[shipIndex].Charge ~= nil then   --Checks and spawns Charge Tokens with appropriate layout (up to 4 tokens)
+            charges = Pilots[shipIndex].Charge
             while charges > 0 do
                 for k, acc in ipairs(listaAcc) do
                     if acc.name == 'Charge' then
@@ -6574,9 +6946,9 @@ function newSpawner(listTable)
                 end
             end
         end
-        if Pilots[shipIndex]['id'] ==0 then
-            if Pilots[shipIndex]['Turret'] ~= nil then       --Checks if upgrade should trigger the dual mobile arc indicator
-                if Pilots[shipIndex]['Turret'] == 2 then
+        if Pilots[shipIndex].id ==0 then
+            if Pilots[shipIndex].Turret ~= nil then       --Checks if upgrade should trigger the dual mobile arc indicator
+                if Pilots[shipIndex].Turret == 2 then
                     dualTurret = 1
                 else
                     Turret = 1
@@ -6603,30 +6975,30 @@ function newSpawner(listTable)
                     end
                 end
             end
-            if Pilots[shipIndex]['Bomb'] == true then                                                       --Checks and spawn bomb drop token if needed
+            if Pilots[shipIndex].Bomb == true then                                                       --Checks and spawn bomb drop token if needed
                 for k, acc in ipairs(listaAcc) do
                     if acc.name == 'Bomb drop token (unassigned)' then
                         pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
                         bombDrop = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
                         dropClone = bombDrop.clone()
                         tempBagAcc.putObject(dropClone)
-                        bombDrop.setDescription(Pilots[shipIndex]['bombD'])
+                        bombDrop.setDescription(Pilots[shipIndex].bombD)
                     end
                 end
             end
         end
-        while Pilots[shipIndex]['Force'] > 0 do
+        while Pilots[shipIndex].Force > 0 do
             for k, acc in ipairs(listaAcc) do
                 if acc.name == 'Force' then
-                    Pilots[shipIndex]['Force'] = Pilots[shipIndex]['Force'] - 1
+                    Pilots[shipIndex].Force = Pilots[shipIndex].Force - 1
                     if hasMob == 1 then                 --adjusts layout if Mobile Upgrade is present
-                        pos = LocalPos(spawnCard, {1.7 + 0.9*Pilots[shipIndex]['Force'], 0, 3.7})
+                        pos = LocalPos(spawnCard, {1.7 + 0.9*Pilots[shipIndex].Force, 0, 3.7})
                         rot = spawnCard.getRotation()
                         if forceValue >2 then
-                            pos = LocalPos(spawnCard, {1.7 + 0.9*(Pilots[shipIndex]['Force']-2), 0, 2.8})
+                            pos = LocalPos(spawnCard, {1.7 + 0.9*(Pilots[shipIndex].Force-2), 0, 2.8})
                         end
                     else
-                        pos = LocalPos(spawnCard, {1.7, 0, 3.7 + 0.9*Pilots[shipIndex]['Force']})
+                        pos = LocalPos(spawnCard, {1.7, 0, 3.7 + 0.9*Pilots[shipIndex].Force})
                         rot = spawnCard.getRotation()
                     end
                     forceToken = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
@@ -6636,16 +7008,16 @@ function newSpawner(listTable)
             end
         end
         --Spawns Shields
-        while Pilots[shipIndex]['Shield'] > 0 do                                        --spawn shield tokens, layout good for up to 9 shields
+        while Pilots[shipIndex].Shield > 0 do                                        --spawn shield tokens, layout good for up to 9 shields
             for k, shd in ipairs(listaAcc) do
                 if shd.name == 'Shield' then
-                    Pilots[shipIndex]['Shield'] = Pilots[shipIndex]['Shield'] - 1
-                    pos = LocalPos(spawnCard, { -0.9 + 0.9*Pilots[shipIndex]['Shield'], 0, 3.4})
+                    Pilots[shipIndex].Shield = Pilots[shipIndex].Shield - 1
+                    pos = LocalPos(spawnCard, { -0.9 + 0.9*Pilots[shipIndex].Shield, 0, 3.4})
                     rot = spawnCard.getRotation()
-                    if Pilots[shipIndex]['Shield'] >5  then
-                        pos = LocalPos(spawnCard, {-0.9 + 0.9*(Pilots[shipIndex]['Shield']-6), 0, 1.6})
-                    elseif Pilots[shipIndex]['Shield'] >2 then
-                        pos = LocalPos(spawnCard, {-0.9 + 0.9*(Pilots[shipIndex]['Shield']-3), 0, 2.5})
+                    if Pilots[shipIndex].Shield >5  then
+                        pos = LocalPos(spawnCard, {-0.9 + 0.9*(Pilots[shipIndex].Shield-6), 0, 1.6})
+                    elseif Pilots[shipIndex].Shield >2 then
+                        pos = LocalPos(spawnCard, {-0.9 + 0.9*(Pilots[shipIndex].Shield-3), 0, 2.5})
                     end
                     shieldToken = tempBagAcc.takeObject({position = pos, rotation = rot, guid = shd.guid})
                     shieldClone = shieldToken.clone()

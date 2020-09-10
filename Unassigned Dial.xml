@@ -36,7 +36,7 @@
     color="#aaffaa00">
         <Button id="moveWindow" class="CenterButtons" height="75" width="100" position="0 10 -2" active="true" onClick="Window">Moves</Button>
         <Button id="setBtnFD" class="CenterButtons" height="75" position="0 10 -2" active="false" onClick="setDial" onMouseEnter="showSetMan" onMouseExit="hideSetMan">Set</Button>
-        <Text   id="Name" class="DialName" position="0 70 3.5" rotation="180 180 0" height="80" fontSize="25" fontStyle="Bold">Name</Text>
+        <Text   id="Name" class="DialName" position="0 70 3" rotation="180 180 0" height="80" fontSize="25" fontStyle="Bold">Name</Text>
         <Button id="TokenMenu" class="CenterMenuButtons" offsetXY="-110 15" active="true" onMouseEnter="showTokMFD">T</Button>
         <Button id="ArcMenu" class="CenterMenuButtons" offsetXY="110 15" active="true" onMouseEnter="showArcMFD">A</Button>
         <Button id="undoFD" class="CenterMenuButtons" offsetXY="0 -51" active="true" onClick="Undo" height="30" width="60" fontSize="18" fontStyle="Bold">Undo</Button>
@@ -49,7 +49,7 @@
     height="300"
     position="0 0 0"
     rotation="0 180 0"
-    color="#aaffaa00">
+    color="#aaffff00">
     <Panel id="TalonPanel" class="TalonP" offsetXY="0 117" active="true">
         <Button id="TalonMidBtn" class="RelocButtons" offsetXY="0 0" active="true" onClick="performTalon">
             <Image id="TalonMidIcon" class="RIcon"  image="TalonMid" preserveAspect="true"></Image></Button>
@@ -58,13 +58,54 @@
         <Button id="TalonReaBtn" class="RelocButtons" offsetXY="60 0" active="true" onClick="performTalon">
             <Image id="TalonReaIcon" class="RIcon"  image="TalonRear" preserveAspect="true"></Image></Button>
     </Panel>
+
+    <Panel id="ExecutionOptionsPanel" position="0 0 -10" rotation="0 0 0" color="#aaffaacc" width="300" height="100" offsetXY="0 117" active="true">
+        <HorizontalLayout>
+            <Button id="ExOpt6But" class="DarkButton" active="true" onClick="selectExecuteOption">
+                <VerticalLayout>
+                    <Image id="ExOpt6TypeIcon" class="SetIcon" preserveAspect="true"></Image>
+                    <Image id="ExOpt6SpeedIcon" class="SetIcon" preserveAspect="true"></Image>
+                </VerticalLayout>
+            </Button>
+            <Button id="ExOpt5But" class="DarkButton" active="true" onClick="selectExecuteOption">
+                <VerticalLayout>
+                    <Image id="ExOpt5TypeIcon" class="SetIcon" preserveAspect="true"></Image>
+                    <Image id="ExOpt5SpeedIcon" class="SetIcon" preserveAspect="true"></Image>
+                </VerticalLayout>
+            </Button>
+            <Button id="ExOpt4But" class="DarkButton" active="true" onClick="selectExecuteOption">
+                <VerticalLayout>
+                    <Image id="ExOpt4TypeIcon" class="SetIcon" preserveAspect="true"></Image>
+                    <Image id="ExOpt4SpeedIcon" class="SetIcon" preserveAspect="true"></Image>
+                </VerticalLayout>
+            </Button>
+            <Button id="ExOpt3But" class="DarkButton" active="true" onClick="selectExecuteOption">
+                <VerticalLayout>
+                    <Image id="ExOpt3TypeIcon" class="SetIcon" preserveAspect="true"></Image>
+                    <Image id="ExOpt3SpeedIcon" class="SetIcon" preserveAspect="true"></Image>
+                </VerticalLayout>
+            </Button>
+            <Button id="ExOpt2But" class="DarkButton" active="true" onClick="selectExecuteOption">
+                <VerticalLayout>
+                    <Image id="ExOpt2TypeIcon" class="SetIcon" preserveAspect="true"></Image>
+                    <Image id="ExOpt2SpeedIcon" class="SetIcon" preserveAspect="true"></Image>
+                </VerticalLayout>
+            </Button>
+            <Button id="ExOpt1But" class="DarkButton" active="true" onClick="selectExecuteOption">
+                <VerticalLayout>
+                    <Image id="ExOpt1TypeIcon" class="SetIcon" preserveAspect="true"></Image>
+                    <Image id="ExOpt1SpeedIcon" class="SetIcon" preserveAspect="true"></Image>
+                </VerticalLayout>
+            </Button>
+        </HorizontalLayout>
+    </Panel>
+
     <Button id="MoveBtn" class="CenterButtons" offsetXY="0 97" height="60" width="120" active="true" fontSize="24" onClick="performMove">Move</Button>
     <Button id="UndoBtn" class="CenterButtons" offsetXY="0 97" height="60" width="120" active="false"  fontSize="24" onClick="Undo">Undo</Button>
     <Button id="TokenMenuFu" class="CenterMenuButtons" offsetXY="-110 15" active="true" onMouseEnter="showTokMFU">T</Button>
     <Button id="ArcMenuFU" class="CenterMenuButtons" offsetXY="110 15" active="true" onMouseEnter="showArcMFU">A</Button>
     <Button id="undoFU" class="CenterMenuButtons" offsetXY="0 -51" active="true" onClick="Undo" height="30" width="60" fontSize="18" fontStyle="Bold">Undo</Button>
-    <Button id="Templ" class="CenterMenuButtons" offsetXY="0 15" active="true" height="60" width="120" fontSize="18" onClick="spawnTemplate">Remove
-      Template</Button>
+    <Button id="Templ" class="CenterMenuButtons" offsetXY="0 15" active="true" height="60" width="120" fontSize="18" onClick="spawnTemplate"></Button>
     <Button id="RelocMenuFU" class="CenterMenuButtons" offsetXY="0 -106" active="true" onMouseEnter="showRelocMFU">R</Button>
     <Image id="SpeedIcon" class="SetIcon" active="false" image="Speed1" offsetXY="30 15" height="60" width="60"></Image>
     <Image id="TypeIcon" class="SetIcon" active="false" image="BlueStraight" offsetXY="-30 15" height="60" width="60"></Image>
@@ -72,17 +113,17 @@
 
 <Panel id="arcPanel"
     active="false"
-    width="380"
-    height="400"
+    width="400"
+    height="500"
     color="#ffaaaa00"
-    onMouseExit="hideArcM"
-    showAnimation="FadeIn"
-    hideAnimation="FadeOut">
+    onMouseExit="hideArcM">
     <Panel id="ArcFD"
         width="380"
         height="400"
         outline="Black"
-        color="#aaffaa00">
+        color="#aaffaa00"
+        showAnimation="FadeIn"
+        hideAnimation="FadeOut">
             <Button id="Range1" class="ArcButtons" onClick="range1" height="80" width="80" offsetXY="-100 150">
                 <Image id="R1Icon" height="80" widht="80" image="R1"></Image></Button>
             <Button id="Range2" class="ArcButtons" onClick="range2" height="80" width="80" offsetXY="0 150">
@@ -120,16 +161,15 @@
     width="600"
     height="450"
     color="#aaffaa00"
-    onMouseExit="hideTokM"
-    showAnimation="FadeIn"
-    hideAnimation="FadeOut">
+    onMouseExit="hideTokM">
     <Panel id="TokenButtonPanel"
         width="400"
         height="350"
         rectAlignment="TopRight"
         outline="Black"
         color="#aaffaa00"
-        >
+        showAnimation="FadeIn"
+        hideAnimation="FadeOut">
         <HorizontalLayout>
             <Panel id = "GreenTokens"
                 width="70"
@@ -201,12 +241,12 @@
     width="600"
     height="300"
     color="#aaffaa00"
-    onMouseExit="hideRelocM"
-    showAnimation="FadeIn"
-    hideAnimation="FadeOut">
+    onMouseExit="hideRelocM">
     <Panel id="BoostFD"
         class="BoostPanel"
-        color="#aaffaa00">
+        color="#aaffaa00"
+        showAnimation="FadeIn"
+        hideAnimation="FadeOut">
         <Button id="BoostSBtn" class="RelocButtons" onClick="BoostS">
             <Image id= "BoostSIcon" class="RIcon" image="BoostS" preserveAspect="true"></Image>
         </Button>
@@ -221,7 +261,9 @@
     <Panel id="AileronFD"
         class="AileronPanel"
         color="#aaffaa00"
-        offsetXY="0 100">
+        offsetXY="0 100"
+        showAnimation="FadeIn"
+        hideAnimation="FadeOut">
         <Button id="AilSBtn" class="RelocButtons" onClick="AilS">
             <Image id= "BoostSIcon" class="RIcon" image="WhiteStraight" preserveAspect="true"></Image>
         </Button>
@@ -236,7 +278,9 @@
     <Panel id="PivotFD"
         class="PivotPanel"
         color="#aaffaa00"
-        offsetXY="0 100">
+        offsetXY="0 100"
+        showAnimation="FadeIn"
+        hideAnimation="FadeOut">
         <Button id="PivKBtn" class="RelocButtons" onClick="pivK" offsetXY="0 0">
             <Image id= "PivKIcon" class="RIcon" image="Pivot180" preserveAspect="true"></Image>
         </Button>
@@ -251,7 +295,9 @@
     <Panel id="BarrelLeftFD"
         class="BarrelPanel"
         offsetXY="-230 0"
-        color="#aaffaa00">
+        color="#aaffaa00"
+        showAnimation="FadeIn"
+        hideAnimation="FadeOut">
         <Button id="BarrelLBtn" class="RelocButtons" onClick="BarrelL">
             <Image id= "BarrelLIcon" class="RIcon" image="BarrelL" preserveAspect="true"></Image>
         </Button>
@@ -266,7 +312,9 @@
     <Panel id="BarrelRightFD"
         class="BarrelPanel"
         offsetXY="230 0"
-        color="#aaffaa00">
+        color="#aaffaa00"
+        showAnimation="FadeIn"
+        hideAnimation="FadeOut">
         <Button id="BarrelRBtn" class="RelocButtons" onClick="BarrelR">
             <Image id= "BarrelRIcon" class="RIcon" image="BarrelR" preserveAspect="true"></Image>
         </Button>
