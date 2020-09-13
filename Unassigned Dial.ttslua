@@ -20,13 +20,14 @@ openbutton = nil
 opencolor = "#555555"
 closedcolor = "#222222"
 
-clickMode = true
+clickMode = false
 
 -- Save self state
 function onSave()
     if assignedShip ~= nil then
         local state = {assignedShipGUID=assignedShip.getGUID(),
-                        owningPlayer=playerColor}
+                        owningPlayer=playerColor,
+                        clickMode = clickMode}
         return JSON.encode(state)
     end
 end
@@ -43,17 +44,19 @@ exOptButtons = { "ExOpt1", "ExOpt2", "ExOpt3", "ExOpt4", "ExOpt5",  "ExOpt6"}
 
 
 -- Restore self state
-function onLoad()
+function onLoad(savedData)
     --self.UI.setCustomAssets(assetTable)
     clearDial()
     self.addContextMenuItem("Toggle mode", toggleMode, false)
     if savedData ~= nil then
         state = JSON.decode(savedData)
-        savedShip = getObjectFromGUID(state.assignedShipGUID)
-        playerColor = state.owningPlayer
-        if savedShip ~= nil then
-            assignShip(savedShip)
-        end
+        --savedShip = getObjectFromGUID(state.assignedShipGUID)
+        --playerColor = state.owningPlayer
+        clickMode = not state.clickMode
+        toggleMode()
+        --if savedShip ~= nil then
+        --    assignShip(savedShip)
+        --end
     end
 end
 
