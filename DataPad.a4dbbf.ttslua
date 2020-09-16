@@ -3196,7 +3196,7 @@ masterPilotDB[708]={
 }
 
 masterPilotDB[709]={
-    name = 'Genosian Prototype',
+    name = 'Geonosian Prototype',
     limited = 2,
     Faction = 7,
     ship_type = 82,
@@ -4790,6 +4790,15 @@ ffgSpecial[473]= 'Resist. Crew' --chewRes
 ffgSpecial[472]= 'Resist. Crew'--3po Res
 ffgSpecial[304]= 'Rebel Crew' --3po Reb
 
+dualUpgradeList = {}
+dualUpgradeList[332] = 331 -- Pivot wing
+dualUpgradeList[334] = 333 -- Servomotor S-foils
+dualUpgradeList[384] = 383 -- L3-37
+dualUpgradeList[387] = 386 -- Integrated S-foils
+dualUpgradeList[535] = 555 -- Grappling Struts
+dualUpgradeList[646] = 645 -- Stabilized S-Foils
+dualUpgradeList[652] = 653 -- Proud tradition
+
 
 -- on load initiate the process
 function onLoad()
@@ -5348,6 +5357,7 @@ function idSpawner(idTable)
         fList.Upgrades[k] = {}
         local skilled_bombardier = false
         for key,value in pairs (idTable.Upgrades[k]) do
+            value = dualUpgradeList[value] or value
             local name = masterUpgradesDB[value].name
             local upSlot = masterUpgradesDB[value].slot
             fList.Upgrades[k][key] = {}
