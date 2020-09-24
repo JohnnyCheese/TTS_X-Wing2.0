@@ -14,6 +14,7 @@
 -- Should the code execute print functions or skip them?
 -- This should be set to false on every release
 print_debug = false
+cast_debug = false
 
 TTS_print = print
 function print(...)
@@ -2653,7 +2654,11 @@ end
 -- Apply move modifiers that happen even if move is partial
 MoveData.ApplyBasicModifiers = function(entry, info)
     local out = table.shallowcopy(entry)
-    if info.dir == 'left' then
+    if (info.type == 'turnSlip' or info.type == 'bankSlip') then
+        if info.dir == 'right' then
+            out = MoveData.LeftVariant(out)
+        end
+    elseif info.dir == 'left' then
         out = MoveData.LeftVariant(out)
     end
     if info.extra == 'reverse' then
@@ -3719,8 +3724,19 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
         templateData.speed = 1
         templateData.type = "bank"
     elseif templateData.type == "bankSlip" then
-        templateOrigin = MoveModule.GetTemplateOrigin(templateData.origin, templateData.orientation, templateData.shipSize, templateData.dir)
+        local template_pos = "left"
+        if templateData.dir == "left" then
+            template_pos = "right"
+        end
+        templateOrigin = MoveModule.GetTemplateOrigin(templateData.origin, templateData.orientation, templateData.shipSize, template_pos)
         templateData.type = "bank"
+    elseif templateData.type == "turnSlip" then
+        local template_pos = "left"
+        if templateData.dir == "left" then
+            template_pos = "right"
+        end
+        templateOrigin = MoveModule.GetTemplateOrigin(templateData.origin, templateData.orientation, templateData.shipSize, template_pos)
+        templateData.type = "turn"
     elseif templateData.type == "echoF"  then
         templateOrigin = MoveModule.GetTemplateOrigin(templateData.origin, templateData.orientation, templateData.shipSize, templateData.dir)
         templateData.speed = 2
@@ -3763,7 +3779,7 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
             type         = 3,
             size         = size,
             max_distance = 1,
-            debug        = false
+            debug        = cast_debug
         })
 
         MoveModule.AddCollissionEntry(gTable, collList, collissions, SelectFun)
@@ -3800,7 +3816,7 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
                 type         = 3,
                 size         = {Convert_mm_igu(20), Convert_mm_igu(6), Convert_mm_igu(1)},
                 max_distance = 1,
-                debug        = false
+                debug        = cast_debug
             })
             MoveModule.AddCollissionEntry(gTable, collList, collissions, SelectFun)
 
@@ -3838,7 +3854,7 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
                 type         = 3,
                 size         = {Convert_mm_igu(20), Convert_mm_igu(6), Convert_mm_igu(1)},
                 max_distance = 1,
-                debug        = false
+                debug        = cast_debug
             })
             MoveModule.AddCollissionEntry(gTable, collList, collissions, SelectFun)
 
