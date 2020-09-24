@@ -10,7 +10,7 @@
 
     <ToggleButton class="ManBtn" height="75" width="75" active="false" onValueChanged="manSelect"  outline="#BBBBBB" colors="#888888|Orange|Red|Orange" deselectedBackgroundColor="#555555" selectedBackgroundColor="#B24915"/>
 
-    <Panel class="Window" color="#aaffaa00" width="900" height="800" rectAlignment="MiddleRight"/>
+    <Panel class="Window" color="#aaffaa00" width="1000" height="800" rectAlignment="MiddleRight"/>
     <Panel class="TopBar" color="#aaffaa00" height="30" rectAlignment="UpperCenter"/>
     <Panel class="BoostPanel" color="#aaffaa00" height="100" width="350"/>
     <Panel class="AileronPanel" color="#aaffaa00" height="100" width="350"/>
@@ -23,7 +23,7 @@
     <Image class="RIcon" height="60" width="60" color="#ffffff"/>
     <Image class="MIcon" />
     <Image class="BGImage" color="#ffffff"/>
-    <Image class="SpeedImg" height="95" width="95" />
+    <Image class="SpeedImg" height="85" width="85" />
     <Image class="SetIcon" rotation="0 0 180" height="55" width="55" preserveAspect="true"/>
 </Defaults>
 
@@ -35,7 +35,7 @@
     rotation="180 180 180"
     color="#aaffaa00">
         <Button id="placeShip" class="CenterButtons" height="60" width="130" position="0 10 -2" active="true" onClick="placeShip">Place Ship</Button>
-        <Text id="Name" class="DialName" position="0 70 3" rotation="180 180 0" height="80" fontSize="25" fontStyle="Bold">Name</Text>
+        <Text id="SetupName" class="DialName" position="0 70 3" rotation="180 180 0" height="80" fontSize="25" fontStyle="Bold">Name</Text>
         <Button id="allignShip" class="CenterMenuButtons" offsetXY="0 -60" active="true" onClick="allignShip" height="60" width="130" fontSize="18" fontStyle="Bold">Allign</Button>
         <Button id="Rot1DegLBut" height="80" width="80" class="ArcButtons" offsetXY="60 -180" active="true" onClick="setupRot">
             <Image id="Rot1DegL" image="Rot1DegL" height="80" width="80" class="SetIcon" preserveAspect="true"></Image>
@@ -366,207 +366,208 @@
 <Panel id = "ManWin"
     active="false"
     class="Window"
-    position="200 -200 -80"
+    position="200 -200 -100"
     rotation="180 180 0"
     showAnimation="FadeIn"
     hideAnimation="FadeOut">
     <image id="BackGround" class="BGImage" image="1BG" preserveAspect="true"></image>
-    <Image id="Spd0" class="SpeedImg" image="Speed0" offsetXY="-325 -260" color="#ffffff" preserveAspect="true"></Image>
-    <Image id="Spd1" class="SpeedImg" image="Speed1" offsetXY="-325 -160" color="#ffffff" preserveAspect="true"></Image>
-    <Image id="Spd2" class="SpeedImg" image="Speed2" offsetXY="-325 -60" color="#ffffff" preserveAspect="true"></Image>
-    <Image id="Spd3" class="SpeedImg" image="Speed3" offsetXY="-325 40" color="#ffffff" preserveAspect="true"></Image>
-    <Image id="Spd4" class="SpeedImg" image="Speed4" offsetXY="-325 140" color="#ffffff" preserveAspect="true"></Image>
-    <Image id="Spd5" class="SpeedImg" image="Speed5" offsetXY="-325 240" color="#ffffff" preserveAspect="true"></Image>
+    <Image id="Spd0" class="SpeedImg" image="Speed0" offsetXY="-355 -190" color="#ffffff" preserveAspect="true"></Image>
+    <Image id="Spd1" class="SpeedImg" image="Speed1" offsetXY="-355 -100" color="#ffffff" preserveAspect="true"></Image>
+    <Image id="Spd2" class="SpeedImg" image="Speed2" offsetXY="-355 -10" color="#ffffff" preserveAspect="true"></Image>
+    <Image id="Spd3" class="SpeedImg" image="Speed3" offsetXY="-355 80" color="#ffffff" preserveAspect="true"></Image>
+    <Image id="Spd4" class="SpeedImg" image="Speed4" offsetXY="-355 170" color="#ffffff" preserveAspect="true"></Image>
+    <Image id="Spd5" class="SpeedImg" image="Speed5" offsetXY="-355 260" color="#ffffff" preserveAspect="true"></Image>
     <ToggleGroup id="ManBtnGroup" interactable="false" allowSwitchOff="true">
 
-      <ToggleButton id="RBL0" class="ManBtn" offsetXY="-140 -260">
+      <ToggleButton id="RBL0" class="ManBtn" offsetXY="-165 -190">
           <Image id="RBL0Icon" class="MIcon"  image="RedBankL"></Image></ToggleButton>
-      <ToggleButton id="RS0" class="ManBtn" offsetXY="-60 -260">
+      <ToggleButton id="RS0" class="ManBtn" offsetXY="-75 -190">
           <Image id="RS0Icon" class="MIcon"  image="RedStall"></Image></ToggleButton>
-      <ToggleButton id="RBR0" class="ManBtn" offsetXY="20 -260">
+      <ToggleButton id="RBR0" class="ManBtn" offsetXY="15 -190">
            <Image id="RBR0Icon" class="MIcon"  image="RedBankR"></Image></ToggleButton>
 
-      <ToggleButton id="BTL1" class="ManBtn" offsetXY="-220 -160">
+      <ToggleButton id="BTL1" class="ManBtn" offsetXY="-255 -100">
           <Image id="BTL1Icon" class="MIcon"  image="BlueTurnL"></Image></ToggleButton>
-      <ToggleButton id="BBL1" class="ManBtn" offsetXY="-140 -160">
+      <ToggleButton id="BBL1" class="ManBtn" offsetXY="-165 -100">
           <Image id="BBL1Icon" class="MIcon" image="BlueBankL"></Image></ToggleButton>
-      <ToggleButton id="BS1" class="ManBtn" offsetXY="-60 -160">
+      <ToggleButton id="BS1" class="ManBtn" offsetXY="-75 -100">
           <Image id="BS1Icon" class="MIcon" image="BlueStraight"></Image></ToggleButton>
-      <ToggleButton id="BBR1" class="ManBtn" offsetXY="20 -160">
+      <ToggleButton id="BBR1" class="ManBtn" offsetXY="15 -100">
           <Image id="BBR1Icon" class="MIcon" image="BlueBankR"></Image></ToggleButton>
-      <ToggleButton id="BTR1" class="ManBtn" offsetXY="100 -160">
+      <ToggleButton id="BTR1" class="ManBtn" offsetXY="105 -100">
           <Image id="BTR1Icon" class="MIcon" image="BlueTurnR"></Image></ToggleButton>
 
-      <ToggleButton id="WTL1" class="ManBtn" offsetXY="-220 -160">
+      <ToggleButton id="WTL1" class="ManBtn" offsetXY="-255 -100">
           <Image id="WTL1Icon" class="MIcon"  image="WhiteTurnL"></Image></ToggleButton>
-      <ToggleButton id="WBL1" class="ManBtn" offsetXY="-140 -160">
+      <ToggleButton id="WBL1" class="ManBtn" offsetXY="-165 -100">
           <Image id="WBL1Icon" class="MIcon" image="WhiteBankL"></Image></ToggleButton>
-      <ToggleButton id="WS1" class="ManBtn" offsetXY="-60 -160">
+      <ToggleButton id="WS1" class="ManBtn" offsetXY="-75 -100">
           <Image id="WS1Icon" class="MIcon" image="WhiteStraight"></Image></ToggleButton>
-      <ToggleButton id="WBR1" class="ManBtn" offsetXY="20 -160">
+      <ToggleButton id="WBR1" class="ManBtn" offsetXY="15 -100">
           <Image id="WBR1Icon" class="MIcon" image="WhiteBankR"></Image></ToggleButton>
-      <ToggleButton id="WTR1" class="ManBtn" offsetXY="100 -160">
+      <ToggleButton id="WTR1" class="ManBtn" offsetXY="105 -100">
           <Image id="WTR1Icon" class="MIcon" image="WhiteTurnR"></Image></ToggleButton>
 
-      <ToggleButton id="RTL1" class="ManBtn" offsetXY="-220 -160">
+      <ToggleButton id="RTL1" class="ManBtn" offsetXY="-255 -100">
           <Image id="RTL1Icon" class="MIcon"  image="RedTurnL"></Image></ToggleButton>
-      <ToggleButton id="RBL1" class="ManBtn" offsetXY="-140 -160">
+      <ToggleButton id="RBL1" class="ManBtn" offsetXY="-165 -100">
           <Image id="RBL1Icon" class="MIcon" image="RedBankL"></Image></ToggleButton>
-      <ToggleButton id="RS1" class="ManBtn" offsetXY="-60 -160">
+      <ToggleButton id="RS1" class="ManBtn" offsetXY="-75 -100">
           <Image id="RS1Icon" class="MIcon" image="RedStraight"></Image></ToggleButton>
-      <ToggleButton id="RBR1" class="ManBtn" offsetXY="20 -160">
+      <ToggleButton id="RBR1" class="ManBtn" offsetXY="15 -100">
           <Image id="RBR1Icon" class="MIcon" image="RedBankR"></Image></ToggleButton>
-      <ToggleButton id="RTR1" class="ManBtn" offsetXY="100 -160">
+      <ToggleButton id="RTR1" class="ManBtn" offsetXY="105 -100">
           <Image id="RTR1Icon" class="MIcon"  image="RedTurnR"></Image></ToggleButton>
 
 
-      <ToggleButton id="RBL1R" class="ManBtn" offsetXY="180 -160">
+      <ToggleButton id="RBL1R" class="ManBtn" offsetXY="195 -100">
           <Image id="RBL1RIcon" class="MIcon"  image="RedReverseBankL"></Image></ToggleButton>
-      <ToggleButton id="RBR1R" class="ManBtn" offsetXY="260 -160">
+      <ToggleButton id="RBR1R" class="ManBtn" offsetXY="285 -100">
           <Image id="RBR1RIcon" class="MIcon"  image="RedReverseBankR"></Image></ToggleButton>
 
-      <ToggleButton id="RTL1T" class="ManBtn" offsetXY="180 -160">
+      <ToggleButton id="RTL1T" class="ManBtn" offsetXY="195 -100">
           <Image id="RTL1TIcon" class="MIcon" image="RedTalonL"></Image></ToggleButton>
-      <ToggleButton id="RTR1T" class="ManBtn" offsetXY="260 -160">
+      <ToggleButton id="RTR1T" class="ManBtn" offsetXY="285 -100">
           <Image id="RTR1TIcon" class="MIcon" image="RedTalonR"></Image></ToggleButton>
 
-      <ToggleButton id="RBL1S" class="ManBtn" offsetXY="180 -160">
+      <ToggleButton id="RBL1S" class="ManBtn" offsetXY="195 -100">
           <Image id="RBL1SIcon" class="MIcon" image="RedSloopL"></Image></ToggleButton>
-      <ToggleButton id="RBR1S" class="ManBtn" offsetXY="260 -160">
+      <ToggleButton id="RBR1S" class="ManBtn" offsetXY="285 -100">
           <Image id="RBR1SIcon" class="MIcon" image="RedSloopR"></Image></ToggleButton>
 
-      <ToggleButton id="RK1" class="ManBtn" offsetXY="340 -160">
+      <ToggleButton id="RK1" class="ManBtn" offsetXY="375 -100">
           <Image id="RK1Icon" class="MIcon" image="RedK"></Image></ToggleButton>
-      <ToggleButton id="RS1R" class="ManBtn" offsetXY="340 -160">
+      <ToggleButton id="RS1R" class="ManBtn" offsetXY="375 -100">
           <Image id="RS1RIcon" class="MIcon" image="RedReverseStraight"></Image></ToggleButton>
-      <ToggleButton id="RS2R" class="ManBtn" offsetXY="340 -160">
+      <ToggleButton id="RS2R" class="ManBtn" offsetXY="375 -100">
           <Image id="RS2RIcon" class="MIcon" image="RedReverseStraight"></Image></ToggleButton>
 
 
 
-      <ToggleButton id="BTL2" class="ManBtn" offsetXY="-220 -60">
+      <ToggleButton id="BTL2" class="ManBtn" offsetXY="-255 -10">
           <Image id="BTL2Icon" class="MIcon"  image="BlueTurnL"></Image></ToggleButton>
-      <ToggleButton id="BBL2" class="ManBtn" offsetXY="-140 -60">
+      <ToggleButton id="BBL2" class="ManBtn" offsetXY="-165 -10">
           <Image id="BBL2Icon" class="MIcon" image="BlueBankL"></Image></ToggleButton>
-      <ToggleButton id="BS2" class="ManBtn" offsetXY="-60 -60">
+      <ToggleButton id="BS2" class="ManBtn" offsetXY="-75 -10">
           <Image id="BS2Icon" class="MIcon" image="BlueStraight"></Image></ToggleButton>
-      <ToggleButton id="BBR2" class="ManBtn" offsetXY="20 -60">
+      <ToggleButton id="BBR2" class="ManBtn" offsetXY="15 -10">
           <Image id="BBR2Icon" class="MIcon" image="BlueBankR"></Image></ToggleButton>
-      <ToggleButton id="BTR2" class="ManBtn" offsetXY="100 -60">
+      <ToggleButton id="BTR2" class="ManBtn" offsetXY="105 -10">
           <Image id="BTR2Icon" class="MIcon" image="BlueTurnR"></Image></ToggleButton>
 
-      <ToggleButton id="WTL2" class="ManBtn" offsetXY="-220 -60">
+      <ToggleButton id="WTL2" class="ManBtn" offsetXY="-255 -10">
           <Image id="WTL2Icon" class="MIcon"  image="WhiteTurnL"></Image></ToggleButton>
-      <ToggleButton id="WBL2" class="ManBtn" offsetXY="-140 -60">
+      <ToggleButton id="WBL2" class="ManBtn" offsetXY="-165 -10">
           <Image id="WBL2Icon" class="MIcon" image="WhiteBankL"></Image></ToggleButton>
-      <ToggleButton id="WS2" class="ManBtn" offsetXY="-60 -60">
+      <ToggleButton id="WS2" class="ManBtn" offsetXY="-75 -10">
           <Image id="WS2Icon" class="MIcon" image="WhiteStraight"></Image></ToggleButton>
-      <ToggleButton id="WBR2" class="ManBtn" offsetXY="20 -60">
+      <ToggleButton id="WBR2" class="ManBtn" offsetXY="15 -10">
           <Image id="WBR2Icon" class="MIcon" image="WhiteBankR"></Image></ToggleButton>
-      <ToggleButton id="WTR2" class="ManBtn" offsetXY="100 -60">
+      <ToggleButton id="WTR2" class="ManBtn" offsetXY="105 -10">
           <Image id="WTR2Icon" class="MIcon" image="WhiteTurnR"></Image></ToggleButton>
 
-      <ToggleButton id="RTL2" class="ManBtn" offsetXY="-220 -60">
+      <ToggleButton id="RTL2" class="ManBtn" offsetXY="-255 -10">
           <Image id="RTL2Icon" class="MIcon" image="RedTurnL"></Image></ToggleButton>
-      <ToggleButton id="RBL2" class="ManBtn" offsetXY="-140 -60">
+      <ToggleButton id="RBL2" class="ManBtn" offsetXY="-165 -10">
           <Image id="RBL2Icon" class="MIcon" image="RedBankL"></Image></ToggleButton>
-      <ToggleButton id="RS2" class="ManBtn" offsetXY="-60 -60">
+      <ToggleButton id="RS2" class="ManBtn" offsetXY="-75 -10">
           <Image id="RS2Icon" class="MIcon" image="RedStraight"></Image></ToggleButton>
-      <ToggleButton id="RBR2" class="ManBtn" offsetXY="20 -60">
+      <ToggleButton id="RBR2" class="ManBtn" offsetXY="15 -10">
           <Image id="RBR2Icon" class="MIcon" image="RedBankR"></Image></ToggleButton>
-      <ToggleButton id="RTR2" class="ManBtn" offsetXY="100 -60">
+      <ToggleButton id="RTR2" class="ManBtn" offsetXY="105 -10">
           <Image id="RTR2Icon" class="MIcon" image="RedTurnR"></Image></ToggleButton>
 
-      <ToggleButton id="RTL2T" class="ManBtn" offsetXY="180 -60">
+      <ToggleButton id="RTL2T" class="ManBtn" offsetXY="195 -10">
           <Image id="RTL2TIcon" class="MIcon" image="RedTalonL"></Image></ToggleButton>
-      <ToggleButton id="RTR2T" class="ManBtn" offsetXY="260 -60">
+      <ToggleButton id="RTR2T" class="ManBtn" offsetXY="285 -10">
           <Image id="RTR2TIcon" class="MIcon" image="RedTalonR"></Image></ToggleButton>
-      <ToggleButton id="RBL2S" class="ManBtn" offsetXY="180 -60">
+      <ToggleButton id="RBL2S" class="ManBtn" offsetXY="195 -10">
           <Image id="RBL2SIcon" class="MIcon" image="RedSloopL"></Image></ToggleButton>
-      <ToggleButton id="RBR2S" class="ManBtn" offsetXY="260 -60">
+      <ToggleButton id="RBR2S" class="ManBtn" offsetXY="285 -10">
           <Image id="RBR2SIcon" class="MIcon" image="RedSloopR"></Image></ToggleButton>
 
-      <ToggleButton id="RK2" class="ManBtn" offsetXY="340 -60">
+      <ToggleButton id="RK2" class="ManBtn" offsetXY="375 -10">
           <Image id="RK2Icon" class="MIcon" image="RedK"></Image></ToggleButton>
-      <ToggleButton id="RS2R" class="ManBtn" offsetXY="340 -60">
+      <ToggleButton id="RS2R" class="ManBtn" offsetXY="375 -10">
           <Image id="RS2RIcon" class="MIcon" image="RedReverseStraight"></Image></ToggleButton>
 
 
-      <ToggleButton id="BTL3" class="ManBtn" offsetXY="-220 40">
+      <ToggleButton id="BTL3" class="ManBtn" offsetXY="-255 80">
           <Image id="BTL3Icon" class="MIcon"  image="BlueTurnL"></Image></ToggleButton>
-      <ToggleButton id="BBL3" class="ManBtn" offsetXY="-140 40">
+      <ToggleButton id="BBL3" class="ManBtn" offsetXY="-165 80">
           <Image id="BBL3Icon" class="MIcon" image="BlueBankL"></Image></ToggleButton>
-      <ToggleButton id="BS3" class="ManBtn" offsetXY="-60 40">
+      <ToggleButton id="BS3" class="ManBtn" offsetXY="-75 80">
           <Image id="BS3Icon" class="MIcon" image="BlueStraight"></Image></ToggleButton>
-      <ToggleButton id="BBR3" class="ManBtn" offsetXY="20 40">
+      <ToggleButton id="BBR3" class="ManBtn" offsetXY="15 80">
           <Image id="BBR3Icon" class="MIcon" image="BlueBankR"></Image></ToggleButton>
-      <ToggleButton id="BTR3" class="ManBtn" offsetXY="100 40">
+      <ToggleButton id="BTR3" class="ManBtn" offsetXY="105 80">
           <Image id="BTR3Icon" class="MIcon" image="BlueTurnR"></Image></ToggleButton>
 
-      <ToggleButton id="WTL3" class="ManBtn" offsetXY="-220 40">
+      <ToggleButton id="WTL3" class="ManBtn" offsetXY="-255 80">
           <Image id="WTL3Icon" class="MIcon"  image="WhiteTurnL"></Image></ToggleButton>
-      <ToggleButton id="WBL3" class="ManBtn" offsetXY="-140 40">
+      <ToggleButton id="WBL3" class="ManBtn" offsetXY="-165 80">
           <Image id="WBL3Icon" class="MIcon" image="WhiteBankL"></Image></ToggleButton>
-      <ToggleButton id="WS3" class="ManBtn" offsetXY="-60 40">
+      <ToggleButton id="WS3" class="ManBtn" offsetXY="-75 80">
           <Image id="WS3Icon" class="MIcon" image="WhiteStraight"></Image></ToggleButton>
-      <ToggleButton id="WBR3" class="ManBtn" offsetXY="20 40">
+      <ToggleButton id="WBR3" class="ManBtn" offsetXY="15 80">
           <Image id="WBR3Icon" class="MIcon" image="WhiteBankR"></Image></ToggleButton>
-      <ToggleButton id="WTR3" class="ManBtn" offsetXY="100 40">
+      <ToggleButton id="WTR3" class="ManBtn" offsetXY="105 80">
           <Image id="WTR3Icon" class="MIcon" image="WhiteTurnR"></Image></ToggleButton>
 
-      <ToggleButton id="RTL3" class="ManBtn" offsetXY="-220 40">
+      <ToggleButton id="RTL3" class="ManBtn" offsetXY="-255 80">
           <Image id="RTL3Icon" class="MIcon" image="RedTurnL"></Image></ToggleButton>
-      <ToggleButton id="RBL3" class="ManBtn" offsetXY="-140 40">
+      <ToggleButton id="RBL3" class="ManBtn" offsetXY="-165 80">
           <Image id="RBL3Icon" class="MIcon" image="RedBankL"></Image></ToggleButton>
-      <ToggleButton id="RS3" class="ManBtn" offsetXY="-60 40">
+      <ToggleButton id="RS3" class="ManBtn" offsetXY="-75 80">
           <Image id="RS3Icon" class="MIcon" image="RedStraight"></Image></ToggleButton>
-      <ToggleButton id="RBR3" class="ManBtn" offsetXY="20 40">
+      <ToggleButton id="RBR3" class="ManBtn" offsetXY="15 80">
           <Image id="RBR3Icon" class="MIcon" image="RedBankR"></Image></ToggleButton>
-      <ToggleButton id="RTR3" class="ManBtn" offsetXY="100 40">
+      <ToggleButton id="RTR3" class="ManBtn" offsetXY="105 80">
           <Image id="RTR3Icon" class="MIcon" image="RedTurnR"></Image></ToggleButton>
 
-      <ToggleButton id="RTL3T" class="ManBtn" offsetXY="180 40">
+      <ToggleButton id="RTL3T" class="ManBtn" offsetXY="195 80">
           <Image id="RTL3TIcon" class="MIcon" image="RedTalonL"></Image></ToggleButton>
-      <ToggleButton id="RTR3T" class="ManBtn" offsetXY="260 40">
+      <ToggleButton id="RTR3T" class="ManBtn" offsetXY="285 80">
           <Image id="RTR3TIcon" class="MIcon" image="RedTalonR"></Image></ToggleButton>
-      <ToggleButton id="RBL3S" class="ManBtn" offsetXY="180 40">
+      <ToggleButton id="RBL3S" class="ManBtn" offsetXY="195 80">
           <Image id="RBL3SIcon" class="MIcon" image="RedSloopL"></Image></ToggleButton>
-      <ToggleButton id="RBR3S" class="ManBtn" offsetXY="260 40">
+      <ToggleButton id="RBR3S" class="ManBtn" offsetXY="285 80">
           <Image id="RBR3SIcon" class="MIcon" image="RedSloopR"></Image></ToggleButton>
 
-      <ToggleButton id="RK3" class="ManBtn" offsetXY="340 40">
+      <ToggleButton id="RK3" class="ManBtn" offsetXY="375 80">
           <Image id="RK3Icon" class="MIcon" image="RedK"></Image></ToggleButton>
 
-      <ToggleButton id="BS4" class="ManBtn" offsetXY="-60 140">
+      <ToggleButton id="BS4" class="ManBtn" offsetXY="-75 170">
           <Image id="BS4Icon" class="MIcon" image="BlueStraight"></Image></ToggleButton>
-      <ToggleButton id="WS4" class="ManBtn" offsetXY="-60 140">
+      <ToggleButton id="WS4" class="ManBtn" offsetXY="-75 170">
           <Image id="WS4Icon" class="MIcon" image="WhiteStraight"></Image></ToggleButton>
-      <ToggleButton id="RS4" class="ManBtn" offsetXY="-60 140">
+      <ToggleButton id="RS4" class="ManBtn" offsetXY="-75 170">
           <Image id="RS4Icon" class="MIcon" image="RedStraight"></Image></ToggleButton>
 
-      <ToggleButton id="RK4" class="ManBtn" offsetXY="340 140">
+      <ToggleButton id="RK4" class="ManBtn" offsetXY="375 170">
           <Image id="RK4Icon" class="MIcon" image="RedK"></Image></ToggleButton>
-      <ToggleButton id="WK4" class="ManBtn" offsetXY="340 140">
+      <ToggleButton id="WK4" class="ManBtn" offsetXY="375 170">
           <Image id="WK4Icon" class="MIcon" image="WhiteK"></Image></ToggleButton>
 
 
-      <ToggleButton id="BS5" class="ManBtn" offsetXY="-60 240">
+      <ToggleButton id="BS5" class="ManBtn" offsetXY="-75 260">
           <Image id="BS5Icon" class="MIcon" image="BlueStraight"></Image></ToggleButton>
-      <ToggleButton id="WS5" class="ManBtn" offsetXY="-60 240">
+      <ToggleButton id="WS5" class="ManBtn" offsetXY="-75 260">
           <Image id="WS5Icon" class="MIcon" image="WhiteStraight"></Image></ToggleButton>
-      <ToggleButton id="RS5" class="ManBtn" offsetXY="-60 240">
+      <ToggleButton id="RS5" class="ManBtn" offsetXY="-75 260">
           <Image id="RS5Icon" class="MIcon" image="RedStraight"></Image></ToggleButton>
 
 
-      <ToggleButton id="WK5" class="ManBtn" offsetXY="340 240">
+      <ToggleButton id="WK5" class="ManBtn" offsetXY="375 260">
           <Image id="WK5Icon" class="MIcon" image="WhiteK"></Image></ToggleButton>
-      <ToggleButton id="RK5" class="ManBtn" offsetXY="340 240">
+      <ToggleButton id="RK5" class="ManBtn" offsetXY="375 260">
           <Image id="RK5Icon" class="MIcon" image="RedK"></Image></ToggleButton>
 
     </ToggleGroup>
 
-    <Button id="setBtnManWin" class="DarkButton" fontSize="26" offsetXY="302 -263" width="150" height="75" onClick="setDial">Set</Button>
-
+    <Button id="prevManBut" class="DarkButton" fontSize="26" offsetXY="-160 -283" width="150" height="75" onClick="nextMan">Prev</Button>
+    <Button id="setBtnManWin" class="DarkButton" fontSize="26" offsetXY="0 -283" width="150" height="75" onClick="setDial">Set</Button>
+    <Button id="nextManBut" class="DarkButton" fontSize="26" offsetXY="160 -283" width="150" height="75" onClick="nextMan">Next</Button>
     <Panel
       class="TopBar"
       id="TopBar">

@@ -393,6 +393,7 @@ function assignShip(ship)
     finished_setup = ship.getVar("finished_setup") or false
     --self.UI.setAttribute("DialName", Name)
     self.UI.setValue("Name",Name)
+    self.UI.setValue("SetupName",Name)
     shipData=assignedShip.getTable("Data")
     exOptions = shipData.executeOptions or {}
     self.UI.setAttribute("BackGround", "image", tostring(shipData['Faction']).."BG")
@@ -957,6 +958,31 @@ function hideRelocM()
     end
     openpanel = nil
     openbutton = nil
+end
+
+function nextMan(P, opt, id)
+    if spectReturn(P) == true then
+        return
+    end
+    local dir = 1
+    if id == "prevManBut" then
+        dir = -1
+    end
+    for k,v in pairs(shipData.moveSet) do
+        if v == curMan then
+            local newman = k + dir
+            if newman == 0 then
+                newman = #shipData.moveSet
+            elseif newman > #shipData.moveSet then
+                newman = 1
+            end
+            manSelect(P,opt,shipData.moveSet[newman])
+            self.UI.setAttribute(string.upper(curMan), "isOn", "true")
+            return
+        end
+    end
+    manSelect(P,opt,shipData.moveSet[1])
+    self.UI.setAttribute(string.upper(curMan), "isOn", "true")
 end
 
 function setDial(P)
