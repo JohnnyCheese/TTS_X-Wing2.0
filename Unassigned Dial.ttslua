@@ -280,12 +280,29 @@ setupRotations = {
 }
 
 function setupRot(P, option, id)
-    if spectReturn(P) == true then
+    if (option ~= '-1') or (spectReturn(P) == true) then
         return
     end
     local rot = assignedShip.getRotation()
     rot.y = rot.y + (setupRotations[id] or 0)
+    assignedShip.setLock(true)
     assignedShip.setRotation(rot)
+end
+
+setupShifts = {
+    AdjustFBut = vector(0,0,-0.05),
+    AdjustBBut = vector(0,0,0.05),
+    AdjustLBut = vector(0.05,0,0),
+    AdjustRBut = vector(-0.05,0,0),
+}
+
+function setupShift(P, option, id)
+    if (option ~= '-1') or (spectReturn(P) == true) then
+        return
+    end
+    pos = assignedShip.positionToWorld(setupShifts[id] or vector(0,0,0))
+    assignedShip.setLock(true)
+    assignedShip.setPosition(pos)
 end
 
 

@@ -34,26 +34,39 @@
     position="0 0 -25"
     rotation="180 180 180"
     color="#aaffaa00">
-        <Button id="placeShip" class="CenterButtons" height="60" width="130" position="0 10 -2" active="true" onClick="placeShip">Place Ship</Button>
+        <Button id="placeShip" class="CenterButtons" height="100" width="160" position="0 170 -5" active="true" onClick="placeShip">Place Ship</Button>
         <Text id="SetupName" class="DialName" position="0 70 3" rotation="180 180 0" height="80" fontSize="25" fontStyle="Bold">Name</Text>
-        <Button id="allignShip" class="CenterMenuButtons" offsetXY="0 -60" active="true" onClick="allignShip" height="60" width="130" fontSize="18" fontStyle="Bold">Allign</Button>
-        <Button id="Rot1DegLBut" height="80" width="80" class="ArcButtons" offsetXY="60 -180" active="true" onClick="setupRot">
+        <Button id="allignShip" class="CenterMenuButtons" position="0 -180 -5" active="true" onClick="allignShip" height="90" width="90" fontSize="18" fontStyle="Bold">Align</Button>
+        <Button id="Rot1DegLBut" height="80" width="80" class="ArcButtons" position="90 -175 -5" active="true" onClick="setupRot">
             <Image id="Rot1DegL" image="Rot1DegL" height="80" width="80" class="SetIcon" preserveAspect="true"></Image>
         </Button>
-        <Button id="Rot1DegRBut" height="80" width="80" class="ArcButtons" offsetXY="-60 -180" active="true" onClick="setupRot">
+        <Button id="Rot1DegRBut" height="80" width="80" class="ArcButtons" position="-90 -175 -5" active="true" onClick="setupRot">
             <Image id="Rot1DegR" image="Rot1DegR" height="80" width="80" class="SetIcon" preserveAspect="true"></Image>
         </Button>
-        <Button id="Rot5DegLBut" height="80" width="80" class="ArcButtons" offsetXY="170 -100" active="true" onClick="setupRot">
+        <Button id="Rot5DegLBut" height="80" width="80" class="ArcButtons" position="165 -100 -5" active="true" onClick="setupRot">
             <Image id="Rot5DegL" image="Rot5DegL" height="80" width="80" class="SetIcon" preserveAspect="true"></Image>
         </Button>
-        <Button id="Rot5DegRBut" height="80" width="80" class="ArcButtons" offsetXY="-170 -100" active="true" onClick="setupRot">
+        <Button id="Rot5DegRBut" height="80" width="80" class="ArcButtons" position="-165 -100 -5" active="true" onClick="setupRot">
             <Image id="Rot5DegR" image="Rot5DegR" height="80" width="80" class="SetIcon" preserveAspect="true"></Image>
         </Button>
-        <Button id="Rot225DegLBut" height="80" width="80" class="ArcButtons" offsetXY="185 15" active="true" onClick="setupRot">
+        <Button id="Rot225DegLBut" height="80" width="80" class="ArcButtons" position="185 0 -5" active="true" onClick="setupRot">
             <Image id="Rot225DegL" image="Rot225DegL" height="80" width="80" class="SetIcon" preserveAspect="true"></Image>
         </Button>
-        <Button id="Rot225DegRBut" height="80" width="80" class="ArcButtons" offsetXY="-185 15" active="true" onClick="setupRot">
+        <Button id="Rot225DegRBut" height="80" width="80" class="ArcButtons" position="-185 0 -5" active="true" onClick="setupRot">
             <Image id="Rot225DegR" image="Rot225DegR" height="80" width="80" class="SetIcon" preserveAspect="true"></Image>
+        </Button>
+
+        <Button id="AdjustFBut" height="80" width="80" class="ArcButtons" position="0 -90 -5" active="true" onClick="setupShift">
+            <Image id="AdjustF" image="AdjustF" height="80" width="80" class="SetIcon" preserveAspect="true"></Image>
+        </Button>
+        <Button id="AdjustBBut" height="80" width="80" class="ArcButtons" position="0 0 -5" active="true" onClick="setupShift">
+            <Image id="AdjustB" image="AdjustB" height="80" width="80" class="SetIcon" preserveAspect="true"></Image>
+        </Button>
+        <Button id="AdjustLBut" height="80" width="80" class="ArcButtons" position="90 -35 -5" active="true" onClick="setupShift">
+            <Image id="AdjustL" image="AdjustL" height="80" width="80" class="SetIcon" preserveAspect="true"></Image>
+        </Button>
+        <Button id="AdjustRBut" height="80" width="80" class="ArcButtons" position="-90 -35 -5" active="true" onClick="setupShift">
+            <Image id="AdjustR" image="AdjustR" height="80" width="80" class="SetIcon" preserveAspect="true"></Image>
         </Button>
 </Panel>
 
