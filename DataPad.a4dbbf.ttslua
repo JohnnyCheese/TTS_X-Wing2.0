@@ -2459,7 +2459,7 @@ masterPilotDB[421]={
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/6edb8ed4cbf882bf6dbe7a37b5981d85.png',
     init = 4,
     texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_T70Xwing/KareKun.png',
-    actSet = {'F','TL','B'}
+    actSet = {'F','TL','B', 'Dare'}
 }
 
 masterPilotDB[422]={
@@ -3179,6 +3179,7 @@ masterPilotDB[637]={['name']='Nom Lumb',['Faction']= 3,['ship_type']=45,['cost']
 masterPilotDB[656]={
   name = 'Commander Malarus',
   Faction = 5,
+  limited = 1,
   ship_type = 71,
   cost = 43,
   slot = {1,19,19,8,8,14},
@@ -3192,6 +3193,7 @@ masterPilotDB[656]={
 masterPilotDB[657]={
   name = 'Gideon Hask',
   Faction = 5,
+  limited = 1,
   ship_type = 71,
   cost = 40,
   slot = {1,19,19,8,8,14},
@@ -3205,6 +3207,7 @@ masterPilotDB[657]={
 masterPilotDB[658]={
   name = 'Agent Terex',
   Faction = 5,
+  limited = 1,
   ship_type = 71,
   cost = 42,
   slot = {19,19,8,8,13,13,13,14},
@@ -4659,6 +4662,7 @@ masterUpgradesDB[684]={
     name = "Commander Malarus",
     dual = 1,
     slot = 8,
+    limited = 1,
     cost = 7,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/6d/2a/6d2a8204-2de1-4b1e-8980-456501628a24/swz69_malarus_card.png',
     cardB = 'https://images-cdn.fantasyflightgames.com/filer_public/42/ed/42edc96c-938a-4bd4-88de-7be1e449d96b/swz69_malarus-perfected_card.png',
@@ -4671,6 +4675,7 @@ masterUpgradesDB[686]={
     name = "Agent Terex",
     dual = 1,
     slot = 8,
+    limited = 1,
     cost = 6,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/27/56/27568de2-a0be-4de5-8107-8c8c584fdd18/swz69_terex_card.png',
     cardB = 'https://images-cdn.fantasyflightgames.com/filer_public/ae/fc/aefc02a4-e435-4842-964d-ec54d70913f6/swz69_cyborg-terex_card.png',
@@ -4682,6 +4687,7 @@ masterUpgradesDB[686]={
 masterUpgradesDB[687]={
     name = 'Commander Pyre',
     slot = 8,
+    limited = 1,
     cost = 5,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/10/5d/105d386c-ff1b-44be-9b9c-a2c1dc2877ec/swz69_pyre_card.png',
     restriction = {
@@ -4712,7 +4718,7 @@ masterUpgradesDB[690]={
     name = "Concussion Bombs",
     slot = 12,
     Charge = 3,
-    cost = 200,
+    cost = 3,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/00/c6/00c65f3f-e738-4a5d-80a8-6b3aef6e8074/swz71_upgrade_concussion-bomb.png',
     cardB = cardBackDB['12b'],
     restriction = {},
@@ -5673,6 +5679,7 @@ function ffgSpawn()
         partList = {}
         partList.Pilots = {}
         partList.Upgrades = {}
+        partList.nameCounts = {}
         partList.spawnCard = self
         partList.Faction = JSONlist.faction.id
         for k,v in pairs (JSONlist.deck) do
@@ -6262,6 +6269,7 @@ function builderStart()
     partList = {}
     partList.Pilots = {}
     partList.Upgrades = {}
+    partList.nameCounts = {}
     partList.spawnCard = self
     availablePilots = {}
     availableUps = {}
@@ -6392,7 +6400,13 @@ function selectModelGeneric(arg)
     local index = 1
     for k, v in pairs(masterPilotDB) do
         if v.ship_type == chosenModel then
-            if v.Faction==partList.Faction then
+            local validOption = true
+            if v.limited ~= nil then
+                if v.limited <= (partList.nameCounts[v.name] or 0) then
+                    validOption=false
+                end
+            end
+            if validOption and v.Faction==partList.Faction then
                 cost = v.cost
                 availablePilots[index] = {}
                 availablePilots[index][1] = k
@@ -6400,9 +6414,11 @@ function selectModelGeneric(arg)
                 availablePilots[index][3] = cost
                 local title = ''
                 if v.title ~= nil then
-                    title = ' - ' .. v.title
+                    title = '\n' .. v.title
                 end
-                self.createButton({click_function = 'setPilot'..index, function_owner = self, label = v.name..title..' ('..cost..')', position = {-0.5+auxB,0.45,-0.2+aux*0.15}, width = 1600, height = 220, font_size = 125,  scale = {0.25,0.25,0.25}})
+                self.createButton({click_function = 'setPilot'..index, function_owner = self, label = v.name..title..' ('..cost..')',  position = {-0.615+auxB*0.65,0.45,aux*0.16-0.35}, width = 1200, height = 220, font_size = 90,  scale = {0.25,0.25,0.25}})
+
+
                 aux= aux+1
                 if aux>6 then
                     aux = 0
@@ -6500,6 +6516,8 @@ end
 -- Selecting a pilot will add ship model and pilot to part list, update max index and go back to main menu. MUST REWRITE! Each pilot option should set variables and call an unified function to set up the part list!
 function setPilotGeneric(arg)
     self.clearButtons()
+    local name = masterPilotDB[availablePilots[arg][1]].name
+    partList.nameCounts[name] = (partList.nameCounts[name] or 0) + 1
     partList.Pilots[shipIndex] = {}
     partList.Pilots[shipIndex][1] = availablePilots[arg][1]
     partList.Pilots[shipIndex][2] = availablePilots[arg][2]
@@ -6791,6 +6809,11 @@ function selectSlotGeneric(slotIndex)
                     end
                 end
             end
+            if up.limited ~= nil then
+                if up.limited <= (partList.nameCounts[up.name] or 0) then
+                    validUp=false
+                end
+            end
             if validUp == true then
                 if up.cost =='a' then
                     sAgi =   masterShipDB[masterPilotDB[ partList.Pilots[shipIndex][1] ].ship_type ].agi
@@ -6970,6 +6993,8 @@ function selectUpGeneric(arg)
     partList.Upgrades[shipIndex][currSlotInd][1] = availableUps[arg][1]      --first '1' tied to selectUp1, second value indicate the Id
     partList.Upgrades[shipIndex][currSlotInd][2] = availableUps[arg][2]      --first '1' tied to selectUp1, second value indicate the Name
     partList.Upgrades[shipIndex][currSlotInd][3] = availableUps[arg][3]      --first '1' tied to selectUp1, second value indicate the cost
+    local name = availableUps[arg][2]
+    partList.nameCounts[name] = (partList.nameCounts[name] or 0) + 1
     if shipIndex == 1 then
         selectShip1()
     elseif shipIndex == 2 then

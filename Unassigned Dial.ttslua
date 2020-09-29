@@ -455,6 +455,10 @@ function assignShip(ship)
             self.UI.setAttribute("PivKBtn", "active", "true")
             self.UI.setAttribute("PivRBtn", "active", "true")
             self.UI.setAttribute("PivLBtn", "active", "true")
+        elseif v == 'Dare' then
+            repos = true
+            self.UI.setAttribute("BoostLTBtn", "active", "true")
+            self.UI.setAttribute("BoostRTBtn", "active", "true")
         end
     end
 
@@ -603,27 +607,20 @@ function ionTok(p,id)
     Global.call('proxyPerformAction', {assignedShip, 'Ion', playerColor, id ~= '-1'})
 end
 
-function BoostS(p)
-    if spectReturn(p) == true then
+boostCommands = {
+    BoostSBtn = "s1b",
+    BoostLBtn = "bl1b",
+    BoostRBtn = "br1b",
+    BoostLTBtn = "tl1b",
+    BoostRTBtn = "tr1b",
+}
+
+function Boost(P, option, id)
+    if (option ~= '-1') or (spectReturn(P) == true) then
         return
     end
-    assignedShip.setDescription("s1b")
+    assignedShip.setDescription(boostCommands[id] or "")
 end
-
-function BoostR(p)
-    if spectReturn(p) == true then
-        return
-    end
-    assignedShip.setDescription("br1b")
-end
-
-function BoostL(p)
-    if spectReturn(p) == true then
-        return
-    end
-    assignedShip.setDescription("bl1b")
-end
-
 
 function AilS(p)
     if spectReturn(p) == true then

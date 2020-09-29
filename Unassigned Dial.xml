@@ -287,7 +287,7 @@
     active="false"
     width="600"
     height="300"
-    color="#aaffaa00"
+    color="#aaaaaa00"
     raycastTarget="true"
     onMouseExit="menuHover">
     <Panel id="BoostFD"
@@ -295,20 +295,27 @@
         color="#aaffaa00"
         showAnimation="FadeIn"
         hideAnimation="FadeOut">
-        <Button id="BoostSBtn" class="RelocButtons" onClick="BoostS">
+
+        <Button id="BoostSBtn" class="RelocButtons" onClick="Boost">
             <Image id= "BoostSIcon" class="RIcon" image="BoostS" preserveAspect="true"></Image>
         </Button>
-        <Button id="BoostLBtn" class="RelocButtons" onClick="BoostL" offsetXY="-65 0">
+        <Button id="BoostLBtn" class="RelocButtons" onClick="Boost" offsetXY="-65 0">
             <Image id= "BoostLIcon" class="RIcon" image="BoostL" preserveAspect="true"></Image>
         </Button>
-        <Button id="BoostRBtn" class="RelocButtons" onClick="BoostR" offsetXY="65 0">
+        <Button id="BoostRBtn" class="RelocButtons" onClick="Boost" offsetXY="65 0">
             <Image id= "BoostRIcon" class="RIcon" image="BoostR" preserveAspect="true"></Image>
+        </Button>
+        <Button id="BoostLTBtn" class="RelocButtons" onClick="Boost" offsetXY="-130 0">
+            <Image id= "BoostLTIcon" class="RIcon" image="BoostLT" preserveAspect="true"></Image>
+        </Button>
+        <Button id="BoostRTBtn" class="RelocButtons" onClick="Boost" offsetXY="130 0">
+            <Image id= "BoostRTIcon" class="RIcon" image="BoostRT" preserveAspect="true"></Image>
         </Button>
     </Panel>
 
     <Panel id="AileronFD"
         class="AileronPanel"
-        color="#aaffaa00"
+        color="#ffffaa00"
         offsetXY="0 100"
         showAnimation="FadeIn"
         hideAnimation="FadeOut">
@@ -343,7 +350,7 @@
     <Panel id="BarrelLeftFD"
         class="BarrelPanel"
         offsetXY="-230 0"
-        color="#aaffaa00"
+        color="#aaffff00"
         showAnimation="FadeIn"
         hideAnimation="FadeOut">
         <Button id="BarrelLBtn" class="RelocButtons" onClick="BarrelL">
@@ -360,7 +367,7 @@
     <Panel id="BarrelRightFD"
         class="BarrelPanel"
         offsetXY="230 0"
-        color="#aaffaa00"
+        color="#ffaaaa00"
         showAnimation="FadeIn"
         hideAnimation="FadeOut">
         <Button id="BarrelRBtn" class="RelocButtons" onClick="BarrelR">
