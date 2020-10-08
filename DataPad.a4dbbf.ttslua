@@ -423,7 +423,7 @@ masterShipDB[35]={['name']='A-Wing',['Hull']=2,['Shield']=2,['size']='small',['a
 masterShipDB[36]={['name']='Fang Fighter',['Hull']=4,['Shield']=0,['size']='small',['agi']=3,['XWS']='fangfighter', ['Fac']={[3]=true}, ['arcs']={'front'},
                             ['moveSet']={'wtl1','wtr1','rtl2t','btl2','bbl2','bs2','bbr2','btr2','rtr2t','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk4','ws5'}}
 --masterShipDB[37]={['name']='',['Shield']=3,['size']='small',['agi']=1,['XWS']='', ['Fac']={[1]=true}}
-masterShipDB[38]={['name']='Z-95 Headhunter',['Hull']=2,['Shield']=2,['size']='small',['agi']=2,['XWS']='z95af4headhunter', ['Fac']={[1]=true}, ['arcs']={'front'},
+masterShipDB[38]={['name']='Z-95 Headhunter',['Hull']=2,['Shield']=2,['size']='small',['agi']=2,['XWS']='z95af4headhunter', ['Fac']={[1]=true,[3]=true}, ['arcs']={'front'},
                             ['moveSet']={'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk3','ws4','rk4'}}
 masterShipDB[39]={['name']='M12-L Kimogila',['Hull']=7,['Shield']=2,['size']='medium',['agi']=2,['XWS']='m12lkimogilafighter', ['Fac']={[3]=true}, ['arcs']={'front'},
                             ['moveSet']={'rtl1','wbl1','bs1','wbr1','rtr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk4'}}
@@ -623,9 +623,6 @@ masterShipDB[71]={
     mesh = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/FO_Tie_Ba/TieBa.obj',
     moveSet = {'btl1','bbl1','bbr1','btr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rbl2s','rbr2s','bs4','ws5','rk5'}
 }
-
-masterShipDB[74]={['name']='Z-95 Headhunter',['Hull']=2,['Shield']=2,['size']='small',['agi']=2,['XWS']='z95af4headhunter', ['Fac']={[3]=true}, ['arcs']={'front'},
-                            ['moveSet']={'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk3','ws4','rk4'}}
 
 --w7ship
 --[[masterShipDB[80]={

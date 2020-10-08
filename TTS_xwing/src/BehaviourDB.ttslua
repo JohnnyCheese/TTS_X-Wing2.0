@@ -1250,63 +1250,65 @@ BehaviourDB.rule_sets[1].ships[23].action_selection = {
 -- Scum Ships --
 ----------------
 
+---- TODO: The Z-95 Scum has slightly different AI from the Rebel one (less self-preservation).
+---- Handling this difference will require some additional work in a later PR.
 -- Z-95-AF4 Headhunter
-BehaviourDB.rule_sets[1].ships[74] = {}
-BehaviourDB.rule_sets[1].ships[74].target_selection = {[1]='LockedInRange', [2]='ClosestInArc', [3]='Closest'}
-BehaviourDB.rule_sets[1].ships[74].move_table = {
-    ['bullseye'] = {
-        ['near'] = {[1] = 'k3', [3] = 's1', [5] = 's2'},
-        ['far'] = {[1] = 's1', [2] = 's2', [5] = 's3'},
-        ['distant'] = {[1] = 's3', [2] = 's4'},
-        ['stress'] = {[1] = 's1', [4] = 's2'},
-    },
-    ['front_right'] = {
-        ['near'] = {[1] = 'k4', [3] = 'br1', [6] = 'br2'},
-        ['far'] = {[1] = 'br2', [4] = 'br3', [6] = 's3'},
-        ['distant'] = {[1] = 'br3', [5] = 's4'},
-        ['stress'] = {[1] = 'br1', [3] = 'br2', [4] = 's2'},
-    },
-    ['right_front'] = {
-        ['near'] = {[1] = 'k4', [2] = 'k3', [4] = 'tr2'},
-        ['far'] = {[1] = 'br1', [2] = 'tr2', [3] = 'br2', [5] = 'tr3'},
-        ['distant'] = {[1] = 'tr2', [4] = 'tr3'},
-        ['stress'] = {[1] = 'tr2', [4] = 'br2'},
-    },
-    ['right_back'] = {
-        ['near'] = {[1] = 'k3', [4] = 'br1', [5] = 'tr2'},
-        ['far'] = {[1] = 'k4', [2] = 'k3', [5] = 'tr2'},
-        ['distant'] = {[1] = 'k3', [4] = 'tr3'},
-        ['stress'] = {[1] = 'tr2', [3] = 'br2'},
-    },
-    ['back_right'] = {
-        ['near'] = {[1] = 'k4', [3] = 'k3', [5] = 'tr2'},
-        ['far'] = {[1] = 'k3', [3] = 'tr2'},
-        ['distant'] = {[1] = 'k3', [4] = 'tr2'},
-        ['stress'] = {[1] = 's1', [3] = 'br2', [6] = 'tr3'},
-    },
-}
-BehaviourDB.rule_sets[1].ships[74].action_selection = {
-    [1] = { -- Target lock if not in enemy's arc
-        ['description'] = {['text'] = "%s target locked %s outside target's arc.", ['strings'] = {'ship', 'target'}},
-        ['preconditions'] = {['targetLocked'] = false, ['inEnemyArc'] = false, ['targetWithinRange'] = true},
-        ['action'] = 'targetLock'
-    },
-    [2] = { -- Focus if you have a shot
-        ['description'] = "%s has a shot so focused.",
-        ['preconditions'] = {['hasShot'] = true},
-        ['action'] = 'focus'
-    },
-    [3] = { -- Barrel roll (stress) to get a shot
-        ['description'] = "%s stress barrel rolled to get a shot.",
-        ['preconditions'] = {['hasShot'] = false},
-        ['action'] = {['barrelRoll'] = true},
-        ['postconditions'] = {['hasShot'] = true},
-    },
-    [4] = { -- Focus
-        ['description'] = "%s focused.",
-        ['action'] = 'focus'
-    }
-}
+-- BehaviourDB.rule_sets[1].ships[38] = {}
+-- BehaviourDB.rule_sets[1].ships[38].target_selection = {[1]='LockedInRange', [2]='ClosestInArc', [3]='Closest'}
+-- BehaviourDB.rule_sets[1].ships[38].move_table = {
+--     ['bullseye'] = {
+--         ['near'] = {[1] = 'k3', [3] = 's1', [5] = 's2'},
+--         ['far'] = {[1] = 's1', [2] = 's2', [5] = 's3'},
+--         ['distant'] = {[1] = 's3', [2] = 's4'},
+--         ['stress'] = {[1] = 's1', [4] = 's2'},
+--     },
+--     ['front_right'] = {
+--         ['near'] = {[1] = 'k4', [3] = 'br1', [6] = 'br2'},
+--         ['far'] = {[1] = 'br2', [4] = 'br3', [6] = 's3'},
+--         ['distant'] = {[1] = 'br3', [5] = 's4'},
+--         ['stress'] = {[1] = 'br1', [3] = 'br2', [4] = 's2'},
+--     },
+--     ['right_front'] = {
+--         ['near'] = {[1] = 'k4', [2] = 'k3', [4] = 'tr2'},
+--         ['far'] = {[1] = 'br1', [2] = 'tr2', [3] = 'br2', [5] = 'tr3'},
+--         ['distant'] = {[1] = 'tr2', [4] = 'tr3'},
+--         ['stress'] = {[1] = 'tr2', [4] = 'br2'},
+--     },
+--     ['right_back'] = {
+--         ['near'] = {[1] = 'k3', [4] = 'br1', [5] = 'tr2'},
+--         ['far'] = {[1] = 'k4', [2] = 'k3', [5] = 'tr2'},
+--         ['distant'] = {[1] = 'k3', [4] = 'tr3'},
+--         ['stress'] = {[1] = 'tr2', [3] = 'br2'},
+--     },
+--     ['back_right'] = {
+--         ['near'] = {[1] = 'k4', [3] = 'k3', [5] = 'tr2'},
+--         ['far'] = {[1] = 'k3', [3] = 'tr2'},
+--         ['distant'] = {[1] = 'k3', [4] = 'tr2'},
+--         ['stress'] = {[1] = 's1', [3] = 'br2', [6] = 'tr3'},
+--     },
+-- }
+-- BehaviourDB.rule_sets[1].ships[38].action_selection = {
+--     [1] = { -- Target lock if not in enemy's arc
+--         ['description'] = {['text'] = "%s target locked %s outside target's arc.", ['strings'] = {'ship', 'target'}},
+--         ['preconditions'] = {['targetLocked'] = false, ['inEnemyArc'] = false, ['targetWithinRange'] = true},
+--         ['action'] = 'targetLock'
+--     },
+--     [2] = { -- Focus if you have a shot
+--         ['description'] = "%s has a shot so focused.",
+--         ['preconditions'] = {['hasShot'] = true},
+--         ['action'] = 'focus'
+--     },
+--     [3] = { -- Barrel roll (stress) to get a shot
+--         ['description'] = "%s stress barrel rolled to get a shot.",
+--         ['preconditions'] = {['hasShot'] = false},
+--         ['action'] = {['barrelRoll'] = true},
+--         ['postconditions'] = {['hasShot'] = true},
+--     },
+--     [4] = { -- Focus
+--         ['description'] = "%s focused.",
+--         ['action'] = 'focus'
+--     }
+-- }
 
 -- M3-A Interceptor
 BehaviourDB.rule_sets[1].ships[44] = {}
