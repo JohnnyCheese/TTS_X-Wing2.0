@@ -1,0 +1,120 @@
+-- ~~~~~~
+-- Script by Eirik 'Flippster' Munthe
+-- Issues, history at: https://github.com/JohnnyCheese/TTS_X-Wing2.0
+--
+-- Module for handeling ship proxies, used in barrel rolls and more
+-- ~~~~~~
+ShipProxyModule = {}
+ShipProxyModule.proxyTable = {}
+ShipProxyModule.hiddenShips = {}
+ShipProxyModule.finalPosOffset = {
+    small = vector(0, 0, Convert_mm_igu(20)),
+    medium = vector(0, 0, Convert_mm_igu(20)),
+    large = vector(0, 0, Convert_mm_igu(20))
+}
+
+ShipProxyModule.barrelRollOffset = {}
+ShipProxyModule.barrelRollOffset = {
+    small = vector(Convert_mm_igu(80), 0, 0),
+    medium = vector(Convert_mm_igu(80), 0, 0),
+    large = vector(Convert_mm_igu(100), 0, 0)
+}
+
+proxyScripts = {}
+proxyScripts.markShip = [[
+
+function onLoad(save_state)
+    self.AddContextMenuItem("Return ship", function() Global.call("UnMarkShip", {shipGUID = self.getVar("shipGUID"), proxy = self})
+end, false)
+end
+
+function onContextOpen(player)
+    print("Markship Context Open")
+    --self.UI.show("btnPanel")
+end
+
+function UnMarkShip(player)
+    Global.call("UnMarkShip", {shipGUID = self.getVar("shipGUID"), proxy = self})
+end
+]]
+
+
+function MarkShip(args)
+    ShipProxyModule.spawnProxy(args.ship, true, nil, color(0,0.1,1,0.2), "markShip")
+end
+
+function UnMarkShip(args)
+    local pos = ShipProxyModule.hiddenShips[args.shipGUID]
+    local ship = getObjectFromGUID(args.shipGUID)
+    if pos ~= nil and ship ~= nil then
+        ship.setPosition(pos)
+        ship.interactable = true
+        ShipProxyModule.hiddenShips[args.shipGUID] = nil
+    end
+    for k, proxy in pairs( ShipProxyModule.proxyTable[args.shipGUID]) do
+        if proxy ~= nil then
+            proxy.destruct()
+        end
+    end
+     ShipProxyModule.proxyTable[args.shipGUID] = nil;
+end
+
+function StartBarrelRoll(args)
+    local size = args.ship.getTable('Data').Size or small
+    args.positionOffset = ShipProxyModule.barrelRollOffset[size]
+    if args.direction == "right" then
+        args.positionOffset.x = -args.positionOffset.x
+    end
+    StartFinalPositionSelection(args)
+end
+
+function StartFinalPositionSelection(args)
+    local size = args.ship.getTable('Data').Size or small
+    local offset = ShipProxyModule.finalPosOffset[size]
+    ShipProxyModule.spawnProxy(args.ship, false, args.positionOffset + ShipProxyModule.finalPosOffset[size], color(0,0.1,1,0.2), "finalPos")
+    ShipProxyModule.spawnProxy(args.ship, false, args.positionOffset, color(0,0.1,1,0.2), "finalPos")
+    ShipProxyModule.spawnProxy(args.ship, false, args.positionOffset - ShipProxyModule.finalPosOffset[size], color(0,0.1,1,0.2), "finalPos")
+end
+
+
+ShipProxyModule.spawnProxy = function(ship, hide, offset, tint, script)
+    if hide and ShipProxyModule.hiddenShips[ship.getGUID()] ~= nil then
+        return
+    end
+
+    offset = Vect.RotateDeg(offset or vector(0,0,0), ship.GetRotation().y)
+
+    local proxy = spawnObject({
+      type              = "Custom_Model",
+      position          = ship.getPosition() + offset,
+      rotation          = ship.getRotation(),
+      scale             = ship.getScale(),
+      sound             = false,
+      snap_to_grid      = false,
+    })
+    local size = ship.getTable("Data").Size or 'small'
+    proxy.setCustomObject({
+        type = 0,
+        material = 3,
+        collider = ShipVerification.colliders[size],
+        mesh = "{verifycache}https://github.com/JohnnyCheese/TTS_X-Wing2.0/raw/master/assets/ships/proxy/" .. size ..".obj"
+    })
+    proxy.setColorTint(tint)
+    proxy.setLock(true)
+    proxy.setLuaScript(proxyScripts[script])
+    proxy.setVar("shipGUID", ship.getGUID())
+
+    if hide then
+        ShipProxyModule.hiddenShips[ship.getGUID()] = ship.getPosition()
+        ship.setPosition(vector(0, -3, 0))
+        ship.interactable = false
+        ship.setLock(true)
+        local playerColors = ship.getSelectingPlayers()
+        for _, player in ipairs(playerColors) do
+            ship.removeFromPlayerSelection(player)
+        end
+    end
+
+    ShipProxyModule.proxyTable[ship.getGUID()] = ShipProxyModule.proxyTable[ship.getGUID()] or {}
+    table.insert(ShipProxyModule.proxyTable[ship.getGUID()], proxy)
+end
