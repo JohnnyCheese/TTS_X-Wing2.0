@@ -327,8 +327,7 @@ end
 -- called except when debugging.
 AIModule.ValidateMoveTables = function(ship)
     local ship_id = ship.getTable('Data')['shipId']
-    local rule_set = BehaviourDB.GetRuleSet()
-    local behaviour = rule_set.ships[ship_id]
+    local behaviour = BehaviourDB.GetRuleSet().GetShipBehaviour(ship)
 
     for arc, range_tables in pairs(behaviour.move_table) do
         for range, move_table in pairs(range_tables) do
@@ -503,7 +502,7 @@ AIModule.PerformManeuver = function(ship, take_action)
     local rule_set = BehaviourDB.GetRuleSet()
 
     local ship_id = ship.getTable('Data')['shipId']
-    local ship_behaviour = rule_set.ships[ship_id]
+    local ship_behaviour = rule_set.GetShipBehaviour(ship)
 
     if ship_behaviour ~= nil then
         printToAll('Performing AI routine for ' .. ship.GetName(), color(1.0, 1.0, 0.2, 0.9))
@@ -733,6 +732,21 @@ AIModule.PerformManeuver = function(ship, take_action)
                             AIModule.current_move.collision = swerve_probe_data.collObj ~= nil
                         else
                             print(' Tried ' .. closest_swerve_move_code .. ', still hits an obstacle.')
+
+                            local obstacle_name = swerve_probe_data.collObs.getName()
+                            if obstacle_name:find('Asteroid') then
+                                -- Asteroid: roll an attack die and suffer a hit or crit
+                                AIModule.current_move.obstacle = 'asteroid'
+                                printToAll(ship.GetName() .. ' has collided with an asteroid. Please roll a red die and inflict a hit or a critical hit if either is rolled.', color(1.0, 1.0, 0.2, 0.9))
+                            elseif obstacle_name:find('Debris') or obstacle_name:find('Chute debris') or obstacle_name:find('Spare') then
+                                -- Debris cloud: gain stress (happens in ManeuverPostShipRest), roll and attack die and suffer a crit
+                                AIModule.current_move.obstacle = 'debris_field'
+                                printToAll(ship.GetName() .. ' has collided with a debris field. Please roll a red die and inflict a critical hit if one is rolled.', color(1.0, 1.0, 0.2, 0.9))
+                            elseif obstacle_name:find('Cloud') then
+                                AIModule.current_move.obstacle = 'gas_cloud'
+                                -- Gas cloud: roll an attack die, gain a strain on an eye or a hit
+                                printToAll(ship.GetName() .. ' has collided with a gas cloud. Please roll a red die and gain a strain if an eye or a hit is rolled.', color(1.0, 1.0, 0.2, 0.9))
+                            end
                         end
                     end
                 end
@@ -797,11 +811,22 @@ end
 AIModule.ManeuverPostShipRest = function(ship)
     local action_selected = false;
 
+    if AIModule.current_move.obstacle == 'debris_field' then
+        DialModule.PerformAction(ship, 'Stress', ship.getVar("owningPlayer"))
+    end
+
     if AIModule.current_move.difficulty == 'r' then
         DialModule.PerformAction(ship, 'Stress', ship.getVar("owningPlayer"))
     elseif AIModule.current_move.take_action == true and AIModule.current_move.stress_count == 0 and AIModule.current_move.collision == false and AIModule.current_move.obstacle == false then
         if AIModule.current_move.is_ionised then
-            -- TODO: Only perform a focus action (if possible)
+            -- Ionised ships can only perform a focus action, if possible.
+            for _, action in pairs(ship.getTable('Data')['actSet']) do
+                if action == 'F' then
+                    table.insert(AIModule.current_move.action_stack, 'focus')
+                    action_selected = true
+                    break
+                end
+            end
         else
             -- Check for Full Throttle and apply it now if appropriate.
             AIModule.ApplySpecialAbility(ship, 'fullThrottle')
@@ -945,9 +970,7 @@ AIModule.ApplySpecialAbility = function(ship, ability)
 end
 
 AIModule.HasSpecialAbility = function(ship, ability)
-    local rule_set = BehaviourDB.GetRuleSet()
-    local ship_id = ship.getTable('Data')['shipId']
-    local ship_behaviour = rule_set.ships[ship_id]
+    local ship_behaviour = BehaviourDB.GetRuleSet().GetShipBehaviour(ship)
 
     if ship_behaviour.special_rules == nil then
         return false
@@ -1035,9 +1058,7 @@ AIModule.arc_adjacencies = {
 }
 
 AIModule.SelectAction = function(ship)
-    local rule_set = BehaviourDB.GetRuleSet()
-    local ship_id = ship.getTable('Data')['shipId']
-    local ship_behaviour = rule_set.ships[ship_id]
+    local ship_behaviour = BehaviourDB.GetRuleSet().GetShipBehaviour(ship)
 
     for _, action in ipairs(ship_behaviour.action_selection) do
         if AIModule.AttemptAction(ship, AIModule.current_move.target, action) then
@@ -1045,6 +1066,7 @@ AIModule.SelectAction = function(ship)
         end
     end
 
+    local ship_id = ship.getTable('Data')['shipId']
     printToAll('No AI actions found for ship ID ' .. tostring(ship_id) .. ', please make actions manually.', color(1.0, 1.0, 0.2, 0.9))
 end
 
