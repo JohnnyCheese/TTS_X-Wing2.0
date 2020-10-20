@@ -6291,6 +6291,10 @@ function initContextMenu()
         self.AddContextMenuItem("AI move and action", function(argument) Global.call("PerformAIManeuver", {['ship']=self, ['take_action']=true}) end, false)
         self.AddContextMenuItem("AI move", function(argument) Global.call("PerformAIManeuver", {['ship']=self, ['take_action']=false}) end, false)
     end
+
+    self.AddContextMenuItem("Mark ship", function(argument) Global.call("MarkShip", {ship=self}) end, false)
+    --self.AddContextMenuItem("Start BR Left", function(argument) Global.call("StartBarrelRoll", {ship=self, direction="left"}) end, false)
+    --self.AddContextMenuItem("Start BR Right", function(argument) Global.call("StartBarrelRoll", {ship=self, direction="right"}) end, false)
 end
 
 assigned_tokens = {}
@@ -6771,6 +6775,8 @@ function newSpawner(listTable)
                 end
             end
         end
+
+
         local newShip = nil
         pos = LocalPos(spawnCard, {0, 0, 9})
         rot = spawnCard.getRotation()
@@ -7048,14 +7054,36 @@ function newSpawner(listTable)
 
 
 
-
         finalPos = LocalPos(spawnCard, {-4 - 2*UpNum, 0, 0})
         spawnCard.setPosition(finalPos)
         shipIndex = shipIndex + 1
-        -- Delete cloned bags
-        tempBagAcc.destruct()
-        tempBagShp.destruct()
+
     end
+
+    finalPos = LocalPos(spawnCard, {0, 0, 5.5})
+    spawnCard.setPosition(finalPos)
+
+    for i, remote in pairs(listTable.Remotes or {}) do
+        print("Spawning remote:" .. remote)
+        for k, acc in ipairs(listaAcc) do
+            if acc.name == remote then
+                print("Found remote")
+                rot = spawnCard.getRotation()
+                pos = LocalPos(spawnCard, {1,0,0})
+                remObj = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
+                remoteClone = remObj.clone()
+                tempBagAcc.putObject(remoteClone)
+                finalpos = LocalPos(spawnCard, {-3,0,0})
+                spawnCard.setPosition(finalpos)
+                break
+            end
+        end
+    end
+
+    -- Delete cloned bags
+    tempBagAcc.destruct()
+    tempBagShp.destruct()
+
 
     if listTable.Obstacles ~= nil then
         tempObstacleBag = getObjectFromGUID('203cb8').clone({position = PosBag3}) -- Obstacles bag
@@ -7065,7 +7093,7 @@ function newSpawner(listTable)
             for j, obstacle in ipairs(obstacleAcc) do
                 if obstacle.name == obstacleName then
                     print("Found obstacle: " .. obstacle.name .. " - " .. obstacleName)
-                    pos =  LocalPos(spawnCard, {0, 3, 5.5})
+                    pos =  LocalPos(spawnCard, {0, 3, 0})
                     rot = spawnCard.getRotation()
                     obstacleToken = tempObstacleBag.takeObject({position = pos, rotation = rot, guid = obstacle.guid})
                     obstacleClone = obstacleToken.clone()
