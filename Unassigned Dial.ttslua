@@ -126,6 +126,8 @@ function getManouverIcons(manouver)
         manColor="Blue"
     elseif manouver:sub(1,1) == 'r' then
         manColor="Red"
+    elseif manouver:sub(1,1) == 'p' then
+        manColor="Purple"
     end
 
     if manouver:sub(-1,-1) == 't' then
