@@ -327,8 +327,7 @@ end
 -- called except when debugging.
 AIModule.ValidateMoveTables = function(ship)
     local ship_id = ship.getTable('Data')['shipId']
-    local rule_set = BehaviourDB.GetRuleSet()
-    local behaviour = rule_set.ships[ship_id]
+    local behaviour = BehaviourDB.GetRuleSet().GetShipBehaviour(ship)
 
     for arc, range_tables in pairs(behaviour.move_table) do
         for range, move_table in pairs(range_tables) do
@@ -503,7 +502,7 @@ AIModule.PerformManeuver = function(ship, take_action)
     local rule_set = BehaviourDB.GetRuleSet()
 
     local ship_id = ship.getTable('Data')['shipId']
-    local ship_behaviour = rule_set.ships[ship_id]
+    local ship_behaviour = rule_set.GetShipBehaviour(ship)
 
     if ship_behaviour ~= nil then
         printToAll('Performing AI routine for ' .. ship.GetName(), color(1.0, 1.0, 0.2, 0.9))
@@ -971,9 +970,7 @@ AIModule.ApplySpecialAbility = function(ship, ability)
 end
 
 AIModule.HasSpecialAbility = function(ship, ability)
-    local rule_set = BehaviourDB.GetRuleSet()
-    local ship_id = ship.getTable('Data')['shipId']
-    local ship_behaviour = rule_set.ships[ship_id]
+    local ship_behaviour = BehaviourDB.GetRuleSet().GetShipBehaviour(ship)
 
     if ship_behaviour.special_rules == nil then
         return false
@@ -1061,9 +1058,7 @@ AIModule.arc_adjacencies = {
 }
 
 AIModule.SelectAction = function(ship)
-    local rule_set = BehaviourDB.GetRuleSet()
-    local ship_id = ship.getTable('Data')['shipId']
-    local ship_behaviour = rule_set.ships[ship_id]
+    local ship_behaviour = BehaviourDB.GetRuleSet().GetShipBehaviour(ship)
 
     for _, action in ipairs(ship_behaviour.action_selection) do
         if AIModule.AttemptAction(ship, AIModule.current_move.target, action) then
@@ -1071,6 +1066,7 @@ AIModule.SelectAction = function(ship)
         end
     end
 
+    local ship_id = ship.getTable('Data')['shipId']
     printToAll('No AI actions found for ship ID ' .. tostring(ship_id) .. ', please make actions manually.', color(1.0, 1.0, 0.2, 0.9))
 end
 
