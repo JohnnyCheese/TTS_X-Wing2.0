@@ -659,6 +659,20 @@ masterShipDB[85]={
     moveSet = {'wtl1','rbl1','rbr1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rk2','wtl3','wbl3','bs3','wbr3','wtl3','ws4','rk4','ws5'},
 }
 
+masterShipDB[86]={
+    name = 'Droid Tri-Fighter',
+    Hull = 3,
+    Shield = 0,
+    size = 'small',
+    agi = 3,
+    XWS = 'droidtrifighter',
+    Fac = {[7]=true},
+    arcs = {'front'},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Tri-Fighter/CIS_Tri-Fighter.obj',
+    moveSet = {'rtl1t','wtl1','wtr1','rtr1t','btl2','wbl2','bs2','wbr2','btr2','btl3','wbl3','bs3','wbr3','btl3','rk3', 'bs4','ws5','rk5'},
+}
+
+
 -- Huge ships
 masterShipDB[90]={
     name = 'CR-90 Corvette',
@@ -3696,7 +3710,7 @@ masterPilotDB[804]={
     limited = 1,
     Faction = 4,
     ship_type = 54,
-    cost = 43,
+    cost = 200,
     slot = {21, 1,1,19,6},
     Shield = 2,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/73/ef/73ef0cdc-deb6-451d-a76c-0b3d9ef147ec/swz68_seftin-vanik.png',
@@ -3710,7 +3724,7 @@ masterPilotDB[805]={
     limited = 1,
     Faction = 4,
     ship_type = 54,
-    cost = 43,
+    cost = 200,
     slot = {21, 1,1,19,6},
     Shield = 2,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/18/3e/183ed99b-c562-4db5-9377-daf4661dfac9/swz68_merl-cobben.png',
@@ -3723,8 +3737,8 @@ masterPilotDB[807]={
     name = "Suralinda Javos",
     limited = 1,
     Faction = 4,
+    cost = 200,
     ship_type = 54,
-    cost = 43,
     slot = {21, 1,1,19,6},
     Shield = 2,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/e1/64/e1644adc-8d8a-4408-90a1-621e0dd4b0c6/swz68_suralinda-javos.png',
@@ -3738,13 +3752,95 @@ masterPilotDB[808]={
     limited = 1,
     Faction = 4,
     ship_type = 54,
-    cost = 43,
+    cost = 200,
     slot = {21, 1,1,19,6},
     Shield = 2,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/d3/66/d3669149-00da-4abf-9e08-9655e10db166/swz68_wrobie-tyce.png',
     init = 4,
     texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_awing/Wrobie%20Tyce.png',
     actSet = {'F','TL','Rot180','E','B','BR'}
+}
+
+masterPilotDB[809]={
+    name = "Phlac-Arphocc Prototype",
+    limited = 2,
+    Faction = 7,
+    ship_type = 86,
+    cost = 200,
+    slot = {21,1,1,19,6},
+    Shield = 0,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/57/f7/57f74986-1cbf-4745-9792-360153f75719/swz81_phlac-prototype_cutout.png',
+    init = 5,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Tri-Fighter/Phlac-Arphocc%20Prototype.png',
+    actSet = {'C','E','TL','BR','B'}
+}
+
+masterPilotDB[810]={
+    name = "DIS-T81",
+    limited = 1,
+    Faction = 7,
+    ship_type = 86,
+    cost = 200,
+    slot = {21,1,1,19,6},
+    Shield = 0,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/eb/3d/eb3db7f7-4707-4c09-ae41-6a74b669f4d1/swz81_dis-t81_cutout.png',
+    init = 4,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Tri-Fighter/DIS-T81.png',
+    actSet = {'C','E','TL','BR','B'}
+}
+
+masterPilotDB[811]={
+    name = "DIS-347",
+    limited = 1,
+    Faction = 7,
+    ship_type = 86,
+    cost = 200,
+    slot = {21,1,1,19,6},
+    Shield = 0,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/8f/96/8f96a822-921a-4c77-ae90-2fe15e196171/swz81_dis-347_cutout.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Tri-Fighter/DIS-347.png',
+    actSet = {'C','E','TL','BR','B'}
+}
+
+masterPilotDB[812]={
+    name = "Fearsome Predator",
+    limited = 3,
+    Faction = 7,
+    ship_type = 86,
+    cost = 200,
+    slot = {21,1,1,19,6},
+    Shield = 0,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/91/bb/91bb3546-290e-4131-895e-a77d79ebbc99/swz81_fearsome-predator_cutout.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Tri-Fighter/Fearsome%20Predators.png',
+    actSet = {'C','E','TL','BR','B'}
+}
+
+masterPilotDB[813]={
+    name = "Seperatist Interceptors",
+    Faction = 7,
+    ship_type = 86,
+    cost = 200,
+    slot = {21,1,1,19,6},
+    Shield = 0,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/e5/c8/e5c82543-69af-42ee-bb32-32b0c11d6845/swz81_separatist-interceptor_cutout.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Tri-Fighter/Separatist%20Interceptors.png',
+    actSet = {'C','E','TL','BR','B'}
+}
+
+masterPilotDB[814]={
+    name = "Colicoid Interceptors",
+    Faction = 7,
+    ship_type = 86,
+    cost = 200,
+    slot = {21,1,1,19,6},
+    Shield = 0,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/74/88/7488fd46-8f27-4ca9-b573-db8d6f7d749e/swz81_colicoid-interceptor_cutout.png',
+    init = 1,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Tri-Fighter/Colicoid%20Interceptors.png',
+    actSet = {'C','E','TL','BR','B'}
 }
 
 
