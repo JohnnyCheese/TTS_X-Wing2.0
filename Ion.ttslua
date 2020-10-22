@@ -41,28 +41,29 @@ end
 
 -- Set name on drop near a ship
 function onDropped()
-    if not set then
-        local spos = self.getPosition()
-        local spos = self.getPosition()
-        local nearest = nil
-        local minDist = 3.6125 -- 100 mm
-        for k,ship in pairs(getAllObjects()) do
-            if ship.tag == 'Figurine' and ship.name ~= '' then
-                local pos = ship.getPosition()
-                local dist = math.sqrt(math.pow((spos[1]-pos[1]),2) + math.pow((spos[3]-pos[3]),2))
-                if dist < minDist then
-                    nearest = ship
-                    minDist = dist
-                end
+    local spos = self.getPosition()
+    local spos = self.getPosition()
+    local nearest = nil
+    local minDist = 3.6125 -- 100 mm
+    for k,ship in pairs(getAllObjects()) do
+        if ship.tag == 'Figurine' and ship.name ~= '' then
+            local pos = ship.getPosition()
+            local dist = math.sqrt(math.pow((spos[1]-pos[1]),2) + math.pow((spos[3]-pos[3]),2))
+            if dist < minDist then
+                nearest = ship
+                minDist = dist
             end
         end
-        if nearest ~= nil then
-            ship = nearest
-            set = true
-            self.setRotation(nearest.getRotation())
+    end
+    if nearest ~= nil then
+        ship = nearest
+        set = true
+        self.setRotation(nearest.getRotation())
 
-            printToAll(ship.getName().." takes an ion token")
-        end
+        printToAll(ship.getName().." takes an ion token")
+    else
+        ship = nil
+        set = false
     end
 end
 
@@ -76,6 +77,13 @@ end
 
 function showBtn()
     if stat==false and ship~=nil then
+        if self.is_face_down then
+            self.UI.setAttribute("Center", "rotation", "180 0 0")
+            self.UI.setAttribute("Center", "position", "0 0 30")
+        else
+            self.UI.setAttribute("Center", "rotation", "0 0 180")
+            self.UI.setAttribute("Center", "position", "0 0 -30")
+        end
         self.UI.show("Center")
         stat=true
     end

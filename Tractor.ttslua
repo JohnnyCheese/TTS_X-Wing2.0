@@ -67,12 +67,13 @@ function onDropped()
     if nearest ~= nil then
         ship = nearest
         set = true
- 
 
         self.setRotation(nearest.getRotation())
 
         printToAll(ship.getName().." takes a tractor token")
-        self.UI.setAttribute("Center", "active", "true")
+    else
+        ship = nil
+        set = false
     end
 end
 
@@ -84,6 +85,13 @@ end
 
 function showBtn()
     if stat==false and ship~=nil then
+        if self.is_face_down then
+            self.UI.setAttribute("btnPanel", "rotation", "180 0 0")
+            self.UI.setAttribute("btnPanel", "position", "0 0 30")
+        else
+            self.UI.setAttribute("btnPanel", "rotation", "0 0 180")
+            self.UI.setAttribute("btnPanel", "position", "0 0 -30")
+        end
         self.UI.show("btnPanel")
         stat=true
     end
