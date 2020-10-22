@@ -20,8 +20,28 @@ ShipProxyModule.barrelRollOffset = {
     large = vector(Convert_mm_igu(100), 0, 0)
 }
 
-proxyScripts = {}
-proxyScripts.markShip = [[
+ShipProxyModule.proxyXmlGui = {}
+ShipProxyModule.proxyXmlGui.finalPos = [[
+<Defaults>
+    <Button class="InvisibleButton" color="#22222200" outline="#BBBBBB" outlineSize="2 2" fontSize="22" textColor="#FFFFFF" fontStyle="Bold"/>
+</Defaults>
+<Panel id="Center"
+    width="200"
+    height="200"
+    position="0 0 -20"
+    rotation="0 0 180"
+    color="#aaffaa00"
+    onMouseExit="hideBtn"
+    active="false">
+
+    <Button id="Select" class="InvisibleButton" offsetXY="0 0" width="225" height="225" active="true" onClick="select">
+    </Button>
+</Panel>
+
+]]
+
+ShipProxyModule.proxyScripts = {}
+ShipProxyModule.proxyScripts.markShip = [[
 
 function onLoad(save_state)
     self.AddContextMenuItem("Return ship", function() Global.call("UnMarkShip", {shipGUID = self.getVar("shipGUID"), proxy = self})
@@ -38,6 +58,25 @@ function UnMarkShip(player)
 end
 ]]
 
+ShipProxyModule.proxyScripts.finalPos = [[
+
+defaultColor = color(0.3,0.3,1.0,0.1)
+hoverColor = color(0.5,1.0,0.5,0.3)
+
+function onHoverEnter(player)
+    self.UI.show("Center")
+    self.setColorTint(hoverColor)
+end
+
+function onHoverLeave(player)
+    self.UI.hide("Center")
+    self.setColorTint(defaultColor)
+end
+
+function select(player)
+    Global.call("SelectFinalPos", {shipGUID = self.getVar("shipGUID"), proxy = self})
+end
+]]
 
 function MarkShip(args)
     ShipProxyModule.spawnProxy(args.ship, true, nil, color(0,0.1,1,0.2), "markShip")
@@ -60,33 +99,61 @@ function UnMarkShip(args)
 end
 
 function StartBarrelRoll(args)
-    local size = args.ship.getTable('Data').Size or small
-    args.positionOffset = ShipProxyModule.barrelRollOffset[size]
+    local size = args.ship.getTable('Data').Size or "small"
+    positionOffset = ShipProxyModule.barrelRollOffset[size]
     if args.direction == "right" then
-        args.positionOffset.x = -args.positionOffset.x
+        positionOffset.x = -positionOffset.x
     end
-    StartFinalPositionSelection(args)
+    ShipProxyModule.StartFinalPositionSelection(args.ship, positionOffset)
 end
 
-function StartFinalPositionSelection(args)
-    local size = args.ship.getTable('Data').Size or small
+function SelectFinalPos(args)
+    local ship = getObjectFromGUID(args.shipGUID)
+    local posrot = {pos=args.proxy.getPosition(), rot=args.proxy.getRotation()}
+    local info = {size=ship.getTable("Data").Size, code="dummy", type=""}
+    local fullFunc = function(info,ship) return posrot end
+    result = MoveModule.MoveProbe.TryFullMove(info, ship, fullFunc)
+
+    MoveModule.MoveShip(ship, {finPos=posrot})
+    for k, proxy in pairs( ShipProxyModule.proxyTable[args.shipGUID]) do
+        if proxy ~= nil then
+            proxy.destruct()
+        end
+    end
+end
+
+ShipProxyModule.StartFinalPositionSelection = function(ship, positionOffset)
+    local size = ship.getTable('Data').Size or "small"
     local offset = ShipProxyModule.finalPosOffset[size]
-    ShipProxyModule.spawnProxy(args.ship, false, args.positionOffset + ShipProxyModule.finalPosOffset[size], color(0,0.1,1,0.2), "finalPos")
-    ShipProxyModule.spawnProxy(args.ship, false, args.positionOffset, color(0,0.1,1,0.2), "finalPos")
-    ShipProxyModule.spawnProxy(args.ship, false, args.positionOffset - ShipProxyModule.finalPosOffset[size], color(0,0.1,1,0.2), "finalPos")
+    for k, off in pairs({offset, vector(0,0,0), vector(0,0,0)-offset}) do
+        ShipProxyModule.spawnProxy(ship, false, positionOffset + off, color(0,0.1,1,0.2), "finalPos")
+    end
 end
 
+ShipProxyModule.proxyModels = {
+    collider = {
+        small = '{verifycache}https://github.com/JohnnyCheese/TTS_X-Wing2.0/raw/master/assets/colliders/Small_base_proxy_collider.obj',
+        medium = '{verifycache}https://github.com/JohnnyCheese/TTS_X-Wing2.0/raw/master/assets/colliders/Medium_base_proxy_collider.obj',
+        large = '{verifycache}https://github.com/JohnnyCheese/TTS_X-Wing2.0/raw/master/assets/colliders/Large_base_proxy_collider.obj',
+        huge = '{verifycache}https://github.com/JohnnyCheese/TTS_X-Wing2.0/raw/master/assets/colliders/Huge_base_proxy_collider.obj'
+    },
+    model = {
+        small = '{verifycache}https://github.com/JohnnyCheese/TTS_X-Wing2.0/raw/master/assets/ships/proxy/small.obj',
+        medium = '{verifycache}https://github.com/JohnnyCheese/TTS_X-Wing2.0/raw/master/assets/ships/proxy/medium.obj',
+        large = '{verifycache}https://github.com/JohnnyCheese/TTS_X-Wing2.0/raw/master/assets/ships/proxy/large.obj',
+        huge = '{verifycache}https://github.com/JohnnyCheese/TTS_X-Wing2.0/raw/master/assets/ships/proxy/huge.obj',
+    },
+}
 
 ShipProxyModule.spawnProxy = function(ship, hide, offset, tint, script)
     if hide and ShipProxyModule.hiddenShips[ship.getGUID()] ~= nil then
         return
     end
 
-    offset = Vect.RotateDeg(offset or vector(0,0,0), ship.GetRotation().y)
-
+    local offset = Vect.RotateDeg(offset or vector(0,0,0), ship.GetRotation().y)
     local proxy = spawnObject({
       type              = "Custom_Model",
-      position          = ship.getPosition() + offset,
+      position          = ship.getPosition() + vector(offset[1],offset[2],offset[3]),
       rotation          = ship.getRotation(),
       scale             = ship.getScale(),
       sound             = false,
@@ -96,12 +163,13 @@ ShipProxyModule.spawnProxy = function(ship, hide, offset, tint, script)
     proxy.setCustomObject({
         type = 0,
         material = 3,
-        collider = ShipVerification.colliders[size],
-        mesh = "{verifycache}https://github.com/JohnnyCheese/TTS_X-Wing2.0/raw/master/assets/ships/proxy/" .. size ..".obj"
+        collider = ShipProxyModule.proxyModels.collider[size],
+        mesh = ShipProxyModule.proxyModels.model[size],
     })
     proxy.setColorTint(tint)
     proxy.setLock(true)
-    proxy.setLuaScript(proxyScripts[script])
+    proxy.setLuaScript(ShipProxyModule.proxyScripts[script])
+    proxy.UI.setXml(ShipProxyModule.proxyXmlGui[script])
     proxy.setVar("shipGUID", ship.getGUID())
 
     if hide then

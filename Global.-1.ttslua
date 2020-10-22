@@ -6315,8 +6315,8 @@ function initContextMenu()
     end
 
     self.AddContextMenuItem("Mark ship", function(argument) Global.call("MarkShip", {ship=self}) end, false)
-    --self.AddContextMenuItem("Start BR Left", function(argument) Global.call("StartBarrelRoll", {ship=self, direction="left"}) end, false)
-    --self.AddContextMenuItem("Start BR Right", function(argument) Global.call("StartBarrelRoll", {ship=self, direction="right"}) end, false)
+    self.AddContextMenuItem("Start BR Left", function(argument) Global.call("StartBarrelRoll", {ship=self, direction="left"}) end, false)
+    self.AddContextMenuItem("Start BR Right", function(argument) Global.call("StartBarrelRoll", {ship=self, direction="right"}) end, false)
 end
 
 assigned_tokens = {}
