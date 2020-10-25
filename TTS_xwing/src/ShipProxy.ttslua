@@ -21,9 +21,27 @@ ShipProxyModule.barrelRollOffset = {
 }
 
 ShipProxyModule.proxyXmlGui = {}
+ShipProxyModule.proxyXmlGui.markShip = [[
+<Defaults>
+    <Button class="InvisibleButton" color="#22222255" outline="#BBBBBB" outlineSize="2 2" fontSize="22" textColor="#FFFFFF" fontStyle="Bold"/>
+</Defaults>
+<Panel id="Center"
+    width="200"
+    height="200"
+    position="0 0 -20"
+    rotation="0 0 180"
+    color="#aaffaa00"
+    onMouseExit="hideBtn"
+    active="false">
+
+    <Button id="Select" class="InvisibleButton" offsetXY="0 0" width="225" height="225" active="true" onClick="select">
+    </Button>
+</Panel>
+
+]]
 ShipProxyModule.proxyXmlGui.finalPos = [[
 <Defaults>
-    <Button class="InvisibleButton" color="#22222200" outline="#BBBBBB" outlineSize="2 2" fontSize="22" textColor="#FFFFFF" fontStyle="Bold"/>
+    <Button class="InvisibleButton" color="#22222255" outline="#BBBBBB" outlineSize="2 2" fontSize="22" textColor="#FFFFFF" fontStyle="Bold"/>
 </Defaults>
 <Panel id="Center"
     width="200"
@@ -40,8 +58,16 @@ ShipProxyModule.proxyXmlGui.finalPos = [[
 
 ]]
 
+
 ShipProxyModule.proxyScripts = {}
 ShipProxyModule.proxyScripts.markShip = [[
+
+sizeScale = {
+    small = {width = 1, height = 1},
+    medium = {width = 1.5, height = 1.5},
+    large = {width = 2.0, height = 2.0},
+    huge = {width = 2.0, height = 5}
+}
 
 function onLoad(save_state)
     self.AddContextMenuItem("Return ship", function() Global.call("UnMarkShip", {shipGUID = self.getVar("shipGUID"), proxy = self})
@@ -49,11 +75,12 @@ end, false)
 end
 
 function onContextOpen(player)
-    print("Markship Context Open")
-    --self.UI.show("btnPanel")
+    self.UI.setAttribute("Select", "width", tostring(225 * sizeScale[self.getVar("size")].width))
+    self.UI.setAttribute("Select", "height", tostring(225 * sizeScale[self.getVar("size")].height))
+    self.UI.show("Center")
 end
 
-function UnMarkShip(player)
+function select(player)
     Global.call("UnMarkShip", {shipGUID = self.getVar("shipGUID"), proxy = self})
 end
 ]]
@@ -62,8 +89,20 @@ ShipProxyModule.proxyScripts.finalPos = [[
 
 defaultColor = color(0.3,0.3,1.0,0.1)
 hoverColor = color(0.5,1.0,0.5,0.3)
+sizeScale = {
+    small = {width = 1, height = 1},
+    medium = {width = 1.5, height = 1.5},
+    large = {width = 2.0, height = 2.0},
+    huge = {width = 2.0, height = 5}
+}
+
+function onLoad(save_state)
+
+end
 
 function onHoverEnter(player)
+    self.UI.setAttribute("Select", "width", tostring(225 * sizeScale[self.getVar("size")].width))
+    self.UI.setAttribute("Select", "height", tostring(225 * sizeScale[self.getVar("size")].height))
     self.UI.show("Center")
     self.setColorTint(hoverColor)
 end
@@ -171,6 +210,7 @@ ShipProxyModule.spawnProxy = function(ship, hide, offset, tint, script)
     proxy.setLuaScript(ShipProxyModule.proxyScripts[script])
     proxy.UI.setXml(ShipProxyModule.proxyXmlGui[script])
     proxy.setVar("shipGUID", ship.getGUID())
+    proxy.setVar("size", size)
 
     if hide then
         ShipProxyModule.hiddenShips[ship.getGUID()] = ship.getPosition()
