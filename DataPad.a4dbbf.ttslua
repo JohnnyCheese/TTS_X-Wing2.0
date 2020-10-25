@@ -3767,7 +3767,7 @@ masterPilotDB[809]={
     Faction = 7,
     ship_type = 86,
     cost = 200,
-    slot = {21,1,1,19,6},
+    slot = {21,1,1,19,6,14},
     Shield = 0,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/57/f7/57f74986-1cbf-4745-9792-360153f75719/swz81_phlac-prototype_cutout.png',
     init = 5,
@@ -3781,7 +3781,7 @@ masterPilotDB[810]={
     Faction = 7,
     ship_type = 86,
     cost = 200,
-    slot = {21,1,1,19,6},
+    slot = {21,1,1,19,6,14},
     Shield = 0,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/eb/3d/eb3db7f7-4707-4c09-ae41-6a74b669f4d1/swz81_dis-t81_cutout.png',
     init = 4,
@@ -3795,7 +3795,7 @@ masterPilotDB[811]={
     Faction = 7,
     ship_type = 86,
     cost = 200,
-    slot = {21,1,1,19,6},
+    slot = {21,1,1,19,6,14},
     Shield = 0,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/8f/96/8f96a822-921a-4c77-ae90-2fe15e196171/swz81_dis-347_cutout.png',
     init = 3,
@@ -3808,8 +3808,9 @@ masterPilotDB[812]={
     limited = 3,
     Faction = 7,
     ship_type = 86,
+    Condition ="Fearful Prey",
     cost = 200,
-    slot = {21,1,1,19,6},
+    slot = {21,1,1,19,6,14},
     Shield = 0,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/91/bb/91bb3546-290e-4131-895e-a77d79ebbc99/swz81_fearsome-predator_cutout.png',
     init = 3,
@@ -3822,7 +3823,7 @@ masterPilotDB[813]={
     Faction = 7,
     ship_type = 86,
     cost = 200,
-    slot = {21,1,1,19,6},
+    slot = {21,1,1,19,6,14},
     Shield = 0,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/e5/c8/e5c82543-69af-42ee-bb32-32b0c11d6845/swz81_separatist-interceptor_cutout.png',
     init = 3,
@@ -3835,7 +3836,7 @@ masterPilotDB[814]={
     Faction = 7,
     ship_type = 86,
     cost = 200,
-    slot = {21,1,1,19,6},
+    slot = {21,1,1,19,6,14},
     Shield = 0,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/74/88/7488fd46-8f27-4ca9-b573-db8d6f7d749e/swz81_colicoid-interceptor_cutout.png',
     init = 1,
@@ -4503,7 +4504,19 @@ masterUpgradesDB[542]={
     cost = 4,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/73d545fd02afd29fa8aa9e9015e7be6e.png',
     restriction = { ship ={[60]=true}}}
-masterUpgradesDB[543]={['name']="Discord Missiles",['Condition']="Buzz Droid Swarm",['slot']=6,['cost']=4,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/ee2f0b906cb4f1dbcafc274f44b76d3d.png',['restriction']={['Faction']={[7]=true}}}
+
+masterUpgradesDB[543]={
+    name = "Discord Missiles",
+    remotes = {"Buzz Droid Swarm"},
+    limited = 3,
+    slot = 6,
+    cost = 4,
+    Charge = 1,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/ee2f0b906cb4f1dbcafc274f44b76d3d.png',
+    restriction = {
+        Faction = {[7]=true}
+    }
+}
 masterUpgradesDB[545]={['name']="Battle Meditation",['slot']=17,['cost']='i',['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/d0641df31a0fc40c501055dcd34094f6.png',['restriction']={['Faction']={[6]=true}}}
 masterUpgradesDB[546]={['name']="R4-P Astromech",['slot']=10,['cost']=2,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/26f6dd68ba6bb37fa5315f45a6237c88.png',['restriction']={['Faction']={[6]=true}}}
 masterUpgradesDB[547]={['name']="R4-P17",['slot']=10,['cost']=5,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/80c71951bb28b45b9ffdc84c9e7e69f8.png',['restriction']={['Faction']={[6]=true}}}
@@ -5266,6 +5279,16 @@ masterUpgradesDB[717]={
     cost = 200,
     Charge = 2,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/bb/fb/bbfb4727-e2f5-4f23-be9a-3341ea4de7b5/swz80_upgrade_precison-ion-engines.png',
+    executeOptions = function(list, pid)
+        return {
+            rk1   = {[1]='rk1', [2]='rbl1s', [3]='rbr1s'},
+            rk2   = {[1]='rk2', [2]='rbl2s', [3]='rbr2s'},
+            rk3   = {[1]='rk3', [2]='rbl3s', [3]='rbr3s'},
+            wk1   = {[1]='wk1', [2]='wbl1s', [3]='wbr1s'},
+            wk2   = {[1]='wk2', [2]='wbl2s', [3]='wbr2s'},
+            wk3   = {[1]='wk3', [2]='wbl3s', [3]='wbr3s'},
+        }
+    end,
     restriction = {
         ship = {
         [11]=true,
@@ -5281,7 +5304,7 @@ masterUpgradesDB[717]={
     }
 }
 
-masterUpgradesDB[716]={
+masterUpgradesDB[718]={
     name = 'Q7 Astromech',
     slot = 10,
     cost = 200,
@@ -5290,6 +5313,54 @@ masterUpgradesDB[716]={
         Faction={[6]=true},
     }
 }
+
+masterUpgradesDB[719]={
+    name = 'Intercept Booster',
+    slot = 18,
+    cost = 200,
+    Charge = 3,
+    addAction = {'TL'},
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/0d/3f/0d3f071a-1c8e-416f-9c0e-1195ca31c102/swz81_upgrade_intercept-booster_attached.png',
+    cardB = 'https://images-cdn.fantasyflightgames.com/filer_public/c5/49/c549df37-e99d-4746-a34c-d42d74d854b4/swz81_upgrade_intercept-booster_detached.png',
+    restriction = {
+        Faction={[7]=true},
+        ship={[86]=true}
+    }
+}
+
+masterUpgradesDB[720]={
+    name = 'XX-23 S-Thread Tracers',
+    slot = 6,
+    cost = 200,
+    Charge = 2,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/96/d7/96d7fd7e-cca2-403d-a291-5fcb973404c6/swz81_upgrade_s-tread-tracers.png',
+}
+
+masterUpgradesDB[721]={
+    name = 'Marg Sabl Closure',
+    slot = 1,
+    cost = 200,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/64/ff/64ff6a96-57a4-44ef-938f-68cda3df71b6/swz81_upgrade_marg-sabl-clousre.png',
+    restriction = {
+        Size = { small=true,
+                 medium=true},
+    },
+    movethrough = true,
+}
+
+masterUpgradesDB[722]={
+    name = 'Independent Calculations',
+    slot = 14,
+    cost = 200,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/5c/76/5c762c2d-5ae5-43d2-8791-908c211d0515/swz81_upgrade_independent-calculations.png',
+    restriction = {
+        ship={
+            [59]=true,
+            [66]=true,
+            [86]=true} -- Network calculations
+    },
+}
+
 
 -- Epic upgrade cards
 -- Commands
