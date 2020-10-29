@@ -243,7 +243,7 @@ masterShipDB[10]={
     size = 'medium',
     agi = 2,
     XWS = 'firesprayclasspatrolcraft',
-    Fac = {[3]=true},
+    Fac = {[3]=true, [7]=true},
     arcs = {'front', 'back'},
     mesh = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Medium/firespray/firespray.obj',
     moveSet = {'wtl1','bbl1','bs1','bbr1','wtr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3t','wbl3','bs3','wbr3','rtr3t','ws4','rk4'}
@@ -1719,6 +1719,7 @@ masterPilotDB[148]={['name']='Patrol Leader',['Faction']= 2,['ship_type']=28,['c
 
 masterPilotDB[149]={
     name = 'Boba Fett',
+    title = 'Notorious Bounty Hunter',
     Faction = 3,
     ship_type = 10,
     cost = 86,
@@ -3644,6 +3645,9 @@ masterPilotDB[729]={
 }
 
 
+
+
+
 masterPilotDB[800]={
     name = 'Nimi Chereen',
     limited = 1,
@@ -3819,7 +3823,7 @@ masterPilotDB[812]={
 }
 
 masterPilotDB[813]={
-    name = "Seperatist Interceptor",
+    name = "Separatist Interceptor",
     Faction = 7,
     ship_type = 86,
     cost = 200,
@@ -3842,6 +3846,64 @@ masterPilotDB[814]={
     init = 1,
     texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Tri-Fighter/Colicoid%20Interceptors.png',
     actSet = {'C','E','TL','BR','B'}
+}
+
+masterPilotDB[815]={
+    name = 'Jango Fett',
+    limited = 1,
+    Faction = 7,
+    ship_type = 10,
+    cost = 200,
+    slot = {21, 1, 3, 6, 8, 12, 13, 14, 15},
+    Shield = 4,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/d4/f0/d4f09efe-f07f-45ad-a82f-8fdc29ec8f75/swz82_a1_jango-fett.png',
+    init = 6,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/CIS_Firespray/Jango%20Fett.png',
+    actSet = {'F','R','TL','B'}
+}
+
+masterPilotDB[816]={
+    name = 'Zam Wesell',
+    limited = 1,
+    Faction = 7,
+    Condition = 'Zam Wesell',
+    Charge = 4,
+    ship_type = 10,
+    cost = 200,
+    slot = {21, 1, 3, 6, 8, 12, 13, 14, 15},
+    Shield = 4,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/08/f3/08f343b7-9d01-4e1f-91d8-e6eca0eb4fe0/swz82_a1_zam-wessel.png',
+    init = 5,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/CIS_Firespray/Zam%20Wesell.png',
+    actSet = {'F','R','TL','B'}
+}
+
+masterPilotDB[817]={
+    name = 'Boba Fett',
+    title = 'Survivor',
+    limited = 1,
+    Faction = 7,
+    ship_type = 10,
+    cost = 200,
+    slot = {21, 1, 3, 6, 8, 12, 13, 14, 15},
+    Shield = 4,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/17/5d/175d51c6-6a7a-4f59-b8c1-44417a746187/swz82_a1_boba-fett.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/CIS_Firespray/Boba%20Fett.png',
+    actSet = {'F','R','TL','B'}
+}
+
+masterPilotDB[818]={
+    name = 'Separatist Racketeer',
+    Faction = 7,
+    ship_type = 10,
+    cost = 200,
+    slot = {21, 3, 6, 8, 12, 13, 14, 15},
+    Shield = 4,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/16/8c/168ca8f4-0015-44a3-9a7c-099caff70881/swz82_a1_separatist-racketeer.png',
+    init = 2,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/CIS_Firespray/Separatist%20Racketeer.png',
+    actSet = {'F','R','TL','B'}
 }
 
 
@@ -4346,6 +4408,7 @@ masterUpgradesDB[377]={['name']='Punishing One',['slot']=15,['cost']=5,['addSlot
 masterUpgradesDB[378]={['name']='Shadow Caster',['slot']=15,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_153.png',['restriction']={['Faction']={[3]=true},['ship']={[42]=true}}}
 masterUpgradesDB[379]={
     name = 'Slave I',
+    title = "Boba's ride",
     slot = 15,
     cost = 5,
     addSlot = {5},
@@ -5361,6 +5424,77 @@ masterUpgradesDB[722]={
     },
 }
 
+masterUpgradesDB[723]={
+    name = 'Jango Fett',
+    limited = 1,
+    slot = 8,
+    cost = 200,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/5b/54/5b5418d8-1e33-403d-abfc-815cf4ffac94/swz82_a1_upgrade_jango-fett.png',
+    restriction = {
+        Faction={[3]=true, [7]=true},
+    },
+}
+
+masterUpgradesDB[724]={
+    name = 'Zam Wesell',
+    limited = 1,
+    Condition = 'Zam Wesell',
+    slot = 8,
+    cost = 200,
+    Charge = 2,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/77/bd/77bd5f12-05de-4c34-9e5a-e8dfa636de52/swz82_a1_upgrade_zam-wessel.png',
+    restriction = {
+        Faction={[3]=true, [7]=true},
+    },
+}
+
+masterUpgradesDB[725]={
+    name = 'Hondo Ohnaka',
+    limited = 1,
+    slot = 8,
+    cost = 200,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/f2/30/f230e89a-4885-4721-b2a0-7c0e1ef1726f/swz-hondo-ohnaka.png',
+}
+
+masterUpgradesDB[726]={
+    name = 'Slave I',
+    title = "Jango's ride",
+    slot = 15,
+    cost = 200,
+    addSlot = {16},
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/1e/db/1edb3304-9368-442f-95fd-f6a56d93deec/swz82_a1_upgrade_slave1.png',
+    restriction = {
+        Faction = {[3]=true,
+                   [7]=true},
+        ship = {[10]=true}
+    }
+}
+
+masterUpgradesDB[727]={
+    name = 'Boba Fett',
+    limited = 1,
+    slot = 16,
+    cost = 200,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/b6/39/b6395ed5-2a9c-46fd-9945-b906224aa05d/swz82_a1_upgrade_boba-fett.png',
+}
+
+masterUpgradesDB[728]={
+    name = 'Weapon Systems Officer',
+    slot = 16,
+    cost = 200,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/c8/de/c8de95b1-c5f8-467e-b9ef-0d81cc92f72e/swz82_a1_upgrade_weapon-systems.png',
+}
+
+masterUpgradesDB[728]={
+    name = 'False Transponder Codes',
+    slot = 13,
+    cost = 200,
+    Charge = 1,
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/de/d4/ded4b0e6-683b-4caa-b642-41fdd09f7ed6/swz82_a1_upgrade_false-codes.png',
+}
+
+
+
 
 -- Epic upgrade cards
 -- Commands
@@ -6306,10 +6440,16 @@ function singleSearch()
             if string.find(string.lower(v.name), string.lower(single), 1, true) then
                 if butUpCount < 7 then
                     butUpCount = butUpCount+1
-                    local upName = v.name
-                    if ffgSpecial[k] ~= nil then
-                        upName = upName..' ('..ffgSpecial[k]..')'
+
+                    local title = ''
+                    if v.title ~= nil then
+                        title = ' - ' .. v.title
                     end
+                    local upName = v.name .. title
+                    if ffgSpecial[k] ~= nil then
+                        upName = upName.. title .. ' ('..ffgSpecial[k]..')'
+                    end
+
                     butUpData[butUpCount] = k
                     self.createButton({click_function = 'singleUp'..butUpCount, function_owner = self, label = upName, position = {0.45,0.45,0+butUpCount*0.09}, width = 2800, height = 230, font_size = 120,  scale = {0.15,0.15,0.15}})
                 end
@@ -7320,8 +7460,12 @@ function selectSlotGeneric(slotIndex)
                 else
                     upCost = up.cost
                 end
+                local title = ''
+                if up.title ~= nil then
+                    title = '\n' .. up.title
+                end
                 availableUps[index] = {[1]=id, [2]=up.name, [3]=upCost}
-                self.createButton({click_function = 'selectUp'..index, label = up.name..' ('..upCost..')', function_owner = self, position = {-0.53+auxB*0.58,0.45,aux*0.1-0.1}, width = 1100, height = 200, font_size = 100,  scale = {0.25,0.25,0.25}})
+                self.createButton({click_function = 'selectUp'..index, label = up.name..title..' ('..upCost..')', function_owner = self, position = {-0.53+auxB*0.58,0.45,aux*0.1-0.1}, width = 1100, height = 200, font_size = 100,  scale = {0.25,0.25,0.25}})
                 aux=aux+1
                 index = index+1
                 if aux > 8 then
