@@ -72,6 +72,7 @@ varCostI[549]={[0]=0,[1]=0,[2]=1,[3]=2,[4]=3,[5]=4,[6]=5} -- Calibrated laser Ta
 varCostI[614]={[0]=3,[1]=3,[2]=3,[3]=4,[4]=7,[5]=10,[6]=13} -- Precognitive Reflexes
 varCostI[610]={[0]=21,[1]=21,[2]=21,[3]=21,[4]=21,[5]=24,[6]=28} -- Ensnare
 varCostI[577]={[0]=2,[1]=2,[2]=2,[3]=2,[4]=2,[5]=4,[6]=6} -- Passive Sensors
+varCostI[704]={[0]=0,[1]=1,[2]=2,[3]=3,[4]=4,[5]=5,[6]=6} --Overdrive Thruster
 
 
 -- FFG uses full name on factions, so a conversion is needed
@@ -656,7 +657,7 @@ masterShipDB[85]={
     Fac = {[6]=true},
     arcs = {'front'},
     mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_V-Wing/Republic_V-Wing.obj',
-    moveSet = {'wtl1','rbl1','rbr1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rk2','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk4','ws5'},
+    moveSet = {'wtl1','rbl1','rbr1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rk2','wtl3','wbl3','bs3','wbr3','wtl3','ws4','rk4','ws5'},
 }
 
 masterShipDB[86]={
@@ -669,7 +670,7 @@ masterShipDB[86]={
     Fac = {[7]=true},
     arcs = {'front'},
     mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Tri-Fighter/CIS_Tri-Fighter.obj',
-    moveSet = {'rtl1t','wtl1','wtr1','rtr1t','btl2','wbl2','bs2','wbr2','btr2','btl3','wbl3','bs3','wbr3','btr3','rk3', 'bs4','ws5','rk5'},
+    moveSet = {'rtl1t','wtl1','wtr1','rtr1t','btl2','wbl2','bs2','wbr2','btr2','btl3','wbl3','bs3','wbr3','btl3','rk3', 'bs4','ws5','rk5'},
 }
 
 
@@ -3819,7 +3820,7 @@ masterPilotDB[812]={
 }
 
 masterPilotDB[813]={
-    name = "Seperatist Interceptor",
+    name = "Seperatist Interceptors",
     Faction = 7,
     ship_type = 86,
     cost = 200,
@@ -3832,7 +3833,7 @@ masterPilotDB[813]={
 }
 
 masterPilotDB[814]={
-    name = "Colicoid Interceptor",
+    name = "Colicoid Interceptors",
     Faction = 7,
     ship_type = 86,
     cost = 200,
