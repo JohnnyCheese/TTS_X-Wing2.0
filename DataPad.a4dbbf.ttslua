@@ -3596,6 +3596,7 @@ masterPilotDB[726]={
     limited = 1,
     Faction = 6,
     ship_type = 85,
+    Charge = 1,
     cost = 200,
     slot = {1, 10, 14, 18},
     Shield = 2,
@@ -3650,14 +3651,14 @@ masterPilotDB[729]={
 
 
 masterPilotDB[800]={
-    name = 'Nimi Chereen',
+    name = 'Nimi Chireen',
     limited = 1,
     Faction = 4,
     ship_type = 53,
     cost = 49,
     slot = {21, 1,19,14,18,15,10,99},
     Shield = 3,
-    card = 'https://images-cdn.fantasyflightgames.com/filer_public/c3/49/c349eef1-f13a-4c31-9b73-73dab884af41/swz68_nimi-chereen.png',
+    card = 'https://images-cdn.fantasyflightgames.com/filer_public/c1/0e/c10e3900-82d8-4bba-9b2b-9ed2f8ad826b/swz68_nimi-chireen.png',
     init = 2,
     texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_T70Xwing/Nimi%20Chereen.png',
     actSet = {'F','TL','B'},
@@ -8226,8 +8227,8 @@ function setUp3()
 end
 
 variableCostSizeDB={}
-variableCostSizeDB['engine upgrade'] = {['Small'] = 3, ['Medium'] = 6,['Large'] = 9}
-variableCostSizeDB['expert handling'] = {['Small'] = 2, ['Medium'] = 3,['Large'] = 4}
+variableCostSizeDB['engine upgrade'] = { Small = 3, Medium = 6, Large = 9}
+variableCostSizeDB['expert handling'] = { Small = 2, Medium = 3, Large = 4}
 
 variableCostAgiDB={}
 variableCostAgiDB['hull upgrade'] = {[0] = 3,[1] = 4,[2] = 6,[3] = 8}
