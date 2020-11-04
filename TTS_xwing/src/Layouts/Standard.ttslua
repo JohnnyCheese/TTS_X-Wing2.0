@@ -102,24 +102,24 @@ do
         ['White']   = { pos = {50.00, 5.00, -15.00}, rot = {0.00, 270.00, 0.00}, scale = {5.01, 5.00, 1.00} },
     }
     standard.mats = {
-        ['Green-Red'] = { pos = {-20.5142, -0.17, 0.00}, rot = {0.00, 180.00, 0.00}, scale = {1.225, 1.2, 1.225}, int = false },
-        ['Teal-Blue'] = { pos = {20.5142, -0.17, 0.00}, rot = {0.00, 180.00, 0.00}, scale = {1.225, 1.2, 1.225}, int = false },
+        ['Red-Blue'] = { pos = {-20.5142, 1, 0.00}, rot = {0.00, 180.00, 0.00}, scale = {1.63, 1.2, 1.63}, int = false },
+        ['Purple-Orange'] = { pos = {20.5142, 1, 0.00}, rot = {0.00, 180.00, 0.00}, scale = {1.63, 1.2, 1.63}, int = false },
     }
     function StandardCallMat(matName, callFcn)
         local mat = Layout.GetMats()[standard.name][matName]
         mat.call(callFcn)
     end
     function StandardChangeMatGR()
-        StandardCallMat('Green-Red', 'NextImage')
+        StandardCallMat('Red-Blue', 'NextImage')
     end
     function StandardChangeMatTB()
-        StandardCallMat('Teal-Blue', 'NextImage')
+        StandardCallMat('Purple-Orange', 'NextImage')
     end
     function StandardToggleRulersGR()
-        StandardCallMat('Green-Red', 'ToggleRulers')
+        StandardCallMat('Red-Blue', 'ToggleRulers')
     end
     function StandardToggleRulersTB()
-        StandardCallMat('Teal-Blue', 'ToggleRulers')
+        StandardCallMat('Purple-Orange', 'ToggleRulers')
     end
     local bWidth = 2200
     local bHeight = 500
