@@ -5244,6 +5244,7 @@ masterUpgradesDB[708]={
         ship = {[35]=true,
                 [54]=true}
     },
+    movethrough = true,
 }
 
 masterUpgradesDB[709]={
@@ -6749,6 +6750,7 @@ function idSpawner(idTable)
             if masterUpgradesDB[value].Docking ~= nil then
                 fList.Pilots[k].Docking = masterUpgradesDB[value].Docking
             end
+            fList.Pilots[k].Data.movethrough = masterUpgradesDB[value].movethrough or nil
             if masterUpgradesDB[value].wingleader ~= nil then
                 fList.Pilots[k].wingleader = masterUpgradesDB[value].wingleader
             end

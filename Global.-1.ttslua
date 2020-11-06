@@ -3914,14 +3914,13 @@ end
 --      TemplateOrigin (position and rotation)
 MoveModule.GetTemplateOrigin = function(shipOrigin, shipOrientation, shipSize, templateDir)
     -- OBS: Ships are placed backwards
-    local orientation = shipOrientation
-    orientation.y = orientation.y + 180
+    roty = shipOrientation.y + 180
     if templateDir == "left" then
-        orientation.y = orientation.y - 90
+        roty = roty - 90
     elseif templateDir == "right" then
-        orientation.y = orientation.y + 90
+        roty = roty + 90
     elseif templateDir == "back" then
-        orientation.y = orientation.y - 180
+        roty = roty - 180
     end
 
     local distance = Convert_mm_igu(20)
@@ -3931,9 +3930,9 @@ MoveModule.GetTemplateOrigin = function(shipOrigin, shipOrientation, shipSize, t
         distance = Convert_mm_igu(40)
     end
 
-    local position = shipOrigin + vector(distance * math.sin(math.rad(orientation.y)), 0 , distance*math.cos(math.rad(orientation.y)))
+    local position = shipOrigin + vector(distance * math.sin(math.rad(roty)), 0 , distance*math.cos(math.rad(roty)))
 
-    return {pos = position, rot = orientation}
+    return {pos = position, rot = vector(shipOrientation.x, roty, shipOrientation.z)}
 end
 
 
@@ -4403,8 +4402,9 @@ MoveModule.PerformMove = function(move_code, ship, ignoreCollisions, finishFunct
     }
 
     MoveModule.CheckMineAndObstacleCollisions(ship, finData.finPos, true, templateData)
-    --MoveModule.CheckObstacleCollisions(ship, finData.finPos, true, templateData)
-    --MoveModule.CheckMineCollisions(ship, finData.finPos, true, templateData)
+    if ((finData.collObj == nil) and ship.getTable('Data').movethrough) then
+        MoveModule.CheckMovethroughShips(ship, true, templateData)
+    end
     return (finData.finType ~= 'overlap')
 end
 
@@ -4504,6 +4504,20 @@ MoveModule.CheckMineAndObstacleCollisions = function(ship, targetPosRot, vocal, 
             end
             hitList = hitList:sub(1, -3) .. ')'
             AnnModule.Announce({type='warn', note=ship.getName() .. ' appears to have overlapped a mine or obstacle token ' .. hitList}, 'all')
+        end
+    end
+    return collList
+end
+
+MoveModule.CheckMovethroughShips = function(ship, vocal, templateData)
+    collList = {}
+    if templateData ~= nil then
+        MoveModule.TemplateCastCheck(ship, collList, templateData, MoveModule.SelectShips)
+    end
+    if vocal then
+        for i, coll in pairs(collList) do
+            AnnModule.Announce({type='warn', note=ship.getName() .. ' appears to have moved through ' .. coll.getName()}, 'all')
+            coll.highlightOn({0.2, 0.2, 1}, 3)
         end
     end
     return collList
