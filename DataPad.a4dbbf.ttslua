@@ -7980,7 +7980,7 @@ function parseList()
                     finalList.AuxU[pilotIndex] = {}
                     local found = false
                     for id, pilot in pairs(masterPilotDB) do
-                        if string.lower(pilot.name) == string.lower(cardN) and pilot.Faction == finalList.Faction then
+                        if (string.lower(pilot.name) == string.lower(cardN)) and (pilot.Faction == finalList.Faction) then
                             Aux = Aux + 1
                             finalList.Aux[pilotIndex][Aux] = id
                             finalList.Upgrades[pilotIndex] = {}
@@ -8097,28 +8097,17 @@ end
 -- Fifth Step: If pilots with several options of ships are present, for each pilot will create an inquire asking wich ship the pilot is in.
 function pilotChoice(options)
     local name = (masterPilotDB[options[1]].name)
-    local title = ''
-    if masterPilotDB[options[1]].title ~= nil then
-        title = ' - ' .. masterPilotDB[options[1]].title
-    end
-    local button1 = name..title..' ('.. masterShipDB[masterPilotDB[options[1]].ship_type].name ..')'
-    title = ''
-    if masterPilotDB[options[2]].title ~= nil then
-        title = ' - ' .. masterPilotDB[options[2]].title
-    end
-    local button2 = name..title..' ('.. masterShipDB[masterPilotDB[options[2]].ship_type].name ..')'
     self.clearButtons()
     self.createButton({click_function = 'Dummy2', function_owner = self, label = 'Please choose a ship for the following pilot', position = {0,0.45,-0.4}, width = 3400, height = 380, font_size = 170, scale = {0.25,0.25,0.25}})
     self.createButton({click_function = 'Dummy2', function_owner = self, label = name, position = {0,0.45,-0.1}, width = 1600, height = 380, font_size = 200, scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'setShip1', function_owner = self, label = button1, position = {0,0.45,0.1}, width = 2500, height = 380, font_size = 160, scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'setShip2', function_owner = self, label = button2, position = {0,0.45,0.3}, width = 2500, height = 380, font_size = 160, scale = {0.25,0.25,0.25}})
-    if #options == 3 then
-        title = ''
-        if masterPilotDB[options[3]].title ~= nil then
-            title = ' - ' .. masterPilotDB[options[3]].title
+
+    for i, option in pairs(options) do
+        local name = masterPilotDB[option].name
+        if masterPilotDB[option].title ~= nil then
+            name = name .. ' - ' .. masterPilotDB[option].title
         end
-        local button3 = name..title..' ('.. masterShipDB[masterPilotDB[options[3]].ship_type].name ..')'
-        self.createButton({click_function = 'setShip3', function_owner = self, label = button3, position = {0,0.45,0.5}, width = 2500, height = 380, font_size = 180, scale = {0.25,0.25,0.25}})
+        name = name .. ' ('.. masterShipDB[masterPilotDB[option].ship_type].name ..')'
+        self.createButton({click_function = 'setShip' .. i , function_owner = self, label = name, position = {0,0.45,-0.1 + i*0.2}, width = 2500, height = 380, font_size = 160, scale = {0.25,0.25,0.25}})
     end
 end
 
@@ -8154,6 +8143,27 @@ function setShip3()
     currPIndex = nil
     pChecker()
 end
+
+function setShip4()
+    finalList.Pilots[currPIndex] = repPL[4]
+    finalList.Aux[currPIndex] = nil
+    repPL = nil
+    repPN= 0
+    repUN= 0
+    currPIndex = nil
+    pChecker()
+end
+
+function setShip5()
+    finalList.Pilots[currPIndex] = repPL[5]
+    finalList.Aux[currPIndex] = nil
+    repPL = nil
+    repPN= 0
+    repUN= 0
+    currPIndex = nil
+    pChecker()
+end
+
 
 slotName = {}
 slotName[1] = 'Talent' -- EPT
