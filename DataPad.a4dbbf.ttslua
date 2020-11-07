@@ -3676,6 +3676,7 @@ masterPilotDB[801]={
     init = 4,
     texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_T70Xwing/Cai%20Threnalli.png',
     actSet = {'F','TL','B','E'},
+    movethrough = true
 }
 
 
@@ -6644,6 +6645,7 @@ function idSpawner(idTable)
         fList.Pilots[k].Data.arcs = masterShipDB[Ship].arcs
         fList.Pilots[k].Data.actSet = masterPilotDB[v].actSet
         fList.Pilots[k].Data.executeOptions = masterPilotDB[v].executeOptions or {}
+        fList.Pilots[k].Data.movethrough = masterPilotDB[v].movethrough or false
         if masterPilotDB[v].sqdExecuteOptions ~= nil then
             table.insert(fList.SqdExecOptions, masterPilotDB[v].sqdExecuteOptionss )
         end
@@ -6751,7 +6753,7 @@ function idSpawner(idTable)
             if masterUpgradesDB[value].Docking ~= nil then
                 fList.Pilots[k].Docking = masterUpgradesDB[value].Docking
             end
-            fList.Pilots[k].Data.movethrough = masterUpgradesDB[value].movethrough or nil
+            fList.Pilots[k].Data.movethrough = masterUpgradesDB[value].movethrough or fList.Pilots[k].Data.movethrough
             if masterUpgradesDB[value].wingleader ~= nil then
                 fList.Pilots[k].wingleader = masterUpgradesDB[value].wingleader
             end
