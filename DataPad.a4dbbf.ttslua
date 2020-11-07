@@ -8104,10 +8104,10 @@ function pilotChoice(options)
     for i, option in pairs(options) do
         local name = masterPilotDB[option].name
         if masterPilotDB[option].title ~= nil then
-            name = name .. ' - ' .. masterPilotDB[option].title
+            name = name .. ' - ' .. masterPilotDB[option].title .. '\n'
         end
         name = name .. ' ('.. masterShipDB[masterPilotDB[option].ship_type].name ..')'
-        self.createButton({click_function = 'setShip' .. i , function_owner = self, label = name, position = {0,0.45,-0.1 + i*0.2}, width = 2500, height = 380, font_size = 160, scale = {0.25,0.25,0.25}})
+        self.createButton({click_function = 'setShip' .. i , function_owner = self, label = name, position = {0,0.45,-0.1 + i*0.2}, width = 3000, height = 380, font_size = 160, scale = {0.25,0.25,0.25}})
     end
 end
 
