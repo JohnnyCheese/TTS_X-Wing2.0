@@ -111,19 +111,13 @@ DiceControlModule.onObjectRandomize = function(object, player_color)
                 return
             end
             DiceControlModule.rolled_dice[player_color] = {}
-            table.insert(DiceControlModule.rolled_dice[player_color], object)
-            DiceControlModule.dice_roller_state[player_color]  = "starting"
-            object.addForce(vector(0,200,0), 2)
 
+            if not DiceControlModule.PrepareDice(object, player_color) then
+                return
+            end
+            DiceControlModule.dice_roller_state[player_color]  = "starting"
             Wait.time(
             function()
-                for k, dice in pairs(DiceControlModule.rolled_dice[player_color]) do
-                    dice.interactable = false
-                    players = dice.getSelectingPlayers()
-                    for j, player in pairs(players) do
-                        dice.removeFromPlayerSelection(player)
-                    end
-                end
                 if #DiceControlModule.rolled_dice[player_color] ~= 0 then
                     DiceControlModule.dice_roller_state[player_color]  = "waiting"
                 end
@@ -136,8 +130,7 @@ DiceControlModule.onObjectRandomize = function(object, player_color)
                     return
                 end
             end
-            table.insert(DiceControlModule.rolled_dice[player_color], object)
-            object.addForce(vector(0,200,0), 2)
+            DiceControlModule.PrepareDice(object, player_color)
         elseif DiceControlModule.dice_roller_state[player_color]  == "waiting" then
             for i, dice in pairs(DiceControlModule.rolled_dice[player_color]) do
                 if dice == object then
@@ -151,6 +144,23 @@ DiceControlModule.onObjectRandomize = function(object, player_color)
 end
 
 EventSub.Register('onObjectRandomize', DiceControlModule.onObjectRandomize)
+
+DiceControlModule.PrepareDice = function(die, player_color)
+    if not die.isSmoothMoving() then
+        die.roll()
+        die.interactable = false
+        players = die.getSelectingPlayers()
+        for j, player in pairs(players) do
+            die.removeFromPlayerSelection(player)
+        end
+        table.insert(DiceControlModule.rolled_dice[player_color], die)
+        return true
+    else
+        printToAll("Please don't roll flipping dice", DiceControlModule.error_color)
+        destroyObject(die)
+        return false
+    end
+end
 
 DiceControlModule.RollTimeout = function(player_color)
     printToAll("Roll timed out, please try again", DiceControlModule.error_color)
