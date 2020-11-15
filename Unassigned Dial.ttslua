@@ -436,6 +436,8 @@ function assignShip(ship)
             self.UI.setAttribute("CloakBtn", 'active', 'true')
         elseif v == 'BR' then
             repos = true
+            self.UI.setAttribute("BarrelRightFD", "active", "true")
+            self.UI.setAttribute("BarrelLeftFD", "active", "true")
             self.UI.setAttribute("BarrelRBtn", "active", "true")
             self.UI.setAttribute("BarrelRFBtn", "active", "true")
             self.UI.setAttribute("BarrelRBBtn", "active", "true")
@@ -444,23 +446,47 @@ function assignShip(ship)
             self.UI.setAttribute("BarrelLBBtn", "active", "true")
         elseif v == 'B' then
             repos = true
+            self.UI.setAttribute("BoostFD", "active", "true")
             self.UI.setAttribute("BoostSBtn", "active", "true")
             self.UI.setAttribute("BoostRBtn", "active", "true")
             self.UI.setAttribute("BoostLBtn", "active", "true")
         elseif v =='Ail' then
             repos = true
+            self.UI.setAttribute("AileronFD", "active", "true")
             self.UI.setAttribute("AilSBtn", "active", "true")
             self.UI.setAttribute("AilRBtn", "active", "true")
             self.UI.setAttribute("AilLBtn", "active", "true")
         elseif v =='Piv' then
             repos = true
+            self.UI.setAttribute("PivotFD", "active", "true")
             self.UI.setAttribute("PivKBtn", "active", "true")
             self.UI.setAttribute("PivRBtn", "active", "true")
             self.UI.setAttribute("PivLBtn", "active", "true")
         elseif v == 'Dare' then
             repos = true
+            self.UI.setAttribute("BoostFD", "active", "true")
+            self.UI.setAttribute("BoostFD", "preferredWidth", "330")
+            self.UI.setAttribute("Boost2FD", "preferredWidth", "330")
             self.UI.setAttribute("BoostLTBtn", "active", "true")
             self.UI.setAttribute("BoostRTBtn", "active", "true")
+            self.UI.setAttribute("BoostLT2Btn", "active", "true")
+            self.UI.setAttribute("BoostRT2Btn", "active", "true")
+        elseif v == '2B' then
+            repos = true
+            self.UI.setAttribute("Boost2FD", "active", "true")
+            self.UI.setAttribute("BoostS2Btn", "active", "true")
+            self.UI.setAttribute("BoostL2Btn", "active", "true")
+            self.UI.setAttribute("BoostR2Btn", "active", "true")
+        elseif v == '2BR' then
+            repos = true
+            self.UI.setAttribute("BarrelLeft2FD", "active", "true")
+            self.UI.setAttribute("BarrelRight2FD", "active", "true")
+            self.UI.setAttribute("BarrelR2Btn", "active", "true")
+            self.UI.setAttribute("BarrelRF2Btn", "active", "true")
+            self.UI.setAttribute("BarrelRB2Btn", "active", "true")
+            self.UI.setAttribute("BarrelL2Btn", "active", "true")
+            self.UI.setAttribute("BarrelLF2Btn", "active", "true")
+            self.UI.setAttribute("BarrelLB2Btn", "active", "true")
         end
     end
 
@@ -609,82 +635,40 @@ function ionTok(p,id)
     Global.call('proxyPerformAction', {assignedShip, 'Ion', playerColor, id ~= '-1'})
 end
 
-boostCommands = {
+reposCommands = {
     BoostSBtn = "s1b",
     BoostLBtn = "bl1b",
     BoostRBtn = "br1b",
     BoostLTBtn = "tl1b",
     BoostRTBtn = "tr1b",
+    BoostL2Btn = "bl2b",
+    BoostR2Btn = "br2b",
+    BoostLT2Btn = "tl2b",
+    BoostRT2Btn = "tr2b",
+    AilLBtn = "bl1",
+    AilSBtn = "s1",
+    AilRBtn = "br1",
+    BarrelLFBtn = "rl1",
+    BarrelLBtn = "rl2",
+    BarrelLBBtn = "rl3",
+    BarrelRFBtn = "rr1",
+    BarrelRBtn = "rr2",
+    BarrelRBBtn = "rr3",
+
+    BarrelLF2Btn = "cl1",
+    BarrelL2Btn = "cl2",
+    BarrelLB2Btn = "cl3",
+    BarrelRF2Btn = "cr1",
+    BarrelR2Btn = "cr2",
+    BarrelRB2Btn = "cr3",
+
 }
 
-function Boost(P, option, id)
+function Repos(P, option, id)
     if (option ~= '-1') or (spectReturn(P) == true) then
         return
     end
-    assignedShip.setDescription(boostCommands[id] or "")
-end
-
-function AilS(p)
-    if spectReturn(p) == true then
-        return
-    end
-    assignedShip.setDescription("s1")
-end
-
-function AilR(p)
-    if spectReturn(p) == true then
-        return
-    end
-    assignedShip.setDescription("br1")
-end
-
-function AilL(p)
-    if spectReturn(p) == true then
-        return
-    end
-    assignedShip.setDescription("bl1")
-end
-
-function BarrelL(p)
-    if spectReturn(p) == true then
-        return
-    end
-    assignedShip.setDescription("rl2")
-end
-
-function BarrelLF(p)
-    if spectReturn(p) == true then
-        return
-    end
-    assignedShip.setDescription("rl1")
-end
-
-function BarrelLB(p)
-    if spectReturn(p) == true then
-        return
-    end
-    assignedShip.setDescription("rl3")
-end
-
-function BarrelR(p)
-    if spectReturn(p) == true then
-        return
-    end
-    assignedShip.setDescription("rr2")
-end
-
-function BarrelRF(p)
-    if spectReturn(p) == true then
-        return
-    end
-    assignedShip.setDescription("rr1")
-end
-
-function BarrelRB(p)
-    if spectReturn(p) == true then
-        return
-    end
-    assignedShip.setDescription("rr3")
+    assignedShip.setDescription(reposCommands[id] or "")
 end
 
 function range1(p)
