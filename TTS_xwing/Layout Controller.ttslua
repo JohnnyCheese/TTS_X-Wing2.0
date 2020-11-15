@@ -19,6 +19,7 @@ end
 
 #include TTS_xwing/src/Layouts/Standard
 #include TTS_xwing/src/Layouts/Epic
+#include TTS_xwing/src/Layouts/Single
 
 self.setPosition({0,3,0})
 
@@ -141,7 +142,6 @@ Layout.Switch = function(newIndex)
         broadcastToAll('Layout system disabled', {1, 0.2, 0})
         return
     end
-    table.print(Layout.layouts)
     local lay = Layout.layouts[newIndex]
     print('Switch to ' .. lay.name)
     local tabRef = Layout.GetTableRef()
@@ -223,8 +223,9 @@ function onLoad(saveState)
     self.interactable = false
     self.tooltip = false
     self.lock()
-    addContextMenuItem("Standard setup", function() Layout.Switch(1) end, false)
+    addContextMenuItem("Double setup", function() Layout.Switch(1) end, false)
     addContextMenuItem("Epic setup", function() Layout.Switch(2) end, false)
+    addContextMenuItem("Single setup", function() Layout.Switch(3) end, false)
 end
 
 function onSave()
