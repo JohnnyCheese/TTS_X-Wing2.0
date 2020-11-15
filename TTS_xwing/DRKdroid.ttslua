@@ -1,7 +1,90 @@
+#include TTS_xwing/src/Dimensions
 dork = self
 
 assignedShip = nil
 drop_offset = 0.78
+local spawnedRuler = nil
+
+function update()
+    if self.getDescription() == 'r' then
+        if ToggleRuler3() then
+            printToAll('Spawning ' .. self.getName() .. ' guide', {0, 1, 1})
+        end
+        self.setDescription('')
+    end
+end
+
+function ToggleRuler1()
+    return ToggleRuler(1)
+end
+
+function ToggleRuler3()
+    return ToggleRuler(3)
+end
+
+function DeleteRuler()
+    if spawnedRuler  then
+        spawnedRuler.destruct()
+        spawnedRuler = nil
+    end
+end
+
+function ToggleRuler(range)
+    if spawnedRuler  then
+        spawnedRuler.destruct()
+        spawnedRuler = nil
+        if spawnedRulerRange == range then
+            return false
+        end
+    end
+    local params = {
+        type = 'Custom_Model',
+        position = self.positionToWorld({0, 0, 0}),
+        rotation = self.getRotation(),
+        scale = vector(1,1,1)
+    }
+    local custom = {
+        mesh = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/DRK1/R' .. tostring(range) .. '.obj',
+        collider = 'http://pastebin.com/raw.php?i=UK3Urmw1'
+    }
+    local removeButton = {
+        click_function = 'DeleteRuler',
+        label = 'DEL',
+        function_owner = self,
+        position = {0, 0.1, 0},
+        rotation = {0, 270, 0},
+        width = 750,
+        height = 750,
+        font_size = 250,
+        color = {0.7, 0.7, 0.7}
+    }
+    spawnedRuler = spawnObject(params)
+    spawnedRuler.setCustomObject(custom)
+    spawnedRuler.setColorTint(color(1,1,0,0.2))
+    vector_lines = {}
+    for k,obj in pairs(getAllObjects()) do
+        if obj ~= nil and obj.tag == 'Figurine' and obj.getVar('__XW_Ship') == true then
+            my_pos = self.getNearestPointFromObject(obj) + vector(0,0.1,0)
+            other_pos = obj.getNearestPointFromObject(self)
+            other_pos.y = my_pos.y
+
+            distance = Convert_igu_mm(math.sqrt(math.pow(my_pos.x - other_pos.x,2) + math.pow(my_pos.z - other_pos.z,2)))
+            if distance < range*100 then
+                table.insert(vector_lines, {
+                    points = {spawnedRuler.positionToLocal(my_pos), spawnedRuler.positionToLocal(other_pos)},
+                    color = {1,1,1},
+                    thickness = 0.1,
+                    rotation = vector(0,0,0)
+                })
+            end
+        end
+    end
+    spawnedRuler.setVectorLines(vector_lines)
+    spawnedRuler.createButton(removeButton)
+    spawnedRuler.lock()
+    spawnedRulerRange = range
+    return true
+end
 
 function onSave()
     if assignedShip ~= nil then
@@ -9,6 +92,12 @@ function onSave()
         return JSON.encode(state)
     end
 end
+
+function onLoad(save_state)
+    self.addContextMenuItem("Toggle Range 1", ToggleRuler1, false)
+    self.addContextMenuItem("Toggle Range 3", ToggleRuler3, false)
+end
+
 
 -- Assign on drop near a small base ship
 function onDropped()
