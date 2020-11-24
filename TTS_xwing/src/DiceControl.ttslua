@@ -19,6 +19,8 @@ DiceControlModule.error_color = color(1.0,0.2,0.1)
 DiceControlModule.info_color = color(0.7,0.7,0.4)
 DiceControlModule.highlight_color = "[FFFF55]"
 
+
+
 DiceControlModule.dice_types = {
     Red = {
         color = "[FF0000]",
@@ -65,6 +67,7 @@ DiceControlModule.onLoad = function()
         end, false, false)
     addContextMenuItem("Present dice statistics", DiceControlModule.presentStatistics, false)
     addContextMenuItem("Reset dice statistics", function() DiceControlModule.dice_statistics = {} end, false)
+    DiceControlModule.dicecontainer = DiceControlModule.findByGMNotes("dicebag1") -- you probably want findByGMNotes(gmnoteToFind) here
 end
 
 EventSub.Register('onLoad', DiceControlModule.onLoad)
@@ -242,3 +245,97 @@ DiceControlModule.UntilRolledDiceAreStill = function(player_color)
     end
     return result
 end
+
+-- [[ Following is addtion for changing dice looks by Snake3y3s]]
+DiceControlModule.platformToBag = {
+    ["atkPlat01"] = "atkOG1",
+    ["atkPlat02"] = "atkBLACK1",
+    ["atkPlat03"] = "atkWHITE1",
+    ["atkPlat04"] = "atkGOLD1",
+    ["atkPlat05"] = "atkSPARKLY1",
+    ["atkPlat06"] = "atkMARBLE1",
+    ["defPlat01"] = "defOG1",
+    ["defPlat02"] = "defBLACK1",
+    ["defPlat03"] = "defWHITE1",
+    ["defPlat04"] = "defSILVER1",
+    ["defPlat05"] = "defSPARKLY1",
+    ["defPlat06"] = "defMARBLE1",
+}
+
+DiceControlModule.upCast = function(obj,dist,offset,multi)
+    local dist = dist or 1
+    local offset = offset or 0
+    local multi = multi or 1
+    local oPos = obj.getPosition()
+    local oBounds = obj.getBoundsNormalized()
+    local oRot = obj.getRotation()
+    local orig = {oPos[1],oPos[2]+offset,oPos[3]}
+    local siz = {oBounds.size.x*multi,dist,oBounds.size.z*multi}
+    local orient = {oRot[1],oRot[2],oRot[3]}
+    local hits = Physics.cast({
+        origin       = orig,
+        direction    = {0,1,0},
+        type         = 3,
+        size         = siz,
+        orientation  = orient,
+        max_distance = 0,
+        debug        = false,
+    })
+    local hitObjects = {}
+    for i,v in pairs(hits) do
+        if v.hit_object ~= obj then table.insert(hitObjects,v.hit_object) end
+    end
+    return hitObjects
+end
+
+
+DiceControlModule.getObjectInContainerByGMNote = function(container, gmnoteToFind)   -- most of the script here to find out if, and if so which, item is in the container
+
+    local takenObject = nil -- keep the scope local outside of the loop
+    for i, c in ipairs (container.getObjects()) do
+    if c.gm_notes == gmnoteToFind then
+		takenObject = container.takeObject({ -- correct call syntax, use .takeObject() on your container
+		index = c.index,  -- c.index to get the correct index always
+		position = Vector(0,0,0),
+		smooth = false,
+		callback_function = function(newBag) -- executes when newBag finished spawning
+			newBag.translate(Vector(0,0.08,0)) -- moves it 1 unit striaght down
+		end
+		}) -- position correctly spelled and correct case
+		takenObject.setLock(true)-- locks it
+      end
+    end
+  return takenObject
+end
+
+DiceControlModule.findByGMNotes = function(gmnotes) -- finds an object in the game whose .getGMNotes9) matches the gmnotes parameter
+    for _,obj in pairs(getAllObjects()) do
+        if obj.getGMNotes() == gmnotes then return obj end
+    end
+end
+
+DiceControlModule.onObjectStateChange = function(object, old_guid) -- object is the _new_ state
+    -- clear the bag on top
+	for _,foundObject in ipairs(DiceControlModule.upCast(object)) do -- for each object in the platform scripting zone..
+		if foundObject.tag == "Infinite" then -- if an infinite bag
+			local gmnotes = foundObject.getGMNotes()
+            if gmnotes  and gmnotes != "" then
+                DiceControlModule.dicecontainer.putObject(foundObject)
+    			local lastNumber = tonumber(string.sub(gmnotes,-1)) or 0 -- gives us the very last character in our gmnotes - in our example "Platform 1" would give "1"
+    			foundObject.setPosition(Vector(-24,1,10) + Vector(lastNumber * 4, 0, 0)) -- sets the bag starting at 0,2,10, and adding 4 to x, multiplied by the lastNumber - so they all line up.
+            end
+        end
+    end
+    -- figure out which is the new bag
+    local gmnotes = object.getGMNotes() -- get the gm notes of the new state
+    local infiniteBagString = DiceControlModule.platformToBag[gmnotes] -- get the infiniteBagString from platformToBag e.g. "Platform 1" will give us "InfiniteBag 1"
+    if not infiniteBagString then return end -- if the object's gm notes is not a key in platformToBag then we don't want to run any more code
+
+    local newBag = DiceControlModule.getObjectInContainerByGMNote(DiceControlModule.dicecontainer, infiniteBagString) -- a simple function to find an object that matches the infiniteBagString (see below)
+
+    if not newBag then log("Error: No associated bag found - has it been deleted?") return end --
+
+    newBag.setPosition(object.getPosition() + Vector(0,0.08,0)) -- put the new bag 2 units above the platform
+end
+
+EventSub.Register('onObjectStateChange', DiceControlModule.onObjectStateChange)
