@@ -1724,7 +1724,7 @@ masterPilotDB[149]={
     Faction = 3,
     ship_type = 10,
     cost = 86,
-    slot = {21, 1, 3, 6, 8, 12, 13, 14, 15},
+    slot = {21, 1, 3, 6, 12, 13, 14, 14, 15},
     Shield = 4,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_149.png',
     init = 5,
@@ -1799,15 +1799,14 @@ masterPilotDB[154]={
 
 masterPilotDB[155]={['name']='Fenn Rau',['Faction']= 3,['ship_type']=36,['cost']=68,['slot']={21, 1, 5},['Shield']=0,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_155.png',['init']=6,['actSet']={'F','TL','B','BR'}}
-masterPilotDB[156]={['name']='Old Teroch',['Faction']= 3,['ship_type']=36,['cost']=56,['slot']={21, 1, 5},['Shield']=0,
+masterPilotDB[156]={['name']='Old Teroch',['Faction']= 3,['ship_type']=36,['cost']=56,['slot']={21, 1, 5, 14},['Shield']=0,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_156.png',['init']=5,['actSet']={'F','TL','B','BR'}}
-masterPilotDB[157]={['name']='Joy Rekkoff',['Faction']= 3,['ship_type']=36,['cost']=47,['slot']={21, 1, 5},['Shield']=0,
+masterPilotDB[157]={['name']='Joy Rekkoff',['Faction']= 3,['ship_type']=36,['cost']=47,['slot']={21, 1, 5, 14},['Shield']=0,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_157.png',['init']=4,['actSet']={'F','TL','B','BR'}}
-masterPilotDB[158]={['name']='Kad Solus',['Faction']= 3,['ship_type']=36,['cost']=54,['slot']={21, 1, 5},['Shield']=0,
+masterPilotDB[158]={['name']='Kad Solus',['Faction']= 3,['ship_type']=36,['cost']=54,['slot']={21, 1, 5, 14},['Shield']=0,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_158.png',['init']=4,['actSet']={'F','TL','B','BR'}}
-masterPilotDB[159]={['name']='Skull Squadron Pilot',['Faction']= 3,['ship_type']=36,['cost']=47,['slot']={21, 1, 5},['Shield']=0,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_159.png',['init']=4,['actSet']={'F','TL','B','BR'}}
-masterPilotDB[160]={['name']='Zealous Recruit',['Faction']= 3,['ship_type']=36,['cost']=41,['slot']={21, 5},['Shield']=0,
+masterPilotDB[159]={['name']='Skull Squadron Pilot',['Faction']= 3,['ship_type']=36,['cost']=47,['slot']={21, 1, 5, 14},['Shield']=0, ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_159.png',['init']=4,['actSet']={'F','TL','B','BR'}}
+masterPilotDB[160]={['name']='Zealous Recruit',['Faction']= 3,['ship_type']=36,['cost']=41,['slot']={21, 5, 14},['Shield']=0,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_160.png',['init']=1,['actSet']={'F','TL','B','BR'}}
 
 masterPilotDB[161]={
@@ -3481,7 +3480,7 @@ masterPilotDB[718]={
     Force = 3,
     ship_type = 84,
     cost = 56,
-    slot = {17, 10, 14},
+    slot = {1, 17, 3, 10, 14},
     Shield = 0,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/ef/ca/efcac3d6-868a-4e99-a872-3f2265e4983e/swz79_anakin-skywalker.png',
     init = 6,
@@ -3496,7 +3495,7 @@ masterPilotDB[719]={
     Force = 3,
     ship_type = 84,
     cost = 49,
-    slot = {17, 10, 14},
+    slot = {1, 17, 3, 10, 14},
     Shield = 0,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/2d/36/2d3610e5-ebc0-4448-8fb3-4b6dcc5f391a/swz79_obi-wan_kenobi.png',
     init = 5,
@@ -3511,7 +3510,7 @@ masterPilotDB[720]={
     Force = 2,
     ship_type = 84,
     cost = 51,
-    slot = {17, 10, 14},
+    slot = {1, 17, 3, 10, 14},
     Shield = 0,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/c2/e2/c2e2ee1f-1bdd-4ff7-ad95-c442af9b510a/swz79_aayla-secura.png',
     init = 5,
@@ -3526,7 +3525,7 @@ masterPilotDB[721]={
     Force = 2,
     ship_type = 84,
     cost = 44,
-    slot = {17, 10, 14},
+    slot = {1, 17, 3, 10, 14},
     Shield = 0,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/fa/6a/fa6afe10-be85-46ee-93e6-0637b3ce34b0/swz79_shaak-ti.png',
     init = 4,
@@ -3541,12 +3540,13 @@ masterPilotDB[722]={
     Force = 3,
     ship_type = 84,
     cost = 48,
-    slot = {17, 10, 14},
+    slot = {17, 17, 3, 10, 14},
     Shield = 0,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/5b/fb/5bfbf23b-29c5-47c9-a6ba-1a2a7ddba319/swz79_yoda.png',
     init = 3,
-    texture = 'https://github.com/JohnnyCheese/TTS_X-Wing2.0/blob/master/assets/ships/Small/GRP_ETA2/ETA2%20Yoda.png',
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_ETA2/ETA2%20Yoda.png',
     actSet = {'F','E','TL','BR','B'},
+    Configuration = {model="{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_ETA2/ETA2%20Jedi%20Starfighter%20Yoda.obj"}
 }
 
 masterPilotDB[723]={
@@ -3555,7 +3555,7 @@ masterPilotDB[723]={
     Force = 2,
     ship_type = 84,
     cost = 41,
-    slot = {17, 10, 14},
+    slot = {17, 3, 10, 14},
     Shield = 0,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/b4/8d/b48d787d-96db-4955-9a58-5c8aa3ab9035/swz79_jedi-general.png',
     init = 4,
@@ -3774,7 +3774,7 @@ masterPilotDB[809]={
     Faction = 7,
     ship_type = 86,
     cost = 41,
-    slot = {21,1,1,19,6,14},
+    slot = {21,1,2,6,14,18},
     Shield = 0,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/57/f7/57f74986-1cbf-4745-9792-360153f75719/swz81_phlac-prototype_cutout.png',
     init = 5,
@@ -3788,7 +3788,7 @@ masterPilotDB[810]={
     Faction = 7,
     ship_type = 86,
     cost = 40,
-    slot = {21,1,1,19,6,14},
+    slot = {21,1,2,6,14,18},
     Shield = 0,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/eb/3d/eb3db7f7-4707-4c09-ae41-6a74b669f4d1/swz81_dis-t81_cutout.png',
     init = 4,
@@ -3802,7 +3802,7 @@ masterPilotDB[811]={
     Faction = 7,
     ship_type = 86,
     cost = 38,
-    slot = {21,1,1,19,6,14},
+    slot = {21,1,2,6,14,18},
     Shield = 0,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/8f/96/8f96a822-921a-4c77-ae90-2fe15e196171/swz81_dis-347_cutout.png',
     init = 3,
@@ -3817,7 +3817,7 @@ masterPilotDB[812]={
     ship_type = 86,
     Condition ="Fearful Prey",
     cost = 38,
-    slot = {21,1,1,19,6,14},
+    slot = {21,1,2,6,14,18},
     Shield = 0,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/91/bb/91bb3546-290e-4131-895e-a77d79ebbc99/swz81_fearsome-predator_cutout.png',
     init = 3,
@@ -3830,7 +3830,7 @@ masterPilotDB[813]={
     Faction = 7,
     ship_type = 86,
     cost = 37,
-    slot = {21,1,1,19,6,14},
+    slot = {21,1,2,6,14,18},
     Shield = 0,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/e5/c8/e5c82543-69af-42ee-bb32-32b0c11d6845/swz81_separatist-interceptor_cutout.png',
     init = 3,
@@ -3843,7 +3843,7 @@ masterPilotDB[814]={
     Faction = 7,
     ship_type = 86,
     cost = 35,
-    slot = {21,1,1,19,6,14},
+    slot = {21,2,6,14,18},
     Shield = 0,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/74/88/7488fd46-8f27-4ca9-b573-db8d6f7d749e/swz81_colicoid-interceptor_cutout.png',
     init = 1,
@@ -3888,7 +3888,7 @@ masterPilotDB[817]={
     Faction = 7,
     ship_type = 10,
     cost = 70,
-    slot = {21, 1, 3, 6, 8, 12, 13, 14, 15},
+    slot = {21, 3, 6, 8, 12, 13, 14, 15},
     Shield = 4,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/17/5d/175d51c6-6a7a-4f59-b8c1-44417a746187/swz82_a1_boba-fett.png',
     init = 3,
@@ -6623,7 +6623,8 @@ function idSpawner(idTable)
         fList.Pilots[k].name = pilotName
         local cost = masterPilotDB[v].cost
         fList.Pilots[k].cost = cost
-        fList.Configuration[pilotName] = {tint=tintColors[pilotIndicators[k]]}
+        fList.Configuration[pilotName] = masterPilotDB[v].Configuration or {}
+        fList.Configuration[pilotName].tint = tintColors[pilotIndicators[k]]
         --fList.Pilots[k].tint = tintColors[pilotIndicators[k]]
         fList.Pilots[k].card = masterPilotDB[v].card
         fList.Pilots[k].cardB = cardBackDB[ffgFaction[fList.Faction]]
