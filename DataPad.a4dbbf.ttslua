@@ -57,6 +57,8 @@ varCostA[299] = {[0] = 3,[1] = 4,[2] = 6,[3] = 8} --Shield Upgrade
 varCostA[301] = {[0] = 3,[1] = 4,[2] = 6,[3] = 8} --Stealth Device
 varCostA[324] = {[0] = 4,[1] = 6,[2] = 8,[3] = 10} --R2-D2 (Astromech)
 varCostA[593] = {[0] = 6,[1] = 3,[2] = 1,[3] = 1} --Angled deflectors
+varCostA[471] = {[0] = 1,[1] = 1,[2] = 1,[3] = 2} -- Heroic
+varCostA[711] = {[0] = 4,[1] = 6,[2] = 8,[3] = 10} -- Republc R2-D2
 
 
 varCostI={}
@@ -68,8 +70,8 @@ varCostI[463]={[0]=4,[1]=5,[2]=6,[3]=7,[4]=8,[5]=9,[6]=10} -- Primed Thrusters
 varCostI[251]={[0]=4,[1]=4,[2]=4,[3]=8,[4]=16,[5]=24,[6]=32} --Supernatural Reflexes
 varCostI[479]={[0]=2,[1]=3,[2]=4,[3]=5,[4]=6,[5]=7,[6]=8} -- BB8
 varCostI[480]={[0]=0,[1]=1,[2]=2,[3]=3,[4]=4,[5]=5,[6]=6} -- bb astromech
-varCostI[545]={[0]=0,[1]=2,[2]=4,[3]=4,[4]=6,[5]=8,[6]=10} -- Battle Meditation
-varCostI[548]={[0]=14,[1]=15,[2]=16,[3]=15,[4]=18,[5]=21,[6]=24} -- Delta-7B
+varCostI[545]={[0]=3,[1]=3,[2]=3,[3]=3,[4]=4,[5]=6,[6]=8} -- Battle Meditation
+varCostI[548]={[0]=4,[1]=4,[2]=8,[3]=12,[4]=16,[5]=20,[6]=24} -- Delta-7B
 varCostI[549]={[0]=0,[1]=0,[2]=1,[3]=2,[4]=3,[5]=4,[6]=5} -- Calibrated laser Targeting
 varCostI[614]={[0]=3,[1]=3,[2]=3,[3]=4,[4]=7,[5]=10,[6]=13} -- Precognitive Reflexes
 varCostI[610]={[0]=21,[1]=21,[2]=21,[3]=21,[4]=21,[5]=24,[6]=28} -- Ensnare
@@ -2582,7 +2584,7 @@ masterPilotDB[428]={['name']="Rey",['Faction']=4,['ship_type']=57,['cost']=68,['
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/0ee7006e6cc51d8c08b784c9b770f1b0.png',['init']=5,['actSet']={'F','TL','B','Rot'}}
 masterPilotDB[429]={['name']="Chewbacca",['Faction']=4,['ship_type']=57,['cost']=60,['slot']={21, 1,8,8,16,13,14,15},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/422fc30e0e10445e80b304ef2d96dc06.png',['init']=4,['actSet']={'F','TL','B','Rot'}}
-masterPilotDB[430]={['name']="Resistance Sympathizer",['Faction']=4,['ship_type']=58,['cost']=59,['slot']={21, 8,8,16,13,14,15},['Shield']=3,
+masterPilotDB[430]={['name']="Resistance Sympathizer",['Faction']=4,['ship_type']=57,['cost']=58,['slot']={21, 8,8,16,13,14,15},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/28411b84c1b15f0bfa9928f2206e44f5.png',['init']=2,['actSet']={'F','TL','B','Rot'}}
 masterPilotDB[431]={['name']="Finch Dallow",['Faction']=4,['ship_type']=55,['cost']=56,['slot']={21, 2,19,8,16,16,12,12,14},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/43d9a0555f719a4cbe1ffe905fd38c46.png',['init']=4,['actSet']={'F','TL','Rot'}}
@@ -2856,7 +2858,7 @@ masterPilotDB[508]={['name']='Luminara Unduli',['Faction']=6,['ship_type']=61,['
                   ['actSet']={'F','E','TL','BR','B'}}
 masterPilotDB[509]={['name']='Barriss Offee',['Faction']=6,['ship_type']=61,['cost']=38,['slot']={21, 17,10,18,14},['Force']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/f8f58005da18d7041b1ec2374701465c.png',['init']=4,
                   ['actSet']={'F','E','TL','BR','B'}}
-masterPilotDB[510]={['name']='Ahsoka Tano',['Faction']=6,['ship_type']=61,['cost']=44,['slot']={21, 17,10,18,14},['Force']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/15f6bf84f63970c982dd722a5473217f.png',['init']=3,
+masterPilotDB[510]={['name']='Ahsoka Tano',['Faction']=6,['ship_type']=61,['cost']=43,['slot']={21, 17,10,18,14},['Force']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/15f6bf84f63970c982dd722a5473217f.png',['init']=3,
                   ['actSet']={'F','E','TL','BR','B'}}
 masterPilotDB[511]={['name']='Obi-Wan Kenobi',['Faction']=6,['ship_type']=61,['cost']=49,['slot']={21, 17,10,18,14},['Force']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/fcf515534a722b581bc2f85f36cb5c30.png',['init']=5,
                   ['actSet']={'F','E','TL','BR','B'}}
@@ -3165,7 +3167,7 @@ masterPilotDB[639]={
     actSet = {'F','TL','Rot180','E','B','BR'}}
 
 
-masterPilotDB[640]={['name']="Paige Tico",['Faction']=4,['ship_type']=55,['cost']=58,['slot']={21, 2,19,8,16,16,12,12,14},['Shield']=3,['Charge']=1,
+masterPilotDB[640]={['name']="Paige Tico",['Faction']=4,['ship_type']=55,['cost']=56,['slot']={21, 2,19,8,16,16,12,12,14},['Shield']=3,['Charge']=1,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/48/7e/487e95ce-b13c-4d39-97f6-8e28e633d07f/swz66_paige-tico.png',['init']=5,['actSet']={'F','TL','Rot'}}
 masterPilotDB[632]={['name']='Fifth Brother',['Faction']= 2,['ship_type']=25,['cost']=42,['slot']={21, 17, 2, 6},['Shield']=2,['Force']=2,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/c9/64/c964c977-9c57-4f50-a077-ac4fb7b70ebd/swz66_fifth-brother.png',['init']=4,['actSet']={'F','E','TL','BR','B'}}
@@ -4272,7 +4274,7 @@ masterUpgradesDB[333]={
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_108.png',
     cardB = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_108b.png',
     restriction={Faction={[1]=true},ship={[33]=true}}}
-masterUpgradesDB[335]={['name']='Admiral Sloane',['slot']=8,['cost']=9,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_109.png',['restriction']={['Faction']={[2]=true}}}
+masterUpgradesDB[335]={['name']='Admiral Sloane',['slot']=8,['cost']=12,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_109.png',['restriction']={['Faction']={[2]=true}}}
 masterUpgradesDB[336]={['name']='Agent Kallus',['Condition']="Hunted",['slot']=8,['cost']=5,['card']='https://sb-cdn.fantasyflightgames.com/card_images/en/5e9b30fb5a437355afd9d17d8700bd9c.png',['restriction']={['Faction']={[2]=true}}}
 masterUpgradesDB[337]={
     name = 'Ciena Ree',
@@ -4490,7 +4492,7 @@ masterUpgradesDB[472]={
     cost = 5,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/a0e80bb89748e7415e945a050f82ba84.png',
     restriction = {Faction={[4]=true}}}
-masterUpgradesDB[473]={['name']="Chewbacca",['slot']=8,['cost']=5,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/3090c218acff7dc71a81e791ce15860e.png',['restriction']={['Faction']={[4]=true}}}
+masterUpgradesDB[473]={['name']="Chewbacca",['slot']=8,['cost']=4,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/3090c218acff7dc71a81e791ce15860e.png',['restriction']={['Faction']={[4]=true}}}
 masterUpgradesDB[474]={
     name = "Han Solo",
     slot = 8,
@@ -4828,10 +4830,9 @@ masterUpgradesDB[610]={['name']="Ensnare",['slot']=1,['cost']='i',['card']='http
                         ['restriction']={ ['ship']={[67]=true}}}
 masterUpgradesDB[611]={['name']="Gravitic Deflection",['slot']=1,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/50ec6aa5a267ece16d36533f4efe2bb0.png',
                         ['restriction']={ ['ship']={[67]=true}}}
-masterUpgradesDB[618]={['name']="C1-10P",['slot']=10,['cost']=7,['Charge']=2,['cardB']='http://sb-cdn.fantasyflightgames.com/card_images/en/cde74a191d82775eacf2e273e855ef5f.png', ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/6150404202e627187f39b6092cdf702c.png',
+masterUpgradesDB[618]={['name']="C1-10P",['slot']=10,['cost']=8,['Charge']=2,['cardB']='http://sb-cdn.fantasyflightgames.com/card_images/en/cde74a191d82775eacf2e273e855ef5f.png', ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/6150404202e627187f39b6092cdf702c.png',
                         ['restriction']={['Faction']={[6]=true}}}
-masterUpgradesDB[617]={['name']="C1-10P (Erratic)",['slot']=10,['cost']=8,['Charge']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/cde74a191d82775eacf2e273e855ef5f.png', ['cardB']='http://sb-cdn.fantasyflightgames.com/card_images/en/6150404202e627187f39b6092cdf702c.png',
-                        ['restriction']={['Faction']={[6]=true}}}
+
 masterUpgradesDB[616]={
     name = "C-3PO",
     slot = 8,
@@ -5275,7 +5276,7 @@ masterUpgradesDB[711]={
     name = "R2-D2",
     limited = 1,
     slot = 10,
-    cost = 200,
+    cost = 'a',
     Charge = 2,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/c3/6f/c36f6f13-6998-4120-acbf-3c85132ea416/swz79_r2d2.png',
     restriction = {
@@ -5388,7 +5389,7 @@ masterUpgradesDB[718]={
 masterUpgradesDB[719]={
     name = 'Intercept Booster',
     slot = 18,
-    cost = 3,
+    cost = 1,
     Charge = 3,
     addAction = {'TL'},
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/0d/3f/0d3f071a-1c8e-416f-9c0e-1195ca31c102/swz81_upgrade_intercept-booster_attached.png',
@@ -5482,7 +5483,7 @@ masterUpgradesDB[727]={
     name = 'Boba Fett',
     limited = 1,
     slot = 16,
-    cost = 4,
+    cost = 6,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/b6/39/b6395ed5-2a9c-46fd-9945-b906224aa05d/swz82_a1_upgrade_boba-fett.png',
     restriction = {
         Faction = {[3]=true,
@@ -6112,6 +6113,8 @@ dualUpgradeList[652] = 653 -- Proud tradition
 dualUpgradeList[683] = 684 -- Commander Malarus
 dualUpgradeList[685] = 686 -- Agent terex
 dualUpgradeList[691] = 692 -- Repulsorlift Stabilizers
+dualUpgradeList[617] = 618 -- C1-10P
+
 
 
 

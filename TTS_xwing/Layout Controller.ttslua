@@ -58,8 +58,8 @@ Layout.extIndex = 1
 Layout.required = {}
 function onObjectDestroyed(obj)
     if state.active and Layout.required[obj] then
-        --broadcastToAll('An object that was part of layout system was destroyed, disabling layouts', {1, 0.4, 0})
-        broadcastToAll('You\'re breaking the game, please don\'t', {1, 0.4, 0})
+        broadcastToAll('An object that was part of layout system was destroyed, disabling layouts', {1, 0.4, 0})
+        --broadcastToAll('You\'re breaking the game, please don\'t', {1, 0.4, 0})
         state.active = false
     end
     if state.dialZones[obj.getGUID()] then
