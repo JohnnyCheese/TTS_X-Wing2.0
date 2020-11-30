@@ -13,7 +13,7 @@
 
 -- Should the code execute print functions or skip them?
 -- This should be set to false on every release
-print_debug = false
+print_debug = true
 cast_debug = false
 
 TTS_print = print
@@ -1870,7 +1870,7 @@ function CheckArc(args)
     if args.arctype ~= "full" then
         printToAll(args.ship.getName() .. ' checks for targets in the ' .. args.arctype .. ' arc:', color(1.0, 1.0, 0.2, 0.9))
     end
-    targets = ArcCheck.GetTargetsInRelationToArc(args.ship, args.arctype, nil, range)
+    targets = ArcCheck.GetTargetsInRelationToArc(args.ship, args.arctype, nil, range, args.include_friendly_ships)
     table.sort(targets, ArcCheck.SortTargetsByDesirability)
     local found = false
     for i, target in pairs(targets) do
@@ -1954,7 +1954,7 @@ returns a table of targets, each containing the following:
     other_closest: Table, the other closest point. See 'closest' and
         'multiple_points'. This is nil if only one closest point.
 --]]
-ArcCheck.GetTargetsInRelationToArc = function(ship, arc, fixed_targets, range)
+ArcCheck.GetTargetsInRelationToArc = function(ship, arc, fixed_targets, range, include_friendly_ships)
     if ArcCheck.initialized == false then
         ArcCheck.Initialize()
     end
@@ -1975,7 +1975,7 @@ ArcCheck.GetTargetsInRelationToArc = function(ship, arc, fixed_targets, range)
     ship.setLock(true)
     local shipSize = ship.getTable("Data").Size or 'small'
 
-    local potential_targets = fixed_targets or ArcCheck.GetPotentialTargets(ship)
+    local potential_targets = fixed_targets or ArcCheck.GetPotentialTargets(ship, nil, true, include_friendly_ships or false)
     local bullseye_targets = ArcCheck.GetBullseyeTargets(ship, ArcCheck.bullseye_data.pos[shipSize])
 
     local own_line_segments = {}
@@ -2323,8 +2323,8 @@ ArcCheck.GetOwnArcLineSegments = function(ship, segments)
 end
 
 -- Finds all potential ships within a little more than range 3 from the ship
-ArcCheck.GetPotentialTargets = function(ship, length)
-    return ArcCheck.GetShipsWithinRange(ship, length)
+ArcCheck.GetPotentialTargets = function(ship, length, include_enemy_ships, include_friendly_ships)
+    return ArcCheck.GetShipsWithinRange(ship, length, include_enemy_ships, include_friendly_ships)
 end
 
 -- Finds all targets in bullseye
@@ -5586,11 +5586,11 @@ RulerModule.meshes.hugeBase.range[5] = '{verifycache}https://raw.githubuserconte
 -- AR           - rear arc
 -- AT           - turret arc
 -- AM           - mobile arc
-XW_cmd.AddCommand('r[1-5]?', 'rulerHandle')     -- Range "rings"
-XW_cmd.AddCommand('[fbs][lrfb]?', 'rulerHandle')  -- Rulers with arc lines
-XW_cmd.AddCommand('leftright', 'rulerHandle')
-XW_cmd.AddCommand('frontback', 'rulerHandle')
-XW_cmd.AddCommand('bull', 'rulerHandle')
+XW_cmd.AddCommand('r[1-5]?a?', 'rulerHandle')     -- Range "rings"
+XW_cmd.AddCommand('[fbs][lrfb]?a?', 'rulerHandle')  -- Rulers with arc lines
+XW_cmd.AddCommand('leftrighta?', 'rulerHandle')
+XW_cmd.AddCommand('frontbacka?', 'rulerHandle')
+XW_cmd.AddCommand('bulla?', 'rulerHandle')
 
 -- Translate ruler code to a mesh entry
 RulerModule.typeToKey = {}
@@ -5634,8 +5634,6 @@ RulerModule.typeToRange.SR = 3
 RulerModule.typeToRange.FRONTBACK = 3
 RulerModule.typeToRange.LEFTRIGHT = 3
 RulerModule.typeToRange.BULL = 3
-
-
 
 -- Get ruler spawn tables for some ship and some ruler code
 -- Return table with "mesh", "collider" and "scale" keys
@@ -5720,7 +5718,7 @@ end
 
 -- Spawn a ruler for a ship
 -- Returns new ruler reference
-RulerModule.SpawnRuler = function(ship, rulerType, beQuiet)
+RulerModule.SpawnRuler = function(ship, rulerType, beQuiet, include_friendly_ships)
     local rulerData = RulerModule.CreateCustomTables(ship, rulerType)
     if rulerData.custom.mesh == nil then
         return nil
@@ -5731,7 +5729,7 @@ RulerModule.SpawnRuler = function(ship, rulerType, beQuiet)
 
     local arclines = {}
     if RulerModule.typeToArc[rulerType] then
-        arclines = CheckArc({ship=ship,arctype=RulerModule.typeToArc[rulerType], range=RulerModule.typeToRange[rulerType]})
+        arclines = CheckArc({ship=ship,arctype=RulerModule.typeToArc[rulerType], range=RulerModule.typeToRange[rulerType], include_friendly_ships=include_friendly_ships})
     end
     table.insert(RulerModule.spawnedRulers, {ship = ship, ruler = newRuler, arclines = arclines,type = rulerType})
     newRuler.lock()
@@ -5766,6 +5764,11 @@ end
 RulerModule.ToggleRuler = function(ship, rulerType, beQuiet)
     local destType = RulerModule.DeleteRuler(ship)
     if destType ~= rulerType then
+        includeFriendlies = (#rulerType > 1) and (rulerType:sub(#rulerType,#rulerType) == 'a')
+        if includeFriendlies then
+            rulerType = rulerType:sub(1,-1)
+            print("rulerType:".. rulerType)
+        end
         if beQuiet ~= true then
             local annInfo = {type='action'}
             annInfo.note = 'spawned a ' .. RulerModule.DescriptiveName(ship, rulerType) .. ' (' .. rulerType .. ')'

@@ -672,77 +672,30 @@ function Repos(P, option, id)
     assignedShip.setDescription(reposCommands[id] or "")
 end
 
-function range1(p)
-    if spectReturn(p) == true then
+arcCommands = {
+    Range1 = "r1",
+    Range1 = "r2",
+    Range3 = "r3",
+    FrontArc = "f",
+    LeftArc = "sl",
+    RightArc = "sr",
+    RearArc = "b",
+    BullseyeArc = "bull",
+    FullFrontArc = "ff",
+    FullBackArc = "bf"
+}
+
+function Arc(P, option, id)
+    if  spectReturn(P)then
         return
     end
-    assignedShip.setDescription("r1")
-end
-
-function range2(p)
-    if spectReturn(p) == true then
-        return
+    includeFriendlies = ""
+    if (option ~= '-1') then
+        includeFriendlies = "a"
     end
-    assignedShip.setDescription("r2")
+    assignedShip.setDescription((arcCommands[id] or "") .. includeFriendlies )
 end
 
-function range3(p)
-    if spectReturn(p) == true then
-        return
-    end
-    assignedShip.setDescription("r3")
-end
-
-function arcF(p)
-    if spectReturn(p) == true then
-        return
-    end
-    assignedShip.setDescription("f")
-end
-
-function arcFF(p)
-    if spectReturn(p) == true then
-        return
-    end
-    assignedShip.setDescription("ff")
-end
-
-function arcL(p)
-    if spectReturn(p) == true then
-        return
-    end
-    assignedShip.setDescription("sl")
-end
-
-function arcR(p)
-    if spectReturn(p) == true then
-        return
-    end
-    assignedShip.setDescription("sr")
-end
-
-function arcB(p)
-    if spectReturn(p) == true then
-        return
-    end
-    assignedShip.setDescription("b")
-end
-
-function arcBullseye(p)
-    if spectReturn(p) == true then
-        return
-    end
-    assignedShip.setDescription("bull")
-end
-
-
-
-function arcFB(p)
-    if spectReturn(p) == true then
-        return
-    end
-    assignedShip.setDescription("fb")
-end
 
 function pivK(p)
     if spectReturn(p) == true then
