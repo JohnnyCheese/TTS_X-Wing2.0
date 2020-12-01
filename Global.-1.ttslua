@@ -5763,19 +5763,22 @@ end
 -- If any other ruler exists, delete it (and spawn queried one), return new ruler ref
 RulerModule.ToggleRuler = function(ship, rulerType, beQuiet)
     local destType = RulerModule.DeleteRuler(ship)
+
     if destType ~= rulerType then
-        includeFriendlies = (#rulerType > 1) and (rulerType:sub(#rulerType,#rulerType) == 'a')
+        includeFriendlies = (#rulerType > 1) and (rulerType:sub(#rulerType,#rulerType) == 'A')
+        includeFriendlyText = ""
+        spawnType = rulerType
         if includeFriendlies then
-            rulerType = rulerType:sub(1,-1)
-            print("rulerType:".. rulerType)
+            spawnType = rulerType:sub(1,-2)
+            includeFriendlyText = " including friendlies"
         end
         if beQuiet ~= true then
             local annInfo = {type='action'}
-            annInfo.note = 'spawned a ' .. RulerModule.DescriptiveName(ship, rulerType) .. ' (' .. rulerType .. ')'
+            annInfo.note = 'spawned a ' .. RulerModule.DescriptiveName(ship, spawnType) .. includeFriendlyText.. ' (' .. rulerType .. ')'
             AnnModule.Announce(annInfo, 'all', ship)
         end
         ship.setLock(true)
-        Wait.frames(function() RulerModule.SpawnRuler(ship, rulerType, beQuiet) end,1)
+        Wait.frames(function() RulerModule.SpawnRuler(ship, spawnType, beQuiet, includeFriendlies) end,1)
     end
 end
 
