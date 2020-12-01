@@ -35,8 +35,7 @@ end
 function manualSet(arg)
     ship=arg.ref
     set = true
-    self.UI.setAttribute("Center", "active", "true")
-    self.UI.hide("Move")
+    self.setRotation(ship.getRotation())
 end
 
 -- Set name on drop near a ship

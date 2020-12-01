@@ -1,5 +1,6 @@
 <Defaults>
     <Button class="DarkButton" color="#222222" outline="#BBBBBB" outlineSize="2 2" fontSize="22" textColor="#FFFFFF" fontStyle="Bold"/>
+    <Button class="ManButton" color="#555555" outline="#BBBBBB" outlineSize="2 2" fontSize="22" textColor="#FFFFFF" fontStyle="Bold"/>
 </Defaults>
 <Panel id="Center"
     width="400"
@@ -12,7 +13,7 @@
     hideAnimation="Shrink"
     active="false">
 
-    <Button id="Move" class="DarkButton" offsetXY="0 60" width="120" height="120" active="true" onClick="ionMove">
+    <Button id="Move" class="ManButton" offsetXY="0 60" width="120" height="120" active="true" onClick="ionMove">
         <Image id="BlueIcon" image="BlueStraight" preserveAspect="true"></Image>
     </Button>
     <Button id="Delbtn" class="DarkButton" offsetXY="0 -50" width="120" height="70" active="true" onClick="Delete" fontSize='25'>DEL</Button>
