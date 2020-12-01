@@ -6290,12 +6290,12 @@ function FFGinitiate()
 end
 
 --takes a link and converts it for the API link
-function ffgLoad()
+function ffgLoad(obj, playerColor, alt_click)
     if lista ~= nil then
-        lista = string.gsub(lista, 'saved%-squads', 'api/squads')
-        lista = string.gsub(lista, 'squad%-builder/tool', 'api/squads')
-        lista = string.gsub(lista, 'squad%-preview', 'api/squads')
-        ffgLoad2(lista)
+        print("lista:" .. lista)
+        requesturl = string.gsub(lista,"https://squadbuilder%.fantasyflightgames%.com/squad%-preview/", 'http://squad2xws.herokuapp.com/translate/')
+        print("Request:" .. requesturl)
+        ffgLoad2(requesturl, playerColor)
     else
         print ('Please paste a link')
     end
@@ -6362,17 +6362,20 @@ function ffgSpawn()
 end
 
 --Extracts the json table from FFG site, reporting success or failure
-function ffgLoad2(squadId, onLoaded)
+function ffgLoad2(squadId, playerColor)
     squadJson = squadId
     WebRequest.get(squadJson, function(request)
         if request.is_error then
             error("Failed to load squad JSON.")
         elseif request.is_done then
+            print("List:" .. request.text)
+            lista = request.text
             --list = JSON.decode(request.text)
-            JSONlist = JSON.decode(request.text)
-            print("You've loaded a squad: "..JSONlist.name)
-            print()
-            ffgSpawn()
+            --JSONlist = JSON.decode(request.text)
+            --print("You've loaded a squad: "..JSONlist.name)
+            --print()
+            --ffgSpawn()
+            xwsLoad(playerColor)
         end
     end)
 end
@@ -6385,7 +6388,7 @@ function action2(obj, playerColor, value, editing)
         nl_index = string.find(value, '\n')
         if nl_index != nil then
             lista = string.sub(value, 1,nl_index-1)
-            ffgLoad()
+            ffgLoad(playerColor)
         end
     end
 end
