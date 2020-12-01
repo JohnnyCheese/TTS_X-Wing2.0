@@ -46,7 +46,6 @@ end
 function manualSet(arg)
     set = true
     self.setColorTint(colorTable[arg.color])
-    self.setName(arg.name)
 end
 
 -- Tint on pick up
@@ -84,6 +83,7 @@ function onDropped()
     if not set then
         if nearest ~= nil then
             setOwner({ship=nearest})
+
         end
     else -- Allready set, now Assign to target
         assignToShip({ship=nearest})
@@ -96,6 +96,8 @@ function setOwner(args)
     local ship = args.ship
     self.setName(ship.getName())
     printToAll('Target lock named for ' .. ship.getName(), {0.2, 0.2, 1})
+    self.UI.setAttribute("IdLabel", "text", ship.getName())
+    self.setRotationSmooth(ship.getRotation(),false,true)
     set = true
 end
 
@@ -104,4 +106,8 @@ end
 function assignToShip(args)
     local ship = args.ship
     Global.call("API_AssignToken", {token=self, ship=ship})
+end
+
+function getIdText(fullName)
+    trimmedname = fullName:match'^%s*(.*%S)' or ''
 end

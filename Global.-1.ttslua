@@ -13,7 +13,7 @@
 
 -- Should the code execute print functions or skip them?
 -- This should be set to false on every release
-print_debug = true
+print_debug = false
 cast_debug = false
 
 TTS_print = print
@@ -5220,7 +5220,7 @@ DialModule.PerformAction = function(ship, type, playerColor, args)
             local newToken = TokenModule.TakeToken(type, playerColor, dest, flipToken)
 
             if type == 'Target Lock' then
-                local lockArguments = {lock=newToken, name=ship.getName(), color=playerColor}
+                local lockArguments = {ship = ship, lock=newToken, name=ship.getName(), color=playerColor}
                 if args ~= nil and args.ship ~= nil and args.target ~= nil then
                     -- The AI system passes in arguments to automatically assign the
                     -- lock. Process these if they've been passed in.
