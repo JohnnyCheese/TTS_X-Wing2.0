@@ -96,7 +96,7 @@ function setOwner(args)
     local ship = args.ship
     self.setName(ship.getName())
     printToAll('Target lock named for ' .. ship.getName(), {0.2, 0.2, 1})
-    self.UI.setAttribute("IdLabel", "text", ship.getName())
+    self.UI.setAttribute("IdLabel", "text", getIdText(ship.getName()))
     self.setRotationSmooth(ship.getRotation(),false,true)
     set = true
 end
@@ -109,5 +109,13 @@ function assignToShip(args)
 end
 
 function getIdText(fullName)
-    trimmedname = fullName:match'^%s*(.*%S)' or ''
+    trimmedname = fullName:match'^%s*"(.*%S)"' or fullName
+    if #trimmedname < 20 then
+        return trimmedname
+    end
+    initials = trimmedname:sub(1,1)
+    for m in string.gmatch(trimmedname, "%s(%w)") do
+        initials = initials .. m
+    end
+    return initials
 end
