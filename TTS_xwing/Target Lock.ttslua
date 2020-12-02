@@ -56,7 +56,7 @@ function onPickedUp()
 end
 
 -- Set name on drop near a ship
-function onDropped()
+function onDropped(player_color)
     local spos = self.getPosition()
     local spos = self.getPosition()
     local nearest = nil
@@ -82,7 +82,7 @@ function onDropped()
 
     if not set then
         if nearest ~= nil then
-            setOwner({ship=nearest})
+            setOwner({ship=nearest,player=player_color})
 
         end
     else -- Allready set, now Assign to target
@@ -96,7 +96,19 @@ function setOwner(args)
     local ship = args.ship
     self.setName(ship.getName())
     printToAll('Target lock named for ' .. ship.getName(), {0.2, 0.2, 1})
-    self.UI.setAttribute("IdLabel", "text", getIdText(ship.getName()))
+    local displayName = true
+    if args.player then
+        if Global.call("API_GetPlayerConfig", {player_color=args.player, param_name="TargetLockColorMode"}) == "ShipColorId" then
+            local ColorId = ship.getTable("Data").ColorId or nil
+            if ColorId and ColorId.a > 0 then
+                self.setColorTint(ColorId)
+            end
+        end
+        displayName = Global.call("API_GetPlayerConfig", {player_color=args.player, param_name="TargetLockDisplayName"}) == "true"
+    end
+    if displayName then
+        self.UI.setAttribute("IdLabel", "text", getIdText(ship.getName()))
+    end
     self.setRotationSmooth(ship.getRotation(),false,true)
     set = true
 end

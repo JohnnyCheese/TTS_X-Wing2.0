@@ -138,6 +138,21 @@ function API_AssignToken(argTable)
     TokenModule.AssignToken(argTable.token, argTable.ship)
 end
 
+function API_GetPlayerConfig(argTable)
+    return ConfigManager.GetConfig(argTable.player_color, argTable.param_name)
+end
+
+function API_GetGlobalConfig(argTable)
+    return ConfigManager.GetConfig("global", argTable.param_name)
+end
+
+function API_SetPlayerConfig(argTable)
+    return ConfigManager.SetConfig(argTable.player_color, argTable.param_name, argTable.value)
+end
+
+function API_SetGlobalConfig(argTable)
+    return ConfigManager.SetConfig("global",argTable.param_name, argTable.value)
+end
 
 --------
 -- OBJECT SPECIFIC VARIABLES

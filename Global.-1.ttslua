@@ -57,6 +57,9 @@ end
 -- ContextGui
 #include TTS_xwing/src/ContextGui
 
+-- ConfigManager
+#include TTS_xwing/src/ConfigManager
+
 
 -- Modules API, must be loaded last
 #include TTS_xwing/src/API
@@ -6583,6 +6586,9 @@ function onUpdate()
       end
 
       if ship ~= nil then
+        local data = ship.getTable("Data")
+        data.ColorId = tint
+        ship.setTable("Data", data)
         for i, attachment in pairs(ship.getAttachments()) do
           id = ship.removeAttachment(attachment.index)
           id.setColorTint(tint)
@@ -6875,6 +6881,7 @@ function newSpawner(listTable)
                 type = 1
             })
             newShip.setLock(true)
+            Pilots[shipIndex].Data.ColorId = tint
             newShip.setTable("Data", Pilots[shipIndex].Data)
             newShip.setLuaScript(saveAndLoadShipStateLua)
             local ship = newShip
