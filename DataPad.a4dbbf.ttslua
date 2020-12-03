@@ -322,8 +322,19 @@ masterShipDB[15]={
     }
 }
 
-masterShipDB[16]={['name']='TIE/sk Striker',['Hull']=4,['Shield']=0,['size']='small',['agi']=2,['XWS']='tieskstriker', ['Fac']={[2]=true}, ['arcs']={'front'},
-                            ['moveSet']={'wtl1','bbl1','bs1','bbr1','wtr1','rk1','rbl2s','wtl2','bbl2','bs2','bbr2','wtr2','rbr2s','wbl3','bs3','wbr3'}}
+masterShipDB[16]={
+  name = 'TIE/sk Striker',
+  Hull = 4,
+  Shield = 0,
+  size = 'small',
+  agi = 2,
+  XWS = 'tieskstriker',
+  Fac = {[2]=true},
+  arcs = {'front'},
+  moveSet = {'wtl1','bbl1','bs1','bbr1','wtr1','rk1','rbl2s','wtl2','bbl2','bs2','bbr2','wtr2','rbr2s','wbl3','bs3','wbr3'},
+  mesh = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiestriker/tiestriker.obj',
+}
+
 masterShipDB[17]={['name']='B-Wing',['Hull']=4,['Shield']=4,['size']='small',['agi']=1,['XWS']='asf01bwing', ['Fac']={[1]=true}, ['arcs']={'front'},
                             ['moveSet']={'rtl1t','rtl1','bbl1','bs1','bbr1','rtr1','rtr1t','wtl2','wbl2','bs2','wbr2','wtr2','rk2','rbl3','bs3','rbr3','rs4'}}
 masterShipDB[18]={['name']='TIE/de Defender',['Hull']=3,['Shield']=4,['size']='small',['agi']=3,['XWS']='tieddefender', ['Fac']={[2]=true}, ['arcs']={'front'},
@@ -1597,16 +1608,75 @@ masterPilotDB[115]={['name']='"Vizier"',['Faction']= 2,['ship_type']=43,['cost']
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_115.png',['init']=2,['actSet']={'F','E','Ail'}}
 masterPilotDB[116]={['name']='Scarif Base Pilot',['Faction']= 2,['ship_type']=43,['cost']=39,['slot']={21, 8, 8, 14},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_116.png',['init']=1,['actSet']={'F','E','Ail'}}
-masterPilotDB[117]={['name']='"Duchess"',['Faction']= 2,['ship_type']=16,['cost']=44,['slot']={21, 1, 16, 12, 14},['Shield']=0,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_117.png',['init']=5,['actSet']={'F','E','BR','Ail'}}
-masterPilotDB[118]={['name']='"Countdown"',['Faction']= 2,['ship_type']=16,['cost']=43,['slot']={21, 1, 16, 12, 14},['Shield']=0,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_118.png',['init']=4,['actSet']={'F','E','BR','Ail'}}
-masterPilotDB[119]={['name']='"Pure Sabacc"',['Faction']= 2,['ship_type']=16,['cost']=43,['slot']={21, 1, 16, 12, 14},['Shield']=0,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_119.png',['init']=4,['actSet']={'F','E','BR','Ail'}}
-masterPilotDB[120]={['name']='Black Squadron Scout',['Faction']= 2,['ship_type']=16,['cost']=33,['slot']={21, 1, 16, 12, 14},['Shield']=0,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_120.png',['init']=3,['actSet']={'F','E','BR','Ail'}}
-masterPilotDB[121]={['name']='Planetary Sentinel',['Faction']= 2,['ship_type']=16,['cost']=31,['slot']={21, 16, 12, 14},['Shield']=0,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_121.png',['init']=1,['actSet']={'F','E','BR','Ail'}}
+
+masterPilotDB[117]={
+  name = '"Duchess"',
+  Faction = 2,
+  limited = 1,
+  ship_type = 16,
+  cost = 44,
+  slot = {21, 1, 16, 12, 14},
+  Shield = 0,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_117.png',
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiestriker/Duchess.png',
+  actSet = {'F','E','BR','Ail'}
+}
+
+masterPilotDB[118]={
+  name = '"Countdown"',
+  Faction = 2,
+  limited = 1,
+  ship_type = 16,
+  cost = 43,
+  slot = {21, 1, 16, 12, 14},
+  Shield = 0,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_118.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiestriker/Countdown.png',
+  actSet = {'F','E','BR','Ail'}
+}
+
+masterPilotDB[119]={
+  name = '"Pure Sabacc"',
+  Faction = 2,
+  limited = 1,
+  ship_type = 16,
+  cost = 43,
+  slot = {21, 1, 16, 12, 14},
+  Shield = 0,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_119.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiestriker/PureSabacc.png',
+  actSet ={'F','E','BR','Ail'}
+}
+
+masterPilotDB[120]={
+  name = 'Black Squadron Scout',
+  Faction = 2,
+  ship_type = 16,
+  cost = 33,
+  slot = {21, 1, 16, 12, 14},
+  Shield = 0,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_120.png',
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiestriker/BlackSquadronScout.png',
+  actSet = {'F','E','BR','Ail'}
+}
+
+masterPilotDB[121]={
+  name = 'Planetary Sentinel',
+  Faction = 2,
+  ship_type = 16,
+  cost = 31,
+  slot = {21, 16, 12, 14},
+  Shield = 0,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_121.png',
+  init = 1,
+  texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiestriker/PlanetarySentinel.png',
+  actSet = {'F','E','BR','Ail'}
+}
+
 masterPilotDB[122]={['name']='Rexler Brath',['Faction']= 2,['ship_type']=18,['cost']=78,['slot']={21, 1, 2, 3, 6},['Shield']=4,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_122.png',['init']=5,['actSet']={'F','E','BR','TL','B'}}
 masterPilotDB[123]={['name']='Colonel Vessery',['Faction']= 2,['ship_type']=18,['cost']=81,['slot']={21, 1, 2, 3, 6},['Shield']=4,
@@ -2204,6 +2274,7 @@ masterPilotDB[229]={['name']='Autopilot Drone',['Faction']= 3,['ship_type']=48,[
 
 masterPilotDB[397]={
 	name = '"Midnight"',
+  limited = 1,
 	Faction = 5,
 	ship_type = 49,
 	cost =42,
@@ -2216,6 +2287,7 @@ masterPilotDB[397]={
 	}
 masterPilotDB[398]={
 	name = '"Scorch"',
+  limited = 1,
 	Faction = 5,
 	ship_type = 49,
 	cost =33 ,
@@ -2229,6 +2301,7 @@ masterPilotDB[398]={
 masterPilotDB[399]={
 	name ='"Static"',
 	Faction =5,
+  limited = 1,
 	ship_type =49,
 	cost =33,
 	slot ={21, 1,19,14},
@@ -2239,6 +2312,7 @@ masterPilotDB[399]={
 	actSet ={'F','TL','E','BR'}}
 masterPilotDB[400]={
 	name ='"Longshot"',
+  limited = 1,
 	Faction =5,
 	ship_type =49,
 	cost =31,
@@ -2249,6 +2323,7 @@ masterPilotDB[400]={
 	texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/FO_Tie_FO/Longshot.png',
 	actSet ={'F','TL','E','BR'}}
 masterPilotDB[401]={
+  limited = 1,
 	name ='"Muse"',
 	Faction =5,
 	ship_type =49,
@@ -2260,6 +2335,7 @@ masterPilotDB[401]={
 	texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/FO_Tie_FO/Muse.png',
 	actSet ={'F','TL','E','BR'}}
 masterPilotDB[402]={
+  limited = 1,
 	name ='"Null"',
 	Faction =5,
 	ship_type =49,
@@ -2305,6 +2381,7 @@ masterPilotDB[405]={
 	actSet ={'F','TL','E','BR'}
 }
 masterPilotDB[406]={
+  limited = 1,
 	name ='"Quickdraw"',
 	Faction = 5,
 	ship_type = 50,
@@ -2318,6 +2395,7 @@ masterPilotDB[406]={
 	actSet = {'F','TL','E','BR','Rot'}
 }
 masterPilotDB[407]={
+  limited = 1,
 	name ='"Backdraft"',
 	Faction =5,
 	ship_type =50,
@@ -2352,6 +2430,7 @@ masterPilotDB[409]={
 	actSet ={'F','TL','E','BR','Rot'}}
 masterPilotDB[410]={
 	name ='Major Stridan',
+  limited = 1,
 	Faction =5,
 	ship_type =51,
 	cost =61,
@@ -2364,6 +2443,7 @@ masterPilotDB[410]={
 masterPilotDB[411]={
 	name ='Lieutenant Tavson',
 	Faction =5,
+  limited = 1,
 	ship_type =51,
 	cost =64,
 	slot ={21, 2,19,19,3,8,8,8,14},
@@ -2376,6 +2456,7 @@ masterPilotDB[411]={
 masterPilotDB[412]={
 	name ='Lieutenant Dormitz',
 	Faction =5,
+  limited = 1,
 	ship_type =51,
 	cost =66,
 	slot ={21, 2,19,19,3,8,8,8,14},
@@ -2399,6 +2480,7 @@ masterPilotDB[414]={
 	name ='Kylo Ren',
 	Condition ="I'll Show You the Dark Side",
 	Faction =5,
+  limited = 1,
 	ship_type =52,
 	cost =76,
 	slot ={21, 17,19,5,6},
@@ -2413,6 +2495,7 @@ masterPilotDB[414]={
 masterPilotDB[415]={
 	name ='"Blackout"',
 	Faction =5,
+  limited = 1,
 	ship_type =52,
 	cost =63,
 	slot ={21, 1,19,5,6},
@@ -3171,8 +3254,21 @@ masterPilotDB[640]={['name']="Paige Tico",['Faction']=4,['ship_type']=55,['cost'
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/48/7e/487e95ce-b13c-4d39-97f6-8e28e633d07f/swz66_paige-tico.png',['init']=5,['actSet']={'F','TL','Rot'}}
 masterPilotDB[632]={['name']='Fifth Brother',['Faction']= 2,['ship_type']=25,['cost']=42,['slot']={21, 17, 2, 6},['Shield']=2,['Force']=2,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/c9/64/c964c977-9c57-4f50-a077-ac4fb7b70ebd/swz66_fifth-brother.png',['init']=4,['actSet']={'F','E','TL','BR','B'}}
-masterPilotDB[633]={['name']='"Vagabond"',['Faction']= 2,['ship_type']=16,['cost']=34,['slot']={21, 1, 16, 12, 14},['Shield']=0,
-                  ['card']='http://images-cdn.fantasyflightgames.com/filer_public/98/a8/98a8c9cc-53b2-4b57-ac0b-96da7c064740/swz66_vagabond.png',['init']=2,['actSet']={'F','E','BR','Ail'}}
+
+masterPilotDB[633]={
+  name = '"Vagabond"',
+  Faction = 2,
+  limited = 1,
+  ship_type = 16,
+  cost =34,
+  slot = {21, 1, 16, 12, 14},
+  Shield = 0,
+  card='http://images-cdn.fantasyflightgames.com/filer_public/98/a8/98a8c9cc-53b2-4b57-ac0b-96da7c064740/swz66_vagabond.png',
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiestriker/Vagabond.png',
+  actSet = {'F','E','BR','Ail'}
+}
+
 masterPilotDB[634]={['name']='Morna Kee',['Faction']= 2,['ship_type']=28,['cost']=75,['slot']={21, 1, 5, 8, 8, 8, 16, 12, 14, 15},['Shield']=4,['Charge']=3,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/53/16/53162173-c0c4-423e-8bbe-d5d0be9554cb/swz66_morna-kee.png',['init']=4,['actSet']={'F','R','TL','Rot'}}
 
