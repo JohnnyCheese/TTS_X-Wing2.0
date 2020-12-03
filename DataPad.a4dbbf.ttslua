@@ -361,8 +361,19 @@ masterShipDB[18]={
   mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiedefender/defender.obj',
 }
 
-masterShipDB[19]={['name']='TIE/sa Bomber',['Hull']=6,['Shield']=0,['size']='small',['agi']=2,['XWS']='tiesabomber', ['Fac']={[2]=true}, ['arcs']={'front'},
-                            ['moveSet']={'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk3','ws4','rk5'}}
+masterShipDB[19]={
+  name = 'TIE/sa Bomber',
+  Hull = 6,
+  Shield = 0,
+  size = 'small',
+  agi = 2,
+  XWS = 'tiesabomber',
+  Fac = {[2]=true},
+  arcs = {'front'},
+  moveSet = {'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk3','ws4','rk5'}
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiebomber/tiebomber.obj',
+}
+
 masterShipDB[20]={['name']='TIE/ca Punisher',['Hull']=6,['Shield']=3,['size']='medium',['agi']=1,['XWS']='tiecapunisher', ['Fac']={[2]=true}, ['arcs']={'front'},
                             ['moveSet']={'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rk4','rs0'}}
 masterShipDB[21]={['name']='Aggressor',['Hull']=5,['Shield']=3,['size']='medium',['agi']=3,['XWS']='aggressorassaultfighter', ['Fac']={[3]=true}, ['arcs']={'front'},
@@ -1655,18 +1666,88 @@ masterPilotDB[105]={['name']='Saber Squadron Ace',['Faction']= 2,['ship_type']=4
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_105.png',['init']=4,['actSet']={'F','E','BR','B'}}
 masterPilotDB[106]={['name']='Alpha Squadron Pilot',['Faction']= 2,['ship_type']=41,['cost']=31,['slot']={21, 14, 14},['Shield']=0,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_106.png',['init']=1,['actSet']={'F','E','BR','B'}}
-masterPilotDB[107]={['name']='Tomax Bren',['Faction']= 2,['ship_type']=19,['cost']=35,['slot']={21, 1, 5, 6, 6, 16, 12, 12, 14},['Shield']=0,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_107.png',['init']=5,['actSet']={'F','TL','BR'}}
-masterPilotDB[108]={['name']='Captain Jonus',['Faction']= 2,['ship_type']=19,['cost']=45,['slot']={21, 1, 5, 6, 6, 16, 12, 12, 14},['Shield']=0,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_108.png',['init']=4,['actSet']={'F','TL','BR'}}
-masterPilotDB[109]={['name']='Major Rhymer',['Faction']= 2,['ship_type']=19,['cost']=37,['slot']={21, 1, 5, 6, 6, 16, 12, 12, 14},['Shield']=0,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_109.png',['init']=4,['actSet']={'F','TL','BR'}}
-masterPilotDB[110]={['name']='"Deathfire"',['Faction']= 2,['ship_type']=19,['cost']=32,['slot']={21, 5, 6, 6, 16, 12, 12, 14},['Shield']=0,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_110.png',['init']=2,['actSet']={'F','TL','BR'}}
-masterPilotDB[111]={['name']='Gamma Squadron Ace',['Faction']= 2,['ship_type']=19,['cost']=30,['slot']={21, 1, 5, 6, 6, 16, 12, 12, 14},['Shield']=0,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_111.png',['init']=3,['actSet']={'F','TL','BR'}}
-masterPilotDB[112]={['name']='Scimitar Squadron Pilot',['Faction']= 2,['ship_type']=19,['cost']=27,['slot']={21, 5, 6, 6, 16, 12, 12, 14},['Shield']=0,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_112.png',['init']=2,['actSet']={'F','TL','BR'}}
+masterPilotDB[107]={
+  name = 'Tomax Bren',
+  Faction = 2,
+  limited = 1,
+  ship_type = 19,
+  cost = 35,
+  slot = {21, 1, 5, 6, 6, 16, 12, 12, 14},
+  Shield = 0,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_107.png',
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiebomber/TomaxBren.png',
+  actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[108]={
+  name = 'Captain Jonus',
+  Faction = 2,
+  limited = 1,
+  ship_type = 19,
+  cost = 45,
+  slot = {21, 1, 5, 6, 6, 16, 12, 12, 14},
+  Shield = 0,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_108.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiebomber/CaptainJonus.png',
+  actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[109]={
+  name = 'Major Rhymer',
+  Faction = 2,
+  limited = 1,
+  ship_type = 19,
+  cost = 37,
+  slot = {21, 1, 5, 6, 6, 16, 12, 12, 14},
+  Shield = 0,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_109.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiebomber/MajorRhymer.png',
+  actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[110]={
+  name = '"Deathfire"',
+  Faction = 2,
+  limited = 1,
+  ship_type = 19,
+  cost = 32,
+  slot = {21, 5, 6, 6, 16, 12, 12, 14},
+  Shield = 0,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_110.png',[
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiebomber/Deathfire.png',
+  actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[111]={
+  name = 'Gamma Squadron Ace',
+  Faction = 2,
+  ship_type = 19,
+  cost = 30,
+  slot = {21, 1, 5, 6, 6, 16, 12, 12, 14},
+  Shield = 0,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_111.png',
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiebomber/GammaSquadronAce.png',
+  actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[112]={
+  name ='Scimitar Squadron Pilot',
+  Faction = 2,
+  ship_type = 19,
+  cost = 27,
+  slot = {21, 5, 6, 6, 16, 12, 12, 14},
+  Shield = 0,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_112.png',
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiebomber/ScimitarSquadronPilot.png',
+  actSet = {'F','TL','BR'}
+}
+
 masterPilotDB[113]={['name']='Major Vermeil',['Faction']= 2,['ship_type']=43,['cost']=49,['slot']={21, 1, 8, 8, 14},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_113.png',['init']=4,['actSet']={'F','E','Ail'}}
 masterPilotDB[114]={['name']='Captain Feroph',['Faction']= 2,['ship_type']=43,['cost']=47,['slot']={21, 1, 8, 8, 14},['Shield']=2,
