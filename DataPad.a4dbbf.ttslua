@@ -370,12 +370,23 @@ masterShipDB[19]={
   XWS = 'tiesabomber',
   Fac = {[2]=true},
   arcs = {'front'},
-  moveSet = {'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk3','ws4','rk5'}
+  moveSet = {'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk3','ws4','rk5'},
   mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiebomber/tiebomber.obj',
 }
 
-masterShipDB[20]={['name']='TIE/ca Punisher',['Hull']=6,['Shield']=3,['size']='medium',['agi']=1,['XWS']='tiecapunisher', ['Fac']={[2]=true}, ['arcs']={'front'},
-                            ['moveSet']={'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rk4','rs0'}}
+masterShipDB[20]={
+  name = 'TIE/ca Punisher',
+  Hull = 6,
+  Shield = 3,
+  size = 'medium',
+  agi = 1,
+  XWS = 'tiecapunisher',
+  Fac = {[2]=true},
+  arcs = {'front'},
+  moveSet = {'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rk4','rs0'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/EMP_tiepunisher/tiepunisher.obj'
+}
+
 masterShipDB[21]={['name']='Aggressor',['Hull']=5,['Shield']=3,['size']='medium',['agi']=3,['XWS']='aggressorassaultfighter', ['Fac']={[3]=true}, ['arcs']={'front'},
                             ['moveSet']={'wtl1','bbl1','bs1','bbr1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','rbl3s','bbl3','bs3','bbr3','rbr3s','ws4','rk4'}}
 masterShipDB[22]={['name']='G-1A StarFighter',['Hull']=5,['Shield']=4,['size']='medium',['agi']=1,['XWS']='g1astarfighter', ['Fac']={[3]=true}, ['arcs']={'front'},
@@ -1716,7 +1727,7 @@ masterPilotDB[110]={
   cost = 32,
   slot = {21, 5, 6, 6, 16, 12, 12, 14},
   Shield = 0,
-  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_110.png',[
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_110.png',
   init = 2,
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiebomber/Deathfire.png',
   actSet = {'F','TL','BR'}
@@ -1968,12 +1979,46 @@ masterPilotDB[138]={
     actSet = {'F','TL'}
 }
 
-masterPilotDB[139]={['name']='"Redline"',['Faction']= 2,['ship_type']=20,['cost']=51,['slot']={21, 2, 5, 6, 6, 16, 12, 12, 14},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_139.png',['init']=5,['actSet']={'F','TL','BR',"B"}}
-masterPilotDB[140]={['name']='"Deathrain"',['Faction']= 2,['ship_type']=20,['cost']=43,['slot']={21, 2, 5, 6, 6, 16, 12, 12, 14},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_140.png',['init']=4,['actSet']={'F','TL','BR',"B"}}
-masterPilotDB[141]={['name']='Cutlass Squadron Pilot',['Faction']= 2,['ship_type']=20,['cost']=35,['slot']={21, 2, 5, 6, 6, 16, 12, 12, 14},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_141.png',['init']=2,['actSet']={'F','TL','BR',"B"}}
+masterPilotDB[139]={
+  name = '"Redline"',
+  Faction = 2,
+  limited = 1,
+  ship_type = 20,
+  cost = 51,
+  slot = {21, 2, 5, 6, 6, 16, 12, 12, 14},
+  Shield = 3,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_139.png',
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/EMP_tiepunisher/Redline.png',
+  actSet = {'F','TL','BR',"B"}
+}
+masterPilotDB[140]={
+  name = '"Deathrain"',
+  Faction = 2,
+  limited = 1,
+  ship_type = 20,
+  cost = 43,
+  slot = {21, 2, 5, 6, 6, 16, 12, 12, 14},
+  Shield = 3,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_140.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/EMP_tiepunisher/Deathrain.png',
+  actSet = {'F','TL','BR',"B"}
+}
+
+masterPilotDB[141]={
+  name = 'Cutlass Squadron Pilot',
+  Faction = 2,
+  ship_type = 20,
+  cost = 35,
+  slot = {21, 2, 5, 6, 6, 16, 12, 12, 14},
+  Shield = 3,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_141.png',
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/EMP_tiepunisher/CutlassSquadronPilot.png',
+  actSet = {'F','TL','BR',"B"}
+}
+
 masterPilotDB[142]={['name']='Captain Kagi',['Faction']= 2,['ship_type']=26,['cost']=48,['slot']={21, 2, 3, 8, 8, 14, 15},['Shield']=4,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_142.png',['init']=4,['actSet']={'F','R'}}
 masterPilotDB[143]={['name']='Colonel Jendon',['Faction']= 2,['ship_type']=26,['cost']=49,['slot']={21, 2, 3, 8, 8, 14, 15},['Shield']=4,['Charge']=2,
