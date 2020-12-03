@@ -348,8 +348,19 @@ masterShipDB[17]={
   mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_bwing/bwing.obj',
 }
 
-masterShipDB[18]={['name']='TIE/de Defender',['Hull']=3,['Shield']=4,['size']='small',['agi']=3,['XWS']='tieddefender', ['Fac']={[2]=true}, ['arcs']={'front'},
-                            ['moveSet']={'rtl1','bbl1','bbr1','rtr1','rtl2','wbl2','bs2','wbr2','rtr2','rk2','wtl3','wbl3','bs3','wbr3','wtr3','bs4','wk4','bs5'}}
+masterShipDB[18]={
+  name = 'TIE/de Defender',
+  Hull = 3,
+  Shield = 4,
+  size = 'small',
+  agi = 3,
+  XWS = 'tieddefender',
+  Fac = {[2]=true},
+  arcs = {'front'},
+  moveSet = {'rtl1','bbl1','bbr1','rtr1','rtl2','wbl2','bs2','wbr2','rtr2','rk2','wtl3','wbl3','bs3','wbr3','wtr3','bs4','wk4','bs5'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiedefender/defender.obj',
+}
+
 masterShipDB[19]={['name']='TIE/sa Bomber',['Hull']=6,['Shield']=0,['size']='small',['agi']=2,['XWS']='tiesabomber', ['Fac']={[2]=true}, ['arcs']={'front'},
                             ['moveSet']={'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk3','ws4','rk5'}}
 masterShipDB[20]={['name']='TIE/ca Punisher',['Hull']=6,['Shield']=3,['size']='medium',['agi']=1,['XWS']='tiecapunisher', ['Fac']={[2]=true}, ['arcs']={'front'},
@@ -1733,13 +1744,38 @@ masterPilotDB[121]={
   actSet = {'F','E','BR','Ail'}
 }
 
-masterPilotDB[122]={['name']='Rexler Brath',['Faction']= 2,['ship_type']=18,['cost']=78,['slot']={21, 1, 2, 3, 6},['Shield']=4,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_122.png',['init']=5,['actSet']={'F','E','BR','TL','B'}}
-masterPilotDB[123]={['name']='Colonel Vessery',['Faction']= 2,['ship_type']=18,['cost']=81,['slot']={21, 1, 2, 3, 6},['Shield']=4,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_123.png',['init']=4,['actSet']={'F','E','BR','TL','B'}}
+masterPilotDB[122]={
+  name = 'Rexler Brath',
+  Faction = 2,
+  limited = 1,
+  ship_type = 18,
+  cost = 78,
+  slot = {21, 1, 2, 3, 6},
+  Shield = 4,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_122.png',
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiedefender/RexlerBrath.png',
+  actSet ={'F','E','BR','TL','B'}
+}
+
+masterPilotDB[123]={
+  name = 'Colonel Vessery',
+  Faction = 2,
+  limited = 1,
+  ship_type = 18,
+  cost = 81,
+  slot = {21, 1, 2, 3, 6},
+  Shield = 4,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_123.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiedefender/ColonelVessery.png',
+  actSet = {'F','E','BR','TL','B'}
+}
+
 masterPilotDB[124]={
     name = 'Countess Ryad',
     Faction = 2,
+    limited = 1,
     ship_type = 18,
     cost = 79,
     slot = {21, 1, 2, 3, 6},
@@ -1752,12 +1788,36 @@ masterPilotDB[124]={
         bs4 = {[1]='bs4', [2]='wk4'},
         bs5 = {[1]='bs5', [2]='wk5'}
     },
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiedefender/CountessRyad.png',
     actSet = {'F','E','BR','TL','B'}
 }
-masterPilotDB[125]={['name']='Onyx Squadron Ace',['Faction']= 2,['ship_type']=18,['cost']=73,['slot']={21, 1, 2, 3, 6},['Shield']=4,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_125.png',['init']=4,['actSet']={'F','E','BR','TL','B'}}
-masterPilotDB[126]={['name']='Delta Squadron Pilot',['Faction']= 2,['ship_type']=18,['cost']=68,['slot']={21, 2, 3, 2006},['Shield']=4,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_126.png',['init']=1,['actSet']={'F','E','BR','TL','B'}}
+
+masterPilotDB[125]={
+  name = 'Onyx Squadron Ace',
+  Faction = 2,
+  ship_type = 18,
+  cost = 73,
+  slot = {21, 1, 2, 3, 6},
+  Shield = 4,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_125.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiedefender/OnyxSquadronAce.png',
+  actSet = {'F','E','BR','TL','B'}
+}
+
+masterPilotDB[126]={
+  name = 'Delta Squadron Pilot',
+  Faction = 2,
+  ship_type = 18,
+  cost = 68,
+  slot = {21, 2, 3, 6},
+  Shield = 4,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_126.png',
+  init = 1,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiedefender/DeltaSquadronPilot.png',
+  actSet = {'F','E','BR','TL','B'}
+}
+
 masterPilotDB[127]={['name']='Lieutenant Kestal',['Faction']= 2,['ship_type']=29,['cost']=30,['slot']={21, 1, 4, 6, 6, 16, 14},['Shield']=1,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_127.png',['init']=4,['actSet']={'F','E','BR','TL'}}
 masterPilotDB[128]={['name']='"Double Edge"',['Faction']= 2,['ship_type']=29,['cost']=28,['slot']={21, 1, 4, 6, 6, 16, 14},['Shield']=1,
