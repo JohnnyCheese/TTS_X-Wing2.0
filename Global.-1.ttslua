@@ -4907,7 +4907,7 @@ function TokenModule_SetLocks()
         info.lock.highlightOn({0,0,0}, 0.01)
 
         if info.ship ~= nil then
-            info.lock.call('setOwner', {ship=info.ship})
+            info.lock.call('setOwner', {player=info.color, ship=info.ship})
         end
 
         if info.target ~= nil then

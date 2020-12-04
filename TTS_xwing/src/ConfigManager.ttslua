@@ -21,7 +21,7 @@ end
 
 ConfigManager.GetConfig = function(player_color, param_name)
     if ConfigManager.PlayerConfigs[player_color] then
-        return ConfigManager.PlayerConfigs[player_color][param_name]
+        return ConfigManager.PlayerConfigs[player_color][param_name] or ConfigManager.DefaultValues[param_name]
     end
     return ConfigManager.DefaultValues[param_name] or nil
 end
