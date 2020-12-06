@@ -400,8 +400,19 @@ masterShipDB[21]={
   mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/SCU_Agressor/agressor.obj'
 }
 
-masterShipDB[22]={['name']='G-1A StarFighter',['Hull']=5,['Shield']=4,['size']='medium',['agi']=1,['XWS']='g1astarfighter', ['Fac']={[3]=true}, ['arcs']={'front'},
-                            ['moveSet']={'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rk2','rbl3','ws3','rbr3','rs4','rk4','rs0'}}
+masterShipDB[22]={
+  name = 'G-1A StarFighter',
+  Hull = 5,
+  Shield = 4,
+  size = 'medium',
+  agi = 1,
+  XWS = 'g1astarfighter',
+  Fac = {[3]=true},
+  arcs = {'front'},
+  moveSet = {'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rk2','rbl3','ws3','rbr3','rs4','rk4','rs0'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/SCU_G1A/g1a.obj'
+
+}
 masterShipDB[23]={['name']='VCX-100',['Hull']=10,['Shield']=4,['size']='large',['agi']=0,['XWS']='vcx100lightfreighter', ['Fac']={[1]=true}, ['arcs']={'front'},['Docking']=true,
                             ['moveSet']={'rtl1','wbl1','bs1','wbr1','rtr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','ws4','rk4'}}
 masterShipDB[24]={['name']='YV-666',['Hull']=9,['Shield']=3,['size']='large',['agi']=1,['XWS']='yv666lightfreighter', ['Fac']={[3]=true}, ['arcs']={'fullfront'},
@@ -2478,12 +2489,46 @@ masterPilotDB[200]={
   actSet ={'C','E','TL','B'}
 }
 
-masterPilotDB[201]={['name']='4-LOM',['Faction']= 3,['ship_type']=22,['cost']=49,['slot']={21, 1, 2, 8, 13, 14, 15},['Shield']=4,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_201.png',['init']=3,['actSet']={'C','TL'}}
-masterPilotDB[202]={['name']='Zuckuss',['Faction']= 3,['ship_type']=22,['cost']=45,['slot']={21, 1, 2, 8, 13, 14, 15},['Shield']=4,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_202.png',['init']=3,['actSet']={'F','TL'}}
-masterPilotDB[203]={['name']='Gand Findsman',['Faction']= 3,['ship_type']=22,['cost']=41,['slot']={21, 2, 8, 13, 14, 15},['Shield']=4,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_203.png',['init']=1,['actSet']={'F','TL'}}
+masterPilotDB[201]={
+  name = '4-LOM',
+  Faction = 3,
+  limited = 1,
+  ship_type = 22,
+  cost = 49,
+  slot = {21, 1, 2, 8, 13, 14, 15},
+  Shield = 4,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_201.png',
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/SCU_G1A/4lom.png',
+  actSet = {'C','TL'}
+}
+
+masterPilotDB[202]={
+  name = 'Zuckuss',
+  Faction = 3,
+  limited = 1,
+  ship_type = 22,
+  cost = 45,
+  slot = {21, 1, 2, 8, 13, 14, 15},
+  Shield = 4,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_202.png',
+  init = 3,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/SCU_G1A/Zuckuss.png',
+  actSet = {'F','TL'}
+}
+
+masterPilotDB[203]={
+  name = 'Gand Findsman',
+  Faction = 3,
+  ship_type = 22,
+  cost = 41,
+  slot = {21, 2, 8, 13, 14, 15},
+  Shield = 4,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_203.png',
+  init = 1,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/SCU_G1A/GandFindsman.png',
+  actSet={'F','TL'}
+}
 
 masterPilotDB[204]={
     name = 'Captain Nym',
