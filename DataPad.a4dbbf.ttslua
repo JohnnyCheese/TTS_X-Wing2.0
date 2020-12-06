@@ -411,10 +411,21 @@ masterShipDB[22]={
   arcs = {'front'},
   moveSet = {'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rk2','rbl3','ws3','rbr3','rs4','rk4','rs0'},
   mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/SCU_G1A/g1a.obj'
-
 }
-masterShipDB[23]={['name']='VCX-100',['Hull']=10,['Shield']=4,['size']='large',['agi']=0,['XWS']='vcx100lightfreighter', ['Fac']={[1]=true}, ['arcs']={'front'},['Docking']=true,
-                            ['moveSet']={'rtl1','wbl1','bs1','wbr1','rtr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','ws4','rk4'}}
+masterShipDB[23]={
+  name = 'VCX-100',
+  Hull = 10,
+  Shield = 4,
+  size = 'large',
+  agi = 0,
+  XWS = 'vcx100lightfreighter',
+  Fac = {[1]=true},
+  arcs = {'front'},
+  Docking = true,
+  moveSet = {'rtl1','wbl1','bs1','wbr1','rtr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','ws4','rk4'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/REB_VCX100/vcx100.obj'
+}
+
 masterShipDB[24]={['name']='YV-666',['Hull']=9,['Shield']=3,['size']='large',['agi']=1,['XWS']='yv666lightfreighter', ['Fac']={[3]=true}, ['arcs']={'fullfront'},
                             ['moveSet']={'bbl1','bs1','bbr1','rtl2','wbl2','bs2','wbr2','rtr2','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rs0'}}
 masterShipDB[25]={['name']='TIE Advanced v1',['Hull']=2,['Shield']=2,['size']='small',['agi']=3,['XWS']='tieadvancedv1', ['Fac']={[2]=true}, ['arcs']={'front'},
@@ -1354,25 +1365,72 @@ masterPilotDB[72]={
     actSet = {'F','TL','B'}
 }
 
-masterPilotDB[73]={['name']='Hera Syndulla',['Faction']= 1,['ship_type']=23,['cost']=72,['slot']={21, 1,2, 4, 5, 8, 8, 16, 14, 15},['Shield']=4,
-    executeOptions = {
-        rtl1  = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
-        rtr1  = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
-        rtl3  = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
-        rtr3  = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
-        rk4   = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
-        bs1   = {[1]='bs1',  [2]='bbl2', [3]='bbr2', [4]='bs2'},
-        bbl2  = {[1]='bs1',  [2]='bbl2', [3]='bbr2', [4]='bs2'},
-        bbr2  = {[1]='bs1',  [2]='bbl2', [3]='bbr2', [4]='bs2'},
-        bs2   = {[1]='bs1',  [2]='bbl2', [3]='bbr2', [4]='bs2'}
-    },
-    ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_73.png',['init']=5,['actSet']={'F','TL','R'}}
-masterPilotDB[74]={['name']='Kanan Jarrus',['Faction']= 1,['ship_type']=23,['cost']=68,['slot']={21, 17,2, 4, 5, 8, 8, 16, 14, 15},['Shield']=4,['Force']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_74.png',['init']=3,['actSet']={'F','TL','R'}}
-masterPilotDB[75]={['name']='"Chopper"',['Faction']= 1,['ship_type']=23,['cost']=67,['slot']={21, 4,2, 5, 8, 8, 16, 14, 15},['Shield']=4,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_75.png',['init']=2,['actSet']={'C','TL','R'}}
-masterPilotDB[76]={['name']='Lothal Rebel',['Faction']= 1,['ship_type']=23,['cost']=67,['slot']={21, 4,2, 5, 8, 8, 16, 14, 15},['Shield']=4,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_76.png',['init']=2,['actSet']={'F','TL','R'}}
+masterPilotDB[73]={
+  name = 'Hera Syndulla',
+  Faction = 1,
+  limited = 1,
+  ship_type = 23,
+  cost = 72,
+  slot = {21, 1,2, 4, 5, 8, 8, 16, 14, 15},
+  Shield = 4,
+  executeOptions = {
+      rtl1  = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
+      rtr1  = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
+      rtl3  = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
+      rtr3  = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
+      rk4   = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
+      bs1   = {[1]='bs1',  [2]='bbl2', [3]='bbr2', [4]='bs2'},
+      bbl2  = {[1]='bs1',  [2]='bbl2', [3]='bbr2', [4]='bs2'},
+      bbr2  = {[1]='bs1',  [2]='bbl2', [3]='bbr2', [4]='bs2'},
+      bs2   = {[1]='bs1',  [2]='bbl2', [3]='bbr2', [4]='bs2'}
+  },
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_73.png',
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/REB_VCX100/HeraSyndulla.jpg',
+  actSet = {'F','TL','R'}
+}
+
+masterPilotDB[74]={
+  name = 'Kanan Jarrus',
+  Faction = 1,
+  limited = 1,
+  ship_type = 23,
+  cost = 68,
+  slot = {21, 17,2, 4, 5, 8, 8, 16, 14, 15},
+  Shield = 4,
+  Force = 2,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_74.png',
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/REB_VCX100/KananJarrus.jpg',
+  actSet = {'F','TL','R'}
+}
+
+masterPilotDB[75]={
+  name = '"Chopper"',
+  Faction = 1,
+  limited = 1,
+  ship_type = 23,
+  cost = 67,
+  slot = {21, 4,2, 5, 8, 8, 16, 14, 15},
+  Shield = 4,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_75.png',
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/REB_VCX100/Chopper.jpg',
+  actSet = {'C','TL','R'}
+}
+
+masterPilotDB[76]={
+  name = 'Lothal Rebel',
+  Faction = 1,
+  ship_type = 23,
+  cost = 67,
+  slot = {21, 4,2, 5, 8, 8, 16, 14, 15},
+  Shield = 4,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_76.png',
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/REB_VCX100/LothalRebel.jpg',
+  actSet = {'F','TL','R'}
+}
 
 masterPilotDB[77]={
     name = 'Dash Rendar',
@@ -3563,8 +3621,19 @@ masterPilotDB[629]={
     actSet = {'C','TL'}
 }
 
-masterPilotDB[631]={['name']='Alexsandr Kallus',['Faction']= 1,['ship_type']=23,['cost']=68,['slot']={21, 1, 2, 4, 5, 8, 8, 16, 14, 15},['Shield']=4,
-                  ['card']='http://images-cdn.fantasyflightgames.com/filer_public/d0/bf/d0bf7c63-2c2c-4372-8ace-7299d180c774/swz66_alexsandr-kallus.png',['init']=4,['actSet']={'F','TL','R'}}
+masterPilotDB[631]={
+  name = 'Alexsandr Kallus',
+  Faction = 1,
+  limited = 1,
+  ship_type = 23,
+  cost = 68,
+  slot = {21, 1, 2, 4, 5, 8, 8, 16, 14, 15},
+  Shield = 4,
+  card = 'http://images-cdn.fantasyflightgames.com/filer_public/d0/bf/d0bf7c63-2c2c-4372-8ace-7299d180c774/swz66_alexsandr-kallus.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/REB_VCX100/AlexsandrKallus.jpg',
+  actSet = {'F','TL','R'}
+}
 
 masterPilotDB[630]={
     name = 'Leia Organa',
