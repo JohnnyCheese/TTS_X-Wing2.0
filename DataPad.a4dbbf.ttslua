@@ -387,8 +387,19 @@ masterShipDB[20]={
   mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/EMP_tiepunisher/tiepunisher.obj'
 }
 
-masterShipDB[21]={['name']='Aggressor',['Hull']=5,['Shield']=3,['size']='medium',['agi']=3,['XWS']='aggressorassaultfighter', ['Fac']={[3]=true}, ['arcs']={'front'},
-                            ['moveSet']={'wtl1','bbl1','bs1','bbr1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','rbl3s','bbl3','bs3','bbr3','rbr3s','ws4','rk4'}}
+masterShipDB[21]={
+  name = 'Aggressor',
+  Hull = 5,
+  Shield = 3,
+  size = 'medium',
+  agi = 3,
+  XWS = 'aggressorassaultfighter',
+  Fac = {[3]=true},
+  arcs = {'front'},
+  moveSet = {'wtl1','bbl1','bs1','bbr1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','rbl3s','bbl3','bs3','bbr3','rbr3s','ws4','rk4'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/SCU_Agressor/agressor.obj'
+}
+
 masterShipDB[22]={['name']='G-1A StarFighter',['Hull']=5,['Shield']=4,['size']='medium',['agi']=1,['XWS']='g1astarfighter', ['Fac']={[3]=true}, ['arcs']={'front'},
                             ['moveSet']={'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rk2','rbl3','ws3','rbr3','rs4','rk4','rs0'}}
 masterShipDB[23]={['name']='VCX-100',['Hull']=10,['Shield']=4,['size']='large',['agi']=0,['XWS']='vcx100lightfreighter', ['Fac']={[1]=true}, ['arcs']={'front'},['Docking']=true,
@@ -2408,18 +2419,65 @@ masterPilotDB[196]={
     actSet = {'F','TL','BR'}
 }
 
-masterPilotDB[197]={['name']='IG-88A',['Faction']= 3,['ship_type']=21,['cost']=66,['slot']={21, 1, 2, 3, 3, 12, 13, 14, 15},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_197.png',['init']=4,['actSet']={'C','E','TL','B'}}
-masterPilotDB[198]={['name']='IG-88B',['Faction']= 3,['ship_type']=21,['cost']=62,['slot']={21, 1, 2, 3, 3, 12, 13, 14, 15},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_198.png',['init']=4,['actSet']={'C','E','TL','B'}}
-masterPilotDB[199]={['name']='IG-88C',['Faction']= 3,['ship_type']=21,['cost']=63,['slot']={21, 1, 2, 3, 3, 12, 13, 14, 15},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_199.png',['init']=4,['actSet']={'C','E','TL','B'}}
-masterPilotDB[200]={['name']='IG-88D',['Faction']= 3,['ship_type']=21,['cost']=62,['slot']={21, 1, 2, 3, 3, 12, 13, 14, 15},['Shield']=3,
-                    executeOptions = {
-                        rbl3s = {[1]='rtl3s', [2]='rbl3s', [3]='rk3'},
-                        rbr3s = {[1]='rk3', [2]='rbr3s', [3]='rtr3s'}
-                    },
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_200.png',['init']=4,['actSet']={'C','E','TL','B'}}
+masterPilotDB[197]={
+  name = 'IG-88A',
+  Faction = 3,
+  limited = 1,
+  ship_type = 21,
+  cost = 66,
+  slot = {21, 1, 2, 3, 3, 12, 13, 14, 15},
+  Shield = 3,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_197.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/SCU_Agressor/ig88a.png',
+  actSet = {'C','E','TL','B'}
+}
+
+masterPilotDB[198]={
+  name = 'IG-88B',
+  Faction = 3,
+  limited = 1,
+  ship_type = 21,
+  cost = 62,
+  slot = {21, 1, 2, 3, 3, 12, 13, 14, 15},
+  Shield = 3,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_198.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/SCU_Agressor/ig88b.png',
+  actSet = {'C','E','TL','B'}
+}
+
+masterPilotDB[199]={
+  name = 'IG-88C',
+  Faction = 3,
+  limited = 1,
+  ship_type = 21,
+  cost = 63,
+  slot = {21, 1, 2, 3, 3, 12, 13, 14, 15},
+  Shield = 3,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_199.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/SCU_Agressor/ig88c.png',
+  actSet = {'C','E','TL','B'}
+}
+
+masterPilotDB[200]={
+  name = 'IG-88D',
+  Faction = 3,
+  limited = 1,
+  ship_type = 21,
+  cost = 62,
+  slot = {21, 1, 2, 3, 3, 12, 13, 14, 15},
+  Shield = 3,
+  executeOptions = {
+      rbl3s = {[1]='rtl3s', [2]='rbl3s', [3]='rk3'},
+      rbr3s = {[1]='rk3', [2]='rbr3s', [3]='rtr3s'}},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_200.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/SCU_Agressor/ig88d.png',
+  actSet ={'C','E','TL','B'}
+}
+
 masterPilotDB[201]={['name']='4-LOM',['Faction']= 3,['ship_type']=22,['cost']=49,['slot']={21, 1, 2, 8, 13, 14, 15},['Shield']=4,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_201.png',['init']=3,['actSet']={'C','TL'}}
 masterPilotDB[202]={['name']='Zuckuss',['Faction']= 3,['ship_type']=22,['cost']=45,['slot']={21, 1, 2, 8, 13, 14, 15},['Shield']=4,
