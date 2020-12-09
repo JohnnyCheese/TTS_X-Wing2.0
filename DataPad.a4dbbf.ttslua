@@ -492,8 +492,19 @@ masterShipDB[28]={
   mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/EMP_Decimator/decimator.obj'
 }
 
-masterShipDB[29]={['name']='TIE/ag Aggressor',['Hull']=4,['Shield']=1,['size']='small',['agi']=2,['XWS']='tieagaggressor', ['Fac']={[2]=true}, ['arcs']={'front'},
-                            ['moveSet']={'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk4'}}
+masterShipDB[29]={
+  name = 'TIE/ag Aggressor',
+  Hull = 4,
+  Shield = 1,
+  size = 'small',
+  agi = 2,
+  XWS = 'tieagaggressor',
+  Fac = {[2]=true},
+  arcs = {'front'},
+  moveSet = {'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk4'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieaggressor/tieaggressor.obj'
+}
+
 masterShipDB[30]={['name']='K-Wing',['Hull']=6,['Shield']=3,['dTurret']=1,['size']='medium',['agi']=1,['XWS']='btls8kwing', ['Fac']={[1]=true}, ['arcs']={'singleturret'},
                             ['moveSet']={'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','wbl3','ws3','wbr3'}}
 masterShipDB[31]={['name']='ARC-170',['Hull']=6, ['Shield']=3,['size']='medium',['agi']=1,['XWS']='arc170starfighter', ['Fac']={[1]=true,[6]=true}, ['arcs']={'front', 'back'},
@@ -515,8 +526,19 @@ masterShipDB[39]={['name']='M12-L Kimogila',['Hull']=7,['Shield']=2,['size']='me
                             ['moveSet']={'rtl1','wbl1','bs1','wbr1','rtr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk4'}}
 masterShipDB[40]={['name']='E-Wing',['Hull']=3,['Shield']=3,['size']='small',['agi']=3,['XWS']='ewing', ['Fac']={[1]=true}, ['arcs']={'front'},
                             ['moveSet']={'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rbl3s','wtl3','wbl3','bs3','wbr3','wtr3','rbr3s','bs4','rk4','ws5'}}
-masterShipDB[41]={['name']='TIE/in Interceptor',['Hull']=3,['Shield']=0,['size']='small',['agi']=3,['XWS']='tieininterceptor', ['Fac']={[2]=true}, ['arcs']={'front'},
-                            ['moveSet']={'wtl1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rbl3s','wtl3','wbl3','bs3','wbr3','wtr3','rbr3s','bs4','rk4','ws5'}}
+masterShipDB[41]={
+  name = 'TIE/in Interceptor',
+  Hull = 3,
+  Shield = 0,
+  size = 'small',
+  agi = 3,
+  XWS = 'tieininterceptor',
+  Fac = {[2]=true},
+  arcs = {'front'},
+  moveSet = {'wtl1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rbl3s','wtl3','wbl3','bs3','wbr3','wtr3','rbr3s','bs4','rk4','ws5'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieinterceptor/tieinterceptor.obj'
+}
+
 masterShipDB[42]={['name']='Lancer Pursuit Craft',['Hull']=8,['Shield']=2,['sTurret']=1,['size']='large',['agi']=2,['XWS']='lancerclasspursuitcraft', ['Fac']={[3]=true}, ['arcs']={'front','singleturret'},
                             ['moveSet']={'wbl1','ws1','wbr1','wtl2','wbl2','bs2','wbr2','wtr2','btl3','bbl3','bs3','bbr3','btr3','bs4','ws5','rk5'}}
 masterShipDB[43]={['name']='TIE/re Reaper',['Hull']=6,['Shield']=2,['size']='medium',['agi']=1,['XWS']='tiereaper', ['Fac']={[2]=true}, ['arcs']={'front'},
@@ -1854,14 +1876,60 @@ masterPilotDB[102]={
   actSet = {'F','E','TL','BR','B'}
 }
 
-masterPilotDB[103]={['name']='Soontir Fel',['Faction']= 2,['ship_type']=41,['cost']=54,['slot']={21, 1, 14, 14},['Shield']=0,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_103.png',['init']=6,['actSet']={'F','E','BR','B'}}
-masterPilotDB[104]={['name']='Turr Phennir',['Faction']= 2,['ship_type']=41,['cost']=42,['slot']={21, 1, 14, 14},['Shield']=0,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_104.png',['init']=4,['actSet']={'F','E','BR','B'}}
-masterPilotDB[105]={['name']='Saber Squadron Ace',['Faction']= 2,['ship_type']=41,['cost']=35,['slot']={21, 1, 14, 14},['Shield']=0,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_105.png',['init']=4,['actSet']={'F','E','BR','B'}}
-masterPilotDB[106]={['name']='Alpha Squadron Pilot',['Faction']= 2,['ship_type']=41,['cost']=31,['slot']={21, 14, 14},['Shield']=0,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_106.png',['init']=1,['actSet']={'F','E','BR','B'}}
+masterPilotDB[103]={
+  name = 'Soontir Fel',
+  Faction = 2,
+  limited = 1,
+  ship_type = 41,
+  cost = 54,
+  slot = {21, 1, 14, 14},
+  Shield = 0,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_103.png',
+  init = 6,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieinterceptor/SoontirFel.png',
+  actSet = {'F','E','BR','B'}
+}
+
+masterPilotDB[104]={
+  name = 'Turr Phennir',
+  Faction = 2,
+  limited = 1,
+  ship_type = 41,
+  cost = 42,
+  slot = {21, 1, 14, 14},
+  Shield = 0,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_104.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieinterceptor/TurrPhennir.png',
+  actSet = {'F','E','BR','B'}
+}
+
+masterPilotDB[105]={
+  name = 'Saber Squadron Ace',
+  Faction = 2,
+  ship_type = 41,
+  cost = 35,
+  slot = {21, 1, 14, 14},
+  Shield = 0,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_105.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieinterceptor/SabreSquadronAce.png',
+  actSet = {'F','E','BR','B'}
+}
+
+masterPilotDB[106]={
+  name = 'Alpha Squadron Pilot',
+  Faction = 2,
+  ship_type = 41,
+  cost = 31,
+  slot = {21, 14, 14},
+  Shield = 0,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_106.png',
+  init = 1,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieinterceptor/AlphaSquadronPilot.png',
+  actSet = {'F','E','BR','B'}
+}
+
 masterPilotDB[107]={
   name = 'Tomax Bren',
   Faction = 2,
@@ -2095,14 +2163,60 @@ masterPilotDB[126]={
   actSet = {'F','E','BR','TL','B'}
 }
 
-masterPilotDB[127]={['name']='Lieutenant Kestal',['Faction']= 2,['ship_type']=29,['cost']=30,['slot']={21, 1, 4, 6, 6, 16, 14},['Shield']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_127.png',['init']=4,['actSet']={'F','E','BR','TL'}}
-masterPilotDB[128]={['name']='"Double Edge"',['Faction']= 2,['ship_type']=29,['cost']=28,['slot']={21, 1, 4, 6, 6, 16, 14},['Shield']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_128.png',['init']=2,['actSet']={'F','E','BR','TL'}}
-masterPilotDB[129]={['name']='Onyx Squadron Scout',['Faction']= 2,['ship_type']=29,['cost']=28,['slot']={21, 1, 4, 6, 6, 16, 14},['Shield']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_129.png',['init']=3,['actSet']={'F','E','BR','TL'}}
-masterPilotDB[130]={['name']='Sienar Specialist',['Faction']= 2,['ship_type']=29,['cost']=26,['slot']={21, 4, 6, 6, 16, 14},['Shield']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_130.png',['init']=2,['actSet']={'F','E','BR','TL'}}
+masterPilotDB[127]={
+  name = 'Lieutenant Kestal',
+  Faction = 2,
+  limited = 1,
+  ship_type = 29,
+  cost = 30,
+  slot = {21, 1, 4, 6, 6, 16, 14},
+  Shield = 1,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_127.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieaggressor/LieutenantKestal.png',
+  actSet = {'F','E','BR','TL'}
+}
+
+masterPilotDB[128]={
+  name = '"Double Edge"',
+  Faction = 2,
+  limited = 1,
+  ship_type = 29,
+  cost = 28,
+  slot = {21, 1, 4, 6, 6, 16, 14},
+  Shield = 1,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_128.png',
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieaggressor/DoubleEdge.png',
+  actSet = {'F','E','BR','TL'}
+}
+
+masterPilotDB[129]={
+  name = 'Onyx Squadron Scout',
+  Faction = 2,
+  ship_type = 29,
+  cost = 28,
+  slot = {21, 1, 4, 6, 6, 16, 14},
+  Shield = 1,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_129.png',
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieaggressor/OnyxSquadronScout.png',
+  actSet = {'F','E','BR','TL'}
+}
+
+masterPilotDB[130]={
+  name = 'Sienar Specialist',
+  Faction = 2,
+  ship_type = 29,
+  cost = 26,
+  slot = {21, 4, 6, 6, 16, 14},
+  Shield = 1,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_130.png',
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieaggressor/SienarSpecialist.png',
+  actSet = {'F','E','BR','TL'}
+}
+
 masterPilotDB[131]={
   name = '"Whisper"',
   Faction = 2,
