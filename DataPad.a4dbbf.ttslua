@@ -462,7 +462,7 @@ masterShipDB[26]={
   Fac = {[2]=true},
   arcs = {'front', 'back'},
   moveSet = {'bbl1','bs1','bbr1','rtl2','wbl2','bs2','wbr2','rtr2','rbl3','ws3','rbr3','rs0'},
-  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/EMP_lambda/lambda.obj'
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/EMP_Lambda/lambda.obj'
 }
 
 masterShipDB[27]={
@@ -2247,7 +2247,7 @@ masterPilotDB[142]={
   Shield = 4,
   card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_142.png',
   init = 4,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/EMP_lambda/CaptainKagi.png',
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/EMP_Lambda/CaptainKagi.png',
   actSet = {'F','R'}
 }
 
@@ -2262,7 +2262,7 @@ masterPilotDB[143]={
   Charge = 2,
   card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_143.png',
   init = 3,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/EMP_lambda/ColonelJendon.png',
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/EMP_Lambda/ColonelJendon.png',
   actSet = {'F','R'}
 }
 
@@ -2276,7 +2276,7 @@ masterPilotDB[144]={
   Shield = 4,
   card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_144.png',
   init = 3,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/EMP_lambda/LieutenantSai.png',
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/EMP_Lambda/LieutenantSai.png',
   actSet = {'F','R'}
 }
 
@@ -2289,7 +2289,7 @@ masterPilotDB[145]={
   Shield = 4,
   card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_145.png',
   init = 1,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/EMP_lambda/OmicronGroupPilot.png',
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/EMP_Lambda/OmicronGroupPilot.png',
   actSet = {'F','R'}
 }
 
@@ -3910,8 +3910,20 @@ masterPilotDB[639]={
 
 masterPilotDB[640]={['name']="Paige Tico",['Faction']=4,['ship_type']=55,['cost']=56,['slot']={21, 2,19,8,16,16,12,12,14},['Shield']=3,['Charge']=1,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/48/7e/487e95ce-b13c-4d39-97f6-8e28e633d07f/swz66_paige-tico.png',['init']=5,['actSet']={'F','TL','Rot'}}
-masterPilotDB[632]={['name']='Fifth Brother',['Faction']= 2,['ship_type']=25,['cost']=42,['slot']={21, 17, 2, 6},['Shield']=2,['Force']=2,
-                  ['card']='http://images-cdn.fantasyflightgames.com/filer_public/c9/64/c964c977-9c57-4f50-a077-ac4fb7b70ebd/swz66_fifth-brother.png',['init']=4,['actSet']={'F','E','TL','BR','B'}}
+masterPilotDB[632]={
+  name = 'Fifth Brother',
+  Faction = 2,
+  limited = 1,
+  ship_type = 25,
+  cost = 42,
+  slot = {21, 17, 2, 6},
+  Shield = 2,
+  Force = 2,
+  card = 'http://images-cdn.fantasyflightgames.com/filer_public/c9/64/c964c977-9c57-4f50-a077-ac4fb7b70ebd/swz66_fifth-brother.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieadvv1/FifthBrother.png',
+  actSet = {'F','E','TL','BR','B'}
+}
 
 masterPilotDB[633]={
   name = '"Vagabond"',
