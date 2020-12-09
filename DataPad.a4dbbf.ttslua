@@ -541,8 +541,19 @@ masterShipDB[41]={
 
 masterShipDB[42]={['name']='Lancer Pursuit Craft',['Hull']=8,['Shield']=2,['sTurret']=1,['size']='large',['agi']=2,['XWS']='lancerclasspursuitcraft', ['Fac']={[3]=true}, ['arcs']={'front','singleturret'},
                             ['moveSet']={'wbl1','ws1','wbr1','wtl2','wbl2','bs2','wbr2','wtr2','btl3','bbl3','bs3','bbr3','btr3','bs4','ws5','rk5'}}
-masterShipDB[43]={['name']='TIE/re Reaper',['Hull']=6,['Shield']=2,['size']='medium',['agi']=1,['XWS']='tiereaper', ['Fac']={[2]=true}, ['arcs']={'front'},
-                            ['moveSet']={'rbl1s','rtl1','bbl1','bs1','bbr1','rtr1','rbr1s','rtl2','wbl2','bs2','wbr2','rtr2','wbl3','bs3','wbr3','rs0'}}
+masterShipDB[43]={
+  name = 'TIE/re Reaper',
+  Hull = 6,
+  Shield = 2,
+  size = 'medium',
+  agi = 1,
+  XWS = 'tiereaper',
+  Fac = {[2]=true},
+  arcs = {'front'},
+  moveSet = {'rbl1s','rtl1','bbl1','bs1','bbr1','rtr1','rbr1s','rtl2','wbl2','bs2','wbr2','rtr2','wbl3','bs3','wbr3','rs0'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/EMP_tiereaper/tiereaper.obj'
+}
+
 masterShipDB[44]={['name']='M3-A Interceptor',['Hull']=3,['Shield']=1,['size']='small',['agi']=3,['XWS']='m3ainterceptor', ['Fac']={[3]=true}, ['arcs']={'front'},
                             ['moveSet']={'wtl1','bbl1','bbr1','wtr1','wtl2','wbl2','bs2','wbr2','wtr2','wbl3','bs3','wbr3','rk3','ws4','ws5','rk5'}}
 masterShipDB[45]={['name']='JumpMaster 5000',['Hull']=6,['Shield']=3,['sTurret']=1,['size']='large',['agi']=1,['XWS']='jumpmaster5000', ['Fac']={[3]=true}, ['arcs']={'singleturret'},
@@ -1913,7 +1924,7 @@ masterPilotDB[105]={
   Shield = 0,
   card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_105.png',
   init = 4,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieinterceptor/SabreSquadronAce.png',
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieinterceptor/SaberSquadronAce.png',
   actSet = {'F','E','BR','B'}
 }
 
@@ -2012,14 +2023,60 @@ masterPilotDB[112]={
   actSet = {'F','TL','BR'}
 }
 
-masterPilotDB[113]={['name']='Major Vermeil',['Faction']= 2,['ship_type']=43,['cost']=49,['slot']={21, 1, 8, 8, 14},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_113.png',['init']=4,['actSet']={'F','E','Ail'}}
-masterPilotDB[114]={['name']='Captain Feroph',['Faction']= 2,['ship_type']=43,['cost']=47,['slot']={21, 1, 8, 8, 14},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_114.png',['init']=3,['actSet']={'F','E','Ail'}}
-masterPilotDB[115]={['name']='"Vizier"',['Faction']= 2,['ship_type']=43,['cost']=45,['slot']={21, 8, 8, 14},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_115.png',['init']=2,['actSet']={'F','E','Ail'}}
-masterPilotDB[116]={['name']='Scarif Base Pilot',['Faction']= 2,['ship_type']=43,['cost']=39,['slot']={21, 8, 8, 14},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_116.png',['init']=1,['actSet']={'F','E','Ail'}}
+masterPilotDB[113]={
+  name = 'Major Vermeil',
+  Faction = 2,
+  limited = 1,
+  ship_type = 43,
+  cost = 49,
+  slot = {21, 1, 8, 8, 14},
+  Shield = 2,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_113.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/EMP_tiereaper/MajorVermeil.png',
+  actSet = {'F','E','Ail'}
+}
+
+masterPilotDB[114]={
+  name = 'Captain Feroph',
+  Faction = 2,
+  limited = 1,
+  ship_type = 43,
+  cost = 47,
+  slot = {21, 1, 8, 8, 14},
+  Shield = 2,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_114.png',
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/EMP_tiereaper/CaptainFeroph.png',
+  actSet = {'F','E','Ail'}
+}
+
+masterPilotDB[115]={
+  name = '"Vizier"',
+  Faction = 2,
+  limited = 1,
+  ship_type = 43,
+  cost = 45,
+  slot = {21, 8, 8, 14},
+  Shield = 2,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_115.png',
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/EMP_tiereaper/Vizier.png',
+  actSet = {'F','E','Ail'}
+}
+
+masterPilotDB[116]={
+  name = 'Scarif Base Pilot',
+  Faction = 2,
+  ship_type = 43,
+  cost = 39,
+  slot = {21, 8, 8, 14},
+  Shield = 2,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_116.png',
+  init = 1,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/EMP_tiereaper/ScarifBasePilot.png',
+  actSet = {'F','E','Ail'}
+}
 
 masterPilotDB[117]={
   name = '"Duchess"',
