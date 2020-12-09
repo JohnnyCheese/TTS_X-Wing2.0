@@ -478,8 +478,20 @@ masterShipDB[27]={
   mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiephantom/tiephantom.obj'
 }
 
-masterShipDB[28]={['name']='VT-49 Decimator',['Hull']=12,['Shield']=4,['dTurret']=1,['size']='large',['agi']=0,['XWS']='vt49decimator', ['Fac']={[2]=true}, ['arcs']={'doubleturret'},
-                            ['moveSet']={'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','wtl3','wbl3','ws3','wbr3','wtr3','ws4'}}
+masterShipDB[28]={
+  name = 'VT-49 Decimator',
+  Hull = 12,
+  Shield = 4,
+  dTurret = 1,
+  size = 'large',
+  agi = 0,
+  XWS = 'vt49decimator',
+  Fac = {[2]=true},
+  arcs = {'doubleturret'},
+  moveSet = {'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','wtl3','wbl3','ws3','wbr3','wtr3','ws4'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/EMP_Decimator/decimator.obj'
+}
+
 masterShipDB[29]={['name']='TIE/ag Aggressor',['Hull']=4,['Shield']=1,['size']='small',['agi']=2,['XWS']='tieagaggressor', ['Fac']={[2]=true}, ['arcs']={'front'},
                             ['moveSet']={'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk4'}}
 masterShipDB[30]={['name']='K-Wing',['Hull']=6,['Shield']=3,['dTurret']=1,['size']='medium',['agi']=1,['XWS']='btls8kwing', ['Fac']={[1]=true}, ['arcs']={'singleturret'},
@@ -2293,12 +2305,46 @@ masterPilotDB[145]={
   actSet = {'F','R'}
 }
 
-masterPilotDB[146]={['name']='Captain Oicunn',['Faction']= 2,['ship_type']=28,['cost']=75,['slot']={21, 1, 5, 8, 8, 8, 16, 12, 14, 15},['Shield']=4,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_146.png',['init']=3,['actSet']={'F','R','TL','Rot'}}
-masterPilotDB[147]={['name']='Rear Admiral Chiraneau',['Faction']= 2,['ship_type']=28,['cost']=76,['slot']={21, 1, 5, 8, 8, 8, 16, 12, 14, 15},['Shield']=4,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_147.png',['init']=5,['actSet']={'F','R','TL','Rot'}}
-masterPilotDB[148]={['name']='Patrol Leader',['Faction']= 2,['ship_type']=28,['cost']=67,['slot']={21, 5, 8, 8, 8, 16, 12, 14, 15},['Shield']=4,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_148.png',['init']=2,['actSet']={'F','R','TL','Rot'}}
+masterPilotDB[146]={
+  name = 'Captain Oicunn',
+  Faction = 2,
+  limited = 1,
+  ship_type = 28,
+  cost = 75,
+  slot = {21, 1, 5, 8, 8, 8, 16, 12, 14, 15},
+  Shield = 4,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_146.png',
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/EMP_Decimator/CaptainOicunn.png',
+  actSet = {'F','R','TL','Rot'}
+}
+
+masterPilotDB[147]={
+  name = 'Rear Admiral Chiraneau',
+  Faction = 2,
+  limited = 1,
+  ship_type = 28,
+  cost = 76,
+  slot = {21, 1, 5, 8, 8, 8, 16, 12, 14, 15},
+  Shield = 4,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_147.png',
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/EMP_Decimator/RearAdmiralChiraneau.png',
+  actSet = {'F','R','TL','Rot'}
+}
+
+masterPilotDB[148]={
+  name = 'Patrol Leader',
+  Faction = 2,
+  ship_type = 28,
+  cost = 67,
+  slot = {21, 5, 8, 8, 8, 16, 12, 14, 15},
+  Shield = 4,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_148.png',
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/EMP_Decimator/PatrolLeader.png',
+  actSet = {'F','R','TL','Rot'}
+}
 
 masterPilotDB[149]={
     name = 'Boba Fett',
@@ -3939,8 +3985,20 @@ masterPilotDB[633]={
   actSet = {'F','E','BR','Ail'}
 }
 
-masterPilotDB[634]={['name']='Morna Kee',['Faction']= 2,['ship_type']=28,['cost']=75,['slot']={21, 1, 5, 8, 8, 8, 16, 12, 14, 15},['Shield']=4,['Charge']=3,
-                  ['card']='http://images-cdn.fantasyflightgames.com/filer_public/53/16/53162173-c0c4-423e-8bbe-d5d0be9554cb/swz66_morna-kee.png',['init']=4,['actSet']={'F','R','TL','Rot'}}
+masterPilotDB[634]={
+  name = 'Morna Kee',
+  Faction = 2,
+  limited = 1,
+  ship_type = 28,
+  cost = 75,
+  slot = {21, 1, 5, 8, 8, 8, 16, 12, 14, 15},
+  Shield = 4,
+  Charge = 3,
+  card = 'http://images-cdn.fantasyflightgames.com/filer_public/53/16/53162173-c0c4-423e-8bbe-d5d0be9554cb/swz66_morna-kee.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/EMP_Decimator/MornaKee.png',
+  actSet = {'F','R','TL','Rot'}
+}
 
 masterPilotDB[641]={
     name = 'Lieutenant LeHuse',
