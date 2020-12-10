@@ -505,8 +505,20 @@ masterShipDB[29]={
   mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieaggressor/tieaggressor.obj'
 }
 
-masterShipDB[30]={['name']='K-Wing',['Hull']=6,['Shield']=3,['dTurret']=1,['size']='medium',['agi']=1,['XWS']='btls8kwing', ['Fac']={[1]=true}, ['arcs']={'singleturret'},
-                            ['moveSet']={'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','wbl3','ws3','wbr3'}}
+masterShipDB[30]={
+  name = 'K-Wing',
+  Hull = 6,
+  Shield = 3,
+  dTurret = 1,
+  size = 'medium',
+  agi = 1,
+  XWS = 'btls8kwing',
+  Fac = {[1]=true},
+  arcs = {'singleturret'},
+  moveSet = {'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','wbl3','ws3','wbr3'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/REB_kwing/kwing.obj'
+}
+
 masterShipDB[31]={['name']='ARC-170',['Hull']=6, ['Shield']=3,['size']='medium',['agi']=1,['XWS']='arc170starfighter', ['Fac']={[1]=true,[6]=true}, ['arcs']={'front', 'back'},
                             ['moveSet']={'bbl1','bs1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs4','rk4'}}
 masterShipDB[32]={['name']='Attack Shuttle',['Hull']=3,['Shield']=1,['size']='small',['agi']=2,['XWS']='attackshuttle', ['Fac']={[1]=true}, ['arcs']={'front'},
@@ -1387,12 +1399,47 @@ masterPilotDB[61]={
     actSet = {'F','TL'}
 }
 
-masterPilotDB[62]={['name']='Miranda Doni',['Faction']= 1,['ship_type']=30,['cost']=40,['slot']={21, 5, 6, 6, 16, 8, 12, 12, 14},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_62.png',['init']=4,['actSet']={'F','TL','Rot'}}
-masterPilotDB[63]={['name']='Esege Tuketu',['Faction']= 1,['ship_type']=30,['cost']=44,['slot']={21, 5, 6, 6, 16, 8, 12, 12, 14},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_63.png',['init']=3,['actSet']={'F','TL','Rot'}}
-masterPilotDB[64]={['name']='Warden Squadron Pilot',['Faction']= 1,['ship_type']=30,['cost']=38,['slot']={21, 5, 6, 6, 16, 8, 12, 12, 14},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_64.png',['init']=2,['actSet']={'F','TL','Rot'}}
+masterPilotDB[62]={
+  name = 'Miranda Doni',
+  Faction = 1,
+  limited = 1,
+  ship_type = 30,
+  cost = 40,
+  slot = {21, 5, 6, 6, 16, 8, 12, 12, 14},
+  Shield = 3,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_62.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/REB_kwing/MirandaDoni.png',
+  actSet = {'F','TL','Rot'}
+}
+
+masterPilotDB[63]={
+  name = 'Esege Tuketu',
+  Faction = 1,
+  limited = 1,
+  ship_type = 30,
+  cost = 44,
+  slot = {21, 5, 6, 6, 16, 8, 12, 12, 14},
+  Shield = 3,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_63.png',
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/REB_kwing/EsegeTuketu.png',
+  actSet = {'F','TL','Rot'}
+}
+
+masterPilotDB[64]={
+  name = 'Warden Squadron Pilot',
+  Faction = 1,
+  ship_type = 30,
+  cost = 38,
+  slot = {21, 5, 6, 6, 16, 8, 12, 12, 14},
+  Shield = 3,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_64.png',
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/REB_kwing/WardenSquadronPilot.png',
+  actSet = {'F','TL','Rot'}
+}
+
 masterPilotDB[65]={['name']='Norra Wexley',['Faction']= 1,['ship_type']=31,['cost']=55,['slot']={21, 1, 5, 8, 16, 10, 14},['Shield']=3, ['card']='https://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_65.png',['init']=5,['actSet']={'F','TL','BR'}}
 masterPilotDB[66]={['name']='Garven Dreis',['Faction']= 1,['ship_type']=31,['cost']=49,['slot']={21, 1, 5, 8, 16, 10, 14},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_66.png',['init']=4,['actSet']={'F','TL','BR'}}
