@@ -519,8 +519,19 @@ masterShipDB[30]={
   mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/REB_kwing/kwing.obj'
 }
 
-masterShipDB[31]={['name']='ARC-170',['Hull']=6, ['Shield']=3,['size']='medium',['agi']=1,['XWS']='arc170starfighter', ['Fac']={[1]=true,[6]=true}, ['arcs']={'front', 'back'},
-                            ['moveSet']={'bbl1','bs1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs4','rk4'}}
+masterShipDB[31]={
+  name = 'ARC-170',
+  Hull = 6,
+  Shield = 3,
+  size = 'medium',
+  agi = 1,
+  XWS = 'arc170starfighter',
+  Fac = {[1]=true,[6]=true},
+  arcs = {'front', 'back'},
+  moveSet = {'bbl1','bs1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs4','rk4'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/arc170.obj'
+}
+
 masterShipDB[32]={['name']='Attack Shuttle',['Hull']=3,['Shield']=1,['size']='small',['agi']=2,['XWS']='attackshuttle', ['Fac']={[1]=true}, ['arcs']={'front'},
                             ['moveSet']={'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','ws4','rk4'}}
 masterShipDB[33]={['name']='X-Wing',['Hull']=4,['Shield']=2,['size']='small',['agi']=2,['XWS']='t65xwing', ['Fac']={[1]=true}, ['arcs']={'front'},
@@ -1440,13 +1451,61 @@ masterPilotDB[64]={
   actSet = {'F','TL','Rot'}
 }
 
-masterPilotDB[65]={['name']='Norra Wexley',['Faction']= 1,['ship_type']=31,['cost']=55,['slot']={21, 1, 5, 8, 16, 10, 14},['Shield']=3, ['card']='https://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_65.png',['init']=5,['actSet']={'F','TL','BR'}}
-masterPilotDB[66]={['name']='Garven Dreis',['Faction']= 1,['ship_type']=31,['cost']=49,['slot']={21, 1, 5, 8, 16, 10, 14},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_66.png',['init']=4,['actSet']={'F','TL','BR'}}
-masterPilotDB[67]={['name']='Shara Bey',['Faction']= 1,['ship_type']=31,['cost']=50,['slot']={21, 1, 5, 8, 16, 10, 14},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_67.png',['init']=4,['actSet']={'F','TL','BR'}}
-masterPilotDB[68]={['name']='Ibtisam',['Faction']= 1,['ship_type']=31,['cost']=46,['slot']={21, 1, 5, 8, 16, 10, 14},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_68.png',['init']=3,['actSet']={'F','TL','BR'}}
+masterPilotDB[65]={
+  name = 'Norra Wexley',
+  Faction = 1,
+  limited = 1,
+  ship_type = 31,
+  cost = 55,
+  slot = {21, 1, 5, 8, 16, 10, 14},
+  Shield = 3,
+  card = 'https://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_65.png',
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/REB_arc/NorraWexley.png',
+  actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[66]={
+  name = 'Garven Dreis',
+  Faction = 1,
+  limited = 1,
+  ship_type = 31,
+  cost = 49,
+  slot = {21, 1, 5, 8, 16, 10, 14},
+  Shield = 3,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_66.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/REB_arc/GarvenDreis.png',
+  actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[67]={
+  name = 'Shara Bey',
+  Faction = 1,
+  limited = 1,
+  ship_type = 31,
+  cost = 50,
+  slot = {21, 1, 5, 8, 16, 10, 14},
+  Shield = 3,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_67.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/REB_arc/SharaBey.png',
+  actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[68]={
+  name = 'Ibtisam',
+  Faction = 1,
+  limited = 1,
+  ship_type = 31,
+  cost = 46,
+  slot = {21, 1, 5, 8, 16, 10, 14},
+  Shield = 3,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_68.png',
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/REB_arc/Ibtisam.png',
+  actSet = {'F','TL','BR'}
+}
 
 masterPilotDB[69]={
     name = 'Han Solo',
@@ -3867,18 +3926,84 @@ masterPilotDB[521]={['name']='Blue Squadron Protector',['Faction']=6,['ship_type
                   ['actSet']={'F','E','TL','BR'}}
 masterPilotDB[522]={['name']='Gold Squadron Trooper',['Faction']=6,['ship_type']=62,['cost']=25,['slot']={21, 6,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/ed881318b45485a197e514b2d13e178c.png',['init']=2,
                   ['actSet']={'F','E','TL','BR'}}
-masterPilotDB[523]={['name']='"Odd Ball"',['Faction']=6,['ship_type']=31,['cost']=48,['slot']={21, 1,5,14,8,16,10},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/b0e39e35b57982a9cdffe663ff47b2dc.png',['init']=5,
-                  ['actSet']={'F','TL','BR'}}
-masterPilotDB[524]={['name']='"Wolffe"',['Faction']=6,['ship_type']=31,['cost']=49,['slot']={21, 1,5,14,8,16,10},['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/2a15fd003a7fc1d475b562a958c6c263.png',['init']=4,
-                  ['actSet']={'F','TL','BR'}}
-masterPilotDB[525]={['name']='"Jag"',['Faction']=6,['ship_type']=31,['cost']=48,['slot']={21, 5,14,8,16,10},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/28152f1d6ee09d27a4afd2459947dc3d.png',['init']=3,
-                  ['actSet']={'F','TL','BR'}}
-masterPilotDB[526]={['name']='"Sinker"',['Faction']=6,['ship_type']=31,['cost']=54,['slot']={21, 5,14,8,16,10},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/8297fc7d58ec0a5e6068f8dabbbc00f1.png',['init']=3,
-                  ['actSet']={'F','TL','BR'}}
-masterPilotDB[527]={['name']='Squad Seven Veteran',['Faction']=6,['ship_type']=31,['cost']=44,['slot']={21, 1,5,14,8,16,10},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/0e0fb59b2806b41214275255986965f2.png',['init']=3,
-                  ['actSet']={'F','TL','BR'}}
-masterPilotDB[528]={['name']='104th Battalion Pilot',['Faction']=6,['ship_type']=31,['cost']=42,['slot']={21, 5,14,8,16,10},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/1798ea30f603f073200326864ef9424c.png',['init']=2,
-                  ['actSet']={'F','TL','BR'}}
+
+masterPilotDB[523]={
+  name = '"Odd Ball"',
+  Faction = 6,
+  limited = 1,
+  ship_type = 31,
+  cost = 48,
+  slot = {21, 1,5,14,8,16,10},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/b0e39e35b57982a9cdffe663ff47b2dc.png',
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/GRP_ARC-170/OddBall.png',
+  actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[524]={
+  name = '"Wolffe"',
+  Faction = 6,
+  limited = 1,
+  ship_type = 31,
+  cost = 49,
+  slot = {21, 1,5,14,8,16,10},
+  Charge = 1,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/2a15fd003a7fc1d475b562a958c6c263.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/GRP_ARC-170/Wolffe.png',
+  actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[525]={
+  name = '"Jag"',
+  Faction = 6,
+  limited = 1,
+  ship_type = 31,
+  cost = 48,
+  slot = {21, 5,14,8,16,10},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/28152f1d6ee09d27a4afd2459947dc3d.png',
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/GRP_ARC-170/Jag.png',
+  actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[526]={
+  name = '"Sinker"',
+  Faction = 6,
+  limited = 1,
+  ship_type = 31,
+  cost = 54,
+  slot = {21, 5,14,8,16,10},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/8297fc7d58ec0a5e6068f8dabbbc00f1.png',
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/GRP_ARC-170/Sinker.png',
+  actSet ={'F','TL','BR'}
+}
+
+masterPilotDB[527]={
+  name = 'Squad Seven Veteran',
+  Faction = 6,
+  ship_type = 31,
+  cost = 44,
+  slot = {21, 1,5,14,8,16,10},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/0e0fb59b2806b41214275255986965f2.png',
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/GRP_ARC-170/SquadSevenVeteran.png',
+  actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[528]={
+  name = '104th Battalion Pilot',
+  Faction = 6,
+  ship_type = 31,
+  cost = 42,
+  slot = {21, 5,14,8,16,10},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/1798ea30f603f073200326864ef9424c.png',
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/GRP_ARC-170/104thBattalionPilot.png',
+  actSet = {'F','TL','BR'}
+}
+
 --w4 Pilots
 --N-1
 masterPilotDB[557]={['name']='Ric Olié',['Faction']=6,['ship_type']=63,['cost']=45,['slot']={21, 1,2,5,10},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/87829b7b808c535eb1e2c8314b04971a.png',['init']=5,
