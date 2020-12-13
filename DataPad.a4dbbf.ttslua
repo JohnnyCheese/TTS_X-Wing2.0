@@ -532,8 +532,18 @@ masterShipDB[31]={
   mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/arc170.obj'
 }
 
-masterShipDB[32]={['name']='Attack Shuttle',['Hull']=3,['Shield']=1,['size']='small',['agi']=2,['XWS']='attackshuttle', ['Fac']={[1]=true}, ['arcs']={'front'},
-                            ['moveSet']={'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','ws4','rk4'}}
+masterShipDB[32]={
+  name = 'Attack Shuttle',
+  Hull = 3,
+  Shield = 1,
+  size = 'small',
+  agi = 2,
+  XWS = 'attackshuttle',
+  Fac = {[1]=true},
+  arcs = {'front'},
+  moveSet = {'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','ws4','rk4'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_attackshuttle/attackshuttle.obj'
+}
 masterShipDB[33]={['name']='X-Wing',['Hull']=4,['Shield']=2,['size']='small',['agi']=2,['XWS']='t65xwing', ['Fac']={[1]=true}, ['arcs']={'front'},
                             ['moveSet']={'bbl1', 'bs1', 'bbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'wtl3', 'wbl3', 'ws3', 'wbr3', 'wtr3', 'ws4', 'rtl3t', 'rtr3t', 'rk4' }}
 masterShipDB[34]={['name']='HWK-290',['Hull']=3,['Shield']=2,['sTurret']=1,['size']='small',['agi']=2,['XWS']='hwk290lightfreighter', ['Fac']={[1]=true,[3]=true}, ['arcs']={'singleturret'},
@@ -1160,26 +1170,73 @@ masterPilotDB[33]={
     actSet = {'F','R', 'BR'}
 }
 
-masterPilotDB[34]={['name']='Hera Syndulla',['Faction']= 1,['ship_type']=32,['cost']=38,['slot']={21, 1, 4, 8, 14, 15},
-    executeOptions = {
-        rtl1  = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
-        rtr1  = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
-        rtl3  = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
-        rtr3  = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
-        rk4   = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
-        bs1   = {[1]='bs1',  [2]='bbl1', [3]='bbr1', [4]='bs2'},
-        bbl1  = {[1]='bs1',  [2]='bbl1', [3]='bbr1', [4]='bs2'},
-        bbr1  = {[1]='bs1',  [2]='bbl1', [3]='bbr1', [4]='bs2'},
-        bs2   = {[1]='bs1',  [2]='bbl1', [3]='bbr1', [4]='bs2'}
-    },
-    ['Shield']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_34.png',['init']=5,['actSet']={'F','E','BR'}}
-masterPilotDB[35]={['name']='Sabine Wren',['Faction']= 1,['ship_type']=32,['cost']=41,['slot']={21, 1, 4, 8, 14, 15},['Shield']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_35.png',['init']=3,['actSet']={'F','E','B', 'BR'}}
-masterPilotDB[36]={['name']='Ezra Bridger',['Faction']= 1,['ship_type']=32,['cost']=40,['slot']={21, 17, 4, 8, 14, 15},['Shield']=1,['Force']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_36.png',['init']=3,['actSet']={'F','E','BR'}}
-masterPilotDB[37]={['name']='"Zeb" Orrelios',['Faction']= 1,['ship_type']=32,['cost']=32,['slot']={21, 4, 8, 14, 15},['Shield']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_37.png',['init']=2,['actSet']={'F','E','BR'}}
+masterPilotDB[34]={
+  name = 'Hera Syndulla',
+  Faction = 1,
+  limited = 1,
+  ship_type = 32,
+  cost = 38,
+  slot = {21, 1, 4, 8, 14, 15},
+  executeOptions = {
+      rtl1  = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
+      rtr1  = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
+      rtl3  = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
+      rtr3  = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
+      rk4   = {[1]='rtl1', [2]='rtr1', [3]='rtl3', [4]='rtr3', [5]='rk4'},
+      bs1   = {[1]='bs1',  [2]='bbl1', [3]='bbr1', [4]='bs2'},
+      bbl1  = {[1]='bs1',  [2]='bbl1', [3]='bbr1', [4]='bs2'},
+      bbr1  = {[1]='bs1',  [2]='bbl1', [3]='bbr1', [4]='bs2'},
+      bs2   = {[1]='bs1',  [2]='bbl1', [3]='bbr1', [4]='bs2'}
+  },
+  Shield = 1,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_34.png',
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_attackshuttle/HeraSyndulla.jpg',
+  actSet = {'F','E','BR'}
+}
+
+masterPilotDB[35]={
+  name = 'Sabine Wren',
+  Faction = 1,
+  limited = 1,
+  ship_type = 32,
+  cost = 41,
+  slot = {21, 1, 4, 8, 14, 15},
+  Shield = 1,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_35.png',
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_attackshuttle/SabineWren.jpg',
+  actSet = {'F','E','B', 'BR'}
+}
+
+masterPilotDB[36]={
+  name = 'Ezra Bridger',
+  Faction = 1,
+  limited = 1,
+  ship_type = 32,
+  cost = 40,
+  slot = {21, 17, 4, 8, 14, 15},
+  Shield = 1,
+  Force = 1,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_36.png',
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_attackshuttle/EzraBridger.jpg',
+  actSet = {'F','E','BR'}
+}
+
+masterPilotDB[37]={
+  name='"Zeb" Orrelios',
+  Faction = 1,
+  limited = 1,
+  ship_type = 32,
+  cost = 32,
+  slot = {21, 4, 8, 14, 15},
+  Shield = 1,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_37.png',
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_attackshuttle/ZebOrrelios.jpg',
+  actSet = {'F','E','BR'}
+}
 
 masterPilotDB[38]={
     name = 'Fenn Rau',
