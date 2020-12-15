@@ -544,8 +544,20 @@ masterShipDB[32]={
   moveSet = {'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','ws4','rk4'},
   mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_attackshuttle/attackshuttle.obj'
 }
-masterShipDB[33]={['name']='X-Wing',['Hull']=4,['Shield']=2,['size']='small',['agi']=2,['XWS']='t65xwing', ['Fac']={[1]=true}, ['arcs']={'front'},
-                            ['moveSet']={'bbl1', 'bs1', 'bbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'wtl3', 'wbl3', 'ws3', 'wbr3', 'wtr3', 'ws4', 'rtl3t', 'rtr3t', 'rk4' }}
+
+masterShipDB[33]={
+  name = 'X-Wing',
+  Hull = 4,
+  Shield = 2,
+  size = 'small',
+  agi = 2,
+  XWS = 't65xwing',
+  Fac = {[1]=true},
+  arcs = {'front'},
+  moveSet = {'bbl1', 'bs1', 'bbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'wtl3', 'wbl3', 'ws3', 'wbr3', 'wtr3', 'ws4', 'rtl3t', 'rtr3t', 'rk4' }
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_xwing/xwing.obj'
+}
+
 masterShipDB[34]={['name']='HWK-290',['Hull']=3,['Shield']=2,['sTurret']=1,['size']='small',['agi']=2,['XWS']='hwk290lightfreighter', ['Fac']={[1]=true,[3]=true}, ['arcs']={'singleturret'},
                             ['moveSet']={'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','bs3','wbr3','rtr3','ws4','rs0'}}
 masterShipDB[35]={['name']='A-Wing',['Hull']=2,['Shield']=2,['size']='small',['agi']=3,['XWS']='rz1awing', ['Fac']={[1]=true}, ['arcs']={'front'},
@@ -958,30 +970,171 @@ masterShipDB[94]={
 masterPilotDB={}
 masterPilotDB[0]={['name']='',['Faction']= 0,['ship_type']=0,['cost']=0,['slot']={},['Shield']=0,['card']='',['cardB']='',['init']=0,['actSet']={}}
 
-masterPilotDB[1]={['name']='Wedge Antilles',['Faction']= 1,['ship_type']=33,['cost']=54,['slot']={21, 1, 5, 10, 14, 18},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_1.png',['init']=6,['actSet']={'F','TL', 'BR'}}
-masterPilotDB[2]={['name']='Luke Skywalker',['Faction']= 1,['ship_type']=33,['cost']=61,['slot']={21, 17, 5, 10, 14, 18},['Shield']=2,['Force']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_2.png',['init']=5,['actSet']={'F','TL', 'BR'}}
-masterPilotDB[3]={['name']='Thane Kyrell',['Faction']= 1,['ship_type']=33,['cost']=47,['slot']={21, 1, 5, 10, 14, 18},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_3.png',['init']=5,['actSet']={'F','TL', 'BR'}}
-masterPilotDB[4]={['name']='Garven Dreis',['Faction']= 1,['ship_type']=33,['cost']=46,['slot']={21, 1, 5, 10, 14, 18},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_4.png',['init']=4,['actSet']={'F','TL', 'BR'}}
-masterPilotDB[5]={['name']='Jek Porkins',['Faction']= 1,['ship_type']=33,['cost']=44,['slot']={21, 1, 5, 10, 14, 18},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_5.png',['init']=4,['actSet']={'F','TL', 'BR'}}
-masterPilotDB[6]={['name']='Kullbee Sperado',['Faction']= 1,['ship_type']=33,['cost']=45,['slot']={21, 1, 5, 10, 13, 14, 18},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_6.png',['init']=4,['actSet']={'F','TL', 'BR'}}
-masterPilotDB[7]={['name']='Biggs Darklighter',['Faction']= 1,['ship_type']=33,['cost']=47,['slot']={21, 5, 10, 14, 18},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_7.png',['init']=3,['actSet']={'F','TL', 'BR'}}
-masterPilotDB[8]={['name']='Leevan Tenza',['Faction']= 1,['ship_type']=33,['cost']=43,['slot']={21, 1, 5, 10, 13, 14, 18},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_8.png',['init']=3,['actSet']={'F','TL', 'BR'}}
-masterPilotDB[9]={['name']='Edrio Two Tubes',['Faction']= 1,['ship_type']=33,['cost']=42,['slot']={21, 5, 10, 13, 14, 18},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_9.png',['init']=2,['actSet']={'F','TL', 'BR'}}
-masterPilotDB[10]={['name']='Red Squadron Veteran',['Faction']= 1,['ship_type']=33,['cost']=40,['slot']={21, 1, 5, 10, 14, 18},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_10.png',['init']=3,['actSet']={'F','TL', 'BR'}}
-masterPilotDB[11]={['name']='Blue Squadron Escort',['Faction']= 1,['ship_type']=33,['cost']=38,['slot']={21, 5, 10, 14, 18},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_11.png',['init']=2,['actSet']={'F','TL', 'BR'}}
-masterPilotDB[12]={['name']='Cavern Angels Zealot',['Faction']= 1,['ship_type']=33,['cost']=38,['slot']={21, 5, 10, 13, 14, 18},['Shield']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_12.png',['init']=1,['actSet']={'F','TL', 'BR'}}
+masterPilotDB[1]={
+  name = 'Wedge Antilles',
+  Faction = 1,
+  limited = 1,
+  ship_type = 33,
+  cost = 54,
+  slot = {21, 1, 5, 10, 14, 18},
+  Shield = 2,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_1.png',
+  init = 6,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_xwing/WedgeAntilles.png',
+  actSet = {'F','TL', 'BR'}
+}
+
+masterPilotDB[2]={
+  name = 'Luke Skywalker',
+  Faction = 1,
+  limited = 1,
+  ship_type = 33,
+  cost = 61,
+  slot = {21, 17, 5, 10, 14, 18},
+  Shield = 2,
+  Force = 2,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_2.png',
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_xwing/LukeSkywalker.png',
+  actSet = {'F','TL', 'BR'}
+}
+
+masterPilotDB[3]={
+  name = 'Thane Kyrell',
+  Faction = 1,
+  limited = 1,
+  ship_type = 33,
+  cost = 47,
+  slot = {21, 1, 5, 10, 14, 18},
+  Shield = 2,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_3.png',
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_xwing/ThaneKyrell.png',
+  actSet = {'F','TL', 'BR'}
+}
+
+masterPilotDB[4]={
+  name = 'Garven Dreis',
+  Faction = 1,
+  limited = 1,
+  ship_type = 33,
+  cost = 46,
+  slot = {21, 1, 5, 10, 14, 18},
+  Shield = 2,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_4.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_xwing/GarvenDreis.png',
+  actSet = {'F','TL', 'BR'}
+}
+
+masterPilotDB[5]={
+  name = 'Jek Porkins',
+  Faction = 1,
+  limited = 1,
+  ship_type = 33,
+  cost = 44,
+  slot = {21, 1, 5, 10, 14, 18},
+  Shield = 2,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_5.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_xwing/JekPorkins.png',
+  actSet = {'F','TL', 'BR'}
+}
+
+masterPilotDB[6]={
+  name = 'Kullbee Sperado',
+  Faction = 1,
+  limited = 1,
+  ship_type = 33,
+  cost = 45,
+  slot = {21, 1, 5, 10, 13, 14, 18},
+  Shield = 2,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_6.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_xwing/KullbeeSperado.png',
+  actSet = {'F','TL', 'BR'}
+}
+
+masterPilotDB[7]={
+  name = 'Biggs Darklighter',
+  Faction = 1,
+  limited = 1,
+  ship_type = 33,
+  cost = 47,
+  slot = {21, 5, 10, 14, 18},
+  Shield = 2,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_7.png',
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_xwing/BiggsDarklighter.png',
+  actSet = {'F','TL', 'BR'}
+}
+
+masterPilotDB[8]={
+  name = 'Leevan Tenza',
+  Faction = 1,
+  limited = 1,
+  ship_type = 33,
+  cost = 43,
+  slot = {21, 1, 5, 10, 13, 14, 18},
+  Shield = 2,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_8.png',
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_xwing/LeevanTenza.png',
+  actSet = {'F','TL', 'BR'}
+}
+
+masterPilotDB[9]={
+  name = 'Edrio Two Tubes',
+  Faction = 1,
+  limited = 1,
+  ship_type = 33,
+  cost = 42,
+  slot = {21, 5, 10, 13, 14, 18},
+  Shield = 2,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_9.png',
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_xwing/EdrioTwoTubes.png',
+  actSet = {'F','TL', 'BR'}
+}
+
+masterPilotDB[10]={
+  name = 'Red Squadron Veteran',
+  Faction = 1,
+  ship_type = 33,
+  cost = 40,
+  slot = {21, 1, 5, 10, 14, 18},
+  Shield = 2,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_10.png',
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_xwing/RedSquadronVeteran.png',
+  actSet = {'F','TL', 'BR'}
+}
+
+masterPilotDB[11]={
+  name = 'Blue Squadron Escort',
+  Faction = 1,
+  ship_type = 33,
+  cost = 38,
+  slot = {21, 5, 10, 14, 18},
+  Shield = 2,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_11.png',
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_xwing/BlueSquadronEscort.png',
+  actSet = {'F','TL', 'BR'}
+}
+
+masterPilotDB[12]={
+  name = 'Cavern Angels Zealot',
+  Faction = 1,
+  ship_type = 33,
+  cost = 38,
+  slot = {21, 5, 10, 13, 14, 18},
+  Shield = 2,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_12.png',
+  init = 1,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_xwing/CavernAngelsZealot.png',
+  actSet = {'F','TL', 'BR'}
+}
 
 masterPilotDB[13]={
     name = 'Norra Wexley',
