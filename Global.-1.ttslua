@@ -2122,7 +2122,7 @@ ArcCheck.CheckObstruction = function(data, ship, ownship)
         orientation  = {0,data.angle, 0},
         direction    = {0,-0.3,0},
         type         = 3,
-        size         = {0.1,0.1,data.length},
+        size         = {0,0,data.length},
         max_distance = 3,
         debug        = false
     })
