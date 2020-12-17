@@ -58,7 +58,7 @@ varCostA[301] = {[0] = 3,[1] = 4,[2] = 6,[3] = 8} --Stealth Device
 varCostA[324] = {[0] = 4,[1] = 6,[2] = 8,[3] = 10} --R2-D2 (Astromech)
 varCostA[593] = {[0] = 6,[1] = 3,[2] = 1,[3] = 1} --Angled deflectors
 varCostA[471] = {[0] = 1,[1] = 1,[2] = 1,[3] = 2} -- Heroic
-varCostA[711] = {[0] = 4,[1] = 6,[2] = 8,[3] = 10} -- Republc R2-D2
+varCostA[860] = {[0] = 4,[1] = 6,[2] = 8,[3] = 10} -- Republc R2-D2
 
 
 varCostI={}
@@ -76,7 +76,7 @@ varCostI[549]={[0]=0,[1]=0,[2]=1,[3]=2,[4]=3,[5]=4,[6]=5} -- Calibrated laser Ta
 varCostI[614]={[0]=3,[1]=3,[2]=3,[3]=4,[4]=7,[5]=10,[6]=13} -- Precognitive Reflexes
 varCostI[610]={[0]=21,[1]=21,[2]=21,[3]=21,[4]=21,[5]=24,[6]=28} -- Ensnare
 varCostI[577]={[0]=2,[1]=2,[2]=2,[3]=2,[4]=2,[5]=4,[6]=6} -- Passive Sensors
-varCostI[704]={[0]=0,[1]=1,[2]=2,[3]=3,[4]=4,[5]=5,[6]=6} --Overdrive Thruster
+varCostI[721]={[0]=0,[1]=1,[2]=2,[3]=3,[4]=4,[5]=5,[6]=6} --Overdrive Thruster
 varCostI[294]={[0]=4,[1]=4,[2]=4,[3]=4,[4]=5,[5]=6,[6]=7} --Afterburners
 
 -- FFG uses full name on factions, so a conversion is needed
@@ -618,7 +618,7 @@ masterShipDB[45]={['name']='JumpMaster 5000',['Hull']=6,['Shield']=3,['sTurret']
 
 masterShipDB[47]={['name']='Customized YT-1300',['Hull']=8,['Shield']=3,['dTurret']=1,['size']='large',['agi']=1,['XWS']='customizedyt1300lightfreighter', ['Fac']={[3]=true}, ['arcs']={'doubleturret'},
                             ['Docking']=true,['moveSet']={'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rbl3s','rbr3s','ws4','rk4'}}
-masterShipDB[48]={['name']='Escape Craft',['Hull']=2,['Shield']=2,['size']='small',['agi']=2,['XWS']='escapecraft', ['Fac']={[3]=true}, ['arcs']={'front'},
+masterShipDB[85]={['name']='Escape Craft',['Hull']=2,['Shield']=2,['size']='small',['agi']=2,['XWS']='escapecraft', ['Fac']={[3]=true}, ['arcs']={'front'},
                             ['moveSet']={'bbl1','bs1','bbr1','rtl2','wbl2','bs2','wbr2','rtr2','wbl3','ws3','wbr3','rk3','rs0'}}
 masterShipDB[49]={
 	name = 'TIE/fo FO',
@@ -738,7 +738,7 @@ masterShipDB[60]={['name']='Sith Infiltrator',['Hull']=6,['Shield']=4,['size']='
                             ['moveSet']={'rtl1','bbl1','bs1','bbr1','rtr1','rbl2s','wtl2','bbl2','bs2','bbr2','wtr2','rbr2s','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk5'}}
 
 --w4ship
-masterShipDB[64]={
+masterShipDB[63]={
     name = 'Resistance Transport',
     Hull = 5,
     Shield = 3,
@@ -762,7 +762,12 @@ masterShipDB[65]={
     moveSet = {'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rbl3','ws3','rbr3','rk3','rs4'}
 }
 
-masterShipDB[63]={
+
+
+masterShipDB[64]={['name']='Hyena-Class Droid Bomber',['Hull']=5,['Shield']=0,['size']='small',['agi']=2,['XWS']='', ['Fac']={[7]=true}, ['arcs']={'front'},
+                            ['moveSet']={'wtl1','rbl1','ws1','rbr1','wtr1','btl2','wbl2','bs2','wbr2','btr2','rk2','rtl2t','rtr2t','wtl3','bs3','wtr3','ws4','rs5'}}
+
+masterShipDB[66]={
 	name ='N-1 StarFighter',
 	Hull = 3,
 	Shield = 2,
@@ -774,10 +779,6 @@ masterShipDB[63]={
 	moveSet = {'wbl1','ws1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','bbl3','bs3','bbr3','wtr3','rtl3t','rtr3t','ws4','ws5'},
 	--mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_N1/Naboo_Royal_N1.obj'
 }
-
-masterShipDB[66]={['name']='Hyena-Class Droid Bomber',['Hull']=5,['Shield']=0,['size']='small',['agi']=2,['XWS']='', ['Fac']={[7]=true}, ['arcs']={'front'},
-                            ['moveSet']={'wtl1','rbl1','ws1','rbr1','wtr1','btl2','wbl2','bs2','wbr2','btr2','rk2','rtl2t','rtr2t','wtl3','bs3','wtr3','ws4','rs5'}}
-
 
 masterShipDB[67]={['name']='Nantex-Class StarFighter',['Hull']=4,['Shield']=0,['sTurret']=1,['size']='small',['agi']=3,['XWS']='', ['Fac']={[7]=true}, ['arcs']={'left', 'front', 'right', 'bullseye'},
                             ['moveSet']={'wtl1','bbl1','bbr1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','bbl3','bs3','bbr3','wtr3','rbl3s','rbr3s','ws4','ws5','rk5'}}
@@ -793,7 +794,12 @@ masterShipDB[68]={
 	moveSet = {'wbl1','bs1','wbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs4','rk4'},
 }
 --w6ship
-masterShipDB[69]={
+
+masterShipDB[69]={['name']='FireBall',['Hull']=6,['Shield']=0,['size']='small',['agi']=2,['XWS']='', ['Fac']={[4]=true}, ['arcs']={'front'},
+                            ['moveSet']={'wtl1','bbl1','bs1','bbr1','wtr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rtl3t','rtr3t','rs4'}}
+
+
+masterShipDB[70]={
     name = 'TIE/ba Interceptor',
     Hull = 2,
     Shield = 2,
@@ -806,13 +812,34 @@ masterShipDB[69]={
     moveSet = {'btl1','bbl1','bbr1','btr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rbl2s','rbr2s','bs4','ws5','rk5'}
 }
 
-masterShipDB[70]={['name']='FireBall',['Hull']=6,['Shield']=0,['size']='small',['agi']=2,['XWS']='', ['Fac']={[4]=true}, ['arcs']={'front'},
-                            ['moveSet']={'wtl1','bbl1','bs1','bbr1','wtr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rtl3t','rtr3t','rs4'}}
-
-
-
---w7ship
 masterShipDB[71]={
+    name = 'Nimbus-class V-wing',
+    Hull = 2,
+    Shield = 2,
+    size = 'small',
+    agi = 3,
+    XWS = 'nimbusclassvwing',
+    Fac = {[6]=true},
+    arcs = {'front'},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_V-Wing/Republic_V-Wing.obj',
+    moveSet = {'wtl1','rbl1','rbr1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rk2','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk4','ws5'},
+}
+
+masterShipDB[72]={
+    name = 'TIE/rb Heavy',
+    Hull = 8,
+    Shield = 0,
+    size = 'medium',
+    agi = 1,
+    XWS = 'tierbheavy',
+    Fac = {[2]=true},
+    arcs = {'front', 'back'},
+    sTurret = 1,
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/Tie_Rb/Rb%20Brute.obj',
+    moveSet = {'rtl1','wbl1','bs1','wbr1','rtr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3t','rtl3','wbl3','ws3','wbr3','rtr3','rtr3t','ws4'},
+}
+
+masterShipDB[73]={
     name = 'Xi-class Light Shuttle',
     Hull = 5,
     Shield = 2,
@@ -825,21 +852,8 @@ masterShipDB[71]={
     moveSet = {'rs0','bbl1','bs1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','ws4'}
 }
 
-masterShipDB[72]={
-    name = 'HMP Droid Gunship',
-    Hull = 5,
-    Shield = 3,
-    size = 'small',
-    agi = 1,
-    XWS = '',
-    Fac = {[7]=true},
-    arcs = {'fullfront'},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/HMP_Gunship.obj',
-    moveSet = {'rs0','rbl1','bs1','rbr1','btl2','wbl2','bs2','wbr2','btr2','wtl3','rbl3','ws3','rbr3','wtr3','rs4','rs5'},
-}
 
-
-masterShipDB[73]={
+masterShipDB[74]={
     name = 'LAAT/i Gunship',
     Hull = 8,
     Shield = 2,
@@ -854,25 +868,20 @@ masterShipDB[73]={
     moveSet = {'rs0','wbl1','bs1','wbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs4'}
 }
 
-
-
--- Unreleased content, need TODO change the ffg id's to match the builder
-
-masterShipDB[83]={
-    name = 'TIE/rb Heavy',
-    Hull = 8,
-    Shield = 0,
-    size = 'medium',
+masterShipDB[75]={
+    name = 'HMP Droid Gunship',
+    Hull = 5,
+    Shield = 3,
+    size = 'small',
     agi = 1,
-    XWS = 'tierbheavy',
-    Fac = {[2]=true},
-    arcs = {'front', 'back'},
-    sTurret = 1,
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/Tie_Rb/Rb%20Brute.obj',
-    moveSet = {'rtl1','wbl1','bs1','wbr1','rtr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3t','rtl3','wbl3','ws3','wbr3','rtr3','rtr3t','ws4'},
+    XWS = '',
+    Fac = {[7]=true},
+    arcs = {'fullfront'},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/HMP_Gunship.obj',
+    moveSet = {'rs0','rbl1','bs1','rbr1','btl2','wbl2','bs2','wbr2','btr2','wtl3','rbl3','ws3','rbr3','wtr3','rs4','rs5'},
 }
 
-masterShipDB[84]={
+masterShipDB[76]={
     name = 'Eta-2 Actis',
     Hull = 3,
     Shield = 0,
@@ -885,20 +894,7 @@ masterShipDB[84]={
     moveSet = {'wtl1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','ptl2t','ptr2t','wtl3','bbl3','bs3','bbr3','wtr3','bs4','rk4','ws5'},
 }
 
-masterShipDB[85]={
-    name = 'Nimbus-class V-wing',
-    Hull = 2,
-    Shield = 2,
-    size = 'small',
-    agi = 3,
-    XWS = 'nimbusclassvwing',
-    Fac = {[6]=true},
-    arcs = {'front'},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_V-Wing/Republic_V-Wing.obj',
-    moveSet = {'wtl1','rbl1','rbr1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rk2','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk4','ws5'},
-}
-
-masterShipDB[86]={
+masterShipDB[77]={
     name = 'Droid Tri-Fighter',
     Hull = 3,
     Shield = 0,
@@ -3537,13 +3533,13 @@ masterPilotDB[224]={['name']='L3-37',['Faction']= 3,['ship_type']=47,['cost']=41
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_224.png',['init']=2,['actSet']={'C','TL','B','Rot'}}
 masterPilotDB[225]={['name']='Freighter Captain',['Faction']= 3,['ship_type']=47,['cost']=41,['slot']={21, 6, 8, 8, 16, 13, 14, 15},['Shield']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_225.png',['init']=1,['actSet']={'F','TL','B','Rot'}}
-masterPilotDB[226]={['name']='Lando Calrissian',['Faction']= 3,['ship_type']=48,['cost']=29,['slot']={21, 1, 8, 14},['Shield']=2,
+masterPilotDB[226]={['name']='Lando Calrissian',['Faction']= 3,['ship_type']=85,['cost']=29,['slot']={21, 1, 8, 14},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_226.png',['init']=4,['actSet']={'F','BR'}}
-masterPilotDB[227]={['name']='Outer Rim Pioneer',['Faction']= 3,['ship_type']=48,['cost']=28,['slot']={21, 1, 8, 14},['Shield']=2,
+masterPilotDB[227]={['name']='Outer Rim Pioneer',['Faction']= 3,['ship_type']=85,['cost']=28,['slot']={21, 1, 8, 14},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_227.png',['init']=3,['actSet']={'F','BR'}}
-masterPilotDB[228]={['name']='L3-37',['Faction']= 3,['ship_type']=48,['cost']=26,['slot']={21, 1, 8, 14},['Shield']=2,
+masterPilotDB[228]={['name']='L3-37',['Faction']= 3,['ship_type']=85,['cost']=26,['slot']={21, 1, 8, 14},['Shield']=2,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_228.png',['init']=2,['actSet']={'C','BR'}}
-masterPilotDB[229]={['name']='Autopilot Drone',['Faction']= 3,['ship_type']=48,['cost']=12,['slot']={21, 0},['Shield']=2,['Charge']=3,
+masterPilotDB[229]={['name']='Autopilot Drone',['Faction']= 3,['ship_type']=85,['cost']=12,['slot']={21, 0},['Shield']=2,['Charge']=3,
                   ['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_229.png',['init']=1,['actSet']={'C','BR'}}
 
 masterPilotDB[397]={
@@ -4321,23 +4317,23 @@ masterPilotDB[528]={
 
 --w4 Pilots
 --N-1
-masterPilotDB[557]={['name']='Ric Olié',['Faction']=6,['ship_type']=63,['cost']=45,['slot']={21, 1,2,5,10},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/87829b7b808c535eb1e2c8314b04971a.png',['init']=5,
+masterPilotDB[557]={['name']='Ric Olié',['Faction']=6,['ship_type']=66,['cost']=45,['slot']={21, 1,2,5,10},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/87829b7b808c535eb1e2c8314b04971a.png',['init']=5,
                   ['actSet']={'F','TL','B','BR','E'}}
-masterPilotDB[558]={['name']='Anakin Skywalker',['Faction']=6,['ship_type']=63,['cost']=41,['slot']={21, 1,2,5,10},['Force']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/21e28ea4e8784dce5a554a33888d8be0.png',['init']=4,
+masterPilotDB[558]={['name']='Anakin Skywalker',['Faction']=6,['ship_type']=66,['cost']=41,['slot']={21, 1,2,5,10},['Force']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/21e28ea4e8784dce5a554a33888d8be0.png',['init']=4,
                   ['actSet']={'F','TL','B','BR','E'}}
-masterPilotDB[559]={['name']='Padmé Amidala',['Faction']=6,['ship_type']=63,['cost']=44,['slot']={21, 1,2,5,10},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/3bc6bb14d0c80011145a36c132550298.png',['init']=4,
+masterPilotDB[559]={['name']='Padmé Amidala',['Faction']=6,['ship_type']=66,['cost']=44,['slot']={21, 1,2,5,10},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/3bc6bb14d0c80011145a36c132550298.png',['init']=4,
                   ['actSet']={'F','TL','B','BR','E'}}
-masterPilotDB[560]={['name']='Dineé Ellberger',['Faction']=6,['ship_type']=63,['cost']=38,['slot']={21, 1,2,5,10},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/06e0863851b95dba4874b211e05661cc.png',['init']=3,
+masterPilotDB[560]={['name']='Dineé Ellberger',['Faction']=6,['ship_type']=66,['cost']=38,['slot']={21, 1,2,5,10},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/06e0863851b95dba4874b211e05661cc.png',['init']=3,
                   ['actSet']={'F','TL','B','BR','E'}}
-masterPilotDB[561]={['name']='Naboo Handmaiden',['Faction']=6,['ship_type']=63,['cost']=42,['slot']={21, 2,5,10},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/4493fe57050175b6a75e3a13e7553b1e.png',['init']=1, ['Condition']='Decoyed',
+masterPilotDB[561]={['name']='Naboo Handmaiden',['Faction']=6,['ship_type']=66,['cost']=42,['slot']={21, 2,5,10},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/4493fe57050175b6a75e3a13e7553b1e.png',['init']=1, ['Condition']='Decoyed',
                   ['actSet']={'F','TL','B','BR','E'}}
-masterPilotDB[562]={['name']='Bravo Flight Officer',['Faction']=6,['ship_type']=63,['cost']=33,['slot']={21, 2,5,10},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/274db1f70ed4da939b9440837a30c39a.png',['init']=2,
+masterPilotDB[562]={['name']='Bravo Flight Officer',['Faction']=6,['ship_type']=66,['cost']=33,['slot']={21, 2,5,10},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/274db1f70ed4da939b9440837a30c39a.png',['init']=2,
                   ['actSet']={'F','TL','B','BR','E'}}
 --Resistance Transport
 masterPilotDB[569]={
     name = 'Cova Nell',
     Faction = 4,
-    ship_type = 64,
+    ship_type = 63,
     cost = 38,
     slot = {21, 1,19,3,5,8,8,10,14},
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/a9ae63785f4cadaa28a74858ff1d1bc4.png',
@@ -4348,7 +4344,7 @@ masterPilotDB[569]={
 masterPilotDB[570]={
     name = 'Pammich Nerro Goode',
     Faction = 4,
-    ship_type = 64,
+    ship_type = 63,
     cost = 34,
     slot = {21, 19,3,5,8,8,10,14},
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/9d7dd5d0851911412dd5c86603a0ea91.png',
@@ -4359,7 +4355,7 @@ masterPilotDB[570]={
 masterPilotDB[571]={
     name = 'Nodin Chavdri',
     Faction = 4,
-    ship_type = 64,
+    ship_type = 63,
     cost = 35,
     slot = {21, 19,3,5,8,8,10,14},
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/9f41de269cb1ff091487554fb53b2374.png',
@@ -4370,7 +4366,7 @@ masterPilotDB[571]={
 masterPilotDB[572]={
     name = 'Logistics Division Pilot',
     Faction = 4,
-    ship_type = 64,
+    ship_type = 63,
     cost = 32,
     slot = {21, 19,3,5,8,8,10,14},
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/57ea37cdb13f52ec3f3e0b745fc9d630.png',
@@ -4424,17 +4420,17 @@ masterPilotDB[576]={
     actSet ={'F','TL','BR'}}
 
 --Hyena Bomber
-masterPilotDB[563]={['name']='DBS-404',['Faction']=7,['ship_type']=66,['cost']=30,['slot']={21, 5,6,12,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/3e647295c7237a5eb36b94d887eb8e56.png',['init']=4,
+masterPilotDB[563]={['name']='DBS-404',['Faction']=7,['ship_type']=64,['cost']=30,['slot']={21, 5,6,12,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/3e647295c7237a5eb36b94d887eb8e56.png',['init']=4,
                   ['actSet']={'C','TL','BR'}}
-masterPilotDB[564]={['name']='DBS-32C',['Faction']=7,['ship_type']=66,['cost']=40,['slot']={21, 2,20,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/1befc5619a02e2ea8b7bfb8df93471a1.png',['init']=3,
+masterPilotDB[564]={['name']='DBS-32C',['Faction']=7,['ship_type']=64,['cost']=40,['slot']={21, 2,20,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/1befc5619a02e2ea8b7bfb8df93471a1.png',['init']=3,
                   ['actSet']={'C','TL','BR'}}
-masterPilotDB[565]={['name']='Bombardment Drone',['Faction']=7,['ship_type']=66,['cost']=29,['slot']={21, 2,12,12,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/099422de35fb5ad2c2d238237e7dfe2c.png',['init']=3,
+masterPilotDB[565]={['name']='Bombardment Drone',['Faction']=7,['ship_type']=64,['cost']=29,['slot']={21, 2,12,12,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/099422de35fb5ad2c2d238237e7dfe2c.png',['init']=3,
                   ['actSet']={'C','TL','BR'}}
-masterPilotDB[566]={['name']='Baktoid Prototype',['Faction']=7,['ship_type']=66,['cost']=28,['slot']={21, 2,6,6,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/254bc7be63cc9f4e629198f8d45f2f9b.png',['init']=1,
+masterPilotDB[566]={['name']='Baktoid Prototype',['Faction']=7,['ship_type']=64,['cost']=28,['slot']={21, 2,6,6,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/254bc7be63cc9f4e629198f8d45f2f9b.png',['init']=1,
                   ['actSet']={'C','TL','BR'}}
-masterPilotDB[567]={['name']='Separatist Bomber',['Faction']=7,['ship_type']=66,['cost']=28,['slot']={21, 5,6,12,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/cf510ca885a5f85395542b9aa51fba73.png',['init']=3,
+masterPilotDB[567]={['name']='Separatist Bomber',['Faction']=7,['ship_type']=64,['cost']=28,['slot']={21, 5,6,12,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/cf510ca885a5f85395542b9aa51fba73.png',['init']=3,
                   ['actSet']={'C','TL','BR'}}
-masterPilotDB[568]={['name']='Techno Union Bomber',['Faction']=7,['ship_type']=66,['cost']=25,['slot']={21, 5,6,12,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/749bdc89c3da6b8034154780959e9c34.png',['init']=1,
+masterPilotDB[568]={['name']='Techno Union Bomber',['Faction']=7,['ship_type']=64,['cost']=25,['slot']={21, 5,6,12,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/749bdc89c3da6b8034154780959e9c34.png',['init']=1,
                   ['actSet']={'C','TL','BR'}}
 --Republic Y-Wing
 masterPilotDB[596]={['name']='Anakin Skywalker',['Faction']=6,['ship_type']=68,['cost']=53,['slot']={21, 17, 4, 5, 16, 10, 12, 14},['Force']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/c7c979a7d90961d2e3afe377a71285df.png',['init']=6,
@@ -4471,7 +4467,7 @@ masterPilotDB[609]={['name']='Stalgasin Hive Guard',['Faction']=7,['ship_type']=
 masterPilotDB[627]={
     name = 'First Order Provocateur',
     Faction = 5,
-    ship_type = 69,
+    ship_type = 70,
     cost = 41,
     slot = {21, 1,19,6,14},
     Shield = 2,
@@ -4484,7 +4480,7 @@ masterPilotDB[627]={
 masterPilotDB[626]={
     name = '"Ember"',
     Faction = 5,
-    ship_type = 69,
+    ship_type = 70,
     cost = 48,
     slot = {21, 1,19,6,14},
     Shield = 2,
@@ -4497,7 +4493,7 @@ masterPilotDB[626]={
 masterPilotDB[625]= {
     name = '"Holo"',
     Faction = 5,
-    ship_type = 69,
+    ship_type = 70,
     cost = 53,
     slot = {21, 1,19,6,14},
     Shield = 2,
@@ -4510,7 +4506,7 @@ masterPilotDB[625]= {
 masterPilotDB[624]={
     name = 'Major Vonreg',
     Faction = 5,
-    ship_type = 69,
+    ship_type = 70,
     cost = 55,
     slot = {21, 1,19,6,14},
     Shield = 2,
@@ -4521,13 +4517,13 @@ masterPilotDB[624]={
 }
 
 --FireBall
-masterPilotDB[620]={['name']='Jarek Yeager',['Faction']=4,['ship_type']=70,['cost']=32,['slot']={21, 1,6,10,13,14,14,15},['Shield']=0,['card']='http://images-cdn.fantasyflightgames.com/filer_public/85/b2/85b26549-26a7-4f48-88c5-4d52733704ee/swz63_a1_card_jarek-yeager.png',['init']=5,
+masterPilotDB[620]={['name']='Jarek Yeager',['Faction']=4,['ship_type']=69,['cost']=32,['slot']={21, 1,6,10,13,14,14,15},['Shield']=0,['card']='http://images-cdn.fantasyflightgames.com/filer_public/85/b2/85b26549-26a7-4f48-88c5-4d52733704ee/swz63_a1_card_jarek-yeager.png',['init']=5,
                 ['actSet']={'F','E','BR'}}
-masterPilotDB[621]={['name']='Kazuda Xiono',['Faction']=4,['ship_type']=70,['cost']=39,['slot']={21, 1,6,10,13,14,14,15},['Shield']=0,['card']='http://images-cdn.fantasyflightgames.com/filer_public/16/42/164202d5-47a5-44ea-a96b-49c795005ca8/swz63_a1_card_kazuda-xiono.png',['init']=4,
+masterPilotDB[621]={['name']='Kazuda Xiono',['Faction']=4,['ship_type']=69,['cost']=39,['slot']={21, 1,6,10,13,14,14,15},['Shield']=0,['card']='http://images-cdn.fantasyflightgames.com/filer_public/16/42/164202d5-47a5-44ea-a96b-49c795005ca8/swz63_a1_card_kazuda-xiono.png',['init']=4,
                 ['actSet']={'F','E','BR'}}
-masterPilotDB[622]={['name']='R1-J5',['Faction']=4,['ship_type']=70,['cost']=28,['slot']={21, 6,8,13,14,14,15},['Shield']=0,['card']='http://images-cdn.fantasyflightgames.com/filer_public/21/b3/21b3db84-a517-41ab-b3b0-dd3e5159b0c3/swz63_a1_card_r1-j5.png',['init']=1,
+masterPilotDB[622]={['name']='R1-J5',['Faction']=4,['ship_type']=69,['cost']=28,['slot']={21, 6,8,13,14,14,15},['Shield']=0,['card']='http://images-cdn.fantasyflightgames.com/filer_public/21/b3/21b3db84-a517-41ab-b3b0-dd3e5159b0c3/swz63_a1_card_r1-j5.png',['init']=1,
                 ['actSet']={'C','E','BR'}}
-masterPilotDB[623]={['name']='Colossus Station Mechanic',['Faction']=4,['ship_type']=70,['cost']=26,['slot']={21, 6,10,13,14,14,15},['Shield']=0,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/533ab83e881838eb8006c8f8dcf19145.png',['init']=2,
+masterPilotDB[623]={['name']='Colossus Station Mechanic',['Faction']=4,['ship_type']=69,['cost']=26,['slot']={21, 6,10,13,14,14,15},['Shield']=0,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/533ab83e881838eb8006c8f8dcf19145.png',['init']=2,
                 ['actSet']={'F','E','BR'}}
 
 --hotshot and aces
@@ -4708,7 +4704,7 @@ masterPilotDB[656]={
   name = 'Commander Malarus',
   Faction = 5,
   limited = 1,
-  ship_type = 71,
+  ship_type = 73,
   cost = 45,
   slot = {1,19,19,8,8,14},
   Shield = 2,
@@ -4722,7 +4718,7 @@ masterPilotDB[657]={
   name = 'Gideon Hask',
   Faction = 5,
   limited = 1,
-  ship_type = 71,
+  ship_type = 73,
   cost = 40,
   slot = {1,19,19,8,8,14},
   Shield = 2,
@@ -4736,7 +4732,7 @@ masterPilotDB[658]={
   name = 'Agent Terex',
   Faction = 5,
   limited = 1,
-  ship_type = 71,
+  ship_type = 73,
   cost = 42,
   slot = {19,19,8,8,13,13,13,14},
   Shield = 2,
@@ -4749,7 +4745,7 @@ masterPilotDB[658]={
 masterPilotDB[659]={
   name = 'First Order Courier',
   Faction = 5,
-  ship_type = 71,
+  ship_type = 73,
   cost = 38,
   slot =  {19,19,8,8,14},
   Shield = 2,
@@ -4763,7 +4759,7 @@ masterPilotDB[660]={
     name = '"Hawk"',
     limited = 1,
     Faction = 6,
-    ship_type = 73,
+    ship_type = 74,
     cost = 54,
     slot = {1, 6, 6, 8, 8, 16, 16, 14},
     Shield = 2,
@@ -4778,7 +4774,7 @@ masterPilotDB[661]={
     name = '"Warthog"',
     limited = 1,
     Faction = 6,
-    ship_type = 73,
+    ship_type = 74,
     cost = 54,
     slot = {6, 6, 8, 8, 16, 16, 14},
     Shield = 2,
@@ -4792,7 +4788,7 @@ masterPilotDB[662]={
     name = '"Hound"',
     limited = 1,
     Faction = 6,
-    ship_type = 73,
+    ship_type = 74,
     cost = 50,
     slot = {6, 6, 8, 8, 16, 16, 14},
     Shield = 2,
@@ -4805,7 +4801,7 @@ masterPilotDB[662]={
 masterPilotDB[663]={
     name = '212th Battalion Pilot',
     Faction = 6,
-    ship_type = 73,
+    ship_type = 74,
     cost = 49,
     slot = {6, 6, 8, 8, 16, 16, 14},
     Shield = 2,
@@ -4819,7 +4815,7 @@ masterPilotDB[665]={
   name = 'Onderon Oppressor',
   limited = 2,
   Faction = 7,
-  ship_type = 72,
+  ship_type = 75,
   cost = 40,
   slot = {6,6,8,12,20,14,18},
   Shield = 2,
@@ -4834,7 +4830,7 @@ masterPilotDB[668]={
   name = 'Geonosian Prototype',
   limited = 2,
   Faction = 7,
-  ship_type = 72,
+  ship_type = 75,
   cost = 35,
   slot = {3,3,6,6,20,14,18},
   Shield = 2,
@@ -4848,7 +4844,7 @@ masterPilotDB[666]={
   name = 'DGS-047',
   limited = 1,
   Faction = 7,
-  ship_type = 72,
+  ship_type = 75,
   cost = 35,
   slot = {6,6,8,12,20,14,18},
   Shield = 2,
@@ -4862,7 +4858,7 @@ masterPilotDB[664]={
   name = 'DGS-286',
   limited = 1,
   Faction = 7,
-  ship_type = 72,
+  ship_type = 75,
   cost = 42,
   slot = {6,6,8,12,20,14,18},
   Shield = 2,
@@ -4875,7 +4871,7 @@ masterPilotDB[664]={
 masterPilotDB[667]={
   name = 'Separatist Predator',
   Faction = 7,
-  ship_type = 72,
+  ship_type = 75,
   cost = 36,
   slot = {6,6,8,12,20,14,18},
   Shield = 2,
@@ -4888,7 +4884,7 @@ masterPilotDB[667]={
 masterPilotDB[669]={
   name = 'Baktoid Drone',
   Faction = 7,
-  ship_type = 72,
+  ship_type = 75,
   cost = 34,
   slot = {6,6,8,12,20,14,18},
   Shield = 2,
@@ -4905,11 +4901,11 @@ masterPilotDB[669]={
 -- Unreleased content below: TODO: Update ffg id from spawner
 
 
-masterPilotDB[714]={
+masterPilotDB[693]={
     name = '"Rampage"',
     limited = 1,
     Faction = 2,
-    ship_type = 83,
+    ship_type = 72,
     cost = 39,
     slot = {1,3,3,14,18},
     Shield = 0,
@@ -4919,11 +4915,11 @@ masterPilotDB[714]={
     actSet = {'F','C','TL','BR','R','Rot'},
 }
 
-masterPilotDB[715]={
+masterPilotDB[694]={
     name = 'Lyttan Dree',
     limited = 1,
     Faction = 2,
-    ship_type = 83,
+    ship_type = 72,
     cost = 37,
     slot = {1,3,3,14,18},
     Shield = 0,
@@ -4933,10 +4929,10 @@ masterPilotDB[715]={
     actSet = {'F','C','TL','BR','R','Rot'},
 }
 
-masterPilotDB[716]={
+masterPilotDB[695]={
     name = 'Onyx Squadron Sentry',
     Faction = 2,
-    ship_type = 83,
+    ship_type = 72,
     cost = 36,
     slot = {1,3,3,14,18},
     Shield = 0,
@@ -4946,10 +4942,10 @@ masterPilotDB[716]={
     actSet = {'F','C','TL','BR','R','Rot'},
 }
 
-masterPilotDB[717]={
+masterPilotDB[696]={
     name = 'Carida Academy Cadet',
     Faction = 2,
-    ship_type = 83,
+    ship_type = 72,
     cost = 34,
     slot = {3,3,14,18},
     Shield = 0,
@@ -4959,12 +4955,12 @@ masterPilotDB[717]={
     actSet = {'F','C','TL','BR','R','Rot'},
 }
 
-masterPilotDB[718]={
+masterPilotDB[781]={
     name = 'Anakin Skywalker',
     limited = 1,
     Faction = 6,
     Force = 3,
-    ship_type = 84,
+    ship_type = 76,
     cost = 56,
     slot = {1, 17, 3, 10, 14},
     Shield = 0,
@@ -4974,12 +4970,12 @@ masterPilotDB[718]={
     actSet = {'F','E','TL','BR','B'},
 }
 
-masterPilotDB[719]={
+masterPilotDB[782]={
     name = 'Obi-Wan Kenobi',
     limited = 1,
     Faction = 6,
     Force = 3,
-    ship_type = 84,
+    ship_type = 76,
     cost = 49,
     slot = {1, 17, 3, 10, 14},
     Shield = 0,
@@ -4989,12 +4985,12 @@ masterPilotDB[719]={
     actSet = {'F','E','TL','BR','B'},
 }
 
-masterPilotDB[720]={
+masterPilotDB[783]={
     name = 'Aayla Secura',
     limited = 1,
     Faction = 6,
     Force = 2,
-    ship_type = 84,
+    ship_type = 76,
     cost = 51,
     slot = {1, 17, 3, 10, 14},
     Shield = 0,
@@ -5004,12 +5000,12 @@ masterPilotDB[720]={
     actSet = {'F','E','TL','BR','B'},
 }
 
-masterPilotDB[721]={
+masterPilotDB[784]={
     name = 'Shaak Ti',
     limited = 1,
     Faction = 6,
     Force = 2,
-    ship_type = 84,
+    ship_type = 76,
     cost = 44,
     slot = {1, 17, 3, 10, 14},
     Shield = 0,
@@ -5019,12 +5015,12 @@ masterPilotDB[721]={
     actSet = {'F','E','TL','BR','B'},
 }
 
-masterPilotDB[722]={
+masterPilotDB[785]={
     name = 'Yoda',
     limited = 1,
     Faction = 6,
     Force = 3,
-    ship_type = 84,
+    ship_type = 76,
     cost = 48,
     slot = {17, 17, 3, 10, 14},
     Shield = 0,
@@ -5035,11 +5031,11 @@ masterPilotDB[722]={
     Configuration = {model="{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_ETA2/ETA2%20Jedi%20Starfighter%20Yoda.obj"}
 }
 
-masterPilotDB[723]={
+masterPilotDB[786]={
     name = 'Jedi General',
     Faction = 6,
     Force = 2,
-    ship_type = 84,
+    ship_type = 76,
     cost = 41,
     slot = {17, 3, 10, 14},
     Shield = 0,
@@ -5049,11 +5045,11 @@ masterPilotDB[723]={
     actSet = {'F','E','TL','BR','B'},
 }
 
-masterPilotDB[724]={
+masterPilotDB[788]={
     name = '"Odd Ball"',
     limited = 1,
     Faction = 6,
-    ship_type = 85,
+    ship_type = 71,
     cost = 32,
     slot = {1, 10, 14, 18},
     Shield = 2,
@@ -5063,11 +5059,11 @@ masterPilotDB[724]={
     actSet = {'F','TL','BR','B'},
 }
 
-masterPilotDB[725]={
+masterPilotDB[789]={
     name = '"Contrail"',
     limited = 1,
     Faction = 6,
-    ship_type = 85,
+    ship_type = 71,
     cost = 33,
     slot = {1, 10, 14, 18},
     Shield = 2,
@@ -5077,11 +5073,11 @@ masterPilotDB[725]={
     actSet = {'F','TL','BR','B'},
 }
 
-masterPilotDB[726]={
+masterPilotDB[790]={
     name = '"Klick"',
     limited = 1,
     Faction = 6,
-    ship_type = 85,
+    ship_type = 71,
     Charge = 1,
     cost = 32,
     slot = {1, 10, 14, 18},
@@ -5092,11 +5088,11 @@ masterPilotDB[726]={
     actSet = {'F','TL','BR','B'},
 }
 
-masterPilotDB[727]={
+masterPilotDB[791]={
     name = 'Wilhuff Tarkin',
     limited = 1,
     Faction = 6,
-    ship_type = 85,
+    ship_type = 71,
     cost = 34,
     slot = {1, 10, 14, 18},
     Shield = 2,
@@ -5106,10 +5102,10 @@ masterPilotDB[727]={
     actSet = {'F','TL','BR','B'},
 }
 
-masterPilotDB[728]={
+masterPilotDB[792]={
     name = 'Shadow Squadron Escort',
     Faction = 6,
-    ship_type = 85,
+    ship_type = 71,
     cost = 29,
     slot = {1, 10, 14, 18},
     Shield = 2,
@@ -5119,10 +5115,10 @@ masterPilotDB[728]={
     actSet = {'F','TL','BR','B'},
 }
 
-masterPilotDB[729]={
+masterPilotDB[793]={
     name = 'Loyalist Volunteer',
     Faction = 6,
-    ship_type = 85,
+    ship_type = 71,
     cost = 27,
     slot = {10, 14, 18},
     Shield = 2,
@@ -5136,7 +5132,7 @@ masterPilotDB[729]={
 
 
 
-masterPilotDB[800]={
+masterPilotDB[700]={
     name = 'Nimi Chireen',
     limited = 1,
     Faction = 4,
@@ -5150,7 +5146,7 @@ masterPilotDB[800]={
     actSet = {'F','TL','B'},
 }
 
-masterPilotDB[801]={
+masterPilotDB[699]={
     name = "C'ai Threnalli",
     limited = 1,
     Faction = 4,
@@ -5166,7 +5162,7 @@ masterPilotDB[801]={
 }
 
 
-masterPilotDB[802]={
+masterPilotDB[698]={
     name = "Temmin Wexley",
     title = "Black Two",
     limited = 1,
@@ -5182,7 +5178,7 @@ masterPilotDB[802]={
     addSqdAction = {'C'}
 }
 
-masterPilotDB[803]={
+masterPilotDB[697]={
     name = "Poe Dameron",
     title = "Resistance Commander",
     limited = 1,
@@ -5198,7 +5194,7 @@ masterPilotDB[803]={
     actSet = {'F','TL','B'},
 }
 
-masterPilotDB[804]={
+masterPilotDB[701]={
     name = "Seftin Vanik",
     limited = 1,
     Faction = 4,
@@ -5212,7 +5208,7 @@ masterPilotDB[804]={
     actSet = {'F','TL','Rot180','E','B','BR'}
 }
 
-masterPilotDB[805]={
+masterPilotDB[704]={
     name = "Merl Cobben",
     limited = 1,
     Faction = 4,
@@ -5226,7 +5222,7 @@ masterPilotDB[805]={
     actSet = {'F','TL','Rot180','E','B','BR'}
 }
 
-masterPilotDB[807]={
+masterPilotDB[703]={
     name = "Suralinda Javos",
     limited = 1,
     Faction = 4,
@@ -5240,7 +5236,7 @@ masterPilotDB[807]={
     actSet = {'F','TL','Rot180','E','B','BR', 'Piv'}
 }
 
-masterPilotDB[808]={
+masterPilotDB[702]={
     name = "Wrobie Tyce",
     limited = 1,
     Faction = 4,
@@ -5254,11 +5250,11 @@ masterPilotDB[808]={
     actSet = {'F','TL','Rot180','E','B','BR'}
 }
 
-masterPilotDB[809]={
+masterPilotDB[796]={
     name = "Phlac-Arphocc Prototype",
     limited = 2,
     Faction = 7,
-    ship_type = 86,
+    ship_type = 77,
     cost = 41,
     slot = {21,1,2,6,14,18},
     Shield = 0,
@@ -5268,11 +5264,11 @@ masterPilotDB[809]={
     actSet = {'C','E','TL','BR','B'}
 }
 
-masterPilotDB[810]={
+masterPilotDB[794]={
     name = "DIS-T81",
     limited = 1,
     Faction = 7,
-    ship_type = 86,
+    ship_type = 77,
     cost = 40,
     slot = {21,1,2,6,14,18},
     Shield = 0,
@@ -5282,11 +5278,11 @@ masterPilotDB[810]={
     actSet = {'C','E','TL','BR','B'}
 }
 
-masterPilotDB[811]={
+masterPilotDB[795]={
     name = "DIS-347",
     limited = 1,
     Faction = 7,
-    ship_type = 86,
+    ship_type = 77,
     cost = 38,
     slot = {21,1,2,6,14,18},
     Shield = 0,
@@ -5296,11 +5292,11 @@ masterPilotDB[811]={
     actSet = {'C','E','TL','BR','B'}
 }
 
-masterPilotDB[812]={
+masterPilotDB[797]={
     name = "Fearsome Predator",
     limited = 3,
     Faction = 7,
-    ship_type = 86,
+    ship_type = 77,
     Condition ="Fearful Prey",
     cost = 38,
     slot = {21,1,2,6,14,18},
@@ -5311,10 +5307,10 @@ masterPilotDB[812]={
     actSet = {'C','E','TL','BR','B'}
 }
 
-masterPilotDB[813]={
+masterPilotDB[798]={
     name = "Separatist Interceptor",
     Faction = 7,
-    ship_type = 86,
+    ship_type = 77,
     cost = 37,
     slot = {21,1,2,6,14,18},
     Shield = 0,
@@ -5324,10 +5320,10 @@ masterPilotDB[813]={
     actSet = {'C','E','TL','BR','B'}
 }
 
-masterPilotDB[814]={
+masterPilotDB[799]={
     name = "Colicoid Interceptor",
     Faction = 7,
-    ship_type = 86,
+    ship_type = 77,
     cost = 35,
     slot = {21,2,6,14,18},
     Shield = 0,
@@ -5337,7 +5333,7 @@ masterPilotDB[814]={
     actSet = {'C','E','TL','BR','B'}
 }
 
-masterPilotDB[815]={
+masterPilotDB[800]={
     name = 'Jango Fett',
     limited = 1,
     Faction = 7,
@@ -5351,7 +5347,7 @@ masterPilotDB[815]={
     actSet = {'F','R','TL','B'}
 }
 
-masterPilotDB[816]={
+masterPilotDB[801]={
     name = 'Zam Wesell',
     limited = 1,
     Faction = 7,
@@ -5367,7 +5363,7 @@ masterPilotDB[816]={
     actSet = {'F','R','TL','B'}
 }
 
-masterPilotDB[817]={
+masterPilotDB[802]={
     name = 'Boba Fett',
     title = 'Survivor',
     limited = 1,
@@ -5382,7 +5378,7 @@ masterPilotDB[817]={
     actSet = {'F','R','TL','B'}
 }
 
-masterPilotDB[818]={
+masterPilotDB[803]={
     name = 'Separatist Racketeer',
     Faction = 7,
     ship_type = 10,
@@ -6597,7 +6593,7 @@ masterUpgradesDB[692]={
     cardB = 'https://images-cdn.fantasyflightgames.com/filer_public/b9/24/b92420be-2835-4e12-b76e-b2675533249c/swz71_upgrade_stabilizer-active.png',
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/28/39/2839eb69-5a45-47e1-a69d-4bb0b4f8ab5d/swz71_upgrade_stabilizer-inactive.png',
     restriction = {
-        ship = {[72]=true}
+        ship = {[75]=true}
     },
     executeOptions = function()
         return {
@@ -6616,27 +6612,27 @@ masterUpgradesDB[692]={
 
 
 -- Unreleased upgrades: TODO: Give proper FFG id's
-masterUpgradesDB[700]={
+masterUpgradesDB[722]={
     name = "Maneuver-Assist MGK-300",
     slot = 18,
     cost = 2,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/a2/c9/a2c98345-8ee6-4e63-a659-6ec1928e6979/swz67_maneuver-assist_mgk300.png',
     restriction = {
-        ship = {[83]=true}
+        ship = {[72]=true}
     },
 }
 
-masterUpgradesDB[701]={
+masterUpgradesDB[723]={
     name = "Target-Assist MGK-300",
     slot = 18,
     cost = 3,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/c1/d7/c1d74e73-d6e7-47c5-9d2f-707d1c88cb67/swz67_target-assist_mgk300.png',
     restriction = {
-        ship = {[83]=true}
+        ship = {[72]=true}
     },
 }
 
-masterUpgradesDB[702]={
+masterUpgradesDB[717]={
     name = "Ion Limiter Override",
     slot = 1,
     cost = 3,
@@ -6659,12 +6655,12 @@ masterUpgradesDB[702]={
             [50]=true,
             [52]=true,
             [56]=true,
-            [85]=true,
-            [83]=true}
+            [71]=true,
+            [72]=true}
     },
 }
 
-masterUpgradesDB[703]={
+masterUpgradesDB[715]={
     name = "Backwards Tailslide",
     slot = 1,
     addAction = {'E'},
@@ -6676,7 +6672,7 @@ masterUpgradesDB[703]={
     },
 }
 
-masterUpgradesDB[704]={
+masterUpgradesDB[721]={
     name = "Overdrive Thruster",
     limited = 1,
     slot = 14,
@@ -6688,7 +6684,7 @@ masterUpgradesDB[704]={
     },
 }
 
-masterUpgradesDB[705]={
+masterUpgradesDB[720]={
     name = "R2-D2",
     limited = 1,
     slot = 10,
@@ -6700,7 +6696,7 @@ masterUpgradesDB[705]={
     },
 }
 
-masterUpgradesDB[706]={
+masterUpgradesDB[719]={
     name = "R6-D8",
     limited = 1,
     slot = 10,
@@ -6711,7 +6707,7 @@ masterUpgradesDB[706]={
     },
 }
 
-masterUpgradesDB[707]={
+masterUpgradesDB[718]={
     name = "Underslung Blaster Cannon",
     slot = 3,
     cost = 3,
@@ -6723,7 +6719,7 @@ masterUpgradesDB[707]={
     },
 }
 
-masterUpgradesDB[708]={
+masterUpgradesDB[716]={
     name = "Starbird Slash",
     slot = 1,
     cost = 1,
@@ -6735,7 +6731,7 @@ masterUpgradesDB[708]={
     movethrough = true,
 }
 
-masterUpgradesDB[709]={
+masterUpgradesDB[848]={
     name = "Extreme Maneuvers",
     slot = 17,
     cost = 4,
@@ -6747,14 +6743,14 @@ masterUpgradesDB[709]={
     },
 }
 
-masterUpgradesDB[710]={
+masterUpgradesDB[835]={
     name = "Jedi Commander",
     slot = 21,
     cost = 3,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/fd/1f/fd1ff8be-72b9-4c61-b5cc-7b892c7244e3/swz79_jedi-commander2.png'
 }
 
-masterUpgradesDB[711]={
+masterUpgradesDB[860]={
     name = "R2-D2",
     limited = 1,
     slot = 10,
@@ -6766,7 +6762,7 @@ masterUpgradesDB[711]={
     }
 }
 
-masterUpgradesDB[712]={
+masterUpgradesDB[849]={
     name = "Patience",
     slot = 17,
     cost = 2,
@@ -6780,7 +6776,7 @@ masterUpgradesDB[712]={
     }
 }
 
-masterUpgradesDB[713]={
+masterUpgradesDB[870]={
     name = 'Alpha-3B "Besh"',
     slot = 18,
     cost = 2,
@@ -6788,12 +6784,12 @@ masterUpgradesDB[713]={
     addSlot ={12},
     restriction = {
         ship={
-            [85]=true,
+            [71]=true,
         },
     }
 }
 
-masterUpgradesDB[714]={
+masterUpgradesDB[871]={
     name = 'Alpha-3E "Esk"',
     slot = 18,
     cost = 1,
@@ -6801,12 +6797,12 @@ masterUpgradesDB[714]={
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/08/3a/083ae697-4a97-4e74-bcb0-77cb590e51e3/swz80_upgrade_alpha-3e.png',
     restriction = {
         ship={
-            [85]=true,
+            [71]=true,
         },
     }
 }
 
-masterUpgradesDB[715]={
+masterUpgradesDB[864]={
     name = 'Thermal Detonators',
     slot = 12,
     cost = 3,
@@ -6815,7 +6811,7 @@ masterUpgradesDB[715]={
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/52/bf/52bff580-897d-4af0-9084-5088765babf0/swz80_upgrade_thermal-detonators.png',
 }
 
-masterUpgradesDB[716]={
+masterUpgradesDB[862]={
     name = 'R7-A7',
     limited = 1,
     slot = 10,
@@ -6827,7 +6823,7 @@ masterUpgradesDB[716]={
     }
 }
 
-masterUpgradesDB[717]={
+masterUpgradesDB[867]={
     name = 'Precision Ion Engines',
     slot = 14,
     cost = 3,
@@ -6853,12 +6849,12 @@ masterUpgradesDB[717]={
         [49]=true,
         [52]=true,
         [56]=true,
-        [85]=true,
+        [71]=true,
         },
     }
 }
 
-masterUpgradesDB[718]={
+masterUpgradesDB[863]={
     name = 'Q7 Astromech',
     slot = 10,
     cost = 4,
@@ -6868,7 +6864,7 @@ masterUpgradesDB[718]={
     }
 }
 
-masterUpgradesDB[719]={
+masterUpgradesDB[873]={
     name = 'Intercept Booster',
     slot = 18,
     cost = 1,
@@ -6878,11 +6874,11 @@ masterUpgradesDB[719]={
     cardB = 'https://images-cdn.fantasyflightgames.com/filer_public/c5/49/c549df37-e99d-4746-a34c-d42d74d854b4/swz81_upgrade_intercept-booster_detached.png',
     restriction = {
         Faction={[7]=true},
-        ship={[86]=true}
+        ship={[77]=true}
     }
 }
 
-masterUpgradesDB[720]={
+masterUpgradesDB[851]={
     name = 'XX-23 S-Thread Tracers',
     slot = 6,
     cost = 2,
@@ -6890,7 +6886,7 @@ masterUpgradesDB[720]={
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/96/d7/96d7fd7e-cca2-403d-a291-5fcb973404c6/swz81_upgrade_s-tread-tracers.png',
 }
 
-masterUpgradesDB[721]={
+masterUpgradesDB[846]={
     name = 'Marg Sabl Closure',
     slot = 1,
     cost = 1,
@@ -6902,7 +6898,7 @@ masterUpgradesDB[721]={
     movethrough = true,
 }
 
-masterUpgradesDB[722]={
+masterUpgradesDB[866]={
     name = 'Independent Calculations',
     slot = 14,
     cost = 4,
@@ -6911,11 +6907,11 @@ masterUpgradesDB[722]={
         ship={
             [59]=true,
             [66]=true,
-            [86]=true} -- Network calculations
+            [77]=true} -- Network calculations
     },
 }
 
-masterUpgradesDB[723]={
+masterUpgradesDB[854]={
     name = 'Jango Fett',
     limited = 1,
     slot = 8,
@@ -6926,7 +6922,7 @@ masterUpgradesDB[723]={
     },
 }
 
-masterUpgradesDB[724]={
+masterUpgradesDB[856]={
     name = 'Zam Wesell',
     limited = 1,
     Condition = 'Zam Wesell',
@@ -6939,7 +6935,7 @@ masterUpgradesDB[724]={
     },
 }
 
-masterUpgradesDB[725]={
+masterUpgradesDB[853]={
     name = 'Hondo Ohnaka',
     limited = 1,
     slot = 8,
@@ -6947,7 +6943,7 @@ masterUpgradesDB[725]={
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/f2/30/f230e89a-4885-4721-b2a0-7c0e1ef1726f/swz-hondo-ohnaka.png',
 }
 
-masterUpgradesDB[726]={
+masterUpgradesDB[869]={
     name = 'Slave I',
     title = "Jango's ride",
     slot = 15,
@@ -6961,7 +6957,7 @@ masterUpgradesDB[726]={
     }
 }
 
-masterUpgradesDB[727]={
+masterUpgradesDB[857]={
     name = 'Boba Fett',
     limited = 1,
     slot = 16,
@@ -6973,14 +6969,14 @@ masterUpgradesDB[727]={
     }
 }
 
-masterUpgradesDB[728]={
+masterUpgradesDB[859]={
     name = 'Weapon Systems Officer',
     slot = 16,
     cost = 7,
     card = 'https://images-cdn.fantasyflightgames.com/filer_public/c8/de/c8de95b1-c5f8-467e-b9ef-0d81cc92f72e/swz82_a1_upgrade_weapon-systems.png',
 }
 
-masterUpgradesDB[729]={
+masterUpgradesDB[877]={
     name = 'False Transponder Codes',
     slot = 13,
     cost = 2,
@@ -6993,7 +6989,7 @@ masterUpgradesDB[729]={
 
 -- Epic upgrade cards
 -- Commands
-masterUpgradesDB[1000]={
+masterUpgradesDB[732]={
     name = "Agent of the Empire",
     wingleader = true,
     slot = 21,
@@ -7004,7 +7000,7 @@ masterUpgradesDB[1000]={
         ship = {[13]=true, [25]=true}
     }
 }
-masterUpgradesDB[1001]={
+masterUpgradesDB[733]={
     name = "First Order Elite",
     wingleader = true,
     slot = 21,
@@ -7015,7 +7011,7 @@ masterUpgradesDB[1001]={
         ship = {[50]=true, [52]=true}
     }
 }
-masterUpgradesDB[1002]={
+masterUpgradesDB[734]={
     name = "Veteran Wing Leader",
     wingleader = true,
     slot = 21,
@@ -7025,7 +7021,7 @@ masterUpgradesDB[1002]={
         Size={small=true}
     }
 }
-masterUpgradesDB[1003]={
+masterUpgradesDB[735]={
     name = "Dreadnought hunter",
     slot = 21,
     cost = 6,
@@ -7035,7 +7031,7 @@ masterUpgradesDB[1003]={
     }
 }
 -- Command and Crew
-masterUpgradesDB[1004]={
+masterUpgradesDB[724]={
     name = "Admiral Ozzel",
     slot = 21,
     remSlot = {8},
@@ -7047,7 +7043,7 @@ masterUpgradesDB[1004]={
         Size={huge=true}
     }
 }
-masterUpgradesDB[1005]={
+masterUpgradesDB[725]={
     name = "Azmorigan",
     slot = 21,
     remSlot = {8},
@@ -7059,7 +7055,7 @@ masterUpgradesDB[1005]={
         Size={huge=true}
     }
 }
-masterUpgradesDB[1006]={
+masterUpgradesDB[726]={
     name = "Captain Needa",
     slot = 21,
     remSlot = {8},
@@ -7072,7 +7068,7 @@ masterUpgradesDB[1006]={
         Size={huge=true}
     }
 }
-masterUpgradesDB[1007]={
+masterUpgradesDB[728]={
     name = "Carlist Rieekan",
     slot = 21,
     addAction = {'E'},
@@ -7085,7 +7081,7 @@ masterUpgradesDB[1007]={
         Size={huge=true}
     }
 }
-masterUpgradesDB[1008]={
+masterUpgradesDB[729]={
     name = "Jan Dodonna",
     slot = 21,
     remSlot = {8},
@@ -7097,7 +7093,7 @@ masterUpgradesDB[1008]={
         Size={huge=true}
     }
 }
-masterUpgradesDB[1009]={
+masterUpgradesDB[730]={
     name = "Raymus Antilles",
     slot = 21,
     remSlot = {8},
@@ -7109,7 +7105,7 @@ masterUpgradesDB[1009]={
         Size={huge=true}
     }
 }
-masterUpgradesDB[1010]={
+masterUpgradesDB[731]={
     name = "Stalwart Captain",
     slot = 21,
     remSlot = {8},
@@ -7121,7 +7117,7 @@ masterUpgradesDB[1010]={
     }
 }
 -- Hardpoints
-masterUpgradesDB[1011]={
+masterUpgradesDB[737]={
     name = "Ion Cannon Battery",
     slot = 24,
     cost = 5,
@@ -7130,7 +7126,7 @@ masterUpgradesDB[1011]={
     cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/IonCannonBattery(Offline).png',
     restriction = {}
 }
-masterUpgradesDB[1012]={
+masterUpgradesDB[741]={
     name = "Ordnance Tubes",
     slot = 24,
     cost = 1,
@@ -7138,7 +7134,7 @@ masterUpgradesDB[1012]={
     cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/OrdnanceTubes(Offline).png',
     restriction = {}
 }
-masterUpgradesDB[1013]={
+masterUpgradesDB[743]={
     name = "Point-Defense Battery",
     slot = 24,
     cost = 9,
@@ -7147,7 +7143,7 @@ masterUpgradesDB[1013]={
     cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/PointDefenseBattery(Offline).png',
     restriction = {}
 }
-masterUpgradesDB[1014]={
+masterUpgradesDB[739]={
     name = "Targeting Battery",
     slot = 24,
     cost = 6,
@@ -7156,7 +7152,7 @@ masterUpgradesDB[1014]={
     cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/TargetingBattery(Offline).png',
     restriction = {}
 }
-masterUpgradesDB[1015]={
+masterUpgradesDB[745]={
     name = "Turbolaser Battery",
     slot = 24,
     cost = 13,
@@ -7168,7 +7164,7 @@ masterUpgradesDB[1015]={
     }
 }
 -- Crew
-masterUpgradesDB[1016]={
+masterUpgradesDB[760]={
     name = "Toryn Farr",
     slot = 8,
     addAction = {'TL'},
@@ -7180,7 +7176,7 @@ masterUpgradesDB[1016]={
     }
 }
 -- Team
-masterUpgradesDB[1017]={
+masterUpgradesDB[746]={
     name = "Bombardment Specialists",
     slot = 23,
     addAction = {'TL','C'},
@@ -7188,7 +7184,7 @@ masterUpgradesDB[1017]={
     card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/BombardmentSpecialists.png',
     restriction = {}
 }
-masterUpgradesDB[1018]={
+masterUpgradesDB[747]={
     name = "Comms Team",
     slot = 23,
     addAction = {'C'},
@@ -7196,7 +7192,7 @@ masterUpgradesDB[1018]={
     card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/CommsTeam.png',
     restriction = {}
 }
-masterUpgradesDB[1019]={
+masterUpgradesDB[750]={
     name = "Damage Control Team",
     slot = 23,
     addAction = {'R','C'},
@@ -7204,7 +7200,7 @@ masterUpgradesDB[1019]={
     card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/DamageControlTeam.png',
     restriction = {}
 }
-masterUpgradesDB[1020]={
+masterUpgradesDB[749]={
     name = "Gunnery Specialists",
     slot = 23,
     addAction = {'C'},
@@ -7212,7 +7208,7 @@ masterUpgradesDB[1020]={
     card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/GunnerySpecialists.png',
     restriction = {}
 }
-masterUpgradesDB[1021]={
+masterUpgradesDB[748]={
     name = "IG-RM Droids",
     slot = 23,
     addAction = {'C'},
@@ -7222,7 +7218,7 @@ masterUpgradesDB[1021]={
         Faction = {[3]=true}
     }
 }
-masterUpgradesDB[1022]={
+masterUpgradesDB[751]={
     name = "Ordnance Team",
     slot = 23,
     addAction = {'C'},
@@ -7230,7 +7226,7 @@ masterUpgradesDB[1022]={
     card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/OrdnanceTeam.png',
     restriction = {}
 }
-masterUpgradesDB[1023]={
+masterUpgradesDB[752]={
     name = "Sensor Experts",
     slot = 23,
     addAction = {'TL','C'},
@@ -7239,28 +7235,28 @@ masterUpgradesDB[1023]={
     restriction = {}
 }
 -- Cargo
-masterUpgradesDB[1024]={
+masterUpgradesDB[756]={
     name = "Adaptive Shields",
     slot = 22,
     cost = 10,
     card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/AdaptiveShields.png',
     restriction = {}
 }
-masterUpgradesDB[1025]={
+masterUpgradesDB[757]={
     name = "Boosted Scanners",
     slot = 22,
     cost = 8,
     card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/BoostedScanners.png',
     restriction = {}
 }
-masterUpgradesDB[1026]={
+masterUpgradesDB[758]={
     name = "Optimized Power Core",
     slot = 22,
     cost = 6,
     card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/OptimizedPowerCore.png',
     restriction = {}
 }
-masterUpgradesDB[1027]={
+masterUpgradesDB[759]={
     name = "Tibanna Reserves",
     slot = 22,
     cost = 3,
@@ -7269,7 +7265,7 @@ masterUpgradesDB[1027]={
     restriction = {}
 }
 -- Illicit
-masterUpgradesDB[1028]={
+masterUpgradesDB[753]={
     name = "Quick-Release Locks",
     slot = 13,
     cost = 5,
@@ -7279,7 +7275,7 @@ masterUpgradesDB[1028]={
         Size={huge=true}
     }
 }
-masterUpgradesDB[1029]={
+masterUpgradesDB[754]={
     name = "Saboteur's Map",
     slot = 13,
     cost = 3,
@@ -7288,7 +7284,7 @@ masterUpgradesDB[1029]={
         Size={huge=true}
     }
 }
-masterUpgradesDB[1030]={
+masterUpgradesDB[755]={
     name = "Scanner Baffler",
     slot = 13,
     cost = 8,
@@ -7298,7 +7294,7 @@ masterUpgradesDB[1030]={
     }
 }
 -- title
-masterUpgradesDB[1031]={
+masterUpgradesDB[761]={
     name = "Dodonna's Pride",
     limited = 1,
     slot = 15,
@@ -7312,7 +7308,7 @@ masterUpgradesDB[1031]={
         ship = {[90]=true}
     }
 }
-masterUpgradesDB[1032]={
+masterUpgradesDB[762]={
     name = "Jaina's Light",
     slot = 15,
     limited = 1,
@@ -7325,7 +7321,7 @@ masterUpgradesDB[1032]={
         ship = {[90]=true}
     }
 }
-masterUpgradesDB[1033]={
+masterUpgradesDB[763]={
     name = "Liberator",
     slot = 15,
     cost = 5,
@@ -7337,7 +7333,7 @@ masterUpgradesDB[1033]={
         ship = {[90]=true}
     }
 }
-masterUpgradesDB[1034]={
+masterUpgradesDB[764]={
     name = "Tantive IV",
     slot = 15,
     cost = 6,
@@ -7348,7 +7344,7 @@ masterUpgradesDB[1034]={
         ship = {[90]=true}
     }
 }
-masterUpgradesDB[1035]={
+masterUpgradesDB[765]={
     name = "Thunderstrike",
     slot = 15,
     cost = 4,
@@ -7361,7 +7357,7 @@ masterUpgradesDB[1035]={
         ship = {[90]=true}
     }
 }
-masterUpgradesDB[1036]={
+masterUpgradesDB[766]={
     name = "Bright Hope",
     slot = 15,
     cost = 5,
@@ -7371,7 +7367,7 @@ masterUpgradesDB[1036]={
         ship = {[93]=true}
     }
 }
-masterUpgradesDB[1037]={
+masterUpgradesDB[767]={
     name = "Luminous",
     slot = 15,
     cost = 12,
@@ -7383,7 +7379,7 @@ masterUpgradesDB[1037]={
         ship = {[93]=true}
     }
 }
-masterUpgradesDB[1038]={
+masterUpgradesDB[768]={
     name = "Quantum Storm",
     slot = 15,
     cost = 3,
@@ -7395,7 +7391,7 @@ masterUpgradesDB[1038]={
         ship = {[93]=true}
     }
 }
-masterUpgradesDB[1039]={
+masterUpgradesDB[769]={
     name = "Assailer",
     slot = 15,
     limited = 1,
@@ -7409,7 +7405,7 @@ masterUpgradesDB[1039]={
         ship = {[94]=true}
     }
 }
-masterUpgradesDB[1040]={
+masterUpgradesDB[770]={
     name = "Corvus",
     slot = 15,
     limited = 1,
@@ -7422,7 +7418,7 @@ masterUpgradesDB[1040]={
         ship = {[94]=true}
     }
 }
-masterUpgradesDB[1041]={
+masterUpgradesDB[771]={
     name = "Impetuous",
     slot = 15,
     limited = 1,
@@ -7436,7 +7432,7 @@ masterUpgradesDB[1041]={
         ship = {[94]=true}
     }
 }
-masterUpgradesDB[1042]={
+masterUpgradesDB[772]={
     name = "Instigator",
     slot = 15,
     limited = 1,
@@ -7448,7 +7444,7 @@ masterUpgradesDB[1042]={
         ship = {[94]=true}
     }
 }
-masterUpgradesDB[1043]={
+masterUpgradesDB[773]={
     name = "Blood Crow",
     slot = 15,
     limited = 1,
@@ -7462,7 +7458,7 @@ masterUpgradesDB[1043]={
         ship = {[92]=true}
     }
 }
-masterUpgradesDB[1044]={
+masterUpgradesDB[774]={
     name = "Requiem",
     slot = 15,
     limited = 1,
@@ -7473,7 +7469,7 @@ masterUpgradesDB[1044]={
         ship = {[92]=true}
     }
 }
-masterUpgradesDB[1045]={
+masterUpgradesDB[775]={
     name = "Suppressor",
     slot = 15,
     limited = 1,
@@ -7487,7 +7483,7 @@ masterUpgradesDB[1045]={
         ship = {[92]=true}
     }
 }
-masterUpgradesDB[1046]={
+masterUpgradesDB[776]={
     name = "Vector",
     slot = 15,
     limited = 1,
@@ -7500,7 +7496,7 @@ masterUpgradesDB[1046]={
         ship = {[92]=true}
     }
 }
-masterUpgradesDB[1047]={
+masterUpgradesDB[777]={
     name = "Broken Horn",
     slot = 15,
     limited = 1,
@@ -7512,7 +7508,7 @@ masterUpgradesDB[1047]={
         ship = {[91]=true}
     }
 }
-masterUpgradesDB[1048]={
+masterUpgradesDB[778]={
     name = "Merchant One",
     slot = 15,
     limited = 1,
@@ -7525,7 +7521,7 @@ masterUpgradesDB[1048]={
         ship = {[91]=true}
     }
 }
-masterUpgradesDB[1049]={
+masterUpgradesDB[779]={
     name = "Insatiable Worrt",
     slot = 15,
     cost = 7,
@@ -7540,7 +7536,7 @@ masterUpgradesDB[1049]={
     }
 }
 -- Configuration
-masterUpgradesDB[1050]={
+masterUpgradesDB[780]={
     name = "Corsair Refit",
     slot = 18,
     cost = 15,
@@ -7554,7 +7550,7 @@ masterUpgradesDB[1050]={
     }
 }
 
-masterUpgradesDB[1051]={
+masterUpgradesDB[727]={
     name = "Strategic Commander",
     slot = 21,
     remSlot = {8},
@@ -7689,6 +7685,15 @@ function table_invert(t)
     return s
 end
 
+function findByXws(table, xws_id)
+  for i, record in pairs(table) do
+    if table.XWS == xws_id then
+      return i
+    end
+  end
+  return nil
+end
+
 --Takes the XWS JSON and the xws <-> FFG ID map and constructs a parts list to pass to idSpawner
 function xwsSpawn(list, XWS_TO_FFG, playerColor)
     if list then
@@ -7700,6 +7705,11 @@ function xwsSpawn(list, XWS_TO_FFG, playerColor)
         parts.Obstacles = {}
 
         for k,v in pairs (list.pilots) do
+            local pilotId = XWS_TO_FFG.pilots[v.id] or findByXws(masterPilotDB, v.id)
+            if pilotId == nil then
+              printToAll("Unable to find pilot with xws value: " .. v.id, {1,0,0})
+              break;
+            end
             parts.Pilots[k] = tonumber(XWS_TO_FFG.pilots[v.id])
             parts.Upgrades[k] = {}
 
@@ -7707,7 +7717,13 @@ function xwsSpawn(list, XWS_TO_FFG, playerColor)
                 local upgradeCount = 1
                 for slot,upgrades in pairs (v.upgrades) do
                     for i,upgrade in pairs (upgrades) do
-                        parts.Upgrades[k][upgradeCount] = tonumber(XWS_TO_FFG.upgrades[upgrade])
+                        upgradeId = XWS_TO_FFG.upgrades[upgrade]
+                        local upgradeId = XWS_TO_FFG.upgrades[upgrade] or findByXws(masterUpgradeDB, upgrade)
+                        if upgradeId == nil then
+                          printToAll("Unable to find upgrade with xws value: " .. v.id, {1,0,0})
+                          break;
+                        end
+                        parts.Upgrades[k][upgradeCount] = tonumber(upgradeId)
                         upgradeCount = upgradeCount + 1
                     end
                 end
@@ -7774,9 +7790,9 @@ end
 --takes a link and converts it for the API link
 function ffgLoad(obj, playerColor, alt_click)
     if lista ~= nil then
-        print("lista:" .. lista)
-        requesturl = string.gsub(lista,"https://squadbuilder%.fantasyflightgames%.com/squad%-preview/", 'http://squad2xws.herokuapp.com/translate/')
-        print("Request:" .. requesturl)
+        --print("lista:" .. lista)
+        requesturl = string.gsub(lista,'https://squadbuilder%.fantasyflightgames%.com/.*/', 'http://squad2xws.herokuapp.com/translate/')
+        --print("Request:" .. requesturl)
         ffgLoad2(requesturl, playerColor)
     else
         print ('Please paste a link')
@@ -7850,7 +7866,7 @@ function ffgLoad2(squadId, playerColor)
         if request.is_error then
             error("Failed to load squad JSON.")
         elseif request.is_done then
-            print("List:" .. request.text)
+            --print("List:" .. request.text)
             lista = request.text
             --list = JSON.decode(request.text)
             --JSONlist = JSON.decode(request.text)
@@ -8178,6 +8194,7 @@ function idSpawner(idTable)
         fList.Upgrades[k] = {}
         local skilled_bombardier = false
         for key,value in pairs (idTable.Upgrades[k]) do
+          --print("Upg[" .. tostring(k) .. "] = ".. tostring(value))
             value = dualUpgradeList[value] or value
             local name = masterUpgradesDB[value].name
             local upSlot = masterUpgradesDB[value].slot
