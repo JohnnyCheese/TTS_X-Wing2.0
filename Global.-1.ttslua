@@ -5311,9 +5311,9 @@ DialModule.SpawnTemplate = function(ship, dialCode)
 
     local moveCode = dialCode:sub(1, -3)
     local moveInfo = MoveData.DecodeInfo(moveCode, ship)
-    --if moveInfo.speed == 0 then
-    --    return nil
-    --end
+    if moveInfo.speed == 0 then
+        return nil
+    end
     local tempEntry = DialModule.TemplateData[moveInfo.type][moveInfo.speed]
     local baseSize = ship.getTable("Data").Size or 'small'
     tempEntry = Vect.Sum(tempEntry, DialModule.TemplateData.baseOffset[baseSize])
@@ -5323,6 +5323,7 @@ DialModule.SpawnTemplate = function(ship, dialCode)
     end
     --TODO LAST MOVE LOGIC OUT!!!
     --TODO dont barf if no last move
+
     if moveInfo.dir == 'left' then
         tempEntry = MoveData.LeftVariant(tempEntry)
         tempEntry[4] = tempEntry[4] + 180 - DialModule.TemplateData[moveInfo.type].leftRot
