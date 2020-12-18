@@ -3232,7 +3232,7 @@ masterPilotDB[160]={
   Shield = 0,
   card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_160.png',
   init = 1,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_fangfighter/ZealusRecruit.png',
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_fangfighter/ZealousRecruit.png',
   actSet = {'F','TL','B','BR'}
 }
 
@@ -5044,8 +5044,20 @@ masterPilotDB[643]={
     actSet = {'F','B','TL','BR'}
 }
 
-masterPilotDB[635]={['name']='Bossk',['Faction']= 3,['ship_type']=38,['cost']=28,['slot']={21, 6, 13, 14},['Shield']=2,
-                  ['card']='http://images-cdn.fantasyflightgames.com/filer_public/d3/9d/d39d7a92-7829-4bc8-ab2c-05843ab3d099/swz66_bossk.png',['init']=4,['actSet']={'F','TL','BR'}}
+masterPilotDB[635]={
+  name = 'Bossk',
+  Faction = 3,
+  limited = 1,
+  ship_type = 38,
+  cost = 28,
+  slot = {21, 6, 13, 14},
+  Shield = 2,
+  card = 'http://images-cdn.fantasyflightgames.com/filer_public/d3/9d/d39d7a92-7829-4bc8-ab2c-05843ab3d099/swz66_bossk.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_z95/Bossk.png',
+  actSet = {'F','TL','BR'}
+}
+
 masterPilotDB[636]={['name']='G4R-G0R V/M',['Faction']= 3,['ship_type']=44,['cost']=28,['slot']={21, 14,99},['Shield']=1,
                   ['card']='http://images-cdn.fantasyflightgames.com/filer_public/4c/2c/4c2c309f-f9b0-4a93-a3a5-28b43fe981c3/swz66_g4r-g0r_vm.png',['init']=5,['actSet']={'C','E','TL','BR'}}
 masterPilotDB[637]={['name']='Nom Lumb',['Faction']= 3,['ship_type']=45,['cost']=38,['slot']={21, 1, 3, 8, 5, 13, 14, 15, 16},['Shield']=3,['Charge']=1,
