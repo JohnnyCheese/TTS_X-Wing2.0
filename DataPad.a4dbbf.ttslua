@@ -858,8 +858,9 @@ masterShipDB[61]={
 	Fac = {[6]=true},
 	arcs = {'front'},
 	moveSet={'wtl1','bbl1','bbr1','wtr1','rbl2s','wtl2','bbl2','bs2','bbr2','wtr2','rbr2s','wbl3','bs3','wbr3','ws4','rk4','ws5','rk5'},
-	--mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/Jedi_Delta7.obj'
+	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/Jedi_Delta7.obj'
 }
+
 masterShipDB[62]={
 	name = 'V-19',
 	Hull = 5,
@@ -870,7 +871,7 @@ masterShipDB[62]={
 	Fac = {[6]=true},
 	arcs = {'front'},
 	moveSet ={'rtl1','bbl1','bs1','bbr1','rtr1','rtl2t','wtl2','wbl2','bs2','wbr2','wtr2','rtr2t','rbl3','bs3','rbr3','rk3','ws4'},
-	--mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_V-19_Torrent/V-19_Torrent.obj'
+	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_V-19_Torrent/V-19_Torrent.obj'
 }
 
 
@@ -5124,38 +5125,217 @@ masterPilotDB[505]={['name']='O-66',['Faction']=7,['ship_type']=60,['cost']=49,[
 masterPilotDB[506]={['name']='Dark Courier',['Faction']=7,['ship_type']=60,['cost']=51,['slot']={21, 5,3,8,8,20,12,15,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/132f1957b904c890b94bf3aaf2a944ce.png',['init']=2,
                   ['actSet']={'F','TL','BR'}}
 
-masterPilotDB[507]={['name']='Anakin Skywalker',['Faction']=6,['ship_type']=61,['cost']=61,['slot']={21, 17,10,18,14},['Force']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/d60f4eca355471465ca3f6b99fb98e56.png',['init']=6,
-                  ['actSet']={'F','E','TL','BR','B'}}
-masterPilotDB[508]={['name']='Luminara Unduli',['Faction']=6,['ship_type']=61,['cost']=42,['slot']={21, 17,10,18,14},['Force']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/7f87b6c12631687bedf75a18582af0b0.png',['init']=4,
-                  ['actSet']={'F','E','TL','BR','B'}}
-masterPilotDB[509]={['name']='Barriss Offee',['Faction']=6,['ship_type']=61,['cost']=38,['slot']={21, 17,10,18,14},['Force']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/f8f58005da18d7041b1ec2374701465c.png',['init']=4,
-                  ['actSet']={'F','E','TL','BR','B'}}
-masterPilotDB[510]={['name']='Ahsoka Tano',['Faction']=6,['ship_type']=61,['cost']=43,['slot']={21, 17,10,18,14},['Force']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/15f6bf84f63970c982dd722a5473217f.png',['init']=3,
-                  ['actSet']={'F','E','TL','BR','B'}}
-masterPilotDB[511]={['name']='Obi-Wan Kenobi',['Faction']=6,['ship_type']=61,['cost']=49,['slot']={21, 17,10,18,14},['Force']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/fcf515534a722b581bc2f85f36cb5c30.png',['init']=5,
-                  ['actSet']={'F','E','TL','BR','B'}}
-masterPilotDB[512]={['name']='Mace Windu',['Faction']=6,['ship_type']=61,['cost']=46,['slot']={21, 17,10,18,14},['Force']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/f0c905f162de8d77dd78c3d49cca77f1.png',['init']=4,
-                  ['actSet']={'F','E','TL','BR','B'}}
-masterPilotDB[513]={['name']='Plo Koon',['Faction']=6,['ship_type']=61,['cost']=45,['slot']={21, 17,10,18,14},['Force']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/c0936c57c897ea7bacadf723cfcbd0b6.png',['init']=5,
-                  ['actSet']={'F','E','TL','BR','B'}}
-masterPilotDB[514]={['name']='Saesee Tiin',['Faction']=6,['ship_type']=61,['cost']=42,['slot']={21, 17,10,18,14},['Force']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/e0fdedf1af8fd1e5b36c2fba17b4f6b0.png',['init']=4,
-                  ['actSet']={'F','E','TL','BR','B'}}
-masterPilotDB[515]={['name']='Jedi Knight',['Faction']=6,['ship_type']=61,['cost']=37,['slot']={21, 17,10,18,14},['Force']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/13d08d0d1131e7a11f6d10fd1626bff9.png',['init']=3,
-                  ['actSet']={'F','E','TL','BR','B'}}
-masterPilotDB[516]={['name']='"Odd Ball"',['Faction']=6,['ship_type']=62,['cost']=30,['slot']={21, 1,6,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/9ecf7600f20da9a9eff5d3e244934ccb.png',['init']=5,
-                  ['actSet']={'F','E','TL','BR'}}
-masterPilotDB[517]={['name']='"Kickback"',['Faction']=6,['ship_type']=62,['cost']=30,['slot']={21, 1,6,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/76c1228dd4c70dc4e56ac99284a11b0f.png',['init']=4,
-                  ['actSet']={'F','E','TL','BR'}}
-masterPilotDB[518]={['name']='"Axe"',['Faction']=6,['ship_type']=62,['cost']=29,['slot']={21, 1,6,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/89ade203dec6b0fa5ed6360aae3b3022.png',['init']=3,
-                  ['actSet']={'F','E','TL','BR'}}
-masterPilotDB[519]={['name']='"Swoop"',['Faction']=6,['ship_type']=62,['cost']=28,['slot']={21, 1,6,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/8ae255235c0c1d3892344fb43fcab773.png',['init']=3,
-                  ['actSet']={'F','E','TL','BR'}}
-masterPilotDB[520]={['name']='"Tucker"',['Faction']=6,['ship_type']=62,['cost']=27,['slot']={21, 6,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/a457cc2ab3038736cb37541ad94b9b34.png',['init']=2,
-                  ['actSet']={'F','E','TL','BR'}}
-masterPilotDB[521]={['name']='Blue Squadron Protector',['Faction']=6,['ship_type']=62,['cost']=26,['slot']={21, 1,6,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/77b2dfdca20865d8d667c41539a7356e.png',['init']=3,
-                  ['actSet']={'F','E','TL','BR'}}
-masterPilotDB[522]={['name']='Gold Squadron Trooper',['Faction']=6,['ship_type']=62,['cost']=25,['slot']={21, 6,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/ed881318b45485a197e514b2d13e178c.png',['init']=2,
-                  ['actSet']={'F','E','TL','BR'}}
+masterPilotDB[507]={
+  name = 'Anakin Skywalker',
+  Faction = 6,
+  limited = 1,
+  ship_type = 61,
+  cost = 61,
+  slot = {21, 17,10,18,14},
+  Force = 3,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/d60f4eca355471465ca3f6b99fb98e56.png',
+  init = 6,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/AnakinSkywalker.png',
+  actSet = {'F','E','TL','BR','B'}
+}
+
+masterPilotDB[508]={
+  name = 'Luminara Unduli',
+  Faction = 6,
+  limited = 1,
+  ship_type = 61,
+  cost = 42,
+  slot = {21, 17,10,18,14},
+  Force = 2,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/7f87b6c12631687bedf75a18582af0b0.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/LuminaraUnduli.png',
+  actSet = {'F','E','TL','BR','B'}
+}
+
+masterPilotDB[509]={
+  name = 'Barriss Offee',
+  Faction = 6,
+  limited = 1,
+  ship_type = 61,
+  cost =38,
+  slot = {21, 17,10,18,14},
+  Force = 1,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/f8f58005da18d7041b1ec2374701465c.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/BarrissOffee.png',
+  actSet = {'F','E','TL','BR','B'}
+}
+
+masterPilotDB[510]={
+  name = 'Ahsoka Tano',
+  Faction = 6,
+  limited = 1,
+  ship_type = 61,
+  cost = 43,
+  slot = {21, 17,10,18,14},
+  Force = 2,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/15f6bf84f63970c982dd722a5473217f.png',
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/AhsokaTano.png',
+  actSet = {'F','E','TL','BR','B'}
+}
+
+masterPilotDB[511]={
+  name = 'Obi-Wan Kenobi',
+  Faction = 6,
+  limited = 1,
+  ship_type = 61,
+  cost = 49,
+  slot = {21, 17,10,18,14},
+  Force = 3,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/fcf515534a722b581bc2f85f36cb5c30.png',
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/Obi-WanKenobi.png',
+  actSet = {'F','E','TL','BR','B'}
+}
+
+masterPilotDB[512]={
+  name = 'Mace Windu',
+  Faction = 6,
+  limited = 1,
+  ship_type = 61,
+  cost = 46,
+  slot = {21, 17,10,18,14},
+  Force = 3,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/f0c905f162de8d77dd78c3d49cca77f1.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/MaceWindu.png',
+  actSet = {'F','E','TL','BR','B'}
+}
+
+masterPilotDB[513]={
+  name = 'Plo Koon',
+  Faction = 6,
+  limited = 1,
+  ship_type = 61,
+  cost = 45,
+  slot = {21, 17,10,18,14},
+  Force = 2,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/c0936c57c897ea7bacadf723cfcbd0b6.png',
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/PloKoon.png',
+  actSet = {'F','E','TL','BR','B'}
+}
+
+masterPilotDB[514]={
+  name = 'Saesee Tiin',
+  Faction = 6,
+  limited = 1,
+  ship_type = 61,
+  cost = 42,
+  slot = {21, 17,10,18,14},
+  Force = 2,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/e0fdedf1af8fd1e5b36c2fba17b4f6b0.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/SaeseeTiin.png',
+  actSet = {'F','E','TL','BR','B'}
+}
+
+masterPilotDB[515]={
+  name = 'Jedi Knight',
+  Faction = 6,
+  ship_type = 61,
+  cost = 37,
+  slot = {21, 17,10,18,14},
+  Force = 1,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/13d08d0d1131e7a11f6d10fd1626bff9.png',
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/JediKnight.png',
+  actSet = {'F','E','TL','BR','B'}
+}
+
+masterPilotDB[516]={
+  name = '"Odd Ball"',
+  Faction = 6,
+  limited = 1,
+  ship_type = 62,
+  cost = 30,
+  slot = {21, 1,6,14},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/9ecf7600f20da9a9eff5d3e244934ccb.png',
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_V-19_Torrent/OddBall.png',
+  actSet = {'F','E','TL','BR'}
+}
+
+masterPilotDB[517]={
+  name = '"Kickback"',
+  Faction = 6,
+  limited = 1,
+  ship_type = 62,
+  cost = 30,
+  slot = {21, 1,6,14},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/76c1228dd4c70dc4e56ac99284a11b0f.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_V-19_Torrent/Kickback.png',
+  actSet = {'F','E','TL','BR'}
+}
+
+masterPilotDB[518]={
+  name = '"Axe"',
+  Faction = 6,
+  limited = 1,
+  ship_type = 62,
+  cost = 29,
+  slot = {21, 1,6,14},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/89ade203dec6b0fa5ed6360aae3b3022.png',
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_V-19_Torrent/Axe.png',
+  actSet = {'F','E','TL','BR'}
+}
+
+masterPilotDB[519]={
+  name = '"Swoop"',
+  Faction = 6,
+  limited = 1,
+  ship_type = 62,
+  cost = 28,
+  slot = {21, 1,6,14},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/8ae255235c0c1d3892344fb43fcab773.png',
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_V-19_Torrent/Swoop.png',
+  actSet ={'F','E','TL','BR'}
+}
+
+masterPilotDB[520]={
+  name = '"Tucker"',
+  Faction = 6,
+  ship_type = 62,
+  cost = 27,
+  slot = {21, 6,14},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/a457cc2ab3038736cb37541ad94b9b34.png',
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_V-19_Torrent/Tucker.png',
+  actSet = {'F','E','TL','BR'}
+}
+masterPilotDB[521]={
+  name = 'Blue Squadron Protector',
+  Faction = 6,
+  ship_type = 62,
+  cost = 26,
+  slot = {21, 1,6,14},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/77b2dfdca20865d8d667c41539a7356e.png',
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_V-19_Torrent/BlueSquadronProtector.png',
+  actSet = {'F','E','TL','BR'}
+}
+
+masterPilotDB[522]={
+  name = 'Gold Squadron Trooper',
+  Faction = 6,
+  ship_type = 62,
+  cost = 25,
+  slot = {21, 6,14},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/ed881318b45485a197e514b2d13e178c.png',
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_V-19_Torrent/GoldSquadronTrooper.png',
+  actSet = {'F','E','TL','BR'}
+}
 
 masterPilotDB[523]={
   name = '"Odd Ball"',
