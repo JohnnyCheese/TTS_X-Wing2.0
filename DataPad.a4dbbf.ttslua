@@ -806,12 +806,46 @@ masterShipDB[54]={
     mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_awing/res_awing.obj',
     moveSet = {'wtl1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rbl3s','wtl3','bbl3','bs3','bbr3','wtr3','rbr3s','bs4','bs5','rk5'}}
 
-masterShipDB[55]={['name']='MG-100 StarFortress',['Hull']=9, ['Shield']=3,['dTurret']=1,['size']='large',['agi']=1,['XWS']='', ['Fac']={[4]=true}, ['arcs']={'front','doubleturret'},
-                            ['moveSet']={'rs0','rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rbl3','ws3','rbr3'}}
-masterShipDB[56]={['name']='Mining Guild TIE',['Hull']=3,['Shield']=0,['size']='small',['agi']=3,['XWS']='', ['Fac']={[3]=true}, ['arcs']={'front'},
-                            ['moveSet']={'wtl1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk3','ws4','rs5'}}
-masterShipDB[57]={['name']='Scavenged YT-1300',['Hull']=8,['Shield']=3,['dTurret']=1,['size']='large',['agi']=1,['XWS']='', ['Fac']={[4]=true}, ['arcs']={'doubleturret'},
-                            ['moveSet']={'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','ws3','wbr3','wtr3','rbl3s','rbr3s','rs4'}}
+masterShipDB[55]={
+  name = 'MG-100 StarFortress',
+  Hull = 9,
+  Shield = 3,
+  dTurret = 1,
+  size = 'large',
+  agi = 1,
+  XWS = '',
+  Fac = {[4]=true},
+  arcs = {'front','doubleturret'},
+  moveSet = {'rs0','rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rbl3','ws3','rbr3'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/RES_starfortress/starfortress.obj'
+}
+
+masterShipDB[56]={
+  name = 'Mining Guild TIE',
+  Hull = 3,
+  Shield = 0,
+  size = 'small',
+  agi = 3,
+  XWS = '',
+  Fac = {[3]=true},
+  arcs = {'front'},
+  moveSet = {'wtl1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk3','ws4','rs5'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_miningguildtie/miningguildtie.obj',
+}
+
+masterShipDB[57]={
+  name = 'Scavenged YT-1300',
+  Hull = 8,
+  Shield = 3,
+  dTurret = 1,
+  size = 'large',
+  agi = 1,
+  XWS = '',
+  Fac = {[4]=true},
+  arcs = {'doubleturret'},
+  moveSet = {'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','ws3','wbr3','wtr3','rbl3s','rbr3s','rs4'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/RES_scavengedyt1300/scavengedyt1300.obj',
+}
 
 --w3ship
 masterShipDB[61]={
@@ -4626,22 +4660,116 @@ masterPilotDB[426]={
     actSet = {'F','TL','B'}
 }
 
-masterPilotDB[427]={['name']="Han Solo",['Faction']=4,['ship_type']=57,['cost']=62,['slot']={21, 1,8,8,16,13,14,15},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/5816bd53c272ed50096e22ae1af2b38a.png',['init']=6,['actSet']={'F','TL','B','Rot'}}
-masterPilotDB[428]={['name']="Rey",['Faction']=4,['ship_type']=57,['cost']=68,['slot']={21, 17,8,8,16,13,14,15},['Shield']=3,['Force']=2,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/0ee7006e6cc51d8c08b784c9b770f1b0.png',['init']=5,['actSet']={'F','TL','B','Rot'}}
-masterPilotDB[429]={['name']="Chewbacca",['Faction']=4,['ship_type']=57,['cost']=60,['slot']={21, 1,8,8,16,13,14,15},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/422fc30e0e10445e80b304ef2d96dc06.png',['init']=4,['actSet']={'F','TL','B','Rot'}}
-masterPilotDB[430]={['name']="Resistance Sympathizer",['Faction']=4,['ship_type']=57,['cost']=58,['slot']={21, 8,8,16,13,14,15},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/28411b84c1b15f0bfa9928f2206e44f5.png',['init']=2,['actSet']={'F','TL','B','Rot'}}
-masterPilotDB[431]={['name']="Finch Dallow",['Faction']=4,['ship_type']=55,['cost']=56,['slot']={21, 2,19,8,16,16,12,12,14},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/43d9a0555f719a4cbe1ffe905fd38c46.png',['init']=4,['actSet']={'F','TL','Rot'}}
-masterPilotDB[432]={['name']="Ben Teene",['Faction']=4,['ship_type']=55,['cost']=54,['slot']={21, 2,19,8,16,16,12,12,14},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/c9189c7e510b4d734d4d78c4f595010f.png',['init']=3,['actSet']={'F','TL','Rot'}}
-masterPilotDB[433]={['name']="Cat",['Faction']=4,['ship_type']=55,['cost']=52,['slot']={21, 2,19,8,16,16,12,12,14},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/b386dc25736682ebc785b15551de903b.png',['init']=1,['actSet']={'F','TL','Rot'}}
-masterPilotDB[434]={['name']="Cobalt Squadron Bomber",['Faction']=4,['ship_type']=55,['cost']=51,['slot']={21, 2,19,8,16,16,12,12,14},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/6b6a3bb8049699e2d66fe09531e8bc00.png',['init']=1,['actSet']={'F','TL','Rot'}}
+masterPilotDB[427]={
+  name = "Han Solo",
+  Faction = 4,
+  limited = 1,
+  ship_type = 57,
+  cost = 62,
+  slot = {21, 1,8,8,16,13,14,15},
+  Shield = 3,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/5816bd53c272ed50096e22ae1af2b38a.png',
+  init = 6,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/RES_scavengedyt1300/HanSolo.png',
+  actSet = {'F','TL','B','Rot'}
+}
+
+masterPilotDB[428]={
+  name = "Rey",
+  Faction =4 ,
+  limited = 1,
+  ship_type = 57,
+  cost = 68,
+  slot = {21, 17,8,8,16,13,14,15},
+  Shield = 3,
+  Force = 2,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/0ee7006e6cc51d8c08b784c9b770f1b0.png',
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/RES_scavengedyt1300/Rey.png',
+  actSet = {'F','TL','B','Rot'}
+}
+
+masterPilotDB[429]={
+  name = "Chewbacca",
+  Faction = 4,
+  limited = 1,
+  ship_type = 57,
+  cost = 60,
+  slot = {21, 1,8,8,16,13,14,15},
+  Shield = 3,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/422fc30e0e10445e80b304ef2d96dc06.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/RES_scavengedyt1300/Chewbacca.png',
+  actSet = {'F','TL','B','Rot'}
+}
+
+masterPilotDB[430]={
+  name = "Resistance Sympathizer",
+  Faction = 4,
+  ship_type = 57,
+  cost = 58,
+  slot = {21, 8,8,16,13,14,15},
+  Shield = 3,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/28411b84c1b15f0bfa9928f2206e44f5.png',
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/RES_scavengedyt1300/ResistanceSympathizer.png',
+  actSet = {'F','TL','B','Rot'}
+}
+
+masterPilotDB[431]={
+  name = "Finch Dallow",
+  Faction = 4,
+  limited = 1,
+  ship_type = 55,
+  cost = 56,
+  slot = {21, 2,19,8,16,16,12,12,14},
+  Shield = 3,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/43d9a0555f719a4cbe1ffe905fd38c46.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/RES_starfortress/FinchDallow.png',
+  actSet = {'F','TL','Rot'}
+}
+
+masterPilotDB[432]={
+  name = "Ben Teene",
+  Faction = 4,
+  limited = 1,
+  ship_type = 55,
+  cost = 54,
+  slot = {21, 2,19,8,16,16,12,12,14},
+  Shield = 3,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/c9189c7e510b4d734d4d78c4f595010f.png',
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/RES_starfortress/BenTeene.png',
+  actSet = {'F','TL','Rot'}
+}
+
+masterPilotDB[433]={
+  name = "Cat",
+  Faction = 4,
+  limited = 1,
+  ship_type = 55,
+  cost = 52,
+  slot = {21, 2,19,8,16,16,12,12,14},
+  Shield = 3,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/b386dc25736682ebc785b15551de903b.png',
+  init = 1,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/RES_starfortress/Cat.png',
+  actSet = {'F','TL','Rot'}
+}
+
+masterPilotDB[434]={
+  name = "Cobalt Squadron Bomber",
+  Faction = 4,
+  ship_type = 55,
+  cost = 51,
+  slot = {21, 2,19,8,16,16,12,12,14},
+  Shield = 3,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/6b6a3bb8049699e2d66fe09531e8bc00.png',
+  init = 1,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/RES_starfortress/CobaltSquadronBomber.png',
+  actSet = {'F','TL','Rot'}
+}
 
 masterPilotDB[435]={
     name = "L'ulo L'ampar",
@@ -4716,22 +4844,118 @@ masterPilotDB[440]={
     texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_awing/blue_sq_recruit.png',
     actSet = {'F','TL','Rot180','E','B','BR'}}
 
-masterPilotDB[441]={['name']='Foreman Proach',['Faction']=3,['ship_type']=56,['cost']=32,['slot']={21, 1,14},['Shield']=6,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/cfb3b5fa9d747afc3aa10f3b86f45818.png',['init']=4,['actSet']={'F','E','BR'}}
-masterPilotDB[442]={['name']='Ahhav',['Faction']=3,['ship_type']=56,['cost']=30,['slot']={21, 1,14},['Shield']=6,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/d58a0696c8d85a63e90eb8a1e522a54c.png',['init']=3,['actSet']={'F','E','BR'}}
-masterPilotDB[443]={['name']='Captain Seevor',['Faction']=3,['ship_type']=56,['cost']=30,['slot']={21, 1,14},['Shield']=6,['Charge']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/70b64586cc2eb05d10efc7ba8dfd69d0.png',['init']=3,['actSet']={'F','E','BR'}}
-masterPilotDB[444]={['name']='Overseer Yushyn',['Faction']=3,['ship_type']=56,['cost']=26,['slot']={21, 1,14},['Shield']=6,['Charge']=1,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/6c9268d3e6cc6b671d6db6ac39fcad0f.png',['init']=2,['actSet']={'F','E','BR'}}
-masterPilotDB[445]={['name']='Mining Guild Surveyor',['Faction']=3,['ship_type']=56,['cost']=23,['slot']={21, 1,14},['Shield']=6,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/3e5872dea32f2015bb6737592c21efaf.png',['init']=2,['actSet']={'F','E','BR'}}
-masterPilotDB[446]={['name']='Mining Guild Sentry',['Faction']=3,['ship_type']=56,['cost']=22,['slot']={21, 1,14},['Shield']=6,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/6d67112b15c3c97bd3d4acf2c8d000ed.png',['init']=1,['actSet']={'F','E','BR'}}
-masterPilotDB[447]={['name']="Edon Kappehl",['Faction']=4,['ship_type']=55,['cost']=56,['slot']={21, 2,19,8,16,16,12,12,14},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/f58fe0b57dc4a9c878627f0fea9cf1ef.png',['init']=3,['actSet']={'F','TL','Rot'}}
-masterPilotDB[448]={['name']="Vennie",['Faction']=4,['ship_type']=55,['cost']=54,['slot']={21, 2,19,8,16,16,12,12,14},['Shield']=3,
-                  ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/0d494986a24e6c55efae066a43161b0d.png',['init']=2,['actSet']={'F','TL','Rot'}}
+masterPilotDB[441]={
+  name = 'Foreman Proach',
+  Faction = 3,
+  limited = 1,
+  ship_type = 56,
+  cost = 32,
+  slot = {21, 1,14},
+  Shield = 6,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/cfb3b5fa9d747afc3aa10f3b86f45818.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_miningguildtie/ForemanProach.png',
+  actSet = {'F','E','BR'}
+}
+
+masterPilotDB[442]={
+  name = 'Ahhav',
+  Faction = 3,
+  limited = 1,
+  ship_type = 56,
+  cost = 30,
+  slot = {21, 1,14},
+  Shield = 6,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/d58a0696c8d85a63e90eb8a1e522a54c.png',
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_miningguildtie/Ahhav.png',
+  actSet = {'F','E','BR'}
+}
+
+masterPilotDB[443]={
+  name = 'Captain Seevor',
+  Faction = 3,
+  limited = 1,
+  ship_type = 56,
+  cost = 30,
+  slot = {21, 1,14},
+  Shield = 6,
+  Charge = 1,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/70b64586cc2eb05d10efc7ba8dfd69d0.png',
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_miningguildtie/CaptainSeevor.png',
+  actSet = {'F','E','BR'}
+}
+
+masterPilotDB[444]={
+  name = 'Overseer Yushyn',
+  Faction = 3,
+  limited = 1,
+  ship_type = 56,
+  cost = 26,
+  slot = {21, 1,14},
+  Shield = 6,
+  Charge = 1,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/6c9268d3e6cc6b671d6db6ac39fcad0f.png',
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_miningguildtie/OverseerYushyn.png',
+  actSet = {'F','E','BR'}
+}
+
+masterPilotDB[445]={
+  name = 'Mining Guild Surveyor',
+  Faction = 3,
+  ship_type = 56,
+  cost = 23,
+  slot = {21, 1,14},
+  Shield = 6,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/3e5872dea32f2015bb6737592c21efaf.png',
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_miningguildtie/MiningGuildSurveyor.png',
+  actSet = {'F','E','BR'}
+}
+
+masterPilotDB[446]={
+  name = 'Mining Guild Sentry',
+  Faction = 3,
+  ship_type = 56,
+  cost = 22,
+  slot = {21, 1,14},
+  Shield = 6,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/6d67112b15c3c97bd3d4acf2c8d000ed.png',
+  init = 1,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_miningguildtie/MiningGuildSentry.png',
+  actSet = {'F','E','BR'}
+}
+
+masterPilotDB[447]={
+  name = "Edon Kappehl",
+  Faction = 4,
+  limited = 1,
+  ship_type = 55,
+  cost = 56,
+  slot = {21, 2,19,8,16,16,12,12,14},
+  Shield = 3,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/f58fe0b57dc4a9c878627f0fea9cf1ef.png',
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/RES_starfortress/EdonKappehl.png',
+  actSet = {'F','TL','Rot'}
+}
+
+masterPilotDB[448]={
+  name = "Vennie",
+  Faction = 4,
+  limited = 1,
+  ship_type = 55,
+  cost = 54,
+  slot = {21, 2,19,8,16,16,12,12,14},
+  Shield = 3,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/0d494986a24e6c55efae066a43161b0d.png',
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/RES_starfortress/Vennie.png',
+  actSet = {'F','TL','Rot'}
+}
+
 masterPilotDB[449]={
     name = 'Lieutenant Bastian',
     limited = 1,
