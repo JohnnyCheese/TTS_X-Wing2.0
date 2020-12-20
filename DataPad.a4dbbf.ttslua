@@ -875,12 +875,42 @@ masterShipDB[62]={
 }
 
 
-masterShipDB[59]={['name']='Vulture-Class Droid',['Hull']=3,['Shield']=0,['size']='small',['agi']=2,['XWS']='', ['Fac']={[7]=true}, ['arcs']={'front'},
-                            ['moveSet']={'wtl1','wtr1','rk1','rtl2t','btl2','wbl2','bs2','wbr2','btr2','rtr2t','wtl3','rbl3','bs3','rbr3','wtr3','bs4','ws5'}}
-masterShipDB[58]={['name']='Belbullab-22',['Hull']=4,['Shield']=2,['size']='small',['agi']=2,['XWS']='', ['Fac']={[7]=true}, ['arcs']={'front'},
-                            ['moveSet']={'wtl1','wbl1','wbr1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','rbl3s','rtl3','wbl3','bs3','wbr3','rtr3','rbr3s','ws4','ws5'}}
-masterShipDB[60]={['name']='Sith Infiltrator',['Hull']=6,['Shield']=4,['size']='large',['agi']=1,['XWS']='', ['Fac']={[7]=true}, ['arcs']={'front'},
-                            ['moveSet']={'rtl1','bbl1','bs1','bbr1','rtr1','rbl2s','wtl2','bbl2','bs2','bbr2','wtr2','rbr2s','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk5'}}
+masterShipDB[59]={
+  name = 'Vulture-Class Droid',
+  Hull = 3,
+  Shield = 0,
+  size = 'small',
+  agi = 2,
+  XWS = '',
+  Fac = {[7]=true},
+  arcs = {'front'},
+  moveSet = {'wtl1','wtr1','rk1','rtl2t','btl2','wbl2','bs2','wbr2','btr2','rtr2t','wtl3','rbl3','bs3','rbr3','wtr3','bs4','ws5'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Vulture/Vulture.obj'
+}
+masterShipDB[58]={
+  name = 'Belbullab-22',
+  Hull = 4,
+  Shield = 2,
+  size = 'small',
+  agi = 2,
+  XWS = '',
+  Fac = {[7]=true},
+  arcs = {'front'},
+  moveSet = {'wtl1','wbl1','wbr1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','rbl3s','rtl3','wbl3','bs3','wbr3','rtr3','rbr3s','ws4','ws5'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Belbullab/Belbullab.obj'
+}
+masterShipDB[60]={
+  name = 'Sith Infiltrator',
+  Hull = 6,
+  Shield = 4,
+  size = 'large',
+  agi = 1,
+  XWS = '',
+  Fac = {[7]=true},
+  arcs = {'front'},
+  moveSet = {'rtl1','bbl1','bs1','bbr1','rtr1','rbl2s','wtl2','bbl2','bs2','bbr2','wtr2','rbr2s','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk5'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/CIS_Infiltrator/Infiltrator.obj'
+}
 
 --w4ship
 masterShipDB[63]={
@@ -909,8 +939,18 @@ masterShipDB[65]={
 
 
 
-masterShipDB[64]={['name']='Hyena-Class Droid Bomber',['Hull']=5,['Shield']=0,['size']='small',['agi']=2,['XWS']='', ['Fac']={[7]=true}, ['arcs']={'front'},
-                            ['moveSet']={'wtl1','rbl1','ws1','rbr1','wtr1','btl2','wbl2','bs2','wbr2','btr2','rk2','rtl2t','rtr2t','wtl3','bs3','wtr3','ws4','rs5'}}
+masterShipDB[64]={
+  name = 'Hyena-Class Droid Bomber',
+  Hull = 5,
+  Shield = 0,
+  size = 'small',
+  agi = 2,
+  XWS = '',
+  Fac = {[7]=true},
+  arcs = {'front'},
+  moveSet = {'wtl1','rbl1','ws1','rbr1','wtr1','btl2','wbl2','bs2','wbr2','btr2','rk2','rtl2t','rtr2t','wtl3','bs3','wtr3','ws4','rs5'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Hyena/Hyena.obj'
+}
 
 masterShipDB[66]={
 	name ='N-1 StarFighter',
@@ -925,8 +965,19 @@ masterShipDB[66]={
 	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_N1/Naboo_Royal_N1.obj'
 }
 
-masterShipDB[67]={['name']='Nantex-Class StarFighter',['Hull']=4,['Shield']=0,['sTurret']=1,['size']='small',['agi']=3,['XWS']='', ['Fac']={[7]=true}, ['arcs']={'left', 'front', 'right', 'bullseye'},
-                            ['moveSet']={'wtl1','bbl1','bbr1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','bbl3','bs3','bbr3','wtr3','rbl3s','rbr3s','ws4','ws5','rk5'}}
+masterShipDB[67]={
+  name = 'Nantex-Class StarFighter',
+  Hull = 4,
+  Shield = 0,
+  sTurret = 1,
+  size = 'small',
+  agi = 3,
+  XWS = '',
+  Fac = {[7]=true},
+  arcs = {'left', 'front', 'right', 'bullseye'},
+  moveSet = {'wtl1','bbl1','bbr1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','bbl3','bs3','bbr3','wtr3','rbl3s','rbr3s','ws4','ws5','rk5'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Nantex/Nantex.obj'
+}
 masterShipDB[68]={
 	name = 'BTL-B Y-Wing',
 	Hull = 5,
@@ -5105,36 +5156,195 @@ masterPilotDB[458]={
 
 --w3pilot
 
-masterPilotDB[492]={['name']='General Grievous',['Faction']=7,['ship_type']=58,['cost']=44,['slot']={21, 1,14,15,20},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/9e4a215e799a9e7ad1853d19d149dd20.png',['init']=4,
-                  ['actSet']={'F','TL','B','BR'}}
-masterPilotDB[493]={['name']='Wat Tambor',['Faction']=7,['ship_type']=58,['cost']=42,['slot']={21, 1,14,15,20},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/68cbd6082683fe17778f829555f23a26.png',['init']=3,
-                  ['actSet']={'F','TL','B','BR'}}
-masterPilotDB[494]={['name']='Captain Sear',['Faction']=7,['ship_type']=58,['cost']=45,['slot']={21, 14,15,20},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/3d3704ab454433a8b4d73ee6bff430b8.png',['init']=2,
-                  ['actSet']={'F','TL','B','BR'}}
-masterPilotDB[495]={['name']='Skakoan Ace',['Faction']=7,['ship_type']=58,['cost']=38,['slot']={21, 1,14,15,20},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/ceb7a3bc406ff17be5dee5de62b39195.png',['init']=3,
-                  ['actSet']={'F','TL','B','BR'}}
-masterPilotDB[496]={['name']='Feethan Ottraw Autopilot',['Faction']=7,['ship_type']=58,['cost']=35,['slot']={21, 14,15,20},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/538c4833605af80b226da9e5f800e6ef.png',['init']=1,
-                  ['actSet']={'C','TL','B','BR'}}
-masterPilotDB[497]={['name']='Separatist Drone',['Faction']=7,['ship_type']=59,['cost']=22,['slot']={21, 6,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/64e75b9a1024ac0c909634e62e165b2e.png',['init']=3,
-                  ['actSet']={'C','BR','TL'}}
-masterPilotDB[498]={['name']='Trade Federation Drone',['Faction']=7,['ship_type']=59,['cost']=20,['slot']={21, 6,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/4d8ed38f907fb4869611add738abda11.png',['init']=1,
-                  ['actSet']={'C','BR','TL'}}
-masterPilotDB[499]={['name']='DFS-081',['Faction']=7,['ship_type']=59,['cost']=26,['slot']={21, 6,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/808de8db6d43921b4e3124f01d5d4947.png',['init']=3,
-                  ['actSet']={'C','BR','TL'}}
-masterPilotDB[500]={['name']='Precise Hunter',['Faction']=7,['ship_type']=59,['cost']=23,['slot']={21, 6,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/44cd712b4db9f34091cff73a4fda4303.png',['init']=3,
-                  ['actSet']={'C','BR','TL'}}
-masterPilotDB[501]={['name']='DFS-311',['Faction']=7,['ship_type']=59,['cost']=23,['slot']={21, 6,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/741f05dbe0f7e56fc9918b86bdb0e3fb.png',['init']=1,
-                  ['actSet']={'C','BR','TL'}}
-masterPilotDB[502]={['name']='Haor Chall Prototype',['Faction']=7,['ship_type']=59,['cost']=21,['slot']={21, 6,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/91421be1f3bbbefd005c1b2682f0bc44.png',['init']=1,
-                  ['actSet']={'C','BR','TL'}}
-masterPilotDB[503]={['name']='Darth Maul',['Faction']=7,['ship_type']=60,['cost']=65,['slot']={21, 17,5,3,8,8,20,12,15,14},['Force']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/95428161db7de4adcea6fa8bcbf9de2f.png',['init']=5,
-                  ['actSet']={'F','TL','BR'}}
-masterPilotDB[504]={['name']='Count Dooku',['Faction']=7,['ship_type']=60,['cost']=63,['slot']={21, 17,5,3,8,8,20,12,15,14},['Force']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/88959087710ec5a80a16dd93573f149d.png',['init']=3,
-                  ['actSet']={'F','TL','BR'}}
-masterPilotDB[505]={['name']='O-66',['Faction']=7,['ship_type']=60,['cost']=49,['slot']={21, 1,5,3,8,8,20,12,15,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/9edd9bb6846e77723d8f0381bb7909aa.png',['init']=3,
-                  ['actSet']={'C','TL','BR'}}
-masterPilotDB[506]={['name']='Dark Courier',['Faction']=7,['ship_type']=60,['cost']=51,['slot']={21, 5,3,8,8,20,12,15,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/132f1957b904c890b94bf3aaf2a944ce.png',['init']=2,
-                  ['actSet']={'F','TL','BR'}}
+masterPilotDB[492]={
+  name = 'General Grievous',
+  Faction = 7,
+  limited = 1,
+  ship_type = 58,
+  cost = 44,
+  slot = {21, 1,14,15,20},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/9e4a215e799a9e7ad1853d19d149dd20.png',
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Belbullab/GeneralGrievous.png',
+  actSet = {'F','TL','B','BR'}
+}
+
+masterPilotDB[493]={
+  name = 'Wat Tambor',
+  Faction = 7,
+  limited = 1,
+  ship_type = 58,
+  cost = 42,
+  slot = {21, 1,14,15,20},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/68cbd6082683fe17778f829555f23a26.png',
+  init = 3,
+  actSet = {'F','TL','B','BR'},
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Belbullab/WatTambor.png',
+}
+
+masterPilotDB[494]={
+  name = 'Captain Sear',
+  Faction = 7,
+  limited = 1,
+  ship_type = 58,
+  cost = 45,
+  slot = {21, 14,15,20},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/3d3704ab454433a8b4d73ee6bff430b8.png',
+  init = 2,
+  actSet = {'F','TL','B','BR'},
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Belbullab/CaptainSear.png'
+}
+masterPilotDB[495]={
+  name = 'Skakoan Ace',
+  Faction = 7,
+  ship_type = 58,
+  cost = 38,
+  slot = {21, 1,14,15,20},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/ceb7a3bc406ff17be5dee5de62b39195.png',
+  init = 3,
+  actSet = {'F','TL','B','BR'},
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Belbullab/SkakoanAce.png',
+
+}
+
+masterPilotDB[496]={
+  name = 'Feethan Ottraw Autopilot',
+  Faction = 7,
+  ship_type = 58,
+  cost = 35,
+  slot = {21, 14,15,20},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/538c4833605af80b226da9e5f800e6ef.png',
+  init = 1,
+  actSet = {'C','TL','B','BR'},
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Belbullab/FeethanOttrawAutopilot.png',
+}
+
+masterPilotDB[497]={
+  name = 'Separatist Drone',
+  Faction = 7,
+  ship_type = 59,
+  cost = 22,
+  slot = {21, 6,14,18},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/64e75b9a1024ac0c909634e62e165b2e.png',
+  init = 3,
+  actSet = {'C','BR','TL'},
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Vulture/SeperatistDrone.png',
+}
+
+masterPilotDB[498]={
+  name = 'Trade Federation Drone',
+  Faction = 7,
+  ship_type = 59,
+  cost = 20,
+  slot = {21, 6,14,18},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/4d8ed38f907fb4869611add738abda11.png',
+  init = 1,
+  actSet = {'C','BR','TL'},
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Vulture/TradeFederationDrone.png',
+}
+
+masterPilotDB[499]={
+  name = 'DFS-081',
+  Faction = 7,
+  limited = 1,
+  ship_type = 59,
+  cost = 26,
+  slot = {21, 6,14,18},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/808de8db6d43921b4e3124f01d5d4947.png',
+  init = 3,
+  actSet = {'C','BR','TL'},
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Vulture/DFS-081.png',
+}
+masterPilotDB[500]={
+  name = 'Precise Hunter',
+  Faction = 7,
+  limited = 3,
+  ship_type = 59,
+  cost = 23,
+  slot = {21, 6,14,18},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/44cd712b4db9f34091cff73a4fda4303.png',
+  init = 3,
+  actSet = {'C','BR','TL'},
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Vulture/PreciseHunter.png',
+}
+masterPilotDB[501]={
+  name = 'DFS-311',
+  Faction = 7,
+  limited = 1,
+  ship_type = 59,
+  cost = 23,
+  slot = {21, 6,14,18},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/741f05dbe0f7e56fc9918b86bdb0e3fb.png',
+  init = 1,
+  actSet = {'C','BR','TL'},
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Vulture/DFS-311.png',
+}
+
+masterPilotDB[502]={
+  name = 'Haor Chall Prototype',
+  Faction = 7,
+  limited = 2,
+  ship_type = 59,
+  cost = 21,
+  slot = {21, 6,14,18},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/91421be1f3bbbefd005c1b2682f0bc44.png',
+  init = 1,
+  actSet = {'C','BR','TL'},
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Vulture/HaorChallPrototype.png',
+}
+
+masterPilotDB[503]={
+  name = 'Darth Maul',
+  Faction = 7,
+  limited = 1,
+  ship_type = 60,
+  cost = 65,
+  slot = {21, 17,5,3,8,8,20,12,15,14},
+  Force = 3,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/95428161db7de4adcea6fa8bcbf9de2f.png',
+  init = 5,
+  actSet = {'F','TL','BR'},
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/CIS_Infiltrator/DarthMaul.png',
+}
+
+masterPilotDB[504]={
+  name = 'Count Dooku',
+  Faction = 7,
+  limited = 1,
+  ship_type = 60,
+  cost = 63,
+  slot = {21, 17,5,3,8,8,20,12,15,14},
+  Force = 3,
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/88959087710ec5a80a16dd93573f149d.png',
+  init = 3,
+  actSet = {'F','TL','BR'},
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/CIS_Infiltrator/CountDooku.png',
+}
+
+masterPilotDB[505]={
+  name = 'O-66',
+  Faction = 7,
+  limited = 1,
+  ship_type = 60,
+  cost = 49,
+  slot = {21, 1,5,3,8,8,20,12,15,14},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/9edd9bb6846e77723d8f0381bb7909aa.png',
+  init = 3,
+  actSet = {'C','TL','BR'},
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/CIS_Infiltrator/O-66.png',
+}
+
+masterPilotDB[506]={
+  name = 'Dark Courier',
+  Faction = 7,
+  ship_type = 60,
+  cost = 51,
+  slot = {21, 5,3,8,8,20,12,15,14},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/132f1957b904c890b94bf3aaf2a944ce.png',
+  init = 2,
+  actSet = {'F','TL','BR'},
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/CIS_Infiltrator/DarkCourier.png',
+}
 
 masterPilotDB[507]={
   name = 'Anakin Skywalker',
@@ -5597,18 +5807,82 @@ masterPilotDB[576]={
     actSet ={'F','TL','BR'}}
 
 --Hyena Bomber
-masterPilotDB[563]={['name']='DBS-404',['Faction']=7,['ship_type']=64,['cost']=30,['slot']={21, 5,6,12,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/3e647295c7237a5eb36b94d887eb8e56.png',['init']=4,
-                  ['actSet']={'C','TL','BR'}}
-masterPilotDB[564]={['name']='DBS-32C',['Faction']=7,['ship_type']=64,['cost']=40,['slot']={21, 2,20,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/1befc5619a02e2ea8b7bfb8df93471a1.png',['init']=3,
-                  ['actSet']={'C','TL','BR'}}
-masterPilotDB[565]={['name']='Bombardment Drone',['Faction']=7,['ship_type']=64,['cost']=29,['slot']={21, 2,12,12,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/099422de35fb5ad2c2d238237e7dfe2c.png',['init']=3,
-                  ['actSet']={'C','TL','BR'}}
-masterPilotDB[566]={['name']='Baktoid Prototype',['Faction']=7,['ship_type']=64,['cost']=28,['slot']={21, 2,6,6,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/254bc7be63cc9f4e629198f8d45f2f9b.png',['init']=1,
-                  ['actSet']={'C','TL','BR'}}
-masterPilotDB[567]={['name']='Separatist Bomber',['Faction']=7,['ship_type']=64,['cost']=28,['slot']={21, 5,6,12,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/cf510ca885a5f85395542b9aa51fba73.png',['init']=3,
-                  ['actSet']={'C','TL','BR'}}
-masterPilotDB[568]={['name']='Techno Union Bomber',['Faction']=7,['ship_type']=64,['cost']=25,['slot']={21, 5,6,12,14,18},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/749bdc89c3da6b8034154780959e9c34.png',['init']=1,
-                  ['actSet']={'C','TL','BR'}}
+masterPilotDB[563]={
+  name = 'DBS-404',
+  Faction = 7,
+  limited = 1,
+  ship_type = 64,
+  cost = 30,
+  slot = {21, 5,6,12,14,18},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/3e647295c7237a5eb36b94d887eb8e56.png',
+  init = 4,
+  actSet = {'C','TL','BR'},
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Hyena/DBS-404.png',
+}
+
+masterPilotDB[564]={
+  name = 'DBS-32C',
+  Faction = 7,
+  limited = 1,
+  ship_type = 64,
+  cost = 40,
+  slot = {21, 2,20,14,18},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/1befc5619a02e2ea8b7bfb8df93471a1.png',
+  init = 3,
+  actSet = {'C','TL','BR'},
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Hyena/DBS-32C.png',
+}
+
+masterPilotDB[565]={
+  name = 'Bombardment Drone',
+  Faction = 7,
+  limited = 3,
+  ship_type = 64,
+  cost = 29,
+  slot = {21, 2,12,12,14,18},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/099422de35fb5ad2c2d238237e7dfe2c.png',
+  init = 3,
+  actSet = {'C','TL','BR'},
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Hyena/BombardmentDrone.png',
+}
+
+masterPilotDB[566]={
+  name = 'Baktoid Prototype',
+  Faction = 7,
+  limited = 2,
+  ship_type = 64,
+  cost = 28,
+  slot = {21, 2,6,6,14,18},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/254bc7be63cc9f4e629198f8d45f2f9b.png',
+  init = 1,
+  actSet = {'C','TL','BR'},
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Hyena/BaktoidPrototype.png',
+}
+
+masterPilotDB[567]={
+  name = 'Separatist Bomber',
+  Faction = 7,
+  ship_type = 64,
+  cost = 28,
+  slot = {21, 5,6,12,14,18},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/cf510ca885a5f85395542b9aa51fba73.png',
+  init = 3,
+  actSet = {'C','TL','BR'},
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Hyena/SeparatistBomber.png',
+}
+
+masterPilotDB[568]={
+  name = 'Techno Union Bomber',
+  Faction = 7,
+  ship_type = 64,
+  cost = 25,
+  slot = {21, 5,6,12,14,18},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/749bdc89c3da6b8034154780959e9c34.png',
+  init = 1,
+  actSet = {'C','TL','BR'},
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Hyena/TechnoUnionBomber.png',
+}
+
 --Republic Y-Wing
 masterPilotDB[596]={
   name = 'Anakin Skywalker',
@@ -5714,18 +5988,81 @@ masterPilotDB[603]={
 }
 
 --Nantex
-masterPilotDB[604]={['name']='Sun Fac',['Faction']=7,['ship_type']=67,['cost']=45,['slot']={21, 1,1},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/42265df53c90026a58ac96b0acd3c1f8.png',['init']=6,
-                  ['actSet']={'F','E'}}
-masterPilotDB[605]={['name']='Berwer Kret',['Faction']=7,['ship_type']=67,['cost']=37,['slot']={21, 1,1},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/f1c76ce6ff266c23099686392efef565.png',['init']=5,
-                  ['actSet']={'F','E'}}
-masterPilotDB[606]={['name']='Chertek',['Faction']=7,['ship_type']=67,['cost']=36,['slot']={21, 1,1},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/07504533be45d13cb82d71ea11d234f7.png',['init']=4,
-                  ['actSet']={'F','E'}}
-masterPilotDB[607]={['name']='Gorgol',['Faction']=7,['ship_type']=67,['cost']=32,['slot']={21, 1,14},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/d2d0764f83a2740f407082e934986ff2.png',['init']=2,
-                  ['actSet']={'F','E'}}
-masterPilotDB[608]={['name']='Petranaki Arena Ace',['Faction']=7,['ship_type']=67,['cost']=35,['slot']={21, 1,1},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/d2d62b6070fdf59b58db79aadb845d54.png',['init']=4,
-                  ['actSet']={'F','E'}}
-masterPilotDB[609]={['name']='Stalgasin Hive Guard',['Faction']=7,['ship_type']=67,['cost']=33,['slot']={21, 1},['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/e97a0ae22847e0b71d920a0df9dfcfab.png',['init']=3,
-                  ['actSet']={'F','E'}}
+masterPilotDB[604]={
+  name = 'Sun Fac',
+  Faction = 7,
+  limited = 1,
+  ship_type = 67,
+  cost = 45,
+  slot = {21, 1,1},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/42265df53c90026a58ac96b0acd3c1f8.png',
+  init = 6,
+  actSet = {'F','E'},
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Nantex/SunFac.png',
+}
+
+masterPilotDB[605]={
+  name = 'Berwer Kret',
+  Faction = 7,
+  limited = 1,
+  ship_type = 67,
+  cost = 37,
+  slot = {21, 1,1},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/f1c76ce6ff266c23099686392efef565.png',
+  init = 5,
+  actSet = {'F','E'},
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Nantex/BerwerKret.png',
+}
+
+masterPilotDB[606]={
+  name = 'Chertek',
+  Faction = 7,
+  limited = 1,
+  ship_type = 67,
+  cost = 36,
+  slot = {21, 1,1},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/07504533be45d13cb82d71ea11d234f7.png',
+  init = 4,
+  actSet = {'F','E'},
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Nantex/Chertek.png',
+}
+
+masterPilotDB[607]={
+  name = 'Gorgol',
+  Faction = 7,
+  limited = 1,
+  ship_type = 67,
+  cost = 32,
+  slot = {21, 1,14},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/d2d0764f83a2740f407082e934986ff2.png',
+  init = 2,
+  actSet = {'F','E'},
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Nantex/Gorgol.png',
+}
+
+masterPilotDB[608]={
+  name = 'Petranaki Arena Ace',
+  Faction = 7,
+  ship_type = 67,
+  cost = 35,
+  slot = {21, 1,1},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/d2d62b6070fdf59b58db79aadb845d54.png',
+  init = 4,
+  actSet = {'F','E'},
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Nantex/PetranakiArenaAce.png',
+}
+
+masterPilotDB[609]={
+  name = 'Stalgasin Hive Guard',
+  Faction = 7,ship_type = 67,
+  cost = 33,
+  slot = {21, 1},
+  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/e97a0ae22847e0b71d920a0df9dfcfab.png',
+  init = 3,
+  actSet = {'F','E'},
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Nantex/StalgasinHiveGuard.png',
+}
+
 --w7
 --TIE/ba
 masterPilotDB[627]={
