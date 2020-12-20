@@ -6637,11 +6637,9 @@ function newSpawner(listTable)
     PosBag4 = {20, 20, 0}
     PoaBag5 = {25, 25, 0}
     tempBagAcc = getObjectFromGUID('53ad3d').clone({position = PosBag3}) -- Accessories bag
-    tempBagShp = getObjectFromGUID('eb5680').clone({position = PosBag4}) -- Ships bag
 
     --Stablishes lists of available upgrades, pilots, accessories, ships and mobile upgrades
     listaAcc = tempBagAcc.getObjects()
-    listaShp = tempBagShp.getObjects()
 
     --Store the initial position of the Quick Build Card
     storePos = spawnCard.getPosition()
@@ -6829,19 +6827,7 @@ function newSpawner(listTable)
         local newShip = nil
         pos = LocalPos(spawnCard, {0, 0, 9})
         rot = spawnCard.getRotation()
-        for v, ship in ipairs (listaShp) do
-            if ship.name == tostring(Pilots[shipIndex].id) then
-                newShip = tempBagShp.takeObject({ position = pos,
-                                                  rotation = rot,
-                                                  guid = ship.guid
-                                                })
-                shipClone = newShip.clone()
-                tempBagShp.putObject(shipClone)
-                newShip.setPosition(pos)
-                newShip.setRotation(rot)
-            end
-        end
-        if (newShip == nil) and (Pilots[shipIndex].id ~= 0) then
+        if (Pilots[shipIndex].id ~= 0) then
           newShip = spawnObject({
               type              = "Custom_Model",
               position          = pos,
@@ -7132,7 +7118,6 @@ function newSpawner(listTable)
 
     -- Delete cloned bags
     tempBagAcc.destruct()
-    tempBagShp.destruct()
 
 
     if listTable.Obstacles ~= nil then
