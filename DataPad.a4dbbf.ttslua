@@ -6255,8 +6255,21 @@ masterPilotDB[639]={
     actSet = {'F','TL','Rot180','E','B','BR'}}
 
 
-masterPilotDB[640]={['name']="Paige Tico",['Faction']=4,['ship_type']=55,['cost']=56,['slot']={21, 2,19,8,16,16,12,12,14},['Shield']=3,['Charge']=1,
-                  ['card']='http://images-cdn.fantasyflightgames.com/filer_public/48/7e/487e95ce-b13c-4d39-97f6-8e28e633d07f/swz66_paige-tico.png',['init']=5,['actSet']={'F','TL','Rot'}}
+masterPilotDB[640]={
+  name = "Paige Tico",
+  Faction = 4,
+  limited = 1,
+  ship_type = 55,
+  cost = 56,
+  slot = {21, 2,19,8,16,16,12,12,14},
+  Shield = 3,
+  Charge = 1,
+  card = 'http://images-cdn.fantasyflightgames.com/filer_public/48/7e/487e95ce-b13c-4d39-97f6-8e28e633d07f/swz66_paige-tico.png',
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/RES_starfortress/PaigeTico.png',
+  actSet = {'F','TL','Rot'}
+}
+
 masterPilotDB[632]={
   name = 'Fifth Brother',
   Faction = 2,
