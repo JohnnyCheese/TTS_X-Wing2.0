@@ -139,7 +139,7 @@ end
 
 function StartBarrelRoll(args)
     local size = args.ship.getTable('Data').Size or "small"
-    positionOffset = ShipProxyModule.barrelRollOffset[size]
+    local positionOffset = ShipProxyModule.barrelRollOffset[size]:copy()
     if args.direction == "right" then
         positionOffset.x = -positionOffset.x
     end
