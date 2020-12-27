@@ -5196,6 +5196,9 @@ DialModule.PerformAction = function(ship, type, playerColor, args)
     elseif type:find('deleteMoveTemplate') ~= nil then
       DialModule.DeleteTemplate(ship)
       return
+    elseif type:find'rotate' ~= nil then
+      ship.call("RotateAttachedArcIndicator", {direction=type})
+      return
     elseif tokenActions:find(' ' .. type .. ' ') ~= nil then
         if args ~= nil and args.remove == true then
             local tokens = ship.call("GetTokens",{type=string.lower(type)})
@@ -6263,19 +6266,47 @@ end
 -- Positions for arc indicator tokens around the ship mounts
 -- Used so arc indicators can snap to the relevant positions
 mountPositions = {
-    ['small'] = {
-        ['main'] = {0, 0}
+    small = {
+        main = {0, 0}
     },
-    ['medium'] = {
-        ['main'] = {0, 0}
+   medium  = {
+        main = {0, 0}
     },
-    ['large'] = {
-        ['main'] = {0, 0}
+    large = {
+        main = {0, 0}
     },
-    ['huge'] = {
-        ['front'] = {0, -2.63},
-        ['rear'] = {0, 2.63}
+    huge = {
+        front = {0, -2.63},
+        rear = {0, 2.63}
     }
+}
+
+mountRotations = {
+  front = vector(0,0,0),
+  left = vector(0,-90,0),
+  back = vector(0,180,0),
+  right = vector(0,90,0),
+  frontback = vector(0,0,0),
+  leftright = vector(0,90,0)
+}
+
+nextMountDirection = {
+  rotateleft = {
+    front = "left",
+    left = "back",
+    back = "right",
+    right = "front",
+    leftright = "frontback",
+    frontback = "leftright"
+  },
+  rotateright = {
+    front = "right",
+    left = "front",
+    back = "left",
+    right = "back",
+    leftright = "frontback",
+    frontback = "leftright"
+  }
 }
 
 -- Save and load ship data lua scriptState
@@ -6339,8 +6370,10 @@ function initContextMenu()
     end
 
     self.AddContextMenuItem("Mark ship", function(argument) Global.call("MarkShip", {ship=self}) end, false)
-    self.AddContextMenuItem("Start BR Left", function(argument) Global.call("StartBarrelRoll", {ship=self, direction="left"}) end, false)
-    self.AddContextMenuItem("Start BR Right", function(argument) Global.call("StartBarrelRoll", {ship=self, direction="right"}) end, false)
+    --self.AddContextMenuItem("Start BR Left", function(argument) Global.call("StartBarrelRoll", {ship=self, direction="left"}) end, false)
+    --self.AddContextMenuItem("Start BR Right", function(argument) Global.call("StartBarrelRoll", {ship=self, direction="right"}) end, false)
+
+
 end
 
 assigned_tokens = {}
@@ -6369,6 +6402,7 @@ function GetTokens(args)
 end
 
 assigned_arc_indicators = {}
+arc_indicators = {}
 
 function AddArcIndicator(args)
     assigned_arc_indicators[args.location] = args.indicator
@@ -6383,21 +6417,64 @@ function RemoveArcIndicator(args)
     end
 end
 
+function AttachArcIndicator(args)
+    local turret_mount = args.mount or 'main'
+    local default_direction = args.indicator.getVar("default_arc_direction") or 'front'
+    arc_indicators[turret_mount] = default_direction
+    args.indicator.setDescription(turret_mount)
+    args.indicator.setRotation(self.getRotation() + Global.getTable('mountRotations')[default_direction] or vector(0,0,0))
+end
+
+function GetNextValidRotation(mount, rotate_direction)
+  local direction = arc_indicators[mount]
+  local arcs = self.getTable('Data').arcs or {direction}
+  for i = 1,4,1 do
+    direction = Global.getTable('nextMountDirection')[rotate_direction][direction]
+    if direction == arc_indicators[mount] then
+      return direction
+    end
+    for idx, arc in pairs(arcs) do
+      if (arc == direction) or (arc == "singleturret") or (arc == "doubleturret") then
+        return direction
+      end
+    end
+  end
+  return arc_indicators[mount]
+end
+
+function RotateAttachedArcIndicator(args)
+  local turret_mount = args.mount or 'main'
+  for i, attachment in pairs(self.getAttachments()) do
+    if (attachment.name == "Attachable Arc Indicator") and (attachment.description == turret_mount) then
+      local next_direction = GetNextValidRotation(turret_mount, args.direction)
+      id = self.removeAttachment(attachment.index)
+      arc_indicators[turret_mount] = next_direction
+      id.setRotation(self.getRotation() + Global.getTable('mountRotations')[next_direction] or vector(0,0,0))
+      self.addAttachment(id)
+    end
+  end
+end
+
 function GetAvailableMountPositions(args)
     local mount_positions = Global.getTable('mountPositions')[self.getTable("Data").Size]
 
     for location, _ in pairs(assigned_arc_indicators) do
         mount_positions[location] = nil
     end
+    for i, attachment in pairs(self.getAttachments()) do
+      if (attachment.name == "Attachable Arc Indicator") then
+        mount_positions[attachment.description] = nil
+      end
+    end
 
     local ship_position = self.getPosition()
     local ship_rotation = math.rad(self.GetRotation().y) * -1
     for location, position in pairs(mount_positions) do
-        local transformed_position = {
+        local transformed_position = vector(
             ship_position.x + math.cos(ship_rotation) * position[1] - math.sin(ship_rotation) * position[2],
             ship_position.y,
             ship_position.z + math.sin(ship_rotation) * position[1] + math.cos(ship_rotation) * position[2]
-        }
+        )
         mount_positions[location] = transformed_position
     end
 
@@ -6591,7 +6668,7 @@ function onUpdate()
         data.ColorId = tint
         ship.setTable("Data", data)
         for i, attachment in pairs(ship.getAttachments()) do
-          id = ship.removeAttachment(attachment.index)
+          id = ship.removeAttachment(0) -- This process puts the front attachment in the back, and the index is rearranged
           id.setColorTint(tint)
           ship.addAttachment(id)
         end
