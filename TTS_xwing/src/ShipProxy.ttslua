@@ -118,7 +118,8 @@ end
 ]]
 
 function MarkShip(args)
-    ShipProxyModule.spawnProxy(args.ship, true, nil, color(0,0.1,1,0.2), "markShip")
+    local finpos = { pos = args.ship.getPosition(), rot = args.ship.getRotation() }
+    ShipProxyModule.spawnProxy(args.ship, true, finpos, color(0,0.1,1,0.2), "markShip")
 end
 
 function UnMarkShip(args)
@@ -138,12 +139,21 @@ function UnMarkShip(args)
 end
 
 function StartBarrelRoll(args)
-    local size = args.ship.getTable('Data').Size or "small"
-    local positionOffset = ShipProxyModule.barrelRollOffset[size]:copy()
-    if args.direction == "right" then
-        positionOffset.x = -positionOffset.x
+    local ship = args.ship
+    local direction = args.direction
+
+    local offsets = {}
+    if direction == "right" then
+        offsets = {'rr1', 'rr2', 'rr3'}
+    elseif args.direction == "left" then
+        offsets = {'rl1', 'rl2', 'rl3'}
     end
-    ShipProxyModule.StartFinalPositionSelection(args.ship, positionOffset)
+
+    for i, v in ipairs(offsets) do
+        local finalPos = MoveModule.GetFinalPosData(v, ship)
+
+        ShipProxyModule.spawnProxy(ship, false, finalPos.finPos, color(0.3, 0.3, 1, 0.1), "finalPos")
+    end
 end
 
 function SelectFinalPos(args)
@@ -184,16 +194,15 @@ ShipProxyModule.proxyModels = {
     },
 }
 
-ShipProxyModule.spawnProxy = function(ship, hide, offset, tint, script)
+ShipProxyModule.spawnProxy = function(ship, hide, finpos, tint, script)
     if hide and ShipProxyModule.hiddenShips[ship.getGUID()] ~= nil then
         return
     end
 
-    local offset = Vect.RotateDeg(offset or vector(0,0,0), ship.GetRotation().y)
     local proxy = spawnObject({
       type              = "Custom_Model",
-      position          = ship.getPosition() + vector(offset[1],offset[2],offset[3]),
-      rotation          = ship.getRotation(),
+      position          = finpos.pos,
+      rotation          = finpos.rot,
       scale             = ship.getScale(),
       sound             = false,
       snap_to_grid      = false,
