@@ -87,8 +87,6 @@ end
 
 ShipProxyModule.proxyScripts.finalPos = [[
 
-defaultColor = color(0.3,0.3,1.0,0.1)
-hoverColor = color(0.5,1.0,0.5,0.3)
 sizeScale = {
     small = {width = 1, height = 1},
     medium = {width = 1.5, height = 1.5},
@@ -113,13 +111,13 @@ function onHoverLeave(player)
 end
 
 function select(player)
-    Global.call("SelectFinalPos", {shipGUID = self.getVar("shipGUID"), proxy = self})
+    Global.call("SelectFinalPos", {shipGUID = shipGUID, proxy = self, move_code = move_code})
 end
 ]]
 
 function MarkShip(args)
     local finpos = { pos = args.ship.getPosition(), rot = args.ship.getRotation() }
-    ShipProxyModule.spawnProxy(args.ship, true, finpos, color(0,0.1,1,0.2), "markShip")
+    ShipProxyModule.spawnProxy(args.ship, true, finpos, false, "markShip")
 end
 
 function UnMarkShip(args)
@@ -150,20 +148,34 @@ function StartBarrelRoll(args)
     end
 
     for i, v in ipairs(offsets) do
+        local info = MoveData.DecodeInfo(v, ship)
         local finalPos = MoveModule.GetFinalPosData(v, ship)
+        local templateData = {
+            origin = ship.getPosition(),
+            orientation = ship.getRotation(),
+            dir = info.dir,
+            speed = info.speed,
+            type = info.type,
+            shipSize = info.size,
+            extra = info.extra
+        }
 
-        ShipProxyModule.spawnProxy(ship, false, finalPos.finPos, color(0.3, 0.3, 1, 0.1), "finalPos")
+        local collisions = MoveModule.CheckMineAndObstacleCollisions(ship, finalPos.finPos, false, templateData)
+
+        local didCollide = false
+        if collisions[1] ~= nil then
+            didCollide = true
+        end
+
+        ShipProxyModule.spawnProxy(ship, false, finalPos.finPos, didCollide, "finalPos", v)
     end
 end
 
 function SelectFinalPos(args)
     local ship = getObjectFromGUID(args.shipGUID)
-    local posrot = {pos=args.proxy.getPosition(), rot=args.proxy.getRotation()}
-    local info = {size=ship.getTable("Data").Size, code="dummy", type=""}
-    local fullFunc = function(info,ship) return posrot end
-    result = MoveModule.MoveProbe.TryFullMove(info, ship, fullFunc)
+    local move_code = args.move_code
+    MoveModule.PerformMove(move_code, ship)
 
-    MoveModule.MoveShip(ship, {finPos=posrot})
     for k, proxy in pairs( ShipProxyModule.proxyTable[args.shipGUID]) do
         if proxy ~= nil then
             proxy.destruct()
@@ -194,7 +206,7 @@ ShipProxyModule.proxyModels = {
     },
 }
 
-ShipProxyModule.spawnProxy = function(ship, hide, finpos, tint, script)
+ShipProxyModule.spawnProxy = function(ship, hide, finpos, didCollide, script, move_code)
     if hide and ShipProxyModule.hiddenShips[ship.getGUID()] ~= nil then
         return
     end
@@ -214,12 +226,26 @@ ShipProxyModule.spawnProxy = function(ship, hide, finpos, tint, script)
         collider = ShipProxyModule.proxyModels.collider[size],
         mesh = ShipProxyModule.proxyModels.model[size],
     })
-    proxy.setColorTint(tint)
+
+    local defaultColor = {}
+    local hoverColor = {}
+    if didCollide then
+        defaultColor = color(1.0, 0.3, 0.3, 0.1)
+        hoverColor = color(1.0, 1.0, 0.5, 0.5)
+    else
+       defaultColor = color(0.3, 0.3, 1.0, 0.1)
+       hoverColor = color(0.5,1.0,0.5,0.5)
+    end
+    proxy.setColorTint(defaultColor)
+    proxy.setTable("defaultColor", defaultColor)
+    proxy.setTable("hoverColor", hoverColor)
+
     proxy.setLock(true)
     proxy.setLuaScript(ShipProxyModule.proxyScripts[script])
     proxy.UI.setXml(ShipProxyModule.proxyXmlGui[script])
     proxy.setVar("shipGUID", ship.getGUID())
     proxy.setVar("size", size)
+    proxy.setVar("move_code", move_code)
 
     if hide then
         ShipProxyModule.hiddenShips[ship.getGUID()] = ship.getPosition()
