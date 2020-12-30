@@ -2881,7 +2881,6 @@ MoveData.DecodeInfo = function (move_code, ship)
         if move_code:sub(2,2) == 'l' or move_code:sub(2,2) == 'e' then
             info.dir = 'left'
         end
-        info.collNote = 'tried barrel rolling ' .. info.dir
         info.speed = tonumber(move_code:sub(3,3))
         info.traits.full = true
         info.traits.part = false
@@ -6371,8 +6370,8 @@ function initContextMenu()
     end
 
     self.AddContextMenuItem("Mark ship", function(argument) Global.call("MarkShip", {ship=self}) end, false)
-    --self.AddContextMenuItem("Start BR Left", function(argument) Global.call("StartBarrelRoll", {ship=self, direction="left"}) end, false)
-    --self.AddContextMenuItem("Start BR Right", function(argument) Global.call("StartBarrelRoll", {ship=self, direction="right"}) end, false)
+    self.AddContextMenuItem("Start BR Left", function(argument) Global.call("StartBarrelRoll", {ship=self, direction="left"}) end, false)
+    self.AddContextMenuItem("Start BR Right", function(argument) Global.call("StartBarrelRoll", {ship=self, direction="right"}) end, false)
 
 
 end
@@ -6542,6 +6541,7 @@ function GetAssignedMounts()
     for mount, _ in pairs(assigned_arc_indicators) do
         table.insert(assigned_mounts, mount)
     end
+
     return assigned_mounts
 end
 
