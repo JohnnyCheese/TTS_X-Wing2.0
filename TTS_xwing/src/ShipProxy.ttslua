@@ -139,36 +139,56 @@ end
 function StartBarrelRoll(args)
     local ship = args.ship
     local direction = args.direction
-
-    local offsets = {}
+    local code = ''
     if direction == "right" then
-        offsets = {'rr1', 'rr2', 'rr3'}
-    elseif args.direction == "left" then
-        offsets = {'rl1', 'rl2', 'rl3'}
+        code = 'rr'
+    elseif direction == "left" then
+        code = 'rl'
     end
+    local offsets = { code .. '1', code .. '2', code .. '3' }
 
+    local collide = true
     for i, v in ipairs(offsets) do
-        local info = MoveData.DecodeInfo(v, ship)
-        local finalPos = MoveModule.GetFinalPosData(v, ship)
-        local templateData = {
-            origin = ship.getPosition(),
-            orientation = ship.getRotation(),
-            dir = info.dir,
-            speed = info.speed,
-            type = info.type,
-            shipSize = info.size,
-            extra = info.extra
-        }
-
-        local collisions = MoveModule.CheckMineAndObstacleCollisions(ship, finalPos.finPos, false, templateData)
-
-        local didCollide = false
-        if collisions[1] ~= nil then
-            didCollide = true
+        local result = ShipProxyModule.CreateMoveProxy(v, ship)
+        if result ~= 'overlap' then
+            collide = false
         end
-
-        ShipProxyModule.spawnProxy(ship, false, finalPos.finPos, didCollide, "finalPos", v)
     end
+
+    if collide then
+        local info = MoveData.DecodeInfo(code, ship)
+        local annInfo = {type='overlap', note=info.collNote, code=info.code}
+        AnnModule.Announce(annInfo, 'all', ship)
+    end
+end
+
+ShipProxyModule.CreateMoveProxy = function(move_code, ship)
+    local info = MoveData.DecodeInfo(move_code, ship)
+    local finalPos = MoveModule.GetFinalPosData(move_code, ship)
+
+    if finalPos.finType == 'overlap' then
+        return finalPos.finType
+    end
+
+    local templateData = {
+        origin = ship.getPosition(),
+        orientation = ship.getRotation(),
+        dir = info.dir,
+        speed = info.speed,
+        type = info.type,
+        shipSize = info.size,
+        extra = info.extra
+    }
+
+    local collisions = MoveModule.CheckMineAndObstacleCollisions(ship, finalPos.finPos, false, templateData)
+
+    local didCollide = false
+    if collisions[1] ~= nil then
+        didCollide = true
+    end
+
+    ShipProxyModule.spawnProxy(ship, false, finalPos.finPos, didCollide, "finalPos", move_code)
+    return finalPos.finType
 end
 
 function SelectFinalPos(args)
