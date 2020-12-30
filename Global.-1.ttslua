@@ -6370,8 +6370,8 @@ function initContextMenu()
     end
 
     self.AddContextMenuItem("Mark ship", function(argument) Global.call("MarkShip", {ship=self}) end, false)
-    --self.AddContextMenuItem("Start BR Left", function(argument) Global.call("StartBarrelRoll", {ship=self, direction="left"}) end, false)
-    --self.AddContextMenuItem("Start BR Right", function(argument) Global.call("StartBarrelRoll", {ship=self, direction="right"}) end, false)
+    self.AddContextMenuItem("Start BR Left", function(argument) Global.call("StartBarrelRoll", {ship=self, direction="left"}) end, false)
+    self.AddContextMenuItem("Start BR Right", function(argument) Global.call("StartBarrelRoll", {ship=self, direction="right"}) end, false)
 
 
 end
@@ -6541,6 +6541,7 @@ function GetAssignedMounts()
     for mount, _ in pairs(assigned_arc_indicators) do
         table.insert(assigned_mounts, mount)
     end
+
     return assigned_mounts
 end
 

@@ -87,8 +87,6 @@ end
 
 ShipProxyModule.proxyScripts.finalPos = [[
 
-defaultColor = color(0.3,0.3,1.0,0.1)
-hoverColor = color(0.5,1.0,0.5,0.3)
 sizeScale = {
     small = {width = 1, height = 1},
     medium = {width = 1.5, height = 1.5},
@@ -113,12 +111,13 @@ function onHoverLeave(player)
 end
 
 function select(player)
-    Global.call("SelectFinalPos", {shipGUID = self.getVar("shipGUID"), proxy = self})
+    Global.call("SelectFinalPos", {shipGUID = shipGUID, proxy = self, move_code = move_code})
 end
 ]]
 
 function MarkShip(args)
-    ShipProxyModule.spawnProxy(args.ship, true, nil, color(0,0.1,1,0.2), "markShip")
+    local finpos = { pos = args.ship.getPosition(), rot = args.ship.getRotation() }
+    ShipProxyModule.spawnProxy(args.ship, true, finpos, false, "markShip")
 end
 
 function UnMarkShip(args)
@@ -138,22 +137,65 @@ function UnMarkShip(args)
 end
 
 function StartBarrelRoll(args)
-    local size = args.ship.getTable('Data').Size or "small"
-    local positionOffset = ShipProxyModule.barrelRollOffset[size]:copy()
-    if args.direction == "right" then
-        positionOffset.x = -positionOffset.x
+    local ship = args.ship
+    local direction = args.direction
+    local code = ''
+    if direction == "right" then
+        code = 'rr'
+    elseif direction == "left" then
+        code = 'rl'
     end
-    ShipProxyModule.StartFinalPositionSelection(args.ship, positionOffset)
+    local offsets = { code .. '1', code .. '2', code .. '3' }
+
+    local collide = true
+    for i, v in ipairs(offsets) do
+        local result = ShipProxyModule.CreateMoveProxy(v, ship)
+        if result ~= 'overlap' then
+            collide = false
+        end
+    end
+
+    if collide then
+        local info = MoveData.DecodeInfo(code, ship)
+        local annInfo = {type='overlap', note=info.collNote, code=info.code}
+        AnnModule.Announce(annInfo, 'all', ship)
+    end
+end
+
+ShipProxyModule.CreateMoveProxy = function(move_code, ship)
+    local info = MoveData.DecodeInfo(move_code, ship)
+    local finalPos = MoveModule.GetFinalPosData(move_code, ship)
+
+    if finalPos.finType == 'overlap' then
+        return finalPos.finType
+    end
+
+    local templateData = {
+        origin = ship.getPosition(),
+        orientation = ship.getRotation(),
+        dir = info.dir,
+        speed = info.speed,
+        type = info.type,
+        shipSize = info.size,
+        extra = info.extra
+    }
+
+    local collisions = MoveModule.CheckMineAndObstacleCollisions(ship, finalPos.finPos, false, templateData)
+
+    local didCollide = false
+    if collisions[1] ~= nil then
+        didCollide = true
+    end
+
+    ShipProxyModule.spawnProxy(ship, false, finalPos.finPos, didCollide, "finalPos", move_code)
+    return finalPos.finType
 end
 
 function SelectFinalPos(args)
     local ship = getObjectFromGUID(args.shipGUID)
-    local posrot = {pos=args.proxy.getPosition(), rot=args.proxy.getRotation()}
-    local info = {size=ship.getTable("Data").Size, code="dummy", type=""}
-    local fullFunc = function(info,ship) return posrot end
-    result = MoveModule.MoveProbe.TryFullMove(info, ship, fullFunc)
+    local move_code = args.move_code
+    MoveModule.PerformMove(move_code, ship)
 
-    MoveModule.MoveShip(ship, {finPos=posrot})
     for k, proxy in pairs( ShipProxyModule.proxyTable[args.shipGUID]) do
         if proxy ~= nil then
             proxy.destruct()
@@ -184,16 +226,15 @@ ShipProxyModule.proxyModels = {
     },
 }
 
-ShipProxyModule.spawnProxy = function(ship, hide, offset, tint, script)
+ShipProxyModule.spawnProxy = function(ship, hide, finpos, didCollide, script, move_code)
     if hide and ShipProxyModule.hiddenShips[ship.getGUID()] ~= nil then
         return
     end
 
-    local offset = Vect.RotateDeg(offset or vector(0,0,0), ship.GetRotation().y)
     local proxy = spawnObject({
       type              = "Custom_Model",
-      position          = ship.getPosition() + vector(offset[1],offset[2],offset[3]),
-      rotation          = ship.getRotation(),
+      position          = finpos.pos,
+      rotation          = finpos.rot,
       scale             = ship.getScale(),
       sound             = false,
       snap_to_grid      = false,
@@ -205,12 +246,26 @@ ShipProxyModule.spawnProxy = function(ship, hide, offset, tint, script)
         collider = ShipProxyModule.proxyModels.collider[size],
         mesh = ShipProxyModule.proxyModels.model[size],
     })
-    proxy.setColorTint(tint)
+
+    local defaultColor = {}
+    local hoverColor = {}
+    if didCollide then
+        defaultColor = color(1.0, 0.3, 0.3, 0.1)
+        hoverColor = color(1.0, 1.0, 0.5, 0.5)
+    else
+       defaultColor = color(0.3, 0.3, 1.0, 0.1)
+       hoverColor = color(0.5,1.0,0.5,0.5)
+    end
+    proxy.setColorTint(defaultColor)
+    proxy.setTable("defaultColor", defaultColor)
+    proxy.setTable("hoverColor", hoverColor)
+
     proxy.setLock(true)
     proxy.setLuaScript(ShipProxyModule.proxyScripts[script])
     proxy.UI.setXml(ShipProxyModule.proxyXmlGui[script])
     proxy.setVar("shipGUID", ship.getGUID())
     proxy.setVar("size", size)
+    proxy.setVar("move_code", move_code)
 
     if hide then
         ShipProxyModule.hiddenShips[ship.getGUID()] = ship.getPosition()
