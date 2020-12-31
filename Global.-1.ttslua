@@ -5165,7 +5165,7 @@ function proxyPerformAction(table)
     ship = table[1]
     actionType = table[2]
     playerColor = table[3]
-    args = {remove= (table[4] or false)}
+    args = table[4] or {}
     DialModule.PerformAction(ship, actionType, playerColor, args)
 end
 
@@ -5197,7 +5197,7 @@ DialModule.PerformAction = function(ship, type, playerColor, args)
       DialModule.DeleteTemplate(ship)
       return
     elseif type:find'rotate' ~= nil then
-      ship.call("RotateAttachedArcIndicator", {direction=type})
+      ship.call("RotateAttachedArcIndicator", {direction=type, mount = args.mount})
       return
     elseif tokenActions:find(' ' .. type .. ' ') ~= nil then
         if args ~= nil and args.remove == true then
@@ -6263,24 +6263,6 @@ function onObjectSpawned(obj)
     obj.hide_when_face_down = false
 end
 
--- Positions for arc indicator tokens around the ship mounts
--- Used so arc indicators can snap to the relevant positions
-mountPositions = {
-    small = {
-        main = {0, 0}
-    },
-   medium  = {
-        main = {0, 0}
-    },
-    large = {
-        main = {0, 0}
-    },
-    huge = {
-        front = {0, -2.63},
-        rear = {0, 2.63}
-    }
-}
-
 mountRotations = {
   front = vector(0,0,0),
   left = vector(0,-90,0),
@@ -6456,7 +6438,7 @@ function RotateAttachedArcIndicator(args)
 end
 
 function GetAvailableMountPositions(args)
-    local mount_positions = Global.getTable('mountPositions')[self.getTable("Data").Size]
+    local mount_positions = self.getTable('Data').mountingPoints or {main = {0, 0} }
 
     for location, _ in pairs(assigned_arc_indicators) do
         mount_positions[location] = nil

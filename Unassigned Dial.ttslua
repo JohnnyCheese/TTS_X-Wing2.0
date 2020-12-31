@@ -546,14 +546,14 @@ function focusTok(p,id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Focus', playerColor, id ~= '-1'})
+    Global.call('proxyPerformAction', {assignedShip, 'Focus', playerColor, {remove = id ~= '-1'} })
 end
 
 function evadeTok(p,id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Evade', playerColor, id ~= '-1'})
+    Global.call('proxyPerformAction', {assignedShip, 'Evade', playerColor, {remove = id ~= '-1'} })
 end
 
 function tlTok(p, id)
@@ -569,70 +569,70 @@ function tractorTok(p,id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Tractor', playerColor, id ~= '-1'})
+    Global.call('proxyPerformAction', {assignedShip, 'Tractor', playerColor, {remove = id ~= '-1'} })
 end
 
 function jamTok(p,id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Jam', playerColor, id ~= '-1'})
+    Global.call('proxyPerformAction', {assignedShip, 'Jam', playerColor, {remove = id ~= '-1'} })
 end
 
 function disarmTok(p,id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Disarm', playerColor, id ~= '-1'})
+    Global.call('proxyPerformAction', {assignedShip, 'Disarm', playerColor, {remove = id ~= '-1'} })
 end
 
 function cloakTok(p,id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Cloak', playerColor, id ~= '-1'})
+    Global.call('proxyPerformAction', {assignedShip, 'Cloak', playerColor, {remove = id ~= '-1'} })
 end
 
 function calcTok(p,id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Calculate', playerColor, id ~= '-1'})
+    Global.call('proxyPerformAction', {assignedShip, 'Calculate', playerColor, {remove = id ~= '-1'} })
 end
 
 function reinforceTok(p,id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Reinforce', playerColor, id ~= '-1'})
+    Global.call('proxyPerformAction', {assignedShip, 'Reinforce', playerColor, {remove = id ~= '-1'} })
 end
 
 function stressTok(p,id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Stress', playerColor, id ~= '-1'})
+    Global.call('proxyPerformAction', {assignedShip, 'Stress', playerColor, {remove = id ~= '-1'} })
 end
 
 function strainTok(p,id)
   if spectReturn(p) == true then
       return
   end
-  Global.call('proxyPerformAction', {assignedShip, 'Strain', playerColor, id ~= '-1'})
+  Global.call('proxyPerformAction', {assignedShip, 'Strain', playerColor, {remove = id ~= '-1'} })
 end
 
 function depleteTok(p,id)
   if spectReturn(p) == true then
       return
   end
-  Global.call('proxyPerformAction', {assignedShip, 'Deplete', playerColor, id ~= '-1'})
+  Global.call('proxyPerformAction', {assignedShip, 'Deplete', playerColor, {remove = id ~= '-1'} })
 end
 
 function ionTok(p,id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Ion', playerColor, id ~= '-1'})
+    Global.call('proxyPerformAction', {assignedShip, 'Ion', playerColor, {remove = id ~= '-1'} })
 end
 
 reposCommands = {

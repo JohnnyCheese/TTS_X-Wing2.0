@@ -1122,6 +1122,7 @@ masterShipDB[90]={
     Energy = 7,
     size = 'huge',
     agi = 0,
+    mountingPoints = { front = {0, -2.63}, rear = {0, 2.63} },
     Fac = {[1]=true, [6]=true},
     arcs = {'left','right'},
     moveSet = {'rbl0','rs0','rbr0','wbl1','ws1','wbr1','bbl2','bs2','bbr2','rbl3','bs3','rbr3','rs4','rs5'},
@@ -1135,6 +1136,7 @@ masterShipDB[91]={
     Energy = 4,
     size = 'huge',
     agi = 0,
+    mountingPoints = { front = {0, -2.63}, rear = {0, 2.63} },
     Fac = {[3]=true, [7]=true},
     arcs = {'front'},
     moveSet = {'rbl0','rs0','rbr0','wbl1','bs1','wbr1','wbl2','bs2','wbr2','rbl3','ws3','rbr3','rs4','rs5'},
@@ -1148,6 +1150,7 @@ masterShipDB[92]={
     Energy = 3,
     size = 'huge',
     agi = 0,
+    mountingPoints = { front = {0, -2.05}, rear = {0, 2.05} },
     Fac = {[2]=true, [5]=true},
     arcs = {'front'},
     moveSet = {'rbl0','rs0','rbr0','wbl1','bs1','wbr1','rbl2','bs2','rbr2','bs3','rs4'},
@@ -1161,6 +1164,7 @@ masterShipDB[93]={
     Energy = 4,
     size = 'huge',
     agi = 0,
+    mountingPoints = { front = {0, -2.05}, rear = {0, 2.05} },
     Fac = {[1]=true, [4]=true},
     arcs = {'front'},
     moveSet = {'rbl0','rs0','rbr0','bbl1','bs1','bbr1','wbl2','ws2','wbr2','rs3','rs4'},
@@ -1174,6 +1178,7 @@ masterShipDB[94]={
     Energy = 6,
     size = 'huge',
     agi = 0,
+    mountingPoints = { front = {0, -2.63}, rear = {0, 2.63} },
     Fac = {[2]=true, [5]=true},
     arcs = {'fullfront'},
     moveSet = {'rbl0','rs0','rbr0','bbl1','ws1','bbr1','wbl2','bs2','wbr2','rbl3','bs3','rbr3','ws4','rs5'},
@@ -9932,10 +9937,12 @@ function idSpawner(idTable)
         fList.Pilots[k].Data.shipId = Ship
         fList.Pilots[k].Data.initiative = masterPilotDB[v].init
         fList.Pilots[k].Data.moveSet = masterShipDB[Ship].moveSet
+        fList.Pilots[k].Data.mountingPoints = masterShipDB[Ship].mountingPoints
         fList.Pilots[k].Data.arcs = masterShipDB[Ship].arcs
         fList.Pilots[k].Data.actSet = masterPilotDB[v].actSet
         fList.Pilots[k].Data.executeOptions = masterPilotDB[v].executeOptions or {}
         fList.Pilots[k].Data.movethrough = masterPilotDB[v].movethrough or false
+
         if masterPilotDB[v].sqdExecuteOptions ~= nil then
             table.insert(fList.SqdExecOptions, masterPilotDB[v].sqdExecuteOptionss )
         end
@@ -11539,72 +11546,6 @@ function setUp3()
     currSlot = nil
     currIndex = nil
     uChecker()
-end
-
-variableCostSizeDB={}
-variableCostSizeDB['engine upgrade'] = { Small = 3, Medium = 6, Large = 9}
-variableCostSizeDB['expert handling'] = { Small = 2, Medium = 3, Large = 4}
-
-variableCostAgiDB={}
-variableCostAgiDB['hull upgrade'] = {[0] = 3,[1] = 4,[2] = 6,[3] = 8}
-variableCostAgiDB['shield upgrade'] = {[0] = 3,[1] = 4,[2] = 6,[3] = 8}
-variableCostAgiDB['stealth device'] = {[0] = 3,[1] = 4,[2] = 6,[3] = 8}
-
--- This function reads the list and informs the point cost of each ship, as well as the total point cost of the list, and offers the option either to cancel (and restorat) or to spawn the list.
-function spawnCaller(arg)
-    self.clearButtons()
-    local aux = 0
-    local auxB= 0
-    local index = 1
-    local cost = {}
-    totalCost=0
-    self.createButton({click_function = 'spawnProxy', function_owner = self, label = 'Spawn', position = {0,0.45,-0.4}, width = 1200, height = 380, font_size = 180, scale = {0.25,0.25,0.25}})
-    for i, pilot in ipairs(arg.Pilots) do
-        for k, pilots in pairs(shipPilotsDB[arg.Faction][arg.Ship[i]]) do
-            if string.lower(pilot) == string.lower(k) then
-                cost[i] = pilots.Cost
-            end
-        end
-        for k, ups in ipairs(arg.Upgrades[index]) do
-            for x, slot in pairs(UpDB[arg.Faction]) do
-                for z, up in pairs(UpDB[arg.Faction][x]) do
-                    if string.lower(z) == string.lower(ups) then
-                        cost[i] = cost[i]+up
-                    end
-                end
-            end
-            if variableCostSizeDB[string.lower(ups)] ~= nil then
-                local size = shipPilotsDB[arg.Faction][arg.Ship[index] ].Base
-                cost[i] = cost[i]+variableCostSizeDB[string.lower(ups)][size]
-            elseif variableCostAgiDB[string.lower(ups)] ~= nil then
-                local agi = shipPilotsDB[arg.Faction][arg.Ship[index] ].Agility
-                cost[i] = cost[i]+variableCostAgiDB[string.lower(ups)][agi]
-            else
-                for x, slot in pairs(UpDB.Neu) do
-                    for z, up in pairs(UpDB.Neu[x]) do
-                        if string.lower(z) == string.lower(ups) then
-                            cost[i] = cost[i]+up
-                        end
-                    end
-                end
-            end
-        end
-        self.createButton({click_function = 'Dummy', function_owner = self, label = arg.Pilots[i]..' ('..cost[i]..')', position = {-0.45+auxB*0.96,0.45,0.15*aux-0.2}, width = 1800, height = 250, font_size = 135, scale = {0.25,0.25,0.25}})
-        aux=aux+1
-        if aux>3 then
-            aux=0
-            auxB=1
-        end
-        index=index+1
-        totalCost=totalCost+cost[i]
-    end
-    self.createButton({click_function = 'Dummy', function_owner = self, label = 'Total Cost ('..totalCost..')', position = {0,0.45,0.6}, width = 1800, height = 250, font_size = 150, scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'initiate', function_owner = self, label = 'Cancel', position = {0.5,0.45,0.75}, width = 1800, height = 250, font_size = 150, scale = {0.25,0.25,0.25}})
-
-end
-
-function spawnProxy()
-    spawnNow(finalList)
 end
 
 -- Calls the newSpawner, wich will set up a propper postition for the spawning ships (POSITION NEEDS TO BE REFERCENCED TO SELF, NOT GLOBAL)

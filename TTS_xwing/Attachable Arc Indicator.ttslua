@@ -40,11 +40,15 @@ function onDropped()
         self.setDescription(nearest_mount)
         self.setPosition(nearest_mount_position + vector(0,0.15,0))
         nearest.call("AttachArcIndicator", {indicator=self, mount = nearest_mount})
+        local mount_name = ""
+        if mount ~= "main" then
+          mount_name = " " .. nearest_mount
+        end
         if double_arc then
-          nearest.AddContextMenuItem("Rotate arc", function(player_color) Global.call("proxyPerformAction", {nearest, 'rotateright', player_color}) end, false)
+          nearest.AddContextMenuItem("Rotate arc" .. mount_name, function(player_color) Global.call("proxyPerformAction", {nearest, 'rotateright', player_color, {mount = nearest_mount} }) end, false)
         else
-          nearest.AddContextMenuItem("Rotate arc left", function(player_color) Global.call("proxyPerformAction", {nearest, 'rotateleft', player_color}) end, false)
-          nearest.AddContextMenuItem("Rotate arc right", function(player_color) Global.call("proxyPerformAction", {nearest, 'rotateright', player_color}) end, false)
+          nearest.AddContextMenuItem("Rotate arc left" .. mount_name, function(player_color) Global.call("proxyPerformAction", {nearest, 'rotateleft', player_color, {mount = nearest_mount}}) end, false)
+          nearest.AddContextMenuItem("Rotate arc right" .. mount_name, function(player_color) Global.call("proxyPerformAction", {nearest, 'rotateright', player_color, {mount = nearest_mount}}) end, false)
         end
         --self.setRotation(nearest.getRotation())
         nearest.addAttachment(self)
