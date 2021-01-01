@@ -10072,7 +10072,7 @@ function idSpawner(idTable)
                 --fList.Pilots[k].bombD = fList.Pilots[k].bombD ..  ':s2:tr2:te2:be2:br2'
             elseif value == 255 then  -- Trajectory Simulator special drop
                 fList.Pilots[k].bombD = fList.Pilots[k].bombD ..  ':s5r'
-            elseif value == 715 then -- Thermal Detinators
+            elseif value == 864 then -- Thermal Detinators
                 if Ship == 19 then -- TIE Bomber special drops
                     fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':be2:s2:br2'
                 else
