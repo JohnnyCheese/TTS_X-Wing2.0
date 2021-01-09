@@ -27,7 +27,7 @@ function M.update()
             text = "Enable " .. v.text
         end
 
-        obj.addContextMenuItem(text, || v.func(not value) )
+        obj.addContextMenuItem(text, || v.func(not value))
     end
 end
 

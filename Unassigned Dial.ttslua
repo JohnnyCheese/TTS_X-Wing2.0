@@ -1,4 +1,6 @@
-menu = require("TTS_xwing/src/Dial/Menu")
+menu   = require("TTS_xwing/src/Dial/Menu")
+button = require("TTS_xwing/src/Dial/Button")
+proxy  = require("TTS_xwing/src/Dial/Proxy")
 
 -- ~~~~~~
 -- Script by dzikakulka
@@ -23,6 +25,7 @@ opencolor = "#555555"
 closedcolor = "#222222"
 
 clickMode = nil
+proxyMode = nil
 finished_setup = true
 
 -- Save self state
@@ -30,7 +33,9 @@ function onSave()
     if assignedShip ~= nil then
         local state = {assignedShipGUID=assignedShip.getGUID(),
                         owningPlayer=playerColor,
-                        clickMode = clickMode}
+                        clickMode = clickMode,
+                        proxyMode = proxyMode,
+                    }
         return JSON.encode(state)
     end
 end
@@ -54,6 +59,7 @@ function onLoad(savedData)
     if savedData ~= nil then
         state = JSON.decode(savedData)
         clickMode = state.clickMode
+        proxyMode = state.proxyMode
         --savedShip = getObjectFromGUID(state.assignedShipGUID)
         --playerColor = state.owningPlayer
         --if savedShip ~= nil then
@@ -62,6 +68,7 @@ function onLoad(savedData)
     end
 
     menu.addToggleItem("clickMode", "click mode", toggleClickMode)
+    menu.addToggleItem("proxyMode", "proxy mode", toggleProxyMode)
     menu.update()
 end
 
@@ -101,8 +108,6 @@ function onUpdate()
                 if finished_setup then
                     self.UI.show("CenterFD")
                 else
-                    self.UI.setAttribute("Setup", "rotation", "180 180 180")
-                    self.UI.setAttribute("Setup", "position", "0 0 -25")
                     self.UI.show('Setup')
                 end
             end
@@ -114,12 +119,13 @@ function onUpdate()
                 if finished_setup then
                     self.UI.show("CenterFU")
                 else
-                    self.UI.setAttribute("Setup", "rotation", "0 180 0")
-                    self.UI.setAttribute("Setup", "position", "0 0 0")
                     self.UI.show('Setup')
                 end
             end
         end
+
+        button.setAttributeFacing("Setup", faceStat or "Down")
+        button.setAttributeFacing("proxyPanel", faceStat or "Down")
     end
 end
 
@@ -243,7 +249,7 @@ function Undo(p)
     end
     assignedShip.setDescription("q")
     self.UI.setAttribute("UndoBtn", "active", "false")
-    if setMan:sub(-1,-1) ~='t' then
+    if setMan:sub(-1,-1) ~='t' or proxyMode then
         self.UI.setAttribute("MoveBtn", "active", "true")
         self.UI.setAttribute("MoveBtn", "textColor", "#FFFFFF")
     else
@@ -323,7 +329,19 @@ function performMove(P)
         if exOptions[curMan] ~= nil and exOptSelected == false then
             setupAlternateExecutionPanel(P, exOptions[curMan])
         elseif setMan:sub(-1,-1) == 't' then
-            self.UI.show("TalonPanel")
+            if proxyMode then
+                proxy_settings = {
+                    ship_guid   = assignedShip.getGUID(),
+                    move_code   = setMan,
+                    offsets     = {front = 'ft', center = 't', back = 'bt'},
+                    button_func = button.setProxyState,
+                }
+                proxy.spawn(proxy_settings)
+                exOptSelected = false
+                setDial(P)
+            else
+                self.UI.show("TalonPanel")
+            end
         else
             self.UI.setAttribute("UndoBtn", "active", "true")
             self.UI.setAttribute("UndoBtn", "textColor", "#FFFFFF")
@@ -408,6 +426,8 @@ function assignShip(ship)
     self.UI.setAttribute("CenterFU", "active", "true")
     self.UI.setAttribute("arcPanel", "active", "true")
     self.UI.setAttribute("tokenPanel", "active", "true")
+    self.UI.setAttribute("proxyPanel", "active", "true")
+    self.UI.hide("proxyPanel")
     self.UI.setAttribute("relocPanel", "active", "true")
     self.UI.setAttribute("setManPeekPanel", "active", "true")
     assignedShip = ship
@@ -440,14 +460,7 @@ function assignShip(ship)
             self.UI.setAttribute("CloakBtn", 'active', 'true')
         elseif v == 'BR' then
             repos = true
-            self.UI.setAttribute("BarrelRightFD", "active", "true")
-            self.UI.setAttribute("BarrelLeftFD", "active", "true")
-            self.UI.setAttribute("BarrelRBtn", "active", "true")
-            self.UI.setAttribute("BarrelRFBtn", "active", "true")
-            self.UI.setAttribute("BarrelRBBtn", "active", "true")
-            self.UI.setAttribute("BarrelLBtn", "active", "true")
-            self.UI.setAttribute("BarrelLFBtn", "active", "true")
-            self.UI.setAttribute("BarrelLBBtn", "active", "true")
+            button.setBarrelRollState(proxyMode, true)
         elseif v == 'B' then
             repos = true
             self.UI.setAttribute("BoostFD", "active", "true")
@@ -673,7 +686,25 @@ function Repos(P, option, id)
     if (option ~= '-1') or (spectReturn(P) == true) then
         return
     end
-    assignedShip.setDescription(reposCommands[id] or "")
+
+    local move_code = reposCommands[id] or ""
+    if proxyMode and proxy.isProxyable(move_code) then
+        proxy_settings = {
+            ship_guid   = assignedShip.getGUID(),
+            move_code   = move_code,
+            offsets     = {front = '1', center = '2', back = '3'},
+            cancellable = true,
+            button_func = button.setProxyState,
+        }
+
+        proxy.spawn(proxy_settings)
+    else
+        assignedShip.setDescription(move_code)
+    end
+end
+
+function CancelProxy(player, option, id)
+    proxy.cancel(assignedShip.getGUID())
 end
 
 arcCommands = {
@@ -801,6 +832,14 @@ function toggleClickMode(enable)
     self.UI.setAttribute("arcPanel", "raycastTarget", not clickMode)
     self.UI.setAttribute("tokenPanel", "raycastTarget", not clickMode)
     self.UI.setAttribute("relocPanel", "raycastTarget", not clickMode)
+
+    menu.update()
+end
+
+function toggleProxyMode(enable)
+    proxyMode = enable
+
+    button.setBarrelRollState(proxyMode)
 
     menu.update()
 end
@@ -1006,3 +1045,4 @@ function deleteTemplate()
   Table={[1]=assignedShip,[2]='deleteMoveTemplate',[3]=playerColor}
   Global.call("proxyPerformAction",Table)
 end
+

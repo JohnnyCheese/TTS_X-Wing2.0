@@ -281,6 +281,58 @@
     </Panel>
 </Panel>
 
+<Panel id="proxyPanel"
+	active="false"
+	width="700"
+	height="150"
+	position="0 -265 -25"
+	color="#aaaaaa00"
+	showAnimation="FadeIn"
+	hideAnimation="FadeOut"
+	raycastTarget="true">
+	<VerticalLayout childAlignment="MiddleBottom"
+		childForceExpandHeight="false"
+		spacing="5">
+		<HorizontalLayout childAlignment="MiddleCenter"
+			childForceExpandWidth="false"
+			spacing="5">
+			<Button id="proxyFrontBtn"
+				class="RelocButtons"
+				active="false">
+				<Image id="TalonForIcon"
+					class="RIcon"
+					image="TalonFront"
+					preserveAspect="true"></Image>
+			</Button>
+			<Button id="proxyCenterBtn"
+				class="RelocButtons"
+				active="false">
+				<Image id="TalonMidIcon"
+					class="RIcon"
+					image="TalonMid"
+					preserveAspect="true"></Image>
+			</Button>
+			<Button id="proxyBackBtn"
+				class="RelocButtons"
+				active="false">
+				<Image id="TalonReaIcon"
+					class="RIcon"
+					image="TalonRear"
+					preserveAspect="true"></Image>
+			</Button>
+		</HorizontalLayout>
+		<Panel>
+			<Button id="proxyCancelBtn"
+				class="DarkButton"
+				onClick="CancelProxy"
+				height="60"
+				width="180"
+				rotation="0 0 180"
+				fontStyle="Bold">Cancel</Button>
+		</Panel>
+	</VerticalLayout>
+</Panel>
+
 <Panel id="relocPanel"
     active="false"
     width="700"

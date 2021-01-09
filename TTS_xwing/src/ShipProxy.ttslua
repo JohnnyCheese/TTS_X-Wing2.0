@@ -4,6 +4,52 @@
 --
 -- Module for handeling ship proxies, used in barrel rolls and more
 -- ~~~~~~
+local ShipProxyInstance = {
+    state        = nil,
+    proxy_table  = {},
+    proxy_status = {},
+}
+
+function ShipProxyInstance:new ()
+    o = {}
+    setmetatable(o, self)
+    self.__index = self
+
+    self.state = "init"
+    return o
+end
+
+function ShipProxyInstance:setActive ()
+    self.state = "active"
+end
+
+function ShipProxyInstance:ready ()
+    if not self.proxy_table then return false end
+
+    for position, proxy in pairs(self.proxy_table) do
+        if proxy.getGUID() ~= "" then return true end
+    end
+
+    return false
+end
+
+function ShipProxyInstance:add (position, proxy)
+    if not proxy then
+        return
+    end
+
+    self.proxy_table[position] = proxy
+end
+
+function ShipProxyInstance:destroy ()
+    self.state = "term"
+
+    for position, proxy in pairs(self.proxy_table) do
+        proxy.destruct()
+        self.proxy_table[position] = nil
+    end
+end
+
 ShipProxyModule = {}
 ShipProxyModule.proxyTable = {}
 ShipProxyModule.hiddenShips = {}
@@ -117,7 +163,10 @@ end
 
 function MarkShip(args)
     local finpos = { pos = args.ship.getPosition(), rot = args.ship.getRotation() }
-    ShipProxyModule.spawnProxy(args.ship, true, finpos, false, "markShip")
+    local proxy = ShipProxyModule.spawnProxy(args.ship, true, finpos, false, "markShip")
+
+    ShipProxyModule.proxyTable[args.ship.getGUID()] = ShipProxyModule.proxyTable[args.ship.getGUID()] or {}
+    table.insert(ShipProxyModule.proxyTable[args.ship.getGUID()], proxy)
 end
 
 function UnMarkShip(args)
@@ -128,12 +177,8 @@ function UnMarkShip(args)
         ship.interactable = true
         ShipProxyModule.hiddenShips[args.shipGUID] = nil
     end
-    for k, proxy in pairs( ShipProxyModule.proxyTable[args.shipGUID]) do
-        if proxy ~= nil then
-            proxy.destruct()
-        end
-    end
-     ShipProxyModule.proxyTable[args.shipGUID] = nil;
+    DeleteShipProxies({ship_guid = args.shipGUID})
+    ShipProxyModule.proxyTable[args.shipGUID] = nil;
 end
 
 function StartBarrelRoll(args)
@@ -149,9 +194,14 @@ function StartBarrelRoll(args)
 
     local collide = true
     for i, v in ipairs(offsets) do
-        local result = ShipProxyModule.CreateMoveProxy(v, ship)
+        local proxy, result = ShipProxyModule.CreateMoveProxy(v, ship)
         if result ~= 'overlap' then
             collide = false
+        end
+
+        if proxy then
+            ShipProxyModule.proxyTable[args.ship.getGUID()] = ShipProxyModule.proxyTable[args.ship.getGUID()] or {}
+            table.insert(ShipProxyModule.proxyTable[args.ship.getGUID()], proxy)
         end
     end
 
@@ -162,12 +212,59 @@ function StartBarrelRoll(args)
     end
 end
 
+local function executeFailure(move_code, ship, finType)
+    if finType == 'overlap' then
+        local info = MoveData.DecodeInfo(move_code:sub(1,-2), ship)
+        local annInfo = {type='overlap', note=info.collNote, code=info.code}
+        AnnModule.Announce(annInfo, 'all', ship)
+
+        return
+    end
+
+    MoveModule.PerformMove(move_code, ship)
+end
+
+function SpawnProxyOptions(args)
+    local ship       = getObjectFromGUID(args.ship_guid)
+    local move_codes = args.move_codes or {}
+    local base_position  = args.base_position or 'center'
+
+    local ok = nil
+    local finType = nil
+    local ship_proxies = ShipProxyInstance:new()
+    for position, move_code in pairs(move_codes) do
+        local proxy, finPos = ShipProxyModule.CreateMoveProxy(move_code, ship)
+        if finPos.finType == 'move' and finPos.finPart == 'max' then
+            ok = true
+        else
+            finType = finPos.finType
+        end
+
+        ship_proxies:add(position, proxy)
+    end
+
+    if not ok then
+        executeFailure(move_codes[base_position], ship, finType)
+
+        return nil, false
+    end
+
+    Wait.condition(|| ship_proxies:setActive(), || ship_proxies:ready())
+
+    ShipProxyModule.proxyTable[ship.getGUID()] = ShipProxyModule.proxyTable[ship.getGUID()] or {}
+    table.insert(ShipProxyModule.proxyTable[ship.getGUID()], ship_proxies)
+    return ship_proxies, true
+end
+
 ShipProxyModule.CreateMoveProxy = function(move_code, ship)
     local info = MoveData.DecodeInfo(move_code, ship)
     local finalPos = MoveModule.GetFinalPosData(move_code, ship)
 
     if finalPos.finType == 'overlap' then
-        return finalPos.finType
+        return nil, finalPos
+    end
+    if finalPos.finPart ~= 'max' then
+        return nil, finalPos
     end
 
     local templateData = {
@@ -187,8 +284,8 @@ ShipProxyModule.CreateMoveProxy = function(move_code, ship)
         didCollide = true
     end
 
-    ShipProxyModule.spawnProxy(ship, false, finalPos.finPos, didCollide, "finalPos", move_code)
-    return finalPos.finType
+    local proxy = ShipProxyModule.spawnProxy(ship, false, finalPos.finPos, didCollide, "finalPos", move_code)
+    return proxy, finalPos
 end
 
 function SelectFinalPos(args)
@@ -196,11 +293,7 @@ function SelectFinalPos(args)
     local move_code = args.move_code
     MoveModule.PerformMove(move_code, ship)
 
-    for k, proxy in pairs( ShipProxyModule.proxyTable[args.shipGUID]) do
-        if proxy ~= nil then
-            proxy.destruct()
-        end
-    end
+    DeleteShipProxies({ship_guid = args.shipGUID})
 end
 
 ShipProxyModule.StartFinalPositionSelection = function(ship, positionOffset)
@@ -208,6 +301,19 @@ ShipProxyModule.StartFinalPositionSelection = function(ship, positionOffset)
     local offset = ShipProxyModule.finalPosOffset[size]
     for k, off in pairs({offset, vector(0,0,0), vector(0,0,0)-offset}) do
         ShipProxyModule.spawnProxy(ship, false, positionOffset + off, color(0,0.1,1,0.2), "finalPos")
+    end
+end
+
+function DeleteShipProxies(args)
+    local ship_guid = args.ship_guid
+
+    for i = 1,table.size(ShipProxyModule.proxyTable[ship_guid]) do
+        local proxy = table.remove(ShipProxyModule.proxyTable[ship_guid])
+        if proxy.destroy then
+            proxy:destroy()
+        else
+            proxy.destruct()
+        end
     end
 end
 
@@ -278,6 +384,5 @@ ShipProxyModule.spawnProxy = function(ship, hide, finpos, didCollide, script, mo
         end
     end
 
-    ShipProxyModule.proxyTable[ship.getGUID()] = ShipProxyModule.proxyTable[ship.getGUID()] or {}
-    table.insert(ShipProxyModule.proxyTable[ship.getGUID()], proxy)
+    return proxy
 end
