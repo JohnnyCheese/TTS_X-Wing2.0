@@ -8917,7 +8917,7 @@ masterUpgradesDB[737]={
     card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/IonCannonBattery.png',
     cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/IonCannonBattery(Offline).png',
     restriction = {},
-    arcs = {turret = {name = 'ion cannon battery', range = 4, type = {'singleturret'}}}
+    arcs = {turret = {name = 'ion cannon', range = 4, type = {'singleturret'}}}
 }
 masterUpgradesDB[741]={
     name = "Ordnance Tubes",
@@ -8934,7 +8934,7 @@ masterUpgradesDB[743]={
     card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/PointDefenseBattery.png',
     cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/PointDefenseBattery(Offline).png',
     restriction = {},
-    arcs = {turret = {name = 'ion cannon battery', range = 2, type = {'doubleturret'}}}
+    arcs = {turret = {name = 'point defence', range = 2, type = {'doubleturret'}}}
 }
 masterUpgradesDB[739]={
     name = "Targeting Battery",
@@ -8943,7 +8943,7 @@ masterUpgradesDB[739]={
     card = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/TargetingBattery.png',
     cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/TargetingBattery(Offline).png',
     restriction = {},
-    arcs = {turret = {name = 'targeting battery', range = 5, type = {'singleturret'}}}
+    arcs = {turret = {name = 'targeting', range = 5, type = {'singleturret'}}}
 }
 masterUpgradesDB[745]={
     name = "Turbolaser Battery",
@@ -8954,7 +8954,7 @@ masterUpgradesDB[745]={
     restriction = {
         -- TODO: Add restriction energy 5 or higher
     },
-    arcs = {turret = {name = 'turbolaser battery', range = 5, type = {'singleturret'}}}
+    arcs = {turret = {name = 'turbolaser', range = 5, type = {'singleturret'}}}
 }
 -- Crew
 masterUpgradesDB[760]={
@@ -10022,10 +10022,10 @@ function idSpawner(idTable)
             end
             if masterUpgradesDB[value].arcs then
                 if masterUpgradesDB[value].arcs.fixed then
-                  fList.Pilots[k].Data.arcs.fixed = fList.Pilots[k].Data.arcs.fixed or {}
-                  for new_arc_idx, new_arc in pairs(masterUpgradesDB[value].arcs.fixed) do
+                  fList.Pilots[k].Data.arcs.fixed = fList.Pilots[k].Data.arcs.fixed or {name = 'primary', type = {}}
+                  for new_arc_idx, new_arc in pairs(masterUpgradesDB[value].arcs.fixed.type) do
                     local found = false
-                    for arc_idx, arc in pairs(fList.Pilots[k].Data.arcs.fixed) do
+                    for arc_idx, arc in pairs(fList.Pilots[k].Data.arcs.fixed.type) do
                       -- check if new arc allready in arc list
                       if arc == new_arc then
                         found = true
@@ -10033,7 +10033,7 @@ function idSpawner(idTable)
                     end
                     if not found then
                       -- new arc, insert into list
-                      table.insert(fList.Pilots[k].Data.arcs.fixed, arc)
+                      table.insert(fList.Pilots[k].Data.arcs.fixed.type, new_arc)
                     end
                   end
                 end

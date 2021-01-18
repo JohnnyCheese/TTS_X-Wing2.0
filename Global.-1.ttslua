@@ -231,6 +231,8 @@ XW_cmd.Process = function(obj, cmd)
         BombModule.ToggleDrop(obj, cmd)
     elseif type == 'AI' then
         AIModule.EnableAI(obj, cmd)
+    elseif type == 'rotate' then
+        DialModule.RotateArc(obj, cmd)
     end
     obj.setDescription('')
     return true
@@ -280,6 +282,7 @@ XW_cmd.AddCommand('s[12345]b', 'actionMove')    -- Boost straights
 XW_cmd.AddCommand('b[rle][123]b', 'actionMove') -- Boost banks
 XW_cmd.AddCommand('t[rle][123]b', 'actionMove') -- Boost turns
 XW_cmd.AddCommand('a[12]', 'actionMove')        -- Adjusts
+
 --XW_cmd.AddCommand('c[srle]', 'actionMove')      -- Decloaks side middle + straight
 --XW_cmd.AddCommand('c[rle][fb]', 'actionMove')   -- Decloaks side forward + backward
 --XW_cmd.AddCommand('ch[rle][fb]', 'actionMove')  -- Echo's bullshit
@@ -5193,12 +5196,6 @@ DialModule.PerformAction = function(ship, type, playerColor, args)
         else
             return
         end
-    elseif type:find('deleteMoveTemplate') ~= nil then
-      DialModule.DeleteTemplate(ship)
-      return
-    elseif type:find'rotate' ~= nil then
-      ship.call("RotateAttachedArcIndicator", {direction=type, mount = args.mount})
-      return
     elseif tokenActions:find(' ' .. type .. ' ') ~= nil then
         if args ~= nil and args.remove == true then
             local tokens = ship.call("GetTokens",{type=string.lower(type)})
@@ -5259,6 +5256,25 @@ DialModule.PerformAction = function(ship, type, playerColor, args)
     end
     AnnModule.Announce(announceInfo, 'all', ship)
 end
+
+DialModule.RotateCmd = {
+  rot = {direction = 'rotateleft', mount = 'main'},
+  rotl = {direction = 'rotateleft', mount = 'main'},
+  rotr = {direction = 'rotateright', mount = 'main'},
+  rot1 = {direction = 'rotateleft', mount = 'front'},
+  rotl1 = {direction = 'rotateleft', mount = 'front'},
+  rotr1 = {direction = 'rotateright', mount = 'front'},
+  rot2 = {direction = 'rotateleft',  mount = 'rear'},
+  rotl2 = {direction = 'rotateleft', mount = 'rear'},
+  rotr2 = {direction = 'rotateright', mount = 'rear'},
+}
+
+
+DialModule.RotateArc = function(ship, cmd)
+    ship.call("RotateAttachedArcIndicator", DialModule.RotateCmd[cmd])
+end
+
+
 
 -- Spawned tempaltes are kept there
 -- Entry: {ship=shipRef, template=templateObjRef}
@@ -5598,6 +5614,7 @@ XW_cmd.AddCommand('[fbs][lrfb]?a?', 'rulerHandle')  -- Rulers with arc lines
 XW_cmd.AddCommand('leftrighta?', 'rulerHandle')
 XW_cmd.AddCommand('frontbacka?', 'rulerHandle')
 XW_cmd.AddCommand('bulla?', 'rulerHandle')
+
 
 -- Translate ruler code to a mesh entry
 RulerModule.typeToKey = {}
@@ -6263,6 +6280,10 @@ function onObjectSpawned(obj)
     obj.hide_when_face_down = false
 end
 
+XW_cmd.AddCommand('rot[lr]?[12]?', 'rotate')
+
+
+
 mountRotations = {
   front = vector(0,0,0),
   left = vector(0,-90,0),
@@ -6324,6 +6345,12 @@ mountDirectionToArcs = {
   frontback = {"front", "back"},
 }
 
+mountToIndex = {
+  main = '',
+  front = '1',
+  rear = '2'
+}
+
 -- Save and load ship data lua scriptState
 saveAndLoadShipStateLua = [[
 
@@ -6336,11 +6363,23 @@ function initContextMenu()
           self.addContextMenuItem("FireArc - " .. Global.getTable('arcNames')[fixedarc] , function(argument) self.setDescription(Global.getTable('arcToCmnd')[fixedarc]) end, false)
         end
       elseif type == 'turret' then
-        for i, turret in pairs(arc) do
-          self.addContextMenuItem("FireArc - " .. turret.name , function(argument) self.setDescription('turret' .. tostring(i)) end, false)
+
+        for mount, turret in pairs(arc) do
+          local idx = Global.getTable('mountToIndex')[mount]
+          self.addContextMenuItem("FireArc - " .. turret.name , function(argument) self.setDescription('turret' .. idx) end, false)
+        end
+        for mount, turret in pairs(arc) do
+          local idx = Global.getTable('mountToIndex')[mount]
+          if turret.type[1] == 'doubleturret' then
+            self.addContextMenuItem("Rot - " .. turret.name , function(argument) self.setDescription('rot' ..  idx) end, false)
+          else
+            self.addContextMenuItem("Rot L - " .. turret.name , function(argument) self.setDescription('rotl' .. idx) end, false)
+            self.addContextMenuItem("Rot R - " .. turret.name , function(argument) self.setDescription('rotr' .. idx) end, false)
+          end
         end
       end
     end
+
 
     if Global.getVar('test_AI') then
         self.AddContextMenuItem("AI move and action", function(argument) Global.call("PerformAIManeuver", {['ship']=self, ['take_action']=true}) end, false)
