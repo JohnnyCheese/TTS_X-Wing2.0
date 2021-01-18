@@ -45,7 +45,9 @@ end
 -- Set function for external calls
 function manualSet(arg)
     set = true
-    self.setColorTint(colorTable[arg.color])
+    if arg.color then
+      self.setColorTint(colorTable[arg.color])
+    end
 end
 
 -- Tint on pick up

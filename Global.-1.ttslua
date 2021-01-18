@@ -1793,7 +1793,7 @@ ArcCheck.CalculateArcLineSegments = function(table, degree, size_w, size_l)
     local edge_arc = Vect.AngleDeg2D({-size_w, 0, size_l}, {size_w, 0,size_l})
     --print("Size_W:" .. tostring(size_w) .. " size_l:"..size_l .. " edge_arc=".. tostring(edge_arc))
     if size_w == size_l then -- Rectangular base sizes (small, medium and large ships)
-        print("Rectangular:".. tostring(size_w)..","..tostring(size_l))
+        --print("Rectangular:".. tostring(size_w)..","..tostring(size_l))
         local r = math.rad(degree/2)
         local a = math.tan(r) * size_l
         table.front =    {   segments={ {vector(-a, 0, size_l), vector(a, 0, size_l)} },-- Front segment
@@ -1816,7 +1816,7 @@ ArcCheck.CalculateArcLineSegments = function(table, degree, size_w, size_l)
                             }
 
     else -- Long base size (huge ships)
-        print("Long:".. tostring(size_w)..","..tostring(size_l))
+        --print("Long:".. tostring(size_w)..","..tostring(size_l))
         local r = math.rad(90 - degree/2)
         local a = math.tan(r) * size_w
         table.front =    {   segments={  {vector(-size_w, 0, a), vector(-size_w, 0, size_l)}, -- left segment
@@ -2364,7 +2364,6 @@ ArcCheck.VerifyBullseye = function(ship, target)
     local left = false
     local right = false
     local half_bullseye = (ArcCheck.bullseye_data.size[1]/2)
-    print("Half_bullseye = " .. tostring(half_bullseye))
 
     -- Translate target corners into ship object Space
     local size = Convert_mm_igu((mm_baseSize[target.getTable("Data").Size]/2))
@@ -2378,7 +2377,7 @@ ArcCheck.VerifyBullseye = function(ship, target)
     for _, target_corner in pairs(target_corners) do
         local world_corner = target_corner:rotateOver('y',t_rotation) + target.getPosition() - ship.getPosition()
         local local_corner = world_corner:rotateOver('y', - s_rotation)
-        print ("Local corner: " .. tostring(local_corner[1]) .. "," .. tostring(local_corner[2]) ..  "," .. tostring(local_corner[3]))
+        --print ("Local corner: " .. tostring(local_corner[1]) .. "," .. tostring(local_corner[2]) ..  "," .. tostring(local_corner[3]))
         if local_corner.x > -half_bullseye then
             right = true
         end
@@ -4903,6 +4902,7 @@ TokenModule.locksToBeSet = {}
 -- Callback to set ALL the locks in wueue
 function TokenModule_SetLocks()
     for k,info in pairs(TokenModule.locksToBeSet) do
+        print("lock: " .. tostring(info.lock))
         info.lock.call('manualSet', {color=info.color, name=info.name})
         info.lock.highlightOn({0,0,0}, 0.01)
 
@@ -6272,6 +6272,30 @@ mountRotations = {
   leftright = vector(0,90,0)
 }
 
+arcNames = {
+  front = "Front",
+  left = "Left",
+  back = "Back",
+  right = "Right",
+  frontback = "Front & Back",
+  leftright = "Left & Right",
+  fullfront = "Full Front",
+  fullback = "Full Back",
+  bull = "Bullseye",
+}
+
+arcToCmnd = {
+  front = "f",
+  left = "sl",
+  back = "b",
+  right = "sr",
+  frontback = "frontback",
+  leftright = "leftright",
+  fullfront = "ff",
+  fullback = "fb",
+  bull = "bull",
+}
+
 nextMountDirection = {
   rotateleft = {
     front = "left",
@@ -6291,59 +6315,31 @@ nextMountDirection = {
   }
 }
 
+mountDirectionToArcs = {
+  front = {"front"},
+  left = {"left"},
+  back = {"back"},
+  right = {"right"},
+  leftright = {"left","right"},
+  frontback = {"front", "back"},
+}
+
 -- Save and load ship data lua scriptState
 saveAndLoadShipStateLua = [[
 
 __XW_Ship = true
 
 function initContextMenu()
-    local added_arcs = {}
-    for k, arctype in pairs(self.getTable("Data").arcs) do
-        if arctype == 'doubleturret' then
-            self.addContextMenuItem("FireArc - Left & Right", function(argument) self.setDescription("leftright") end, false)
-            self.addContextMenuItem("FireArc - Front & Back", function(argument) self.setDescription("frontback") end, false)
-        elseif arctype == 'singleturret' then
-            if added_arcs.front == nil then
-                self.addContextMenuItem("FireArc - Front", function(argument) self.setDescription("f") end, false)
-                added_arcs.front = true
-            end
-            if added_arcs.back == nil then
-                self.addContextMenuItem("FireArc - Back", function(argument) self.setDescription("b") end, false)
-                added_arcs.back = true
-            end
-            if added_arcs.left == nil then
-                self.addContextMenuItem("FireArc - Left", function(argument) self.setDescription("sl") end, false)
-                added_arcs.left = true
-            end
-            if added_arcs.right == nil then
-                self.addContextMenuItem("FireArc - Right", function(argument) self.setDescription("sr") end, false)
-                added_arcs.right = true
-            end
-        elseif arctype == 'front' then
-            if added_arcs.front == nil then
-                self.addContextMenuItem("FireArc - Front", function(argument) self.setDescription("f") end, false)
-                added_arcs.front = true
-            end
-        elseif arctype == 'back' then
-            if added_arcs.back == nil then
-                self.addContextMenuItem("FireArc - Back", function(argument) self.setDescription("b") end, false)
-                added_arcs.back = true
-            end
-        elseif arctype == 'fullfront' then
-            self.addContextMenuItem("FireArc - Full Front", function(argument) self.setDescription("ff") end, false)
-        elseif arctype == 'bullseye' then
-            self.addContextMenuItem("FireArc - Bullseye", function(argument) self.setDescription("bull") end, false)
-        elseif arctype == 'left' then
-            if added_arcs.left == nil then
-                self.addContextMenuItem("FireArc - Left", function(argument) self.setDescription("sl") end, false)
-                added_arcs.left = true
-            end
-        elseif arctype == 'right' then
-            if added_arcs.right == nil then
-                self.addContextMenuItem("FireArc - Right", function(argument) self.setDescription("sr") end, false)
-                added_arcs.right = true
-            end
+    for type, arc in pairs(self.getTable("Data").arcs) do
+      if type == 'fixed' then
+        for i, fixedarc in pairs(arc.type or {}) do
+          self.addContextMenuItem("FireArc - " .. Global.getTable('arcNames')[fixedarc] , function(argument) self.setDescription(Global.getTable('arcToCmnd')[fixedarc]) end, false)
         end
+      elseif type == 'turret' then
+        for i, turret in pairs(arc) do
+          self.addContextMenuItem("FireArc - " .. turret.name , function(argument) self.setDescription('turret' .. tostring(i)) end, false)
+        end
+      end
     end
 
     if Global.getVar('test_AI') then
@@ -6383,36 +6379,42 @@ function GetTokens(args)
     return tokens
 end
 
-assigned_arc_indicators = {}
 arc_indicators = {}
-
-function AddArcIndicator(args)
-    assigned_arc_indicators[args.location] = args.indicator
-end
-
-function RemoveArcIndicator(args)
-    for location, indicator in pairs(assigned_arc_indicators) do
-        if indicator == args.indicator then
-            assigned_arc_indicators[location] = nil
-            break
-        end
-    end
-end
 
 function AttachArcIndicator(args)
     local turret_mount = args.mount or 'main'
     local default_direction = args.indicator.getVar("default_arc_direction") or 'front'
-    arc_indicators[turret_mount] = default_direction
+    arc_indicators[turret_mount] = {
+      arc = default_direction,
+      double_arc = args.indicator.getVar("double_arc") or false,
+      color_by_id = args.indicator.getVar("color_by_id") or false
+    }
     args.indicator.setDescription(turret_mount)
     args.indicator.setRotation(self.getRotation() + Global.getTable('mountRotations')[default_direction] or vector(0,0,0))
+    for i, attachment in pairs(self.getAttachments()) do
+      if (attachment.name == "Attachable Arc Indicator") and (attachment.description == turret_mount) then
+        id = self.removeAttachment(attachment.index)
+        destroyObject(id)
+      end
+    end
+end
+
+function DeleteArcIndicator(args)
+    local turret_mount = args.mount or 'main'
+    for i, attachment in pairs(self.getAttachments()) do
+      if (attachment.name == "Attachable Arc Indicator") and (attachment.description == turret_mount) then
+        id = self.removeAttachment(attachment.index)
+        destroyObject(id)
+      end
+    end
 end
 
 function GetNextValidRotation(mount, rotate_direction)
-  local direction = arc_indicators[mount]
-  local arcs = self.getTable('Data').arcs or {direction}
+  local direction = arc_indicators[mount].arc
+  local arcs = self.getTable('Data').arcs.turret[mount].type or {direction}
   for i = 1,4,1 do
     direction = Global.getTable('nextMountDirection')[rotate_direction][direction]
-    if direction == arc_indicators[mount] then
+    if direction == arc_indicators[mount].arc then
       return direction
     end
     for idx, arc in pairs(arcs) do
@@ -6421,7 +6423,7 @@ function GetNextValidRotation(mount, rotate_direction)
       end
     end
   end
-  return arc_indicators[mount]
+  return arc_indicators[mount].arc
 end
 
 function RotateAttachedArcIndicator(args)
@@ -6430,7 +6432,7 @@ function RotateAttachedArcIndicator(args)
     if (attachment.name == "Attachable Arc Indicator") and (attachment.description == turret_mount) then
       local next_direction = GetNextValidRotation(turret_mount, args.direction)
       id = self.removeAttachment(attachment.index)
-      arc_indicators[turret_mount] = next_direction
+      arc_indicators[turret_mount].arc = next_direction
       id.setRotation(self.getRotation() + Global.getTable('mountRotations')[next_direction] or vector(0,0,0))
       self.addAttachment(id)
     end
@@ -6440,9 +6442,6 @@ end
 function GetAvailableMountPositions(args)
     local mount_positions = self.getTable('Data').mountingPoints or {main = {0, 0} }
 
-    for location, _ in pairs(assigned_arc_indicators) do
-        mount_positions[location] = nil
-    end
     for i, attachment in pairs(self.getAttachments()) do
       if (attachment.name == "Attachable Arc Indicator") then
         mount_positions[attachment.description] = nil
@@ -6459,27 +6458,34 @@ function GetAvailableMountPositions(args)
         )
         mount_positions[location] = transformed_position
     end
-
     return mount_positions
 end
 
-function GetFixedArcs(args)
-    local fixed_arcs = {}
-    for _, arc in pairs(self.getTable("Data").arcs) do
-        if arc ~= 'doubleturret' and arc ~= 'singleturret' then
-            table.insert(fixed_arcs, arc)
-        end
-    end
+function GetMountingPosition(args)
+    local turret_mount = args.mount or 'main'
+    local mount_position = self.getTable('Data').mountingPoints[turret_mount] or {0,0}
+    local ship_position = self.getPosition()
+    local ship_rotation = math.rad(self.GetRotation().y) * -1
+    return vector(
+        ship_position.x + math.cos(ship_rotation) * mount_position[1] - math.sin(ship_rotation) * mount_position[2],
+        ship_position.y,
+        ship_position.z + math.sin(ship_rotation) * mount_position[1] + math.cos(ship_rotation) * mount_position[2]
+    )
+end
 
-    return fixed_arcs
+function GetFixedArcs(args)
+    local fixed = self.getTable("Data").arcs.fixed or {}
+    return fixed.type or {}
 end
 
 function GetAllTurretArcs(args)
     local turret_arcs = {}
-    for _, arc_indicator in pairs(assigned_arc_indicators) do
-        local new_turret_arcs = arc_indicator.call('getArcs')
-
+    -- For attached arc indicators
+    for _, arc_indicator in pairs(arc_indicators) do
+      --print("GetAllTurretArcs: arc_indicator " .. arc_indicator.arc)
+        local new_turret_arcs = Global.getTable("mountDirectionToArcs")[arc_indicator.arc] or {}
         for _, new_arc in pairs(new_turret_arcs) do
+            --print("GetAllTurretArcs arc " .. new_arc)
             local found = false
             for _, existing_arc in pairs(turret_arcs) do
                 if new_arc == existing_arc then
@@ -6520,46 +6526,52 @@ end
 
 function GetAssignedMounts()
     local assigned_mounts = {}
-    for mount, _ in pairs(assigned_arc_indicators) do
-        table.insert(assigned_mounts, mount)
+    for i, attachment in pairs(self.getAttachments()) do
+      if (attachment.name == "Attachable Arc Indicator") then
+        table.insert(assigned_mounts, attachment.description)
+      end
     end
-
     return assigned_mounts
 end
 
 function GetTurretArcs(args)
     local turret_mount = args.mount or 'main'
-    return assigned_arc_indicators[turret_mount].call('getArcs')
+    if arc_indicators[turret_mount] ~= nil then
+      return Global.getTable("mountDirectionToArcs")[arc_indicators[turret_mount].arc ]
+    end
+    return {}
 end
 
 function GetTurretArc(args)
     local turret_mount = args.mount or 'main'
-    return assigned_arc_indicators[turret_mount].call('getArc')
+    return arc_indicators[turret_mount].arc
 end
 
 function SetTurretArc(args)
     local turret_mount = args.mount or 'main'
-    assigned_arc_indicators[turret_mount].call('setArc', {arc=args.arc, snap=args.snap})
+    for i, attachment in pairs(self.getAttachments()) do
+      if (attachment.name == "Attachable Arc Indicator") and (attachment.description == turret_mount) then
+        id = self.removeAttachment(attachment.index)
+        id.setRotation(self.getRotation() + Global.getTable('mountRotations')[args.arc] or vector(0,0,0))
+        self.addAttachment(id)
+      end
+    end
 end
 
 function GetTurretType(args)
     local turret_mount = args.mount or 'main'
-    local arc_indicator_name = assigned_arc_indicators[turret_mount].GetName()
-    if arc_indicator_name.find(self.getName(), 'Dual') ~= nil then
-        return 'doubleturret'
-    else
-        return 'singleturret'
+    local turret = self.getTable('Data').arcs.turret[turret_mount]
+    if turret then
+      return turret.type
     end
+    return nil;
 end
 
 -- Save self state
 function onSave()
     local state = {shipData=self.getTable("Data")}
 
-    state.tokenData = {tokens={},arcs={}}
-    for location, indicator in pairs(assigned_arc_indicators) do
-        state.tokenData.arcs[location] = indicator.getGUID()
-    end
+    state.tokenData = {tokens={}}
     for guid, _ in pairs(assigned_tokens) do
         table.insert(state.tokenData.tokens, guid)
     end
@@ -6567,32 +6579,8 @@ function onSave()
     return JSON.encode(state)
 end
 
-function linkArcIndicators()
-    Wait.condition(
-        function()
-            for location, guid in pairs(arc_indicator_queue) do
-                local arc_indicator = getObjectFromGUID(guid)
-                assigned_arc_indicators[location] = arc_indicator
-                arc_indicator.call('linkToShip', {ship=self})
-            end
-
-            arc_indicator_queue = {}
-        end,
-        function()
-            for location, guid in pairs(arc_indicator_queue) do
-                local arc_indicator = getObjectFromGUID(guid)
-                if arc_indicator == nil or arc_indicator.getVar('loaded') == false then
-                    return false
-                end
-            end
-
-            return true
-        end
-    )
-end
 
 -- Restore self state
-arc_indicator_queue = {}
 function onLoad(savedData)
     --print("OnLoad: ".. self.getName() .. " " .. savedData)
     if savedData ~= "" and Data == nil then
@@ -6601,20 +6589,10 @@ function onLoad(savedData)
         if state.shipData.arcs ~= nil then
             initContextMenu()
         end
-
         for _, guid in ipairs(state.tokenData.tokens) do
             assigned_tokens[guid] = getObjectFromGUID(guid)
         end
 
-        local any_arcs = false
-        for location, guid in pairs(state.tokenData.arcs) do
-            any_arcs = true
-            break
-        end
-        if any_arcs then
-            arc_indicator_queue = state.tokenData.arcs
-            linkArcIndicators()
-        end
     end
 end
 ]]
@@ -6652,7 +6630,14 @@ function onUpdate()
         ship.setTable("Data", data)
         for i, attachment in pairs(ship.getAttachments()) do
           id = ship.removeAttachment(0) -- This process puts the front attachment in the back, and the index is rearranged
-          id.setColorTint(tint)
+          if id.getName() == "Attachable Arc Indicator" then
+            local indicator = ship.getTable('arc_indicators')[id.getDescription()] or {}
+            if indicator.color_by_id then
+              id.setColorTint(tint)
+            end
+          else
+            id.setColorTint(tint)
+          end
           ship.addAttachment(id)
         end
       end
@@ -6719,7 +6704,7 @@ function newSpawner(listTable)
         hasMob = 0
         bombTokenDescription = ''
         -- Spawn Mobile Upgrades
-        for j, Up in ipairs(Upgrades[shipIndex]) do
+        for j, Up in pairs(Upgrades[shipIndex]) do
             if  Up.Config == true then
                 finalPos = LocalPos(spawnCard, {-2, 0, 0})      --Layout adjustment
                 spawnCard.setPosition(finalPos)
@@ -6733,9 +6718,38 @@ function newSpawner(listTable)
                 newUp = card:spawn({position = pos, rotation=rot, scale={0.68,0.68,0.68}})
                 newUp.setName(Up.name)
                 hasMob = 1
+                charges = Up.Charge
+                while charges > 0 do
+                    for k, acc in ipairs(listaAcc) do
+                        if acc.name == 'Charge' then
+                            if charges == 5 then
+                                pos = LocalPos(spawnCard, {-1.7 +4,0, 1.9})
+                                rot = spawnCard.getRotation()
+                            elseif charges == 4 then
+                                pos = LocalPos(spawnCard, {-1.7 +4,0, 2.8})
+                                rot = spawnCard.getRotation()
+                            elseif charges == 3 then
+                                pos = LocalPos(spawnCard, {-2.6 +4,0, 2.8})
+                                rot = spawnCard.getRotation()
+                            elseif charges == 2 then
+                                pos = LocalPos(spawnCard, {-1.7 +4,0, 3.7})
+                                rot = spawnCard.getRotation()
+                            elseif charges == 1 then
+                                pos = LocalPos(spawnCard, {-2.6 +4 ,0, 3.7})
+                                rot = spawnCard.getRotation()
+                            else
+                                charges = 0
+                            end
+                            chargeToken = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
+                            chargeClone = chargeToken.clone()
+                            tempBagAcc.putObject(chargeClone)
+                            charges = charges-1
+                        end
+                    end
+                end
             end
         end
-        for j, Up in ipairs(Upgrades[shipIndex]) do
+        for j, Up in pairs(Upgrades[shipIndex]) do
             if Up.Config ~= true then                               --Indicates there's a card left of the pilot card, for layout purposes
                 pos = LocalPos(spawnCard, {-1.5 - 2*UpNum, 2-0.2*UpNum, 5.5})
                 rot = spawnCard.getRotation()

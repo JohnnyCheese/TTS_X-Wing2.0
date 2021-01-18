@@ -1,7 +1,8 @@
 
 color_by_id = true
-default_arc_direction = "front"
-double_arc = false
+default_arc_direction = "frontback"
+double_arc = true
+
 
 function onDropped()
     local spos = self.getPosition()
@@ -16,18 +17,21 @@ function onDropped()
     end
     for k,ship in pairs(getAllObjects()) do
         if ((ship.tag == 'Figurine') and (ship.getVar('__XW_Ship') == true)) then
-            for arc_index, arc in pairs(ship.getTable('Data').arcs) do
-                if arc == default_arc_direction or arc == turretname then
-                    local mount_positions = ship.call('GetAvailableMountPositions')
-                    for mount, pos in pairs(mount_positions) do
-                        local dist = math.sqrt(math.pow((spos[1]-pos[1]),2) + math.pow((spos[3]-pos[3]),2))
-                        if dist < minDist then
-                            nearest = ship
-                            nearest_mount = mount
-                            minDist = dist
-                            nearest_mount_position = pos
-                        end
+            local turret = ship.getTable('Data').arcs.turret or {}
+            for mount, turret in pairs(turret) do
+                if turret and mount then
+                  if (double_arc and (turret.type[1] == 'doubleturret')) or
+                     (not double_arc) and (turret.type[1] ~= 'doubleturret') then
+                    local pos = ship.call('GetMountingPosition', {mount=mount})
+                    --print("GetMountingPosition " .. mount .. " " .. turret.name .. " " .. tostring(pos))
+                    local dist = math.sqrt(math.pow((spos[1]-pos[1]),2) + math.pow((spos[3]-pos[3]),2))
+                    if dist < minDist then
+                        nearest = ship
+                        nearest_mount = mount
+                        minDist = dist
+                        nearest_mount_position = pos
                     end
+                  end
                 end
             end
         end
@@ -40,16 +44,16 @@ function onDropped()
         self.setDescription(nearest_mount)
         self.setPosition(nearest_mount_position + vector(0,0.15,0))
         nearest.call("AttachArcIndicator", {indicator=self, mount = nearest_mount})
-        local mount_name = ""
-        if mount ~= "main" then
-          mount_name = " " .. nearest_mount
-        end
-        if double_arc then
-          nearest.AddContextMenuItem("Rotate arc" .. mount_name, function(player_color) Global.call("proxyPerformAction", {nearest, 'rotateright', player_color, {mount = nearest_mount} }) end, false)
-        else
-          nearest.AddContextMenuItem("Rotate arc left" .. mount_name, function(player_color) Global.call("proxyPerformAction", {nearest, 'rotateleft', player_color, {mount = nearest_mount}}) end, false)
-          nearest.AddContextMenuItem("Rotate arc right" .. mount_name, function(player_color) Global.call("proxyPerformAction", {nearest, 'rotateright', player_color, {mount = nearest_mount}}) end, false)
-        end
+        --local mount_name = ""
+        --if mount ~= "main" then
+        --  mount_name = " " .. nearest_mount
+        --end
+        --if double_arc then
+        --  nearest.AddContextMenuItem("Rotate arc" .. mount_name, function(player_color) Global.call("proxyPerformAction", {nearest, 'rotateright', player_color, {mount = nearest_mount} }) end, false)
+        --else
+        --  nearest.AddContextMenuItem("Rotate arc left" .. mount_name, function(player_color) Global.call("proxyPerformAction", {nearest, 'rotateleft', player_color, {mount = nearest_mount}}) end, false)
+        --  nearest.AddContextMenuItem("Rotate arc right" .. mount_name, function(player_color) Global.call("proxyPerformAction", {nearest, 'rotateright', player_color, {mount = nearest_mount}}) end, false)
+        --end
         --self.setRotation(nearest.getRotation())
         nearest.addAttachment(self)
     end

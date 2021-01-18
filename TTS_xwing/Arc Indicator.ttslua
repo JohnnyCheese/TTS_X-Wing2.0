@@ -80,14 +80,10 @@ function attachToShip(new_ship)
     self.setPositionSmooth({mount_positions[closest_mount_position][1], mount_positions[closest_mount_position][2] + 0.3, mount_positions[closest_mount_position][3]}, false, true)
 
     snapToArc()
-
-    -- Set up the ship-side attachment.
-    ship.call('AddArcIndicator', {indicator=self, location=closest_mount_position})
 end
 
 function detachFromShip()
     if ship ~= nil then
-        ship.call('RemoveArcIndicator', {indicator=self})
         ship = nil
     end
 end
