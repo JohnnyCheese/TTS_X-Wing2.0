@@ -1,0 +1,34 @@
+local obj = self
+
+local M = {}
+
+local toggleItems = {}
+
+function M.addToggleItem(name, text, func)
+    local i = {
+        name = name,
+        text = text,
+        func = func,
+    }
+
+    table.insert(toggleItems, i)
+end
+
+function M.update()
+    obj.clearContextMenu()
+
+    for i, v in ipairs(toggleItems) do
+        local text = ""
+        local value = _G[v.name] or false
+
+        if value then
+            text = "Disable " .. v.text
+        else
+            text = "Enable " .. v.text
+        end
+
+        obj.addContextMenuItem(text, || v.func(not value))
+    end
+end
+
+return M

@@ -2885,6 +2885,7 @@ MoveData.DecodeInfo = function (move_code, ship)
         if move_code:sub(2,2) == 'l' or move_code:sub(2,2) == 'e' then
             info.dir = 'left'
         end
+        info.collNote = 'tried barrel rolling ' .. info.dir
         info.speed = tonumber(move_code:sub(3,3))
         info.traits.full = true
         info.traits.part = false
