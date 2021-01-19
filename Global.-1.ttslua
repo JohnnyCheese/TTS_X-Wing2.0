@@ -233,6 +233,8 @@ XW_cmd.Process = function(obj, cmd)
         AIModule.EnableAI(obj, cmd)
     elseif type == 'rotate' then
         DialModule.RotateArc(obj, cmd)
+    elseif type == 'turretarc' then
+        DialModule.TurretArc(obj, cmd)
     end
     obj.setDescription('')
     return true
@@ -5274,6 +5276,20 @@ DialModule.RotateArc = function(ship, cmd)
     ship.call("RotateAttachedArcIndicator", DialModule.RotateCmd[cmd])
 end
 
+DialModule.TurretArcCmd = {
+  turret = { mount = 'main'},
+  turret1 = { mount = 'front'},
+  turret2 = { mount = 'rear'},
+}
+
+
+DialModule.TurretArc = function(ship, cmd)
+    local arc = ship.call("GetTurretArc", DialModule.TurretArcCmd[cmd])
+    if arc then
+      RulerModule.ToggleRuler(ship, string.upper(arcToCmnd[arc]))
+    end
+end
+
 
 
 -- Spawned tempaltes are kept there
@@ -6281,7 +6297,7 @@ function onObjectSpawned(obj)
 end
 
 XW_cmd.AddCommand('rot[lr]?[12]?', 'rotate')
-
+XW_cmd.AddCommand('turret[12]?', 'turretarc')
 
 
 mountRotations = {
