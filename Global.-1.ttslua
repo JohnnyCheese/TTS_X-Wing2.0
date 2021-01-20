@@ -6374,7 +6374,7 @@ saveAndLoadShipStateLua = [[
 __XW_Ship = true
 
 function initContextMenu()
-    for type, arc in pairs(self.getTable("Data").arcs) do
+    for type, arc in pairs(self.getTable("Data").arcs or {}) do
       if type == 'fixed' then
         for i, fixedarc in pairs(arc.type or {}) do
           self.addContextMenuItem("FireArc - " .. Global.getTable('arcNames')[fixedarc] , function(argument) self.setDescription(Global.getTable('arcToCmnd')[fixedarc]) end, false)
@@ -6404,9 +6404,6 @@ function initContextMenu()
     end
 
     self.AddContextMenuItem("Mark ship", function(argument) Global.call("MarkShip", {ship=self}) end, false)
-    self.AddContextMenuItem("Start BR Left", function(argument) Global.call("StartBarrelRoll", {ship=self, direction="left"}) end, false)
-    self.AddContextMenuItem("Start BR Right", function(argument) Global.call("StartBarrelRoll", {ship=self, direction="right"}) end, false)
-
 
 end
 
@@ -6642,9 +6639,7 @@ function onLoad(savedData)
     if savedData ~= "" and Data == nil then
         local state =  JSON.decode(savedData)
         self.setTable("Data", state.shipData)
-        if state.shipData.arcs ~= nil then
-            initContextMenu()
-        end
+        initContextMenu()
         for _, guid in ipairs(state.tokenData.tokens) do
             assigned_tokens[guid] = getObjectFromGUID(guid)
         end
