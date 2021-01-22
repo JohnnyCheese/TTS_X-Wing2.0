@@ -7045,34 +7045,23 @@ function newSpawner(listTable)
             end
         end
 
-        if Pilots[shipIndex].Turret ~= nil then       --Checks if upgrade should trigger the dual mobile arc indicator
-            if Pilots[shipIndex].Turret == 2 then
-                dualTurret = 1
-            else
-                Turret = 1
+        for mount, turret in pairs(Pilots[shipIndex].Data.arcs.turret or {}) do
+            local indicator_name = 'Arc Indicator'..tostring(Faction)
+            if turret.type[1] == 'doubleturret' then
+              indicator_name = 'Dual Arc Indicator'..tostring(Faction)
             end
-        end
-        if Turret == 1 and dualTurret == 0 then                                                       --Checks and spawn arc indicator if needed
-            for k, acc in ipairs(listaAcc) do
-                if acc.name == 'Arc Indicator'..tostring(Faction) then
-                    arcInd = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
+            local mount_pos = Pilots[shipIndex].Data.mountingPoints[mount]
+            local offset = LocalPos(spawnCard, {mount_pos[1], 0, mount_pos[2] + 9})
+            for k, acc in pairs(listaAcc) do
+                if acc.name == indicator_name then
+                    arcInd = tempBagAcc.takeObject({position = offset, rotation = rot, guid = acc.guid})
                     indClone = arcInd.clone()
                     tempBagAcc.putObject(indClone)
                     arcInd.setName(string.gsub(arcInd.getName(), Faction, ''))
-                    Turret = 0
-                end
-            end
-        elseif dualTurret == 1 then                                               --Checks and spawn dual arc indicator if needed
-            for k, acc in ipairs(listaAcc) do
-                if acc.name == 'Dual Arc Indicator'..tostring(Faction) then
-                    dualArcInd = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
-                    indClone = dualArcInd.clone()
-                    tempBagAcc.putObject(indClone)
-                    dualArcInd.setName(string.gsub(dualArcInd.getName(), Faction, ''))
-                    dualTurret = 0
                 end
             end
         end
+
         if Pilots[shipIndex].Bomb == true then                                                       --Checks and spawn bomb drop token if needed
             for k, acc in ipairs(listaAcc) do
                 if acc.name == 'Bomb drop token (unassigned)' then
