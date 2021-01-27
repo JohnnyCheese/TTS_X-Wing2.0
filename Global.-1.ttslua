@@ -6625,7 +6625,7 @@ end
 
 -- Save self state
 function onSave()
-    local state = {shipData=self.getTable("Data")}
+    local state = {shipData=self.getTable("Data"), arcIndicators=self.getTable("arc_indicators")}
 
     state.tokenData = {tokens={}}
     for guid, _ in pairs(assigned_tokens) do
@@ -6642,6 +6642,7 @@ function onLoad(savedData)
     if savedData ~= "" and Data == nil then
         local state =  JSON.decode(savedData)
         self.setTable("Data", state.shipData)
+        self.setTable("arc_indicators", state.arcIndicators)
         initContextMenu()
         for _, guid in ipairs(state.tokenData.tokens) do
             assigned_tokens[guid] = getObjectFromGUID(guid)
