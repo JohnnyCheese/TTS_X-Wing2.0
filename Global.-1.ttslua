@@ -6387,7 +6387,7 @@ function initContextMenu()
         end
         for mount, turret in pairs(arc) do
           local idx = Global.getTable('mountToIndex')[mount]
-          if turret.type[1] == 'doubleturret' then
+          if (turret.type[1] == 'doubleturret') or (#turret.type == 2) then
             self.addContextMenuItem("Rot - " .. turret.name , function(argument) self.setDescription('rot' ..  idx) end, false)
           else
             self.addContextMenuItem("Rot L - " .. turret.name , function(argument) self.setDescription('rotl' .. idx) end, false)
@@ -6445,7 +6445,7 @@ function AttachArcIndicator(args)
     args.indicator.setDescription(turret_mount)
     args.indicator.setRotation(self.getRotation() + Global.getTable('mountRotations')[default_direction] or vector(0,0,0))
     for i, attachment in pairs(self.getAttachments()) do
-      if (attachment.name == "Attachable Arc Indicator") and (attachment.description == turret_mount) then
+      if attachment.name:find("Arc Indicator") and (attachment.description == turret_mount) then
         id = self.removeAttachment(attachment.index)
         destroyObject(id)
       end
@@ -6455,7 +6455,7 @@ end
 function DeleteArcIndicator(args)
     local turret_mount = args.mount or 'main'
     for i, attachment in pairs(self.getAttachments()) do
-      if (attachment.name == "Attachable Arc Indicator") and (attachment.description == turret_mount) then
+      if attachment.name:find("Arc Indicator") and (attachment.description == turret_mount) then
         id = self.removeAttachment(attachment.index)
         destroyObject(id)
       end
@@ -6482,7 +6482,7 @@ end
 function RotateAttachedArcIndicator(args)
   local turret_mount = args.mount or 'main'
   for i, attachment in pairs(self.getAttachments()) do
-    if (attachment.name == "Attachable Arc Indicator") and (attachment.description == turret_mount) then
+    if attachment.name:find("Arc Indicator") and (attachment.description == turret_mount) then
       local next_direction = GetNextValidRotation(turret_mount, args.direction)
       id = self.removeAttachment(attachment.index)
       arc_indicators[turret_mount].arc = next_direction
@@ -6496,7 +6496,7 @@ function GetAvailableMountPositions(args)
     local mount_positions = self.getTable('Data').mountingPoints or {main = {0, 0} }
 
     for i, attachment in pairs(self.getAttachments()) do
-      if (attachment.name == "Attachable Arc Indicator") then
+      if attachment.name:find("Arc Indicator") then
         mount_positions[attachment.description] = nil
       end
     end
@@ -6580,7 +6580,7 @@ end
 function GetAssignedMounts()
     local assigned_mounts = {}
     for i, attachment in pairs(self.getAttachments()) do
-      if (attachment.name == "Attachable Arc Indicator") then
+      if attachment.name:find("Arc Indicator") then
         table.insert(assigned_mounts, attachment.description)
       end
     end
@@ -6597,13 +6597,16 @@ end
 
 function GetTurretArc(args)
     local turret_mount = args.mount or 'main'
-    return arc_indicators[turret_mount].arc
+    if arc_indicators[turret_mount] then
+      return arc_indicators[turret_mount].arc
+    end
+    return nil
 end
 
 function SetTurretArc(args)
     local turret_mount = args.mount or 'main'
     for i, attachment in pairs(self.getAttachments()) do
-      if (attachment.name == "Attachable Arc Indicator") and (attachment.description == turret_mount) then
+      if attachment.name:find("Arc Indicator") and (attachment.description == turret_mount) then
         id = self.removeAttachment(attachment.index)
         id.setRotation(self.getRotation() + Global.getTable('mountRotations')[args.arc] or vector(0,0,0))
         self.addAttachment(id)
@@ -6681,7 +6684,7 @@ function onUpdate()
         ship.setTable("Data", data)
         for i, attachment in pairs(ship.getAttachments()) do
           id = ship.removeAttachment(0) -- This process puts the front attachment in the back, and the index is rearranged
-          if id.getName() == "Attachable Arc Indicator" then
+          if id.getName():find("Arc Indicator") then
             local indicator = ship.getTable('arc_indicators')[id.getDescription()] or {}
             if indicator.color_by_id then
               id.setColorTint(tint)

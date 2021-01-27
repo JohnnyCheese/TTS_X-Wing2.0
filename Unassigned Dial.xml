@@ -2,7 +2,7 @@
 <Defaults>
     <Button class="TokenButtons" height="50" width="50" color="#aaffaa00" active="false"/>
     <Button class="RelocButtons" height="60" width="60" preferredWidth="60" preferredHeight="60" minWidth="60" minHeight="60" color="#aaffaa00" active="false"/>
-    <Button class="ArcButtons" height="80" width="80" color="#aaffaa00"/>
+    <Button class="ArcButtons" height="80" width="80" preferredWidth="80" preferredHeight="80" minWidth="80" minHeight="80" color="#aaffaa00"/>
     <Button class="DarkButton" color="#222222" outline="#BBBBBB" outlineSize="2 2" fontSize="22" textColor="#FFFFFF" fontStyle="Bold"/>
     <Button class="CenterMenuButtons" rotation="0 0 180" height="60" width="60" color="#222222" outline="#BBBBBB" outlineSize="2 2" fontSize="22" textColor="#FFFFFF" fontStyle="Bold"/>
     <Button class="topButton" width="40" height="40" rectAlignment="UpperRight"/>
@@ -154,39 +154,144 @@
 
 <Panel id="arcPanel"
     active="false"
-    width="400"
+    width="600"
     height="500"
     color="#ffaaaa00"
     raycastTarget="true"
     onMouseExit="menuHover">
-    <Panel id="ArcFD"
-        width="380"
-        height="400"
+    <HorizontalLayout childForceExpandWidth="false"
+                    childForceExpandHeight="true"
+                    childAlignment="MiddleRight" >
+      <Panel
         outline="Black"
         color="#aaffaa00"
         showAnimation="FadeIn"
-        hideAnimation="FadeOut">
-            <Button id="Range1" class="ArcButtons" onClick="Arc" height="80" width="80" offsetXY="-140 150">
-                <Image id="R1Icon" height="80" width="80" image="R1"></Image></Button>
-            <Button id="Range2" class="ArcButtons" onClick="Arc" height="80" width="80" offsetXY="-40 150">
-                <Image id="R2Icon" height="80" width="80" image="R2"></Image></Button>
-            <Button id="Range3" class="ArcButtons" onClick="Arc" height="80" width="80" offsetXY="60 150">
-                <Image id="R3Icon" height="80" width="80" image="R3"></Image></Button>
-            <Button id="FrontArc" class="ArcButtons" onClick="Arc" height="80" width="80" offsetXY="50 50">
-                <Image id="FrontArcIcon" height="80" width="80" image="FrontArc"></Image></Button>
-            <Button id="LeftArc" class="ArcButtons" onClick="Arc" height="80" width="80" offsetXY="-40 -40">
-                <Image id="LeftArcIcon" height="80" width="80" image="LeftArc"></Image></Button>
-            <Button id="RightArc" class="ArcButtons" onClick="Arc" height="80" width="80" offsetXY="140 -40">
-                <Image id="RightArcIcon" height="80" width="80" image="RightArc"></Image></Button>
-            <Button id="RearArc" class="ArcButtons" onClick="Arc" height="80" width="80" offsetXY="50 -130">
-                <Image id="BackArcIcon" height="80" width="80" image="BackArc"></Image></Button>
-            <Button id="BullseyeArc" class="ArcButtons" onClick="Arc" height="80" width="80" offsetXY="50 -40">
-                <Image id="BullseyeIcon" height="80" width="80" image="Bullseye"></Image></Button>
-            <Button id="FullFrontArc" class="ArcButtons" onClick="Arc" height="80" width="80" offsetXY="-140 50">
-                <Image id="FullFrontArcIcon" height="80" width="80" image="FullFront"></Image></Button>
-            <Button id="FullBackArc" class="ArcButtons" onClick="Arc" height="80" width="80" offsetXY="-140 -130">
-                <Image id="FullBackArcIcon" height="80" width="80" image="FullBack"></Image></Button>
-    </Panel>
+        hideAnimation="FadeOut"
+        minHeight="500"
+        minWidth="400">
+          <VerticalLayout childForceExpandWidth="true"
+                          childForceExpandHeight="true"
+                          childAlignment="MiddleCenter"
+                          spacing="5">
+            <Panel
+              outline="Black"
+              color="#aaffff00"
+              showAnimation="FadeIn"
+              hideAnimation="FadeOut"
+              minHeight="80">
+              <HorizontalLayout childForceExpandWidth="false" childForceExpandHeight="false"
+                              childAlignment="MiddleCenter"
+                              spacing="20">
+                <Button id="Range1" class="ArcButtons" onClick="Arc" >
+                    <Image id="R1Icon" height="80" width="80" image="R1"></Image></Button>
+                <Button id="Range2" class="ArcButtons" onClick="Arc" >
+                    <Image id="R2Icon" height="80" width="80" image="R2"></Image></Button>
+                <Button id="Range3" class="ArcButtons" onClick="Arc" >
+                    <Image id="R3Icon" height="80" width="80" image="R3"></Image></Button>
+              </HorizontalLayout>
+            </Panel>
+            <Panel
+              outline="Black"
+              color="#ffff3300"
+              showAnimation="FadeIn"
+              hideAnimation="FadeOut"
+              minHeight="300">
+              <HorizontalLayout childForceExpandWidth="false" childForceExpandHeight="false"
+                              childAlignment="MiddleCenter" spacing="5">
+                <Panel
+                  outline="Black"
+                  color="#ffff3300"
+                  showAnimation="FadeIn"
+                  hideAnimation="FadeOut"
+                  minWidth="80"
+                  minHeight="300">
+                  <VerticalLayout childForceExpandWidth="true"
+                                  childForceExpandHeight="true"
+                                  childAlignment="MiddleRight">
+                    <Button id="FullFrontArc" class="ArcButtons" onClick="Arc">
+                        <Image id="FullFrontArcIcon" height="80" width="80" image="FullFront"></Image></Button>
+                    <Button id="FullBackArc" class="ArcButtons" onClick="Arc">
+                        <Image id="FullBackArcIcon" height="80" width="80" image="FullBack"></Image></Button>
+                  </VerticalLayout>
+                </Panel>
+                <Button id="LeftArc" class="ArcButtons" onClick="Arc">
+                    <Image id="LeftArcIcon" height="80" width="80" image="LeftArc"></Image></Button>
+                <Panel
+                  outline="Black"
+                  color="#ffff3300"
+                  showAnimation="FadeIn"
+                  hideAnimation="FadeOut"
+                  minWidth="80"
+                  minHeight="300">
+                  <VerticalLayout childForceExpandWidth="true"
+                                  childForceExpandHeight="false"
+                                  childAlignment="MiddleRight">
+                    <Button id="FrontArc" class="ArcButtons" onClick="Arc">
+                        <Image id="FrontArcIcon" height="80" width="80" image="FrontArc"></Image></Button>
+                    <Button id="BullseyeArc" class="ArcButtons" onClick="Arc">
+                        <Image id="BullseyeIcon" height="80" width="80" image="Bullseye"></Image></Button>
+                    <Button id="RearArc" class="ArcButtons" onClick="Arc" >
+                        <Image id="BackArcIcon" height="80" width="80" image="BackArc"></Image></Button>
+                  </VerticalLayout>
+                </Panel>
+                <Button id="RightArc" class="ArcButtons" onClick="Arc" >
+                    <Image id="RightArcIcon" height="80" width="80" image="RightArc"></Image></Button>
+              </HorizontalLayout>
+            </Panel>
+            <Panel id="TurretArc1Panel"
+              outline="Black"
+              color="#aaffff00"
+              showAnimation="FadeIn"
+              hideAnimation="FadeOut"
+              minHeight="80"
+              active="false">
+              <HorizontalLayout childForceExpandWidth="false" childForceExpandHeight="false"
+                              childAlignment="MiddleCenter"
+                              spacing="40">
+                <Button id="RotateLeft1" class="ArcButtons" onClick="Arc" active="false">
+                    <Image id="RotateLeft1Icon" height="80" width="80" image="RotACW"></Image></Button>
+                <Button id="RotateRight1" class="ArcButtons" onClick="Arc" active="false">
+                    <Image id="RotateRight1Icon" height="80" width="80" image="RotCW"></Image></Button>
+              </HorizontalLayout>
+            </Panel>
+            <Panel id="TurretArc2Panel"
+              outline="Black"
+              color="#aaffff00"
+              showAnimation="FadeIn"
+              hideAnimation="FadeOut"
+              minHeight="80"
+              active="false">
+              <HorizontalLayout childForceExpandWidth="false" childForceExpandHeight="false"
+                              childAlignment="MiddleCenter"
+                              spacing="40">
+                <Button id="RotateLeft2" class="ArcButtons" onClick="Arc"  active="false">
+                    <Image id="RotateLeft2Icon" height="80" width="80" image="RotACW"></Image></Button>
+                <Button id="RotateRight2" class="ArcButtons" onClick="Arc" active="false">
+                    <Image id="RotateRight2Icon" height="80" width="80" image="RotCW"></Image></Button>
+              </HorizontalLayout>
+            </Panel>
+          </VerticalLayout>
+        </Panel>
+        <Panel
+          outline="Black"
+          color="#aaffff00"
+          showAnimation="FadeIn"
+          hideAnimation="FadeOut"
+          minWidth="120"
+          maxWidth="120"
+          active="true">
+          <VerticalLayout childForceExpandWidth="false" childForceExpandHeight="false"
+                          childAlignment="MiddleCenter"
+                          spacing="20">
+            <Button id="FixedArc" class="ArcButtons" onClick="Arc" preferredWidth="120" preferredHeight="120">
+                <Image id="FixedArcIcon" height="120" width="120" image="FrontArc"></Image></Button>
+            <Button id="TurretArc1" class="ArcButtons" onClick="Arc" preferredWidth="120" preferredHeight="120" active="false">
+                <Image id="TurretArc1Icon" height="120" width="120" image="SingleTurretArc"></Image></Button>
+            <Button id="TurretArc2" class="ArcButtons" onClick="Arc" preferredWidth="120" preferredHeight="120" active="false">
+                <Image id="TurretArc2Icon" height="120" width="120" image="SingleTurretArc"></Image></Button>
+          </VerticalLayout>
+        </Panel>
+      </HorizontalLayout>
 </Panel>
 
 <Panel id="setManPeekPanel"
@@ -343,7 +448,7 @@
     <HorizontalLayout childForceExpandWidth="false" childAlignment="MiddleCenter">
         <Panel id="BarrelLeft2FD"
             class="BarrelPanel"
-            color="#aaffff00"
+            color="#aaffff22"
             showAnimation="FadeIn"
             hideAnimation="FadeOut"
             active="false">
