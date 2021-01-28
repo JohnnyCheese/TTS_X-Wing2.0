@@ -142,6 +142,8 @@ function onUpdate()
                 else
                     self.UI.show('Setup')
                 end
+                button.setAttributeFacing("Setup", "Down")
+                button.setAttributeFacing("proxyPanel", "Down")
             end
         else
             if faceStat ~= 'Up' then
@@ -153,11 +155,10 @@ function onUpdate()
                 else
                     self.UI.show('Setup')
                 end
+                button.setAttributeFacing("Setup", "Up")
+                button.setAttributeFacing("proxyPanel", "Up")
             end
         end
-
-        button.setAttributeFacing("Setup", faceStat or "Down")
-        button.setAttributeFacing("proxyPanel", faceStat or "Down")
     end
 end
 
