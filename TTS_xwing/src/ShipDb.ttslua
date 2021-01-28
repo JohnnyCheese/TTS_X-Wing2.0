@@ -1,0 +1,1041 @@
+
+
+-- Attempt on Unified Data Base, based on XWS (dropped after w1, too much hassle) and FFG conversion table
+masterShipDB={}
+masterShipDB[0]={['name']='',['Hull']=0,['Shield']=0,['size']='small',['agi']=1,['Energy']=0,['XWS']='',['Fac']={[0]=true},['arcs']={fixed = { range=3, type = {'front'}}}}
+
+masterShipDB[1]={
+    name = 'Modified YT-1300',
+    Hull = 8,
+    Shield = 5,
+    size = 'large',
+    agi = 1,
+    XWS = 'modifiedyt1300lightfreighter',
+    Fac = {[1]=true},
+    arcs = {turret = {main = {name = 'primary', type={'doubleturret'}}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/rebel_falcon/rebel_falcon.obj',
+    moveSet = {'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','rbl3s','wtl3','wbl3','bs3','wbr3','wtr3','rbr3s','ws4','rk4'}
+}
+
+masterShipDB[3]={
+    name = 'StarViper',
+    Hull = 4,
+    Shield = 1,
+    size = 'small',
+    agi = 3,
+    XWS = 'starviperclassattackplatform',
+    Fac = {[3]=true},
+    arcs = {fixed = { range=3, type = {'front'}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/S%26V_starviper/starviper.obj',
+    moveSet = {'wtl1','bbl1','bs1','bbr1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','rbl3s','wbl3','bs3','wbr3','rbr3s','ws4' }
+}
+
+masterShipDB[4]={
+    name = 'Scurrg H6 Bomber',
+    Hull = 6,
+    Shield = 4,
+    size = 'medium',
+    agi = 1,
+    XWS = 'scurrgh6bomber',
+    Fac = {[3]=true},
+    arcs = {fixed = { range=3, type = {'front'}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/S%26V_scurrg/scurrg.obj',
+    moveSet = {'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3t','rtl3','wbl3','ws3','wbr3','rtr3','rtr3t','rs4'}
+}
+
+masterShipDB[5]={
+    name = 'YT-2400',
+    Hull = 6,
+    Shield = 4,
+    size = 'large',
+    agi = 2,
+    XWS = 'yt2400lightfreighter',
+    Fac = {[1]=true},
+    arcs = {turret = {main = {name = 'primary', type={'doubleturret'}}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/yt2400/yt2400.obj',
+    moveSet = {'wtl1','bbl1','bs1','bbr1','wtr1','wtl2','wbl2','bs2','wbr2','wtr2','wtl3','wbl3','ws3','wbr3','wtr3','ws4','rk4'}
+}
+
+masterShipDB[6]={
+    name = 'Auzituck Gunship',
+    Hull = 6,
+    Shield = 2,
+    size = 'small',
+    agi = 1,
+    XWS = 'auzituckgunship',
+    Fac = {[1]=true},
+    arcs = {fixed = { range=3, type = {'fullfront'}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_auzituk/auzituk.obj',
+    moveSet = {'bbl1', 'bs1', 'bbr1','wtl2','wbl2','bs2','wbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rs0'}
+}
+
+masterShipDB[7]={
+    name = 'Khiraxz Fighter',
+    Hull = 5,
+    Shield = 1,
+    size = 'small',
+    agi = 2,
+    XWS = 'kihraxzfighter',
+    Fac = {[3]=true},
+    arcs = {fixed = { range=3, type = {'front'}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/S%26V_khiraxz/khiraxz.obj',
+    moveSet = {'wtl1','bbl1','bbr1','wtr1','rtl2t','wtl2','bbl2','bs2','bbr2','wtr2','rtr2t','wbl3','bs3','wbr3','ws4','rk4'}
+}
+
+masterShipDB[8]={
+    name = 'Sheathipede Shuttle',
+    Hull = 3,
+    Shield = 1,
+    size = 'small',
+    agi = 2,
+    XWS = 'sheathipedeclassshuttle',
+    Fac = {[1]=true},
+    arcs = {fixed = { range=3, type = {'front','back'}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_sheathipede/sheathipede.obj',
+    moveSet = {'rs1r','wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','bs3','wbr3','rtr3','rk3','rs4'}
+}
+
+masterShipDB[9]={
+    name = 'Quad Jumper',
+    Hull = 6,
+    Shield = 0,
+    size = 'small',
+    agi = 2,
+    XWS = 'quadrijettransferspacetug',
+    Fac = {[3]=true},
+    arcs = {fixed = { range=3, type = {'front'}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/S%26V_quadjumper/quadjumper.obj',
+    moveSet = {'rbl1r','rbr1r','wtl1','wbl1','ws1','wbr1','wtr1','rs2r','rbl2s','wtl2','bbl2','bs2','bbr2','wtr2','rbr2s','wbl3','bs3','wbr3'}
+}
+
+masterShipDB[10]={
+    name = 'FireSpray',
+    Hull = 6,
+    Shield = 4,
+    size = 'medium',
+    agi = 2,
+    XWS = 'firesprayclasspatrolcraft',
+    Fac = {[3]=true, [7]=true},
+    arcs = {fixed = { range=3, type = {'frontback'}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/firespray/firespray.obj',
+    moveSet = {'wtl1','bbl1','bs1','bbr1','wtr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3t','wbl3','bs3','wbr3','rtr3t','ws4','rk4'}
+}
+
+masterShipDB[11]={
+    name = 'TIE/ln Fighter',
+    Hull = 6,
+    Shield = 0,
+    size = 'small',
+    agi = 3,
+    XWS = 'tielnfighter',
+    Fac = {[1]=true,[2]=true},
+    arcs = {fixed = { range=3, type = {'front'}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/tie_ln/tie_ln.obj',
+    moveSet = {'wtl1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk3','ws4','rk4','ws5'}
+}
+
+masterShipDB[12]={
+    name = 'Y-Wing',
+    Hull = 6,
+    Shield = 2,
+    size = 'small',
+    agi = 1,
+    XWS = 'btla4ywing',
+    Fac = {[1]=true,[3]=true},
+    arcs = {fixed = { range=3, type = {'front'}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/btla4_ywing/btla4_ywing.obj',
+    moveSet = {'bbl1', 'bs1', 'bbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs4','rk4'}
+}
+
+masterShipDB[13]={
+    name = 'TIE Advanced x1',
+    Hull = 3,
+    Shield = 2,
+    size = 'small',
+    agi = 3,
+    XWS = 'tieadvancedx1',
+    Fac = {[2]=true},
+    arcs = {fixed = { range=3, type = {'front'}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieadvx1/tieadvx1.obj',
+    moveSet = {'bbl1','ws1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3t','wtl3','wbl3','bs3','wbr3','wtr3','rtr3t','ws4','rk4','ws5'}
+}
+
+masterShipDB[14]={
+    name = 'Alpha Class StarWing',
+    Hull = 4,
+    Shield = 3,
+    size = 'small',
+    agi = 2,
+    XWS ='alphaclassstarwing',
+    Fac = {[2]=true},
+    arcs = {fixed = { range=3, type = {'front'}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_starwing/starwing.obj',
+    moveSet = {'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','ws3','wbr3','wtr3','rs4'}
+}
+masterShipDB[15]={
+    name = 'U-Wing',
+    Hull = 5,
+    Shield = 3,
+    size = 'medium',
+    agi = 2,
+    XWS = 'ut60duwing',
+    Fac = {[1]=true},
+    arcs = {fixed = { range=3, type = {'front'}}},
+    moveSet = {'bbl1', 'bs1', 'bbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2','wbl3','ws3','wbr3','ws4','rs0'},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/UTD60DUWing/UWing.obj',
+    config = {
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/UTD60DUWing/UWing_Open.obj',
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/UTD60DUWing/UWing_Close.obj'
+    }
+}
+
+masterShipDB[16]={
+  name = 'TIE/sk Striker',
+  Hull = 4,
+  Shield = 0,
+  size = 'small',
+  agi = 2,
+  XWS = 'tieskstriker',
+  Fac = {[2]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'wtl1','bbl1','bs1','bbr1','wtr1','rk1','rbl2s','wtl2','bbl2','bs2','bbr2','wtr2','rbr2s','wbl3','bs3','wbr3'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiestriker/tiestriker.obj',
+}
+
+masterShipDB[17]={
+  name = 'B-Wing',
+  Hull = 4,
+  Shield = 4,
+  size = 'small',
+  agi = 1,
+  XWS = 'asf01bwing',
+  Fac = {[1]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'rtl1t','rtl1','bbl1','bs1','bbr1','rtr1','rtr1t','wtl2','wbl2','bs2','wbr2','wtr2','rk2','rbl3','bs3','rbr3','rs4'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_bwing/bwing.obj',
+}
+
+masterShipDB[18]={
+  name = 'TIE/de Defender',
+  Hull = 3,
+  Shield = 4,
+  size = 'small',
+  agi = 3,
+  XWS = 'tieddefender',
+  Fac = {[2]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'rtl1','bbl1','bbr1','rtr1','rtl2','wbl2','bs2','wbr2','rtr2','rk2','wtl3','wbl3','bs3','wbr3','wtr3','bs4','wk4','bs5'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiedefender/defender.obj',
+}
+
+masterShipDB[19]={
+  name = 'TIE/sa Bomber',
+  Hull = 6,
+  Shield = 0,
+  size = 'small',
+  agi = 2,
+  XWS = 'tiesabomber',
+  Fac = {[2]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk3','ws4','rk5'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiebomber/tiebomber.obj',
+}
+
+masterShipDB[20]={
+  name = 'TIE/ca Punisher',
+  Hull = 6,
+  Shield = 3,
+  size = 'medium',
+  agi = 1,
+  XWS = 'tiecapunisher',
+  Fac = {[2]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rk4','rs0'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/EMP_tiepunisher/tiepunisher.obj'
+}
+
+masterShipDB[21]={
+  name = 'Aggressor',
+  Hull = 5,
+  Shield = 3,
+  size = 'medium',
+  agi = 3,
+  XWS = 'aggressorassaultfighter',
+  Fac = {[3]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'wtl1','bbl1','bs1','bbr1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','rbl3s','bbl3','bs3','bbr3','rbr3s','ws4','rk4'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/SCU_Agressor/agressor.obj'
+}
+
+masterShipDB[22]={
+  name = 'G-1A StarFighter',
+  Hull = 5,
+  Shield = 4,
+  size = 'medium',
+  agi = 1,
+  XWS = 'g1astarfighter',
+  Fac = {[3]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rk2','rbl3','ws3','rbr3','rs4','rk4','rs0'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/SCU_G1A/g1a.obj'
+}
+masterShipDB[23]={
+  name = 'VCX-100',
+  Hull = 10,
+  Shield = 4,
+  size = 'large',
+  agi = 0,
+  XWS = 'vcx100lightfreighter',
+  Fac = {[1]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  Docking = true,
+  moveSet = {'rtl1','wbl1','bs1','wbr1','rtr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','ws4','rk4'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/REB_VCX100/vcx100.obj'
+}
+
+masterShipDB[24]={
+  name = 'YV-666',
+  Hull = 9,
+  Shield = 3,
+  size = 'large',
+  agi = 1,
+  XWS = 'yv666lightfreighter',
+  Fac = {[3]=true},
+  arcs = {fixed = { range=3, type = {'fullfront'}}},
+  moveSet = {'bbl1','bs1','bbr1','rtl2','wbl2','bs2','wbr2','rtr2','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rs0'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/SCU_YV666/yv666.obj'
+}
+
+masterShipDB[25]={
+  name = 'TIE Advanced v1',
+  Hull = 2,
+  Shield = 2,
+  size = 'small',
+  agi = 3,
+  XWS = 'tieadvancedv1',
+  Fac = {[2]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'btl1','bbl1','bbr1','btr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl2t','rtr2t','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk4','ws5'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieadvv1/tieadvv1.obj'
+}
+
+masterShipDB[26]={
+  name = 'Lambda Class Shuttle',
+  Hull = 6,
+  Shield = 4,
+  size = 'large',
+  agi = 1,
+  XWS = 'lambdaclasst4ashuttle',
+  Fac = {[2]=true},
+  arcs = {fixed = { range=3, type = {'frontback'}}},
+  moveSet = {'bbl1','bs1','bbr1','rtl2','wbl2','bs2','wbr2','rtr2','rbl3','ws3','rbr3','rs0'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/EMP_Lambda/lambda.obj'
+}
+
+masterShipDB[27]={
+  name = 'TIE/ph Phantom',
+  Hull = 3,
+  Shield = 2,
+  size = 'small',
+  agi = 2,
+  XWS = 'tiephphantom',
+  Fac = {[2]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'wtl1','wbl1','wbr1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk3','ws4','rk4'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiephantom/tiephantom.obj'
+}
+
+masterShipDB[28]={
+  name = 'VT-49 Decimator',
+  Hull = 12,
+  Shield = 4,
+  size = 'large',
+  agi = 0,
+  XWS = 'vt49decimator',
+  Fac = {[2]=true},
+  arcs = {turret = {main = {name = 'primary', type={'doubleturret'}}}},
+  moveSet = {'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','wtl3','wbl3','ws3','wbr3','wtr3','ws4'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/EMP_Decimator/decimator.obj'
+}
+
+masterShipDB[29]={
+  name = 'TIE/ag Aggressor',
+  Hull = 4,
+  Shield = 1,
+  size = 'small',
+  agi = 2,
+  XWS = 'tieagaggressor',
+  Fac = {[2]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk4'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieaggressor/tieaggressor.obj'
+}
+
+masterShipDB[30]={
+  name = 'K-Wing',
+  Hull = 6,
+  Shield = 3,
+  size = 'medium',
+  agi = 1,
+  XWS = 'btls8kwing',
+  Fac = {[1]=true},
+  arcs = {turret = {main = {name = 'primary', type={'doubleturret'}}}},
+  moveSet = {'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','wbl3','ws3','wbr3'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/REB_kwing/kwing.obj'
+}
+
+masterShipDB[31]={
+  name = 'ARC-170',
+  Hull = 6,
+  Shield = 3,
+  size = 'medium',
+  agi = 1,
+  XWS = 'arc170starfighter',
+  Fac = {[1]=true,[6]=true},
+  arcs = {fixed = { range=3, type = {'frontback'}}},
+  moveSet = {'bbl1','bs1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs4','rk4'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/arc170.obj'
+}
+
+masterShipDB[32]={
+  name = 'Attack Shuttle',
+  Hull = 3,
+  Shield = 1,
+  size = 'small',
+  agi = 2,
+  XWS = 'attackshuttle',
+  Fac = {[1]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','ws4','rk4'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_attackshuttle/attackshuttle.obj'
+}
+
+masterShipDB[33]={
+  name = 'X-Wing',
+  Hull = 4,
+  Shield = 2,
+  size = 'small',
+  agi = 2,
+  XWS = 't65xwing',
+  Fac = {[1]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'bbl1', 'bs1', 'bbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'wtl3', 'wbl3', 'ws3', 'wbr3', 'wtr3', 'ws4', 'rtl3t', 'rtr3t', 'rk4' },
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_xwing/xwing.obj'
+}
+
+masterShipDB[34]={
+  name = 'HWK-290',
+  Hull = 3,
+  Shield = 2,
+  size = 'small',
+  agi = 2,
+  XWS = 'hwk290lightfreighter',
+  Fac = {[1]=true,[3]=true},
+  arcs = {turret = {main = {name = 'primary', type={'singleturret'}}}},
+  moveSet = {'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','bs3','wbr3','rtr3','ws4','rs0'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/hwk.obj'
+}
+
+masterShipDB[35]={
+  name = 'A-Wing',
+  Hull = 2,
+  Shield = 2,
+  size = 'small',
+  agi = 3,
+  XWS = 'rz1awing',
+  Fac = {[1]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'wtl1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rbl3s','wtl3','wbl3','bs3','wbr3','wtr3','rbr3s','bs4','bs5','rk5'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_awing/awing.obj'
+}
+
+masterShipDB[36]={
+  name = 'Fang Fighter',
+  Hull = 4,
+  Shield = 0,
+  size = 'small',
+  agi = 3,
+  XWS = 'fangfighter',
+  Fac = {[3]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'wtl1','wtr1','rtl2t','btl2','bbl2','bs2','bbr2','btr2','rtr2t','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk4','ws5'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_fangfighter/fangfighter.obj'
+}
+
+masterShipDB[38]={
+  name = 'Z-95 Headhunter',
+  Hull = 2,
+  Shield = 2,
+  size = 'small',
+  agi = 2,
+  XWS = 'z95af4headhunter',
+  Fac = {[1]=true,[3]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk3','ws4','rk4'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/z95.obj'
+}
+
+masterShipDB[39]={
+  name = 'M12-L Kimogila',
+  Hull = 7,
+  Shield = 2,
+  size = 'medium',
+  agi = 2,
+  XWS = 'm12lkimogilafighter',
+  Fac = {[3]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'rtl1','wbl1','bs1','wbr1','rtr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk4'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/SCU_kimogila/kimogila.obj'
+}
+
+masterShipDB[40]={
+  name = 'E-Wing',
+  Hull = 3,
+  Shield = 3,
+  size = 'small',
+  agi = 3,
+  XWS = 'ewing',
+  Fac = {[1]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rbl3s','wtl3','wbl3','bs3','wbr3','wtr3','rbr3s','bs4','rk4','ws5'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_ewing/ewing.obj'
+}
+masterShipDB[41]={
+  name = 'TIE/in Interceptor',
+  Hull = 3,
+  Shield = 0,
+  size = 'small',
+  agi = 3,
+  XWS = 'tieininterceptor',
+  Fac = {[2]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'wtl1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rbl3s','wtl3','wbl3','bs3','wbr3','wtr3','rbr3s','bs4','rk4','ws5'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieinterceptor/tieinterceptor.obj'
+}
+
+masterShipDB[42]={
+  name = 'Lancer Pursuit Craft',
+  Hull = 8,
+  Shield = 2,
+  size = 'large',
+  agi = 2,
+  XWS = 'lancerclasspursuitcraft',
+  Fac = {[3]=true},
+  arcs = {fixed = { range=3, type = {'front'}}, turret = {main = {name = 'primary', type={'singleturret'}}}},
+  moveSet = {'wbl1','ws1','wbr1','wtl2','wbl2','bs2','wbr2','wtr2','btl3','bbl3','bs3','bbr3','btr3','bs4','ws5','rk5'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/SCU_lancer/lancer.obj',
+}
+masterShipDB[43]={
+  name = 'TIE/re Reaper',
+  Hull = 6,
+  Shield = 2,
+  size = 'medium',
+  agi = 1,
+  XWS = 'tiereaper',
+  Fac = {[2]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'rbl1s','rtl1','bbl1','bs1','bbr1','rtr1','rbr1s','rtl2','wbl2','bs2','wbr2','rtr2','wbl3','bs3','wbr3','rs0'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/EMP_tiereaper/tiereaper.obj'
+}
+
+masterShipDB[44]={
+  name = 'M3-A Interceptor',
+  Hull = 3,
+  Shield = 1,
+  size = 'small',
+  agi = 3,
+  XWS = 'm3ainterceptor',
+  Fac = {[3]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'wtl1','bbl1','bbr1','wtr1','wtl2','wbl2','bs2','wbr2','wtr2','wbl3','bs3','wbr3','rk3','ws4','ws5','rk5'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_m3a/m3a.obj'
+}
+
+masterShipDB[45]={
+  name = 'JumpMaster 5000',
+  Hull = 6,
+  Shield = 3,
+  size = 'large',
+  agi = 1,
+  XWS = 'jumpmaster5000',
+  Fac = {[3]=true},
+  arcs = {turret = {main = {name = 'primary', type={'singleturret'}}}},
+  moveSet = {'wtl1','bbl1','bs1','wbr1','rtr1','wtl2','bbl2','bs2','wbr2','rtr2','rbl3s','bbl3','bs3','wbr3','ws4','rk4'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/SCU_jumpmaster/jumpmaster.obj'
+}
+
+masterShipDB[47]={
+  name = 'Customized YT-1300',
+  Hull = 8,
+  Shield = 3,
+  size = 'large',
+  agi = 1,
+  XWS = 'customizedyt1300lightfreighter',
+  Fac = {[3]=true},
+  arcs = {turret = {main = {name = 'primary', type={'doubleturret'}}}},
+  Docking = true,
+  moveSet = {'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rbl3s','rbr3s','ws4','rk4'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/SCU_yt1300/yt1300.obj'
+}
+
+masterShipDB[85]={
+  name = 'Escape Craft',
+  Hull = 2,
+  Shield = 2,
+  size = 'small',
+  agi = 2,
+  XWS = 'escapecraft',
+  Fac = {[3]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'bbl1','bs1','bbr1','rtl2','wbl2','bs2','wbr2','rtr2','wbl3','ws3','wbr3','rk3','rs0'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/SCU_yt1300/escapecraft.obj'
+}
+
+masterShipDB[49]={
+	name = 'TIE/fo FO',
+	Hull = 3,
+	Shield = 1,
+	size = 'small',
+	agi = 3,
+	XWS = 'tiefofighter',
+	Fac = {[5]=true},
+	arcs = {fixed = { range=3, type = {'front'}}},
+	moveSet = {'wtl1','wtr1','rbl2s','btl2','bbl2','bs2','bbr2','btr2','rbr2s','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk4','ws5'},
+	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_Tie_FO/Tie_FO.obj'
+}
+
+masterShipDB[50]={
+	name = 'TIE/sf SF',
+	Hull = 3,
+	Shield = 3,
+	size = 'small',
+	agi = 2,
+	XWS = 'tiesffighter',
+	Fac = {[5]=true},
+  arcs = {fixed = { range=3, type = {'front'}}, turret = {main = {name = 'primary', type= {'front', 'back'}}}},
+	moveSet = {'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','bbl2','bs2','bbr2','wtr2','rbl3s','wtl3','wbl3','bs3','wbr3','wtr3','rbr3s','ws4','ws5'},
+	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_Tie_SF/Tie_SF.obj'
+}
+masterShipDB[51]={
+	name = 'Upsilon Class Shuttle',
+	Hull = 6,
+	Shield = 6,
+	size = 'large',
+	agi = 1,
+	XWS = 'upsilonclasscommandshuttle',
+	Fac = {[5]=true},
+	arcs = {fixed = { range=3, type = {'front'}}},
+	moveSet = {'rtl1','wbl1','bs1','wbr1','rtr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs0'},
+	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/FO_Upsilon_Shuttle/Upsilon_Shuttle.obj'
+}
+masterShipDB[52]={
+	name = 'TIE Silencer',
+	Hull = 4,
+	Shield = 2,
+	size = 'small',
+	agi = 3,
+	XWS = 'tievnsilencer',
+	Fac = {[5]=true},
+	arcs = {fixed = { range=3, type = {'front'}}},
+	moveSet={'wtl1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rtl3t','wtl3','wbl3','bs3','wbr3','wtr3','rtr3t','bs4','rk4','bs5'},
+	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_Tie_VN/Tie_VN.obj'
+}
+
+masterShipDB[53]={
+    name = 'T-70 X-Wing',
+    Hull = 4,
+    Shield = 3,
+    size = 'small',
+    agi = 2,
+    XWS = '',
+    Fac = {[4]=true},
+    arcs = {fixed = { range=3, type = {'front'}}},
+    moveSet={'bbl1','bs1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3t','wtl3','wbl3','bs3','wbr3','wtr3','rtr3t','ws4','rk4'},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_T70Xwing/t70xwing.obj'}
+
+masterShipDB[54]={
+    name = 'A-Wing RZ-2',
+    Hull = 2,
+    Shield = 2,
+    size = 'small',
+    agi = 3,
+    Fac = {[4]=true},
+    arcs = {turret = {main = {name = 'primary', type= {'front', 'back'}}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_awing/res_awing.obj',
+    moveSet = {'wtl1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rbl3s','wtl3','bbl3','bs3','bbr3','wtr3','rbr3s','bs4','bs5','rk5'}}
+
+masterShipDB[55]={
+  name = 'MG-100 StarFortress',
+  Hull = 9,
+  Shield = 3,
+  size = 'large',
+  agi = 1,
+  XWS = '',
+  Fac = {[4]=true},
+  arcs = {fixed = { range=3, type = {'front'}}, turret = {main = {name = 'primary', type={'doubleturret'}}}},
+  moveSet = {'rs0','rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rbl3','ws3','rbr3'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/RES_starfortress/starfortress.obj'
+}
+
+masterShipDB[56]={
+  name = 'Mining Guild TIE',
+  Hull = 3,
+  Shield = 0,
+  size = 'small',
+  agi = 3,
+  XWS = '',
+  Fac = {[3]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'wtl1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk3','ws4','rs5'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_miningguildtie/miningguildtie.obj',
+}
+
+masterShipDB[57]={
+  name = 'Scavenged YT-1300',
+  Hull = 8,
+  Shield = 3,
+  size = 'large',
+  agi = 1,
+  XWS = '',
+  Fac = {[4]=true},
+  arcs = {turret = {main = {name = 'primary', type={'doubleturret'}}}},
+  moveSet = {'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','ws3','wbr3','wtr3','rbl3s','rbr3s','rs4'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/RES_scavengedyt1300/scavengedyt1300.obj',
+}
+
+--w3ship
+masterShipDB[61]={
+	name = 'Delta-7',
+	Hull = 3,
+	Shield = 1,
+	size = 'small',
+	agi = 3,
+	XWS = '',
+	Fac = {[6]=true},
+	arcs = {fixed = { range=3, type = {'front'}}},
+	moveSet={'wtl1','bbl1','bbr1','wtr1','rbl2s','wtl2','bbl2','bs2','bbr2','wtr2','rbr2s','wbl3','bs3','wbr3','ws4','rk4','ws5','rk5'},
+	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/Jedi_Delta7.obj'
+}
+
+masterShipDB[62]={
+	name = 'V-19',
+	Hull = 5,
+	Shield = 0,
+	size = 'small',
+	agi = 2,
+	XWS = '',
+	Fac = {[6]=true},
+	arcs = {fixed = { range=3, type = {'front'}}},
+	moveSet ={'rtl1','bbl1','bs1','bbr1','rtr1','rtl2t','wtl2','wbl2','bs2','wbr2','wtr2','rtr2t','rbl3','bs3','rbr3','rk3','ws4'},
+	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_V-19_Torrent/V-19_Torrent.obj'
+}
+
+
+masterShipDB[59]={
+  name = 'Vulture-Class Droid',
+  Hull = 3,
+  Shield = 0,
+  size = 'small',
+  agi = 2,
+  XWS = '',
+  Fac = {[7]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'wtl1','wtr1','rk1','rtl2t','btl2','wbl2','bs2','wbr2','btr2','rtr2t','wtl3','rbl3','bs3','rbr3','wtr3','bs4','ws5'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Vulture/Vulture.obj'
+}
+masterShipDB[58]={
+  name = 'Belbullab-22',
+  Hull = 4,
+  Shield = 2,
+  size = 'small',
+  agi = 2,
+  XWS = '',
+  Fac = {[7]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'wtl1','wbl1','wbr1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','rbl3s','rtl3','wbl3','bs3','wbr3','rtr3','rbr3s','ws4','ws5'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Belbullab/Belbullab.obj'
+}
+masterShipDB[60]={
+  name = 'Sith Infiltrator',
+  Hull = 6,
+  Shield = 4,
+  size = 'large',
+  agi = 1,
+  XWS = '',
+  Fac = {[7]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'rtl1','bbl1','bs1','bbr1','rtr1','rbl2s','wtl2','bbl2','bs2','bbr2','wtr2','rbr2s','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk5'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/CIS_Infiltrator/Infiltrator.obj'
+}
+
+--w4ship
+masterShipDB[63]={
+    name = 'Resistance Transport',
+    Hull = 5,
+    Shield = 3,
+    size = 'small',
+    agi = 1,
+    Fac = {[4]=true},
+    arcs = {fixed = { range=3, type = {'front'}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_transport/transport.obj',
+    moveSet = {'rbl1r','rbr1r','rs0','rbl1r','rbr1r','rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rbl3','ws3','rbr3','rs4'}
+}
+
+masterShipDB[65]={
+    name = 'Resistance Transport Pod',
+    Shield = 1,
+    Hull = 3,
+    size = 'small',
+    agi = 2,
+    Fac = {[4]=true},
+    arcs = {fixed = { range=3, type = {'front'}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_transport_pod/transport_pod.obj',
+    moveSet = {'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rbl3','ws3','rbr3','rk3','rs4'}
+}
+
+
+
+masterShipDB[64]={
+  name = 'Hyena-Class Droid Bomber',
+  Hull = 5,
+  Shield = 0,
+  size = 'small',
+  agi = 2,
+  XWS = '',
+  Fac = {[7]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'wtl1','rbl1','ws1','rbr1','wtr1','btl2','wbl2','bs2','wbr2','btr2','rk2','rtl2t','rtr2t','wtl3','bs3','wtr3','ws4','rs5'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Hyena/Hyena.obj'
+}
+
+masterShipDB[66]={
+	name ='N-1 StarFighter',
+	Hull = 3,
+	Shield = 2,
+	size = 'small',
+	agi = 2,
+	XWS = '',
+	Fac = {[6]=true},
+	arcs = {fixed = { range=3, type = {'front'}}},
+	moveSet = {'wbl1','ws1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','bbl3','bs3','bbr3','wtr3','rtl3t','rtr3t','ws4','ws5'},
+	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_N1/Naboo_Royal_N1.obj'
+}
+
+masterShipDB[67]={
+  name = 'Nantex-Class StarFighter',
+  Hull = 4,
+  Shield = 0,
+  size = 'small',
+  agi = 3,
+  XWS = '',
+  Fac = {[7]=true},
+  arcs = {fixed = { range=3, type = {'bull'}}, turret={main={name= 'primary', type={'left', 'front', 'right'}}}},
+  moveSet = {'wtl1','bbl1','bbr1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','bbl3','bs3','bbr3','wtr3','rbl3s','rbr3s','ws4','ws5','rk5'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Nantex/Nantex.obj'
+}
+masterShipDB[68]={
+	name = 'BTL-B Y-Wing',
+	Hull = 5,
+	Shield = 3,
+	size = 'small',
+	agi = 1,
+	XWS = '',
+	Fac = {[6]=true},
+	arcs = {fixed = { range=3, type = {'front'}}},
+	moveSet = {'wbl1','bs1','wbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs4','rk4'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Y-Wing/BTLB_YWING.obj'
+}
+
+masterShipDB[69]={
+  name = 'FireBall',
+  Hull = 6,
+  Shield = 0,
+  size = 'small',
+  agi = 2,
+  XWS = '',
+  Fac = {[4]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'wtl1','bbl1','bs1','bbr1','wtr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rtl3t','rtr3t','rs4'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_fireball/fireball.obj'
+}
+
+
+masterShipDB[70]={
+    name = 'TIE/ba Interceptor',
+    Hull = 2,
+    Shield = 2,
+    size = 'small',
+    agi = 3,
+    XWS = '',
+    Fac = {[5]=true},
+    arcs = {fixed = { range=3, type = {'front'}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_Tie_Ba/TieBa.obj',
+    moveSet = {'btl1','bbl1','bbr1','btr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rbl2s','rbr2s','bs4','ws5','rk5'}
+}
+
+masterShipDB[71]={
+    name = 'Nimbus-class V-wing',
+    Hull = 2,
+    Shield = 2,
+    size = 'small',
+    agi = 3,
+    XWS = 'nimbusclassvwing',
+    Fac = {[6]=true},
+    arcs = {fixed = { range=3, type = {'front'}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_V-Wing/Republic_V-Wing.obj',
+    moveSet = {'wtl1','rbl1','rbr1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rk2','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk4','ws5'},
+}
+
+masterShipDB[72]={
+    name = 'TIE/rb Heavy',
+    Hull = 8,
+    Shield = 0,
+    size = 'medium',
+    agi = 1,
+    XWS = 'tierbheavy',
+    Fac = {[2]=true},
+    arcs = {turret = {main={ name = 'primary', type= {'front', 'back'}}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/Tie_Rb/Rb%20Brute.obj',
+    moveSet = {'rtl1','wbl1','bs1','wbr1','rtr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3t','rtl3','wbl3','ws3','wbr3','rtr3','rtr3t','ws4'},
+}
+
+masterShipDB[73]={
+    name = 'Xi-class Light Shuttle',
+    Hull = 5,
+    Shield = 2,
+    size = 'medium',
+    agi = 2,
+    XWS = '',
+    Fac = {[5]=true},
+    arcs = {fixed = { range=3, type = {'front'}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/Xi_Shuttle/XiClassLightShuttle.obj',
+    moveSet = {'rs0','bbl1','bs1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','ws4'}
+}
+
+
+masterShipDB[74]={
+    name = 'LAAT/i Gunship',
+    Hull = 8,
+    Shield = 2,
+    Charge = 2,
+    size = 'medium',
+    agi = 1,
+    XWS = '',
+    Fac = {[6]=true},
+    arcs = {turret = {main = {name = 'primary', type={'doubleturret'}}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/GRP_LAAT/GRP_LAAT.obj',
+    moveSet = {'rs0','wbl1','bs1','wbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs4'}
+}
+
+masterShipDB[75]={
+    name = 'HMP Droid Gunship',
+    Hull = 5,
+    Shield = 3,
+    size = 'small',
+    agi = 1,
+    XWS = '',
+    Fac = {[7]=true},
+    arcs = {fixed = { range=3, type = {'fullfront'}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/HMP_Gunship.obj',
+    moveSet = {'rs0','rbl1','bs1','rbr1','btl2','wbl2','bs2','wbr2','btr2','wtl3','rbl3','ws3','rbr3','wtr3','rs4','rs5'},
+}
+
+masterShipDB[76]={
+    name = 'Eta-2 Actis',
+    Hull = 3,
+    Shield = 0,
+    size = 'small',
+    agi = 3,
+    XWS = 'eta2actis',
+    Fac = {[6]=true},
+    arcs = {fixed = { range=3, type = {'front'}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_ETA2/ETA2%20Jedi%20Starfighter.obj',
+    moveSet = {'wtl1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','ptl2t','ptr2t','wtl3','bbl3','bs3','bbr3','wtr3','bs4','rk4','ws5'},
+}
+
+masterShipDB[77]={
+    name = 'Droid Tri-Fighter',
+    Hull = 3,
+    Shield = 0,
+    size = 'small',
+    agi = 3,
+    XWS = 'droidtrifighter',
+    Fac = {[7]=true},
+    arcs = {fixed = { range=3, type = {'front'}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Tri-Fighter/CIS_Tri-Fighter.obj',
+    moveSet = {'rtl1t','wtl1','wtr1','rtr1t','btl2','wbl2','bs2','wbr2','btr2','btl3','wbl3','bs3','wbr3','btr3','rk3', 'bs4','ws5','rk5'},
+}
+
+
+-- Huge ships
+masterShipDB[90]={
+    name = 'CR-90 Corvette',
+    Hull = 18,
+    Shield = 7,
+    Energy = 7,
+    size = 'huge',
+    agi = 0,
+    mountingPoints = { front = {0, -2.63}, rear = {0, 2.63} },
+    Fac = {[1]=true, [6]=true},
+    arcs = {fixed = { range=4, type = {'left', 'right'}}},
+    moveSet = {'rbl0','rs0','rbr0','wbl1','ws1','wbr1','bbl2','bs2','bbr2','rbl3','bs3','rbr3','rs4','rs5'},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/CR90%20Corvette/CR90%20Corvette.obj'
+  }
+
+masterShipDB[91]={
+    name = 'C-ROC Cruiser',
+    Hull = 12,
+    Shield = 4,
+    Energy = 4,
+    size = 'huge',
+    agi = 0,
+    mountingPoints = { front = {0, -2.63}, rear = {0, 2.63} },
+    Fac = {[3]=true, [7]=true},
+    arcs = {fixed = { range=3, type = {'front'}}},
+    moveSet = {'rbl0','rs0','rbr0','wbl1','bs1','wbr1','wbl2','bs2','wbr2','rbl3','ws3','rbr3','rs4','rs5'},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/CR0C/CR0C%20Cruiser.obj'
+  }
+
+masterShipDB[92]={
+    name = 'Gozanti-class Cruiser',
+    Hull = 11,
+    Shield = 5,
+    Energy = 3,
+    size = 'huge',
+    agi = 0,
+    mountingPoints = { front = {0, -2.05}, rear = {0, 2.05} },
+    Fac = {[2]=true, [5]=true},
+    arcs = {fixed = { range=3, type = {'front'}}},
+    moveSet = {'rbl0','rs0','rbr0','wbl1','bs1','wbr1','rbl2','bs2','rbr2','bs3','rs4'},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/Gozanti-Class%20Cruiser/Gozanti-Class%20Cruiser.obj'
+  }
+
+masterShipDB[93]={
+    name = 'GR-75 Medium Transport',
+    Hull = 12,
+    Shield = 3,
+    Energy = 4,
+    size = 'huge',
+    agi = 0,
+    mountingPoints = { front = {0, -2.05}, rear = {0, 2.05} },
+    Fac = {[1]=true, [4]=true},
+    arcs = {fixed = { range=3, type = {'front'}}},
+    moveSet = {'rbl0','rs0','rbr0','bbl1','bs1','bbr1','wbl2','ws2','wbr2','rs3','rs4'},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/GR-75%20Transport/GR-75%20Transport.obj'
+  }
+
+masterShipDB[94]={
+    name = 'Raider-class Corvette',
+    Hull = 20,
+    Shield = 8,
+    Energy = 6,
+    size = 'huge',
+    agi = 0,
+    mountingPoints = { front = {0, -2.63}, rear = {0, 2.63} },
+    Fac = {[2]=true, [5]=true},
+    arcs = {fixed = { range=3, type = {'fullfront'}}},
+    moveSet = {'rbl0','rs0','rbr0','bbl1','ws1','bbr1','wbl2','bs2','wbr2','rbl3','bs3','rbr3','ws4','rs5'},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/Raider%20Class%20Corvette/Raider%20Class%20Corvette.obj'
+  }
+
+  return masterShipDB
