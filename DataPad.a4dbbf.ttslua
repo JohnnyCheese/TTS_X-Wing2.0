@@ -784,11 +784,12 @@ function idSpawner(idTable)
 
             --fList.Upgrades[k][key].card = masterUpgradesDB[value].card
             fList.Upgrades[k][key].card = "https://raw.githubusercontent.com/CrazyVulcan/x-wing2.0-project-goldenrod/main/src/images/En/upgrades/"..masterUpgradesDB[value].XWS..".png"
-            if masterUpgradesDB[value].cardB ==  nil then
+            if masterUpgradesDB[value].dual == true then
+              fList.Upgrades[k][key].cardB = "https://raw.githubusercontent.com/CrazyVulcan/x-wing2.0-project-goldenrod/main/src/images/En/upgrades/"..masterUpgradesDB[value].XWS.."-sideb.png"
+            elseif masterUpgradesDB[value].cardB ==  nil then
               fList.Upgrades[k][key].cardB = cardBackDB[tostring(upSlot)]
             else
-              fList.Upgrades[k][key].cardB = "https://raw.githubusercontent.com/CrazyVulcan/x-wing2.0-project-goldenrod/main/src/images/En/upgrades/"..masterUpgradesDB[value].XWS.."-sideb.png"
-              --fList.Upgrades[k][key].cardB = masterUpgradesDB[value].cardB
+              fList.Upgrades[k][key].cardB = masterUpgradesDB[value].cardB
             end
             for K,V in pairs(masterUpgradesDB[value].addAction or {}) do --Upgrades that adds an action to a ship
                 table.insert(fList.Pilots[k].Data.actSet,V)
