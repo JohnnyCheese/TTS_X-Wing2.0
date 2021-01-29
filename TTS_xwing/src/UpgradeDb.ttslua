@@ -136,7 +136,7 @@ masterUpgradesDB[286]={
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_57.png',
     restriction = { Size={small=true,medium=true}}}
 masterUpgradesDB[287]={['name']='Contraband Cybernetics',['XWS']='contrabandcybernetics',['slot']=13,['cost']=3,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_58.png',}
-masterUpgradesDB[288]={['name']="Deadman',['XWS']='deadman's Switch",['slot']=13,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_59.png',}
+masterUpgradesDB[288]={['name']="Deadman's Switch",['XWS']='deadmansswitch',['slot']=13,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_59.png',}
 masterUpgradesDB[289]={['name']='Feedback Array',['XWS']='feedbackarray',['slot']=13,['cost']=3,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_60.png',}
 masterUpgradesDB[290]={['name']='Inertial Dampeners',['XWS']='inertialdampeners',['slot']=13,['cost']='i',['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_61.png',}
 masterUpgradesDB[291]={['name']='Rigged Cargo Chute',['XWS']='riggedcargochute',['slot']=13,['Bomb']=true,['cost']=4,['Charge']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_62.png',['restriction']={ ['Size']={large=true,medium=true}}}
@@ -385,7 +385,7 @@ masterUpgradesDB[369]={['name']='R5-P8',['XWS']='r5p8',['slot']=10,['cost']=4,['
 masterUpgradesDB[370]={['name']='R5-TK',['XWS']='r5tk',['slot']=10,['cost']=0,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_145.png',['restriction']={['Faction']={[3]=true}}}
 masterUpgradesDB[371]={['name']='Andrasta',['XWS']='andrasta',['slot']=15,['cost']=2,['addSlot']={12},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_146.png',['restriction']={['Faction']={[3]=true},['ship']={[10]=true}}}
 masterUpgradesDB[372]={['name']='Havoc',['XWS']='havoc',['slot']=15,['cost']=2,['addSlot']={2, 10},['remSlot']={8},['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_147.png',['restriction']={['Faction']={[3]=true},['ship']={[4]=true}}}
-masterUpgradesDB[373]={['name']="Hound',['XWS']='hound's Tooth",['Docking']=true,['slot']=15,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_148.png',['restriction']={['Faction']={[3]=true},['ship']={[24]=true}}}
+masterUpgradesDB[373]={['name']="Hound's Tooth",['XWS']='houndstooth',['Docking']=true,['slot']=15,['cost']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_148.png',['restriction']={['Faction']={[3]=true},['ship']={[24]=true}}}
 
 masterUpgradesDB[374]={
     name = 'IG-2000',
@@ -467,10 +467,10 @@ masterUpgradesDB[383]={['name']='L3-37',['XWS']='l337',['dual']=true,['slot']=8,
 --[[masterUpgradesDB[384]={['name']="L3-37',['XWS']='l337's Programming",['dual']=1,['slot']=18,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_158b.png',['cardB']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_158.png',['restriction']={['Faction']={[3]=true}}}]]
 masterUpgradesDB[385]={['name']='Lando Calrissian',['XWS']='landocalrissian-crew',['slot']=8,['cost']=6,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_159.png',['restriction']={['Faction']={[3]=true}}}
 masterUpgradesDB[386]={['name']='Tobias Beckett',['XWS']='tobiasbeckett',['slot']=8,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_160.png',['restriction']={['Faction']={[3]=true}}}
-masterUpgradesDB[387]={['name']="Qi',['XWS']='qi'ra",['slot']=8,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_161.png',['restriction']={['Faction']={[3]=true}}}
+masterUpgradesDB[387]={['name']="Qi'ra",['XWS']='qira',['slot']=8,['cost']=2,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_161.png',['restriction']={['Faction']={[3]=true}}}
 masterUpgradesDB[388]={['name']='Agile Gunner',['XWS']='agilegunner',['slot']=16,['cost']='s',['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_162.png',}
 masterUpgradesDB[389]={['name']='Han Solo',['XWS']='hansolo-gunner',['slot']=16,['cost']=10,['card']='http://sb-cdn.fantasyflightgames.com/card_images/Card_Upgrade_163.png',['restriction']={['Faction']={[3]=true}}}
-masterUpgradesDB[390]={['name']="Lando',['XWS']='lando's Millennium Falcon",['slot']=15,['cost']=3,['card']='https://sb-cdn.fantasyflightgames.com/card_images/en/96b50606e65bfe308b9e75a03d9a1884.png',['restriction']={['Faction']={[3]=true},['ship']={[47]=true}}}
+masterUpgradesDB[390]={['name']="Lando's Millenium Falcon",['XWS']='landosmillenniumfalcon',['slot']=15,['cost']=3,['card']='https://sb-cdn.fantasyflightgames.com/card_images/en/96b50606e65bfe308b9e75a03d9a1884.png',['restriction']={['Faction']={[3]=true},['ship']={[47]=true}}}
 masterUpgradesDB[391]={
     name = 'ST-321',
     XWS = 'st321',
@@ -504,7 +504,7 @@ masterUpgradesDB[470]={['name']="Special Forces Gunner",['XWS']='specialforcesgu
 masterUpgradesDB[471]={['name']="Heroic",['XWS']='heroic',['slot']=1,['cost']='a',['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/9f8baf4893cd90288df44b69b50fa788.png',['restriction']={['Faction']={[4]=true}}}
 masterUpgradesDB[472]={
     name = "C-3PO",
-    XWS = 'c3po-crew.png',
+    XWS = 'c3po-crew',
     slot = 8,
     addAction = {'C'},
     cost = 5,
@@ -761,7 +761,7 @@ masterUpgradesDB[583]={
 
 masterUpgradesDB[584]={['name']="Korr Sella",['XWS']='korrsella',['slot']=8,['cost']=6,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/dd102b8e517399d12b17756a863d19ee.png',
                         ['restriction']={['Faction']={[4]=true}}}
-masterUpgradesDB[585]={['name']="Larma D',['XWS']='larmad'Acy",['slot']=8,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/555a815e60cd7bf4612109c3fd65beaa.png',
+masterUpgradesDB[585]={['name']="Larma D'Acy",['XWS']='larmadacy',['slot']=8,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/555a815e60cd7bf4612109c3fd65beaa.png',
                         ['restriction']={['Faction']={[4]=true}}}
 masterUpgradesDB[586]={['name']="Leia Organa",['XWS']='leiaorgana-resistance',['slot']=8,['remSlot']={8},['cost']=17,['Force']=1,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/0a194c8c529278b471e64edc597b06fc.png', ['cardB']=cardBackDB['8b'],
                         ['restriction']={['Faction']={[4]=true}}}
@@ -924,7 +924,7 @@ masterUpgradesDB[651]={['name']="Mag-Pulse Warheads",['XWS']='magpulsewarheads',
 masterUpgradesDB[653]={['name']="Proud Tradition",['XWS']='proudtradition',['dual']=true,['slot']=1,['cost']=2,['card']='http://images-cdn.fantasyflightgames.com/filer_public/38/09/3809c0fe-c113-43ee-bc6e-90e6afadef73/swz62_card_proud-tradition.png', ['cardB']='http://images-cdn.fantasyflightgames.com/filer_public/0b/48/0b48c067-b088-41aa-8af1-6d7f4ff840d1/swz62_card_false-tradition.png', ['restriction']={['Faction']={[5]=true}}}
 masterUpgradesDB[654]={['name']="Deuterium Power Cells",['XWS']='deuteriumpowercells',['slot']=19,['cost']=9,['Charge']=2,['remSlot']={14},['card']='http://images-cdn.fantasyflightgames.com/filer_public/d1/af/d1afeaf7-166b-4874-8544-982d8c4c445e/swz62_card_deuterium-power-cells.png',
                         ['restriction']={['Faction']={[5]=true}}}
-masterUpgradesDB[655]={['name']="Kaz',['XWS']='kaz's Fireball",['slot']=15,['cost']=2,['card']='http://images-cdn.fantasyflightgames.com/filer_public/47/dd/47dd508f-6751-4b19-b3da-d0530aeb9a33/swz63_a1_card_kazs-fireball.png',
+masterUpgradesDB[655]={['name']="Kaz's Fireball",['XWS']='kazsfireball',['slot']=15,['cost']=2,['card']='http://images-cdn.fantasyflightgames.com/filer_public/47/dd/47dd508f-6751-4b19-b3da-d0530aeb9a33/swz63_a1_card_kazs-fireball.png',
                         ['restriction']={ ['ship']={[70]=true}}}
 
 
