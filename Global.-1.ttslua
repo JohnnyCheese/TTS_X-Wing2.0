@@ -6834,15 +6834,15 @@ function newSpawner(listTable)
                         chargeToken = tempBagAcc.takeObject({rotation = spawnCard.getRotation(), guid = acc.guid, smooth=false})
                         while charges > 0 do
                           if charges == 5 then
-                              pos = LocalPos(spawnCard, {-1.7 - 2*UpNum,0, 1.9})
+                              pos = LocalPos(spawnCard, {-1.7 - 2*UpNum,3, 1.9})
                           elseif charges == 4 then
-                              pos = LocalPos(spawnCard, {-1.7 - 2*UpNum,0, 2.8})
+                              pos = LocalPos(spawnCard, {-1.7 - 2*UpNum,3, 2.8})
                           elseif charges == 3 then
-                              pos = LocalPos(spawnCard, {-2.6 - 2*UpNum,0, 2.8})
+                              pos = LocalPos(spawnCard, {-2.6 - 2*UpNum,3, 2.8})
                           elseif charges == 2 then
-                              pos = LocalPos(spawnCard, {-1.7 - 2*UpNum,0, 3.7})
+                              pos = LocalPos(spawnCard, {-1.7 - 2*UpNum,3, 3.7})
                           elseif charges == 1 then
-                              pos = LocalPos(spawnCard, {-2.6 - 2*UpNum,0, 3.7})
+                              pos = LocalPos(spawnCard, {-2.6 - 2*UpNum,3, 3.7})
                           else
                               charges = 0
                           end
@@ -6917,7 +6917,7 @@ function newSpawner(listTable)
                          rotation = dialrot,
                          guid = acc.guid
                        })
-                    local newDial = dial.clone()
+                    local newDial = dial.clone({position = pos})
                     tempBagAcc.putObject(dial)
                     local conditionFunc = function() return (not card.spawning) and (not newDial.spawning) end
                     local executeFunc = function()
@@ -6939,10 +6939,10 @@ function newSpawner(listTable)
         if Pilots[shipIndex].Condition ~= nil then                                            --Checks and spawn conditions associated to pilots
             for k, acc in ipairs(listaAcc) do
                 if acc.name == Pilots[shipIndex].Condition then
-                    pos = LocalPos(spawnCard, {-2 - 2*UpNum, 2-0.2*UpNum, 8})
+                    pos = LocalPos(spawnCard, {-2 - 2*UpNum, 3, 8})
                     rot = spawnCard.getRotation()
                     newAsset = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
-                    assetClone = newAsset.clone()
+                    assetClone = newAsset.clone({position = pos})
                     tempBagAcc.putObject(assetClone)
                 end
             end
@@ -7038,9 +7038,9 @@ function newSpawner(listTable)
             for k, acc in ipairs(listaAcc) do
                 if acc.name == 'StarViper Mk.II roll token' then
                     pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
-                    svToken = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
-                    svClone = svToken.clone()
-                    tempBagAcc.putObject(svClone)
+                    svToken = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid, smooth = false})
+                    svClone = svToken.clone({position = pos})
+                    tempBagAcc.putObject(svToken)
                 end
             end
         end
@@ -7054,10 +7054,10 @@ function newSpawner(listTable)
             local offset = LocalPos(spawnCard, {mount_pos[1], 0, mount_pos[2] + 9})
             for k, acc in pairs(listaAcc) do
                 if acc.name == indicator_name then
-                    arcInd = tempBagAcc.takeObject({position = offset, rotation = rot, guid = acc.guid})
-                    indClone = arcInd.clone()
-                    tempBagAcc.putObject(indClone)
-                    arcInd.setName(string.gsub(arcInd.getName(), Faction, ''))
+                    arcInd = tempBagAcc.takeObject({position = offset, rotation = rot, guid = acc.guid, smooth=false})
+                    newInd = arcInd.clone({position = pos})
+                    tempBagAcc.putObject(arcInd)
+                    newInd.setName(string.gsub(newInd.getName(), Faction, ''))
                 end
             end
         end
@@ -7066,8 +7066,8 @@ function newSpawner(listTable)
             for k, acc in ipairs(listaAcc) do
                 if acc.name == 'Bomb drop token (unassigned)' then
                     pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
-                    bombDrop = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
-                    dropClone = bombDrop.clone()
+                    bombDrop = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid, smooth=false})
+                    dropClone = bombDrop.clone({position = pos})
                     tempBagAcc.putObject(bombDrop)
                     dropClone.setDescription(Pilots[shipIndex].bombD)
                 end
@@ -7077,9 +7077,9 @@ function newSpawner(listTable)
             for k, acc in ipairs(listaAcc) do
                 if acc.name == 'Shuttle Launcher (assigned to mothership)' then
                     pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
-                    shuttleDrop = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
-                    dropClone = shuttleDrop.clone()
-                    tempBagAcc.putObject(dropClone)
+                    shuttleDrop = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid, smooth=false})
+                    dropClone = shuttleDrop.clone({position = pos})
+                    tempBagAcc.putObject(shuttleDrop)
                 end
             end
         end
@@ -7087,55 +7087,13 @@ function newSpawner(listTable)
             for k, acc in ipairs(listaAcc) do
                 if acc.name == 'Epic Wing Token' then
                     pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
-                    wingtoken = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
-                    wingtokenclone = wingtoken.clone()
-                    tempBagAcc.putObject(wingtokenclone)
+                    wingtoken = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid, smooth=false})
+                    wingtokenclone = wingtoken.clone({position = pos})
+                    tempBagAcc.putObject(wingtoken)
                 end
             end
         end
 
-
-        if Pilots[shipIndex].id ==0 then
-            if Pilots[shipIndex].Turret ~= nil then       --Checks if upgrade should trigger the dual mobile arc indicator
-                if Pilots[shipIndex].Turret == 2 then
-                    dualTurret = 1
-                else
-                    Turret = 1
-                end
-            end
-            if Turret == 1 and dualTurret == 0 then                                                       --Checks and spawn arc indicator if needed
-                for k, acc in ipairs(listaAcc) do
-                    if acc.name == 'Arc Indicator'..tostring(Faction) then
-                        arcInd = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
-                        indClone = arcInd.clone()
-                        tempBagAcc.putObject(indClone)
-                        arcInd.setName(string.gsub(arcInd.getName(), Faction, ''))
-                        Turret = 0
-                    end
-                end
-            elseif dualTurret == 1 then                                               --Checks and spawn dual arc indicator if needed
-                for k, acc in ipairs(listaAcc) do
-                    if acc.name == 'Dual Arc Indicator'..tostring(Faction) then
-                        dualArcInd = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
-                        indClone = dualArcInd.clone()
-                        tempBagAcc.putObject(indClone)
-                        dualArcInd.setName(string.gsub(dualArcInd.getName(), Faction, ''))
-                        dualTurret = 0
-                    end
-                end
-            end
-            if Pilots[shipIndex].Bomb == true then                                                       --Checks and spawn bomb drop token if needed
-                for k, acc in ipairs(listaAcc) do
-                    if acc.name == 'Bomb drop token (unassigned)' then
-                        pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
-                        bombDrop = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
-                        dropClone = bombDrop.clone()
-                        tempBagAcc.putObject(dropClone)
-                        bombDrop.setDescription(Pilots[shipIndex].bombD)
-                    end
-                end
-            end
-        end
         --spawn pilot charge tokens
         if Pilots[shipIndex].Charge > 0 then
           for k, acc in pairs(listaAcc) do
@@ -7144,13 +7102,13 @@ function newSpawner(listTable)
                   while Pilots[shipIndex].Charge > 0 do
 
                     if Pilots[shipIndex].Charge == 4 then
-                        pos = LocalPos(spawnCard, {-0.9 ,0, 0.6})
+                        pos = LocalPos(spawnCard, {-0.9 ,3, 0.6})
                     elseif Pilots[shipIndex].Charge == 3 then
-                        pos = LocalPos(spawnCard, {0.9 ,0, 1.6})
+                        pos = LocalPos(spawnCard, {0.9 ,3, 1.6})
                     elseif Pilots[shipIndex].Charge == 2 then
-                        pos = LocalPos(spawnCard, {0 ,0, 1.6})
+                        pos = LocalPos(spawnCard, {0 ,3, 1.6})
                     elseif Pilots[shipIndex].Charge == 1 then
-                        pos = LocalPos(spawnCard, {-0.9 ,0, 1.6})
+                        pos = LocalPos(spawnCard, {-0.9 ,3, 1.6})
                     else
                         charges = 0
                     end
@@ -7170,12 +7128,12 @@ function newSpawner(listTable)
                   while Pilots[shipIndex].Force > 0 do
                     Pilots[shipIndex].Force = Pilots[shipIndex].Force - 1
                     if hasMob == 1 then                 --adjusts layout if Mobile Upgrade is present
-                        pos = LocalPos(spawnCard, {1.7 + 0.9*Pilots[shipIndex].Force, 0, 3.7})
+                        pos = LocalPos(spawnCard, {1.7 + 0.9*Pilots[shipIndex].Force, 3, 3.7})
                         if forceValue >2 then
-                            pos = LocalPos(spawnCard, {1.7 + 0.9*(Pilots[shipIndex].Force-2), 0, 2.8})
+                            pos = LocalPos(spawnCard, {1.7 + 0.9*(Pilots[shipIndex].Force-2), 3, 2.8})
                         end
                     else
-                        pos = LocalPos(spawnCard, {1.7, 0, 3.7 + 0.9*Pilots[shipIndex].Force})
+                        pos = LocalPos(spawnCard, {1.7, 3, 3.7 + 0.9*Pilots[shipIndex].Force})
                     end
                     forceClone = forceToken.clone({position=pos})
                   end
@@ -7190,12 +7148,12 @@ function newSpawner(listTable)
                   shieldToken = tempBagAcc.takeObject({rotation = spawnCard.getRotation(), guid = acc.guid, smooth=false})
                   while Pilots[shipIndex].Shield > 0 do
                     Pilots[shipIndex].Shield = Pilots[shipIndex].Shield - 1
-                    pos = LocalPos(spawnCard, { -0.9 + 0.9*Pilots[shipIndex].Shield, 0, 3.4})
+                    pos = LocalPos(spawnCard, { -0.9 + 0.9*Pilots[shipIndex].Shield, 3, 3.4})
 
                     if Pilots[shipIndex].Shield >5  then
-                        pos = LocalPos(spawnCard, {-0.9 + 0.9*(Pilots[shipIndex].Shield-6), 0, 1.6})
+                        pos = LocalPos(spawnCard, {-0.9 + 0.9*(Pilots[shipIndex].Shield-6), 3, 1.6})
                     elseif Pilots[shipIndex].Shield >2 then
-                        pos = LocalPos(spawnCard, {-0.9 + 0.9*(Pilots[shipIndex].Shield-3), 0, 2.5})
+                        pos = LocalPos(spawnCard, {-0.9 + 0.9*(Pilots[shipIndex].Shield-3), 3, 2.5})
                     end
 
                     shieldClone = shieldToken.clone({position=pos})
@@ -7223,8 +7181,8 @@ function newSpawner(listTable)
             if acc.name == remote then
                 print("Found remote")
                 rot = spawnCard.getRotation()
-                pos = LocalPos(spawnCard, {1,0,0})
-                remObj = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
+                pos = LocalPos(spawnCard, {1,3,0})
+                remObj = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid, smooth = false})
                 remoteClone = remObj.clone()
                 tempBagAcc.putObject(remoteClone)
                 finalpos = LocalPos(spawnCard, {-3,0,0})
@@ -7248,9 +7206,9 @@ function newSpawner(listTable)
                     print("Found obstacle: " .. obstacle.name .. " - " .. obstacleName)
                     pos =  LocalPos(spawnCard, {0, 3, 0})
                     rot = spawnCard.getRotation()
-                    obstacleToken = tempObstacleBag.takeObject({position = pos, rotation = rot, guid = obstacle.guid})
+                    obstacleToken = tempObstacleBag.takeObject({position = pos, rotation = rot, guid = obstacle.guid, smooth = false})
                     obstacleClone = obstacleToken.clone()
-                    tempObstacleBag.putObject(obstacleClone)
+                    tempObstacleBag.putObject(obstacleToken)
                     found = true
                     break
                 end
