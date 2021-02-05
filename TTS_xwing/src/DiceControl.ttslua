@@ -19,6 +19,8 @@ DiceControlModule.error_color = color(1.0,0.2,0.1)
 DiceControlModule.info_color = color(0.7,0.7,0.4)
 DiceControlModule.highlight_color = "[FFFF55]"
 
+DiceControlModule.test_mode = false
+
 
 
 DiceControlModule.dice_types = {
@@ -48,6 +50,28 @@ DiceControlModule.dice_types = {
              },
             result_order = {"Evade", "Eye"}
          },
+     RedTest = {
+         color = "[FFFFFF]",
+         luck_values = {
+             Crit ={expected = 1/8,
+                    luck = 1.25},
+             Hit1 = { expected = 1/8,
+                      luck =  1},
+             Hit2 = { expected = 1/8,
+                      luck =  1},
+            Hit3 = { expected = 1/8,
+                      luck =  1},
+            Eye1 = { expected = 1/8,
+                      luck = 0.5},
+            Eye2 = { expected = 1/8,
+                      luck = 0.5},
+             Blank1 = { expected = 1/8,
+                      luck = 0},
+            Blank2 = { expected = 1/8,
+                     luck = 0}
+              },
+             result_order = {"Crit", "Hit1", "Hit2", "Hit3", "Eye1","Eye2","Blank1","Blank2"}
+          },
      Default = {
          color = "[777777]"
               }
@@ -226,6 +250,22 @@ DiceControlModule.PresentDiceRollerResult = function(player_color)
     end
     printToAll(resulttext, DiceControlModule.info_color)
     DiceControlModule.dice_roller_state[player_color]  = "idle"
+
+    if DiceControlModule.test_mode then
+      for k, dice in pairs(DiceControlModule.rolled_dice[player_color]) do
+          dice.setRotation(vector(326.26, 179.99, 90.00))
+      end
+      Wait.time(
+      function()
+        for k, dice in pairs(DiceControlModule.rolled_dice[player_color]) do
+            if dice then
+              dice.randomize(player_color)
+            end
+        end
+      end, 0.8,0)
+
+
+    end
 end
 
 DiceControlModule.UntilRolledDiceAreStill = function(player_color)
@@ -236,7 +276,7 @@ DiceControlModule.UntilRolledDiceAreStill = function(player_color)
             printToAll("A dice dissapeared while rolling!", DiceControlModule.error_color)
             table.remove(DiceControlModule.rolled_dice[player_color], k)
         elseif dice.held_by_color ~= nil then
-            printToAll("Please don grab dice that are being rolled!", DiceControlModule.error_color)
+            printToAll("Please don't grab dice that are being rolled!", DiceControlModule.error_color)
             table.remove(DiceControlModule.rolled_dice[player_color], k)
             destroyObject(dice)
         elseif not dice.resting then

@@ -2401,8 +2401,8 @@ function combineExecuteOptions(tab1, tab2)
     for k, newOptions in pairs(tab2) do
         if tab1[k] ~= nil then
             for i, opt in pairs(newOptions) do
-                if table.find(tab1[k],opt) == false then
-                    table.insert(tab1, opt)
+                if table.find(tab1[k],opt) == nil then
+                    table.insert(tab1[k], opt)
                 end
             end
         else

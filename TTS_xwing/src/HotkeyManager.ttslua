@@ -4,7 +4,9 @@ local H = {}
 H.arcCheckFixedArcs = function(player_color, hovered_object, world_position, key_down_up)
   if hovered_object and ObjType.IsOfType(hovered_object, 'ship') then
     local fixed_arcs = hovered_object.call("GetFixedArcs")
-    hovered_object.setDescription(Global.getTable("arcToCmnd")[fixed_arcs[1]])
+    if #fixed_arcs > 0 then
+      hovered_object.setDescription(Global.getTable("arcToCmnd")[fixed_arcs[1]])
+    end
   end
 end
 
