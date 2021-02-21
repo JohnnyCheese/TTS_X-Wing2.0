@@ -868,8 +868,15 @@ masterUpgradesDB[610]={['name']="Ensnare",['XWS']='ensnare',['slot']=1,['cost']=
                         ['restriction']={ ['ship']={[67]=true}}}
 masterUpgradesDB[611]={['name']="Gravitic Deflection",['XWS']='graviticdeflection',['slot']=1,['cost']=4,['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/50ec6aa5a267ece16d36533f4efe2bb0.png',
                         ['restriction']={ ['ship']={[67]=true}}}
-masterUpgradesDB[618]={['name']="C1-10P",['XWS']='c110p',['slot']=10,['cost']=8,['dual']=true,['Charge']=2,['cardB']='http://sb-cdn.fantasyflightgames.com/card_images/en/cde74a191d82775eacf2e273e855ef5f.png', ['card']='http://sb-cdn.fantasyflightgames.com/card_images/en/6150404202e627187f39b6092cdf702c.png',
-                        ['restriction']={['Faction']={[6]=true}}}
+masterUpgradesDB[618]={
+  name = "C1-10P",
+  XWS = 'c110p',
+  slot = 10,
+  cost = 8,
+  addAction = {'E'},
+  dual = true,
+  Charge = 2,
+  restriction = {['Faction']={[6]=true}}}
 
 masterUpgradesDB[616]={
     name = "C-3PO",
