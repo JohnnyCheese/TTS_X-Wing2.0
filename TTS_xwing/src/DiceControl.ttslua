@@ -79,18 +79,18 @@ DiceControlModule.dice_types = {
 
 DiceControlModule.onLoad = function()
 
-    addContextMenuItem("Toggle dice control",
-        function()
-            if DiceControlModule.enabled then
-                DiceControlModule.enabled = false
-                printToAll("Dice control is now DISABLED", DiceControlModule.info_color)
-            else
-                DiceControlModule.enabled = true
-                printToAll("Dice control is now ENABLED", DiceControlModule.info_color)
-            end
-        end, false, false)
-    addContextMenuItem("Present dice statistics", DiceControlModule.presentStatistics, false)
-    addContextMenuItem("Reset dice statistics", function() DiceControlModule.dice_statistics = {} end, false)
+    --addContextMenuItem("Toggle dice control",
+    --    function()
+    --        if DiceControlModule.enabled then
+    --            DiceControlModule.enabled = false
+    --            printToAll("Dice control is now DISABLED", DiceControlModule.info_color)
+    --        else
+    --            DiceControlModule.enabled = true
+    --            printToAll("Dice control is now ENABLED", DiceControlModule.info_color)
+    --        end
+    --    end, false, false)
+    --addContextMenuItem("Present dice statistics", DiceControlModule.presentStatistics, false)
+    --addContextMenuItem("Reset dice statistics", function() DiceControlModule.dice_statistics = {} end, false)
     DiceControlModule.dicecontainer = DiceControlModule.findByGMNotes("dicebag1") -- you probably want findByGMNotes(gmnoteToFind) here
 end
 

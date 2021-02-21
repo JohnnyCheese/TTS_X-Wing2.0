@@ -6646,7 +6646,7 @@ end
 -- Save self state
 function onSave()
     local state = {shipData=self.getTable("Data"), arcIndicators=self.getTable("arc_indicators")}
-
+    state.finishedSetup = self.getVar("finished_setup")
     state.tokenData = {tokens={}}
     for guid, _ in pairs(assigned_tokens) do
         table.insert(state.tokenData.tokens, guid)
@@ -6663,6 +6663,7 @@ function onLoad(savedData)
         local state =  JSON.decode(savedData)
         self.setTable("Data", state.shipData)
         self.setTable("arc_indicators", state.arcIndicators)
+        self.setVar("finished_setup", state.finishedSetup)
         initContextMenu()
         for _, guid in ipairs(state.tokenData.tokens) do
             assigned_tokens[guid] = getObjectFromGUID(guid)
@@ -6683,6 +6684,16 @@ function addTintObject(params)
     elseif params[1] == "dial" then
       dial = params[2]
     end
+end
+
+function DisableAttachedColliders()
+  for i, child in ipairs(self.getChildren()) do
+    if i ~= 1 then
+      if child.getComponent("MeshCollider") then
+        child.getComponent("MeshCollider").set("enabled", false)
+      end
+    end
+  end
 end
 
 function onUpdate()

@@ -4,11 +4,12 @@ local M = {}
 
 local toggleItems = {}
 
-function M.addToggleItem(name, text, func)
+function M.addToggleItem(name, text, func, noToggle)
     local i = {
         name = name,
         text = text,
         func = func,
+        noToggle = noToggle
     }
 
     table.insert(toggleItems, i)
@@ -20,8 +21,9 @@ function M.update()
     for i, v in ipairs(toggleItems) do
         local text = ""
         local value = _G[v.name] or false
-
-        if value then
+        if v.noToggle then
+          text = v.text
+        elseif value then
             text = "Disable " .. v.text
         else
             text = "Enable " .. v.text
