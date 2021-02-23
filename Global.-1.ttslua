@@ -6852,10 +6852,10 @@ function newSpawner(listTable)
                         if acc.name == Up.Condition then
                             pos = LocalPos(spawnCard, {-2 - 2*UpNum, 2-0.2*UpNum, 8})
                             rot = spawnCard.getRotation()
-                            newAsset = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
+                            newAsset = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid, smooth=false})
                             assetClone = newAsset.clone()
                             assetClone.setPosition(pos)
-                            tempBagAcc.putObject(assetClone)
+                            tempBagAcc.putObject(newAsset)
                         end
                     end
                 end
@@ -6979,7 +6979,7 @@ function newSpawner(listTable)
                     newAsset = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
                     assetClone = newAsset.clone()
                     assetClone.setPosition(pos)
-                    tempBagAcc.putObject(assetClone)
+                    tempBagAcc.putObject(newAsset)
                 end
             end
         end
