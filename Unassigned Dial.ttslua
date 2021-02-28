@@ -387,6 +387,7 @@ function performMove(P)
                     button_func = button.setProxyState,
                 }
                 proxy.spawn(proxy_settings)
+                clearOpenPanel()
                 exOptSelected = false
                 setDial(P)
             else
@@ -778,8 +779,9 @@ function Repos(P, option, id)
             cancellable = true,
             button_func = button.setProxyState,
         }
-
         proxy.spawn(proxy_settings)
+        clearOpenPanel()
+
     else
         assignedShip.setDescription(move_code)
     end
@@ -975,7 +977,7 @@ function clickTimeout()
 end
 
 function menuClick(p, option, id)
-    if not clickMode or spectReturn(p) == true then
+    if not clickMode or proxy.isActive() or spectReturn(p) == true then
         return
     end
     if openbutton == id then
@@ -988,7 +990,7 @@ function menuClick(p, option, id)
 end
 
 function menuHover(p, option, id)
-    if clickMode or spectReturn(p) == true then
+    if clickMode or proxy.isActive() or spectReturn(p) == true then
         return
     end
     hover_functions[id]()

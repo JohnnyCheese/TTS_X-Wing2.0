@@ -24,13 +24,6 @@ local function createOffsets(move_code, offsets)
     return outputs
 end
 
-local function isActive()
-    if not active_proxies then return false end
-
-    for k, v in pairs(active_proxies)do return true end
-    return false
-end
-
 local function isDone(proxy)
     return proxy.state == "term"
 end
@@ -49,6 +42,13 @@ local function unsetActiveProxies()
     active_proxies = {}
 end
 
+function P.isActive()
+  if not active_proxies then return false end
+
+  for k, v in pairs(active_proxies)do return true end
+  return false
+end
+
 function P.cancel(ship_guid)
     Global.call("DeleteShipProxies", {ship_guid = ship_guid})
 end
@@ -65,7 +65,7 @@ function P.isProxyable(move_code)
 end
 
 function P.spawn(args)
-    if isActive() then
+    if P.isActive() then
         printToAll("Please finish this ship's active proxy maneuver before setting another one")
         return
     end
