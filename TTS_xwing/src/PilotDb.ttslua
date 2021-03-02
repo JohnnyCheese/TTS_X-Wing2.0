@@ -6056,7 +6056,7 @@ masterPilotDB[784]={
 
 masterPilotDB[785]={
     name = 'Yoda',
-  XWS = 'yoda',
+    XWS = 'yoda',
     limited = 1,
     Faction = 6,
     Force = 3,
@@ -6582,6 +6582,22 @@ masterPilotDB[1009]={
   init = 1,
   actSet = {'F','TL','R'},
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/Raider%20Class%20Corvette/IMP%20Raider.png'
+}
+
+
+masterPilotDB[2000]={
+    name = 'Glod Squadron Veteran',
+    XWS = 'goldsquadronveteran',
+    Faction = 1,
+    ship_type = 12,
+    cost = 32,
+    slot = {21, 1, 4, 5, 16, 10, 12, 14},
+    Shield = 2,
+    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_17.png',
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/BTLA4YWing/goldsquadronveteran.png',
+    actSet = {'F','TL', 'BR'},
+    Configuration = {model="{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/btla4_ywing/glod_sqd_pilot.obj"}
 }
 
 return masterPilotDB
