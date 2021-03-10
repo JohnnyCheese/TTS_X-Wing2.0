@@ -182,10 +182,24 @@ masterShipDB[15]={
     Fac = {[1]=true},
     arcs = {fixed = { range=3, type = {'front'}}},
     moveSet = {'bbl1', 'bs1', 'bbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2','wbl3','ws3','wbr3','ws4','rs0'},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/UTD60DUWing/UWing.obj',
-    config = {
-        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/UTD60DUWing/UWing_Open.obj',
-        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/UTD60DUWing/UWing_Close.obj'
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/UTD60DUWing/UWing_Base.obj',
+    Config = {
+      States = {
+        {
+            Name = "Pivot Wing (Open)",
+            Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/UTD60DUWing/UWing_Open.obj",
+            ZRot = 0,
+            Message = " opened their wings.",
+        },
+        {
+            Name = "Pivot Wing (Closed)",
+            Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/UTD60DUWing/UWing_Close.obj",
+            ZRot = 180,
+            Message = " closed their wings.",
+        }
+      },
+      ContextText = "Open/Close pivot wings",
+      Token = "http://nnxwing.com/Content/TTS/Config/UWing.png"
     }
 }
 

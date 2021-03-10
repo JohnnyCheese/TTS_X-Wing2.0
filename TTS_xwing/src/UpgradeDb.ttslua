@@ -2243,4 +2243,78 @@ masterUpgradesDB[727]={
     }
 }
 
+masterUpgradesDB[800]={
+    name = "Vectored Cannons (RZ-1)",
+    XWS = 'vectoredcannonsrz1',
+    slot = 18,
+    cost = 200,
+    restriction = {
+        ship = {[35]=true}
+    },
+    arcs = {turret = {name= 'primary', type={'front', 'back'}}},
+}
+
+masterUpgradesDB[801]={
+    name = "B6 Blade Wing Prototype",
+    XWS = 'b6bladewingprototype1',
+    slot = 15,
+    limited = 1,
+    cost = 200,
+    addSlot = {16},
+    restriction = {
+        Faction = {[1]=true}
+        ship = {[17]=true}
+    },
+}
+
+masterUpgradesDB[802]={
+    name = "B6 Blade Wing Prototype",
+    XWS = 'b6bladewingprototype',
+    slot = 21,
+    limited = 1,
+    cost = 200,
+    addSlot = {16},
+    remSlot = {15},
+    restriction = {
+        Faction = {[1]=true},
+        ship = {[17]=true}
+    },
+}
+
+masterUpgradesDB[803]={
+    name = "Hopeful",
+    XWS = 'hopeful',
+    slot = 1,
+    cost = 200,
+    restriction = {
+        Faction = {[1]=true}
+    },
+    addAction = {'B', 'F'},
+}
+
+masterUpgradesDB[804]={
+    name = "Sabine Wren",
+    XWS = 'sabinewren-gunner',
+    slot = 16,
+    limited = 1,
+    cost = 200,
+    restriction = {
+        Faction = {[1]=true}
+    },
+}
+
+masterUpgradesDB[805]={
+    name = "Phoenix Squadron",
+    XWS = 'phoenixsquadron',
+    slot = 21,
+    limited = 1,
+    cost = 200,
+    restriction = {
+        Faction = {[1]=true},
+        ship = {[23]=true}
+    },
+}
+
+
+
 return masterUpgradesDB

@@ -275,7 +275,7 @@ masterPilotDB[19]={
   limited = 1,
   ship_type = 35,
   cost = 34,
-  slot = {21, 1, 1, 6},
+  slot = {21, 1, 1, 6, 18},
   Shield = 2,
   card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_19.png',
   init = 4,
@@ -290,7 +290,7 @@ masterPilotDB[20]={
   limited = 1,
   ship_type = 35,
   cost = 32,
-  slot = {21, 1,1, 6},
+  slot = {21, 1,1, 6, 18},
   Shield = 2,
   card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_20.png',
   init = 3,
@@ -304,7 +304,7 @@ masterPilotDB[21]={
   Faction = 1,
   ship_type = 35,
   cost = 30,
-  slot = {21, 1,1, 6},
+  slot = {21, 1,1, 6, 18},
   Shield = 2,
   card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_21.png',
   init = 3,
@@ -318,7 +318,7 @@ masterPilotDB[22]={
   Faction = 1,
   ship_type = 35,
   cost = 28,
-  slot = {21, 1,6},
+  slot = {21, 1,6, 18},
   Shield = 2,
   card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_22.png',
   init = 1,
@@ -340,6 +340,7 @@ masterPilotDB[23]={
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_bwing/BraylenStramm.png',
   actSet = {'F','TL', 'BR'}
 }
+
 masterPilotDB[24]={
   name = 'Ten Numb',
   XWS = 'tennumb',
@@ -691,7 +692,7 @@ masterPilotDB[46]={
     init = 3,
     texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/TIEln/ezrabridger.png',
     actSet = {'F','E','BR'},
-        Configuration = {model="{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/TIEln/rebeltie.obj"}
+        Customization = {model="{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/TIEln/rebeltie.obj"}
 }
 
 masterPilotDB[47]={
@@ -707,7 +708,7 @@ masterPilotDB[47]={
     init = 3,
     texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/TIEln/sabinewren.png',
     actSet = {'F','E','B', 'BR'},
-    Configuration = {model="{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/TIEln/rebeltie.obj"}
+    Customization = {model="{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/TIEln/rebeltie.obj"}
 }
 
 masterPilotDB[48]={
@@ -724,7 +725,7 @@ masterPilotDB[48]={
     init = 2,
     texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/TIEln/captainrex.png',
     actSet = {'F','E','BR'},
-        Configuration = {model="{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/TIEln/rebeltie.obj"}
+    Customization = {model="{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/TIEln/rebeltie.obj"}
 }
 
 masterPilotDB[49]={
@@ -740,7 +741,7 @@ masterPilotDB[49]={
     init = 2,
     texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/TIEln/zeborrelios.png',
     actSet = {'F','E','BR'},
-        Configuration = {model="{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/TIEln/rebeltie.obj"}
+    Customization = {model="{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/TIEln/rebeltie.obj"}
 }
 
 masterPilotDB[50]={
@@ -6068,7 +6069,7 @@ masterPilotDB[785]={
     init = 3,
     texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_ETA2/Yoda.jpg',
     actSet = {'F','E','TL','BR','B'},
-    Configuration = {model="{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_ETA2/ETA2%20Jedi%20Starfighter%20Yoda.obj"}
+    Customization = {model="{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_ETA2/ETA2%20Jedi%20Starfighter%20Yoda.obj"}
 }
 
 masterPilotDB[786]={
@@ -6440,7 +6441,7 @@ masterPilotDB[802]={
 
 masterPilotDB[803]={
     name = 'Separatist Racketeer',
-  XWS = 'separatistracketeer',
+    XWS = 'separatistracketeer',
     Faction = 7,
     ship_type = 10,
     cost = 64,
@@ -6451,6 +6452,96 @@ masterPilotDB[803]={
     texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/CIS_Firespray/SeparatistRacketeer.jpg',
     actSet = {'F','R','TL','B'}
 }
+
+-- New wave
+
+masterPilotDB[804]={
+  name = 'Hera Syndulla',
+  XWS = 'herasyndulla-rz1awing',
+  Faction = 1,
+  limited = 1,
+  ship_type = 35,
+  cost = 200,
+  slot = {21, 1, 1, 6, 18},
+  Shield = 2,
+  init = 6,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_awing/HeraSyndulla.png',
+  actSet = {'F','TL','E','BR','B'}
+}
+
+masterPilotDB[805]={
+  name = 'Wedge Antilles',
+  XWS = 'wedgeantilles-rz1awing',
+  Faction = 1,
+  limited = 1,
+  ship_type = 35,
+  cost = 200,
+  slot = {21, 1, 1, 6, 18},
+  Shield = 2,
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_awing/WedgeAntilles.png',
+  actSet = {'F','TL','E','BR','B'}
+}
+
+masterPilotDB[806]={
+  name = 'Derek Klivian',
+  XWS = 'derekklivian',
+  Faction = 1,
+  limited = 1,
+  ship_type = 35,
+  cost = 200,
+  slot = {21, 1, 1, 6, 18},
+  Shield = 2,
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_awing/DerekKlivian.png',
+  actSet = {'F','TL','E','BR','B'}
+}
+
+masterPilotDB[807]={
+  name = 'Shara Bey',
+  XWS = 'sharabey-rz1awing',
+  Faction = 1,
+  limited = 1,
+  ship_type = 35,
+  cost = 200,
+  slot = {21, 1, 1, 6, 18},
+  Shield = 2,
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_awing/SharaBey.png',
+  actSet = {'F','TL','E','BR','B'}
+}
+
+masterPilotDB[808]={
+  name = 'Ahsoka Tano',
+  XWS = 'ahsokatano-rz1awing',
+  Faction = 1,
+  limited = 1,
+  Force = 3,
+  ship_type = 35,
+  cost = 200,
+  slot = {21, 1, 1, 6, 18},
+  Shield = 2,
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_awing/AhsokaTano.png',
+  actSet = {'F','TL','E','BR','B'}
+}
+
+masterPilotDB[809]={
+  name = 'Hera Syndulla',
+  XWS = 'herasyndulla-asf01bwing',
+  Faction = 1,
+  limited = 1,
+  ship_type = 17,
+  cost = 200,
+  slot = {21, 1, 2, 3, 3, 5, 14, 18},
+  Shield = 4,
+  init = 6,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_bwing/HeraSyndulla.png',
+  actSet = {'F','TL','BR'}
+}
+
+
+
 
 -- Huge ships
 masterPilotDB[1000]={
@@ -6597,7 +6688,7 @@ masterPilotDB[2000]={
     init = 3,
     texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/BTLA4YWing/goldsquadronveteran.png',
     actSet = {'F','TL', 'BR'},
-    Configuration = {model="{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/btla4_ywing/glod_sqd_pilot.obj"}
+    Customization = {model="{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/btla4_ywing/glod_sqd_pilot.obj"}
 }
 
 return masterPilotDB

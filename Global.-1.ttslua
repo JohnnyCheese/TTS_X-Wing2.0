@@ -13,7 +13,7 @@
 
 -- Should the code execute print functions or skip them?
 -- This should be set to false on every release
-print_debug = false
+print_debug = true
 cast_debug = false
 
 TTS_print = print
@@ -6400,6 +6400,10 @@ function initContextMenu()
         end
       end
     end
+    local config = self.getTable("Data").Config
+    if config then
+        self.addContextMenuItem(config.ContextText, function() self.call(SetConfiguration()) end, false)
+    end
 
 
     if Global.getVar('test_AI') then
@@ -6434,6 +6438,32 @@ function GetTokens(args)
         end
     end
     return tokens
+end
+
+current_config = 1
+
+function SetConfiguration(args)
+  if not args or not args.ConfigId then
+    current_config = (current_config % #self.getTable("Data").Config.States) + 1
+  else
+    current_config = args.ConfigId
+  end
+  local attachments = self.getAttachments()
+  for i = #attachments, 1, -1 do
+    local attachment = attachments[i]
+    if attachment.name == "Config" then
+      local scale = vector(0.0001,0.0001,0.0001)
+      if attachment.description == tostring(current_config) then
+          scale = vector(0.629, 0.629, 0.629)
+          printToAll(self.getName() .. self.getTable("Data").Config.States[current_config].Message)
+      end
+      id = self.removeAttachment(attachment.index)
+      id.setScale(scale)
+      self.addAttachment(id)
+
+    end
+  end
+  Wait.frames(DisableAttachedColliders, 1)
 end
 
 arc_indicators = {}
@@ -6507,6 +6537,7 @@ function RotateAttachedArcIndicator(args)
       id.setRotation(self.getRotation() + Global.getTable('mountRotations')[next_direction] or vector(0,0,0))
       self.addAttachment(id)
       Wait.frames(DisableAttachedColliders, 1)
+      return
     end
   end
 end
@@ -6721,7 +6752,7 @@ function onUpdate()
             if indicator.color_by_id then
               id.setColorTint(tint)
             end
-          else
+          elseif id.getName() == "ColorId" then
             id.setColorTint(tint)
           end
           ship.addAttachment(id)
@@ -6759,7 +6790,7 @@ function newSpawner(listTable)
     Upgrades = listTable.Upgrades
     spawnCard = listTable.spawnCard
     Faction = listTable.Faction
-    Configuration = listTable.Configuration or {}
+    Customization = listTable.Customization or {}
     local dialSkin = listTable.factionDial
     spawnedPilotList = {}
 
@@ -6895,8 +6926,8 @@ function newSpawner(listTable)
         pilotName = Pilots[shipIndex].name
 
         local tint = color(0,0,0,0)
-        if Configuration[pilotName] ~= nil then
-            tint = Configuration[pilotName].tint or  color(0,0,0,0)
+        if Customization[pilotName] ~= nil then
+            tint = Customization[pilotName].tint or  color(0,0,0,0)
         end
         card = Pilots[shipIndex].card
         cardB = Pilots[shipIndex].cardB
@@ -7001,8 +7032,8 @@ function newSpawner(listTable)
 
         if newShip ~= nil then
             local model = nil
-            if Configuration[pilotName].model ~= nil then
-                model = Configuration[pilotName].model
+            if Customization[pilotName].model ~= nil then
+                model = Customization[pilotName].model
             elseif Pilots[shipIndex].mesh ~= nil then
                 model = '{verifycache}'..Pilots[shipIndex].mesh
             end
@@ -7010,16 +7041,16 @@ function newSpawner(listTable)
                 newShip.setCustomObject({mesh = model})
             end
             local texture = nil
-            if Configuration[pilotName].texture ~= nil then
-                texture = Configuration[pilotName].texture
+            if Customization[pilotName].texture ~= nil then
+                texture = Customization[pilotName].texture
             elseif Pilots[shipIndex].mesh ~= nil then
                 texture = '{verifycache}'..Pilots[shipIndex].texture
             end
             if texture then
                 newShip.setCustomObject({diffuse = texture})
             end
-            if Configuration[pilotName].modeltint ~= nil then
-                newShip.setColorTint(Configuration[pilotName].modeltint)
+            if Customization[pilotName].modeltint ~= nil then
+                newShip.setColorTint(Customization[pilotName].modeltint)
             end
             newShip.setName(pilotName)
             newShip.setCustomObject({
@@ -7050,7 +7081,7 @@ function newSpawner(listTable)
             elseif Pilots[shipIndex].Size == "huge" then
                 customObj.mesh='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base_ID_HUGE.obj'
             end
-            shipIdSpawnFunc = function()
+            local shipIdSpawnFunc = function()
               local shipId = spawnObject({
                   type              = "Custom_Model",
                   position          = idpos,
@@ -7061,12 +7092,74 @@ function newSpawner(listTable)
               })
               shipId.setCustomObject(customObj)
               shipId.setColorTint(tint)
+              shipId.setName("ColorId")
               ship.addAttachment(shipId)
               ship.setLock(false)
               card.call('addTintObject', {'ship',ship})
               ship.call('initContextMenu')
             end
             Wait.condition(shipIdSpawnFunc , function() return (not ship.spawning) and (not card.spawning) end)
+
+            if Pilots[shipIndex].Data.Config then
+              for k, config in pairs(Pilots[shipIndex].Data.Config.States) do
+                if config.Model then
+                  local customObject = ship.getCustomObject()
+                  customObject.mesh = config.Model
+
+                  local configSpawnFunction = function()
+                    local configModel = spawnObject({
+                        type              = "Custom_Model",
+                        position          = idpos,
+                        rotation          = idrot,
+                        scale             = mm_ship_scale,
+                        sound             = false,
+                        snap_to_grid      = false,
+                    })
+                    configModel.setName("Config")
+                    configModel.setDescription(tostring(k))
+                    configModel.setCustomObject(customObject)
+                    if k ~= 1 then
+                      configModel.setScale(vector(0.0001,0.0001,0.0001))
+                    end
+                    ship.addAttachment(configModel)
+                  end
+                  Wait.condition(configSpawnFunction , function() return (not ship.spawning) end)
+                end -- if Config.Model
+              end -- for Data.Config
+              if Pilots[shipIndex].Data.Config.Token then
+                local configToken = spawnObject({
+                    type = "Custom_Model",
+                    scale = {0.38, 0.38, 0.38},
+                    rotation = {0, 270, 0},
+                    position = { 0, 0, 0},
+                })
+                configToken.setCustomObject({
+                    mesh = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/tokens/flip/flipToken.obj",
+                    diffuse = Pilots[shipIndex].Data.Config.Token,
+                    type = 5,
+                    material = 1,
+                    specular_intensity = 0
+                })
+                configToken.setLuaScript(
+[[side = 1
+function onUpdate()
+  if self.is_face_down then
+    if side == 1 then
+      side = 2
+
+    end
+
+  else
+    if side == 2 then
+      side = 1
+    end
+  end
+end
+]])
+              end
+
+
+            end -- if Config
         end
 
 
