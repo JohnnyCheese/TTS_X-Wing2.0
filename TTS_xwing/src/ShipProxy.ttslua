@@ -352,6 +352,7 @@ ShipProxyModule.spawnProxy = function(ship, hide, finpos, didCollide, script, mo
         collider = ShipProxyModule.proxyModels.collider[size],
         mesh = ShipProxyModule.proxyModels.model[size],
     })
+    proxy.addTag("ProxyInstance")
 
     local defaultColor = {}
     local hoverColor = {}
@@ -386,3 +387,13 @@ ShipProxyModule.spawnProxy = function(ship, hide, finpos, didCollide, script, mo
 
     return proxy
 end
+
+ShipProxyModule.onLoad = function()
+  for k,obj in pairs(getAllObjects()) do
+      if obj.hasTag("ProxyInstance") then
+          destroyObject(obj)
+      end
+  end
+end
+
+EventSub.Register('onLoad', ShipProxyModule.onLoad)

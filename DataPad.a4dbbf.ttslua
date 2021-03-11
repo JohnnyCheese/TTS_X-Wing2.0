@@ -33,9 +33,9 @@ tintColors[0] = color(0,0,0,0.0)
 tintColors[1] = color(1,0,0,1.0)
 tintColors[2] = color(1,1,0,1.0)
 tintColors[3] = color(0,0.5,0,2.0)
-tintColors[4] = color(0.5,0.25,0.1,1.0)
-tintColors[5] = color(0,0,1,1.0)
-tintColors[6] = color(1,0,0.8,1.0)
+tintColors[4] = color(0,0,1,1.0)
+tintColors[5] = color(1,0,0.8,1.0)
+tintColors[6] = color(0.5,0.25,0.1,1.0)
 tintColors[7] = color(1,1,1,1.0)
 tintColors[8] = color(0.5,0.5,0.5,1.0)
 
@@ -682,7 +682,7 @@ function idSpawner(idTable)
     fList.Upgrades = {}
     fList.Remotes = {}
     fList.Obstacles = idTable.Obstacles
-    fList.Configuration = {}
+    fList.Customization = {}
     if idTable.Faction == nil then
         fList.Faction = masterPilotDB[idTable.Pilots[1]].Faction
     else
@@ -703,14 +703,15 @@ function idSpawner(idTable)
         fList.Pilots[k].name = pilotName
         local cost = masterPilotDB[v].cost
         fList.Pilots[k].cost = cost
-        fList.Configuration[pilotName] = masterPilotDB[v].Configuration or {}
-        fList.Configuration[pilotName].tint = tintColors[pilotIndicators[k]]
+        fList.Customization[pilotName] = masterPilotDB[v].Customization or {}
+        fList.Customization[pilotName].tint = tintColors[pilotIndicators[k]]
         --fList.Pilots[k].tint = tintColors[pilotIndicators[k]]
         --fList.Pilots[k].card = masterPilotDB[v].card
         fList.Pilots[k].card = "https://raw.githubusercontent.com/CrazyVulcan/x-wing2.0-project-goldenrod/main/src/images/En/pilots/"..masterPilotDB[v].XWS..".png"
         fList.Pilots[k].cardB = cardBackDB[ffgFaction[fList.Faction]]
         local Ship = masterPilotDB[v].ship_type
         fList.Pilots[k].Ship = Ship
+
         fList.Pilots[k].Size = masterShipDB[Ship].size
         fList.Pilots[k].Shield = masterShipDB[Ship].Shield
         fList.Pilots[k].Energy = masterShipDB[Ship].Energy
@@ -725,6 +726,7 @@ function idSpawner(idTable)
         fList.Pilots[k].Data.shipId = Ship
         fList.Pilots[k].Data.initiative = masterPilotDB[v].init
         fList.Pilots[k].Data.moveSet = masterShipDB[Ship].moveSet
+        fList.Pilots[k].Data.Config = masterShipDB[Ship].Config
         fList.Pilots[k].Data.mountingPoints = masterShipDB[Ship].mountingPoints or {main = {0,0}}
         fList.Pilots[k].Data.arcs = masterShipDB[Ship].arcs
         fList.Pilots[k].Data.actSet = masterPilotDB[v].actSet
@@ -975,9 +977,9 @@ function onObjectDrop(player_color, dropped_object)
         local distance = math.sqrt(relpos[1]*relpos[1] + relpos[2]*relpos[2] + relpos[3]*relpos[3])
         if distance < 1 then
             if (dropped_object.tag == 'Figurine') and (dropped_object.getVar("__XW_Ship") == true) then
-                printToAll(self.getName() .. " gets the configuration of " .. dropped_object.getName(), color(1.0,0.5,0.0))
+                printToAll(self.getName() .. " gets the customization of " .. dropped_object.getName(), color(1.0,0.5,0.0))
                 local customobj = dropped_object.getCustomObject()
-                config = List.Configuration[dropped_object.getName()] or {}
+                config = List.Customization[dropped_object.getName()] or {}
                 config.model = customobj.mesh
                 config.texture = customobj.diffuse
                 config.modeltint = dropped_object.getColorTint()
@@ -986,7 +988,7 @@ function onObjectDrop(player_color, dropped_object)
                     config.tint = id.getColorTint(tint)
                     dropped_object.addAttachment(id)
                 end
-                List.Configuration[dropped_object.getName()] = config
+                List.Customization[dropped_object.getName()] = config
             end
         end
     end

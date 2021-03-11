@@ -24,9 +24,13 @@ openbutton = nil
 opencolor = "#555555"
 closedcolor = "#222222"
 
-clickMode = nil
-proxyMode = nil
+clickMode = false
+proxyMode = true
 finished_setup = true
+
+timeoutDuration = 5
+
+clicktimer = nil
 
 arcCommands = {
     Range1 = "r1",
@@ -67,6 +71,7 @@ function onSave()
                         owningPlayer=playerColor,
                         clickMode = clickMode,
                         proxyMode = proxyMode,
+                        timeoutDuration = timeoutDuration
                     }
         return JSON.encode(state)
     end
@@ -87,20 +92,32 @@ exOptButtons = { "ExOpt1", "ExOpt2", "ExOpt3", "ExOpt4", "ExOpt5",  "ExOpt6", "E
 function onLoad(savedData)
     --self.UI.setCustomAssets(assetTable)
     clearDial()
-
     if savedData ~= nil then
         state = JSON.decode(savedData)
         clickMode = state.clickMode
         proxyMode = state.proxyMode
-        --savedShip = getObjectFromGUID(state.assignedShipGUID)
-        --playerColor = state.owningPlayer
-        --if savedShip ~= nil then
-        --    assignShip(savedShip)
-        --end
+        playerColor = state.owningPlayer
+        local savedShipGuid = state.assignedShipGUID
+        assignedShip = nil
+        faceStat = nil
+
+        local dial = self
+        if savedShipGuid then
+          Wait.frames(
+            function()
+              local savedShip = getObjectFromGUID(savedShipGuid)
+              if savedShip then
+                dial.call("assignShip", {ship=savedShip})
+              end
+            end, 1)
+        end
     end
+
+    timeoutDuration = clickMode and 20 or 2
 
     menu.addToggleItem("clickMode", "click mode", toggleClickMode)
     menu.addToggleItem("proxyMode", "proxy mode", toggleProxyMode)
+    menu.addToggleItem(nil,"Reset dial", resetDial, true)
     menu.update()
 end
 
@@ -370,6 +387,7 @@ function performMove(P)
                     button_func = button.setProxyState,
                 }
                 proxy.spawn(proxy_settings)
+                clearOpenPanel()
                 exOptSelected = false
                 setDial(P)
             else
@@ -454,7 +472,7 @@ function onPickUp(player_color)
 end
 
 -- Assign a ship to the dial
-function assignShip(ship)
+function assignShip(args)
     self.UI.setAttribute("CenterFD", "active", "true")
     self.UI.setAttribute("CenterFU", "active", "true")
     self.UI.setAttribute("arcPanel", "active", "true")
@@ -463,10 +481,10 @@ function assignShip(ship)
     self.UI.hide("proxyPanel")
     self.UI.setAttribute("relocPanel", "active", "true")
     self.UI.setAttribute("setManPeekPanel", "active", "true")
-    assignedShip = ship
+    assignedShip = args.ship
     Name=assignedShip.getName()
     self.setName(Name)
-    finished_setup = ship.getVar("finished_setup") or false
+    finished_setup = assignedShip.getVar("finished_setup") or false
     --self.UI.setAttribute("DialName", Name)
     self.UI.setValue("Name",Name)
     self.UI.setValue("SetupName",Name)
@@ -560,14 +578,10 @@ function assignShip(ship)
             self.UI.setAttribute("BoostR2Btn", "active", "true")
         elseif v == '2BR' then
             repos = true
-            self.UI.setAttribute("BarrelLeft2FD", "active", "true")
-            self.UI.setAttribute("BarrelRight2FD", "active", "true")
-            self.UI.setAttribute("BarrelR2Btn", "active", "true")
-            self.UI.setAttribute("BarrelRF2Btn", "active", "true")
-            self.UI.setAttribute("BarrelRB2Btn", "active", "true")
-            self.UI.setAttribute("BarrelL2Btn", "active", "true")
-            self.UI.setAttribute("BarrelLF2Btn", "active", "true")
-            self.UI.setAttribute("BarrelLB2Btn", "active", "true")
+            button.setBarrelRoll2State(proxyMode, true)
+        elseif v == 'VR' then
+            repos = true
+            button.setViperBarrelRollState(proxyMode, true)
         end
     end
 
@@ -607,7 +621,7 @@ function onDropped()
                 printToAll('Controlled by the '.. playerColor .. ' player')
                 printToAll('')
                 self.setRotation(nearest.getRotation())
-                assignShip(nearest)
+                assignShip({ship=nearest})
 
 
             end
@@ -744,6 +758,11 @@ reposCommands = {
     BarrelR2Btn = "cr2",
     BarrelRB2Btn = "cr3",
 
+    BarrelVLUBtn = "vlf2",
+    BarrelVLDBtn = "vlb2",
+    BarrelVRUBtn = "vrf2",
+    BarrelVRDBtn = "vrb2",
+
 }
 
 function Repos(P, option, id)
@@ -760,8 +779,9 @@ function Repos(P, option, id)
             cancellable = true,
             button_func = button.setProxyState,
         }
-
         proxy.spawn(proxy_settings)
+        clearOpenPanel()
+
     else
         assignedShip.setDescription(move_code)
     end
@@ -867,15 +887,39 @@ click_functions = {
 }
 
 hover_functions = {
-    ArcMenu = function() showArcMFD() end,
-    ArcMenuFU = function() showArcMFU() end,
-    arcPanel = function() hideArcM() end,
-    RelocMenu = function() showRelocMFD() end,
-    RelocMenuFU = function() showRelocMFU() end,
-    relocPanel = function() hideRelocM() end,
-    TokenMenu = function() showTokMFD() end,
-    TokenMenuFU = function() showTokMFU() end,
-    tokenPanel = function() hideTokM() end,
+    ArcMenu = function()
+                stopClicktimer()
+                showArcMFD()
+              end,
+    ArcMenuFU = function()
+                showArcMFU()
+                stopClicktimer()
+              end,
+    arcPanel = function()
+                restartClicktimer()
+              end,
+    RelocMenu = function()
+                showRelocMFD()
+                stopClicktimer()
+              end,
+    RelocMenuFU = function()
+                showRelocMFU()
+                stopClicktimer()
+              end,
+    relocPanel = function()
+                restartClicktimer()
+              end,
+    TokenMenu = function()
+                showTokMFD()
+                stopClicktimer()
+              end,
+    TokenMenuFU = function()
+                showTokMFU()
+                stopClicktimer()
+              end,
+    tokenPanel = function()
+                restartClicktimer()
+              end,
 }
 
 function toggleClickMode(enable)
@@ -884,6 +928,11 @@ function toggleClickMode(enable)
     self.UI.setAttribute("arcPanel", "raycastTarget", not clickMode)
     self.UI.setAttribute("tokenPanel", "raycastTarget", not clickMode)
     self.UI.setAttribute("relocPanel", "raycastTarget", not clickMode)
+    if clickMode then
+      timeoutDuration = 20
+    else
+      timeoutDuration = 2
+    end
 
     menu.update()
 end
@@ -892,23 +941,56 @@ function toggleProxyMode(enable)
     proxyMode = enable
 
     button.setBarrelRollState(proxyMode)
-
+    button.setBarrelRoll2State(proxyMode)
+    button.setViperBarrelRollState(proxyMode)
     menu.update()
 end
 
+function resetDial(enable)
+    clearDial()
+    self.setName("Unassigned Dial")
+    playerColor = nil
+    finished_setup = false
+    self.UI.setValue("Name","")
+    self.UI.setValue("SetupName","")
+    assignedShip = nil
+    faceStat = nil
+end
+
+
+function stopClicktimer()
+  if clicktimer then
+    Wait.stop(clicktimer)
+  end
+end
+
+function restartClicktimer()
+    stopClicktimer()
+    clicktimer = Wait.time(clickTimeout, timeoutDuration)
+end
+
+function clickTimeout()
+  if openbutton then
+    click_functions[openbutton].hide()
+  end
+    clicktimer = nil
+end
+
 function menuClick(p, option, id)
-    if not clickMode or spectReturn(p) == true then
+    if not clickMode or proxy.isActive() or spectReturn(p) == true then
         return
     end
     if openbutton == id then
         click_functions[id].hide(p)
+        stopClicktimer()
     else
         click_functions[id].show(p)
+        restartClicktimer()
     end
 end
 
 function menuHover(p, option, id)
-    if clickMode or spectReturn(p) == true then
+    if clickMode or proxy.isActive() or spectReturn(p) == true then
         return
     end
     hover_functions[id]()
@@ -964,7 +1046,7 @@ function showArcMFU()
     self.UI.setAttribute("ArcMenuFu", "color", opencolor)
     clearOpenPanel()
     openpanel = "arcPanel"
-    openbutton = "ArcMenuFu"
+    openbutton = "ArcMenuFU"
 
     self.UI.setAttribute("arcPanel", "position", "-340 -150 1")
     self.UI.setAttribute("arcPanel", "rotation", "180 0 0")
@@ -996,7 +1078,7 @@ function showRelocMFU()
     self.UI.setAttribute("RelocMenuFu", "color", opencolor)
     clearOpenPanel()
     openpanel = "relocPanel"
-    openbutton = "RelocMenuFu"
+    openbutton = "RelocMenuFU"
 
     self.UI.setAttribute("relocPanel", "position", "0 -215 1")
     self.UI.setAttribute("relocPanel", "rotation", "180 0 0")

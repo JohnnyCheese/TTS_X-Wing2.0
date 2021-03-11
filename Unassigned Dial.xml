@@ -490,7 +490,7 @@
     <HorizontalLayout childForceExpandWidth="false" childAlignment="MiddleCenter">
         <Panel id="BarrelLeft2FD"
             class="BarrelPanel"
-            color="#aaffff22"
+            color="#aaffff00"
             showAnimation="FadeIn"
             hideAnimation="FadeOut"
             active="false">
@@ -516,8 +516,14 @@
                 <Button id="BarrelLFBtn" class="RelocButtons" width="200" onClick="Repos">
                     <Image id= "BarrelLFIcon" class="RIcon" image="BarrelLF" preserveAspect="true"></Image>
                 </Button>
+                <Button id="BarrelVLUBtn" class="RelocButtons" onClick="Repos">
+                    <Image id= "BarrelVLUIcon" class="RIcon" image="BarrelVLU" preserveAspect="true"></Image>
+                </Button>
                 <Button id="BarrelLBtn" class="RelocButtons" width="200" onClick="Repos">
                     <Image id= "BarrelLIcon" class="RIcon" image="BarrelL" preserveAspect="true"></Image>
+                </Button>
+                <Button id="BarrelVLDBtn" class="RelocButtons" onClick="Repos">
+                    <Image id= "BarrelVLDIcon" class="RIcon" image="BarrelVLD" preserveAspect="true"></Image>
                 </Button>
                 <Button id="BarrelLBBtn" class="RelocButtons" width="200" onClick="Repos">
                     <Image id= "BarrelLBIcon" class="RIcon" image="BarrelLB" preserveAspect="true"></Image>
@@ -630,8 +636,14 @@
                 <Button id="BarrelRFBtn" class="RelocButtons" onClick="Repos">
                     <Image id= "BarrelRFIcon" class="RIcon" image="BarrelRF" preserveAspect="true"></Image>
                 </Button>
+                <Button id="BarrelVRUBtn" class="RelocButtons" onClick="Repos">
+                    <Image id= "BarrelVRUIcon" class="RIcon" image="BarrelVRU" preserveAspect="true"></Image>
+                </Button>
                 <Button id="BarrelRBtn" class="RelocButtons" onClick="Repos">
                     <Image id= "BarrelRIcon" class="RIcon" image="BarrelR" preserveAspect="true"></Image>
+                </Button>
+                <Button id="BarrelVRDBtn" class="RelocButtons" onClick="Repos">
+                    <Image id= "BarrelVRDIcon" class="RIcon" image="BarrelVRD" preserveAspect="true"></Image>
                 </Button>
                 <Button id="BarrelRBBtn" class="RelocButtons" onClick="Repos">
                     <Image id= "BarrelRBIcon" class="RIcon" image="BarrelRB" preserveAspect="true"></Image>
