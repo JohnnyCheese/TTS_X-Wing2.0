@@ -746,7 +746,24 @@ masterShipDB[61]={
 	Fac = {[6]=true},
 	arcs = {fixed = { range=3, type = {'front'}}},
 	moveSet={'wtl1','bbl1','bbr1','wtr1','rbl2s','wtl2','bbl2','bs2','bbr2','wtr2','rbr2s','wbl3','bs3','wbr3','ws4','rk4','ws5','rk5'},
-	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/Jedi_Delta7.obj'
+	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/Jedi_Delta7.obj',
+  Config = {
+    States = {
+      {
+          Name = "Normal",
+          Model = nil,
+          ZRot = 0,
+          Message = " removed hyperspace ring,",
+      },
+      {
+          Name = "Hyperspace ring mounted",
+          Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Hyperspace_Ring/hyperspace_ring_attachment.obj",
+          ZRot = 180,
+          Message = " mounted an hyperspace ring.",
+      }
+    },
+    ContextText = "Mount/unmount hyperspace ring",
+  }
 }
 
 masterShipDB[62]={
@@ -916,6 +933,24 @@ masterShipDB[71]={
     arcs = {fixed = { range=3, type = {'front'}}},
     mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_V-Wing/Republic_V-Wing.obj',
     moveSet = {'wtl1','rbl1','rbr1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rk2','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk4','ws5'},
+    Config = {
+      States = {
+        {
+            Name = "Normal",
+            Model = nil,
+            ZRot = 0,
+            Message = " removed hyperspace ring,",
+        },
+        {
+            Name = "Hyperspace ring mounted",
+            Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Hyperspace_Ring/hyperspace_ring_attachment.obj",
+            ZRot = 180,
+            Message = " mounted an hyperspace ring.",
+        }
+      },
+      ContextText = "Mount/unmount hyperspace ring",
+    }
+
 }
 
 masterShipDB[72]={
@@ -983,6 +1018,23 @@ masterShipDB[76]={
     arcs = {fixed = { range=3, type = {'front'}}},
     mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_ETA2/ETA2%20Jedi%20Starfighter.obj',
     moveSet = {'wtl1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','ptl2t','ptr2t','wtl3','bbl3','bs3','bbr3','wtr3','bs4','rk4','ws5'},
+    Config = {
+      States = {
+        {
+            Name = "Normal",
+            Model = nil,
+            ZRot = 0,
+            Message = " removed hyperspace ring,",
+        },
+        {
+            Name = "Hyperspace ring mounted",
+            Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Hyperspace_Ring/hyperspace_ring_attachment.obj",
+            ZRot = 180,
+            Message = " mounted an hyperspace ring.",
+        }
+      },
+      ContextText = "Mount/unmount hyperspace ring",
+    }
 }
 
 masterShipDB[77]={
