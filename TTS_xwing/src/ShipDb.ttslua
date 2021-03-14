@@ -226,7 +226,25 @@ masterShipDB[17]={
   Fac = {[1]=true},
   arcs = {fixed = { range=3, type = {'front'}}},
   moveSet = {'rtl1t','rtl1','bbl1','bs1','bbr1','rtr1','rtr1t','wtl2','wbl2','bs2','wbr2','wtr2','rk2','rbl3','bs3','rbr3','rs4'},
-  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_bwing/bwing.obj',
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_bwing/bwing-base.obj',
+  Config = {
+    States = {
+      {
+          Name = "S-Foils (Open)",
+          Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_bwing/bwing-open.obj",
+          ZRot = 0,
+          Message = " opened their S-Foils.",
+      },
+      {
+          Name = "S-Foils (Closed)",
+          Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_bwing/bwing-closed.obj",
+          ZRot = 180,
+          Message = " closed their S-Foils.",
+      }
+    },
+    ContextText = "Open/Close S-Foils",
+    Token = "http://nnxwing.com/Content/TTS/Config/BWing.png"
+  }
 }
 
 masterShipDB[18]={
