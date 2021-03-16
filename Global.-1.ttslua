@@ -6679,6 +6679,7 @@ function onSave()
     local state = {shipData=self.getTable("Data"), arcIndicators=self.getTable("arc_indicators")}
     state.finishedSetup = self.getVar("finished_setup")
     state.tokenData = {tokens={}}
+    state.owningPlayer = self.getVar("owningPlayer")
     for guid, _ in pairs(assigned_tokens) do
         table.insert(state.tokenData.tokens, guid)
     end
@@ -6695,6 +6696,7 @@ function onLoad(savedData)
         self.setTable("Data", state.shipData)
         self.setTable("arc_indicators", state.arcIndicators)
         self.setVar("finished_setup", state.finishedSetup)
+        self.setVar("owningPlayer", state.owningPlayer)
         initContextMenu()
         for _, guid in ipairs(state.tokenData.tokens) do
             assigned_tokens[guid] = getObjectFromGUID(guid)
