@@ -6525,6 +6525,20 @@ masterPilotDB[808]={
   actSet = {'F','TL','E','BR','B'}
 }
 
+masterPilotDB[809]={
+  name = 'Sabine Wren',
+  XWS = 'sabinewren-rz1awing',
+  Faction = 1,
+  limited = 1,
+  ship_type = 35,
+  cost = 200,
+  slot = {21, 1, 1, 6, 18},
+  Shield = 2,
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_awing/SabineWren.png',
+  actSet = {'F','TL','E','BR','B'}
+}
+
 -- B-Wings
 masterPilotDB[810]={
   name = 'Hera Syndulla',
@@ -6540,18 +6554,19 @@ masterPilotDB[810]={
   actSet = {'F','TL','BR'}
 }
 
--- Tie Defenders
-masterPilotDB[815]={
-  name = 'Vult Skerris',
-  XWS = 'vultskerris',
-  Faction = 2,
-  ship_type = 18,
+masterPilotDB[811]={
+  name = 'Netrem Pollard',
+  XWS = 'netrempollard',
+  Faction = 1,
+  limited = 1,
+  Charge = 2,
+  ship_type = 17,
   cost = 200,
-  slot = {21, 1, 2, 3, 6, 18},
+  slot = {21, 1, 2, 3, 3, 5, 14, 15, 18},
   Shield = 4,
   init = 5,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiedefender/VultSkerris.png',
-  actSet = {'F','E','BR','TL','B'}
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_bwing/NetremPollard.png',
+  actSet = {'F','TL','BR', 'Piv'}
 }
 
 -- Tie Defenders
@@ -6575,10 +6590,25 @@ masterPilotDB[816]={
   Faction = 2,
   ship_type = 18,
   cost = 200,
+  Charge = 1,
   slot = {21, 1, 2, 3, 6, 18},
   Shield = 4,
   init = 5,
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiedefender/VultSkerris.png',
+  actSet = {'F','E','BR','TL','B'}
+}
+
+masterPilotDB[817]={
+  name = 'Captain Dobbs',
+  XWS = 'captaindobbs',
+  Faction = 2,
+  ship_type = 18,
+  cost = 200,
+  Charge = 1,
+  slot = {21, 1, 2, 3, 6, 18},
+  Shield = 4,
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiedefender/CaptainDobbs.png',
   actSet = {'F','E','BR','TL','B'}
 }
 
@@ -6669,6 +6699,21 @@ masterPilotDB[826]={
     actSet = {'F','TL','B','Rot'}
 }
 
+masterPilotDB[827]={
+    name = 'Tápusk',
+    XWS = 'tapusk',
+    Faction = 3,
+    limited = 1,
+    ship_type = 34,
+    cost = 200,
+    slot = {21, 1, 8, 12, 13, 14, 14, 15},
+    Shield = 2,
+    Charge = 2,
+    init = 5,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_hwk/Tapusk.png',
+    actSet = {'F','TL','B','Rot'}
+}
+
 -- Tie interceptor
 
 masterPilotDB[830]={
@@ -6741,6 +6786,20 @@ masterPilotDB[834]={
   init = 2,
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieinterceptor/NashWindrider.png',
   actSet = {'F','E','BR','B'}
+}
+
+masterPilotDB[835]={
+  name = 'Lieutenant Lorrir',
+  XWS = 'lieutenantlorrir',
+  Faction = 2,
+  limited = 1,
+  ship_type = 41,
+  cost = 200,
+  slot = {21, 1, 14, 14},
+  Shield = 0,
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieinterceptor/LieutenantLorrir.png',
+  actSet = {'F','E','VR','B'}
 }
 
 
