@@ -2315,6 +2315,101 @@ masterUpgradesDB[805]={
     },
 }
 
+masterUpgradesDB[806]={
+    name = "Disciplined",
+    XWS = 'disciplined',
+    slot = 1,
+    cost = 200,
+    restriction = {
+        Faction = {[2]=true}
+    },
+    addAction = {'TL', 'BR'},
+}
+
+
+masterUpgradesDB[807]={
+    name = "Sensitive Controls",
+    XWS = 'sensitivecontrols',
+    slot = 1,
+    cost = 200,
+    restriction = {
+        ship = {[41]=true,
+                [52]= true}
+    }
+}
+
+masterUpgradesDB[808]={
+    name = "Skystrike Academy Class",
+    XWS = 'skystrikeacademyclass',
+    slot = 21,
+    limited = 2,
+    cost = 200,
+    restriction = {
+        Faction = {[2]=true}
+    },
+}
+
+masterUpgradesDB[809]={
+    name = "Shadow Wing",
+    XWS = 'shadowwing',
+    slot = 21,
+    limited = 1,
+    cost = 200,
+    restriction = {
+        Faction = {[2]=true}
+    },
+}
+
+masterUpgradesDB[810]={
+    name = "GamutKey",
+    XWS = 'gamutkey-crew',
+    slot = 8,
+    Charge = 2,
+    addAction = {'TL'},
+    cost = 200,
+    restriction = {
+        Faction = {[3]=true}
+    }
+}
+
+
+masterUpgradesDB[811]={
+    name = "Cutthroat",
+    XWS = 'cutthroat',
+    slot = 1,
+    cost = 200,
+    restriction = {
+        Faction = {[3]=true}
+    },
+}
+
+masterUpgradesDB[812]={
+    name = "Bounty",
+    XWS = 'bounty',
+    dual = true,
+    slot = 21,
+    cost = 200,
+    restriction = {
+        Faction = {[3]=true}
+    },
+}
+
+masterUpgradesDB[813]={
+    name = "In It For The Money",
+    XWS = 'initforthemoney',
+    dual = true,
+    slot = 21,
+    cost = 200,
+    restriction = {
+        Faction = {[3]=true}
+    },
+}
+
+
+
+
+
+
 
 
 return masterUpgradesDB
