@@ -1076,8 +1076,26 @@ masterShipDB[75]={
     XWS = '',
     Fac = {[7]=true},
     arcs = {fixed = { range=3, type = {'fullfront'}}},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/HMP_Gunship.obj',
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/HMP_GunshipBase.obj',
     moveSet = {'rs0','rbl1','bs1','rbr1','btl2','wbl2','bs2','wbr2','btr2','wtl3','rbl3','ws3','rbr3','wtr3','rs4','rs5'},
+    Config = {
+      States = {
+        {
+            Name = "Stabalizers (Inactive)",
+            Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/HMP_GunshipStable.obj",
+            ZRot = 0,
+            Message = " deactivated their stabilizers.",
+        },
+        {
+            Name = "Stabalizers (Active)",
+            Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/HMP_GunshipSliping.obj",
+            ZRot = 180,
+            Message = " activated their stabilizers.",
+        }
+      },
+      ContextText = "Toggle Stabilizers",
+      Token = "http://nnxwing.com/Content/TTS/Config/HMPGunship.png"
+    }
 }
 
 masterShipDB[76]={
