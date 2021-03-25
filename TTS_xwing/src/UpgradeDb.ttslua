@@ -2361,7 +2361,7 @@ masterUpgradesDB[809]={
 }
 
 masterUpgradesDB[810]={
-    name = "GamutKey",
+    name = "Gamut Key",
     XWS = 'gamutkey-crew',
     slot = 8,
     Charge = 2,
@@ -2433,6 +2433,17 @@ masterUpgradesDB[816]={
     cost = 3,
     restriction = {
         Faction = {[3]=true}
+    }
+}
+
+masterUpgradesDB[817]={
+    name = "TIE Defender Elite",
+    XWS = 'tiedefenderelite',
+    slot = 18,
+    cost = 2,
+    restriction = {
+        Faction = {[2]=true},
+        ship = {[18]=true}
     }
 }
 

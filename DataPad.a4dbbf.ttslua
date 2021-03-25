@@ -984,9 +984,11 @@ function onObjectDrop(player_color, dropped_object)
                 config.texture = customobj.diffuse
                 config.modeltint = dropped_object.getColorTint()
                 for i, attachment in pairs(dropped_object.getAttachments()) do
-                    id = dropped_object.removeAttachment(attachment.index)
-                    config.tint = id.getColorTint(tint)
-                    dropped_object.addAttachment(id)
+                    if attachment.name == "ColorId" then
+                      id = dropped_object.removeAttachment(attachment.index)
+                      config.tint = id.getColorTint(tint)
+                      dropped_object.addAttachment(id)
+                    end
                 end
                 List.Customization[dropped_object.getName()] = config
             end
@@ -2025,6 +2027,7 @@ alternateSpelling["servomotor s-foils (closed)"] = 'Servomotor S-foils'
 alternateSpelling["stabilized s-foils (open)"] = 'Stabilized S-foils'
 alternateSpelling["landing struts (closed)"] = 'Landing Struts'
 alternateSpelling["grappling struts (closed)"] = 'Grappling Struts'
+alternateSpelling["vectored cannons"] = 'Vectored Cannons (RZ-1)'
 
 
 
