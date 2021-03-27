@@ -5167,6 +5167,14 @@ TokenModule.UnAssignToken = function(token)
     token.setDescription("Unassigned")
 end
 
+function getShipTokenIsAssignedTo(args)
+    if args.token then
+      local guid = args.token.getGUID()
+      return TokenModule.tokenAssignments[guid]
+    end
+    return nil
+end
+
 -- END TOKEN MODULE
 --------
 
@@ -7129,11 +7137,12 @@ function newSpawner(listTable)
                 end -- if Config.Model
               end -- for Data.Config
               if Pilots[shipIndex].Data.Config.Token then
+                pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
                 local configToken = spawnObject({
                     type = "Custom_Model",
                     scale = {0.38, 0.38, 0.38},
                     rotation = {0, 270, 0},
-                    position = { 0, 0, 0},
+                    position = pos,
                 })
                 configToken.setCustomObject({
                     mesh = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/tokens/flip/flipToken.obj",
@@ -7148,12 +7157,20 @@ function onUpdate()
   if self.is_face_down then
     if side == 1 then
       side = 2
+      local ship = Global.call("getShipTokenIsAssignedTo",{token=self})
+      if ship and ship.getVar("SetConfiguration") then
+        ship.call("SetConfiguration", {ConfigId=side})
+      end
 
     end
 
   else
     if side == 2 then
       side = 1
+      local ship = Global.call("getShipTokenIsAssignedTo",{token=self})
+      if ship and ship.getVar("SetConfiguration") then
+        ship.call("SetConfiguration", {ConfigId=side})
+      end
     end
   end
 end

@@ -2247,7 +2247,7 @@ masterUpgradesDB[800]={
     name = "Vectored Cannons (RZ-1)",
     XWS = 'vectoredcannonsrz1',
     slot = 18,
-    cost = 200,
+    cost = 1,
     restriction = {
         ship = {[35]=true}
     },
@@ -2259,7 +2259,7 @@ masterUpgradesDB[801]={
     XWS = 'b6bladewingprototype1',
     slot = 15,
     limited = 1,
-    cost = 200,
+    cost = 2,
     addSlot = {16},
     restriction = {
         Faction = {[1]=true},
@@ -2272,7 +2272,7 @@ masterUpgradesDB[802]={
     XWS = 'b6bladewingprototype',
     slot = 21,
     limited = 1,
-    cost = 200,
+    cost = 12,
     addSlot = {16},
     remSlot = {15},
     restriction = {
@@ -2285,7 +2285,7 @@ masterUpgradesDB[803]={
     name = "Hopeful",
     XWS = 'hopeful',
     slot = 1,
-    cost = 200,
+    cost = 1,
     restriction = {
         Faction = {[1]=true}
     },
@@ -2297,7 +2297,7 @@ masterUpgradesDB[804]={
     XWS = 'sabinewren-gunner',
     slot = 16,
     limited = 1,
-    cost = 200,
+    cost = 2,
     restriction = {
         Faction = {[1]=true}
     },
@@ -2308,7 +2308,7 @@ masterUpgradesDB[805]={
     XWS = 'phoenixsquadron',
     slot = 21,
     limited = 1,
-    cost = 200,
+    cost = 5,
     restriction = {
         Faction = {[1]=true},
         ship = {[23]=true}
@@ -2319,7 +2319,7 @@ masterUpgradesDB[806]={
     name = "Disciplined",
     XWS = 'disciplined',
     slot = 1,
-    cost = 200,
+    cost = 1,
     restriction = {
         Faction = {[2]=true}
     },
@@ -2331,7 +2331,7 @@ masterUpgradesDB[807]={
     name = "Sensitive Controls",
     XWS = 'sensitivecontrols',
     slot = 1,
-    cost = 200,
+    cost = 2,
     restriction = {
         ship = {[41]=true,
                 [52]= true}
@@ -2343,7 +2343,7 @@ masterUpgradesDB[808]={
     XWS = 'skystrikeacademyclass',
     slot = 21,
     limited = 2,
-    cost = 200,
+    cost = 3,
     restriction = {
         Faction = {[2]=true}
     },
@@ -2354,19 +2354,19 @@ masterUpgradesDB[809]={
     XWS = 'shadowwing',
     slot = 21,
     limited = 1,
-    cost = 200,
+    cost = 6,
     restriction = {
         Faction = {[2]=true}
     },
 }
 
 masterUpgradesDB[810]={
-    name = "GamutKey",
+    name = "Gamut Key",
     XWS = 'gamutkey-crew',
     slot = 8,
     Charge = 2,
     addAction = {'TL'},
-    cost = 200,
+    cost = 6,
     restriction = {
         Faction = {[3]=true}
     }
@@ -2377,7 +2377,7 @@ masterUpgradesDB[811]={
     name = "Cutthroat",
     XWS = 'cutthroat',
     slot = 1,
-    cost = 200,
+    cost = 1,
     restriction = {
         Faction = {[3]=true}
     },
@@ -2388,7 +2388,7 @@ masterUpgradesDB[812]={
     XWS = 'bounty',
     dual = true,
     slot = 21,
-    cost = 200,
+    cost = 5,
     restriction = {
         Faction = {[3]=true}
     },
@@ -2399,12 +2399,53 @@ masterUpgradesDB[813]={
     XWS = 'initforthemoney',
     dual = true,
     slot = 21,
-    cost = 200,
+    cost = 5,
     restriction = {
         Faction = {[3]=true}
     },
 }
 
+masterUpgradesDB[814]={
+    name = "Interloper Turn",
+    XWS = 'interloperturn',
+    slot = 1,
+    cost = 1,
+    restriction = {
+        Faction = {[2]=true}
+    },
+    addAction = {'TL', 'BR'},
+}
+
+masterUpgradesDB[815]={
+    name = "Protectorate Gleb",
+    XWS = 'protectorategleb',
+    slot = 8,
+    cost = 2,
+    restriction = {
+        Faction = {[2]=true,[3]=true,[5]=true}
+    }
+}
+
+masterUpgradesDB[816]={
+    name = "R4-B11",
+    XWS = 'r4b11',
+    slot = 10,
+    cost = 3,
+    restriction = {
+        Faction = {[3]=true}
+    }
+}
+
+masterUpgradesDB[817]={
+    name = "TIE Defender Elite",
+    XWS = 'tiedefenderelite',
+    slot = 18,
+    cost = 2,
+    restriction = {
+        Faction = {[2]=true},
+        ship = {[18]=true}
+    }
+}
 
 
 
