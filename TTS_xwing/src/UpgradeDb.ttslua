@@ -1376,6 +1376,7 @@ masterUpgradesDB[849]={
     restriction = {
         Faction={
             [1]=true,
+            [2]=true,
             [4]=true,
             [6]=true
         },
@@ -2444,6 +2445,16 @@ masterUpgradesDB[817]={
     restriction = {
         Faction = {[2]=true},
         ship = {[18]=true}
+    }
+}
+
+masterUpgradesDB[818]={
+    name = "Tierfon Belly Run",
+    XWS = 'tierfonbellyrun',
+    slot = 1,
+    cost = 2,
+    restriction = {
+        ship = {[12]=true}
     }
 }
 
