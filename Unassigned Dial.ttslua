@@ -19,6 +19,8 @@ __XW_TokenType = 'helper:Dial'
 assignedShip = nil
 currMan = nil
 playerColor = nil
+playerTeam = nil
+teamVisibility = ""
 openpanel = nil
 openbutton = nil
 opencolor = "#555555"
@@ -69,6 +71,7 @@ function onSave()
     if assignedShip ~= nil then
         local state = {assignedShipGUID=assignedShip.getGUID(),
                         owningPlayer=playerColor,
+                        owningPlayerTeam=playerTeam,
                         clickMode = clickMode,
                         proxyMode = proxyMode,
                         timeoutDuration = timeoutDuration
@@ -97,6 +100,7 @@ function onLoad(savedData)
         clickMode = state.clickMode
         proxyMode = state.proxyMode
         playerColor = state.owningPlayer
+        playerTeam = state.playerTeam
         local savedShipGuid = state.assignedShipGUID
         assignedShip = nil
         faceStat = nil
@@ -616,9 +620,24 @@ function onDropped()
             else
                 assignedShip = nearest
                 playerColor=pColor
+
+                playerTeam = nil
+                teamVisibility = ""
+                for k, player in pairs(Player.getPlayers()) do
+                    if player.color == playerColor then
+                      if player.team != "None" then
+                        playerTeam = player.team
+                        teamVisibility = "|" .. playerTeam
+                      end
+
+                    end
+                end
+
                 nearest.setVar('owningPlayer', pColor)
                 printToAll('Dial assigned to to ' .. nearest.getName(), {0.2, 0.2, 1})
                 printToAll('Controlled by the '.. playerColor .. ' player')
+                printToAll('Of the '.. tostring(playerTeam) .. ' team')
+
                 printToAll('')
                 self.setRotation(nearest.getRotation())
                 assignShip({ship=nearest})
@@ -833,7 +852,7 @@ function Window(p)
         if winStat == false then
             winStat = true
             self.UI.show("ManWin")
-            self.UI.setAttribute("ManWin", "visibility", playerColor .. "|Black")
+            self.UI.setAttribute("ManWin", "visibility", playerColor .. teamVisibility ..  "|Black")
             self.UI.setAttribute("ManBtnGroup", "active", "true")
         else
             winStat = false
@@ -846,8 +865,13 @@ end
 function spectReturn(p)
     if p.color == 'Black' then
       return false
+    elseif p.color == playerColor then
+      return false
+    elseif p.team == playerTeam then
+      return false
+    else
+      return true
     end
-    return p.color ~= playerColor
 end
 
 function showSetMan(p)
@@ -855,7 +879,7 @@ function showSetMan(p)
         return
     end
     self.UI.show("setManPeekPanel")
-    self.UI.setAttribute("setManPeekPanel", "visibility", playerColor)
+    self.UI.setAttribute("setManPeekPanel", "visibility", playerColor .. teamVisibility)
     self.UI.setAttribute("setManTypeIcon", "image", typeIcon)
     self.UI.setAttribute("setManSpeedIcon", "image", speedIcon)
     self.UI.setAttribute("setManTypeIcon", "active", "true")
@@ -950,6 +974,7 @@ function resetDial(enable)
     clearDial()
     self.setName("Unassigned Dial")
     playerColor = nil
+    playerTeam = nil
     finished_setup = false
     self.UI.setValue("Name","")
     self.UI.setValue("SetupName","")

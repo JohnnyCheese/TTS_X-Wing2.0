@@ -79,18 +79,18 @@ DiceControlModule.dice_types = {
 
 DiceControlModule.onLoad = function()
 
-    --addContextMenuItem("Toggle dice control",
-    --    function()
-    --        if DiceControlModule.enabled then
-    --            DiceControlModule.enabled = false
-    --            printToAll("Dice control is now DISABLED", DiceControlModule.info_color)
-    --        else
-    --            DiceControlModule.enabled = true
-    --            printToAll("Dice control is now ENABLED", DiceControlModule.info_color)
-    --        end
-    --    end, false, false)
-    --addContextMenuItem("Present dice statistics", DiceControlModule.presentStatistics, false)
-    --addContextMenuItem("Reset dice statistics", function() DiceControlModule.dice_statistics = {} end, false)
+    addContextMenuItem("Toggle dice control",
+        function()
+            if DiceControlModule.enabled then
+                DiceControlModule.enabled = false
+                printToAll("Dice control is now DISABLED", DiceControlModule.info_color)
+            else
+                DiceControlModule.enabled = true
+                printToAll("Dice control is now ENABLED", DiceControlModule.info_color)
+            end
+        end, false, false)
+    addContextMenuItem("Present dice statistics", DiceControlModule.presentStatistics, false)
+    addContextMenuItem("Reset dice statistics", function() DiceControlModule.dice_statistics = {} end, false)
     DiceControlModule.dicecontainer = DiceControlModule.findByGMNotes("dicebag1") -- you probably want findByGMNotes(gmnoteToFind) here
 end
 
@@ -128,8 +128,19 @@ DiceControlModule.presentStatistics = function()
     end
 end
 
+function onPlayerAction(player, action, targets)
+  if action == Player.Action.Randomize then
+      if DiceControlModule.enabled then
+        for _, object in pairs(targets) do
+          DiceControlModule.onObjectRandomize(object, player.color)
+        end
+      end
+  end
+end
+
+
 DiceControlModule.onObjectRandomize = function(object, player_color)
-    if DiceControlModule.enabled and object.tag == "Dice" then
+    if DiceControlModule.enabled and (object.tag == "Dice")  and (object.held_by_color == nil) then
         DiceControlModule.dice_roller_state[player_color] = DiceControlModule.dice_roller_state[player_color] or "idle"
         if DiceControlModule.dice_roller_state[player_color] == "idle" then
             if object.held_by_color ~= nil then
@@ -170,7 +181,7 @@ DiceControlModule.onObjectRandomize = function(object, player_color)
     end
 end
 
-EventSub.Register('onObjectRandomize', DiceControlModule.onObjectRandomize)
+--EventSub.Register('onObjectRandomize', DiceControlModule.onObjectRandomize)
 
 DiceControlModule.PrepareDice = function(die, player_color)
     if not die.isSmoothMoving() then

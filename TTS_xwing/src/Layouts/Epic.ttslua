@@ -1,7 +1,7 @@
 do
     local epic = {}
     epic.name = 'Epic'
-    epic.tableImage = 'https://raw.githubusercontent.com/eirikmun/TTS_X-Wing2.0/master/assets/textures/tableEpic.jpg'
+    epic.tableImage = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/tableEpic.jpg'
     epic.elements = {
         ['Damage Decks']            = { pos = {1.89 + 38, 1.06, -0.06},      rot = {0.00, 45.01, 0.00},      scale = {1.00, 0.95, 1.00} },
         ['Huge Ship Damage Decks']  = { pos = {2.49 + 38, 1.00, -1.95},      rot = {0.00, 45.01, 0.00},      scale = {0.44, 0.42, 0.44} },
@@ -15,7 +15,9 @@ do
         ['Evade']                   = { pos = {1.40 + 38, 1.06, -7.02},      rot = {0.00, 180.00, 0.00},     scale = {0.95, 0.95, 0.95} },
         ['X-Wing Attack Die']       = { pos = {0.00 + 38, 1.08, -1.67},      rot = {0.00, 90.00, 90.00},     scale = {3.00, 3.00, 3.00} },
         ['X-Wing Defense Die']      = { pos = {0.00 + 38, 1.08, 1.53},       rot = {90.00, 90.00, 0.00},     scale = {3.00, 3.00, 3.00} },
-        ['Target Locks']            = { pos = {-1.93 + 38, 1.06, -0.06},     rot = {0.00, 180.00, 180.00},   scale = {0.95, 0.95, 0.95} },
+        ['Attack Dice changer']     = { pos = {0.03 + 38, 1.01, -1.72},      rot = {0.00, 315.55, 0.00},     scale = {2.50, 0.10, 2.50} },
+        ['Defence Dice changer']    = { pos = {-0.03+ 38, 1.01, 1.49},      rot = {0.00, 137.13, 0.00},     scale = {2.50, 0.10, 2.50} },
+        ['Target Locks']            = { pos = {-1.93    + 38, 1.06, -0.06},     rot = {0.00, 180.00, 180.00},   scale = {0.95, 0.95, 0.95} },
         ['Focus']                   = { pos = {-1.32 + 38, 1.06, -7.07},     rot = {0.00, 180.00, 0.00},     scale = {0.95, 0.95, 0.95} },
         ['Shield']                  = { pos = {1.46 + 38, 1.06, 3.81},       rot = {0.00, 0.00, 0.00},       scale = {0.95, 0.95, 0.95} },
         ['Energy']                  = { pos = {2.91 + 38, 1.01, 1.60},       rot = {0.00, 0.00, 0.00},       scale = {0.38, 0.38, 0.38} },
@@ -76,7 +78,7 @@ do
         ['White']   = { pos = {48.00, 5.00, -5.00}, rot = {0.00, 270.00, 0.00}, scale = {5.00, 5.00, 1.00} },
     }
     epic.mats = {
-        ['Main'] = { pos = {-3.00, -0.17, 0.00}, rot = {0.00, 180.00, 0.00}, scale = {1.26, 1.2, 1.225}, int = false },
+        ['Main'] = { pos = {-3.00, 1, 0.00}, rot = {0.00, 180.00, 0.00}, scale = {3.41, 1.20, 1.64}, int = false },
     }
     function EpicChangeMat()
         local mat = Layout.GetMats()[epic.name].Main
