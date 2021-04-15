@@ -1185,7 +1185,7 @@ function spawnTemplate(p)
     if spectReturn(p) == true then
         return
     end
-    if setMan~='' then
+    if setMan and setMan~='' then
         setSinceTemplatePlaced = false
         templatePlaced = not templatePlaced
 

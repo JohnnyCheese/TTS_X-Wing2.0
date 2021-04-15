@@ -1350,8 +1350,12 @@ masterUpgradesDB[835]={
     name = "Jedi Commander",
     XWS = 'jedicommander',
     slot = 21,
+    wingleader = true,
+    dual = true,
     cost = 3,
-    card = 'https://images-cdn.fantasyflightgames.com/filer_public/fd/1f/fd1ff8be-72b9-4c61-b5cc-7b892c7244e3/swz79_jedi-commander2.png'
+    restriction = {
+        Ship = { [76]=true, [61]=true }
+    },
 }
 
 masterUpgradesDB[860]={
@@ -2309,6 +2313,8 @@ masterUpgradesDB[805]={
     XWS = 'phoenixsquadron',
     slot = 21,
     limited = 1,
+    wingleader = true,
+    dual = true,
     cost = 5,
     restriction = {
         Faction = {[1]=true},
@@ -2344,9 +2350,15 @@ masterUpgradesDB[808]={
     XWS = 'skystrikeacademyclass',
     slot = 21,
     limited = 2,
+    wingleader = true,
+    dual = true,
     cost = 3,
     restriction = {
-        Faction = {[2]=true}
+        Faction = {[2]=true},
+        ship = {
+          [11] = true, --TIE fighter
+          [41] = true, --TIE interceptor
+        }
     },
 }
 
@@ -2355,9 +2367,16 @@ masterUpgradesDB[809]={
     XWS = 'shadowwing',
     slot = 21,
     limited = 1,
+    wingleader = true,
+    dual = true,
     cost = 6,
     restriction = {
-        Faction = {[2]=true}
+        Faction = {[2]=true},
+        ship = {
+          [11] = true, --TIE fighter
+          [19] = true, --TIE bomber
+          [41] = true, --TIE interceptor
+        }
     },
 }
 

@@ -4103,7 +4103,6 @@ end
 -- Return: {shipRef1, shipRef2, ... , shipRefN}
 MoveModule.MoveProbe.GetHugeShipsNearFull = function(info, ship, fullFun)
     local shipsfound = MoveModule.MoveProbe.GetShipsNearFull(info, ship, fullFun)
-    print("GetHugeShipsNearFull")
     shipsfound = table.sieve(shipsfound, function(obj) return (obj.getTable('Data').Size == 'huge') end)
     return shipsfound
 end
@@ -4183,7 +4182,7 @@ MoveModule.GetFinalPosData = function(move_code, ship, ignoreCollisions)
     local info = MoveData.DecodeInfo(move_code, ship)
 
     -- Don't bother with collisions if it's stationary
-    if info.speed == 0 then
+    if info.size ~= 'huge' and info.speed == 0 then
         ignoreCollisions = true
     end
 
@@ -4213,11 +4212,12 @@ MoveModule.GetFinalPosData = function(move_code, ship, ignoreCollisions)
         if info.traits.full == true then
             local fullData = MoveModule.MoveProbe.TryFullMove(info, ship, MoveModule.GetFullMove)
             while info.size == 'huge' and fullData.done == false do
+              out.collObj = fullData.collObj
               info.speed = info.speed -1
               if info.speed == -1 then
-                info.speed = 0
-                info.code = "s0"
-                info.type = "straight"
+                out.finType = 'overlap'
+                out.finPos = {pos=ship.getPosition(), rot=ship.getRotation()}
+                return out
               else
                 info.code = string.gsub(info.code, "%d", info.speed)
               end
@@ -5200,17 +5200,28 @@ DialModule.PerformAction = function(ship, type, playerColor, args)
         RulerModule.ToggleRuler(ship, rulerCode)
         return
     elseif type:find('spawnMoveTemplate') ~= nil then
-        if DialModule.DeleteTemplate(ship) == false then
-            local scPos = type:find(':')
-            local dialCode = type:sub(scPos+1,-1)
-            if DialModule.SpawnTemplate(ship, dialCode) ~= nil then
-                announceInfo.note = 'spawned a move template'
+        local size = ship.getTable('Data').Size
+        if size ~= 'huge' then
+            if DialModule.DeleteTemplate(ship) == false then
+                local scPos = type:find(':')
+                local dialCode = type:sub(scPos+1,-1)
+                if DialModule.SpawnTemplate(ship, dialCode) ~= nil then
+                    announceInfo.note = 'spawned a move template'
+                else
+                    announceInfo.note = 'looks at you weird'
+                end
             else
-                announceInfo.note = 'looks at you weird'
+                return
             end
         else
             return
         end
+    elseif type:find('deleteMoveTemplate') ~= nil then
+        local size = ship.getTable('Data').Size
+        if size ~= 'huge' then
+            DialModule.DeleteTemplate(ship)
+        end
+        return
     elseif tokenActions:find(' ' .. type .. ' ') ~= nil then
         if args ~= nil and args.remove == true then
             local tokens = ship.call("GetTokens",{type=string.lower(type)})
