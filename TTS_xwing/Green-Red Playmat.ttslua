@@ -2,114 +2,196 @@
 -- Script by dzikakulka
 -- Issues, history at: https://github.com/tjakubo2/TTS_xwing
 --
--- Script applicable to playmats on both sides of the table
+-- Script applicable to playmats
 -- ~~~~~~
 
 -- TO ADD NEW IMAGES TO THE SET
 -- Just add their links to the table below in the same fashion
--- (comma after the currrent last one and your link enclosed in apostrophes following)
 
 -- Table of all images to be cycled through with NextImage()
-imageSet = {'http://i.imgur.com/dczrasC.jpg',
-            'http://cloud-3.steamusercontent.com/ugc/1483326815456337025/EB436BA5C3D1B0BAF4ED3325456E7211A669E3BF/',
-            'http://i.imgur.com/6IkNucB.jpg',
-            'http://i.imgur.com/dKYBJMX.png',
-            'http://i.imgur.com/8tDK0x8.png',
-            'http://i.imgur.com/sb2AJOz.png',
-            'http://i.imgur.com/V7pWVak.png',
-            'http://i.imgur.com/spWTWy7.png',
-            'http://i.imgur.com/YdIAcvP.png',
-            'http://i.imgur.com/5CcjDzM.jpg',
-            'http://i.imgur.com/4WMSCSV.jpg',
-            'http://i.imgur.com/0FWrq21.jpg',
-            'http://i.imgur.com/x4LEk1A.jpg',
-            'http://i.imgur.com/fy6kooO.png'}
+imageSet = {    'http://i.imgur.com/6IkNucB.jpg',
+                'http://cloud-3.steamusercontent.com/ugc/1483326815456337025/EB436BA5C3D1B0BAF4ED3325456E7211A669E3BF/',
+                'http://cloud-3.steamusercontent.com/ugc/1483326815456320038/68F5C582DBCBDC1070ACD4CE12091BFA73AE93F4/',
+                'https://i.imgur.com/siDMVxH.mp4',
+                'https://i.imgur.com/HXUBMXE.mp4',
+                'http://i.imgur.com/dczrasC.jpg',
+                'http://i.imgur.com/dKYBJMX.png',
+                'https://i.imgur.com/1veiNk9.jpg',
+                'http://i.imgur.com/8tDK0x8.png',
+                'http://i.imgur.com/sb2AJOz.png',
+                'https://i.imgur.com/KPtozCm.png',
+                'http://i.imgur.com/V7pWVak.png',
+                'http://i.imgur.com/spWTWy7.png',
+                'http://i.imgur.com/YdIAcvP.png',
+                'http://i.imgur.com/5CcjDzM.jpg',
+                'http://i.imgur.com/4WMSCSV.jpg',
+                'http://i.imgur.com/0FWrq21.jpg',
+                'http://i.imgur.com/x4LEk1A.jpg',
+                'http://i.imgur.com/fy6kooO.png',   }
 
--- {Postions, Scale} data for mat object of each type
-matData = {}
+-- Mat flag for layouts
+__XW_Mat = true
+-- Parent layout name
+__XW_MatLayout = 'Standard'
+-- This mat identifier
+__XW_MatID = 'Red-Blue'
 
-matData['Custom_Board'] = {{20.5142, -0.17, 0}, {1.225, 1.2, 1.225}}
-matData['Custom_Tile'] = {{20.5142, 0.85, 0}, {16.28, 0, 16.28}}
-
--- Changes data to "left version" and switches 1st image if on left side
 function onLoad()
-    local function leftVersion(data)
-        return { {-1*data[1][1], data[1][2], data[1][3]}, {data[2][1], data[2][2], data[2][3]} }
-    end
-    if self.getPosition()[1] < 0 then
-        for k,v in pairs(matData) do matData[k] = leftVersion(matData[k]) end
-        local temp = imageSet[1]
-        imageSet[1] = imageSet[2]
-        imageSet[2] = temp
-    end
+    -- Restore current image index
+    currImage = tonumber(self.script_state) or 1
     self.lock()
-    self.setPosition(matData[SelfType()][1])
-    self.setScale(matData[SelfType()][2])
-    self.setRotation({0, 180, 0})
     self.interactable = false
+    self.tooltip = false
 end
 
--- Differentiates self type between Custom_Tile and Custom_Board
-function SelfType()
-    if self.getCustomObject().thickness ~= nil then
-        return 'Custom_Tile'
-    else
-        return 'Custom_Board'
-    end
-end
-
--- Respawn self (with same image)
--- if typeChange is TRUE, change type Tile <-> Board
-function Respawn(typeChange)
-
-    local newType = SelfType()
-    if typeChange == true and SelfType() == 'Custom_Tile' then
-        newType = 'Custom_Board'
-    elseif typeChange == true then
-        newType = 'Custom_Tile'
-    end
-
-    local newMatProperties = {}
-    newMatProperties.type = newType
-    newMatProperties.position = matData[newType][1]
-    newMatProperties.rotation = self.getRotation()
-    newMatProperties.scale = matData[newType][2]
-    newMat = spawnObject(newMatProperties)
-    newMat.setLuaScript(self.getLuaScript())
-
-    local currentImageNum = 1
-    if self.getVar('ImageNum') ~= nil then currentImageNum = self.getVar('ImageNum') end
-
-    local customMatParams = {}
-    customMatParams.image = imageSet[currentImageNum]
-    if newType == 'Custom_Tile' then
-        customMatParams.type = 0
-        customMatParams.thickness = 0.1
-    end
-    newMat.setCustomObject(customMatParams)
-    newMat.setVar('ImageNum', currentImageNum)
-    newMat.setName(self.getName())
-    self.destruct()
-end
-
-function ChangeType()
-    Respawn(true)
-end
-
--- Change image to the next from the list
--- Image numbers wrap around
--- RESPAWNS MAT OBJECT (neccesary to actually render with new image)
+-- Change image to the next from the list, wrap around to 1
+-- Reloads self to actually reflect the change
 function NextImage()
-    local currentImageNum = 1
-    if self.getVar('ImageNum') ~= nil then currentImageNum = self.getVar('ImageNum') end
-
-    if imageSet[currentImageNum + 1] ~= nil then
-        currentImageNum = currentImageNum + 1
-    else
-        currentImageNum = 1
+    deleteAll()
+    -- Increment image index
+    local nextImage = currImage + 1
+    if nextImage > #imageSet then
+        nextImage = 1
     end
 
-    self.setVar('ImageNum', currentImageNum)
-
-    Respawn(false)
+    -- Reload self with the new image and save the index
+    local custom = self.getCustomObject()
+    custom.diffuse = imageSet[nextImage]
+    self.setCustomObject(custom)
+    local newSelf = self.reload()
+    newSelf.script_state = nextImage
 end
+
+-- Please update me
+
+
+corrScale = {0.625, 0.625, 0.625}
+
+function ToggleRulers()
+    deleteAll()
+    rulersState = rulersState + 1
+    if rulersState == 1 then
+      spawnSet(roidPos, roidRot)
+    elseif rulersState == 2 then
+      spawnSet(setupPos, setupRot)
+    elseif rulersState == 3 then
+      rulersState = 0
+    end
+end
+
+function spawnSet(posTable, rotTable)
+    -- please kill me
+    local function sPos(tab)
+        if self.getPosition()[1] < 0 then
+            return {-1*tab[1], tab[2], tab[3]}
+        else
+            return tab
+        end
+    end
+    local initPos = self.getPosition()
+    initPos.y = initPos.y - 3
+    for k,pos in pairs(posTable) do
+        local params = {} -- 50
+        params.type = 'Custom_Model'
+        params.position = initPos
+        --params.position = sPos(posTable[k])
+        --params.rotation = rotTable[k]
+        obj = spawnObject(params)
+        obj.setCustomObject(rulerData)
+        obj.setScale(corrScale)
+        obj.lock()
+        obj.setPositionSmooth(sPos(posTable[k]), false, true)
+        obj.setRotationSmooth(rotTable[k], false, true)
+        obj.addTag('TempLayoutElement')
+        rulers[obj] = true
+    end
+end
+
+function checkShipWithinBounds(ship)
+  ship_corners = ship.call('getBaseCorners')
+  min_x = 1000, min_y = 1000
+  max_x = -1000, max_y = -1000
+  for _, corner in pairs(ship_corners) do
+    min_x = min(min_x, corner.x)
+    min_y = min(min_y, corner.y)
+    max_x = max(max_x, corner.x)
+    max_y = max(max_y, corner.y)
+  end
+
+end
+
+function deleteAll()
+    for ruler in pairs(rulers) do ruler.destruct() end
+    rulers = {}
+end
+
+function onObjectDestroyed(obj)
+    if rulers[obj] then
+        rulers[obj] = nil
+    end
+end
+
+rulers = {}
+rulersState = 0
+rulerData = {}
+rulerData.mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/rulers/range13.obj'
+rulerData.collider = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/rulers/range13.obj'
+rulerData.diffuse = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/rulers/range.jpg'
+rulerData.material = 1
+
+roidRot = {
+    { 0, 270, 180},
+      { 0, 270, 180},
+    { 0, 180, 180},
+      { 0, 180, 180},
+    { 0, 270, 180},
+      { 0, 270, 180},
+    { 0, 0, 180},
+    { 0, 0, 180},
+    { 0, 90, 180},
+    { 0, 90, 180},
+    { 0, 180, 180},
+      { 0, 180, 180}
+}
+
+setupRot = {
+    {0, 270, 0},
+    {0, 0, 0},
+    {0, 270, 0},
+    {0, 0, 0},
+    {0, 0, 0},
+    {0, 90, 0},
+    {0, 180, 0},
+    {0, 90, 0},
+    {0, 180, 0},
+    {0, 180, 0}
+}
+
+roidPos = {
+    { 29.872200088501, 0.99871951341629, -10.8846182632446}, -- pio
+      { 29.872200088501, 0.99871951341629, 0},
+    { 31.382360534668, 0.998719453811646, -9.37833354949951}, -- poz
+      { 20.5, 0.998719453811646, -9.37833354949951},
+    { 11.1684393310547, 0.998719573020935, -10.8876889038086},
+      { 11.1684393310547, 0.998719573020935, 0},
+    { 9.64546291351318, 0.998719453811646, -9.37820747375488},
+    { 9.64722316741943, 0.99871951341629, 9.37365325927734},
+    { 11.1658749008179, 0.998719453811646, 10.8807905578613},
+    { 29.8585949707031, 0.998719394207001, 10.8395362091064}, -- pio
+    { 31.3808876037598, 0.998719453811646, 9.32834770202637}, -- poz
+      { 20.5, 0.998719453811646, 9.32834770202637}
+}
+
+setupPos = {
+    { 3.97240991592407, 1.00172388553619, -10.8451750564575}, --pio
+    { 9.67806907653809, 1.00172448158264, -12.4075313186646},
+    { 37.0594985961914, 1.00172400474548, -10.8700817108154}, --pio
+    { 20.5256023406982, 1.0017237663269, -12.4035499572754},
+    { 31.3721223449707, 1.00172340869904, -12.4002779006958},
+
+    { 3.97240991592407, 1.00172388553619, 10.8451750564575}, --pio
+    { 9.67806907653809, 1.00172448158264, 12.4075313186646},
+    { 37.0594985961914, 1.00172400474548, 10.8700817108154}, --pio
+    { 20.5256023406982, 1.0017237663269, 12.4035499572754},
+    { 31.3721223449707, 1.00172340869904, 12.4002779006958},
+}
