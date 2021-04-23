@@ -6850,8 +6850,12 @@ function newSpawner(listTable)
                 pos = LocalPos(spawnCard, {1.5, 0, 5.5})
                 rot = spawnCard.getRotation()
                 rot.y = rot.y
-                cardLink = (Up.card)
-                cardBackLink = (Up.cardB)
+                cardLink = Up.card
+                cardBackLink = Up.cardB
+                if Customization[Up.name] ~= nil then
+                  cardLink = Customization[Up.name].face or Up.card
+                  cardBackLink = Customization[Up.name].back or Up.cardB
+                end
                 deck = Decker.Asset(cardLink, cardBackLink)
                 card = Decker.Card(deck,1, 1)
                 newUp = card:spawn({position = pos, rotation=rot, scale={0.68,0.68,0.68}})
@@ -6891,9 +6895,13 @@ function newSpawner(listTable)
                 pos = LocalPos(spawnCard, {-1.5 - 2*UpNum, 2-0.2*UpNum, 5.5})
                 rot = spawnCard.getRotation()
                 rot.y = rot.y - 90
-                cardLink = (Up.card)
-                cardBLink = (Up.cardB)
-                deck = Decker.Asset(cardLink, cardBLink)
+                cardLink = Up.card
+                cardBackLink = Up.cardB
+                if Customization[Up.name] ~= nil then
+                  cardLink = Customization[Up.name].face or Up.card
+                  cardBackLink = Customization[Up.name].back or Up.cardB
+                end
+                deck = Decker.Asset(cardLink, cardBackLink)
                 card = Decker.Card(deck,1, 1)
                 local rotUp = rot
                 rotUp.y = rotUp.y+90
@@ -6945,13 +6953,16 @@ function newSpawner(listTable)
 
         --Pilot and Ship Spawn
         pilotName = Pilots[shipIndex].name
-
+        card = Pilots[shipIndex].card
+        cardB = Pilots[shipIndex].cardB
         local tint = color(0,0,0,0)
         if Customization[pilotName] ~= nil then
             tint = Customization[pilotName].tint or  color(0,0,0,0)
+            card = Customization[pilotName].face or Pilots[shipIndex].card
+            cardB = Customization[pilotName].back or Pilots[shipIndex].cardB
         end
-        card = Pilots[shipIndex].card
-        cardB = Pilots[shipIndex].cardB
+
+
         pos = LocalPos(spawnCard, {0, 3, 5.5})
         rot = spawnCard.getRotation()
         local newPil = nil
@@ -7064,7 +7075,7 @@ function newSpawner(listTable)
             local texture = nil
             if Customization[pilotName].texture ~= nil then
                 texture = Customization[pilotName].texture
-            elseif Pilots[shipIndex].mesh ~= nil then
+            elseif Pilots[shipIndex].texture ~= nil then
                 texture = '{verifycache}'..Pilots[shipIndex].texture
             end
             if texture then
