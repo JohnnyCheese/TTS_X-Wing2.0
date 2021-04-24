@@ -1,0 +1,36 @@
+
+-- ~~~~~~
+-- Script by Eirik 'Flippster' Munthe
+--
+--
+-- X-Wing player action module
+-- Handles playe action events
+-- ~~~~~~
+
+local PlayerActionModule = {}
+
+function onPlayerAction(player, action, targets)
+  if action == Player.Action.Randomize then
+      if DiceControlModule.enabled then
+        for _, object in pairs(targets) do
+          --DiceControlModule.onObjectRandomize(object, player)
+        end
+      end
+  elseif action == Player.Action.FlipOver then
+      for _, object in pairs(targets) do
+          if object.hasTag("ConfigCard") then
+              for _, ship in pairs(getObjectsWithTag("Ship")) do
+                if ship.getTable("Data").Config.CardGUID == object.getGUID() then
+                  ship.call("SetConfiguration", {ConfigId = object.is_face_down and 2 or 1})
+                  break
+                end
+              end
+          elseif object.hasTag("FlipToken") then
+            object.call("onFlip",{player=player})
+
+          end
+      end
+  end
+end
+
+return PlayerActionModule

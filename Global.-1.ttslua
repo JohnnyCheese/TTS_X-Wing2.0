@@ -61,6 +61,7 @@ end
 #include TTS_xwing/src/ConfigManager
 
 HotkeyModule = require("TTS_xwing/src/HotkeyManager")
+PlayerEventModule = require("TTS_xwing/src/PlayerActionModule")
 
 -- Modules API, must be loaded last
 #include TTS_xwing/src/API
@@ -4590,7 +4591,7 @@ TokenModule.tokenSources = {}
 TokenModule.tokenAssignments = {}
 
 -- Update token and template sources on each load
-TokenModule.onLoad = function()
+TokenModule.onLoad = function(save_data)
     for k, obj in pairs(getAllObjects()) do
         if obj.tag == 'Infinite' then
             if obj.getName() == 'Focus' then TokenModule.tokenSources.Focus = {src=obj, hlColor={0, 0.5, 0}}
@@ -5174,6 +5175,7 @@ function getShipTokenIsAssignedTo(args)
     end
     return nil
 end
+
 
 -- END TOKEN MODULE
 --------
@@ -6452,7 +6454,7 @@ function GetTokens(args)
     for guid, token in pairs(assigned_tokens) do
         if token == nil then
             assigned_tokens[guid] = nil
-        elseif ((args == nil) or (args.type == nil) or (args.type == token.getVar("__XW_TokenType"))) then
+        elseif ((args == nil) or (args.type == nil) or (args.type == token.getVar("__XW_TokenType"))) or token.hasTag(args.type) then
             table.insert(tokens, assigned_tokens[guid])
         end
     end
@@ -6467,6 +6469,22 @@ function SetConfiguration(args)
   else
     current_config = args.ConfigId
   end
+  --Flip config card
+  for _, card in pairs(getObjectsWithTag("ConfigCard")) do
+    if card.getGUID() == self.getTable("Data").Config.CardGUID then
+      if current_config ~= (card.is_face_down and 1 or 2) then
+        card.flip()
+      end
+    end
+  end
+
+  --flip config token
+  for _, token in pairs(GetTokens("config")) do
+    if current_config ~= (token.is_face_down and 2 or 1) then
+      token.flip()
+    end
+  end
+
   local attachments = self.getAttachments()
   for i = #attachments, 1, -1 do
     local attachment = attachments[i]
@@ -6718,8 +6736,9 @@ function onLoad(savedData)
         self.setVar("owningPlayer", state.owningPlayer)
         initContextMenu()
         for _, guid in ipairs(state.tokenData.tokens) do
-            assigned_tokens[guid] = getObjectFromGUID(guid)
+            Global.call('API_AssignToken',{token=getObjectFromGUID(guid), ship = self})
         end
+
 
     end
 end
@@ -6842,6 +6861,7 @@ function newSpawner(listTable)
         Bombs = 0
         hasMob = 0
         bombTokenDescription = ''
+        local configCardGUID = nil
         -- Spawn Mobile Upgrades
         for j, Up in pairs(Upgrades[shipIndex]) do
             if  Up.Config == true then
@@ -6860,6 +6880,8 @@ function newSpawner(listTable)
                 card = Decker.Card(deck,1, 1)
                 newUp = card:spawn({position = pos, rotation=rot, scale={0.68,0.68,0.68}})
                 newUp.setName(Up.name)
+                newUp.addTag("ConfigCard")
+                configCardGUID = newUp.getGUID()
                 hasMob = 1
                 charges = Up.Charge
                 if charges > 0 then
@@ -7093,6 +7115,7 @@ function newSpawner(listTable)
             })
             newShip.setLock(true)
             Pilots[shipIndex].Data.ColorId = tint
+            Pilots[shipIndex].Data.Config.CardGUID = configCardGUID
             newShip.setTable("Data", Pilots[shipIndex].Data)
             newShip.setLuaScript(saveAndLoadShipStateLua)
             local ship = newShip
@@ -7127,6 +7150,7 @@ function newSpawner(listTable)
               shipId.setName("ColorId")
               ship.addAttachment(shipId)
               ship.setLock(false)
+              ship.addTag("Ship")
               card.call('addTintObject', {'ship',ship})
               ship.call('initContextMenu')
             end
@@ -7174,27 +7198,18 @@ function newSpawner(listTable)
                     specular_intensity = 0
                 })
                 configToken.setLuaScript(
-[[side = 1
-function onUpdate()
-  if self.is_face_down then
-    if side == 1 then
-      side = 2
-      local ship = Global.call("getShipTokenIsAssignedTo",{token=self})
-      if ship and ship.getVar("SetConfiguration") then
-        ship.call("SetConfiguration", {ConfigId=side})
-      end
+[[
+__XW_Token = true
+__XW_TokenIdle = true
+__XW_TokenType = 'config'
 
-    end
+self.addTag('FlipToken')
 
-  else
-    if side == 2 then
-      side = 1
-      local ship = Global.call("getShipTokenIsAssignedTo",{token=self})
-      if ship and ship.getVar("SetConfiguration") then
-        ship.call("SetConfiguration", {ConfigId=side})
-      end
+function onFlip()
+    local ship = Global.call("getShipTokenIsAssignedTo",{token=self})
+    if ship and ship.getVar("SetConfiguration") then
+      ship.call("SetConfiguration", {ConfigId=self.is_face_down and 1 or 2})
     end
-  end
 end
 ]])
               end
