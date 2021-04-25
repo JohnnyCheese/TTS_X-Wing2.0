@@ -3488,13 +3488,13 @@ end
 -- Selection function for MoveModule.JoinHitTables - obstacles only
 MoveModule.SelectObstacles = function(obj)
     local name = obj.getName()
-    return ((name:find('Asteroid') or name:find('Debris') or name:find('Chute debris') or name:find('Cloud') or name:find('Spare') or name:find('Obstacle')) ~= nil)
+    return obj.hasTag('Obstacle') or ((name:find('Asteroid') or name:find('Debris') or name:find('Chute debris') or name:find('Cloud') or name:find('Spare') or name:find('Obstacle')) ~= nil)
 end
 
 -- Selection function for MoveModule.JoinHitTables - mine tokens only
 MoveModule.SelectMineTokens = function(obj)
     local name = obj.getName()
-    return (name:find('Mine') or name:find('Connor') or name:find('Chute debris') or name:find('Probe') or name:find('Buzz')) ~= nil
+    return obj.hasTag('Mine') or ((name:find('Mine') or name:find('Connor') or name:find('Chute debris') or name:find('Probe') or name:find('Buzz')) ~= nil)
 end
 
 -- Selection function for MoveModule.JoinHitTables - mines and obstacles
@@ -6422,7 +6422,7 @@ function initContextMenu()
       end
     end
     local config = self.getTable("Data").Config
-    if config then
+    if config  then
         self.addContextMenuItem(config.ContextText, function() self.call(SetConfiguration()) end, false)
     end
 
@@ -7115,7 +7115,9 @@ function newSpawner(listTable)
             })
             newShip.setLock(true)
             Pilots[shipIndex].Data.ColorId = tint
-            Pilots[shipIndex].Data.Config.CardGUID = configCardGUID
+            if Pilots[shipIndex].Data.Config then
+                Pilots[shipIndex].Data.Config.CardGUID = configCardGUID
+            end
             newShip.setTable("Data", Pilots[shipIndex].Data)
             newShip.setLuaScript(saveAndLoadShipStateLua)
             local ship = newShip
@@ -7156,7 +7158,7 @@ function newSpawner(listTable)
             end
             Wait.condition(shipIdSpawnFunc , function() return (not ship.spawning) and (not card.spawning) end)
 
-            if Pilots[shipIndex].Data.Config then
+            if Pilots[shipIndex].Data.Config and Pilots[shipIndex].Data.Config.States then
               for k, config in pairs(Pilots[shipIndex].Data.Config.States) do
                 if config.Model then
                   local customObject = ship.getCustomObject()
@@ -7182,7 +7184,7 @@ function newSpawner(listTable)
                   Wait.condition(configSpawnFunction , function() return (not ship.spawning) end)
                 end -- if Config.Model
               end -- for Data.Config
-              if Pilots[shipIndex].Data.Config.Token then
+              if Pilots[shipIndex].Data.Config and Pilots[shipIndex].Data.Config.Token then
                 pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
                 local configToken = spawnObject({
                     type = "Custom_Model",
