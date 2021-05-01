@@ -6472,7 +6472,7 @@ function SetConfiguration(args)
   --Flip config card
   for _, card in pairs(getObjectsWithTag("ConfigCard")) do
     if card.getGUID() == self.getTable("Data").Config.CardGUID then
-      if current_config ~= (card.is_face_down and 1 or 2) then
+      if current_config ~= (card.is_face_down and 2 or 1) then
         card.flip()
       end
     end
@@ -7205,7 +7205,7 @@ __XW_Token = true
 __XW_TokenIdle = true
 __XW_TokenType = 'config'
 
-self.addTag('FlipToken')
+self.addTag('Flippable')
 
 function onFlip()
     local ship = Global.call("getShipTokenIsAssignedTo",{token=self})

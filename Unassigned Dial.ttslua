@@ -15,6 +15,8 @@ __XW_Token = false
 __XW_TokenIdle = true
 __XW_TokenType = 'helper:Dial'
 
+self.addTag("Flippable")
+
 -- Ref to assigned ship if there is one
 assignedShip = nil
 currMan = nil
@@ -80,7 +82,6 @@ function onSave()
     end
 end
 
-faceStat = nil
 firstSet=false
 setSinceTemplatePlaced = false -- True if the user has set a movement since the movement template was last placed on the table
 templatePlaced = false  -- True if the movement template is currently on the table (as far as we can tell based on just dial button clicks, anyway)
@@ -103,7 +104,6 @@ function onLoad(savedData)
         playerTeam = state.playerTeam
         local savedShipGuid = state.assignedShipGUID
         assignedShip = nil
-        faceStat = nil
 
         local dial = self
         if savedShipGuid then
@@ -151,37 +151,36 @@ function clearDial()
     clearOpenPanel()
 end
 
-function onUpdate()
+function onFlip()
+    redraw()
+end
+
+function redraw()
     if assignedShip ~= nil then
-        if self.getTransformUp().y >0 then
-            if faceStat ~= 'Down' then
-                faceStat = 'Down'
-                clearDial()
-                self.UI.setAttribute("Main", "rotation", "0 0 0")
-                if finished_setup then
-                    self.UI.show("CenterFD")
-                else
-                    self.UI.show('Setup')
-                end
-                button.setAttributeFacing("Setup", "Down")
-                button.setAttributeFacing("proxyPanel", "Down")
+        if self.is_face_down then
+            clearDial()
+            self.UI.setAttribute("Main", "rotation", "0 0 0")
+            if finished_setup then
+                self.UI.show("CenterFD")
+            else
+                self.UI.show('Setup')
             end
+            button.setAttributeFacing("Setup", "Down")
+            button.setAttributeFacing("proxyPanel", "Down")
         else
-            if faceStat ~= 'Up' then
-                faceStat = 'Up'
-                clearDial()
-                manSetting()
-                if finished_setup then
-                    self.UI.show("CenterFU")
-                else
-                    self.UI.show('Setup')
-                end
-                button.setAttributeFacing("Setup", "Up")
-                button.setAttributeFacing("proxyPanel", "Up")
+            clearDial()
+            manSetting()
+            if finished_setup then
+                self.UI.show("CenterFU")
+            else
+                self.UI.show('Setup')
             end
+            button.setAttributeFacing("Setup", "Up")
+            button.setAttributeFacing("proxyPanel", "Up")
         end
     end
 end
+
 
 function getManouverIcons(manouver)
     if manouver:sub(1,1) == 'w' then
@@ -333,7 +332,7 @@ function placeShip(P)
     finished_setup = true
     assignedShip.setVar("finished_setup", true)
     assignedShip.setLock(true)
-    faceStat = ""
+    redraw()
 end
 
 setupRotations = {
@@ -594,6 +593,8 @@ function assignShip(args)
         self.UI.setAttribute("RelocMenuFU", "active", "false")
 
     end
+
+    redraw()
 
 end
 
@@ -979,7 +980,6 @@ function resetDial(enable)
     self.UI.setValue("Name","")
     self.UI.setValue("SetupName","")
     assignedShip = nil
-    faceStat = nil
 end
 
 

@@ -185,13 +185,13 @@ masterShipDB[15]={
     mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/UTD60DUWing/UWing_Base.obj',
     Config = {
       States = {
-        {
+        [1] = {
             Name = "Pivot Wing (Open)",
             Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/UTD60DUWing/UWing_Open.obj",
             ZRot = 0,
             Message = " opened their wings.",
         },
-        {
+        [2] = {
             Name = "Pivot Wing (Closed)",
             Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/UTD60DUWing/UWing_Close.obj",
             ZRot = 180,
@@ -229,13 +229,13 @@ masterShipDB[17]={
   mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_bwing/bwing-base.obj',
   Config = {
     States = {
-      {
+      [1] = {
           Name = "S-Foils (Open)",
           Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_bwing/bwing-open.obj",
           ZRot = 0,
           Message = " opened their S-Foils.",
       },
-      {
+      [2] = {
           Name = "S-Foils (Closed)",
           Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_bwing/bwing-closed.obj",
           ZRot = 180,
@@ -455,13 +455,13 @@ masterShipDB[33]={
   mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_xwing/xwing_base.obj',
   Config = {
     States = {
-      {
+      [1] = {
           Name = "S-Foils (Open)",
           Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_xwing/xwing_open.obj",
           ZRot = 0,
           Message = " opened their wings.",
       },
-      {
+      [2] = {
           Name = "S-Foils (Closed)",
           Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_xwing/xwing_closed.obj",
           ZRot = 180,
@@ -704,13 +704,13 @@ masterShipDB[53]={
     mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_T70Xwing/t70_base.obj',
     Config = {
       States = {
-        {
+        [1] = {
             Name = "S-Foils (Open)",
             Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_T70Xwing/t70_open.obj",
             ZRot = 0,
             Message = " opened their wings.",
         },
-        {
+        [2] = {
             Name = "S-Foils (Closed)",
             Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_T70Xwing/t70_closed.obj",
             ZRot = 180,
@@ -786,13 +786,13 @@ masterShipDB[61]={
 	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/Jedi_Delta7.obj',
   Config = {
     States = {
-      {
+      [1] = {
           Name = "Normal",
           Model = nil,
           ZRot = 0,
           Message = " removed hyperspace ring,",
       },
-      {
+      [2] = {
           Name = "Hyperspace ring mounted",
           Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Hyperspace_Ring/hyperspace_ring_attachment.obj",
           ZRot = 180,
@@ -830,13 +830,13 @@ masterShipDB[59]={
   mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Vulture/Vulture_Base.obj',
   Config = {
     States = {
-      {
+      [1] = {
           Name = "Struts (Closed)",
           Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Vulture/Vulture_Closed.obj",
           ZRot = 0,
           Message = " closed their struts.",
       },
-      {
+      [2] = {
           Name = "Struts (Open)",
           Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Vulture/Vulture_Open.obj",
           ZRot = 180,
@@ -912,13 +912,13 @@ masterShipDB[64]={
   mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Hyena/Hyena_Base.obj',
   Config = {
     States = {
-      {
+      [1] = {
           Name = "Struts (Closed)",
           Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Hyena/Hyena_Closed.obj",
           ZRot = 0,
           Message = " closed their struts.",
       },
-      {
+      [2] = {
           Name = "Struts (Open)",
           Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Hyena/Hyena_Open.obj",
           ZRot = 180,
@@ -926,7 +926,8 @@ masterShipDB[64]={
       }
     },
     ContextText = "Open/Close Struts",
-    Token = "http://nnxwing.com/Content/TTS/Config/HyenaDroid.png?1.0.1"
+    Token = "http://nnxwing.com/Content/TTS/Config/HyenaDroid.png?1.0.1",
+
   }
 }
 
@@ -1008,13 +1009,13 @@ masterShipDB[71]={
     moveSet = {'wtl1','rbl1','rbr1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rk2','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk4','ws5'},
     Config = {
       States = {
-        {
+        [1] = {
             Name = "Normal",
             Model = nil,
             ZRot = 0,
             Message = " removed hyperspace ring,",
         },
-        {
+        [2] = {
             Name = "Hyperspace ring mounted",
             Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Hyperspace_Ring/hyperspace_ring_attachment.obj",
             ZRot = 180,
@@ -1080,13 +1081,13 @@ masterShipDB[75]={
     moveSet = {'rs0','rbl1','bs1','rbr1','btl2','wbl2','bs2','wbr2','btr2','wtl3','rbl3','ws3','rbr3','wtr3','rs4','rs5'},
     Config = {
       States = {
-        {
+        [1] = {
             Name = "Stabalizers (Inactive)",
             Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/HMP_GunshipStable.obj",
             ZRot = 0,
             Message = " deactivated their stabilizers.",
         },
-        {
+        [2] = {
             Name = "Stabalizers (Active)",
             Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/HMP_GunshipSliping.obj",
             ZRot = 180,
@@ -1111,13 +1112,13 @@ masterShipDB[76]={
     moveSet = {'wtl1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','ptl2t','ptr2t','wtl3','bbl3','bs3','bbr3','wtr3','bs4','rk4','ws5'},
     Config = {
       States = {
-        {
+        [1] = {
             Name = "Normal",
             Model = nil,
             ZRot = 0,
             Message = " removed hyperspace ring,",
         },
-        {
+        [2] = {
             Name = "Hyperspace ring mounted",
             Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Hyperspace_Ring/hyperspace_ring_attachment.obj",
             ZRot = 180,

@@ -13,24 +13,27 @@ function onPlayerAction(player, action, targets)
   if action == Player.Action.Randomize then
       if DiceControlModule.enabled then
         for _, object in pairs(targets) do
-          --DiceControlModule.onObjectRandomize(object, player)
+          DiceControlModule.onObjectRandomize(object, player)
         end
       end
   elseif action == Player.Action.FlipOver then
       for _, object in pairs(targets) do
           if object.hasTag("ConfigCard") then
               for _, ship in pairs(getObjectsWithTag("Ship")) do
-                if ship.getTable("Data").Config.CardGUID == object.getGUID() then
-                  ship.call("SetConfiguration", {ConfigId = object.is_face_down and 2 or 1})
+                ship_data = ship.getTable("Data")
+                if ship_data.Config and (ship_data.Config.CardGUID == object.getGUID()) then
+                  ship.call("SetConfiguration", {ConfigId = object.is_face_down and 1 or 2})
                   break
                 end
               end
-          elseif object.hasTag("FlipToken") then
-            object.call("onFlip",{player=player})
-
+          elseif object.hasTag("Flippable") then
+            if object.call("onFlip",{player=player}) == false then
+              return false
+            end
           end
       end
   end
 end
+
 
 return PlayerActionModule
