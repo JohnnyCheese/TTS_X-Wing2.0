@@ -154,6 +154,24 @@ function API_SetGlobalConfig(argTable)
     return ConfigManager.SetConfig("global",argTable.param_name, argTable.value)
 end
 
+function API_GetClosestPointToShip(argTable)
+    local size = argTable.ship.getTable('Data').Size or "small"
+    local segments = ArcCheck.GetOwnArcLineSegments(argTable.ship, ArcCheck.arc_line_segments[size].full.segments)
+
+    local closestRange = 100000
+    local closestDistance = nil
+    for _, segment in pairs(segments) do
+      distance = ArcCheck.GetDistanceBetweenLineSegmentAndPoint(segment, argTable.point, false)
+      print("Dist: " .. tostring(distance.length))
+      if distance.length < closestRange then
+        closestRange = distance.length
+        closestDistance = distance
+      end
+    end
+    return closestDistance
+end
+
+
 --------
 -- OBJECT SPECIFIC VARIABLES
 -- These variables are set per object and have some specific meaning

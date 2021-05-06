@@ -35,13 +35,11 @@ function toggleR1()
     for k,obj in pairs(getAllObjects()) do
         if obj ~= nil and obj.tag == 'Figurine' and obj.getVar('__XW_Ship') == true then
             my_pos = self.getNearestPointFromObject(obj)
-            other_pos = obj.getNearestPointFromObject(self)
-            other_pos.y = my_pos.y
-
-            distance = Convert_igu_mm(math.sqrt(math.pow(my_pos.x - other_pos.x,2) + math.pow(my_pos.z - other_pos.z,2)))
+            closest = Global.call("API_GetClosestPointToShip", {ship=obj,point=my_pos})
+            distance = Convert_igu_mm(closest.length)
             if distance < 100 then
                 table.insert(vector_lines, {
-                    points = {self.positionToLocal(my_pos), self.positionToLocal(other_pos)},
+                    points = {self.positionToLocal(closest.A), self.positionToLocal(closest.B)},
                     color = {1,1,1},
                     thickness = 0.1,
                     rotation = vector(0,0,0)
