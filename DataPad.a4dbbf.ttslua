@@ -978,18 +978,24 @@ function onObjectDrop(player_color, dropped_object)
             if (dropped_object.tag == 'Figurine') and (dropped_object.getVar("__XW_Ship") == true) then
                 printToAll(self.getName() .. " gets the customization of " .. dropped_object.getName(), color(1.0,0.5,0.0))
                 local customobj = dropped_object.getCustomObject()
-                config = List.Customization[dropped_object.getName()] or {}
-                config.model = customobj.mesh
-                config.texture = customobj.diffuse
-                config.modeltint = dropped_object.getColorTint()
+                customization = List.Customization[dropped_object.getName()] or {}
+                customization.model = customobj.mesh
+                customization.texture = customobj.diffuse
+                customization.modeltint = dropped_object.getColorTint()
                 for i, attachment in pairs(dropped_object.getAttachments()) do
                     if attachment.name == "ColorId" then
                       id = dropped_object.removeAttachment(attachment.index)
-                      config.tint = id.getColorTint(tint)
+                      customization.tint = id.getColorTint(tint)
                       dropped_object.addAttachment(id)
                     end
                 end
-                List.Customization[dropped_object.getName()] = config
+                List.Customization[dropped_object.getName()] = customization
+            elseif dropped_object.tag == 'Card' then
+              printToAll(self.getName() .. " gets the customization of " .. dropped_object.getName() .." card", color(1.0,0.5,0.0))
+               customization = List.Customization[dropped_object.getName()] or {}
+               customization.face = dropped_object.getCustomObject().face
+               customization.back = dropped_object.getCustomObject().back
+               List.Customization[dropped_object.getName()] = customization
             end
         end
     end
