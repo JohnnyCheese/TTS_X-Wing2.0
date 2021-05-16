@@ -77,6 +77,16 @@ DiceControlModule.dice_types = {
               }
           }
 
+DiceControlModule.GetDefaultDiceStats = function(dicecolor)
+  def= {Total = 0}
+  if DiceControlModule.dice_types[dicecolor] and DiceControlModule.dice_types[dicecolor].luck_values then
+    for result, value in pairs(DiceControlModule.dice_types[dicecolor].luck_values) do
+      def[result] = 0
+    end
+  end
+  return def
+end
+
 DiceControlModule.onLoad = function()
 
     addContextMenuItem("Toggle dice control",
@@ -222,7 +232,7 @@ DiceControlModule.PresentDiceRollerResult = function(player)
         resultTable[dicecolor] = resultTable[dicecolor] or {}
         resultTable[dicecolor][result] = (resultTable[dicecolor][result] or 0) + 1
         local playerstats = DiceControlModule.dice_statistics[player] or {}
-        playerstats[dicecolor] = playerstats[dicecolor] or {}
+        playerstats[dicecolor] = playerstats[dicecolor] or DiceControlModule.GetDefaultDiceStats(dicecolor)
         playerstats[dicecolor].Total = (playerstats[dicecolor].Total or 0) + 1
         playerstats[dicecolor][result] = (playerstats[dicecolor][result] or 0) + 1
         DiceControlModule.dice_statistics[player] = playerstats
