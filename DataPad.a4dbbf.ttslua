@@ -280,7 +280,7 @@ function xwsSpawn(list, XWS_TO_FFG, playerColor)
               printToAll("Unable to find pilot with xws value: " .. v.id, {1,0,0})
               break;
             end
-            parts.Pilots[k] = tonumber(XWS_TO_FFG.pilots[v.id])
+            parts.Pilots[k] = tonumber(pilotId)
             parts.Upgrades[k] = {}
 
             if v.upgrades then
