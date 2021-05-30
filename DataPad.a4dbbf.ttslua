@@ -257,7 +257,7 @@ end
 
 function findByXws(table, xws_id)
   for i, record in pairs(table) do
-    if table.XWS == xws_id then
+    if record.XWS and record.XWS == xws_id then
       return i
     end
   end
@@ -275,7 +275,7 @@ function xwsSpawn(list, XWS_TO_FFG, playerColor)
         parts.Obstacles = {}
 
         for k,v in pairs (list.pilots) do
-            local pilotId = XWS_TO_FFG.pilots[v.id] or findByXws(masterPilotDB, v.id)
+            local pilotId = findByXws(masterPilotDB, v.id) or XWS_TO_FFG.pilots[v.id]
             if pilotId == nil then
               printToAll("Unable to find pilot with xws value: " .. v.id, {1,0,0})
               break;
@@ -288,7 +288,7 @@ function xwsSpawn(list, XWS_TO_FFG, playerColor)
                 for slot,upgrades in pairs (v.upgrades) do
                     for i,upgrade in pairs (upgrades) do
                         upgradeId = XWS_TO_FFG.upgrades[upgrade]
-                        local upgradeId = XWS_TO_FFG.upgrades[upgrade] or findByXws(masterUpgradeDB, upgrade)
+                        local upgradeId = findByXws(masterUpgradesDB, upgrade) or XWS_TO_FFG.upgrades[upgrade]
                         if upgradeId == nil then
                           printToAll("Unable to find upgrade with xws value: " .. v.id, {1,0,0})
                           break;
@@ -705,6 +705,11 @@ function idSpawner(idTable)
         fList.Pilots[k].cost = cost
         fList.Customization[pilotName] = masterPilotDB[v].Customization or {}
         fList.Customization[pilotName].tint = tintColors[pilotIndicators[k]]
+        if (masterPilotDB[v].tintFriendly ~= nil) and (pilotIndicators[k] > 0) then
+            fList.Customization[pilotName].modeltint = tintColors[pilotIndicators[k]]
+            fList.Customization[pilotName].texture = masterPilotDB[v].tintFriendly.texture
+            fList.Customization[pilotName].model = masterPilotDB[v].tintFriendly.mesh
+        end
         --fList.Pilots[k].tint = tintColors[pilotIndicators[k]]
         --fList.Pilots[k].card = masterPilotDB[v].card
         fList.Pilots[k].card = "https://raw.githubusercontent.com/CrazyVulcan/x-wing2.0-project-goldenrod/main/src/images/En/pilots/"..masterPilotDB[v].XWS..".png"
