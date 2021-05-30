@@ -5566,7 +5566,6 @@ mountToIndex = {
 
 -- Save and load ship data lua scriptState
 saveAndLoadShipStateLua = [[
-
 __XW_Ship = true
 
 function initContextMenu()
@@ -5672,6 +5671,25 @@ function SetConfiguration(args)
     end
   end
   Wait.frames(DisableAttachedColliders, 1)
+end
+
+
+function VerifyConfigTextures()
+  local texture = self.getCustomObject().diffuse
+  local attachments = self.getAttachments()
+  for i = #attachments, 1, -1 do
+    local attachment = attachments[i]
+    if attachment.name == "Config" then
+      id = self.removeAttachment(attachment.index)
+      local custom = id.getCustomObject()
+      if custom.diffuse ~= texture then
+        custom.diffuse = texture
+        id.setCustomObject(custom)
+        id = id.reload()
+      end
+      self.addAttachment(id)
+    end
+  end
 end
 
 arc_indicators = {}
@@ -5909,9 +5927,8 @@ function onLoad(savedData)
         for _, guid in ipairs(state.tokenData.tokens) do
             Global.call('API_AssignToken',{token=getObjectFromGUID(guid), ship = self})
         end
-
-
     end
+    VerifyConfigTextures()
 end
 ]]
 
