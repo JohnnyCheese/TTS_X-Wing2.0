@@ -98,7 +98,7 @@ exOptButtons = { "ExOpt1", "ExOpt2", "ExOpt3", "ExOpt4", "ExOpt5",  "ExOpt6", "E
 function onLoad(savedData)
     --self.UI.setCustomAssets(assetTable)
     clearDial()
-    if savedData ~= nil then
+    if savedData ~= nil and savedData ~= "" then
         state = JSON.decode(savedData)
         clickMode = state.clickMode
         proxyMode = state.proxyMode
