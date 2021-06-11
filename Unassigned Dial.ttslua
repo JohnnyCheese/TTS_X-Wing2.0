@@ -19,7 +19,6 @@ self.addTag("Flippable")
 
 -- Ref to assigned ship if there is one
 assignedShip = nil
-currMan = nil
 playerColor = nil
 playerTeam = nil
 teamVisibility = ""
@@ -27,6 +26,8 @@ openpanel = nil
 openbutton = nil
 opencolor = "#555555"
 closedcolor = "#222222"
+setMan = nil
+prevMan = nil
 
 clickMode = false
 proxyMode = true
@@ -404,6 +405,8 @@ function performMove(P)
             befAft = '_A'
             setDial(P)
         end
+        prevMan = setMan
+        setMan = nil
     end
 end
 
@@ -529,6 +532,7 @@ function assignShip(args)
         self.UI.setAttribute(string.upper(v), "active", "true")
     end
     setMan=""
+    prevMan=""
     local repos = false
     for k,v in pairs(shipData['actSet']) do
         if v == 'F' then
@@ -1146,35 +1150,35 @@ end
 
 function setDial(P)
     if spectReturn(P) == false then
-        if firstSet == true then
+        if setDial and setDial ~= '' then
             if setStat == nil then
                 setStat = false
             end
 
-                if setStat == false then
-                    self.UI.setAttribute("setBtnFD", "color", playerColor)
-                    self.UI.setAttribute("setBtnFD", "active", "true")
-                    self.UI.setAttribute("setBtnFD", "textColor", "#FFFFFF")
-                    if (P.color == "Yellow") then
-                       -- White text on yellow button is pretty hard to read, so for the Yellow player change the text to black instead
-                      self.UI.setAttribute("setBtnFD", "textColor", "#000000")
-                    end
-                    self.UI.setAttribute("moveWindow", "active", "false")
-                    setStat = true
-                    setSinceTemplatePlaced = true
-                    printToAll(P.color.." player has set the maneuver for "..assignedShip.getName(), P.color)
-                    if winStat==true then
-                        Window(P)
-                    end
-
-                else
-                    --TODO: Now that the set dial and unset dial buttons are 2 different buttons, this file's code would probably be more readable with this function split in to setDial() and unsetDial()
-                    self.UI.setAttribute("setBtnFD", "active", "false")
-                    self.UI.setAttribute("setManPeekPanel", "active", "false")
-                    self.UI.setAttribute("moveWindow", "active", "true")
-                    self.UI.setAttribute("moveWindow", "textColor", "#FFFFFF")
-                    setStat = false
+            if setStat == false then
+                self.UI.setAttribute("setBtnFD", "color", playerColor)
+                self.UI.setAttribute("setBtnFD", "active", "true")
+                self.UI.setAttribute("setBtnFD", "textColor", "#FFFFFF")
+                if (P.color == "Yellow") then
+                   -- White text on yellow button is pretty hard to read, so for the Yellow player change the text to black instead
+                  self.UI.setAttribute("setBtnFD", "textColor", "#000000")
                 end
+                self.UI.setAttribute("moveWindow", "active", "false")
+                setStat = true
+                setSinceTemplatePlaced = true
+                printToAll(P.color.." player has set the maneuver for "..assignedShip.getName(), P.color)
+                if winStat==true then
+                    Window(P)
+                end
+
+            else
+                --TODO: Now that the set dial and unset dial buttons are 2 different buttons, this file's code would probably be more readable with this function split in to setDial() and unsetDial()
+                self.UI.setAttribute("setBtnFD", "active", "false")
+                self.UI.setAttribute("setManPeekPanel", "active", "false")
+                self.UI.setAttribute("moveWindow", "active", "true")
+                self.UI.setAttribute("moveWindow", "textColor", "#FFFFFF")
+                setStat = false
+            end
         else
             print("Pick a maneuver before setting the dial")
         end
