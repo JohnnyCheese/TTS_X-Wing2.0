@@ -28,6 +28,7 @@ opencolor = "#555555"
 closedcolor = "#222222"
 setMan = nil
 prevMan = nil
+manButtonId = nil
 
 clickMode = false
 proxyMode = true
@@ -153,12 +154,13 @@ function clearDial()
 end
 
 function onFlip()
-    redraw()
+    local face_down = not self.is_face_down
+    redraw(face_down)
 end
 
-function redraw()
+function redraw(face_down)
     if assignedShip ~= nil then
-        if self.is_face_down then
+        if not face_down then
             clearDial()
             self.UI.setAttribute("Main", "rotation", "0 0 0")
             if finished_setup then
@@ -247,6 +249,7 @@ function manSelect(p, option, id)
     end
     firstSet=true
     self.UI.setAttribute("ManBtnGroup","allowSwitchOff","false")
+    manButtonId = id
     curMan=string.lower(id)
     icons = getManouverIcons(curMan)
     speedIcon= icons.speed
@@ -333,7 +336,7 @@ function placeShip(P)
     finished_setup = true
     assignedShip.setVar("finished_setup", true)
     assignedShip.setLock(true)
-    redraw()
+    redraw(self.is_face_down)
 end
 
 setupRotations = {
@@ -407,6 +410,8 @@ function performMove(P)
         end
         prevMan = setMan
         setMan = nil
+        self.UI.setAttribute(manButtonId, "isOn", "false")
+
     end
 end
 
@@ -598,7 +603,7 @@ function assignShip(args)
 
     end
 
-    redraw()
+    redraw(self.is_face_down)
 
 end
 
@@ -639,15 +644,15 @@ function onDropped()
                 end
 
                 nearest.setVar('owningPlayer', pColor)
-                printToAll('Dial assigned to to ' .. nearest.getName(), {0.2, 0.2, 1})
-                printToAll('Controlled by the '.. playerColor .. ' player')
-                printToAll('Of the '.. tostring(playerTeam) .. ' team')
+                printToAll('Dial assigned to to ' .. nearest.getName(), {0.3, 0.3, 1})
+                --printToAll('Controlled by the '.. playerColor .. ' player')
+                --if playerTeam then
+                  --printToAll('Of the '.. tostring(playerTeam) .. ' team')
+                --end
 
-                printToAll('')
+                --sprintToAll('')
                 self.setRotation(nearest.getRotation())
                 assignShip({ship=nearest})
-
-
             end
         end
     end
@@ -1150,7 +1155,7 @@ end
 
 function setDial(P)
     if spectReturn(P) == false then
-        if setDial and setDial ~= '' then
+        if setMan and setMan ~= '' then
             if setStat == nil then
                 setStat = false
             end
