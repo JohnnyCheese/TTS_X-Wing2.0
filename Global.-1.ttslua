@@ -66,6 +66,7 @@ ArcCheck.Initialize()
 
 HotkeyModule = require("TTS_xwing/src/HotkeyManager")
 PlayerEventModule = require("TTS_xwing/src/PlayerActionModule")
+DialManagerModule = require("TTS_xwing/src/DialManager")
 
 -- Modules API, must be loaded last
 #include TTS_xwing/src/API
@@ -5347,6 +5348,8 @@ function onObjectDestroyed(dying_object)
     BombModule.onObjectDestroyed(dying_object)
     -- Handle killing tokens
     TokenModule.onObjectDestroyed(dying_object)
+    -- Dial manager handeling dying dials and ships
+    DialManagerModule.onObjectDestroyed(dying_object)
 end
 
 -- Report peeking on dials

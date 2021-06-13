@@ -171,6 +171,17 @@ function API_GetClosestPointToShip(argTable)
     return closestDistance
 end
 
+function API_AssignDial(argTable)
+    DialManagerModule.assignDial(argTable.dial, argTable.ship, argTable.player)
+end
+
+function API_SetDial(argTable)
+  if argTable.set then
+    DialManagerModule.setDial(argTable.dial)
+  else
+    DialManagerModule.unSetDial(argTable.dial)
+  end
+end
 
 --------
 -- OBJECT SPECIFIC VARIABLES

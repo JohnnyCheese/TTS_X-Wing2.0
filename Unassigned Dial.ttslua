@@ -410,6 +410,7 @@ function performMove(P)
         end
         prevMan = setMan
         setMan = nil
+        Global.call("API_SetDial", {dial=self,set=false})
         self.UI.setAttribute(manButtonId, "isOn", "false")
 
     end
@@ -603,6 +604,7 @@ function assignShip(args)
 
     end
 
+    Global.call("API_AssignDial", {dial=self, ship=assignedShip, player=pColor})
     redraw(self.is_face_down)
 
 end
@@ -1173,6 +1175,7 @@ function setDial(P)
                 setStat = true
                 setSinceTemplatePlaced = true
                 printToAll(P.color.." player has set the maneuver for "..assignedShip.getName(), P.color)
+                Global.call("API_SetDial", {dial=self, set=true})
                 if winStat==true then
                     Window(P)
                 end
@@ -1183,6 +1186,7 @@ function setDial(P)
                 self.UI.setAttribute("setManPeekPanel", "active", "false")
                 self.UI.setAttribute("moveWindow", "active", "true")
                 self.UI.setAttribute("moveWindow", "textColor", "#FFFFFF")
+                Global.call("API_SetDial", {dial=self, set=false})
                 setStat = false
             end
         else
