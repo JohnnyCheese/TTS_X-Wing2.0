@@ -306,7 +306,10 @@ function Undo(p)
     end
     assignedShip.setDescription("q")
     self.UI.setAttribute("UndoBtn", "active", "false")
-    if setMan:sub(-1,-1) ~='t' or proxyMode then
+    if prevMan:sub(-1,-1) ~='t' or proxyMode then
+        setMan = prevMan
+        setStat = true
+        self.UI.setAttribute("setBtnFD", "active", "false")
         self.UI.setAttribute("MoveBtn", "active", "true")
         self.UI.setAttribute("MoveBtn", "textColor", "#FFFFFF")
     else
