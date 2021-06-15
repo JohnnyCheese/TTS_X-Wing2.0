@@ -869,6 +869,7 @@ function Window(p)
             self.UI.show("ManWin")
             self.UI.setAttribute("ManWin", "visibility", playerColor .. teamVisibility ..  "|Black")
             self.UI.setAttribute("ManBtnGroup", "active", "true")
+            clearOpenPanel()
         else
             winStat = false
             self.UI.setAttribute("ManBtnGroup", "active", "false")
@@ -1017,7 +1018,7 @@ function clickTimeout()
 end
 
 function menuClick(p, option, id)
-    if not clickMode or proxy.isActive() or spectReturn(p) == true then
+    if winStat or (not clickMode) or proxy.isActive() or spectReturn(p) == true then
         return
     end
     if openbutton == id then
@@ -1030,7 +1031,7 @@ function menuClick(p, option, id)
 end
 
 function menuHover(p, option, id)
-    if clickMode or proxy.isActive() or spectReturn(p) == true then
+    if winStat or clickMode or proxy.isActive() or spectReturn(p) == true then
         return
     end
     hover_functions[id]()
@@ -1063,9 +1064,9 @@ function hideTokM()
         self.UI.hide(openpanel)
         self.UI.setAttribute(openbutton, "color", closedcolor)
         self.UI.setAttribute(openbutton, "textColor", "#FFFFFF")
+        openpanel = nil
+        openbutton = nil
     end
-    openpanel = nil
-    openbutton = nil
 end
 
 
@@ -1097,9 +1098,9 @@ function hideArcM()
         self.UI.hide(openpanel)
         self.UI.setAttribute(openbutton, "color", closedcolor)
         self.UI.setAttribute(openbutton, "textColor", "#FFFFFF")
+        openpanel = nil
+        openbutton = nil
     end
-    openpanel = nil
-    openbutton = nil
 end
 
 function showRelocMFD()
@@ -1129,9 +1130,9 @@ function hideRelocM()
         self.UI.hide(openpanel)
         self.UI.setAttribute(openbutton, "color", closedcolor)
         self.UI.setAttribute(openbutton, "textColor", "#FFFFFF")
+        openpanel = nil
+        openbutton = nil
     end
-    openpanel = nil
-    openbutton = nil
 end
 
 function nextMan(P, opt, id)
