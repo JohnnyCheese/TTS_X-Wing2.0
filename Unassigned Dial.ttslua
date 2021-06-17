@@ -987,13 +987,23 @@ function toggleProxyMode(enable)
 end
 
 function resetDial(enable)
-    clearDial()
+
     self.setName("Unassigned Dial")
     playerColor = nil
     playerTeam = nil
     finished_setup = false
+    self.UI.setAttribute("setBtnFD", "active", "false")
+    self.UI.setAttribute("setManPeekPanel", "active", "false")
+    self.UI.setAttribute("moveWindow", "active", "true")
+    self.UI.setAttribute("moveWindow", "textColor", "#FFFFFF")
+    self.UI.setAttribute(manButtonId, "isOn", "false")
+    Global.call("API_AssignDial", {dial=self, ship=nil})
+    setStat = false
+    setMan = nil
+    prevMan = ""
     self.UI.setValue("Name","")
     self.UI.setValue("SetupName","")
+    clearDial()
     assignedShip = nil
     self.script_state = nil
 end

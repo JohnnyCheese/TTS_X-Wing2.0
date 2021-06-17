@@ -6,7 +6,11 @@ D.announceColor = color(0.1, 1, 0.1)
 D.assignedDials = {}
 
 D.assignDial = function(dial, ship, player)
-  D.assignedDials[dial.getGUID()] = {dial = dial, ship = ship, player = player, set = false}
+  if ship then
+    D.assignedDials[dial.getGUID()] = {dial = dial, ship = ship, player = player, set = false}
+  else
+    D.assignedDials[dial.getGUID()] = nil
+  end
 end
 
 D.setDial = function(dial)
