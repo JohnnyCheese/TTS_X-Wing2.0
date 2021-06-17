@@ -1214,4 +1214,18 @@ masterShipDB[94]={
     mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/Raider%20Class%20Corvette/Raider%20Class%20Corvette.obj'
   }
 
+  masterShipDB[95]={
+      name = 'Trident-class Assault Ship',
+      Hull = 10,
+      Shield = 4,
+      Energy = 3,
+      size = 'huge',
+      agi = 0,
+      mountingPoints = { front = {0, -2.63}, rear = {0, 2.63} },
+      Fac = {[3]=true, [7]=true},
+      arcs = {fixed = { range=3, type = {'front'}}},
+      moveSet = {'rs0','rbl0','rbr0','bbl2','bs2','bbr2','wbl3','bs3','wbr3','bs4','rk4','ws5','ws1r','rs2r'},
+      mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/dummy.obj'
+    }
+
   return masterShipDB
