@@ -2478,6 +2478,225 @@ masterUpgradesDB[818]={
     }
 }
 
+-- From Trident class assault ship
+masterUpgradesDB[819]={
+    name = "Asajj Ventress",
+    XWS = 'asajjventress',
+    Force = 1,
+    slot = 21,
+    remSlot = {8},
+    limited = 1,
+    cost = 8,
+    addAction = {"F"},
+    restriction = {
+        Size = {huge=true},
+        Faction = {[3]=true, [7]=true}
+    }
+}
+
+masterUpgradesDB[820]={
+    name = "Riff Tamson",
+    XWS = 'rifftamson',
+    slot = 21,
+    remSlot = {8},
+    limited = 1,
+    cost = 6,
+    restriction = {
+        Size = {huge=true},
+        Faction = {[7]=true}
+    }
+}
+
+masterUpgradesDB[821]={
+    name = "General Grievous",
+    XWS = 'generalgrievous-command',
+    slot = 21,
+    remSlot = {8},
+    limited = 1,
+    cost = 5,
+    restriction = {
+        Size = {huge=true},
+        Faction = {[7]=true}
+    }
+}
+
+masterUpgradesDB[822]={
+    name = "Tractor Technicians",
+    XWS = 'tractortechnicians',
+    slot = 23,
+    cost = 2
+}
+
+masterUpgradesDB[823]={
+    name = "Hondo Ohnaka",
+    XWS = 'hondoohnaka-command',
+    slot = 21,
+    limite = 1,
+    remSlot = {8},
+    cost = 7,
+    Charge = 2,
+    restriction = {
+        Size = {huge=true},
+    }
+}
+
+masterUpgradesDB[824]={
+    name = "Corsair Crew",
+    XWS = 'corsaircrew',
+    slot = 23,
+    remSlot = {16},
+    cost = 5,
+    restriction = {
+        Faction = {[3]=true},
+    }
+}
+
+masterUpgradesDB[825]={
+    name = "Mar Tuuk",
+    XWS = 'martuuk',
+    slot = 21,
+    limited = 1,
+    remSlot = {8},
+    cost = 4,
+    restriction = {
+        Faction = {[7]=true},
+        Size = {huge=true},
+    }
+}
+
+masterUpgradesDB[826]={
+    name = "Zealous Captain",
+    XWS = 'zealouscaptain',
+    slot = 21,
+    limited = 1,
+    remSlot = {8},
+    cost = 4,
+    restriction = {
+        Size = {huge=true},
+    }
+}
+
+masterUpgradesDB[827]={
+    name = "Tractor Tentacles",
+    XWS = 'tractortentacles',
+    slot = 24,
+    cost = 0,
+    restriction = {
+        ship = {[95]=true},
+    }
+}
+
+masterUpgradesDB[828]={
+    name = "Drill Beak",
+    XWS = 'drillbeak',
+    slot = 24,
+    remSlot = {22},
+    cost = 4,
+    restriction = {
+        ship = {[95]=true},
+    }
+}
+
+masterUpgradesDB[829]={
+    name = "Enhanced Propulsion",
+    XWS = 'enhancedpropulsion',
+    slot = 24,
+    remSlot = {22},
+    cost = 6,
+    restriction = {
+        ship = {[95]=true},
+    }
+}
+
+masterUpgradesDB[830]={
+    name = "Proton Cannon Battery",
+    XWS = 'protoncannonbattery',
+    slot = 24,
+    remSlot = {22},
+    cost = 10,
+    restriction = {
+        Size = {huge=true},
+    }
+}
+
+masterUpgradesDB[831]={
+    name = "Droid Crew",
+    XWS = 'droidcrew',
+    slot = 23,
+    cost = 5,
+    addAction = {'C','TL'},
+    restriction = {
+        Faction = {[7]=true},
+    }
+}
+
+masterUpgradesDB[832]={
+    name = "Grappler",
+    XWS = 'grappler',
+    limited = 1,
+    slot = 15,
+    cost = 3,
+    Shield = -1,
+    Hull = 2,
+    restriction = {
+        ship = {[95]=true},
+    }
+}
+
+masterUpgradesDB[833]={
+    name = "Nautolan's Revenge",
+    XWS = 'nautolansrevenge',
+    slot = 15,
+    cost = 2,
+    limited = 1,
+    Shield = 1,
+    Hull = -2,
+    Energy = 1,
+    restriction = {
+        ship = {[95]=true},
+        Faction = {[3]=true}
+    }
+}
+
+masterUpgradesDB[834]={
+    name = "Neimoidian Grasp",
+    XWS = 'neimoidiangrasp',
+    slot = 15,
+    cost = 5,
+    limited = 1,
+    Hull = -2,
+    addAction = {"E"},
+    restriction = {
+        ship = {[95]=true},
+        Faction = {[7]=true}
+    }
+}
+
+masterUpgradesDB[835]={
+    name = "Trident",
+    XWS = 'trident',
+    slot = 15,
+    cost = 4,
+    limited = 1,
+    Energy = 1,
+    addAction = {"E"},
+    restriction = {
+        ship = {[95]=true},
+        Faction = {[7]=true}
+    }
+}
+
+masterUpgradesDB[836]={
+    name = "Tracking Torpedoes",
+    XWS = 'trackingtorpedoes',
+    slot = 5,
+    cost = 8,
+    limited = 1,
+    Charge = 3,
+    restriction = {
+        Size = {huge=true}
+    }
+}
 
 
 
