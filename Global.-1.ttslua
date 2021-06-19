@@ -5652,7 +5652,7 @@ function SetConfiguration(args)
   end
 
   --flip config token
-  for _, token in pairs(GetTokens("config")) do
+  for _, token in pairs(GetTokens({type="config"})) do
     if current_config ~= (token.is_face_down and 2 or 1) then
       token.flip()
     end
