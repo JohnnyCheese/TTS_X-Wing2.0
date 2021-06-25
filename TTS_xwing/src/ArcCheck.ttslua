@@ -469,7 +469,7 @@ ArcCheck.GetDistanceBetweenLineSegments = function(own_line_segments, target_lin
                     if (distance.length <= (closest.length + epsilon)) then
 
                         if math.abs(distance.length - closest.length) < epsilon then
-                            --print("Real close: " .. tostring(distance.length).. " - " .. tostring(distance.length - closest.length))
+                            print("Real close: " .. tostring(distance.length).. " - " .. tostring(distance.length - closest.length))
                             if distance.length < closest.length then
                                 other = closest
                                 closest = distance
@@ -477,11 +477,17 @@ ArcCheck.GetDistanceBetweenLineSegments = function(own_line_segments, target_lin
                                 other = distance
                             end
                         else
-                            --print("Closer: " .. tostring(distance.length) .. " - " .. tostring(distance.length - closest.length))
+                            print("Closer: " .. tostring(distance.length) .. " - " .. tostring(distance.length - closest.length))
                             closest = distance
                             other = nil
                         end
                     end
+                elseif distance.length < closest.length then
+                  print("Equal lines, and closer")
+                  closest = distance
+                  other = nil
+                else
+                  print("Equal lines, farther")
                 end
             end
             for k_p, point in pairs(seg_o) do
@@ -489,7 +495,7 @@ ArcCheck.GetDistanceBetweenLineSegments = function(own_line_segments, target_lin
                 if not ArcCheck.CheckEqualLineSegments(distance.A, distance.B, closest.A, closest.B ) then
                     if (distance.length <= (closest.length + epsilon)) then
                         if math.abs(distance.length - closest.length) < epsilon then
-                            --print("Real close2: " .. tostring(distance.length).. " - " .. tostring(distance.length - closest.length))
+                            print("Real close2: " .. tostring(distance.length).. " - " .. tostring(distance.length - closest.length))
                             if distance.length < closest.length then
                                 other = closest
                                 closest = distance
@@ -497,11 +503,17 @@ ArcCheck.GetDistanceBetweenLineSegments = function(own_line_segments, target_lin
                                 other = distance
                             end
                         else
-                            --print("Closer2: " .. tostring(distance.length) .. " - " .. tostring(distance.length - closest.length))
+                            print("Closer2: " .. tostring(distance.length) .. " - " .. tostring(distance.length - closest.length))
                             closest = distance
                             other = nil
                         end
                     end
+                elseif distance.length < closest.length then
+                  print("Equal lines, and closer")
+                  closest = distance
+                  other = nil
+                else
+                  print("Equal lines, farther")
                 end
             end
         end
@@ -518,9 +530,13 @@ end
 ArcCheck.CheckEqualLineSegments = function(line1A, line1B, line2A, line2B)
     local epsilon = 0.02
     if Vect.Distance(line1A,line2A) < epsilon then
-        return Vect.Distance(line1B,line2B) < epsilon
+        return true
+    elseif Vect.Distance(line1B,line2B) < epsilon then
+        return true
     elseif Vect.Distance(line1A,line2B) < epsilon then
-        return Vect.Distance(line1B,line2A) < epsilon
+      return true
+    elseif Vect.Distance(line1B,line2A) < epsilon then
+        return true
     end
     return false
 end
