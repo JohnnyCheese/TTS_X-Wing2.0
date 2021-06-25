@@ -19,6 +19,7 @@ end
 
 #include TTS_xwing/src/Layouts/Standard
 #include TTS_xwing/src/Layouts/Epic
+#include TTS_xwing/src/Layouts/HotAC
 #include TTS_xwing/src/Layouts/Single
 
 self.setPosition({0,3,0})
@@ -227,10 +228,10 @@ function onLoad(saveState)
     for _, layoutElements in pairs(getObjectsWithTag('TempLayoutElement')) do
       destroyObject(layoutElement)
     end
-    
+
     addContextMenuItem("Double setup", function() Layout.Switch(1) end, false)
     addContextMenuItem("Epic setup", function() Layout.Switch(2) end, false)
-    addContextMenuItem("Single setup", function() Layout.Switch(3) end, false)
+    addContextMenuItem("HotAC setup", function() Layout.Switch(3) end, false)
 end
 
 function onSave()

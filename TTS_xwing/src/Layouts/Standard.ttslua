@@ -148,6 +148,10 @@ do
             rotation = {0, 90, 0},
             click_function = 'EpicLayout',
             label = 'EPIC LAYOUT'    },
+        {   position = {80, 1, -35},
+            rotation = {0, 180, 0},
+            click_function = 'HotacLayout',
+            label = 'HOTAC MODE'    },
     }
     for k,button in ipairs(standard.controls) do
         button.width = bWidth
