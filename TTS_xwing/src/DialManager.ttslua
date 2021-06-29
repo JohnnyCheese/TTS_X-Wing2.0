@@ -41,14 +41,14 @@ D.unSetDial = function(dial)
 end
 
 D.onObjectDestroyed = function(obj)
-  print("In table: " .. tostring(D.assignedDials[obj.getGUID()]))
+  --print("In table: " .. tostring(D.assignedDials[obj.getGUID()]))
   if D.assignedDials[obj.getGUID()] ~= nil then
     D.assignedDials[obj.getGUID()] = nil
     return
   end
-  print("Deleted obj: " .. tostring(obj))
+  --print("Deleted obj: " .. tostring(obj))
   for idx, dial in pairs(D.assignedDials) do
-    print("In table: " .. tostring(dial.ship))
+    --print("In table: " .. tostring(dial.ship))
     if dial.ship == obj then
       D.assignedDials[idx] = nil
     end
