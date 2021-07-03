@@ -306,7 +306,10 @@ function Undo(p)
     end
     assignedShip.setDescription("q")
     self.UI.setAttribute("UndoBtn", "active", "false")
-    if prevMan:sub(-1,-1) ~='t' or proxyMode then
+    if setStat then
+        setStat = false
+        setDial(p)
+    elseif prevMan:sub(-1,-1) ~='t' or proxyMode then
         setMan = prevMan
         setStat = true
         self.UI.setAttribute("setBtnFD", "active", "false")
@@ -996,7 +999,9 @@ function resetDial(enable)
     self.UI.setAttribute("setManPeekPanel", "active", "false")
     self.UI.setAttribute("moveWindow", "active", "true")
     self.UI.setAttribute("moveWindow", "textColor", "#FFFFFF")
-    self.UI.setAttribute(manButtonId, "isOn", "false")
+    if manButtonId then
+      self.UI.setAttribute(manButtonId, "isOn", "false")
+    end
     Global.call("API_AssignDial", {dial=self, ship=nil})
     setStat = false
     setMan = nil
