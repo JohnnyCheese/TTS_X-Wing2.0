@@ -2343,13 +2343,21 @@ slotName[99] = 'Weapon HardPoint' -- Hardpoint
 -- Sixth Step: If Upgrades with several options in the same faction are present, for each upgrade will create an inquire asking wich slot the upgrade is in.
 function upChoice(options)
     local name = (masterUpgradesDB[options[currIndex][currSlot][1]].name)
-    local Up1 = slotName[masterUpgradesDB[options[currIndex][currSlot][1]].slot]
-    local Up2 = slotName[masterUpgradesDB[options[currIndex][currSlot][2]].slot]
+    local title1 = ''
+    if masterUpgradesDB[options[currIndex][currSlot][1]].title then
+      title1 = masterUpgradesDB[options[currIndex][currSlot][1]].title .. " - "
+    end
+    local Up1 = title1 .. slotName[masterUpgradesDB[options[currIndex][currSlot][1]].slot]
+    local title2 = ''
+    if masterUpgradesDB[options[currIndex][currSlot][2]].title then
+      title2 = masterUpgradesDB[options[currIndex][currSlot][2]].title .. " - "
+    end
+    local Up2 = title2 .. slotName[masterUpgradesDB[options[currIndex][currSlot][2]].slot]
     self.clearButtons()
     self.createButton({click_function = 'Dummy4', function_owner = self, label = 'Please choose a slot for the following upgrade', position = {0,0.45,-0.4}, width = 3400, height = 380, font_size = 170, scale = {0.25,0.25,0.25}})
     self.createButton({click_function = 'Dummy4', function_owner = self, label = name, position = {0,0.45,-0.1}, width = 1600, height = 380, font_size = 200, scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'setUp1', function_owner = self, label = Up1, position = {0,0.45,0.1}, width = 1200, height = 380, font_size = 180, scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'setUp2', function_owner = self, label = Up2, position = {0,0.45,0.3}, width = 1200, height = 380, font_size = 180, scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'setUp1', function_owner = self, label = Up1, position = {0,0.45,0.1}, width = 1800, height = 380, font_size = 180, scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'setUp2', function_owner = self, label = Up2, position = {0,0.45,0.3}, width = 1800, height = 380, font_size = 180, scale = {0.25,0.25,0.25}})
     if options == 3 then
         local Up3 = slotName[masterUpgradesDB[options[currIndex][currSlot][3]].slot]
         self.createButton({click_function = 'setUp3', function_owner = self, label = Up3, position = {0,0.45,0.8}, width = 1200, height = 380, font_size = 180, scale = {0.25,0.25,0.25}})
