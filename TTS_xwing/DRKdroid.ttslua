@@ -128,8 +128,7 @@ function onDropped(color)
             newPos[1] = pos[1]
             newPos[2] = 1.21
             newPos[3] = pos[3]
-            self.setPosition(newPos)
-            self.setRotation(rot)
+            dorkMove(newPos,rot)
             launchDrop()
         end
     end
@@ -182,7 +181,7 @@ end
 function prepareLaunch()
     self.lock()
     local pos = LocalPos(self,{0,0,-drop_offset})
-    self.setPosition(pos)
+    dorkMove(pos, self.getRotation())
     self.clearButtons()
     dorkDrop()
 end
@@ -243,7 +242,7 @@ end
 function cancelDrop()
     self.unlock()
     self.clearButtons()
-    self.setPosition(initialP)
+    dorkMove(initialP, self.getRotation())
     assignedShip = nil
 end
 
@@ -269,8 +268,9 @@ Dz=3.93
 
 ]]
 
+
 function dorkDropTL()
-    print("TL")
+    --print("TL")
     self.clearButtons()
     dork=self
     local pos = LocalPos(dork,{3.93, -0.21, -3.98 + drop_offset})
@@ -285,7 +285,7 @@ function dorkDropTL()
 end
 
 function dorkDropBL()
-    print("BL")
+    --print("BL")
     self.clearButtons()
     dork=self
     pos = LocalPos(dork,{2.39, -0.21, -5.82 + drop_offset})
@@ -299,7 +299,7 @@ function dorkDropBL()
 end
 
 function dorkDropS()
-    print("S")
+    --print("S")
     self.clearButtons()
     dork=self
     pos = LocalPos(dork,{0, -0.21, -5.7 + drop_offset})
@@ -313,7 +313,7 @@ function dorkDropS()
 end
 
 function dorkDropBR()
-    print("BR")
+    --print("BR")
     self.clearButtons()
     dork=self
     pos = LocalPos(dork,{-2.39, -0.21, -5.82 + drop_offset})
@@ -327,7 +327,7 @@ function dorkDropBR()
 end
 
 function dorkDropTR()
-    print("TR")
+    --print("TR")
     self.clearButtons()
     dork=self
     pos = LocalPos(dork,{-3.93, -0.21, -3.98 + drop_offset})
@@ -515,8 +515,8 @@ function dorkMoveR()
 end
 
 function dorkMove(pos,rot)
-    self.setPosition(pos)
-    self.setRotation(rot)
+    self.setPositionSmooth(pos, false, false)
+    self.setRotationSmooth(rot, false, false)
 end
 
 
