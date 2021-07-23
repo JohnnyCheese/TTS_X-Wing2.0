@@ -118,6 +118,10 @@ do
         local mat = Layout.GetMats()[hotac.name].Main
         mat.call('NextImage')
     end
+    function HotacChangeMatPrev()
+        local mat = Layout.GetMats()[hotac.name].Main
+        mat.call('PrevImage')
+    end
     function HotacToggleRulers()
         local mat = Layout.GetMats()[hotac.name].Main
         mat.call('ToggleRulers')
@@ -130,10 +134,14 @@ do
     local bHeight = 500
     local bFontSize = 230
     hotac.controls = {
-        {   position = {50.5, 1, 0},
+        {   position = {50.5, 1, 2.5},
             rotation = {0, 90, 0},
             click_function = 'HotacChangeMat',
             label = 'NEXT PLAYMAT'    },
+        {   position = {50.5, 1, -2.5},
+            rotation = {0, 90, 0},
+            click_function = 'HotacChangeMatPrev',
+            label = 'PREV PLAYMAT'    },
         {   position = {49, 1, 0},
             rotation = {0, 90, 0},
             click_function = 'HotacToggleRulers',
