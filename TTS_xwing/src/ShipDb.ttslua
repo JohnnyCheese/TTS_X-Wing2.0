@@ -1142,6 +1142,34 @@ masterShipDB[77]={
     moveSet = {'rtl1t','wtl1','wtr1','rtr1t','btl2','wbl2','bs2','wbr2','btr2','btl3','wbl3','bs3','wbr3','btr3','rk3', 'bs4','ws5','rk5'},
 }
 
+masterShipDB[78]={
+    name = 'TIE/wi Whisper',
+    Hull = 3,
+    Shield = 2,
+    size = 'small',
+    agi = 2,
+    XWS = 'tiewiwhispermodifiedinterceptor',
+    Fac = {[5]=true},
+    arcs = {fixed = { range=3, type = {'bull'}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_TIE_Wi/TIE_Wi.obj',
+    moveSet = {'wtl1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','rbl3s','wtl3','bbl3','bs3','bbr3','wtr3','rbr3s','bs4','rk4','bs5','rk5'},
+}
+
+masterShipDB[79]={
+    name = 'TIE/se Bomber',
+    Hull = 4,
+    Shield = 2,
+    size = 'small',
+    agi = 2,
+    XWS = 'tiesebomber',
+    Fac = {}, -- {[5]=true},
+    arcs = {fixed = { range=3, type = {'front'}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_Tie_Wi/TieWhisper.obj',
+    moveSet = {'wtl1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','rbl3s','wtl3','bbl3','bs3','bbr3','wtr3','rbr3s','bs4','rk4','bs5','rk5'},
+}
+
+
+
 
 -- Huge ships
 masterShipDB[90]={

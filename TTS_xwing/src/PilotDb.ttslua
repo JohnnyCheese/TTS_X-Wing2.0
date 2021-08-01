@@ -6815,6 +6815,32 @@ masterPilotDB[835]={
   actSet = {'F','E','VR','B'}
 }
 
+masterPilotDB[836]={
+  name = '709th Legion Ace',
+  XWS = '709thlegionace',
+  Faction = 5,
+  ship_type = 78,
+  cost = 200,
+  slot = {21, 1, 1, 6, 19, 18},
+  Shield = 2,
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_TIE_Wi/709thlegionace.png',
+  actSet = {'F','Rot','E','TL','BR','B'}
+}
+
+masterPilotDB[837]={
+  name = '"Wrath"',
+  XWS = 'wrath',
+  Faction = 5,
+  limited = 1,
+  ship_type = 78,
+  cost = 200,
+  slot = {21, 1, 1, 6, 19, 18},
+  Shield = 2,
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_TIE_Wi/wrath.png',
+  actSet = {'F','Rot','E','TL','BR','B'}
+}
 
 
 
@@ -6974,20 +7000,5 @@ masterPilotDB[1011]={
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/TridentClass/Colicoid_Destroyer_temp.png'
 }
 
-
-masterPilotDB[2000]={
-    name = 'Glod Squadron Veteran',
-    XWS = 'goldsquadronveteran',
-    Faction = 1,
-    ship_type = 12,
-    cost = 32,
-    slot = {21, 1, 4, 5, 16, 10, 12, 14},
-    Shield = 2,
-    card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_17.png',
-    init = 3,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/BTLA4YWing/goldsquadronveteran.png',
-    actSet = {'F','TL', 'BR'},
-    Customization = {model="{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/btla4_ywing/glod_sqd_pilot.obj"}
-}
 
 return masterPilotDB

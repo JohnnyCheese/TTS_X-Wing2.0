@@ -2698,6 +2698,34 @@ masterUpgradesDB[836]={
     }
 }
 
+masterUpgradesDB[837]={
+    name = "Feedback Ping",
+    XWS = 'feedbackping',
+    slot = 1,
+    cost = 200,
+    restriction = { -- Tie, Reload
+        ship = {
+          [19]=true, -- Tie Bomber
+          [20]=true, -- Tie Punisher
+          [79]=true, -- Tie/Se Bomber
+      },
+    }
+}
+
+masterUpgradesDB[838]={
+    name = "Sensor Scramblers",
+    XWS = 'sensorscramblers',
+    slot = 19,
+    cost = 200,
+    restriction = { -- Tie, Reload
+        ship = {
+          [78]=true, -- Tie Whisper
+          [52]=true, -- Tie Silencer
+      },
+    }
+}
+
+
 
 
 
