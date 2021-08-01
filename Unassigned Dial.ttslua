@@ -316,6 +316,8 @@ function Undo(p)
         self.UI.setAttribute("MoveBtn", "active", "true")
         self.UI.setAttribute("MoveBtn", "textColor", "#FFFFFF")
     else
+        setMan = prevMan
+        setStat = true
         self.UI.show("TalonPanel")
     end
     befAft='_B'
@@ -405,6 +407,7 @@ function performMove(P)
                 setDial(P)
             else
                 self.UI.show("TalonPanel")
+                return
             end
         else
             self.UI.setAttribute("UndoBtn", "active", "true")
@@ -481,6 +484,10 @@ function performTalon(P,option,id)
     exOptSelected = false
     befAft ='_A'
     setDial(P)
+    prevMan = setMan
+    setMan = nil
+    Global.call("API_SetDial", {dial=self,set=false})
+    self.UI.setAttribute(manButtonId, "isOn", "false")
 end
 
 function onPickUp(player_color)
@@ -509,7 +516,7 @@ function assignShip(args)
     shipData=assignedShip.getTable("Data")
     if shipData.arcs and shipData.arcs.fixed then
       self.UI.setAttribute("FixedArc", "active", "true")
-      arcCommands['FixedArc'] = arcToCmnd[shipData.arcs.fixed.type[1]] or "f"
+      arcCommands['FixedArc'] = "a"
     else
       self.UI.setAttribute("FixedArc", "active", "false")
     end
@@ -1218,7 +1225,8 @@ function spawnTemplate(p)
     if spectReturn(p) == true then
         return
     end
-    if setMan and setMan~='' then
+    templMan = setMan or prevMan
+    if templMan and templMan~='' then
         setSinceTemplatePlaced = false
         templatePlaced = not templatePlaced
 
@@ -1227,7 +1235,7 @@ function spawnTemplate(p)
           self.UI.setAttribute("Templ", "active", "false")
         end
 
-        Table={[1]=assignedShip,[2]='spawnMoveTemplate:'..setMan..befAft,[3]=playerColor}
+        Table={[1]=assignedShip,[2]='spawnMoveTemplate:'..templMan..befAft,[3]=playerColor}
         Global.call("proxyPerformAction",Table)
     end
 end

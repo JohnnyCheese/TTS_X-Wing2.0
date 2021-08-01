@@ -67,6 +67,7 @@ ArcCheck.Initialize()
 HotkeyModule = require("TTS_xwing/src/HotkeyManager")
 PlayerEventModule = require("TTS_xwing/src/PlayerActionModule")
 DialManagerModule = require("TTS_xwing/src/DialManager")
+#include TTS_xwing/src/GlobalGuiControl
 
 -- Modules API, must be loaded last
 #include TTS_xwing/src/API
@@ -242,6 +243,8 @@ XW_cmd.Process = function(obj, cmd)
         DialModule.RotateArc(obj, cmd)
     elseif type == 'turretarc' then
         DialModule.TurretArc(obj, cmd)
+    elseif type == 'fixedarc' then
+        DialModule.FixedArc(obj, cmd)
     end
     obj.setDescription('')
     return true
@@ -3387,12 +3390,14 @@ MoveModule.GetFinalPosData = function(move_code, ship, ignoreCollisions)
             while info.size == 'huge' and fullData.done == false do
               out.collObj = fullData.collObj
               info.speed = info.speed -1
+              info.extra = nil
               if info.speed == -1 then
                 out.finType = 'overlap'
                 out.finPos = {pos=ship.getPosition(), rot=ship.getRotation()}
                 return out
               else
                 info.code = string.gsub(info.code, "%d", info.speed)
+                info.code = string.gsub(info.code, "k", "s")
               end
               fullData = MoveModule.MoveProbe.TryFullMove(info, ship, MoveModule.GetFullMove)
             end
@@ -4483,10 +4488,27 @@ DialModule.TurretArcCmd = {
 
 DialModule.TurretArc = function(ship, cmd)
     local arc = ship.call("GetTurretArc", DialModule.TurretArcCmd[cmd])
+    local range =  ship.call("GetTurretRange", DialModule.TurretArcCmd[cmd])
     if arc then
-      RulerModule.ToggleRuler(ship, string.upper(arcToCmnd[arc]))
+      command = string.upper(arcToCmnd[arc])
+      if range then
+        command = command .. tostring(range)
+      end
+      RulerModule.ToggleRuler(ship,  command)
     end
 end
+
+DialModule.FixedArc = function(ship, cmd)
+    arc = ship.getTable('Data').arcs.fixed
+    if arc then
+      command = string.upper(arcToCmnd[arc.type])
+      if arc.range then
+        command = command .. tostring(arc.range)
+      end
+      RulerModule.ToggleRuler(ship,  command)
+    end
+end
+
 
 
 
@@ -4823,11 +4845,12 @@ RulerModule.meshes.hugeBase.range[5] = '{verifycache}https://raw.githubuserconte
 -- AR           - rear arc
 -- AT           - turret arc
 -- AM           - mobile arc
+
 XW_cmd.AddCommand('r[1-5]?a?', 'rulerHandle')     -- Range "rings"
-XW_cmd.AddCommand('[fbs][lrfb]?a?', 'rulerHandle')  -- Rulers with arc lines
-XW_cmd.AddCommand('leftrighta?', 'rulerHandle')
-XW_cmd.AddCommand('frontbacka?', 'rulerHandle')
-XW_cmd.AddCommand('bulla?', 'rulerHandle')
+XW_cmd.AddCommand('[fbs][lrfb]?[1-5]?a?', 'rulerHandle')  -- Rulers with arc lines
+XW_cmd.AddCommand('leftright[1-5]?a?', 'rulerHandle')
+XW_cmd.AddCommand('frontback[1-5]?a?', 'rulerHandle')
+XW_cmd.AddCommand('bull[1-5]?a?', 'rulerHandle')
 
 
 -- Translate ruler code to a mesh entry
@@ -4858,38 +4881,15 @@ RulerModule.typeToArc.FRONTBACK = 'frontback'
 RulerModule.typeToArc.LEFTRIGHT = 'leftright'
 RulerModule.typeToArc.BULL = 'bullseye'
 
-RulerModule.typeToRange = {}
-RulerModule.typeToRange.F = 3
-RulerModule.typeToRange.FF = 3
-RulerModule.typeToRange.B = 3
-RulerModule.typeToRange.FB = 3
-RulerModule.typeToRange.R1 = 1
-RulerModule.typeToRange.R2 = 2
-RulerModule.typeToRange.R3 = 3
-RulerModule.typeToRange.R = 3
-RulerModule.typeToRange.SL = 3
-RulerModule.typeToRange.SR = 3
-RulerModule.typeToRange.FRONTBACK = 3
-RulerModule.typeToRange.LEFTRIGHT = 3
-RulerModule.typeToRange.BULL = 3
 
 -- Get ruler spawn tables for some ship and some ruler code
 -- Return table with "mesh", "collider" and "scale" keys
 --  (for appropriate ruler)
-RulerModule.GetRulerData = function(ship, rulerType)
+RulerModule.GetRulerData = function(ship, rulerType, range)
     local baseSize = ship.getTable("Data").Size or 'small'
     local out = {mesh = nil, collider = nil, scale = nil}
     if rulerType:sub(1,1) == 'R' then
-        rKey = tonumber(rulerType:sub(2,2))
-        if rKey == nil then
-            if baseSize == huge then
-                rKey = 6
-            else
-                rKey = 4
-            end
-
-        end
-        out.mesh = RulerModule.meshes[baseSize .. 'Base'].range[rKey]
+        out.mesh = RulerModule.meshes[baseSize .. 'Base'].range[range]
     else
         local key = RulerModule.typeToKey[rulerType]
         out.mesh = RulerModule.meshes[baseSize .. 'Base'][key]
@@ -4902,19 +4902,24 @@ RulerModule.GetRulerData = function(ship, rulerType)
 end
 
 -- Return a descriptive arc name of command (for announcements)
-RulerModule.DescriptiveName = function(ship, rulerType)
+RulerModule.DescriptiveName = function(ship, rulerType, range)
     if rulerType:sub(1,1) == 'R' then
-        ranges = rulerType:sub(2,2)
-        if ranges == '' then
+        if range == nil then
             ranges = '1-3'
+        else
+            ranges = tostring(range)
         end
         return 'range ' .. ranges .. ' ruler'
     else
         if rulerType == 'A' then
             rulerType = rulerType .. RulerModule.DefaultShipArc(ship)
         end
+        ranges = ''
+        if range then
+          ranges = 'range ' .. tostring(range) .. ' '
+        end
         local arcName = RulerModule.typeToKey[rulerType]
-        return arcName .. ' arc ruler'
+        return ranges .. arcName .. ' arc ruler'
     end
 end
 
@@ -4929,11 +4934,11 @@ end
 --      params      <- table suitable for spawnObject(params) call
 --      custom      <- table suitable for obj.setCustomObject(custom) call
 --          }
-RulerModule.CreateCustomTables = function(ship, rulerType)
+RulerModule.CreateCustomTables = function(ship, rulerType, range)
     if rulerType == 'A' then
         rulerType = rulerType .. RulerModule.DefaultShipArc(ship)
     end
-    local rulerData = RulerModule.GetRulerData(ship, rulerType)
+    local rulerData = RulerModule.GetRulerData(ship, rulerType, range)
     local paramsTable = {}
     paramsTable.type = 'Custom_Model'
     paramsTable.position = ship.getPosition()
@@ -4956,8 +4961,8 @@ end
 
 -- Spawn a ruler for a ship
 -- Returns new ruler reference
-RulerModule.SpawnRuler = function(ship, rulerType, beQuiet, include_friendly_ships)
-    local rulerData = RulerModule.CreateCustomTables(ship, rulerType)
+RulerModule.SpawnRuler = function(ship, rulerType, beQuiet, include_friendly_ships,range)
+    local rulerData = RulerModule.CreateCustomTables(ship, rulerType, range)
     if rulerData.custom.mesh == nil then
         return nil
     end
@@ -4967,7 +4972,7 @@ RulerModule.SpawnRuler = function(ship, rulerType, beQuiet, include_friendly_shi
 
     local arclines = {}
     if RulerModule.typeToArc[rulerType] then
-        arclines = CheckArc({ship=ship,arctype=RulerModule.typeToArc[rulerType], range=RulerModule.typeToRange[rulerType], include_friendly_ships=include_friendly_ships})
+        arclines = CheckArc({ship=ship,arctype=RulerModule.typeToArc[rulerType], range=range, include_friendly_ships=include_friendly_ships})
     end
     table.insert(RulerModule.spawnedRulers, {ship = ship, ruler = newRuler, arclines = arclines,type = rulerType})
     newRuler.lock()
@@ -5010,13 +5015,22 @@ RulerModule.ToggleRuler = function(ship, rulerType, beQuiet)
             spawnType = rulerType:sub(1,-2)
             includeFriendlyText = " including friendlies"
         end
+        range = spawnType:match( ".*(%d)")
+        if range then
+          range = tonumber(range)
+          spawnType = spawnType:match("(.*)%d")
+        else
+          range = 3
+        end
+
+        print("ToggleRuler range: " .. tostring(range) .. " " .. spawnType)
         if beQuiet ~= true then
             local annInfo = {type='action'}
-            annInfo.note = 'spawned a ' .. RulerModule.DescriptiveName(ship, spawnType) .. includeFriendlyText.. ' (' .. rulerType .. ')'
+            annInfo.note = 'spawned a ' .. RulerModule.DescriptiveName(ship, spawnType, range) .. includeFriendlyText.. ' (' .. rulerType .. ')'
             AnnModule.Announce(annInfo, 'all', ship)
         end
         ship.setLock(true)
-        Wait.frames(function() RulerModule.SpawnRuler(ship, spawnType, beQuiet, includeFriendlies) end,1)
+        Wait.frames(function() RulerModule.SpawnRuler(ship, spawnType, beQuiet, includeFriendlies, range) end,1)
     end
 end
 
@@ -5498,6 +5512,7 @@ end
 
 XW_cmd.AddCommand('rot[lr]?[12]?', 'rotate')
 XW_cmd.AddCommand('turret[12]?', 'turretarc')
+XW_cmd.AddCommand('a', 'fixedarc')
 
 
 mountRotations = {
@@ -5878,6 +5893,15 @@ function GetTurretArc(args)
     local turret_mount = args.mount or 'main'
     if arc_indicators[turret_mount] then
       return arc_indicators[turret_mount].arc
+    end
+    return nil
+end
+
+function GetTurretRange(args)
+    local turret_mount = args.mount or 'main'
+    local turret = self.getTable('Data').arcs.turret[turret_mount]
+    if turret.range then
+      return turret.range
     end
     return nil
 end

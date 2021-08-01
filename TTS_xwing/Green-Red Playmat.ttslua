@@ -62,6 +62,22 @@ function NextImage()
     newSelf.script_state = nextImage
 end
 
+function PrevImage()
+    deleteAll()
+    -- Increment image index
+    local nextImage = currImage - 1
+    if nextImage == 0 then
+        nextImage = #imageSet
+    end
+
+    -- Reload self with the new image and save the index
+    local custom = self.getCustomObject()
+    custom.diffuse = imageSet[nextImage]
+    self.setCustomObject(custom)
+    local newSelf = self.reload()
+    newSelf.script_state = nextImage
+end
+
 -- Please update me
 
 

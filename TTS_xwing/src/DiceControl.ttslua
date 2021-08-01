@@ -138,17 +138,6 @@ DiceControlModule.presentStatistics = function()
     end
 end
 
-function onPlayerAction(player, action, targets)
-  if action == Player.Action.Randomize then
-      if DiceControlModule.enabled then
-        for _, object in pairs(targets) do
-          DiceControlModule.onObjectRandomize(object, player)
-        end
-      end
-  end
-end
-
-
 DiceControlModule.onObjectRandomize = function(object, player)
     if DiceControlModule.enabled and (object.tag == "Dice")  and (object.held_by_color == nil) then
         DiceControlModule.dice_roller_state[player] = DiceControlModule.dice_roller_state[player] or "idle"
@@ -196,7 +185,7 @@ end
 DiceControlModule.PrepareDice = function(die, player)
     if not die.isSmoothMoving() then
         die.roll()
-        Wait.time(function() die.roll() end, 0.1, int)
+        Wait.time(function() die.roll() end, 0.1)
         die.interactable = false
         players = die.getSelectingPlayers()
         for j, player in pairs(players) do
