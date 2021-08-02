@@ -1164,8 +1164,21 @@ masterShipDB[79]={
     XWS = 'tiesebomber',
     Fac = {}, -- {[5]=true},
     arcs = {fixed = { range=3, type = {'front'}}},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_Tie_Wi/TieWhisper.obj',
-    moveSet = {'wtl1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','rbl3s','wtl3','bbl3','bs3','bbr3','wtr3','rbr3s','bs4','rk4','bs5','rk5'},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_TIE_Wi/TIE_Wi.obj',
+    moveSet = {'rtl1','wbl1', 'bs1', 'wbr1', 'btr1','wtl2','wbl2','bs2','wbr2','wtr2','rbl3s','wtl3','wbl3','bs3','wbr3','wtr3','rbr3s','ws4'},
+}
+
+masterShipDB[80]={
+    name = 'BTA-NR2 Y-Wing',
+    Hull = 4,
+    Shield = 3,
+    size = 'small',
+    agi = 1,
+    XWS = 'btanr2ywing',
+    Fac = {}, -- {[4]=true},
+    arcs = {fixed = { range=3, type = {'front'}}},
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_TIE_Wi/TIE_Wi.obj',
+    moveSet = {'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','bs3','wbr3','rtr3','rs4','rk5'},
 }
 
 

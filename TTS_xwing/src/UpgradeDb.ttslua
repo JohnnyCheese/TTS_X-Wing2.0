@@ -2717,12 +2717,70 @@ masterUpgradesDB[838]={
     XWS = 'sensorscramblers',
     slot = 19,
     cost = 200,
-    restriction = { -- Tie, Reload
+    restriction = {
         ship = {
           [78]=true, -- Tie Whisper
           [52]=true, -- Tie Silencer
       },
     }
+}
+
+masterUpgradesDB[839]={
+    name = "Enhanced Jamming Suite",
+    XWS = 'enhancedjammingsuite',
+    slot = 18,
+    remSlot = {19},
+    cost = 200,
+    restriction = {
+      ship = {
+          [78]=true, -- Tie Whisper
+      },
+    }
+}
+
+masterUpgradesDB[840]={
+    name = "L4E-R5",
+    XWS = 'l4er5',
+    slot = 10,
+    limited = 1,
+    cost = 200,
+    addAction = {'C'},
+    restriction = {
+      faction = {[4]=true}
+    },
+}
+
+masterUpgradesDB[841]={
+    name = "Overtuned Modulators",
+    XWS = 'overtunedmodulators',
+    slot = 13,
+    Charge = 1,
+    cost = 200,
+    addAction = {'C'},
+}
+
+masterUpgradesDB[842]={
+    name = "Wartime Loadout",
+    XWS = 'wartimeloadout',
+    slot = 18,
+    remSlot = {14},
+    addSlot = {5,6},
+    cost = 200,
+    Shield = 2,
+    addAction = {'TL'},
+    restriction = {
+        ship = {
+          [80]=true, -- Res Y-Wing
+      },
+    }
+}
+
+masterUpgradesDB[843]={
+    name = "Watchful Astromech",
+    XWS = 'watchfulastromech',
+    slot = 10,
+    cost = 200,
+    addAction = {'C'},
 }
 
 

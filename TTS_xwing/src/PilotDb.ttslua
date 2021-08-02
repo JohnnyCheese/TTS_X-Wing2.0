@@ -824,7 +824,7 @@ masterPilotDB[55]={
     limited = 1,
     ship_type = 15,
     cost = 52,
-    slot = {21, 1, 2, 8, 8, 14, 18},
+    slot = {21, 1, 2, 8, 8, 13, 14, 18},
     Shield = 3,
     card = 'http://sb-cdn.fantasyflightgames.com/card_images/Card_Pilot_55.png',
     init = 4,
@@ -6815,6 +6815,8 @@ masterPilotDB[835]={
   actSet = {'F','E','VR','B'}
 }
 
+-- Tie Whisper
+
 masterPilotDB[836]={
   name = '709th Legion Ace',
   XWS = '709thlegionace',
@@ -6856,6 +6858,79 @@ masterPilotDB[838]={
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_TIE_Wi/kyloren_whisper.png',
   actSet = {'F','Rot','E','TL','BR','B'}
 }
+
+-- First Order Bomber
+
+masterPilotDB[840]={
+  name = 'First Order Cadet',
+  XWS = 'firstordercadet',
+  Faction = 5,
+  ship_type = 79,
+  cost = 200,
+  slot = {21, 1, 19, 5, 6, 16, 12, 14},
+  Shield = 2,
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_TIE_Wi/kyloren_whisper.png',
+  actSet = {'F','TL','BR','B','E'}
+}
+
+masterPilotDB[841]={
+  name = '"Grudge"',
+  XWS = 'grudge',
+  Faction = 5,
+  limited = 1,
+  ship_type = 79,
+  cost = 200,
+  slot = {21, 1, 19, 5, 6, 16, 12, 14},
+  Shield = 2,
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_TIE_Wi/kyloren_whisper.png',
+  actSet = {'F','TL','BR','B','E'}
+}
+
+-- Resistance Y-Wing
+
+masterPilotDB[845]={
+  name = 'New Republic Patrol',
+  XWS = 'newrepublicpatrol',
+  Faction = 4,
+  ship_type = 80,
+  cost = 200,
+  slot = {21, 1, 19, 4, 10, 12, 14, 14, 18},
+  Shield = 3,
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_TIE_Wi/kyloren_whisper.png',
+  actSet = {'F','TL','BR','B','C'}
+}
+
+masterPilotDB[846]={
+  name = 'Teza Nasz',
+  XWS = 'tezanasz',
+  Faction = 4,
+  limited = 1,
+  ship_type = 80,
+  cost = 200,
+  slot = {21, 1, 19, 4, 10, 12, 14, 14, 18},
+  Shield = 3,
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_TIE_Wi/kyloren_whisper.png',
+  actSet = {'F','TL','BR','B','C'}
+}
+
+masterPilotDB[847]={
+  name = 'Shasa Zaro',
+  XWS = 'shasazaro',
+  Faction = 4,
+  limited = 1,
+  ship_type = 80,
+  cost = 200,
+  slot = {21, 1, 19, 4, 10, 12, 14, 14, 18},
+  Shield = 3,
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_TIE_Wi/kyloren_whisper.png',
+  actSet = {'F','TL','BR','B','C'}
+}
+
 
 
 
