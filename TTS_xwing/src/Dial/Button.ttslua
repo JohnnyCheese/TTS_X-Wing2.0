@@ -49,9 +49,9 @@ function B.setProxyState(activate, cancellable, active_proxies)
 
     changeButtonState("proxyCancelBtn", cancellable)
 
-    if not cancellable then
-        changeButtonState("UndoBtn", not activate)
-    end
+    --if not cancellable then
+    --    changeButtonState("UndoBtn", not activate)
+    --end
 
     if not active_proxies then
         obj.UI.setAttribute("proxyFrontBtn", "active", "false")

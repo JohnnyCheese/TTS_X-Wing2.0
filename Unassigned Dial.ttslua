@@ -305,22 +305,25 @@ function Undo(p)
         return
     end
     assignedShip.setDescription("q")
+    befAft='_B'
     self.UI.setAttribute("UndoBtn", "active", "false")
     if setStat then
-        setStat = false
-        setDial(p)
+        return
     elseif prevMan:sub(-1,-1) ~='t' or proxyMode then
         setMan = prevMan
-        setStat = true
-        self.UI.setAttribute("setBtnFD", "active", "false")
-        self.UI.setAttribute("MoveBtn", "active", "true")
-        self.UI.setAttribute("MoveBtn", "textColor", "#FFFFFF")
+        setStat = prevMan ~= ""
+        if setStat then
+          self.UI.setAttribute("MoveBtn", "active", "true")
+          self.UI.setAttribute("MoveBtn", "textColor", "#FFFFFF")
+          self.UI.setAttribute("TypeIcon", "active", "true")
+          self.UI.setAttribute("SpeedIcon", "active", "true")
+          self.UI.setAttribute("Templ", "active", "true")
+        end
     else
         setMan = prevMan
         setStat = true
         self.UI.show("TalonPanel")
     end
-    befAft='_B'
 end
 
 function allignShip(P)
@@ -820,7 +823,7 @@ function Repos(P, option, id)
             ship_guid   = assignedShip.getGUID(),
             move_code   = move_code,
             offsets     = {front = '1', center = '2', back = '3'},
-            cancellable = true,
+            cancellable = not setStat,
             button_func = button.setProxyState,
         }
         proxy.spawn(proxy_settings)
