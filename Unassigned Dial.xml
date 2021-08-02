@@ -446,7 +446,7 @@
 			<Button id="proxyFrontBtn"
 				class="RelocButtons"
 				active="false">
-				<Image id="TalonForIcon"
+				<Image
 					class="RIcon"
 					image="TalonFront"
 					preserveAspect="true"></Image>
@@ -454,7 +454,7 @@
 			<Button id="proxyCenterBtn"
 				class="RelocButtons"
 				active="false">
-				<Image id="TalonMidIcon"
+				<Image
 					class="RIcon"
 					image="TalonMid"
 					preserveAspect="true"></Image>
@@ -462,7 +462,7 @@
 			<Button id="proxyBackBtn"
 				class="RelocButtons"
 				active="false">
-				<Image id="TalonReaIcon"
+				<Image
 					class="RIcon"
 					image="TalonRear"
 					preserveAspect="true"></Image>
@@ -496,13 +496,13 @@
             active="false">
             <VerticalLayout childAlignment="MiddleRight"  childForceExpandWidth="false" childForceExpandHeight="false"  spacing="5" padding="0 10 0 0">
                 <Button id="BarrelLF2Btn" class="RelocButtons" width="200" onClick="Repos">
-                    <Image id= "BarrelLFIcon" class="RIcon" image="BarrelLF" preserveAspect="true"></Image>
+                    <Image class="RIcon" image="BarrelLF" preserveAspect="true"></Image>
                 </Button>
                 <Button id="BarrelL2Btn" class="RelocButtons" width="200" onClick="Repos">
-                    <Image id= "BarrelLIcon" class="RIcon" image="BarrelL" preserveAspect="true"></Image>
+                    <Image class="RIcon" image="BarrelL" preserveAspect="true"></Image>
                 </Button>
                 <Button id="BarrelLB2Btn" class="RelocButtons" width="200" onClick="Repos">
-                    <Image id= "BarrelLBIcon" class="RIcon" image="BarrelLB" preserveAspect="true"></Image>
+                    <Image class="RIcon" image="BarrelLB" preserveAspect="true"></Image>
                 </Button>
             </VerticalLayout>
         </Panel>
@@ -514,19 +514,19 @@
             active="false">
             <VerticalLayout childAlignment="MiddleRight"  childForceExpandWidth="false" childForceExpandHeight="false"  spacing="5" padding="0 10 0 0">
                 <Button id="BarrelLFBtn" class="RelocButtons" width="200" onClick="Repos">
-                    <Image id= "BarrelLFIcon" class="RIcon" image="BarrelLF" preserveAspect="true"></Image>
+                    <Image class="RIcon" image="BarrelLF" preserveAspect="true"></Image>
                 </Button>
                 <Button id="BarrelVLUBtn" class="RelocButtons" onClick="Repos">
-                    <Image id= "BarrelVLUIcon" class="RIcon" image="BarrelVLU" preserveAspect="true"></Image>
+                    <Image class="RIcon" image="BarrelVLU" preserveAspect="true"></Image>
                 </Button>
                 <Button id="BarrelLBtn" class="RelocButtons" width="200" onClick="Repos">
-                    <Image id= "BarrelLIcon" class="RIcon" image="BarrelL" preserveAspect="true"></Image>
+                    <Image class="RIcon" image="BarrelL" preserveAspect="true"></Image>
                 </Button>
                 <Button id="BarrelVLDBtn" class="RelocButtons" onClick="Repos">
-                    <Image id= "BarrelVLDIcon" class="RIcon" image="BarrelVLD" preserveAspect="true"></Image>
+                    <Image class="RIcon" image="BarrelVLD" preserveAspect="true"></Image>
                 </Button>
                 <Button id="BarrelLBBtn" class="RelocButtons" width="200" onClick="Repos">
-                    <Image id= "BarrelLBIcon" class="RIcon" image="BarrelLB" preserveAspect="true"></Image>
+                    <Image class="RIcon" image="BarrelLB" preserveAspect="true"></Image>
                 </Button>
             </VerticalLayout>
         </Panel>
@@ -544,13 +544,13 @@
                 active="false">
                 <HorizontalLayout childAlignment="MiddleCenter" childForceExpandWidth="false" childForceExpandHeight="false" spacing="5">
                     <Button id="pivLBtn" class="RelocButtons" onClick="pivL">
-                        <Image id= "PivLIcon" class="RIcon" image="PivotLeft" preserveAspect="true"></Image>
+                        <Image class="RIcon" image="PivotLeft" preserveAspect="true"></Image>
                     </Button>
                     <Button id="PivKBtn" class="RelocButtons" onClick="pivK">
-                        <Image id= "PivKIcon" class="RIcon" image="Pivot180" preserveAspect="true"></Image>
+                        <Image class="RIcon" image="Pivot180" preserveAspect="true"></Image>
                     </Button>
                     <Button id="pivRBtn" class="RelocButtons" onClick="pivR">
-                        <Image id= "PivRIcon" class="RIcon" image="PivotRight" preserveAspect="true"></Image>
+                        <Image class="RIcon" image="PivotRight" preserveAspect="true"></Image>
                     </Button>
                 </HorizontalLayout>
             </Panel>
@@ -563,13 +563,13 @@
                 active="false">
                 <HorizontalLayout childAlignment="MiddleCenter" childForceExpandWidth="false" childForceExpandHeight="false" spacing="5">
                     <Button id="AilLBtn" class="RelocButtons" onClick="Repos"  color="#888888">
-                        <Image id= "BoostLIcon" class="RIcon" image="WhiteBankL" preserveAspect="true"></Image>
+                        <Image class="RIcon" image="WhiteBankL" preserveAspect="true"></Image>
                     </Button>
                     <Button id="AilSBtn" class="RelocButtons" onClick="Repos" color="#888888">
-                        <Image id= "BoostSIcon" class="RIcon" image="WhiteStraight" preserveAspect="true"></Image>
+                        <Image class="RIcon" image="WhiteStraight" preserveAspect="true"></Image>
                     </Button>
                     <Button id="AilRBtn" class="RelocButtons" onClick="Repos" color="#888888">
-                        <Image id= "BoostRIcon" class="RIcon" image="WhiteBankR" preserveAspect="true"></Image>
+                        <Image class="RIcon" image="WhiteBankR" preserveAspect="true"></Image>
                     </Button>
                 </HorizontalLayout>
             </Panel>
@@ -582,19 +582,19 @@
                 active="false">
                 <HorizontalLayout childAlignment="MiddleCenter" childForceExpandWidth="false" childForceExpandHeight="false" spacing="5">
                     <Button id="BoostLT2Btn" class="RelocButtons" onClick="Repos">
-                        <Image id= "BoostLTIcon" class="RIcon" image="BoostLT" preserveAspect="true"></Image>
+                        <Image class="RIcon" image="BoostLT" preserveAspect="true"></Image>
                     </Button>
                     <Button id="BoostL2Btn" class="RelocButtons" onClick="Repos">
-                        <Image id= "BoostLIcon" class="RIcon" image="BoostL" preserveAspect="true"></Image>
+                        <Image class="RIcon" image="BoostL" preserveAspect="true"></Image>
                     </Button>
                     <Button id="BoostS2Btn" class="RelocButtons" onClick="Repos">
-                        <Image id= "BoostSIcon" class="RIcon" image="BoostS" preserveAspect="true"></Image>
+                        <Image class="RIcon" image="BoostS" preserveAspect="true"></Image>
                     </Button>
                     <Button id="BoostR2Btn" class="RelocButtons" onClick="Repos">
-                        <Image id= "BoostRIcon" class="RIcon" image="BoostR" preserveAspect="true"></Image>
+                        <Image class="RIcon" image="BoostR" preserveAspect="true"></Image>
                     </Button>
                     <Button id="BoostRT2Btn" class="RelocButtons" onClick="Repos">
-                        <Image id= "BoostRTIcon" class="RIcon" image="BoostRT" preserveAspect="true"></Image>
+                        <Image class="RIcon" image="BoostRT" preserveAspect="true"></Image>
                     </Button>
                 </HorizontalLayout>
             </Panel>
@@ -607,19 +607,19 @@
                 active="false">
                 <HorizontalLayout childAlignment="MiddleCenter" childForceExpandWidth="false" childForceExpandHeight="false" spacing="5">
                     <Button id="BoostLTBtn" class="RelocButtons" onClick="Repos">
-                        <Image id= "BoostLTIcon" class="RIcon" image="BoostLT" preserveAspect="true"></Image>
+                        <Image class="RIcon" image="BoostLT" preserveAspect="true"></Image>
                     </Button>
                     <Button id="BoostLBtn" class="RelocButtons" onClick="Repos">
-                        <Image id= "BoostLIcon" class="RIcon" image="BoostL" preserveAspect="true"></Image>
+                        <Image class="RIcon" image="BoostL" preserveAspect="true"></Image>
                     </Button>
                     <Button id="BoostSBtn" class="RelocButtons" onClick="Repos">
-                        <Image id= "BoostSIcon" class="RIcon" image="BoostS" preserveAspect="true"></Image>
+                        <Image class="RIcon" image="BoostS" preserveAspect="true"></Image>
                     </Button>
                     <Button id="BoostRBtn" class="RelocButtons" onClick="Repos">
-                        <Image id= "BoostRIcon" class="RIcon" image="BoostR" preserveAspect="true"></Image>
+                        <Image class="RIcon" image="BoostR" preserveAspect="true"></Image>
                     </Button>
                     <Button id="BoostRTBtn" class="RelocButtons" onClick="Repos">
-                        <Image id= "BoostRTIcon" class="RIcon" image="BoostRT" preserveAspect="true"></Image>
+                        <Image class="RIcon" image="BoostRT" preserveAspect="true"></Image>
                     </Button>
                 </HorizontalLayout>
             </Panel>
@@ -634,19 +634,19 @@
             active="false">
             <VerticalLayout childAlignment="MiddleLeft" childForceExpandWidth="false" childForceExpandHeight="false"  spacing="5" padding="10 0 0 0">
                 <Button id="BarrelRFBtn" class="RelocButtons" onClick="Repos">
-                    <Image id= "BarrelRFIcon" class="RIcon" image="BarrelRF" preserveAspect="true"></Image>
+                    <Image class="RIcon" image="BarrelRF" preserveAspect="true"></Image>
                 </Button>
                 <Button id="BarrelVRUBtn" class="RelocButtons" onClick="Repos">
-                    <Image id= "BarrelVRUIcon" class="RIcon" image="BarrelVRU" preserveAspect="true"></Image>
+                    <Image class="RIcon" image="BarrelVRU" preserveAspect="true"></Image>
                 </Button>
                 <Button id="BarrelRBtn" class="RelocButtons" onClick="Repos">
-                    <Image id= "BarrelRIcon" class="RIcon" image="BarrelR" preserveAspect="true"></Image>
+                    <Image class="RIcon" image="BarrelR" preserveAspect="true"></Image>
                 </Button>
                 <Button id="BarrelVRDBtn" class="RelocButtons" onClick="Repos">
-                    <Image id= "BarrelVRDIcon" class="RIcon" image="BarrelVRD" preserveAspect="true"></Image>
+                    <Image class="RIcon" image="BarrelVRD" preserveAspect="true"></Image>
                 </Button>
                 <Button id="BarrelRBBtn" class="RelocButtons" onClick="Repos">
-                    <Image id= "BarrelRBIcon" class="RIcon" image="BarrelRB" preserveAspect="true"></Image>
+                    <Image class="RIcon" image="BarrelRB" preserveAspect="true"></Image>
                 </Button>
             </VerticalLayout>
         </Panel>
@@ -658,13 +658,13 @@
             active="false">
             <VerticalLayout childAlignment="MiddleLeft" childForceExpandWidth="false" childForceExpandHeight="false"  spacing="5" padding="10 0 0 0">
                 <Button id="BarrelRF2Btn" class="RelocButtons" onClick="Repos">
-                    <Image id= "BarrelRFIcon" class="RIcon" image="BarrelRF" preserveAspect="true"></Image>
+                    <Image class="RIcon" image="BarrelRF" preserveAspect="true"></Image>
                 </Button>
                 <Button id="BarrelR2Btn" class="RelocButtons" onClick="Repos">
-                    <Image id= "BarrelRIcon" class="RIcon" image="BarrelR" preserveAspect="true"></Image>
+                    <Image class="RIcon" image="BarrelR" preserveAspect="true"></Image>
                 </Button>
                 <Button id="BarrelRB2Btn" class="RelocButtons" onClick="Repos">
-                    <Image id= "BarrelRBIcon" class="RIcon" image="BarrelRB" preserveAspect="true"></Image>
+                    <Image class="RIcon" image="BarrelRB" preserveAspect="true"></Image>
                 </Button>
             </VerticalLayout>
         </Panel>
