@@ -116,9 +116,9 @@ end
 
 function CheckArc(args)
     -- Remove player selection to prevent accidental deletion.
-    local playerColors = args.ship.getSelectingPlayers()
+    local playerColors = getSelectingPlayers(args.ship)
     for _, player in ipairs(playerColors) do
-        args.ship.removeFromPlayerSelection(player)
+        args.ship.removeFromPlayerSelection(player.color)
     end
 
     range = args.range or 3
@@ -232,7 +232,7 @@ ArcCheck.GetTargetsInRelationToArc = function(ship, arc, fixed_targets, range, i
     ship.setLock(true)
     local shipSize = ship.getTable("Data").Size or 'small'
 
-    local potential_targets = fixed_targets or ArcCheck.GetPotentialTargets(ship, nil, true, include_friendly_ships or false)
+    local potential_targets = fixed_targets or ArcCheck.GetPotentialTargets(ship, (range+1)*250, true, include_friendly_ships or false)
     local bullseye_targets = ArcCheck.GetBullseyeTargets(ship, ArcCheck.bullseye_data.pos[shipSize])
 
     local own_line_segments = {}

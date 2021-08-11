@@ -379,7 +379,7 @@ ShipProxyModule.spawnProxy = function(ship, hide, finpos, didCollide, script, mo
         ship.setPosition(vector(0, -3, 0))
         ship.interactable = false
         ship.setLock(true)
-        local playerColors = ship.getSelectingPlayers()
+        local playerColors = getSelectingPlayers(ship)
         for _, player in ipairs(playerColors) do
             ship.removeFromPlayerSelection(player)
         end

@@ -23,6 +23,16 @@ function print(...)
     end
 end
 
+function getSelectingPlayers(obj)
+  local selectingPlayers = {}
+  for _,p in ipairs(Player.getPlayers() or {}) do
+    for _,o in ipairs(p.getSelectedObjects() or {}) do
+      if o == obj then table.insert(selectingPlayers, p) break end
+    end
+  end
+  return selectingPlayers
+end
+
 -- Vector manipulation
 #include TTS_lib/Vector/Vector
 
@@ -4311,27 +4321,28 @@ TokenModule.ClearPosition = function(pos, dist, ignoreShip)
 end
 
 TokenModule.AssignToken = function(token, ship)
-    Wait.condition(function()
-        local guid = token.getGUID()
-        if (TokenModule.tokenAssignments[guid] ~= nil) and (TokenModule.tokenAssignments[guid].tag == 'Figurine') then
-            if TokenModule.tokenAssignments[guid].getVar("RemoveToken") ~= nil then
-                TokenModule.tokenAssignments[guid].call("RemoveToken", {token=token})
-            end
-        end
-        TokenModule.tokenAssignments[guid] = ship
-        if ship ~= nil then
-            token.setDescription("Assigned to " .. ship.getName())
-            if ship.tag == 'Figurine' then
-                if ship.getVar("AddToken") ~= nil then
-                    ship.call("AddToken", {token=token})
-                end
-            end
-        else
-            token.setDescription("Unassigned")
-        end
-    end,
-    function() return  (not token.spawning) end)
-
+    if token then
+      Wait.condition(function()
+          local guid = token.getGUID()
+          if (TokenModule.tokenAssignments[guid] ~= nil) and (TokenModule.tokenAssignments[guid].tag == 'Figurine') then
+              if TokenModule.tokenAssignments[guid].getVar("RemoveToken") ~= nil then
+                  TokenModule.tokenAssignments[guid].call("RemoveToken", {token=token})
+              end
+          end
+          TokenModule.tokenAssignments[guid] = ship
+          if ship ~= nil then
+              token.setDescription("Assigned to " .. ship.getName())
+              if ship.tag == 'Figurine' then
+                  if ship.getVar("AddToken") ~= nil then
+                      ship.call("AddToken", {token=token})
+                  end
+              end
+          else
+              token.setDescription("Unassigned")
+          end
+      end,
+      function() return  (not token.spawning) end)
+    end
 end
 
 TokenModule.UnAssignToken = function(token)
@@ -4501,7 +4512,7 @@ end
 DialModule.FixedArc = function(ship, cmd)
     arc = ship.getTable('Data').arcs.fixed
     if arc then
-      command = string.upper(arcToCmnd[arc.type])
+      command = string.upper(arcToCmnd[arc.type[1]])
       if arc.range then
         command = command .. tostring(arc.range)
       end

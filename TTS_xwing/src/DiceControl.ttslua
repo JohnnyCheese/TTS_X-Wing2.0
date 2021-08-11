@@ -187,9 +187,9 @@ DiceControlModule.PrepareDice = function(die, player)
         die.roll()
         Wait.time(function() die.roll() end, 0.1)
         die.interactable = false
-        players = die.getSelectingPlayers()
+        players = getSelectingPlayers(die)
         for j, player in pairs(players) do
-            die.removeFromPlayerSelection(player)
+            die.removeFromPlayerSelection(player.color)
         end
         table.insert(DiceControlModule.rolled_dice[player], die)
         return true
