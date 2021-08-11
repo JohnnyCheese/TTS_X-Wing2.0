@@ -3956,14 +3956,13 @@ masterPilotDB[430]={
 
 masterPilotDB[431]={
   name = "Finch Dallow",
-    XWS = 'finchdallow',
+  XWS = 'finchdallow',
   Faction = 4,
   limited = 1,
   ship_type = 55,
   cost = 56,
   slot = {21, 2,19,8,16,16,12,12,14},
   Shield = 3,
-  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/43d9a0555f719a4cbe1ffe905fd38c46.png',
   init = 4,
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/RES_starfortress/FinchDallow.png',
   actSet = {'F','TL','Rot'}
@@ -3971,14 +3970,14 @@ masterPilotDB[431]={
 
 masterPilotDB[432]={
   name = "Ben Teene",
-    XWS = 'benteene',
+  XWS = 'benteene',
+  Condition = "Rattled",
   Faction = 4,
   limited = 1,
   ship_type = 55,
   cost = 54,
   slot = {21, 2,19,8,16,16,12,12,14},
   Shield = 3,
-  card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/c9189c7e510b4d734d4d78c4f595010f.png',
   init = 3,
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/RES_starfortress/BenTeene.png',
   actSet = {'F','TL','Rot'}
@@ -3986,7 +3985,7 @@ masterPilotDB[432]={
 
 masterPilotDB[433]={
   name = "Cat",
-    XWS = 'cat',
+  XWS = 'cat',
   Faction = 4,
   limited = 1,
   ship_type = 55,
@@ -4001,7 +4000,7 @@ masterPilotDB[433]={
 
 masterPilotDB[434]={
   name = "Cobalt Squadron Bomber",
-    XWS = 'cobaltsquadronbomber',
+  XWS = 'cobaltsquadronbomber',
   Faction = 4,
   ship_type = 55,
   cost = 51,
@@ -4188,7 +4187,7 @@ masterPilotDB[446]={
 
 masterPilotDB[447]={
   name = "Edon Kappehl",
-    XWS = 'edonkappehl',
+  XWS = 'edonkappehl',
   Faction = 4,
   limited = 1,
   ship_type = 55,
@@ -4203,7 +4202,7 @@ masterPilotDB[447]={
 
 masterPilotDB[448]={
   name = "Vennie",
-    XWS = 'vennie',
+  XWS = 'vennie',
   Faction = 4,
   limited = 1,
   ship_type = 55,
@@ -5528,7 +5527,7 @@ masterPilotDB[631]={
 
 masterPilotDB[630]={
     name = 'Leia Organa',
-  XWS = 'leiaorgana',
+    XWS = 'leiaorgana',
     Force = 1,
     Faction = 1,
     limited = 1,
@@ -5966,7 +5965,7 @@ masterPilotDB[694]={
 
 masterPilotDB[695]={
     name = 'Onyx Squadron Sentry',
-  XWS = 'onyxsquadronsentry',
+    XWS = 'onyxsquadronsentry',
     Faction = 2,
     ship_type = 72,
     cost = 36,
@@ -5980,7 +5979,7 @@ masterPilotDB[695]={
 
 masterPilotDB[696]={
     name = 'Carida Academy Cadet',
-  XWS = 'caridaacademycadet',
+    XWS = 'caridaacademycadet',
     Faction = 2,
     ship_type = 72,
     cost = 34,
@@ -5994,7 +5993,7 @@ masterPilotDB[696]={
 
 masterPilotDB[781]={
     name = 'Anakin Skywalker',
-  XWS = 'anakinskywalker-eta2actis',
+    XWS = 'anakinskywalker-eta2actis',
     limited = 1,
     Faction = 6,
     Force = 3,
@@ -6026,7 +6025,7 @@ masterPilotDB[782]={
 
 masterPilotDB[783]={
     name = 'Aayla Secura',
-  XWS = 'aaylasecura',
+    XWS = 'aaylasecura',
     limited = 1,
     Faction = 6,
     Force = 2,
@@ -6042,7 +6041,7 @@ masterPilotDB[783]={
 
 masterPilotDB[784]={
     name = 'Shaak Ti',
-  XWS = 'shaakti',
+    XWS = 'shaakti',
     limited = 1,
     Faction = 6,
     Force = 2,
@@ -6179,7 +6178,7 @@ masterPilotDB[793]={
 
 masterPilotDB[700]={
     name = 'Nimi Chireen',
-  XWS = 'nimichireen',
+    XWS = 'nimichireen',
     limited = 1,
     Faction = 4,
     ship_type = 53,
@@ -6845,6 +6844,35 @@ masterPilotDB[837]={
 }
 
 masterPilotDB[838]={
+  name = '"Whirlwind"',
+  XWS = 'whirlwind',
+  Faction = 5,
+  limited = 1,
+  ship_type = 78,
+  cost = 200,
+  slot = {21, 1, 1, 6, 19, 18},
+  Shield = 2,
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_TIE_Wi/whirlwind.png',
+  actSet = {'F','Rot','E','TL','BR','B'}
+}
+
+masterPilotDB[839]={
+  name = '"Nightfall"',
+  XWS = 'nightfall',
+  Faction = 5,
+  limited = 1,
+  ship_type = 78,
+  cost = 200,
+  slot = {21, 1, 1, 6, 19, 18},
+  Shield = 2,
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_TIE_Wi/nightfall.png',
+  actSet = {'F','Rot','E','TL','BR','B'},
+  movethrough = true
+}
+
+masterPilotDB[840]={
   name = 'Kylo Ren',
   XWS = 'kyloren-tiewiwhispermodifiedinterceptor',
   Faction = 5,
@@ -6861,7 +6889,7 @@ masterPilotDB[838]={
 
 -- First Order Bomber
 
-masterPilotDB[840]={
+masterPilotDB[841]={
   name = 'First Order Cadet',
   XWS = 'firstordercadet',
   Faction = 5,
@@ -6874,7 +6902,7 @@ masterPilotDB[840]={
   actSet = {'F','TL','BR','B','E'}
 }
 
-masterPilotDB[841]={
+masterPilotDB[842]={
   name = '"Grudge"',
   XWS = 'grudge',
   Faction = 5,
@@ -6890,7 +6918,7 @@ masterPilotDB[841]={
 
 -- Resistance Y-Wing
 
-masterPilotDB[845]={
+masterPilotDB[843]={
   name = 'New Republic Patrol',
   XWS = 'newrepublicpatrol',
   Faction = 4,
@@ -6903,7 +6931,7 @@ masterPilotDB[845]={
   actSet = {'F','TL','BR','B','C'}
 }
 
-masterPilotDB[846]={
+masterPilotDB[844]={
   name = 'Teza Nasz',
   XWS = 'tezanasz',
   Faction = 4,
@@ -6917,7 +6945,7 @@ masterPilotDB[846]={
   actSet = {'F','TL','BR','B','C'}
 }
 
-masterPilotDB[847]={
+masterPilotDB[845]={
   name = 'Shasa Zaro',
   XWS = 'shasazaro',
   Faction = 4,
