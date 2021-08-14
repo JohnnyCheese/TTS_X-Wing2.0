@@ -573,7 +573,7 @@ masterShipDB[42]={
   Fac = {[3]=true},
   arcs = {fixed = { range=3, type = {'front'}}, turret = {main = {name = 'primary', type={'singleturret'}}}},
   moveSet = {'wbl1','ws1','wbr1','wtl2','wbl2','bs2','wbr2','wtr2','btl3','bbl3','bs3','bbr3','btr3','bs4','ws5','rk5'},
-  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/SCU_lancer/lancer.obj',
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/SCU_lancer/v2/lancer.obj',
 }
 masterShipDB[43]={
   name = 'TIE/re Reaper',
@@ -1150,7 +1150,7 @@ masterShipDB[78]={
     agi = 2,
     XWS = 'tiewiwhispermodifiedinterceptor',
     Fac = {[5]=true},
-    arcs = {fixed = { range=3, type = {'bull'}}},
+    arcs = {fixed = { range=3, type = {'bull'}}, turret = {main = {name = 'primary', type= {'front', 'back'}}}},
     mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_TIE_Wi/TIE_Wi.obj',
     moveSet = {'wtl1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','rbl3s','wtl3','bbl3','bs3','bbr3','wtr3','rbr3s','bs4','rk4','bs5','rk5'},
 }
