@@ -6898,7 +6898,7 @@ masterPilotDB[841]={
   slot = {21, 1, 19, 5, 6, 16, 12, 14},
   Shield = 2,
   init = 3,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_TIE_Wi/kyloren_whisper.png',
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_Tie_Se/first_order_cadet.png',
   actSet = {'F','TL','BR','B','E'}
 }
 
@@ -6912,13 +6912,41 @@ masterPilotDB[842]={
   slot = {21, 1, 19, 5, 6, 16, 12, 14},
   Shield = 2,
   init = 3,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_TIE_Wi/kyloren_whisper.png',
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_Tie_Se/grudge.png',
+  actSet = {'F','TL','BR','B','E'}
+}
+
+masterPilotDB[843]={
+  name = '"Scorch"',
+  XWS = 'scorch-tiesebomber',
+  Faction = 5,
+  limited = 1,
+  ship_type = 79,
+  cost = 200,
+  slot = {21, 1, 19, 5, 6, 16, 12, 14},
+  Shield = 2,
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_Tie_Se/scorch.png',
+  actSet = {'F','TL','BR','B','E'}
+}
+
+masterPilotDB[844]={
+  name = '"Breach"',
+  XWS = 'breach',
+  Faction = 5,
+  limited = 1,
+  ship_type = 79,
+  cost = 200,
+  slot = {21, 1, 19, 5, 6, 16, 12, 14},
+  Shield = 2,
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_Tie_Se/breach.png',
   actSet = {'F','TL','BR','B','E'}
 }
 
 -- Resistance Y-Wing
 
-masterPilotDB[843]={
+masterPilotDB[845]={
   name = 'New Republic Patrol',
   XWS = 'newrepublicpatrol',
   Faction = 4,
@@ -6931,7 +6959,7 @@ masterPilotDB[843]={
   actSet = {'F','TL','BR','B','C'}
 }
 
-masterPilotDB[844]={
+masterPilotDB[846]={
   name = 'Teza Nasz',
   XWS = 'tezanasz',
   Faction = 4,
@@ -6945,7 +6973,7 @@ masterPilotDB[844]={
   actSet = {'F','TL','BR','B','C'}
 }
 
-masterPilotDB[845]={
+masterPilotDB[847]={
   name = 'Shasa Zaro',
   XWS = 'shasazaro',
   Faction = 4,
@@ -6959,7 +6987,48 @@ masterPilotDB[845]={
   actSet = {'F','TL','BR','B','C'}
 }
 
+masterPilotDB[848]={
+  name = 'Corus Kapellim',
+  XWS = 'coruskappellim',
+  Faction = 4,
+  limited = 1,
+  ship_type = 80,
+  cost = 200,
+  slot = {21, 1, 19, 4, 10, 12, 14, 14, 18},
+  Shield = 3,
+  init = 1,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_TIE_Wi/kyloren_whisper.png',
+  actSet = {'F','TL','BR','B','C'}
+}
 
+masterPilotDB[849]={
+  name = "C'ai Threnalli",
+  XWS = 'caithrenalli-btanr2ywing',
+  Faction = 4,
+  limited = 1,
+  ship_type = 80,
+  cost = 200,
+  slot = {21, 1, 19, 4, 10, 12, 14, 14, 18},
+  Shield = 3,
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_TIE_Wi/kyloren_whisper.png',
+  actSet = {'F','TL','BR','B','C','E'},
+  movethrough = true
+}
+
+masterPilotDB[850]={
+  name = 'Wilsa Teshlo',
+  XWS = 'wilsateshlo',
+  Faction = 4,
+  limited = 1,
+  ship_type = 80,
+  cost = 200,
+  slot = {21, 1, 19, 4, 10, 12, 14, 14, 18},
+  Shield = 3,
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_TIE_Wi/kyloren_whisper.png',
+  actSet = {'F','TL','BR','B','C'}
+}
 
 
 -- Huge ships
