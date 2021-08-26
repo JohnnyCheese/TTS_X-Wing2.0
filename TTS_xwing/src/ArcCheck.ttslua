@@ -217,16 +217,27 @@ ArcCheck.GetTargetsInRelationToArc = function(ship, arc, fixed_targets, range, i
     end
 
     range = range or 3
-
-    local arc_parts = arc
+    local arc_parts = {}
+    local arc_table = {}
     if type(arc) == 'string' then
-        arc_parts = {arc}
+        arc_table = {arc}
+    else
+        arc_table = arc;
+    end
+    for _, arc in pairs(arc_table) do
         if arc == "frontback" then
-            arc_parts = {"front", "back"}
+            table.insert(arc_parts, "front")
+            table.insert(arc_parts, "back")
         elseif arc == "leftright" then
-            arc_parts = {"left", "right"}
+            table.insert(arc_parts, "left")
+            table.insert(arc_parts, "right")
         elseif arc == "all" then
-            arc_parts = {"front", "back", "left", "right"}
+            table.insert(arc_parts, "front")
+            table.insert(arc_parts, "back")
+            table.insert(arc_parts, "left")
+            table.insert(arc_parts, "right")
+        else
+            table.insert(arc_parts, arc)
         end
     end
     ship.setLock(true)
@@ -237,6 +248,7 @@ ArcCheck.GetTargetsInRelationToArc = function(ship, arc, fixed_targets, range, i
 
     local own_line_segments = {}
     for i, arc in ipairs(arc_parts) do
+        print ("Arc: " .. arc)
         local segments = ArcCheck.GetOwnArcLineSegments(ship, ArcCheck.arc_line_segments[shipSize][arc]["segments"])
         for k, segment in ipairs(segments) do
             table.insert(own_line_segments, segment)
