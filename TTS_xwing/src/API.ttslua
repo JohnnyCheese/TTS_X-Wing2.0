@@ -183,6 +183,11 @@ function API_SetDial(argTable)
   end
 end
 
+
+function API_ClearPosition(argTable)
+  TokenModule.ClearPosition(argTable.pos, argTable.reach, argTable.ship)
+end
+
 --------
 -- OBJECT SPECIFIC VARIABLES
 -- These variables are set per object and have some specific meaning

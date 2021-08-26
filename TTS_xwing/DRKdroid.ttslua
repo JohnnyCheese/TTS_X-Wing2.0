@@ -515,8 +515,9 @@ function dorkMoveR()
 end
 
 function dorkMove(pos,rot)
-    self.setPositionSmooth(pos, false, false)
-    self.setRotationSmooth(rot, false, false)
+    Global.call("API_ClearPosition", {pos = pos, reach = 0.5})
+    self.setPositionSmooth(pos, false, true)
+    self.setRotationSmooth(rot, false, true)
 end
 
 
