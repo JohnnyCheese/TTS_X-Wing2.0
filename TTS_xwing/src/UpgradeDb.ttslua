@@ -2793,6 +2793,28 @@ masterUpgradesDB[844]={
     },
 }
 
+masterUpgradesDB[845]={
+    name = "Electro-Chaff Missiles",
+    XWS = 'electrochaffmissiles',
+    limited = 2,
+    slot = 6,
+    cost = 200,
+    Charge = 1,
+    remSlot = {12},
+}
+
+masterUpgradesDB[846]={
+    name = "First Order Ordnance Tech",
+    XWS = 'firstorderordnancetech',
+    slot = 16,
+    cost = 200,
+    addAction = {'TL'},
+    restriction = {
+      faction = {[5]=true}
+    },
+}
+
+
 
 
 
