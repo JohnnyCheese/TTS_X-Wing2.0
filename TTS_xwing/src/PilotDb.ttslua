@@ -6599,9 +6599,22 @@ masterPilotDB[840]={
   actSet = {'F','Rot','E','TL','BR','B'}
 }
 
+masterPilotDB[841]={
+  name = 'Red Fury Zealot',
+  XWS = 'redfuryzealot',
+  Faction = 5,
+  ship_type = 'tiewiwhispermodifiedinterceptor',
+  cost = 200,
+  slot = {21, 1, 1, 6, 19, 18},
+  Shield = 2,
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_TIE_Wi/redfuryzealot.png',
+  actSet = {'F','Rot','E','TL','BR','B'}
+}
+
 -- First Order Bomber
 
-masterPilotDB[841]={
+masterPilotDB[842]={
   name = 'First Order Cadet',
   XWS = 'firstordercadet',
   Faction = 5,
@@ -6614,7 +6627,20 @@ masterPilotDB[841]={
   actSet = {'F','TL','BR','B','E'}
 }
 
-masterPilotDB[842]={
+masterPilotDB[843]={
+  name = 'Sienar-Jaemus Test Pilot',
+  XWS = 'sienarjaemustestpilot',
+  Faction = 5,
+  ship_type = 'tiesebomber',
+  cost = 200,
+  slot = {21, 1, 19, 5, 6, 16, 12, 14},
+  Shield = 2,
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_Tie_Se/sienarjaemustestpilot.png',
+  actSet = {'F','TL','BR','B','E'}
+}
+
+masterPilotDB[844]={
   name = '"Grudge"',
   XWS = 'grudge',
   Faction = 5,
@@ -6628,7 +6654,7 @@ masterPilotDB[842]={
   actSet = {'F','TL','BR','B','E'}
 }
 
-masterPilotDB[843]={
+masterPilotDB[845]={
   name = '"Scorch"',
   XWS = 'scorch-tiesebomber',
   Faction = 5,
@@ -6642,7 +6668,7 @@ masterPilotDB[843]={
   actSet = {'F','TL','BR','B','E'}
 }
 
-masterPilotDB[844]={
+masterPilotDB[846]={
   name = '"Breach"',
   XWS = 'breach',
   Faction = 5,
@@ -6656,7 +6682,7 @@ masterPilotDB[844]={
   actSet = {'F','TL','BR','B','E'}
 }
 
-masterPilotDB[845]={
+masterPilotDB[847]={
   name = '"Dread"',
   XWS = 'dread',
   Faction = 5,
@@ -6672,7 +6698,7 @@ masterPilotDB[845]={
 
 -- Resistance Y-Wing
 
-masterPilotDB[846]={
+masterPilotDB[848]={
   name = 'New Republic Patrol',
   XWS = 'newrepublicpatrol',
   Faction = 4,
@@ -6685,7 +6711,20 @@ masterPilotDB[846]={
   actSet = {'F','TL','BR','B','C'}
 }
 
-masterPilotDB[847]={
+masterPilotDB[849]={
+  name = 'Kijimi Spice Runner',
+  XWS = 'kijimispicerunner',
+  Faction = 4,
+  ship_type = 'btanr2ywing',
+  cost = 200,
+  slot = {21, 1, 19, 4, 10, 12, 14, 14, 18},
+  Shield = 3,
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_ywing/kijimispicerunner.png',
+  actSet = {'F','TL','BR','B','C'}
+}
+
+masterPilotDB[850]={
   name = 'Teza Nasz',
   XWS = 'tezanasz',
   Faction = 4,
@@ -6699,7 +6738,7 @@ masterPilotDB[847]={
   actSet = {'F','TL','BR','B','C'}
 }
 
-masterPilotDB[848]={
+masterPilotDB[851]={
   name = 'Shasa Zaro',
   XWS = 'shasazaro',
   Faction = 4,
@@ -6713,7 +6752,7 @@ masterPilotDB[848]={
   actSet = {'F','TL','BR','B','C'}
 }
 
-masterPilotDB[849]={
+masterPilotDB[852]={
   name = 'Corus Kapellim',
   XWS = 'coruskapellim',
   Faction = 4,
@@ -6727,7 +6766,7 @@ masterPilotDB[849]={
   actSet = {'F','TL','BR','B','C'}
 }
 
-masterPilotDB[850]={
+masterPilotDB[853]={
   name = "C'ai Threnalli",
   XWS = 'caithrenalli-btanr2ywing',
   Faction = 4,
@@ -6742,7 +6781,7 @@ masterPilotDB[850]={
   movethrough = true
 }
 
-masterPilotDB[851]={
+masterPilotDB[854]={
   name = 'Wilsa Teshlo',
   XWS = 'wilsateshlo',
   Faction = 4,
@@ -6756,7 +6795,7 @@ masterPilotDB[851]={
   actSet = {'F','TL','BR','B','C'}
 }
 
-masterPilotDB[852]={
+masterPilotDB[855]={
   name = 'Zorii Bliss',
   XWS = 'zoriibliss',
   Charge = 1,
@@ -6771,7 +6810,7 @@ masterPilotDB[852]={
   actSet = {'F','TL','BR','B','C'}
 }
 
-masterPilotDB[853]={
+masterPilotDB[856]={
   name = 'Aftab Ackbar',
   XWS = 'aftabackbar',
   Faction = 4,
@@ -6785,7 +6824,7 @@ masterPilotDB[853]={
   actSet = {'F','TL','BR','B','C'}
 }
 
-masterPilotDB[854]={
+masterPilotDB[857]={
   name = 'Lega Fossang',
   XWS = 'legafossang',
   Faction = 4,
