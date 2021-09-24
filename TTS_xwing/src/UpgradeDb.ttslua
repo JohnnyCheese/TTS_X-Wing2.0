@@ -1828,7 +1828,7 @@ masterUpgradesDB['scimitar']={
     limited = 1,
     addAction = {'CL'},
     cost = 3,
-    restriction = { ship ={[60]=true}}
+    restriction = { ship ={['sithinfiltrator']=true}}
 }
 
 
@@ -2836,15 +2836,7 @@ masterUpgradesDB['precisionionengines']={
     end,
     restriction = {
         ship = {
-        [11]=true,
-        [13]=true,
-        [18]=true,
-        [25]=true,
-        [41]=true,
-        [49]=true,
-        [52]=true,
-        [56]=true,
-        [71]=true,
+        keywords = {'TIE'}
         },
     }
 }
