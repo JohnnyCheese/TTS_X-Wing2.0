@@ -1697,7 +1697,8 @@ masterUpgradesDB['hate']={
 	name = "Hate",
 	XWS = 'hate',
 	slot = 17,
-	cost = 4
+	cost = 4,
+  restriction = {keywords={'Dark Side'}}
 }
 
 masterUpgradesDB['predictiveshot']={
@@ -2767,14 +2768,7 @@ masterUpgradesDB['patience']={
     XWS = 'patience',
     slot = 17,
     cost = 2,
-    restriction = {
-        Faction={
-            [1]=true,
-            [2]=true,
-            [4]=true,
-            [6]=true
-        },
-    }
+    restriction = {keywords={'Light Side'}}
 }
 
 masterUpgradesDB['alpha3bbesh']={
@@ -2807,8 +2801,8 @@ masterUpgradesDB['thermaldetonators']={
     name = 'Thermal Detonators',
     XWS = 'thermaldetonators',
     slot = 12,
-    cost = 3,
-    Charge = 5,
+    cost = 5,
+    Charge = 4,
     Bomb = true,
 }
 
@@ -2929,8 +2923,8 @@ masterUpgradesDB['zamwesell']={
     limited = 1,
     Condition = 'Zam Wesell',
     slot = 8,
-    cost = 4,
-    Charge = 11,
+    cost = 11,
+    Charge = 2,
     restriction = {
         Faction={[3]=true, [7]=true},
     },
@@ -2941,7 +2935,7 @@ masterUpgradesDB['hondoohnaka']={
     XWS = 'hondoohnaka',
     limited = 1,
     slot = 8,
-    cost = 6,
+    cost = 5,
 }
 
 masterUpgradesDB['slavei-swz82']={
@@ -4083,7 +4077,7 @@ masterUpgradesDB['l4er5']={
     cost = 4,
     addAction = {'C'},
     restriction = {
-      faction = {[4]=true}
+      Faction = {[4]=true}
     },
 }
 
@@ -4126,7 +4120,7 @@ masterUpgradesDB['dt798']={
     slot = 16,
     cost = 5,
     restriction = {
-      faction = {[5]=true}
+      Faction = {[5]=true}
     },
 }
 
@@ -4147,7 +4141,7 @@ masterUpgradesDB['firstorderordnancetech']={
     cost = 3,
     addAction = {'TL'},
     restriction = {
-      faction = {[5]=true}
+      Faction = {[5]=true}
     },
 }
 
@@ -4159,7 +4153,7 @@ masterUpgradesDB['babufrik']={
     slot = 13,
     cost = 7,
     restriction = {
-      faction = {[3]=true,[4]=true}
+      Faction = {[3]=true,[4]=true}
     },
 }
 
@@ -4169,7 +4163,7 @@ masterUpgradesDB['compassion']={
     slot = 17,
     cost = 1,
     restriction = {
-      faction = {[1]=true,[3]=true,[4]=true,[5]=true,[6]=true}
+      keywords={'Light Side'}
     },
 }
 
@@ -4179,7 +4173,7 @@ masterUpgradesDB['malice']={
     slot = 17,
     cost = 6,
     restriction = {
-      faction = {[2]=true,[3]=true,[5]=true,[6]=true,[7]=true}
+      keywords={'Dark Side'}
     },
 }
 
