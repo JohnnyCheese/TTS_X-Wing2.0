@@ -78,22 +78,48 @@ end
 function dropBL()
     --print("BL")
     self.clearButtons()
+<<<<<<< Updated upstream
     pos = selectedShip.getPosition() - selectedShip.getTransformForward()*6 + selectedShip.getTransformRight()*4
     doMove(pos,self.getRotation() + vector(0,-45,0))
+=======
+    pos = selectedShip.getPosition() + vector(0,-0.1,0) - selectedShip.getTransformForward()*6.19 + selectedShip.getTransformRight()*2.79
+    doMove(pos,self.getRotation() + vector(0,-45,0))
+    takeFuse(pos)
+>>>>>>> Stashed changes
 end
 
 function dropS()
     --print("S")
     self.clearButtons()
+<<<<<<< Updated upstream
     pos = selectedShip.getPosition() - selectedShip.getTransformForward()*7.2
     doMove(pos,self.getRotation())
+=======
+    pos = selectedShip.getPosition() + vector(0,-0.1,0) - selectedShip.getTransformForward()*7.71
+    doMove(pos,self.getRotation())
+    takeFuse(pos)
+>>>>>>> Stashed changes
 end
 
 function dropBR()
     --print("BR")
     self.clearButtons()
+<<<<<<< Updated upstream
     pos = selectedShip.getPosition() - selectedShip.getTransformForward()*8 - selectedShip.getTransformRight()*4
     doMove(pos,self.getRotation() + vector(0,45,0))
+=======
+    pos = selectedShip.getPosition() + vector(0,-0.1,0) - selectedShip.getTransformForward()*6.19 - selectedShip.getTransformRight()*2.79
+    doMove(pos,self.getRotation() + vector(0,45,0))
+    takeFuse(pos)
+end
+
+function takeFuse(pos)
+    fuseBag = getObjectFromGUID('568727')
+    fuseBag.takeObject({
+      position          = pos + vector(0, 1, 0),
+      smooth            = true,
+    })
+>>>>>>> Stashed changes
 end
 
 function doMove(pos,rot)
