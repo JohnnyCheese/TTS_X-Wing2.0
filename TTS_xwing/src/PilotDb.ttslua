@@ -309,6 +309,95 @@ masterPilotDB[22]={
   actSet = {'F','TL','E','B','BR'}
 }
 
+
+masterPilotDB[804]={
+  name = 'Hera Syndulla',
+  XWS = 'herasyndulla-rz1awing',
+  Faction = 1,
+  limited = 1,
+  ship_type = 'rz1awing',
+  cost = 48,
+  slot = {21, 1, 1, 6, 18},
+  Shield = 2,
+  init = 6,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_awing/HeraSyndulla.png',
+  actSet = {'F','TL','E','BR','B'},
+  keywords = {'Spectre'}
+}
+
+masterPilotDB[805]={
+  name = 'Wedge Antilles',
+  XWS = 'wedgeantilles-rz1awing',
+  Faction = 1,
+  limited = 1,
+  ship_type = 'rz1awing',
+  cost = 35,
+  slot = {21, 1, 1, 6, 18},
+  Shield = 2,
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_awing/WedgeAntilles.png',
+  actSet = {'F','TL','E','BR','B'}
+}
+
+masterPilotDB[806]={
+  name = 'Derek Klivian',
+  XWS = 'derekklivian',
+  Faction = 1,
+  limited = 1,
+  ship_type = 'rz1awing',
+  cost = 30,
+  slot = {21, 1, 1, 6, 18},
+  Shield = 2,
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_awing/DerekKlivian.png',
+  actSet = {'F','TL','E','BR','B'}
+}
+
+masterPilotDB[807]={
+  name = 'Shara Bey',
+  XWS = 'sharabey-rz1awing',
+  Faction = 1,
+  limited = 1,
+  ship_type = 'rz1awing',
+  cost = 32,
+  slot = {21, 1, 1, 6, 18},
+  Shield = 2,
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_awing/SharaBey.png',
+  actSet = {'F','TL','E','BR','B'}
+}
+
+masterPilotDB[808]={
+  name = 'Ahsoka Tano',
+  XWS = 'ahsokatano-rz1awing',
+  Faction = 1,
+  limited = 1,
+  Force = 3,
+  ship_type = 'rz1awing',
+  cost = 49,
+  slot = {21, 17, 17, 6, 18},
+  Shield = 2,
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_awing/AhsokaTano.png',
+  actSet = {'F','TL','E','BR','B'},
+  keywords = {'Light Side'}
+}
+
+masterPilotDB[809]={
+  name = 'Sabine Wren',
+  XWS = 'sabinewren-rz1awing',
+  Faction = 1,
+  limited = 1,
+  ship_type = 'rz1awing',
+  cost = 35,
+  slot = {21, 1, 1, 6, 18},
+  Shield = 2,
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_awing/SabineWren.png',
+  actSet = {'F','TL','E','BR','B'},
+  keywords = {'Mandalorian'}
+}
+
 masterPilotDB[23]={
   name = 'Braylen Stramm',
   XWS = 'braylenstramm',
@@ -361,6 +450,49 @@ masterPilotDB[26]={
   init = 2,
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_bwing/BlueSquadronPilot.png',
   actSet = {'F','TL', 'BR'}
+}
+
+masterPilotDB[628]={
+  name = 'Gina Moonsong',
+  XWS = 'ginamoonsong',
+  Faction = 1,
+  limited = 1,
+  ship_type = 'asf01bwing',
+  cost = 45,
+  slot = {21, 1, 2, 3, 3, 5, 14, 18},
+  Shield = 4,
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_bwing/GinaMoonsong.png',
+  actSet = {'F','TL', 'BR'}
+}
+
+masterPilotDB[810]={
+  name = 'Hera Syndulla',
+  XWS = 'herasyndulla-asf01bwing',
+  Faction = 1,
+  limited = 1,
+  ship_type = 'asf01bwing',
+  cost = 48,
+  slot = {21, 1, 2, 3, 3, 5, 14, 15, 18},
+  Shield = 4,
+  init = 6,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_bwing/HeraSyndulla.png',
+  actSet = {'F','TL','BR'},
+  keywords = {'Spectre'}
+}
+
+masterPilotDB[811]={
+  name = 'Netrem Pollard',
+  XWS = 'netrempollard',
+  Faction = 1,
+  limited = 1,
+  ship_type = 'asf01bwing',
+  cost = 43,
+  slot = {21, 1, 2, 3, 3, 5, 14, 15, 18},
+  Shield = 4,
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_bwing/NetremPollard.png',
+  actSet = {'F','TL','BR', 'Piv'}
 }
 
 masterPilotDB[27]={
@@ -880,6 +1012,22 @@ masterPilotDB[61]={
     keywords = {'Partisan'}
 }
 
+masterPilotDB[629]={
+  name = 'K-2SO',
+  XWS = 'k2so',
+  Faction = 1,
+  limited = 1,
+  ship_type = 'ut60duwing',
+  cost = 46,
+  slot = {21, 1, 2, 8, 8, 14, 18},
+  Shield = 3,
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/UTD60DUWing/k2so.png',
+  actSet = {'C','TL'},
+  keywords = {'Droid'}
+}
+
+
 masterPilotDB[62]={
   name = 'Miranda Doni',
   XWS = 'mirandadoni',
@@ -1033,6 +1181,22 @@ masterPilotDB[72]={
     actSet = {'F','TL','B'}
 }
 
+masterPilotDB[630]={
+    name = 'Leia Organa',
+    XWS = 'leiaorgana',
+    Force = 1,
+    Faction = 1,
+    limited = 1,
+    ship_type = 'modifiedyt1300lightfreighter',
+    cost = 77,
+    slot = {21, 17, 6, 8, 8, 16, 14, 14, 15},
+    Shield = 5,
+    init = 5,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/modYT1300/leia.png',
+    actSet = {'F','TL','B'},
+    keywords = {'Light Side'}
+}
+
 masterPilotDB[73]={
   name = 'Hera Syndulla',
   XWS = 'herasyndulla-vcx100lightfreighter',
@@ -1101,6 +1265,21 @@ masterPilotDB[76]={
   init = 2,
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/REB_VCX100/LothalRebel.jpg',
   actSet = {'F','TL','R'}
+}
+
+masterPilotDB[631]={
+  name = 'Alexsandr Kallus',
+  XWS = 'alexsandrkallus',
+  Faction = 1,
+  limited = 1,
+  ship_type = 'vcx100lightfreighter',
+  cost = 68,
+  slot = {21, 1, 2, 4, 5, 8, 8, 16, 14, 15},
+  Shield = 4,
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/REB_VCX100/AlexsandrKallus.jpg',
+  actSet = {'F','TL','R'},
+  keywords = {'Spectre'}
 }
 
 masterPilotDB[77]={
@@ -1489,6 +1668,22 @@ masterPilotDB[102]={
   actSet = {'F','E','TL','BR','B'}
 }
 
+masterPilotDB[632]={
+  name = 'Fifth Brother',
+  XWS = 'fifthbrother',
+  Faction = 2,
+  limited = 1,
+  ship_type = 'tieadvancedv1',
+  cost = 44,
+  slot = {21, 17, 2, 6},
+  Shield = 2,
+  Force = 2,
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieadvv1/FifthBrother.png',
+  actSet = {'F','E','TL','BR','B'}
+}
+
+
 masterPilotDB[103]={
   name = 'Soontir Fel',
   XWS = 'soontirfel',
@@ -1541,6 +1736,92 @@ masterPilotDB[106]={
   init = 1,
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieinterceptor/AlphaSquadronPilot.png',
   actSet = {'F','E','BR','B'}
+}
+
+masterPilotDB[830]={
+  name = 'Ciena Ree',
+  XWS = 'cienaree',
+  Faction = 2,
+  limited = 1,
+  ship_type = 'tieininterceptor',
+  cost = 48,
+  slot = {21, 1, 14, 14, 18},
+  Shield = 0,
+  init = 6,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieinterceptor/CienaRee.png',
+  actSet = {'F','E','BR','B'}
+}
+
+masterPilotDB[831]={
+  name = 'Vult Skerris',
+  XWS = 'vultskerris-tieininterceptor',
+  Faction = 2,
+  limited = 1,
+  ship_type = 'tieininterceptor',
+  cost = 43,
+  slot = {21, 1, 14, 14, 18},
+  Shield = 0,
+  Charge = 1,
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieinterceptor/CommandantGoran.png',
+  actSet = {'F','E','BR','B'}
+}
+
+masterPilotDB[832]={
+  name = 'Commandant Goran',
+  XWS = 'commandantgoran',
+  Faction = 2,
+  limited = 1,
+  ship_type = 'tieininterceptor',
+  cost = 43,
+  slot = {21, 1, 14, 14, 18},
+  Shield = 0,
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieinterceptor/CommandantGoran.png',
+  actSet = {'F','E','BR','B'}
+}
+
+masterPilotDB[833]={
+  name = 'Gideon Hask',
+  XWS = 'gideonhask-tieininterceptor',
+  Faction = 2,
+  limited = 1,
+  ship_type = 'tieininterceptor',
+  cost = 48,
+  slot = {21, 1, 14, 14, 18},
+  Shield = 0,
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieinterceptor/GideonHask.png',
+  actSet = {'F','E','BR','B'}
+}
+
+masterPilotDB[834]={
+  name = 'Nash Windrider',
+  XWS = 'nashwindrider',
+  Faction = 2,
+  limited = 1,
+  ship_type = 'tieininterceptor',
+  cost = 41,
+  slot = {21, 1, 14, 14, 18},
+  Shield = 0,
+  Charge = 1,
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieinterceptor/NashWindrider.png',
+  actSet = {'F','E','BR','B'}
+}
+
+masterPilotDB[835]={
+  name = 'Lieutenant Lorrir',
+  XWS = 'lieutenantlorrir',
+  Faction = 2,
+  limited = 1,
+  ship_type = 'tieininterceptor',
+  cost = 39,
+  slot = {21, 1, 14, 14, 18},
+  Shield = 0,
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieinterceptor/LieutenantLorrir.png',
+  actSet = {'F','E','VR','B'}
 }
 
 masterPilotDB[107]={
@@ -1748,6 +2029,21 @@ masterPilotDB[121]={
   actSet = {'F','E','BR','Ail'}
 }
 
+masterPilotDB[633]={
+  name = '"Vagabond"',
+  XWS = 'vagabond',
+  Faction = 2,
+  limited = 1,
+  ship_type = 'tieskstriker',
+  cost =32,
+  slot = {21, 1, 16, 12, 14},
+  Shield = 0,
+  card='http://images-cdn.fantasyflightgames.com/filer_public/98/a8/98a8c9cc-53b2-4b57-ac0b-96da7c064740/swz66_vagabond.png',
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiestriker/Vagabond.png',
+  actSet = {'F','E','BR','Ail'}
+}
+
 masterPilotDB[122]={
   name = 'Rexler Brath',
   XWS = 'rexlerbrath',
@@ -1819,6 +2115,49 @@ masterPilotDB[126]={
   Shield = 4,
   init = 1,
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiedefender/DeltaSquadronPilot.png',
+  actSet = {'F','E','BR','TL','B'}
+}
+
+
+masterPilotDB[815]={
+  name = 'Darth Vader',
+  XWS = 'darthvader-tieddefender',
+  Faction = 2,
+  ship_type = 'tiededefender',
+  cost = 112,
+  slot = {21, 17, 3, 6, 18},
+  Force = 3,
+  Shield = 4,
+  init = 6,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiedefender/DarthVader.png',
+  actSet = {'F','E','BR','TL','B'},
+  keywords = {'Dark Side', 'Sith'}
+}
+
+masterPilotDB[816]={
+  name = 'Vult Skerris',
+  XWS = 'vultskerris',
+  Faction = 2,
+  ship_type = 'tiededefender',
+  cost = 77,
+  Charge = 1,
+  slot = {21, 1, 2, 3, 6, 18},
+  Shield = 4,
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiedefender/VultSkerris.png',
+  actSet = {'F','E','BR','TL','B'}
+}
+
+masterPilotDB[817]={
+  name = 'Captain Dobbs',
+  XWS = 'captaindobbs',
+  Faction = 2,
+  ship_type = 'tiededefender',
+  cost = 73,
+  slot = {21, 1, 2, 3, 6, 18},
+  Shield = 4,
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiedefender/CaptainDobbs.png',
   actSet = {'F','E','BR','TL','B'}
 }
 
@@ -2121,6 +2460,21 @@ masterPilotDB[148]={
   actSet = {'F','R','TL','Rot'}
 }
 
+masterPilotDB[634]={
+  name = 'Morna Kee',
+  XWS = 'mornakee',
+  Faction = 2,
+  limited = 1,
+  ship_type = 'vt49decimator',
+  cost = 73,
+  slot = {21, 1, 5, 8, 8, 8, 16, 12, 14, 15},
+  Shield = 4,
+  Charge = 3,
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/EMP_Decimator/MornaKee.png',
+  actSet = {'F','R','TL','Rot'}
+}
+
 masterPilotDB[149]={
     name = 'Boba Fett',
     XWS = 'bobafett',
@@ -2354,7 +2708,7 @@ masterPilotDB[164]={
 
 masterPilotDB[165]={
     name = 'Kavil',
-  XWS = 'kavil',
+    XWS = 'kavil',
     Faction = 3,
     limited = 1,
     ship_type = 'btla4ywing',
@@ -2368,7 +2722,7 @@ masterPilotDB[165]={
 
 masterPilotDB[166]={
     name = 'Drea Renthal',
-  XWS = 'drearenthal',
+    XWS = 'drearenthal',
     Faction = 3,
     limited = 1,
     ship_type = 'btla4ywing',
@@ -2382,10 +2736,10 @@ masterPilotDB[166]={
 
 masterPilotDB[167]={
     name = 'Hired Gun',
-  XWS = 'hiredgun',
+    XWS = 'hiredgun',
     Faction = 3,
     ship_type = 'btla4ywing',
-    cost = 30,
+    cost = 31,
     slot = {21, 1, 4, 5, 6, 10, 12, 13, 14},
     Shield = 2,
     init = 2,
@@ -2395,7 +2749,7 @@ masterPilotDB[167]={
 
 masterPilotDB[168]={
     name = 'Crymorah Goon',
-  XWS = 'crymorahgoon',
+    XWS = 'crymorahgoon',
     Faction = 3,
     ship_type = 'btla4ywing',
     cost = 29,
@@ -2403,6 +2757,74 @@ masterPilotDB[168]={
     Shield = 2,
     init = 1,
     texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/BTLA4YWing/crymorahgun.png',
+    actSet = {'F','TL','BR'}
+}
+
+
+masterPilotDB[820]={
+    name = 'Arliz Hadrassian',
+    XWS = 'arlizhadrassian',
+    Faction = 3,
+    limited = 1,
+    ship_type = 'btla4ywing',
+    cost = 38,
+    slot = {21, 1, 4, 5, 16, 10, 12, 19},
+    Shield = 2,
+    init = 4,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/BTLA4YWing/ArlizHadrassian.png',
+    actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[821]={
+    name = 'Leema Kai',
+    XWS = 'leemakai',
+    Faction = 3,
+    limited = 1,
+    ship_type = 'btla4ywing',
+    cost = 39,
+    slot = {21, 1, 4, 5, 16, 10, 12, 19},
+    Shield = 2,
+    init = 5,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/BTLA4YWing/LeemaKai.png',
+    actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[822]={
+    name = 'Padric',
+    XWS = 'padric',
+    Faction = 3,
+    ship_type = 'btla4ywing',
+    cost = 36,
+    slot = {21, 1, 4, 5, 16, 10, 12, 19},
+    Shield = 2,
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/BTLA4YWing/padric.png',
+    actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[823]={
+    name = 'Amaxine Warrior',
+    XWS = 'amaxinewarrior',
+    Faction = 3,
+    ship_type = 'btla4ywing',
+    cost = 33,
+    slot = {21, 1, 4, 5, 16, 10, 12, 19},
+    Shield = 2,
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/BTLA4YWing/amaxinewarrior.png',
+    actSet = {'F','TL','BR'}
+}
+
+masterPilotDB[824]={
+    name = 'Jinata Security Officer',
+    XWS = 'jinatasecurityofficer',
+    Faction = 3,
+    ship_type = 'btla4ywing',
+    cost = 30,
+    slot = {21, 4, 5, 16, 10, 12, 19},
+    Shield = 2,
+    init = 1,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/BTLA4YWing/JinataSecurityOfficer.png',
     actSet = {'F','TL','BR'}
 }
 
@@ -2475,6 +2897,21 @@ masterPilotDB[173]={
   actSet = {'F','TL','BR'}
 }
 
+masterPilotDB[635]={
+  name = 'Bossk',
+  XWS = 'bossk-z95af4headhunter',
+  Faction = 3,
+  limited = 1,
+  ship_type = 'z95af4headhunter',
+  cost = 27,
+  slot = {21, 6, 13, 14},
+  Shield = 2,
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_z95/Bossk.png',
+  actSet = {'F','TL','BR'},
+  keywords = {'Bounty Hunter'}
+}
+
 masterPilotDB[174]={
   name = 'Dace Bonearm',
   XWS = 'dacebonearm',
@@ -2529,6 +2966,53 @@ masterPilotDB[177]={
   init = 1,
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_hwk/SpiceRunner.png',
   actSet = {'F','TL','B','Rot'}
+}
+
+
+masterPilotDB[825]={
+    name = 'Kanan Jarrus',
+    XWS = 'kananjarrus-hwk290lightfreighter',
+    Faction = 3,
+    limited = 1,
+    ship_type = 'hwk290lightfreighter',
+    cost = 42,
+    slot = {21, 17, 8, 12, 13, 14, 14, 15},
+    Shield = 2,
+    Force = 1,
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_hwk/KananJarrus.png',
+    actSet = {'F','TL','B','Rot'},
+    keywords = {'Jedi', 'Light Side'}
+}
+
+masterPilotDB[826]={
+    name = 'Gamut Key',
+    XWS = 'gamutkey',
+    Faction = 3,
+    limited = 1,
+    ship_type = 'hwk290lightfreighter',
+    cost = 34,
+    slot = {21, 1, 8, 12, 13, 14, 14, 15},
+    Shield = 2,
+    Charge = 2,
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_hwk/GamutKey.png',
+    actSet = {'F','TL','B','Rot'}
+}
+
+masterPilotDB[827]={
+    name = 'Tápusk',
+    XWS = 'tapusk',
+    Faction = 3,
+    limited = 1,
+    ship_type = 'hwk290lightfreighter',
+    cost = 36,
+    slot = {21, 1, 8, 12, 13, 14, 14, 15},
+    Shield = 2,
+    Charge = 2,
+    init = 5,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_hwk/Tapusk.png',
+    actSet = {'F','TL','B','Rot'}
 }
 
 masterPilotDB[178]={
@@ -2712,6 +3196,20 @@ masterPilotDB[190]={
   actSet = {'F','E','TL','BR'}
 }
 
+masterPilotDB[636]={
+  name = 'G4R-G0R V/M',
+  XWS = 'g4rgorvm',
+  Faction = 3,
+  limited = 1,
+  ship_type = 'm3ainterceptor',
+  cost = 28,
+  slot = {21, 14,99},
+  Shield = 1,
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_m3a/G4rG0r.png',
+  actSet = {'C','E','TL','BR'},
+  keywords = {'Droid'}
+}
 
 masterPilotDB[191]={
     name = 'Talonbane Cobra',
@@ -3107,6 +3605,22 @@ masterPilotDB[217]={
   actSet = {'F','TL','BR','Rot'}
 }
 
+masterPilotDB[637]={
+  name = 'Nom Lumb',
+  XWS = 'nomlumb',
+  Faction = 3,
+  limited = 1,
+  ship_type = 'jumpmaster5000',
+  cost = 38,
+  slot = {21, 1, 3, 8, 5, 13, 14, 15, 16},
+  Shield = 3,
+  Charge = 1,
+  init = 1,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/SCU_jumpmaster/NomLumb.png',
+  actSet = {'F','TL','BR','Rot'},
+  keywords = {'Bounty Hunter'}
+}
+
 masterPilotDB[218]={
   name = 'Ketsu Onyo',
   XWS = 'ketsuonyo',
@@ -3461,6 +3975,34 @@ masterPilotDB[409]={
 	actSet ={'F','TL','E','BR','Rot'}
 }
 
+masterPilotDB[641]={
+  name = 'Lieutenant LeHuse',
+  XWS = 'lieutenantlehuse',
+  Faction = 5,
+  limited = 1,
+  ship_type = 'tiesffighter',
+  cost = 37,
+  slot = {21, 1, 2, 19, 6, 16, 14},
+  Shield = 3,
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_Tie_SF/Lieutenant%20LeHuse.png',
+  actSet = {'F','TL','E','BR','Rot'}
+}
+
+masterPilotDB[642]={
+    name = 'Captain Phasma',
+    XWS = 'captainphasma',
+    Faction = 5,
+    limited = 1,
+    ship_type = 'tiesffighter',
+    cost = 34,
+    slot = {21, 1, 2, 19, 6, 16, 14},
+    Shield = 3,
+    init = 4,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_Tie_SF/Captain%20Phasma.png',
+    actSet = {'F','TL','E','BR','Rot'}
+}
+
 masterPilotDB[410]={
 	name ='Major Stridan',
   XWS = 'majorstridan',
@@ -3572,6 +4114,20 @@ masterPilotDB[417]={
 	init =1,
 	texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_Tie_VN/Sienar-JaemusEngineer.png',
 	actSet ={'F','TL','BR','B'}
+}
+
+masterPilotDB[643]={
+  name = '"Rush"',
+  XWS = 'rush',
+  Faction = 5,
+  limited = 1,
+  ship_type = 'tievnsilencer',
+  cost = 57,
+  slot = {21, 1, 19, 5, 6, 18},
+  Shield = 2,
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_Tie_VN/Rush.png',
+  actSet = {'F','B','TL','BR'}
 }
 
 masterPilotDB[418]={
@@ -3701,6 +4257,69 @@ masterPilotDB[426]={
   init = 1,
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_T70Xwing/BlueSquadronRookie.png',
   actSet = {'F','TL','B'}
+}
+
+
+masterPilotDB[700]={
+    name = 'Nimi Chireen',
+    XWS = 'nimichireen',
+    limited = 1,
+    Faction = 4,
+    ship_type = 't70xwing',
+    cost = 47,
+    slot = {21, 1,19,14,18,15,10,99},
+    Shield = 3,
+    init = 2,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_T70Xwing/Nimi%20Chereen.png',
+    actSet = {'F','TL','B'},
+}
+
+masterPilotDB[699]={
+    name = "C'ai Threnalli",
+    XWS = 'caithrenalli',
+    limited = 1,
+    Faction = 4,
+    ship_type = 't70xwing',
+    cost = 46,
+    slot = {21, 1,19,14,18,15,10,99},
+    Shield = 3,
+    init = 4,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_T70Xwing/Cai%20Threnalli.png',
+    actSet = {'F','TL','B','E'},
+    movethrough = true
+}
+
+
+masterPilotDB[698]={
+    name = "Temmin Wexley",
+    XWS = 'temminwexley-swz68',
+    title = "Black Two",
+    limited = 1,
+    Faction = 4,
+    ship_type = 't70xwing',
+    cost = 53,
+    slot = {21, 1,19,14,18,15,10,99},
+    Shield = 3,
+    init = 4,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_T70Xwing/SnapHoHPack.png',
+    actSet = {'F','TL','B'},
+    addSqdAction = {'C'}
+}
+
+masterPilotDB[697]={
+    name = "Poe Dameron",
+    XWS = 'poedameron-swz68',
+    title = "Resistance Commander",
+    limited = 1,
+    Faction = 4,
+    ship_type = 't70xwing',
+    cost = 55,
+    slot = {21, 1,19,14,18,15,10,99},
+    Shield = 3,
+    Charge = 2,
+    init = 6,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_T70Xwing/PoeHoHPack.png',
+    actSet = {'F','TL','B'},
 }
 
 masterPilotDB[427]={
@@ -3882,16 +4501,102 @@ masterPilotDB[439]={
     actSet = {'F','TL','Rot180','E','B','BR'}}
 
 masterPilotDB[440]={
-    name = "Blue Squadron Recruit",
-    XWS = 'bluesquadronrecruit',
+  name = "Blue Squadron Recruit",
+  XWS = 'bluesquadronrecruit',
+  Faction = 4,
+  ship_type = 'rz2awing',
+  cost = 33,
+  slot = {21, 1,19,6},
+  Shield = 2,
+  init = 1,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_awing/blue_sq_recruit.png',
+  actSet = {'F','TL','Rot180','E','B','BR'}}
+
+masterPilotDB[638]={
+    name = "Zizi Tlo",
+    XWS = 'zizitlo',
+    Faction = 4,
+    limited = 1,
+    ship_type = 'rz2awing',
+    cost = 41,
+    slot = {21, 1,1,19,6},
+    Shield = 2,
+    Charge = 1,
+    init = 5,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_awing/zizi_tlo.png',
+    actSet = {'F','TL','Rot180','E','B','BR'}}
+
+masterPilotDB[639]={
+  name = "Ronith Blario",
+  XWS = 'ronithblario',
+  Faction = 4,
+  limited = 1,
+  ship_type = 'rz2awing',
+  cost = 34,
+  slot = {21, 1,1,19,6},
+  Shield = 2,
+  init = 2,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_awing/ronith_blario.png',
+  actSet = {'F','TL','Rot180','E','B','BR'}
+}
+
+
+masterPilotDB[701]={
+    name = "Seftin Vanik",
+    XWS = 'seftinvanik',
+    limited = 1,
+    Faction = 4,
+    ship_type = 'rz2awing',
+    cost = 37,
+    slot = {21, 1,1,19,6},
+    Shield = 2,
+    init = 5,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_awing/Seftin%20Vanik.png',
+    actSet = {'F','TL','Rot180','E','B','BR'}
+}
+
+masterPilotDB[704]={
+    name = "Merl Cobben",
+    XWS = 'merlcobben',
+    limited = 1,
     Faction = 4,
     ship_type = 'rz2awing',
     cost = 33,
-    slot = {21, 1,19,6},
+    slot = {21, 1,1,19,6},
     Shield = 2,
     init = 1,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_awing/blue_sq_recruit.png',
-    actSet = {'F','TL','Rot180','E','B','BR'}}
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_awing/Merl%20Cobben.png',
+    actSet = {'F','TL','Rot180','E','B','BR'}
+}
+
+masterPilotDB[703]={
+    name = "Suralinda Javos",
+    XWS = 'suralindajavos',
+    limited = 1,
+    Faction = 4,
+    cost = 35,
+    ship_type = 'rz2awing',
+    slot = {21, 1,1,19,6},
+    Shield = 2,
+    init = 3,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_awing/Suralinda%20Javos.png',
+    actSet = {'F','TL','Rot180','E','B','BR', 'Piv'}
+}
+
+masterPilotDB[702]={
+    name = "Wrobie Tyce",
+    XWS = 'wrobietyce',
+    limited = 1,
+    Faction = 4,
+    ship_type = 'rz2awing',
+    cost = 35,
+    slot = {21, 1,1,19,6},
+    Shield = 2,
+    init = 4,
+    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_awing/Wrobie%20Tyce.png',
+    actSet = {'F','TL','Rot180','E','B','BR'}
+}
+
 
 masterPilotDB[441]={
   name = 'Foreman Proach',
@@ -4002,6 +4707,21 @@ masterPilotDB[448]={
   Shield = 3,
   init = 2,
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/RES_starfortress/Vennie.png',
+  actSet = {'F','TL','Rot'}
+}
+
+masterPilotDB[640]={
+  name = "Paige Tico",
+  XWS = 'paigetico',
+  Faction = 4,
+  limited = 1,
+  ship_type = 'mg100starfortress',
+  cost = 55,
+  slot = {21, 2,19,8,16,16,12,12,14},
+  Shield = 3,
+  Charge = 1,
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/RES_starfortress/PaigeTico.png',
   actSet = {'F','TL','Rot'}
 }
 
@@ -5226,244 +5946,6 @@ masterPilotDB[623]={
   actSet = {'F','E','BR'}
 }
 
---hotshot and aces
-masterPilotDB[628]={
-  name = 'Gina Moonsong',
-  XWS = 'ginamoonsong',
-  Faction = 1,
-  limited = 1,
-  ship_type = 'asf01bwing',
-  cost = 45,
-  slot = {21, 1, 2, 3, 3, 5, 14, 18},
-  Shield = 4,
-  init = 5,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_bwing/GinaMoonsong.png',
-  actSet = {'F','TL', 'BR'}
-}
-
-masterPilotDB[629]={
-  name = 'K-2SO',
-  XWS = 'k2so',
-  Faction = 1,
-  limited = 1,
-  ship_type = 'ut60duwing',
-  cost = 46,
-  slot = {21, 1, 2, 8, 8, 14, 18},
-  Shield = 3,
-  init = 3,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/UTD60DUWing/k2so.png',
-  actSet = {'C','TL'},
-  keywords = {'Droid'}
-}
-
-masterPilotDB[631]={
-  name = 'Alexsandr Kallus',
-  XWS = 'alexsandrkallus',
-  Faction = 1,
-  limited = 1,
-  ship_type = 'vcx100lightfreighter',
-  cost = 68,
-  slot = {21, 1, 2, 4, 5, 8, 8, 16, 14, 15},
-  Shield = 4,
-  init = 4,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/REB_VCX100/AlexsandrKallus.jpg',
-  actSet = {'F','TL','R'},
-  keywords = {'Spectre'}
-}
-
-masterPilotDB[630]={
-    name = 'Leia Organa',
-    XWS = 'leiaorgana',
-    Force = 1,
-    Faction = 1,
-    limited = 1,
-    ship_type = 'modifiedyt1300lightfreighter',
-    cost = 77,
-    slot = {21, 17, 6, 8, 8, 16, 14, 14, 15},
-    Shield = 5,
-    init = 5,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Rebel/modYT1300/leia.png',
-    actSet = {'F','TL','B'},
-    keywords = {'Light Side'}
-}
-
-masterPilotDB[638]={
-    name = "Zizi Tlo",
-    XWS = 'zizitlo',
-    Faction = 4,
-    limited = 1,
-    ship_type = 'rz2awing',
-    cost = 41,
-    slot = {21, 1,1,19,6},
-    Shield = 2,
-    Charge = 1,
-    init = 5,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_awing/zizi_tlo.png',
-    actSet = {'F','TL','Rot180','E','B','BR'}}
-
-masterPilotDB[639]={
-  name = "Ronith Blario",
-  XWS = 'ronithblario',
-  Faction = 4,
-  limited = 1,
-  ship_type = 'rz2awing',
-  cost = 34,
-  slot = {21, 1,1,19,6},
-  Shield = 2,
-  init = 2,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_awing/ronith_blario.png',
-  actSet = {'F','TL','Rot180','E','B','BR'}
-}
-
-
-masterPilotDB[640]={
-  name = "Paige Tico",
-  XWS = 'paigetico',
-  Faction = 4,
-  limited = 1,
-  ship_type = 'mg100starfortress',
-  cost = 55,
-  slot = {21, 2,19,8,16,16,12,12,14},
-  Shield = 3,
-  Charge = 1,
-  init = 5,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/RES_starfortress/PaigeTico.png',
-  actSet = {'F','TL','Rot'}
-}
-
-masterPilotDB[632]={
-  name = 'Fifth Brother',
-  XWS = 'fifthbrother',
-  Faction = 2,
-  limited = 1,
-  ship_type = 'tieadvancedv1',
-  cost = 44,
-  slot = {21, 17, 2, 6},
-  Shield = 2,
-  Force = 2,
-  init = 4,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieadvv1/FifthBrother.png',
-  actSet = {'F','E','TL','BR','B'}
-}
-
-masterPilotDB[633]={
-  name = '"Vagabond"',
-  XWS = 'vagabond',
-  Faction = 2,
-  limited = 1,
-  ship_type = 'tieskstriker',
-  cost =32,
-  slot = {21, 1, 16, 12, 14},
-  Shield = 0,
-  card='http://images-cdn.fantasyflightgames.com/filer_public/98/a8/98a8c9cc-53b2-4b57-ac0b-96da7c064740/swz66_vagabond.png',
-  init = 2,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiestriker/Vagabond.png',
-  actSet = {'F','E','BR','Ail'}
-}
-
-masterPilotDB[634]={
-  name = 'Morna Kee',
-  XWS = 'mornakee',
-  Faction = 2,
-  limited = 1,
-  ship_type = 'vt49decimator',
-  cost = 73,
-  slot = {21, 1, 5, 8, 8, 8, 16, 12, 14, 15},
-  Shield = 4,
-  Charge = 3,
-  init = 4,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/EMP_Decimator/MornaKee.png',
-  actSet = {'F','R','TL','Rot'}
-}
-
-masterPilotDB[641]={
-    name = 'Lieutenant LeHuse',
-  XWS = 'lieutenantlehuse',
-    Faction = 5,
-    limited = 1,
-    ship_type = 'tiesffighter',
-    cost = 37,
-    slot = {21, 1, 2, 19, 6, 16, 14},
-    Shield = 3,
-    init = 5,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_Tie_SF/Lieutenant%20LeHuse.png',
-    actSet = {'F','TL','E','BR','Rot'}
-}
-
-masterPilotDB[642]={
-    name = 'Captain Phasma',
-  XWS = 'captainphasma',
-    Faction = 5,
-    limited = 1,
-    ship_type = 'tiesffighter',
-    cost = 34,
-    slot = {21, 1, 2, 19, 6, 16, 14},
-    Shield = 3,
-    init = 4,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_Tie_SF/Captain%20Phasma.png',
-    actSet = {'F','TL','E','BR','Rot'}
-}
-
-masterPilotDB[643]={
-    name = '"Rush"',
-  XWS = 'rush',
-    Faction = 5,
-    limited = 1,
-    ship_type = 'tievnsilencer',
-    cost = 57,
-    slot = {21, 1, 19, 5, 6, 18},
-    Shield = 2,
-    init = 2,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_Tie_VN/Rush.png',
-    actSet = {'F','B','TL','BR'}
-}
-
-masterPilotDB[635]={
-  name = 'Bossk',
-  XWS = 'bossk-z95af4headhunter',
-  Faction = 3,
-  limited = 1,
-  ship_type = 'z95af4headhunter',
-  cost = 27,
-  slot = {21, 6, 13, 14},
-  Shield = 2,
-  init = 4,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_z95/Bossk.png',
-  actSet = {'F','TL','BR'},
-  keywords = {'Bounty Hunter'}
-}
-
-masterPilotDB[636]={
-  name = 'G4R-G0R V/M',
-  XWS = 'g4rgorvm',
-  Faction = 3,
-  limited = 1,
-  ship_type = 'm3ainterceptor',
-  cost = 28,
-  slot = {21, 14,99},
-  Shield = 1,
-  init = 5,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_m3a/G4rG0r.png',
-  actSet = {'C','E','TL','BR'},
-  keywords = {'Droid'}
-}
-
-masterPilotDB[637]={
-  name = 'Nom Lumb',
-  XWS = 'nomlumb',
-  Faction = 3,
-  limited = 1,
-  ship_type = 'jumpmaster5000',
-  cost = 38,
-  slot = {21, 1, 3, 8, 5, 13, 14, 15, 16},
-  Shield = 3,
-  Charge = 1,
-  init = 1,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/SCU_jumpmaster/NomLumb.png',
-  actSet = {'F','TL','BR','Rot'},
-  keywords = {'Bounty Hunter'}
-}
-
 masterPilotDB[656]={
   name = 'Commander Malarus',
   XWS = 'commandermalarus-xiclasslightshuttle',
@@ -5592,7 +6074,6 @@ masterPilotDB[665]={
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_HMP_Gunship/Onderon%20Oppressor.png',
   actSet = {'C','TL','BR'},
 }
-
 
 masterPilotDB[668]={
   name = 'Geonosian Prototype',
@@ -5899,124 +6380,6 @@ masterPilotDB[793]={
   actSet = {'F','TL','BR','B'},
 }
 
-masterPilotDB[700]={
-    name = 'Nimi Chireen',
-    XWS = 'nimichireen',
-    limited = 1,
-    Faction = 4,
-    ship_type = 't70xwing',
-    cost = 47,
-    slot = {21, 1,19,14,18,15,10,99},
-    Shield = 3,
-    init = 2,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_T70Xwing/Nimi%20Chereen.png',
-    actSet = {'F','TL','B'},
-}
-
-masterPilotDB[699]={
-    name = "C'ai Threnalli",
-    XWS = 'caithrenalli',
-    limited = 1,
-    Faction = 4,
-    ship_type = 't70xwing',
-    cost = 46,
-    slot = {21, 1,19,14,18,15,10,99},
-    Shield = 3,
-    init = 4,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_T70Xwing/Cai%20Threnalli.png',
-    actSet = {'F','TL','B','E'},
-    movethrough = true
-}
-
-
-masterPilotDB[698]={
-    name = "Temmin Wexley",
-    XWS = 'temminwexley-swz68',
-    title = "Black Two",
-    limited = 1,
-    Faction = 4,
-    ship_type = 't70xwing',
-    cost = 53,
-    slot = {21, 1,19,14,18,15,10,99},
-    Shield = 3,
-    init = 4,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_T70Xwing/SnapHoHPack.png',
-    actSet = {'F','TL','B'},
-    addSqdAction = {'C'}
-}
-
-masterPilotDB[697]={
-    name = "Poe Dameron",
-    XWS = 'poedameron-swz68',
-    title = "Resistance Commander",
-    limited = 1,
-    Faction = 4,
-    ship_type = 't70xwing',
-    cost = 55,
-    slot = {21, 1,19,14,18,15,10,99},
-    Shield = 3,
-    Charge = 2,
-    init = 6,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_T70Xwing/PoeHoHPack.png',
-    actSet = {'F','TL','B'},
-}
-
-masterPilotDB[701]={
-    name = "Seftin Vanik",
-    XWS = 'seftinvanik',
-    limited = 1,
-    Faction = 4,
-    ship_type = 'rz2awing',
-    cost = 37,
-    slot = {21, 1,1,19,6},
-    Shield = 2,
-    init = 5,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_awing/Seftin%20Vanik.png',
-    actSet = {'F','TL','Rot180','E','B','BR'}
-}
-
-masterPilotDB[704]={
-    name = "Merl Cobben",
-    XWS = 'merlcobben',
-    limited = 1,
-    Faction = 4,
-    ship_type = 'rz2awing',
-    cost = 33,
-    slot = {21, 1,1,19,6},
-    Shield = 2,
-    init = 1,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_awing/Merl%20Cobben.png',
-    actSet = {'F','TL','Rot180','E','B','BR'}
-}
-
-masterPilotDB[703]={
-    name = "Suralinda Javos",
-    XWS = 'suralindajavos',
-    limited = 1,
-    Faction = 4,
-    cost = 35,
-    ship_type = 'rz2awing',
-    slot = {21, 1,1,19,6},
-    Shield = 2,
-    init = 3,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_awing/Suralinda%20Javos.png',
-    actSet = {'F','TL','Rot180','E','B','BR', 'Piv'}
-}
-
-masterPilotDB[702]={
-    name = "Wrobie Tyce",
-    XWS = 'wrobietyce',
-    limited = 1,
-    Faction = 4,
-    ship_type = 'rz2awing',
-    cost = 35,
-    slot = {21, 1,1,19,6},
-    Shield = 2,
-    init = 4,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/RIS_awing/Wrobie%20Tyce.png',
-    actSet = {'F','TL','Rot180','E','B','BR'}
-}
-
 masterPilotDB[796]={
     name = "Phlac-Arphocc Prototype",
     XWS = 'phlacarphoccprototype',
@@ -6159,371 +6522,6 @@ masterPilotDB[803]={
     init = 2,
     texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/CIS_Firespray/SeparatistRacketeer.jpg',
     actSet = {'F','R','TL','B'}
-}
-
-masterPilotDB[804]={
-  name = 'Hera Syndulla',
-  XWS = 'herasyndulla-rz1awing',
-  Faction = 1,
-  limited = 1,
-  ship_type = 'rz1awing',
-  cost = 48,
-  slot = {21, 1, 1, 6, 18},
-  Shield = 2,
-  init = 6,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_awing/HeraSyndulla.png',
-  actSet = {'F','TL','E','BR','B'},
-  keywords = {'Spectre'}
-}
-
-masterPilotDB[805]={
-  name = 'Wedge Antilles',
-  XWS = 'wedgeantilles-rz1awing',
-  Faction = 1,
-  limited = 1,
-  ship_type = 'rz1awing',
-  cost = 35,
-  slot = {21, 1, 1, 6, 18},
-  Shield = 2,
-  init = 4,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_awing/WedgeAntilles.png',
-  actSet = {'F','TL','E','BR','B'}
-}
-
-masterPilotDB[806]={
-  name = 'Derek Klivian',
-  XWS = 'derekklivian',
-  Faction = 1,
-  limited = 1,
-  ship_type = 'rz1awing',
-  cost = 30,
-  slot = {21, 1, 1, 6, 18},
-  Shield = 2,
-  init = 3,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_awing/DerekKlivian.png',
-  actSet = {'F','TL','E','BR','B'}
-}
-
-masterPilotDB[807]={
-  name = 'Shara Bey',
-  XWS = 'sharabey-rz1awing',
-  Faction = 1,
-  limited = 1,
-  ship_type = 'rz1awing',
-  cost = 32,
-  slot = {21, 1, 1, 6, 18},
-  Shield = 2,
-  init = 4,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_awing/SharaBey.png',
-  actSet = {'F','TL','E','BR','B'}
-}
-
-masterPilotDB[808]={
-  name = 'Ahsoka Tano',
-  XWS = 'ahsokatano-rz1awing',
-  Faction = 1,
-  limited = 1,
-  Force = 3,
-  ship_type = 'rz1awing',
-  cost = 49,
-  slot = {21, 17, 17, 6, 18},
-  Shield = 2,
-  init = 5,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_awing/AhsokaTano.png',
-  actSet = {'F','TL','E','BR','B'},
-  keywords = {'Light Side'}
-}
-
-masterPilotDB[809]={
-  name = 'Sabine Wren',
-  XWS = 'sabinewren-rz1awing',
-  Faction = 1,
-  limited = 1,
-  ship_type = 'rz1awing',
-  cost = 35,
-  slot = {21, 1, 1, 6, 18},
-  Shield = 2,
-  init = 3,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_awing/SabineWren.png',
-  actSet = {'F','TL','E','BR','B'},
-  keywords = {'Mandalorian'}
-}
-
--- B-Wings
-masterPilotDB[810]={
-  name = 'Hera Syndulla',
-  XWS = 'herasyndulla-asf01bwing',
-  Faction = 1,
-  limited = 1,
-  ship_type = 'asf01bwing',
-  cost = 48,
-  slot = {21, 1, 2, 3, 3, 5, 14, 15, 18},
-  Shield = 4,
-  init = 6,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_bwing/HeraSyndulla.png',
-  actSet = {'F','TL','BR'},
-  keywords = {'Spectre'}
-}
-
-masterPilotDB[811]={
-  name = 'Netrem Pollard',
-  XWS = 'netrempollard',
-  Faction = 1,
-  limited = 1,
-  ship_type = 'asf01bwing',
-  cost = 43,
-  slot = {21, 1, 2, 3, 3, 5, 14, 15, 18},
-  Shield = 4,
-  init = 5,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_bwing/NetremPollard.png',
-  actSet = {'F','TL','BR', 'Piv'}
-}
-
--- Tie Defenders
-masterPilotDB[815]={
-  name = 'Darth Vader',
-  XWS = 'darthvader-tieddefender',
-  Faction = 2,
-  ship_type = 'tiededefender',
-  cost = 112,
-  slot = {21, 17, 3, 6, 18},
-  Force = 3,
-  Shield = 4,
-  init = 6,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiedefender/DarthVader.png',
-  actSet = {'F','E','BR','TL','B'},
-  keywords = {'Dark Side', 'Sith'}
-}
-
-masterPilotDB[816]={
-  name = 'Vult Skerris',
-  XWS = 'vultskerris',
-  Faction = 2,
-  ship_type = 'tiededefender',
-  cost = 77,
-  Charge = 1,
-  slot = {21, 1, 2, 3, 6, 18},
-  Shield = 4,
-  init = 5,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiedefender/VultSkerris.png',
-  actSet = {'F','E','BR','TL','B'}
-}
-
-masterPilotDB[817]={
-  name = 'Captain Dobbs',
-  XWS = 'captaindobbs',
-  Faction = 2,
-  ship_type = 'tiededefender',
-  cost = 73,
-  slot = {21, 1, 2, 3, 6, 18},
-  Shield = 4,
-  init = 5,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tiedefender/CaptainDobbs.png',
-  actSet = {'F','E','BR','TL','B'}
-}
-
--- Y-Wing
-
-masterPilotDB[820]={
-    name = 'Arliz Hadrassian',
-    XWS = 'arlizhadrassian',
-    Faction = 3,
-    limited = 1,
-    ship_type = 'btla4ywing',
-    cost = 38,
-    slot = {21, 1, 4, 5, 16, 10, 12, 19},
-    Shield = 2,
-    init = 4,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/BTLA4YWing/ArlizHadrassian.png',
-    actSet = {'F','TL','BR'}
-}
-
-masterPilotDB[821]={
-    name = 'Leema Kai',
-    XWS = 'leemakai',
-    Faction = 3,
-    limited = 1,
-    ship_type = 'btla4ywing',
-    cost = 39,
-    slot = {21, 1, 4, 5, 16, 10, 12, 19},
-    Shield = 2,
-    init = 5,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/BTLA4YWing/LeemaKai.png',
-    actSet = {'F','TL','BR'}
-}
-
-masterPilotDB[822]={
-    name = 'Padric',
-    XWS = 'padric',
-    Faction = 3,
-    ship_type = 'btla4ywing',
-    cost = 36,
-    slot = {21, 1, 4, 5, 16, 10, 12, 19},
-    Shield = 2,
-    init = 3,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/BTLA4YWing/padric.png',
-    actSet = {'F','TL','BR'}
-}
-
-masterPilotDB[823]={
-    name = 'Amaxine Warrior',
-    XWS = 'amaxinewarrior',
-    Faction = 3,
-    ship_type = 'btla4ywing',
-    cost = 33,
-    slot = {21, 1, 4, 5, 16, 10, 12, 19},
-    Shield = 2,
-    init = 3,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/BTLA4YWing/amaxinewarrior.png',
-    actSet = {'F','TL','BR'}
-}
-
-masterPilotDB[824]={
-    name = 'Jinata Security Officer',
-    XWS = 'jinatasecurityofficer',
-    Faction = 3,
-    ship_type = 'btla4ywing',
-    cost = 31,
-    slot = {21, 4, 5, 16, 10, 12, 19},
-    Shield = 2,
-    init = 1,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Scum/BTLA4YWing/JinataSecurityOfficer.png',
-    actSet = {'F','TL','BR'}
-}
-
--- Hwk
-masterPilotDB[825]={
-    name = 'Kanan Jarrus',
-    XWS = 'kananjarrus-hwk290lightfreighter',
-    Faction = 3,
-    limited = 1,
-    ship_type = 'hwk290lightfreighter',
-    cost = 42,
-    slot = {21, 17, 8, 12, 13, 14, 14, 15},
-    Shield = 2,
-    Force = 1,
-    init = 3,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_hwk/KananJarrus.png',
-    actSet = {'F','TL','B','Rot'},
-    keywords = {'Jedi', 'Light Side'}
-}
-
-masterPilotDB[826]={
-    name = 'Gamut Key',
-    XWS = 'gamutkey',
-    Faction = 3,
-    limited = 1,
-    ship_type = 'hwk290lightfreighter',
-    cost = 34,
-    slot = {21, 1, 8, 12, 13, 14, 14, 15},
-    Shield = 2,
-    Charge = 2,
-    init = 3,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_hwk/GamutKey.png',
-    actSet = {'F','TL','B','Rot'}
-}
-
-masterPilotDB[827]={
-    name = 'Tápusk',
-    XWS = 'tapusk',
-    Faction = 3,
-    limited = 1,
-    ship_type = 'hwk290lightfreighter',
-    cost = 36,
-    slot = {21, 1, 8, 12, 13, 14, 14, 15},
-    Shield = 2,
-    Charge = 2,
-    init = 5,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_hwk/Tapusk.png',
-    actSet = {'F','TL','B','Rot'}
-}
-
--- Tie interceptor
-
-masterPilotDB[830]={
-  name = 'Ciena Ree',
-  XWS = 'cienaree',
-  Faction = 2,
-  limited = 1,
-  ship_type = 'tieininterceptor',
-  cost = 48,
-  slot = {21, 1, 14, 14, 18},
-  Shield = 0,
-  init = 6,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieinterceptor/CienaRee.png',
-  actSet = {'F','E','BR','B'}
-}
-
-masterPilotDB[831]={
-  name = 'Vult Skerris',
-  XWS = 'vultskerris-tieininterceptor',
-  Faction = 2,
-  limited = 1,
-  ship_type = 'tieininterceptor',
-  cost = 43,
-  slot = {21, 1, 14, 14, 18},
-  Shield = 0,
-  Charge = 1,
-  init = 5,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieinterceptor/CommandantGoran.png',
-  actSet = {'F','E','BR','B'}
-}
-
-masterPilotDB[832]={
-  name = 'Commandant Goran',
-  XWS = 'commandantgoran',
-  Faction = 2,
-  limited = 1,
-  ship_type = 'tieininterceptor',
-  cost = 43,
-  slot = {21, 1, 14, 14, 18},
-  Shield = 0,
-  init = 4,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieinterceptor/CommandantGoran.png',
-  actSet = {'F','E','BR','B'}
-}
-
-masterPilotDB[833]={
-  name = 'Gideon Hask',
-  XWS = 'gideonhask-tieininterceptor',
-  Faction = 2,
-  limited = 1,
-  ship_type = 'tieininterceptor',
-  cost = 48,
-  slot = {21, 1, 14, 14, 18},
-  Shield = 0,
-  init = 4,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieinterceptor/GideonHask.png',
-  actSet = {'F','E','BR','B'}
-}
-
-masterPilotDB[834]={
-  name = 'Nash Windrider',
-  XWS = 'nashwindrider',
-  Faction = 2,
-  limited = 1,
-  ship_type = 'tieininterceptor',
-  cost = 41,
-  slot = {21, 1, 14, 14, 18},
-  Shield = 0,
-  Charge = 1,
-  init = 2,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieinterceptor/NashWindrider.png',
-  actSet = {'F','E','BR','B'}
-}
-
-masterPilotDB[835]={
-  name = 'Lieutenant Lorrir',
-  XWS = 'lieutenantlorrir',
-  Faction = 2,
-  limited = 1,
-  ship_type = 'tieininterceptor',
-  cost = 39,
-  slot = {21, 1, 14, 14, 18},
-  Shield = 0,
-  init = 3,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/EMP_tieinterceptor/LieutenantLorrir.png',
-  actSet = {'F','E','VR','B'}
 }
 
 -- Tie Whisper
