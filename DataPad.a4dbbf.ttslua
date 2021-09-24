@@ -697,6 +697,7 @@ function idSpawner(idTable)
     fList.sqdAction = {}
     pilotIndicators = calculateShipIndicators(idTable)
     for k,v in pairs (idTable.Pilots) do
+        --print(tostring(k) .. " " .. v  )
         local pilotName = masterPilotDB[v].name
         spawnedPilotList[pilotName] = spawnedPilotList[pilotName] or 0
         spawnedPilotList[pilotName] = spawnedPilotList[pilotName] + 1
@@ -773,7 +774,7 @@ function idSpawner(idTable)
         fList.Upgrades[k] = {}
         local skilled_bombardier = false
         for key,value in pairs (idTable.Upgrades[k]) do
-          --print("Upg[" .. tostring(k) .. "] = ".. tostring(value))
+            --print("Upg[" .. tostring(k) .. "] = ".. tostring(value))
             value = dualUpgradeList[value] or value
             local name = masterUpgradesDB[value].name
             local upSlot = masterUpgradesDB[value].slot
@@ -1379,7 +1380,7 @@ function builderSpawn()
     finalList = {}
     finalList.Pilots = {}
     for i, pilot in pairs(partList.Pilots) do
-        finalList.Pilots[i] = pilot[1]
+        finalList.Pilots[i] = pilot.id
     end
     finalList.Faction = partList.Faction
     finalList.spawnCard = partList.spawnCard
@@ -1387,7 +1388,7 @@ function builderSpawn()
     for i, upList in pairs(partList.Upgrades) do
         finalList.Upgrades[i] = {}
         for k, Up in pairs(upList) do
-            table.insert(finalList.Upgrades[i], Up[1])
+            table.insert(finalList.Upgrades[i], Up.id)
         end
     end
     idSpawner(finalList)
