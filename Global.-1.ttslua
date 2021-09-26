@@ -34,53 +34,53 @@ function getSelectingPlayers(obj)
 end
 
 -- Vector manipulation
-#include TTS_lib/Vector/Vector
+#include !/TTS_lib/Vector/Vector
 
 -- Standard libraries extentions
-#include TTS_lib/Util/Util
+#include !/TTS_lib/Util/Util
 
 -- Standard event handling
-#include TTS_lib/EventSub/EventSub
+#include !/TTS_lib/EventSub/EventSub
 
 -- Object type abstraction
-#include TTS_lib/ObjType/ObjType
+#include !/TTS_lib/ObjType/ObjType
 
 
 -- Save/load management
-#include TTS_lib/SaveManager/SaveManager
+#include !/TTS_lib/SaveManager/SaveManager
 
 -- Component sizes, unit conversion methods
-#include TTS_xwing/src/Dimensions
+#include !/TTS_xwing/src/Dimensions
 
 -- AI behaviour sets
-#include TTS_xwing/src/BehaviourDB
+#include !/TTS_xwing/src/BehaviourDB
 
 -- Dice control and dice_statistics
-#include TTS_xwing/src/DiceControl
+#include !/TTS_xwing/src/DiceControl
 
 -- Arc checks
-#include TTS_xwing/src/ArcCheck
+#include !/TTS_xwing/src/ArcCheck
 ArcCheck.Initialize()
 
 -- Ship proxy
-#include TTS_xwing/src/ShipProxy
+#include !/TTS_xwing/src/ShipProxy
 
 -- Ship verification
-#include TTS_xwing/src/ShipVerification
+#include !/TTS_xwing/src/ShipVerification
 
 -- ContextGui
-#include TTS_xwing/src/ContextGui
+#include !/TTS_xwing/src/ContextGui
 
 -- ConfigManager
-#include TTS_xwing/src/ConfigManager
+#include !/TTS_xwing/src/ConfigManager
 
 HotkeyModule = require("TTS_xwing/src/HotkeyManager")
 PlayerEventModule = require("TTS_xwing/src/PlayerActionModule")
 DialManagerModule = require("TTS_xwing/src/DialManager")
-#include TTS_xwing/src/GlobalGuiControl
+#include !/TTS_xwing/src/GlobalGuiControl
 
 -- Modules API, must be loaded last
-#include TTS_xwing/src/API
+#include !/TTS_xwing/src/API
 
 --------
 -- MISC FUNCTIONS

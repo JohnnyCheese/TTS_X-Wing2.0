@@ -138,7 +138,8 @@ DiceControlModule.presentStatistics = function()
     end
 end
 
-DiceControlModule.onObjectRandomize = function(object, player)
+DiceControlModule.onObjectRandomize = function(object, playerInstance)
+    player = playerInstance.steam_name
     if DiceControlModule.enabled and (object.tag == "Dice")  and (object.held_by_color == nil) then
         DiceControlModule.dice_roller_state[player] = DiceControlModule.dice_roller_state[player] or "idle"
         if DiceControlModule.dice_roller_state[player] == "idle" then
@@ -188,8 +189,8 @@ DiceControlModule.PrepareDice = function(die, player)
         Wait.time(function() die.roll() end, 0.1)
         die.interactable = false
         players = getSelectingPlayers(die)
-        for j, player in pairs(players) do
-            die.removeFromPlayerSelection(player.color)
+        for j, playerInstance in pairs(players) do
+            die.removeFromPlayerSelection(playerInstance.color)
         end
         table.insert(DiceControlModule.rolled_dice[player], die)
         return true

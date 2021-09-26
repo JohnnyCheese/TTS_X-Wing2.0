@@ -1,13 +1,13 @@
-#include TTS_lib/Util/Util
-#include TTS_lib/Vector/Vector
+#include !/TTS_lib/Util/Util
+#include !/TTS_lib/Vector/Vector
 
-#include TTS_lib/ObjType/ObjType
+#include !/TTS_lib/ObjType/ObjType
 
 ObjType.AddType('dialBag', function(obj) return (obj.tag == 'Infinite') end)
 
 Layout = {}
 
-#include TTS_xwing/src/Layouts/LayoutElements
+#include !/TTS_xwing/src/Layouts/LayoutElements
 
 
 
@@ -17,10 +17,10 @@ Layout.AddLayout = function(layoutTable)
     table.insert(Layout.layouts, layoutTable)
 end
 
-#include TTS_xwing/src/Layouts/Standard
-#include TTS_xwing/src/Layouts/Epic
-#include TTS_xwing/src/Layouts/HotAC
-#include TTS_xwing/src/Layouts/Single
+#include !/TTS_xwing/src/Layouts/Standard
+#include !/TTS_xwing/src/Layouts/Epic
+#include !/TTS_xwing/src/Layouts/HotAC
+#include !/TTS_xwing/src/Layouts/Single
 
 self.setPosition({0,3,0})
 
