@@ -1552,6 +1552,8 @@ AIModule.GetTurretRotationOptions = function(ship, mount)
         rotation_options = {'front', 'right', 'back', 'left'}
     elseif turret_type == 'doubleturret' then
         rotation_options = {'frontback', 'leftright'}
+    else
+        rotation_options = turret_type
     end
 
     -- Remove our current option arc from the list of options.

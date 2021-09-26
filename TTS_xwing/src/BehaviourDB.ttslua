@@ -710,42 +710,42 @@ BehaviourDB.rule_sets[1].ships['tierbheavy'] = {}
 BehaviourDB.rule_sets[1].ships['tierbheavy'].target_selection = {[1]='LockedInRange', [2]='ClosestInArcLowerInitiative', [3]='ClosestInArc', [4]='Closest'}
 BehaviourDB.rule_sets[1].ships['tierbheavy'].move_table = {
     ['bullseye'] = {
-	['near'] = {[1] = 'tl3t', [2] = 'tr3t', [3] = 's1', [5] = 's2'},
-	['far'] = {[1] = 's1', [2] = 's2', [5] = 's3'},
-	['distant'] = {[1] = 's3', [2] = 's4'},
-	['stress'] = {[1] = 's1', [4] = 's2'},
+    	['near'] = {[1] = 'tl3t', [2] = 'tr3t', [3] = 's1', [5] = 's2'},
+    	['far'] = {[1] = 's1', [2] = 's2', [5] = 's3'},
+    	['distant'] = {[1] = 's3', [2] = 's4'},
+    	['stress'] = {[1] = 's1', [4] = 's2'},
     },
     ['front_right'] = {
-	['near'] = {[1] = 'tr3t', [3] = 'br1', [5] = 'br2'},
-	['far'] = {[1] = 'br2', [4] = 'br3', [6] = 's3'},
-	['distant'] = {[1] = 'br3', [5] = 's4'},
-	['stress'] = {[1] = 'br2', [4] = 's1', [5] = 's2'},
+    	['near'] = {[1] = 'tr3t', [3] = 'br1', [5] = 'br2'},
+    	['far'] = {[1] = 'br2', [4] = 'br3', [6] = 's3'},
+    	['distant'] = {[1] = 'br3', [5] = 's4'},
+    	['stress'] = {[1] = 'br2', [4] = 's1', [5] = 's2'},
     },
     ['right_front'] = {
-	['near'] = {[1] = 'tr3t', [2] = 'bl1', [3] = 'bl2', [5] = 's2'},
-	['far'] = {[1] = 'br1', [2] = 'tr1', [3] = 'br2', [5] = 'tr2', [6] = 'tr3'},
-	['distant'] = {[1] = 'tr2', [5] = 'tr3'},
-	['stress'] = {[1] = 'br2', [5] = 's1'},
+    	['near'] = {[1] = 'tr3t', [2] = 'bl1', [3] = 'bl2', [5] = 's2'},
+    	['far'] = {[1] = 'br1', [2] = 'tr1', [3] = 'br2', [5] = 'tr2', [6] = 'tr3'},
+    	['distant'] = {[1] = 'tr2', [5] = 'tr3'},
+    	['stress'] = {[1] = 'br2', [5] = 's1'},
     },
     ['right_back'] = {
-	['near'] = {[1] = 'tr3t', [4] = 'br1', [5] = 'tr2'},
-	['far'] = {[1] = 'tr3t', [5] = 'tr2'},
-	['distant'] = {[1] = 'tr3t', [4] = 'tr1', [5] = 'tr2'},
-	['stress'] = {[1] = 's1', [3] = 'br2*', [5] = 'br2'},
+    	['near'] = {[1] = 'tr3t', [4] = 'br1', [5] = 'tr2'},
+    	['far'] = {[1] = 'tr3t', [5] = 'tr2'},
+    	['distant'] = {[1] = 'tr3t', [4] = 'tr1', [5] = 'tr2'},
+    	['stress'] = {[1] = 's1', [3] = 'br2*', [5] = 'br2'},
     },
     ['back_right'] = {
-	['near'] = {[1] = 'tr3t', [3] = 's1', [5] = 'br1'},
-	['far'] = {[1] = 'tr3t', [5] = 's1', [6] = 'br1'},
-	['distant'] = {[1] = 'tr3t', [4] = 'tr2'},
-	['stress'] = {[1] = 'br2', [5] = 's2', [6] = 'tr2'},
+    	['near'] = {[1] = 'tr3t', [3] = 's1', [5] = 'br1'},
+    	['far'] = {[1] = 'tr3t', [5] = 's1', [6] = 'br1'},
+    	['distant'] = {[1] = 'tr3t', [4] = 'tr2'},
+    	['stress'] = {[1] = 'br2', [5] = 's2', [6] = 'tr2'},
     },
 }
 BehaviourDB.rule_sets[1].ships['tierbheavy'].action_selection = {
     [1] = { -- Rotate turret > Calculate (stress) to get a shot
-        ['description'] = "%s rotated its turret to get a shot and calculated.",
-        ['preconditions'] = {['hasShot'] = {['arguments'] = {['includeArcs'] = {'front'}}, ['requiredResult'] = false}},
-        ['action'] = {['rotateTurret'] = {['mount'] = 'main'}, ['calculate'] = true},
-        ['postconditions'] = {['hasShot'] = {['arguments'] = {['includeArcs'] = {'front'}}, ['requiredResult'] = true}},
+        description = "%s rotated its turret to get a shot and calculated.",
+        preconditions = {hasShot = false},
+        action = {rotateTurret = {mount = 'main'}, calculate = true},
+        postconditions = {hasShot = true},
     },
     [2] = { -- (target not moved) Target lock if not in any arcs
         ['description'] = {['text'] = "%s target locked %s.", ['strings'] = {'ship', 'target'}},
@@ -773,15 +773,15 @@ BehaviourDB.rule_sets[1].ships['tierbheavy'].action_selection = {
         ['action'] = 'targetLock'
     },
     [7] = { -- Focus if you have a shot
-	['description'] = "%s has a shot so focused.",
-	['preconditions'] = {['hasShot'] = true},
-	['action'] = 'focus'
+    	['description'] = "%s has a shot so focused.",
+    	['preconditions'] = {['hasShot'] = true},
+    	['action'] = 'focus'
     },
     [8] = { -- Barrel roll (stress) to get a shot
-	['description'] = "%s barrel rolled to get a shot.",
-	['preconditions'] = {['hasShot'] = false},
-	['action'] = {['barrelRoll'] = true},
-	['postconditions'] = {['hasShot'] = true},
+    	['description'] = "%s barrel rolled to get a shot.",
+    	['preconditions'] = {['hasShot'] = false},
+    	['action'] = {['barrelRoll'] = true},
+    	['postconditions'] = {['hasShot'] = true},
     },
     [9] = { -- Barrel roll (stress) to avoid target's arc
         ['description'] = {['text'] = "%s barrel rolled to avoid %s's arc.", ['strings'] = {'ship', 'target'}},
@@ -800,34 +800,34 @@ BehaviourDB.rule_sets[1].ships['tiecapunisher'] = {}
 BehaviourDB.rule_sets[1].ships['tiecapunisher'].target_selection = {[1]='LockedInRange', [2]='ClosestInArcLowerInitiative', [3]='ClosestInArc', [4]='Closest'}
 BehaviourDB.rule_sets[1].ships['tiecapunisher'].move_table = {
     ['bullseye'] = {
-	['near'] = {[1] = 'k4', [2] = 's1', [5] = 's2'},
-	['far'] = {[1] = 's1', [2] = 's2', [5] = 's3'},
-	['distant'] = {[1] = 's2', [2] = 's3'},
-	['stress'] = {[1] = 's1', [4] = 's2'},
+    	['near'] = {[1] = 'k4', [2] = 's1', [5] = 's2'},
+    	['far'] = {[1] = 's1', [2] = 's2', [5] = 's3'},
+    	['distant'] = {[1] = 's2', [2] = 's3'},
+    	['stress'] = {[1] = 's1', [4] = 's2'},
     },
     ['front_right'] = {
-	['near'] = {[1] = 'k4', [3] = 'br1', [6] = 'br2'},
-	['far'] = {[1] = 'br1', [4] = 'br2', [6] = 's3'},
-	['distant'] = {[1] = 'br3', [5] = 's3'},
-	['stress'] = {[1] = 'br1', [4] = 's1', [5] = 's2'},
+    	['near'] = {[1] = 'k4', [3] = 'br1', [6] = 'br2'},
+    	['far'] = {[1] = 'br1', [4] = 'br2', [6] = 's3'},
+    	['distant'] = {[1] = 'br3', [5] = 's3'},
+    	['stress'] = {[1] = 'br1', [4] = 's1', [5] = 's2'},
     },
     ['right_front'] = {
-	['near'] = {[1] = 'k4', [3] = 'br1', [5] = 'tr2'},
-	['far'] = {[1] = 'br1', [2] = 'tr2', [3] = 'br2', [5] = 'tr3'},
-	['distant'] = {[1] = 'tr2', [5] = 'tr3'},
-	['stress'] = {[1] = 'br1', [5] = 's1'},
+    	['near'] = {[1] = 'k4', [3] = 'br1', [5] = 'tr2'},
+    	['far'] = {[1] = 'br1', [2] = 'tr2', [3] = 'br2', [5] = 'tr3'},
+    	['distant'] = {[1] = 'tr2', [5] = 'tr3'},
+    	['stress'] = {[1] = 'br1', [5] = 's1'},
     },
     ['right_back'] = {
-	['near'] = {[1] = 'k4', [4] = 'br1', [5] = 'tr2'},
-	['far'] = {[1] = 'k4', [5] = 'tr2'},
-	['distant'] = {[1] = 'k4', [4] = 'tr2'},
-	['stress'] = {[1] = 's1', [3] = 'br1'},
+    	['near'] = {[1] = 'k4', [4] = 'br1', [5] = 'tr2'},
+    	['far'] = {[1] = 'k4', [5] = 'tr2'},
+    	['distant'] = {[1] = 'k4', [4] = 'tr2'},
+    	['stress'] = {[1] = 's1', [3] = 'br1'},
     },
     ['back_right'] = {
-	['near'] = {[1] = 'k4', [5] = 'tr2'},
-	['far'] = {[1] = 'k4', [3] = 'tr2'},
-	['distant'] = {[1] = 'k4', [3] = 'tr2'},
-	['stress'] = {[1] = 'br1', [6] = 'tr2'},
+    	['near'] = {[1] = 'k4', [5] = 'tr2'},
+    	['far'] = {[1] = 'k4', [3] = 'tr2'},
+    	['distant'] = {[1] = 'k4', [3] = 'tr2'},
+    	['stress'] = {[1] = 'br1', [6] = 'tr2'},
     },
 }
 BehaviourDB.rule_sets[1].ships['tiecapunisher'].action_selection = {
@@ -865,15 +865,15 @@ BehaviourDB.rule_sets[1].ships['tiecapunisher'].action_selection = {
         ['action'] = 'targetLock'
     },
     [7] = { -- Focus if you have a shot
-	['description'] = "%s has a shot so focused.",
-	['preconditions'] = {['hasShot'] = true},
-	['action'] = 'focus'
+    	['description'] = "%s has a shot so focused.",
+    	['preconditions'] = {['hasShot'] = true},
+    	['action'] = 'focus'
     },
     [8] = { -- Barrel roll (stress) to get a shot
-	['description'] = "%s barrel rolled to get a shot.",
-	['preconditions'] = {['hasShot'] = false},
-	['action'] = {['barrelRoll'] = true},
-	['postconditions'] = {['hasShot'] = true},
+    	['description'] = "%s barrel rolled to get a shot.",
+    	['preconditions'] = {['hasShot'] = false},
+    	['action'] = {['barrelRoll'] = true},
+    	['postconditions'] = {['hasShot'] = true},
     },
     [9] = { -- Barrel roll (stress) to avoid target's arc
         ['description'] = {['text'] = "%s barrel rolled to avoid %s's arc.", ['strings'] = {'ship', 'target'}},
@@ -892,34 +892,34 @@ BehaviourDB.rule_sets[1].ships['tieagaggressor'] = {}
 BehaviourDB.rule_sets[1].ships['tieagaggressor'].target_selection = {[1]='LockedInRange', [2]='ClosestInArcLowerInitiative', [3]='ClosestInArc', [4]='Closest'}
 BehaviourDB.rule_sets[1].ships['tieagaggressor'].move_table = {
     ['bullseye'] = {
-	['near'] = {[1] = 'k4', [2] = 's1', [5] = 's2'},
-	['far'] = {[1] = 's1', [2] = 's2', [5] = 's3'},
-	['distant'] = {[1] = 's3', [2] = 's4'},
-	['stress'] = {[1] = 's1', [4] = 's2'},
+    	['near'] = {[1] = 'k4', [2] = 's1', [5] = 's2'},
+    	['far'] = {[1] = 's1', [2] = 's2', [5] = 's3'},
+    	['distant'] = {[1] = 's3', [2] = 's4'},
+    	['stress'] = {[1] = 's1', [4] = 's2'},
     },
     ['front_right'] = {
-	['near'] = {[1] = 'k4', [3] = 'br1', [6] = 'br2'},
-	['far'] = {[1] = 'br2', [4] = 'br3', [6] = 's3'},
-	['distant'] = {[1] = 'br3', [5] = 's4'},
-	['stress'] = {[1] = 'br2', [4] = 's1', [5] = 's2'},
+    	['near'] = {[1] = 'k4', [3] = 'br1', [6] = 'br2'},
+    	['far'] = {[1] = 'br2', [4] = 'br3', [6] = 's3'},
+    	['distant'] = {[1] = 'br3', [5] = 's4'},
+    	['stress'] = {[1] = 'br2', [4] = 's1', [5] = 's2'},
     },
     ['right_front'] = {
-	['near'] = {[1] = 'bl1', [2] = 'bl2', [5] = 's2'},
-	['far'] = {[1] = 'br1', [2] = 'tr2', [3] = 'br2', [5] = 'tr3'},
-	['distant'] = {[1] = 'tr2', [4] = 'tr3'},
-	['stress'] = {[1] = 'bl2', [2] = 'br2', [6] = 'tr2'},
+    	['near'] = {[1] = 'bl1', [2] = 'bl2', [5] = 's2'},
+    	['far'] = {[1] = 'br1', [2] = 'tr2', [3] = 'br2', [5] = 'tr3'},
+    	['distant'] = {[1] = 'tr2', [4] = 'tr3'},
+    	['stress'] = {[1] = 'bl2', [2] = 'br2', [6] = 'tr2'},
     },
     ['right_back'] = {
-	['near'] = {[1] = 'k4', [2] = 'br1', [5] = 'tr2'},
-	['far'] = {[1] = 'k4', [5] = 'tr2'},
-	['distant'] = {[1] = 'k4', [4] = 'tr2'},
-	['stress'] = {[1] = 's1', [3] = 'br2'},
+    	['near'] = {[1] = 'k4', [2] = 'br1', [5] = 'tr2'},
+    	['far'] = {[1] = 'k4', [5] = 'tr2'},
+    	['distant'] = {[1] = 'k4', [4] = 'tr2'},
+    	['stress'] = {[1] = 's1', [3] = 'br2'},
     },
     ['back_right'] = {
-	['near'] = {[1] = 's1', [3] = 'tr2', [5] = 's2'},
-	['far'] = {[1] = 'br1', [3] = 'tr2', [6] = 'tr3'},
-	['distant'] = {[1] = 'k4', [3] = 'tr2'},
-	['stress'] = {[1] = 's1', [2] = 'bl2', [3] = 'br2', [6] = 'tr2'},
+    	['near'] = {[1] = 's1', [3] = 'tr2', [5] = 's2'},
+    	['far'] = {[1] = 'br1', [3] = 'tr2', [6] = 'tr3'},
+    	['distant'] = {[1] = 'k4', [3] = 'tr2'},
+    	['stress'] = {[1] = 's1', [2] = 'bl2', [3] = 'br2', [6] = 'tr2'},
     },
 }
 BehaviourDB.rule_sets[1].ships['tieagaggressor'].action_selection = {
@@ -1446,7 +1446,7 @@ BehaviourDB.rule_sets[1].ships['modifiedyt1300lightfreighter'].action_selection 
   },
   [3] = { -- Target lock
       ['description'] = {['text'] = "%s target locked %s.", ['strings'] = {'ship', 'target'}},
-      ['preconditions'] = {['targetLocked'] = false, ['targetWithinRange'] = true},
+      ['preconditions'] = {['targetLocked'] = false, ['targetWithinRange'] = true}, {['hasShot'] = true},
       ['action'] = 'targetLock'
   },
   [4] = { -- Focus
@@ -2440,7 +2440,7 @@ BehaviourDB.rule_sets[1].ships['hwk290lightfreighter'].move_table = {
 BehaviourDB.rule_sets[1].ships['hwk290lightfreighter'].action_selection = {
   [1] = { -- Target lock
       ['description'] = {['text'] = "%s target locked %s.", ['strings'] = {'ship', 'target'}},
-      ['preconditions'] = {['targetLocked'] = false, ['targetWithinRange'] = true},
+      ['preconditions'] = {['targetLocked'] = false, ['targetWithinRange'] = true}, {['hasShot'] = true},
       ['action'] = 'targetLock'
   },
   [2] = { -- Rotate turret to get a shot
@@ -2601,34 +2601,34 @@ BehaviourDB.rule_sets[1].ships['customizedyt1300lightfreighter'] = {}
 BehaviourDB.rule_sets[1].ships['customizedyt1300lightfreighter'].target_selection = {[1]='LockedInRange', [2]='ClosestInArc', [3]='Closest'}
 BehaviourDB.rule_sets[1].ships['customizedyt1300lightfreighter'].move_table = {
     ['bullseye'] = {
-	['near'] = {[1] = 'tl2', [3] = 'tr2', [5] = 'tl3', [6] = 'tr3'},
-	['far'] = {[1] = 's1', [2] = 's2', [5] = 's3'},
-	['distant'] = {[1] = 's3', [2] = 's4'},
-	['stress'] = {[1] = 's1', [4] = 's2'},
+    	['near'] = {[1] = 'tl2', [3] = 'tr2', [5] = 'tl3', [6] = 'tr3'},
+    	['far'] = {[1] = 's1', [2] = 's2', [5] = 's3'},
+    	['distant'] = {[1] = 's3', [2] = 's4'},
+    	['stress'] = {[1] = 's1', [4] = 's2'},
     },
     ['front_right'] = {
-	['near'] = {[1] = 'bl1', [3] = 'tl2', [6] = 'bl2'},
-	['far'] = {[1] = 'br1', [4] = 'br2', [6] = 's3'},
-	['distant'] = {[1] = 'br3', [5] = 's4'},
-	['stress'] = {[1] = 's1', [2] = 'bl1', [3] = 'br1'},
+    	['near'] = {[1] = 'bl1', [3] = 'tl2', [6] = 'bl2'},
+    	['far'] = {[1] = 'br1', [4] = 'br2', [6] = 's3'},
+    	['distant'] = {[1] = 'br3', [5] = 's4'},
+    	['stress'] = {[1] = 's1', [2] = 'bl1', [3] = 'br1'},
     },
     ['right_front'] = {
-	['near'] = {[1] = 'bl1', [2] = 'bl2', [4] = 's2'},
-	['far'] = {[1] = 'br1', [2] = 'tr2', [3] = 'br2', [5] = 'tr3'},
-	['distant'] = {[1] = 'tr2', [4] = 'tr3'},
-	['stress'] = {[1] = 'bl1', [3] = 'br1', [6] = 'tr2'},
+    	['near'] = {[1] = 'bl1', [2] = 'bl2', [4] = 's2'},
+    	['far'] = {[1] = 'br1', [2] = 'tr2', [3] = 'br2', [5] = 'tr3'},
+    	['distant'] = {[1] = 'tr2', [4] = 'tr3'},
+    	['stress'] = {[1] = 'bl1', [3] = 'br1', [6] = 'tr2'},
     },
     ['right_back'] = {
-	['near'] = {[1] = 'br3s', [3] = 'br1', [4] = 'tr2'},
-	['far'] = {[1] = 'k4', [2] = 'br3s', [5] = 'tr2'},
-	['distant'] = {[1] = 'bl3s', [4] = 'tr2'},
-	['stress'] = {[1] = 'bl1', [3] = 'br1'},
+    	['near'] = {[1] = 'br3s', [3] = 'br1', [4] = 'tr2'},
+    	['far'] = {[1] = 'k4', [2] = 'br3s', [5] = 'tr2'},
+    	['distant'] = {[1] = 'bl3s', [4] = 'tr2'},
+    	['stress'] = {[1] = 'bl1', [3] = 'br1'},
     },
     ['back_right'] = {
-	['near'] = {[1] = 'k4', [2] = 'br3s', [4] = 'tr2'},
-	['far'] = {[1] = 'bl3s', [3] = 'br3s'},
-	['distant'] = {[1] = 'br3s', [4] = 'tr2'},
-	['stress'] = {[1] = 'tr2', [2] = 'bl1', [4] = 'br1'},
+    	['near'] = {[1] = 'k4', [2] = 'br3s', [4] = 'tr2'},
+    	['far'] = {[1] = 'bl3s', [3] = 'br3s'},
+    	['distant'] = {[1] = 'br3s', [4] = 'tr2'},
+    	['stress'] = {[1] = 'tr2', [2] = 'bl1', [4] = 'br1'},
     },
 }
 BehaviourDB.rule_sets[1].ships['customizedyt1300lightfreighter'].action_selection = {
@@ -2646,7 +2646,7 @@ BehaviourDB.rule_sets[1].ships['customizedyt1300lightfreighter'].action_selectio
   },
   [3] = { -- Target lock
       ['description'] = {['text'] = "%s target locked %s.", ['strings'] = {'ship', 'target'}},
-      ['preconditions'] = {['targetLocked'] = false, ['targetWithinRange'] = true},
+      ['preconditions'] = {['targetLocked'] = false, ['targetWithinRange'] = true}, {['hasShot'] = true},
       ['action'] = 'targetLock'
   },
   [4] = { -- Focus
@@ -2654,7 +2654,6 @@ BehaviourDB.rule_sets[1].ships['customizedyt1300lightfreighter'].action_selectio
       ['action'] = 'focus'
   }
 }
-
 
 
 --------------
@@ -2862,7 +2861,7 @@ BehaviourDB.rule_sets[1].ships['scavengedyt1300lightfreighter'].action_selection
     },
     [5] = { -- Target lock
     	['description'] = {['text'] = "%s target locked %s.", ['strings'] = {'ship', 'target'}},
-    	['preconditions'] = {['targetLocked'] = false, ['targetWithinRange'] = true},
+    	['preconditions'] = {['targetLocked'] = false, ['targetWithinRange'] = true}, {['hasShot'] = true},
     	['action'] = 'targetLock'
     },
     [6] = { -- Focus
@@ -3009,4 +3008,325 @@ BehaviourDB.rule_sets[1].ships['btlbywing'].action_selection = {
       ['description'] = "%s focused.",
       ['action'] = 'focus'
   }
+}
+
+-- V-19 Torrent Starfighter
+BehaviourDB.rule_sets[1].ships['v19torrentstarfighter'] = {}
+BehaviourDB.rule_sets[1].ships['v19torrentstarfighter'].target_selection = {[1]='LockedInRange', [2]='ClosestInArcLowerInitiative', [3]='ClosestInArc', [4]='Closest'}
+BehaviourDB.rule_sets[1].ships['v19torrentstarfighter'].move_table = {
+    ['bullseye'] = {
+    	['near'] = {[1] = 's1', [5] = 's2'},
+    	['far'] = {[1] = 's1', [2] = 's2', [5] = 's3'},
+    	['distant'] = {[1] = 's3', [2] = 's4'},
+    	['stress'] = {[1] = 's1', [4] = 's2'},
+    },
+    ['front_right'] = {
+    	['near'] = {[1] = 'k3', [2] = 't1', [3] = 'b1', [6] = 'b2'},
+    	['far'] = {[1] = 'b1', [4] = 'b2', [6] = 'b3'},
+    	['distant'] = {[1] = 'b2', [5] = 'b3'},
+    	['stress'] = {[1] = 'b1', [4] = 'b2', [5] = 's2'},
+    },
+    ['right_front'] = {
+    	['near'] = {[1] = 't1', [3] = 'b1', [4] = 't2'},
+    	['far'] = {[1] = 'b1', [2] = 't2', [6] = 'b2'},
+    	['distant'] = {[1] = 't2', [4] = 'b2', [6] = 'b3'},
+    	['stress'] = {[1] = 'b1', [5] = 't2'},
+    },
+    ['right_back'] = {
+    	['near'] = {[1] = 'k3', [4] = 'b1', [5] = 't2'},
+    	['far'] = {[1] = 'k3', [2] = 't2t', [5] = 't2'},
+    	['distant'] = {[1] = 't2t', [3] = 't2'},
+    	['stress'] = {[1] = 'b1', [5] = 't2'},
+    },
+    ['back_right'] = {
+    	['near'] = {[1] = 'k3', [3] = 't2t', [5] = 't2'},
+    	['far'] = {[1] = 'k3', [3] = 't2t'},
+    	['distant'] = {[1] = 't2t', [4] = 't2'},
+    	['stress'] = {[1] = 'b1', [5] = 's1', [6] = 's2'},
+    },
+}
+BehaviourDB.rule_sets[1].ships['v19torrentstarfighter'].action_selection = {
+    [1] = { -- Target lock if not in any arcs
+    	['description'] = {['text'] = "%s target locked %s.", ['strings'] = {'ship', 'target'}},
+    	['preconditions'] = {['targetLocked'] = false, ['inEnemyArc'] = false, ['targetWithinRange'] = true},
+    	['action'] = 'targetLock'
+    },
+    [2] = { -- Barrel roll to avoid target's arc and still get a shot
+    	['description'] = {['text'] = "%s barrel rolled to avoid %s's arc and still get a shot.", ['strings'] = {'ship', 'target'}},
+    	['preconditions'] = {['hasShot'] = true, ['inTargetsArc'] = true},
+    	['action'] = 'barrelRoll',
+    	['postconditions'] = {['hasShot'] = true, ['inTargetsArc'] = false}
+    },
+    [3] = { -- Focus if you have a shot
+    	['description'] = "%s has a shot so focused.",
+    	['preconditions'] = {['hasShot'] = true},
+    	['action'] = 'focus'
+    },
+    [4] = { -- Barrel roll > Evade (stress) to get a shot and defend
+    	['description'] = "%s barrel rolled into an evade (stress) to get a shot.",
+    	['preconditions'] = {['hasShot'] = false},
+    	['action'] = {['barrelRoll'] = false, ['focus'] = true},
+    	['postconditions'] = {['hasShot'] = true, ['inTargetsArc'] = true},
+    },
+    [5] = { -- Barrel roll to get a shot
+    	['description'] = "%s barrel rolled to get a shot.",
+    	['preconditions'] = {['hasShot'] = false},
+    	['action'] = 'barrelRoll',
+    	['postconditions'] = {['hasShot'] = true}
+    },
+    [6] = { -- Barrel roll to avoid target's arc
+    	['description'] = {['text'] = "%s barrel rolled to avoid %s's arc.", ['strings'] = {'ship', 'target'}},
+    	['preconditions'] = {['inTargetsArc'] = true},
+    	['action'] = 'barrelRoll',
+    	['postconditions'] = {['inTargetsArc'] = false},
+    },
+    [7] = { -- Evade
+    	['description'] = "%s evaded.",
+    	['preconditions'] = {['inTargetsArc'] = true},
+    	['action'] = 'evade'
+    },
+    [8] = { -- Focus
+    	['description'] = "%s focused.",
+    	['action'] = 'focus'
+    }
+}
+
+-- Nimbus-class V-Wing
+BehaviourDB.rule_sets[1].ships['nimbusclassvwing'] = {}
+BehaviourDB.rule_sets[1].ships['nimbusclassvwing'].target_selection = {[1]='LockedInRange', [2]='ClosestInArc', [3]='Closest'}
+BehaviourDB.rule_sets[1].ships['nimbusclassvwing'].move_table = {
+    ['bullseye'] = {
+    	['near'] = {[1] = 'k4', [4] = 'bl1', [5] = 'br1', [6] = 's2'},
+    	['far'] = {[1] = 's2', [5] = 's3'},
+    	['distant'] = {[1] = 's4', [2] = 's5'},
+    	['stress'] = {[1] = 'bl2', [3] = 'br2', [5] = 's2'},
+    },
+    ['front_right'] = {
+    	['near'] = {[1] = 'k4', [3] = 'br1', [5] = 'br2'},
+    	['far'] = {[1] = 'br2', [4] = 'br3', [6] = 's3'},
+    	['distant'] = {[1] = 'br3', [5] = 's4'},
+    	['stress'] = {[1] = 'br2', [3] = 's2', [5] = 's3'},
+    },
+    ['right_front'] = {
+    	['near'] = {[1] = 'k4', [3] = 'tr1', [5] = 'tr2'},
+    	['far'] = {[1] = 'br1', [2] = 'tr2', [3] = 'br2', [5] = 'tr3'},
+    	['distant'] = {[1] = 'tr2', [4] = 'tr3'},
+    	['stress'] = {[1] = 'br2', [5] = 'tr2'},
+    },
+    ['right_back'] = {
+    	['near'] = {[1] = 'k4', [2] = 'tr1', [5] = 'tr2'},
+    	['far'] = {[1] = 'k4', [2] = 'k2', [4] = 'tr1', [5] = 'tr2'},
+    	['distant'] = {[1] = 'k2', [4] = 'tr2', [5] = 'tr3'},
+    	['stress'] = {[1] = 'tr1', [2] = 'tr2', [4] = 'br2'},
+    },
+    ['back_right'] = {
+    	['near'] = {[1] = 'k4', [3] = 'k2', [5] = 'tr2'},
+    	['far'] = {[1] = 'k4', [3] = 'k2', [5] = 'tr2'},
+    	['distant'] = {[1] = 'k2', [4] = 'tr1', [6] = 'tr2'},
+    	['stress'] = {[1] = 'br2', [5] = 's2', [6] = 'tr2'},
+    },
+}
+BehaviourDB.rule_sets[1].ships['nimbusclassvwing'].action_selection = {
+    [1] = { --  Boost > target lock to avoid target arc and still get a shot (with the > target lock)
+        ['description'] = {['text'] = "%s boosted and target locked to avoid %s's arc and still get a shot.", ['strings'] = {'ship', 'target'}},
+        ['preconditions'] = {['inTargetsArc'] = true, ['hasShot'] = true, ['targetLocked'] = false},
+        ['action'] = {['boost'] = false, ['targetLock'] = true},
+        ['postconditions'] = {['inTargetsArc'] = false, ['hasShot'] = true, ['targetWithinRange'] = true},
+    },
+    [2] = { --  Boost > target lock to avoid target arc and still get a shot (without the > target lock)
+        ['description'] = {['text'] = "%s boosted to avoid %s's arc and still get a shot.", ['strings'] = {'ship', 'target'}},
+        ['preconditions'] = {['inTargetsArc'] = true, ['hasShot'] = true, ['targetLocked'] = true},
+        ['action'] = {['boost'] = false},
+        ['postconditions'] = {['inTargetsArc'] = false, ['hasShot'] = true},
+    },
+    [3] = { --  Boost > target lock to get a shot (with the > target lock)
+        ['description'] = "%s boosted and target locked to get a shot.",
+        ['preconditions'] = {['hasShot'] = false, ['targetLocked'] = false},
+        ['action'] = {['boost'] = false, ['targetLock'] = true},
+        ['postconditions'] = {['hasShot'] = true, ['targetWithinRange'] = true},
+    },
+    [4] = { --  Boost > target lock to get a shot (without the > target lock)
+        ['description'] = "%s boosted to get a shot.",
+        ['preconditions'] = {['hasShot'] = false, ['targetLocked'] = true},
+        ['action'] = {['boost'] = false},
+        ['postconditions'] = {['hasShot'] = true},
+    },
+    [5] = { -- Target lock
+        ['description'] = {['text'] = "%s target locked %s.", ['strings'] = {'ship', 'target'}},
+        ['preconditions'] = {['targetLocked'] = false, ['targetWithinRange'] = true},
+        ['action'] = 'targetLock'
+    },
+    [6] = { -- Focus if you have a shot
+    	['description'] = "%s has a shot so focused.",
+    	['preconditions'] = {['hasShot'] = true},
+    	['action'] = 'focus'
+    },
+    [7] = { -- Barrel roll (stress) to get a shot
+    	['description'] = "%s barrel rolled to get a shot.",
+    	['preconditions'] = {['hasShot'] = false},
+    	['action'] = {['barrelRoll'] = true},
+    	['postconditions'] = {['hasShot'] = true},
+    },
+    [8] = { -- Barrel roll (stress) to avoid target's arc
+        ['description'] = {['text'] = "%s barrel rolled to avoid %s's arc.", ['strings'] = {'ship', 'target'}},
+        ['preconditions'] = {['inTargetsArc'] = true},
+        ['action'] = 'barrelRoll',
+        ['postconditions'] = {['inTargetsArc'] = false},
+    },
+    [9] = { -- Focus
+        ['description'] = "%s focused.",
+        ['action'] = 'focus'
+    }
+}
+
+-- CIS ships
+-- Hyena-class Droid Bomber
+BehaviourDB.rule_sets[1].ships['hyenaclassdroidbomber'] = {}
+BehaviourDB.rule_sets[1].ships['hyenaclassdroidbomber'].target_selection = {[1]='LockedInRange', [2]='ClosestInArcLowerInitiative', [3]='ClosestInArc', [4]='Closest'}
+BehaviourDB.rule_sets[1].ships['hyenaclassdroidbomber'].move_table = {
+    ['bullseye'] = {
+    	['near'] = {[1] = 'tl2t', [2] = 'tr2t', [3] = 's1', [5] = 's2'},
+    	['far'] = {[1] = 's2', [5] = 's3'},
+    	['distant'] = {[1] = 's4', [4] = 's5'},
+    	['stress'] = {[1] = 's2', [6] = 's3'},
+    },
+    ['front_right'] = {
+    	['near'] = {[1] = 'k2', [2] = 'tr2t', [3] = 'tr1', [6] = 'br1'},
+    	['far'] = {[1] = 'br1', [2] = 'br2', [6] = 's3'},
+    	['distant'] = {[1] = 'br2', [5] = 's4'},
+    	['stress'] = {[1] = 'tr2', [3] = 's2', [6] = 's3'},
+    },
+    ['right_front'] = {
+    	['near'] = {[1] = 'tr1', [4] = 'br1', [5] = 'tr2'},
+    	['far'] = {[1] = 'tr2', [4] = 'br1', [5] = 'br2', [6] = 'tr3'},
+    	['distant'] = {[1] = 'tr2', [4] = 'tr3'},
+    	['stress'] = {[1] = 'tr1', [2] = 'tr2', [6] = 'tr3'},
+    },
+    ['right_back'] = {
+    	['near'] = {[1] = 'k2', [3] = 'tr2t', [5] = 'tr1'},
+    	['far'] = {[1] = 'k2', [2] = 'tr2t', [4] = 'tr1', [6] = 'tr2'},
+    	['distant'] = {[1] = 'tr2t', [3] = 'tr2', [6] = 'tr3'},
+    	['stress'] = {[1] = 'tr1', [3] = 'tr2'},
+    },
+    ['back_right'] = {
+    	['near'] = {[1] = 'k2', [3] = 'tr2t', [5] = 'tr2'},
+    	['far'] = {[1] = 'k2', [3] = 'tr2t', [5] = 'tr2'},
+    	['distant'] = {[1] = 'k2', [2] = 'tr2t', [4] = 'tr1', [5] = 'tr2'},
+    	['stress'] = {[1] = 'tr2', [5] = 's2'},
+    },
+}
+BehaviourDB.rule_sets[1].ships['hyenaclassdroidbomber'].action_selection = {
+    [1] = { --  Reload ordnance if no charges left
+        ['pass_through'] = true,
+        ['description'] = "If %s has no charges on its missile or torpedo upgrades, then undo the following action and take a red reload action.",
+    },
+    [2] = { --  Barrel roll > target lock to avoid target arc and still get a shot (with the > target lock)
+        ['description'] = {['text'] = "%s barrel rolled and target locked to avoid %s's arc and still get a shot.", ['strings'] = {'ship', 'target'}},
+        ['preconditions'] = {['inTargetsArc'] = true, ['hasShot'] = true, ['targetLocked'] = false},
+        ['action'] = {['barrelRoll'] = false, ['targetLock'] = true},
+        ['postconditions'] = {['inTargetsArc'] = false, ['hasShot'] = true, ['targetWithinRange'] = true},
+    },
+    [3] = { --  Barrel roll > target lock to avoid target arc and still get a shot (without the > target lock)
+        ['description'] = {['text'] = "%s barrel rolled to avoid %s's arc and still get a shot.", ['strings'] = {'ship', 'target'}},
+        ['preconditions'] = {['inTargetsArc'] = true, ['hasShot'] = true, ['targetLocked'] = true},
+        ['action'] = {['barrelRoll'] = false},
+        ['postconditions'] = {['inTargetsArc'] = false, ['hasShot'] = true},
+    },
+    [4] = { --  Barrel roll > target lock to get a shot (with the > target lock)
+        ['description'] = "%s barrel rolled and target locked to get a shot.",
+        ['preconditions'] = {['hasShot'] = false, ['targetLocked'] = false},
+        ['action'] = {['barrelRoll'] = false, ['targetLock'] = true},
+        ['postconditions'] = {['hasShot'] = true, ['targetWithinRange'] = true},
+    },
+    [5] = { --  Barrel roll > target lock to get a shot (without the > target lock)
+        ['description'] = "%s barrel rolled to get a shot.",
+        ['preconditions'] = {['hasShot'] = false, ['targetLocked'] = true},
+        ['action'] = {['barrelRoll'] = false},
+        ['postconditions'] = {['hasShot'] = true},
+    },
+    [6] = { -- Target lock
+        ['description'] = {['text'] = "%s target locked %s.", ['strings'] = {'ship', 'target'}},
+        ['preconditions'] = {['targetLocked'] = false, ['targetWithinRange'] = true},
+        ['action'] = 'targetLock'
+    },
+    [7] = { -- Barrel roll to avoid target's arc
+        ['description'] = {['text'] = "%s barrel rolled to avoid %s's arc.", ['strings'] = {'ship', 'target'}},
+        ['preconditions'] = {['inTargetsArc'] = true},
+        ['action'] = 'barrelRoll',
+        ['postconditions'] = {['inTargetsArc'] = false},
+    },
+    [8] = { -- Calculate
+        ['description'] = "%s calculated.",
+        ['action'] = 'calculate'
+    }
+}
+
+-- Vulture-class Droid Fighter
+BehaviourDB.rule_sets[1].ships['vultureclassdroidfighter'] = {}
+BehaviourDB.rule_sets[1].ships['vultureclassdroidfighter'].target_selection = {[1]='LockedInRange', [2]='ClosestInArcLowerInitiative', [3]='ClosestInArc', [4]='Closest'}
+BehaviourDB.rule_sets[1].ships['vultureclassdroidfighter'].move_table = {
+    ['bullseye'] = {
+    	['near'] = {[1] = 'tl2t', [2] = 'tr2t', [3] = 's2'},
+    	['far'] = {[1] = 's2', [5] = 's3'},
+    	['distant'] = {[1] = 's4', [2] = 's5'},
+    	['stress'] = {[1] = 's2', [6] = 's3'},
+    },
+    ['front_right'] = {
+    	['near'] = {[1] = 'k1', [2] = 'tr2t', [3] = 'tr1', [6] = 'br2'},
+    	['far'] = {[1] = 'br2', [6] = 'br3'},
+    	['distant'] = {[1] = 'br2', [5] = 'br3'},
+    	['stress'] = {[1] = 'tr2', [3] = 's2', [6] = 's3'},
+    },
+    ['right_front'] = {
+    	['near'] = {[1] = 'tr1', [4] = 'br2', [5] = 'tr2'},
+    	['far'] = {[1] = 'tr2', [4] = 'br2', [6] = 'tr3'},
+    	['distant'] = {[1] = 'tr2', [4] = 'tr3'},
+    	['stress'] = {[1] = 'tr1', [2] = 'tr2', [6] = 'tr3'},
+    },
+    ['right_back'] = {
+    	['near'] = {[1] = 'k1', [3] = 'tr2t', [5] = 'tr1'},
+    	['far'] = {[1] = 'k1', [2] = 'tr2t', [4] = 'tr1', [6] = 'tr2'},
+    	['distant'] = {[1] = 'tr2t', [3] = 'tr2', [6] = 'tr3'},
+    	['stress'] = {[1] = 'tr1', [3] = 'tr2'},
+    },
+    ['back_right'] = {
+    	['near'] = {[1] = 'k1', [3] = 'tr2t', [5] = 'tr2', [6] = 'tr3'},
+    	['far'] = {[1] = 'k1', [3] = 'tr2t', [5] = 'tr1', [6] = 'tr2'},
+    	['distant'] = {[1] = 'k1', [2] = 'tr2t', [4] = 'tr1', [5] = 'tr2'},
+    	['stress'] = {[1] = 'tr2', [5] = 's2'},
+    },
+}
+BehaviourDB.rule_sets[1].ships['vultureclassdroidfighter'].action_selection = {
+    [1] = { -- (target not moved) Target lock if not in target's arc
+        ['description'] = {['text'] = "%s target locked %s.", ['strings'] = {'ship', 'target'}},
+        ['preconditions'] = {['targetMoved'] = false, ['targetLocked'] = false, ['inTargetsArc'] = false, ['targetWithinRange'] = true},
+        ['action'] = 'targetLock'
+    },
+    [2] = { -- (target moved) Target lock
+        ['description'] = {['text'] = "%s target locked %s.", ['strings'] = {'ship', 'target'}},
+        ['preconditions'] = {['targetMoved'] = true, ['targetLocked'] = false, ['targetWithinRange'] = true},
+        ['action'] = 'targetLock'
+    },
+    [3] = { -- (target moved) Barrel roll > Calculate to avoid target's arc and still get a shot
+        ['description'] = {['text'] = "%s barrel rolled and focused to avoid %s's arc and still get a shot.", ['strings'] = {'ship', 'target'}},
+        ['preconditions'] = {['targetMoved'] = true, ['hasShot'] = true, ['inTargetsArc'] = true},
+        ['action'] = {['barrelRoll'] = true}, ['calculate'] = false,
+        ['postconditions'] = {['hasShot'] = true, ['inTargetsArc'] = false}
+    },
+    [4] = { -- (target moved) Barrel roll > Calculate to get a shot
+        ['description'] = {['text'] = "%s barrel rolled and focused to get a shot.", ['strings'] = {'ship', 'target'}},
+        ['preconditions'] = {['targetMoved'] = true, ['hasShot'] = false},
+        ['action'] = {['barrelRoll'] = true}, ['calculate'] = false,
+        ['postconditions'] = {['hasShot'] = true},
+    },
+    [5] = { -- (target moved) Barrel roll to avoid target's arc
+        ['description'] = {['text'] = "%s barrel rolled to avoid %s's arc.", ['strings'] = {'ship', 'target'}},
+        ['preconditions'] = {['targetMoved'] = true, ['inTargetsArc'] = true},
+        ['action'] = 'barrelRoll',
+        ['postconditions'] = {['inTargetsArc'] = false},
+    },
+    [6] = { -- Calculate
+        ['description'] = "%s calculated.",
+        ['action'] = 'calculate'
+    }
 }

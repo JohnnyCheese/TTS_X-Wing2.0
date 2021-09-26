@@ -753,7 +753,7 @@ function idSpawner(idTable)
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s3:tr3:te3'
         elseif v == 205 then  -- Sol Sixxa special drops
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':te1:be1:br1:tr1'
-        elseif Ship == 19 then -- TIE Bomber special drops
+        elseif Ship == 'tiesabomber' then -- TIE Bomber special drops
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':be1:br1'
         elseif v == 161 then -- Constable Zuvio
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r'
@@ -892,13 +892,13 @@ function idSpawner(idTable)
                 table.insert(fList.SqdExecOptions,masterUpgradesDB[value].sqdExecuteOptions)
             end
 
-            if value == 279 then  -- Skilled Bombardier special drops
+            if value == 'skilledbombardier' then  -- Skilled Bombardier special drops
                 skilled_bombardier = true
                 --fList.Pilots[k].bombD = fList.Pilots[k].bombD ..  ':s2:tr2:te2:be2:br2'
-            elseif value == 255 then  -- Trajectory Simulator special drop
+            elseif value == 'trajectorysimulator' then  -- Trajectory Simulator special drop
                 fList.Pilots[k].bombD = fList.Pilots[k].bombD ..  ':s5r'
-            elseif value == 864 then -- Thermal Detinators
-                if Ship == 19 then -- TIE Bomber special drops
+            elseif value == 'thermaldetonators' then -- Thermal Detinators
+                if Ship == 'tiesabomber' then -- TIE Bomber special drops
                     fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':be2:s2:br2'
                 else
                     fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s2'
