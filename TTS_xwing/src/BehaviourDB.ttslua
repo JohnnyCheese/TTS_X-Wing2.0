@@ -2983,28 +2983,22 @@ BehaviourDB.rule_sets[1].ships['btlbywing'].action_selection = {
       ['preconditions'] = {['targetLocked'] = false, ['targetWithinRange'] = true},
       ['action'] = 'targetLock'
   },
-  [2] = { -- Rotate turret to get a shot
-      ['description'] = "%s rotated its turret to get a shot.",
-      ['preconditions'] = {['hasShot'] = {['arguments'] = {['includeArcs'] = {'front'}}, ['requiredResult'] = false}},
-      ['action'] = {['rotateTurret'] = {['mount'] = 'main'}},
-      ['postconditions'] = {['hasShot'] = {['arguments'] = {['includeArcs'] = {'front'}}, ['requiredResult'] = true}},
-  },
-  [3] = { -- Focus if you have a shot
+  [2] = { -- Focus if you have a shot
       ['description'] = "%s has a shot so focused.",
       ['preconditions'] = {['hasShot'] = true},
       ['action'] = 'focus'
   },
-  [4] = { -- Barrel roll (stress) to get a shot
+  [3] = { -- Barrel roll (stress) to get a shot
       ['description'] = "%s barrel rolled to get a shot.",
       ['preconditions'] = {['hasShot'] = false},
       ['action'] = {['barrelRoll'] = true},
       ['postconditions'] = {['hasShot'] = true},
   },
-  [5] = { --  Reload ordnance (stress) if no charges left
+  [4] = { --  Reload ordnance (stress) if no charges left
       ['pass_through'] = true,
       ['description'] = "If %s has no charges on its missile or torpedo upgrades, then undo the following action and take a red reload action.",
   },
-  [6] = { -- Focus
+  [5] = { -- Focus
       ['description'] = "%s focused.",
       ['action'] = 'focus'
   }
