@@ -12,6 +12,7 @@ DiceControlModule = {}
 DiceControlModule.dice_statistics = {}
 DiceControlModule.rolled_dice = {}
 DiceControlModule.dice_roller_state = {}
+DiceControlModule.player_colors = {}
 
 DiceControlModule.enabled = true
 
@@ -110,7 +111,7 @@ EventSub.Register('onLoad', DiceControlModule.onLoad)
 DiceControlModule.presentStatistics = function()
     for player, types in pairs(DiceControlModule.dice_statistics) do
         local total = 0
-        printToAll("[" .. Color.fromString(player.color):toHex() .. "]" ..  player.steam_name .. "[-] have rolled:" , DiceControlModule.info_color)
+        printToAll("[" .. Color.fromString(DiceControlModule.player_colors[player]):toHex() .. "]" ..  player .. "[-] have rolled:" , DiceControlModule.info_color)
         local playerluck = nil
         for type, results in pairs(types) do
             local typetotal = results.Total
@@ -140,6 +141,7 @@ end
 
 DiceControlModule.onObjectRandomize = function(object, playerInstance)
     player = playerInstance.steam_name
+    DiceControlModule.player_colors[player] = playerInstance.color
     if DiceControlModule.enabled and (object.tag == "Dice")  and (object.held_by_color == nil) then
         DiceControlModule.dice_roller_state[player] = DiceControlModule.dice_roller_state[player] or "idle"
         if DiceControlModule.dice_roller_state[player] == "idle" then
@@ -228,7 +230,7 @@ DiceControlModule.PresentDiceRollerResult = function(player)
         DiceControlModule.dice_statistics[player] = playerstats
     end
     local any_result = false
-    local resulttext = "[" .. Color.fromString(player.color):toHex() .. "]" ..  player.steam_name .. "[-] rolled " .. DiceControlModule.highlight_color .. tostring(#DiceControlModule.rolled_dice[player]) .. "[-] dice and got "
+    local resulttext = "[" .. Color.fromString(DiceControlModule.player_colors[player]):toHex() .. "]" ..  player .. "[-] rolled " .. DiceControlModule.highlight_color .. tostring(#DiceControlModule.rolled_dice[player]) .. "[-] dice and got "
     local resulttexts = {}
     for dice_color, results in pairs(resultTable) do
         if DiceControlModule.dice_types[dice_color].result_order ~= nil then

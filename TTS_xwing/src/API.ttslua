@@ -133,6 +133,10 @@ function API_BombTokenDrop(argTable)
     return BombModule.OnTokenDrop(argTable.token)
 end
 
+function API_MineDrop(argTable)
+  BombModule.CheckMineDroppedOverlapping(argTable.mine, argTable.ship)
+end
+
 
 function API_AssignToken(argTable)
     TokenModule.AssignToken(argTable.token, argTable.ship)
