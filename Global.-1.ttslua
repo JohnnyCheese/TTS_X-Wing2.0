@@ -2660,6 +2660,7 @@ MoveModule.JoinHitTables = function(exclObj, SelectFun, t1, t2, t3, t4, t5)
     local tbls = {a=t1, b=t2, c=t3, d=t4, e=t5}
     for k,hTable in pairs(tbls) do
         for k2,hit in pairs(hTable) do
+            print("Hit:" .. hit.hit_object.getName())
             if SelectFun(hit.hit_object) and gTable[hit.hit_object.getGUID()] == nil then
                 gTable[hit.hit_object.getGUID()] = true
                 table.insert(out, hit.hit_object)
@@ -2706,7 +2707,7 @@ end
 MoveModule.castData = {}
 MoveModule.castData.small = {}
 MoveModule.castData.small.base = {
-    debug=false,
+    debug=cast_debug,
     direction = {0, -0.001, 0},
     type=3,
     size={Convert_mm_igu(40), Convert_mm_igu(6), Convert_mm_igu(40)},
@@ -2714,7 +2715,7 @@ MoveModule.castData.small.base = {
     -- + Orientation
 }
 MoveModule.castData.small.nubFR = {
-    debug=false,
+    debug=cast_debug,
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(20.858)},
     direction = {0, -0.001, 0},
     type=2,
@@ -2722,7 +2723,7 @@ MoveModule.castData.small.nubFR = {
     -- + Origin
 }
 MoveModule.castData.small.nubFL = {
-    debug=false,
+    debug=cast_debug,
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(20.858)},
     direction = {0, -0.001, 0},
     type=2,
@@ -2730,7 +2731,7 @@ MoveModule.castData.small.nubFL = {
     -- + Origin
 }
 MoveModule.castData.small.nubBR = {
-    debug=false,
+    debug=cast_debug,
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(20.858)},
     direction = {0, -0.001, 0},
     type=2,
@@ -2738,7 +2739,7 @@ MoveModule.castData.small.nubBR = {
     -- + Origin
 }
 MoveModule.castData.small.nubBL = {
-    debug=false,
+    debug=cast_debug,
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(20.858)},
     direction = {0, -0.001, 0},
     type=2,
@@ -2748,7 +2749,7 @@ MoveModule.castData.small.nubBL = {
 
 MoveModule.castData.medium = {}
 MoveModule.castData.medium.base = {
-    debug=false,
+    debug=cast_debug,
     direction = {0, -0.001, 0},
     type=3,
     size={Convert_mm_igu(60), Convert_mm_igu(6), Convert_mm_igu(60)},
@@ -2756,7 +2757,7 @@ MoveModule.castData.medium.base = {
     -- + Orientation
 }
 MoveModule.castData.medium.nubFR = {
-    debug=false,
+    debug=cast_debug,
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(30.858)},
     direction = {0, -0.001, 0},
     type=2,
@@ -2764,7 +2765,7 @@ MoveModule.castData.medium.nubFR = {
     -- + Origin
 }
 MoveModule.castData.medium.nubFL = {
-    debug=false,
+    debug=cast_debug,
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(30.858)},
     direction = {0, -0.001, 0},
     type=2,
@@ -2772,7 +2773,7 @@ MoveModule.castData.medium.nubFL = {
     -- + Origin
 }
 MoveModule.castData.medium.nubBR = {
-    debug=false,
+    debug=cast_debug,
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(30.858)},
     direction = {0, -0.001, 0},
     type=2,
@@ -2780,7 +2781,7 @@ MoveModule.castData.medium.nubBR = {
     -- + Origin
 }
 MoveModule.castData.medium.nubBL = {
-    debug=false,
+    debug=cast_debug,
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(30.858)},
     direction = {0, -0.001, 0},
     type=2,
@@ -2791,7 +2792,7 @@ MoveModule.castData.medium.nubBL = {
 
 MoveModule.castData.large = {}
 MoveModule.castData.large.base = {
-    debug=false,
+    debug=cast_debug,
     direction = {0, -0.001, 0},
     type=3,
     size={Convert_mm_igu(80), Convert_mm_igu(6), Convert_mm_igu(80)},
@@ -2799,7 +2800,7 @@ MoveModule.castData.large.base = {
     -- + Orientation
 }
 MoveModule.castData.large.nubFR = {
-    debug=false,
+    debug=cast_debug,
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(40.858)},
     direction = {0, -0.001, 0},
     type=2,
@@ -2807,7 +2808,7 @@ MoveModule.castData.large.nubFR = {
     -- + Origin
 }
 MoveModule.castData.large.nubFL = {
-    debug=false,
+    debug=cast_debug,
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(40.858)},
     direction = {0, -0.001, 0},
     type=2,
@@ -2815,7 +2816,7 @@ MoveModule.castData.large.nubFL = {
     -- + Origin
 }
 MoveModule.castData.large.nubBR = {
-    debug=false,
+    debug=cast_debug,
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(40.858)},
     direction = {0, -0.001, 0},
     type=2,
@@ -2823,7 +2824,7 @@ MoveModule.castData.large.nubBR = {
     -- + Origin
 }
 MoveModule.castData.large.nubBL = {
-    debug=false,
+    debug=cast_debug,
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(40.858)},
     direction = {0, -0.001, 0},
     type=2,
@@ -2833,7 +2834,7 @@ MoveModule.castData.large.nubBL = {
 
 MoveModule.castData.huge = {}
 MoveModule.castData.huge.base = {
-    debug=false,
+    debug=cast_debug,
     direction = {0, -0.001, 0},
     type=3,
     size={Convert_mm_igu(80), Convert_mm_igu(6), Convert_mm_igu(221)},
@@ -2841,7 +2842,7 @@ MoveModule.castData.huge.base = {
     -- + Orientation
 }
 MoveModule.castData.huge.nubFR = {
-    debug=false,
+    debug=cast_debug,
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(111.858)},
     direction = {0, -0.001, 0},
     type=2,
@@ -2849,7 +2850,7 @@ MoveModule.castData.huge.nubFR = {
     -- + Origin
 }
 MoveModule.castData.huge.nubFL = {
-    debug=false,
+    debug=cast_debug,
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(111.858)},
     direction = {0, -0.001, 0},
     type=2,
@@ -2857,7 +2858,7 @@ MoveModule.castData.huge.nubFL = {
     -- + Origin
 }
 MoveModule.castData.huge.nubBR = {
-    debug=false,
+    debug=cast_debug,
     localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(111.858)},
     direction = {0, -0.001, 0},
     type=2,
@@ -2865,7 +2866,7 @@ MoveModule.castData.huge.nubBR = {
     -- + Origin
 }
 MoveModule.castData.huge.nubBL = {
-    debug=false,
+    debug=cast_debug,
     localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(111.858)},
     direction = {0, -0.001, 0},
     type=2,
@@ -5196,12 +5197,39 @@ BombModule.OnTokenDrop = function(token)
         if token.getName() == 'Cluster Mine (middle)' then
             BombModule.ExpandCluster({pos=destPos, rot=destRot})
         end
+
+        if token.hasTag('Mine') then
+            BombModule.CheckMineDroppedOverlapping(token)
+        end
         AnnModule.Announce({type='action', note=drop.ship.getName() .. ' dropped a ' .. token.getName():gsub('%(middle%)', 'set')}, 'all')
         closest.temp.destruct()
         return true
     else
         return false
     end
+end
+
+BombModule.CheckMineDroppedOverlapping = function(token)
+  local mine = token
+  Wait.condition(
+    function()
+      local ships = getObjectsWithTag('Ship')
+      local minDist = Convert_mm_igu(110)
+      local minePos = mine.getPosition()
+      for _,ship in pairs(ships) do
+        local shipPos = ship.getPosition()
+        local dist = math.sqrt(math.pow((minePos.x - shipPos.x),2) + math.pow((minePos.z - shipPos.z),2))
+        if dist < minDist then
+          local collissions = MoveModule.CheckMineCollisions(ship, {pos=ship.GetPosition(), rot=ship.GetRotation()}, false, nil)
+          for _, col in pairs(collissions) do
+            if col == mine then
+              AnnModule.Announce({type='warn', note= mine.getName() .. ' appears to have been dropped ontop of ' .. ship.getName()}, 'all')
+            end
+          end
+        end
+      end
+    end,
+    function() return (mine.resting == true) and (mine.isSmoothMoving() == false) end)
 end
 
 -- Spawn side tokens for cluster mine
@@ -5214,19 +5242,23 @@ BombModule.ExpandCluster = function(center)
     t1.setCustomObject(tCustom)
     t1.lock()
     local destOffset1 = Vect.RotateDeg(offset, center.rot[2])
-    t1.setPosition(Vect.Sum(center.pos, destOffset1))
-    t1.setRotation(center.rot)
+    t1.setPositionSmooth(Vect.Sum(center.pos, destOffset1), false, true)
+    t1.setRotationSmooth(center.rot, false, true)
     t1.setScale({0.4554, 0.4554, 0.4554})
     t1.setName('Cluster Mine (side)')
+    t1.addTag('Mine')
+    BombModule.CheckMineDroppedOverlapping(t1)
 
     local t2 = spawnObject(tParams)
     t2.setCustomObject(tCustom)
     t2.lock()
     local destOffset2 = Vect.RotateDeg(Vect.ScaleEach(offset, {-1, 1, 1}), center.rot[2])
-    t2.setPosition(Vect.Sum(center.pos, destOffset2))
-    t2.setRotation(center.rot)
+    t2.setPositionSmooth(Vect.Sum(center.pos, destOffset2), false, true)
+    t2.setRotationSmooth(center.rot, false, true)
     t2.setScale({0.4554, 0.4554, 0.4554})
     t2.setName('Cluster Mine (side)')
+    t2.addTag('Mine')
+    BombModule.CheckMineDroppedOverlapping(t2)
 end
 
 -- END BOMB MODULE
