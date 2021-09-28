@@ -3019,14 +3019,17 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
         MoveModule.AddCollissionEntry(gTable, collList, collissions, SelectFun)
     elseif templateData.type == "bank" then
         local radius = 0
+        local iterations = 0
         if templateData.speed == 1 then
             radius = Convert_mm_igu(80)
+            iterations = 10
         elseif templateData.speed == 2 then
             radius = Convert_mm_igu(130)
+            iterations = 15
         elseif templateData.speed == 3 then
             radius = Convert_mm_igu(180)
+            iterations = 20
         end
-        local iterations = 10
         local radianStep = math.pi /(4*iterations)
         local dir_mod = 1
         if templateData.dir == "left" then
@@ -5209,7 +5212,7 @@ BombModule.OnTokenDrop = function(token)
     end
 end
 
-BombModule.CheckMineDroppedOverlapping = function(token)
+BombModule.CheckMineDroppedOverlapping = function(token, ownship)
   local mine = token
   Wait.condition(
     function()
@@ -5217,13 +5220,15 @@ BombModule.CheckMineDroppedOverlapping = function(token)
       local minDist = Convert_mm_igu(110)
       local minePos = mine.getPosition()
       for _,ship in pairs(ships) do
-        local shipPos = ship.getPosition()
-        local dist = math.sqrt(math.pow((minePos.x - shipPos.x),2) + math.pow((minePos.z - shipPos.z),2))
-        if dist < minDist then
-          local collissions = MoveModule.CheckMineCollisions(ship, {pos=ship.GetPosition(), rot=ship.GetRotation()}, false, nil)
-          for _, col in pairs(collissions) do
-            if col == mine then
-              AnnModule.Announce({type='warn', note= mine.getName() .. ' appears to have been dropped ontop of ' .. ship.getName()}, 'all')
+        if ship != ownship then
+          local shipPos = ship.getPosition()
+          local dist = math.sqrt(math.pow((minePos.x - shipPos.x),2) + math.pow((minePos.z - shipPos.z),2))
+          if dist < minDist then
+            local collissions = MoveModule.CheckMineCollisions(ship, {pos=ship.GetPosition(), rot=ship.GetRotation()}, false, nil)
+            for _, col in pairs(collissions) do
+              if col == mine then
+                AnnModule.Announce({type='warn', note= mine.getName() .. ' appears to have been dropped ontop of ' .. ship.getName()}, 'all')
+              end
             end
           end
         end
