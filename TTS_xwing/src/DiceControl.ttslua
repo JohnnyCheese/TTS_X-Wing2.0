@@ -140,7 +140,7 @@ DiceControlModule.presentStatistics = function()
 end
 
 DiceControlModule.onObjectRandomize = function(object, playerInstance)
-    player = playerInstance.steam_name
+    local player = playerInstance.steam_name
     DiceControlModule.player_colors[player] = playerInstance.color
     if DiceControlModule.enabled and (object.tag == "Dice")  and (object.held_by_color == nil) then
         DiceControlModule.dice_roller_state[player] = DiceControlModule.dice_roller_state[player] or "idle"
