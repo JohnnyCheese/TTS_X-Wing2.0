@@ -292,13 +292,11 @@ function xwsSpawn(list, XWS_TO_FFG, playerColor)
                 local upgradeCount = 1
                 for slot,upgrades in pairs (v.upgrades) do
                     for i,upgrade in pairs (upgrades) do
-                        upgradeId = XWS_TO_FFG.upgrades[upgrade]
-                        local upgradeId = findByXws(masterUpgradesDB, upgrade) or XWS_TO_FFG.upgrades[upgrade]
-                        if upgradeId == nil then
-                          printToAll("Unable to find upgrade with xws value: " .. v.id, {1,0,0})
+                        if masterUpgradeDB[upgrade] == nil then
+                          printToAll("Unable to find upgrade with xws value: " .. upgrade, {1,0,0})
                           break;
                         end
-                        parts.Upgrades[k][upgradeCount] = tonumber(upgradeId)
+                        parts.Upgrades[k][upgradeCount] = upgrade
                         upgradeCount = upgradeCount + 1
                     end
                 end
