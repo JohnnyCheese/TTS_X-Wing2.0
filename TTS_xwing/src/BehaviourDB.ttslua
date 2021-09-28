@@ -2761,7 +2761,7 @@ BehaviourDB.rule_sets[1].ships['aggressorassaultfighter'].action_selection = {
     }
 }
 
-+-- Escape Craft
+-- Escape Craft
 BehaviourDB.rule_sets[1].ships['escapecraft'] = {}
 BehaviourDB.rule_sets[1].ships['escapecraft'].target_selection = {[1]='LockedInRange', [2]='ClosestInArcLowerInitiative', [3]='ClosestInArc', [4]='Closest'}
 BehaviourDB.rule_sets[1].ships['escapecraft'].move_table = {
@@ -3385,7 +3385,7 @@ BehaviourDB.rule_sets[1].ships['tiesebomber'].action_selection = {
         ['description'] = {['text'] = "%s barrel roll/boosted to avoid %s's arc.", ['strings'] = {'ship', 'target'}},
         ['preconditions'] = {['inTargetsArc'] = true},
         ['action'] = {
-            [1] = {['barrelRoll'] = false}
+            [1] = {['barrelRoll'] = false},
             [2] = {['boost'] = false},
         },
         ['postconditions'] = {['inTargetsArc'] = false},
