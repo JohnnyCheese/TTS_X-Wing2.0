@@ -988,7 +988,7 @@ masterShipDB['nantexclassstarfighter']={
   agi = 3,
   XWS = 'nantexclassstarfighter',
   Fac = {[7]=true},
-  arcs = {fixed = { range=3, type = {'bull'}}, turret={main={name= 'primary', type={'left', 'front', 'right'}}}},
+  arcs = {fixed = { range=3, type = {'bullseye'}}, turret={main={name= 'primary', type={'left', 'front', 'right'}}}},
   moveSet = {'wtl1','bbl1','bbr1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','bbl3','bs3','bbr3','wtr3','rbl3s','rbr3s','ws4','ws5','rk5'},
   mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/CIS_Nantex/Nantex.obj'
 }
@@ -1192,7 +1192,7 @@ masterShipDB['tiewiwhispermodifiedinterceptor']={
     agi = 2,
     XWS = 'tiewiwhispermodifiedinterceptor',
     Fac = {[5]=true},
-    arcs = {fixed = { range=3, type = {'bull'}}, turret = {main = {name = 'primary', type= {'front', 'back'}}}},
+    arcs = {fixed = { range=3, type = {'bullseye'}}, turret = {main = {name = 'primary', type= {'front', 'back'}}}},
     mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/FO_TIE_Wi/TIE_Wi.obj',
     moveSet = {'wtl1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','rbl3s','wtl3','bbl3','bs3','bbr3','wtr3','rbr3s','bs4','rk4','bs5','rk5'},
     keywords = {'TIE'}
