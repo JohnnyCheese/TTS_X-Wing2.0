@@ -1085,6 +1085,21 @@ AIModule.arc_adjacencies = {
     ['fullback'] = {'fullfront'}
 }
 
+AIModule.full_action_names = {
+  C = 'calculate',
+  F = 'focus',
+  TL = 'targetLock',
+  E = 'evade',
+  Rot = 'rotate',
+  B = 'boost',
+  BR = 'barrelRoll',
+  VR = 'barrelRoll',
+  RF = 'reinforce',
+  RL = 'reload',
+  Coord = 'coordinate',
+  Jam = 'jam',
+}
+
 AIModule.SelectAction = function(ship)
     local ship_behaviour = BehaviourDB.GetRuleSet().GetShipBehaviour(ship)
 
@@ -1675,6 +1690,18 @@ AIModule.condition_functions.evading = function(ship, target, probe, arguments)
     end
 
     return probe.evading
+end
+
+AIModule.condition_functions.hasAction = function(ship, target, probe, arguments)
+    if probe.action_set == nil then
+      probe.action_set = {}
+      for _,action in pairs(ship.getTable('Data').actSet) do
+        if AIModule.full_action_names[action] then
+          probe.action_set[AIModule.full_action_names[action]] = true
+        end
+      end
+    end
+    return probe.action_set[arguments.action]
 end
 
 AIModule.condition_functions.inEnemyArc = function(ship, target, probe, arguments)
