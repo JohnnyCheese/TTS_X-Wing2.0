@@ -1996,19 +1996,19 @@ BehaviourDB.rule_sets[1].ships['sheathipedeclassshuttle'].move_table = {
     },
 }
 BehaviourDB.rule_sets[1].ships['sheathipedeclassshuttle'].action_selection = {
-    [1] = { -- Focus if have a shot
-        ['description'] = "%s has a shot so focused.",
+    [1] = { -- Focus/Calc if have a shot
+        ['description'] = "%s has a shot so focused/calculated.",
         ['preconditions'] = {['hasShot'] = true},
-        ['action'] = 'focus'
+        ['action'] = 'focuscalculate'
     },
     [2] = { -- Coordinate the nearest friendly (unstressed) ship
         ['description'] = {['text'] = "%s coordinated %s.", ['strings'] = {'ship', 'coordinate'}},
         ['preconditions'] = {['hasCoordinateTarget'] = true},
         ['action'] = 'coordinate'
     },
-    [3] = { -- Focus
-        ['description'] = "%s focused.",
-        ['action'] = 'focus'
+    [3] = { -- Focus/Calc
+        ['description'] = "%s focused/calculated.",
+        ['action'] = 'focuscalculate'
     },
 }
 
@@ -2058,19 +2058,19 @@ BehaviourDB.rule_sets[1].ships['ut60duwing'].action_selection = {
         ['preconditions'] = {['targetMoved'] = true, ['targetLocked'] = false, ['targetWithinRange'] = true},
         ['action'] = 'targetLock'
     },
-    [3] = { -- Focus if have a shot
-        ['description'] = "%s has a shot so focused.",
+    [3] = { -- Focus/Calc if have a shot
+        ['description'] = "%s has a shot so focused/calculated.",
         ['preconditions'] = {['hasShot'] = true},
-        ['action'] = 'focus'
+        ['action'] = 'focuscalculate'
     },
     [4] = { -- Coordinate (stress) the nearest friendly (unstressed) ship
         ['description'] = {['text'] = "%s coordinated %s.", ['strings'] = {'ship', 'coordinate'}},
         ['preconditions'] = {['hasCoordinateTarget'] = true},
         ['action'] = {['coordinate'] = true}
     },
-    [5] = { -- Focus
-        ['description'] = "%s focused.",
-        ['action'] = 'focus'
+    [5] = { -- Focus/Calc
+        ['description'] = "%s focused/calculated.",
+        ['action'] = 'focuscalculate'
     },
 }
 
@@ -2186,19 +2186,19 @@ BehaviourDB.rule_sets[1].ships['m3ainterceptor'].action_selection = {
       ['action'] = {['barrelRoll'] = false},
       ['postconditions'] = {['hasShot'] = true}
   },
-  [3] = { -- Focus if you have a shot
-      ['description'] = "%s has a shot so focused.",
+  [3] = { -- Focus/Calc if have a shot
+      ['description'] = "%s has a shot so focused/calculated.",
       ['preconditions'] = {['hasShot'] = true},
-      ['action'] = 'focus'
+      ['action'] = 'focuscalculate'
   },
   [4] = { -- Evade
       ['description'] = "%s evaded.",
       ['preconditions'] = {['inTargetsArc'] = true, ['hasShot'] = false},
       ['action'] = 'evade'
   },
-  [5] = { -- Focus
-      ['description'] = "%s focused.",
-      ['action'] = 'focus'
+  [5] = { -- Focus/Calc
+      ['description'] = "%s focused/calculated.",
+      ['action'] = 'focuscalculate'
   }
 }
 
@@ -2312,30 +2312,30 @@ BehaviourDB.rule_sets[1].ships['starviperclassattackplatform'].action_selection 
       ['preconditions'] = {['targetLocked'] = false, ['targetWithinRange'] = true},
       ['action'] = 'targetLock'
   },
-  [2] = { -- Boost or barrel roll > Focus (stress) to avoid Target arc and still get a shot
-      ['description'] = "%s barrel rolled/boosted into a focus (stress) to avoid target's arc and still get a shot.",
+  [2] = { -- Boost or barrel roll > Focus/Calc (stress) to avoid Target arc and still get a shot
+      ['description'] = "%s barrel rolled/boosted into a focus/calculate (stress) to avoid target's arc and still get a shot.",
       ['preconditions'] = {['inTargetsArc'] = true},
       ['action'] = {
-        [1] = {['boost'] = false, ['focus'] = true},
-        [2] = {['barrelRoll'] = false, ['focus'] = true}
+        [1] = {['boost'] = false, ['focuscalculate'] = true},
+        [2] = {['barrelRoll'] = false, ['focuscalculate'] = true}
       },
       ['postconditions'] = {['hasShot'] = true, ['inTargetsArc'] = false}
   },
-  [3] = { -- Boost or barrel roll > Focus (stress) to get a shot at range 1
-      ['description'] = "%s barrel rolled/boosted into a focus (stress) to get a close range shot.",
+  [3] = { -- Boost or barrel roll > Focus/Calc (stress) to get a shot at range 1
+      ['description'] = "%s barrel rolled/boosted into a focus/calculate (stress) to get a close range shot.",
       ['preconditions'] = {['hasShot'] = {['arguments'] = {['maxRange'] = 1}, ['requiredResult'] = false}},
       ['action'] = {
-        [1] = {['boost'] = false, ['focus'] = true},
-        [2] = {['barrelRoll'] = false, ['focus'] = true}
+        [1] = {['boost'] = false, ['focuscalculate'] = true},
+        [2] = {['barrelRoll'] = false, ['focuscalculate'] = true}
       },
       ['postconditions'] = {['hasShot'] = {['arguments'] = {['maxRange'] = 1}, ['requiredResult'] = true}}
   },
-  [4] = { -- Boost or barrel roll > Focus (stress) to get a shot
-      ['description'] = "%s barrel rolled/boosted into a focus (stress) to get a shot.",
+  [4] = { -- Boost or barrel roll > Focus/Calc (stress) to get a shot
+      ['description'] = "%s barrel rolled/boosted into a focus/calculate (stress) to get a shot.",
       ['preconditions'] = {['hasShot'] = false},
       ['action'] = {
-        [1] = {['boost'] = false, ['focus'] = true},
-        [2] = {['barrelRoll'] = false, ['focus'] = true}
+        [1] = {['boost'] = false, ['focuscalculate'] = true},
+        [2] = {['barrelRoll'] = false, ['focuscalculate'] = true}
       },
       ['postconditions'] = {['hasShot'] = true}
   },
@@ -2348,9 +2348,9 @@ BehaviourDB.rule_sets[1].ships['starviperclassattackplatform'].action_selection 
       },
       ['postconditions'] = {['inTargetsArc'] = false}
   },
-  [6] = { -- Focus
-      ['description'] = "%s focused.",
-      ['action'] = 'focus'
+  [6] = { -- Focus/Calc
+      ['description'] = "%s focused/calculated.",
+      ['action'] = 'focuscalculate'
   }
 }
 
@@ -2843,10 +2843,10 @@ BehaviourDB.rule_sets[1].ships['escapecraft'].action_selection = {
         ['action'] = 'barrelRoll',
         ['postconditions'] = {['hasShot'] = true, ['inTargetsArc'] = false}
     },
-    [2] = { -- Focus if have a shot
-        ['description'] = "%s has a shot so focused.",
+    [2] = { -- Focus/Calc if have a shot
+        ['description'] = "%s has a shot so focused/calculated.",
         ['preconditions'] = {['hasShot'] = true},
-        ['action'] = 'focus'
+        ['action'] = 'focuscalculate'
     },
     [3] = { -- Coordinate the nearest friendly (unstressed) ship
         ['description'] = {['text'] = "%s coordinated %s.", ['strings'] = {'ship', 'coordinate'}},
@@ -2865,9 +2865,9 @@ BehaviourDB.rule_sets[1].ships['escapecraft'].action_selection = {
         ['action'] = 'barrelRoll',
         ['postconditions'] = {['inTargetsArc'] = false}
     },
-    [6] = { -- Focus
-        ['description'] = "%s focused.",
-        ['action'] = 'focus'
+    [6] = { -- Focus/Calc
+        ['description'] = "%s focused/calculated.",
+        ['action'] = 'focuscalculate'
     },
 }
 
@@ -2917,19 +2917,19 @@ BehaviourDB.rule_sets[1].ships['g1astarfighter'].action_selection = {
         ['preconditions'] = {['targetMoved'] = true, ['targetLocked'] = false, ['targetWithinRange'] = true},
         ['action'] = 'targetLock'
     },
-    [3] = { -- Focus if have a shot
-        ['description'] = "%s has a shot so focused.",
+    [3] = { -- Focus/Calc if have a shot
+        ['description'] = "%s has a shot so focused/calculated.",
         ['preconditions'] = {['hasShot'] = true},
-        ['action'] = 'focus'
+        ['action'] = 'focuscalculate'
     },
     [4] = { -- Jam the target
         ['description'] = {['text'] = "%s jammed %s.", ['strings'] = {'ship', 'target'}},
         ['preconditions'] = {['targetWithinRange'] = {['arguments'] = {['maxRange'] = 1}, ['requiredResult'] = true}},
         ['action'] = 'jam'
     },
-    [5] = { -- Focus
-        ['description'] = "%s focused.",
-        ['action'] = 'focus'
+    [5] = { -- Focus/Calc
+        ['description'] = "%s focused/calculated.",
+        ['action'] = 'focuscalculate'
     },
 }
 
@@ -4178,10 +4178,10 @@ BehaviourDB.rule_sets[1].ships['resistancetransportpod'].move_table = {
   },
 }
 BehaviourDB.rule_sets[1].ships['resistancetransportpod'].action_selection = {
-  [1] = { -- Focus if you have a shot
-      ['description'] = "%s has a shot so focused.",
+  [1] = { -- Focus/Calc if have a shot
+      ['description'] = "%s has a shot so focused/calculated.",
       ['preconditions'] = {['hasShot'] = true},
-      ['action'] = 'focus'
+      ['action'] = 'focuscalculate'
   },
   [2] = { -- (target moved) Target lock (stress)
       ['description'] = {['text'] = "%s target locked (stress) %s.", ['strings'] = {'ship', 'target'}},
@@ -4211,9 +4211,9 @@ BehaviourDB.rule_sets[1].ships['resistancetransportpod'].action_selection = {
       ['preconditions'] = {['targetWithinRange'] = {['arguments'] = {['maxRange'] = 1}, ['requiredResult'] = true}},
       ['action'] = {['jam'] = true}
   },
-  [7] = { -- Focus
-      ['description'] = "%s focused.",
-      ['action'] = 'focus'
+  [7] = { -- Focus/Calc
+      ['description'] = "%s focused/calculated.",
+      ['action'] = 'focuscalculate'
   }
 }
 
@@ -4353,10 +4353,10 @@ BehaviourDB.rule_sets[1].ships['btlbywing'].action_selection = {
       ['preconditions'] = {['targetLocked'] = false, ['targetWithinRange'] = true},
       ['action'] = 'targetLock'
   },
-  [2] = { -- Focus if you have a shot
-      ['description'] = "%s has a shot so focused.",
+  [2] = { -- Focus/Calc if have a shot
+      ['description'] = "%s has a shot so focused/calculated.",
       ['preconditions'] = {['hasShot'] = true},
-      ['action'] = 'focus'
+      ['action'] = 'focuscalculate'
   },
   [3] = { -- Barrel roll (stress) to get a shot
       ['description'] = "%s barrel rolled to get a shot.",
@@ -4368,9 +4368,9 @@ BehaviourDB.rule_sets[1].ships['btlbywing'].action_selection = {
       ['pass_through'] = true,
       ['description'] = "If %s has no charges on its missile or torpedo upgrades, then undo the following action and take a red Reload action.",
   },
-  [5] = { -- Focus
-      ['description'] = "%s focused.",
-      ['action'] = 'focus'
+  [5] = { -- Focus/Calc
+      ['description'] = "%s focused/calculated.",
+      ['action'] = 'focuscalculate'
   }
 }
 
@@ -5088,37 +5088,37 @@ BehaviourDB.rule_sets[1].ships['belbulab22starfighter'].action_selection = {
       ['preconditions'] = {['targetLocked'] = false, ['targetWithinRange'] = true},
       ['action'] = 'targetLock'
   },
-  [2] = { -- Boost or barrel roll > Focus (stress) to avoid Target arc and still get a shot
-      ['description'] = "%s barrel rolled/boosted into a focus (stress) to avoid target's arc and still get a shot.",
+  [2] = { -- Boost or barrel roll > Focus/Calc (stress) to avoid Target arc and still get a shot
+      ['description'] = "%s barrel rolled/boosted into a focus/calculate (stress) to avoid target's arc and still get a shot.",
       ['preconditions'] = {['hasShot'] = true, ['inTargetsArc'] = true},
       ['action'] = {
-          [1] = {['boost'] = false, ['focus'] = true},
-          [2] = {['barrelRoll'] = false, ['focus'] = true}
+          [1] = {['boost'] = false, ['focuscalculate'] = true},
+          [2] = {['barrelRoll'] = false, ['focuscalculate'] = true}
       },
       ['postconditions'] = {['hasShot'] = true, ['inTargetsArc'] = false}
   },
-  [3] = { -- Boost or barrel roll > Focus (stress) to get a shot at range 1
-      ['description'] = "%s barrel rolled/boosted into a focus (stress) to get a close range shot.",
+  [3] = { -- Boost or barrel roll > Focus/Calc (stress) to get a shot at range 1
+      ['description'] = "%s barrel rolled/boosted into a focus/calculate (stress) to get a close range shot.",
       ['preconditions'] = {['hasShot'] = {['arguments'] = {['maxRange'] = 1}, ['requiredResult'] = false}},
       ['action'] = {
-          [1] = {['boost'] = false, ['focus'] = true},
-          [2] = {['barrelRoll'] = false, ['focus'] = true}
+          [1] = {['boost'] = false, ['focuscalculate'] = true},
+          [2] = {['barrelRoll'] = false, ['focuscalculate'] = true}
       },
       ['postconditions'] = {['hasShot'] = {['arguments'] = {['maxRange'] = 1}, ['requiredResult'] = true}}
   },
-  [4] = { -- Boost or barrel roll > Focus (stress) to get a shot
-      ['description'] = "%s barrel rolled/boosted into a focus (stress) to get a shot.",
+  [4] = { -- Boost or barrel roll > Focus/Calc (stress) to get a shot
+      ['description'] = "%s barrel rolled/boosted into a focus/calculate (stress) to get a shot.",
       ['preconditions'] = {['hasShot'] = false},
       ['action'] = {
-          [1] = {['boost'] = false, ['focus'] = true},
-          [2] = {['barrelRoll'] = false, ['focus'] = true}
+          [1] = {['boost'] = false, ['focuscalculate'] = true},
+          [2] = {['barrelRoll'] = false, ['focuscalculate'] = true}
       },
       ['postconditions'] = {['hasShot'] = true}
   },
-  [5] = { -- Focus if you have a shot
-      ['description'] = "%s has a shot so focused.",
+  [5] = { -- Focus/Calc if you have a shot
+      ['description'] = "%s has a shot so focused/calculate.",
       ['preconditions'] = {['hasShot'] = true},
-      ['action'] = 'focus'
+      ['action'] = 'focuscalculate'
   },
   [6] = { -- Barrel roll or boost to avoid target's arc
       ['description'] = {['text'] = "%s barrel roll/boosted to avoid %s's arc.", ['strings'] = {'ship', 'target'}},
@@ -5129,9 +5129,9 @@ BehaviourDB.rule_sets[1].ships['belbulab22starfighter'].action_selection = {
       },
       ['postconditions'] = {['inTargetsArc'] = false}
   },
-  [7] = { -- Focus
-      ['description'] = "%s focused.",
-      ['action'] = 'focus'
+  [7] = { -- Focus/Calc
+      ['description'] = "%s focused/calculated.",
+      ['action'] = 'focuscalculate'
   }
 }
 
