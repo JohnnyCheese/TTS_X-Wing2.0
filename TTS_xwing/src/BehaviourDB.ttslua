@@ -5090,69 +5090,37 @@ BehaviourDB.rule_sets[1].ships['belbulab22starfighter'].action_selection = {
   },
   [2] = { -- Boost or barrel roll > Focus (stress) to avoid Target arc and still get a shot
       description = "%s barrel rolled/boosted into a focus (stress) to avoid target's arc and still get a shot.",
-      preconditions = {hasShot = true, inTargetsArc = true, hasAction = {arguments = {action = 'focus'}, requiredResult = true}},
+      preconditions = {hasShot = true, inTargetsArc = true},
       action = {
-          [1] = {boost = false, focus = true},
-          [2] = {barrelRoll = false, focus = true}
+          [1] = {boost = false, focuscalculate = true},
+          [2] = {barrelRoll = false, focuscalculate = true}
       },
       postconditions = {hasShot = true, inTargetsArc = false}
   },
-  [3] = { -- Boost or barrel roll > Calculate (stress) to avoid Target arc and still get a shot
-      description = "%s barrel rolled/boosted into a calculate (stress) to avoid target's arc and still get a shot.",
-      preconditions = {hasShot = true, inTargetsArc = true, hasAction = {arguments = {action = 'calculate'}, requiredResult = true}},
-      action = {
-          [1] = {boost = false, calculate = true},
-          [2] = {barrelRoll = false, calculate = true}
-      },
-      postconditions = {hasShot = true, inTargetsArc = false}
-  },
-  [4] = { -- Boost or barrel roll > Focus (stress) to get a shot at range 1
+  [3] = { -- Boost or barrel roll > Focus (stress) to get a shot at range 1
       description = "%s barrel rolled/boosted into a focus (stress) to get a close range shot.",
-      preconditions = {hasShot = {arguments = {maxRange = 1}, requiredResult = false}, hasAction = {arguments = {action = 'focus'}, requiredResult = true}},
+      preconditions = {hasShot = {arguments = {maxRange = 1}, requiredResult = false}},
       action = {
-          [1] = {boost = false, focus = true},
-          [2] = {barrelRoll = false, focus = true}
+          [1] = {boost = false, focuscalculate = true},
+          [2] = {barrelRoll = false, focuscalculate = true}
       },
       postconditions = {hasShot = {arguments = {maxRange = 1}, requiredResult = true}}
   },
-  [5] = { -- Boost or barrel roll > Calculate (stress) to get a shot at range 1
-      description = "%s barrel rolled/boosted into a calculate (stress) to get a close range shot.",
-      preconditions = {hasShot = {arguments = {maxRange = 1}, requiredResult = false}, hasAction = {arguments = {action = 'calculate'}, requiredResult = true}},
-      action = {
-          [1] = {boost = false, calculate = true},
-          [2] = {barrelRoll = false, calculate = true}
-      },
-      postconditions = {hasShot = {arguments = {maxRange = 1}, requiredResult = true}}
-  },
-  [6] = { -- Boost or barrel roll > Focus (stress) to get a shot
+  [4] = { -- Boost or barrel roll > Focus (stress) to get a shot
       description = "%s barrel rolled/boosted into a focus (stress) to get a shot.",
-      preconditions = {hasShot = false, hasAction = {arguments = {action = 'focus'}, requiredResult = true}},
+      preconditions = {hasShot = false},
       action = {
-          [1] = {boost = false, focus = true},
-          [2] = {barrelRoll = false, focus = true}
+          [1] = {boost = false, focuscalculate = true},
+          [2] = {barrelRoll = false, focuscalculate = true}
       },
       postconditions = {hasShot = true}
   },
-  [7] = { -- Boost or barrel roll > Calculate (stress) to get a shot
-      description = "%s barrel rolled/boosted into a calculate (stress) to get a shot.",
-      preconditions = {hasShot = false, hasAction = {arguments = {action = 'calculate'}, requiredResult = true}},
-      action = {
-          [1] = {boost = false, calculate = true},
-          [2] = {barrelRoll = false, calculate = true}
-      },
-      postconditions = {hasShot = true}
-  },
-  [8] = { -- Focus if you have a shot
+  [5] = { -- Focus if you have a shot
       description = "%s has a shot so focused.",
-      preconditions = {hasShot = true, hasAction = {arguments = {action = 'focus'}, requiredResult = true}},
-      action = 'focus'
+      preconditions = {hasShot = true},
+      action = 'focuscalculate'
   },
-  [9] = { -- Calculate if you have a shot
-      description = "%s has a shot so calculate.",
-      preconditions = {hasShot = true, hasAction = {arguments = {action = 'calculate'}, requiredResult = true}},
-      action = 'calculate'
-  },
-  [10] = { -- Barrel roll or boost to avoid target's arc
+  [6] = { -- Barrel roll or boost to avoid target's arc
       description = {text = "%s barrel roll/boosted to avoid %s's arc.", strings = {'ship', 'target'}},
       preconditions = {inTargetsArc = true},
       action = {
@@ -5161,16 +5129,10 @@ BehaviourDB.rule_sets[1].ships['belbulab22starfighter'].action_selection = {
       },
       postconditions = {inTargetsArc = false}
   },
-  [11] = { -- Focus
+  [7] = { -- Focus
       description = "%s focused.",
-      preconditions = {hasAction = {arguments = {action = 'focus'}, requiredResult = true}},
-      action = 'focus'
+      action = 'focuscalculate'
   },
-  [12] = { -- Calculate
-      description = "%s calculates.",
-      preconditions = {hasAction = {arguments = {action = 'calculate'}, requiredResult = true}},
-      action = 'calculate'
-  }
 }
 
 -- Droid Tri-Fighter

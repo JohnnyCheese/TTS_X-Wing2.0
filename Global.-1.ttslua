@@ -1310,6 +1310,22 @@ AIModule.ProcessActionStack = function(ship)
         elseif action == 'calculate' then
             DialModule.PerformAction(ship, 'Calculate', ship.getVar('owningPlayer'))
             table.insert(AIModule.current_move.actions, 'calculate')
+        elseif action == 'focuscalculate' then
+            local hasFocus = false
+            local hasCalc = false
+            for _,action in pairs(ship.getTable('Data').actSet) do
+              if action == "F" then
+                DialModule.PerformAction(ship, 'Focus', ship.getVar('owningPlayer'))
+                table.insert(AIModule.current_move.actions, 'focus')
+                hasFocus = true
+              elseif action == "C" then
+                hasCalc = true
+              end
+            end
+            if hasCalc and not hasFocus then
+              DialModule.PerformAction(ship, 'Calculate', ship.getVar('owningPlayer'))
+              table.insert(AIModule.current_move.actions, 'calculate')
+            end
         elseif action == 'evade' then
             DialModule.PerformAction(ship, 'Evade', ship.getVar('owningPlayer'))
             table.insert(AIModule.current_move.actions, 'evade')
