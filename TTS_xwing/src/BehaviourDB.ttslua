@@ -4208,6 +4208,98 @@ BehaviourDB.rule_sets[1].ships['xiclasslightshuttle'].action_selection = {
     },
 }
 
+-- TIE/ba Interceptor
+BehaviourDB.rule_sets[1].ships['tiebainterceptor'] = {}
+BehaviourDB.rule_sets[1].ships['tiebainterceptor'].target_selection = {[1]='LockedInRange', [2]='ClosestInArcLowerInitiative', [3]='ClosestInArc', [4]='Closest'}
+BehaviourDB.rule_sets[1].ships['tiebainterceptor'].move_table = {
+  ['bullseye'] = {
+    ['near'] = {[1] = 'k5', [3] = 'br2s', [4] = 'bl2s', [5] = 's2'},
+    ['far'] = {[1] = 's2', [4] = 's3'},
+    ['distant'] = {[1] = 's4', [2] = 's5'},
+    ['stress'] = {[1] = 'bl1', [2] = 'br1', [3] = 'bl2', [4] = 'br2', [5] = 's2'},
+  },
+  ['front_right'] = {
+    ['near'] = {[1] = 'k5', [3] = 'br1', [6] = 'br2'},
+    ['far'] = {[1] = 'br1', [3] = 'br2', [6] = 'br3'},
+    ['distant'] = {[1] = 'br3', [5] = 's4'},
+    ['stress'] = {[1] = 'br1', [3] = 'br2', [4] = 's2', [6] = 's3'},
+  },
+  ['right_front'] = {
+    ['near'] = {[1] = 'k5', [2] = 'bl2s', [4] = 'tr1'},
+    ['far'] = {[1] = 'br1', [2] = 'tr2', [3] = 'br2', [5] = 'tr3'},
+    ['distant'] = {[1] = 'tr2', [4] = 'tr3'},
+    ['stress'] = {[1] = 'br1', [3] = 'br2', [5] = 'tr1'},
+  },
+  ['right_back'] = {
+    ['near'] = {[1] = 'k5', [3] = 'bl2s', [4] = 'tr1', [6] = 'tr2'},
+    ['far'] = {[1] = 'k5', [2] = 'bl2s', [5] = 'tr1'},
+    ['distant'] = {[1] = 'bl2s', [4] = 'tr1'},
+    ['stress'] = {[1] = 'br1', [3] = 'br2', [4] = 'tr1'},
+  },
+  ['back_right'] = {
+    ['near'] = {[1] = 'k5', [3] = 'bl2s', [5] = 'tr3'},
+    ['far'] = {[1] = 'k5', [3] = 'bl2s'},
+    ['distant'] = {[1] = 'bl2s', [4] = 'tr1'},
+    ['stress'] = {[1] = 'br1', [4] = 'tr1'},
+  },
+}
+BehaviourDB.rule_sets[1].ships['tiebainterceptor'].action_selection = {
+  [1] = { -- (target moved) Focus > Lock (Deplete/Strain) if you have a shot
+      ['description'] = "%s has a shot so Focused into Target Lock, taking a Strain.",
+      ['preconditions'] = {['targetMoved'] = true, ['hasShot'] = true, ['targetLocked'] = false},
+      ['action'] = {['focus'] = false, ['targetLock'] = false --,['strain'] = false
+  }},
+  [2] = { --  (target moved) Boost or Barrel roll > Lock (Deplete/Strain) to avoid target arc and still get a shot (with the > target lock)
+      ['description'] = {['text'] = "%s barrel rolled/boosted and target locked to avoid %s's arc and still get a shot, taking a Strain.", ['strings'] = {'ship', 'target'}},
+      ['preconditions'] = {['inTargetsArc'] = true, ['targetMoved'] = true, ['targetLocked'] = false},
+      ['action'] = {
+          [1] = {['boost'] = false, ['targetLock'] = false --,['strain'] = false
+      },
+          [2] = {['barrelRoll'] = false, ['targetLock'] = false --,['strain'] = false
+      }},
+      ['postconditions'] = {['inTargetsArc'] = false, ['hasShot'] = {['arguments'] = {['minRange'] = 2}, ['requiredResult'] = true}, ['targetWithinRange'] = true},
+  },
+  [3] = { -- (target moved) Focus > Lock (Deplete/Strain) to get a shot at range 1
+      ['description'] = "%s focused into a target lock to get a close range shot, taking a Strain.",
+      ['preconditions'] = {['targetMoved'] = true, ['hasShot'] = {['arguments'] = {['maxRange'] = 1}, ['requiredResult'] = false}},
+      ['action'] = {['focus'] = false, ['barrelRoll'] = false --,['strain'] = false
+    },
+      ['postconditions'] = {['hasShot'] = {['arguments'] = {['maxRange'] = 1}, ['requiredResult'] = true}}
+  },
+  [4] = { -- Boost > barrel roll (Deplete/Strain) to get a shot
+      ['description'] = "%s boosted into barrel rolled to get a shot, taking a Strain.",
+      ['preconditions'] = {['hasShot'] = false},
+      ['action'] = {
+          [1] = {['boost'] = false, ['barrelRoll'] = true --,['strain'] = false
+      }},
+      ['postconditions'] = {['hasShot'] = true}
+  },
+  [5] = { -- (target not moved) Focus if you have a shot
+      ['description'] = "%s has a shot so focused.",
+      ['preconditions'] = {['targetMoved'] = false, ['hasShot'] = true, ['targetLocked'] = true},
+      ['action'] = 'focus'
+  },
+  [6] = { -- (target moved) Barrel roll or boost or Boost > barrel roll (Deplete/Strain) to avoid target's arc
+      ['description'] = {['text'] = "%s barrel roll/boosted/boosted into barrel roll (taking a Deplete) to avoid %s's arc.", ['strings'] = {'ship', 'target'}},
+      ['preconditions'] = {['targetMoved'] = true, ['inTargetsArc'] = true},
+      ['action'] = {
+          [1] = {['boost'] = false},
+          [2] = {['barrelRoll'] = false},
+          [1] = {['boost'] = false, ['barrelRoll'] = true --,['deplete'] = false
+      }},
+      ['postconditions'] = {['inTargetsArc'] = false}
+  },
+  [7] = { -- Evade
+      ['description'] = "%s evaded.",
+      ['preconditions'] = {['inTargetsArc'] = true, ['hasShot'] = false},
+      ['action'] = 'evade'
+  },
+  [8] = { -- Focus
+      ['description'] = "%s focused.",
+      ['action'] = 'focus'
+  }
+}
+
 
 ----------------------
 -- Resistance ships --
@@ -5862,4 +5954,60 @@ BehaviourDB.rule_sets[1].ships['sithinfiltrator'].action_selection = {
         ['description'] = "%s focused.",
         ['action'] = 'focus'
     }
+}
+
+-- Nantex-class Starfighter
+BehaviourDB.rule_sets[1].ships['nantexclassstarfighter'] = {}
+BehaviourDB.rule_sets[1].ships['nantexclassstarfighter'].target_selection = {[1]='ClosestInArc', [2]='Closest'}
+BehaviourDB.rule_sets[1].ships['nantexclassstarfighter'].move_table = {
+  ['bullseye'] = {
+    ['near'] = {[1] = 'k5', [3] = 'bl3s', [4] = 'bl3s', [5] = 'bl1', [6] = 'br1'},
+    ['far'] = {[1] = 's2', [5] = 's3'},
+    ['distant'] = {[1] = 's4', [2] = 's5'},
+    ['stress'] = {[1] = 'bl1', [2] = 'br1', [3] = 'bl2', [4] = 'br2', [5] = 's2'},
+  },
+  ['front_right'] = {
+    ['near'] = {[1] = 'k5', [2] = 'bl3s', [3] = 'tr1', [5] = 'br1'},
+    ['far'] = {[1] = 'br1', [3] = 'br2', [5] = 'br3', [6] = 's3'},
+    ['distant'] = {[1] = 'br3', [5] = 's4'},
+    ['stress'] = {[1] = 'br1', [3] = 'br2', [5] = 's2', [6] = 's3'},
+  },
+  ['right_front'] = {
+    ['near'] = {[1] = 'k5', [2] = 'bl3s', [3] = 'tr1', [5] = 'br1', [6] = 's2'},
+    ['far'] = {[1] = 'tr1', [3] = 'br1', [5] = 'br2', [6] = 'tr2'},
+    ['distant'] = {[1] = 'tr2', [3] = 'br3', [5] = 'tr3'},
+    ['stress'] = {[1] = 'br1', [3] = 'br2', [5] = 'br3'},
+  },
+  ['right_back'] = {
+    ['near'] = {[1] = 'k5', [2] = 'bl3s', [4] = 'tr2', [5] = 'br2', [6] = 'tr3'},
+    ['far'] = {[1] = 'k5', [2] = 'br3s', [3] = 'bl3s', [4] = 'tr1', [5] = 'br1', [6] = 'tr2'},
+    ['distant'] = {[1] = 'k5', [2] = 'br3s', [3] = 'bl3s', [4] = 'tr1'},
+    ['stress'] = {[1] = 'br1', [3] = 'br2', [5] = 'br3'},
+  },
+  ['back_right'] = {
+    ['near'] = {[1] = 'k5', [3] = 'br3s', [4] = 'bl3s', [5] = 'br2', [6] = 'br3'},
+    ['far'] = {[1] = 'k5', [2] = 'br3s', [3] = 'bl3s', [4] = 'br1', [5] = 'br2', [6] = 'tr2'},
+    ['distant'] = {[1] = 'k5', [3] = 'br3s', [4] = 'bl3s', [5] = 'tr1'},
+    ['stress'] = {[1] = 'br1', [3] = 'br2', [5] = 'br3'},
+  },
+}
+BehaviourDB.rule_sets[1].ships['nantexclassstarfighter'].action_selection = {
+    [1] = { --  manual Tractor/Rotate prompt
+        ['pass_through'] = true,
+        ['description'] = "If %s can get a shot with Pinpoint Tractor Array, then take a Tractor token and Rotate action.",
+    },
+    [2] = { -- Focus if you have a shot
+        ['description'] = "%s has a shot so focused.",
+        ['preconditions'] = {['hasShot'] = true},
+        ['action'] = 'focus'
+    },
+    [3] = { -- Evade
+        ['description'] = "%s evaded.",
+        ['preconditions'] = {['inTargetsArc'] = true},
+        ['action'] = 'evade'
+    },
+    [4] = { -- Focus
+        ['description'] = "%s focused.",
+        ['action'] = 'focus'
+    },
 }
