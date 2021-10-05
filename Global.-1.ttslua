@@ -563,8 +563,7 @@ AIModule.PerformManeuver = function(ship, take_action)
             local arc_parts = nil
 
             local ship_size = ship.getTable("Data").Size or 'small'
-
-            if rule_set.useBullseyeArc then
+            if rule_set.usesBullseyeArc then
                 -- First do a check to see if the ship is in our bullseye.
                 -- Move the bullseye position ahead because it's in the middle of
                 -- range ruler rather than one end. Could this be moved into the
@@ -2703,7 +2702,6 @@ MoveModule.JoinHitTables = function(exclObj, SelectFun, t1, t2, t3, t4, t5)
     local tbls = {a=t1, b=t2, c=t3, d=t4, e=t5}
     for k,hTable in pairs(tbls) do
         for k2,hit in pairs(hTable) do
-            print("Hit:" .. hit.hit_object.getName())
             if SelectFun(hit.hit_object) and gTable[hit.hit_object.getGUID()] == nil then
                 gTable[hit.hit_object.getGUID()] = true
                 table.insert(out, hit.hit_object)
@@ -2715,7 +2713,7 @@ end
 
 -- Selection function for MoveModule.JoinHitTables - ships only
 MoveModule.SelectShips = function(obj)
-    return ((obj.tag == 'Figurine') and (obj.getVar('__XW_Ship')==true))
+    return ((obj.tag == 'Figurine') and (obj.getVar('__XW_Ship')==true or obj.hasTag('Ship')))
 end
 
 -- Selection function for MoveModule.JoinHitTables - huge ships only

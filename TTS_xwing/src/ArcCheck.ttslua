@@ -621,12 +621,12 @@ ArcCheck.GetBullseyeTargets = function(ship, pos, length)
     end
     local castSize = vector(ArcCheck.bullseye_data.size[1], ArcCheck.bullseye_data.size[2], length or ArcCheck.bullseye_data.size[3])
     local collissions = Physics.cast({
-        origin       = Vect.Sum(ship.getPosition(), Vect.RotateDeg(pos, ship.getRotation()[2] + 180)),
+        origin       = Vect.Sum(ship.getPosition() + vector(0,0.1,0), Vect.RotateDeg(pos, ship.getRotation()[2] + 180)),
         orientation  = ship.getRotation(),
-        direction    = {0,-0.001,0},
+        direction    = {0,-0.03,0},
         type         = 3,
         size         = castSize,
-        max_distance = 1,
+        max_distance = 3,
         debug        = false
     })
     local myOwningPlayer = ship.getVar("owningPlayer")
