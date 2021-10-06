@@ -30,7 +30,7 @@ colorTable['Black']= {0.2, 0.2, 0.2}
 -- Save self state
 function onSave()
     if set  then
-        local state = {set=set}
+        local state = {set=set, text=self.UI.getAttribute("IdLabel", "text")}
         return JSON.encode(state)
     end
 end
@@ -38,7 +38,11 @@ end
 -- Restore self state
 function onLoad(save_state)
     if save_state ~= '' and save_state ~= 'null' and save_state ~= nil then
-        set = JSON.decode(save_state).set
+        local state = JSON.decode(save_state)
+        set = state.set
+        if state.text then
+          self.UI.setAttribute("IdLabel", "text", state.text)
+        end
     end
 end
 
@@ -57,35 +61,25 @@ function onPickedUp()
     end
 end
 
--- Set name on drop near a ship
+-- Set name on drop near a ship or obstacle
 function onDropped(player_color)
     local spos = self.getPosition()
     local spos = self.getPosition()
     local nearest = nil
     local minDist = 3.6125 -- 100 mm
-    for k,ship in pairs(getAllObjects()) do
-        local name = ship.getName()
-        if ship.tag == 'Figurine' and name ~= '' then
-            local pos = ship.getPosition()
-            local dist = math.sqrt(math.pow((spos[1]-pos[1]),2) + math.pow((spos[3]-pos[3]),2))
-            if dist < minDist then
-                nearest = ship
-                minDist = dist
-            end
-        elseif set and (name:find('Asteroid') or name:find('Debris') or name:find('Chute debris') or name:find('Cloud') or name:find('Spare') or name:find('Obstacle')) ~= nil then
-            local pos = ship.getPosition()
-            local dist = math.sqrt(math.pow((spos[1]-pos[1]),2) + math.pow((spos[3]-pos[3]),2))
-            if dist < minDist then
-                nearest = ship
-                minDist = dist
-            end
+    for _,object in pairs(getObjectsWithAnyTags({'Ship','Obstacle'})) do
+        local name = object.getName()
+        local pos = object.getPosition()
+        local dist = math.sqrt(math.pow((spos[1]-pos[1]),2) + math.pow((spos[3]-pos[3]),2))
+        if dist < minDist then
+            nearest = object
+            minDist = dist
         end
     end
 
     if not set then
-        if nearest ~= nil then
+        if nearest ~= nil and nearest.hasTag('Ship') then
             setOwner({ship=nearest,player=player_color})
-
         end
     else -- Allready set, now Assign to target
         assignToShip({ship=nearest})
