@@ -73,10 +73,45 @@ configuration = 0
 
 toolOpen = false
 
-function onLoad()
-	nameAssigned = self.getName()
-	SpawnFirstButtons()
+-- Save self state
+function onSave()
+    local state = {}
+		state.configuration = configuration
+		state.wingName = wingName
+		state.leader = leader
+		state.assignedShips = assignedShips
+		state.toolOpen = toolOpen
+		state.configured = configured
+    return JSON.encode(state)
 end
+
+-- Restore self state
+function onLoad(save_state)
+	nameAssigned = self.getName()
+    if save_state ~= '' and save_state ~= 'null' and save_state ~= nil then
+        local state = JSON.decode(save_state)
+				configuration = state.configuration or 0
+				configured = state.configured or false
+				wingName = state.wingName or ''
+				leader = state.leader
+				assignedShips = state.assignedShips or {}
+				for _, wingmate in ipairs(assignedShips) do
+					local ship = getObjectFromGUID(wingmate.guid)
+					if ship then
+						ship.addContextMenuItem("Rejoin wing", function() rejoin(ship) end, false)
+						ship.addContextMenuItem("Split from wing", function() split(ship) end, false)
+					end
+				end
+				toolOpen = state.toolOpen or false
+    end
+		if configured then
+			local formWingButton = {['function_owner'] = self , ['click_function'] = 'SetWing', ['label'] = 'Form Wing', ['position'] = {0, 0.25, 0}, ['rotation'] =  {0, 0, 0}, ['width'] = 700, ['height'] = 200, ['font_size'] = 100}
+		  self.createButton(formWingButton)
+		else
+			SpawnFirstButtons()
+		end
+end
+
 
 function SpawnFirstButtons()
 	if nameAssigned == 'Epic Wing Token' then
@@ -129,35 +164,36 @@ end
 function AddWingmate ()
 	--find which posistion to fill next
 	local spos = self.getPosition()
-    local nearest = nil
-    local minDist = 2.89 -- 80mm
-    for k,ship in pairs(getAllObjects()) do
-        if ship.type== 'Figurine' and ship.name ~= '' then
-            local pos = ship.getPosition()
-            local dist = math.sqrt(math.pow((spos[1]-pos[1]),2) + math.pow((spos[3]-pos[3]),2))
-            if dist < minDist then
-                nearest = ship
-                minDist = dist
-            end
-        end
-    end
-    if nearest ~= nil then
+  local nearest = nil
+  local minDist = 2.89 -- 80mm
+  for k,ship in pairs(getAllObjects()) do
+      if ship.type== 'Figurine' and ship.name ~= '' then
+          local pos = ship.getPosition()
+          local dist = math.sqrt(math.pow((spos[1]-pos[1]),2) + math.pow((spos[3]-pos[3]),2))
+          if dist < minDist then
+              nearest = ship
+              minDist = dist
+          end
+      end
+  end
+	leader_ship = getObjectFromGUID(leader)
+  if nearest ~= nil then
 		if leader == nil then
         	printToAll('Epic wing token assigned to ' .. nearest.getName())
-			leader = nearest
+			leader = nearest.getGUID()
         	SpawnFirstButtons()
 		elseif #assignedShips < 5 then
-			if nearest == leader then
+			if nearest == leader_ship then
 				printToAll("Unable to add " .. nearest.getName() .." to " .. wingName .. ", it is allready in it")
 				return
 			end
 			for i, assignment in pairs(assignedShips) do
-				if assignment.ship == nearest then
+				if getObjectFromGUID(assignment.guid) == nearest then
 					printToAll("Unable to add " .. nearest.getName() .." to " .. wingName .. ", it is allready in it")
 					return
 				end
 			end
-			table.insert(assignedShips, {ship = nearest, active = true})
+			table.insert(assignedShips, {guid = nearest.getGUID(), active = true})
 			nearest.addContextMenuItem("Rejoin wing", function() rejoin(nearest) end, false)
 			nearest.addContextMenuItem("Split from wing", function() split(nearest) end, false)
 			printToAll(wingName .. ' ' .. posNames[#assignedShips] .. ': assigned to ' .. nearest.getName())
@@ -258,7 +294,7 @@ end
 function SetWing()
 	if not configured then
 		if #assignedShips < 2 then
-			print('A Wing needs to have at least 3 ships to form')
+			printToAll('A Wing needs to have at least 3 ships to form')
 			return
 		end
 		configured = true
@@ -268,20 +304,21 @@ function SetWing()
 	self.clearButtons()
 	WingMateLand(1, true)
 	local formWingButton = {['function_owner'] = self , ['click_function'] = 'SetWing', ['label'] = 'Form Wing', ['position'] = {0, 0.25, 0}, ['rotation'] =  {0, 0, 0}, ['width'] = 700, ['height'] = 200, ['font_size'] = 100}
-    self.createButton(formWingButton)
+  self.createButton(formWingButton)
 
 end
 
 
 function WingMateLand(index, recursive)
-	local ship = assignedShips[index].ship
+	local ship = getObjectFromGUID(assignedShips[index].guid)
 	local wingpos = wingPositions[wingConfigurations[configuration][index]]
+	local leader_ship = getObjectFromGUID(leader)
 	if ship ~= nil and assignedShips[index].active then
-		desiredpos = LocalPos(leader,wingpos.posOffset)
+		desiredpos = LocalPos(leader_ship,wingpos.posOffset)
 
-		local success = Global.call("epicMoveWingmate",{ship, desiredpos, leader.getRotation()})
+		local success = Global.call("epicMoveWingmate",{ship, desiredpos, leader_ship.getRotation()})
 		if not success then
-			print(wingpos.posName .. ' needs to break off')-- Break from wing, and mark for movement after all other wing members have been moved
+			printToAll(wingpos.posName .. ' needs to break off')-- Break from wing, and mark for movement after all other wing members have been moved
 			assignedShips[index].active = false
 		end
 	end
@@ -297,7 +334,7 @@ end
 
 function rejoin(ship)
 	for i, shipinfo in pairs(assignedShips) do
-		if shipinfo.ship == ship then
+		if getObjectFromGUID(shipinfo.guid) == ship then
 			assignedShips[i].active = true
 			WingMateLand(i, false)
 			return
@@ -307,7 +344,7 @@ end
 
 function split(ship)
 	for i, shipinfo in pairs(assignedShips) do
-		if shipinfo.ship == ship then
+		if getObjectFromGUID(shipinfo.guid) == ship then
 			assignedShips[i].active = false
 			return
 		end

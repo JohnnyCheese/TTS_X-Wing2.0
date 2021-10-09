@@ -346,8 +346,11 @@ XW_cmd.AddCommand('ai', 'AI')   -- Enables the AI on the selected ship
 
 -- Description function to add the AI functions to a ship
 AIModule.EnableAI = function(ship, command)
-    ship.AddContextMenuItem("AI move and action", function(argument) Global.call("PerformAIManeuver", {['ship']=ship, ['take_action']=true}) end, false)
-    ship.AddContextMenuItem("AI move only", function(argument) Global.call("PerformAIManeuver", {['ship']=ship, ['take_action']=false}) end, false)
+    if not ship.getVar('isAi') then
+      ship.setVar('isAi', true)
+      ship.AddContextMenuItem("AI move and action", function(argument) Global.call("PerformAIManeuver", {['ship']=ship, ['take_action']=true}) end, false)
+      ship.AddContextMenuItem("AI move only", function(argument) Global.call("PerformAIManeuver", {['ship']=ship, ['take_action']=false}) end, false)
+    end
 end
 
 -- Sanity check, make sure that all the moves for this ship are actually
@@ -5713,13 +5716,12 @@ function initContextMenu()
         self.addContextMenuItem(config.ContextText, function() self.call(SetConfiguration()) end, false)
     end
 
+    self.AddContextMenuItem("Mark ship", function(argument) Global.call("MarkShip", {ship=self}) end, false)
 
-    if Global.getVar('test_AI') then
+    if Global.getVar('test_AI') or self.getVar('isAi') then
         self.AddContextMenuItem("AI move and action", function(argument) Global.call("PerformAIManeuver", {['ship']=self, ['take_action']=true}) end, false)
         self.AddContextMenuItem("AI move", function(argument) Global.call("PerformAIManeuver", {['ship']=self, ['take_action']=false}) end, false)
     end
-
-    self.AddContextMenuItem("Mark ship", function(argument) Global.call("MarkShip", {ship=self}) end, false)
 
 end
 
@@ -6032,6 +6034,7 @@ function onSave()
     state.finishedSetup = self.getVar("finished_setup")
     state.tokenData = {tokens={}}
     state.owningPlayer = self.getVar("owningPlayer")
+    state.isAi = self.getVar("isAi")
     for guid, _ in pairs(assigned_tokens) do
         table.insert(state.tokenData.tokens, guid)
     end
@@ -6049,6 +6052,7 @@ function onLoad(savedData)
         self.setTable("arc_indicators", state.arcIndicators)
         self.setVar("finished_setup", state.finishedSetup)
         self.setVar("owningPlayer", state.owningPlayer)
+        self.setVar("isAi", state.isAi)
         initContextMenu()
         for _, guid in ipairs(state.tokenData.tokens) do
             Global.call('API_AssignToken',{token=getObjectFromGUID(guid), ship = self})
