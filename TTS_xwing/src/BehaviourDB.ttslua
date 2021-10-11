@@ -3709,12 +3709,12 @@ BehaviourDB.rule_sets[1].ships['tiefofighter'].action_selection = {
       action = 'barrelRoll',
       postconditions = {inTargetsArc = false}
   },
-  [7] = { -- Evade
+  [6] = { -- Evade
       description = "%s evaded.",
       preconditions = {inTargetsArc = true, hasShot = false},
       action = 'evade'
   },
-  [8] = { -- Focus
+  [7] = { -- Focus
       description = "%s focused.",
       action = 'focus'
   }
@@ -5771,53 +5771,53 @@ BehaviourDB.rule_sets[1].ships['droidtrifighter'].action_selection = {
       	preconditions = {targetLocked = false, inEnemyArc = false, targetWithinRange = true},
       	action = 'targetLock'
     },
-    [1] = { -- (target moved) Boost > Calculate (stress) to avoid target's arc and still get a shot
+    [2] = { -- (target moved) Boost > Calculate (stress) to avoid target's arc and still get a shot
         description = {text = "%s boosted and calculated to avoid %s's arc and still get a shot.", strings = {'ship', 'target'}},
         preconditions = {targetMoved = true, hasShot = true, inTargetsArc = true},
         action = {boost = true, ['calculate'] = false},
         postconditions = {hasShot = true, inTargetsArc = false}
     },
-    [2] = { -- (target moved) Boost > Calculate (stress) to get a shot
+    [3] = { -- (target moved) Boost > Calculate (stress) to get a shot
         description = {text = "%s boosted and calculated to get a shot.", strings = {'ship', 'target'}},
         preconditions = {targetMoved = true, hasShot = false},
         action = {boost = true, ['calculate'] = false},
         postconditions = {hasShot = true}
     },
-    [3] = { -- Calculate if you have a shot
+    [4] = { -- Calculate if you have a shot
         description = "%s has a shot so calculated.",
         preconditions = {hasShot = true},
         action = 'calculate'
     },
-    [2] = { -- Barrel roll to avoid target's arc and still get a shot
+    [5] = { -- Barrel roll to avoid target's arc and still get a shot
       	description = {text = "%s barrel rolled to avoid %s's arc and still get a shot.", strings = {'ship', 'target'}},
       	preconditions = {hasShot = true, inTargetsArc = true},
       	action = 'barrelRoll',
       	postconditions = {hasShot = true, inTargetsArc = false}
     },
-    [4] = { -- Barrel roll > Evade (stress) to get a shot and defend
+    [6] = { -- Barrel roll > Evade (stress) to get a shot and defend
       	description = "%s barrel rolled into an evade (stress) to get a shot.",
       	preconditions = {hasShot = false},
       	action = {barrelRoll = false, ['evade'] = true},
       	postconditions = {hasShot = true, inTargetsArc = true}
     },
-    [5] = { -- Barrel roll to get a shot
+    [7] = { -- Barrel roll to get a shot
       	description = "%s barrel rolled to get a shot.",
       	preconditions = {hasShot = false},
       	action = 'barrelRoll',
       	postconditions = {hasShot = true}
     },
-    [6] = { -- Barrel roll to avoid target's arc
+    [8] = { -- Barrel roll to avoid target's arc
       	description = {text = "%s barrel rolled to avoid %s's arc.", strings = {'ship', 'target'}},
       	preconditions = {inTargetsArc = true},
       	action = 'barrelRoll',
       	postconditions = {inTargetsArc = false}
     },
-    [7] = { -- Evade
+    [9] = { -- Evade
       	description = "%s evaded.",
       	preconditions = {inTargetsArc = true, hasShot = false},
       	action = 'evade'
     },
-    [8] = { -- Calculate
+    [10] = { -- Calculate
         description = "%s calculated.",
         action = 'calculate'
     }
