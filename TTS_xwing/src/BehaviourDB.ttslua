@@ -5474,36 +5474,36 @@ BehaviourDB.rule_sets[1].ships['nabooroyaln1starfighter'].special_rules = {'full
 BehaviourDB.rule_sets[1].ships['hyenaclassdroidbomber'] = {}
 BehaviourDB.rule_sets[1].ships['hyenaclassdroidbomber'].target_selection = {[1]='LockedInRange', [2]='ClosestInArcLowerInitiative', [3]='ClosestInArc', [4]='Closest'}
 BehaviourDB.rule_sets[1].ships['hyenaclassdroidbomber'].move_table = {
-    bullseye = {
-      	near = {[1] = 'tl2t', [2] = 'tr2t', [3] = 's1', [5] = 's2'},
-      	far = {[1] = 's2', [5] = 's3'},
-      	distant = {[1] = 's4', [4] = 's5'},
-      	stress = {[1] = 's2', [6] = 's3'},
-    },
-    front_right = {
-      	near = {[1] = 'k2', [2] = 'tr2t', [3] = 'tr1', [6] = 'br1'},
-      	far = {[1] = 'br1', [2] = 'br2', [6] = 's3'},
-      	distant = {[1] = 'br2', [5] = 's4'},
-      	stress = {[1] = 'tr2', [3] = 's2', [6] = 's3'},
-    },
-    right_front = {
-      	near = {[1] = 'tr1', [4] = 'br1', [5] = 'tr2'},
-      	far = {[1] = 'tr2', [4] = 'br1', [5] = 'br2', [6] = 'tr3'},
-      	distant = {[1] = 'tr2', [4] = 'tr3'},
-      	stress = {[1] = 'tr1', [2] = 'tr2', [6] = 'tr3'},
-    },
-    right_back = {
-      	near = {[1] = 'k2', [3] = 'tr2t', [5] = 'tr1'},
-      	far = {[1] = 'k2', [2] = 'tr2t', [4] = 'tr1', [6] = 'tr2'},
-      	distant = {[1] = 'tr2t', [3] = 'tr2', [6] = 'tr3'},
-      	stress = {[1] = 'tr1', [3] = 'tr2'},
-    },
-    back_right = {
-      	near = {[1] = 'k2', [3] = 'tr2t', [5] = 'tr2'},
-      	far = {[1] = 'k2', [3] = 'tr2t', [5] = 'tr2'},
-      	distant = {[1] = 'k2', [2] = 'tr2t', [4] = 'tr1', [5] = 'tr2'},
-      	stress = {[1] = 'tr2', [5] = 's2'},
-    },
+  ['bullseye'] = {
+    near = {[1] = 's1', [3] = 's2', [4] = 'tl2', [5] = 'tr2', [6] = 's4'},
+    far = {[1] = 's1', [2] = 's2', [5] = 's3'},
+    distant = {[1] = 's4', [4] = 's5'},
+    stress = {[1] = 's2', [4] = 's3'},
+  },
+  ['front_right'] = {
+    near = {[1] = 'k2', [2] = 's1', [3] = 'br1', [5] = 'tl2', [6] = 'tr3'},
+    far = {[1] = 'br1', [2] = 's2', [3] = 'br2', [6] = 's3'},
+    distant = {[1] = 'br2', [4] = 's4', [6] = 's5'},
+    stress = {[1] = 's2', [4] = 'tl2', [5] = 's3'},
+  },
+  ['right_front'] = {
+    near = {[1] = 'k2', [2] = 'tr2t', [3] = 'br1', [4] = 'tr1', [6] = 'tr2'},
+    far = {[1] = 'br2', [2] = 'tr2', [5] = 'tr3'},
+    distant = {[1] = 'br2', [2] = 'tr2', [3] = 'tr3'},
+    stress = {[1] = 'tr1', [2] = 'tr2'},
+  },
+  ['right_back'] = {
+    near = {[1] = 'k2', [3] = 'tr2t', [5] = 'tr1'},
+    far = {[1] = 'k2', [2] = 'tr2t', [4] = 'tr1', [6] = 'tr2'},
+    distant = {[1] = 'tr2t', [2] = 'tr2', [3] = 'tr3'},
+    stress = {[1] = 'tr1', [2] = 'tr2'},
+  },
+  ['back_right'] = {
+    near = {[1] = 'k2', [3] = 'tl2t', [4] = 'tr2t', [6] = 'tl3'},
+    far = {[1] = 'k2', [3] = 'tr2t', [6] = 'tr3'},
+    distant = {[1] = 'k2', [2] = 'tr2t', [4] = 'tr1', [6] = 'tr2'},
+    stress = {[1] = 'tr1', [2] = 'tl2', [3] = 'tr2'},
+  },
 }
 BehaviourDB.rule_sets[1].ships['hyenaclassdroidbomber'].action_selection = {
     [1] = { --  Barrel roll > target lock (stress) to avoid target arc and still get a shot (with the > target lock)
@@ -5560,36 +5560,36 @@ BehaviourDB.rule_sets[1].ships['hyenaclassdroidbomber'].action_selection = {
 BehaviourDB.rule_sets[1].ships['vultureclassdroidfighter'] = {}
 BehaviourDB.rule_sets[1].ships['vultureclassdroidfighter'].target_selection = {[1]='LockedInRange', [2]='ClosestInArcLowerInitiative', [3]='ClosestInArc', [4]='Closest'}
 BehaviourDB.rule_sets[1].ships['vultureclassdroidfighter'].move_table = {
-    bullseye = {
-      	near = {[1] = 'tl2t', [2] = 'tr2t', [3] = 's2'},
-      	far = {[1] = 's2', [5] = 's3'},
-      	distant = {[1] = 's4', [2] = 's5'},
-      	stress = {[1] = 's2', [6] = 's3'},
-    },
-    front_right = {
-      	near = {[1] = 'k1', [2] = 'tr2t', [3] = 'tr1', [6] = 'br2'},
-      	far = {[1] = 'br2', [6] = 'br3'},
-      	distant = {[1] = 'br2', [5] = 'br3'},
-      	stress = {[1] = 'tr2', [3] = 's2', [6] = 's3'},
-    },
-    right_front = {
-      	near = {[1] = 'tr1', [4] = 'br2', [5] = 'tr2'},
-      	far = {[1] = 'tr2', [4] = 'br2', [6] = 'tr3'},
-      	distant = {[1] = 'tr2', [4] = 'tr3'},
-      	stress = {[1] = 'tr1', [2] = 'tr2', [6] = 'tr3'},
-    },
-    right_back = {
-      	near = {[1] = 'k1', [3] = 'tr2t', [5] = 'tr1'},
-      	far = {[1] = 'k1', [2] = 'tr2t', [4] = 'tr1', [6] = 'tr2'},
-      	distant = {[1] = 'tr2t', [3] = 'tr2', [6] = 'tr3'},
-      	stress = {[1] = 'tr1', [3] = 'tr2'},
-    },
-    back_right = {
-      	near = {[1] = 'k1', [3] = 'tr2t', [5] = 'tr2', [6] = 'tr3'},
-      	far = {[1] = 'k1', [3] = 'tr2t', [5] = 'tr1', [6] = 'tr2'},
-      	distant = {[1] = 'k1', [2] = 'tr2t', [4] = 'tr1', [5] = 'tr2'},
-      	stress = {[1] = 'tr2', [5] = 's2'},
-    },
+  ['bullseye'] = {
+    near = {[1] = 's2', [2] = 'tl2', [3] = 'tr2', [4] = 'tl3', [5] = 'tr3', [6] = 's5'},
+    far = {[1] = 's2', [5] = 's3'},
+    distant = {[1] = 's4', [2] = 's5'},
+    stress = {[1] = 's2', [4] = 's3', [6] = 's4'},
+  },
+  ['front_right'] = {
+    near = {[1] = 's2', [2] = 'br2', [3] = 'tl3', [4] = 'tr3', [5] = 's4', [6] = 's5'},
+    far = {[1] = 's2', [2] = 'br2', [5] = 's3', [6] = 'br3'},
+    distant = {[1] = 'br2', [3] = 'br3', [4] = 's4', [5] = 's5'},
+    stress = {[1] = 's2', [4] = 's3', [6] = 's4'},
+  },
+  ['right_front'] = {
+    near = {[1] = 'k1', [3] = 'tr2t', [4] = 'tr1', [6] = 'tr2'},
+    far = {[1] = 'tr1', [2] = 'tr2', [5] = 'br2', [6] = 'tr3'},
+    distant = {[1] = 'br2', [2] = 'tr2', [3] = 'br3', [4] = 'tr3'},
+    stress = {[1] = 'tr1', [2] = 'tr2'},
+  },
+  ['right_back'] = {
+    near = {[1] = 'k1', [3] = 'tr2t', [5] = 'tr1'},
+    far = {[1] = 'k1', [2] = 'tr2t', [4] = 'tr1', [6] = 'tr2'},
+    distant = {[1] = 'tr2t', [2] = 'tr2', [4] = 'tr3'},
+    stress = {[1] = 'tr1', [2] = 'tr2'},
+  },
+  ['back_right'] = {
+    near = {[1] = 'k1', [3] = 'tl2t', [4] = 'tr2t', [5] = 'tr2', [6] = 'tr3'},
+    far = {[1] = 'k1', [2] = 'tr2t', [4] = 'tr2', [5] = 'tr3'},
+    distant = {[1] = 'k1', [2] = 'tr2t', [3] = 'tr1', [6] = 'tr2'},
+    stress = {[1] = 'tl2', [3] = 'tr2'},
+  },
 }
 BehaviourDB.rule_sets[1].ships['vultureclassdroidfighter'].action_selection = {
     [1] = { -- (target moved) Barrel roll > Calculate (stress) to avoid target's arc and still get a shot
@@ -5635,35 +5635,35 @@ BehaviourDB.rule_sets[1].ships['vultureclassdroidfighter'].action_selection = {
 BehaviourDB.rule_sets[1].ships['belbulab22starfighter'] = {}
 BehaviourDB.rule_sets[1].ships['belbulab22starfighter'].target_selection = {[1]='LockedInRange', [2]='ClosestInArcLowerInitiative', [3]='ClosestInArc', [4]='Closest'}
 BehaviourDB.rule_sets[1].ships['belbulab22starfighter'].move_table = {
-  bullseye = {
-    near = {[1] = 'br3s', [2] = 'bl3s', [3] = 'bl1', [4] = 'br1', [5] = 's2'},
+  ['bullseye'] = {
+    near = {[1] = 'bl3s', [3] = 'br3s', [5] = 's2', [6] = 's5'},
     far = {[1] = 's2', [5] = 's3'},
     distant = {[1] = 's4', [2] = 's5'},
-    stress = {[1] = 'bl2', [3] = 'br2', [5] = 's2'},
+    stress = {[1] = 's2', [5] = 's3'},
   },
-  front_right = {
-    near = {[1] = 'bl3s', [3] = 'br1', [5] = 'br2'},
-    far = {[1] = 'br2', [4] = 'br3', [6] = 's3'},
-    distant = {[1] = 'br3', [5] = 's4'},
+  ['front_right'] = {
+    near = {[1] = 'br3s', [2] = 'bl3s', [4] = 'br1', [6] = 's2'},
+    far = {[1] = 'br2', [3] = 's2', [4] = 'br3', [6] = 's3'},
+    distant = {[1] = 'br3', [5] = 's4', [6] = 's5'},
     stress = {[1] = 'br2', [3] = 's2', [5] = 's3'},
   },
-  right_front = {
-    near = {[1] = 'bl3s', [3] = 'tr1', [5] = 'tr2'},
-    far = {[1] = 'br1', [2] = 'tr1', [3] = 'tr2', [4] = 'br2', [6] = 'tr3'},
+  ['right_front'] = {
+    near = {[1] = 'bl3s', [4] = 'tr1', [6] = 'tr2'},
+    far = {[1] = 'br1', [2] = 'tr2', [4] = 'br2', [6] = 'tr3'},
     distant = {[1] = 'tr2', [3] = 'br3', [5] = 'tr3'},
-    stress = {[1] = 'tr1', [2] = 'br1', [3] = 'br2'},
+    stress = {[1] = 's2', [2] = 'br2', [6] = 'tr2'},
   },
-  right_back = {
-    near = {[1] = 'bl3s', [2] = 'tr1', [5] = 'tr2'},
-    far = {[1] = 'bl3s', [4] = 'tr1', [5] = 'tr2'},
-    distant = {[1] = 'bl3s', [4] = 'tr1', [6] = 'tr2'},
-    stress = {[1] = 'tr1', [2] = 'tr2', [3] = 'br2'},
+  ['right_back'] = {
+    near = {[1] = 'bl3s', [4] = 'tr1', [6] = 'br3'},
+    far = {[1] = 'bl3s', [3] = 'tr1', [6] = 'tr2'},
+    distant = {[1] = 'bl3s', [3] = 'tr1', [4] = 'tr2', [6] = 'tr3'},
+    stress = {[1] = 's2', [2] = 'br2', [6] = 'tr2'},
   },
-  back_right = {
-    near = {[1] = 'bl3s', [5] = 'tr2'},
-    far = {[1] = 'bl3s', [5] = 'tr2'},
-    distant = {[1] = 'bl3s', [4] = 'tr1'},
-    stress = {[1] = 'br2', [5] = 's2', [6] = 'tr2'},
+  ['back_right'] = {
+    near = {[1] = 'br3s', [2] = 'bl3s', [5] = 'tl2', [6] = 'br3'},
+    far = {[1] = 'bl3s', [4] = 'tr2', [6] = 'tr3'},
+    distant = {[1] = 'bl3s', [3] = 'tr1', [6] = 'tr2'},
+    stress = {[1] = 'bl2', [2] = 'br2', [5] = 'tr2', [6] = 's3'},
   },
 }
 BehaviourDB.rule_sets[1].ships['belbulab22starfighter'].action_selection = {
@@ -5723,35 +5723,35 @@ BehaviourDB.rule_sets[1].ships['belbulab22starfighter'].action_selection = {
 BehaviourDB.rule_sets[1].ships['droidtrifighter'] = {}
 BehaviourDB.rule_sets[1].ships['droidtrifighter'].target_selection = {[1]='LockedInRange', [2]='ClosestInArcLowerInitiative', [3]='ClosestInArc', [4]='Closest'}
 BehaviourDB.rule_sets[1].ships['droidtrifighter'].move_table = {
-  bullseye = {
-    near = {[1] = 'k5', [2] = 'k3', [4] = 'bl2', [5] = 'br2', [6] = 's2'},
-    far = {[1] = 's2', [4] = 's3'},
+  ['bullseye'] = {
+    near = {[1] = 'k5', [4] = 's2', [5] = 'tl3', [6] = 'tr3'},
+    far = {[1] = 's2', [5] = 's3'},
     distant = {[1] = 's4', [2] = 's5'},
-    stress = {[1] = 'bl2', [2] = 'br2', [3] = 's2'},
+    stress = {[1] = 's2', [4] = 's3', [6] = 's4'},
   },
-  front_right = {
-    near = {[1] = 'k5', [2] = 'k3', [3] = 'tr1', [5] = 'br2'},
-    far = {[1] = 'br2', [4] = 'br3', [6] = 's3'},
-    distant = {[1] = 'br3', [5] = 's4'},
-    stress = {[1] = 'br2', [2] = 'tr2', [4] = 's2', [5] = 's3'},
+  ['front_right'] = {
+    near = {[1] = 'k5', [3] = 'k3', [4] = 's2', [5] = 'tl3', [6] = 'tr3'},
+    far = {[1] = 'br2', [3] = 's2', [4] = 'br3', [6] = 's3'},
+    distant = {[1] = 'br3', [5] = 's4', [6] = 's5'},
+    stress = {[1] = 's2', [4] = 's3', [6] = 's4'},
   },
-  right_front = {
-    near = {[1] = 'k5', [2] = 'k3', [3] = 'tr1', [5] = 'tr2'},
+  ['right_front'] = {
+    near = {[1] = 'k5', [3] = 'tr1t', [4] = 'tr1', [6] = 'tr2'},
     far = {[1] = 'tr1', [2] = 'tr2', [4] = 'br2', [5] = 'tr3'},
-    distant = {[1] = 'tr2', [4] = 'tr3'},
+    distant = {[1] = 'tr2', [2] = 'br3', [4] = 'tr3'},
     stress = {[1] = 'tr2', [4] = 'tr3'},
   },
-  right_back = {
-    near = {[1] = 'k5', [2] = 'k3', [3] = 'tr1t', [4] = 'tr1', [5] = 'tr2'},
+  ['right_back'] = {
+    near = {[1] = 'k3', [2] = 'tr1t', [5] = 'tr1'},
+    far = {[1] = 'k3', [2] = 'tr1t', [4] = 'tr1', [6] = 'tr2'},
+    distant = {[1] = 'tr1t', [3] = 'tr2', [4] = 'tr3'},
+    stress = {[1] = 'tr2', [4] = 'tr3'},
+  },
+  ['back_right'] = {
+    near = {[1] = 'k3', [2] = 'tl1t', [3] = 'tr1t', [5] = 'tr3'},
     far = {[1] = 'k3', [2] = 'tr1t', [5] = 'tr2', [6] = 'tr3'},
-    distant = {[1] = 'tr1t', [4] = 'tr2', [5] = 'tr3'},
-    stress = {[1] = 'tr2', [4] = 'tr3'},
-  },
-  back_right = {
-    near = {[1] = 'tl1t', [3] = 'tr1t', [5] = 'tr2', [6] = 'tr3'},
-    far = {[1] = 'tl1t', [3] = 'tr1t', [5] = 'tr1', [6] = 'tr2'},
-    distant = {[1] = 'tr1t', [4] = 'tr1', [5] = 'tr2'},
-    stress = {[1] = 'tr2', [4] = 's3', [5] = 'tr3'},
+    distant = {[1] = 'tr1t', [3] = 'tr1', [6] = 'tr2'},
+    stress = {[1] = 'tl2', [2] = 'tr2', [4] = 'tl3', [5] = 'tr3'},
   },
 }
 BehaviourDB.rule_sets[1].ships['droidtrifighter'].action_selection = {
@@ -5816,35 +5816,35 @@ BehaviourDB.rule_sets[1].ships['droidtrifighter'].action_selection = {
 BehaviourDB.rule_sets[1].ships['hmpdroidgunship'] = {}
 BehaviourDB.rule_sets[1].ships['hmpdroidgunship'].target_selection = {[1]='LockedInRange', [2]='ClosestInArc', [3]='Closest'}
 BehaviourDB.rule_sets[1].ships['hmpdroidgunship'].move_table = {
-  bullseye = {
-    near = {[1] = 's0', [3] = 'bl1', [4] = 'br1', [5] = 's1'},
+  ['bullseye'] = {
+    near = {[1] = 's0', [2] = 's1', [3] = 'bl2z', [4] = 'br2z', [5] = 'tl2z', [6] = 'tr2z'},
     far = {[1] = 's1', [2] = 's2', [5] = 's3'},
     distant = {[1] = 's3', [2] = 's4', [4] = 's5'},
-    stress = {[1] = 's1', [4] = 's2'},
+    stress = {[1] = 's1', [3] = 's2', [5] = 'tl2z', [6] = 'tr2z'},
   },
-  front_right = {
-    near = {[1] = 's0', [3] = 's1', [5] = 'br1'},
-    far = {[1] = 's2', [2] = 'br2', [4] = 'br3', [6] = 's3'},
-    distant = {[1] = 'br2', [2] = 'br3', [4] = 's3', [6] = 's4'},
-    stress = {[1] = 's1', [3] = 'br2', [4] = 's2'},
+  ['front_right'] = {
+    near = {[1] = 's0', [2] = 's1', [3] = 'bl2z', [5] = 'tr2z', [6] = 'tr3z'},
+    far = {[1] = 'bl2z', [2] = 'br2', [4] = 's2', [5] = 'br3', [6] = 's3'},
+    distant = {[1] = 'br2', [2] = 'br3', [4] = 's3', [5] = 's4', [6] = 's5'},
+    stress = {[1] = 's1', [3] = 's2', [5] = 'tl2z', [6] = 'tr2z'},
   },
-  right_front = {
-    near = {[1] = 's1', [3] = 'br1', [5] = 'tr2'},
+  ['right_front'] = {
+    near = {[1] = 's1', [2] = 'br1', [3] = 'br2z', [4] = 'tr2z', [6] = 'tr2'},
     far = {[1] = 'tr2', [3] = 'br2', [5] = 'tr3'},
-    distant = {[1] = 'tr2', [4] = 'tr3'},
-    stress = {[1] = 's1', [3] = 'tr2'},
+    distant = {[1] = 'br2', [2] = 'tr2', [3] = 'br3', [4] = 'tr3'},
+    stress = {[1] = 's1', [2] = 'tr2', [5] = 'tr2z'},
   },
-  right_back = {
-    near = {[1] = 's0', [4] = 'br1', [5] = 'tr2'},
-    far = {[1] = 's0', [2] = 'tr2', [6] = 'tr3'},
-    distant = {[1] = 'br2', [3] = 'tr2', [4] = 'tr3'},
-    stress = {[1] = 's1', [3] = 'tr2'},
+  ['right_back'] = {
+    near = {[1] = 'br2z', [2] = 'tr2', [4] = 'tr2z', [6] = 'tr3z'},
+    far = {[1] = 'tr2', [4] = 'tr2z', [6] = 'tr3'},
+    distant = {[1] = 'tr2', [3] = 'tr2z', [4] = 'tr3'},
+    stress = {[1] = 'tr2', [5] = 'tr2z'},
   },
-  back_right = {
-    near = {[1] = 's0', [3] = 'br1', [5] = 'tr2'},
-    far = {[1] = 'br2', [2] = 'tr2', [6] = 'tr3'},
-    distant = {[1] = 'tr2', [5] = 'tr3'},
-    stress = {[1] = 's1', [3] = 'tr2'},
+  ['back_right'] = {
+    near = {[1] = 'tr2z', [4] = 'tl3z', [5] = 'tr3z'},
+    far = {[1] = 'tr2', [2] = 'tr2z', [5] = 'tr3z'},
+    distant = {[1] = 'tr2', [3] = 'tr2z', [5] = 'tr3z'},
+    stress = {[1] = 'tr2', [3] = 'tl2z', [4] = 'tr2z'},
   },
 }
 BehaviourDB.rule_sets[1].ships['hmpdroidgunship'].action_selection = {
@@ -5885,35 +5885,35 @@ BehaviourDB.rule_sets[1].ships['hmpdroidgunship'].action_selection = {
 BehaviourDB.rule_sets[1].ships['sithinfiltrator'] = {}
 BehaviourDB.rule_sets[1].ships['sithinfiltrator'].target_selection = {[1]='LockedInRange', [2]='ClosestInArcLowerInitiative', [3]='ClosestInArc', [4]='Closest'}
 BehaviourDB.rule_sets[1].ships['sithinfiltrator'].move_table = {
-  bullseye = {
-    near = {[1] = 'k5', [3] = 'bl2s', [4] = 'bl2s', [5] = 's1', [6] = 'br1'},
-    far = {[1] = 's1', [3] = 'bl1', [4] = 'br1', [5] = 's2'},
-    distant = {[1] = 's4', [2] = 's5'},
-    stress = {[1] = 'bl1', [2] = 'br1', [3] = 's1', [5] = 's2'},
+  ['bullseye'] = {
+    near = {[1] = 'k5', [3] = 'br2s', [4] = 'bl2s', [5] = 's1', [6] = 's4'},
+    far = {[1] = 's1', [4] = 's2'},
+    distant = {[1] = 's3', [2] = 's4'},
+    stress = {[1] = 's1', [3] = 's2', [5] = 's3'},
   },
-  front_right = {
+  ['front_right'] = {
     near = {[1] = 'k5', [3] = 'bl2s', [5] = 'br1', [6] = 's1'},
-    far = {[1] = 'br1', [3] = 'br2', [5] = 's2', [6] = 's3'},
+    far = {[1] = 'br1', [3] = 's1', [4] = 'br2', [6] = 's2'},
     distant = {[1] = 'br3', [5] = 's4'},
-    stress = {[1] = 'br1', [3] = 's1', [4] = 'br2', [6] = 's2'},
+    stress = {[1] = 'br1', [2] = 's1', [3] = 'br2', [5] = 's2', [6] = 's3'},
   },
-  right_front = {
-    near = {[1] = 'k5', [2] = 'bl2s', [4] = 'tr1', [5] = 'br1', [6] = 'tr2'},
-    far = {[1] = 'tr1', [2] = 'br1', [3] = 'tr2', [5] = 'br2', [6] = 'tr3'},
-    distant = {[1] = 'tr2', [4] = 'tr3'},
+  ['right_front'] = {
+    near = {[1] = 'k5', [2] = 'bl2s', [5] = 'br1', [6] = 'tr1'},
+    far = {[1] = 'br1', [2] = 'tr1', [3] = 'br2', [4] = 'tr2', [6] = 'tr3'},
+    distant = {[1] = 'tr2', [2] = 'br3', [4] = 'tr3'},
     stress = {[1] = 'br1', [4] = 'br2', [6] = 'tr2'},
   },
-  right_back = {
-    near = {[1] = 'k5', [2] = 'bl2s', [4] = 'br1', [5] = 'tr2', [6] = 'tr3'},
-    far = {[1] = 'bl2s', [4] = 'tr1', [5] = 'tr2', [6] = 'tr3'},
-    distant = {[1] = 'bl2s', [4] = 'tr1', [5] = 'tr2'},
-    stress = {[1] = 'br1', [3] = 'tr2', [4] = 'br2', [6] = 'br3'},
+  ['right_back'] = {
+    near = {[1] = 'k5', [3] = 'bl2s', [6] = 'br3'},
+    far = {[1] = 'k5', [2] = 'bl2s', [4] = 'tr1', [6] = 'tr2'},
+    distant = {[1] = 'bl2s', [2] = 'tr2', [4] = 'tr3'},
+    stress = {[1] = 'br1', [4] = 'br2', [6] = 'tr2'},
   },
-  back_right = {
-    near = {[1] = 'k5', [3] = 'br2s', [4] = 'bl2s', [5] = 'tr2', [6] = 'tr3'},
-    far = {[1] = 'bl2s', [4] = 'tr1', [5] = 'tr2', [6] = 'tr3'},
-    distant = {[1] = 'bl2s', [4] = 'tr1', [5] = 'tr2'},
-    stress = {[1] = 'br1', [4] = 'tr2', [5] = 'br2'},
+  ['back_right'] = {
+    near = {[1] = 'k5', [3] = 'br2s', [4] = 'bl2s', [6] = 'tr3'},
+    far = {[1] = 'k5', [2] = 'bl2s', [4] = 'tr2', [5] = 'tr3'},
+    distant = {[1] = 'bl2s', [2] = 'tr1', [3] = 'tr2', [6] = 'tr3'},
+    stress = {[1] = 'br1', [3] = 'bl2', [4] = 'br2', [6] = 'tr2'},
   },
 }
 BehaviourDB.rule_sets[1].ships['sithinfiltrator'].action_selection = {
@@ -5952,37 +5952,37 @@ BehaviourDB.rule_sets[1].ships['sithinfiltrator'].action_selection = {
 
 -- Nantex-class Starfighter
 BehaviourDB.rule_sets[1].ships['nantexclassstarfighter'] = {}
-BehaviourDB.rule_sets[1].ships['nantexclassstarfighter'].target_selection = {[1]='ClosestInArc', [2]='Closest'}
+BehaviourDB.rule_sets[1].ships['nantexclassstarfighter'].target_selection = {[1]='ClosestInArcLowerInitiative', [2]='ClosestInArc', [3]='Closest'}
 BehaviourDB.rule_sets[1].ships['nantexclassstarfighter'].move_table = {
-  bullseye = {
-    near = {[1] = 'k5', [3] = 'bl3s', [4] = 'bl3s', [5] = 'bl1', [6] = 'br1'},
+  ['bullseye'] = {
+    near = {[1] = 'k5', [3] = 'bl3s', [4] = 'br3s', [5] = 'bl2', [6] = 'br2'},
     far = {[1] = 's2', [5] = 's3'},
     distant = {[1] = 's4', [2] = 's5'},
-    stress = {[1] = 'bl1', [2] = 'br1', [3] = 'bl2', [4] = 'br2', [5] = 's2'},
+    stress = {[1] = 's2', [4] = 's3'},
   },
-  front_right = {
-    near = {[1] = 'k5', [2] = 'bl3s', [3] = 'tr1', [5] = 'br1'},
-    far = {[1] = 'br1', [3] = 'br2', [5] = 'br3', [6] = 's3'},
-    distant = {[1] = 'br3', [5] = 's4'},
-    stress = {[1] = 'br1', [3] = 'br2', [5] = 's2', [6] = 's3'},
+  ['front_right'] = {
+    near = {[1] = 'k5', [2] = 'br3s', [3] = 'bl3s', [5] = 'tr1', [6] = 'br1'},
+    far = {[1] = 'br2', [3] = 's2', [4] = 'br3', [6] = 's3'},
+    distant = {[1] = 'br3', [5] = 's4', [6] = 's5'},
+    stress = {[1] = 'br1', [2] = 'br2', [4] = 's2', [5] = 'br3', [6] = 's3'},
   },
-  right_front = {
-    near = {[1] = 'k5', [2] = 'bl3s', [3] = 'tr1', [5] = 'br1', [6] = 's2'},
-    far = {[1] = 'tr1', [3] = 'br1', [5] = 'br2', [6] = 'tr2'},
-    distant = {[1] = 'tr2', [3] = 'br3', [5] = 'tr3'},
+  ['right_front'] = {
+    near = {[1] = 'k5', [2] = 'bl3s', [4] = 'tr1', [6] = 'br1'},
+    far = {[1] = 'br1', [2] = 'tr1', [3] = 'br2', [4] = 'tr2', [6] = 'tr3'},
+    distant = {[1] = 'tr2', [2] = 'br3', [4] = 'tr3'},
     stress = {[1] = 'br1', [3] = 'br2', [5] = 'br3'},
   },
-  right_back = {
-    near = {[1] = 'k5', [2] = 'bl3s', [4] = 'tr2', [5] = 'br2', [6] = 'tr3'},
-    far = {[1] = 'k5', [2] = 'br3s', [3] = 'bl3s', [4] = 'tr1', [5] = 'br1', [6] = 'tr2'},
-    distant = {[1] = 'k5', [2] = 'br3s', [3] = 'bl3s', [4] = 'tr1'},
-    stress = {[1] = 'br1', [3] = 'br2', [5] = 'br3'},
+  ['right_back'] = {
+    near = {[1] = 'k5', [2] = 'bl3s', [5] = 'br1', [6] = 'tr1'},
+    far = {[1] = 'bl3s', [3] = 'tr1', [6] = 'tr2'},
+    distant = {[1] = 'bl3s', [2] = 'tr2', [4] = 'tr3'},
+    stress = {[1] = 'br1', [4] = 'br2', [6] = 'br3'},
   },
-  back_right = {
-    near = {[1] = 'k5', [3] = 'br3s', [4] = 'bl3s', [5] = 'br2', [6] = 'br3'},
-    far = {[1] = 'k5', [2] = 'br3s', [3] = 'bl3s', [4] = 'br1', [5] = 'br2', [6] = 'tr2'},
-    distant = {[1] = 'k5', [3] = 'br3s', [4] = 'bl3s', [5] = 'tr1'},
-    stress = {[1] = 'br1', [3] = 'br2', [5] = 'br3'},
+  ['back_right'] = {
+    near = {[1] = 'k5', [3] = 'br3s', [4] = 'bl3s', [6] = 'tr1'},
+    far = {[1] = 'k5', [2] = 'bl3s', [4] = 'tr1', [6] = 'tr3'},
+    distant = {[1] = 'k5', [2] = 'bl3s', [3] = 'tr1', [6] = 'tr2'},
+    stress = {[1] = 'br1', [3] = 'tr1', [4] = 'br2', [6] = 'br3'},
   },
 }
 BehaviourDB.rule_sets[1].ships['nantexclassstarfighter'].action_selection = {
