@@ -5231,28 +5231,28 @@ BehaviourDB.rule_sets[1].ships['eta2actis'].move_table = {
     stress = {[1] = 's2', [4] = 's3'},
   },
   ['front_right'] = {
-    near = {[1] = 'k4', [4] = 's2', [5] = 'b2', [6] = 'tl3'},
-    far = {[1] = 'b2', [3] = 's2', [4] = 'b3', [6] = 's3'},
-    distant = {[1] = 'b3', [4] = 's4', [6] = 's5'},
-    stress = {[1] = 'b2', [3] = 's2', [4] = 'b3', [6] = 's3'},
+    near = {[1] = 'k4', [4] = 's2', [5] = 'br2', [6] = 'tl3'},
+    far = {[1] = 'br2', [3] = 's2', [4] = 'br3', [6] = 's3'},
+    distant = {[1] = 'br3', [4] = 's4', [6] = 's5'},
+    stress = {[1] = 'br2', [3] = 's2', [4] = 'br3', [6] = 's3'},
   },
   ['right_front'] = {
     near = {[1] = 'k4', [3] = 'tr2t', [4] = 'tr1', [6] = 'tr2'},
-    far = {[1] = 'tr1', [2] = 'tr2', [5] = 'b2', [6] = 'tr3'},
-    distant = {[1] = 'tr2', [2] = 'b3', [4] = 'tr3'},
-    stress = {[1] = 'b2', [5] = 'b3'},
+    far = {[1] = 'tr1', [2] = 'tr2', [5] = 'br2', [6] = 'tr3'},
+    distant = {[1] = 'tr2', [2] = 'br3', [4] = 'tr3'},
+    stress = {[1] = 'br2', [5] = 'br3'},
   },
   ['right_back'] = {
     near = {[1] = 'k4', [3] = 'tr2t', [5] = 'tr1'},
     far = {[1] = 'k4', [2] = 'tr2t', [4] = 'tr1', [6] = 'tr2'},
     distant = {[1] = 'k4', [2] = 'tr2t', [3] = 'tr1', [4] = 'tr2', [5] = 'tr3'},
-    stress = {[1] = 'tr1', [2] = 'b2', [5] = 'b3'},
+    stress = {[1] = 'tr1', [2] = 'br2', [5] = 'br3'},
   },
   ['back_right'] = {
     near = {[1] = 'k4', [3] = 'tl2t', [4] = 'tr2t', [6] = 'tr3'},
     far = {[1] = 'k4', [2] = 'tr2t', [4] = 'tr2', [5] = 'tr3'},
     distant = {[1] = 'k4', [2] = 'tr2t', [4] = 'tr1'},
-    stress = {[1] = 'b2', [3] = 'tr2', [4] = 'b3', [6] = 's4'},
+    stress = {[1] = 'br2', [3] = 'tr2', [4] = 'br3', [6] = 's4'},
   },
 }
 BehaviourDB.rule_sets[1].ships['eta2actis'].action_selection = {
