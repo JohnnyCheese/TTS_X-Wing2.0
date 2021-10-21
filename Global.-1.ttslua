@@ -7273,6 +7273,7 @@ function epicMoveWingmate(table)
     result = MoveModule.MoveProbe.TryFullMove(info, ship, fullFunc)
     if result.done then
       MoveModule.MoveShip(ship, {finPos=desiredPosRot})
+      MoveModule.CheckMineAndObstacleCollisions(ship, desiredPosRot, true, nil)
       return true
     else
       -- Todo announce some stuff
