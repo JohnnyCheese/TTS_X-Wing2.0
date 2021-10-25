@@ -5962,26 +5962,26 @@ BehaviourDB.rule_sets[1].ships['nantexclassstarfighter'].move_table = {
     stress = {[1] = 's2', [4] = 's3'},
   },
   front_right = {
-    near = {[1] = 'k5', [2] = 'br3s', [3] = 'bl3s', [5] = 'tr1', [6] = 'br1'},
+    near = {[1] = 'k5', [2] = 'bl3s', [3] = 'br1', [4] = 'tr1', [6] = 's2'},
     far = {[1] = 'br2', [3] = 's2', [4] = 'br3', [6] = 's3'},
     distant = {[1] = 'br3', [5] = 's4', [6] = 's5'},
     stress = {[1] = 'br1', [2] = 'br2', [4] = 's2', [5] = 'br3', [6] = 's3'},
   },
   right_front = {
-    near = {[1] = 'k5', [2] = 'bl3s', [4] = 'tr1', [6] = 'br1'},
+    near = {[1] = 'k5', [2] = 'bl3s', [3] = 'br1', [4] = 'tr1', [5] = 'br2', [6] = 'tr2'},
     far = {[1] = 'br1', [2] = 'tr1', [3] = 'br2', [4] = 'tr2', [6] = 'tr3'},
     distant = {[1] = 'tr2', [2] = 'br3', [4] = 'tr3'},
     stress = {[1] = 'br1', [3] = 'br2', [5] = 'br3'},
   },
   right_back = {
-    near = {[1] = 'k5', [2] = 'bl3s', [5] = 'br1', [6] = 'tr1'},
-    far = {[1] = 'bl3s', [3] = 'tr1', [6] = 'tr2'},
+    near = {[1] = 'k5', [2] = 'bl3s', [3] = 'br1', [4] = 'tr1', [6] = 'tr2'},
+    far = {[1] = 'bl3s', [2] = 'br1', [3] = 'tr1', [6] = 'tr2'},
     distant = {[1] = 'bl3s', [2] = 'tr2', [4] = 'tr3'},
     stress = {[1] = 'br1', [4] = 'br2', [6] = 'br3'},
   },
   back_right = {
-    near = {[1] = 'k5', [3] = 'br3s', [4] = 'bl3s', [6] = 'tr1'},
-    far = {[1] = 'k5', [2] = 'bl3s', [4] = 'tr1', [6] = 'tr3'},
+    near = {[1] = 'k5', [2] = 'bl3s', [3] = 'br3s', [4] = 'tr1', [5] = 'tr2', [6] = 'tr3'},
+    far = {[1] = 'k5', [2] = 'bl3s', [3] = 'tr1', [5] = 'tr2', [6] = 'tr3'},
     distant = {[1] = 'k5', [2] = 'bl3s', [3] = 'tr1', [6] = 'tr2'},
     stress = {[1] = 'br1', [3] = 'tr1', [4] = 'br2', [6] = 'br3'},
   },
@@ -5992,22 +5992,46 @@ BehaviourDB.rule_sets[1].ships['nantexclassstarfighter'].action_selection = {
     --    description = "If %s can get a shot with Pinpoint Tractor Array, then take a Tractor token and Rotate action.",
     --},
     [1] = { -- Tractor(br)/Rotate
+        description = "%s can avoid target arc and get a shot with Pinpoint Tractor Array by focusing and tractoring and rotating.",
+        preconditions = {hasShot = false, inTargetsArc = true},
+        action = {
+      	    [1] = {focus = false, tractorSelf = false, rotateTurret = {mount = 'main'}},
+      	    [2] = {focus = false, barrelRoll = false, tractorSelf = false, rotateTurret = {mount = 'main'}},
+      	    [3] = {focus = false, boost = false, tractorSelf = false, rotateTurret = {mount = 'main'}}
+        },
+        postconditions = {hasShot = true, inTargetsArc = false}
+    },
+    [2] = { -- Tractor(br)/Rotate
+        description = "%s can get a shot with Pinpoint Tractor Array by focusing and tractoring and rotating.",
         preconditions = {hasShot = false},
-        description = "%s can get a shot with Pinpoint Tractor Array by tractoring and rotating.",
-        action = {tractorSelf = false, rotateTurret = {mount = 'main'}},
+        action = {
+      	    [1] = {focus = false, tractorSelf = false, rotateTurret = {mount = 'main'}},
+      	    [2] = {focus = false, barrelRoll = false, tractorSelf = false, rotateTurret = {mount = 'main'}},
+      	    [3] = {focus = false, boost = false, tractorSelf = false, rotateTurret = {mount = 'main'}}
+        },
         postconditions = {hasShot = true}
     },
-    [2] = { -- Focus if you have a shot
+    [3] = { -- Focus if you have a shot
         description = "%s has a shot so focused.",
         preconditions = {hasShot = true},
         action = 'focus'
     },
-    [3] = { -- Evade
+    [4] = { -- Tractor(br)/Rotate
+        description = "%s can avoid enemy arc with Pinpoint Tractor Array by evading and tractoring and rotating.",
+        preconditions = {inEnemyArc = true},
+        action = {
+      	    [1] = {evade = false, tractorSelf = false, rotateTurret = {mount = 'main'}},
+      	    [2] = {evade = false, barrelRoll = false, tractorSelf = false, rotateTurret = {mount = 'main'}},
+      	    [3] = {evade = false, boost = false, tractorSelf = false, rotateTurret = {mount = 'main'}}
+        },
+        postconditions = {inEnemyArc = false}
+    },
+    [5] = { -- Evade
         description = "%s evaded.",
-        preconditions = {inTargetsArc = true},
+        preconditions = {inEnemyArc = true},
         action = 'evade'
     },
-    [4] = { -- Focus
+    [6] = { -- Focus
         description = "%s focused.",
         action = 'focus'
     },
