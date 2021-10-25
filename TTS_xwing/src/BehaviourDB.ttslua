@@ -1119,7 +1119,7 @@ BehaviourDB.rule_sets[1].ships['alphaclassstarwing'].action_selection = {
     [1] = { -- SLAM if no shot and target outside of range 2
         description = "%s took a SLAM action. Perform the appropriate SLAM movement manually.",
         preconditions = {hasShot = false, targetWithinRange = {arguments = {maxRange = 2}, requiredResult = false}},
---        action = {['disarm'] = true}
+        action = 'disarm'
     },
     [2] = { -- Target lock
         description = {text = "%s target locked %s.", strings = {'ship', 'target'}},
@@ -2322,7 +2322,7 @@ BehaviourDB.rule_sets[1].ships['btls8kwing'].action_selection = {
     [2] = { -- SLAM if no shot and target outside of range 2
         description = "%s took a SLAM action. Perform the appropriate SLAM movement manually.",
         preconditions = {hasShot = false, targetWithinRange = {arguments = {maxRange = 2}, requiredResult = false}},
---        action = {disarm = true}
+        action = 'disarm'
     },
     [3] = { -- Target lock
         description = {text = "%s target locked %s.", strings = {'ship', 'target'}},
@@ -4849,12 +4849,12 @@ BehaviourDB.rule_sets[1].ships['fireball'].action_selection = {
     [1] = { -- SLAM if no shot and target outside of range 2
         description = "%s took a SLAM action. Perform the appropriate SLAM movement manually.",
         preconditions = {hasShot = false, targetWithinRange = {arguments = {maxRange = 2}, requiredResult = false}},
---        action = {['disarm'] = true}
+        action = 'disarm'
     },
     [2] = { -- Barrel roll to get a shot
         description = "%s barrel rolled to get a shot.",
         preconditions = {hasShot = false},
-        action = {['barrelRoll'] = false},
+        action = {barrelRoll = false},
         postconditions = {hasShot = true}
     },
     [3] = { -- Focus/Calc if have a shot
