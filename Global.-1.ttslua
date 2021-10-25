@@ -896,8 +896,9 @@ AIModule.GetMoveDifficulty = function(ship, move_code)
             return ship_move_difficulty
         end
     end
+    local ship_move_difficulty = string.sub(move_code, 1, 1)
 
-    return nil
+    return ship_move_difficulty
 end
 
 --[[ AIModule.GetNearestMoves
@@ -1169,7 +1170,7 @@ AIModule.AttemptAction = function(ship, target, action_definition)
                         local mount = arguments.mount or 'main'
                         local turret_rotation_options = AIModule.GetTurretRotationOptions(ship, mount)
                         for _, rotation in pairs(turret_rotation_options) do
-                            table.insert(expanded_actions, {['action'] = 'rotateTurret', ['mount'] = mount, ['arc'] = rotation})
+                            table.insert(expanded_actions, {['action'] = 'rotateTurret', ['mount'] = mount, ['arc'] = rotation, ['stress'] = arguments['stress']})
                         end
                     end
                 end
@@ -1559,31 +1560,31 @@ AIModule.SetShipState = function(ship, state)
     ship.SetPosition(state.position)
     ship.SetRotation(state.rotation)
 
-    if state.turrets ~= nil then
-        for mount, arc in pairs(state.turrets) do
-            ship.call('SetTurretArc', {['mount'] = mount, ['arc'] = arc, ['snap'] = true})
-        end
-    end
+    --if state.turrets ~= nil then
+    --    for mount, arc in pairs(state.turrets) do
+    --        ship.call('SetTurretArc', {['mount'] = mount, ['arc'] = arc, ['snap'] = true})
+    --    end
+    --end
 end
 
 AIModule.ApplyProbe = function(ship, probe)
     ship.SetPosition(probe.position)
     ship.SetRotation(probe.rotation)
 
-    if probe.turrets ~= nil then
-        for mount, arc in pairs(probe.turrets) do
-            ship.call('SetTurretArc', {['mount'] = mount, ['arc'] = arc, ['snap'] = true})
-        end
-    end
+    --if probe.turrets ~= nil then
+    --    for mount, arc in pairs(probe.turrets) do
+    --        ship.call('SetTurretArc', {['mount'] = mount, ['arc'] = arc, ['snap'] = true})
+    --    end
+    --end
 end
 
 AIModule.GetTurretRotationOptions = function(ship, mount)
     -- Build up our list of possible rotations.
     local rotation_options = {}
     local turret_type = ship.call('GetTurretType', {['mount'] = mount})
-    if turret_type == 'singleturret' then
+    if (turret_type[1] == 'singleturret') then
         rotation_options = {'front', 'right', 'back', 'left'}
-    elseif turret_type == 'doubleturret' then
+    elseif (turret_type[1] == 'doubleturret') then
         rotation_options = {'frontback', 'leftright'}
     else
         rotation_options = turret_type
@@ -1618,9 +1619,19 @@ AIModule.condition_functions.hasShot = function(ship, target, probe, arguments)
     if probe.shot_range == nil then
         probe.shot_range = -1
 
+
         local original_position_rotation = AIModule.GetShipState(ship)
         AIModule.ApplyProbe(ship, probe)
-        targets = ArcCheck.GetTargetsInRelationToArc(ship, ship.call('GetAllArcs'))
+        local arcs = ship.call('GetAllArcs')
+        if probe.turrets ~= nil then
+            arcs = {}
+            for mount, arctype in pairs(probe.turrets) do
+                for _, arc in pairs(mountDirectionToArcs[arctype]) do
+                    table.insert(arcs, arc)
+                end
+            end
+        end
+        targets = ArcCheck.GetTargetsInRelationToArc(ship, arcs)
         targets = table.sieve(targets, AIModule.FilterInArc)
         targets = table.sieve(targets, AIModule.FilterInRange)
 
@@ -1642,7 +1653,17 @@ AIModule.condition_functions.inTargetsArc = function(ship, target, probe, argume
         AIModule.ApplyProbe(ship, probe)
 
         probe.in_targets_arc = false
-        targets = ArcCheck.GetTargetsInRelationToArc(target, target.call('GetAllArcs'), {ship})
+        local arcs = ship.call('GetAllArcs')
+        if probe.turrets ~= nil then
+            arcs = {}
+            for mount, arctype in pairs(probe.turrets) do
+                for _, arc in pairs(mountDirectionToArcs[arctype]) do
+                    table.insert(arcs, arc)
+                end
+            end
+        end
+
+        targets = ArcCheck.GetTargetsInRelationToArc(target, arcs, {ship})
         targets = table.sieve(targets, AIModule.FilterInArc)
         targets = table.sieve(targets, AIModule.FilterInRange)
         for _, target_info in pairs(targets) do
@@ -6093,12 +6114,15 @@ end
 
 function SetTurretArc(args)
     local turret_mount = args.mount or 'main'
-    for i, attachment in pairs(self.getAttachments()) do
-      if attachment.name:find("Arc Indicator") and (attachment.description == turret_mount) then
-        id = self.removeAttachment(attachment.index)
-        id.setRotation(self.getRotation() + Global.getTable('mountRotations')[args.arc] or vector(0,0,0))
-        self.addAttachment(id)
-        Wait.frames(DisableAttachedColliders, 1)
+    if arc_indicators[turret_mount] then
+      arc_indicators[turret_mount].arc = args.arc
+      for i, attachment in pairs(self.getAttachments()) do
+        if attachment.name:find("Arc Indicator") and (attachment.description == turret_mount) then
+          id = self.removeAttachment(attachment.index)
+          id.setRotation(self.getRotation() + Global.getTable('mountRotations')[args.arc] or vector(0,0,0))
+          self.addAttachment(id)
+          Wait.frames(DisableAttachedColliders, 1)
+        end
       end
     end
 end

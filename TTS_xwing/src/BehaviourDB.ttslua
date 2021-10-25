@@ -694,16 +694,22 @@ BehaviourDB.rule_sets[1].ships['vt49decimator'].move_table = {
 }
 BehaviourDB.rule_sets[1].ships['vt49decimator'].action_selection = {
 --  Previous Rotate action (not working)
---    [1] = { -- Rotate turret to get a shot
---        description = "%s rotated its turret to get a shot.",
---        preconditions = {hasShot = {arguments = {['includeArcs'] = {'front'}}, requiredResult = false}},
---        action = {['rotateTurret'] = {['mount'] = 'main'}},
---        postconditions = {hasShot = {arguments = {['includeArcs'] = {'front'}}, requiredResult = true}},
---    },
-    [1] = { --  manual Rotate prompt
-        pass_through = true,
-        description = "If %s can get a shot by rotating, then undo the following action and take a Rotate action.",
+    --[1] = { -- Rotate turret to get a shot
+    --    description = "%s rotated its turret to get a shot.",
+    --    preconditions = {hasShot = {arguments = {['includeArcs'] = {'front'}}, requiredResult = false}},
+    --    action = {rotateTurret = {mount = 'main'}},
+    --    postconditions = {hasShot = {arguments = {['includeArcs'] = {'front'}}, requiredResult = true}},
+    --},
+    [1] = { -- Rotate turret to get a shot
+        description = "%s rotated its turret to get a shot.",
+        preconditions = {hasShot = false},
+        action = {rotateTurret = {mount = 'main'}},
+        postconditions = {hasShot = true},
     },
+--    [1] = { --  manual Rotate prompt
+--        pass_through = true,
+--        description = "If %s can get a shot by rotating, then undo the following action and take a Rotate action.",
+--    },
     [2] = { -- (target not moved) Target lock if not in any arcs
         description = {text = "%s target locked %s.", strings = {'ship', 'target'}},
         preconditions = {targetMoved = false, targetLocked = false, inEnemyArc = false, targetWithinRange = true},
@@ -1485,7 +1491,7 @@ BehaviourDB.rule_sets[1].ships['btla4ywing'].action_selection = {
 --  [2] = { -- Rotate turret to get a shot
 --      description = "%s rotated its turret to get a shot.",
 --      preconditions = {hasShot = {arguments = {['includeArcs'] = {'front'}}, requiredResult = false}},
---      action = {['rotateTurret'] = {['mount'] = 'main'}},
+--      action = {rotateTurret = {mount = 'main'}},
 --      postconditions = {hasShot = {arguments = {['includeArcs'] = {'front'}}, requiredResult = true}},
 --  },
   [3] = { -- Focus if you have a shot
@@ -1706,7 +1712,7 @@ BehaviourDB.rule_sets[1].ships['yt2400lightfreighter'].action_selection = {
 --  [1] = { -- Rotate turret if target is not in turret arc
 --      description = "%s rotated its turret to get a shot.",
 --      preconditions = {hasShot = false},
---      action = {['rotateTurret'] = {['mount'] = 'main'}},
+--      action = {rotateTurret = {mount = 'main'}},
 --      postconditions = {hasShot = true},
 --  },
   [1] = { --  manual Rotate prompt
@@ -1770,7 +1776,7 @@ BehaviourDB.rule_sets[1].ships['modifiedyt1300lightfreighter'].action_selection 
 --  [1] = { -- Rotate turret if target is not in turret arc
 --      description = "%s rotated its turret to get a shot.",
 --      preconditions = {hasShot = false},
---      action = {['rotateTurret'] = {['mount'] = 'main'}},
+--      action = {rotateTurret = {mount = 'main'}},
 --      postconditions = {hasShot = true},
 --  },
   [1] = { --  manual Rotate prompt
@@ -2758,7 +2764,7 @@ BehaviourDB.rule_sets[1].ships['hwk290lightfreighter'].action_selection = {
 --[2] = { -- Rotate turret to get a shot
 --    description = "%s rotated its turret to get a shot.",
 --    preconditions = {hasShot = false},
---    action = {['rotateTurret'] = {['mount'] = 'main'}},
+--    action = {rotateTurret = {mount = 'main'}},
 --    postconditions = {hasShot = true},
 --},
   [1] = { -- Target lock > Rotate (stress)
@@ -5763,13 +5769,13 @@ BehaviourDB.rule_sets[1].ships['droidtrifighter'].action_selection = {
     [2] = { -- (target moved) Boost > Calculate (stress) to avoid target's arc and still get a shot
         description = {text = "%s boosted and calculated to avoid %s's arc and still get a shot.", strings = {'ship', 'target'}},
         preconditions = {targetMoved = true, hasShot = true, inTargetsArc = true},
-        action = {boost = true, calculate = false},
+        action = {boost = true, calculate = true},
         postconditions = {hasShot = true, inTargetsArc = false}
     },
     [3] = { -- (target moved) Boost > Calculate (stress) to get a shot
         description = {text = "%s boosted and calculated to get a shot.", strings = {'ship', 'target'}},
         preconditions = {targetMoved = true, hasShot = false},
-        action = {boost = true, calculate = false},
+        action = {boost = false, calculate = true},
         postconditions = {hasShot = true}
     },
     [4] = { -- Calculate if you have a shot
