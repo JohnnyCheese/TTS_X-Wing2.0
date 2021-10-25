@@ -1697,16 +1697,11 @@ BehaviourDB.rule_sets[1].ships['yt2400lightfreighter'].move_table = {
     },
 }
 BehaviourDB.rule_sets[1].ships['yt2400lightfreighter'].action_selection = {
--- Previous Rotate action (not working)
---  [1] = { -- Rotate turret if target is not in turret arc
---      description = "%s rotated its turret to get a shot.",
---      preconditions = {hasShot = false},
---      action = {rotateTurret = {mount = 'main'}},
---      postconditions = {hasShot = true},
---  },
-  [1] = { --  manual Rotate prompt
-      pass_through = true,
-      description = "If %s can get a shot by rotating, then undo the following action and take a Rotate action.",
+  [1] = { -- Rotate turret to get a shot
+      description = "%s rotated its turret to get a shot.",
+      preconditions = {hasShot = false},
+      action = {rotateTurret = {mount = 'main'}},
+      postconditions = {hasShot = true},
   },
   [2] = { -- (target moved) Target lock if target is in turret arc at range 2
       description = "%s target locked target at range 2 in turret arc.",
@@ -1761,16 +1756,11 @@ BehaviourDB.rule_sets[1].ships['modifiedyt1300lightfreighter'].move_table = {
     },
 }
 BehaviourDB.rule_sets[1].ships['modifiedyt1300lightfreighter'].action_selection = {
--- Previous Rotate action (not working)
---  [1] = { -- Rotate turret if target is not in turret arc
---      description = "%s rotated its turret to get a shot.",
---      preconditions = {hasShot = false},
---      action = {rotateTurret = {mount = 'main'}},
---      postconditions = {hasShot = true},
---  },
-  [1] = { --  manual Rotate prompt
-      pass_through = true,
-      description = "If %s can get a shot by rotating, then undo the following action and take a Rotate action.",
+  [1] = { -- Rotate turret to get a shot
+      description = "%s rotated its turret to get a shot.",
+      preconditions = {hasShot = false},
+      action = {rotateTurret = {mount = 'main'}},
+      postconditions = {hasShot = true},
   },
   [2] = { -- Boost (stress) to get a shot
       description = "%s boosted to get a shot.",
@@ -2323,9 +2313,11 @@ BehaviourDB.rule_sets[1].ships['btls8kwing'].move_table = {
   },
 }
 BehaviourDB.rule_sets[1].ships['btls8kwing'].action_selection = {
-    [1] = { --  manual Rotate prompt
-        pass_through = true,
-        description = "If %s can get a shot by rotating, then undo the following action and take a Rotate action.",
+    [1] = { -- Rotate turret to get a shot
+        description = "%s rotated its turret to get a shot.",
+        preconditions = {hasShot = false},
+        action = {rotateTurret = {mount = 'main'}},
+        postconditions = {hasShot = true},
     },
     [2] = { -- SLAM if no shot and target outside of range 2
         description = "%s took a SLAM action. Perform the appropriate SLAM movement manually.",
@@ -2749,21 +2741,16 @@ BehaviourDB.rule_sets[1].ships['hwk290lightfreighter'].move_table = {
     },
 }
 BehaviourDB.rule_sets[1].ships['hwk290lightfreighter'].action_selection = {
--- Previous Rotate action (not working)
---[2] = { -- Rotate turret to get a shot
---    description = "%s rotated its turret to get a shot.",
---    preconditions = {hasShot = false},
---    action = {rotateTurret = {mount = 'main'}},
---    postconditions = {hasShot = true},
---},
-  [1] = { -- Target lock > Rotate (stress)
-      description = {text = "%s target locked %s. If %s can get a shot by rotating, then perform a red Rotate action.", strings = {'ship', 'target', 'ship'}},
+  [1] = { -- Target lock
+      description = {text = "%s target locked %s.", strings = {'ship', 'target'}},
       preconditions = {targetLocked = false, targetWithinRange = true},
       action = 'targetLock'
   },
-  [2] = { --  manual Rotate prompt
-      pass_through = true,
-      description = "If %s can get a shot by rotating, then undo the following action and take a Rotate action.",
+  [2] = { -- Rotate turret to get a shot
+      description = "%s rotated its turret to get a shot.",
+      preconditions = {hasShot = false},
+      action = {rotateTurret = {mount = 'main'}},
+      postconditions = {hasShot = true},
   },
   [3] = { -- Boost (stress) to get a shot
       description = {text = "%s boosted to get a shot.", strings = {'ship', 'target'}},
@@ -2771,8 +2758,8 @@ BehaviourDB.rule_sets[1].ships['hwk290lightfreighter'].action_selection = {
       action = {boost = true},
       postconditions = {hasShot = true}
   },
-  [4] = { -- Focus > Rotate (stress)
-      description = {text = "%s focused %s. If %s can get a shot by rotating, then perform a red Rotate action.", strings = {'ship', 'target', 'ship'}},
+  [4] = { -- Focus
+      description = "%s focused.",
       action = 'focus'
   }
 }
@@ -2960,9 +2947,11 @@ BehaviourDB.rule_sets[1].ships['customizedyt1300lightfreighter'].move_table = {
 }
 
 BehaviourDB.rule_sets[1].ships['customizedyt1300lightfreighter'].action_selection = {
-  [1] = { --  manual Rotate prompt
-      pass_through = true,
-      description = "If %s can get a shot by rotating, then undo the following action and take a Rotate action.",
+  [1] = { -- Rotate turret to get a shot
+      description = "%s rotated its turret to get a shot.",
+      preconditions = {hasShot = false},
+      action = {rotateTurret = {mount = 'main'}},
+      postconditions = {hasShot = true},
   },
   [2] = { -- Target lock
       description = {text = "%s target locked %s.", strings = {'ship', 'target'}},
@@ -3229,9 +3218,11 @@ BehaviourDB.rule_sets[1].ships['lancerclasspursuitcraft'].move_table = {
   },
 }
 BehaviourDB.rule_sets[1].ships['lancerclasspursuitcraft'].action_selection = {
-  [1] = { --  manual Rotate prompt
-      pass_through = true,
-      description = "If %s can get a shot by rotating, then undo the following action and take a Rotate action.",
+  [1] = { -- Rotate turret to get a shot
+      description = "%s rotated its turret to get a shot.",
+      preconditions = {hasShot = false},
+      action = {rotateTurret = {mount = 'main'}},
+      postconditions = {hasShot = true},
   },
   [2] = { -- (target not moved) Target lock if not in target's arc
       description = {text = "%s target locked %s.", strings = {'ship', 'target'}},
@@ -4228,31 +4219,27 @@ BehaviourDB.rule_sets[1].ships['tiebainterceptor'].action_selection = {
   [1] = { -- (target moved) Focus > Lock (Deplete/Strain) if you have a shot
       description = "%s has a shot so Focused into Target Lock, taking a Strain.",
       preconditions = {['targetMoved'] = true, hasShot = true, targetLocked = false},
-      action = {['focus'] = false, ['targetLock'] = false --,['strain'] = false
-  }},
+      action = {['focus'] = false, ['targetLock'] = false, ['strain'] = false}
+  },
   [2] = { --  (target moved) Boost or Barrel roll > Lock (Deplete/Strain) to avoid target arc and still get a shot (with the > target lock)
       description = {text = "%s barrel rolled/boosted and target locked to avoid %s's arc and still get a shot, taking a Strain.", strings = {'ship', 'target'}},
       preconditions = {inTargetsArc = true, ['targetMoved'] = true, targetLocked = false},
       action = {
-          [1] = {['boost'] = false, ['targetLock'] = false --,['strain'] = false
+          [1] = {['boost'] = false, ['targetLock'] = false, ['strain'] = false},
+          [2] = {['barrelRoll'] = false, ['targetLock'] = false, ['strain'] = false}
       },
-          [2] = {['barrelRoll'] = false, ['targetLock'] = false --,['strain'] = false
-      }},
       postconditions = {inTargetsArc = false, hasShot = {arguments = {['minRange'] = 2}, requiredResult = true}, targetWithinRange = true},
   },
   [3] = { -- (target moved) Focus > Lock (Deplete/Strain) to get a shot at range 1
       description = "%s focused into a target lock to get a close range shot, taking a Strain.",
       preconditions = {['targetMoved'] = true, hasShot = {arguments = {maxRange = 1}, requiredResult = false}},
-      action = {['focus'] = false, ['barrelRoll'] = false --,['strain'] = false
-    },
+      action = {['focus'] = false, ['barrelRoll'] = false, ['strain'] = false},
       postconditions = {hasShot = {arguments = {maxRange = 1}, requiredResult = true}}
   },
   [4] = { -- Boost > barrel roll (Deplete/Strain) to get a shot
       description = "%s boosted into barrel rolled to get a shot, taking a Strain.",
       preconditions = {hasShot = false},
-      action = {
-          [1] = {['boost'] = false, ['barrelRoll'] = true --,['strain'] = false
-      }},
+      action = {['boost'] = false, ['barrelRoll'] = false, ['strain'] = false},
       postconditions = {hasShot = true}
   },
   [5] = { -- (target not moved) Focus if you have a shot
@@ -4266,8 +4253,8 @@ BehaviourDB.rule_sets[1].ships['tiebainterceptor'].action_selection = {
       action = {
           [1] = {['boost'] = false},
           [2] = {['barrelRoll'] = false},
-          [1] = {['boost'] = false, ['barrelRoll'] = true --,['deplete'] = false
-      }},
+          [3] = {['boost'] = false, ['barrelRoll'] = false, ['deplete'] = false}
+      },
       postconditions = {inTargetsArc = false}
   },
   [7] = { -- Evade
@@ -4337,9 +4324,11 @@ BehaviourDB.rule_sets[1].ships['scavengedyt1300lightfreighter'].action_selection
         preconditions = {hasShot = true},
         action = 'focus'
     },
-    [4] = { --  manual Rotate prompt
-        pass_through = true,
-        description = "If %s can get a shot by rotating, then undo the following action and take a red Rotate action.",
+    [4] = { -- Rotate turret to get a shot
+        description = "%s rotated its turret to get a shot.",
+        preconditions = {hasShot = false},
+        action = {rotateTurret = {mount = 'main'}},
+        postconditions = {hasShot = true},
     },
     [5] = { -- Boost (stress) to get a shot
       	description = "%s boosted to get a shot.",
@@ -4349,7 +4338,7 @@ BehaviourDB.rule_sets[1].ships['scavengedyt1300lightfreighter'].action_selection
     },
     [6] = { -- Target lock
       	description = {text = "%s target locked %s.", strings = {'ship', 'target'}},
-      	preconditions = {targetLocked = false, targetWithinRange = true}, {hasShot = true},
+      	preconditions = {targetLocked = false, targetWithinRange = true, hasShot = true},
       	action = 'targetLock'
     },
     [7] = { -- Focus
@@ -4552,9 +4541,11 @@ BehaviourDB.rule_sets[1].ships['mg100starfortress'].move_table = {
   },
 }
 BehaviourDB.rule_sets[1].ships['mg100starfortress'].action_selection = {
-  [1] = { --  manual Rotate prompt
-      pass_through = true,
-      description = "If %s can get a shot by rotating, then undo the following action and take a Rotate action.",
+  [1] = { -- Rotate turret to get a shot
+      description = "%s rotated its turret to get a shot.",
+      preconditions = {hasShot = false},
+      action = {rotateTurret = {mount = 'main'}},
+      postconditions = {hasShot = true},
   },
   [2] = { -- (target not moved) Target lock if not in target's arc
       description = {text = "%s target locked %s.", strings = {'ship', 'target'}},
@@ -5335,9 +5326,11 @@ BehaviourDB.rule_sets[1].ships['laatigunship'].move_table = {
   },
 }
 BehaviourDB.rule_sets[1].ships['laatigunship'].action_selection = {
-  [1] = { --  manual Rotate prompt
-      pass_through = true,
-      description = "If %s can get a shot by rotating, then undo the following action and take a Rotate action.",
+  [1] = { -- Rotate turret to get a shot
+      description = "%s rotated its turret to get a shot.",
+      preconditions = {hasShot = false},
+      action = {rotateTurret = {mount = 'main'}},
+      postconditions = {hasShot = true},
   },
   [2] = { -- (target not moved) Target lock if not in target's arc
       description = {text = "%s target locked %s.", strings = {'ship', 'target'}},
