@@ -5994,9 +5994,15 @@ BehaviourDB.rule_sets[1].ships['nantexclassstarfighter'].move_table = {
   },
 }
 BehaviourDB.rule_sets[1].ships['nantexclassstarfighter'].action_selection = {
-    [1] = { --  manual Tractor/Rotate prompt
-        pass_through = true,
-        description = "If %s can get a shot with Pinpoint Tractor Array, then take a Tractor token and Rotate action.",
+    --[1] = { --  manual Tractor/Rotate prompt
+    --    pass_through = true,
+    --    description = "If %s can get a shot with Pinpoint Tractor Array, then take a Tractor token and Rotate action.",
+    --},
+    [1] = { -- Tractor(br)/Rotate
+        preconditions = {hasShot = false},
+        description = "%s can get a shot with Pinpoint Tractor Array by tractoring and rotating.",
+        action = {tractorSelf = false, rotateTurret = {mount = 'main'}},
+        postconditions = {hasShot = true}
     },
     [2] = { -- Focus if you have a shot
         description = "%s has a shot so focused.",

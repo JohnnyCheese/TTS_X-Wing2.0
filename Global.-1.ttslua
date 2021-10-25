@@ -1359,6 +1359,18 @@ AIModule.ProcessActionStack = function(ship)
             DialModule.PerformAction(target, 'Tractor', target.getVar('owningPlayer'))
             printToAll('Please manage the effects of the tractor token manually.', color(1.0, 1.0, 0.2, 0.9))
             table.insert(AIModule.current_move.actions, 'tractor')
+        elseif action == 'tractorSelf' then
+            DialModule.PerformAction(ship, 'Tractor', ship.getVar('owningPlayer'))
+            table.insert(AIModule.current_move.actions, 'tractor')
+        elseif action == 'deplete' then
+            DialModule.PerformAction(ship, 'Deplete', ship.getVar('owningPlayer'))
+            table.insert(AIModule.current_move.actions, 'deplete')
+        elseif action == 'strain' then
+            DialModule.PerformAction(ship, 'Strain', ship.getVar('owningPlayer'))
+            table.insert(AIModule.current_move.actions, 'strain')
+        elseif action == 'disarm' then
+            DialModule.PerformAction(ship, 'Disarm', ship.getVar('owningPlayer'))
+            table.insert(AIModule.current_move.actions, 'disarm')
         elseif MoveModule.PerformMove(action, ship, false, AIModule.ProcessActionStack) then
             break
         end
