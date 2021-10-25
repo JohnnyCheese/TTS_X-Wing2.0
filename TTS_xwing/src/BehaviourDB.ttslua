@@ -693,23 +693,12 @@ BehaviourDB.rule_sets[1].ships['vt49decimator'].move_table = {
     },
 }
 BehaviourDB.rule_sets[1].ships['vt49decimator'].action_selection = {
---  Previous Rotate action (not working)
-    --[1] = { -- Rotate turret to get a shot
-    --    description = "%s rotated its turret to get a shot.",
-    --    preconditions = {hasShot = {arguments = {['includeArcs'] = {'front'}}, requiredResult = false}},
-    --    action = {rotateTurret = {mount = 'main'}},
-    --    postconditions = {hasShot = {arguments = {['includeArcs'] = {'front'}}, requiredResult = true}},
-    --},
     [1] = { -- Rotate turret to get a shot
         description = "%s rotated its turret to get a shot.",
         preconditions = {hasShot = false},
         action = {rotateTurret = {mount = 'main'}},
         postconditions = {hasShot = true},
     },
---    [1] = { --  manual Rotate prompt
---        pass_through = true,
---        description = "If %s can get a shot by rotating, then undo the following action and take a Rotate action.",
---    },
     [2] = { -- (target not moved) Target lock if not in any arcs
         description = {text = "%s target locked %s.", strings = {'ship', 'target'}},
         preconditions = {targetMoved = false, targetLocked = false, inEnemyArc = false, targetWithinRange = true},
@@ -5853,6 +5842,19 @@ BehaviourDB.rule_sets[1].ships['hmpdroidgunship'].move_table = {
     stress = {[1] = 'tr2', [3] = 'tl2z', [4] = 'tr2z'},
   },
 }
+BehaviourDB.rule_sets[1].ships['hmpdroidgunship'].special_move_difficulties = {
+  bl1z = 'r',
+  br1z = 'r',
+  bl2z = 'w',
+  br2z = 'w',
+  bl3z = 'r',
+  br3z = 'r',
+  tl2z = 'b',
+  tr2z = 'b',
+  tl3z = 'w',
+  tr3z = 'w',
+}
+
 BehaviourDB.rule_sets[1].ships['hmpdroidgunship'].action_selection = {
   [1] = { -- Target lock if charges left
       description = {text = "%s target locked %s. If %s has no charges on its missile or torpedo upgrades, then undo this action and perform it manually.", strings = {'ship', 'target', 'ship'}},

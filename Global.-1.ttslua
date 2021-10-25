@@ -806,6 +806,10 @@ AIModule.PerformManeuver = function(ship, take_action)
                 end
             else
                 AIModule.current_move.difficulty = AIModule.GetMoveDifficulty(ship, move_code)
+                if AIModule.current_move.difficulty == nil and ship_behaviour.special_move_difficulties then
+                  -- Check for special moves that aren't part of the moveSet (config enabled manouvres)
+                  AIModule.current_move.difficulty = ship_behaviour.special_move_difficulties[move_code] or 'w'
+                end
             end
             -- Remove tokens _before_ the move - if we wait till afterwards then
             -- the tokens haven't caught up with the ship and the token module
@@ -896,9 +900,7 @@ AIModule.GetMoveDifficulty = function(ship, move_code)
             return ship_move_difficulty
         end
     end
-    local ship_move_difficulty = string.sub(move_code, 1, 1)
-
-    return ship_move_difficulty
+    return nil
 end
 
 --[[ AIModule.GetNearestMoves
