@@ -742,7 +742,7 @@ function idSpawner(idTable)
         fList.Pilots[k].Data.movethrough = masterPilotDB[v].movethrough or false
 
         if masterPilotDB[v].sqdExecuteOptions ~= nil then
-            table.insert(fList.SqdExecOptions, masterPilotDB[v].sqdExecuteOptionss )
+            table.insert(fList.SqdExecOptions, masterPilotDB[v].sqdExecuteOptions )
         end
 
         fList.Pilots[k].Data.Faction = fList.Faction
