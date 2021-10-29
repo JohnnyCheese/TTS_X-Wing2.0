@@ -895,6 +895,8 @@ function idSpawner(idTable)
                 --fList.Pilots[k].bombD = fList.Pilots[k].bombD ..  ':s2:tr2:te2:be2:br2'
             elseif value == 'trajectorysimulator' then  -- Trajectory Simulator special drop
                 fList.Pilots[k].bombD = fList.Pilots[k].bombD ..  ':s5r'
+            elseif value == 'electrochaffmissiles' then  -- Electro-Chaff Missiles
+                fList.Pilots[k].bombD = fList.Pilots[k].bombD ..  ':s4r:be3r:br3r'
             elseif value == 'thermaldetonators' then -- Thermal Detinators
                 if Ship == 'tiesabomber' then -- TIE Bomber special drops
                     fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':be2:s2:br2'
