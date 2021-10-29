@@ -1141,7 +1141,7 @@ AIModule.AttemptAction = function(ship, target, action_definition)
     -- definition if necessary.
     local action_set = action_definition.action
     if type(action_definition.action) == 'string' then
-        action_set = {[1] = {[action_definition.action] = {['stress'] = false}}}
+        action_set = {[1] = {[action_definition.action] = {stress = false}}}
     elseif action_definition.action[1] == nil then
         action_set = {[1] = action_definition.action}
     end
@@ -1158,7 +1158,7 @@ AIModule.AttemptAction = function(ship, target, action_definition)
         for action, arguments in pairs(action_list) do
             -- Check for the stress shorthand in the arguments parameter.
             if type(arguments) ~= 'table' then
-                arguments = {['stress'] = arguments}
+                arguments = {stress = arguments}
             end
 
             if AIModule.expandable_actions[action] ~= nil then
@@ -1169,10 +1169,11 @@ AIModule.AttemptAction = function(ship, target, action_definition)
                 else
                     expanded_actions = {}
                     if action == 'rotateTurret' then
+                        action_includes_move_component = true
                         local mount = arguments.mount or 'main'
                         local turret_rotation_options = AIModule.GetTurretRotationOptions(ship, mount)
                         for _, rotation in pairs(turret_rotation_options) do
-                            table.insert(expanded_actions, {['action'] = 'rotateTurret', ['mount'] = mount, ['arc'] = rotation, ['stress'] = arguments['stress']})
+                            table.insert(expanded_actions, {['action'] = 'rotateTurret', ['mount'] = mount, ['arc'] = rotation, stress = arguments.stress})
                         end
                     end
                 end
