@@ -5227,6 +5227,7 @@ BombModule.tokenOffset.prox = {pos={0, Convert_mm_igu(-2), Convert_mm_igu(15)}, 
 BombModule.tokenOffset.cluster = {pos={0, Convert_mm_igu(-2), 0}, rot={0, 180, 0}}
 BombModule.tokenOffset.connor = {pos={0, Convert_mm_igu(-2), Convert_mm_igu(21)}, rot={0, 180, 0}}
 BombModule.tokenOffset.rgc = {pos={0, Convert_mm_igu(-1), Convert_mm_igu(9.5)}, rot={0, 0, 0}}
+BombModule.tokenOffset.chaff = {pos={Convert_mm_igu(-0.05), Convert_mm_igu(-1), Convert_mm_igu(12.5)}, rot={0, 90, 0}}
 
 -- Bomb name -> type data
 BombModule.snapTable = {}
@@ -5241,6 +5242,7 @@ BombModule.snapTable['Cluster Mine (middle)'] = 'cluster'
 BombModule.snapTable['Connor Net'] = 'connor'
 BombModule.snapTable['Loose Cargo'] = 'rgc'
 BombModule.snapTable['Concussion Bomb'] = 'standardAoE'
+BombModule.snapTable['Electro-Chaff Cloud'] = 'chaff'
 
 -- Minimum distance to snap
 BombModule.snapDist = 1.5
@@ -5266,6 +5268,7 @@ BombModule.OnTokenDrop = function(token)
         -- Move the token to the snap points
         local drop = BombModule.dropTable[closest.pointKey]
         local destPos = Vect.Sum(drop.dest.pos, Vect.RotateDeg(offset.pos, drop.dest.rot[2]))
+
         local size = drop.ship.getTable("Data").Size or 'small'
         if size == 'large' then
             destPos = Vect.Sum(destPos, Vect.RotateDeg({0, 0, Convert_mm_igu(-20)}, drop.dest.rot[2]))
@@ -5282,6 +5285,14 @@ BombModule.OnTokenDrop = function(token)
         -- Expand clusters
         if token.getName() == 'Cluster Mine (middle)' then
             BombModule.ExpandCluster({pos=destPos, rot=destRot})
+        end
+
+        if token.getName() == 'Electro-Chaff Cloud' then
+            fuseBag = getObjectFromGUID('568727')
+            fuseBag.takeObject({
+              position          = vector(destPos[1],destPos[2],destPos[3]) + vector(0,1,0),
+              smooth            = true,
+            })
         end
 
         if token.hasTag('Mine') then
