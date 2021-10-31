@@ -6360,6 +6360,8 @@ function newSpawner(listTable)
                           charges = charges-1
                           chargeClone = chargeToken.clone()
                           chargeClone.setPosition(pos)
+                          chargeClone.setVar("charge_owner",Pilots[shipIndex].name)
+                          chargeClone.setVar("charge_name",Up.name)
                         end
                         tempBagAcc.putObject(chargeToken)
                       end
@@ -6419,6 +6421,8 @@ function newSpawner(listTable)
                           charges = charges-1
                           chargeClone = chargeToken.clone()
                           chargeClone.setPosition(pos)
+                          chargeClone.setVar("charge_owner",Pilots[shipIndex].name)
+                          chargeClone.setVar("charge_name",Up.name)
                         end
                         tempBagAcc.putObject(chargeToken)
                       end
@@ -6519,6 +6523,7 @@ function newSpawner(listTable)
                     newAsset = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
                     assetClone = newAsset.clone()
                     assetClone.setPosition(pos)
+                    assetClone.setVar("force_owner",Pilots[shipIndex].name)
                     tempBagAcc.putObject(newAsset)
                 end
             end
@@ -6762,6 +6767,8 @@ end
                     Pilots[shipIndex].Charge = Pilots[shipIndex].Charge - 1
                     chargeClone = chargeToken.clone()
                     chargeClone.setPosition(pos)
+                    chargeClone.setVar("charge_owner",Pilots[shipIndex].name)
+                    chargeClone.setVar("charge_name",Up.name)
 
                   end
                   tempBagAcc.putObject(chargeToken)
@@ -6785,6 +6792,7 @@ end
                     end
                     forceClone = forceToken.clone()
                     forceClone.setPosition(pos)
+                    forceClone.setVar("force_owner",Pilots[shipIndex].name)
                   end
                   tempBagAcc.putObject(forceToken)
                 end
@@ -6806,6 +6814,7 @@ end
                     end
                     shieldClone = shieldToken.clone()
                     shieldClone.setPosition(pos)
+                    shieldClone.setVar("shield_owner",Pilots[shipIndex].name)
 
                   end
                   tempBagAcc.putObject(shieldToken)
