@@ -3,86 +3,90 @@ dork = self
 
 assignedShip = nil
 drop_offset = 0.78
-local spawnedRuler = nil
+spawnedRuler = nil
+
+size_adjust = {
+  small = 0,
+  medium = 5,
+  large = 10,
+
+}
+
+scale = 1/self.getScale().x
+checkingRange = nil
 
 function update()
     if self.getDescription() == 'r' then
-        if ToggleRuler3() then
-            printToAll('Spawning ' .. self.getName() .. ' guide', {0, 1, 1})
-        end
+        checkRange(3)
         self.setDescription('')
     end
 end
 
-function ToggleRuler1()
-    return ToggleRuler(1)
+local removeButtonUp = {
+    click_function = 'removeCheckRange',
+    label = 'Remove',
+    function_owner = self,
+    position = {0, 0.1*scale, 0.0},
+    rotation = {0, 0, 0},
+    width = 400*scale,
+    height = 300*scale,
+    font_size = 100*scale,
+    color = {0.7, 0.7, 0.7}
+}
+
+local removeButtonDown = {
+    click_function = 'removeCheckRange',
+    label = 'Remove',
+    function_owner = self,
+    position = {0, -0.1*scale, 0.0},
+    rotation = {180, 180, 0},
+    width = 400*scale,
+    height = 300*scale,
+    font_size = 100*scale,
+    color = {0.7, 0.7, 0.7}
+}
+
+
+function removeCheckRange()
+  checkRange(nil)
 end
 
-function ToggleRuler3()
-    return ToggleRuler(3)
-end
-
-function DeleteRuler()
-    if spawnedRuler  then
-        spawnedRuler.destruct()
-        spawnedRuler = nil
-    end
-end
-
-function ToggleRuler(range)
-    if spawnedRuler  then
-        spawnedRuler.destruct()
-        spawnedRuler = nil
-        if spawnedRulerRange == range then
-            return false
+function checkRange(range)
+  if range and checkingRange ~= range then
+    printToAll("Checking for ships within range ".. range .. " of " .. self.getName(), color(1.0,1.0,0))
+    vector_lines = {}
+    for k,obj in pairs(getObjectsWithAnyTags({'Ship'})) do
+        my_pos = self.getNearestPointFromObject(obj)
+        closest = Global.call("API_GetClosestPointToShip", {ship=obj,point=my_pos})
+        distance = Convert_igu_mm(closest.length)
+        if distance < 100*range then
+            printToAll(obj.getName() .. " is within range ".. range .. " of ".. self.getName(), color(1.0,1.0,0))
+            table.insert(vector_lines, {
+                points = {self.positionToLocal(closest.A), self.positionToLocal(closest.B)},
+                color = {1,1,1},
+                thickness = 0.05*scale,
+                rotation = vector(0,0,0)
+            })
         end
     end
-    local params = {
-        type = 'Custom_Model',
-        position = self.positionToWorld({0, 0, 0}),
-        rotation = self.getRotation(),
-        scale = vector(1,1,1)
-    }
-    local custom = {
-        mesh = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/DRK1/R' .. tostring(range) .. '.obj',
-        collider = 'http://pastebin.com/raw.php?i=UK3Urmw1'
-    }
-    local removeButton = {
-        click_function = 'DeleteRuler',
-        label = 'DEL',
-        function_owner = self,
-        position = {0, 0.1, 0},
-        rotation = {0, 270, 0},
-        width = 750,
-        height = 750,
-        font_size = 250,
-        color = {0.7, 0.7, 0.7}
-    }
-    spawnedRuler = spawnObject(params)
-    spawnedRuler.setCustomObject(custom)
-    spawnedRuler.setColorTint(color(1,1,0,0.2))
-    spawnedRuler.createButton(removeButton)
-    local vector_lines = {}
-    for k,obj in pairs(getAllObjects()) do
-        if obj ~= nil and obj.tag == 'Figurine' and obj.getVar('__XW_Ship') == true then
-            my_pos = self.getNearestPointFromObject(obj)
-            closest = Global.call("API_GetClosestPointToShip", {ship=obj,point=my_pos})
-            distance = Convert_igu_mm(closest.length)
-            if distance < 100*range then
-                table.insert(vector_lines, {
-                    points = {self.positionToLocal(closest.A)*self.getScale().x, self.positionToLocal(closest.B)*self.getScale().x},
-                    color = {1,1,1},
-                    thickness = 0.1,
-                    rotation = vector(0,0,0)
-                })
-            end
-        end
+    self.clearButtons()
+    self.setVectorLines(vector_lines)
+    if #vector_lines > 0 then
+      checkingRange = range
+      if self.is_face_down then
+        self.createButton(removeButtonDown)
+      else
+        self.createButton(removeButtonUp)
+      end
+    else
+      checkingRange = nil
+      printToAll("No ships is within range ".. range .." of " .. self.getName(), color(1.0,1.0,0))
     end
-    spawnedRuler.setVectorLines(vector_lines)
-
-    spawnedRuler.lock()
-    spawnedRulerRange = range
-    return true
+  else
+    checkingRange = nil
+    self.clearButtons()
+    self.setVectorLines({})
+  end
 end
 
 function onPickUp(color)
@@ -97,8 +101,8 @@ function onSave()
 end
 
 function onLoad(save_state)
-    self.addContextMenuItem("Toggle Range 1", ToggleRuler1, false)
-    self.addContextMenuItem("Toggle Range 3", ToggleRuler3, false)
+    self.addContextMenuItem("Check Range 1", function() checkRange(1) end, false)
+    self.addContextMenuItem("Check Range 3", function() checkRange(3) end, false)
 end
 
 
@@ -121,6 +125,8 @@ function onDropped(color)
         if nearest ~= nil then
             printToAll('DRK-1 Probe preparing to drop/lauch')
             initialP = self.getPosition()
+            size = nearest.getTable('Data').size or "small"
+            drop_offset = drop_offset + Convert_mm_igu(size_adjust[size])
             assignedShip = nearest
             local pos = assignedShip.getPosition()
             local rot = assignedShip.getRotation()
