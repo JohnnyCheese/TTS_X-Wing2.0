@@ -6764,7 +6764,7 @@ end
         if Pilots[shipIndex].Charge > 0 then
           for k, acc in pairs(listaAcc) do
               if acc.name == 'Charge' then
-                  chargeToken = tempBagAcc.takeObject({rotation = spawnCard.getRotation(), guid = acc.guid, smooth=false})
+                  chargeToken = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid, smooth=false})
                   while Pilots[shipIndex].Charge > 0 do
 
                     if Pilots[shipIndex].Charge == 4 then
@@ -6777,12 +6777,12 @@ end
                         pos = LocalPos(spawnCard, {-0.9 ,3, 1.6})
                     else
                         charges = 0
+                        pos = vector(0,0,0)
                     end
                     Pilots[shipIndex].Charge = Pilots[shipIndex].Charge - 1
                     chargeClone = chargeToken.clone()
                     chargeClone.setPosition(pos)
                     chargeClone.setVar("charge_owner",Pilots[shipIndex].name)
-                    chargeClone.setVar("charge_name",Up.name)
 
                   end
                   tempBagAcc.putObject(chargeToken)
