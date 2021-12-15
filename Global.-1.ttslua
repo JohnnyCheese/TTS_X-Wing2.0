@@ -4989,6 +4989,8 @@ RulerModule.typeToArc.FRONTBACK = 'frontback'
 RulerModule.typeToArc.LEFTRIGHT = 'leftright'
 RulerModule.typeToArc.BULL = 'bullseye'
 
+RulerModule.CachedRulers = {}
+
 
 -- Get ruler spawn tables for some ship and some ruler code
 -- Return table with "mesh", "collider" and "scale" keys
@@ -5074,9 +5076,21 @@ RulerModule.SpawnRuler = function(ship, rulerType, beQuiet, include_friendly_shi
     if rulerData.custom.mesh == nil then
         return nil
     end
-    local newRuler = spawnObject(rulerData.params)
-    newRuler.setCustomObject(rulerData.custom)
-    newRuler.setColorTint(color(1.0, 0.0, 0.0, 0.5))
+    if not RulerModule.CachedRulers[rulerType] then
+      RulerModule.CachedRulers[rulerType] = spawnObject(
+        {type= 'Custom_Model',
+         position = vector(0,-2,0),
+         scale = rulerData.scale})
+      RulerModule.CachedRulers[rulerType].setCustomObject(rulerData.custom)
+      RulerModule.CachedRulers[rulerType].addTag('TempLayoutElement')
+      RulerModule.CachedRulers[rulerType].interactable = false
+      RulerModule.CachedRulers[rulerType].setLock(true)
+      RulerModule.CachedRulers[rulerType].setColorTint(color(1.0, 0.0, 0.0, 0.5))
+    end
+    local newRuler = RulerModule.CachedRulers[rulerType].clone()
+    newRuler.setPosition(ship.getPosition())
+    newRuler.setRotation(rulerData.params.rotation)
+
 
     local arclines = {}
     if RulerModule.typeToArc[rulerType] then
