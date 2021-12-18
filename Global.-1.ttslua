@@ -5076,18 +5076,19 @@ RulerModule.SpawnRuler = function(ship, rulerType, beQuiet, include_friendly_shi
     if rulerData.custom.mesh == nil then
         return nil
     end
-    if not RulerModule.CachedRulers[rulerType] then
-      RulerModule.CachedRulers[rulerType] = spawnObject(
+    local rulerId = rulerType .. tostring(range)
+    if not RulerModule.CachedRulers[rulerId] then
+      RulerModule.CachedRulers[rulerId] = spawnObject(
         {type= 'Custom_Model',
          position = vector(0,-2,0),
          scale = rulerData.scale})
-      RulerModule.CachedRulers[rulerType].setCustomObject(rulerData.custom)
-      RulerModule.CachedRulers[rulerType].addTag('TempLayoutElement')
-      RulerModule.CachedRulers[rulerType].interactable = false
-      RulerModule.CachedRulers[rulerType].setLock(true)
-      RulerModule.CachedRulers[rulerType].setColorTint(color(1.0, 0.0, 0.0, 0.5))
+      RulerModule.CachedRulers[rulerId].setCustomObject(rulerData.custom)
+      RulerModule.CachedRulers[rulerId].addTag('TempLayoutElement')
+      RulerModule.CachedRulers[rulerId].interactable = false
+      RulerModule.CachedRulers[rulerId].setLock(true)
+      RulerModule.CachedRulers[rulerId].setColorTint(color(1.0, 0.0, 0.0, 0.5))
     end
-    local newRuler = RulerModule.CachedRulers[rulerType].clone()
+    local newRuler = RulerModule.CachedRulers[rulerId].clone()
     newRuler.setPosition(ship.getPosition())
     newRuler.setRotation(rulerData.params.rotation)
 
