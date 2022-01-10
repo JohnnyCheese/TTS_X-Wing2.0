@@ -184,11 +184,12 @@ function initiate()
     self.createButton({click_function = 'xwsStart', function_owner = self, label = 'XWS Spawner', position = {0.5,0.45,-0.1}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
     self.createButton({click_function = 'singleSpawner', function_owner = self, label = 'Single Spawner', position = {-0.45,0.45,0.2}, width = 1600, height = 380, font_size = 200, scale = {0.25,0.25,0.25}})
     self.createButton({click_function = 'spawnerStart', function_owner = self, label = 'TTS Spawner', position = {0.5,0.45,0.2}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'builderStart', function_owner = self, label = 'Builder', position = {0,0.45,0.5}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'builderStart', function_owner = self, label = 'Builder', position = {0.5,0.45,0.5}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'assetSpawn', function_owner = self, label = "Asset Spawner", position = {-0.45,0.45,0.5}, width = 1600, height = 380, font_size = 200, scale = {0.25,0.25,0.25}})
 end
 
 
---Spawn from XWS JSON
+--Spawn from XWS
 function xwsStart()
     self.clearButtons()
     self.createButton({click_function = 'DummyFFG', function_owner = self, label = 'Paste XWS', position = {0,0.45,-0.3}, width = 1800, height = 520, font_size = 240,  scale = {0.25,0.25,0.25}})
@@ -292,7 +293,7 @@ function xwsSpawn(list, XWS_TO_FFG, playerColor)
                 local upgradeCount = 1
                 for slot,upgrades in pairs (v.upgrades) do
                     for i,upgrade in pairs (upgrades) do
-                        if masterUpgradeDB[upgrade] == nil then
+                        if masterUpgradesDB[upgrade] == nil then
                           printToAll("Unable to find upgrade with xws value: " .. upgrade, {1,0,0})
                           break;
                         end
@@ -488,6 +489,87 @@ function action3(obj, playerColor, value, editing)
             singleSearch()
         end
     end
+end
+
+extraAssets = {
+  damage_decks = {
+    label = "Damage Decks",
+    items = {
+      rebel = {label = "Rebel", tag = "rebeldamagedeck"},
+      empire = {label = "Empire", tag = "empiredamagedeck"},
+      scum = {label = "Scum", tag = "scumdamagedeck"},
+      resistance = {label = "Resistance", tag = "resistancedamagedeck"},
+      firstorder = {label = "First Order", tag = "firstorderdamagedeck"},
+      republic = {label = "Republic", tag = "republicdamagedeck"},
+      separatists = {label = "Separatists", tag = "separatistsdamagedeck"}
+    }
+  },
+  man_cards = {label = "Manouvre Cards", items = {
+    rebel = {label = "Rebel", tag = "rebelmancards"},
+    empire = {label = "Empire", tag = "empiremancards"},
+    scum = {label = "Scum", tag = "scummancards"},
+    resistance = {label = "Resistance", tag = "resistancemancards"},
+    firstorder = {label = "First Order", tag = "firstordermancards"},
+    republic = {label = "Republic", tag = "republicmancards"},
+    separatists = {label = "Separatists", tag = "separatistsmancards"},
+    generic = {label = "Generic", tag = "mancard"},
+  }},
+}
+
+extraAssetsGUID = "a3690e"
+
+function assetSpawn()
+  self.clearInputs()
+  self.clearButtons()
+
+  self.createButton({click_function = 'Dummy1', function_owner = self, label = 'Asset Spawning', position = {0,0.45,-0.3}, width = 1800, height = 520, font_size = 240,  scale = {0.25,0.25,0.25}})
+
+  i = 0
+  for category, elements in pairs(extraAssets) do
+    local position = vector(-0.45 + (i%2)*0.9,0.45,math.floor(i/2)*0.20)
+    self.setVar("assetCategory_" .. category, function() self.call("assetCategory",{category=category}) end)
+    self.createButton({click_function = "assetCategory_" .. category, function_owner = self, label = elements.label, position = position, width = 1500, height = 280, font_size = 200,  scale = {0.25,0.25,0.25}})
+    i = i + 1
+  end
+
+  self.createButton({click_function = 'initiate', function_owner = self, label = 'Back', position = {0.7,0.45,0.8}, width = 1000, height = 300, font_size = 150,  scale = {0.21,0.21,0.21}})
+end
+
+function assetCategory(args)
+  self.clearInputs()
+  self.clearButtons()
+
+  self.createButton({click_function = 'Dummy1', function_owner = self, label = extraAssets[args.category].label, position = {0,0.45,-0.3}, width = 1800, height = 520, font_size = 240,  scale = {0.25,0.25,0.25}})
+
+  i = 0
+  for key, asset in pairs(extraAssets[args.category].items) do
+    local position = vector(-0.45 + (i%2)*0.9,0.45, math.floor(i/2)*0.20)
+    self.setVar("spawnAssetItem_" .. key, function() self.call("spawnAssetItem",{tag=asset.tag}) end)
+    self.createButton({click_function = 'spawnAssetItem_' .. key, function_owner = self, label = asset.label, position = position, width = 1500, height = 280, font_size = 200,  scale = {0.25,0.25,0.25}})
+    i = i + 1
+  end
+
+  self.createButton({click_function = 'initiate', function_owner = self, label = 'Back', position = {0.7,0.45,0.8}, width = 1000, height = 300, font_size = 150,  scale = {0.21,0.21,0.21}})
+end
+
+function spawnAssetItem(args)
+
+  local asset_bag = getObjectFromGUID(extraAssetsGUID)
+  if asset_bag then
+    for _, containedObject in ipairs(asset_bag.getObjects()) do
+      if containedObject.gm_notes == args.tag then
+          asset = asset_bag.takeObject({
+              index = containedObject.index,
+              position = self.getPosition() + vector(10,2,0),
+              rotation = self.getRotation() + vector(180,0,0),
+          })
+          assetClone = asset.clone()
+          asset_bag.putObject(assetClone)
+          break
+      end
+    end
+  end
+  initiate()
 end
 
 -- Single Spawner: Receives a string, then goes across all card names and spawns that card with its appropriate components.
