@@ -421,10 +421,9 @@ ArcCheck.SpawnObstructionRuler = function(data)
           ArcCheck.model_cache["ArcCheckRuler" .. data.range].interactable = false
           ArcCheck.model_cache["ArcCheckRuler" .. data.range].setLock(true)
         end
-        ruler = ArcCheck.model_cache["ArcCheckRuler" .. data.range].clone(
-        { position = vector(data.A[1], 1.21, data.A[3])})
+        ruler = ArcCheck.model_cache["ArcCheckRuler" .. data.range].clone()
         ruler.setRotation({0, data.angle + 90,0})
-
+        ruler.setPosition(vector(data.A[1], 1.21, data.A[3]))
         local tintcolor = color(1.0, 1.0, 0.2, 1.0) -- Yellow obstructed tint
         if #data.obstructions == 0 then
             if data.in_bullseye then

@@ -5076,7 +5076,7 @@ RulerModule.SpawnRuler = function(ship, rulerType, beQuiet, include_friendly_shi
     if rulerData.custom.mesh == nil then
         return nil
     end
-    local rulerId = rulerType .. tostring(range)
+    local rulerId = rulerType .. ship.getTable("Data").Size .. tostring(range)
     if not RulerModule.CachedRulers[rulerId] then
       RulerModule.CachedRulers[rulerId] = spawnObject(
         {type= 'Custom_Model',
