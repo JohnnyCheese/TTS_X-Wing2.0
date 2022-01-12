@@ -9,6 +9,7 @@ masterShipDB['modifiedyt1300lightfreighter']={
     Hull = 8,
     Shield = 5,
     size = 'large',
+    ProximityHider = true,
     agi = 1,
     XWS = 'modifiedyt1300lightfreighter',
     Fac = {[1]=true},
@@ -49,6 +50,7 @@ masterShipDB['yt2400lightfreighter']={
     Hull = 6,
     Shield = 4,
     size = 'large',
+    ProximityHider = true,
     agi = 2,
     XWS = 'yt2400lightfreighter',
     Fac = {[1]=true},
@@ -328,13 +330,14 @@ masterShipDB['vcx100lightfreighter']={
   Hull = 10,
   Shield = 4,
   size = 'large',
+  ProximityHider = true,
   agi = 0,
   XWS = 'vcx100lightfreighter',
   Fac = {[1]=true},
   arcs = {fixed = { range=3, type = {'front'}}},
   Docking = true,
   moveSet = {'rtl1','wbl1','bs1','wbr1','rtr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','ws4','rk4'},
-  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/REB_VCX100/vcx100.obj',
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/REB_VCX100/vcx100-2.obj',
   keywords = {'Freighter'}
 }
 
@@ -343,6 +346,7 @@ masterShipDB['yv666lightfreighter']={
   Hull = 9,
   Shield = 3,
   size = 'large',
+  ProximityHider = true,
   agi = 1,
   XWS = 'yv666lightfreighter',
   Fac = {[3]=true},
@@ -398,12 +402,13 @@ masterShipDB['vt49decimator']={
   Hull = 12,
   Shield = 4,
   size = 'large',
+  ProximityHider = true,
   agi = 0,
   XWS = 'vt49decimator',
   Fac = {[2]=true},
   arcs = {turret = {main = {name = 'primary', type={'doubleturret'}}}},
   moveSet = {'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','wtl3','wbl3','ws3','wbr3','wtr3','ws4'},
-  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/EMP_Decimator/decimator.obj'
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/EMP_Decimator/decimator2.obj'
 }
 
 masterShipDB['tieagaggressor']={
@@ -590,6 +595,7 @@ masterShipDB['lancerclasspursuitcraft']={
   Hull = 8,
   Shield = 2,
   size = 'large',
+  ProximityHider = true,
   agi = 2,
   XWS = 'lancerclasspursuitcraft',
   Fac = {[3]=true},
@@ -643,6 +649,7 @@ masterShipDB['customizedyt1300lightfreighter']={
   Hull = 8,
   Shield = 3,
   size = 'large',
+  ProximityHider = true,
   agi = 1,
   XWS = 'customizedyt1300lightfreighter',
   Fac = {[3]=true},
@@ -699,12 +706,13 @@ masterShipDB['upsilonclasscommandshuttle']={
 	Hull = 6,
 	Shield = 6,
 	size = 'large',
+  ProximityHider = true,
 	agi = 1,
 	XWS = 'upsilonclasscommandshuttle',
 	Fac = {[5]=true},
 	arcs = {fixed = { range=3, type = {'front'}}},
 	moveSet = {'rtl1','wbl1','bs1','wbr1','rtr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs0'},
-	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/FO_Upsilon_Shuttle/Upsilon_Shuttle.obj'
+	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/FO_Upsilon_Shuttle/Upsilon_Shuttle2.obj'
 }
 masterShipDB['tievnsilencer']={
 	name = 'TIE Silencer',
@@ -771,6 +779,7 @@ masterShipDB['mg100starfortress']={
   Hull = 9,
   Shield = 3,
   size = 'large',
+  ProximityHider = true,
   agi = 1,
   XWS = 'mg100starfortress',
   Fac = {[4]=true},
@@ -798,6 +807,7 @@ masterShipDB['scavengedyt1300lightfreighter']={
   Hull = 8,
   Shield = 3,
   size = 'large',
+  ProximityHider = true,
   agi = 1,
   XWS = 'scavengedyt1300lightfreighter',
   Fac = {[4]=true},
