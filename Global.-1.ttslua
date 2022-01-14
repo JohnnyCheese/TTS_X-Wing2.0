@@ -77,6 +77,8 @@ ArcCheck.Initialize()
 HotkeyModule = require("TTS_xwing/src/HotkeyManager")
 PlayerEventModule = require("TTS_xwing/src/PlayerActionModule")
 DialManagerModule = require("TTS_xwing/src/DialManager")
+ShipProximityHider = require("TTS_xwing/src/ShipProximityHider")
+
 #include !/TTS_xwing/src/GlobalGuiControl
 
 -- Modules API, must be loaded last
@@ -6180,6 +6182,7 @@ function GetTurretType(args)
     return nil;
 end
 
+
 -- Save self state
 function onSave()
     local state = {shipData=self.getTable("Data"), arcIndicators=self.getTable("arc_indicators")}
@@ -6628,6 +6631,9 @@ function newSpawner(listTable)
               ship.addAttachment(shipId)
               ship.setLock(false)
               ship.addTag("Ship")
+              if Pilots[shipIndex].Data.ProximityHider then
+                ship.addTag("ProximityHider")
+              end
               card.call('addTintObject', {'ship',ship})
               ship.call('initContextMenu')
             end

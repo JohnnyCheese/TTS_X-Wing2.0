@@ -352,7 +352,7 @@ masterShipDB['yv666lightfreighter']={
   Fac = {[3]=true},
   arcs = {fixed = { range=3, type = {'fullfront'}}},
   moveSet = {'bbl1','bs1','bbr1','rtl2','wbl2','bs2','wbr2','rtr2','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rs0'},
-  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/SCU_YV666/yv666.obj',
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/SCU_YV666/yv666-2.obj',
   keywords = {'Frighter'}
 }
 
@@ -601,7 +601,7 @@ masterShipDB['lancerclasspursuitcraft']={
   Fac = {[3]=true},
   arcs = {fixed = { range=3, type = {'front'}}, turret = {main = {name = 'primary', type={'singleturret'}}}},
   moveSet = {'wbl1','ws1','wbr1','wtl2','wbl2','bs2','wbr2','wtr2','btl3','bbl3','bs3','bbr3','btr3','bs4','ws5','rk5'},
-  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/SCU_lancer/v2/lancer.obj',
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/SCU_lancer/v3/lancer.obj',
 }
 
 masterShipDB['tierereaper']={
@@ -779,7 +779,6 @@ masterShipDB['mg100starfortress']={
   Hull = 9,
   Shield = 3,
   size = 'large',
-  ProximityHider = true,
   agi = 1,
   XWS = 'mg100starfortress',
   Fac = {[4]=true},

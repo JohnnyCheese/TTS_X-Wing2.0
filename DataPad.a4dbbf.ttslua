@@ -504,7 +504,7 @@ extraAssets = {
       separatists = {label = "Separatists", tag = "separatistsdamagedeck"}
     }
   },
-  man_cards = {label = "Manouvre Cards", items = {
+  man_cards = {label = "Manoeuvre Cards", items = {
     rebel = {label = "Rebel", tag = "rebelmancards"},
     empire = {label = "Empire", tag = "empiremancards"},
     scum = {label = "Scum", tag = "scummancards"},
@@ -822,6 +822,7 @@ function idSpawner(idTable)
         fList.Pilots[k].Data.actSet = table.deepcopy(masterPilotDB[v].actSet)
         fList.Pilots[k].Data.executeOptions = masterPilotDB[v].executeOptions or {}
         fList.Pilots[k].Data.movethrough = masterPilotDB[v].movethrough or false
+        fList.Pilots[k].Data.ProximityHider = masterShipDB[Ship].ProximityHider or false
 
         if masterPilotDB[v].sqdExecuteOptions ~= nil then
             table.insert(fList.SqdExecOptions, masterPilotDB[v].sqdExecuteOptions )
