@@ -1,0 +1,40 @@
+
+owning_player = nil
+set = false
+activated = false
+warning_issued = false
+warning_timeout = nil
+
+color_bright = color(1,1,1)
+color_dimmed = color(0.5,0.5,0.5)
+function onPress()
+  if activated and owning_player then
+    if set == false then
+      onPressUnSet()
+    end
+
+  ends
+end
+
+function onPressUnSet()
+  if Global.call("API_IsAllDialsSet", {player = owning_player}
+    set = true
+    self.setColorTint(color_bright)
+  else
+    if warning_issued then
+      set = true
+      self.setColorTint(color_bright)
+      Wait.stop(warning_timeout)
+      warning_issued = false
+    else
+      warning_issued = true
+      printToColor("You have unassigned dials, are you sure you are ready?",owning_player,color(1.0,0.7,0))
+      warning_timeout = Wait.time(issuedWarningTimeout , 5)
+    end
+
+  end
+end
+
+function issuedWarningTimeout()
+  warning_issued = false
+end

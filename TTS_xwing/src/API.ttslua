@@ -187,6 +187,10 @@ function API_SetDial(argTable)
   end
 end
 
+function API_IsAllDialsSet(argTable)
+  return DialManagerModule.isAllDialsSet(argTable.player)
+end
+
 
 function API_ClearPosition(argTable)
   TokenModule.ClearPosition(argTable.pos, argTable.reach, argTable.ship)
