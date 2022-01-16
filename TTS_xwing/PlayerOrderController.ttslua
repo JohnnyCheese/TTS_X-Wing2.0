@@ -7,21 +7,24 @@ max_offset = 9
 state = "init"
 history = {}
 players = {}
+required_dice_roll_players = {}
 default_color = color(0.8,0.8,0.8)
 stones = {}
 runningCounts = {}
 indicators = {}
+dice_roll_scores = {}
 round = 0
-even_distribution = true
+even_distribution = false
 after_dials_mode = true
+dice_roll_mode = false
 wait_timer = nil
+dice_roll_timer = 0
 
 function onLoad(save_state)
   math.randomseed(os.time())
   if save_state and save_state ~= nil then
       local loadState = JSON.decode(save_state)
       if loadState and loadState ~= {} then
-        table.print(loadState)
         max_rounds = loadState.max_rounds
         state = loadState.state
         history = loadState.history
@@ -30,6 +33,10 @@ function onLoad(save_state)
         round = loadState.round
         even_distribution = loadState.even_distribution
         after_dials_mode = loadState.after_dials_mode
+        dice_roll_mode = loadState.dice_roll_mode
+        for color, player in pairs(players) do
+          required_dice_roll_players[color] = true
+        end
       end
   end
 
@@ -49,6 +56,7 @@ function onSave()
     sState.round = round
     sState.even_distribution = even_distribution
     sState.after_dials_mode = after_dials_mode
+    sState.dice_roll_mode = dice_roll_mode
     return JSON.encode(sState)
 end
 
@@ -62,7 +70,12 @@ function setContextMenu()
     else
       self.addContextMenuItem("Enable fairness", function() setFairness(true) end, false)
     end
-  elseif state == "active" then
+    if dice_roll_mode then
+      self.addContextMenuItem("Disable dice Mode", function() setDiceMode(false) end, false)
+    else
+      self.addContextMenuItem("Enable dice Mode", function() setDiceMode(true) end, false)
+    end
+  elseif state == "active" and not dice_roll_mode then
     self.addContextMenuItem("Randomize", function() randomizeNext(true) end, false)
     --self.addContextMenuItem("Fill random",function() randomTest(true) end, false)
     --self.addContextMenuItem("Random run",startRandomRun, false)
@@ -81,11 +94,23 @@ function setFairness(enabled)
   end
 end
 
+function setDiceMode(enabled)
+  dice_roll_mode = enabled
+  setContextMenu()
+  if enabled then
+    printToAll("Dice roll mode enabled for the first player randomiser", {1, 0.4, 0})
+  else
+    printToAll("Dice roll mode disabled for the first player randomiser", {1, 0.4, 0})
+  end
+end
+
+
 function reset()
   state = "init"
   round = 0
   history = {}
   players = {}
+  required_dice_roll_players = {}
   max_rounds = 12
   recreateIndicators()
   setContextMenu()
@@ -102,6 +127,9 @@ function start()
     table.insert(stones, color)
     table.insert(stones, color)
     table.insert(stones, color)
+  end
+  for color, player in pairs(players) do
+    required_dice_roll_players[color] = true
   end
   printToAll("The first player randomizer is started", {1, 0.4, 0})
 
@@ -209,7 +237,7 @@ function randomizeNext(verbose)
     setIndicator(round,color)
   end
   if verbose then
-    printToAll(color .. " player is first in round " .. tostring(round), {1, 0.4, 0})
+    printToAll("[".. Color.fromString(color):toHex() .. "]" .. color .. "[-] player is first in round " .. tostring(round), {1, 0.4, 0})
   end
   return color
 end
@@ -264,4 +292,57 @@ function setReady(argTable)
     end
   end
   wait_timer = Wait.time(function() randomizeNext(true) end,3)
+end
+
+function firstPlayerRoll(args)
+  if dice_roll_mode and state == "active" and required_dice_roll_players[args.color] then
+    printToAll("[" .. Color.fromString(args.color):toHex() .. "]" .. args.player .. "[-] rolled for first player", {1, 0.4, 0})
+    dice_roll_scores[args.color] = args.score
+    if table.size(dice_roll_scores) == table.size(required_dice_roll_players) then
+      Wait.stop(dice_roll_timer)
+      local highest_score = 0
+      local highest_players = {}
+      for color, score in pairs(dice_roll_scores) do
+        if score > highest_score then
+          highest_score = score
+          highest_players = {color}
+        elseif score == highest_score then
+          table.insert(highest_players, color)
+        end
+      end
+
+      printToAll("All players have rolled for first player.", {1, 0.4, 0})
+
+      if #highest_players > 1 then
+        local print_str = "Players;"
+        required_dice_roll_players = {}
+        for _, color in pairs(highest_players) do
+          required_dice_roll_players[color] = true
+          print_str = print_str .. " [" .. Color.fromString(color):toHex() .. "]" .. color .. "[-],"
+        end
+        printToAll(print_str .. " rolled the same result and must reroll their first player dice", {1, 0.4, 0})
+        dice_roll_scores = {}
+      else
+        round = round + 1
+        local color = highest_players[1]
+        table.insert(history, color)
+        if round > max_rounds then
+          max_rounds = round
+          recreateIndicators()
+        else
+          setIndicator(round,color)
+        end
+        printToAll( "[".. Color.fromString(color):toHex() .. "]" .. color .. "[-] player is first in round " .. tostring(round), {1, 0.4, 0})
+        dice_roll_scores = {}
+      end
+    else
+      Wait.stop(dice_roll_timer)
+      dice_roll_timer = Wait.time(firstPlayerRollTimeout, 30)
+    end
+  end
+end
+
+function firstPlayerRollTimeout()
+  printToAll("Automatic detection of first player roll timed out, all players must roll at the same time.", {1, 0.4, 0})
+  dice_roll_scores = {}
 end

@@ -22,6 +22,8 @@ DiceControlModule.highlight_color = "[FFFF55]"
 
 DiceControlModule.test_mode = false
 
+DiceControlModule.first_player_scores = {Crit = 100, Eye = 10, Hit = 1, Blank = 0}
+
 
 
 DiceControlModule.dice_types = {
@@ -75,7 +77,7 @@ DiceControlModule.dice_types = {
           },
     PlayerOrder = {
         color = "[FF00FF]",
-         result_order = {"Crit", "Eye", "Hit"}
+         result_order = { "Crit", "Eye", "Hit"}
          },
      Default = {
          color = "[777777]"
@@ -267,6 +269,7 @@ DiceControlModule.PresentDiceRollerResult = function(player)
         end
     end
     printToAll(resulttext, DiceControlModule.info_color)
+    DiceControlModule.CheckFirstPlayerRoll(player)
     DiceControlModule.dice_roller_state[player]  = "idle"
 
     if DiceControlModule.test_mode then
@@ -284,6 +287,20 @@ DiceControlModule.PresentDiceRollerResult = function(player)
 
 
     end
+end
+
+DiceControlModule.CheckFirstPlayerRoll = function(player)
+  if #DiceControlModule.rolled_dice[player] == 3 then
+    local score = 0
+    for k, dice in pairs(DiceControlModule.rolled_dice[player]) do
+      if dice.getVar("dicecolor") ~= "PlayerOrder" then
+        print("Not PlayerOrder dice")
+        return
+      end
+      score = score + DiceControlModule.first_player_scores[dice.getRotationValue()] or 0
+    end
+    getObjectFromGUID("b9f4e9").call("firstPlayerRoll", {player = player, color = DiceControlModule.player_colors[player], score = score})
+  end
 end
 
 DiceControlModule.UntilRolledDiceAreStill = function(player)
