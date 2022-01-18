@@ -166,7 +166,7 @@ function API_GetClosestPointToShip(argTable)
     local closestDistance = nil
     for _, segment in pairs(segments) do
       distance = ArcCheck.GetDistanceBetweenLineSegmentAndPoint(segment, argTable.point, false)
-      print("Dist: " .. tostring(distance.length))
+      --print("Dist: " .. tostring(distance.length))
       if distance.length < closestRange then
         closestRange = distance.length
         closestDistance = distance

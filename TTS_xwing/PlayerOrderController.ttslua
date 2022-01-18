@@ -63,23 +63,27 @@ end
 function setContextMenu()
   self.clearContextMenu()
   if state == "init" then
-    self.addContextMenuItem("Register Player", registerPlayer, false)
+    self.addContextMenuItem("Register player", registerPlayer, false)
     self.addContextMenuItem("Start", start, false)
     if even_distribution then
-      self.addContextMenuItem("Disable fairness", function() setFairness(false) end, false)
+      self.addContextMenuItem("Disable fairness mode", function() setFairness(false) end, false)
     else
-      self.addContextMenuItem("Enable fairness", function() setFairness(true) end, false)
+      self.addContextMenuItem("Enable fairness mode", function() setFairness(true) end, false)
     end
     if dice_roll_mode then
-      self.addContextMenuItem("Disable dice Mode", function() setDiceMode(false) end, false)
+      self.addContextMenuItem("Disable dice mode", function() setDiceMode(false) end, false)
     else
-      self.addContextMenuItem("Enable dice Mode", function() setDiceMode(true) end, false)
+      self.addContextMenuItem("Enable dice mode", function() setDiceMode(true) end, false)
     end
-  elseif state == "active" and not dice_roll_mode then
-    self.addContextMenuItem("Randomize", function() randomizeNext(true) end, false)
-    --self.addContextMenuItem("Fill random",function() randomTest(true) end, false)
-    --self.addContextMenuItem("Random run",startRandomRun, false)
-    self.addContextMenuItem("Set ready", function(player) setReady({set=true,player=player}) end, false)
+  elseif state == "active" then
+    if not dice_roll_mode then
+      self.addContextMenuItem("Randomize", function() randomizeNext(true) end, false)
+      --self.addContextMenuItem("Fill random",function() randomTest(true) end, false)
+      --self.addContextMenuItem("Random run",startRandomRun, false)
+      self.addContextMenuItem("Set ready", function(player) setReady({set=true,player=player}) end, false)
+    end
+    self.addContextMenuItem("Back",goBack,false )
+    self.addContextMenuItem("Change previous result",changePrevious,false )
   end
   self.addContextMenuItem("Reset",reset,false )
 end
@@ -292,6 +296,58 @@ function setReady(argTable)
     end
   end
   wait_timer = Wait.time(function() randomizeNext(true) end,3)
+end
+
+function goBack()
+  if round > 0 then
+    printToAll("The result for round " .. tostring(round).. " is canceled", {1, 0.4, 0})
+    round = round -1
+    table.remove(history, #history)
+    if even_distribution then
+      recreateStoneBag()
+    end
+    recreateIndicators()
+  end -- if round > 0
+end
+
+function changePrevious()
+  if round > 0 then
+    local first_color = nil
+    local choose_next = false
+    for color, player in pairs(players) do
+      if first_color == nil then
+        first_color = color
+      end
+      if choose_next then
+        history[round] = color
+        return
+      end
+      if color == history[round] then
+        choose_next = true
+      end
+    end -- for pair(players)
+    history[round] = first_color
+  end -- if round > 0
+end
+
+function recreateStoneBag()
+  stones = {}
+  -- Calculate number of total stones per player in play
+  local total_stones = 3 + math.floor(round/table.size(players))
+  for color, player in pairs(players) do
+    local player_stones = total_stones
+    -- Remove allready drawn stones for a player
+    for _, h in pairs(history) do
+      if h == color then
+        player_stones = player_stones - 1
+      end
+    end
+    -- Add the remaining stones to the bag
+    for i = 1,player_stones,1
+    do
+      table.insert(stones, color)
+    end -- For player_stones
+  end -- for pairs(players)
 end
 
 function firstPlayerRoll(args)
