@@ -4,6 +4,7 @@ dork = self
 assignedShip = nil
 drop_offset = 0.78
 spawnedRuler = nil
+initialP = nil
 
 size_adjust = {
   small = 0,
@@ -86,6 +87,7 @@ function checkRange(range)
     checkingRange = nil
     self.clearButtons()
     self.setVectorLines({})
+    mainSet()
   end
 end
 
@@ -132,7 +134,7 @@ function onDropped(color)
             local rot = assignedShip.getRotation()
             local newPos = {}
             newPos[1] = pos[1]
-            newPos[2] = 1.21
+            newPos[2] = 1.3
             newPos[3] = pos[3]
             dorkMove(newPos,rot)
             launchDrop()
@@ -248,7 +250,7 @@ end
 function cancelDrop()
     self.unlock()
     self.clearButtons()
-    dorkMove(initialP, self.getRotation())
+    dorkMove(initialP + vector(0,0.5,0), self.getRotation())
     assignedShip = nil
 end
 
@@ -279,7 +281,7 @@ function dorkDropTL()
     --print("TL")
     self.clearButtons()
     dork=self
-    local pos = LocalPos(dork,{3.93, -0.21, -3.98 + drop_offset})
+    local pos = LocalPos(dork,{3.93, -0.10, -3.98 + drop_offset})
     local rot = self.getRotation()
     newRot={}
     newRot[1]=rot[1]
@@ -294,7 +296,7 @@ function dorkDropBL()
     --print("BL")
     self.clearButtons()
     dork=self
-    pos = LocalPos(dork,{2.39, -0.21, -5.82 + drop_offset})
+    pos = LocalPos(dork,{2.39, -0.10, -5.82 + drop_offset})
     local rot = self.getRotation()
     newRot={}
     newRot[1]=rot[1]
@@ -308,7 +310,7 @@ function dorkDropS()
     --print("S")
     self.clearButtons()
     dork=self
-    pos = LocalPos(dork,{0, -0.21, -5.7 + drop_offset})
+    pos = LocalPos(dork,{0, -0.10, -5.7 + drop_offset})
     local rot = self.getRotation()
     newRot={}
     newRot[1]=rot[1]
@@ -322,7 +324,7 @@ function dorkDropBR()
     --print("BR")
     self.clearButtons()
     dork=self
-    pos = LocalPos(dork,{-2.39, -0.21, -5.82 + drop_offset})
+    pos = LocalPos(dork,{-2.39, -0.10, -5.82 + drop_offset})
     local rot = self.getRotation()
     newRot={}
     newRot[1]=rot[1]
@@ -336,7 +338,7 @@ function dorkDropTR()
     --print("TR")
     self.clearButtons()
     dork=self
-    pos = LocalPos(dork,{-3.93, -0.21, -3.98 + drop_offset})
+    pos = LocalPos(dork,{-3.93, -0.10, -3.98 + drop_offset})
     local rot = self.getRotation()
     newRot={}
     newRot[1]=rot[1]
