@@ -810,9 +810,11 @@ function idSpawner(idTable)
         fList.Pilots[k].list = pilotName..' - '..masterShipDB[Ship].name ..' (' .. cost .. ')\n'
         fList.Pilots[k].mesh = masterShipDB[Ship].mesh
         fList.Pilots[k].texture = masterPilotDB[v].texture
+        fList.Pilots[k].newSpawner = masterShipDB[Ship].newSpawner or false
         fList.Pilots[k].bombD = 's1'
         fList.Pilots[k].Docking = masterShipDB[Ship].Docking
         fList.Pilots[k].Data = {}
+        fList.Pilots[k].Data.limited = masterPilotDB[v].limited
         fList.Pilots[k].Data.shipId = Ship
         fList.Pilots[k].Data.initiative = masterPilotDB[v].init
         fList.Pilots[k].Data.moveSet = masterShipDB[Ship].moveSet

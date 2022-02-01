@@ -94,7 +94,7 @@ masterShipDB['sheathipedeclassshuttle']={
     agi = 2,
     XWS = 'sheathipedeclassshuttle',
     Fac = {[1]=true},
-    arcs = {fixed = { range=3, type = {'front','back'}}},
+    arcs = {fixed = { range=3, type = {'frontback'}}},
     mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_sheathipede/sheathipede.obj',
     moveSet = {'rs1r','wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','bs3','wbr3','rtr3','rk3','rs4'}
 }
@@ -526,6 +526,7 @@ masterShipDB['rz1awing']={
 
 masterShipDB['fangfighter']={
   name = 'Fang Fighter',
+  newSpawner = true,
   Hull = 4,
   Shield = 0,
   size = 'small',
@@ -534,7 +535,8 @@ masterShipDB['fangfighter']={
   Fac = {[3]=true},
   arcs = {fixed = { range=3, type = {'front'}}},
   moveSet = {'wtl1','wtr1','rtl2t','btl2','bbl2','bs2','bbr2','btr2','rtr2t','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk4','ws5'},
-  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_fangfighter/fangfighter.obj'
+  --mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_fangfighter/fangfighter.obj'
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/fangfighter/ship-base.obj'
 }
 
 masterShipDB['z95af4headhunter']={
@@ -1235,7 +1237,38 @@ masterShipDB['btanr2ywing']={
     keywords = {'Y-Wing'}
 }
 
-
+masterShipDB['gauntletfighter']={
+  name = 'Gauntlet Fighter',
+  newSpawner = true,
+  Hull = 9,
+  Shield = 2,
+  size = 'large',
+  agi = 2,
+  XWS = 'gauntletfighter',
+  Fac = {[1]=true,[2]=true,[3]=true,[4]=true,[5]=true},
+  --arcs = {fixed = { range=3, type = {'frontback'}}},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'bbl1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','ws4','rs0'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/ship-base.obj',
+  Config = {
+    States = {
+      [1] = {
+          Name = "Swivel Wing (Down)",
+          Model = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/wings-normal.obj',
+          ZRot = 0,
+          Message = " lowered their swivel wing.",
+      },
+      [2] = {
+          Name = "Swivel Wing (Up)",
+          Model = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/wings-pivot.obj',
+          ZRot = 0,
+          Message = " raised their swivel wing.",
+      }
+    },
+    ContextText = "Rise/lower swivel wing",
+    --Token = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/wingtoken.png"
+  }
+}
 
 
 -- Huge ships

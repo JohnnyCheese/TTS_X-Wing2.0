@@ -13,7 +13,7 @@
 
 -- Should the code execute print functions or skip them?
 -- This should be set to false on every release
-print_debug = false
+print_debug = true
 cast_debug = false
 
 TTS_print = print
@@ -6306,6 +6306,8 @@ function newSpawner(listTable)
     Customization = listTable.Customization or {}
     local dialSkin = listTable.factionDial
     spawnedPilotList = {}
+    local spawnPrefix = "{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/"
+    local factionnames = {"rebels", "empire", "scum", "resistance", "firstorder", "republic", "separatists"}
 
     PosBag1 = {5, 5, 0}
     PosBag2 = {10, 10, 0}
@@ -6547,57 +6549,130 @@ function newSpawner(listTable)
             end
         end
 
-
         local newShip = nil
-        pos = LocalPos(spawnCard, {0, 0, 9})
-        rot = spawnCard.getRotation()
-        if (Pilots[shipIndex].id ~= 0) then
-          newShip = spawnObject({
-              type              = "Custom_Model",
-              position          = pos,
-              rotation          = rot,
-              scale             = mm_ship_scale,
-              sound             = false,
-              snap_to_grid      = false,
-          })
-        end
+        if Pilots[shipIndex].newSpawner then
+          local size = Pilots[shipIndex].Size
+          local arcs = Pilots[shipIndex].Data.arcs
+          local fixedarc = arcs.fixed.type[1] or "none"
+          pos = LocalPos(spawnCard, {0, 0, 9})
+          rot = spawnCard.getRotation()
+          local base_prototype = getObjectFromGUID("8c3322")
 
-        if newShip ~= nil then
-            local model = nil
-            if Customization[pilotName].model ~= nil then
-                model = Customization[pilotName].model
-            elseif Pilots[shipIndex].mesh ~= nil then
-                model = '{verifycache}'..Pilots[shipIndex].mesh
-            end
-            if model then
-                newShip.setCustomObject({mesh = model})
-            end
-            local texture = nil
-            if Customization[pilotName].texture ~= nil then
-                texture = Customization[pilotName].texture
-            elseif Pilots[shipIndex].texture ~= nil then
-                texture = '{verifycache}'..Pilots[shipIndex].texture
-            end
-            if texture then
-                newShip.setCustomObject({diffuse = texture})
-            end
-            if Customization[pilotName].modeltint ~= nil then
-                newShip.setColorTint(Customization[pilotName].modeltint)
-            end
-            newShip.setName(pilotName)
-            newShip.setCustomObject({
-                collider= ShipVerification.colliders[Pilots[shipIndex].Size],
-                convex = true,
-                material = 1,
-                type = 1
+          newShip = base_prototype.clone()
+          newShip.setPosition(pos)
+          newShip.setRotation(rot)
+          newShip.setScale(mm_ship_scale)
+
+          newShip.setCustomObject(
+          {
+            mesh = spawnPrefix .. "bases/" .. size .. "/base.obj",
+            collider = ShipVerification.colliders[size],
+            diffuse = spawnPrefix .. "bases/" .. size .. "/" .. fixedarc .. "/" .. factionnames[Faction] .. ".png",
+            convex = true,
+            material = 1,
+            type = 1
+          })
+          newShip.setName(pilotName)
+          newShip.setTable("Data", Pilots[shipIndex].Data)
+          newShip.setLock(true)
+
+          local base_name_str = pilotName
+          if Pilots[shipIndex].Data.limited and Pilots[shipIndex].Data.limited > 0 then
+            base_name_str =  string.rep("•",Pilots[shipIndex].Data.limited) .. " " .. pilotName
+          end
+          newShip.setTable("UiData", {name= base_name_str, icon=Pilots[shipIndex].Ship, init="init" .. Pilots[shipIndex].Data.initiative })
+
+          local customObject = newShip.getCustomObject()
+          customObject.mesh = spawnPrefix .. "bases/pegs/" .. size .. ".obj"
+          local shippos = pos
+          local shiprot = rot
+          local ship = newShip
+          local shipCustomObject = {
+            mesh = '{verifycache}'..Pilots[shipIndex].mesh,
+            diffuse = '{verifycache}'..Pilots[shipIndex].texture
+          }
+          local pegAndShipSpawnFunction = function()
+            print("Test2")
+            local pegModel = spawnObject({
+                type              = "Custom_Model",
+                position          = shippos,
+                rotation          = shiprot,
+                scale             = mm_ship_scale,
+                sound             = false,
+                snap_to_grid      = false,
             })
-            newShip.setLock(true)
-            Pilots[shipIndex].Data.ColorId = tint
-            if Pilots[shipIndex].Data.Config then
-                Pilots[shipIndex].Data.Config.CardGUID = configCardGUID
+            pegModel.setName("Peg")
+            pegModel.setCustomObject(customObject)
+            ship.addAttachment(pegModel)
+            print("Test3")
+            local shipModel = spawnObject({
+                type              = "Custom_Model",
+                position          = vector(shippos[1],shippos[2],shippos[3]) + vector(0,2,0),
+                rotation          = shiprot,
+                scale             = mm_ship_scale,
+                sound             = false,
+                snap_to_grid      = false,
+            })
+            shipModel.setName("Ship")
+            print("Test4")
+            shipModel.setCustomObject(shipCustomObject)
+            ship.addAttachment(shipModel)
+          end
+          Wait.condition(pegAndShipSpawnFunction , function() return (not ship.spawning) end)
+          print("Test1")
+        else
+          pos = LocalPos(spawnCard, {0, 0, 9})
+          rot = spawnCard.getRotation()
+          if (Pilots[shipIndex].id ~= 0) then
+            newShip = spawnObject({
+                type              = "Custom_Model",
+                position          = pos,
+                rotation          = rot,
+                scale             = mm_ship_scale,
+                sound             = false,
+                snap_to_grid      = false,
+            })
+          end
+
+          if newShip ~= nil then
+              local model = nil
+              if Customization[pilotName].model ~= nil then
+                  model = Customization[pilotName].model
+              elseif Pilots[shipIndex].mesh ~= nil then
+                  model = '{verifycache}'..Pilots[shipIndex].mesh
+              end
+              if model then
+                  newShip.setCustomObject({mesh = model})
+              end
+              local texture = nil
+              if Customization[pilotName].texture ~= nil then
+                  texture = Customization[pilotName].texture
+              elseif Pilots[shipIndex].texture ~= nil then
+                  texture = '{verifycache}'..Pilots[shipIndex].texture
+              end
+              if texture then
+                  newShip.setCustomObject({diffuse = texture})
+              end
+              if Customization[pilotName].modeltint ~= nil then
+                  newShip.setColorTint(Customization[pilotName].modeltint)
+              end
+              newShip.setName(pilotName)
+              newShip.setCustomObject({
+                  collider= ShipVerification.colliders[Pilots[shipIndex].Size],
+                  convex = true,
+                  material = 1,
+                  type = 1
+              })
+              newShip.setLock(true)
+
+              Pilots[shipIndex].Data.ColorId = tint
+              if Pilots[shipIndex].Data.Config then
+                  Pilots[shipIndex].Data.Config.CardGUID = configCardGUID
+              end
+              newShip.setTable("Data", Pilots[shipIndex].Data)
+              newShip.setLuaScript(saveAndLoadShipStateLua)
             end
-            newShip.setTable("Data", Pilots[shipIndex].Data)
-            newShip.setLuaScript(saveAndLoadShipStateLua)
+          end
             local ship = newShip
             local card = newPil
             local idpos = pos
@@ -6631,11 +6706,12 @@ function newSpawner(listTable)
               ship.addAttachment(shipId)
               ship.setLock(false)
               ship.addTag("Ship")
-              if Pilots[shipIndex].Data.ProximityHider then
-                ship.addTag("ProximityHider")
-              end
+
               card.call('addTintObject', {'ship',ship})
               ship.call('initContextMenu')
+            end
+            if Pilots[shipIndex].Data.ProximityHider then
+              ship.addTag("ProximityHider")
             end
             Wait.condition(shipIdSpawnFunc , function() return (not ship.spawning) and (not card.spawning) end)
 
@@ -6699,7 +6775,6 @@ end
 
 
             end -- if Config
-        end
 
 
         if Pilots[shipIndex].Ship == 3 then

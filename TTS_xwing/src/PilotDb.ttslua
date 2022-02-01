@@ -2572,7 +2572,7 @@ masterPilotDB[155]={
   slot = {21, 1, 5},
   Shield = 0,
   init = 6,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_fangfighter/FennRau.png',
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/fangfighter/textures/New.jpg',
   actSet = {'F','TL','B','BR'},
   keywords = {'Mandalorian'}
 }
@@ -2587,7 +2587,7 @@ masterPilotDB[156]={
   slot = {21, 1, 5, 14},
   Shield = 0,
   init = 5,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_fangfighter/OldTeroch.png',
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/fangfighter/textures/New.jpg',
   actSet = {'F','TL','B','BR'},
   keywords = {'Mandalorian'}
 }
@@ -2602,7 +2602,7 @@ masterPilotDB[157]={
   slot = {21, 1, 5, 14},
   Shield = 0,
   init = 4,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_fangfighter/JoyRekkoff.png',
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/fangfighter/textures/New.jpg',
   actSet = {'F','TL','B','BR'},
   keywords = {'Mandalorian'}
 }
@@ -2617,7 +2617,7 @@ masterPilotDB[158]={
   slot = {21, 1, 5, 14},
   Shield = 0,
   init = 4,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_fangfighter/KadSolus.png',
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/fangfighter/textures/New.jpg',
   actSet = {'F','TL','B','BR'},
   keywords = {'Mandalorian'}
 }
@@ -2631,7 +2631,7 @@ masterPilotDB[159]={
   slot = {21, 1, 5, 14},
   Shield = 0,
   init = 4,
-    texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_fangfighter/SkullSquadronPilot.png',
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/fangfighter/textures/New.jpg',
   actSet = {'F','TL','B','BR'},
   keywords = {'Mandalorian'}
 }
@@ -2645,7 +2645,7 @@ masterPilotDB[160]={
   slot = {21, 5, 14},
   Shield = 0,
   init = 1,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_fangfighter/ZealousRecruit.png',
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/fangfighter/textures/New.jpg',
   actSet = {'F','TL','B','BR'},
   keywords = {'Mandalorian'}
 }
@@ -6836,6 +6836,39 @@ masterPilotDB[857]={
   actSet = {'F','TL','BR','B','C'}
 }
 
+
+--- NEW SHIT:
+masterPilotDB[900]={
+  name = 'Fenn Rau',
+  XWS = 'fennrau',
+  Faction = 1,
+  limited = 1,
+  ship_type = 'fangfighter',
+  cost = 200,
+  slot = {21, 1, 5},
+  Shield = 0,
+  init = 6,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/fangfighter/textures/Rebel-Fenn.jpg',
+  actSet = {'F','TL','B','BR'},
+  keywords = {'Mandalorian'}
+}
+
+
+-- Gauntlet fighter:
+masterPilotDB[910]={
+  name = 'Maul',
+  XWS = 'maul',
+  Faction = 3,
+  limited = 1,
+  ship_type = 'gauntletfighter',
+  cost = 200,
+  slot = {21, 1, 5},
+  Force = 3,
+  Shield = 0,
+  init = 6,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/textures/Maul.jpg',
+  actSet = {'F','TL','R'},
+}
 
 -- Huge ships
 masterPilotDB[1000]={
