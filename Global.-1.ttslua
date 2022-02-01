@@ -6592,7 +6592,6 @@ function newSpawner(listTable)
             diffuse = '{verifycache}'..Pilots[shipIndex].texture
           }
           local pegAndShipSpawnFunction = function()
-            print("Test2")
             local pegModel = spawnObject({
                 type              = "Custom_Model",
                 position          = shippos,
@@ -6604,7 +6603,6 @@ function newSpawner(listTable)
             pegModel.setName("Peg")
             pegModel.setCustomObject(customObject)
             ship.addAttachment(pegModel)
-            print("Test3")
             local shipModel = spawnObject({
                 type              = "Custom_Model",
                 position          = vector(shippos[1],shippos[2],shippos[3]) + vector(0,2,0),
@@ -6614,12 +6612,10 @@ function newSpawner(listTable)
                 snap_to_grid      = false,
             })
             shipModel.setName("Ship")
-            print("Test4")
             shipModel.setCustomObject(shipCustomObject)
             ship.addAttachment(shipModel)
           end
           Wait.condition(pegAndShipSpawnFunction , function() return (not ship.spawning) end)
-          print("Test1")
         else
           pos = LocalPos(spawnCard, {0, 0, 9})
           rot = spawnCard.getRotation()
