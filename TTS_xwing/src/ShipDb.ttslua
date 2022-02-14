@@ -127,6 +127,7 @@ masterShipDB['firesprayclasspatrolcraft']={
 
 masterShipDB['tielnfighter']={
     name = 'TIE/ln Fighter',
+    newSpawner = true,
     Hull = 6,
     Shield = 0,
     size = 'small',
@@ -134,7 +135,7 @@ masterShipDB['tielnfighter']={
     XWS = 'tielnfighter',
     Fac = {[1]=true,[2]=true},
     arcs = {fixed = { range=3, type = {'front'}}},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/tie_ln/tie_ln.obj',
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tielnfighter/TIE_LN.obj',
     moveSet = {'wtl1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk3','ws4','rk4','ws5'},
     keywords = {"TIE"}
 }
@@ -532,7 +533,7 @@ masterShipDB['fangfighter']={
   size = 'small',
   agi = 3,
   XWS = 'fangfighter',
-  Fac = {[3]=true},
+  Fac = {[1]=true,[3]=true},
   arcs = {fixed = { range=3, type = {'front'}}},
   moveSet = {'wtl1','wtr1','rtl2t','btl2','bbl2','bs2','bbr2','btr2','rtr2t','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk4','ws5'},
   --mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/SCU_fangfighter/fangfighter.obj'
@@ -1245,7 +1246,7 @@ masterShipDB['gauntletfighter']={
   size = 'large',
   agi = 2,
   XWS = 'gauntletfighter',
-  Fac = {[1]=true,[2]=true,[3]=true,[4]=true,[5]=true},
+  Fac = {}, -- {[1]=true,[2]=true,[3]=true,[4]=true,[5]=true},
   --arcs = {fixed = { range=3, type = {'frontback'}}},
   arcs = {fixed = { range=3, type = {'front'}}},
   moveSet = {'bbl1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','ws4','rs0'},

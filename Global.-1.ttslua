@@ -6550,7 +6550,16 @@ function newSpawner(listTable)
         end
 
         local newShip = nil
+        local texture = nil
+        if Customization[pilotName].texture ~= nil then
+            texture = Customization[pilotName].texture
+        elseif Pilots[shipIndex].texture ~= nil then
+            texture = '{verifycache}'..Pilots[shipIndex].texture
+        end
+        local shipoffset = vector(0,0,0)
+
         if Pilots[shipIndex].newSpawner then
+          shipoffset = vector(0,2,0)
           local size = Pilots[shipIndex].Size
           local arcs = Pilots[shipIndex].Data.arcs
           local fixedarc = arcs.fixed.type[1] or "none"
@@ -6582,14 +6591,24 @@ function newSpawner(listTable)
           end
           newShip.setTable("UiData", {name= base_name_str, icon=Pilots[shipIndex].Ship, init="init" .. Pilots[shipIndex].Data.initiative })
 
-          local customObject = newShip.getCustomObject()
-          customObject.mesh = spawnPrefix .. "bases/pegs/" .. size .. ".obj"
+          local pegCustomObject = {
+            mesh = spawnPrefix .. "bases/pegs/" .. size .. ".obj",
+            diffuse = spawnPrefix .. "bases/" .. size .. "/" .. fixedarc .. "/" .. factionnames[Faction] .. ".png",
+            collider = ShipVerification.colliders[size],
+            convex = true,
+            material = 1,
+            type = 1
+          }
           local shippos = pos
           local shiprot = rot
           local ship = newShip
           local shipCustomObject = {
             mesh = '{verifycache}'..Pilots[shipIndex].mesh,
-            diffuse = '{verifycache}'..Pilots[shipIndex].texture
+            diffuse = texture,
+            collider = '{verifycache}'..Pilots[shipIndex].mesh,
+            convex = true,
+            material = 1,
+            type = 1
           }
           local pegAndShipSpawnFunction = function()
             local pegModel = spawnObject({
@@ -6601,11 +6620,11 @@ function newSpawner(listTable)
                 snap_to_grid      = false,
             })
             pegModel.setName("Peg")
-            pegModel.setCustomObject(customObject)
+            pegModel.setCustomObject(pegCustomObject)
             ship.addAttachment(pegModel)
             local shipModel = spawnObject({
                 type              = "Custom_Model",
-                position          = vector(shippos[1],shippos[2],shippos[3]) + vector(0,2,0),
+                position          = vector(shippos[1],shippos[2],shippos[3]) + shipoffset,
                 rotation          = shiprot,
                 scale             = mm_ship_scale,
                 sound             = false,
@@ -6641,11 +6660,6 @@ function newSpawner(listTable)
                   newShip.setCustomObject({mesh = model})
               end
               local texture = nil
-              if Customization[pilotName].texture ~= nil then
-                  texture = Customization[pilotName].texture
-              elseif Pilots[shipIndex].texture ~= nil then
-                  texture = '{verifycache}'..Pilots[shipIndex].texture
-              end
               if texture then
                   newShip.setCustomObject({diffuse = texture})
               end
@@ -6702,6 +6716,8 @@ function newSpawner(listTable)
               ship.addAttachment(shipId)
               ship.setLock(false)
               ship.addTag("Ship")
+              ship.setVar("interactable", true)
+              ship.drag_selectable = true
 
               card.call('addTintObject', {'ship',ship})
               ship.call('initContextMenu')
@@ -6716,11 +6732,11 @@ function newSpawner(listTable)
                 if config.Model then
                   local customObject = ship.getCustomObject()
                   customObject.mesh = config.Model
-
+                  customObject.diffuse = texture
                   local configSpawnFunction = function()
                     local configModel = spawnObject({
                         type              = "Custom_Model",
-                        position          = idpos,
+                        position          = vector(idpos[1],idpos[2],idpos[3]) + shipoffset,
                         rotation          = idrot,
                         scale             = mm_ship_scale,
                         sound             = false,

@@ -1,4 +1,8 @@
+-- Standard libraries extentions
+#include !/TTS_lib/Util/Util
+
 __XW_Ship = true
+interactable = false
 
 function initContextMenu()
   if self.getTable("Data") then
@@ -106,33 +110,16 @@ function SetConfiguration(args)
 end
 
 
-function VerifyConfigTextures()
-  local texture = self.getCustomObject().diffuse
-  local attachments = self.getAttachments()
-  for i = #attachments, 1, -1 do
-    local attachment = attachments[i]
-    if attachment.name == "Config" then
-      id = self.removeAttachment(attachment.index)
-      local custom = id.getCustomObject()
-      if custom.diffuse ~= texture then
-        custom.diffuse = texture
-        id.setCustomObject(custom)
-        id = id.reload()
-      end
-      self.addAttachment(id)
-    end
-  end
-end
-
 arc_indicators = {}
 
 function DisableAttachedColliders()
   for i, child in ipairs(self.getChildren()) do
-    if i ~= 1 then
+    --if i ~= 1 then
+    table.print(child.getComponents())
       if child.getComponent("MeshCollider") then
         child.getComponent("MeshCollider").set("enabled", false)
       end
-    end
+    --end
   end
 end
 
@@ -344,11 +331,37 @@ function GetTurretType(args)
     return nil;
 end
 
+shipIconPos = {
+  small = "78 -50 0",
+  medium = "0 0 0",
+  large = "180 -152 0",
+  huge = "0 0 0",
+}
+
+initiativeIconPos = {
+  small = "-78 -50 0",
+  medium = "0 0 0",
+  large = "-180 -152 0",
+  huge = "0 0 0",
+}
+
+NamePos = {
+  small = "0 -88 0",
+  medium = "0 0 0",
+  large = "0 -198 0",
+  huge = "0 0 0",
+}
+
 function setupUI()
+
   if self.getTable("UiData") then
+    local size = self.getTable("Data").Size or "small"
     self.UI.setAttribute("ShipIcon", "image", self.getTable("UiData").icon)
+    self.UI.setAttribute("ShipIcon", "position", shipIconPos[size])
     self.UI.setAttribute("InitiativeIcon", "image", self.getTable("UiData").init)
+    self.UI.setAttribute("InitiativeIcon", "position", initiativeIconPos[size])
     self.UI.setValue("Name", self.getTable("UiData").name)
+    self.UI.setAttribute("Name", "position", NamePos[size])
   end
 end
 
@@ -360,14 +373,13 @@ function onSave()
     state.owningPlayer = self.getVar("owningPlayer")
     state.isAi = self.getVar("isAi")
     state.uiData = self.getTable("UiData")
+    state.interactable = self.getVar("interactable")
     for guid, _ in pairs(assigned_tokens) do
         table.insert(state.tokenData.tokens, guid)
     end
 
     return JSON.encode(state)
 end
-
-
 
 
 -- Restore self state
@@ -381,11 +393,12 @@ function onLoad(savedData)
         self.setVar("finished_setup", state.finishedSetup)
         self.setVar("owningPlayer", state.owningPlayer)
         self.setVar("isAi", state.isAi)
+        self.setVar("interactable", state.interactable or false)
+        self.interactable = state.interactable or false
         initContextMenu()
         for _, guid in ipairs(state.tokenData.tokens) do
             Global.call('API_AssignToken',{token=getObjectFromGUID(guid), ship = self})
         end
     end
-    Wait.condition(setupUI, function() return not self.loading_custom end, 10)
-    VerifyConfigTextures()
+    Wait.condition(setupUI, function() return (not self.spawning) and (not self.UI.loading) and (not self.loading_custom)  end, 10)
 end
