@@ -6406,7 +6406,7 @@ function newSpawner(listTable)
                 rotUp.y = rotUp.y+90
                 newUp = card:spawn({position = pos, rotation=rotUp, scale={0.68,0.68,0.68}})
                 newUp.setName(Up.name)
-                if Up.Condition ~= nil then                                            --Checks and spawn conditions associated to pilots
+                if Up.Condition ~= nil then                                          --Checks and spawn conditions associated to pilots
                     for k, acc in ipairs(listaAcc) do
                         if acc.name == Up.Condition then
                             pos = LocalPos(spawnCard, {-2 - 2*UpNum, 2-0.2*UpNum, 8})
@@ -6659,7 +6659,6 @@ function newSpawner(listTable)
               if model then
                   newShip.setCustomObject({mesh = model})
               end
-              local texture = nil
               if texture then
                   newShip.setCustomObject({diffuse = texture})
               end
@@ -6681,8 +6680,7 @@ function newSpawner(listTable)
               end
               newShip.setTable("Data", Pilots[shipIndex].Data)
               newShip.setLuaScript(saveAndLoadShipStateLua)
-            end
-          end
+            print("Forked?")
             local ship = newShip
             local card = newPil
             local idpos = pos
@@ -6783,12 +6781,12 @@ function onFlip()
     end
 end
 ]])
-              end
+                end -- token
 
 
-            end -- if Config
-
-
+              end -- config
+          end -- new ship
+        end -- new spawn
         if Pilots[shipIndex].Ship == 3 then
             for k, acc in ipairs(listaAcc) do
                 if acc.name == 'StarViper Mk.II roll token' then
