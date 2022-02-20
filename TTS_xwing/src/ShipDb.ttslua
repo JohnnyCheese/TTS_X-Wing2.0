@@ -1246,9 +1246,9 @@ masterShipDB['gauntletfighter']={
   size = 'large',
   agi = 2,
   XWS = 'gauntletfighter',
-  Fac = {}, -- {[1]=true,[2]=true,[3]=true,[4]=true,[5]=true},
-  --arcs = {fixed = { range=3, type = {'frontback'}}},
-  arcs = {fixed = { range=3, type = {'front'}}},
+  --Fac = {[1]=true,[2]=true,[3]=true,[6]=true,[7]=true},
+  Fac = {[3]=true,[6]=true,[7]=true},
+  arcs = {fixed = { range=3, type = {'frontback'}}},
   moveSet = {'bbl1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','ws4','rs0'},
   mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/ship-base.obj',
   Config = {

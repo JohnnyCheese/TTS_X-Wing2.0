@@ -4462,6 +4462,23 @@ masterUpgradesDB['mandalorianoptics']={
     },
 }
 
+masterUpgradesDB['gauntlet']={
+    name = "Gauntlet",
+    XWS = 'gauntlet',
+    limited = 1,
+    slot = 15,
+    remSlot = {18},
+    addSlot = {8},
+    Charge = 2,
+    cost = 200,
+    restriction = {
+      Faction = {[6]=true, [7]=true},
+      ship = {['gauntletfighter']=true}
+    }
+}
+
+
+
 
 
 return masterUpgradesDB

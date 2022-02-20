@@ -106,7 +106,7 @@ function SetConfiguration(args)
 
     end
   end
-  Wait.frames(DisableAttachedColliders, 1)
+  Wait.frames(DisableAttachedColliders, 2)
 end
 
 
@@ -114,12 +114,14 @@ arc_indicators = {}
 
 function DisableAttachedColliders()
   for i, child in ipairs(self.getChildren()) do
-    --if i ~= 1 then
-    table.print(child.getComponents())
+    if i ~= 1 then
       if child.getComponent("MeshCollider") then
         child.getComponent("MeshCollider").set("enabled", false)
       end
-    --end
+      if child.getComponent("BoxCollider") then
+        child.getComponent("BoxCollider").set("enabled", false)
+      end
+    end
   end
 end
 
@@ -134,7 +136,7 @@ function AttachArcIndicator(args)
     }
     args.indicator.setDescription(turret_mount)
     args.indicator.setRotation(self.getRotation() + Global.getTable('mountRotations')[default_direction] or vector(0,0,0))
-    Wait.frames(DisableAttachedColliders, 1)
+    Wait.frames(DisableAttachedColliders, 2)
 
 
     for i, attachment in pairs(self.getAttachments()) do
@@ -181,7 +183,7 @@ function RotateAttachedArcIndicator(args)
       arc_indicators[turret_mount].arc = next_direction
       id.setRotation(self.getRotation() + Global.getTable('mountRotations')[next_direction] or vector(0,0,0))
       self.addAttachment(id)
-      Wait.frames(DisableAttachedColliders, 1)
+      Wait.frames(DisableAttachedColliders, 2)
       return
     end
   end
@@ -316,7 +318,7 @@ function SetTurretArc(args)
           id = self.removeAttachment(attachment.index)
           id.setRotation(self.getRotation() + Global.getTable('mountRotations')[args.arc] or vector(0,0,0))
           self.addAttachment(id)
-          Wait.frames(DisableAttachedColliders, 1)
+          Wait.frames(DisableAttachedColliders, 2)
         end
       end
     end
@@ -363,6 +365,8 @@ function setupUI()
     self.UI.setValue("Name", self.getTable("UiData").name)
     self.UI.setAttribute("Name", "position", NamePos[size])
   end
+  DisableAttachedColliders()
+  Wait.time(DisableAttachedColliders, 5)
 end
 
 -- Save self state
@@ -373,7 +377,7 @@ function onSave()
     state.owningPlayer = self.getVar("owningPlayer")
     state.isAi = self.getVar("isAi")
     state.uiData = self.getTable("UiData")
-    state.interactable = self.getVar("interactable")
+    state.interactable = self.interactable
     for guid, _ in pairs(assigned_tokens) do
         table.insert(state.tokenData.tokens, guid)
     end
@@ -381,10 +385,8 @@ function onSave()
     return JSON.encode(state)
 end
 
-
 -- Restore self state
 function onLoad(savedData)
-    --print("OnLoad: ".. self.getName() .. " " .. savedData)
     if savedData ~= "" and Data == nil then
         local state =  JSON.decode(savedData)
         self.setTable("Data", state.shipData)
@@ -393,7 +395,6 @@ function onLoad(savedData)
         self.setVar("finished_setup", state.finishedSetup)
         self.setVar("owningPlayer", state.owningPlayer)
         self.setVar("isAi", state.isAi)
-        self.setVar("interactable", state.interactable or false)
         self.interactable = state.interactable or false
         initContextMenu()
         for _, guid in ipairs(state.tokenData.tokens) do
