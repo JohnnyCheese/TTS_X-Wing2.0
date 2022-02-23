@@ -13,7 +13,7 @@
 
 -- Should the code execute print functions or skip them?
 -- This should be set to false on every release
-print_debug = true
+print_debug = false
 cast_debug = false
 
 TTS_print = print
@@ -6307,7 +6307,7 @@ function newSpawner(listTable)
     local dialSkin = listTable.factionDial
     spawnedPilotList = {}
     local spawnPrefix = "{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/"
-    local factionnames = {"rebels", "empire", "scum", "resistance", "firstorder", "republic", "separatists"}
+    local factionnames = {"rebel", "empire", "scum", "resistance", "firstorder", "republic", "separatists"}
 
     PosBag1 = {5, 5, 0}
     PosBag2 = {10, 10, 0}
@@ -6568,8 +6568,8 @@ function newSpawner(listTable)
           local base_prototype = getObjectFromGUID("8c3322")
 
           newShip = base_prototype.clone()
-          newShip.setPosition(pos)
-          newShip.setRotation(rot)
+          newShip.setPositionSmooth(pos, false, true)
+          newShip.setRotationSmooth(rot, false, true)
           newShip.setScale(mm_ship_scale)
 
           newShip.setCustomObject(
@@ -6634,7 +6634,7 @@ function newSpawner(listTable)
             shipModel.setCustomObject(shipCustomObject)
             ship.addAttachment(shipModel)
           end
-          Wait.condition(pegAndShipSpawnFunction , function() return (not ship.spawning) end)
+          Wait.condition(pegAndShipSpawnFunction , function() return (not ship.spawning) and (not ship.isSmoothMoving()) end)
         else
           pos = LocalPos(spawnCard, {0, 0, 9})
           rot = spawnCard.getRotation()
@@ -6727,7 +6727,7 @@ function newSpawner(listTable)
           if Pilots[shipIndex].Data.ProximityHider then
             ship.addTag("ProximityHider")
           end
-          Wait.condition(shipIdSpawnFunc , function() return (not ship.spawning) and (not card.spawning) end)
+          Wait.condition(shipIdSpawnFunc , function() return (not ship.spawning) and (not ship.isSmoothMoving()) and (not card.spawning) end)
 
           if Pilots[shipIndex].Data.Config and Pilots[shipIndex].Data.Config.States then
             for k, config in pairs(Pilots[shipIndex].Data.Config.States) do
@@ -6752,7 +6752,7 @@ function newSpawner(listTable)
                   end
                   ship.addAttachment(configModel)
                 end
-                Wait.condition(configSpawnFunction , function() return (not ship.spawning) end)
+                Wait.condition(configSpawnFunction , function() return (not ship.spawning) and (not ship.isSmoothMoving() ) end)
               end -- if Config.Model
             end -- for Data.Config
             if Pilots[shipIndex].Data.Config and Pilots[shipIndex].Data.Config.Token then
@@ -6789,17 +6789,6 @@ end
 
 
             end -- config
-        end
-        if Pilots[shipIndex].Ship == 3 then
-            for k, acc in ipairs(listaAcc) do
-                if acc.name == 'StarViper Mk.II roll token' then
-                    pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
-                    svToken = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid, smooth = false})
-                    svClone = svToken.clone()
-                    svClone.setPosition(pos)
-                    tempBagAcc.putObject(svToken)
-                end
-            end
         end
 
         for mount, turret in pairs(Pilots[shipIndex].Data.arcs.turret or {}) do
