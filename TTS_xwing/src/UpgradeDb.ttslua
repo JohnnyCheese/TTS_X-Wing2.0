@@ -4477,6 +4477,103 @@ masterUpgradesDB['gauntlet']={
     }
 }
 
+masterUpgradesDB['nightbrother']={
+    name = "Nightbrother",
+    XWS = 'nightbrother',
+    limited = 1,
+    slot = 15,
+    remSlot = {18},
+    addSlot = {8},
+    Charge = 2,
+    cost = 200,
+    restriction = {
+      Faction = {[1]=true, [3]=true},
+      ship = {['gauntletfighter']=true}
+    }
+}
+
+masterUpgradesDB['razorcrest']={
+    name = "Razor Crest",
+    XWS = 'razorcrest',
+    limited = 1,
+    slot = 15,
+    addAction = {'E','BR'},
+    cost = 200,
+    restriction = {
+      ship = {['st70assaultship']=true}
+    }
+}
+
+masterUpgradesDB['trackingfob']={
+    name = "Tracking Fob",
+    XWS = 'trackingfob',
+    limited = 3,
+    slot = 13,
+    cost = 200,
+    restriction = {
+      keywords={'Bounty Hunter'}
+    },
+    Condition = "Marked for Elimination",
+}
+
+masterUpgradesDB['ig11']={
+    name = "IG-11",
+    XWS = 'trackingfob',
+    limited = 1,
+    slot = 8,
+    cost = 200,
+    addAction = {'C'},
+    restriction = {
+      Faction = {[3]=true},
+    },
+    dual = true,
+}
+
+masterUpgradesDB['burnoutthrusters']={
+    name = "Burnout Thrusters",
+    XWS = 'burnoutthrusters',
+    Charge = 1,
+    slot = 14,
+    cost = 200,
+    restriction = {
+      Faction = {[3]=true},
+      Size = {small=true, medium=true}
+    },
+}
+
+masterUpgradesDB['thechild']={
+    name = "The Child",
+    XWS = 'thechild',
+    Force = 2,
+    slot = 8,
+    cost = 200,
+    restriction = {
+      Faction = {[1]=true, [2]=true, [3]=true},
+    },
+}
+
+masterUpgradesDB['themandalorian']={
+    name = "The Mandalorian",
+    XWS = 'themandalorian',
+    slot = 8,
+    cost = 200,
+    addAction = {'R'},
+    restriction = {
+      Faction = {[3]=true},
+    },
+}
+
+masterUpgradesDB['swivelwing']={
+    name = "Swivel Wing",
+    XWS = 'swivelwing',
+    slot = 18,
+    cost = 200,
+    restriction = {
+      ship = {['gauntletfighter']=true}
+    },
+    dual = true,
+}
+
 
 
 

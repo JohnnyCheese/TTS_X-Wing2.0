@@ -3,6 +3,7 @@
 
 __XW_Ship = true
 interactable = false
+isHiding = false
 
 function initContextMenu()
   if self.getTable("Data") then
@@ -114,17 +115,46 @@ arc_indicators = {}
 
 function DisableAttachedColliders()
   for i, child in ipairs(self.getChildren()) do
-    if i ~= 1 then
-      if child.getComponent("MeshCollider") then
-        child.getComponent("MeshCollider").set("enabled", false)
-      end
-      if child.getComponent("BoxCollider") then
-        child.getComponent("BoxCollider").set("enabled", false)
-      end
-    end
+    DisableColliderInComponent(child)
   end
 end
 
+function DisableColliderInComponent(comp)
+  if comp.getComponent("MeshCollider") then
+    comp.getComponent("MeshCollider").set("enabled", false)
+  end
+  if comp.getComponent("BoxCollider") then
+    comp.getComponent("BoxCollider").set("enabled", false)
+  end
+
+  for i, child in ipairs(comp.getChildren()) do
+    DisableColliderInComponent(child)
+  end
+end
+
+
+function SetProximityHiding(enabled)
+  if enabled ~= isHiding then
+    isHiding = enabled
+    local attachments = self.getAttachments()
+    for i = #attachments, 1, -1 do
+      local attachment = attachments[i]
+      if attachment.name == "Config" or attachment.name == "Ship" then
+
+        local model = self.removeAttachment(attachment.index)
+        local tint = model.getColorTint()
+        if enabled then
+          tint[4] = 0.2
+        else
+          tint[4] = 1.0
+        end
+        model.setColorTint(tint)
+        self.addAttachment(model)
+      end
+    end
+    Wait.frames(function() DisableAttachedColliders() end, 2)
+  end
+end
 
 function AttachArcIndicator(args)
     local turret_mount = args.mount or 'main'
@@ -335,27 +365,43 @@ end
 
 shipIconPos = {
   small = "78 -50 0",
-  medium = "0 0 0",
+  medium = "135 -110 0",
   large = "180 -152 0",
   huge = "0 0 0",
 }
 
 initiativeIconPos = {
   small = "-78 -50 0",
-  medium = "0 0 0",
+  medium = "-135 -110 0",
   large = "-180 -152 0",
   huge = "0 0 0",
 }
 
 NamePos = {
   small = "0 -88 0",
-  medium = "0 0 0",
+  medium = "0 -145 0",
   large = "0 -198 0",
   huge = "0 0 0",
 }
 
-function setupUI()
+function setCustomization(args)
+  local attachments = self.getAttachments()
+  for i = #attachments, 1, -1 do
+    local attachment = attachments[i]
+    if attachment.name == "Config" or attachment.name == "Ship" then
+      local model = self.removeAttachment(attachment.index)
+      local custom = model.getCustomObject()
+      custom.diffuse = args.texture
+      model.setCustomObject(custom)
+      model = model.reload()
+      self.addAttachment(model)
+    end
+  end
+  DisableAttachedColliders()
+  Wait.time(DisableAttachedColliders, 5)
+end
 
+function setupUI()
   if self.getTable("UiData") then
     local size = self.getTable("Data").Size or "small"
     self.UI.setAttribute("ShipIcon", "image", self.getTable("UiData").icon)

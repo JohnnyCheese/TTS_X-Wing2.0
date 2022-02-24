@@ -6557,6 +6557,10 @@ function newSpawner(listTable)
             texture = '{verifycache}'..Pilots[shipIndex].texture
         end
         local shipoffset = vector(0,0,0)
+        Pilots[shipIndex].Data.ColorId = tint
+        if Pilots[shipIndex].Data.Config then
+            Pilots[shipIndex].Data.Config.CardGUID = configCardGUID
+        end
 
         if Pilots[shipIndex].newSpawner then
           shipoffset = vector(0,2,0)
@@ -6584,6 +6588,9 @@ function newSpawner(listTable)
           newShip.setName(pilotName)
           newShip.setTable("Data", Pilots[shipIndex].Data)
           newShip.setLock(true)
+          if Pilots[shipIndex].Data.ProximityHider then
+            newShip.addTag("ProximityHider")
+          end
 
           local base_name_str = pilotName
           if Pilots[shipIndex].Data.limited and Pilots[shipIndex].Data.limited > 0 then
@@ -6594,7 +6601,7 @@ function newSpawner(listTable)
           local pegCustomObject = {
             mesh = spawnPrefix .. "bases/pegs/" .. size .. ".obj",
             diffuse = spawnPrefix .. "bases/" .. size .. "/" .. fixedarc .. "/" .. factionnames[Faction] .. ".png",
-            collider = ShipVerification.colliders[size],
+            --collider = ShipVerification.colliders[size],
             convex = true,
             material = 1,
             type = 1
@@ -6605,7 +6612,7 @@ function newSpawner(listTable)
           local shipCustomObject = {
             mesh = '{verifycache}'..Pilots[shipIndex].mesh,
             diffuse = texture,
-            collider = '{verifycache}'..Pilots[shipIndex].mesh,
+            --collider = '{verifycache}'..Pilots[shipIndex].mesh,
             convex = true,
             material = 1,
             type = 1
@@ -6679,12 +6686,6 @@ function newSpawner(listTable)
         end -- new spawn
 
         if newShip ~= nil then
-          Pilots[shipIndex].Data.ColorId = tint
-          if Pilots[shipIndex].Data.Config then
-              Pilots[shipIndex].Data.Config.CardGUID = configCardGUID
-          end
-
-
           local ship = newShip
           local card = newPil
           local idpos = pos
@@ -6751,6 +6752,7 @@ function newSpawner(listTable)
                     configModel.setScale(vector(0.0001,0.0001,0.0001))
                   end
                   ship.addAttachment(configModel)
+                  Wait.frames(function() ship.call("DisableAttachedColliders") end, 2)
                 end
                 Wait.condition(configSpawnFunction , function() return (not ship.spawning) and (not ship.isSmoothMoving() ) end)
               end -- if Config.Model

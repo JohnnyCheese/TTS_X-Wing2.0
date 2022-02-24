@@ -1246,8 +1246,8 @@ masterShipDB['gauntletfighter']={
   size = 'large',
   agi = 2,
   XWS = 'gauntletfighter',
-  --Fac = {[1]=true,[2]=true,[3]=true,[6]=true,[7]=true},
-  Fac = {[3]=true,[6]=true,[7]=true},
+  ProximityHider = true,
+  Fac = {[1]=true,[2]=true,[3]=true,[6]=true,[7]=true},
   arcs = {fixed = { range=3, type = {'frontback'}}},
   moveSet = {'bbl1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','ws4','rs0'},
   mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/ship-base.obj',
@@ -1271,6 +1271,20 @@ masterShipDB['gauntletfighter']={
   }
 }
 
+
+masterShipDB['st70assaultship']={
+  name = 'ST-70 Assault Ship',
+  newSpawner = true,
+  Hull = 7,
+  Shield = 2,
+  size = 'medium',
+  agi = 2,
+  XWS = 'st70assaultship',
+  Fac = {[3]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'rtl1','wbl1','bs1','wbr1','rtr1','rtl2t','wtl2','wbl2','bs2','wbr2','wtr2','rtr2t','rtl3','wbl3','bs3','wbr3','rtr3','bs4','rk5'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/st70assaultship/razorcrest.obj',
+}
 
 -- Huge ships
 masterShipDB['cr90corvette']={
