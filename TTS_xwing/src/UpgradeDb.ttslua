@@ -4207,10 +4207,10 @@ masterUpgradesDB['primeministeralmec']={
     },
 }
 
-masterUpgradesDB['bokatankryze']={
+masterUpgradesDB['bokatankryze-crew']={
     name = "Bo-Katan Kryze",
     limited = 1,
-    XWS = 'bokatankryze',
+    XWS = 'bokatankryze-crew',
     slot = 8,
     cost = 200,
     restriction = {
@@ -4229,6 +4229,17 @@ masterUpgradesDB['bokatankryze-rebel-scum']={
     },
 }
 
+masterUpgradesDB['korkiekryze']={
+    name = "Korkie Kryze",
+    limited = 1,
+    XWS = 'korkiekryze',
+    slot = 8,
+    cost = 5,
+    restriction = {
+      Faction = {[6]=true}
+    },
+}
+
 masterUpgradesDB['maul-crew']={
     name = "Maul",
     limited = 1,
@@ -4243,10 +4254,10 @@ masterUpgradesDB['maul-crew']={
     },
 }
 
-masterUpgradesDB['previzsla']={
+masterUpgradesDB['previzsla-crew']={
     name = "Pre Vizsla",
     limited = 1,
-    XWS = 'previzsla',
+    XWS = 'previzsla-crew',
     slot = 8,
     cost = 200,
     restriction = {
@@ -4254,10 +4265,10 @@ masterUpgradesDB['previzsla']={
     },
 }
 
-masterUpgradesDB['rookkast']={
+masterUpgradesDB['rookkast-crew']={
     name = "Rook Kast",
     limited = 1,
-    XWS = 'rookkast',
+    XWS = 'rookkast-crew',
     slot = 8,
     cost = 200,
     addAction = {'TL'},
@@ -4283,7 +4294,7 @@ masterUpgradesDB['talmerrik']={
     limited = 1,
     XWS = 'talmerrik',
     slot = 8,
-    cost = 200,
+    cost = 10,
     restriction = {
       Faction = { [7]=true}
     },
@@ -4303,10 +4314,10 @@ masterUpgradesDB['sabinewren-crew']={
     Condition = "Trials of the Darksaber",
 }
 
-masterUpgradesDB['captainhark']={
+masterUpgradesDB['captainhark-crew']={
     name = "Captain Hark",
     limited = 1,
-    XWS = 'captainhark',
+    XWS = 'captainhark-crew',
     slot = 8,
     cost = 200,
     Charge = 2,
@@ -4326,10 +4337,10 @@ masterUpgradesDB['fennrau']={
     },
 }
 
-masterUpgradesDB['garsaxon']={
+masterUpgradesDB['garsaxon-crew']={
     name = "Gar Saxon",
     limited = 1,
-    XWS = 'garsaxon',
+    XWS = 'garsaxon-crew',
     slot = 8,
     cost = 200,
     restriction = {
@@ -4337,10 +4348,10 @@ masterUpgradesDB['garsaxon']={
     },
 }
 
-masterUpgradesDB['obiwankenobi']={
+masterUpgradesDB['obiwankenobi-crew']={
     name = "Obi-Wan Kenobi",
     limited = 1,
-    XWS = 'obiwankenobi',
+    XWS = 'obiwankenobi-crew',
     slot = 8,
     cost = 200,
     Force = 1,
@@ -4358,6 +4369,17 @@ masterUpgradesDB['satinekryze']={
     Charge = 2,
     restriction = {
       Faction = { [6]=true},
+    },
+}
+
+masterUpgradesDB['kuiil']={
+    name = "Kuiil",
+    limited = 1,
+    XWS = 'kuiil',
+    slot = 8,
+    cost = 4,
+    restriction = {
+      Faction = { [3]=true},
     },
 }
 
@@ -4573,6 +4595,102 @@ masterUpgradesDB['swivelwing']={
     },
     dual = true,
 }
+
+masterUpgradesDB['protoncannon']={
+    name = "Proton Cannon",
+    XWS = 'protoncannon',
+    slot = 3,
+    remSlot = {3},
+    cost = 3,
+}
+
+masterUpgradesDB['clanwrencommandoteam']={
+    name = "Clan Wren Commando Team",
+    XWS = 'clanwrencommandoteam',
+    limited = 1,
+    slot = 8,
+    remSlot = {8},
+    cost = 3,
+    Charge = 2,
+    restriction = {
+      Faction = {[1]=true},
+      Size = {medium=true, large=true, huge=true}
+    },
+}
+
+masterUpgradesDB['imperialsupercommandoteam']={
+    name = "Imperial Super Commando Team",
+    XWS = 'imperialsupercommandoteam',
+    limited = 1,
+    slot = 8,
+    remSlot = {8},
+    cost = 3,
+    Charge = 2,
+    restriction = {
+      Faction = {[2]=true},
+      Size = {medium=true, large=true, huge=true}
+    },
+}
+
+masterUpgradesDB['mandaloriansupercommandoteam']={
+    name = "Mandalorian Super Commando Team",
+    XWS = 'mandaloriansupercommandoteam',
+    limited = 1,
+    slot = 8,
+    remSlot = {8},
+    cost = 3,
+    Charge = 2,
+    restriction = {
+      Faction = {[3]=true},
+      Size = {medium=true, large=true, huge=true}
+    },
+}
+
+masterUpgradesDB['niteowlcommandoteam']={
+    name = "Nite Owl Commando Team",
+    XWS = 'niteowlcommandoteam',
+    limited = 1,
+    slot = 8,
+    remSlot = {8},
+    cost = 3,
+    Charge = 2,
+    restriction = {
+      Faction = {[6]=true},
+      Size = {medium=true, large=true, huge=true}
+    },
+}
+
+masterUpgradesDB['deathwatchcommandoteam']={
+    name = "Death Watch Commando Team",
+    XWS = 'deathwatchcommandoteam',
+    limited = 1,
+    slot = 8,
+    remSlot = {8},
+    cost = 3,
+    Charge = 2,
+    restriction = {
+      Faction = {[6]=true},
+      Size = {medium=true, large=true, huge=true}
+    },
+}
+
+masterUpgradesDB['dropseatbay']={
+    name = "Drop-Seat bay",
+    XWS = 'dropseatbay',
+    slot = 14,
+    cost = 1,
+    restriction = {
+      ship = {['gauntletfighter']=true}
+    },
+}
+
+masterUpgradesDB['homingtorpedoes']={
+	name = 'Homing Torpedoes',
+	XWS = 'homingtorpedoes',
+	slot = 5,
+	cost = 12,
+}
+
 
 
 
