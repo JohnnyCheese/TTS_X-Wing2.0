@@ -13,7 +13,7 @@
 
 -- Should the code execute print functions or skip them?
 -- This should be set to false on every release
-print_debug = true
+print_debug = false
 cast_debug = false
 
 TTS_print = print
@@ -6307,7 +6307,7 @@ function newSpawner(listTable)
     local dialSkin = listTable.factionDial
     spawnedPilotList = {}
     local spawnPrefix = "{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/"
-    local factionnames = {"rebels", "empire", "scum", "resistance", "firstorder", "republic", "separatists"}
+    local factionnames = {"rebel", "empire", "scum", "resistance", "firstorder", "republic", "separatists"}
 
     PosBag1 = {5, 5, 0}
     PosBag2 = {10, 10, 0}
@@ -6406,7 +6406,7 @@ function newSpawner(listTable)
                 rotUp.y = rotUp.y+90
                 newUp = card:spawn({position = pos, rotation=rotUp, scale={0.68,0.68,0.68}})
                 newUp.setName(Up.name)
-                if Up.Condition ~= nil then                                            --Checks and spawn conditions associated to pilots
+                if Up.Condition ~= nil then                                         --Checks and spawn conditions associated to pilots
                     for k, acc in ipairs(listaAcc) do
                         if acc.name == Up.Condition then
                             pos = LocalPos(spawnCard, {-2 - 2*UpNum, 2-0.2*UpNum, 8})
@@ -6550,7 +6550,20 @@ function newSpawner(listTable)
         end
 
         local newShip = nil
+        local texture = nil
+        if Customization[pilotName].texture ~= nil then
+            texture = Customization[pilotName].texture
+        elseif Pilots[shipIndex].texture ~= nil then
+            texture = '{verifycache}'..Pilots[shipIndex].texture
+        end
+        local shipoffset = vector(0,0,0)
+        Pilots[shipIndex].Data.ColorId = tint
+        if Pilots[shipIndex].Data.Config then
+            Pilots[shipIndex].Data.Config.CardGUID = configCardGUID
+        end
+
         if Pilots[shipIndex].newSpawner then
+          shipoffset = vector(0,2,0)
           local size = Pilots[shipIndex].Size
           local arcs = Pilots[shipIndex].Data.arcs
           local fixedarc = arcs.fixed.type[1] or "none"
@@ -6559,8 +6572,8 @@ function newSpawner(listTable)
           local base_prototype = getObjectFromGUID("8c3322")
 
           newShip = base_prototype.clone()
-          newShip.setPosition(pos)
-          newShip.setRotation(rot)
+          newShip.setPositionSmooth(pos, false, true)
+          newShip.setRotationSmooth(rot, false, true)
           newShip.setScale(mm_ship_scale)
 
           newShip.setCustomObject(
@@ -6575,6 +6588,9 @@ function newSpawner(listTable)
           newShip.setName(pilotName)
           newShip.setTable("Data", Pilots[shipIndex].Data)
           newShip.setLock(true)
+          if Pilots[shipIndex].Data.ProximityHider then
+            newShip.addTag("ProximityHider")
+          end
 
           local base_name_str = pilotName
           if Pilots[shipIndex].Data.limited and Pilots[shipIndex].Data.limited > 0 then
@@ -6582,14 +6598,24 @@ function newSpawner(listTable)
           end
           newShip.setTable("UiData", {name= base_name_str, icon=Pilots[shipIndex].Ship, init="init" .. Pilots[shipIndex].Data.initiative })
 
-          local customObject = newShip.getCustomObject()
-          customObject.mesh = spawnPrefix .. "bases/pegs/" .. size .. ".obj"
+          local pegCustomObject = {
+            mesh = spawnPrefix .. "bases/pegs/" .. size .. ".obj",
+            diffuse = spawnPrefix .. "bases/" .. size .. "/" .. fixedarc .. "/" .. factionnames[Faction] .. ".png",
+            --collider = ShipVerification.colliders[size],
+            convex = true,
+            material = 1,
+            type = 1
+          }
           local shippos = pos
           local shiprot = rot
           local ship = newShip
           local shipCustomObject = {
             mesh = '{verifycache}'..Pilots[shipIndex].mesh,
-            diffuse = '{verifycache}'..Pilots[shipIndex].texture
+            diffuse = texture,
+            --collider = '{verifycache}'..Pilots[shipIndex].mesh,
+            convex = true,
+            material = 1,
+            type = 1
           }
           local pegAndShipSpawnFunction = function()
             local pegModel = spawnObject({
@@ -6601,11 +6627,11 @@ function newSpawner(listTable)
                 snap_to_grid      = false,
             })
             pegModel.setName("Peg")
-            pegModel.setCustomObject(customObject)
+            pegModel.setCustomObject(pegCustomObject)
             ship.addAttachment(pegModel)
             local shipModel = spawnObject({
                 type              = "Custom_Model",
-                position          = vector(shippos[1],shippos[2],shippos[3]) + vector(0,2,0),
+                position          = vector(shippos[1],shippos[2],shippos[3]) + shipoffset,
                 rotation          = shiprot,
                 scale             = mm_ship_scale,
                 sound             = false,
@@ -6615,7 +6641,7 @@ function newSpawner(listTable)
             shipModel.setCustomObject(shipCustomObject)
             ship.addAttachment(shipModel)
           end
-          Wait.condition(pegAndShipSpawnFunction , function() return (not ship.spawning) end)
+          Wait.condition(pegAndShipSpawnFunction , function() return (not ship.spawning) and (not ship.isSmoothMoving()) end)
         else
           pos = LocalPos(spawnCard, {0, 0, 9})
           rot = spawnCard.getRotation()
@@ -6631,128 +6657,122 @@ function newSpawner(listTable)
           end
 
           if newShip ~= nil then
-              local model = nil
-              if Customization[pilotName].model ~= nil then
-                  model = Customization[pilotName].model
-              elseif Pilots[shipIndex].mesh ~= nil then
-                  model = '{verifycache}'..Pilots[shipIndex].mesh
-              end
-              if model then
-                  newShip.setCustomObject({mesh = model})
-              end
-              local texture = nil
-              if Customization[pilotName].texture ~= nil then
-                  texture = Customization[pilotName].texture
-              elseif Pilots[shipIndex].texture ~= nil then
-                  texture = '{verifycache}'..Pilots[shipIndex].texture
-              end
-              if texture then
-                  newShip.setCustomObject({diffuse = texture})
-              end
-              if Customization[pilotName].modeltint ~= nil then
-                  newShip.setColorTint(Customization[pilotName].modeltint)
-              end
-              newShip.setName(pilotName)
-              newShip.setCustomObject({
-                  collider= ShipVerification.colliders[Pilots[shipIndex].Size],
-                  convex = true,
-                  material = 1,
-                  type = 1
-              })
-              newShip.setLock(true)
-
-              Pilots[shipIndex].Data.ColorId = tint
-              if Pilots[shipIndex].Data.Config then
-                  Pilots[shipIndex].Data.Config.CardGUID = configCardGUID
-              end
-              newShip.setTable("Data", Pilots[shipIndex].Data)
-              newShip.setLuaScript(saveAndLoadShipStateLua)
+            local model = nil
+            if Customization[pilotName].model ~= nil then
+                model = Customization[pilotName].model
+            elseif Pilots[shipIndex].mesh ~= nil then
+                model = '{verifycache}'..Pilots[shipIndex].mesh
             end
-          end
-            local ship = newShip
-            local card = newPil
-            local idpos = pos
-            local idrot = rot
-            local customObj = {
+            if model then
+                newShip.setCustomObject({mesh = model})
+            end
+            if texture then
+                newShip.setCustomObject({diffuse = texture})
+            end
+            if Customization[pilotName].modeltint ~= nil then
+                newShip.setColorTint(Customization[pilotName].modeltint)
+            end
+            newShip.setName(pilotName)
+            newShip.setCustomObject({
+                collider= ShipVerification.colliders[Pilots[shipIndex].Size],
                 convex = true,
                 material = 1,
                 type = 1
-            }
-            if Pilots[shipIndex].Size == "small" then
-                customObj.mesh='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base_ID_Marker.obj'
-            elseif Pilots[shipIndex].Size == "medium" then
-                customObj.mesh='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base%20ID%20MED.obj'
-            elseif Pilots[shipIndex].Size == "large" then
-                customObj.mesh='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base%20ID%20LAR.obj'
-            elseif Pilots[shipIndex].Size == "huge" then
-                customObj.mesh='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base_ID_HUGE.obj'
-            end
-            local shipIdSpawnFunc = function()
-              local shipId = spawnObject({
-                  type              = "Custom_Model",
-                  position          = idpos,
-                  rotation          = idrot,
-                  scale             = mm_ship_scale*0.99,
-                  sound             = false,
-                  snap_to_grid      = false,
-              })
-              shipId.setCustomObject(customObj)
-              shipId.setColorTint(tint)
-              shipId.setName("ColorId")
-              ship.addAttachment(shipId)
-              ship.setLock(false)
-              ship.addTag("Ship")
+            })
+            newShip.setLock(true)
+            newShip.setTable("Data", Pilots[shipIndex].Data)
+            newShip.setLuaScript(saveAndLoadShipStateLua)
+          end -- new ship
+        end -- new spawn
 
-              card.call('addTintObject', {'ship',ship})
-              ship.call('initContextMenu')
-            end
-            if Pilots[shipIndex].Data.ProximityHider then
-              ship.addTag("ProximityHider")
-            end
-            Wait.condition(shipIdSpawnFunc , function() return (not ship.spawning) and (not card.spawning) end)
+        if newShip ~= nil then
+          local ship = newShip
+          local card = newPil
+          local idpos = pos
+          local idrot = rot
+          local customObj = {
+              convex = true,
+              material = 1,
+              type = 1
+          }
+          if Pilots[shipIndex].Size == "small" then
+              customObj.mesh='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base_ID_Marker.obj'
+          elseif Pilots[shipIndex].Size == "medium" then
+              customObj.mesh='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base%20ID%20MED.obj'
+          elseif Pilots[shipIndex].Size == "large" then
+              customObj.mesh='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base%20ID%20LAR.obj'
+          elseif Pilots[shipIndex].Size == "huge" then
+              customObj.mesh='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base_ID_HUGE.obj'
+          end
+          local shipIdSpawnFunc = function()
+            local shipId = spawnObject({
+                type              = "Custom_Model",
+                position          = idpos,
+                rotation          = idrot,
+                scale             = mm_ship_scale*0.99,
+                sound             = false,
+                snap_to_grid      = false,
+            })
+            shipId.setCustomObject(customObj)
+            shipId.setColorTint(tint)
+            shipId.setName("ColorId")
+            ship.addAttachment(shipId)
+            ship.setLock(false)
+            ship.addTag("Ship")
+            ship.drag_selectable = true
+            ship.interactable = true
 
-            if Pilots[shipIndex].Data.Config and Pilots[shipIndex].Data.Config.States then
-              for k, config in pairs(Pilots[shipIndex].Data.Config.States) do
-                if config.Model then
-                  local customObject = ship.getCustomObject()
-                  customObject.mesh = config.Model
+            card.call('addTintObject', {'ship',ship})
+            ship.call('initContextMenu')
+          end
+          if Pilots[shipIndex].Data.ProximityHider then
+            ship.addTag("ProximityHider")
+          end
+          Wait.condition(shipIdSpawnFunc , function() return (not ship.spawning) and (not ship.isSmoothMoving()) and (not card.spawning) end)
 
-                  local configSpawnFunction = function()
-                    local configModel = spawnObject({
-                        type              = "Custom_Model",
-                        position          = idpos,
-                        rotation          = idrot,
-                        scale             = mm_ship_scale,
-                        sound             = false,
-                        snap_to_grid      = false,
-                    })
-                    configModel.setName("Config")
-                    configModel.setDescription(tostring(k))
-                    configModel.setCustomObject(customObject)
-                    if k ~= 1 then
-                      configModel.setScale(vector(0.0001,0.0001,0.0001))
-                    end
-                    ship.addAttachment(configModel)
+          if Pilots[shipIndex].Data.Config and Pilots[shipIndex].Data.Config.States then
+            for k, config in pairs(Pilots[shipIndex].Data.Config.States) do
+              if config.Model then
+                local customObject = ship.getCustomObject()
+                customObject.mesh = config.Model
+                customObject.diffuse = texture
+                local configSpawnFunction = function()
+                  local configModel = spawnObject({
+                      type              = "Custom_Model",
+                      position          = vector(idpos[1],idpos[2],idpos[3]) + shipoffset,
+                      rotation          = idrot,
+                      scale             = mm_ship_scale,
+                      sound             = false,
+                      snap_to_grid      = false,
+                  })
+                  configModel.setName("Config")
+                  configModel.setDescription(tostring(k))
+                  configModel.setCustomObject(customObject)
+                  if k ~= 1 then
+                    configModel.setScale(vector(0.0001,0.0001,0.0001))
                   end
-                  Wait.condition(configSpawnFunction , function() return (not ship.spawning) end)
-                end -- if Config.Model
-              end -- for Data.Config
-              if Pilots[shipIndex].Data.Config and Pilots[shipIndex].Data.Config.Token then
-                pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
-                local configToken = spawnObject({
-                    type = "Custom_Model",
-                    scale = {0.38, 0.38, 0.38},
-                    rotation = {0, 270, 0},
-                    position = pos,
-                })
-                configToken.setCustomObject({
-                    mesh = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/tokens/flip/flipToken.obj",
-                    diffuse = Pilots[shipIndex].Data.Config.Token,
-                    type = 5,
-                    material = 1,
-                    specular_intensity = 0
-                })
-                configToken.setLuaScript(
+                  ship.addAttachment(configModel)
+                  Wait.frames(function() ship.call("DisableAttachedColliders") end, 2)
+                end
+                Wait.condition(configSpawnFunction , function() return (not ship.spawning) and (not ship.isSmoothMoving() ) end)
+              end -- if Config.Model
+            end -- for Data.Config
+            if Pilots[shipIndex].Data.Config and Pilots[shipIndex].Data.Config.Token then
+              pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
+              local configToken = spawnObject({
+                  type = "Custom_Model",
+                  scale = {0.38, 0.38, 0.38},
+                  rotation = {0, 270, 0},
+                  position = pos,
+              })
+              configToken.setCustomObject({
+                  mesh = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/tokens/flip/flipToken.obj",
+                  diffuse = Pilots[shipIndex].Data.Config.Token,
+                  type = 5,
+                  material = 1,
+                  specular_intensity = 0
+              })
+              configToken.setLuaScript(
 [[
 __XW_Token = true
 __XW_TokenIdle = true
@@ -6761,28 +6781,16 @@ __XW_TokenType = 'config'
 self.addTag('Flippable')
 
 function onFlip()
-    local ship = Global.call("getShipTokenIsAssignedTo",{token=self})
-    if ship and ship.getVar("SetConfiguration") then
-      ship.call("SetConfiguration", {ConfigId=self.is_face_down and 1 or 2})
-    end
+  local ship = Global.call("getShipTokenIsAssignedTo",{token=self})
+  if ship and ship.getVar("SetConfiguration") then
+    ship.call("SetConfiguration", {ConfigId=self.is_face_down and 1 or 2})
+  end
 end
 ]])
-              end
+              end -- token
 
 
-            end -- if Config
-
-
-        if Pilots[shipIndex].Ship == 3 then
-            for k, acc in ipairs(listaAcc) do
-                if acc.name == 'StarViper Mk.II roll token' then
-                    pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
-                    svToken = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid, smooth = false})
-                    svClone = svToken.clone()
-                    svClone.setPosition(pos)
-                    tempBagAcc.putObject(svToken)
-                end
-            end
+            end -- config
         end
 
         for mount, turret in pairs(Pilots[shipIndex].Data.arcs.turret or {}) do

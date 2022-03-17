@@ -2024,7 +2024,9 @@ masterUpgradesDB['ga97']={
     limited = 1,
     addAction = {'C'},
     cost = 5,
-    restriction = {Faction ={[4]=true}}
+    Charge = 5,
+    restriction = {Faction ={[4]=true}},
+    Condition = "It's the Resistance",
 }
 
 masterUpgradesDB['kaydelconnix']={
@@ -4176,6 +4178,520 @@ masterUpgradesDB['shatteringshot']={
     slot = 17,
     cost = 3,
 }
+
+-- Pride of Mandalore reinforcement pack
+
+masterUpgradesDB['ahsokatano-crew']={
+    name = "Ahsoka Tano",
+    limited = 1,
+    XWS = 'ahsokatano-crew',
+    slot = 8,
+    cost = 200,
+    Force = 1,
+    addSqdAction = {'F'},
+    restriction = {
+      Faction = {[3]=true, [6]=true}
+    },
+}
+
+masterUpgradesDB['primeministeralmec']={
+    name = "Prime Minister Almec",
+    limited = 1,
+    XWS = 'primeministeralmec',
+    slot = 8,
+    cost = 200,
+    dual = true,
+    addSqdAction = {'C'},
+    restriction = {
+      Faction = {[3]=true, [6]=true}
+    },
+}
+
+masterUpgradesDB['bokatankryze-crew']={
+    name = "Bo-Katan Kryze",
+    limited = 1,
+    XWS = 'bokatankryze-crew',
+    slot = 8,
+    cost = 200,
+    restriction = {
+      Faction = {[6]=true, [7]=true}
+    },
+}
+
+masterUpgradesDB['bokatankryze-rebel-scum']={
+    name = "Bo-Katan Kryze",
+    limited = 1,
+    XWS = 'bokatankryze-rebel-scum',
+    slot = 8,
+    cost = 200,
+    restriction = {
+      Faction = {[1]=true, [3]=true}
+    },
+}
+
+masterUpgradesDB['korkiekryze']={
+    name = "Korkie Kryze",
+    limited = 1,
+    XWS = 'korkiekryze',
+    slot = 8,
+    cost = 5,
+    restriction = {
+      Faction = {[6]=true}
+    },
+}
+
+masterUpgradesDB['maul-crew']={
+    name = "Maul",
+    limited = 1,
+    XWS = 'maul-crew',
+    slot = 8,
+    remSlot = {8},
+    addSlot = {13},
+    cost = 200,
+    Force = 1,
+    restriction = {
+      Faction = {[3]=true}
+    },
+}
+
+masterUpgradesDB['previzsla-crew']={
+    name = "Pre Vizsla",
+    limited = 1,
+    XWS = 'previzsla-crew',
+    slot = 8,
+    cost = 200,
+    restriction = {
+      Faction = {[3]=true, [7]=true}
+    },
+}
+
+masterUpgradesDB['rookkast-crew']={
+    name = "Rook Kast",
+    limited = 1,
+    XWS = 'rookkast-crew',
+    slot = 8,
+    cost = 200,
+    addAction = {'TL'},
+    restriction = {
+      Faction = {[3]=true}
+    },
+}
+
+masterUpgradesDB['savageopress']={
+    name = "Savage Opress",
+    limited = 1,
+    Force = 1,
+    XWS = 'savageopress',
+    slot = 8,
+    cost = 200,
+    restriction = {
+      Faction = {[3]=true, [7]=true}
+    },
+}
+
+masterUpgradesDB['talmerrik']={
+    name = "Tal Merrik",
+    limited = 1,
+    XWS = 'talmerrik',
+    slot = 8,
+    cost = 10,
+    restriction = {
+      Faction = { [7]=true}
+    },
+    Condition = "False Friend",
+}
+
+masterUpgradesDB['sabinewren-crew']={
+    name = "Sabine Wren",
+    limited = 1,
+    XWS = 'sabinewren-crew',
+    slot = 8,
+    cost = 200,
+    restriction = {
+      Faction = { [1]=true},
+      Size = {small=true, medium=true, large=true}
+    },
+    Condition = "Trials of the Darksaber",
+}
+
+masterUpgradesDB['captainhark-crew']={
+    name = "Captain Hark",
+    limited = 1,
+    XWS = 'captainhark-crew',
+    slot = 8,
+    cost = 200,
+    Charge = 2,
+    restriction = {
+      Faction = { [2]=true},
+    },
+}
+
+masterUpgradesDB['fennrau']={
+    name = "Fenn Rau",
+    limited = 1,
+    XWS = 'fennrau',
+    slot = 8,
+    cost = 200,
+    restriction = {
+      Faction = { [1]=true, [3]=true},
+    },
+}
+
+masterUpgradesDB['garsaxon-crew']={
+    name = "Gar Saxon",
+    limited = 1,
+    XWS = 'garsaxon-crew',
+    slot = 8,
+    cost = 200,
+    restriction = {
+      Faction = { [2]=true},
+    },
+}
+
+masterUpgradesDB['obiwankenobi-crew']={
+    name = "Obi-Wan Kenobi",
+    limited = 1,
+    XWS = 'obiwankenobi-crew',
+    slot = 8,
+    cost = 200,
+    Force = 1,
+    restriction = {
+      Faction = { [6]=true},
+    },
+}
+
+masterUpgradesDB['satinekryze']={
+    name = "Satine Kryze",
+    limited = 1,
+    XWS = 'satinekryze',
+    slot = 8,
+    cost = 200,
+    Charge = 2,
+    restriction = {
+      Faction = { [6]=true},
+    },
+}
+
+masterUpgradesDB['kuiil']={
+    name = "Kuiil",
+    limited = 1,
+    XWS = 'kuiil',
+    slot = 8,
+    cost = 4,
+    restriction = {
+      Faction = { [3]=true},
+    },
+}
+
+masterUpgradesDB['tristanwren']={
+    name = "Tristan Wren",
+    limited = 1,
+    XWS = 'tristanwren',
+    slot = 8,
+    cost = 200,
+    Charge = 1,
+    restriction = {
+      Faction = { [1]=true},
+      keywords={'Gar Saxon'}
+    },
+}
+
+masterUpgradesDB['ursawren']={
+    name = "Ursa Wren",
+    limited = 1,
+    XWS = 'ursawren',
+    slot = 8,
+    cost = 200,
+    restriction = {
+      Faction = { [1]=true},
+    },
+}
+
+masterUpgradesDB['garsaxon-gunner']={
+    name = "Gar Saxon",
+    limited = 1,
+    XWS = 'garsaxon-gunner',
+    slot = 16,
+    cost = 200,
+    restriction = {
+      Faction = { [3]=true},
+      Size = {large=true,huge=true}
+    },
+}
+
+masterUpgradesDB['tibersaxon']={
+    name = "Tiber Saxon",
+    limited = 1,
+    XWS = 'tibersaxon',
+    slot = 16,
+    cost = 200,
+    Charge = 2,
+    restriction = {
+      Faction = { [2]=true}
+    },
+}
+
+masterUpgradesDB['ursawren-gunner']={
+    name = "Ursa Wren",
+    limited = 1,
+    XWS = 'ursawren-gunner',
+    slot = 16,
+    cost = 200,
+    restriction = {
+      Faction = { [6]=true, [7]=true}
+    },
+}
+
+
+masterUpgradesDB['clantraining']={
+    name = "Clan Training",
+    XWS = 'clantraining',
+    slot = 1,
+    Charge = 1,
+    cost = 200,
+    restriction = {
+      keywords={'Mandalorian'}
+    },
+}
+
+masterUpgradesDB['blazerbomb']={
+    name = "Blazer Bomb",
+    XWS = 'blazerbomb',
+    slot = 12,
+    Charge = 1,
+    cost = 200,
+}
+
+masterUpgradesDB['beskarreinforcedplating']={
+    name = "Beskar Reinforced Plating",
+    XWS = 'beskarreinforcedplating',
+    slot = 14,
+    Charge = 2,
+    cost = 200,
+    restriction = {
+      keywords={'Mandalorian'}
+    },
+}
+
+masterUpgradesDB['mandalorianoptics']={
+    name = "Mandalorian Optics",
+    XWS = 'mandalorianoptics',
+    slot = 14,
+    Charge = 2,
+    cost = 200,
+    restriction = {
+      keywords={'Mandalorian'}
+    },
+}
+
+masterUpgradesDB['gauntlet']={
+    name = "Gauntlet",
+    XWS = 'gauntlet',
+    limited = 1,
+    slot = 15,
+    remSlot = {18},
+    addSlot = {8},
+    Charge = 2,
+    cost = 200,
+    restriction = {
+      Faction = {[6]=true, [7]=true},
+      ship = {['gauntletfighter']=true}
+    }
+}
+
+masterUpgradesDB['nightbrother']={
+    name = "Nightbrother",
+    XWS = 'nightbrother',
+    limited = 1,
+    slot = 15,
+    remSlot = {18},
+    addSlot = {8},
+    Charge = 2,
+    cost = 200,
+    restriction = {
+      Faction = {[1]=true, [3]=true},
+      ship = {['gauntletfighter']=true}
+    }
+}
+
+masterUpgradesDB['razorcrest']={
+    name = "Razor Crest",
+    XWS = 'razorcrest',
+    limited = 1,
+    slot = 15,
+    addAction = {'E','BR'},
+    cost = 200,
+    restriction = {
+      ship = {['st70assaultship']=true}
+    }
+}
+
+masterUpgradesDB['trackingfob']={
+    name = "Tracking Fob",
+    XWS = 'trackingfob',
+    limited = 3,
+    slot = 13,
+    cost = 200,
+    restriction = {
+      keywords={'Bounty Hunter'}
+    },
+    Condition = "Marked for Elimination",
+}
+
+masterUpgradesDB['ig11']={
+    name = "IG-11",
+    XWS = 'trackingfob',
+    limited = 1,
+    slot = 8,
+    cost = 200,
+    addAction = {'C'},
+    restriction = {
+      Faction = {[3]=true},
+    },
+    dual = true,
+}
+
+masterUpgradesDB['burnoutthrusters']={
+    name = "Burnout Thrusters",
+    XWS = 'burnoutthrusters',
+    Charge = 1,
+    slot = 14,
+    cost = 200,
+    restriction = {
+      Faction = {[3]=true},
+      Size = {small=true, medium=true}
+    },
+}
+
+masterUpgradesDB['thechild']={
+    name = "The Child",
+    XWS = 'thechild',
+    Force = 2,
+    slot = 8,
+    cost = 200,
+    restriction = {
+      Faction = {[1]=true, [2]=true, [3]=true},
+    },
+}
+
+masterUpgradesDB['themandalorian']={
+    name = "The Mandalorian",
+    XWS = 'themandalorian',
+    slot = 8,
+    cost = 200,
+    addAction = {'R'},
+    restriction = {
+      Faction = {[3]=true},
+    },
+}
+
+masterUpgradesDB['swivelwing']={
+    name = "Swivel Wing",
+    XWS = 'swivelwing',
+    slot = 18,
+    cost = 200,
+    restriction = {
+      ship = {['gauntletfighter']=true}
+    },
+    dual = true,
+}
+
+masterUpgradesDB['protoncannon']={
+    name = "Proton Cannon",
+    XWS = 'protoncannon',
+    slot = 3,
+    remSlot = {3},
+    cost = 3,
+}
+
+masterUpgradesDB['clanwrencommandoteam']={
+    name = "Clan Wren Commando Team",
+    XWS = 'clanwrencommandoteam',
+    limited = 1,
+    slot = 8,
+    remSlot = {8},
+    cost = 3,
+    Charge = 2,
+    restriction = {
+      Faction = {[1]=true},
+      Size = {medium=true, large=true, huge=true}
+    },
+}
+
+masterUpgradesDB['imperialsupercommandoteam']={
+    name = "Imperial Super Commando Team",
+    XWS = 'imperialsupercommandoteam',
+    limited = 1,
+    slot = 8,
+    remSlot = {8},
+    cost = 3,
+    Charge = 2,
+    restriction = {
+      Faction = {[2]=true},
+      Size = {medium=true, large=true, huge=true}
+    },
+}
+
+masterUpgradesDB['mandaloriansupercommandoteam']={
+    name = "Mandalorian Super Commando Team",
+    XWS = 'mandaloriansupercommandoteam',
+    limited = 1,
+    slot = 8,
+    remSlot = {8},
+    cost = 3,
+    Charge = 2,
+    restriction = {
+      Faction = {[3]=true},
+      Size = {medium=true, large=true, huge=true}
+    },
+}
+
+masterUpgradesDB['niteowlcommandoteam']={
+    name = "Nite Owl Commando Team",
+    XWS = 'niteowlcommandoteam',
+    limited = 1,
+    slot = 8,
+    remSlot = {8},
+    cost = 3,
+    Charge = 2,
+    restriction = {
+      Faction = {[6]=true},
+      Size = {medium=true, large=true, huge=true}
+    },
+}
+
+masterUpgradesDB['deathwatchcommandoteam']={
+    name = "Death Watch Commando Team",
+    XWS = 'deathwatchcommandoteam',
+    limited = 1,
+    slot = 8,
+    remSlot = {8},
+    cost = 3,
+    Charge = 2,
+    restriction = {
+      Faction = {[6]=true},
+      Size = {medium=true, large=true, huge=true}
+    },
+}
+
+masterUpgradesDB['dropseatbay']={
+    name = "Drop-Seat bay",
+    XWS = 'dropseatbay',
+    slot = 14,
+    cost = 1,
+    restriction = {
+      ship = {['gauntletfighter']=true}
+    },
+}
+
+masterUpgradesDB['homingtorpedoes']={
+	name = 'Homing Torpedoes',
+	XWS = 'homingtorpedoes',
+	slot = 5,
+	cost = 12,
+}
+
+
 
 
 
