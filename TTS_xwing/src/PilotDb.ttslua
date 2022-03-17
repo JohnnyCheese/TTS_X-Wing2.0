@@ -6957,7 +6957,7 @@ masterPilotDB[910]={
   Shield = 0,
   init = 6,
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/textures/Maul.jpg',
-  actSet = {'F','TL','R'},
+  actSet = {'F','TL','R','Piv'},
 }
 
 masterPilotDB[911]={
@@ -6972,7 +6972,7 @@ masterPilotDB[911]={
   Shield = 0,
   init = 4,
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/textures/BoKatan.jpg',
-  actSet = {'F','TL','R'},
+  actSet = {'F','TL','R','Piv'},
 }
 
 masterPilotDB[912]={
@@ -6988,7 +6988,7 @@ masterPilotDB[912]={
   Shield = 0,
   init = 4,
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/textures/BoKatanCIS.jpg',
-  actSet = {'F','TL','R'},
+  actSet = {'F','TL','R','Piv'},
 }
 
 masterPilotDB[913]={
@@ -7003,7 +7003,7 @@ masterPilotDB[913]={
   Shield = 0,
   init = 3,
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/textures/PreVizla.jpg',
-  actSet = {'F','TL','R'},
+  actSet = {'F','TL','R','Piv'},
 }
 
 masterPilotDB[914]={
@@ -7017,7 +7017,7 @@ masterPilotDB[914]={
   Shield = 0,
   init = 3,
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/textures/ScumColours.jpg',
-  actSet = {'F','TL','R'},
+  actSet = {'F','TL','R','Piv'},
 }
 
 masterPilotDB[915]={
@@ -7031,7 +7031,7 @@ masterPilotDB[915]={
   Shield = 0,
   init = 2,
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/textures/Deathwatch.jpg',
-  actSet = {'F','TL','R'},
+  actSet = {'F','TL','R','Piv'},
 }
 
 masterPilotDB[916]={
@@ -7045,7 +7045,7 @@ masterPilotDB[916]={
   Shield = 0,
   init = 2,
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/textures/Default.jpg',
-  actSet = {'F','TL','R'},
+  actSet = {'F','TL','R','Piv'},
 }
 
 masterPilotDB[916]={
@@ -7058,7 +7058,7 @@ masterPilotDB[916]={
   Shield = 0,
   init = 1,
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/textures/ScumColours.jpg',
-  actSet = {'F','TL','R'},
+  actSet = {'F','TL','R','Piv'},
 }
 
 masterPilotDB[917]={
@@ -7073,7 +7073,7 @@ masterPilotDB[917]={
   Shield = 0,
   init = 3,
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/textures/ScumColours.jpg',
-  actSet = {'F','TL','R'},
+  actSet = {'F','TL','R','Piv'},
 }
 
 masterPilotDB[918]={
@@ -7087,7 +7087,7 @@ masterPilotDB[918]={
   Shield = 0,
   init = 2,
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/textures/ScumColours.jpg',
-  actSet = {'F','TL','R'},
+  actSet = {'F','TL','R','Piv'},
 }
 
 masterPilotDB[919]={
@@ -7101,7 +7101,7 @@ masterPilotDB[919]={
   Shield = 0,
   init = 2,
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/textures/Default.jpg',
-  actSet = {'F','TL','R'},
+  actSet = {'F','TL','R','Piv'},
 }
 
 masterPilotDB[920]={
@@ -7112,15 +7112,30 @@ masterPilotDB[920]={
   ship_type = 'gauntletfighter',
   cost = 200,
   slot = {21, 1, 5, 18},
-  Shield = 0,
+  Shield = 2,
   init = 3,
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/textures/Deathwatch.jpg',
-  actSet = {'F','TL','R'},
+  actSet = {'F','TL','R','Piv'},
+}
+
+masterPilotDB[921]={
+  name = 'Gar Saxon',
+  XWS = 'garsaxon',
+  Charge = 2,
+  Faction = 2,
+  limited = 1,
+  ship_type = 'gauntletfighter',
+  cost = 200,
+  slot = {21, 1, 5, 18},
+  Shield = 2,
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/textures/Deathwatch.jpg',
+  actSet = {'F','TL','R','Piv'},
 }
 
 -- razorcrest pilots
 
-masterPilotDB[921]={
+masterPilotDB[922]={
   name = 'The Mandalorian',
   XWS = 'themandalorian',
   Faction = 3,
@@ -7130,11 +7145,11 @@ masterPilotDB[921]={
   slot = {21, 1, 5},
   Shield = 2,
   init = 5,
-  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/st70assaultship/textures/guildbountyhunter.jpg',
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/st70assaultship/textures/mandalorian.png',
   actSet = {'F','TL','E','BR'},
 }
 
-masterPilotDB[922]={
+masterPilotDB[923]={
   name = 'Q9-0',
   XWS = 'q90',
   Faction = 3,
@@ -7148,7 +7163,7 @@ masterPilotDB[922]={
   actSet = {'F','TL','E','BR'},
 }
 
-masterPilotDB[923]={
+masterPilotDB[924]={
   name = 'Guild Bounty Hunter',
   XWS = 'guildbountyhunter',
   Faction = 3,
