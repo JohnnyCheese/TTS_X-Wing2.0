@@ -1,4 +1,9 @@
+-- Standard libraries extentions
+#include !/TTS_lib/Util/Util
+
 __XW_Ship = true
+interactable = false
+isHiding = false
 
 function initContextMenu()
   if self.getTable("Data") then
@@ -102,40 +107,54 @@ function SetConfiguration(args)
 
     end
   end
-  Wait.frames(DisableAttachedColliders, 1)
+  Wait.frames(DisableAttachedColliders, 2)
 end
 
-
-function VerifyConfigTextures()
-  local texture = self.getCustomObject().diffuse
-  local attachments = self.getAttachments()
-  for i = #attachments, 1, -1 do
-    local attachment = attachments[i]
-    if attachment.name == "Config" then
-      id = self.removeAttachment(attachment.index)
-      local custom = id.getCustomObject()
-      if custom.diffuse ~= texture then
-        custom.diffuse = texture
-        id.setCustomObject(custom)
-        id = id.reload()
-      end
-      self.addAttachment(id)
-    end
-  end
-end
 
 arc_indicators = {}
 
 function DisableAttachedColliders()
   for i, child in ipairs(self.getChildren()) do
-    if i ~= 1 then
-      if child.getComponent("MeshCollider") then
-        child.getComponent("MeshCollider").set("enabled", false)
-      end
-    end
+    DisableColliderInComponent(child)
   end
 end
 
+function DisableColliderInComponent(comp)
+  if comp.getComponent("MeshCollider") then
+    comp.getComponent("MeshCollider").set("enabled", false)
+  end
+  if comp.getComponent("BoxCollider") then
+    comp.getComponent("BoxCollider").set("enabled", false)
+  end
+
+  for i, child in ipairs(comp.getChildren()) do
+    DisableColliderInComponent(child)
+  end
+end
+
+
+function SetProximityHiding(enabled)
+  if enabled ~= isHiding then
+    isHiding = enabled
+    local attachments = self.getAttachments()
+    for i = #attachments, 1, -1 do
+      local attachment = attachments[i]
+      if attachment.name == "Config" or attachment.name == "Ship" then
+
+        local model = self.removeAttachment(attachment.index)
+        local tint = model.getColorTint()
+        if enabled then
+          tint[4] = 0.2
+        else
+          tint[4] = 1.0
+        end
+        model.setColorTint(tint)
+        self.addAttachment(model)
+      end
+    end
+    Wait.frames(function() DisableAttachedColliders() end, 2)
+  end
+end
 
 function AttachArcIndicator(args)
     local turret_mount = args.mount or 'main'
@@ -147,7 +166,7 @@ function AttachArcIndicator(args)
     }
     args.indicator.setDescription(turret_mount)
     args.indicator.setRotation(self.getRotation() + Global.getTable('mountRotations')[default_direction] or vector(0,0,0))
-    Wait.frames(DisableAttachedColliders, 1)
+    Wait.frames(DisableAttachedColliders, 2)
 
 
     for i, attachment in pairs(self.getAttachments()) do
@@ -194,7 +213,7 @@ function RotateAttachedArcIndicator(args)
       arc_indicators[turret_mount].arc = next_direction
       id.setRotation(self.getRotation() + Global.getTable('mountRotations')[next_direction] or vector(0,0,0))
       self.addAttachment(id)
-      Wait.frames(DisableAttachedColliders, 1)
+      Wait.frames(DisableAttachedColliders, 2)
       return
     end
   end
@@ -329,7 +348,7 @@ function SetTurretArc(args)
           id = self.removeAttachment(attachment.index)
           id.setRotation(self.getRotation() + Global.getTable('mountRotations')[args.arc] or vector(0,0,0))
           self.addAttachment(id)
-          Wait.frames(DisableAttachedColliders, 1)
+          Wait.frames(DisableAttachedColliders, 2)
         end
       end
     end
@@ -344,12 +363,56 @@ function GetTurretType(args)
     return nil;
 end
 
+shipIconPos = {
+  small = "78 -50 0",
+  medium = "135 -110 0",
+  large = "180 -152 0",
+  huge = "0 0 0",
+}
+
+initiativeIconPos = {
+  small = "-78 -50 0",
+  medium = "-135 -110 0",
+  large = "-180 -152 0",
+  huge = "0 0 0",
+}
+
+NamePos = {
+  small = "0 -88 0",
+  medium = "0 -145 0",
+  large = "0 -198 0",
+  huge = "0 0 0",
+}
+
+function setCustomization(args)
+  local attachments = self.getAttachments()
+  for i = #attachments, 1, -1 do
+    local attachment = attachments[i]
+    if attachment.name == "Config" or attachment.name == "Ship" then
+      local model = self.removeAttachment(attachment.index)
+      local custom = model.getCustomObject()
+      custom.diffuse = args.texture
+      model.setCustomObject(custom)
+      model = model.reload()
+      self.addAttachment(model)
+    end
+  end
+  DisableAttachedColliders()
+  Wait.time(DisableAttachedColliders, 5)
+end
+
 function setupUI()
   if self.getTable("UiData") then
+    local size = self.getTable("Data").Size or "small"
     self.UI.setAttribute("ShipIcon", "image", self.getTable("UiData").icon)
+    self.UI.setAttribute("ShipIcon", "position", shipIconPos[size])
     self.UI.setAttribute("InitiativeIcon", "image", self.getTable("UiData").init)
+    self.UI.setAttribute("InitiativeIcon", "position", initiativeIconPos[size])
     self.UI.setValue("Name", self.getTable("UiData").name)
+    self.UI.setAttribute("Name", "position", NamePos[size])
   end
+  DisableAttachedColliders()
+  Wait.time(DisableAttachedColliders, 5)
 end
 
 -- Save self state
@@ -360,6 +423,7 @@ function onSave()
     state.owningPlayer = self.getVar("owningPlayer")
     state.isAi = self.getVar("isAi")
     state.uiData = self.getTable("UiData")
+    state.interactable = self.interactable
     for guid, _ in pairs(assigned_tokens) do
         table.insert(state.tokenData.tokens, guid)
     end
@@ -367,12 +431,8 @@ function onSave()
     return JSON.encode(state)
 end
 
-
-
-
 -- Restore self state
 function onLoad(savedData)
-    --print("OnLoad: ".. self.getName() .. " " .. savedData)
     if savedData ~= "" and Data == nil then
         local state =  JSON.decode(savedData)
         self.setTable("Data", state.shipData)
@@ -381,11 +441,11 @@ function onLoad(savedData)
         self.setVar("finished_setup", state.finishedSetup)
         self.setVar("owningPlayer", state.owningPlayer)
         self.setVar("isAi", state.isAi)
+        self.interactable = state.interactable or false
         initContextMenu()
         for _, guid in ipairs(state.tokenData.tokens) do
             Global.call('API_AssignToken',{token=getObjectFromGUID(guid), ship = self})
         end
     end
-    Wait.condition(setupUI, function() return not self.loading_custom end, 10)
-    VerifyConfigTextures()
+    Wait.condition(setupUI, function() return (not self.spawning) and (not self.UI.loading) and (not self.loading_custom)  end, 10)
 end

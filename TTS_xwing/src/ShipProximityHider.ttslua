@@ -21,9 +21,14 @@ M.onUpdate = function()
             end
           end
         end
-        if hider_ship.getColorTint() ~= M.tint_values[is_close] then
-          --print(string.format("Changing tint of %s", hider_ship.getName()))
-          hider_ship.setColorTint(M.tint_values[is_close])
+        if hider_ship.getVar("SetProximityHiding") then
+          hider_ship.call("SetProximityHiding",is_close == "close")
+        else
+          if hider_ship.getColorTint() ~= M.tint_values[is_close] then
+
+            --print(string.format("Changing tint of %s", hider_ship.getName()))
+            hider_ship.setColorTint(M.tint_values[is_close])
+          end
         end
       end
       M.last_update = Time.time
