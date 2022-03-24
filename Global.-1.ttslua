@@ -5876,6 +5876,7 @@ saveAndLoadShipStateLua = [[
 __XW_Ship = true
 
 function initContextMenu()
+  self.clearContextMenu()
     for type, arc in pairs(self.getTable("Data").arcs or {}) do
       if type == 'fixed' then
         for i, fixedarc in pairs(arc.type or {}) do
@@ -6589,8 +6590,8 @@ function newSpawner(listTable)
         local texture = nil
         if Customization[pilotName].texture ~= nil then
             texture = Customization[pilotName].texture
-        elseif Pilots[shipIndex].texture ~= nil then
-            texture = '{verifycache}'..Pilots[shipIndex].texture
+        elseif Pilots[shipIndex].Data.texture ~= nil then
+            texture = '{verifycache}'..Pilots[shipIndex].Data.texture
         end
         local shipoffset = vector(0,0,0)
         Pilots[shipIndex].Data.ColorId = tint
@@ -6599,6 +6600,11 @@ function newSpawner(listTable)
         end
 
         if Pilots[shipIndex].newSpawner then
+          if Customization[pilotName].texture ~= nil then
+              texture = Customization[pilotName].texture
+          elseif Pilots[shipIndex].Data.texture ~= nil then
+              texture = '{verifycache}'..Pilots[shipIndex].Data.textures[Pilots[shipIndex].Data.texture]
+          end
           shipoffset = vector(0,2,0)
           local size = Pilots[shipIndex].Size
           local arcs = Pilots[shipIndex].Data.arcs
