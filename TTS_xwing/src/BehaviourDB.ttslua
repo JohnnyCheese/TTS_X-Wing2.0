@@ -5470,6 +5470,104 @@ BehaviourDB.rule_sets[1].ships['delta7aethersprite'].action_selection = {
   }
 }
 
+-- Delta-7b Aethersprite
+BehaviourDB.rule_sets[1].ships['delta7baethersprite'] = {}
+BehaviourDB.rule_sets[1].ships['delta7baethersprite'].target_selection = {[1]='LockedInRange', [2]='ClosestInArcLowerInitiative', [3]='ClosestInArc', [4]='Closest'}
+BehaviourDB.rule_sets[1].ships['delta7baethersprite'].move_table = {
+  bullseye = {
+    near = {[1] = 'k5', [3] = 'bl2s', [4] = 'br2s', [5] = 's2', [6] = 's5'},
+    far = {[1] = 's2', [5] = 's3'},
+    distant = {[1] = 's4', [2] = 's5'},
+    stress = {[1] = 's2', [4] = 's3'},
+  },
+  front_right = {
+    near = {[1] = 'k5', [3] = 'bl2s', [5] = 'br1'},
+    far = {[1] = 'br1', [2] = 'br2', [4] = 's2', [5] = 'br3', [6] = 's3'},
+    distant = {[1] = 'br3', [5] = 's4', [6] = 's5'},
+    stress = {[1] = 'br1', [3] = 'br2', [5] = 's2', [6] = 's3'},
+  },
+  right_front = {
+    near = {[1] = 'k5', [2] = 'bl2s', [4] = 'tr1', [6] = 'tr2'},
+    far = {[1] = 'tr1', [2] = 'br1', [3] = 'br2', [5] = 'tr2'},
+    distant = {[1] = 'br2', [2] = 'tr2', [5] = 'br3'},
+    stress = {[1] = 'br1', [4] = 'br2'},
+  },
+  right_back = {
+    near = {[1] = 'k4', [3] = 'bl2s', [5] = 'tr1'},
+    far = {[1] = 'k4', [2] = 'bl2s', [4] = 'tr1', [6] = 'tr2'},
+    distant = {[1] = 'bl2s', [3] = 'tr1', [4] = 'tr2'},
+    stress = {[1] = 'br1', [4] = 'tr1', [5] = 'br2'},
+  },
+  back_right = {
+    near = {[1] = 'k4', [3] = 'bl2s', [5] = 'tr2', [6] = 'br3'},
+    far = {[1] = 'k4', [2] = 'bl2s', [4] = 'tr1', [5] = 'tr2'},
+    distant = {[1] = 'k4', [2] = 'bl2s', [3] = 'tr1', [6] = 'tr2'},
+    stress = {[1] = 'br1', [2] = 'bl2', [3] = 'br2', [6] = 's3'},
+  },
+}
+BehaviourDB.rule_sets[1].ships['delta7baethersprite'].action_selection = {
+  [1] = { -- (target not moved) Target lock if not in any arcs
+      description = {text = "%s target locked %s.", strings = {'ship', 'target'}},
+      preconditions = {targetMoved = false, targetLocked = false, inEnemyArc = false, targetWithinRange = true},
+      action = 'targetLock'
+  },
+  [2] = { -- (target not moved) Target lock > Boost (Force) or Target Lock > barrel roll (Force) if not in any arcs
+      description = {text = "%s target locked %s and boosted/barrel rolled (Force) to avoid %s's arc and still get a shot.", strings = {'ship', 'target', 'target'}},
+      preconditions = {targetMoved = false, targetLocked = false, inEnemyArc = true, targetWithinRange = true},
+      action = {
+          [1] = {targetLock = false, boost = false},
+          [2] = {targetLock = false, barrelRoll = false}
+      },
+      postconditions = {hasShot = true, inTargetsArc = false}
+  },
+  [3] = { -- Focus > boost (Force) or focus > barrel roll (Force) to avoid target's arc and still get a shot
+      description = {text = "%s focused and barrel rolled/boosted (Force) to avoid %s's arc and still get a shot.", strings = {'ship', 'target'}},
+      preconditions = {hasShot = true, inTargetsArc = true},
+      action = {
+          [1] = {focus = false, boost = false},
+          [2] = {focus = false, barrelRoll = false}
+      },
+      postconditions = {hasShot = true, inTargetsArc = false}
+  },
+  [4] = { -- Boost > barrel roll (Force) or barrel roll > boost (Force) to get a shot
+      description = "%s barrel rolled/boosted (Force) to get a shot.",
+      preconditions = {hasShot = false},
+      action = {
+          [1] = {boost = false, barrelRoll = false},
+          [2] = {barrelRoll = false, boost = false}
+      },
+      postconditions = {hasShot = true}
+  },
+  [5] = { -- Focus if you have a shot
+      description = "%s has a shot so focused.",
+      preconditions = {hasShot = true},
+      action = 'focus'
+  },
+  [6] = { -- Boost > barrel roll (Force) or barrel roll > boost (Force) to avoid target's arc
+      description = {text = "%s barrel rolled > boost/boosted > barrel rolled (Force) to avoid %s's arc.", strings = {'ship', 'target'}},
+      preconditions = {inTargetsArc = true},
+      action = {
+          [1] = {boost = false, barrelRoll = false},
+          [2] = {barrelRoll = false, boost = false}
+      },
+      postconditions = {inTargetsArc = false}
+  },
+  [7] = { -- Target lock
+      description = {text = "%s target locked %s.", strings = {'ship', 'target'}},
+      preconditions = {targetLocked = false, targetWithinRange = true, hasShot = true},
+      action = 'targetLock'
+  },
+  [8] = { -- Evade (Force)
+      description = "%s evaded (Force).",
+      preconditions = {evading = false},
+      action = 'evade'
+  },
+  [9] = { -- Focus
+      description = "%s focused.",
+      action = 'focus'
+  }
+}
+
 -- Eta-2 Actis-class Interceptor
 BehaviourDB.rule_sets[1].ships['eta2actis'] = {}
 BehaviourDB.rule_sets[1].ships['eta2actis'].target_selection = {[1]='LockedInRange', [2]='ClosestInArcLowerInitiative', [3]='ClosestInArc', [4]='Closest'}
