@@ -865,6 +865,36 @@ masterShipDB['delta7aethersprite']={
   }
 }
 
+masterShipDB['delta7baethersprite']={
+	name = 'Delta-7B',
+	Hull = 3,
+	Shield = 3,
+	size = 'small',
+	agi = 2,
+	XWS = 'delta7baethersprite ',
+	Fac = {[6]=true},
+	arcs = {fixed = { range=3, type = {'front'}}},
+	moveSet={'wtl1','bbl1','bbr1','wtr1','rbl2s','wtl2','bbl2','bs2','bbr2','wtr2','rbr2s','wbl3','bs3','wbr3','ws4','rk4','ws5','rk5'},
+	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/Jedi_Delta7.obj',
+  Config = {
+    States = {
+      [1] = {
+          Name = "Normal",
+          Model = nil,
+          ZRot = 0,
+          Message = " removed hyperspace ring,",
+      },
+      [2] = {
+          Name = "Hyperspace ring mounted",
+          Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Hyperspace_Ring/hyperspace_ring_attachment.obj",
+          ZRot = 180,
+          Message = " mounted an hyperspace ring.",
+      }
+    },
+    ContextText = "Mount/unmount hyperspace ring",
+  }
+}
+
 masterShipDB['v19torrentstarfighter']={
 	name = 'V-19',
 	Hull = 5,

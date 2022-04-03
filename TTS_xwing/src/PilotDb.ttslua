@@ -7044,7 +7044,7 @@ masterPilotDB[916]={
   actSet = {'F','TL','R','Piv'},
 }
 
-masterPilotDB[916]={
+masterPilotDB[917]={
   name = 'Shadow Collective Operator',
   XWS = 'shadowcollectiveoperator',
   Faction = 3,
@@ -7057,7 +7057,7 @@ masterPilotDB[916]={
   actSet = {'F','TL','R','Piv'},
 }
 
-masterPilotDB[917]={
+masterPilotDB[918]={
   name = 'Ezra Bridger',
   XWS = 'ezrabridger-gauntletfighter',
   Faction = 1,
@@ -7072,7 +7072,7 @@ masterPilotDB[917]={
   actSet = {'F','TL','R','Piv'},
 }
 
-masterPilotDB[918]={
+masterPilotDB[919]={
   name = '"Chopper"',
   XWS = 'chopper-gauntletfighter',
   Faction = 1,
@@ -7086,7 +7086,7 @@ masterPilotDB[918]={
   actSet = {'F','TL','R','Piv'},
 }
 
-masterPilotDB[919]={
+masterPilotDB[920]={
   name = 'Mandalorian Resistance Pilot',
   XWS = 'mandalorianresistancepilot',
   Faction = 1,
@@ -7100,7 +7100,7 @@ masterPilotDB[919]={
   actSet = {'F','TL','R','Piv'},
 }
 
-masterPilotDB[920]={
+masterPilotDB[921]={
   name = 'Captain Hark',
   XWS = 'captainhark',
   Faction = 2,
@@ -7111,10 +7111,13 @@ masterPilotDB[920]={
   Shield = 2,
   init = 3,
   texture = 'deathwatch',
-  actSet = {'F','TL','R','Piv'},
+  actSet = {'F','TL','R'},
+  executeOptions = {
+      rs0  = {'rbl1z', 'rs0', 'rbr1z'}
+  },
 }
 
-masterPilotDB[921]={
+masterPilotDB[922]={
   name = 'Gar Saxon',
   XWS = 'garsaxon',
   Charge = 2,
@@ -7131,7 +7134,7 @@ masterPilotDB[921]={
 
 -- razorcrest pilots
 
-masterPilotDB[922]={
+masterPilotDB[923]={
   name = 'The Mandalorian',
   XWS = 'themandalorian',
   Faction = 3,
@@ -7145,7 +7148,7 @@ masterPilotDB[922]={
   actSet = {'F','TL','E','BR'},
 }
 
-masterPilotDB[923]={
+masterPilotDB[924]={
   name = 'Q9-0',
   XWS = 'q90',
   Faction = 3,
@@ -7159,7 +7162,7 @@ masterPilotDB[923]={
   actSet = {'F','TL','E','BR'},
 }
 
-masterPilotDB[924]={
+masterPilotDB[925]={
   name = 'Guild Bounty Hunter',
   XWS = 'guildbountyhunter',
   Faction = 3,
@@ -7173,6 +7176,143 @@ masterPilotDB[924]={
   actSet = {'F','TL','E','BR'},
 }
 
+
+
+masterPilotDB[926]={
+  name = 'Anakin Skywalker',
+  XWS = 'anakinskywalker-delta7baethersprite',
+  Faction = 6,
+  limited = 1,
+  ship_type = 'delta7baethersprite',
+  cost = 59,
+  slot = {21, 17,10,14},
+  Force = 3,
+  init = 6,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/AnakinSkywalker.png',
+  actSet = {'F','E','TL','BR','B'},
+  keywords = {'Light Side', 'Jedi'}
+}
+
+masterPilotDB[927]={
+  name = 'Luminara Unduli',
+  XWS = 'luminaraunduli-delta7baethersprite',
+  Faction = 6,
+  limited = 1,
+  ship_type = 'delta7baethersprite',
+  cost = 40,
+  slot = {21, 17,10,14},
+  Force = 2,
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/LuminaraUnduli.png',
+  actSet = {'F','E','TL','BR','B'},
+  keywords = {'Light Side', 'Jedi'}
+}
+
+masterPilotDB[928]={
+  name = 'Barriss Offee',
+  XWS = 'barrissoffee-delta7baethersprite',
+  Faction = 6,
+  limited = 1,
+  ship_type = 'delta7baethersprite',
+  cost =36,
+  slot = {21, 17,10,14},
+  Force = 1,
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/BarrissOffee.png',
+  actSet = {'F','E','TL','BR','B'},
+  keywords = {'Light Side', 'Jedi'}
+}
+
+masterPilotDB[929]={
+  name = 'Ahsoka Tano',
+  XWS = 'ahsokatano-delta7baethersprite',
+  Faction = 6,
+  limited = 1,
+  ship_type = 'delta7baethersprite',
+  cost = 41,
+  slot = {21, 17,10,14},
+  Force = 2,
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/AhsokaTano.png',
+  actSet = {'F','E','TL','BR','B'},
+  keywords = {'Light Side', 'Jedi'}
+}
+
+masterPilotDB[930]={
+  name = 'Obi-Wan Kenobi',
+  XWS = 'obiwankenobi-delta7baethersprite',
+  Faction = 6,
+  limited = 1,
+  ship_type = 'delta7baethersprite',
+  cost = 47,
+  slot = {21, 17,10,14},
+  Force = 3,
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/Obi-WanKenobi.png',
+  actSet = {'F','E','TL','BR','B'},
+  keywords = {'Light Side', 'Jedi'}
+}
+
+masterPilotDB[931]={
+  name = 'Mace Windu',
+  XWS = 'macewindu-delta7baethersprite',
+  Faction = 6,
+  limited = 1,
+  ship_type = 'delta7baethersprite',
+  cost = 44,
+  slot = {21, 17,10,14},
+  Force = 3,
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/MaceWindu.png',
+  actSet = {'F','E','TL','BR','B'},
+  keywords = {'Light Side', 'Jedi'}
+}
+
+masterPilotDB[932]={
+  name = 'Plo Koon',
+  XWS = 'plokoon-delta7baethersprite',
+  Faction = 6,
+  limited = 1,
+  ship_type = 'delta7baethersprite',
+  cost = 43,
+  slot = {21, 17,10,14},
+  Force = 2,
+  init = 5,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/PloKoon.png',
+  actSet = {'F','E','TL','BR','B'},
+  keywords = {'Light Side', 'Jedi'}
+}
+
+masterPilotDB[933]={
+  name = 'Saesee Tiin',
+  XWS = 'saeseetiin-delta7baethersprite',
+  Faction = 6,
+  limited = 1,
+  ship_type = 'delta7baethersprite',
+  cost = 40,
+  slot = {21, 17,10,14},
+  Force = 2,
+  init = 4,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/SaeseeTiin.png',
+  actSet = {'F','E','TL','BR','B'},
+  keywords = {'Light Side', 'Jedi'}
+}
+
+masterPilotDB[934]={
+  name = 'Jedi Knight',
+  XWS = 'jediknight-delta7baethersprite',
+  Faction = 6,
+  ship_type = 'delta7baethersprite',
+  cost = 36,
+  slot = {21, 17,10,14},
+  Force = 1,
+  init = 3,
+  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/JediKnight.png',
+  actSet = {'F','E','TL','BR','B'},
+  keywords = {'Light Side', 'Jedi'},
+  tintFriendly = {mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/Jedi_Delta7_tint.obj',
+                  texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/JediKnight-tint.png',}
+}
 
 
 
