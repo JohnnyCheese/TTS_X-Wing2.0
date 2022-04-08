@@ -767,20 +767,33 @@ AIModule.PerformManeuver = function(ship, take_action)
 
                             local obstacle_name = swerve_probe_data.collObs.getName()
                             if obstacle_name:find('Asteroid') then
-                                -- Asteroid: roll an attack die and suffer a hit or crit
+                                -- Asteroid: Suffer 1 Hit damage and roll one attack die. On a Hit/Crit suffer 1 Hit damage
                                 AIModule.current_move.obstacle = 'asteroid'
-                                printToAll(ship.GetName() .. ' has collided with an asteroid. Please roll a red die and inflict a hit or a critical hit if either is rolled.', color(1.0, 1.0, 0.2, 0.9))
-                            elseif obstacle_name:find('Debris') or obstacle_name:find('Loose Cargo') or obstacle_name:find('Spare') then
-                                -- Debris cloud: gain stress (happens in ManeuverPostShipRest), roll and attack die and suffer a crit
+                                printToAll(ship.GetName() .. ' has collided with an Asteroid. Suffer 1 Hit damage and roll an attack die, suffer 1 additional Hit damage if a Hit or Critical is rolled.', color(1.0, 1.0, 0.2, 0.9))
+                            elseif obstacle_name:find('Debris') then
+                                -- Debris cloud: Take 1 Stress (happens in ManeuverPostShipRest), and roll one attack die. On a Hit suffer 1 Hit damage, on a Crit suffer 1 Crit damage
                                 AIModule.current_move.obstacle = 'debris_field'
-                                printToAll(ship.GetName() .. ' has collided with a debris field. Please roll a red die and inflict a critical hit if one is rolled.', color(1.0, 1.0, 0.2, 0.9))
+                                printToAll(ship.GetName() .. ' has collided with a Debris Field. Roll an attack die and suffer 1 Hit damage if a Hit is rolled or 1 Critical damage if a Critical is rolled.', color(1.0, 1.0, 0.2, 0.9))
                             elseif obstacle_name:find('Gas Cloud') then
+                                -- Gas cloud: Break All Locks, gain 1 Strain (happens in ManeuverPostShipRest), and roll one attack die. On a Hit gain 1 Ion. On a Crit gain 3 Ion
                                 AIModule.current_move.obstacle = 'gas_cloud'
-                                -- Gas cloud: roll an attack die, gain a strain on an eye or a hit
-                                printToAll(ship.GetName() .. ' has collided with a gas cloud. Please roll a red die and gain a strain if an eye or a hit is rolled.', color(1.0, 1.0, 0.2, 0.9))
+                                printToAll(ship.GetName() .. ' has collided with a Gas Cloud. Break all Locks and roll an attack die, gain 1 Ion if a Hit is rolled or 3 Ions if a Critical is rolled.', color(1.0, 1.0, 0.2, 0.9))
+                            elseif obstacle_name:find('Loose Cargo') then
+                                -- Loose Cargo: Take 1 Strain (happens in ManeuverPostShipRest), and roll one attack die. On a Hit/Crit take 1 Stress
+                                AIModule.current_move.obstacle = 'Loose Cargo'
+                                printToAll(ship.GetName() .. ' has collided with a Loose Cargo. Roll an attack die and gain 1 Stress if if a Hit or Critical is rolled.', color(1.0, 1.0, 0.2, 0.9))
+                            elseif obstacle_name:find('Spare') then
+                                -- Spare Parts: Take 1 Strain (happens in ManeuverPostShipRest), and roll one attack die. On a Hit/Crit take 1 Stress
+                                AIModule.current_move.obstacle = 'Spare'
+                                printToAll(ship.GetName() .. ' has collided with Spare Parts. Roll an attack die and gain 1 Stress if if a Hit or Critical is rolled.', color(1.0, 1.0, 0.2, 0.9))
                             elseif obstacle_name:find('Chaff') then
-                              AIModule.current_move.obstacle = 'chaff_cloud'
-                              printToAll(ship.GetName() .. ' has collided with an electro-chaff cloud. Break all locks on it, and apply the jam effect.', color(1.0, 1.0, 0.2, 0.9))
+                                -- Electro-chaff Cloud: Break All Locks, gain 1 Jam, and roll one attack die. On a Hit/Crit gain 1 Stress
+                                AIModule.current_move.obstacle = 'chaff_cloud'
+                                printToAll(ship.GetName() .. ' has collided with an Electro-chaff Cloud. Break all Locks, gain 1 Jam token, and roll an attack die. Gain 1 Stress if a Hit or Critical is rolled.', color(1.0, 1.0, 0.2, 0.9))
+                            elseif obstacle_name:find('Blaze') then
+                                -- Blaze: Roll one attack die. On a Hit/Crit suffer 1 Hit damage, on a Focus it gains 1 Stress token
+                                AIModule.current_move.obstacle = 'Blaze'
+                                printToAll(ship.GetName() .. ' has collided with a Blaze. Roll an attack die, suffer 1 Hit damage if a Hit or Critical is rolled, or gain 1 Stress if a Focus is rolled.', color(1.0, 1.0, 0.2, 0.9))
                             end
                         end
                     end
@@ -852,6 +865,8 @@ AIModule.ManeuverPostShipRest = function(ship)
 
     if AIModule.current_move.obstacle == 'debris_field' then
         DialModule.PerformAction(ship, 'Stress', ship.getVar("owningPlayer"))
+    elseif AIModule.current_move.obstacle == 'gas_cloud' or AIModule.current_move.obstacle == 'Loose Cargo' or AIModule.current_move.obstacle == 'Spare' then
+        DialModule.PerformAction(ship, 'Strain', ship.getVar("owningPlayer"))
     end
 
     if AIModule.current_move.difficulty == 'r' then
