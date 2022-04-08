@@ -5260,6 +5260,7 @@ BombModule.snapTable['Connor Net'] = 'connor'
 BombModule.snapTable['Loose Cargo'] = 'rgc'
 BombModule.snapTable['Concussion Bomb'] = 'standardAoE'
 BombModule.snapTable['Electro-Chaff Cloud'] = 'chaff'
+BombModule.snapTable['Blaze Bomb'] = 'standardAoE'
 
 -- Minimum distance to snap
 BombModule.snapDist = 1.5
@@ -5310,6 +5311,10 @@ BombModule.OnTokenDrop = function(token)
               position          = vector(destPos[1],destPos[2],destPos[3]) + vector(0,1,0),
               smooth            = true,
             })
+        end
+
+        if token.getName() == 'Blaze Bomb' then
+          BombModule.SpawnBlaze({pos=destPos, rot=destRot})
         end
 
         if token.hasTag('Mine') then
@@ -5459,6 +5464,37 @@ BombModule.ExpandCluster = function(center)
     t2.addTag('Mine')
     t2.setLuaScript(clusterScript)
     BombModule.CheckMineDroppedOverlapping(t2)
+end
+
+BombModule.SpawnBlaze = function(center)
+    local offset = {-Convert_mm_igu(53),0, 0}
+    local tParams = {type='Custom_Model'}
+    local tCustom = {
+      mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/tokens/devices/proximity.obj',
+      diffuse = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/tokens/devices/blaze.png',
+      collider = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/tokens/devices/proximity-col.obj',
+      convex = true,
+      material = 3,
+      type = 0
+    }
+
+    local t1 = spawnObject(tParams)
+    t1.setCustomObject(tCustom)
+    t1.lock()
+    local destOffset1 = Vect.RotateDeg(offset, center.rot[2])
+    t1.setPositionSmooth(Vect.Sum(center.pos, destOffset1), false, true)
+    t1.setRotationSmooth(center.rot, false, true)
+    t1.setScale({0.38, 0.38, 0.38})
+    t1.setName('Blaze')
+    t1.addTag('Mine')
+    t1.addTag('Obstacle')
+    t1.setLuaScript(clusterScript)
+    BombModule.CheckMineDroppedOverlapping(t1)
+    fuseBag = getObjectFromGUID('568727')
+    fuseBag.takeObject({
+      position          = Vect.Sum(Vect.Sum(center.pos, destOffset1), {0,1,0}),
+      smooth            = true,
+    })
 end
 
 -- END BOMB MODULE
@@ -5840,6 +5876,7 @@ saveAndLoadShipStateLua = [[
 __XW_Ship = true
 
 function initContextMenu()
+  self.clearContextMenu()
     for type, arc in pairs(self.getTable("Data").arcs or {}) do
       if type == 'fixed' then
         for i, fixedarc in pairs(arc.type or {}) do
@@ -6553,8 +6590,8 @@ function newSpawner(listTable)
         local texture = nil
         if Customization[pilotName].texture ~= nil then
             texture = Customization[pilotName].texture
-        elseif Pilots[shipIndex].texture ~= nil then
-            texture = '{verifycache}'..Pilots[shipIndex].texture
+        elseif Pilots[shipIndex].Data.texture ~= nil then
+            texture = '{verifycache}'..Pilots[shipIndex].Data.texture
         end
         local shipoffset = vector(0,0,0)
         Pilots[shipIndex].Data.ColorId = tint
@@ -6563,6 +6600,11 @@ function newSpawner(listTable)
         end
 
         if Pilots[shipIndex].newSpawner then
+          if Customization[pilotName].texture ~= nil then
+              texture = Customization[pilotName].texture
+          elseif Pilots[shipIndex].Data.texture ~= nil then
+              texture = '{verifycache}'..Pilots[shipIndex].Data.textures[Pilots[shipIndex].Data.texture]
+          end
           shipoffset = vector(0,2,0)
           local size = Pilots[shipIndex].Size
           local arcs = Pilots[shipIndex].Data.arcs

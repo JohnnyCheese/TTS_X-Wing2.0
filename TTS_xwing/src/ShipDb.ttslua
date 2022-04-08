@@ -132,9 +132,16 @@ masterShipDB['tielnfighter']={
     size = 'small',
     agi = 3,
     XWS = 'tielnfighter',
+    newSpawner = true,
+    textures = {
+      blue = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tielnfighter/textures/Tie-Fighter-Blue2.jpg',
+      grey = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tielnfighter/textures/Tie-Fighter-Grey2.jpg',
+      inferno = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tielnfighter/textures/Tie-Fighter-Inferno2.jpg',
+      rebel = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tielnfighter/textures/Tie-Fighter-Rebel.jpg',
+    },
     Fac = {[1]=true,[2]=true},
     arcs = {fixed = { range=3, type = {'front'}}},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/tie_ln/ship-base.obj',
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tielnfighter/TIE_LN.obj',
     moveSet = {'wtl1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk3','ws4','rk4','ws5'},
     keywords = {"TIE"}
 }
@@ -527,6 +534,15 @@ masterShipDB['rz1awing']={
 masterShipDB['fangfighter']={
   name = 'Fang Fighter',
   newSpawner = true,
+  textures = {
+    blank = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/fangfighter/textures/Blank.jpg',
+    bodica = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/fangfighter/textures/Bodica.jpg',
+    dirk = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/fangfighter/textures/Dirk.jpg',
+    new = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/fangfighter/textures/New.jpg',
+    original = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/fangfighter/textures/Original.jpg',
+    rebelfenn = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/fangfighter/textures/Rebel-Fenn.jpg',
+    volunteer = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/fangfighter/textures/Volunteer.jpg',
+  },
   Hull = 4,
   Shield = 0,
   size = 'small',
@@ -826,6 +842,36 @@ masterShipDB['delta7aethersprite']={
 	size = 'small',
 	agi = 3,
 	XWS = 'delta7aethersprite',
+	Fac = {[6]=true},
+	arcs = {fixed = { range=3, type = {'front'}}},
+	moveSet={'wtl1','bbl1','bbr1','wtr1','rbl2s','wtl2','bbl2','bs2','bbr2','wtr2','rbr2s','wbl3','bs3','wbr3','ws4','rk4','ws5','rk5'},
+	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/Jedi_Delta7.obj',
+  Config = {
+    States = {
+      [1] = {
+          Name = "Normal",
+          Model = nil,
+          ZRot = 0,
+          Message = " removed hyperspace ring,",
+      },
+      [2] = {
+          Name = "Hyperspace ring mounted",
+          Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Hyperspace_Ring/hyperspace_ring_attachment.obj",
+          ZRot = 180,
+          Message = " mounted an hyperspace ring.",
+      }
+    },
+    ContextText = "Mount/unmount hyperspace ring",
+  }
+}
+
+masterShipDB['delta7baethersprite']={
+	name = 'Delta-7B',
+	Hull = 3,
+	Shield = 3,
+	size = 'small',
+	agi = 2,
+	XWS = 'delta7baethersprite ',
 	Fac = {[6]=true},
 	arcs = {fixed = { range=3, type = {'front'}}},
 	moveSet={'wtl1','bbl1','bbr1','wtr1','rbl2s','wtl2','bbl2','bs2','bbr2','wtr2','rbr2s','wbl3','bs3','wbr3','ws4','rk4','ws5','rk5'},
@@ -1245,9 +1291,19 @@ masterShipDB['gauntletfighter']={
   size = 'large',
   agi = 2,
   XWS = 'gauntletfighter',
-  Fac = {[1]=true,[2]=true,[3]=true,[4]=true,[5]=true},
-  --arcs = {fixed = { range=3, type = {'frontback'}}},
-  arcs = {fixed = { range=3, type = {'front'}}},
+  Fac = {[1]=true,[2]=true,[3]=true,[6]=true,[7]=true},
+  arcs = {fixed = { range=3, type = {'frontback'}}},
+  textures = {
+    bokatan = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/textures/BoKatan.jpg',
+    bokatancis = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/textures/BoKatanCIS.jpg',
+    deathwatch = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/textures/Deathwatch.jpg',
+    default = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/textures/Default.jpg',
+    imperial = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/textures/Imperial.jpg',
+    maul = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/textures/Maul.jpg',
+    plain = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/textures/Plain.jpg',
+    previzsla = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/textures/PreVizla.jpg',
+    scum = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/textures/ScumColours.jpg'
+  },
   moveSet = {'bbl1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','ws4','rs0'},
   mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/ship-base.obj',
   Config = {
@@ -1266,8 +1322,27 @@ masterShipDB['gauntletfighter']={
       }
     },
     ContextText = "Rise/lower swivel wing",
-    --Token = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/gauntletfighter/wingtoken.png"
-  }
+    Token = "http://nnxwing.com/Content/TTS/Config/GauntletFighter.png"
+    }
+}
+
+masterShipDB['st70assaultship']={
+  name = 'ST-70 Assault Ship',
+  newSpawner = true,
+  textures = {
+    guildbountyhunter = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/st70assaultship/textures/guildbountyhunter.jpg',
+    mandalorian = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/st70assaultship/textures/mandalorian.png',
+    plain = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/st70assaultship/textures/plain.jpg',
+  },
+  Hull = 7,
+  Shield = 2,
+  size = 'medium',
+  agi = 2,
+  XWS = 'st70assaultship',
+  Fac = {[3]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'rtl1','wbl1','bs1','wbr1','rtr1','rtl2t','wtl2','wbl2','bs2','wbr2','wtr2','rtr2t','rtl3','wbl3','bs3','wbr3','rtr3','bs4','rk5','rs0'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/st70assaultship/razorcrest.obj',
 }
 
 

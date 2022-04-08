@@ -4207,10 +4207,10 @@ masterUpgradesDB['primeministeralmec']={
     },
 }
 
-masterUpgradesDB['bokatankryze-crew']={
+masterUpgradesDB['bokatankryze']={
     name = "Bo-Katan Kryze",
     limited = 1,
-    XWS = 'bokatankryze-crew',
+    XWS = 'bokatankryze',
     slot = 8,
     cost = 200,
     restriction = {
@@ -4254,10 +4254,10 @@ masterUpgradesDB['maul-crew']={
     },
 }
 
-masterUpgradesDB['previzsla-crew']={
+masterUpgradesDB['previzsla']={
     name = "Pre Vizsla",
     limited = 1,
-    XWS = 'previzsla-crew',
+    XWS = 'previzsla',
     slot = 8,
     cost = 200,
     restriction = {
@@ -4265,10 +4265,10 @@ masterUpgradesDB['previzsla-crew']={
     },
 }
 
-masterUpgradesDB['rookkast-crew']={
+masterUpgradesDB['rookkast']={
     name = "Rook Kast",
     limited = 1,
-    XWS = 'rookkast-crew',
+    XWS = 'rookkast',
     slot = 8,
     cost = 200,
     addAction = {'TL'},
@@ -4314,10 +4314,10 @@ masterUpgradesDB['sabinewren-crew']={
     Condition = "Trials of the Darksaber",
 }
 
-masterUpgradesDB['captainhark-crew']={
+masterUpgradesDB['captainhark']={
     name = "Captain Hark",
     limited = 1,
-    XWS = 'captainhark-crew',
+    XWS = 'captainhark',
     slot = 8,
     cost = 200,
     Charge = 2,
@@ -4337,10 +4337,10 @@ masterUpgradesDB['fennrau']={
     },
 }
 
-masterUpgradesDB['garsaxon-crew']={
+masterUpgradesDB['garsaxon']={
     name = "Gar Saxon",
     limited = 1,
-    XWS = 'garsaxon-crew',
+    XWS = 'garsaxon',
     slot = 8,
     cost = 200,
     restriction = {
@@ -4348,10 +4348,10 @@ masterUpgradesDB['garsaxon-crew']={
     },
 }
 
-masterUpgradesDB['obiwankenobi-crew']={
+masterUpgradesDB['obiwankenobi']={
     name = "Obi-Wan Kenobi",
     limited = 1,
-    XWS = 'obiwankenobi-crew',
+    XWS = 'obiwankenobi',
     slot = 8,
     cost = 200,
     Force = 1,
@@ -4604,9 +4604,9 @@ masterUpgradesDB['protoncannon']={
     cost = 3,
 }
 
-masterUpgradesDB['clanwrencommandoteam']={
-    name = "Clan Wren Commando Team",
-    XWS = 'clanwrencommandoteam',
+masterUpgradesDB['clanwrencommandos']={
+    name = "Clan Wren Commandos",
+    XWS = 'clanwrencommandos',
     limited = 1,
     slot = 8,
     remSlot = {8},
@@ -4618,9 +4618,9 @@ masterUpgradesDB['clanwrencommandoteam']={
     },
 }
 
-masterUpgradesDB['imperialsupercommandoteam']={
-    name = "Imperial Super Commando Team",
-    XWS = 'imperialsupercommandoteam',
+masterUpgradesDB['imperialsupercommandos']={
+    name = "Imperial Super Commandos",
+    XWS = 'imperialsupercommandos',
     limited = 1,
     slot = 8,
     remSlot = {8},
@@ -4632,9 +4632,9 @@ masterUpgradesDB['imperialsupercommandoteam']={
     },
 }
 
-masterUpgradesDB['mandaloriansupercommandoteam']={
-    name = "Mandalorian Super Commando Team",
-    XWS = 'mandaloriansupercommandoteam',
+masterUpgradesDB['mandaloriansupercommandos']={
+    name = "Mandalorian Super Commandos",
+    XWS = 'mandaloriansupercommandos',
     limited = 1,
     slot = 8,
     remSlot = {8},
@@ -4646,9 +4646,9 @@ masterUpgradesDB['mandaloriansupercommandoteam']={
     },
 }
 
-masterUpgradesDB['niteowlcommandoteam']={
-    name = "Nite Owl Commando Team",
-    XWS = 'niteowlcommandoteam',
+masterUpgradesDB['niteowlcommandos']={
+    name = "Nite Owl Commandos",
+    XWS = 'niteowlcommandos',
     limited = 1,
     slot = 8,
     remSlot = {8},
@@ -4660,9 +4660,9 @@ masterUpgradesDB['niteowlcommandoteam']={
     },
 }
 
-masterUpgradesDB['deathwatchcommandoteam']={
-    name = "Death Watch Commando Team",
-    XWS = 'deathwatchcommandoteam',
+masterUpgradesDB['deathwatchcommandos']={
+    name = "Death Watch Commandos",
+    XWS = 'deathwatchcommandos',
     limited = 1,
     slot = 8,
     remSlot = {8},
@@ -4691,9 +4691,23 @@ masterUpgradesDB['homingtorpedoes']={
 	cost = 12,
 }
 
+masterUpgradesDB['notorious']={
+    name = "Notorious",
+    XWS = 'notorious',
+    slot = 17,
+    cost = 2,
+    Charge = 2,
+    restriction = {
+      -- equipped: illicit
+    },
+}
 
-
-
+masterUpgradesDB['enduring']={
+    name = "Enduring",
+    XWS = 'enduring',
+    slot = 1,
+    cost = 2,
+}
 
 
 return masterUpgradesDB

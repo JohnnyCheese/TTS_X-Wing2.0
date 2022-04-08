@@ -6,40 +6,46 @@ interactable = false
 isHiding = false
 
 function initContextMenu()
-  if self.getTable("Data") then
-    for type, arc in pairs(self.getTable("Data").arcs or {}) do
-      if type == 'fixed' then
-        for i, fixedarc in pairs(arc.type or {}) do
-          self.addContextMenuItem("FireArc - " .. Global.getTable('arcNames')[fixedarc] , function(argument) self.setDescription(Global.getTable('arcToCmnd')[fixedarc]) end, false)
-        end
-      elseif type == 'turret' then
+  self.clearContextMenu()
+  if finished_setup then
+    if self.getTable("Data") then
+      for type, arc in pairs(self.getTable("Data").arcs or {}) do
+        if type == 'fixed' then
+          for i, fixedarc in pairs(arc.type or {}) do
+            self.addContextMenuItem("FireArc - " .. Global.getTable('arcNames')[fixedarc] , function(argument) self.setDescription(Global.getTable('arcToCmnd')[fixedarc]) end, false)
+          end
+        elseif type == 'turret' then
 
-        for mount, turret in pairs(arc) do
-          local idx = Global.getTable('mountToIndex')[mount]
-          self.addContextMenuItem("FireArc - " .. turret.name , function(argument) self.setDescription('turret' .. idx) end, false)
-        end
-        for mount, turret in pairs(arc) do
-          local idx = Global.getTable('mountToIndex')[mount]
-          if (turret.type[1] == 'doubleturret') or (#turret.type == 2) then
-            self.addContextMenuItem("Rot - " .. turret.name , function(argument) self.setDescription('rot' ..  idx) end, false)
-          else
-            self.addContextMenuItem("Rot L - " .. turret.name , function(argument) self.setDescription('rotl' .. idx) end, false)
-            self.addContextMenuItem("Rot R - " .. turret.name , function(argument) self.setDescription('rotr' .. idx) end, false)
+          for mount, turret in pairs(arc) do
+            local idx = Global.getTable('mountToIndex')[mount]
+            self.addContextMenuItem("FireArc - " .. turret.name , function(argument) self.setDescription('turret' .. idx) end, false)
+          end
+          for mount, turret in pairs(arc) do
+            local idx = Global.getTable('mountToIndex')[mount]
+            if (turret.type[1] == 'doubleturret') or (#turret.type == 2) then
+              self.addContextMenuItem("Rot - " .. turret.name , function(argument) self.setDescription('rot' ..  idx) end, false)
+            else
+              self.addContextMenuItem("Rot L - " .. turret.name , function(argument) self.setDescription('rotl' .. idx) end, false)
+              self.addContextMenuItem("Rot R - " .. turret.name , function(argument) self.setDescription('rotr' .. idx) end, false)
+            end
           end
         end
       end
-    end
-    local config = self.getTable("Data").Config
-    if config  then
-        self.addContextMenuItem(config.ContextText, function() self.call(SetConfiguration()) end, false)
-    end
+      local config = self.getTable("Data").Config
+      if config  then
+          self.addContextMenuItem(config.ContextText, function() self.call(SetConfiguration()) end, false)
+      end
 
-    self.AddContextMenuItem("Mark ship", function(argument) Global.call("MarkShip", {ship=self}) end, false)
+      self.AddContextMenuItem("Mark ship", function(argument) Global.call("MarkShip", {ship=self}) end, false)
 
-    if Global.getVar('test_AI') or self.getVar('isAi') then
-        self.AddContextMenuItem("AI move and action", function(argument) Global.call("PerformAIManeuver", {['ship']=self, ['take_action']=true}) end, false)
-        self.AddContextMenuItem("AI move", function(argument) Global.call("PerformAIManeuver", {['ship']=self, ['take_action']=false}) end, false)
+      if Global.getVar('test_AI') or self.getVar('isAi') then
+          self.AddContextMenuItem("AI move and action", function(argument) Global.call("PerformAIManeuver", {['ship']=self, ['take_action']=true}) end, false)
+          self.AddContextMenuItem("AI move", function(argument) Global.call("PerformAIManeuver", {['ship']=self, ['take_action']=false}) end, false)
+      end
     end
+  else
+    self.AddContextMenuItem("Next Texture", NextTexture, false)
+    self.AddContextMenuItem("Toggle Peg", TogglePeg, false)
   end
 end
 
@@ -413,6 +419,49 @@ function setupUI()
   end
   DisableAttachedColliders()
   Wait.time(DisableAttachedColliders, 5)
+end
+
+function NextTexture()
+  local data = self.getTable("Data")
+  local next_texture = nil
+  local select_next = false
+  for texture, url in pairs(data.textures) do
+    if next_texture == nil then
+      next_texture = texture
+    end
+    if select_next then
+      next_texture = texture
+      break
+    end
+    if texture == data.texture then
+      select_next = true
+    end
+  end
+  data.texture =  next_texture
+  self.setTable('Data', data)
+  local texture_url = data.textures[next_texture]
+  setCustomization({texture=texture_url})
+end
+
+
+function TogglePeg()
+  local attachments = self.getAttachments()
+  for i = #attachments, 1, -1 do
+    local attachment = attachments[i]
+    if attachment.name == "Peg" then
+
+      local model = self.removeAttachment(attachment.index)
+      local tint = model.getColorTint()
+      if tint[4] == 1.0 then
+        tint[4] = 0
+      else
+        tint[4] = 1.0
+      end
+      model.setColorTint(tint)
+      self.addAttachment(model)
+    end
+  end
+  Wait.frames(function() DisableAttachedColliders() end, 2)
 end
 
 -- Save self state
