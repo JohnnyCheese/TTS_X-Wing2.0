@@ -1,5 +1,6 @@
 -- Standard libraries extentions
 #include !/TTS_lib/Util/Util
+#include !/TTS_xwing/src/ShipCustomizer
 
 __XW_Ship = true
 interactable = false
@@ -46,6 +47,7 @@ function initContextMenu()
   else
     self.AddContextMenuItem("Next Texture", NextTexture, false)
     self.AddContextMenuItem("Toggle Peg", TogglePeg, false)
+    self.AddContextMenuItem("Spawn Customizer", SpawnCustomizer, false)
   end
 end
 
@@ -462,6 +464,31 @@ function TogglePeg()
     end
   end
   Wait.frames(function() DisableAttachedColliders() end, 2)
+end
+
+function SpawnCustomizer()
+  local sizemod = {small=1.0, medium=0.75, large=0.5}
+  local data = self.getTable('Data')
+  local customizer = spawnObject({
+    type              = "Custom_Model",
+    position          = self.getPosition() - self.getTransformRight()*3.5,
+    rotation          = self.getRotation(),
+    scale             = self.getScale() * sizemod[data.Size],
+    sound             = false,
+    snap_to_grid      = false,
+  })
+  local data = self.getTable('Data')
+  local texture_url = data.textures[data.texture]
+  customizer.setCustomObject({
+      type = 0,
+      material = 3,
+      mesh = data.mesh,
+      diffuse = texture_url;
+  })
+  if data.Config then
+    customizer.setVar("config_mesh", data.Config.States[1].Model)
+  end
+  customizer.setLuaScript(customizer_scipt)
 end
 
 -- Save self state

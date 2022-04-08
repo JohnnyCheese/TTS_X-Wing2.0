@@ -6652,9 +6652,9 @@ function newSpawner(listTable)
           local shiprot = rot
           local ship = newShip
           local shipCustomObject = {
-            mesh = '{verifycache}'..Pilots[shipIndex].mesh,
+            mesh = '{verifycache}'..Pilots[shipIndex].Data.mesh,
             diffuse = texture,
-            --collider = '{verifycache}'..Pilots[shipIndex].mesh,
+            --collider = '{verifycache}'..Pilots[shipIndex].Data.mesh,
             convex = true,
             material = 1,
             type = 1
@@ -6702,8 +6702,8 @@ function newSpawner(listTable)
             local model = nil
             if Customization[pilotName].model ~= nil then
                 model = Customization[pilotName].model
-            elseif Pilots[shipIndex].mesh ~= nil then
-                model = '{verifycache}'..Pilots[shipIndex].mesh
+            elseif Pilots[shipIndex].Data.mesh ~= nil then
+                model = '{verifycache}'..Pilots[shipIndex].Data.mesh
             end
             if model then
                 newShip.setCustomObject({mesh = model})
