@@ -6359,7 +6359,7 @@ function newSpawner(listTable)
     local dialSkin = listTable.factionDial
     spawnedPilotList = {}
     local spawnPrefix = "{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/"
-    local factionnames = {"rebel", "empire", "scum", "resistance", "firstorder", "republic", "separatists"}
+    local factionnames = {"rebel", "empire", "scum", "resistance", "first-order", "republic", "separatists"}
 
     PosBag1 = {5, 5, 0}
     PosBag2 = {10, 10, 0}
@@ -6613,21 +6613,22 @@ function newSpawner(listTable)
         if Pilots[shipIndex].Data.Config then
             Pilots[shipIndex].Data.Config.CardGUID = configCardGUID
         end
-
         if Pilots[shipIndex].newSpawner then
           if Customization[pilotName].texture ~= nil then
               texture = Customization[pilotName].texture
           elseif Pilots[shipIndex].Data.texture ~= nil then
               texture = '{verifycache}'..Pilots[shipIndex].Data.textures[Pilots[shipIndex].Data.texture]
           end
-          shipoffset = vector(0,2,0)
+          shipoffset = vector(0,2.2,0)
           local size = Pilots[shipIndex].Size
           local arcs = Pilots[shipIndex].Data.arcs
-          local fixedarc = arcs.fixed.type[1] or "none"
+          fixedarc = "none"
+          if arcs.fixed then
+            local fixedarc = arcs.fixed.type[1] or "none"
+          end
           pos = LocalPos(spawnCard, {0, 0, 9})
           rot = spawnCard.getRotation()
           local base_prototype = getObjectFromGUID("8c3322")
-
           newShip = base_prototype.clone()
           newShip.setPositionSmooth(pos, false, true)
           newShip.setRotationSmooth(rot, false, true)
