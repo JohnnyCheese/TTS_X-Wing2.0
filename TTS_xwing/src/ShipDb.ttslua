@@ -302,6 +302,10 @@ masterShipDB['tiecapunisher']={
   Fac = {[2]=true},
   arcs = {fixed = { range=3, type = {'front'}}},
   moveSet = {'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rk4','rs0'},
+  newSpawner = false,
+  textures = {
+
+  },
   mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/EMP_tiepunisher/tiepunisher.obj',
   keywords = {'TIE'}
 }
@@ -384,10 +388,14 @@ masterShipDB['lambdaclasst4ashuttle']={
   size = 'large',
   agi = 1,
   XWS = 'lambdaclasst4ashuttle',
+  newSpawner = true,
+  textures = {
+    default = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/lambdaclasst4ashuttle/textures/default.png'
+      },
   Fac = {[2]=true},
   arcs = {fixed = { range=3, type = {'frontback'}}},
   moveSet = {'bbl1','bs1','bbr1','rtl2','wbl2','bs2','wbr2','rtr2','rbl3','ws3','rbr3','rs0'},
-  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/EMP_Lambda/lambda.obj'
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/lambdaclasst4ashuttle/lambda.obj'
 }
 
 masterShipDB['tiephphantom']={
@@ -412,10 +420,15 @@ masterShipDB['vt49decimator']={
   ProximityHider = true,
   agi = 0,
   XWS = 'vt49decimator',
+  newSpawner = true,
   Fac = {[2]=true},
   arcs = {turret = {main = {name = 'primary', type={'doubleturret'}}}},
   moveSet = {'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','wtl3','wbl3','ws3','wbr3','wtr3','ws4'},
-  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Large/EMP_Decimator/decimator2.obj'
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/vt49decimator/decimator.obj',
+  textures = {
+    black = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/vt49decimator/textures/black.jpg',
+    grey = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/vt49decimator/textures/grey.jpg'
+  }
 }
 
 masterShipDB['tieagaggressor']={
@@ -1133,9 +1146,14 @@ masterShipDB['tierbheavy']={
     XWS = 'tierbheavy',
     Fac = {[2]=true},
     arcs = {turret = {main={ name = 'primary', type= {'front', 'back'}}}},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Medium/Tie_Rb/Rb%20Brute.obj',
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/tierbheavy/TieHeavy.obj',
     moveSet = {'rtl1','wbl1','bs1','wbr1','rtr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3t','rtl3','wbl3','ws3','wbr3','rtr3','rtr3t','ws4'},
-    keywords = {'TIE'}
+    keywords = {'TIE'},
+    newSpawner = true,
+    textures = {
+      blue = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/tierbheavy/textures/Tie-Heavy-Blue.jpg',
+      grey = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/tierbheavy/textures/Tie-Heavy-Grey.jpg',
+    },
 }
 
 masterShipDB['xiclasslightshuttle']={
@@ -1290,6 +1308,7 @@ masterShipDB['gauntletfighter']={
   Shield = 2,
   size = 'large',
   agi = 2,
+  ProximityHider = true,
   XWS = 'gauntletfighter',
   Fac = {[1]=true,[2]=true,[3]=true,[6]=true,[7]=true},
   arcs = {fixed = { range=3, type = {'frontback'}}},
