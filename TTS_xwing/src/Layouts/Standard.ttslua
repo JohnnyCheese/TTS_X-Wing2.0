@@ -34,10 +34,10 @@ do
         ['Remotes']                 = { pos = {-2.39, 1.06, 15.55},     rot = {0.00, 270.00, 0.00},     scale = {0.95, 1.71, 0.95} },
         ['Spare parts']             = { pos = {2.35, 1.03, 15.59},      rot = {0.00, 180.00, 0.00},     scale = {0.80, 1.42, 0.80} },
 
-        ['Board Edge L']            = { pos = {-37.07, 0.8, 0.00}, rot = {0.00, 0.00, 0.00}, scale = {0.5, 0.5, 16.75}, int = false },
-        ['Board Edge R']            = { pos = {-3.96, 0.8, 0.00}, rot = {0.00, 0.00, 0.00}, scale = {0.5, 0.5, 16.75}, int = false },
-        ['Board Edge T']            = { pos = {-20.50, 0.8, 16.55}, rot = {0.00, 90.00, 0.00}, scale = {0.5, 0.5, 16.50}, int = false },
-        ['Board Edge B']            = { pos = {-20.50, 0.8, -16.55}, rot = {0.00, 90.00, 0.00}, scale = {0.5, 0.5, 16.50}, int = false },
+        ['Board Edge L']            = { pos = {-37.33, 0.80, 0.00}, rot = {0.00, 0.00, 0.00}, scale = {0.5, 0.5, 16.75}, int = false },
+        ['Board Edge R']            = { pos = {-3.71, 0.80, 0.00}, rot = {0.00, 0.00, 0.00}, scale = {0.5, 0.5, 16.75}, int = false },
+        ['Board Edge T']            = { pos = {-20.50, 0.80, 16.81}, rot = {0.00, 90.00, 0.00}, scale = {0.5, 0.5, 16.50}, int = false },
+        ['Board Edge B']            = { pos = {-20.50, 0.8, -16.81}, rot = {0.00, 90.00, 0.00}, scale = {0.5, 0.5, 16.50}, int = false },
 
         ['1 Straight Templates']    = { pos = {-40.30, 0.96, -2.25}, rot = {0.00, 180.00, 0.00},    scale = {3.63, 3.63, 3.63} },
         ['2 Straight Templates']    = { pos = {-41.90, 0.96, -3.00}, rot = {0.00, 0.00, 0.00},   scale = {3.63, 3.63, 3.63} },
@@ -118,7 +118,7 @@ do
         ['White']   = { pos = {50.00, 5.00, -15.00}, rot = {0.00, 270.00, 0.00}, scale = {5.01, 5.00, 1.00} },
     }
     standard.mats = {
-        ['Red-Blue'] = { pos = {-20.5142, 1, 0.00}, rot = {0.00, 180.00, 0.00}, scale = {1.63, 1.2, 1.63}, int = false },
+        ['Red-Blue'] = { pos = {-20.5142, 1, 0.00}, rot = {0.00, 180.00, 0.00}, scale = {1.655, 1.2, 1.655}, int = false },
         ['Purple-Orange'] = { pos = {20.5142, 1, 0.00}, rot = {0.00, 180.00, 0.00}, scale = {1.63, 1.2, 1.63}, int = false },
     }
     function StandardCallMat(matName, callFcn)
