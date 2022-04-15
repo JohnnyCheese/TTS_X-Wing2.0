@@ -4572,6 +4572,7 @@ masterUpgradesDB['thechild']={
     restriction = {
       Faction = {[1]=true, [2]=true, [3]=true},
     },
+    Condition = "Merciless Pursuit",
 }
 
 masterUpgradesDB['themandalorian']={
@@ -4707,6 +4708,51 @@ masterUpgradesDB['enduring']={
     XWS = 'enduring',
     slot = 1,
     cost = 2,
+}
+
+masterUpgradesDB['pelimotto']={
+    name = "Peli Motto",
+    XWS = 'pelimotto',
+    restriction = {
+      Faction = {[3] = true},
+      Size = {medium=true,large=true}
+    },
+    slot = 8,
+    cost = 200,
+    limited = 1,
+}
+
+masterUpgradesDB['greefkarga']={
+    name = "Greef Karga",
+    XWS = 'greefkarga',
+    restriction = {
+      Faction = {[3] = true}
+    },
+    slot = 8,
+    cost = 200,
+    limited = 1,
+}
+
+masterUpgradesDB['migsmayfeld']={
+    name = "Migs Mayfeld",
+    XWS = 'migsmayfeld',
+    restriction = {
+      Faction = {[2] = true, [3] = true}
+    },
+    slot = 16,
+    cost = 200,
+    limited = 1,
+}
+
+masterUpgradesDB['hotshottailblaster']={
+    name = "Hotshot Tail Blaster",
+    XWS = 'hotshottailblaster',
+    Charge = 2,
+    slot = 14,
+    cost = 200,
+    restriction = {
+      Size = {medium=true, large=true}
+    },
 }
 
 
