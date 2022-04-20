@@ -6622,9 +6622,9 @@ function newSpawner(listTable)
           shipoffset = vector(0,2.2,0)
           local size = Pilots[shipIndex].Size
           local arcs = Pilots[shipIndex].Data.arcs
-          fixedarc = "none"
+          local fixedarc = "none"
           if arcs.fixed then
-            local fixedarc = arcs.fixed.type[1] or "none"
+            fixedarc = arcs.fixed.type[1] or "none"
           end
           pos = LocalPos(spawnCard, {0, 0, 9})
           rot = spawnCard.getRotation()

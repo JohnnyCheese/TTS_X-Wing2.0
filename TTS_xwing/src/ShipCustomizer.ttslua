@@ -1,6 +1,7 @@
 customizer_scipt = [[
 announce_color = color(0.1,0.1,1.0)
 lockcount = 0
+local Configs = nil
 
 function onLoad(save_state)
   if save_state then
@@ -8,8 +9,8 @@ function onLoad(save_state)
     if state and state.ship_type then
       ship_type = state.ship_type
     end
-    if state and state.config_mesh then
-      --config_data = state.config_data
+    if state and state.configs then
+      Configs = state.configs
     end
   end
   local has_base = false
@@ -44,7 +45,7 @@ function onLoad(save_state)
     base.setName("customization base")
   end
 
-  if config_mesh and has_config == false then
+  if self.getTable("Configs") and self.getTable("Configs")[1] and has_config == false then
     local spawnpos = self.getPosition()
     local spawnrot = self.getRotation()
     local spawnscale = self.getScale()
@@ -61,7 +62,7 @@ function onLoad(save_state)
       snap_to_grid      = false,
     })
     config.setCustomObject({
-      mesh = config_mesh,
+      mesh = self.getTable("Configs")[1],
       diffuse = self.getCustomObject().diffuse
     })
     config.setName("config")
@@ -81,7 +82,7 @@ end
 function onSave()
   state = {
     ship_type = ship_type,
-    config_mesh = config_mesh
+    configs = self.getTable("Configs")
   }
   return JSON.encode(state)
 end
@@ -99,7 +100,7 @@ function onDrop(player_color)
   end
   if found_ship and found_ship.getVar("setCustomization") then
     local custom_object = self.getCustomObject()
-    found_ship.call("setCustomization", {model = custom_object.mesh, texture = custom_object.diffuse})
+    found_ship.call("setCustomization", {model = custom_object.mesh, texture = custom_object.diffuse, configs = self.getTable("Configs"), tint = self.getColorTint() })
     printToAll("Applied customization to " .. found_ship.getName(), announce_color)
   end
   -- Find nearest ship of same type

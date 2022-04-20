@@ -398,11 +398,30 @@ function setCustomization(args)
     local attachment = attachments[i]
     if attachment.name == "Config" or attachment.name == "Ship" then
       local model = self.removeAttachment(attachment.index)
+      if args.tint then
+        model.setColorTint(args.tint)
+      end
       local custom = model.getCustomObject()
       custom.diffuse = args.texture
-      model.setCustomObject(custom)
-      model = model.reload()
-      self.addAttachment(model)
+      if attachment.name == "Ship" then
+        custom.mesh = args.model
+        model.setCustomObject(custom)
+        model = model.reload()
+        self.addAttachment(model)
+      elseif args.configs then
+        if args.configs[tonumber(attachment.description)] then
+          custom.mesh = args.configs[tonumber(attachment.description)]
+          model.setCustomObject(custom)
+          model = model.reload()
+          self.addAttachment(model)
+        else
+          destroyObject(model)
+        end
+      else
+        model.setCustomObject(custom)
+        model = model.reload()
+        self.addAttachment(model)
+      end
     end
   end
   DisableAttachedColliders()
@@ -485,9 +504,13 @@ function SpawnCustomizer()
       mesh = data.mesh,
       diffuse = texture_url;
   })
+  local configs = {}
   if data.Config then
-    customizer.setVar("config_mesh", data.Config.States[1].Model)
+    for _, config in pairs(data.Config.States) do
+      table.insert(configs, config.Model)
+    end
   end
+  customizer.setTable("Configs", configs)
   customizer.setLuaScript(customizer_scipt)
 end
 
