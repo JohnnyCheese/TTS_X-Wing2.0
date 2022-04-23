@@ -162,10 +162,9 @@ function onDropped(playerColor)
         if self.is_face_down then
           drop_rot = drop_rot + vector(0,0,180)
         end
-
+        self.setLock(true)
         self.setPositionSmooth(nearest_pos + vector(0,0.25,0), false, false)
         self.setRotationSmooth(drop_rot, false, false)
-        self.setLock(true)
 
         droploc = nearest_loc
         dropvector = nearest.getTransformForward():rotateOver("y",nearest_loc.rot)

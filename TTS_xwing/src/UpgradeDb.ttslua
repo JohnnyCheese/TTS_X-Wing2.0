@@ -4608,6 +4608,7 @@ masterUpgradesDB['protoncannon']={
 masterUpgradesDB['clanwrencommandos']={
     name = "Clan Wren Commandos",
     XWS = 'clanwrencommandos',
+    remotes = {"Clan Wren Commandos (A)","Clan Wren Commandos (B)"},
     limited = 1,
     slot = 8,
     remSlot = {8},
@@ -4622,6 +4623,7 @@ masterUpgradesDB['clanwrencommandos']={
 masterUpgradesDB['imperialsupercommandos']={
     name = "Imperial Super Commandos",
     XWS = 'imperialsupercommandos',
+    remotes = {"Imperial Super Commandos (A)","Imperial Super Commandos (B)"},
     limited = 1,
     slot = 8,
     remSlot = {8},
@@ -4636,6 +4638,7 @@ masterUpgradesDB['imperialsupercommandos']={
 masterUpgradesDB['mandaloriansupercommandos']={
     name = "Mandalorian Super Commandos",
     XWS = 'mandaloriansupercommandos',
+    remotes = {"Mandalorian Super Commandos (A)","Mandalorian Super Commandos (B)"},
     limited = 1,
     slot = 8,
     remSlot = {8},
@@ -4650,6 +4653,7 @@ masterUpgradesDB['mandaloriansupercommandos']={
 masterUpgradesDB['niteowlcommandos']={
     name = "Nite Owl Commandos",
     XWS = 'niteowlcommandos',
+    remotes = {"Nite Owl Commandos (A)","Nite Owl Commandos (B)"},
     limited = 1,
     slot = 8,
     remSlot = {8},
@@ -4664,13 +4668,14 @@ masterUpgradesDB['niteowlcommandos']={
 masterUpgradesDB['deathwatchcommandos']={
     name = "Death Watch Commandos",
     XWS = 'deathwatchcommandos',
+    remotes = {"Death Watch Commandos (A)","Death Watch Commandos (B)"},
     limited = 1,
     slot = 8,
     remSlot = {8},
     cost = 3,
     Charge = 2,
     restriction = {
-      Faction = {[6]=true},
+      Faction = {[7]=true},
       Size = {medium=true, large=true, huge=true}
     },
 }
