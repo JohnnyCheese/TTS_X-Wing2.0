@@ -119,8 +119,7 @@ function onLoad(savedData)
         end
     end
 
-    timeoutDuration = clickMode and 20 or 2
-
+    toggleClickMode(clickMode)
     menu.addToggleItem("clickMode", "click mode", toggleClickMode)
     menu.addToggleItem("proxyMode", "proxy mode", toggleProxyMode)
     menu.addToggleItem(nil,"Reset dial", resetDial, true)
