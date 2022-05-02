@@ -30,7 +30,7 @@ setMan = nil
 prevMan = nil
 manButtonId = nil
 
-clickMode = false
+clickMode = true
 proxyMode = true
 finished_setup = true
 
@@ -346,6 +346,7 @@ function placeShip(P)
     end
     finished_setup = true
     assignedShip.setVar("finished_setup", true)
+    assignedShip.call("initContextMenu")
     assignedShip.setLock(true)
     redraw(self.is_face_down)
 end

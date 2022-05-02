@@ -6,6 +6,8 @@ M.update_delay = 0.2
 M.hide_distance = 3.5
 M.tint_values = {far = color(1,1,1,1), close= color(1,1,1,0.2)}
 
+M.size_mod = {small = 0, medium = 0.8, large = 1.6, huge = 1.2}
+
 M.onUpdate = function()
   if M.last_update then
     if (Time.time - M.last_update) > M.update_delay then
@@ -14,8 +16,9 @@ M.onUpdate = function()
         local hider_pos = hider_ship.getPosition()
         for _2, other_ship in pairs(getObjectsWithTag('Ship')) do
           if hider_ship ~= other_ship then
+            local size = other_ship.getTable('Data').Size or 'small'
             --print(string.format("Distance between %s and %s is %f", hider_ship.getName(), other_ship.getName(), hider_pos:distance(other_ship.getPosition())))
-            if hider_pos:distance(other_ship.getPosition()) < M.hide_distance then
+            if hider_pos:distance(other_ship.getPosition()) < (M.hide_distance + M.size_mod[size]) then
               is_close = "close"
               break
             end

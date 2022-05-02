@@ -4540,7 +4540,7 @@ masterUpgradesDB['trackingfob']={
 
 masterUpgradesDB['ig11']={
     name = "IG-11",
-    XWS = 'trackingfob',
+    XWS = 'ig11',
     limited = 1,
     slot = 8,
     cost = 200,
@@ -4572,6 +4572,7 @@ masterUpgradesDB['thechild']={
     restriction = {
       Faction = {[1]=true, [2]=true, [3]=true},
     },
+    Condition = "Merciless Pursuit",
 }
 
 masterUpgradesDB['themandalorian']={
@@ -4607,6 +4608,7 @@ masterUpgradesDB['protoncannon']={
 masterUpgradesDB['clanwrencommandos']={
     name = "Clan Wren Commandos",
     XWS = 'clanwrencommandos',
+    remotes = {"Clan Wren Commandos (A)","Clan Wren Commandos (B)"},
     limited = 1,
     slot = 8,
     remSlot = {8},
@@ -4621,6 +4623,7 @@ masterUpgradesDB['clanwrencommandos']={
 masterUpgradesDB['imperialsupercommandos']={
     name = "Imperial Super Commandos",
     XWS = 'imperialsupercommandos',
+    remotes = {"Imperial Super Commandos (A)","Imperial Super Commandos (B)"},
     limited = 1,
     slot = 8,
     remSlot = {8},
@@ -4635,6 +4638,7 @@ masterUpgradesDB['imperialsupercommandos']={
 masterUpgradesDB['mandaloriansupercommandos']={
     name = "Mandalorian Super Commandos",
     XWS = 'mandaloriansupercommandos',
+    remotes = {"Mandalorian Super Commandos (A)","Mandalorian Super Commandos (B)"},
     limited = 1,
     slot = 8,
     remSlot = {8},
@@ -4649,6 +4653,7 @@ masterUpgradesDB['mandaloriansupercommandos']={
 masterUpgradesDB['niteowlcommandos']={
     name = "Nite Owl Commandos",
     XWS = 'niteowlcommandos',
+    remotes = {"Nite Owl Commandos (A)","Nite Owl Commandos (B)"},
     limited = 1,
     slot = 8,
     remSlot = {8},
@@ -4663,13 +4668,14 @@ masterUpgradesDB['niteowlcommandos']={
 masterUpgradesDB['deathwatchcommandos']={
     name = "Death Watch Commandos",
     XWS = 'deathwatchcommandos',
+    remotes = {"Death Watch Commandos (A)","Death Watch Commandos (B)"},
     limited = 1,
     slot = 8,
     remSlot = {8},
     cost = 3,
     Charge = 2,
     restriction = {
-      Faction = {[6]=true},
+      Faction = {[7]=true},
       Size = {medium=true, large=true, huge=true}
     },
 }
@@ -4707,6 +4713,51 @@ masterUpgradesDB['enduring']={
     XWS = 'enduring',
     slot = 1,
     cost = 2,
+}
+
+masterUpgradesDB['pelimotto']={
+    name = "Peli Motto",
+    XWS = 'pelimotto',
+    restriction = {
+      Faction = {[3] = true},
+      Size = {medium=true,large=true}
+    },
+    slot = 8,
+    cost = 200,
+    limited = 1,
+}
+
+masterUpgradesDB['greefkarga']={
+    name = "Greef Karga",
+    XWS = 'greefkarga',
+    restriction = {
+      Faction = {[3] = true}
+    },
+    slot = 8,
+    cost = 200,
+    limited = 1,
+}
+
+masterUpgradesDB['migsmayfeld']={
+    name = "Migs Mayfeld",
+    XWS = 'migsmayfeld',
+    restriction = {
+      Faction = {[2] = true, [3] = true}
+    },
+    slot = 16,
+    cost = 200,
+    limited = 1,
+}
+
+masterUpgradesDB['hotshottailblaster']={
+    name = "Hotshot Tail Blaster",
+    XWS = 'hotshottailblaster',
+    Charge = 2,
+    slot = 14,
+    cost = 200,
+    restriction = {
+      Size = {medium=true, large=true}
+    },
 }
 
 
