@@ -6667,14 +6667,18 @@ function newSpawner(listTable)
           local shippos = pos
           local shiprot = rot
           local ship = newShip
-          local shipCustomObject = {
-            mesh = '{verifycache}'..Pilots[shipIndex].Data.mesh,
-            diffuse = texture,
-            --collider = '{verifycache}'..Pilots[shipIndex].Data.mesh,
-            convex = true,
-            material = 1,
-            type = 1
-          }
+          local shipCustomObject = nil
+          if Pilots[shipIndex].Data.mesh then
+            shipCustomObject = {
+              mesh = '{verifycache}'..Pilots[shipIndex].Data.mesh,
+              diffuse = texture,
+              --collider = '{verifycache}'..Pilots[shipIndex].Data.mesh,
+              convex = true,
+              material = 1,
+              type = 1
+            }
+          end
+
           local pegAndShipSpawnFunction = function()
             local pegModel = spawnObject({
                 type              = "Custom_Model",
@@ -6687,17 +6691,19 @@ function newSpawner(listTable)
             pegModel.setName("Peg")
             pegModel.setCustomObject(pegCustomObject)
             ship.addAttachment(pegModel)
-            local shipModel = spawnObject({
-                type              = "Custom_Model",
-                position          = vector(shippos[1],shippos[2],shippos[3]) + shipoffset,
-                rotation          = shiprot,
-                scale             = mm_ship_scale,
-                sound             = false,
-                snap_to_grid      = false,
-            })
-            shipModel.setName("Ship")
-            shipModel.setCustomObject(shipCustomObject)
-            ship.addAttachment(shipModel)
+            if shipCustomObject then
+              local shipModel = spawnObject({
+                  type              = "Custom_Model",
+                  position          = vector(shippos[1],shippos[2],shippos[3]) + shipoffset,
+                  rotation          = shiprot,
+                  scale             = mm_ship_scale,
+                  sound             = false,
+                  snap_to_grid      = false,
+              })
+              shipModel.setName("Ship")
+              shipModel.setCustomObject(shipCustomObject)
+              ship.addAttachment(shipModel)
+            end
           end
           Wait.condition(pegAndShipSpawnFunction , function() return (not ship.spawning) and (not ship.isSmoothMoving()) end)
         else
