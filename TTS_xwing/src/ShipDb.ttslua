@@ -327,19 +327,19 @@ masterShipDB['asf01bwing']={
   Fac = {[1]=true},
   arcs = {fixed = { range=3, type = {'front'}}},
   moveSet = {'rtl1t','rtl1','bbl1','bs1','bbr1','rtr1','rtr1t','wtl2','wbl2','bs2','wbr2','wtr2','rk2','rbl3','bs3','rbr3','rs4'},
-  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/small/REB_bwing/bwing-base.obj',
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_bwing/bwing-base.obj',
   keywords = {'B-Wing'},
   Config = {
     States = {
       [1] = {
           Name = "S-Foils (Open)",
-          Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/small/REB_bwing/bwing-open.obj",
+          Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_bwing/bwing-open.obj",
           ZRot = 0,
           Message = " opened their S-Foils.",
       },
       [2] = {
           Name = "S-Foils (Closed)",
-          Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/small/REB_bwing/bwing-closed.obj",
+          Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_bwing/bwing-closed.obj",
           ZRot = 180,
           Message = " closed their S-Foils.",
       }
@@ -406,7 +406,7 @@ masterShipDB['tiecapunisher']={
   Fac = {[2]=true},
   arcs = {fixed = { range=3, type = {'front'}}},
   moveSet = {'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rk4','rs0'},
-  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/tiecapunisher/tiepunisher.obj',
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/tiecapunisher/TiePunisher.obj',
   keywords = {'TIE'}
 }
 
@@ -550,8 +550,8 @@ masterShipDB['vt49decimator']={
   XWS = 'vt49decimator',
   newSpawner = true,
   textures = {
-   grey = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/vt49decimator/textures/vt49decimatorgrey.jpg',
-   black = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/vt49decimator/textures/vt49decimatorblack.jpg',
+   grey = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/vt49decimator/textures/grey.jpg',
+   black = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/vt49decimator/textures/black.jpg',
 },
   Fac = {[2]=true},
   arcs = {turret = {main = {name = 'primary', type={'doubleturret'}}}},
@@ -1086,7 +1086,7 @@ masterShipDB['mg100starfortress']={
   XWS = 'mg100starfortress',
     newSpawner = true,
     textures = {
-      standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/mg100starfortress/Textures/standard.jpg',
+      standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/mg100starfortress/Textures/Standard.jpg',
       vennie = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/mg100starfortress/Textures/Vennie.jpg',
       paige = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/mg100starfortress/Textures/PaigeTico.jpg',
     },
@@ -1796,7 +1796,7 @@ masterShipDB['cr90corvette']={
     Fac = {[1]=true, [6]=true},
     arcs = {fixed = { range=4, type = {'leftright'}}},
     moveSet = {'rbl0','rs0','rbr0','wbl1','ws1','wbr1','bbl2','bs2','bbr2','rbl3','bs3','rbr3','rs4','rs5'},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/Huge/CR90%20Corvette/CR90%20Corvette.obj',
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/CR90%20Corvette/CR90%20Corvette.obj',
     keywords = {'Corvette'}
   }
 
@@ -1812,7 +1812,7 @@ masterShipDB['croccruiser']={
     Fac = {[3]=true, [7]=true},
     arcs = {fixed = { range=3, type = {'front'}}},
     moveSet = {'rbl0','rs0','rbr0','wbl1','bs1','wbr1','wbl2','bs2','wbr2','rbl3','ws3','rbr3','rs4','rs5'},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/Huge/CR0C/CR0C%20Cruiser.obj',
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/CR0C/CR0C%20Cruiser.obj',
     keywords = {'Cruiser'}
   }
 
@@ -1828,7 +1828,7 @@ masterShipDB['gozanticlasscruiser']={
     Fac = {[2]=true, [5]=true},
     arcs = {fixed = { range=3, type = {'front'}}},
     moveSet = {'rbl0','rs0','rbr0','wbl1','bs1','wbr1','rbl2','bs2','rbr2','bs3','rs4'},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/Huge/Gozanti-Class%20Cruiser/Gozanti-Class%20Cruiser.obj',
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/Gozanti-Class%20Cruiser/Gozanti-Class%20Cruiser.obj',
     keywords = {'Cruiser'}
   }
 
@@ -1844,7 +1844,7 @@ masterShipDB['gr75mediumtransport']={
     Fac = {[1]=true, [4]=true},
     arcs = {fixed = { range=3, type = {'front'}}},
     moveSet = {'rbl0','rs0','rbr0','bbl1','bs1','bbr1','wbl2','ws2','wbr2','rs3','rs4'},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/Huge/GR-75%20Transport/GR-75%20Transport.obj',
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/GR-75%20Transport/GR-75%20Transport.obj',
     keywords = {'Freighter'}
 }
 
@@ -1860,7 +1860,7 @@ masterShipDB['raiderclasscorvette']={
     Fac = {[2]=true, [5]=true},
     arcs = {fixed = { range=3, type = {'fullfront'}}},
     moveSet = {'rbl0','rs0','rbr0','bbl1','ws1','bbr1','wbl2','bs2','wbr2','rbl3','bs3','rbr3','ws4','rs5'},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/Huge/Raider%20Class%20Corvette/Raider%20Class%20Corvette.obj',
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/Raider%20Class%20Corvette/Raider%20Class%20Corvette.obj',
     keywords = {'Corvette'}
   }
 
@@ -1876,7 +1876,7 @@ masterShipDB['raiderclasscorvette']={
       Fac = {[3]=true, [7]=true},
       arcs = {fixed = { range=3, type = {'front'}}},
       moveSet = {'rs0','rbl0','rbr0','bbl2','bs2','bbr2','wbl3','bs3','wbr3','bs4','rk4','ws5','ws1r','rs2r'},
-      mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/Huge/TridentClass/Trident-Class_temp.obj',
+      mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/TridentClass/Trident-Class_temp.obj',
       keywords = {'Assault Ship'}
     }
 
