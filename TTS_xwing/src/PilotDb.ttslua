@@ -7447,7 +7447,103 @@ masterPilotDB[943]={
   actSet = {'F','E','TL','BR','B'},
 }
 
+-- Clone Z-95
 
+masterPilotDB[944]={
+  name = '"Hawk"',
+  XWS = 'hawk-clonez95headhunter',
+  Faction = 6,
+  ship_type = 'clonez95headhunter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 4,
+  limited = 1,
+  texture = 'standard',
+  actSet = {'F','BR','B','TL'},
+}
+
+masterPilotDB[945]={
+  name = '"Slider"',
+  XWS = 'slider',
+  Faction = 6,
+  ship_type = 'clonez95headhunter',
+  cost = 20,
+  Charge = 2,
+  slot = {21, 17,10,14},
+  init = 4,
+  limited = 1,
+  texture = 'standard',
+  actSet = {'F','BR','B','TL'},
+  executeOptions = {
+      bbl2  = {'bbl2', 'bbl2z'},
+      bbr2  = {'bbr2', 'bbr2z'},
+  },
+}
+
+masterPilotDB[946]={
+  name = '"Boost"',
+  XWS = 'boost',
+  Faction = 6,
+  ship_type = 'clonez95headhunter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 3,
+  limited = 1,
+  texture = 'standard',
+  actSet = {'F','BR','B','TL'},
+}
+
+masterPilotDB[947]={
+  name = '"Drift"',
+  XWS = 'drift',
+  Faction = 6,
+  ship_type = 'clonez95headhunter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 3,
+  limited = 1,
+  texture = 'standard',
+  actSet = {'F','BR','B','TL'},
+}
+
+masterPilotDB[948]={
+  name = '"Stub"',
+  XWS = 'stub',
+  Faction = 6,
+  ship_type = 'clonez95headhunter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 3,
+  limited = 1,
+  texture = 'standard',
+  actSet = {'F','BR','B','TL'},
+}
+
+masterPilotDB[949]={
+  name = '"Warthog"',
+  XWS = 'warthog-clonez95headhunter',
+  Faction = 6,
+  ship_type = 'clonez95headhunter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 3,
+  limited = 1,
+  texture = 'standard',
+  actSet = {'F','BR','B','TL'},
+}
+
+masterPilotDB[950]={
+  name = '"Killer"',
+  XWS = 'killer',
+  Faction = 6,
+  ship_type = 'clonez95headhunter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 2,
+  limited = 1,
+  texture = 'standard',
+  actSet = {'F','BR','B','TL'},
+}
 
 
 -- Huge ships

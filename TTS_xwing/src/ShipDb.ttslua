@@ -1800,6 +1800,22 @@ masterShipDB['rogueclassstarfighter']={
   mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/rogueclassstarfighter/rogueclass.obj',
 }
 
+masterShipDB['clonez95headhunter']={
+  name = 'Clone Z-95 Headhunter',
+  Hull = 2,
+  Shield = 2,
+  size = 'small',
+  agi = 2,
+  XWS = 'clonez95headhunter',
+  newSpawner = true,
+  textures = {
+    plain = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/clonez95headhunter/textures/plain.png',
+  },
+  Fac = {[6]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk3','ws4','rk4'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/clonez95headhunter/CloneZ95.obj'
+}
 
 -- Huge ships
 masterShipDB['cr90corvette']={
