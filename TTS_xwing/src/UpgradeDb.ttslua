@@ -4760,5 +4760,26 @@ masterUpgradesDB['hotshottailblaster']={
     },
 }
 
+masterUpgradesDB['xanadublood']={
+    name = "Xanadu Blood",
+    XWS = 'xanadublood',
+    slot = 15,
+    cost = 200,
+    restriction = {
+      ship = {['rogueclassstarfighter']=true}
+    },
+}
+
+masterUpgradesDB['protoncannons']={
+    name = "Proton Cannons",
+    XWS = 'syncedlasercannons',
+    slot = 3,
+    remSlot = {3},
+    cost = 5,
+    cardB = cardBackDB['3b'],
+    Charge = 2
+}
+
+
 
 return masterUpgradesDB

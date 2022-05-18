@@ -7159,7 +7159,7 @@ masterPilotDB[924]={
   Shield = 2,
   init = 5,
   texture = 'guildbountyhunter',
-  actSet = {'F','TL','E','BR'},
+  actSet = {'C','TL','E','BR'},
 }
 
 masterPilotDB[925]={
@@ -7313,6 +7313,140 @@ masterPilotDB[934]={
   tintFriendly = {mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/Small/delta7baethersprite/Jedi_Delta7_tint.obj',
                   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/Small/delta7baethersprite/JediKnight-tint.png',}
 }
+
+-- Rogue class starfighter
+
+masterPilotDB[935]={
+  name = 'Cad Bane',
+  XWS = 'cadbane-separatistalliance',
+  Faction = 7,
+  Charge = 1,
+  limited = 1,
+  ship_type = 'rogueclassstarfighter',
+  cost = 20,
+  slot = {21, 17,10,14,15},
+  init = 4,
+  texture = 'grey',
+  actSet = {'F','E','TL','BR','B'},
+}
+
+masterPilotDB[936]={
+  name = 'IG-101',
+  XWS = 'ig101',
+  Faction = 7,
+  limited = 1,
+  ship_type = 'rogueclassstarfighter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 4,
+  texture = 'grey',
+  actSet = {'C','E','TL','BR','B'},
+}
+
+masterPilotDB[937]={
+  name = 'IG-102',
+  XWS = 'ig102',
+  Faction = 7,
+  limited = 1,
+  ship_type = 'rogueclassstarfighter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 4,
+  texture = 'grey',
+  actSet = {'C','E','TL','BR','B'},
+}
+
+masterPilotDB[938]={
+  name = 'IG-111',
+  XWS = 'ig111',
+  Faction = 7,
+  limited = 1,
+  ship_type = 'rogueclassstarfighter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 1,
+  texture = 'grey',
+  actSet = {'C','E','TL','BR','B'},
+}
+
+masterPilotDB[939]={
+  name = 'MagnaGuard Protector',
+  XWS = 'magnaguardprotector',
+  Faction = 7,
+  limited = 2,
+  ship_type = 'rogueclassstarfighter',
+  Condition = 'Guarded',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 4,
+  texture = 'grey',
+  actSet = {'C','E','TL','BR','B'},
+}
+
+masterPilotDB[939]={
+  name = 'MagnaGuard Executioner',
+  XWS = 'magnaguardexecutioner',
+  Faction = 7,
+  ship_type = 'rogueclassstarfighter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 3,
+  texture = 'grey',
+  actSet = {'C','E','TL','BR','B'},
+}
+
+masterPilotDB[940]={
+  name = 'Cad Bane',
+  XWS = 'cadbane',
+  Faction = 3,
+  Charge = 2,
+  limited = 1,
+  ship_type = 'rogueclassstarfighter',
+  cost = 20,
+  slot = {21, 17,10,14,15},
+  init = 4,
+  texture = 'green',
+  actSet = {'F','E','TL','BR','B'},
+}
+
+masterPilotDB[941]={
+  name = 'Viktor Hel',
+  XWS = 'viktorhel-rogueclassstarfighter',
+  Faction = 3,
+  limited = 1,
+  ship_type = 'rogueclassstarfighter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 4,
+  texture = 'green',
+  actSet = {'F','E','TL','BR','B'},
+}
+
+masterPilotDB[942]={
+  name = 'Nom Lumb',
+  XWS = 'nomlumb-rogueclassstarfighter',
+  Faction = 3,
+  limited = 1,
+  ship_type = 'rogueclassstarfighter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 1,
+  texture = 'green',
+  actSet = {'F','E','TL','BR','B'},
+}
+
+masterPilotDB[943]={
+  name = 'Outer Rim Hunter',
+  XWS = 'outerrimhunter',
+  Faction = 3,
+  ship_type = 'rogueclassstarfighter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 3,
+  texture = 'green',
+  actSet = {'F','E','TL','BR','B'},
+}
+
 
 
 

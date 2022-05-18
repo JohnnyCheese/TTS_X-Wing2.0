@@ -1080,6 +1080,13 @@ function onObjectDrop(player_color, dropped_object)
                 customization.texture = customobj.diffuse
                 customization.modeltint = dropped_object.getColorTint()
                 for i, attachment in pairs(dropped_object.getAttachments()) do
+                    if attachment.name == "Ship" then
+                      id = dropped_object.removeAttachment(attachment.index)
+                      customization.texture = id.getCustomObject().diffuse
+                      dropped_object.addAttachment(id)
+                    end
+                end
+                for i, attachment in pairs(dropped_object.getAttachments()) do
                     if attachment.name == "ColorId" then
                       id = dropped_object.removeAttachment(attachment.index)
                       customization.tint = id.getColorTint(tint)

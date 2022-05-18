@@ -1782,6 +1782,24 @@ masterShipDB['st70assaultship']={
   mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/st70assaultship/razorcrest.obj',
 }
 
+masterShipDB['rogueclassstarfighter']={
+  name = 'Rogue-Class Starfighter',
+  newSpawner = true,
+  textures = {
+    grey = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/rogueclassstarfighter/textures/Rogue-Class-Grey.jpg',
+    green = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/rogueclassstarfighter/textures/Rogue-Class-Green.jpg',
+  },
+  Hull = 5,
+  Shield = 2,
+  size = 'small',
+  agi = 2,
+  XWS = 'rogueclassstarfighter',
+  Fac = {[3]=true,[7]=true},
+  arcs = {fixed = { range=3, type = {'front'}}},
+  moveSet = {'wtl1','bbl1','bbr1','wtr1','rtl2t','wtl2','bbl2','bs2','bbr2','wtr2','rtr2t','rtl3','wbl3','bs3','wbr3','rtr3','bs4','rk5'},
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/rogueclassstarfighter/Rogue-Class_Fighter%20Base.obj',
+}
+
 
 -- Huge ships
 masterShipDB['cr90corvette']={
