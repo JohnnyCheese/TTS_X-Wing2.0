@@ -1243,14 +1243,14 @@ function addShip()
             if  k == partList.Faction then
                 Font=100
                 availableShips[modelIndex] = i
-                if aux > 7 then
+                if aux > 8 then
                     aux=1
                     auxB=auxB+1
                 end
                 if string.len(i)>18 then
                     Font = 80
                 end
-                self.createButton({click_function = 'selectModel'..modelIndex, function_owner = self, label = shipModel.name, position = {-0.52+auxB*0.6,0.45,aux*0.16-0.35}, width = 1000, height = 220, font_size = Font,  scale = {0.25,0.25,0.25}})
+                self.createButton({click_function = 'selectModel'..modelIndex, function_owner = self, label = shipModel.name, position = {-0.54+auxB*0.6,0.45,aux*0.16-0.5}, width = 1000, height = 220, font_size = Font,  scale = {0.25,0.25,0.25}})
                 aux = aux+1
                 modelIndex=modelIndex+1
             end
@@ -1386,6 +1386,29 @@ function selectModel21()
     selectModelGeneric(21)
 end
 
+function selectModel22()
+    selectModelGeneric(22)
+end
+
+function selectModel23()
+    selectModelGeneric(23)
+end
+
+function selectModel24()
+    selectModelGeneric(24)
+end
+
+function selectModel25()
+    selectModelGeneric(25)
+end
+
+function selectModel26()
+    selectModelGeneric(26)
+end
+
+function selectModel27()
+    selectModelGeneric(27)
+end
 
 -- Selecting a pilot will add ship model and pilot to part list, update max index and go back to main menu. MUST REWRITE! Each pilot option should set variables and call an unified function to set up the part list!
 function setPilotGeneric(arg)
