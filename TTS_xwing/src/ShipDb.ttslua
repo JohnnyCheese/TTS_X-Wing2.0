@@ -144,6 +144,7 @@ masterShipDB['quadrijettransferspacetug']={
     newSpawner = true,
     textures = {
       standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/quadrijettransferspacetug/Textures/standard.jpg',
+      mining = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/quadrijettransferspacetug/Textures/mining.jpg',
     },
     Fac = {[3]=true},
     arcs = {fixed = { range=3, type = {'front'}}},
@@ -937,12 +938,12 @@ masterShipDB['escapecraft']={
   XWS = 'escapecraft',
     newSpawner = true,
     textures = {
-      standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/escapecraft/Textures/standard.png',
+      standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/escapecraft/Textures/standard.jpg',
     },
   Fac = {[3]=true},
   arcs = {fixed = { range=3, type = {'front'}}},
   moveSet = {'bbl1','bs1','bbr1','rtl2','wbl2','bs2','wbr2','rtr2','wbl3','ws3','wbr3','rk3','rs0'},
-  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/escapecraft/escapecraft.obj'
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/escapecraft/escapecraft1.obj'
 }
 
 masterShipDB['tiefofighter']={
@@ -1285,8 +1286,9 @@ masterShipDB['belbulab22starfighter']={
   XWS = 'belbulab22starfighter',
     newSpawner = true,
     textures = {
-      standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/belbulab22starfighter/Textures/standard.png',
-      wat= 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/belbulab22starfighter/Textures/WatTambor.png',
+      standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/belbulab22starfighter/Textures/standard.jpg',
+      wat = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/belbulab22starfighter/Textures/WatTambor.jpg',
+      trench = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/belbulab22starfighter/Textures/HotRod.jpg',
     },
   Fac = {[7]=true},
   arcs = {fixed = { range=3, type = {'front'}}},
