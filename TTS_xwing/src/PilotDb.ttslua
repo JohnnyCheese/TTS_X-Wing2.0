@@ -1773,7 +1773,7 @@ masterPilotDB[832]={
   slot = {21, 1, 14, 14, 18},
   Shield = 0,
   init = 4,
-  texture = 'skytrike',
+  texture = 'skystrike',
   actSet = {'F','E','BR','B'}
 }
 
@@ -1913,7 +1913,7 @@ masterPilotDB[113]={
   Shield = 2,
   init = 4,
   texture = 'blue',
-  actSet = {'F','E','Ail'}
+  actSet = {'F','E','Ail','B'}
 }
 
 masterPilotDB[114]={
@@ -1927,7 +1927,7 @@ masterPilotDB[114]={
   Shield = 2,
   init = 3,
   texture = 'grey',
-  actSet = {'F','E','Ail'}
+  actSet = {'F','E','Ail','B'}
 }
 
 masterPilotDB[115]={
@@ -1941,7 +1941,7 @@ masterPilotDB[115]={
   Shield = 2,
   init = 2,
   texture = 'grey',
-  actSet = {'F','E','Ail'}
+  actSet = {'F','E','Ail','B'}
 }
 
 masterPilotDB[116]={
@@ -1954,7 +1954,7 @@ masterPilotDB[116]={
   Shield = 2,
   init = 1,
   texture = 'grey',
-  actSet = {'F','E','Ail'}
+  actSet = {'F','E','Ail','B'}
 }
 
 masterPilotDB[117]={
@@ -1968,7 +1968,7 @@ masterPilotDB[117]={
   Shield = 0,
   init = 5,
   texture = 'grey',
-  actSet = {'F','E','BR','Ail'}
+  actSet = {'F','E','BR','Ail','B'}
 }
 
 masterPilotDB[118]={
@@ -1982,7 +1982,7 @@ masterPilotDB[118]={
   Shield = 0,
   init = 4,
   texture = 'grey',
-  actSet = {'F','E','BR','Ail'}
+  actSet = {'F','E','BR','Ail','B'}
 }
 
 masterPilotDB[119]={
@@ -1996,7 +1996,7 @@ masterPilotDB[119]={
   Shield = 0,
   init = 4,
   texture = 'grey',
-  actSet ={'F','E','BR','Ail'}
+  actSet ={'F','E','BR','Ail','B'}
 }
 
 masterPilotDB[120]={
@@ -2009,7 +2009,7 @@ masterPilotDB[120]={
   Shield = 0,
   init = 3,
   texture = 'blue',
-  actSet = {'F','E','BR','Ail'}
+  actSet = {'F','E','BR','Ail','B'}
 }
 
 masterPilotDB[121]={
@@ -2022,7 +2022,7 @@ masterPilotDB[121]={
   Shield = 0,
   init = 1,
   texture = 'blue',
-  actSet = {'F','E','BR','Ail'}
+  actSet = {'F','E','BR','Ail','B'}
 }
 
 masterPilotDB[633]={
@@ -2037,7 +2037,7 @@ masterPilotDB[633]={
   card='http://images-cdn.fantasyflightgames.com/filer_public/98/a8/98a8c9cc-53b2-4b57-ac0b-96da7c064740/swz66_vagabond.png',
   init = 2,
   texture = 'blue',
-  actSet = {'F','E','BR','Ail'}
+  actSet = {'F','E','BR','Ail','B'}
 }
 
 masterPilotDB[122]={
@@ -7159,7 +7159,7 @@ masterPilotDB[924]={
   Shield = 2,
   init = 5,
   texture = 'guildbountyhunter',
-  actSet = {'F','TL','E','BR'},
+  actSet = {'C','TL','E','BR'},
 }
 
 masterPilotDB[925]={
@@ -7314,6 +7314,261 @@ masterPilotDB[934]={
                   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/Small/delta7baethersprite/JediKnight-tint.png',}
 }
 
+-- Rogue class starfighter
+
+masterPilotDB[935]={
+  name = 'Cad Bane',
+  XWS = 'cadbane-separatistalliance',
+  Faction = 7,
+  Charge = 1,
+  limited = 1,
+  ship_type = 'rogueclassstarfighter',
+  cost = 20,
+  slot = {21, 17,10,14,15},
+  init = 4,
+  texture = 'grey',
+  actSet = {'F','E','TL','BR','B'},
+}
+
+masterPilotDB[936]={
+  name = 'IG-101',
+  XWS = 'ig101',
+  Faction = 7,
+  limited = 1,
+  ship_type = 'rogueclassstarfighter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 4,
+  texture = 'grey',
+  actSet = {'C','E','TL','BR','B'},
+}
+
+masterPilotDB[937]={
+  name = 'IG-102',
+  XWS = 'ig102',
+  Faction = 7,
+  limited = 1,
+  ship_type = 'rogueclassstarfighter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 4,
+  texture = 'grey',
+  actSet = {'C','E','TL','BR','B'},
+}
+
+masterPilotDB[938]={
+  name = 'IG-111',
+  XWS = 'ig111',
+  Faction = 7,
+  limited = 1,
+  ship_type = 'rogueclassstarfighter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 1,
+  texture = 'grey',
+  actSet = {'C','E','TL','BR','B'},
+}
+
+masterPilotDB[939]={
+  name = 'MagnaGuard Protector',
+  XWS = 'magnaguardprotector',
+  Faction = 7,
+  limited = 2,
+  ship_type = 'rogueclassstarfighter',
+  Condition = 'Guarded',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 4,
+  texture = 'grey',
+  actSet = {'C','E','TL','BR','B'},
+}
+
+masterPilotDB[940]={
+  name = 'MagnaGuard Executioner',
+  XWS = 'magnaguardexecutioner',
+  Faction = 7,
+  ship_type = 'rogueclassstarfighter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 3,
+  texture = 'grey',
+  actSet = {'C','E','TL','BR','B'},
+}
+
+masterPilotDB[941]={
+  name = 'Cad Bane',
+  XWS = 'cadbane',
+  Faction = 3,
+  Charge = 2,
+  limited = 1,
+  ship_type = 'rogueclassstarfighter',
+  cost = 20,
+  slot = {21, 17,10,14,15},
+  init = 4,
+  texture = 'green',
+  actSet = {'F','E','TL','BR','B'},
+}
+
+masterPilotDB[942]={
+  name = 'Viktor Hel',
+  XWS = 'viktorhel-rogueclassstarfighter',
+  Faction = 3,
+  limited = 1,
+  ship_type = 'rogueclassstarfighter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 4,
+  texture = 'green',
+  actSet = {'F','E','TL','BR','B'},
+}
+
+masterPilotDB[943]={
+  name = 'Nom Lumb',
+  XWS = 'nomlumb-rogueclassstarfighter',
+  Faction = 3,
+  limited = 1,
+  ship_type = 'rogueclassstarfighter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 1,
+  texture = 'green',
+  actSet = {'F','E','TL','BR','B'},
+}
+
+masterPilotDB[944]={
+  name = 'Outer Rim Hunter',
+  XWS = 'outerrimhunter',
+  Faction = 3,
+  ship_type = 'rogueclassstarfighter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 3,
+  texture = 'green',
+  actSet = {'F','E','TL','BR','B'},
+}
+
+-- Clone Z-95
+
+masterPilotDB[945]={
+  name = '"Hawk"',
+  XWS = 'hawk-clonez95headhunter',
+  Faction = 6,
+  ship_type = 'clonez95headhunter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 4,
+  limited = 1,
+  texture = 'standard',
+  actSet = {'F','BR','B','TL'},
+}
+
+masterPilotDB[946]={
+  name = '"Slider"',
+  XWS = 'slider',
+  Faction = 6,
+  ship_type = 'clonez95headhunter',
+  cost = 20,
+  Charge = 2,
+  slot = {21, 17,10,14},
+  init = 4,
+  limited = 1,
+  texture = 'standard',
+  actSet = {'F','BR','B','TL'},
+  executeOptions = {
+      bbl2  = {'bbl2', 'bbl2z'},
+      bbr2  = {'bbr2', 'bbr2z'},
+  },
+}
+
+masterPilotDB[947]={
+  name = '"Boost"',
+  XWS = 'boost',
+  Faction = 6,
+  ship_type = 'clonez95headhunter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 3,
+  limited = 1,
+  texture = 'standard',
+  actSet = {'F','BR','B','TL'},
+}
+
+masterPilotDB[948]={
+  name = '"Drift"',
+  XWS = 'drift',
+  Faction = 6,
+  ship_type = 'clonez95headhunter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 3,
+  limited = 1,
+  texture = 'standard',
+  actSet = {'F','BR','B','TL'},
+}
+
+masterPilotDB[949]={
+  name = '"Stub"',
+  XWS = 'stub',
+  Faction = 6,
+  ship_type = 'clonez95headhunter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 3,
+  limited = 1,
+  texture = 'standard',
+  actSet = {'F','BR','B','TL'},
+}
+
+masterPilotDB[950]={
+  name = '"Warthog"',
+  XWS = 'warthog-clonez95headhunter',
+  Faction = 6,
+  ship_type = 'clonez95headhunter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 3,
+  limited = 1,
+  texture = 'standard',
+  actSet = {'F','BR','B','TL'},
+}
+
+masterPilotDB[951]={
+  name = '"Killer"',
+  XWS = 'killer',
+  Faction = 6,
+  ship_type = 'clonez95headhunter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 2,
+  limited = 1,
+  texture = 'standard',
+  actSet = {'F','BR','B','TL'},
+}
+
+masterPilotDB[952]={
+  name = '"Knack"',
+  XWS = 'knack',
+  Faction = 6,
+  ship_type = 'clonez95headhunter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 5,
+  limited = 1,
+  texture = 'standard',
+  actSet = {'F','BR','B','TL'},
+}
+
+masterPilotDB[953]={
+  name = 'Reaper Squadron Scout',
+  XWS = 'reapersquadronscout',
+  Faction = 6,
+  ship_type = 'clonez95headhunter',
+  cost = 20,
+  slot = {21, 17,10,14},
+  init = 3,
+  texture = 'standard',
+  actSet = {'F','BR','B','TL'},
+}
 
 
 -- Huge ships

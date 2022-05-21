@@ -35,7 +35,7 @@ end
 function manualSet(arg)
     ship=arg.ref
     set = true
-    self.setRotation(ship.getRotation())
+    self.setRotationSmooth(ship.getRotation())
 end
 
 -- Set name on drop near a ship
@@ -45,7 +45,7 @@ function onDropped()
     local nearest = nil
     local minDist = 3.6125 -- 100 mm
     for k,ship in pairs(getAllObjects()) do
-        if ship.tag == 'Figurine' and ship.name ~= '' then
+        if ship.type== 'Figurine' and ship.name ~= '' then
             local pos = ship.getPosition()
             local dist = math.sqrt(math.pow((spos[1]-pos[1]),2) + math.pow((spos[3]-pos[3]),2))
             if dist < minDist then
@@ -98,6 +98,15 @@ end
 function ionMove()
     ship.setDescription('s1')
 end
+
+function ionMoveL()
+    ship.setDescription('bl1')
+end
+
+function ionMoveR()
+    ship.setDescription('br1')
+end
+
 
 function Delete()
     self.destruct()

@@ -798,7 +798,7 @@ function idSpawner(idTable)
         end
         --fList.Pilots[k].tint = tintColors[pilotIndicators[k]]
         --fList.Pilots[k].card = masterPilotDB[v].card
-        fList.Pilots[k].card = "{verifycache}https://raw.githubusercontent.com/eirikmun/x-wing2.0-project-goldenrod/main/src/images/En/pilots/"..masterPilotDB[v].XWS..".png"
+        fList.Pilots[k].card = "{verifycache}https://raw.githubusercontent.com/eirikmun/x-wing2.0-project-goldenrod/2.5/src/images/En/pilots/"..masterPilotDB[v].XWS..".png"
         fList.Pilots[k].cardB = cardBackDB[ffgFaction[fList.Faction]]
         local Ship = masterPilotDB[v].ship_type
         fList.Pilots[k].Ship = Ship
@@ -879,9 +879,9 @@ function idSpawner(idTable)
             fList.Pilots[k].cost = fList.Pilots[k].cost + cost
 
             --fList.Upgrades[k][key].card = masterUpgradesDB[value].card
-            fList.Upgrades[k][key].card = "https://raw.githubusercontent.com/eirikmun/x-wing2.0-project-goldenrod/main/src/images/En/upgrades/"..masterUpgradesDB[value].XWS..".png"
+            fList.Upgrades[k][key].card = "https://raw.githubusercontent.com/eirikmun/x-wing2.0-project-goldenrod/2.5/src/images/En/upgrades/"..masterUpgradesDB[value].XWS..".png"
             if masterUpgradesDB[value].dual == true then
-              fList.Upgrades[k][key].cardB = "https://raw.githubusercontent.com/eirikmun/x-wing2.0-project-goldenrod/main/src/images/En/upgrades/"..masterUpgradesDB[value].XWS.."-sideb.png"
+              fList.Upgrades[k][key].cardB = "https://raw.githubusercontent.com/eirikmun/x-wing2.0-project-goldenrod/2.5/src/images/En/upgrades/"..masterUpgradesDB[value].XWS.."-sideb.png"
             elseif masterUpgradesDB[value].cardB ==  nil then
               fList.Upgrades[k][key].cardB = cardBackDB[tostring(upSlot)]
             else
@@ -1080,6 +1080,13 @@ function onObjectDrop(player_color, dropped_object)
                 customization.texture = customobj.diffuse
                 customization.modeltint = dropped_object.getColorTint()
                 for i, attachment in pairs(dropped_object.getAttachments()) do
+                    if attachment.name == "Ship" then
+                      id = dropped_object.removeAttachment(attachment.index)
+                      customization.texture = id.getCustomObject().diffuse
+                      dropped_object.addAttachment(id)
+                    end
+                end
+                for i, attachment in pairs(dropped_object.getAttachments()) do
                     if attachment.name == "ColorId" then
                       id = dropped_object.removeAttachment(attachment.index)
                       customization.tint = id.getColorTint(tint)
@@ -1236,14 +1243,14 @@ function addShip()
             if  k == partList.Faction then
                 Font=100
                 availableShips[modelIndex] = i
-                if aux > 7 then
+                if aux > 8 then
                     aux=1
                     auxB=auxB+1
                 end
                 if string.len(i)>18 then
                     Font = 80
                 end
-                self.createButton({click_function = 'selectModel'..modelIndex, function_owner = self, label = shipModel.name, position = {-0.52+auxB*0.6,0.45,aux*0.16-0.35}, width = 1000, height = 220, font_size = Font,  scale = {0.25,0.25,0.25}})
+                self.createButton({click_function = 'selectModel'..modelIndex, function_owner = self, label = shipModel.name, position = {-0.54+auxB*0.6,0.45,aux*0.16-0.5}, width = 1000, height = 220, font_size = Font,  scale = {0.25,0.25,0.25}})
                 aux = aux+1
                 modelIndex=modelIndex+1
             end
@@ -1379,6 +1386,29 @@ function selectModel21()
     selectModelGeneric(21)
 end
 
+function selectModel22()
+    selectModelGeneric(22)
+end
+
+function selectModel23()
+    selectModelGeneric(23)
+end
+
+function selectModel24()
+    selectModelGeneric(24)
+end
+
+function selectModel25()
+    selectModelGeneric(25)
+end
+
+function selectModel26()
+    selectModelGeneric(26)
+end
+
+function selectModel27()
+    selectModelGeneric(27)
+end
 
 -- Selecting a pilot will add ship model and pilot to part list, update max index and go back to main menu. MUST REWRITE! Each pilot option should set variables and call an unified function to set up the part list!
 function setPilotGeneric(arg)
