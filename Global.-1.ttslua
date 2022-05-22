@@ -6392,9 +6392,9 @@ function newSpawner(listTable)
         -- Spawn Mobile Upgrades
         for j, Up in pairs(Upgrades[shipIndex]) do
             if  Up.Config == true then
-                finalPos = LocalPos(spawnCard, {-2, 0, 0})      --Layout adjustment
+                finalPos = LocalPos(spawnCard, {-1.9, 0, 0})      --Layout adjustment
                 spawnCard.setPosition(finalPos)
-                pos = LocalPos(spawnCard, {1.5, 0, 5.5})
+                pos = LocalPos(spawnCard, {1.42, 0, 5.5})
                 rot = spawnCard.getRotation()
                 rot.y = rot.y
                 cardLink = Up.card
@@ -6443,7 +6443,7 @@ function newSpawner(listTable)
         end
         for j, Up in pairs(Upgrades[shipIndex]) do
             if Up.Config ~= true then                               --Indicates there's a card left of the pilot card, for layout purposes
-                pos = LocalPos(spawnCard, {-1.5 - 2*UpNum, 2-0.2*UpNum, 5.5})
+                pos = LocalPos(spawnCard, {-1.42 - 1.78*UpNum, 1-0.2*UpNum, 5.5})
                 rot = spawnCard.getRotation()
                 rot.y = rot.y - 90
                 cardLink = Up.card
@@ -6461,7 +6461,7 @@ function newSpawner(listTable)
                 if Up.Condition ~= nil then                                         --Checks and spawn conditions associated to pilots
                     for k, acc in ipairs(listaAcc) do
                         if acc.name == Up.Condition then
-                            pos = LocalPos(spawnCard, {-2 - 2*UpNum, 2-0.2*UpNum, 8})
+                            pos = LocalPos(spawnCard, {-2 - 1.78*UpNum, 1-0.2*UpNum, 8})
                             rot = spawnCard.getRotation()
                             newAsset = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid, smooth=false})
                             assetClone = newAsset.clone()
@@ -6478,15 +6478,15 @@ function newSpawner(listTable)
                         chargeToken = tempBagAcc.takeObject({rotation = spawnCard.getRotation(), guid = acc.guid, smooth=false})
                         while charges > 0 do
                           if charges == 5 then
-                              pos = LocalPos(spawnCard, {-1.7 - 2*UpNum,3, 1.9})
+                              pos = LocalPos(spawnCard, {-1.7 - 1.78*UpNum,1, 1.9})
                           elseif charges == 4 then
-                              pos = LocalPos(spawnCard, {-1.7 - 2*UpNum,3, 2.8})
+                              pos = LocalPos(spawnCard, {-1.7 - 1.78*UpNum,1, 2.8})
                           elseif charges == 3 then
-                              pos = LocalPos(spawnCard, {-2.6 - 2*UpNum,3, 2.8})
+                              pos = LocalPos(spawnCard, {-2.6 - 1.78*UpNum,1, 2.8})
                           elseif charges == 2 then
-                              pos = LocalPos(spawnCard, {-1.7 - 2*UpNum,3, 3.7})
+                              pos = LocalPos(spawnCard, {-1.7 - 2*UpNum,1, 3.7})
                           elseif charges == 1 then
-                              pos = LocalPos(spawnCard, {-2.6 - 2*UpNum,3, 3.7})
+                              pos = LocalPos(spawnCard, {-2.6 - 1.78*UpNum,1, 3.7})
                           else
                               charges = 0
                           end
@@ -6516,7 +6516,7 @@ function newSpawner(listTable)
         end
 
 
-        pos = LocalPos(spawnCard, {0, 3, 5.5})
+        pos = LocalPos(spawnCard, {0, 1, 5.5})
         rot = spawnCard.getRotation()
         local newPil = nil
         if card ~= '' then
@@ -6560,7 +6560,7 @@ function newSpawner(listTable)
             for k, acc in pairs(listaAcc) do
                 local card = newPil
                 if acc.name == 'Unassigned Dial' then
-                    local dialpos = LocalPos(spawnCard, {0, 3, 12})
+                    local dialpos = LocalPos(spawnCard, {0, 1, 12})
                     local dialrot = rot
                     local dial = tempBagAcc.takeObject(
                         {position = dialpos,
@@ -6590,7 +6590,7 @@ function newSpawner(listTable)
         if Pilots[shipIndex].Condition ~= nil then                                            --Checks and spawn conditions associated to pilots
             for k, acc in ipairs(listaAcc) do
                 if acc.name == Pilots[shipIndex].Condition then
-                    pos = LocalPos(spawnCard, {-2 - 2*UpNum, 3, 8})
+                    pos = LocalPos(spawnCard, {-2 - 1.78*UpNum, 1, 8})
                     rot = spawnCard.getRotation()
                     newAsset = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid})
                     assetClone = newAsset.clone()
@@ -6822,7 +6822,7 @@ function newSpawner(listTable)
               end -- if Config.Model
             end -- for Data.Config
             if Pilots[shipIndex].Data.Config and Pilots[shipIndex].Data.Config.Token then
-              pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
+              pos = LocalPos(spawnCard, {-1.5, 1, 8.7})
               local configToken = spawnObject({
                   type = "Custom_Model",
                   scale = {0.38, 0.38, 0.38},
@@ -6878,7 +6878,7 @@ end
         if Pilots[shipIndex].Bomb == true then                                                       --Checks and spawn bomb drop token if needed
             for k, acc in ipairs(listaAcc) do
                 if acc.name == 'Bomb drop token (unassigned)' then
-                    pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
+                    pos = LocalPos(spawnCard, {-1.5, 1, 8.7})
                     bombDrop = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid, smooth=false})
                     dropClone = bombDrop.clone()
                     dropClone.setPosition(pos)
@@ -6890,7 +6890,7 @@ end
         if Pilots[shipIndex].Docking == true then
             for k, acc in ipairs(listaAcc) do
                 if acc.name == 'Shuttle Launcher (assigned to mothership)' then
-                    pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
+                    pos = LocalPos(spawnCard, {-1.5, 1, 8.7})
                     shuttleDrop = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid, smooth=false})
                     dropClone = shuttleDrop.clone()
                     dropClone.setPosition(pos)
@@ -6901,7 +6901,7 @@ end
         if Pilots[shipIndex].wingleader == true then
             for k, acc in ipairs(listaAcc) do
                 if acc.name == 'Epic Wing Token' then
-                    pos = LocalPos(spawnCard, {-1.5, 3, 8.7})
+                    pos = LocalPos(spawnCard, {-1.5, 1, 8.7})
                     wingtoken = tempBagAcc.takeObject({position = pos, rotation = rot, guid = acc.guid, smooth=false})
                     wingtokenclone = wingtoken.clone()
                     wingtokenclone.setPosition(pos)
@@ -6918,13 +6918,13 @@ end
                   while Pilots[shipIndex].Charge > 0 do
 
                     if Pilots[shipIndex].Charge == 4 then
-                        pos = LocalPos(spawnCard, {-0.9 ,3, 0.6})
+                        pos = LocalPos(spawnCard, {-0.9 ,1, 0.6})
                     elseif Pilots[shipIndex].Charge == 3 then
-                        pos = LocalPos(spawnCard, {0.9 ,3, 1.6})
+                        pos = LocalPos(spawnCard, {0.9 ,1, 1.6})
                     elseif Pilots[shipIndex].Charge == 2 then
-                        pos = LocalPos(spawnCard, {0 ,3, 1.6})
+                        pos = LocalPos(spawnCard, {0 ,1, 1.6})
                     elseif Pilots[shipIndex].Charge == 1 then
-                        pos = LocalPos(spawnCard, {-0.9 ,3, 1.6})
+                        pos = LocalPos(spawnCard, {-0.9 ,1, 1.6})
                     else
                         charges = 0
                         pos = vector(0,0,0)
@@ -6947,12 +6947,12 @@ end
                   while Pilots[shipIndex].Force > 0 do
                     Pilots[shipIndex].Force = Pilots[shipIndex].Force - 1
                     if hasMob == 1 then                 --adjusts layout if Mobile Upgrade is present
-                        pos = LocalPos(spawnCard, {1.7 + 0.9*Pilots[shipIndex].Force, 3, 3.7})
+                        pos = LocalPos(spawnCard, {1.7 + 0.9*Pilots[shipIndex].Force, 1, 3.7})
                         if forceValue >2 then
-                            pos = LocalPos(spawnCard, {1.7 + 0.9*(Pilots[shipIndex].Force-2), 3, 2.8})
+                            pos = LocalPos(spawnCard, {1.7 + 0.9*(Pilots[shipIndex].Force-2), 1, 2.8})
                         end
                     else
-                        pos = LocalPos(spawnCard, {1.7, 3, 3.7 + 0.9*Pilots[shipIndex].Force})
+                        pos = LocalPos(spawnCard, {1.7, 1, 3.7 + 0.9*Pilots[shipIndex].Force})
                     end
                     forceClone = forceToken.clone()
                     forceClone.setPosition(pos)
@@ -6969,12 +6969,12 @@ end
                   shieldToken = tempBagAcc.takeObject({rotation = spawnCard.getRotation(), guid = acc.guid, smooth=false})
                   while Pilots[shipIndex].Shield > 0 do
                     Pilots[shipIndex].Shield = Pilots[shipIndex].Shield - 1
-                    pos = LocalPos(spawnCard, { -0.9 + 0.9*Pilots[shipIndex].Shield, 3, 3.4})
+                    pos = LocalPos(spawnCard, { -0.9 + 0.9*Pilots[shipIndex].Shield, 1, 3.4})
 
                     if Pilots[shipIndex].Shield >5  then
-                        pos = LocalPos(spawnCard, {-0.9 + 0.9*(Pilots[shipIndex].Shield-6), 3, 1.6})
+                        pos = LocalPos(spawnCard, {-0.9 + 0.9*(Pilots[shipIndex].Shield-6), 1, 1.6})
                     elseif Pilots[shipIndex].Shield >2 then
-                        pos = LocalPos(spawnCard, {-0.9 + 0.9*(Pilots[shipIndex].Shield-3), 3, 2.5})
+                        pos = LocalPos(spawnCard, {-0.9 + 0.9*(Pilots[shipIndex].Shield-3), 1, 2.5})
                     end
                     shieldClone = shieldToken.clone()
                     shieldClone.setPosition(pos)
@@ -6988,7 +6988,7 @@ end
 
 
 
-        finalPos = LocalPos(spawnCard, {-4 - 2*UpNum, 0, 0})
+        finalPos = LocalPos(spawnCard, {-4 - 1.78*UpNum, 0, 0})
         spawnCard.setPosition(finalPos)
         shipIndex = shipIndex + 1
 
@@ -7001,7 +7001,7 @@ end
         print("Spawning remote:" .. remote)
         for k, acc in ipairs(listaAcc) do
             if acc.name == remote then
-                pos = LocalPos(spawnCard, {1,3,0})
+                pos = LocalPos(spawnCard, {1,1,0})
                 print("Found remote, spawning pos: " .. tostring(pos[1])..","..tostring(pos[2])..",".. tostring(pos[3]))
                 remObj = tempBagAcc.takeObject({rotation = spawnCard.getRotation(), guid = acc.guid, smooth = false})
                 remoteClone = remObj.clone()
@@ -7026,7 +7026,7 @@ end
             for j, obstacle in ipairs(obstacleAcc) do
                 if obstacle.name == obstacleName then
                     print("Found obstacle: " .. obstacle.name .. " - " .. obstacleName)
-                    pos =  LocalPos(spawnCard, {0, 3, 0})
+                    pos =  LocalPos(spawnCard, {0, 1, 0})
                     obstacleToken = tempObstacleBag.takeObject({rotation = spawnCard.getRotation(), guid = obstacle.guid, smooth = false})
                     obstacleClone = obstacleToken.clone()
                     obstacleClone.setPosition(pos)
