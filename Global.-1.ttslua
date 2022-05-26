@@ -6516,7 +6516,7 @@ function newSpawner(listTable)
         end
 
 
-        pos = LocalPos(spawnCard, {0, 1, 5.5})
+        pos = LocalPos(spawnCard, {0, 1.2, 5.5})
         rot = spawnCard.getRotation()
         local newPil = nil
         if card ~= '' then
