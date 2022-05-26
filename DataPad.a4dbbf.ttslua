@@ -270,6 +270,14 @@ function findByXws(table, xws_id)
   return nil
 end
 
+function listToFormat(version, vendor)
+  if string.find(version, '2.0.') then
+    return "2.0"
+  else
+    return "2.5"
+  end
+end
+
 --Takes the XWS JSON and the xws <-> FFG ID map and constructs a parts list to pass to idSpawner
 function xwsSpawn(list, XWS_TO_FFG, playerColor)
     if list then
@@ -279,6 +287,7 @@ function xwsSpawn(list, XWS_TO_FFG, playerColor)
         parts.spawnCard = self
         parts.Faction = tonumber(XWS_TO_FFG.factions[list.faction])
         parts.Obstacles = {}
+        parts.Format = listToFormat(list.version,list.vendor)
 
         for k,v in pairs (list.pilots) do
             local pilotId = findByXws(masterPilotDB, v.id) or XWS_TO_FFG.pilots[v.id]
@@ -699,6 +708,7 @@ function singlePilotSpawn(Id)
     partList.Upgrades = {}
     partList.Upgrades[1] = {}
     partList.Faction = masterPilotDB[Id].Faction
+    partList.Format = "2.5"
 
     idSpawner(partList)
     singleSpawner()
@@ -713,6 +723,7 @@ function singleUpSpawn(upId)
     partList.Upgrades[1] = {}
     partList.Upgrades[1][1] = upId
     partList.Faction = ffgFaction[0]
+    partList.Format = "2.5"
     idSpawner(partList)
     singleSpawner()
 end
@@ -798,7 +809,7 @@ function idSpawner(idTable)
         end
         --fList.Pilots[k].tint = tintColors[pilotIndicators[k]]
         --fList.Pilots[k].card = masterPilotDB[v].card
-        fList.Pilots[k].card = "{verifycache}https://raw.githubusercontent.com/eirikmun/x-wing2.0-project-goldenrod/2.5/src/images/En/pilots/"..masterPilotDB[v].XWS..".png"
+        fList.Pilots[k].card = "{verifycache}https://raw.githubusercontent.com/eirikmun/x-wing2.0-project-goldenrod/" .. idTable.Format .. "/src/images/En/pilots/"..masterPilotDB[v].XWS..".png"
         fList.Pilots[k].cardB = cardBackDB[ffgFaction[fList.Faction]]
         local Ship = masterPilotDB[v].ship_type
         fList.Pilots[k].Ship = Ship
@@ -879,9 +890,9 @@ function idSpawner(idTable)
             fList.Pilots[k].cost = fList.Pilots[k].cost + cost
 
             --fList.Upgrades[k][key].card = masterUpgradesDB[value].card
-            fList.Upgrades[k][key].card = "https://raw.githubusercontent.com/eirikmun/x-wing2.0-project-goldenrod/2.5/src/images/En/upgrades/"..masterUpgradesDB[value].XWS..".png"
+            fList.Upgrades[k][key].card = "https://raw.githubusercontent.com/eirikmun/x-wing2.0-project-goldenrod/" .. idTable.Format .. "/src/images/En/upgrades/" ..masterUpgradesDB[value].XWS..".png"
             if masterUpgradesDB[value].dual == true then
-              fList.Upgrades[k][key].cardB = "https://raw.githubusercontent.com/eirikmun/x-wing2.0-project-goldenrod/2.5/src/images/En/upgrades/"..masterUpgradesDB[value].XWS.."-sideb.png"
+              fList.Upgrades[k][key].cardB = "https://raw.githubusercontent.com/eirikmun/x-wing2.0-project-goldenrod/" .. idTable.Format .. "/src/images/En/upgrades/"..masterUpgradesDB[value].XWS.."-sideb.png"
             elseif masterUpgradesDB[value].cardB ==  nil then
               fList.Upgrades[k][key].cardB = cardBackDB[tostring(upSlot)]
             else
@@ -1501,6 +1512,7 @@ function builderSpawn()
     finalList.Faction = partList.Faction
     finalList.spawnCard = partList.spawnCard
     finalList.Upgrades = {}
+    finalList.Format = "2.5"
     for i, upList in pairs(partList.Upgrades) do
         finalList.Upgrades[i] = {}
         for k, Up in pairs(upList) do
