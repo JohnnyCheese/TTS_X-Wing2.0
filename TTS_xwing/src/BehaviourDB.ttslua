@@ -3806,6 +3806,85 @@ BehaviourDB.rule_sets[1].ships['st70assaultship'].action_selection = {
 },
 }
 
+-- Rogue-class Starfighter
+---- This logic is shared between Scum and CIS. See Z-95 for an example on how to split them if necessary.
+BehaviourDB.rule_sets[1].ships['rogueclassstarfighter'] = {}
+BehaviourDB.rule_sets[1].ships['rogueclassstarfighter'].target_selection = {[1]='LockedInRange', [2]='ClosestInArcLowerInitiative', [3]='ClosestInArc', [4]='Closest'}
+BehaviourDB.rule_sets[1].ships['rogueclassstarfighter'].move_table = {
+  bullseye = {
+    near = {[1] = 'k5', [3] = 'bl1', [5] = 'br1'},
+    far = {[1] = 's2', [5] = 's3'},
+    distant = {[1] = 's4', [2] = 's5'},
+    stress = {[1] = 's2', [5] = 's3'},
+  },
+  front_right = {
+      near = {[1] = 'k5', [4] = 'br1', [6] = 'br2'},
+      far = {[1] = 'br2', [4] = 'br3', [6] = 's3'},
+      distant = {[1] = 'br3', [5] = 's4'},
+      stress = {[1] = 'br1', [3] = 'br2', [4] = 's2'},
+    },
+  right_front = {
+    near = {[1] = 'k5', [2] = 'tr2t', [4] = 'tr1'},
+    far = {[1] = 'tr1', [2] = 'br1', [3] = 'br2', [4] = 'tr2', [6] = 'tr3'},
+    distant = {[1] = 'tr1', [2] = 'tr2', [5] = 'tr3'},
+    stress = {[1] = 'tr1', [3] = 'br1', [4] = 'br2'},
+  },
+  right_back = {
+    near = {[1] = 'k5', [3] = 'tr2t', [4] = 'tr1', [5] = 'tr2'},
+    far = {[1] = 'k5', [2] = 'tr2t', [5] = 'tr1'},
+    distant = {[1] = 'tr2t', [4] = 'tr1', [6] = 'tr2'},
+    stress = {[1] = 'tr1', [2] = 'br1', [4] = 'br2'},
+  },
+  back_right = {
+    near = {[1] = 'k5', [3] = 'tr2t', [5] = 'tr2'},
+    far = {[1] = 'tl2t', [3] = 'tr2t'},
+    distant = {[1] = 'tr2t', [4] = 'tr1'},
+    stress = {[1] = 'tr1', [2] = 'br1', [4] = 'br2'},
+  },
+}
+
+BehaviourDB.rule_sets[1].ships['rogueclassstarfighter'].action_selection = {
+  [1] = { -- (target not moved) Target lock if not in any arcs
+      description = {text = "%s target locked %s.", strings = {'ship', 'target'}},
+      preconditions = {targetMoved = false, targetLocked = false, inEnemyArc = false, targetWithinRange = true, hasShot = true},
+      action = 'targetLock'
+  },
+  [2] = { -- (target moved) Target lock
+      description = {text = "%s target locked %s.", strings = {'ship', 'target'}},
+      preconditions = {targetMoved = true, targetLocked = false, targetWithinRange = true, hasShot = true},
+      action = 'targetLock'
+  },
+  [3] = { -- Focus/Calc > boost or focus/Calc > barrel roll to avoid target's arc and still get a shot
+      description = {text = "%s focused/calculated and barrel rolled/boosted to avoid %s's arc and still get a shot.", strings = {'ship', 'target'}},
+      preconditions = {hasShot = true, inTargetsArc = true},
+      action = {
+          [1] = {focuscalculate = false, boost = true},
+          [2] = {focuscalculate = false, barrelRoll = true}
+      },
+      postconditions = {hasShot = true, inTargetsArc = false}
+  },
+  [4] = { -- (target moved) Focus/Calc if you have a shot
+      description = "%s has a shot so focused/calculated.",
+      preconditions = {targetMoved = true, hasShot = true},
+      action = 'focuscalculate'
+  },
+  [5] = { -- (target not moved) Evade > barrel roll to get a shot
+      description = {text = "%s evaded and barrel rolled to avoid %s's arc.", strings = {'ship', 'target'}},
+      preconditions = {targetMoved = false, hasShot = false, inTargetsArc = true},
+      action = {evade = false, barrelRoll = true},
+      postconditions = {inTargetsArc = false}
+  },
+  [6] = { -- Evade
+      description = "%s evaded.",
+      preconditions = {inTargetsArc = true},
+      action = 'evade'
+  },
+  [7] = { -- Focus/Calc
+      description = "%s focused/calculated.",
+      action = 'focuscalculate'
+  },
+}
+
 
 --------------
 -- FO Ships --
@@ -5815,6 +5894,78 @@ BehaviourDB.rule_sets[1].ships['nabooroyaln1starfighter'].action_selection = {
     }
 }
 BehaviourDB.rule_sets[1].ships['nabooroyaln1starfighter'].special_rules = {'fullThrottle'}
+
+
+-- Clone Z-95 Headhunter.
+BehaviourDB.rule_sets[1].ships['clonez95headhunter'] = {}
+BehaviourDB.rule_sets[1].ships['clonez95headhunter'].target_selection = {[1]='LockedInRange', [2]='ClosestInArc', [3]='Closest'}
+BehaviourDB.rule_sets[1].ships['clonez95headhunter'].action_selection = {}
+BehaviourDB.rule_sets[1].ships['clonez95headhunter'].move_table = {
+    bullseye = {
+        near = {[1] = 'k3', [3] = 's1', [5] = 's2'},
+        far = {[1] = 's1', [2] = 's2', [5] = 's3'},
+        distant = {[1] = 's3', [2] = 's4'},
+        stress = {[1] = 's1', [4] = 's2'},
+    },
+    front_right = {
+        near = {[1] = 'k4', [3] = 'br1', [6] = 'br2'},
+        far = {[1] = 'br2', [4] = 'br3', [6] = 's3'},
+        distant = {[1] = 'br3', [5] = 's4'},
+        stress = {[1] = 'br1', [3] = 'br2', [4] = 's2'},
+    },
+    right_front = {
+        near = {[1] = 'k4', [2] = 'k3', [4] = 'tr2'},
+        far = {[1] = 'br1', [2] = 'tr2', [3] = 'br2', [5] = 'tr3'},
+        distant = {[1] = 'tr2', [4] = 'tr3'},
+        stress = {[1] = 'tr2', [4] = 'br2'},
+    },
+    right_back = {
+        near = {[1] = 'k3', [4] = 'br1', [5] = 'tr2'},
+        far = {[1] = 'k4', [2] = 'k3', [5] = 'tr2'},
+        distant = {[1] = 'k3', [4] = 'tr3'},
+        stress = {[1] = 'tr2', [3] = 'br2'},
+    },
+    back_right = {
+        near = {[1] = 'k4', [3] = 'k3', [5] = 'tr2'},
+        far = {[1] = 'k3', [3] = 'tr2'},
+        distant = {[1] = 'k3', [4] = 'tr2'},
+        stress = {[1] = 's1', [3] = 'br2', [6] = 'tr3'},
+    },
+}
+BehaviourDB.rule_sets[1].ships['clonez95headhunter'].action_selection = {
+    [1] = { -- Target lock if not in enemy's arc
+        description = {text = "%s target locked %s outside target's arc.", strings = {'ship', 'target'}},
+        preconditions = {targetLocked = false, inEnemyArc = false, targetWithinRange = true, hasShot = true},
+        action = 'targetLock'
+    },
+    [2] = { -- Barrel roll (stress) to avoid target's arc and still get a shot
+        description = {text = "%s barrel rolled to avoid %s's arc and still get a shot.", strings = {'ship', 'target'}},
+        preconditions = {hasShot = true, inTargetsArc = true},
+        action = {barrelRoll = true},
+        postconditions = {hasShot = true, inTargetsArc = false}
+    },
+    [3] = { -- Focus if you have a shot
+        description = "%s has a shot so focused.",
+        preconditions = {hasShot = true},
+        action = 'focus'
+    },
+    [4] = { -- Barrel roll (stress) to get a shot
+        description = "%s barrel rolled to get a shot.",
+        preconditions = {hasShot = false},
+        action = {barrelRoll = true},
+        postconditions = {hasShot = true}
+    },
+    [5] = { -- Barrel roll (stress) to avoid target's arc
+        description = {text = "%s barrel rolled to avoid %s's arc.", strings = {'ship', 'target'}},
+        preconditions = {inTargetsArc = true},
+        action = {barrelRoll = true},
+        postconditions = {inTargetsArc = false}
+    },
+    [6] = { -- Focus
+        description = "%s focused.",
+        action = 'focus'
+    }
+}
 
 
 ---------------
