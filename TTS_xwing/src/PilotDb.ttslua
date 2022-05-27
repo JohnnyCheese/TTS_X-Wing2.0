@@ -7132,19 +7132,6 @@ masterPilotDB[922]={
   actSet = {'F','TL','R','Piv'},
 }
 
-masterPilotDB[955]={
-  name = 'Imperial Super Commando',
-  XWS = 'imperialsupercommando',
-  Faction = 2,
-  ship_type = 'gauntletfighter',
-  cost = 7,
-  slot = {21, 1, 8, 16, 12, 12, 14, 18},
-  Shield = 2,
-  init = 2,
-  texture = 'imperial',
-  actSet = {'F','TL','R','Piv'},
-}
-
 
 -- razorcrest pilots
 
@@ -7190,18 +7177,6 @@ masterPilotDB[925]={
   actSet = {'F','TL','E','BR'},
 }
 
-masterPilotDB[956]={
-  name = 'Outer Rim Enforcer',
-  XWS = 'outerrimenforcer',
-  Faction = 3,
-  ship_type = 'st70assaultship',
-  cost = 2,
-  slot = {21, 1, 8, 16, 13, 13, 14},
-  Shield = 2,
-  init = 2,
-  texture = 'guildbountyhunter',
-  actSet = {'F','TL','E','BR'},
-}
 
 
 masterPilotDB[926]={
@@ -7606,6 +7581,33 @@ masterPilotDB[954]={
   init = 3,
   texture = 'standard',
   actSet = {'F','BR','TL'},
+}
+
+-- Missing ships
+masterPilotDB[955]={
+  name = 'Imperial Super Commando',
+  XWS = 'imperialsupercommando',
+  Faction = 2,
+  ship_type = 'gauntletfighter',
+  cost = 7,
+  slot = {21, 1, 8, 16, 12, 12, 14, 18},
+  Shield = 2,
+  init = 2,
+  texture = 'imperial',
+  actSet = {'F','TL','R','Piv'},
+}
+
+masterPilotDB[956]={
+  name = 'Outer Rim Enforcer',
+  XWS = 'outerrimenforcer',
+  Faction = 3,
+  ship_type = 'st70assaultship',
+  cost = 2,
+  slot = {21, 1, 8, 16, 13, 13, 14},
+  Shield = 2,
+  init = 2,
+  texture = 'guildbountyhunter',
+  actSet = {'F','TL','E','BR'},
 }
 
 
