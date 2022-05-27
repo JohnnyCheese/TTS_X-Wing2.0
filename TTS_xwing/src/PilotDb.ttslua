@@ -490,7 +490,7 @@ masterPilotDB[811]={
   cost = 43,
   slot = {21, 1, 2, 3, 3, 5, 14, 15, 18},
   Shield = 4,
-  init = 5,
+  init = 3,
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/REB_bwing/NetremPollard.png',
   actSet = {'F','TL','BR', 'Piv'}
 }
@@ -2152,7 +2152,7 @@ masterPilotDB[817]={
   cost = 73,
   slot = {21, 1, 2, 3, 6, 18},
   Shield = 4,
-  init = 5,
+  init = 3,
   texture = 'grey',
   actSet = {'F','E','BR','TL','B'}
 }
@@ -2819,7 +2819,7 @@ masterPilotDB[824]={
     cost = 30,
     slot = {21, 4, 5, 6, 10, 12, 19},
     Shield = 2,
-    init = 1,
+    init = 2,
     texture = 'jinata',
     actSet = {'F','TL','BR'}
 }
@@ -6951,7 +6951,7 @@ masterPilotDB[910]={
   slot = {21, 1, 5, 18},
   Force = 3,
   Shield = 0,
-  init = 6,
+  init = 5,
   texture = 'maul',
   actSet = {'F','TL','R','Piv'},
 }
@@ -7132,6 +7132,20 @@ masterPilotDB[922]={
   actSet = {'F','TL','R','Piv'},
 }
 
+masterPilotDB[955]={
+  name = 'Imperial Super Commando',
+  XWS = 'imperialsupercommando',
+  Faction = 2,
+  ship_type = 'gauntletfighter',
+  cost = 7,
+  slot = {21, 1, 8, 16, 12, 12, 14, 18},
+  Shield = 2,
+  init = 2,
+  texture = 'imperial',
+  actSet = {'F','TL','R','Piv'},
+}
+
+
 -- razorcrest pilots
 
 masterPilotDB[923]={
@@ -7176,6 +7190,18 @@ masterPilotDB[925]={
   actSet = {'F','TL','E','BR'},
 }
 
+masterPilotDB[956]={
+  name = 'Outer Rim Enforcer',
+  XWS = 'outerrimenforcer',
+  Faction = 3,
+  ship_type = 'st70assaultship',
+  cost = 2,
+  slot = {21, 1, 8, 16, 13, 13, 14},
+  Shield = 2,
+  init = 2,
+  texture = 'guildbountyhunter',
+  actSet = {'F','TL','E','BR'},
+}
 
 
 masterPilotDB[926]={
@@ -7459,7 +7485,7 @@ masterPilotDB[945]={
   init = 4,
   limited = 1,
   texture = 'standard',
-  actSet = {'F','BR','B','TL'},
+  actSet = {'F','BR','TL'},
 }
 
 masterPilotDB[946]={
@@ -7473,7 +7499,7 @@ masterPilotDB[946]={
   init = 4,
   limited = 1,
   texture = 'standard',
-  actSet = {'F','BR','B','TL'},
+  actSet = {'F','BR','TL'},
   executeOptions = {
       bbl2  = {'bbl2', 'bbl2z'},
       bbr2  = {'bbr2', 'bbr2z'},
@@ -7503,7 +7529,7 @@ masterPilotDB[948]={
   init = 3,
   limited = 1,
   texture = 'standard',
-  actSet = {'F','BR','B','TL'},
+  actSet = {'F','BR','TL'},
 }
 
 masterPilotDB[949]={
@@ -7516,7 +7542,7 @@ masterPilotDB[949]={
   init = 3,
   limited = 1,
   texture = 'standard',
-  actSet = {'F','BR','B','TL'},
+  actSet = {'F','BR','TL'},
 }
 
 masterPilotDB[950]={
@@ -7529,7 +7555,7 @@ masterPilotDB[950]={
   init = 3,
   limited = 1,
   texture = 'standard',
-  actSet = {'F','BR','B','TL'},
+  actSet = {'F','BR','TL'},
 }
 
 masterPilotDB[951]={
@@ -7542,7 +7568,7 @@ masterPilotDB[951]={
   init = 2,
   limited = 1,
   texture = 'standard',
-  actSet = {'F','BR','B','TL'},
+  actSet = {'F','BR','TL'},
 }
 
 masterPilotDB[952]={
@@ -7555,7 +7581,7 @@ masterPilotDB[952]={
   init = 5,
   limited = 1,
   texture = 'standard',
-  actSet = {'F','BR','B','TL'},
+  actSet = {'F','BR','TL'},
 }
 
 masterPilotDB[953]={
@@ -7567,7 +7593,19 @@ masterPilotDB[953]={
   slot = {21, 17,10,14},
   init = 3,
   texture = 'standard',
-  actSet = {'F','BR','B','TL'},
+  actSet = {'F','BR','TL'},
+}
+
+masterPilotDB[954]={
+  name = '7th Sky Corps Pilot',
+  XWS = '7thskycorpspilot',
+  Faction = 6,
+  ship_type = 'clonez95headhunter',
+  cost = 3,
+  slot = {21,2,14},
+  init = 3,
+  texture = 'standard',
+  actSet = {'F','BR','TL'},
 }
 
 
@@ -7579,7 +7617,7 @@ masterPilotDB[1000]={
   ship_type = 'cr90corvette',
   cost = 134,
   slot = {21, 24, 24, 8, 8, 16, 23, 23, 22, 15},
-  init = 0,
+  init = 8,
   actSet = {'F','TL','R'},
   texture = 'https://github.com/JohnnyCheese/TTS_X-Wing2.0/raw/master/assets/ships/Huge/CR90%20Corvette/CR90%20Corvet%20TTS.png'
 }
@@ -7591,7 +7629,7 @@ masterPilotDB[1001]={
   ship_type = 'cr90corvette',
   cost = 131,
   slot = {21, 24, 24, 8, 8, 16, 23, 23, 22},
-  init = 0,
+  init = 8,
   actSet = {'F','TL','R'},
   texture = 'https://github.com/JohnnyCheese/TTS_X-Wing2.0/raw/master/assets/ships/Huge/CR90%20Corvette/Republic%20Judiciary%20TTS.png'
 }
@@ -7603,7 +7641,7 @@ masterPilotDB[1002]={
   ship_type = 'croccruiser',
   cost = 63,
   slot = {21, 24, 8, 8, 20, 23, 22, 12, 18},
-  init = 1,
+  init = 7,
   actSet = {'F','TL','R'},
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/CR0C/Separatist%20Privateers.png'
 }
@@ -7615,7 +7653,7 @@ masterPilotDB[1003]={
   ship_type = 'croccruiser',
   cost = 63,
   slot = {21, 24, 8, 8, 23, 22, 12, 13, 15, 18},
-  init = 1,
+  init = 7,
   actSet = {'F','TL','R'},
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/CR0C/Syndicate%20Smugglers.png'
 }
@@ -7628,7 +7666,7 @@ masterPilotDB[1004]={
   ship_type = 'gozanticlasscruiser',
   cost = 67,
   slot = {21, 24, 8, 8, 16, 23, 22, 22},
-  init = 1,
+  init = 7,
   actSet = {'F','TL','R'},
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/Gozanti-Class%20Cruiser/FO%20Sympthizers.png'
 }
@@ -7641,7 +7679,7 @@ masterPilotDB[1005]={
   ship_type = 'gozanticlasscruiser',
   cost = 67,
   slot = {21, 24, 8, 8, 16, 23, 22, 22, 15},
-  init = 1,
+  init = 7,
   actSet = {'F','TL','R'},
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/Gozanti-Class%20Cruiser/Gozanti-Class%20Cruiser.png'
 }
@@ -7653,7 +7691,7 @@ masterPilotDB[1006]={
   ship_type = 'gr75mediumtransport',
   cost = 65,
   slot = {21, 24, 4, 8, 8, 23, 22, 22, 15},
-  init = 1,
+  init = 7,
   actSet = {'F','TL','R'},
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/GR-75%20Transport/Echo%20Base%20Evacuees%20TTS.png'
 }
@@ -7665,7 +7703,7 @@ masterPilotDB[1007]={
   ship_type = 'gr75mediumtransport',
   cost = 65,
   slot = {21, 24, 4, 8, 8, 23, 22, 22},
-  init = 1,
+  init = 7,
   actSet = {'F','TL','R'},
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/GR-75%20Transport/New%20Republic%20Volunteers%20TTS.png'
 }
@@ -7677,7 +7715,7 @@ masterPilotDB[1008]={
   ship_type = 'raiderclasscorvette',
   cost = 131,
   slot = {21, 5, 6, 24, 24, 8, 8, 23, 23, 22},
-  init = 1,
+  init = 8,
   actSet = {'F','TL','R'},
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/Raider%20Class%20Corvette/FO%20Collaborators%20TTS.png'
 }
@@ -7689,7 +7727,7 @@ masterPilotDB[1009]={
   ship_type = 'raiderclasscorvette',
   cost = 134,
   slot = {21, 5, 6, 24, 24, 8, 8, 23, 23, 22, 15},
-  init = 1,
+  init = 8,
   actSet = {'F','TL','R'},
   texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Huge/Raider%20Class%20Corvette/IMP%20Raider.png'
 }
