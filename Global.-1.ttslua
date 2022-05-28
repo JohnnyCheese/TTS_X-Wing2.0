@@ -6656,8 +6656,9 @@ function newSpawner(listTable)
           end
           newShip.setTable("UiData", {name= base_name_str, icon=Pilots[shipIndex].Ship, init="init" .. Pilots[shipIndex].Data.initiative })
 
+          local pegtype = Pilots[shipIndex].peg or size
           local pegCustomObject = {
-            mesh = spawnPrefix .. "bases/pegs/" .. size .. ".obj",
+            mesh = spawnPrefix .. "bases/pegs/" .. pegtype .. ".obj",
             diffuse = spawnPrefix .. "bases/" .. size .. "/" .. fixedarc .. "/" .. factionnames[Faction] .. ".png",
             --collider = ShipVerification.colliders[size],
             convex = true,
