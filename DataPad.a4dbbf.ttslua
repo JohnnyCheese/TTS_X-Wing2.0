@@ -786,6 +786,7 @@ function idSpawner(idTable)
     end
     fList.factionDial=dialSkin[fList.Faction]
     fList.sqdAction = {}
+    local Format = idTable.Format or "2.5"
     pilotIndicators = calculateShipIndicators(idTable)
     for k,v in pairs (idTable.Pilots) do
         --print(tostring(k) .. " " .. v  )
@@ -809,7 +810,7 @@ function idSpawner(idTable)
         end
         --fList.Pilots[k].tint = tintColors[pilotIndicators[k]]
         --fList.Pilots[k].card = masterPilotDB[v].card
-        fList.Pilots[k].card = "{verifycache}https://raw.githubusercontent.com/eirikmun/x-wing2.0-project-goldenrod/" .. idTable.Format .. "/src/images/En/pilots/"..masterPilotDB[v].XWS..".png"
+        fList.Pilots[k].card = "{verifycache}https://raw.githubusercontent.com/eirikmun/x-wing2.0-project-goldenrod/" .. Format .. "/src/images/En/pilots/"..masterPilotDB[v].XWS..".png"
         fList.Pilots[k].cardB = cardBackDB[ffgFaction[fList.Faction]]
         local Ship = masterPilotDB[v].ship_type
         fList.Pilots[k].Ship = Ship
@@ -890,9 +891,9 @@ function idSpawner(idTable)
             fList.Pilots[k].cost = fList.Pilots[k].cost + cost
 
             --fList.Upgrades[k][key].card = masterUpgradesDB[value].card
-            fList.Upgrades[k][key].card = "https://raw.githubusercontent.com/eirikmun/x-wing2.0-project-goldenrod/" .. idTable.Format .. "/src/images/En/upgrades/" ..masterUpgradesDB[value].XWS..".png"
+            fList.Upgrades[k][key].card = "https://raw.githubusercontent.com/eirikmun/x-wing2.0-project-goldenrod/" .. Format .. "/src/images/En/upgrades/" ..masterUpgradesDB[value].XWS..".png"
             if masterUpgradesDB[value].dual == true then
-              fList.Upgrades[k][key].cardB = "https://raw.githubusercontent.com/eirikmun/x-wing2.0-project-goldenrod/" .. idTable.Format .. "/src/images/En/upgrades/"..masterUpgradesDB[value].XWS.."-sideb.png"
+              fList.Upgrades[k][key].cardB = "https://raw.githubusercontent.com/eirikmun/x-wing2.0-project-goldenrod/" .. Format .. "/src/images/En/upgrades/"..masterUpgradesDB[value].XWS.."-sideb.png"
             elseif masterUpgradesDB[value].cardB ==  nil then
               fList.Upgrades[k][key].cardB = cardBackDB[tostring(upSlot)]
             else
