@@ -28,17 +28,18 @@ side = "(A)"
 function onLoad(save_state)
     local state = JSON.decode(save_state)
     if state then
-
+      self.setVar("owningPlayer", state.owningPlayer)
     end
     SetupContextMenu()
 end
 
 function onSave()
+  local state = {owningPlayer=self.getVar("owningPlayer")}
+  return JSON.encode(state)
 end
 
 function SetupContextMenu()
   self.clearContextMenu()
-
 end
 
 scale = 1/self.getScale().x
@@ -192,6 +193,65 @@ function showBtn()
     end
 end
 
+token_width = 0.18
+token_height = 0.151
+token_nub_height = 0.029
+token_nub_length = 0.031
+point_height = 0.002
+outline_points = {
+  vector(-token_height,point_height,-token_width),
+  vector(token_height,point_height,-token_width),
+  vector(token_height + token_nub_height,point_height,-(token_width - token_nub_height)),
+  vector(token_height + token_nub_height,point_height,-(token_width - token_nub_height - token_nub_length)),
+  vector(token_height + 0.7*token_nub_height,point_height,-(token_width - token_nub_height - 1.48*token_nub_length)),
+  vector(token_height ,point_height,-(token_width - token_nub_height - 1.70*token_nub_length)),
+  vector(token_height ,point_height,(token_width - token_nub_height - 1.70*token_nub_length)),
+  vector(token_height + 0.7*token_nub_height,point_height,(token_width - token_nub_height - 1.48*token_nub_length)),
+  vector(token_height + token_nub_height,point_height,(token_width - token_nub_height - token_nub_length)),
+  vector(token_height + token_nub_height,point_height,(token_width - token_nub_height)),
+  vector(token_height,point_height,token_width),
+  vector(-token_height,point_height,token_width),
+  vector(-(token_height + token_nub_height),point_height,(token_width - token_nub_height)),
+  vector(-(token_height + token_nub_height),point_height,(token_width - token_nub_height - token_nub_length)),
+  vector(-(token_height + 0.7*token_nub_height),point_height,(token_width - token_nub_height - 1.48*token_nub_length)),
+  vector(-(token_height) ,point_height,(token_width - token_nub_height - 1.70*token_nub_length)),
+  vector(-(token_height) ,point_height,-(token_width - token_nub_height - 1.70*token_nub_length)),
+  vector(-(token_height + 0.7*token_nub_height),point_height,-(token_width - token_nub_height - 1.48*token_nub_length)),
+  vector(-(token_height + token_nub_height),point_height,-(token_width - token_nub_height - token_nub_length)),
+  vector(-(token_height + token_nub_height),point_height,-(token_width - token_nub_height)),
+}
+outline_lines = {
+  {outline_points[1],outline_points[2]},
+  {outline_points[2],outline_points[3]},
+  {outline_points[3],outline_points[4]},
+  {outline_points[4],outline_points[5]},
+  {outline_points[5],outline_points[6]},
+  {outline_points[6],outline_points[7]},
+  {outline_points[7],outline_points[8]},
+  {outline_points[8],outline_points[9]},
+  {outline_points[9],outline_points[10]},
+  {outline_points[10],outline_points[11]},
+  {outline_points[11],outline_points[12]},
+  {outline_points[12],outline_points[13]},
+  {outline_points[13],outline_points[14]},
+  {outline_points[14],outline_points[15]},
+  {outline_points[15],outline_points[16]},
+  {outline_points[16],outline_points[17]},
+  {outline_points[17],outline_points[18]},
+  {outline_points[18],outline_points[19]},
+  {outline_points[19],outline_points[20]},
+  {outline_points[20],outline_points[1]},
+}
+
+function getSegments()
+  segments = {}
+  local scale = self.getScale()[1]
+  for _, line in pairs(outline_lines) do
+    table.insert(segments,{line[1]*scale,line[2]*scale})
+  end
+  return segments
+end
+
 function hideBtn()
     if stat==true then
         self.UI.hide("btnPanel")
@@ -230,6 +290,7 @@ function relocate(P, option, id)
 end
 
 function onPickUp(playerColor)
+  self.setVar("owningPlayer", playerColor)
   local color = Color.fromString(playerColor)
   color.a = 0.5
   dropped = false

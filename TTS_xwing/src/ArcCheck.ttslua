@@ -691,7 +691,7 @@ ArcCheck.GetShipsWithinRange = function(ship, range, include_enemy_ships, includ
     local ship_owning_player = ship.getVar("owningPlayer")
     local potential_ships = {}
     for k, hit in pairs(collisions) do
-        if hit.hit_object.getGUID() ~= ship.getGUID() and MoveModule.SelectShips(hit.hit_object) then
+        if hit.hit_object.getGUID() ~= ship.getGUID() and MoveModule.SelectShipsAndRemotes(hit.hit_object) then
             local is_enemy_ship = hit.hit_object.getVar("owningPlayer") != ship_owning_player
             if (include_enemy_ships and is_enemy_ship) or (include_friendly_ships and not is_enemy_ship) then
                 table.insert(potential_ships, hit.hit_object)
@@ -733,10 +733,14 @@ end
 
 -- Returns a list of line segments which are within the arc
 ArcCheck.GetTargetLineSegmentsInArc = function(ship, target, arcinfo)
-    local targetShipData = target.getTable("Data")
-    -- Get the full line segments for the ship
-    local segments = ArcCheck.arc_line_segments[targetShipData.Size]["full"]["segments"]
-
+    local segments = {}
+    if MoveModule.SelectRemotes(target) then
+      segments = target.call("getSegments")
+    else
+      local targetShipData = target.getTable("Data")
+      -- Get the full line segments for the ship
+      segments = ArcCheck.arc_line_segments[targetShipData.Size]["full"]["segments"]
+    end
     local outsegments = {}
     local arc_center_vector = Vect.RotateDeg(vector(0, 0, -30), ship.getRotation()[2] + arcinfo.direction)
     --print("Arc_center_vector = " .. tostring(arc_center_vector[1]).."," .. tostring(arc_center_vector[2]) ..","..tostring(arc_center_vector[3]))

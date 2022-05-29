@@ -2775,10 +2775,21 @@ MoveModule.SelectShips = function(obj)
     return ((obj.tag == 'Figurine') and (obj.getVar('__XW_Ship')==true or obj.hasTag('Ship')))
 end
 
+-- Selection function for MoveModule.JoinHitTables - ships only
+MoveModule.SelectRemotes = function(obj)
+    return obj.hasTag('TargetableRemote')
+end
+
 -- Selection function for MoveModule.JoinHitTables - huge ships only
 MoveModule.SelectHugeShips = function(obj)
     return MoveModule.SelectShips(obj) and (obj.getTable('Data').Size == 'huge')
 end
+
+-- Selection function for MoveModule.JoinHitTables - huge ships only
+MoveModule.SelectShipsAndRemotes = function(obj)
+    return MoveModule.SelectShips(obj) or MoveModule.SelectRemotes(obj)
+end
+
 
 
 -- Selection function for MoveModule.JoinHitTables - obstacles only
