@@ -3257,25 +3257,25 @@ MoveModule.CheckCollisions = function(ship, shipPosRot, collShipTable)
     local certShipReach = Convert_mm_igu(mm_baseSize[shipSize]/2)              -- distance at which other ships MUST bump it
     local maxShipReach = Convert_mm_igu(mm_baseSize[shipSize]*math.sqrt(2)/2)  -- distance at which other ships CAN bump it
 
-    for k, collShip in pairs(collShipTable) do
-        local collShipSize = collShip.getTable("Data").Size or 'small'
-        local certBumpDist = certShipReach + Convert_mm_igu(mm_baseSize[collShipSize]/2)            -- distance at which these two particular ships ships MUST bump
-        local maxBumpDist = maxShipReach + Convert_mm_igu(mm_baseSize[collShipSize]*math.sqrt(2)/2) -- distance at which these two particular ships ships CAN bump
-
-        local dist = Vect.Distance(shipPosRot.pos, collShip.getPosition())
-        if dist < maxBumpDist then
-            if dist < certBumpDist then
-                info.coll = collShip
-                if certBumpDist - dist > info.minMargin then
-                    info.minMargin = certBumpDist - dist
-                end
-            elseif collide(shipInfo, {pos=collShip.getPosition(), rot=collShip.getRotation(), ship=collShip}) == true then
-                info.coll = collShip
-                info.numCheck = info.numCheck + 1
-                break
-            end
-        end
-    end
+    --for k, collShip in pairs(collShipTable) do
+    --    local collShipSize = collShip.getTable("Data").Size or 'small'
+    --    local certBumpDist = certShipReach + Convert_mm_igu(mm_baseSize[collShipSize]/2)            -- distance at which these two particular ships ships MUST bump
+    --    local maxBumpDist = maxShipReach + Convert_mm_igu(mm_baseSize[collShipSize]*math.sqrt(2)/2) -- distance at which these two particular ships ships CAN bump
+--
+--        local dist = Vect.Distance(shipPosRot.pos, collShip.getPosition())
+--        if dist < maxBumpDist then
+--            if dist < certBumpDist then
+--                info.coll = collShip
+--                if certBumpDist - dist > info.minMargin then
+--                    info.minMargin = certBumpDist - dist
+--                end
+--            elseif collide(shipInfo, {pos=collShip.getPosition(), rot=collShip.getRotation(), ship=collShip}) == true then
+--                info.coll = collShip
+--                info.numCheck = info.numCheck + 1
+--                break
+--            end
+--        end
+--    end
     if info.coll == nil then
         local hTable = {}
         if shipSize == 'huge' then
@@ -3284,6 +3284,7 @@ MoveModule.CheckCollisions = function(ship, shipPosRot, collShipTable)
             hTable = MoveModule.FullCastCheck(ship, shipPosRot,  MoveModule.SelectShips)
         end
         info.coll = hTable[1]
+        info.collidingShips = hTable
     end
     return info
 end
@@ -3440,6 +3441,13 @@ MoveModule.MoveProbe.TryFullMove = function(info, ship, fullFun)
     else
         out.done = false
         out.collObj = fullInfo.coll
+        out.friendlyCollission = false
+        local shipOwner = ship.getVar("owningPlayer")
+        for _,colship in pairs(fullInfo.collidingShips or {}) do
+          if colship.getVar("owningPlayer") == shipOwner then
+            out.friendlyCollission = true
+          end
+        end
     end
 
     -- Ship-to-obstacle collisions
@@ -3478,7 +3486,7 @@ end
 --      finPart     <- part of partial move performed, 'max' if full move, nil if not applicable
 --          }
 MoveModule.GetFinalPosData = function(move_code, ship, ignoreCollisions)
-    local out = {finPos = nil, collObj = nil, finType = nil, finPart = nil}
+    local out = {finPos = nil, collObj = nil, finType = nil, finPart = nil, friendlyCollission = false}
     local info = MoveData.DecodeInfo(move_code, ship)
 
     -- Don't bother with collisions if it's stationary
@@ -3511,6 +3519,7 @@ MoveModule.GetFinalPosData = function(move_code, ship, ignoreCollisions)
         -- If move allows for full move check, try it
         if info.traits.full == true then
             local fullData = MoveModule.MoveProbe.TryFullMove(info, ship, MoveModule.GetFullMove)
+            out.friendlyCollission = fullData.friendlyCollission
             while info.size == 'huge' and fullData.done == false do
               out.collObj = fullData.collObj
               info.speed = info.speed -1
@@ -3684,7 +3693,7 @@ MoveModule.PerformMove = function(move_code, ship, ignoreCollisions, finishFunct
     local origionalRot = ship.getRotation()
     local info = MoveData.DecodeInfo(move_code, ship)
     local finData = MoveModule.GetFinalPosData(move_code, ship, ignoreCollisions)
-    local annInfo = {type=finData.finType, note=info.note, code=info.code}
+    local annInfo = {type=finData.finType, note=info.note, code=info.code, friendlyCollission= finData.friendlyCollission}
     if finData.finType == 'overlap' then
         annInfo.note = info.collNote
     elseif finData.finType == 'move' then
@@ -5551,7 +5560,13 @@ AnnModule.Announce = function(info, target, shipPrefix)
             annString = shipName .. info.note .. ' (' .. info.code .. ')'
             annColor = AnnModule.announceColor.moveClear
         else
-            annString = shipName .. info.note .. ' (' .. info.code .. ') but is now touching ' .. info.collidedShip.getName()
+            local coltype
+            if info.friendlyCollission then
+              coltype = "[ff2222]friendly[ffb219]"
+            else
+              coltype = "[2222ff]only enemy[ffb219]"
+            end
+            annString = shipName .. info.note .. ' (' .. info.code .. ') but it ended overlapping ' .. coltype .. ' ship(s) and is now touching ' .. info.collidedShip.getName()
             annColor = AnnModule.announceColor.moveCollision
         end
     elseif info.type == 'overlap' then
