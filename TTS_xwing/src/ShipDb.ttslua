@@ -1494,12 +1494,13 @@ masterShipDB['nimbusclassvwing']={
     XWS = 'nimbusclassvwing',
     newSpawner = true,
     textures = {
-      red = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nimbusclassvwing/Textures/VwingRed.png',
-      blue = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nimbusclassvwing/Textures/VwingBlue.png',
+      red = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nimbusclassvwing/Textures/red.jpg',
+      blue = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nimbusclassvwing/Textures/blue.jpg',
+      plain = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nimbusclassvwing/Textures/plain.jpg',
     },
     Fac = {[6]=true},
     arcs = {fixed = { range=3, type = {'front'}}},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nimbusclassvwing/Republic_V-Wing.obj',
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nimbusclassvwing/vwing.obj',
     moveSet = {'wtl1','rbl1','rbr1','wtr1','btl2','bbl2','bs2','bbr2','btr2','rk2','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk4','ws5'},
     keywords = {'TIE'},
     Config = {
@@ -1825,6 +1826,7 @@ masterShipDB['clonez95headhunter']={
   textures = {
     plain = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/clonez95headhunter/textures/plain.jpg',
     standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/clonez95headhunter/textures/standard.jpg',
+    blue = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/clonez95headhunter/textures/blue.jpg',
   },
   Fac = {[6]=true},
   arcs = {fixed = { range=3, type = {'front'}}},
