@@ -489,6 +489,8 @@ masterShipDB['yv666lightfreighter']={
     newSpawner = true,
     textures = {
       standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/yv666lightfreighter/Textures/standard.jpg',
+      moralo = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/yv666lightfreighter/Textures/moralo.jpg',
+      grey = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/yv666lightfreighter/Textures/grey.jpg',
     },
   Fac = {[3]=true},
   arcs = {fixed = { range=3, type = {'fullfront'}}},
@@ -1405,13 +1407,15 @@ masterShipDB['nabooroyaln1starfighter']={
 	XWS = 'nabooroyaln1starfighter',
     newSpawner = true,
     textures = {
-      yellow = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nabooroyaln1starfighter/Textures/Yellow.png',
-      silver = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nabooroyaln1starfighter/Textures/Silver.png',
+      yellow = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nabooroyaln1starfighter/Textures/yellow.jpg',
+      silver = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nabooroyaln1starfighter/Textures/silver.jpg',
+      black = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nabooroyaln1starfighter/Textures/black.jpg',
+      jinata = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nabooroyaln1starfighter/Textures/jinata.jpg',
     },
 	Fac = {[6]=true},
 	arcs = {fixed = { range=3, type = {'front'}}},
 	moveSet = {'wbl1','ws1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','bbl3','bs3','bbr3','wtr3','rtl3t','rtr3t','ws4','ws5'},
-	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nabooroyaln1starfighter/Naboo_Royal_N1.obj'
+	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nabooroyaln1starfighter/N1.obj'
 }
 
 masterShipDB['nantexclassstarfighter']={
