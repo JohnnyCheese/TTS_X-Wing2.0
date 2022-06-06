@@ -623,7 +623,7 @@ ArcCheck.GetBullseyeTargets = function(ship, pos, length)
     local myOwningPlayer = ship.getVar("owningPlayer")
     local bullseye_targets = {}
     for k, hit in pairs(collissions) do
-        if hit.hit_object.getGUID() ~= ship.getGUID() and MoveModule.SelectShips(hit.hit_object) then
+        if hit.hit_object.getGUID() ~= ship.getGUID() and MoveModule.SelectShipsAndRemotes(hit.hit_object) then
             if hit.hit_object.getVar("owningPlayer") != myOwningPlayer then
                 -- remove false targets, where only the nub is hit
                 if ArcCheck.VerifyBullseye(ship, hit.hit_object) then
@@ -636,6 +636,9 @@ ArcCheck.GetBullseyeTargets = function(ship, pos, length)
 end
 
 ArcCheck.VerifyBullseye = function(ship, target)
+    if MoveModule.SelectRemotes(target) then
+      return true
+    end
     local left = false
     local right = false
     local half_bullseye = (ArcCheck.bullseye_data.size[1]/2)
