@@ -126,11 +126,11 @@ masterShipDB['sheathipedeclassshuttle']={
     XWS = 'sheathipedeclassshuttle',
     newSpawner = true,
     textures = {
-      standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/sheathipedeclassshuttle/Textures/standard.png',
+      standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/sheathipedeclassshuttle/Textures/standard.jpg',
     },
     Fac = {[1]=true},
     arcs = {fixed = { range=3, type = {'frontback'}}},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/sheathipedeclassshuttle/sheathipede.obj',
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/sheathipedeclassshuttle/Sheathipede2.obj',
     moveSet = {'rs1r','wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','bs3','wbr3','rtr3','rk3','rs4'}
 }
 
@@ -489,6 +489,8 @@ masterShipDB['yv666lightfreighter']={
     newSpawner = true,
     textures = {
       standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/yv666lightfreighter/Textures/standard.jpg',
+      moralo = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/yv666lightfreighter/Textures/moralo.jpg',
+      grey = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/yv666lightfreighter/Textures/grey.jpg',
     },
   Fac = {[3]=true},
   arcs = {fixed = { range=3, type = {'fullfront'}}},
@@ -620,9 +622,9 @@ masterShipDB['arc170starfighter']={
   XWS = 'arc170starfighter',
     newSpawner = true,
     textures = {
-      rebel = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/arc170starfighter/Textures/rebel.png',
-      republic = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/arc170starfighter/Textures/republic.png',
-      blue = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/arc170starfighter/Textures/republic-blue.jpg',
+      rebel = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/arc170starfighter/Textures/rebel.jpg',
+      republic = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/arc170starfighter/Textures/republicred.jpg',
+      blue = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/arc170starfighter/Textures/republicblue.jpg',
     },
   Fac = {[1]=true,[6]=true},
   arcs = {fixed = { range=3, type = {'frontback'}}},
@@ -913,8 +915,11 @@ masterShipDB['jumpmaster5000']={
   XWS = 'jumpmaster5000',
     newSpawner = true,
     textures = {
-      standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/jumpmaster5000/Textures/standard.png',
-      nom = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/jumpmaster5000/Textures/NomLumb.png',
+      standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/jumpmaster5000/Textures/standard.jpg',
+      tel = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/jumpmaster5000/Textures/teltrevura.jpg',
+      plain = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/jumpmaster5000/Textures/plain.png',
+      scout = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/jumpmaster5000/Textures/scout.png',
+      nom = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/jumpmaster5000/Textures/nomlumb.png',
     },
   Fac = {[3]=true},
   arcs = {turret = {main = {name = 'primary', type={'singleturret'}}}},
@@ -1405,13 +1410,15 @@ masterShipDB['nabooroyaln1starfighter']={
 	XWS = 'nabooroyaln1starfighter',
     newSpawner = true,
     textures = {
-      yellow = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nabooroyaln1starfighter/Textures/Yellow.png',
-      silver = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nabooroyaln1starfighter/Textures/Silver.png',
+      yellow = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nabooroyaln1starfighter/Textures/yellow.jpg',
+      silver = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nabooroyaln1starfighter/Textures/silver.jpg',
+      black = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nabooroyaln1starfighter/Textures/black.jpg',
+      jinata = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nabooroyaln1starfighter/Textures/jinata.jpg',
     },
 	Fac = {[6]=true},
 	arcs = {fixed = { range=3, type = {'front'}}},
 	moveSet = {'wbl1','ws1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','bbl3','bs3','bbr3','wtr3','rtl3t','rtr3t','ws4','ws5'},
-	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nabooroyaln1starfighter/Naboo_Royal_N1.obj'
+	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nabooroyaln1starfighter/N1.obj'
 }
 
 masterShipDB['nantexclassstarfighter']={
@@ -1423,12 +1430,14 @@ masterShipDB['nantexclassstarfighter']={
   XWS = 'nantexclassstarfighter',
     newSpawner = true,
     textures = {
-      standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nantexclassstarfighter/Textures/standard.png',
+      standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nantexclassstarfighter/Textures/standard.jpg',
+      white = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nantexclassstarfighter/Textures/white.jpg',
+      blue = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nantexclassstarfighter/Textures/blue.jpg',
     },
   Fac = {[7]=true},
   arcs = {fixed = { range=3, type = {'bullseye'}}, turret={main={name= 'primary', type={'left', 'front', 'right'}}}},
   moveSet = {'wtl1','bbl1','bbr1','wtr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','bbl3','bs3','bbr3','wtr3','rbl3s','rbr3s','ws4','ws5','rk5'},
-  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nantexclassstarfighter/Nantex.obj'
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nantexclassstarfighter/Nantex2.obj'
 }
 
 masterShipDB['btlbywing']={
