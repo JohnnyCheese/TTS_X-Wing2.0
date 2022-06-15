@@ -629,7 +629,7 @@ masterShipDB['arc170starfighter']={
   Fac = {[1]=true,[6]=true},
   arcs = {fixed = { range=3, type = {'frontback'}}},
   moveSet = {'bbl1','bs1','bbr1','wtl2','bbl2','bs2','bbr2','wtr2','rtl3','wbl3','ws3','wbr3','rtr3','rs4','rk4'},
-  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/arc170starfighter/arc170.obj'
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/arc170starfighter/arc.obj'
 }
 
 masterShipDB['attackshuttle']={
@@ -1340,11 +1340,13 @@ masterShipDB['resistancetransport']={
     agi = 1,
     newSpawner = true,
     textures = {
-      standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/resistancetransport/Textures/standard.png',
+      standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/resistancetransport/Textures/standard.jpg',
+      red = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/resistancetransport/Textures/red.jpg',
+      plain = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/resistancetransport/Textures/plain.jpg',
     },
     Fac = {[4]=true},
     arcs = {fixed = { range=3, type = {'front'}}},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/resistancetransport/transport.obj',
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/resistancetransport/transport2.obj',
     moveSet = {'rbl1r','rbr1r','rs0','rbl1r','rbr1r','rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rbl3','ws3','rbr3','rs4'}
 }
 
@@ -1357,13 +1359,13 @@ masterShipDB['resistancetransportpod']={
     agi = 2,
     newSpawner = true,
     textures = {
-      standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/resistancetransportpod/Textures/standard.jpg',
-      plain = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/resistancetransportpod/Textures/plain.jpg',
-      red = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/resistancetransportpod/Textures/red.jpg',
+      standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/resistancetransportpod/Textures/standard2.jpg',
+      plain = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/resistancetransportpod/Textures/plain2.jpg',
+      red = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/resistancetransportpod/Textures/red2.jpg',
     },
     Fac = {[4]=true},
     arcs = {fixed = { range=3, type = {'front'}}},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/resistancetransportpod/pod.obj',
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/resistancetransportpod/pod2.obj',
     moveSet = {'rtl1','bbl1','bs1','bbr1','rtr1','wtl2','wbl2','bs2','wbr2','wtr2','rbl3','ws3','rbr3','rk3','rs4'}
 }
 
@@ -1815,6 +1817,7 @@ masterShipDB['rogueclassstarfighter']={
   textures = {
     grey = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/rogueclassstarfighter/textures/Rogue-Class-Grey.jpg',
     green = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/rogueclassstarfighter/textures/Rogue-Class-Green.jpg',
+    plain = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/rogueclassstarfighter/textures/plain.jpg',
   },
   Hull = 5,
   Shield = 2,
