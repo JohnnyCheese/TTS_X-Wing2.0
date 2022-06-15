@@ -122,12 +122,16 @@ end
 arc_indicators = {}
 
 function DisableAttachedColliders()
+  --print("DisableAttachedColliders: " .. self.getName())
   for i, child in ipairs(self.getChildren()) do
-    DisableColliderInComponent(child)
+    --print("Child ".. tostring(i)..":" .. child.name)
+    if child.name != "New Game Object" then -- The compounded collission mesh seems to be named this.
+      DisableColliderInComponent(child, " ")
+    end
   end
 end
 
-function DisableColliderInComponent(comp)
+function DisableColliderInComponent(comp, prefix)
   if comp.getComponent("MeshCollider") then
     comp.getComponent("MeshCollider").set("enabled", false)
   end
@@ -136,7 +140,8 @@ function DisableColliderInComponent(comp)
   end
 
   for i, child in ipairs(comp.getChildren()) do
-    DisableColliderInComponent(child)
+    --print(prefix .. child.name)
+    DisableColliderInComponent(child, prefix .. " ")
   end
 end
 
@@ -512,6 +517,20 @@ function SpawnCustomizer()
   end
   customizer.setTable("Configs", configs)
   customizer.setLuaScript(customizer_scipt)
+end
+
+function SetInitiative(args)
+  local uitable = self.getTable("UiData")
+  uitable.init = "init" .. tostring(tonumber(args.init))
+  self.setTable('UiData', uitable)
+  setupUI()
+end
+
+function SetName(args)
+  local uitable = self.getTable("UiData")
+  uitable.name = string.gsub(args.name, '*', '•')
+  self.setTable('UiData', uitable)
+  setupUI()
 end
 
 -- Save self state

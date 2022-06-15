@@ -257,6 +257,14 @@ XW_cmd.Process = function(obj, cmd)
         DialModule.TurretArc(obj, cmd)
     elseif type == 'fixedarc' then
         DialModule.FixedArc(obj, cmd)
+    elseif type == 'renameShip' then
+        if obj.getVar('SetName') then
+          obj.call('SetName', {name = cmd:sub(5,-1)})
+        end
+    elseif type == 'changeInitiative' then
+        if obj.getVar('SetInitiative') then
+          obj.call('SetInitiative', {init = cmd:sub(5, -1)})
+        end
     end
     obj.setDescription('')
     return true
@@ -312,6 +320,9 @@ XW_cmd.AddCommand('a[12]', 'actionMove')        -- Adjusts
 --XW_cmd.AddCommand('ch[rle][fb]', 'actionMove')  -- Echo's bullshit
 --XW_cmd.AddCommand('chs[rle]', 'actionMove')     -- Echo's bullshit, part 2
 --XW_cmd.AddCommand('vr[rle][fb]', 'actionMove')  -- StarViper Mk.II rolls
+
+XW_cmd.AddCommand('name[ \*]*[a-zA-Z" \d]*', 'renameShip')
+XW_cmd.AddCommand('init[ ]?[01234567]', 'changeInitiative')
 
 -- AI Module:
 test_AI = false
