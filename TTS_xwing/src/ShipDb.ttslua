@@ -271,9 +271,11 @@ masterShipDB['ut60duwing']={
     XWS = 'ut60duwing',
     newSpawner = true,
     textures = {
-      standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/ut60duwing/Textures/standard.png',
-      captain = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/ut60duwing/Textures/captain.png',
-      renegade = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/ut60duwing/Textures/renegade.png',
+      standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/ut60duwing/Textures/standard.jpg',
+      captain = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/ut60duwing/Textures/captain.jpg',
+      renegade = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/ut60duwing/Textures/renegade.jpg',
+      yellow = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/ut60duwing/Textures/yellow.jpg',
+      plain = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/ut60duwing/Textures/plain.jpg',
     },
     Fac = {[1]=true},
     arcs = {fixed = { range=3, type = {'front'}}},
@@ -283,13 +285,13 @@ masterShipDB['ut60duwing']={
       States = {
         [1] = {
             Name = "Pivot Wing (Open)",
-            Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/ut60duwing/UWing_Open.obj",
+            Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/ut60duwing/UWingOpen.obj",
             ZRot = 0,
             Message = " opened their wings.",
         },
         [2] = {
             Name = "Pivot Wing (Closed)",
-            Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/ut60duwing/UWing_Close.obj",
+            Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/ut60duwing/UWingClose.obj",
             ZRot = 180,
             Message = " closed their wings.",
         }
@@ -1489,11 +1491,14 @@ masterShipDB['tiebainterceptor']={
     XWS = 'tiebainterceptor',
     newSpawner = true,
     textures = {
-      standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiebainterceptor/Textures/standard.png',
+      standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiebainterceptor/Textures/standard.jpg',
+      white = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiebainterceptor/Textures/white.jpg',
+      black = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiebainterceptor/Textures/black.jpg',
+      jank = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiebainterceptor/Textures/jank.jpg',
     },
     Fac = {[5]=true},
     arcs = {fixed = { range=3, type = {'front'}}},
-    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiebainterceptor/TieBa.obj',
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiebainterceptor/TieBaron.obj',
     moveSet = {'btl1','bbl1','bbr1','btr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rbl2s','rbr2s','bs4','ws5','rk5'},
     keywords = {'TIE'}
 }
