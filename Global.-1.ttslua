@@ -321,7 +321,7 @@ XW_cmd.AddCommand('a[12]', 'actionMove')        -- Adjusts
 --XW_cmd.AddCommand('chs[rle]', 'actionMove')     -- Echo's bullshit, part 2
 --XW_cmd.AddCommand('vr[rle][fb]', 'actionMove')  -- StarViper Mk.II rolls
 
-XW_cmd.AddCommand('name[ \*]*[a-zA-Z" \d]*', 'renameShip')
+XW_cmd.AddCommand('name[ *]*[a-zA-Z" \\d]*', 'renameShip')
 XW_cmd.AddCommand('init[ ]?[01234567]', 'changeInitiative')
 
 -- AI Module:
@@ -5360,7 +5360,7 @@ BombModule.OnTokenDrop = function(token)
         end
 
         if token.getName() == 'Blaze Bomb' then
-          BombModule.SpawnBlaze({pos=destPos, rot=destRot})
+          --BombModule.SpawnBlaze({pos=destPos, rot=destRot})
         end
 
         if token.hasTag('Mine') then
@@ -6855,6 +6855,8 @@ function newSpawner(listTable)
                   end
                   ship.addAttachment(configModel)
                   Wait.frames(function() ship.call("DisableAttachedColliders") end, 2)
+                  Wait.frames(function() ship.call("DisableAttachedColliders") end, 10)
+                  Wait.frames(function() ship.call("DisableAttachedColliders") end, 30)
                 end
                 Wait.condition(configSpawnFunction , function() return (not ship.spawning) and (not ship.isSmoothMoving() ) end)
               end -- if Config.Model
