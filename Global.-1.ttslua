@@ -6710,7 +6710,7 @@ function newSpawner(listTable)
             shipCustomObject = {
               mesh = '{verifycache}'..Pilots[shipIndex].Data.mesh,
               diffuse = texture,
-              --collider = '{verifycache}'..Pilots[shipIndex].Data.mesh,
+              collider = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/minisculebox.obj',
               convex = true,
               material = 1,
               type = 1

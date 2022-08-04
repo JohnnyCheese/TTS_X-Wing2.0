@@ -660,32 +660,32 @@ masterShipDB['t65xwing']={
   XWS = 't65xwing',
     newSpawner = true,
     textures = {
-      red = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/Textures/red.jpg',
-      blue = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/Textures/blue.jpg',
-      renegade = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/Textures/cavernangels.jpg',
-      biggs = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/Textures/biggs.jpg',
-      garven = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/Textures/garven.jpg',
-      porkins = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/Textures/porkins.jpg',
-      luke = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/Textures/luke.jpg',
-      thane = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/Textures/thane.jpg',
-      wedge = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/Textures/wedge.jpg',
+      red = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/1/Textures/red.jpg',
+      blue = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/1/Textures/blue.jpg',
+      renegade = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/1/Textures/cavernangels.jpg',
+      biggs = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/1/Textures/biggs.jpg',
+      garven = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/1/Textures/garven.jpg',
+      porkins = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/1/Textures/porkins.jpg',
+      luke = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/1/Textures/luke.jpg',
+      thane = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/1/Textures/thane.jpg',
+      wedge = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/1/Textures/wedge.jpg',
     },
   Fac = {[1]=true},
   arcs = {fixed = { range=3, type = {'front'}}},
   moveSet = {'bbl1', 'bs1', 'bbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'wtl3', 'wbl3', 'ws3', 'wbr3', 'wtr3', 'ws4', 'rtl3t', 'rtr3t', 'rk4' },
-  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/xwingbase.obj',
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/xwingbasev1.obj',
   keywords = {'X-Wing'},
   Config = {
     States = {
       [1] = {
           Name = "S-Foils (Open)",
-          Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/xwingopen.obj",
+          Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/xwingopenv1.obj",
           ZRot = 0,
           Message = " opened their wings.",
       },
       [2] = {
           Name = "S-Foils (Closed)",
-          Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/xwingclosed.obj",
+          Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/xwingclosedv1.obj",
           ZRot = 180,
           Message = " closed their wings.",
       }
@@ -976,12 +976,12 @@ masterShipDB['tiefofighter']={
 	XWS = 'tiefofighter',
     newSpawner = true,
     textures = {
-      standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiefofighter/Textures/standard.jpg',
+      standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiefofighter/Textures/1/standard.jpg',
     },
 	Fac = {[5]=true},
 	arcs = {fixed = { range=3, type = {'front'}}},
 	moveSet = {'wtl1','wtr1','rbl2s','btl2','bbl2','bs2','bbr2','btr2','rbr2s','wtl3','wbl3','bs3','wbr3','wtr3','ws4','rk4','ws5'},
-	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiefofighter/TieFO.obj',
+	mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiefofighter/TieFOv1.obj',
   keywords = {'TIE'}
 }
 
