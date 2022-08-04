@@ -96,6 +96,7 @@ timerStats = {
 }
 
 function lengthButton()
+  self.AssetBundle.playTriggerEffect(0)
   if timerStats.length >= 120 then
     timerStats.length = 45
   else
@@ -105,6 +106,7 @@ function lengthButton()
 end
 
 function minusLengthButton()
+  self.AssetBundle.playTriggerEffect(0)
   if timerStats.length > 1 then
     timerStats.length = timerStats.length -1
   end
@@ -112,12 +114,14 @@ function minusLengthButton()
 end
 
 function plusLengthButton()
+  self.AssetBundle.playTriggerEffect(0)
   timerStats.length = timerStats.length + 1
   self.UI.setAttribute("LengthButton","text",tostring(timerStats.length) .. " Min")
 end
 
 
 function hiddenButton()
+  self.AssetBundle.playTriggerEffect(0)
   timerStats.hidden =  not timerStats.hidden
   if timerStats.hidden then
     self.UI.setAttribute("HiddenButton","text","Hidden")
@@ -127,6 +131,7 @@ function hiddenButton()
 end
 
 function randomButton()
+  self.AssetBundle.playTriggerEffect(0)
   timerStats.random =  not timerStats.random
   if timerStats.random then
     self.UI.setAttribute("RandomButton","text","Random")
@@ -138,8 +143,7 @@ end
 function startButton()
   timerStats.start_time =  Time.time
   timerStats.started = true
-
-
+  self.AssetBundle.playTriggerEffect(0)
   self.UI.setAttribute("SetupPanel","active",false)
   self.UI.setAttribute("StartedClockPanel","active",true)
   if timerStats.random then
@@ -166,6 +170,7 @@ end
 
 function pauseButton()
   if timerStats.started then
+    self.AssetBundle.playTriggerEffect(0)
     timerStats.paused =  not timerStats.paused
     if timerStats.paused then
       timerStats.total_elapsed_time = timerStats.total_elapsed_time + timerStats.elapsed_time
@@ -175,6 +180,7 @@ function pauseButton()
     end
   else
     self.AssetBundle.playLoopingEffect(0)
+    self.AssetBundle.playTriggerEffect(0)
   end
 end
 
@@ -229,6 +235,7 @@ guiIdToSide = {
 
 function registerPlayerFromGui(player, option, id)
   local side = guiIdToSide[id]
+  self.AssetBundle.playTriggerEffect(0)
   if table.find({'White', 'Gray', 'Black'}, player.color) then
     printToAll("Please select a player color before registering", {1, 0.4, 0})
   else
@@ -251,6 +258,7 @@ function registerPlayerFromGui(player, option, id)
 end
 
 function addPoint(player, option, id)
+  self.AssetBundle.playTriggerEffect(0)
   if state == "active" and round > 0 then
     local side = guiIdToSide[id]
     if id:find('Plus') then
