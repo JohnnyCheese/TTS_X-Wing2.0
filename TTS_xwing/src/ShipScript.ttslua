@@ -516,7 +516,17 @@ function SpawnCustomizer()
       table.insert(configs, config.Model)
     end
   end
-  customizer.setColorTint(color(1.0,1.0,1.0))
+  local tint = Color.White
+  for _, attachment in pairs(self.getAttachments()) do
+    if attachment.name == "Config" or attachment.name == "Ship" then
+
+      part = self.removeAttachment(attachment.index)
+      tint = part.getColorTint()
+      self.addAttachment(part)
+      break
+    end
+  end
+  customizer.setColorTint(tint)
   customizer.setTable("Configs", configs)
   customizer.setLuaScript(customizer_scipt)
 end

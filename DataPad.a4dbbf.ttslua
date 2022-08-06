@@ -1091,13 +1091,28 @@ function onObjectDrop(player_color, dropped_object)
                 customization.model = customobj.mesh
                 customization.texture = customobj.diffuse
                 customization.modeltint = dropped_object.getColorTint()
+                local shipfound = false
                 for i, attachment in pairs(dropped_object.getAttachments()) do
                     if attachment.name == "Ship" then
                       id = dropped_object.removeAttachment(attachment.index)
                       customization.texture = id.getCustomObject().diffuse
+                      customization.modeltint = id.getColorTint()
                       dropped_object.addAttachment(id)
+                      shipfound = true
                     end
                 end
+                if not shipfound then -- Is probably a ship without base mesh
+                  for i, attachment in pairs(dropped_object.getAttachments()) do
+                      if attachment.name == "Config" then
+                        id = dropped_object.removeAttachment(attachment.index)
+                        customization.texture = id.getCustomObject().diffuse
+                        customization.modeltint = id.getColorTint()
+                        dropped_object.addAttachment(id)
+                        break
+                      end
+                  end
+                end
+
                 for i, attachment in pairs(dropped_object.getAttachments()) do
                     if attachment.name == "ColorId" then
                       id = dropped_object.removeAttachment(attachment.index)

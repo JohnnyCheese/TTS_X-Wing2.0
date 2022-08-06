@@ -6546,10 +6546,12 @@ function newSpawner(listTable)
         card = Pilots[shipIndex].card
         cardB = Pilots[shipIndex].cardB
         local tint = color(0,0,0,0)
+        local modeltint = color(1,1,1,1)
         if Customization[pilotName] ~= nil then
             tint = Customization[pilotName].tint or  color(0,0,0,0)
             card = Customization[pilotName].face or Pilots[shipIndex].card
             cardB = Customization[pilotName].back or Pilots[shipIndex].cardB
+            modeltint = Customization[pilotName].modeltint or  color(1,1,1,1)
         end
 
 
@@ -6697,7 +6699,7 @@ function newSpawner(listTable)
           local pegCustomObject = {
             mesh = spawnPrefix .. "bases/pegs/" .. pegtype .. ".obj",
             diffuse = spawnPrefix .. "bases/" .. size .. "/" .. fixedarc .. "/" .. factionnames[Faction] .. ".png",
-            --collider = ShipVerification.colliders[size],
+            collider = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/minisculebox.obj',
             convex = true,
             material = 1,
             type = 1
@@ -6740,6 +6742,7 @@ function newSpawner(listTable)
               })
               shipModel.setName("Ship")
               shipModel.setCustomObject(shipCustomObject)
+              shipModel.setColorTint(modeltint)
               ship.addAttachment(shipModel)
             end
           end
@@ -6795,7 +6798,8 @@ function newSpawner(listTable)
           local customObj = {
               convex = true,
               material = 1,
-              type = 1
+              type = 1,
+              collider = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/minisculebox.obj',
           }
           if Pilots[shipIndex].Size == "small" then
               customObj.mesh='{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base_ID_Marker.obj'
@@ -6850,6 +6854,7 @@ function newSpawner(listTable)
                   configModel.setName("Config")
                   configModel.setDescription(tostring(k))
                   configModel.setCustomObject(customObject)
+                  configModel.setColorTint(modeltint)
                   if k ~= 1 then
                     configModel.setScale(vector(0.0001,0.0001,0.0001))
                   end
