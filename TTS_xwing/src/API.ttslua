@@ -196,6 +196,10 @@ function API_ClearPosition(argTable)
   TokenModule.ClearPosition(argTable.pos, argTable.reach, argTable.ship)
 end
 
+function API_SetTokenSize(argTable)
+  TokenModule.token_scale = argTable.size
+end
+
 --------
 -- OBJECT SPECIFIC VARIABLES
 -- These variables are set per object and have some specific meaning

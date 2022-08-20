@@ -168,7 +168,9 @@ dualUpgradeList[685] = 686 -- Agent terex
 dualUpgradeList[691] = 692 -- Repulsorlift Stabilizers
 dualUpgradeList[617] = 618 -- C1-10P
 
-
+tokenSize = 1
+tokenSizeStr = {[1]="Small", [2]="Medium", [3]="Large"}
+tokenSizeModifiers = {[1]=1.0, [2]=2.0, [3]=3.0}
 
 
 -- on load initiate the process
@@ -182,10 +184,26 @@ function initiate()
     self.clearInputs()
     self.createButton({click_function = 'ffgStart', function_owner = self, label = 'FFG Spawner', position = {-0.45,0.45,-0.1}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
     self.createButton({click_function = 'xwsStart', function_owner = self, label = 'XWS Spawner', position = {0.5,0.45,-0.1}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'singleSpawner', function_owner = self, label = 'Single Spawner', position = {-0.45,0.45,0.2}, width = 1600, height = 380, font_size = 200, scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'spawnerStart', function_owner = self, label = 'TTS Spawner', position = {0.5,0.45,0.2}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'builderStart', function_owner = self, label = 'Builder', position = {0.5,0.45,0.5}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'assetSpawn', function_owner = self, label = "Asset Spawner", position = {-0.45,0.45,0.5}, width = 1600, height = 380, font_size = 200, scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'singleSpawner', function_owner = self, label = 'Single Spawner', position = {-0.45,0.45,0.15}, width = 1600, height = 380, font_size = 200, scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'spawnerStart', function_owner = self, label = 'TTS Spawner', position = {0.5,0.45,0.15}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'builderStart', function_owner = self, label = 'Builder', position = {0.5,0.45,0.4}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'assetSpawn', function_owner = self, label = "Asset Spawner", position = {-0.45,0.45,0.4}, width = 1600, height = 380, font_size = 200, scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'confguration', function_owner = self, label = "Configuration", position = {0,0.45,0.65}, width = 1600, height = 380, font_size = 200, scale = {0.25,0.25,0.25}})
+end
+
+function confguration()
+  self.clearButtons()
+  self.createButton({click_function = 'toggleTokenSize', function_owner = self, label = 'Token size: ' .. tokenSizeStr[tokenSize] , position = {0,0.45,0}, width = 2600, height = 520, font_size = 240,  scale = {0.25,0.25,0.25}})
+  self.createButton({click_function = 'initiate', function_owner = self, label = 'Back', position = {0.3,0.45,0.6}, width = 1800, height = 520, font_size = 240,  scale = {0.15,0.15,0.15}})
+end
+
+function toggleTokenSize()
+  tokenSize = tokenSize + 1
+  if tokenSize > 3 then
+    tokenSize = 1
+  end
+  Global.call("API_SetTokenSize", {size=tokenSizeModifiers[tokenSize] })
+  confguration()
 end
 
 

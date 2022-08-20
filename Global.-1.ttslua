@@ -4153,6 +4153,8 @@ TokenModule.nearPos.huge.Disarm    = { 45,  45}
 
 TokenModule.nearPos.huge.rest      = {-55, -45}
 
+TokenModule.token_scale = 1
+
 -- Deduct target token position in the world for a ship, token and some entry from TokenModule.basePos or .nearPos
 TokenModule.TokenPos = function(tokenName, ship, posTable)
     local baseSize = ship.getTable("Data").Size or 'small'
@@ -4323,6 +4325,7 @@ TokenModule.TakeToken = function(type, playerColor, dest, flip)
     end
     local newToken = TokenModule.tokenSources[type].src.takeObject(takeTable)
     newToken.highlightOn(highlightColor, 3)
+    newToken.setScale(newToken.getScale()*TokenModule.token_scale)
     return newToken
 end
 
