@@ -170,7 +170,7 @@ dualUpgradeList[617] = 618 -- C1-10P
 
 tokenSize = 1
 tokenSizeStr = {[1]="Small", [2]="Medium", [3]="Large"}
-tokenSizeModifiers = {[1]=1.0, [2]=2.0, [3]=3.0}
+tokenSizeModifiers = {[1]=1.0, [2]=1.5, [3]=2.0}
 
 
 -- on load initiate the process
@@ -830,6 +830,8 @@ function idSpawner(idTable)
         --fList.Pilots[k].card = masterPilotDB[v].card
         fList.Pilots[k].card = "{verifycache}https://raw.githubusercontent.com/eirikmun/x-wing2.0-project-goldenrod/" .. Format .. "/src/images/En/pilots/"..masterPilotDB[v].XWS..".png"
         fList.Pilots[k].cardB = cardBackDB[ffgFaction[fList.Faction]]
+        fList.Pilots[k].standardized_loadout = masterPilotDB[v].standardized_loadout
+        fList.Pilots[k].standardized_upgrades = masterPilotDB[v].standardized_upgrades
         local Ship = masterPilotDB[v].ship_type
         fList.Pilots[k].Ship = Ship
         fList.Pilots[k].peg = masterShipDB[Ship].peg
@@ -1344,6 +1346,9 @@ function selectModelGeneric(arg)
         end
     end
     chosenModel = nil
+    if index == 1 then
+      addShip()
+    end
 end
 
 --selecting a ship type will open a list of every pilot for that ship. MUST REWRITE! 18 ship types, with more to come. Each option should set a variable and call an unified function to spawn the pilot buttons!
@@ -1465,7 +1470,7 @@ function setPilotGeneric(arg)
     for _, keyword in pairs(masterPilotDB[availablePilots[arg].id].keywords or {}) do
         table.insert(partList.Pilots[shipIndex].keywords, keyword)
     end
-    for ind, slot in pairs(masterPilotDB[availablePilots[arg].id].slot) do
+    for ind, slot in pairs(masterPilotDB[availablePilots[arg].id].slot or {}) do
         partList.Upgrades[shipIndex][ind] = {slot = slot, slotName = slotName[slot], removed = false}
     end
     availablePilots = nil
@@ -1559,6 +1564,9 @@ end
 -- Selecting a ship that is on the main menu will show wich slots are empty and wich ones are taken, indicating how many points are being used on this ship and how many points the list as a whole is using.
 -- To Do: Set up auxiliary table with slots and upgrades so the correct buttons are spawned. Stablishes variables for special cases (Froce Powers, dual slots). Show point costs of each ship and full squad.
 function selectShipGeneric(arg)
+    if masterPilotDB[partList.Pilots[shipIndex].id].slot == nil then
+      return
+    end
     self.clearButtons()
     local aux = 1
     local auxB = 0

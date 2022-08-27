@@ -1,3 +1,5 @@
+ObjectiveTokenData = require("TTS_xwing/src/ObjectiveTokenData")
+
 ArcCheck = {}
 ArcCheck.initialized = false
 ArcCheck.arc_check_rulers = {}
@@ -10,6 +12,7 @@ ArcCheck.arc_line_segments.small = {}
 ArcCheck.arc_line_segments.medium = {}
 ArcCheck.arc_line_segments.large = {}
 ArcCheck.arc_line_segments.huge = {}
+ArcCheck.arc_line_segments.objective = {}
 
 ArcCheck.bullseye_data =
 {
@@ -17,7 +20,8 @@ ArcCheck.bullseye_data =
         small=vector(0,0,Convert_mm_igu(170)),
         medium=vector(0,0,Convert_mm_igu(180)),
         large=vector(0,0,Convert_mm_igu(190)),
-        huge=vector(0,0,Convert_mm_igu(110.5))
+        huge=vector(0,0,Convert_mm_igu(110.5)),
+        objective = nil
     },
     size=vector(Convert_mm_igu(14), 0.1, Convert_mm_igu(300))
 }
@@ -28,6 +32,7 @@ ArcCheck.Initialize = function() -- Arc values based on Muon's assesments (vassa
          ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.medium, 82.8, 30, 30)
          ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.large, 83.52, 40, 40)
          ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.huge, 82.9, 40, 110.5 )
+         ArcCheck.arc_line_segments.objective = ObjectiveTokenData.arc_line_segments
          ArcCheck.initialized = true
      end
  end
@@ -130,6 +135,7 @@ function CheckArc(args)
         printToAll(args.ship.getName() .. ' checks for targets in the ' .. args.arctype .. ' arc:', color(1.0, 1.0, 0.2, 0.9))
     end
     targets = ArcCheck.GetTargetsInRelationToArc(args.ship, args.arctype, nil, range, args.include_friendly_ships)
+
     table.sort(targets, ArcCheck.SortTargetsByDesirability)
     local found = false
     for i, target in pairs(targets) do
@@ -260,7 +266,6 @@ ArcCheck.GetTargetsInRelationToArc = function(ship, arc, fixed_targets, range, i
     local found = false
     for k, pt in pairs(potential_targets) do
         target = {['ship'] = pt, ['bullseye'] = false}
-
         for i, bt in pairs(bullseye_targets) do
             if bt == pt then
                 target.bullseye = true
@@ -607,6 +612,9 @@ end
 
 -- Finds all targets in bullseye
 ArcCheck.GetBullseyeTargets = function(ship, pos, length)
+    if pos == nil then -- This is a non bullseye remote
+      return {}
+    end
     if length != nil then
         length = Convert_mm_igu(length)
     end
@@ -736,14 +744,13 @@ end
 
 -- Returns a list of line segments which are within the arc
 ArcCheck.GetTargetLineSegmentsInArc = function(ship, target, arcinfo)
-    local segments = {}
-    if MoveModule.SelectRemotes(target) then
-      segments = target.call("getSegments")
-    else
-      local targetShipData = target.getTable("Data")
-      -- Get the full line segments for the ship
-      segments = ArcCheck.arc_line_segments[targetShipData.Size]["full"]["segments"]
+    local targetShipData = target.getTable("Data")
+    -- Get the full line segments for the ship
+    if targetShipData == nil then
+      printToAll("Unable to get Data table for " .. ship.getName())
+      return {}
     end
+    local segments = ArcCheck.arc_line_segments[targetShipData.Size]["full"]["segments"]
     local outsegments = {}
     local arc_center_vector = Vect.RotateDeg(vector(0, 0, -30), ship.getRotation()[2] + arcinfo.direction)
     --print("Arc_center_vector = " .. tostring(arc_center_vector[1]).."," .. tostring(arc_center_vector[2]) ..","..tostring(arc_center_vector[3]))
