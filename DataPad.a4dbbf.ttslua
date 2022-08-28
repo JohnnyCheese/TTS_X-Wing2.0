@@ -853,7 +853,12 @@ function idSpawner(idTable)
         fList.Pilots[k].Data.moveSet = masterShipDB[Ship].moveSet
         fList.Pilots[k].Data.Config = masterShipDB[Ship].Config
         fList.Pilots[k].Data.mountingPoints = masterShipDB[Ship].mountingPoints or {main = {0,0}}
-        fList.Pilots[k].Data.arcs = table.deepcopy(masterShipDB[Ship].arcs)
+
+        if masterPilotDB[v].arcs then
+          fList.Pilots[k].Data.arcs = table.deepcopy(masterPilotDB[v].arcs)
+        else
+          fList.Pilots[k].Data.arcs = table.deepcopy(masterShipDB[Ship].arcs)
+        end
         fList.Pilots[k].Data.actSet = table.deepcopy(masterPilotDB[v].actSet)
         fList.Pilots[k].Data.executeOptions = masterPilotDB[v].executeOptions or {}
         fList.Pilots[k].Data.movethrough = masterPilotDB[v].movethrough or false
