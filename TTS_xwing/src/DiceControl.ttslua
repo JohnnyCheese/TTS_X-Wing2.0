@@ -299,7 +299,7 @@ DiceControlModule.CheckFirstPlayerRoll = function(player)
       end
       score = score + DiceControlModule.first_player_scores[dice.getRotationValue()] or 0
     end
-    getObjectFromGUID("b9f4e9").call("firstPlayerRoll", {player = player, color = DiceControlModule.player_colors[player], score = score})
+    getObjectFromGUID("c9a2a0").call("firstPlayerRoll", {player = player, color = DiceControlModule.player_colors[player], score = score})
   end
 end
 

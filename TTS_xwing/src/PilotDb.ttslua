@@ -19,6 +19,7 @@ masterPilotDB[1]={
 masterPilotDB[2]={
   name = 'Luke Skywalker',
   XWS = 'lukeskywalker',
+  title = 'Red Five',
   Faction = 1,
   limited = 1,
   ship_type = 't65xwing',
@@ -7610,6 +7611,403 @@ masterPilotDB[956]={
   texture = 'guildbountyhunter',
   actSet = {'F','TL','E','BR'},
 }
+
+-- Battle of Yavin standardized pilots
+
+masterPilotDB[957]={
+  name = 'Luke Skywalker',
+  XWS = 'lukeskywalker-battleofyavin',
+  title = 'Battle of Yavin',
+  Faction = 1,
+  limited = 1,
+  ship_type = 't65xwing',
+  cost = 20,
+  Shield = 2,
+  Force = 2,
+  init = 5,
+  texture = 'luke',
+  actSet = {'F','TL', 'BR','B'},
+  keywords = {'Light Side'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Attack Speed', charge=0},
+    {name= 'Instinctive Aim', charge=0},
+    {name= 'Proton Torpedoes', charge=2},
+    {name= 'R2-D2', charge=2}
+  }
+}
+
+masterPilotDB[958]={
+  name = 'Wedge Antilles',
+  XWS = 'wedgeantilles-battleofyavin',
+  title = 'Battle of Yavin',
+  Faction = 1,
+  limited = 1,
+  ship_type = 't65xwing',
+  cost = 20,
+  Shield = 2,
+  init = 6,
+  texture = 'wedge',
+  actSet = {'F','TL', 'BR','B'},
+
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Attack Speed', charge=0},
+    {name= 'Marksmanship', charge=0},
+    {name= 'Proton Torpedoes', charge=2},
+    {name= 'R2-A3', charge=2}
+  }
+}
+
+masterPilotDB[959]={
+  name = 'Jek Porkins',
+  XWS = 'jekporkins-battleofyavin',
+  title = 'Battle of Yavin',
+  Faction = 1,
+  limited = 1,
+  ship_type = 't65xwing',
+  cost = 20,
+  Shield = 2,
+  init = 4,
+  texture = 'porkins',
+  actSet = {'F','TL', 'BR','B'},
+
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Adv. Proton Torpedoes', charge=1},
+    {name= 'Proton Torpedoes', charge=2},
+    {name= 'Unstable Sublight Engines', charge=0}
+  }
+}
+
+masterPilotDB[960]={
+  name = 'Garven Dreis',
+  XWS = 'garvendreis-battleofyavin',
+  title = 'Battle of Yavin',
+  Faction = 1,
+  limited = 1,
+  ship_type = 't65xwing',
+  cost = 20,
+  Shield = 2,
+  init = 4,
+  texture = 'garven',
+  actSet = {'F','TL', 'BR','B'},
+
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Adv. Proton Torpedoes', charge=1},
+    {name= 'R5-K6', charge=2}
+  }
+}
+
+masterPilotDB[961]={
+  name = 'Biggs Darklighter',
+  XWS = 'biggsdarklighter-battleofyavin',
+  title = 'Battle of Yavin',
+  Faction = 1,
+  limited = 1,
+  ship_type = 't65xwing',
+  cost = 20,
+  Shield = 2,
+  init = 3,
+  texture = 'biggs',
+  actSet = {'F','TL', 'BR','B'},
+
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Attack Speed', charge=0},
+    {name= 'Selfless', charge=0},
+    {name= 'Proton Torpedoes', charge=2},
+    {name= 'R2-F2', charge=2},
+  }
+}
+
+masterPilotDB[962]={
+  name = 'Dex Tiree',
+  XWS = 'dextiree',
+  title = 'Battle of Yavin',
+  Faction = 1,
+  limited = 1,
+  ship_type = 'btla4ywing',
+  cost = 20,
+  Shield = 2,
+  init = 2,
+  texture = 'gold',
+  actSet = {'F','TL', 'BR'},
+  arcs = {fixed = { range=3, type = {'front'}}, turret = {main={name = 'ion cannon turret', range = 2, type = {'singleturret'}}}},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Dorsal Turret', charge=0},
+    {name= 'Adv. Proton Torpedoes', charge=1},
+    {name= 'R4 Astromech', charge=0},
+  }
+}
+
+masterPilotDB[963]={
+  name = 'Hol Okand',
+  XWS = 'holokand',
+  title = 'Battle of Yavin',
+  Faction = 1,
+  limited = 1,
+  ship_type = 'btla4ywing',
+  cost = 20,
+  Shield = 2,
+  init = 4,
+  texture = 'gold',
+  actSet = {'F','TL', 'BR'},
+  arcs = {fixed = { range=3, type = {'front'}}, turret = {main={name = 'ion cannon turret', range = 2, type = {'singleturret'}}}},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Dorsal Turret', charge=0},
+    {name= 'Adv. Proton Torpedoes', charge=1},
+    {name= 'Precise Astromech', charge=2},
+  }
+}
+
+masterPilotDB[964]={
+  name = '"Pops" Krail"',
+  XWS = 'popskrail',
+  title = 'Battle of Yavin',
+  Faction = 1,
+  limited = 1,
+  ship_type = 'btla4ywing',
+  cost = 20,
+  Shield = 2,
+  init = 4,
+  texture = 'gold',
+  actSet = {'F','TL', 'BR'},
+  arcs = {fixed = { range=3, type = {'front'}}, turret = {main={name = 'ion cannon turret', range = 2, type = {'singleturret'}}}},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Ion Cannon Turret', charge=0},
+    {name= 'Adv. Proton Torpedoes', charge=1},
+    {name= 'R4 Astromech', charge=2},
+  }
+}
+
+masterPilotDB[965]={
+    name = 'Han Solo',
+    XWS = 'hansolo-battleofyavin',
+    title = 'Battle of Yavin',
+    Faction = 1,
+    limited = 1,
+    ship_type = 'modifiedyt1300lightfreighter',
+    cost = 20,
+    Shield = 5,
+    Charge = 4,
+    init = 6,
+    texture = 'standard',
+    actSet = {'F','TL','B','E'},
+    standardized_loadout = true,
+    standardized_upgrades = {
+      {name= 'Chewbacca', charge=0},
+      {name= 'Rigged Cargo Chute', charge=1},
+      {name= 'Millennium Falcon', charge=0},
+      {name= "L3-37's Programming", charge=0},
+    }
+}
+
+
+masterPilotDB[966]={
+    name = 'Darth Vader',
+    XWS = 'darthvader-battleofyavin',
+    title = 'Battle of Yavin',
+    Faction = 2,
+    limited = 1,
+    ship_type = 'tieadvancedx1',
+    cost = 20,
+    Shield = 2,
+    Force = 3,
+    init = 6,
+    texture = 'blue',
+    actSet = {'F','TL','BR','B'},
+    keywords = {'Dark Side', 'Sith'},
+    standardized_loadout = true,
+    standardized_upgrades = {
+      {name= 'Marksmanship', charge=0},
+      {name= 'Hate', charge=0},
+      {name= 'Afterburners', charge=2},
+    }
+}
+
+masterPilotDB[967]={
+  name = '"Mauler" Mithel',
+  XWS = 'maulermithel-battleofyavin',
+  title = 'Battle of Yavin',
+  Faction = 2,
+  limited = 1,
+  ship_type = 'tielnfighter',
+  cost = 20,
+  Shield = 0,
+  init = 5,
+  texture = 'blue',
+  actSet = {'F','E','BR','B'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Predator', charge=0},
+    {name= 'Afterburners', charge=2},
+  }
+}
+
+masterPilotDB[968]={
+  name = '"Wampa"',
+  XWS = 'wampa-battleofyavin',
+  title = 'Battle of Yavin',
+  Faction = 2,
+  limited = 1,
+  ship_type = 'tielnfighter',
+  cost = 20,
+  Shield = 0,
+  Charge = 1,
+  init = 1,
+  texture = 'blue',
+  actSet = {'F','E','BR'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Elusive', charge=1},
+    {name= 'Vengeful', charge=0},
+  }
+}
+
+masterPilotDB[969]={
+  name = '"Dark Curse"',
+  XWS = 'darkcurse',
+  title = 'Battle of Yavin',
+  Faction = 2,
+  limited = 1,
+  ship_type = 'tielnfighter',
+  cost = 20,
+  Shield = 0,
+  init = 6,
+  texture = 'blue',
+  actSet = {'F','E','BR'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Ruthless', charge=0},
+    {name= 'Precision Ion Engines', charge=2},
+  }
+}
+
+masterPilotDB[970]={
+  name = '"Backstabber"',
+  XWS = 'backstabber',
+  title = 'Battle of Yavin',
+  Faction = 2,
+  limited = 1,
+  ship_type = 'tielnfighter',
+  cost = 20,
+  Shield = 0,
+  init = 5,
+  texture = 'blue',
+  actSet = {'F','E','BR','B'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Crackshot', charge=1},
+    {name= 'Disciplined', charge=0},
+    {name= 'Afterburners', charge=2},
+  }
+}
+
+masterPilotDB[971]={
+  name = 'Iden Versio',
+  XWS = 'idenversio-battleofyavin',
+  title = 'Battle of Yavin',
+  Faction = 2,
+  limited = 1,
+  ship_type = 'tieininterceptor',
+  cost = 20,
+  Shield = 0,
+  init = 4,
+  texture = 'the181',
+  actSet = {'F','E','BR','B'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Predator', charge=0},
+    {name= 'Fanatic', charge=0},
+  }
+}
+
+masterPilotDB[972]={
+  name = 'Sigma 4',
+  XWS = 'sigma4',
+  title = 'Battle of Yavin',
+  Faction = 2,
+  limited = 1,
+  ship_type = 'tieininterceptor',
+  cost = 20,
+  Shield = 0,
+  Charge = 2,
+  init = 4,
+  texture = 'the181',
+  actSet = {'F','E','BR','B'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Disciplined', charge=0},
+    {name= 'Primed Thrusters', charge=0},
+  }
+}
+
+masterPilotDB[973]={
+  name = 'Sigma 5',
+  XWS = 'sigma5',
+  title = 'Battle of Yavin',
+  Faction = 2,
+  limited = 1,
+  ship_type = 'tieininterceptor',
+  cost = 20,
+  Shield = 0,
+  Charge = 2,
+  init = 4,
+  texture = 'the181',
+  actSet = {'F','E','BR','B'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Sensor Jammer', charge=0},
+    {name= 'Elusive', charge=1},
+  }
+}
+
+masterPilotDB[974]={
+  name = 'Sigma 6',
+  XWS = 'sigma6',
+  title = 'Battle of Yavin',
+  Faction = 2,
+  limited = 1,
+  ship_type = 'tieininterceptor',
+  cost = 20,
+  Shield = 0,
+  Charge = 2,
+  init = 4,
+  texture = 'the181',
+  actSet = {'F','E','BR','B'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Daredevil', charge=0},
+    {name= 'Afterburners', charge=2},
+  }
+}
+
+masterPilotDB[975]={
+  name = 'Sigma 7',
+  XWS = 'sigma7',
+  title = 'Battle of Yavin',
+  Faction = 2,
+  limited = 1,
+  ship_type = 'tieininterceptor',
+  cost = 20,
+  Shield = 0,
+  Charge = 2,
+  init = 4,
+  texture = 'the181',
+  actSet = {'F','E','BR','B'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Marksmanship', charge=0},
+    {name= 'Fire-Control System', charge=0},
+  }
+}
+
+
 
 
 -- Huge ships

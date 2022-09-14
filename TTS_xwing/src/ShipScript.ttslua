@@ -493,20 +493,21 @@ end
 function SpawnCustomizer()
   local sizemod = {small=1.0, medium=0.75, large=0.5}
   local data = self.getTable('Data')
-  local customizer = spawnObject({
-    type              = "Custom_Model",
-    position          = self.getPosition() - self.getTransformRight()*3.5,
-    rotation          = self.getRotation(),
-    scale             = self.getScale() * sizemod[data.Size],
-    sound             = false,
-    snap_to_grid      = false,
+  local customizer = nil
+
+  customizer = spawnObject({
+      type              = "Custom_Model",
+      position          = self.getPosition() - self.getTransformRight()*3.5,
+      rotation          = self.getRotation(),
+      scale             = self.getScale() * sizemod[data.Size],
+      sound             = false,
+      snap_to_grid      = false,
   })
-  local data = self.getTable('Data')
   local texture_url = data.textures[data.texture]
   customizer.setCustomObject({
       type = 0,
       material = 3,
-      mesh = data.mesh,
+      mesh = data.mesh or 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/minisculebox.obj',
       diffuse = texture_url;
   })
   local configs = {}
@@ -515,6 +516,17 @@ function SpawnCustomizer()
       table.insert(configs, config.Model)
     end
   end
+  local tint = Color.White
+  for _, attachment in pairs(self.getAttachments()) do
+    if attachment.name == "Config" or attachment.name == "Ship" then
+
+      part = self.removeAttachment(attachment.index)
+      tint = part.getColorTint()
+      self.addAttachment(part)
+      break
+    end
+  end
+  customizer.setColorTint(tint)
   customizer.setTable("Configs", configs)
   customizer.setLuaScript(customizer_scipt)
 end
