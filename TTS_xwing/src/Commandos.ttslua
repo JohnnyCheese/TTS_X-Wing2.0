@@ -247,7 +247,6 @@ end
 function onPickUp(playerColor)
   self.setVar("owningPlayer", playerColor)
   local color = Color.fromString(playerColor)
-  color.a = 0.5
   dropped = false
   self.setColorTint(color)
 end
