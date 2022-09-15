@@ -130,7 +130,8 @@ end
 function showBtn()
     if stat==false and dropped and not arcsopen then
         if self.is_face_down then
-            self.UI.setAttribute("btnPanel", "rotation", "180 0 180")
+            --self.UI.setAttribute("btnPanel", "rotation", "180 0 180")
+            self.UI.setAttribute("btnPanel", "rotation", "180 0 0")
             self.UI.setAttribute("btnPanel", "position", "0 0 3")
         else
             self.UI.setAttribute("btnPanel", "rotation", "0 0 180")
@@ -231,7 +232,7 @@ function relocate(P, option, id)
     local up = self.getTransformUp()
     if self.is_face_down then
       up = -1*up
-      right = -1*right
+      forward = -1*forward
     end
 
     local movePos = moves[id]
@@ -269,7 +270,7 @@ function showDropButtons()
   end
 
 
-  local raise = 0.03*up
+  local raise = 0.03*upd
 
   self.createButton({
     click_function = "dropL",
