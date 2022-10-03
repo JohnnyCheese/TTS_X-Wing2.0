@@ -727,54 +727,78 @@ AIModule.PerformManeuver = function(ship, take_action)
                     -- with our original maneuver.
                     -- TODO: deal with reverse moves
                     local potential_swerve_moves = {}
-                    local swerve_speed = tostring(math.max(1, math.min(3, move_info.speed)))
-                    if move_info.type == 'straight' then
-                        potential_swerve_moves = {'bl' .. swerve_speed, 'br' .. swerve_speed}
-                    elseif move_info.type == 'bank' then
-                        potential_swerve_moves = {'t' .. string.sub(move_info.dir, 1, 1) .. swerve_speed, 's' .. swerve_speed}
-                    elseif move_info.type == 'turn' then
-                        potential_swerve_moves = {'b' .. string.sub(move_info.dir, 1, 1) .. swerve_speed}
-                    end
 
-                    local swerve_moves = {}
-                    for _, potential_swerve_move_code in ipairs(potential_swerve_moves) do
-                        -- If we can't do this move, then get the closest move that
-                        -- we can do and try that instead. This may be multiple
-                        -- moves, for example if a two-bank is impossible then we
-                        -- may be able to try a one-bank and a three-bank. They're
-                        -- both the same distance from the original so we'll try
-                        -- both.
-                        local nearest_move_codes = AIModule.GetNearestMoves(ship, potential_swerve_move_code, stress == false)
-                        for _, nearest_move_code in ipairs(nearest_move_codes) do
-                            table.insert(swerve_moves, nearest_move_code)
+                    local selected_swerve_move_code = nil
+                    local non_colliding_move_codes = {}
+                    if improved_ai then
+                      selected_move_through_manouvre = nil
+                      if move_info.type == 'straight' then
+                          potential_swerve_moves = {'bl' .. swerve_speed, 'br' .. swerve_speed}
+                      elseif move_info.type == 'bank' then
+                          potential_swerve_moves = {'t' .. string.sub(move_info.dir, 1, 1) .. swerve_speed, 's' .. swerve_speed}
+                      elseif move_info.type == 'turn' then
+                          potential_swerve_moves = {'b' .. string.sub(move_info.dir, 1, 1) .. swerve_speed}
+                      end
+                      local valid_moves = AIModule.TrySwerveOptions(ship, potential_swerve_moves, stress == false)
+
+                      for _, valid_move in pairs(valid_moves) do
+                        local swerve_probe_data = MoveModule.MoveProbe.TryFullMove(valid_move, ship, MoveModule.GetFullMove)
+                        if swerve_probe_data.collObs == nil then
+                          table.insert(non_colliding_move_codes, swerve_move_info)
+                        elseif swerve_probe_data
                         end
+                      end
+
+                    else
+                      local swerve_speed = tostring(math.max(1, math.min(3, move_info.speed)))
+                      if move_info.type == 'straight' then
+                          potential_swerve_moves = {'bl' .. swerve_speed, 'br' .. swerve_speed}
+                      elseif move_info.type == 'bank' then
+                          potential_swerve_moves = {'t' .. string.sub(move_info.dir, 1, 1) .. swerve_speed, 's' .. swerve_speed}
+                      elseif move_info.type == 'turn' then
+                          potential_swerve_moves = {'b' .. string.sub(move_info.dir, 1, 1) .. swerve_speed}
+                      end
+
+                      local swerve_moves = {}
+                      for _, potential_swerve_move_code in ipairs(potential_swerve_moves) do
+                          -- If we can't do this move, then get the closest move that
+                          -- we can do and try that instead. This may be multiple
+                          -- moves, for example if a two-bank is impossible then we
+                          -- may be able to try a one-bank and a three-bank. They're
+                          -- both the same distance from the original so we'll try
+                          -- both.
+                          local nearest_move_codes = AIModule.GetNearestMoves(ship, potential_swerve_move_code, stress == false)
+                          for _, nearest_move_code in ipairs(nearest_move_codes) do
+                              table.insert(swerve_moves, nearest_move_code)
+                          end
+                      end
+
+                      -- Loop through all of the possible swerve moves, and find out
+                      -- which one will get us the closest to our target. This is the
+                      -- maneuver that we'll try again with.
+                      local closest_swerve_move_code = nil
+                      local closest_swerve_distance = nil
+                      for _, swerve_move_code in ipairs(swerve_moves) do
+                          local post_swerve = MoveModule.GetFullMove(swerve_move_code, ship)
+                          local post_swerve_position = Vector(post_swerve.pos[1], post_swerve.pos[2], post_swerve.pos[3])
+                          local distance = Vect.Length(post_swerve_position - target_ship.GetPosition())
+                          if closest_swerve_distance == nil or distance < closest_swerve_distance then
+                              closest_swerve_distance = distance
+                              selected_swerve_move_code = swerve_move_code
+                          end
+                      end
                     end
 
-                    -- Loop through all of the possible swerve moves, and find out
-                    -- which one will get us the closest to our target. This is the
-                    -- maneuver that we'll try again with.
-                    local closest_swerve_move_code = nil
-                    local closest_swerve_distance = nil
-                    for _, swerve_move_code in ipairs(swerve_moves) do
-                        local post_swerve = MoveModule.GetFullMove(swerve_move_code, ship)
-                        local post_swerve_position = Vector(post_swerve.pos[1], post_swerve.pos[2], post_swerve.pos[3])
-                        local distance = Vect.Length(post_swerve_position - target_ship.GetPosition())
-                        if closest_swerve_distance == nil or distance < closest_swerve_distance then
-                            closest_swerve_distance = distance
-                            closest_swerve_move_code = swerve_move_code
-                        end
-                    end
-
-                    if closest_swerve_move_code ~= nil then
-                        local swerve_move_info = MoveData.DecodeInfo(closest_swerve_move_code, ship)
+                    if selected_swerve_move_code ~= nil then
+                        local swerve_move_info = MoveData.DecodeInfo(selected_swerve_move_code, ship)
                         local swerve_probe_data = MoveModule.MoveProbe.TryFullMove(swerve_move_info, ship, MoveModule.GetFullMove)
                         if swerve_probe_data.collObs == nil then
-                            move_code = closest_swerve_move_code
-                            print(' Tried ' .. closest_swerve_move_code .. ', avoids the obstacle.')
+                            move_code = selected_swerve_move_code
+                            print(' Tried ' .. selected_swerve_move_code .. ', avoids the obstacle.')
                             AIModule.current_move.obstacle = false
                             AIModule.current_move.collision = swerve_probe_data.collObj ~= nil
                         else
-                            print(' Tried ' .. closest_swerve_move_code .. ', still hits an obstacle.')
+                            print(' Tried ' .. selected_swerve_move_code .. ', still hits an obstacle.')
 
                             local obstacle_name = swerve_probe_data.collObs.getName()
                             if obstacle_name:find('Asteroid') then
@@ -934,6 +958,24 @@ AIModule.GetMoveDifficulty = function(ship, move_code)
     return nil
 end
 
+AIModule.TrySwerveOptions = function(ship, move_codes, can_perform_red_maneuvers)
+    print("AIModule.TrySwerveOptions: " .. move_codes[1]..  "red?: " .. tostring(can_perform_red_maneuvers))
+    move_set = ship.getTable('Data')['moveSet']
+    valid_moves = {}
+    for _, raw_move_code in ipairs(move_set) do
+      local move_difficulty = string.sub(raw_move_code, 1, 1)
+      if move_difficulty ~= 'r' or can_perform_red_maneuvers then
+        local move_code = string.sub(raw_move_code, 2)
+        for _, test_move_code in ipairs(test_move_codes) do
+          if test_move_code == move_code then
+              table.insert(valid_moves, move_code)
+          end
+        end
+      end
+    end
+    return valid_moves
+end
+
 --[[ AIModule.GetNearestMoves
 This function takes a ship and a move code, and returns the nearest maneuvers
 that the ship is capable of. This may be the specified move. "Nearest" is
@@ -948,6 +990,7 @@ can_perform_red_maneuvers: Boolean, if true then we will try red maneuvers,
 returns a table of move codes, as strings.
 ]]--
 AIModule.GetNearestMoves = function(ship, move_code, can_perform_red_maneuvers)
+    print("AIModule.GetNearestMoves: " .. tostring(move_code) .. "red?: " .. tostring(can_perform_red_maneuvers))
     move_set = ship.getTable('Data')['moveSet']
     local move_info = MoveData.DecodeInfo(move_code, ship)
     local original_speed = move_info.speed
@@ -963,7 +1006,7 @@ AIModule.GetNearestMoves = function(ship, move_code, can_perform_red_maneuvers)
         max_speed = 5
     end
     max_offset = math.max(move_info.speed - min_speed, max_speed - move_info.speed)
-
+    print("max_offset: " .. tostring(max_offset))
     -- Break the move code into sections so we can change the speed easily.
     local speed_position = string.find(move_code, tostring(original_speed))
     local move_pre_speed = string.sub(move_code, 1, speed_position - 1)
@@ -989,6 +1032,7 @@ AIModule.GetNearestMoves = function(ship, move_code, can_perform_red_maneuvers)
         -- Turn the move speeds into move codes
         test_move_codes = {}
         for _, test_speed in ipairs(test_speeds) do
+            print("test_speed: ".. move_pre_speed .. tostring(test_speed) .. move_post_speed)
             table.insert(test_move_codes, move_pre_speed .. tostring(test_speed) .. move_post_speed)
         end
 
@@ -1012,6 +1056,7 @@ AIModule.GetNearestMoves = function(ship, move_code, can_perform_red_maneuvers)
 
         speed_offset = speed_offset + 1
     end
+    return {}
 end
 
 AIModule.ApplySpecialAbility = function(ship, ability)
@@ -7050,11 +7095,20 @@ end
                   shieldToken = tempBagAcc.takeObject({rotation = spawnCard.getRotation(), guid = acc.guid, smooth=false})
                   while Pilots[shipIndex].Shield > 0 do
                     Pilots[shipIndex].Shield = Pilots[shipIndex].Shield - 1
-                    pos = LocalPos(spawnCard, { -2.2 + 0.9*Pilots[shipIndex].Shield, 1, 3.4})
-                    if Pilots[shipIndex].Shield >5  then
-                        pos = LocalPos(spawnCard, {-2.2 + 0.9*(Pilots[shipIndex].Shield-6), 1, 1.6})
-                    elseif Pilots[shipIndex].Shield >2 then
-                        pos = LocalPos(spawnCard, {-2.2 + 0.9*(Pilots[shipIndex].Shield-3), 1, 2.5})
+                    if Pilots[shipIndex].standardized_loadout then
+                      pos = LocalPos(spawnCard, { -2.2 + 0.9*Pilots[shipIndex].Shield, 1, 3.4})
+                      if Pilots[shipIndex].Shield >5  then
+                          pos = LocalPos(spawnCard, {-2.2 + 0.9*(Pilots[shipIndex].Shield-6), 1, 1.6})
+                      elseif Pilots[shipIndex].Shield >2 then
+                          pos = LocalPos(spawnCard, {-2.2 + 0.9*(Pilots[shipIndex].Shield-3), 1, 2.5})
+                      end
+                    else
+                      pos = LocalPos(spawnCard, { -1 + 0.9*Pilots[shipIndex].Shield, 1, 3.4})
+                      if Pilots[shipIndex].Shield >5  then
+                          pos = LocalPos(spawnCard, {-1 + 0.9*(Pilots[shipIndex].Shield-6), 1, 1.6})
+                      elseif Pilots[shipIndex].Shield >2 then
+                          pos = LocalPos(spawnCard, {-1 + 0.9*(Pilots[shipIndex].Shield-3), 1, 2.5})
+                      end
                     end
                     shieldClone = shieldToken.clone()
                     shieldClone.setPosition(pos)
