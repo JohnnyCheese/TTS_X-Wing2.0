@@ -137,7 +137,7 @@ cardBackDB.mc = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/mas
 masterShipDB = require("TTS_xwing/src/ShipDb")
 masterPilotDB = require("TTS_xwing/src/PilotDb")
 masterUpgradesDB = require("TTS_xwing/src/UpgradeDb")
-
+masterPilotXWS = require("TTS_xwing/src/PilotXWS")
 
 ffgSpecial = {}
 ffgSpecial[315]= 'Crew'--r2d2crew
@@ -817,7 +817,7 @@ function idSpawner(idTable)
         fList.Pilots[k] ={}
         fList.Pilots[k].id = v
         fList.Pilots[k].name = pilotName
-        local cost = masterPilotDB[v].cost
+        local cost = masterPilotXWS[masterPilotDB[v].XWS].cost
         fList.Pilots[k].cost = cost
         fList.Customization[pilotName] = masterPilotDB[v].Customization or {}
         fList.Customization[pilotName].tint = tintColors[pilotIndicators[k]]
@@ -839,7 +839,7 @@ function idSpawner(idTable)
         fList.Pilots[k].Shield = masterShipDB[Ship].Shield
         fList.Pilots[k].Energy = masterShipDB[Ship].Energy
         fList.Pilots[k].Hull = masterShipDB[Ship].Hull
-        fList.Pilots[k].list = pilotName..' - '..masterShipDB[Ship].name ..' (' .. cost .. ')\n'
+        fList.Pilots[k].list = pilotName..' - '..masterShipDB[Ship].name ..'\n'
         fList.Pilots[k].newSpawner = masterShipDB[Ship].newSpawner or false
         fList.Pilots[k].bombD = 's1'
         fList.Pilots[k].Docking = masterShipDB[Ship].Docking
@@ -912,7 +912,7 @@ function idSpawner(idTable)
                 local shipSize = masterShipDB[Ship].size
                 cost = varCostS[value][shipSize]
             end
-            fList.Pilots[k].list = fList.Pilots[k].list .. '   '..name..' ('..cost..')\n'
+            fList.Pilots[k].list = fList.Pilots[k].list .. '   '..name..'\n'
             fList.Pilots[k].cost = fList.Pilots[k].cost + cost
 
             --fList.Upgrades[k][key].card = masterUpgradesDB[value].card
@@ -1044,7 +1044,7 @@ function idSpawner(idTable)
             fList.Pilots[k].bombD = bombD
         end
         local threshold = 0
-        fList.Pilots[k].list = fList.Pilots[k].list .. '\nShip Cost = '..cost..'      Half Ship = '..math.ceil(cost/2)..'      Threshold = '.. math.floor( fList.Pilots[k].Shield + fList.Pilots[k].Hull ) ..'\n'
+        fList.Pilots[k].list = fList.Pilots[k].list .. '\nShip Points = '..cost..' ('..math.floor(cost/2)..')\nHalf Damage = '.. math.ceil( ( fList.Pilots[k].Shield + fList.Pilots[k].Hull ) / 2 )
     end
     for k,v in pairs(fList.sqdAction) do -- adds Squad actions coming from specific upgrades
         for K,V in pairs(fList.Pilots) do
