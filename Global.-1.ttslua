@@ -6727,7 +6727,7 @@ function newSpawner(listTable)
 
           newShip.setCustomObject(
           {
-            mesh = spawnPrefix .. "bases/" .. size .. "/base.obj",
+            mesh = spawnPrefix .. "bases/" .. size .. "/base.obj?1",
             collider = ShipVerification.colliders[size],
             diffuse = spawnPrefix .. "bases/" .. size .. "/" .. fixedarc .. "/" .. factionnames[Faction] .. ".png",
             convex = true,
