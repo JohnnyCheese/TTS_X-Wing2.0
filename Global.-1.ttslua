@@ -6617,6 +6617,7 @@ function newSpawner(listTable)
                 card = Decker.Card(deck,1, 1)
                 newPil = card:spawn({position = pos, rotation=rot})
                 newPil.setName(pilotName)
+                newPil.setDescription(Pilots[shipIndex].list)
                 newPil.setLuaScript(pilotCardScript)
                 newPil.setLock(true)
 
