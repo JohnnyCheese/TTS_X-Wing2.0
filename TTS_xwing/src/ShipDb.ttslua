@@ -1387,7 +1387,11 @@ masterShipDB['hyenaclassdroidbomber']={
   XWS = 'hyenaclassdroidbomber',
     newSpawner = true,
     textures = {
-      standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/hyenaclassdroidbomber/Textures/Standard.png',
+      standard = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/hyenaclassdroidbomber/Textures/1/standard.jpg',
+      fourohfour = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/hyenaclassdroidbomber/Textures/1/fourohfour.jpg',
+      baktoid = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/hyenaclassdroidbomber/Textures/1/baktoid .jpg',
+      white = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/hyenaclassdroidbomber/Textures/1/white.jpg',
+      plain = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/hyenaclassdroidbomber/Textures/1/plain.jpg',
     },
   Fac = {[7]=true},
   arcs = {fixed = { range=3, type = {'front'}}},
@@ -1397,13 +1401,13 @@ masterShipDB['hyenaclassdroidbomber']={
     States = {
       [1] = {
           Name = "Struts (Closed)",
-          Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/hyenaclassdroidbomber/Hyena_Closed.obj",
+          Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/hyenaclassdroidbomber/Hyena_Closedv2.obj",
           ZRot = 0,
           Message = " closed their struts.",
       },
       [2] = {
           Name = "Struts (Open)",
-          Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/hyenaclassdroidbomber/Hyena_Open.obj",
+          Model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/hyenaclassdroidbomber/Hyena_Openv2.obj",
           ZRot = 180,
           Message = " opened their struts.",
       }
