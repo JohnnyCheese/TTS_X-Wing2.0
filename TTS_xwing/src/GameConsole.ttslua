@@ -70,6 +70,7 @@ function onSave()
       length = timerStats.length,
       random = timerStats.random,
       hidden = timerStats.hidden,
+      auto_start = timerStats.auto_start,
       start_time = nil,
       elapsed_time = 0,
       paused = timerStats.paused,
@@ -86,6 +87,7 @@ timerStats = {
   length = 75,
   random = false,
   hidden = false,
+  auto_start = true,
   start_time = nil,
   elapsed_time = 0,
   paused = false,
@@ -166,6 +168,16 @@ function startButton()
     timerStats.end_offset = 0
   end
   timerStats.total_time = (timerStats.length + timerStats.end_offset )*60
+end
+
+function autoStartButton()
+  self.AssetBundle.playTriggerEffect(0)
+  timerStats.auto_start =  not timerStats.auto_start
+  if timerStats.auto_start then
+    self.UI.setAttribute("AutoStartButton","text","Auto")
+  else
+    self.UI.setAttribute("AutoStartButton","text","Manual")
+  end
 end
 
 function pauseButton()
@@ -340,6 +352,7 @@ function reset()
     length = 75,
     random = false,
     hidden = false,
+    auto_start = true,
     start_time = nil,
     elapsed_time = 0,
     paused = false,
@@ -670,6 +683,12 @@ function firstPlayerRoll(args)
           recreateIndicators()
         else
           setIndicator(round,color)
+        end
+        if round == 2 then
+          -- This is start of first round, we potentially start the clock automatically
+          if timerStats.auto_start then
+            startButton()
+          end
         end
         printToAll( "[".. Color.fromString(color):toHex() .. "]" .. color .. "[-] player is first in round " .. tostring(round-1), {1, 0.4, 0})
         dice_roll_scores = {}

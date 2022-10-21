@@ -745,7 +745,7 @@ AIModule.PerformManeuver = function(ship, take_action)
                         local swerve_probe_data = MoveModule.MoveProbe.TryFullMove(valid_move, ship, MoveModule.GetFullMove)
                         if swerve_probe_data.collObs == nil then
                           table.insert(non_colliding_move_codes, swerve_move_info)
-                        elseif swerve_probe_data
+                        elseif swerve_probe_data then
                         end
                       end
 
