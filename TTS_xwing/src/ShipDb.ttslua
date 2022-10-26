@@ -178,7 +178,15 @@ masterShipDB['firesprayclasspatrolcraft']={
     Fac = {[3]=true, [7]=true},
     arcs = {fixed = { range=3, type = {'frontback'}}},
     mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/firesprayclasspatrolcraft/firesprayV2.obj',
-    moveSet = {'wtl1','bbl1','bs1','bbr1','wtr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3t','wbl3','bs3','wbr3','rtr3t','ws4','rk4'}
+    moveSet = {'wtl1','bbl1','bs1','bbr1','wtr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3t','wbl3','bs3','wbr3','rtr3t','ws4','rk4'},
+    customization_parts = {
+      canopy = {
+        model = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/firesprayclasspatrolcraft/firesprayV3-canopy.obj',
+        specular_sharpness = 6,
+        specular_intensity = 0.9,
+        tintable = true
+      }
+    }
 }
 
 masterShipDB['tielnfighter']={

@@ -137,7 +137,6 @@ cardBackDB.mc = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/mas
 masterShipDB = require("TTS_xwing/src/ShipDb")
 masterPilotDB = require("TTS_xwing/src/PilotDb")
 masterUpgradesDB = require("TTS_xwing/src/UpgradeDb")
-masterPilotXWS = require("TTS_xwing/src/PilotXWS")
 
 ffgSpecial = {}
 ffgSpecial[315]= 'Crew'--r2d2crew
@@ -176,6 +175,7 @@ tokenSizeModifiers = {[1]=1.0, [2]=1.5, [3]=2.0}
 -- on load initiate the process
 function onLoad()
     initiate()
+    loadXwsData()
 end
 
 -- Initial function: Creates a start button for each mode: FFG Spawner (paste the link of the squad in the FFG web site and spawn), TTS Spawner (write or paste a snippet and spawn) and List Builder (offers options to build a squadron on the fly)
@@ -241,6 +241,60 @@ function xwsSave(obj, playerColor, alt_click)
     savingList = true
     xwsLoad(playerColor)
 end
+
+XWS_DATA = {
+  pilots = {}
+}
+
+function loadXwsData()
+  --print("Loading xws")
+  if XWS_DATA.manifest == nil then
+    WebRequest.get('https://raw.githubusercontent.com/guidokessels/xwing-data2/master/data/manifest.json', function(request)
+        if request.is_error then
+            print("Failed to load manifest.json which is required to get updated point costs.")
+        elseif request.is_done then
+            XWS_DATA.manifest = table.deepcopy(JSON.decode(request.text))
+            loadXwsDataShips()
+        end
+    end)
+  end
+  if XWS_DATA.factions == nil then
+    WebRequest.get('https://raw.githubusercontent.com/guidokessels/xwing-data2/master/data/factions/factions.json', function(request)
+        if request.is_error then
+            print("Failed to load factions.json which is required to get updated point costs.")
+        elseif request.is_done then
+            XWS_DATA.factions = {}
+            for _, faction in pairs(JSON.decode(request.text)) do
+              XWS_DATA.factions[faction.xws] = faction
+            end
+            loadXwsDataShips()
+        end
+    end)
+  end
+end
+
+function loadXwsDataShips()
+  if XWS_DATA.manifest and XWS_DATA.factions then
+    for _, faction in pairs(XWS_DATA.manifest.pilots) do
+      --print("Faction: " .. XWS_DATA.factions[faction.faction].name)
+      XWS_DATA.factions[faction.faction].ships = {}
+      for _,ship in pairs(faction.ships) do
+        --print(" - " .. ship)
+        WebRequest.get('https://raw.githubusercontent.com/guidokessels/xwing-data2/master/' .. ship, function(request)
+          if request.is_error then
+            print('Unable to retreive data from "https://raw.githubusercontent.com/guidokessels/xwing-data2/master/' .. ship .. '"')
+          else
+            shipdata = JSON.decode(request.text)
+            XWS_DATA.factions[faction.faction].ships[shipdata.xws] = shipdata
+            for _, pilot in pairs(shipdata.pilots) do
+              XWS_DATA.pilots[pilot.xws] = pilot
+            end -- for shipdata.pilots
+          end -- if request.is_error
+        end) -- webrequest
+      end -- for faction.ships
+    end -- for manifest.pilots
+  end -- if manifest..
+end --function
 
 --Load list and ffg <-> xws map
 XWS_TO_FFG = nil
@@ -817,7 +871,10 @@ function idSpawner(idTable)
         fList.Pilots[k] ={}
         fList.Pilots[k].id = v
         fList.Pilots[k].name = pilotName
-        local cost = masterPilotXWS[masterPilotDB[v].XWS].cost
+        local cost = 20
+        if XWS_DATA.pilots[masterPilotDB[v].XWS] then
+          cost = XWS_DATA.pilots[masterPilotDB[v].XWS].cost
+        end
         fList.Pilots[k].cost = cost
         fList.Customization[pilotName] = masterPilotDB[v].Customization or {}
         fList.Customization[pilotName].tint = tintColors[pilotIndicators[k]]
@@ -852,6 +909,7 @@ function idSpawner(idTable)
         fList.Pilots[k].Data.initiative = masterPilotDB[v].init
         fList.Pilots[k].Data.moveSet = masterShipDB[Ship].moveSet
         fList.Pilots[k].Data.Config = masterShipDB[Ship].Config
+        fList.Pilots[k].Data.customization_parts = masterShipDB[Ship].customization_parts
         fList.Pilots[k].Data.mountingPoints = masterShipDB[Ship].mountingPoints or {main = {0,0}}
 
         if masterPilotDB[v].arcs then
@@ -1330,6 +1388,9 @@ function selectModelGeneric(arg)
             end
             if validOption and v.Faction==partList.Faction then
                 cost = v.cost
+                if XWS_DATA.pilots[v.XWS] then
+                  cost = XWS_DATA.pilots[v.XWS].cost
+                end
                 availablePilots[index] = {id = k, name = v.name, cost = cost, keywords={}}
                 for _,keyword in pairs(masterShipDB[chosenModel].keywords or {} ) do
                   table.insert(availablePilots[index].keywords, keyword)

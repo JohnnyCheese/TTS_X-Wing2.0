@@ -7724,7 +7724,7 @@ masterPilotDB[961]={
 
 masterPilotDB[962]={
   name = 'Dex Tiree',
-  XWS = 'dextiree',
+  XWS = 'dextiree-battleofyavin',
   title = 'Battle of Yavin',
   Faction = 1,
   limited = 1,
@@ -7745,7 +7745,7 @@ masterPilotDB[962]={
 
 masterPilotDB[963]={
   name = 'Hol Okand',
-  XWS = 'holokand',
+  XWS = 'holokand-battleofyavin',
   title = 'Battle of Yavin',
   Faction = 1,
   limited = 1,
@@ -7766,7 +7766,7 @@ masterPilotDB[963]={
 
 masterPilotDB[964]={
   name = '"Pops" Krail"',
-  XWS = 'popskrail',
+  XWS = 'popskrail-battleofyavin',
   title = 'Battle of Yavin',
   Faction = 1,
   limited = 1,
@@ -7871,7 +7871,7 @@ masterPilotDB[968]={
 
 masterPilotDB[969]={
   name = '"Dark Curse"',
-  XWS = 'darkcurse',
+  XWS = 'darkcurse-battleofyavin',
   title = 'Battle of Yavin',
   Faction = 2,
   limited = 1,
@@ -7890,7 +7890,7 @@ masterPilotDB[969]={
 
 masterPilotDB[970]={
   name = '"Backstabber"',
-  XWS = 'backstabber',
+  XWS = 'backstabber-battleofyavin',
   title = 'Battle of Yavin',
   Faction = 2,
   limited = 1,
@@ -7929,7 +7929,7 @@ masterPilotDB[971]={
 
 masterPilotDB[972]={
   name = 'Sigma 4',
-  XWS = 'sigma4',
+  XWS = 'sigma4-battleofyavin',
   title = 'Battle of Yavin',
   Faction = 2,
   limited = 1,
@@ -7949,7 +7949,7 @@ masterPilotDB[972]={
 
 masterPilotDB[973]={
   name = 'Sigma 5',
-  XWS = 'sigma5',
+  XWS = 'sigma5-battleofyavin',
   title = 'Battle of Yavin',
   Faction = 2,
   limited = 1,
@@ -7969,7 +7969,7 @@ masterPilotDB[973]={
 
 masterPilotDB[974]={
   name = 'Sigma 6',
-  XWS = 'sigma6',
+  XWS = 'sigma6-battleofyavin',
   title = 'Battle of Yavin',
   Faction = 2,
   limited = 1,
@@ -7989,7 +7989,7 @@ masterPilotDB[974]={
 
 masterPilotDB[975]={
   name = 'Sigma 7',
-  XWS = 'sigma7',
+  XWS = 'sigma7-battleofyavin',
   title = 'Battle of Yavin',
   Faction = 2,
   limited = 1,
@@ -8004,6 +8004,27 @@ masterPilotDB[975]={
   standardized_upgrades = {
     {name= 'Marksmanship', charge=0},
     {name= 'Fire-Control System', charge=0},
+  }
+}
+
+masterPilotDB[975]={
+  name = '"Dutch" Vander"',
+  XWS = 'dutchvander-battleofyavin',
+  title = 'Battle of Yavin',
+  Faction = 1,
+  limited = 1,
+  ship_type = 'btla4ywing',
+  cost = 20,
+  Shield = 2,
+  init = 5,
+  texture = 'gold',
+  actSet = {'F','TL', 'BR'},
+  arcs = {fixed = { range=3, type = {'front'}}, turret = {main={name = 'ion cannon turret', range = 2, type = {'singleturret'}}}},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Ion Cannon Turret', charge=0},
+    {name= 'Adv. Proton Torpedoes', charge=1},
+    {name= 'Targeting Astromech', charge=0},
   }
 }
 
