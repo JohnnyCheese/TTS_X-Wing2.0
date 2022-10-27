@@ -13,7 +13,7 @@
 
 -- Should the code execute print functions or skip them?
 -- This should be set to false on every release
-print_debug = false
+print_debug = true
 cast_debug = false
 
 TTS_print = print
@@ -6953,6 +6953,54 @@ end
 
 
             end -- config
+
+
+          --[[customization_parts = {
+            canopy = {
+              model = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/firesprayclasspatrolcraft/firesprayV3-canopy.obj',
+              material = 2,
+              tintable = true
+            }
+          }]]
+
+          for k, customization_part in pairs(Pilots[shipIndex].Data.customization_parts or {}) do
+            if customization_part.model then
+              local customObject = ship.getCustomObject()
+              customObject.mesh = customization_part.model
+              if customization_part.texture then
+                customObject.diffuse = customization_part.texture
+              else
+                customObject.diffuse = texture
+              end
+              if customization_part.material then
+                customObject.material = customization_part.material
+              end
+              customObject.specular_sharpness = customization_part.specular_sharpness or 3
+              customObject.specular_intensity = customization_part.specular_intensity or 0.1
+              local customSpawnFunction = function()
+                local partModel = spawnObject({
+                    type              = "Custom_Model",
+                    position          = vector(idpos[1],idpos[2],idpos[3]) + shipoffset,
+                    rotation          = idrot,
+                    scale             = mm_ship_scale*1.01,
+                    sound             = false,
+                    snap_to_grid      = false,
+                })
+                partModel.setName("Part")
+                partModel.setDescription(tostring(k))
+                partModel.setCustomObject(customObject)
+                if customization_part.tint then
+                  partModel.setColorTint(customization_part.tint)
+                end
+                ship.addAttachment(partModel)
+                Wait.frames(function() ship.call("DisableAttachedColliders") end, 2)
+                Wait.frames(function() ship.call("DisableAttachedColliders") end, 10)
+                Wait.frames(function() ship.call("DisableAttachedColliders") end, 30)
+              end
+              Wait.condition(customSpawnFunction , function() return (not ship.spawning) and (not ship.isSmoothMoving() ) end)
+            end -- if customization_part.models
+          end -- for Data.customization_parts
+
         end
 
         for mount, turret in pairs(Pilots[shipIndex].Data.arcs.turret or {}) do
