@@ -16,18 +16,6 @@
 
 self.interactable = false
 
- --[[
- tintColors = {}
- tintColors[0] = color(0,0,0,0.0)
- tintColors[1] = color(255/255, 230/255, 137/255, 0.8)
- tintColors[2] = color(243/255,  99/255,  28/255, 0.8)
- tintColors[3] = color(230/255,  40/255,  56/255, 0.8)
- tintColors[4] = color(173/255, 250/255, 190/255, 0.8)
- tintColors[5] = color( 21/255,  21/255, 168/255, 0.8)
- tintColors[6] = color(238/255, 120/255, 234/255 ,0.8)
- tintColors[7] = color(255/255, 255/255, 255/255, 0.8)
- tintColors[8] = color(168/255, 241/255, 249/255, 0.8)]]
-
 tintColors = {}
 tintColors[0] = color(0,0,0,0.0)
 tintColors[1] = color(1,0,0,1.0)
@@ -38,47 +26,6 @@ tintColors[5] = color(1,0,0.8,1.0)
 tintColors[6] = color(0.5,0.25,0.1,1.0)
 tintColors[7] = color(1,1,1,1.0)
 tintColors[8] = color(0.5,0.5,0.5,1.0)
-
--- List and cost of variable cost upgrades based on base sizea
-varCostS={}
-varCostS['engineupgrade'] = {small = 2, medium = 4, large = 7, huge = 0} --Engine Upgrade
-varCostS['experthandling'] = {small = 2, medium = 3, large = 4, huge = 0} --Expert Handling
-varCostS['hate'] = {small = 3, medium = 6, large = 9, huge = 0} --Hate
-varCostS['snapshot'] = {small = 7, medium = 8, large = 9, huge = 12} --Snap Shot
-varCostS['veteranturretgunner'] = {small = 9, medium = 8, large = 7, huge = 7} --Veteran turret gunner
-varCostS['agilegunner'] = {small = 6, medium = 5, large = 4, huge = 3} -- Agile gunner
-varCostS['suppressivegunner'] = {small = 8, medium = 7, large = 6, huge = 3} -- Suppressive gunner
-varCostS['advancedsensors'] = {small = 13, medium = 11, large = 9, huge = 9} -- Advanced Sensors
-
--- List and cost of variable cost upgrades based on agility value
-varCostA={}
-varCostA['r2astromech'] = {[0] = 3,[1] = 3,[2] = 5,[3] = 8} --R2 Astromech
-varCostA['hullupgrade'] = {[0] = 2,[1] = 3,[2] = 5,[3] = 7} --Hull Upgrade
-varCostA['shieldupgrade'] = {[0] = 3,[1] = 4,[2] = 6,[3] = 8} --Shield Upgrade
-varCostA['stealthdevice'] = {[0] = 3,[1] = 4,[2] = 6,[3] = 8} --Stealth Device
-varCostA['r2d2'] = {[0] = 4,[1] = 6,[2] = 8,[3] = 10} --R2-D2 (Astromech)
-varCostA['angleddeflectors'] = {[0] = 6,[1] = 3,[2] = 1,[3] = 1} --Angled deflectors
-varCostA['heroic'] = {[0] = 1,[1] = 1,[2] = 1,[3] = 2} -- Heroic
-varCostA['r2d2-republic'] = {[0] = 4,[1] = 6,[2] = 8,[3] = 10} -- Republc R2-D2
-
-
-varCostI={}
-varCostI['squadleader']={[0]=2,[1]=4,[2]=6,[3]=8,[4]=10,[5]=12,[6]=14} --Squad Leader
-varCostI['swarmtactics']={[0]=3,[1]=3,[2]=3,[3]=3,[4]=3,[5]=4,[6]=5} --Swarm Tactics
-varCostI['seasonednavigator']={[0]=2,[1]=3,[2]=4,[3]=5,[4]=6,[5]=7,[6]=8,[7]=9,[8]=10} --Seasoned Navigator
-varCostI['inertialdampeners']={[0]=0,[1]=1,[2]=2,[3]=3,[4]=4,[5]=5,[6]=6,[7]=7,[8]=8} --Inertial Dampeners
-varCostI['primedthrusters']={[0]=4,[1]=5,[2]=6,[3]=7,[4]=8,[5]=9,[6]=10} -- Primed Thrusters
-varCostI['supernaturalreflexes']={[0]=4,[1]=4,[2]=4,[3]=8,[4]=16,[5]=24,[6]=32} --Supernatural Reflexes
-varCostI['bb8']={[0]=1,[1]=2,[2]=3,[3]=4,[4]=5,[5]=6,[6]=7} -- BB8
-varCostI['bbastromech']={[0]=0,[1]=1,[2]=2,[3]=3,[4]=4,[5]=5,[6]=6} -- bb astromech
-varCostI['battlemeditation']={[0]=3,[1]=3,[2]=3,[3]=3,[4]=4,[5]=6,[6]=8} -- Battle Meditation
-varCostI['delta7b']={[0]=6,[1]=6,[2]=10,[3]=14,[4]=17,[5]=20,[6]=24} -- Delta-7B
-varCostI['calibratedlasertargeting']={[0]=2,[1]=2,[2]=3,[3]=4,[4]=5,[5]=6,[6]=7} -- Calibrated laser Targeting
-varCostI['precognitivereflexes']={[0]=3,[1]=3,[2]=3,[3]=4,[4]=7,[5]=10,[6]=13} -- Precognitive Reflexes
-varCostI['ensnare']={[0]=21,[1]=21,[2]=21,[3]=21,[4]=21,[5]=24,[6]=28} -- Ensnare
-varCostI['passivesensors']={[0]=2,[1]=2,[2]=2,[3]=2,[4]=2,[5]=4,[6]=6,[7]=8,[8]=10} -- Passive Sensors
-varCostI['overdrivethruster']={[0]=2,[1]=3,[2]=4,[3]=5,[4]=6,[5]=7,[6]=8} --Overdrive Thruster
-varCostI['afterburners']={[0]=4,[1]=4,[2]=4,[3]=4,[4]=5,[5]=6,[6]=7} --Afterburners
 
 -- FFG uses full name on factions, so a conversion is needed
 ffgFaction = {}
@@ -182,13 +129,12 @@ end
 function initiate()
     self.clearButtons()
     self.clearInputs()
-    self.createButton({click_function = 'ffgStart', function_owner = self, label = 'FFG Spawner', position = {-0.45,0.45,-0.1}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
     self.createButton({click_function = 'xwsStart', function_owner = self, label = 'XWS Spawner', position = {0.5,0.45,-0.1}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
     self.createButton({click_function = 'singleSpawner', function_owner = self, label = 'Single Spawner', position = {-0.45,0.45,0.15}, width = 1600, height = 380, font_size = 200, scale = {0.25,0.25,0.25}})
     self.createButton({click_function = 'spawnerStart', function_owner = self, label = 'TTS Spawner', position = {0.5,0.45,0.15}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
     self.createButton({click_function = 'builderStart', function_owner = self, label = 'Builder', position = {0.5,0.45,0.4}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
     self.createButton({click_function = 'assetSpawn', function_owner = self, label = "Asset Spawner", position = {-0.45,0.45,0.4}, width = 1600, height = 380, font_size = 200, scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'confguration', function_owner = self, label = "Configuration", position = {0,0.45,0.65}, width = 1600, height = 380, font_size = 200, scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'confguration', function_owner = self, label = "Configuration", position = {-0.45,0.45,-0.1}, width = 1600, height = 380, font_size = 200, scale = {0.25,0.25,0.25}})
 end
 
 function confguration()
@@ -242,8 +188,18 @@ function xwsSave(obj, playerColor, alt_click)
     xwsLoad(playerColor)
 end
 
+function xwsLoad(playerColor)
+    if lista ~= nil then
+        local list = JSON.decode(lista)
+        xwsSpawn(list, playerColor)
+    else
+        print('Please paste XWS')
+    end
+end
+
 XWS_DATA = {
-  pilots = {}
+  pilots = {},
+  upgrades = {}
 }
 
 function loadXwsData()
@@ -293,45 +249,23 @@ function loadXwsDataShips()
         end) -- webrequest
       end -- for faction.ships
     end -- for manifest.pilots
+
+    for _, upgrade in pairs(XWS_DATA.manifest.upgrades) do
+      --print("Upgrade: " .. upgrade)
+      WebRequest.get('https://raw.githubusercontent.com/guidokessels/xwing-data2/master/' .. upgrade, function(request)
+        if request.is_error then
+          print('Unable to retreive data from "https://raw.githubusercontent.com/guidokessels/xwing-data2/master/' .. upgrade .. '"')
+        else
+          upgradedata = JSON.decode(request.text)
+          for _, upgrade in pairs(upgradedata) do
+            XWS_DATA.upgrades[upgrade.xws] = upgrade
+          end -- for upgradedata.upgrade
+        end -- if request.is_error
+      end) -- webrequest
+    end -- for manifest.upgrades
   end -- if manifest..
 end --function
 
---Load list and ffg <-> xws map
-XWS_TO_FFG = nil
-function xwsLoad(playerColor)
-    if lista ~= nil then
-        local list = JSON.decode(lista)
-
-        -- Load ffg <-> xws map if it hasn't been loaded yet
-        if XWS_TO_FFG == nil then
-            WebRequest.get('https://raw.githubusercontent.com/guidokessels/xwing-data2/master/data/ffg-xws.json', function(request)
-                if request.is_error then
-                    print("Failed to load ffg-xws.json which is required to map XWS ids to FFG ids.")
-                    print("Cannot spawn squad... Please try again later");
-                elseif request.is_done then
-                    local ffgToXws = JSON.decode(request.text)
-                    XWS_TO_FFG = {}
-                    XWS_TO_FFG.pilots = table_invert(ffgToXws.pilots)
-                    XWS_TO_FFG.upgrades = table_invert(ffgToXws.upgrades)
-                    XWS_TO_FFG.factions = table_invert(ffgToXws.factions)
-                    xwsSpawn(list, XWS_TO_FFG, playerColor)
-                end
-            end)
-        else
-            xwsSpawn(list, XWS_TO_FFG, playerColor)
-        end
-    else
-        print('Please paste XWS')
-    end
-end
-
-function table_invert(t)
-    local s = {}
-    for k,v in pairs (t) do
-        s[v] = k
-    end
-    return s
-end
 
 function findByXws(table, xws_id)
   for i, record in pairs(table) do
@@ -351,18 +285,23 @@ function listToFormat(version, vendor)
 end
 
 --Takes the XWS JSON and the xws <-> FFG ID map and constructs a parts list to pass to idSpawner
-function xwsSpawn(list, XWS_TO_FFG, playerColor)
+function xwsSpawn(list, playerColor)
     if list then
         local parts = {}
         parts.Pilots = {}
         parts.Upgrades = {}
         parts.spawnCard = self
-        parts.Faction = tonumber(XWS_TO_FFG.factions[list.faction])
+        parts.Faction = 0
+        for _, faction in pairs(XWS_DATA.factions) do
+          if faction.xws == list.faction then
+            parts.Faction = faction.ffg
+          end
+        end
         parts.Obstacles = {}
         parts.Format = listToFormat(list.version,list.vendor)
 
         for k,v in pairs (list.pilots) do
-            local pilotId = findByXws(masterPilotDB, v.id) or XWS_TO_FFG.pilots[v.id]
+            local pilotId = findByXws(masterPilotDB, v.id)
             if pilotId == nil then
               printToAll("Unable to find pilot with xws value: " .. v.id, {1,0,0})
               break;
@@ -410,141 +349,12 @@ function xwsSpawn(list, XWS_TO_FFG, playerColor)
 
         print(message .. ".");
 
-        FFGinitiate()
+        initiate()
     else
         print('Please paste XWS')
     end
 end
 
-
---Spawn from FFG squad shareable link. User must paste his link on the input field, load the squad, then press the spawn squad button. Maybe streamline the process and do it with one button?
-function ffgStart()
-    self.clearButtons()
-    self.createButton({click_function = 'DummyFFG', function_owner = self, label = 'Paste squad link', position = {0,0.45,-0.3}, width = 1800, height = 520, font_size = 240,  scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'ffgLoad', function_owner = self, label = 'Load Squad', position = {0,0.45,0.6}, width = 1800, height = 520, font_size = 240,  scale = {0.15,0.15,0.15}})
-    self.createInput({input_function = 'action2', function_owner = self, position = {0,0.45,0.2}, width = 1000, height = 500, font_size = 50, scale = {0.5,0.5,0.5}})
-    self.createButton({click_function = 'FFGinitiate', function_owner = self, label = 'Back', position = {-0.5,0.45,0.8}, width = 1000, height = 300, font_size = 150,  scale = {0.21,0.21,0.21}})
-    --self.createButton({click_function = 'printInput', function_owner = self, label = 'Print Input', position = {0,0.6,0.5}, width = 1000, height = 200, font_size = 150, tooltip = 'Print'})
-    --self.createButton({click_function = 'parseList', function_owner = self, label = 'Parse', position = {0,0,3.2}, width = 1000, height = 200, font_size = 150, tooltip = 'Parse'})
-end
-
-function DummyFFG()
-end
-
---prepares the link and call the json extractor
-function FFGinitiate()
-    if lista ~= nil then
-        lista =  nil
-    end
-    if partList ~= nil then
-        partList = nil
-    end
-    initiate()
-end
-
---takes a link and converts it for the API link
-function ffgLoad(obj, playerColor, alt_click)
-    if lista ~= nil then
-        --print("lista:" .. lista)
-        requesturl = string.gsub(lista,'https://squadbuilder%.fantasyflightgames%.com/.*/', 'http://squad2xws.herokuapp.com/translate/')
-        --print("Request:" .. requesturl)
-        ffgLoad2(requesturl, playerColor)
-    else
-        print ('Please paste a link')
-    end
-end
-
-function ffgClearName(string)  --Clars FFG name from all of their shenannigans
-    name = string.gsub(string, '•', '')
-    name = string.gsub(name, '’', '')
-    name = string.gsub(name, '”', '"')
-    name = string.gsub(name, '��', '"')
-    name = string.gsub(name, '<italic>', '') --So stupid....
-    name = string.gsub(name, '</italic>', '')
-    name = string.gsub(name, ' %(Open%)', '')
-    newName = string.gsub(name, ' %(Closed%)', '')
-    return newName
-end
-
---parses and organize the extracted json table and calls the spawner (TO-DO)
-function ffgSpawn()
-    if JSONlist ~=nil then
-        partList = {}
-        partList.Pilots = {}
-        partList.Upgrades = {}
-        partList.nameCounts = {}
-        partList.spawnCard = self
-        partList.Faction = JSONlist.faction.id
-        for k,v in pairs (JSONlist.deck) do
-
-            --[[for key, value in pairs(v["pilot_card"]) do
-                print(key .. " " .. tostring(value))
-            end]]
-
-            partList.Pilots[k] = v.pilot_card.id
-            --[[
-            print("Pilot Name: "..v["pilot_card"].name)
-            print("Pilot ID: "..v.pilot_card.id)
-            print("Pilot Cost: "..v.pilot_card.cost)
-            print("Ship Type: "..v.pilot_card.ship_type)
-            print()--]]
-            partList.Upgrades[k] ={}
-            for key,value in pairs (v.slots) do
-                partList.Upgrades[k][key] = value.id
-                --[[for i, uval in pairs(value) do
-                    print("upgrade[" .. tostring(i) .. "]=" .. tostring(uval))
-                end]]
-                --[[
-                print("Upgrade Name: "..value.name)
-                print("Upgrade Id: "..value.id)
-                print("Upgrade Cost: "..value.cost)
-                print()
-                --]]
-
-            end
-        end
-        idSpawner(partList)
-        partList = nil
-        JSONlist = nil
-        lista = nil
-        FFGinitiate()
-    else
-        print('Please paste a link')
-    end
-
-end
-
---Extracts the json table from FFG site, reporting success or failure
-function ffgLoad2(squadId, playerColor)
-    squadJson = squadId
-    WebRequest.get(squadJson, function(request)
-        if request.is_error then
-            error("Failed to load squad JSON.")
-        elseif request.is_done then
-            --print("List:" .. request.text)
-            lista = request.text
-            --list = JSON.decode(request.text)
-            --JSONlist = JSON.decode(request.text)
-            --print("You've loaded a squad: "..JSONlist.name)
-            --print()
-            --ffgSpawn()
-            xwsLoad(playerColor)
-        end
-    end)
-end
-
---FFG spawner input field
-function action2(obj, playerColor, value, editing)
-    if not editing then
-        lista = value
-    else
-        nl_index = string.find(value, '\n')
-        if nl_index != nil then
-            lista = string.sub(value, 1,nl_index-1)
-            ffgLoad(playerColor)
-        end
-    end
-end
 
 --TTS spawner input field
 function action(obj, playerColor, value, editing)
@@ -952,6 +762,7 @@ function idSpawner(idTable)
         fList.Pilots[k].Force = masterPilotDB[id].Force or 0
         fList.Upgrades[k] = {}
         local skilled_bombardier = false
+        local loadout = 0
         for key,value in pairs (idTable.Upgrades[k]) do
             --print("Upg[" .. tostring(k) .. "] = ".. tostring(value))
             value = dualUpgradeList[value] or value
@@ -960,18 +771,11 @@ function idSpawner(idTable)
             fList.Upgrades[k][key] = {}
             fList.Upgrades[k][key].name = name
             local cost = masterUpgradesDB[value].cost
-            if cost == 'a' then
-                local agi = masterShipDB[Ship].agi
-                cost = varCostA[value][agi]
-            elseif cost == 'i' then
-                local init = masterPilotDB[v].init
-                cost = varCostI[value][init]
-            elseif cost == 's' then
-                local shipSize = masterShipDB[Ship].size
-                cost = varCostS[value][shipSize]
+            if XWS_DATA.upgrades[masterUpgradesDB[value].XWS] then
+              cost = XWS_DATA.upgrades[masterUpgradesDB[value].XWS].cost.value
             end
-            fList.Pilots[k].list = fList.Pilots[k].list .. '   '..name..'\n'
-            fList.Pilots[k].cost = fList.Pilots[k].cost + cost
+            fList.Pilots[k].list = fList.Pilots[k].list .. '   '..name.. ' ('..tostring(cost) .. ')\n'
+            loadout = loadout + cost
 
             --fList.Upgrades[k][key].card = masterUpgradesDB[value].card
             fList.Upgrades[k][key].card = "https://raw.githubusercontent.com/eirikmun/x-wing2.0-project-goldenrod/" .. Format .. "/src/images/En/upgrades/" ..masterUpgradesDB[value].XWS..".png"
@@ -1101,8 +905,11 @@ function idSpawner(idTable)
             end
             fList.Pilots[k].bombD = bombD
         end
-        local threshold = 0
-        fList.Pilots[k].list = fList.Pilots[k].list .. '\nShip Points = '..cost..' ('..math.floor(cost/2)..')\nHalf Damage = '.. math.ceil( ( fList.Pilots[k].Shield + fList.Pilots[k].Hull ) / 2 )
+        local loadout_string = ''
+        if XWS_DATA.pilots[masterPilotDB[v].XWS] then
+          loadout_string = '\nLoadout: ' .. tostring(loadout).. '/' .. tostring(XWS_DATA.pilots[masterPilotDB[v].XWS].loadout)
+        end
+        fList.Pilots[k].list = fList.Pilots[k].list .. loadout_string ..'\nShip Points: '..cost..' ('..math.floor(cost/2)..')\nHalf Damage: '.. math.ceil( ( fList.Pilots[k].Shield + fList.Pilots[k].Hull ) / 2 )
     end
     for k,v in pairs(fList.sqdAction) do -- adds Squad actions coming from specific upgrades
         for K,V in pairs(fList.Pilots) do
@@ -1248,7 +1055,7 @@ function builderStart()
     self.clearButtons()
     partList = {}
     partList.Pilots = {}
-    partList.Upgrades = {}
+    --partList.Upgrades = {}
     partList.nameCounts = {}
     partList.spawnCard = self
     availablePilots = {}
@@ -1317,9 +1124,10 @@ function mainMenu()
     self.createButton({click_function = 'builderSpawn', function_owner = self, label = 'Spawn List', position = {0.45,0.45,-0.3}, width = 1300, height = 380, font_size = 200,  scale = {0.25,0.25,0.25}})
     for i, pilot in pairs(partList.Pilots) do
         local cost = pilot.cost
-        for k,v in pairs (partList.Upgrades[i]) do
-            if v.cost~= nil then
-                cost = cost+v.cost
+        local loadout = 0
+        for k, upgrade in pairs (pilot.upgrades) do
+            if upgrade.cost~= nil then
+                loadout = loadout+upgrade.cost
             end
         end
         self.createButton({click_function = 'selectShip'..i, function_owner = self, label = pilot.name..' ('..cost..')', position = {-0.4,0.45,-0.2+i*0.15}, width = 1500, height = 300, font_size = 130,  scale = {0.25,0.25,0.25}})
@@ -1336,14 +1144,7 @@ end
 -- Adding a ship will open a list of all available ship types.
 function addShip()
     self.clearButtons()
-    if partList.Pilots == nil then
-        shipIndex = 1
-    else
-        shipIndex=1
-        for i, pilot in pairs(partList.Pilots) do
-            shipIndex = shipIndex + 1
-        end
-    end
+
     local modelIndex = 1
     local aux = 1
     local auxB = 0
@@ -1353,15 +1154,12 @@ function addShip()
             if  k == partList.Faction then
                 Font=100
                 availableShips[modelIndex] = i
-                if aux > 8 then
-                    aux=1
-                    auxB=auxB+1
-                end
+                local row = ((modelIndex -1) % 8) +1
+                local column = math.floor((modelIndex-1) /8)
                 if string.len(i)>18 then
                     Font = 80
                 end
-                self.createButton({click_function = 'selectModel'..modelIndex, function_owner = self, label = shipModel.name, position = {-0.54+auxB*0.6,0.45,aux*0.16-0.5}, width = 1000, height = 220, font_size = Font,  scale = {0.25,0.25,0.25}})
-                aux = aux+1
+                self.createButton({click_function = 'selectModel'..modelIndex, function_owner = self, label = shipModel.name, position = {-0.54+column*0.6,0.45,row*0.16-0.5}, width = 1000, height = 220, font_size = Font,  scale = {0.25,0.25,0.25}})
                 modelIndex=modelIndex+1
             end
         end
@@ -1387,11 +1185,13 @@ function selectModelGeneric(arg)
                 end
             end
             if validOption and v.Faction==partList.Faction then
-                cost = v.cost
+                local cost = v.cost
+                local loadout = 0
                 if XWS_DATA.pilots[v.XWS] then
                   cost = XWS_DATA.pilots[v.XWS].cost
+                  loadout =  XWS_DATA.pilots[v.XWS].loadout
                 end
-                availablePilots[index] = {id = k, name = v.name, cost = cost, keywords={}}
+                availablePilots[index] = {id = k, name = v.name, cost = cost, loadout = loadout, keywords={}, upgrades={}}
                 for _,keyword in pairs(masterShipDB[chosenModel].keywords or {} ) do
                   table.insert(availablePilots[index].keywords, keyword)
                 end
@@ -1529,15 +1329,12 @@ end
 -- Selecting a pilot will add ship model and pilot to part list, update max index and go back to main menu. MUST REWRITE! Each pilot option should set variables and call an unified function to set up the part list!
 function setPilotGeneric(arg)
     self.clearButtons()
-    local name = masterPilotDB[availablePilots[arg].id].name
+    local name = availablePilots[arg].name
     partList.nameCounts[name] = (partList.nameCounts[name] or 0) + 1
-    partList.Pilots[shipIndex] = availablePilots[arg]
-    partList.Upgrades[shipIndex] = {}
+    table.insert(partList.Pilots, availablePilots[arg])
+    shipIndex = #partList.Pilots
     for _, keyword in pairs(masterPilotDB[availablePilots[arg].id].keywords or {}) do
         table.insert(partList.Pilots[shipIndex].keywords, keyword)
-    end
-    for ind, slot in pairs(masterPilotDB[availablePilots[arg].id].slot or {}) do
-        partList.Upgrades[shipIndex][ind] = {slot = slot, slotName = slotName[slot], removed = false}
     end
     availablePilots = nil
     mainMenu()
@@ -1611,134 +1408,80 @@ end
 function builderSpawn()
     finalList = {}
     finalList.Pilots = {}
+    finalList.Upgrades = {}
     for i, pilot in pairs(partList.Pilots) do
         finalList.Pilots[i] = pilot.id
+        finalList.Upgrades[i] = {}
+        for j, upgrade in pairs(pilot.upgrades) do
+            table.insert(finalList.Upgrades[i], upgrade.id)
+        end
     end
     finalList.Faction = partList.Faction
     finalList.spawnCard = partList.spawnCard
-    finalList.Upgrades = {}
+
     finalList.Format = "2.5"
-    for i, upList in pairs(partList.Upgrades) do
-        finalList.Upgrades[i] = {}
-        for k, Up in pairs(upList) do
-            table.insert(finalList.Upgrades[i], Up.id)
-        end
-    end
     idSpawner(finalList)
 end
 
 -- Selecting a ship that is on the main menu will show wich slots are empty and wich ones are taken, indicating how many points are being used on this ship and how many points the list as a whole is using.
 -- To Do: Set up auxiliary table with slots and upgrades so the correct buttons are spawned. Stablishes variables for special cases (Froce Powers, dual slots). Show point costs of each ship and full squad.
 function selectShipGeneric(arg)
-    if masterPilotDB[partList.Pilots[shipIndex].id].slot == nil then
-      return
-    end
+
     self.clearButtons()
-    local aux = 1
-    local auxB = 0
-    shipIndex = arg -- constant for the select ship number
-    local index = 1
-    availableSlots = {}
-    addedSlot={}
-    lastSlot=0
-    slotNum=0
-    totalCost[shipIndex] = 0
-    pilotId= partList.Pilots[shipIndex].id
-    pilotName= partList.Pilots[shipIndex].name
-    shipCost= partList.Pilots[shipIndex].cost
-    shipSlots[shipIndex]={}
-
-
-    --Adds all possible slots for given ship
-    for k, v in pairs(partList.Upgrades[shipIndex]) do
-        partList.Upgrades[shipIndex][k].removed = true
+    shipIndex = arg
+    local pilot = masterPilotDB[partList.Pilots[shipIndex].id]
+    local free_slots = {}
+    -- print("Slots for " .. pilot.name)
+    for _, slot in pairs(XWS_DATA.pilots[pilot.XWS].slots) do
+      free_slots[slot] = (free_slots[slot] or 0) + 1
+    --   print(i .. ":" .. slot  )
     end
 
+    local loadout_value = XWS_DATA.pilots[pilot.XWS].loadout
+    local loadout_cost = 0
 
-    for k, v in pairs(masterPilotDB[pilotId].slot) do
-        slotNum=slotNum+1
-        partList.Upgrades[shipIndex][k].removed=false
-        addedSlot[slotNum]=true
+    slot_buttons = {}
+    -- Alter free slots depending on equipped upgrades
+    for i, upgrade in pairs(partList.Pilots[shipIndex].upgrades) do
+      --print("Upgrade " .. tostring(upgrade.name))
+      local upgrade_entry = masterUpgradesDB[upgrade.id]
+      table.insert(slot_buttons, {slot_name = slotName[upgrade_entry.slot], upgrade = upgrade})
+      loadout_cost = loadout_cost + upgrade.cost
+      for _, slot_id in pairs(upgrade_entry.addSlot or {}) do
+        local slot = slotName[slot_id]
+        free_slots[slot] = (free_slots[slot] or 0) + 1
+      end
+      for _, slot_id in pairs(upgrade_entry.remSlot or {}) do
+        local slot = slotName[slot_id]
+        free_slots[slot] = (free_slots[slot] or 0) - 1
+      end
+      local slot = slotName[upgrade_entry.slot]
+      free_slots[slot] = (free_slots[slot] or 0) - 1
     end
 
-    --Checks and adds slot for every upgrade that adds a slot
-    for k, Upg in pairs(partList.Upgrades[shipIndex]) do
-        if Upg[1] ~=nil then
-            if masterUpgradesDB[Upg[1]].addSlot ~= nil then
-                for i, addSlot in pairs(masterUpgradesDB[Upg[1]].addSlot) do
-                    slotNum=slotNum+1
-                    if partList.Upgrades[shipIndex][slotNum] == nil then
-                        partList.Upgrades[shipIndex][slotNum] = {slot = addSlot, slotName = slotName[addSlot], removed = false}
-                        addedSlot[slotNum]=true
-                    else
-                        partList.Upgrades[shipIndex][slotNum].removed = false
-                    end
-                end
-            end
-        end
+    for slot, num in pairs(free_slots) do
+      for k=1, num, 1 do
+        --print("Free slot: " .. slot)
+        table.insert(slot_buttons, {slot_name=slot,upgrade = nil})
+      end
     end
 
-    for k, Upg in pairs(partList.Upgrades[shipIndex]) do
-        if Upg.id ~=nil then
-            if masterUpgradesDB[Upg.id].remSlot ~= nil then
-                for u, s in pairs (masterUpgradesDB[Upg.id].remSlot) do
-                    local rem = true
-                    for i, v in pairs (partList.Upgrades[shipIndex]) do
-                        if v.slot == s and rem ==true then
-                            v.removed=true
-                            rem=false
-                        end
-                    end
-                end
-            end
-        end
-    end
-
-    for k, v in pairs(partList.Upgrades[shipIndex]) do
-        if v.removed==true then
-            v.id = nil
-            v.name = nil
-            v.cost = nil
-        end
-    end
-
-    for i, slots in pairs(partList.Upgrades[shipIndex]) do
-        if aux > 5 then
-            aux = 1
-            auxB = auxB+1
-        end
-        if partList.Upgrades[shipIndex][i].removed == true then
-
-        elseif partList.Upgrades[shipIndex][i].id == nil then
-            self.createButton({click_function = 'selectSlot'..i, function_owner = self, label = partList.Upgrades[shipIndex][i].slotName, position = {-0.4+auxB*0.8,0.45,-0.22+aux*0.15}, width = 1500, height = 300, font_size = 120,  scale = {0.25,0.25,0.25}})
-            aux=aux+1
+    for i, slot in pairs(slot_buttons) do
+        row = ((i -1 ) % 5) + 1
+        column = math.floor((i-1) / 5)
+        if slot.upgrade == nil then
+            self.createButton({click_function = 'selectSlot'..i, function_owner = self, label = slot.slot_name, position = {-0.4+column*0.8,0.45,-0.22+row*0.15}, width = 1500, height = 300, font_size = 120,  scale = {0.25,0.25,0.25}})
         else
-            self.createButton({click_function = 'selectSlot'..i, function_owner = self, label = partList.Upgrades[shipIndex][i].name..' ('..partList.Upgrades[shipIndex][i].cost ..')', position = {-0.4+auxB*0.8,0.45,-0.22+aux*0.15}, width = 1500, height = 300, font_size = 120,  scale = {0.25,0.25,0.25}})
-            aux=aux+1
+            self.createButton({click_function = 'selectSlot'..i, function_owner = self, label = slot.upgrade.name..' ('..slot.upgrade.cost ..')', position = {-0.4+column*0.8,0.45,-0.22+row*0.15}, width = 1500, height = 300, font_size = 120,  scale = {0.25,0.25,0.25}})
         end
-        local index=index+1
     end
 
-    for i, pilot in pairs(partList.Pilots) do
-        local cost = pilot.cost
-        for k,v in pairs (partList.Upgrades[i]) do
-            if v.cost~= nil then
-                cost = cost+v.cost
-            end
-        end
-        totalCost[i] = cost
-    end
-    listCost = 0
-    for i, cost in pairs(totalCost) do
-        listCost = listCost + cost
-    end
 
-    self.createButton({click_function = 'Dummy1', function_owner = self, label = partList.Pilots[shipIndex].name ..' ('..partList.Pilots[shipIndex].cost ..')', position = {-0.3,0.45,-0.35}, width = 2000, height = 320, font_size = 150,  scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'Dummy1', function_owner = self, label = partList.Pilots[shipIndex].name ..' ('.. XWS_DATA.pilots[pilot.XWS].cost ..')', position = {-0.3,0.45,-0.35}, width = 2000, height = 320, font_size = 150,  scale = {0.25,0.25,0.25}})
     self.createButton({click_function = 'mainMenu', function_owner = self, label = 'Back', position = { 0.5,0.45,-0.35}, width = 1000, height = 320, font_size = 150,  scale = {0.25,0.25,0.25}})
     self.createButton({click_function = 'removeShip', function_owner = self, label = 'Remove Ship', position = { 0.6,0.45,0.75}, width = 1000, height = 320, font_size = 150,  scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'Dummy1', function_owner = self, label = 'Ship cost: '..totalCost[shipIndex], position = {-0.6,0.45,0.8}, width = 1000, height = 220, font_size = 150,  scale = {0.25,0.25,0.25}})
-
-    self.createButton({click_function = 'Dummy1', function_owner = self, label = 'List cost: '..listCost, position = {0,0.45,0.8}, width = 1000, height = 220, font_size = 150,  scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'Dummy1', function_owner = self, label = 'Loadout: '.. tostring(loadout_cost) .. '/' .. tostring(loadout_value), position = {-0.6,0.45,0.8}, width = 1000, height = 220, font_size = 150,  scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'Dummy1', function_owner = self, label = 'List cost: '.. listCost, position = {0,0.45,0.8}, width = 1000, height = 220, font_size = 150,  scale = {0.25,0.25,0.25}})
 end
 
 function removeShip()
@@ -1792,16 +1535,46 @@ end
 
 function selectSlotGeneric(slotIndex)
     self.clearButtons()
-    slotId = partList.Upgrades[shipIndex][slotIndex].slot             -- Value tied for this function!
+
+
+    if slot_buttons[slotIndex].upgrade then
+      for i, upgrade in pairs(partList.Pilots[shipIndex].upgrades) do
+        if upgrade.id == slot_buttons[slotIndex].upgrade.id then
+          partList.nameCounts[upgrade.name] = (partList.nameCounts[upgrade.name] or 1) - 1
+          table.remove(partList.Pilots[shipIndex].upgrades, i)
+          break
+        end
+      end
+    end
+
+    local loadout_value = partList.Pilots[shipIndex].loadout
+    local loadout_cost = 0
+    for i, upgrade in pairs(partList.Pilots[shipIndex].upgrades) do
+      loadout_cost = loadout_cost + upgrade.cost
+    end
+
+    local loadout_remaining = loadout_value - loadout_cost
+
+
+
+    slotId = slot_to_id[slot_buttons[slotIndex].slot_name]
+
+    --slotId = partList.Upgrades[shipIndex][slotIndex].slot             -- Value tied for this function!
     currSlotInd = slotIndex
     local index = 1
-    local aux = 1
-    local auxB = 0
-    acailableUps = {}
-    self.createButton({click_function = 'selectUpNone', label = 'None (0)', function_owner = self, position = {-0.45+auxB*0.6,0.45,-0.2}, width = 1500, height = 220, font_size = 120,  scale = {0.25,0.25,0.25}})
+    local row = 1
+    local column = 0
+    self.createButton({click_function = 'selectUpNone', label = 'None (0)', function_owner = self, position = {-0.45,0.45,-0.2}, width = 1500, height = 220, font_size = 120,  scale = {0.25,0.25,0.25}})
     for id, up in pairs(masterUpgradesDB) do
+        local up_cost = 0
+        if  XWS_DATA.upgrades[up.XWS] then
+          up_cost = tonumber(XWS_DATA.upgrades[up.XWS].cost.value) or 0
+        end
         if up.slot == slotId then
             local validUp=true
+            if up_cost > loadout_remaining then
+              validUp=false
+            end
             if up.restriction ~= nil then
                 if up.restriction.Faction ~= nil then
                     if up.restriction.Faction[partList.Faction]~=true then
@@ -1840,45 +1613,29 @@ function selectSlotGeneric(slotIndex)
                 end
             end
             if validUp == true then
-                if up.cost =='a' then
-                    sAgi =   masterShipDB[masterPilotDB[ partList.Pilots[shipIndex].id ].ship_type ].agi
-                    --print("VarCost 'a' id: ".. tostring(id))
-                    upCost = varCostA[id][sAgi]
-                elseif up.cost == 's' then
-                    sSize =   masterShipDB[masterPilotDB[ partList.Pilots[shipIndex].id ].ship_type ].size
-                    --print("VarCost 's' id: ".. tostring(id))
-                    upCost = varCostS[id][sSize]
-                elseif up.cost == 'i' then
-                    pInit = masterPilotDB[partList.Pilots[shipIndex].id].init
-                    --print("VarCost 'i' id: ".. tostring(id))
-                    upCost = varCostI[id][pInit]
-                else
-                    upCost = up.cost
-                end
                 local title = ''
                 if up.title ~= nil then
                     title = '\n' .. up.title
                 end
-                availableUps[index] = {id=id, name=up.name, cost=upCost}
-                self.createButton({click_function = 'selectUp'..index, label = up.name..title..' ('..upCost..')', function_owner = self, position = {-0.53+auxB*0.58,0.45,aux*0.1-0.1}, width = 1100, height = 200, font_size = 100,  scale = {0.25,0.25,0.25}})
-                aux=aux+1
+                availableUps[index] = {id=id, name=up.name, cost=up_cost}
+                self.createButton({click_function = 'selectUp'..index, label = up.name..title..' ('..up_cost..')', function_owner = self, position = {-0.53+column*0.58,0.45,row*0.1-0.1}, width = 1100, height = 200, font_size = 100,  scale = {0.25,0.25,0.25}})
+                row=row+1
                 index = index+1
-                if aux > 8 then
-                    aux=1
-                    auxB=auxB+1
+                if row > 9 then
+                    row=1
+                    column=column+1
                 end
-                validUp= false
             end
         elseif slotId == 99 then
             local hpCheck={[3]=true,[5]=true,[6]=true}
             if hpCheck[up.slot] == true then
-                availableUps[index] = {id=id, name=up.name, cost=up.cost}
-                self.createButton({click_function = 'selectUp'..index, label = up.name..' ('..up.cost..')', function_owner = self, position = {-0.53+auxB*0.58,0.45,aux*0.1-0.1}, width = 1100, height = 200, font_size = 100,  scale = {0.25,0.25,0.25}})
-                aux=aux+1
+                availableUps[index] = {id=id, name=up.name, cost=up_cost}
+                self.createButton({click_function = 'selectUp'..index, label = up.name..' ('..up_cost..')', function_owner = self, position = {-0.53+column*0.58,0.45,row*0.1-0.1}, width = 1100, height = 200, font_size = 100,  scale = {0.25,0.25,0.25}})
+                row=row+1
                 index = index+1
-                if aux > 8 then
-                    aux=1
-                    auxB=auxB+1
+                if row > 9 then
+                    row=1
+                    column=column+1
                 end
             end
         end
@@ -1999,9 +1756,6 @@ end
 
 
 function selectUpNone()
-    partList.Upgrades[shipIndex][currSlotInd].id = nil     --first '1' tied to selectUp1, second value indicate the names
-    partList.Upgrades[shipIndex][currSlotInd].name = nil
-    partList.Upgrades[shipIndex][currSlotInd].cost = nil
     if shipIndex == 1 then
         selectShip1()
     elseif shipIndex == 2 then
@@ -2022,9 +1776,7 @@ function selectUpNone()
 end
 
 function selectUpGeneric(arg)
-    partList.Upgrades[shipIndex][currSlotInd].id = availableUps[arg].id      --first '1' tied to selectUp1, second value indicate the Id
-    partList.Upgrades[shipIndex][currSlotInd].name = availableUps[arg].name      --first '1' tied to selectUp1, second value indicate the Name
-    partList.Upgrades[shipIndex][currSlotInd].cost = availableUps[arg].cost      --first '1' tied to selectUp1, second value indicate the cost
+    table.insert(partList.Pilots[shipIndex].upgrades, {id = availableUps[arg].id, name = availableUps[arg].name, cost = availableUps[arg].cost})
     local name = availableUps[arg].name
     partList.nameCounts[name] = (partList.nameCounts[name] or 0) + 1
     if shipIndex == 1 then
@@ -2579,7 +2331,7 @@ slotName[13] = 'Illicit' -- Ilicit
 slotName[14] = 'Modification' -- Modification
 slotName[15] = 'Title' -- Title
 slotName[16] = 'Gunner' -- Gunner
-slotName[17] = 'Force Talent' -- Force Power
+slotName[17] = 'Force Power' -- Force Power
 slotName[18] = 'Configuration' -- Configuration
 slotName[19] = 'Tech' -- Tech
 slotName[20] = 'Relay' -- Relay
@@ -2589,6 +2341,32 @@ slotName[23] = 'Team'  -- Team
 slotName[24] = 'Hardpoint'
 slotName[25] = 'Hyperdrive'
 slotName[99] = 'Weapon HardPoint' -- Hardpoint
+
+slot_to_id = {}
+slot_to_id['Talent'] = 1
+slot_to_id['Sensors'] = 2
+slot_to_id['Cannon'] = 3
+slot_to_id['Turret'] = 4
+slot_to_id['Torpedo'] = 5
+slot_to_id['Missile'] = 6
+slot_to_id['Crew'] = 8
+slot_to_id['Astromech'] = 10
+slot_to_id['Device'] = 12
+slot_to_id['Illicit'] = 13
+slot_to_id['Modification'] = 14
+slot_to_id['Title'] = 15
+slot_to_id['Gunner'] = 16
+slot_to_id['Force Power'] = 17
+slot_to_id['Configuration'] = 18
+slot_to_id['Tech'] = 19
+slot_to_id['Relay'] = 20
+slot_to_id['Command'] = 21
+slot_to_id['Cargo'] = 22
+slot_to_id['Team'] = 23
+slot_to_id['Hardpoint'] = 24
+slot_to_id['Hyperdrive'] = 25
+slot_to_id['Weapon HardPoint'] = 99
+
 
 
 
