@@ -577,5 +577,5 @@ function onLoad(savedData)
             Global.call('API_AssignToken',{token=getObjectFromGUID(guid), ship = self})
         end
     end
-    Wait.condition(setupUI, function() return (not self.spawning) and (not self.UI.loading) and (not self.loading_custom)  end, 10)
+    Wait.condition(setupUI, function() return (not self.spawning) and (not self.UI.loading) and (not self.loading_custom)  end)
 end

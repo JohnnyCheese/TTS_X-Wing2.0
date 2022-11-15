@@ -8027,7 +8027,287 @@ masterPilotDB[976]={
     {name= 'Targeting Astromech', charge=0},
   }
 }
+-- Siege of corruscant
 
+masterPilotDB[977]={
+    name = 'Anakin Skywalker',
+    XWS = 'anakinskywalker-siegeofcoruscant',
+    title = 'Siege of Coruscant',
+    limited = 1,
+    Faction = 6,
+    Force = 3,
+    ship_type = 'eta2actis',
+    cost = 20,
+    slot = {1, 17, 10, 14},
+    Shield = 0,
+    init = 6,
+    texture = 'anakin',
+    actSet = {'F','E','TL','BR','B'},
+    keywords = {'Dark Side', 'Light Side', 'Jedi'},
+    standardized_loadout = true,
+    standardized_upgrades = {
+      {name= 'Malice', charge=0},
+      {name= 'Ancillary Ion Weapons', charge=2},
+      {name= 'R2-D2', charge=2},
+    }
+}
+
+masterPilotDB[978]={
+    name = 'Obi Wan Kenobi',
+    XWS = 'anakinskywalker-siegeofcoruscant',
+    title = 'Siege of Coruscant',
+    limited = 1,
+    Faction = 6,
+    Force = 3,
+    ship_type = 'eta2actis',
+    cost = 20,
+    slot = {1, 17, 10, 14},
+    Shield = 0,
+    init = 5,
+    texture = 'obi',
+    actSet = {'F','E','TL','BR','B'},
+    keywords = {'Light Side', 'Jedi'},
+    standardized_loadout = true,
+    standardized_upgrades = {
+      {name= 'Patience', charge=0},
+      {name= 'Ancillary Ion Weapons', charge=2},
+      {name= 'R4-P17', charge=2},
+    }
+}
+
+masterPilotDB[979]={
+    name = 'Shaak Ti',
+    XWS = 'shaakti-siegeofcoruscant',
+    title = 'Siege of Coruscant',
+    limited = 1,
+    Faction = 6,
+    Force = 2,
+    ship_type = 'eta2actis',
+    cost = 20,
+    slot = {1, 17, 10, 14},
+    Shield = 0,
+    init = 4,
+    texture = 'shaak',
+    actSet = {'F','E','TL','BR','B'},
+    keywords = {'Light Side', 'Jedi'},
+    standardized_loadout = true,
+    standardized_upgrades = {
+      {name= 'Marksmanship', charge=0},
+      {name= 'Brilliant Evasion', charge=0},
+      {name= 'Ancillary Ion Weapons', charge=2},
+      {name= 'R4-P Astromech', charge=2},
+    }
+}
+
+masterPilotDB[980]={
+  name = '"Axe"',
+  XWS = 'axe-siegeofcoruscant',
+  Faction = 6,
+  limited = 1,
+  ship_type = 'v19torrentstarfighter',
+  title = 'Siege of Coruscant',
+  cost = 20,
+  slot = {21, 1,6,14},
+  init = 3,
+  texture = 'standard',
+  actSet = {'F','E','TL','BR'},
+  keywords = {'Clone'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Deadeye Shot', charge=0},
+    {name= 'Barrage Rockets', charge=5},
+  }
+}
+
+masterPilotDB[981]={
+  name = '"Kickback"',
+  XWS = 'kickback-siegeofcoruscant',
+  title = 'Siege of Coruscant',
+  Faction = 6,
+  limited = 1,
+  ship_type = 'v19torrentstarfighter',
+  cost = 20,
+  slot = {21, 1,6,14},
+  init = 5,
+  texture = 'standard',
+  actSet = {'F','E','TL','BR'},
+  keywords = {'Clone'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Diamond-Boron Missiles', charge=3},
+    {name= 'Munitions Failsafe', charge=0},
+  }
+}
+
+masterPilotDB[982]={
+  name = '"Contrail"',
+  XWS = 'contrail-siegeofcoruscant',
+  title = 'Siege of Coruscant',
+  limited = 1,
+  Faction = 6,
+  ship_type = 'nimbusclassvwing',
+  cost = 20,
+  slot = {1, 10, 14, 18},
+  Shield = 2,
+  init = 5,
+  texture = 'blue',
+  actSet = {'F','TL','BR','B'},
+  keywords = {'Clone'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Ion Limiter Override', charge=0},
+    {name= 'Precise Astromech', charge=2},
+    {name= 'Ion Bombs', charge=2},
+    {name= 'Alpha-3b "Besh"', charge=0},
+  }
+}
+
+masterPilotDB[983]={
+  name = '"Jag"',
+  XWS = 'jag-siegeofcoruscant',
+  title = 'Siege of Coruscant',
+  Faction = 6,
+  limited = 1,
+  ship_type = 'arc170starfighter',
+  cost = 20,
+  slot = {21, 5,14,8,16,10},
+  init = 3,
+  texture = 'republic',
+  actSet = {'F','TL','BR'},
+  keywords = {'Clone'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Veteran Tail Gunner', charge=0},
+    {name= 'R4-P Astromech', charge=2},
+    {name= 'Synchronized Console', charge=0},
+  }
+}
+
+masterPilotDB[984]={
+  name = '"Wolffe"',
+  XWS = 'wolffe-siegeofcoruscant',
+  title = 'Siege of Coruscant',
+  Faction = 6,
+  limited = 1,
+  ship_type = 'arc170starfighter',
+  cost = 20,
+  slot = {21, 1,5,14,8,16,10},
+  Charge = 1,
+  init = 4,
+  texture = 'republic',
+  actSet = {'F','TL','BR'},
+  keywords = {'Clone'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Wolfpack', charge=0},
+    {name= 'Veteran Tail Gunner', charge=0},
+    {name= 'Q7 Astromech', charge=0},
+  }
+}
+
+masterPilotDB[985]={
+  name = '"Odd Ball"',
+  XWS = 'oddball-siegeofcoruscant',
+  title = 'Siege of Coruscant',
+  Faction = 6,
+  limited = 1,
+  ship_type = 'arc170starfighter',
+  cost = 20,
+  slot = {21, 1,5,14,8,16,10},
+  init = 5,
+  texture = 'republic',
+  actSet = {'F','TL','BR'},
+  keywords = {'Clone'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Selfless', charge=0},
+    {name= 'Veteran Tail Gunner', charge=0},
+    {name= 'R4-P Astromech', charge=2},
+  }
+}
+
+masterPilotDB[986]={
+  name = 'Count Dooku',
+  XWS = 'countdooku-siegeofcoruscant',
+  title = 'Siege of Coruscant',
+  Faction = 7,
+  limited = 1,
+  ship_type = 'sithinfiltrator',
+  cost = 20,
+  slot = {21, 17,5,3,8,8,20,12,15,14},
+  Force = 3,
+  init = 5,
+  actSet = {'F','TL','BR'},
+  texture = 'standard',
+  keywords = {'Dark Side', 'Sith'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Malice', charge=0},
+    {name= 'Roiling Anger', charge=0},
+    {name= 'Scimitar', charge=0},
+  }
+}
+
+masterPilotDB[987]={
+  name = 'DFS-081',
+  XWS = 'dfs081-siegeofcoruscant',
+  title = 'Siege of Coruscant',
+  Faction = 7,
+  limited = 1,
+  ship_type = 'vultureclassdroidfighter',
+  cost = 20,
+  slot = {21, 6,14,18},
+  init = 3,
+  actSet = {'C','BR','TL'},
+  texture = 'dfs081',
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Discord Missiles', charge=1},
+    {name= 'Contingency Protocol', charge=0},
+    {name= 'Strut-Lock Override', charge=2},
+  }
+}
+
+
+masterPilotDB[988]={
+  name = 'DFS-311',
+  XWS = 'dfs311-siegeofcoruscant',
+  title = 'Siege of Coruscant',
+  Faction = 7,
+  limited = 1,
+  ship_type = 'vultureclassdroidfighter',
+  cost = 23,
+  slot = {21, 6,14,18},
+  init = 1,
+  actSet = {'C','BR','TL'},
+  texture = 'dfs311',
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Discord Missiles', charge=1},
+    {name= 'Contingency Protocol', charge=0},
+    {name= 'Strut-Lock Override', charge=2},
+  }
+}
+
+masterPilotDB[989]={
+  name = 'Haor Chall Prototype',
+  XWS = 'haorchallprototype-siegeofcoruscant',
+  title = 'Siege of Coruscant',
+  Faction = 7,
+  limited = 2,
+  ship_type = 'vultureclassdroidfighter',
+  cost = 22,
+  slot = {21, 6,14,18},
+  init = 1,
+  actSet = {'C','BR','TL'},
+  texture = 'proto',
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Ion Missiles', charge=3},
+    {name= 'Contingency Protocol', charge=0},
+    {name= 'Strut-Lock Override', charge=2},
+  }
+}
 
 
 

@@ -6959,7 +6959,7 @@ end
               tintable = true
             }
           }]]
-
+          --[[
           for k, customization_part in pairs(Pilots[shipIndex].Data.customization_parts or {}) do
             if customization_part.model then
               local customObject = ship.getCustomObject()
@@ -6997,6 +6997,8 @@ end
               Wait.condition(customSpawnFunction , function() return (not ship.spawning) and (not ship.isSmoothMoving() ) end)
             end -- if customization_part.models
           end -- for Data.customization_parts
+
+        ]]
 
         end
 

@@ -736,7 +736,7 @@ masterShipDB['hwk290lightfreighter']={
   Fac = {[1]=true,[3]=true},
   arcs = {turret = {main = {name = 'primary', type={'singleturret'}}}},
   moveSet = {'bbl1','bs1','bbr1','wtl2','wbl2','bs2','wbr2','wtr2','rtl3','wbl3','bs3','wbr3','rtr3','ws4','rs0'},
-  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/hwk290lightfreighter/hwk2.obj',
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/hwk290lightfreighter/hwkv2.obj',
   freighter = {'Freighter'}
 }
 
@@ -814,7 +814,7 @@ masterShipDB['z95af4headhunter']={
   Fac = {[1]=true,[3]=true},
   arcs = {fixed = { range=3, type = {'front'}}},
   moveSet = {'wbl1','bs1','wbr1','wtl2','bbl2','bs2','bbr2','wtr2','wtl3','wbl3','bs3','wbr3','wtr3','rk3','ws4','rk4'},
-  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/z95af4headhunter/Z95v2.obj'
+  mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/z95af4headhunter/Z95v3.obj'
 }
 
 masterShipDB['m12lkimogilafighter']={
@@ -1822,6 +1822,7 @@ masterShipDB['gauntletfighter']={
   size = 'large',
   agi = 2,
   XWS = 'gauntletfighter',
+  ProximityHider = true,
   Fac = {[1]=true,[2]=true,[3]=true,[6]=true,[7]=true},
   arcs = {fixed = { range=3, type = {'frontback'}}},
   textures = {

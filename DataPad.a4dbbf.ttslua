@@ -135,6 +135,53 @@ function initiate()
     self.createButton({click_function = 'builderStart', function_owner = self, label = 'Builder', position = {0.5,0.45,0.4}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
     self.createButton({click_function = 'assetSpawn', function_owner = self, label = "Asset Spawner", position = {-0.45,0.45,0.4}, width = 1600, height = 380, font_size = 200, scale = {0.25,0.25,0.25}})
     self.createButton({click_function = 'confguration', function_owner = self, label = "Configuration", position = {-0.45,0.45,-0.1}, width = 1600, height = 380, font_size = 200, scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'scenario', function_owner = self, label = "Scenario Setup", position = {0,0.45,0.65}, width = 1600, height = 380, font_size = 200, scale = {0.25,0.25,0.25}})
+end
+
+function scenario()
+  self.clearButtons()
+  self.createButton({click_function = 'scenarioAssault', function_owner = self, label = 'Assault at the Sattelite Array' , position = {0,0.45,-0.3}, width = 2600, height = 350, font_size = 200,  scale = {0.25,0.25,0.25}})
+  self.createButton({click_function = 'scenarioChance', function_owner = self, label = 'Chance Engagement' , position = {0,0.45,-0.1}, width = 2600, height = 350, font_size = 200,  scale = {0.25,0.25,0.25}})
+  self.createButton({click_function = 'scenarioSalvage', function_owner = self, label = 'Salvage Mission' , position = {0,0.45,0.1}, width = 2600, height = 350, font_size = 200,  scale = {0.25,0.25,0.25}})
+  self.createButton({click_function = 'scenarioScramble', function_owner = self, label = 'Scramble the Transmissions' , position = {0,0.45,0.3}, width = 2600, height = 350, font_size = 200,  scale = {0.25,0.25,0.25}})
+  self.createButton({click_function = 'scenarioBoYavin', function_owner = self, label = 'Battle of Yavin' , position = {0,0.45,0.5}, width = 2600, height = 350, font_size = 200,  scale = {0.25,0.25,0.25}})
+  self.createButton({click_function = 'initiate', function_owner = self, label = 'Back', position = {0.4,0.45,0.8}, width = 1800, height = 520, font_size = 240,  scale = {0.15,0.15,0.15}})
+end
+
+function scenarioAssault()
+  initiate()
+  local red_blue_mat = getObjectFromGUID('0db84a')
+	red_blue_mat.call('SelectAssault')
+end
+
+function scenarioChance()
+  initiate()
+  local red_blue_mat = getObjectFromGUID('0db84a')
+	red_blue_mat.call('SelectEngagment')
+end
+
+function scenarioSalvage()
+  initiate()
+  local red_blue_mat = getObjectFromGUID('0db84a')
+	red_blue_mat.call('SelectSalvage')
+end
+
+function scenarioScramble()
+  initiate()
+  local red_blue_mat = getObjectFromGUID('0db84a')
+	red_blue_mat.call('SelectScramble')
+end
+
+function scenarioBoYavin()
+  initiate()
+  local red_blue_mat = getObjectFromGUID('0db84a')
+
+  local custom = red_blue_mat.getCustomObject()
+  custom.diffuse = 'http://cloud-3.steamusercontent.com/ugc/1863954854624717161/2BEED383E5A41762625D3C0A3D3F8AB7BF0B9863/'
+  red_blue_mat.setCustomObject(custom)
+  red_blue_mat = red_blue_mat.reload()
+  Wait.condition(function() red_blue_mat.call('SelectBoY') end,
+    function() return (not red_blue_mat.loading_custom) and (not red_blue_mat.spawning) end)
 end
 
 function confguration()
