@@ -8336,6 +8336,74 @@ masterPilotDB[1010]={
   actSet = {'F','E','BR','TL'}
 }
 
+masterPilotDB[1011]={
+  name = 'Taka Jamoreesa',
+  XWS = 'takajamoreesa',
+  Faction = 4,
+  limited = 1,
+  ship_type = 'resistancetransport',
+  cost = 0,
+  slot = {21, 1,19,3,3,5,8,8,10,14},
+  init = 2,
+  texture = 'standard',
+  actSet = {'F','TL'}
+}
+
+masterPilotDB[1012]={
+  name = 'Zay Versio',
+  XWS = 'zayversio',
+  limited = 1,
+  Faction = 4,
+  ship_type = 't70xwing',
+  cost = 0,
+  slot = {21, 1,19,14,18,15,10,99},
+  init = 3,
+  texture = 'standard',
+  actSet = {'F','TL','B'}
+}
+
+masterPilotDB[1013]={
+  name = 'Venisa Doza',
+  XWS = 'venisadoza',
+  limited = 1,
+  Faction = 4,
+  ship_type = 't70xwing',
+  cost = 0,
+  slot = {21, 1,19,14,18,15,10,99},
+  init = 4,
+  texture = 'standard',
+  actSet = {'F','TL','B'}
+}
+
+masterPilotDB[1014]={
+  name = "Lando Calrissian",
+  XWS = 'landocalrissian-scavengedyt1300',
+  Faction = 4,
+  limited = 1,
+  ship_type = 'scavengedyt1300lightfreighter',
+  cost = 0,
+  slot = {21, 1,8,8,16,13,14,15},
+  init = 5,
+  Charge = 3,
+  texture = 'standard',
+  actSet = {'F','TL','B','Rot'}
+}
+
+masterPilotDB[1015]={
+  name = "Poe Dameron",
+  XWS = 'poedameron-scavengedyt1300',
+  Faction = 4,
+  limited = 1,
+  ship_type = 'scavengedyt1300lightfreighter',
+  cost = 0,
+  slot = {21, 1,8,8,16,13,14,15},
+  init = 6,
+  Charge = 2,
+  texture = 'standard',
+  actSet = {'F','TL','B','BR','Rot'}
+}
+
+
 
 
 return masterPilotDB
