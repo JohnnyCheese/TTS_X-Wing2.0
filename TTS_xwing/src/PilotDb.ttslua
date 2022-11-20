@@ -7635,6 +7635,7 @@ masterPilotDB[971]={
   title = 'Battle of Yavin',
   Faction = 2,
   limited = 1,
+  Shield = 1,
   ship_type = 'tieininterceptor',
   cost = 20,
     init = 4,
@@ -7768,7 +7769,7 @@ masterPilotDB[977]={
 
 masterPilotDB[978]={
     name = 'Obi Wan Kenobi',
-    XWS = 'anakinskywalker-siegeofcoruscant',
+    XWS = 'obiwankenobi-siegeofcoruscant',
     title = 'Siege of Coruscant',
     limited = 1,
     Faction = 6,
@@ -7926,6 +7927,7 @@ masterPilotDB[985]={
   cost = 20,
   slot = {21, 1,5,14,8,16,10},
   init = 5,
+  Shield = 4,
   texture = 'republic',
   actSet = {'F','TL','BR'},
   keywords = {'Clone'},
@@ -8153,6 +8155,7 @@ masterPilotDB[999]={
   cost = 0,
   slot = {21, 1, 1, 6, 18},
   init = 3,
+  Force = 1,
   texture = 'jake',
   actSet = {'F','TL','E','BR','B'},
   executeOptions = {
@@ -8403,6 +8406,221 @@ masterPilotDB[1015]={
   actSet = {'F','TL','B','BR','Rot'}
 }
 
+masterPilotDB[1016]={
+  name = 'The Iron Assembler',
+  XWS = 'theironassembler',
+  Faction = 7,
+  limited = 1,
+  ship_type = 'vultureclassdroidfighter',
+  cost = 0,
+  Charge = 3,
+  slot = {21, 6,14,18},
+  init = 1,
+  actSet = {'C','BR','TL'},
+  texture = 'proto',
+}
+
+masterPilotDB[1017]={
+  name = 'Kelrodo-Ai Holdout',
+  XWS = 'kelrodoaiholdout',
+  Faction = 7,
+  limited = 3,
+  ship_type = 'vultureclassdroidfighter',
+  cost = 0,
+  slot = {21, 6,14,18},
+  init = 2,
+  actSet = {'F','BR','TL'},
+  texture = 'proto',
+}
+
+masterPilotDB[1018]={
+    name = 'Aurra Sing',
+    XWS = 'aurrasing',
+    limited = 1,
+    Faction = 7,
+    Force = 1,
+    ship_type = 'firesprayclasspatrolcraft',
+    cost = 0,
+    slot = {21, 1, 3, 6, 8, 12, 13, 14, 15},
+    init = 4,
+    texture = 'zam',
+    actSet = {'F','R','TL','B'},
+}
+
+masterPilotDB[1019]={
+  name = 'Agent Tierny',
+  XWS = 'agenttierny',
+  Faction = 5,
+  limited = 1,
+  Condition = 'Broken Trust',
+  ship_type = 'xiclasslightshuttle',
+  cost = 0,
+  slot = {1,19,19,8,8,14},
+  init = 3,
+  texture = 'light',
+  actSet = {'F','TL'}
+}
+
+masterPilotDB[1020]={
+	name = 'Lin Gaava',
+  XWS = 'lingaava',
+  limited = 1,
+	Faction = 5,
+	ship_type = 'tiefofighter',
+  Condition = 'Primed for Speed',
+	cost =0 ,
+	slot = {21, 1,19,14},
+		init = 3,
+	texture = 'standard',
+	actSet = {'F','TL','E','BR'}
+}
+
+masterPilotDB[1021]={
+	name = 'Lieutenant Galek',
+  XWS = 'lieutenantgalek',
+  limited = 1,
+	Faction = 5,
+	ship_type = 'tiefofighter',
+	cost =0 ,
+	slot = {21, 1,19,14},
+	init = 5,
+	texture = 'standard',
+	actSet = {'F','TL','E','BR'}
+}
+
+masterPilotDB[1022]={
+	name = 'DT-798',
+  XWS = 'dt798',
+  limited = 1,
+	Faction = 5,
+	ship_type = 'tiefofighter',
+	cost =0 ,
+	slot = {21, 1,19,14},
+	init = 4,
+	texture = 'standard',
+	actSet = {'F','TL','E','BR'}
+}
+
+masterPilotDB[1023]={
+    name = "Phlac-Arphocc Prototype",
+    XWS = 'phlacarphoccprototype-siegeofcoruscant',
+    title = "Siege of Coruscant",
+    limited = 2,
+    Faction = 7,
+    ship_type = 'droidtrifighter',
+    cost = 38,
+    slot = {21,1,2,6,14,18},
+    init = 5,
+    texture = 'standard',
+    actSet = {'C','E','TL','BR','B'},
+    standardized_loadout = true,
+    standardized_upgrades = {
+      {name= 'Afterburners', charge=2},
+      {name= 'Contingency Protocol', charge=0},
+      {name= 'Evasion Sequence 7', charge=0},
+    }
+}
+
+masterPilotDB[1024]={
+    name = "DIS-T81",
+    XWS = 'dist81-siegeofcoruscant',
+    title = "Siege of Coruscant",
+    limited = 1,
+    Faction = 7,
+    ship_type = 'droidtrifighter',
+    cost = 0,
+    slot = {21,1,2,6,14,18},
+    init = 4,
+    texture = 'standard',
+    actSet = {'C','E','TL','BR','B'},
+    standardized_loadout = true,
+    standardized_upgrades = {
+      {name= 'Outmaneuver', charge=0},
+      {name= 'Afterburners', charge=2},
+      {name= 'Contingency Protocol', charge=0},
+    }
+}
+
+masterPilotDB[1025]={
+    name = "DIS-347",
+    XWS = 'dis347-siegeofcoruscant',
+    title = "Siege of Coruscant",
+    limited = 1,
+    Faction = 7,
+    ship_type = 'droidtrifighter',
+    cost = 0,
+    slot = {21,1,2,6,14,18},
+    init = 3,
+    texture = 'standard',
+    actSet = {'C','E','TL','BR','B'},
+    standardized_loadout = true,
+    standardized_upgrades = {
+      {name= 'Marksmanship', charge=0},
+      {name= 'Afterburners', charge=2},
+      {name= 'Contingency Protocol', charge=0},
+    }
+}
+
+masterPilotDB[1026]={
+  name = 'Baktoid Prototype',
+  XWS = 'baktoidprototype-siegeofcoruscant',
+  title = "Siege of Coruscant",
+  Faction = 7,
+  limited = 2,
+  ship_type = 'hyenaclassdroidbomber',
+  cost = 0,
+  slot = {21, 2,6,6,14,18},
+  init = 1,
+  actSet = {'C','TL','BR'},
+  texture = 'baktoid',
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Homing Missiles', charge=2},
+    {name= 'Contingency Protocol', charge=0},
+    {name= 'Strut-Lock Override', charge=2},
+  }
+}
+
+masterPilotDB[1027]={
+  name = 'DBS-404',
+  XWS = 'dbs404-siegeofcoruscant',
+  title = "Siege of Coruscant",
+  Faction = 7,
+  limited = 1,
+  ship_type = 'hyenaclassdroidbomber',
+  cost = 31,
+  slot = {21, 5,6,12,14,18},
+  init = 4,
+  actSet = {'C','TL','BR'},
+  texture = 'fourohfour',
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Adv. Proton Torpedoes', charge=1},
+    {name= 'Contingency Protocol', charge=0},
+    {name= 'Strut-Lock Override', charge=2},
+  }
+}
+
+masterPilotDB[1028]={
+  name = 'DBS-32C',
+  XWS = 'dbs32c-siegeofcoruscant',
+  title = "Siege of Coruscant",
+  Faction = 7,
+  limited = 1,
+  ship_type = 'hyenaclassdroidbomber',
+  cost = 40,
+  slot = {21, 2,20,14,18},
+  init = 3,
+  actSet = {'C','TL','BR'},
+  Charge = 2,
+  texture = 'standard',
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Plasma Torpedoes', charge=2},
+    {name= 'Contingency Protocol', charge=0},
+    {name= 'Strut-Lock Override', charge=2},
+  }
+}
 
 
 
