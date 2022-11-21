@@ -1202,7 +1202,9 @@ function mainMenu()
                 loadout = loadout+upgrade.cost
             end
         end
-        self.createButton({click_function = 'selectShip'..i, function_owner = self, label = pilot.name..' ('..cost..')', position = {-0.4,0.45,-0.2+i*0.15}, width = 1500, height = 300, font_size = 130,  scale = {0.25,0.25,0.25}})
+        local row = (i-1) % 5
+        local col = math.floor((i-1) / 5)
+        self.createButton({click_function = 'selectShip'..i, function_owner = self, label = pilot.name..' ('..cost..')', position = {-0.6 + col*0.6,0.45,-0.05+row*0.15}, width = 1100, height = 300, font_size = 100,  scale = {0.25,0.25,0.25}})
         totalCost[i] = cost
     end
     listCost = 0
@@ -1477,6 +1479,38 @@ function setPilot16()
     setPilotGeneric(16)
 end
 
+function setPilot17()
+    setPilotGeneric(17)
+end
+
+function setPilot18()
+    setPilotGeneric(18)
+end
+
+function setPilot19()
+    setPilotGeneric(19)
+end
+
+function setPilot20()
+    setPilotGeneric(20)
+end
+
+function setPilot21()
+    setPilotGeneric(21)
+end
+
+function setPilot22()
+    setPilotGeneric(22)
+end
+
+function setPilot23()
+    setPilotGeneric(23)
+end
+
+function setPilot24()
+    setPilotGeneric(24)
+end
+
 function builderSpawn()
     finalList = {}
     finalList.Pilots = {}
@@ -1605,6 +1639,54 @@ function selectShip8()
     selectShipGeneric(8)
 end
 
+function selectShip9()
+    selectShipGeneric(9)
+end
+
+function selectShip10()
+    selectShipGeneric(10)
+end
+
+function selectShip11()
+    selectShipGeneric(11)
+end
+
+function selectShip12()
+    selectShipGeneric(12)
+end
+
+function selectShip13()
+    selectShipGeneric(13)
+end
+
+function selectShip14()
+    selectShipGeneric(14)
+end
+
+function selectShip15()
+    selectShipGeneric(15)
+end
+
+function selectShip16()
+    selectShipGeneric(16)
+end
+
+function selectShip17()
+    selectShipGeneric(17)
+end
+
+function selectShip18()
+    selectShipGeneric(18)
+end
+
+function selectShip19()
+    selectShipGeneric(19)
+end
+
+function selectShip20()
+    selectShipGeneric(20)
+end
+
 function selectSlotGeneric(slotIndex)
     self.clearButtons()
 
@@ -1719,24 +1801,8 @@ end
 
 
 function backFromSelectUp()
-        if shipIndex == 1 then
-            selectShip1()
-        elseif shipIndex == 2 then
-            selectShip2()
-        elseif shipIndex == 3 then
-            selectShip3()
-        elseif shipIndex == 4 then
-            selectShip4()
-        elseif shipIndex == 5 then
-            selectShip5()
-        elseif shipIndex == 6 then
-            selectShip6()
-        elseif shipIndex == 7 then
-            selectShip7()
-        elseif shipIndex == 8 then
-            selectShip8()
-        end
-    end
+    selectShipGeneric(shipIndex)
+end
 
 function selectSlot1()
     selectSlotGeneric(1)
@@ -1828,46 +1894,14 @@ end
 
 
 function selectUpNone()
-    if shipIndex == 1 then
-        selectShip1()
-    elseif shipIndex == 2 then
-        selectShip2()
-    elseif shipIndex == 3 then
-        selectShip3()
-    elseif shipIndex == 4 then
-        selectShip4()
-    elseif shipIndex == 5 then
-        selectShip5()
-    elseif shipIndex == 6 then
-        selectShip6()
-    elseif shipIndex == 7 then
-        selectShip7()
-    elseif shipIndex == 8 then
-        selectShip8()
-    end
+    selectShipGeneric(shipIndex)
 end
 
 function selectUpGeneric(arg)
     table.insert(partList.Pilots[shipIndex].upgrades, {id = availableUps[arg].id, name = availableUps[arg].name, cost = availableUps[arg].cost})
     local name = availableUps[arg].name
     partList.nameCounts[name] = (partList.nameCounts[name] or 0) + 1
-    if shipIndex == 1 then
-        selectShip1()
-    elseif shipIndex == 2 then
-        selectShip2()
-    elseif shipIndex == 3 then
-        selectShip3()
-    elseif shipIndex == 4 then
-        selectShip4()
-    elseif shipIndex == 5 then
-        selectShip5()
-    elseif shipIndex == 6 then
-        selectShip6()
-    elseif shipIndex == 7 then
-        selectShip7()
-    elseif shipIndex == 8 then
-        selectShip8()
-    end
+    selectShipGeneric(shipIndex)
 end
 
 function selectUp1()
