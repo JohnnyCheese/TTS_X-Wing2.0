@@ -37,7 +37,16 @@ function onLoad(save_state)
         dice_roll_mode = loadState.dice_roll_mode
         for color, player in pairs(players) do
           required_dice_roll_players[color] = true
+          if player.side then
+            sided_players[player.side] = player
+            self.UI.setAttribute("Register".. player.side, "active", "false")
+            self.UI.setAttribute(player.side .. "PointPanel","color", color)
+            self.UI.setAttribute(player.side .. "PointPanel", "active", "true")
+            self.UI.setAttribute(player.side .. "PointText", "text", tostring(player.points))
+          end
         end
+
+
         if loadState.timer_state then
           timerStats = loadState.timer_state
           if timerStats.started then
