@@ -611,6 +611,11 @@ function assignShip(args)
         elseif v == 'VR' then
             repos = true
             button.setViperBarrelRollState(proxyMode, true)
+        elseif v == "Nantex" then
+            repos = true
+            self.UI.setAttribute("BoostFD", "active", "true")
+            self.UI.setAttribute("BoostSBtn", "active", "true")
+            button.setBarrelRollState(proxyMode, true)
         end
     end
 
