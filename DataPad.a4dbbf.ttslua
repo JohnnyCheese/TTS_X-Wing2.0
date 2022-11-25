@@ -118,11 +118,37 @@ tokenSize = 1
 tokenSizeStr = {[1]="Small", [2]="Medium", [3]="Large"}
 tokenSizeModifiers = {[1]=1.0, [2]=1.5, [3]=2.0}
 
+XWS_DATA = {
+  pilots = {},
+  upgrades = {}
+}
+
 
 -- on load initiate the process
-function onLoad()
-    initiate()
-    loadXwsData()
+function onLoad(save_state)
+  if save_state and save_state ~= nil then
+      local loadState = json.parse(save_state)
+      if loadState and loadState ~= {} then
+        XWS_DATA.factions = loadState.factions
+        XWS_DATA.pilots = loadState.pilots or {}
+        XWS_DATA.upgrades = loadState.upgrades or {}
+        XWS_DATA.manifest = loadState.manifest
+      end
+  end
+  loadXwsData()
+  initiate()
+end
+
+
+
+function onSave()
+    local sState = {}
+    sState.factions = XWS_DATA.factions
+    sState.pilots = XWS_DATA.pilots
+    sState.upgrades = XWS_DATA.upgrades
+    sState.manifest = XWS_DATA.manifest
+
+    return JSON.encode(sState)
 end
 
 -- Initial function: Creates a start button for each mode: FFG Spawner (paste the link of the squad in the FFG web site and spawn), TTS Spawner (write or paste a snippet and spawn) and List Builder (offers options to build a squadron on the fly)
@@ -135,6 +161,53 @@ function initiate()
     self.createButton({click_function = 'builderStart', function_owner = self, label = 'Builder', position = {0.5,0.45,0.4}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
     self.createButton({click_function = 'assetSpawn', function_owner = self, label = "Asset Spawner", position = {-0.45,0.45,0.4}, width = 1600, height = 380, font_size = 200, scale = {0.25,0.25,0.25}})
     self.createButton({click_function = 'confguration', function_owner = self, label = "Configuration", position = {-0.45,0.45,-0.1}, width = 1600, height = 380, font_size = 200, scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'scenario', function_owner = self, label = "Scenario Setup", position = {0,0.45,0.65}, width = 1600, height = 380, font_size = 200, scale = {0.25,0.25,0.25}})
+end
+
+function scenario()
+  self.clearButtons()
+  self.createButton({click_function = 'scenarioAssault', function_owner = self, label = 'Assault at the Sattelite Array' , position = {0,0.45,-0.3}, width = 2600, height = 350, font_size = 200,  scale = {0.25,0.25,0.25}})
+  self.createButton({click_function = 'scenarioChance', function_owner = self, label = 'Chance Engagement' , position = {0,0.45,-0.1}, width = 2600, height = 350, font_size = 200,  scale = {0.25,0.25,0.25}})
+  self.createButton({click_function = 'scenarioSalvage', function_owner = self, label = 'Salvage Mission' , position = {0,0.45,0.1}, width = 2600, height = 350, font_size = 200,  scale = {0.25,0.25,0.25}})
+  self.createButton({click_function = 'scenarioScramble', function_owner = self, label = 'Scramble the Transmissions' , position = {0,0.45,0.3}, width = 2600, height = 350, font_size = 200,  scale = {0.25,0.25,0.25}})
+  self.createButton({click_function = 'scenarioBoYavin', function_owner = self, label = 'Battle of Yavin' , position = {0,0.45,0.5}, width = 2600, height = 350, font_size = 200,  scale = {0.25,0.25,0.25}})
+  self.createButton({click_function = 'initiate', function_owner = self, label = 'Back', position = {0.4,0.45,0.8}, width = 1800, height = 520, font_size = 240,  scale = {0.15,0.15,0.15}})
+end
+
+function scenarioAssault()
+  initiate()
+  local red_blue_mat = getObjectFromGUID('0db84a')
+	red_blue_mat.call('SelectAssault')
+end
+
+function scenarioChance()
+  initiate()
+  local red_blue_mat = getObjectFromGUID('0db84a')
+	red_blue_mat.call('SelectEngagment')
+end
+
+function scenarioSalvage()
+  initiate()
+  local red_blue_mat = getObjectFromGUID('0db84a')
+	red_blue_mat.call('SelectSalvage')
+end
+
+function scenarioScramble()
+  initiate()
+  local red_blue_mat = getObjectFromGUID('0db84a')
+	red_blue_mat.call('SelectScramble')
+end
+
+function scenarioBoYavin()
+  initiate()
+  local red_blue_mat = getObjectFromGUID('0db84a')
+
+  local custom = red_blue_mat.getCustomObject()
+  custom.diffuse = 'http://cloud-3.steamusercontent.com/ugc/1863954854624717161/2BEED383E5A41762625D3C0A3D3F8AB7BF0B9863/'
+  red_blue_mat.setCustomObject(custom)
+  red_blue_mat = red_blue_mat.reload()
+  Wait.condition(function() red_blue_mat.call('SelectBoY') end,
+    function() return (not red_blue_mat.loading_custom) and (not red_blue_mat.spawning) end)
 end
 
 function confguration()
@@ -197,10 +270,7 @@ function xwsLoad(playerColor)
     end
 end
 
-XWS_DATA = {
-  pilots = {},
-  upgrades = {}
-}
+
 
 function loadXwsData()
   --print("Loading xws")
@@ -209,7 +279,8 @@ function loadXwsData()
         if request.is_error then
             print("Failed to load manifest.json which is required to get updated point costs.")
         elseif request.is_done then
-            XWS_DATA.manifest = table.deepcopy(JSON.decode(request.text))
+            print("Received xws data manifest")
+            XWS_DATA.manifest = table.deepcopy(json.parse(request.text))
             loadXwsDataShips()
         end
     end)
@@ -220,7 +291,8 @@ function loadXwsData()
             print("Failed to load factions.json which is required to get updated point costs.")
         elseif request.is_done then
             XWS_DATA.factions = {}
-            for _, faction in pairs(JSON.decode(request.text)) do
+            print("Received xws factions")
+            for _, faction in pairs(json.parse(request.text)) do
               XWS_DATA.factions[faction.xws] = faction
             end
             loadXwsDataShips()
@@ -233,17 +305,17 @@ function loadXwsDataShips()
   if XWS_DATA.manifest and XWS_DATA.factions then
     for _, faction in pairs(XWS_DATA.manifest.pilots) do
       --print("Faction: " .. XWS_DATA.factions[faction.faction].name)
-      XWS_DATA.factions[faction.faction].ships = {}
+      --XWS_DATA.factions[faction.faction].ships = {}
       for _,ship in pairs(faction.ships) do
         --print(" - " .. ship)
         WebRequest.get('https://raw.githubusercontent.com/guidokessels/xwing-data2/master/' .. ship, function(request)
           if request.is_error then
             print('Unable to retreive data from "https://raw.githubusercontent.com/guidokessels/xwing-data2/master/' .. ship .. '"')
           else
-            shipdata = JSON.decode(request.text)
-            XWS_DATA.factions[faction.faction].ships[shipdata.xws] = shipdata
+            shipdata = json.parse(request.text)
+            --XWS_DATA.factions[faction.faction].ships[shipdata.xws] = shipdata
             for _, pilot in pairs(shipdata.pilots) do
-              XWS_DATA.pilots[pilot.xws] = pilot
+              XWS_DATA.pilots[pilot.xws] =  {cost = pilot.cost, loadout = pilot.loadout, slots = pilot.slots}--pilot
             end -- for shipdata.pilots
           end -- if request.is_error
         end) -- webrequest
@@ -256,9 +328,9 @@ function loadXwsDataShips()
         if request.is_error then
           print('Unable to retreive data from "https://raw.githubusercontent.com/guidokessels/xwing-data2/master/' .. upgrade .. '"')
         else
-          upgradedata = JSON.decode(request.text)
+          local upgradedata = JSON.decode(request.text)
           for _, upgrade in pairs(upgradedata) do
-            XWS_DATA.upgrades[upgrade.xws] = upgrade
+            XWS_DATA.upgrades[upgrade.xws] = {cost = upgrade.cost} --upgrade
           end -- for upgradedata.upgrade
         end -- if request.is_error
       end) -- webrequest
@@ -703,7 +775,7 @@ function idSpawner(idTable)
         fList.Pilots[k].Ship = Ship
         fList.Pilots[k].peg = masterShipDB[Ship].peg
         fList.Pilots[k].Size = masterShipDB[Ship].size
-        fList.Pilots[k].Shield = masterShipDB[Ship].Shield
+        fList.Pilots[k].Shield = masterPilotDB[v].Shield or masterShipDB[Ship].Shield
         fList.Pilots[k].Energy = masterShipDB[Ship].Energy
         fList.Pilots[k].Hull = masterShipDB[Ship].Hull
         fList.Pilots[k].list = pilotName..' - '..masterShipDB[Ship].name ..'\n'
@@ -1130,7 +1202,9 @@ function mainMenu()
                 loadout = loadout+upgrade.cost
             end
         end
-        self.createButton({click_function = 'selectShip'..i, function_owner = self, label = pilot.name..' ('..cost..')', position = {-0.4,0.45,-0.2+i*0.15}, width = 1500, height = 300, font_size = 130,  scale = {0.25,0.25,0.25}})
+        local row = (i-1) % 5
+        local col = math.floor((i-1) / 5)
+        self.createButton({click_function = 'selectShip'..i, function_owner = self, label = pilot.name..' ('..cost..')', position = {-0.6 + col*0.6,0.45,-0.05+row*0.15}, width = 1100, height = 300, font_size = 100,  scale = {0.25,0.25,0.25}})
         totalCost[i] = cost
     end
     listCost = 0
@@ -1405,6 +1479,38 @@ function setPilot16()
     setPilotGeneric(16)
 end
 
+function setPilot17()
+    setPilotGeneric(17)
+end
+
+function setPilot18()
+    setPilotGeneric(18)
+end
+
+function setPilot19()
+    setPilotGeneric(19)
+end
+
+function setPilot20()
+    setPilotGeneric(20)
+end
+
+function setPilot21()
+    setPilotGeneric(21)
+end
+
+function setPilot22()
+    setPilotGeneric(22)
+end
+
+function setPilot23()
+    setPilotGeneric(23)
+end
+
+function setPilot24()
+    setPilotGeneric(24)
+end
+
 function builderSpawn()
     finalList = {}
     finalList.Pilots = {}
@@ -1533,6 +1639,54 @@ function selectShip8()
     selectShipGeneric(8)
 end
 
+function selectShip9()
+    selectShipGeneric(9)
+end
+
+function selectShip10()
+    selectShipGeneric(10)
+end
+
+function selectShip11()
+    selectShipGeneric(11)
+end
+
+function selectShip12()
+    selectShipGeneric(12)
+end
+
+function selectShip13()
+    selectShipGeneric(13)
+end
+
+function selectShip14()
+    selectShipGeneric(14)
+end
+
+function selectShip15()
+    selectShipGeneric(15)
+end
+
+function selectShip16()
+    selectShipGeneric(16)
+end
+
+function selectShip17()
+    selectShipGeneric(17)
+end
+
+function selectShip18()
+    selectShipGeneric(18)
+end
+
+function selectShip19()
+    selectShipGeneric(19)
+end
+
+function selectShip20()
+    selectShipGeneric(20)
+end
+
 function selectSlotGeneric(slotIndex)
     self.clearButtons()
 
@@ -1647,24 +1801,8 @@ end
 
 
 function backFromSelectUp()
-        if shipIndex == 1 then
-            selectShip1()
-        elseif shipIndex == 2 then
-            selectShip2()
-        elseif shipIndex == 3 then
-            selectShip3()
-        elseif shipIndex == 4 then
-            selectShip4()
-        elseif shipIndex == 5 then
-            selectShip5()
-        elseif shipIndex == 6 then
-            selectShip6()
-        elseif shipIndex == 7 then
-            selectShip7()
-        elseif shipIndex == 8 then
-            selectShip8()
-        end
-    end
+    selectShipGeneric(shipIndex)
+end
 
 function selectSlot1()
     selectSlotGeneric(1)
@@ -1756,46 +1894,14 @@ end
 
 
 function selectUpNone()
-    if shipIndex == 1 then
-        selectShip1()
-    elseif shipIndex == 2 then
-        selectShip2()
-    elseif shipIndex == 3 then
-        selectShip3()
-    elseif shipIndex == 4 then
-        selectShip4()
-    elseif shipIndex == 5 then
-        selectShip5()
-    elseif shipIndex == 6 then
-        selectShip6()
-    elseif shipIndex == 7 then
-        selectShip7()
-    elseif shipIndex == 8 then
-        selectShip8()
-    end
+    selectShipGeneric(shipIndex)
 end
 
 function selectUpGeneric(arg)
     table.insert(partList.Pilots[shipIndex].upgrades, {id = availableUps[arg].id, name = availableUps[arg].name, cost = availableUps[arg].cost})
     local name = availableUps[arg].name
     partList.nameCounts[name] = (partList.nameCounts[name] or 0) + 1
-    if shipIndex == 1 then
-        selectShip1()
-    elseif shipIndex == 2 then
-        selectShip2()
-    elseif shipIndex == 3 then
-        selectShip3()
-    elseif shipIndex == 4 then
-        selectShip4()
-    elseif shipIndex == 5 then
-        selectShip5()
-    elseif shipIndex == 6 then
-        selectShip6()
-    elseif shipIndex == 7 then
-        selectShip7()
-    elseif shipIndex == 8 then
-        selectShip8()
-    end
+    selectShipGeneric(shipIndex)
 end
 
 function selectUp1()

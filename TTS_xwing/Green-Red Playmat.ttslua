@@ -42,6 +42,9 @@ function onLoad()
     self.lock()
     self.interactable = false
     self.tooltip = false
+	BagOP = getObjectFromGUID('ffb783')
+	ruler1 = getObjectFromGUID('bf91d5')
+  ruler5 = getObjectFromGUID('3d90c5')
 end
 
 -- Change image to the next from the list, wrap around to 1
@@ -123,19 +126,6 @@ function spawnSet(posTable, rotTable)
     end
 end
 
-function checkShipWithinBounds(ship)
-  ship_corners = ship.call('getBaseCorners')
-  min_x = 1000, min_y = 1000
-  max_x = -1000, max_y = -1000
-  for _, corner in pairs(ship_corners) do
-    min_x = min(min_x, corner.x)
-    min_y = min(min_y, corner.y)
-    max_x = max(max_x, corner.x)
-    max_y = max(max_y, corner.y)
-  end
-
-end
-
 function deleteAll()
     for ruler in pairs(rulers) do ruler.destruct() end
     rulers = {}
@@ -157,17 +147,17 @@ rulerData.material = 1
 
 roidRot = {
     { 0, 270, 180},
-      { 0, 270, 180},
-    { 0, 180, 180},
-      { 0, 180, 180},
     { 0, 270, 180},
-      { 0, 270, 180},
+    { 0, 180, 180},
+    { 0, 180, 180},
+    { 0, 270, 180},
+    { 0, 270, 180},
     { 0, 0, 180},
     { 0, 0, 180},
     { 0, 90, 180},
     { 0, 90, 180},
     { 0, 180, 180},
-      { 0, 180, 180}
+    { 0, 180, 180}
 }
 
 setupRot = {
@@ -184,30 +174,270 @@ setupRot = {
 }
 
 roidPos = {
-    { 29.872200088501, 0.99871951341629, -10.8846182632446}, -- pio
-      { 29.872200088501, 0.99871951341629, 0},
-    { 31.382360534668, 0.998719453811646, -9.37833354949951}, -- poz
-      { 20.5, 0.998719453811646, -9.37833354949951},
-    { 11.1684393310547, 0.998719573020935, -10.8876889038086},
-      { 11.1684393310547, 0.998719573020935, 0},
-    { 9.64546291351318, 0.998719453811646, -9.37820747375488},
-    { 9.64722316741943, 0.99871951341629, 9.37365325927734},
-    { 11.1658749008179, 0.998719453811646, 10.8807905578613},
-    { 29.8585949707031, 0.998719394207001, 10.8395362091064}, -- pio
-    { 31.3808876037598, 0.998719453811646, 9.32834770202637}, -- poz
-      { 20.5, 0.998719453811646, 9.32834770202637}
+    { 30.13,  1.0, -11.12}, -- pio
+    { 30.13,  1.0, 0},
+    { 31.64,  1.0, -9.6}, -- poz
+    { 20.5,   1.0, -9.6},
+    { 10.9, 1.0, -11.12},
+    { 10.9, 1.0, 0},
+    { 9.38,  1.0, -9.6},
+    { 9.38,  1.0, 9.6},
+    { 10.9, 1.0, 11.12},
+    { 30.13,  1.0, 11.12}, -- pio
+    { 31.64,  1.0, 9.6}, -- poz
+    { 20.5,   1.0, 9.6}
 }
 
 setupPos = {
-    { 3.97240991592407, 1.00172388553619, -10.8451750564575}, --pio
-    { 9.67806907653809, 1.00172448158264, -12.4075313186646},
-    { 37.0594985961914, 1.00172400474548, -10.8700817108154}, --pio
-    { 20.5256023406982, 1.0017237663269, -12.4035499572754},
-    { 31.3721223449707, 1.00172340869904, -12.4002779006958},
+    { 3.68, 1.00, -11.11}, --pio
+    { 9.51, 1.00, -12.63},
+    { 37.35, 1.00, -11.11}, --pio
+    { 20.53, 1.00, -12.63},
+    { 31.53, 1.00, -12.63},
 
-    { 3.97240991592407, 1.00172388553619, 10.8451750564575}, --pio
-    { 9.67806907653809, 1.00172448158264, 12.4075313186646},
-    { 37.0594985961914, 1.00172400474548, 10.8700817108154}, --pio
-    { 20.5256023406982, 1.0017237663269, 12.4035499572754},
-    { 31.3721223449707, 1.00172340869904, 12.4002779006958},
+    { 3.68, 1.00, 11.11}, --pio
+    { 9.51, 1.00, 12.63},
+    { 37.35, 1.00, 11.11}, --pio
+    { 20.53, 1.00, 12.63},
+    { 31.53, 1.00, 12.63},
 }
+
+ function scenarioSelected(player, option, id)
+    print(player.steam_name .. " selected: " .. option)
+
+	if option == "Chance Engagment" then self.call('SelectEngagment') end
+	if option == "Scramble the Transmision" then self.call('SelectScramble') end
+	if option == "Assult at the Satellite Array" then self.call('SelectAssault') end
+	if option == "Salvage Mission" then self.call('SelectSalvage') end
+	if option == "Battle of Yavin" then self.call('SelectBoY') end
+
+ end
+
+function SelectBoY()
+-- Reload self with the Death Star Map Image
+
+
+	local BoY_DeathStarTrench = spawnObject({
+	type = "Custom_Model",
+    position = {-21.06, 1.04, 4.42},
+    scale = {0.98, 0.98, 0.98},
+	   rotation = {0.00, 90.00, 0.00},
+    sound = false,
+    callback_function = function(spawned_object)
+        log(spawned_object.getBounds())
+    end
+})
+BoY_DeathStarTrench.setCustomObject({
+	type = 0,
+	mesh = 'http://cloud-3.steamusercontent.com/ugc/1863954854624696677/453911740C854F3296724274C630FA211E509E0C/',
+	diffuse = 'http://cloud-3.steamusercontent.com/ugc/1863954854624743591/746B48A74003822AEAF94B7C0895E2AAD7D7AE2C/',
+	collider = 'http://cloud-3.steamusercontent.com/ugc/1863954854624696677/453911740C854F3296724274C630FA211E509E0C/',
+	material = 3,
+	})
+ScenarioFeature = BoY_DeathStarTrench.getGUID()
+print('The Death Star will be in fireing range in 9 Rounds')
+BoY_DeathStarTrench.lock()
+BoY_DeathStarTrench.interactable = false
+BoY_DeathStarTrench.addTag("TempLayoutElement")
+ruler1.takeObject({
+      position          = {-37.31, 1.09, 14.72},
+      rotation          = {0.00, 90.00, 0.00},
+      callback_function = function(obj)
+        obj.addTag("TempLayoutElement")
+		    rulers[obj] = true
+        obj.setLock(true)
+	end
+  })
+ruler1.takeObject({
+      position          = {-18.73, 1.09, 14.72},
+      rotation          = {0.00, 90.00, 0.00},
+      callback_function = function(obj)
+        obj.addTag("TempLayoutElement")
+		    rulers[obj] = true
+        obj.setLock(true)
+	end
+  })
+  ruler5.takeObject({
+        position          = {-28.30, 1.09, 12.62},
+        rotation          = {0.00, 90.00, 180.00},
+        callback_function = function(obj)
+          obj.addTag("TempLayoutElement")
+  		    rulers[obj] = true
+          obj.setLock(true)
+  	end
+    })
+
+    ruler1.takeObject({
+        position          = {-22.30, 1.08, -14.72},
+        rotation          = {0.00, 270.00, 0.00},
+        callback_function = function(obj)
+          obj.addTag("TempLayoutElement")
+  		    rulers[obj] = true
+          obj.setLock(true)
+  	end
+    })
+    ruler1.takeObject({
+        position          = {-3.68, 1.09, -14.67},
+        rotation          = {0.00, 270.00, 0.00},
+        callback_function = function(obj)
+          obj.addTag("TempLayoutElement")
+  		    rulers[obj] = true
+          obj.setLock(true)
+  	end
+    })
+    ruler5.takeObject({
+        position          = {-12.74, 1.09, -12.62},
+        rotation          = {0.00, 270.00, 180.00},
+        callback_function = function(obj)
+          obj.addTag("TempLayoutElement")
+  		    rulers[obj] = true
+          obj.setLock(true)
+  	end
+    })
+
+  rulersState = 2
+end
+
+function SelectEngagment()
+self.call('ToggleRulers')
+BagOP.takeObject({
+      position          = {-20.51, 1.1, 0.00},
+      rotation          = {180.00, 0.0, 0.00},
+      flip              = true,
+      smooth            = true,
+      callback_function = function(obj)
+          obj.addTag("CenterObjective")
+          obj.setLock(true)
+      end
+  })
+end
+
+function SelectScramble()
+	BagOP.takeObject({
+      position          = {-20.51, 1.1, 0.00},
+      rotation          = {180.00, 0.0, 0.00},
+      flip              = false,
+      smooth            = true,
+      callback_function = function(obj)
+          obj.addTag("CenterObjective")
+          obj.setLock(true)
+      end
+  })
+  BagOP.takeObject({
+      position          = {-18.37, 1.10, -2.22},
+      rotation          = {180.00, 0.0, 0.00},
+      flip              = false,
+      smooth            = true,
+      callback_function = function(obj)
+          obj.addTag("Objective")
+      end
+  })
+  BagOP.takeObject({
+      position          = {-18.91, 1.10, 1.95},
+      rotation          = {180.00, 0.0, 0.00},
+      flip              = false,
+      smooth            = true,
+      callback_function = function(obj)
+          obj.addTag("Objective")
+      end
+  })
+
+end
+
+function SelectAssault()
+	BagOP.takeObject({
+      position          = {-20.51, 1.1, 0.00},
+      rotation          = {180.00, 0.0, 0.00},
+      flip              = false,
+      smooth            = true,
+      callback_function = function(obj)
+          obj.addTag("CenterObjective")
+          obj.setLock(true)
+      end
+  })
+  BagOP.takeObject({
+      position          = {-18.37, 1.10, -2.22},
+      rotation          = {180.00, 0.0, 0.00},
+      flip              = false,
+      smooth            = true,
+      callback_function = function(obj)
+          obj.addTag("Objective")
+      end
+  })
+  BagOP.takeObject({
+      position          = {-18.91, 1.10, 1.95},
+      rotation          = {180.00, 0.0, 0.00},
+      flip              = false,
+      smooth            = true,
+      callback_function = function(obj)
+          obj.addTag("Objective")
+      end
+  })
+  BagOP.takeObject({
+      position          = {-22.12, 1.10, 1.91},
+      rotation          = {180.00, 0.0, 0.00},
+      flip              = false,
+      smooth            = true,
+      callback_function = function(obj)
+          obj.addTag("Objective")
+      end
+  })
+  BagOP.takeObject({
+      position          = {-22.04, 1.10, -2.23},
+      rotation          = {180.00, 0.0, 0.00},
+      flip              = true,
+      smooth            = true,
+      callback_function = function(obj)
+          obj.addTag("Objective")
+      end
+  })
+end
+
+function SelectSalvage()
+	BagOP.takeObject({
+      position          = {-20.51, 1.1, 0.00},
+      rotation          = {0.00, 180.00, 0.00},
+      flip              = false,
+      smooth            = true,
+      callback_function = function(obj)
+          obj.addTag("CenterObjective")
+          obj.setLock(true)
+      end
+  })
+  BagOP.takeObject({
+      position          = {-18.37, 1.10, -2.22},
+      rotation          = {0.00, 180.00, 0.00},
+      flip              = false,
+      smooth            = true,
+      callback_function = function(obj)
+          obj.addTag("Objective")
+      end
+  })
+  BagOP.takeObject({
+      position          = {-18.91, 1.10, 1.95},
+      rotation          = {0.00, 180.00, 0.00},
+      flip              = false,
+      smooth            = true,
+      callback_function = function(obj)
+          obj.addTag("Objective")
+      end
+  })
+  BagOP.takeObject({
+      position          = {-22.12, 1.10, 1.91},
+      rotation          = {0.00, 180.00, 0.00},
+      flip              = false,
+      smooth            = true,
+      callback_function = function(obj)
+          obj.addTag("Objective")
+      end
+  })
+  BagOP.takeObject({
+      position          = {-22.04, 1.10, -2.23},
+      rotation          = {0.00, 180.00, 0.00},
+      flip              = true,
+      smooth            = true,
+      callback_function = function(obj)
+          obj.addTag("Objective")
+      end
+  })
+end
