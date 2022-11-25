@@ -147,8 +147,8 @@ function onSave()
     sState.pilots = XWS_DATA.pilots
     sState.upgrades = XWS_DATA.upgrades
     sState.manifest = XWS_DATA.manifest
-
-    return JSON.encode(sState)
+    return json.serialize(sState)
+    --return JSON.encode(sState)
 end
 
 -- Initial function: Creates a start button for each mode: FFG Spawner (paste the link of the squad in the FFG web site and spawn), TTS Spawner (write or paste a snippet and spawn) and List Builder (offers options to build a squadron on the fly)
@@ -212,7 +212,8 @@ end
 
 function confguration()
   self.clearButtons()
-  self.createButton({click_function = 'toggleTokenSize', function_owner = self, label = 'Token size: ' .. tokenSizeStr[tokenSize] , position = {0,0.45,0}, width = 2600, height = 520, font_size = 240,  scale = {0.25,0.25,0.25}})
+  self.createButton({click_function = 'toggleTokenSize', function_owner = self, label = 'Token size: ' .. tokenSizeStr[tokenSize] , position = {0,0.45,0}, width = 2600, height = 460, font_size = 240,  scale = {0.25,0.25,0.25}})
+  self.createButton({click_function = 'resetXwsData', function_owner = self, label = 'Fetch XWS values' , position = {0.0,0.45,0.3}, width = 2600, height = 460, font_size = 240,  scale = {0.25,0.25,0.25}})
   self.createButton({click_function = 'initiate', function_owner = self, label = 'Back', position = {0.3,0.45,0.6}, width = 1800, height = 520, font_size = 240,  scale = {0.15,0.15,0.15}})
 end
 
@@ -271,6 +272,14 @@ function xwsLoad(playerColor)
 end
 
 
+function resetXwsData()
+  XWS_DATA = {
+    pilots = {},
+    upgrades = {}
+  }
+  loadXwsData()
+end
+
 
 function loadXwsData()
   --print("Loading xws")
@@ -312,7 +321,8 @@ function loadXwsDataShips()
           if request.is_error then
             print('Unable to retreive data from "https://raw.githubusercontent.com/guidokessels/xwing-data2/master/' .. ship .. '"')
           else
-            shipdata = json.parse(request.text)
+            shipdata = JSON.decode(request.text)
+            --shipdata = json.parse(request.text)
             --XWS_DATA.factions[faction.faction].ships[shipdata.xws] = shipdata
             for _, pilot in pairs(shipdata.pilots) do
               XWS_DATA.pilots[pilot.xws] =  {cost = pilot.cost, loadout = pilot.loadout, slots = pilot.slots}--pilot
