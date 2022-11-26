@@ -127,15 +127,13 @@ XWS_DATA = {
 -- on load initiate the process
 function onLoad(save_state)
   if save_state and save_state ~= nil then
+      print(save_state)
       local loadState = json.parse(save_state)
       if loadState and loadState ~= {} then
-        XWS_DATA.factions = loadState.factions
         XWS_DATA.pilots = loadState.pilots or {}
         XWS_DATA.upgrades = loadState.upgrades or {}
-        XWS_DATA.manifest = loadState.manifest
       end
   end
-  loadXwsData()
   initiate()
 end
 
@@ -143,10 +141,8 @@ end
 
 function onSave()
     local sState = {}
-    sState.factions = XWS_DATA.factions
     sState.pilots = XWS_DATA.pilots
     sState.upgrades = XWS_DATA.upgrades
-    sState.manifest = XWS_DATA.manifest
     return json.serialize(sState)
     --return JSON.encode(sState)
 end
@@ -283,31 +279,27 @@ end
 
 function loadXwsData()
   --print("Loading xws")
-  if XWS_DATA.manifest == nil then
-    WebRequest.get('https://raw.githubusercontent.com/guidokessels/xwing-data2/master/data/manifest.json', function(request)
-        if request.is_error then
-            print("Failed to load manifest.json which is required to get updated point costs.")
-        elseif request.is_done then
-            print("Received xws data manifest")
-            XWS_DATA.manifest = table.deepcopy(json.parse(request.text))
-            loadXwsDataShips()
-        end
-    end)
-  end
-  if XWS_DATA.factions == nil then
-    WebRequest.get('https://raw.githubusercontent.com/guidokessels/xwing-data2/master/data/factions/factions.json', function(request)
-        if request.is_error then
-            print("Failed to load factions.json which is required to get updated point costs.")
-        elseif request.is_done then
-            XWS_DATA.factions = {}
-            print("Received xws factions")
-            for _, faction in pairs(json.parse(request.text)) do
-              XWS_DATA.factions[faction.xws] = faction
-            end
-            loadXwsDataShips()
-        end
-    end)
-  end
+  WebRequest.get('https://raw.githubusercontent.com/guidokessels/xwing-data2/master/data/manifest.json', function(request)
+      if request.is_error then
+          print("Failed to load manifest.json which is required to get updated point costs.")
+      elseif request.is_done then
+          print("Received xws data manifest")
+          XWS_DATA.manifest = table.deepcopy(json.parse(request.text))
+          loadXwsDataShips()
+      end
+  end)
+  WebRequest.get('https://raw.githubusercontent.com/guidokessels/xwing-data2/master/data/factions/factions.json', function(request)
+      if request.is_error then
+          print("Failed to load factions.json which is required to get updated point costs.")
+      elseif request.is_done then
+          XWS_DATA.factions = {}
+          print("Received xws factions")
+          for _, faction in pairs(json.parse(request.text)) do
+            XWS_DATA.factions[faction.xws] = faction
+          end
+          loadXwsDataShips()
+      end
+  end)
 end
 
 function loadXwsDataShips()
@@ -366,6 +358,17 @@ function listToFormat(version, vendor)
   end
 end
 
+factions =
+{
+  rebelalliance = 1,
+  galacticempire = 2,
+  scumandvillainy = 3,
+  resistance = 4,
+  firstorder = 5,
+  galacticrepublic = 6,
+  separatistalliance = 7
+}
+
 --Takes the XWS JSON and the xws <-> FFG ID map and constructs a parts list to pass to idSpawner
 function xwsSpawn(list, playerColor)
     if list then
@@ -374,11 +377,12 @@ function xwsSpawn(list, playerColor)
         parts.Upgrades = {}
         parts.spawnCard = self
         parts.Faction = 0
-        for _, faction in pairs(XWS_DATA.factions) do
+        parts.Faction = factions[list.faction]
+        --[[for _, faction in pairs(XWS_DATA.factions) do
           if faction.xws == list.faction then
             parts.Faction = faction.ffg
           end
-        end
+        end]]
         parts.Obstacles = {}
         parts.Format = listToFormat(list.version,list.vendor)
 

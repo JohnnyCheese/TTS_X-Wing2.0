@@ -52,7 +52,7 @@ function onLoad(save_state)
           if timerStats.started then
             self.UI.setAttribute("SetupPanel","active",false)
             self.UI.setAttribute("StartedClockPanel","active",true)
-            timerStats.start_time = Time.time
+            timerStats.start_time = os.time()
           end
         end
       end
@@ -152,7 +152,7 @@ function randomButton()
 end
 
 function startButton()
-  timerStats.start_time =  Time.time
+  timerStats.start_time =  os.time()
   timerStats.started = true
   self.AssetBundle.playTriggerEffect(0)
   self.UI.setAttribute("SetupPanel","active",false)
@@ -197,7 +197,7 @@ function pauseButton()
       timerStats.total_elapsed_time = timerStats.total_elapsed_time + timerStats.elapsed_time
       timerStats.elapsed_time = 0
     else
-      timerStats.start_time =  Time.time
+      timerStats.start_time =  os.time()
     end
   else
     self.AssetBundle.playLoopingEffect(0)
@@ -208,7 +208,7 @@ end
 function onUpdate()
   if timerStats.started then
     if not timerStats.paused then
-      timerStats.elapsed_time = Time.time - timerStats.start_time
+      timerStats.elapsed_time = os.time() - timerStats.start_time
       updateTime()
     end
     updateTime()
