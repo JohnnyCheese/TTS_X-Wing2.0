@@ -61,6 +61,7 @@ function onLoad(save_state)
   recreateIndicators()
   setContextMenu()
   self.tooltip = false
+  Wait.time(updateTime, 0.2, -1)
 end
 
 
@@ -205,19 +206,17 @@ function pauseButton()
   end
 end
 
-function onUpdate()
-  if timerStats.started then
-    if not timerStats.paused then
-      timerStats.elapsed_time = os.time() - timerStats.start_time
-      updateTime()
-    end
-    updateTime()
-  end
-end
 
 hiddenTokens = {'*',' '}
 
 function updateTime()
+  if not timerStats.started then
+    return
+  end
+  if not timerStats.paused then
+    timerStats.elapsed_time = os.time() - timerStats.start_time
+  end
+
   local elapsed_time = math.floor(timerStats.elapsed_time + timerStats.total_elapsed_time)
   if timerStats.started and (elapsed_time > timerStats.total_time) then
     timerStats.started = false

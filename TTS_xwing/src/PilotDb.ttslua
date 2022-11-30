@@ -8108,8 +8108,8 @@ masterPilotDB[995]={
 }
 
 masterPilotDB[996]={
-  name = 'Gavin Sykes',
-  XWS = 'gavinsykes',
+  name = 'Gavyn Sykes',
+  XWS = 'gavynsykes',
   Faction = 6,
   limited = 1,
   ship_type = 'nabooroyaln1starfighter',
@@ -8195,7 +8195,7 @@ masterPilotDB[1001]={
   ship_type = 'modifiedtielnfighter',
   cost = 0,
   slot = {21, 1,14},
-  init = 2,
+  init = 3,
   texture = 'standard',
   actSet = {'F','E','BR'}
 }
@@ -8428,7 +8428,7 @@ masterPilotDB[1017]={
   ship_type = 'vultureclassdroidfighter',
   cost = 0,
   slot = {21, 6,14,18},
-  init = 2,
+  init = 1,
   actSet = {'F','BR','TL'},
   texture = 'proto',
 }
@@ -8648,6 +8648,27 @@ masterPilotDB[1030]={
   actSet = {'F','E','TL','BR','B'},
 }
 
+masterPilotDB[1031]={
+  name = '"Klick"',
+  XWS = 'klick-siegeofcoruscant',
+  title = "Siege of Coruscant",
+  limited = 1,
+  Faction = 6,
+  ship_type = 'nimbusclassvwing',
+  Charge = 1,
+  cost = 31,
+  slot = {1, 10, 14, 18},
+  init = 4,
+  texture = 'red',
+  actSet = {'F','TL','BR','B'},
+  keywords = {'Clone'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'R3 Astromech', charge=0},
+    {name= 'Precision Ion Engines', charge=2},
+    {name= 'Alpha-3E "Esk"', charge=2},
+  }
+}
 
 
 return masterPilotDB

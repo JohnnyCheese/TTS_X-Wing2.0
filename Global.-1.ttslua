@@ -5705,44 +5705,46 @@ end
 
 -- How many frames pass between updating watched objects (ships) list
 -- It's so we don't go through massive list of all objects on table each frame (why would we?)
-updateFrameInterval = 120
--- ~~~~~~
 
-frameCounter = 0
-watchedObj = {}
+time_time = Time.time
+os_time = os.time()
+
+
+function init_event_check()
+  Wait.time(event_check, 0.2, -1)
+  Wait.time(ShipProximityHider.proximity_check, 0.3, -1)
+end
+
+EventSub.Register('onLoad', init_event_check)
 
 -- This is called each frame
-function update()
-    -- If there are no watched objects or frame counter passes threshhold
-    if watchedObj[1] == nil or frameCounter > updateFrameInterval then
-        watchedObj = {}
-        -- Reset the list and add every figurine on the table
-        for k,obj in pairs(getAllObjects()) do
-            if obj ~= nil and obj.tag == 'Figurine' then
-                table.insert(watchedObj, obj)
-            end
-        end
-        frameCounter = 0
-    end
-
+function event_check()
     -- If description is not blank, try processing it
-    for k, obj in pairs(watchedObj) do
+    for k, obj in pairs(getObjectsWithTag('Ship')) do
         if obj ~= nil and obj.getDescription() ~= '' then
           Wait.frames(
             function()
               XW_cmd.Process(obj, obj.getDescription())
             end
           , 1) -- Waiting a frame to allow Animated Ships to pick up command
-
         end
     end
 
-    frameCounter = frameCounter + 1
+    --if Time.frame_count%1 == 0 then
+      local os_now = os.time()
+      local os_diff = os_now - os_time
+      os_time = os_now
+      local time_now = Time.time
+      local time_diff = time_now - time_time
+      time_time = time_now
+      --printToAll("Frame dt: " .. Time.delta_time)
+      --printToAll("DT Diff:  " .. os_diff - time_diff)
+    --end
+
 end
 
 -- When something is destroyed, it is called as an argument here (with 1 more frame to live)
 function onObjectDestroyed(dying_object)
-    for k, obj in pairs(watchedObj) do if dying_object == obj then table.remove(watchedObj, k) end end
     -- Handle history delete and emergency restore saving
     MoveModule.onObjectDestroyed(dying_object)
     -- Handle killing rulers
@@ -6377,7 +6379,7 @@ function DisableAttachedColliders()
   end
 end
 
-function onUpdate()
+function tint_check()
     local tint = self.getColorTint()
     if tint ~= color(1,1,1,1) then
       self.setColorTint(color(1,1,1,1))
@@ -6417,6 +6419,7 @@ loaded = false
 
 function onLoad(savestate)
   loaded = true
+  Wait.time(tint_check, 0.5, -1)
 end
 
 function isLoadedAndStill()

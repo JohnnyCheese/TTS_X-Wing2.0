@@ -127,7 +127,7 @@ XWS_DATA = {
 -- on load initiate the process
 function onLoad(save_state)
   if save_state and save_state ~= nil then
-      print(save_state)
+      --print(save_state)
       local loadState = json.parse(save_state)
       if loadState and loadState ~= {} then
         XWS_DATA.pilots = loadState.pilots or {}
@@ -196,8 +196,9 @@ end
 
 function scenarioBoYavin()
   initiate()
-  local red_blue_mat = getObjectFromGUID('0db84a')
 
+  local red_blue_mat = getObjectFromGUID('0db84a')
+  red_blue_mat.call("clearScenario", nil)
   local custom = red_blue_mat.getCustomObject()
   custom.diffuse = 'http://cloud-3.steamusercontent.com/ugc/1863954854624717161/2BEED383E5A41762625D3C0A3D3F8AB7BF0B9863/'
   red_blue_mat.setCustomObject(custom)
