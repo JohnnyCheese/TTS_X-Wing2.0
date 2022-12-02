@@ -201,7 +201,7 @@ masterPilotDB[4]={
   ship_type = 't65xwing',
   cost = 46,
   slot = {21, 1, 5, 10, 14, 18},
-    init = 4,
+  init = 4,
   texture = 'garven',
   actSet = {'F','TL', 'BR'}
 }
@@ -334,12 +334,13 @@ masterPilotDB[14]={
     slot = {21, 1, 4, 5, 6, 10, 12, 14},
     init = 4,
     texture = 'gold',
+    addSqdAction = {'TL'},
     actSet = {'F','TL', 'BR'}
 }
 
 masterPilotDB[15]={
     name = 'Horton Salm',
-  XWS = 'hortonsalm',
+    XWS = 'hortonsalm',
     Faction = 1,
     limited = 1,
     ship_type = 'btla4ywing',
@@ -352,7 +353,7 @@ masterPilotDB[15]={
 
 masterPilotDB[16]={
     name = 'Evaan Verlaine',
-  XWS = 'evaanverlaine',
+    XWS = 'evaanverlaine',
     Faction = 1,
     limited = 1,
     ship_type = 'btla4ywing',
@@ -1149,7 +1150,7 @@ masterPilotDB[65]={
   ship_type = 'arc170starfighter',
   cost = 53,
   slot = {21, 1, 5, 8, 16, 10, 14},
-    init = 5,
+  init = 5,
   texture = 'rebel',
   actSet = {'F','TL','BR'}
 }
@@ -7329,7 +7330,7 @@ masterPilotDB[955]={
   ship_type = 'gauntletfighter',
   cost = 7,
   slot = {21, 1, 8, 16, 12, 12, 14, 18},
-    init = 2,
+  init = 2,
   texture = 'imperial',
   actSet = {'F','TL','R','Piv'},
 }
@@ -7341,7 +7342,7 @@ masterPilotDB[956]={
   ship_type = 'st70assaultship',
   cost = 2,
   slot = {21, 1, 8, 16, 13, 13, 14},
-    init = 2,
+  init = 2,
   texture = 'guildbountyhunter',
   actSet = {'F','TL','E','BR'},
 }
@@ -7378,7 +7379,7 @@ masterPilotDB[958]={
   limited = 1,
   ship_type = 't65xwing',
   cost = 20,
-    init = 5,
+  init = 5,
   texture = 'wedge',
   actSet = {'F','TL', 'BR','B'},
 
@@ -7419,10 +7420,10 @@ masterPilotDB[960]={
   limited = 1,
   ship_type = 't65xwing',
   cost = 20,
-    init = 4,
+  init = 4,
   texture = 'garven',
   actSet = {'F','TL', 'BR','B'},
-
+  addSqdAction = {'F'},
   standardized_loadout = true,
   standardized_upgrades = {
     {name= 'Adv. Proton Torpedoes', charge=1},
@@ -7459,9 +7460,9 @@ masterPilotDB[962]={
   limited = 1,
   ship_type = 'btla4ywing',
   cost = 20,
-    init = 2,
+  init = 2,
   texture = 'gold',
-  actSet = {'F','TL', 'BR'},
+  actSet = {'F','TL', 'BR', 'B'},
   arcs = {fixed = { range=3, type = {'front'}}, turret = {main={name = 'ion cannon turret', range = 2, type = {'singleturret'}}}},
   standardized_loadout = true,
   standardized_upgrades = {
@@ -7481,7 +7482,7 @@ masterPilotDB[963]={
   cost = 20,
     init = 4,
   texture = 'gold',
-  actSet = {'F','TL', 'BR'},
+  actSet = {'F','TL', 'BR', 'B'},
   arcs = {fixed = { range=3, type = {'front'}}, turret = {main={name = 'ion cannon turret', range = 2, type = {'singleturret'}}}},
   standardized_loadout = true,
   standardized_upgrades = {
@@ -7499,9 +7500,9 @@ masterPilotDB[964]={
   limited = 1,
   ship_type = 'btla4ywing',
   cost = 20,
-    init = 4,
+  init = 4,
   texture = 'gold',
-  actSet = {'F','TL', 'BR'},
+  actSet = {'F','TL', 'BR', 'B'},
   arcs = {fixed = { range=3, type = {'front'}}, turret = {main={name = 'ion cannon turret', range = 2, type = {'singleturret'}}}},
   standardized_loadout = true,
   standardized_upgrades = {
@@ -7604,6 +7605,9 @@ masterPilotDB[969]={
   texture = 'blue',
   actSet = {'F','E','BR'},
   standardized_loadout = true,
+  executeOptions = {
+      rk3   = {[1]='rk3', [2]='rbl3s', [3]='rbr3s'},
+  },
   standardized_upgrades = {
     {name= 'Ruthless', charge=0},
     {name= 'Precision Ion Engines', charge=2},
@@ -7620,7 +7624,7 @@ masterPilotDB[970]={
   cost = 20,
     init = 5,
   texture = 'blue',
-  actSet = {'F','E','BR','B'},
+  actSet = {'F','E','BR','B','TL'},
   standardized_loadout = true,
   standardized_upgrades = {
     {name= 'Crackshot', charge=1},
@@ -7659,7 +7663,7 @@ masterPilotDB[972]={
     Charge = 2,
   init = 4,
   texture = 'the181',
-  actSet = {'F','E','BR','B'},
+  actSet = {'F','E','BR','B','TL'},
   standardized_loadout = true,
   standardized_upgrades = {
     {name= 'Disciplined', charge=0},
@@ -7716,7 +7720,7 @@ masterPilotDB[975]={
     Charge = 2,
   init = 4,
   texture = 'the181',
-  actSet = {'F','E','BR','B'},
+  actSet = {'F','E','BR','B','TL'},
   standardized_loadout = true,
   standardized_upgrades = {
     {name= 'Marksmanship', charge=0},
@@ -7732,9 +7736,10 @@ masterPilotDB[976]={
   limited = 1,
   ship_type = 'btla4ywing',
   cost = 20,
-    init = 5,
+  init = 5,
   texture = 'gold',
-  actSet = {'F','TL', 'BR'},
+  actSet = {'F','TL', 'BR','B'},
+  addSqdAction = {'TL'},
   arcs = {fixed = { range=3, type = {'front'}}, turret = {main={name = 'ion cannon turret', range = 2, type = {'singleturret'}}}},
   standardized_loadout = true,
   standardized_upgrades = {
@@ -7768,7 +7773,7 @@ masterPilotDB[977]={
 }
 
 masterPilotDB[978]={
-    name = 'Obi Wan Kenobi',
+    name = 'Obi-Wan Kenobi',
     XWS = 'obiwankenobi-siegeofcoruscant',
     title = 'Siege of Coruscant',
     limited = 1,
@@ -7825,6 +7830,7 @@ masterPilotDB[980]={
   texture = 'standard',
   actSet = {'F','E','TL','BR'},
   keywords = {'Clone'},
+  addSqdAction = {'TL'},
   standardized_loadout = true,
   standardized_upgrades = {
     {name= 'Deadeye Shot', charge=0},
@@ -7886,6 +7892,7 @@ masterPilotDB[983]={
   init = 3,
   texture = 'republic',
   actSet = {'F','TL','BR'},
+  addSqdAction = {'TL'},
   keywords = {'Clone'},
   standardized_loadout = true,
   standardized_upgrades = {
@@ -7930,6 +7937,7 @@ masterPilotDB[985]={
   Shield = 4,
   texture = 'republic',
   actSet = {'F','TL','BR'},
+  addSqdAction = {'TL'},
   keywords = {'Clone'},
   standardized_loadout = true,
   standardized_upgrades = {
@@ -8065,6 +8073,7 @@ masterPilotDB[992]={
   init = 5,
   texture = 'blue',
   actSet = {'F','TL', 'BR'},
+  addSqdAction = {'TL'}
 }
 
 masterPilotDB[993]={
@@ -8131,6 +8140,7 @@ masterPilotDB[997]={
     init = 1,
     texture = 'blue',
     actSet = {'F','R','TL','B','C'},
+    addSqdAction = {'F','R','TL','B'},
 }
 
 masterPilotDB[998]={
@@ -8375,7 +8385,8 @@ masterPilotDB[1013]={
   slot = {21, 1,19,14,18,15,10,99},
   init = 4,
   texture = 'standard',
-  actSet = {'F','TL','B'}
+  actSet = {'F','TL','B'},
+  arcs = {fixed = { range=3, type = {'front', 'back'}}},
 }
 
 masterPilotDB[1014]={
@@ -8642,6 +8653,7 @@ masterPilotDB[1030]={
   limited = 1,
   ship_type = 'rogueclassstarfighter',
   cost = 0,
+  Charge = 1,
   slot = {21, 17,10,14,15},
   init = 5,
   texture = 'durge',
@@ -8663,11 +8675,29 @@ masterPilotDB[1031]={
   actSet = {'F','TL','BR','B'},
   keywords = {'Clone'},
   standardized_loadout = true,
+  executeOptions = {
+      rk2   = {[1]='rk2', [2]='rbl2s', [3]='rbr2s'},
+  },
   standardized_upgrades = {
     {name= 'R3 Astromech', charge=0},
     {name= 'Precision Ion Engines', charge=2},
     {name= 'Alpha-3E "Esk"', charge=2},
   }
+}
+
+
+masterPilotDB[1032]={
+  name = 'Jul Jerjerrod',
+  XWS = 'juljerjerrod',
+  Faction = 5,
+  limited = 1,
+  Charge = 3,
+  ship_type = 'tiesebomber',
+  cost = 36,
+  slot = {21, 19, 5, 6, 16, 12, 14},
+  init = 4,
+  texture = 'standard',
+  actSet = {'F','TL','BR','B','E'}
 }
 
 

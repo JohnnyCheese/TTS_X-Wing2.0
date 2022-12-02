@@ -2434,6 +2434,36 @@ function setShip5()
     pChecker()
 end
 
+function setShip6()
+    finalList.Pilots[currPIndex] = repPL[6]
+    finalList.Aux[currPIndex] = nil
+    repPL = nil
+    repPN= 0
+    repUN= 0
+    currPIndex = nil
+    pChecker()
+end
+
+function setShip7()
+    finalList.Pilots[currPIndex] = repPL[7]
+    finalList.Aux[currPIndex] = nil
+    repPL = nil
+    repPN= 0
+    repUN= 0
+    currPIndex = nil
+    pChecker()
+end
+
+function setShip8()
+    finalList.Pilots[currPIndex] = repPL[8]
+    finalList.Aux[currPIndex] = nil
+    repPL = nil
+    repPN= 0
+    repUN= 0
+    currPIndex = nil
+    pChecker()
+end
+
 
 slotName = {}
 slotName[1] = 'Talent' -- EPT
