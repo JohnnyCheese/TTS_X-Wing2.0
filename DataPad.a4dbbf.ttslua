@@ -162,12 +162,43 @@ end
 
 function scenario()
   self.clearButtons()
-  self.createButton({click_function = 'scenarioAssault', function_owner = self, label = 'Assault at the Sattelite Array' , position = {0,0.45,-0.3}, width = 2600, height = 350, font_size = 200,  scale = {0.25,0.25,0.25}})
-  self.createButton({click_function = 'scenarioChance', function_owner = self, label = 'Chance Engagement' , position = {0,0.45,-0.1}, width = 2600, height = 350, font_size = 200,  scale = {0.25,0.25,0.25}})
-  self.createButton({click_function = 'scenarioSalvage', function_owner = self, label = 'Salvage Mission' , position = {0,0.45,0.1}, width = 2600, height = 350, font_size = 200,  scale = {0.25,0.25,0.25}})
-  self.createButton({click_function = 'scenarioScramble', function_owner = self, label = 'Scramble the Transmissions' , position = {0,0.45,0.3}, width = 2600, height = 350, font_size = 200,  scale = {0.25,0.25,0.25}})
-  self.createButton({click_function = 'scenarioBoYavin', function_owner = self, label = 'Battle of Yavin' , position = {0,0.45,0.5}, width = 2600, height = 350, font_size = 200,  scale = {0.25,0.25,0.25}})
-  self.createButton({click_function = 'initiate', function_owner = self, label = 'Back', position = {0.4,0.45,0.8}, width = 1800, height = 520, font_size = 240,  scale = {0.15,0.15,0.15}})
+  self.createButton({click_function = 'scenarioAssault',  function_owner = self, label = 'Assault at the Sattelite Array',
+                      position = {0.5,0.45,-0.3},   width = 1750, height = 350, font_size = 140,  scale = {0.25,0.25,0.25}})
+  self.createButton({click_function = 'scenarioChance',   function_owner = self, label = 'Chance Engagement',
+                      position = {0.5,0.43,-0.05},   width = 1750, height = 350, font_size = 140,  scale = {0.25,0.25,0.25}})
+  self.createButton({click_function = 'scenarioSalvage',  function_owner = self, label = 'Salvage Mission',
+                      position = {-0.45,0.45,-0.3},  width = 1750, height = 350, font_size = 140,  scale = {0.25,0.25,0.25}})
+  self.createButton({click_function = 'scenarioScramble', function_owner = self, label = 'Scramble the Transmissions',
+                      position = {-0.45,0.43,-0.05},  width = 1750, height = 350, font_size = 140,  scale = {0.25,0.25,0.25}})
+  self.createButton({click_function = 'scenarioBoYavin',  function_owner = self, label = 'Battle of Yavin',
+                      position = {0.5,0.43,0.2},    width = 1750, height = 350, font_size = 140,  scale = {0.25,0.25,0.25}})
+  self.createButton({click_function = 'scenarioSoC',      function_owner = self, label = 'Siege of Coruscant',
+                      position = {-0.45,0.43,0.2},   width = 1750, height = 350, font_size = 140,  scale = {0.25,0.25,0.25}})
+  self.createButton({click_function = 'scenarioAce',      function_owner = self, label = "Ace's High",
+                      position = {0.025,0.43,0.45},   width = 1750, height = 350, font_size = 140,  scale = {0.25,0.25,0.25}})
+  self.createButton({click_function = 'initiate', function_owner = self, label = 'Back',
+                      position = {0.4,0.43,0.8},    width = 1650, height = 520, font_size = 240,  scale = {0.15,0.15,0.15}})
+end
+
+function scenarioAce()
+  initiate()
+  local red_blue_mat = getObjectFromGUID('0db84a')
+	red_blue_mat.call('SelectAH')
+end
+
+
+function scenarioSoC()
+  initiate()
+  local red_blue_mat = getObjectFromGUID('0db84a')
+  red_blue_mat.call("clearScenario", nil)
+  local custom = red_blue_mat.getCustomObject()
+  custom.diffuse = 'http://i.imgur.com/8tDK0x8.png'
+  red_blue_mat.setCustomObject(custom)
+  red_blue_mat = red_blue_mat.reload()
+  Wait.condition(function() red_blue_mat.call('SelectSoC') end,
+    function() return (not red_blue_mat.loading_custom) and (not red_blue_mat.spawning) end)
+
+
 end
 
 function scenarioAssault()
@@ -196,7 +227,6 @@ end
 
 function scenarioBoYavin()
   initiate()
-
   local red_blue_mat = getObjectFromGUID('0db84a')
   red_blue_mat.call("clearScenario", nil)
   local custom = red_blue_mat.getCustomObject()
