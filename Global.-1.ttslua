@@ -78,6 +78,10 @@ HotkeyModule = require("TTS_xwing/src/HotkeyManager")
 PlayerEventModule = require("TTS_xwing/src/PlayerActionModule")
 DialManagerModule = require("TTS_xwing/src/DialManager")
 ShipProximityHider = require("TTS_xwing/src/ShipProximityHider")
+StreamManagerModule = require("TTS_xwing/src/StreamManager")
+StreamManagerModule.SetUi(self.UI)
+StreamManagerModule.AddPresentation("Purple", "left")
+StreamManagerModule.AddPresentation("Blue", "right")
 
 #include !/TTS_xwing/src/GlobalGuiControl
 
