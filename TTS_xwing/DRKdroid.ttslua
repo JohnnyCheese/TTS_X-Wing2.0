@@ -82,6 +82,7 @@ function checkRange(range)
     else
       checkingRange = nil
       printToAll("No ships is within range ".. range .." of " .. self.getName(), color(1.0,1.0,0))
+      mainSet()
     end
   else
     checkingRange = nil
@@ -127,7 +128,7 @@ function onDropped(color)
         if nearest ~= nil then
             printToAll('DRK-1 Probe preparing to drop/lauch')
             initialP = self.getPosition()
-            size = nearest.getTable('Data').size or "small"
+            size = nearest.getTable('Data').Size or "small"
             drop_offset = drop_offset + Convert_mm_igu(size_adjust[size])
             assignedShip = nearest
             local pos = assignedShip.getPosition()
