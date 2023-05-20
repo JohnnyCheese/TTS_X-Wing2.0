@@ -122,6 +122,10 @@ function API_StreamAnnounce(argTable)
   StreamManagerModule.Announce(argTable.text, argTable.player)
 end
 
+function API_ToggleAnnouncement(argTable)
+  StreamManagerModule.Announce(argTable.text, argTable.player)
+end
+
 --------
 -- OBJECT SPECIFIC VARIABLES
 -- These variables are set per object and have some specific meaning

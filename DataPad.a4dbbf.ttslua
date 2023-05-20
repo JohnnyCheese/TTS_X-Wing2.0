@@ -156,7 +156,7 @@ function initiate()
     self.createButton({click_function = 'spawnerStart', function_owner = self, label = 'TTS Spawner', position = {0.5,0.45,0.15}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
     self.createButton({click_function = 'builderStart', function_owner = self, label = 'Builder', position = {0.5,0.45,0.4}, width = 1600, height = 380, font_size = 250, scale = {0.25,0.25,0.25}})
     self.createButton({click_function = 'assetSpawn', function_owner = self, label = "Asset Spawner", position = {-0.45,0.45,0.4}, width = 1600, height = 380, font_size = 200, scale = {0.25,0.25,0.25}})
-    self.createButton({click_function = 'confguration', function_owner = self, label = "Configuration", position = {-0.45,0.45,-0.1}, width = 1600, height = 380, font_size = 200, scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'configuration', function_owner = self, label = "Configuration", position = {-0.45,0.45,-0.1}, width = 1600, height = 380, font_size = 200, scale = {0.25,0.25,0.25}})
     self.createButton({click_function = 'scenario', function_owner = self, label = "Scenario Setup", position = {0,0.45,0.65}, width = 1600, height = 380, font_size = 200, scale = {0.25,0.25,0.25}})
 end
 
@@ -237,11 +237,12 @@ function scenarioBoYavin()
     function() return (not red_blue_mat.loading_custom) and (not red_blue_mat.spawning) end)
 end
 
-function confguration()
+function configuration()
   self.clearButtons()
-  self.createButton({click_function = 'toggleTokenSize', function_owner = self, label = 'Token size: ' .. tokenSizeStr[tokenSize] , position = {0,0.45,0}, width = 2600, height = 460, font_size = 240,  scale = {0.25,0.25,0.25}})
-  self.createButton({click_function = 'resetXwsData', function_owner = self, label = 'Fetch XWS values' , position = {0.0,0.45,0.3}, width = 2600, height = 460, font_size = 240,  scale = {0.25,0.25,0.25}})
-  self.createButton({click_function = 'initiate', function_owner = self, label = 'Back', position = {0.3,0.45,0.6}, width = 1800, height = 520, font_size = 240,  scale = {0.15,0.15,0.15}})
+  self.createButton({click_function = 'toggleTokenSize', function_owner = self, label = 'Token size: ' .. tokenSizeStr[tokenSize] , position = {0,0.45,-0.2}, width = 2600, height = 460, font_size = 240,  scale = {0.25,0.25,0.25}})
+  self.createButton({click_function = 'toggleAnnouncement', function_owner = self, label = 'Toggle announcement' , position = {0,0.45,0.1}, width = 2600, height = 460, font_size = 240,  scale = {0.25,0.25,0.25}})
+  self.createButton({click_function = 'resetXwsData', function_owner = self, label = 'Fetch XWS values' , position = {0.0,0.45,0.4}, width = 2600, height = 460, font_size = 240,  scale = {0.25,0.25,0.25}})
+  self.createButton({click_function = 'initiate', function_owner = self, label = 'Back', position = {0.3,0.45,0.7}, width = 1800, height = 520, font_size = 240,  scale = {0.15,0.15,0.15}})
 end
 
 function toggleTokenSize()
@@ -250,7 +251,13 @@ function toggleTokenSize()
     tokenSize = 1
   end
   Global.call("API_SetTokenSize", {size=tokenSizeModifiers[tokenSize] })
-  confguration()
+  configuration()
+end
+
+
+function toggleAnnouncement(obj, player_color, alt_click)
+  Global.call("API_ToggleAnnouncmentVisibility", {player=player_color })
+  configuration()
 end
 
 
@@ -888,7 +895,7 @@ function idSpawner(idTable)
             fList.Upgrades[k][key] = {}
             fList.Upgrades[k][key].name = name
             local cost = masterUpgradesDB[value].cost
-            if XWS_DATA.upgrades[masterUpgradesDB[value].XWS] then
+            if XWS_DATA.upgrades[masterUpgradesDB[value].XWS] and tonumber(XWS_DATA.upgrades[masterUpgradesDB[value].XWS].cost.value) then
               cost = XWS_DATA.upgrades[masterUpgradesDB[value].XWS].cost.value
             end
             fList.Pilots[k].list = fList.Pilots[k].list .. '   '..name.. ' ('..tostring(cost) .. ')\n'

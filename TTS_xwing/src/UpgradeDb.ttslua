@@ -39,7 +39,7 @@ masterUpgradesDB['experthandling']={
   name = 'Expert Handling',
   XWS = 'experthandling',
   slot = 1,
-  cost = 's',
+  cost = 0,
 }
 
 masterUpgradesDB['fearless']={
@@ -168,7 +168,7 @@ masterUpgradesDB['supernaturalreflexes']={
     XWS = 'supernaturalreflexes',
     slot = 17,
     addAction = {'B', 'BR'},
-    cost = 'i',
+    cost = 0,
     restriction = {Size={small=true}}
 }
 
@@ -361,7 +361,7 @@ masterUpgradesDB['seasonednavigator']={
     name = 'Seasoned Navigator',
     XWS = 'seasonednavigator',
     slot = 8,
-    cost = 'i',
+    cost = 0,
 
     restriction = { },
     executeOptions = function(list, pilotid)
@@ -433,7 +433,7 @@ masterUpgradesDB['r2astromech']={
 	name = 'R2 Astromech',
 	XWS = 'r2astromech',
 	slot = 10,
-	cost = 'a',
+	cost = 0,
 	Charge = 2
 }
 
@@ -532,7 +532,7 @@ masterUpgradesDB['afterburners']={
     XWS = 'afterburners',
     addAction = {'B'},
     slot = 14,
-    cost = 'i',
+    cost = 0,
     Charge = 2,
     restriction = {
         Size = {small=true}
@@ -557,7 +557,7 @@ masterUpgradesDB['hullupgrade']={
     name = 'Hull Upgrade',
     XWS = 'hullupgrade',
     slot = 14,
-    cost = 'a',
+    cost = 0,
     Hull = 1,
     restriction={}
 }
@@ -572,7 +572,7 @@ masterUpgradesDB['shieldupgrade']={
 	name = 'Shield Upgrade',
 	XWS = 'shieldupgrade',
 	slot = 14,
-	cost = 'a',
+	cost = 0,
   shd = 1
 }
 
@@ -587,7 +587,7 @@ masterUpgradesDB['stealthdevice']={
 	name = 'Stealth Device',
 	XWS = 'stealthdevice',
 	slot = 14,
-	cost = 'a',
+	cost = 0,
 	Charge = 1
 }
 
@@ -784,7 +784,7 @@ masterUpgradesDB['r2d2']={
 	name = 'R2-D2',
 	XWS = 'r2d2',
 	slot = 10,
-	cost = 'a',
+	cost = 0,
 	Charge = 3,
 	restriction = {Faction = {[1]=true}}
 }
@@ -1619,7 +1619,7 @@ masterUpgradesDB['bb8']={
   XWS = 'bb8',
   slot = 10,
   addAction = {'BR'},
-  cost = 'i',
+  cost = 0,
   Charge = 2,
   restriction = {Faction={[4]=true}}
 }
@@ -1629,7 +1629,7 @@ masterUpgradesDB['bbastromech']={
   XWS = 'bbastromech',
   slot = 10,
   addAction = {'BR'},
-  cost = 'i',
+  cost = 0,
   Charge = 2,
   restriction = {Faction={[4]=true}}
 }
@@ -1849,7 +1849,7 @@ masterUpgradesDB['battlemeditation']={
 	name = "Battle Meditation",
 	XWS = 'battlemeditation',
 	slot = 17,
-	cost = 'i',
+	cost = 0,
 	restriction = {Faction = {[6]=true}}
 }
 
@@ -1875,7 +1875,7 @@ masterUpgradesDB['delta7b']={
 	name = "Delta-7B",
 	XWS = 'delta7b',
 	slot = 18,
-	cost = 'i',
+	cost = 0,
 	shd = 2,
 	restriction = {ship={['delta7aethersprite']=true}}
 }
@@ -1884,7 +1884,7 @@ masterUpgradesDB['calibratedlasertargeting']={
 	name = "Calibrated laser Targeting",
 	XWS = 'calibratedlasertargeting',
 	slot = 18,
-	cost = 'i',
+	cost = 0,
 	remSlot = {14},
   cardB = cardBackDB.mc,
 	restriction = {ship={['delta7aethersprite']=true}}
@@ -1983,7 +1983,7 @@ masterUpgradesDB['passivesensors']={
     XWS = 'passivesensors',
     slot = 2,
     addAction = {'C','TL'},
-    cost = 'i',
+    cost = 0,
     Charge = 1,
     restriction ={ }
 }
@@ -2119,25 +2119,27 @@ masterUpgradesDB['r2a6']={
 	cost = 6,
     executeOptions = function(list, pilotid)
         exopts = {}
-        for _, man in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
-            local Char= man:find("%d")
-            local speed = tonumber(man:sub(Char,Char))
-            local lower = man:sub(2,Char-1) .. tostring(speed - 1) .. man:sub(Char + 1)
-            local higher = man:sub(2,Char-1) .. tostring(speed + 1) .. man:sub(Char + 1)
-            --print("Man:" .. man .. " lower:" .. lower .. " higher:" .. higher)
-            exopt = {man}
-            for _, man2 in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
-                if man2:sub(2) == lower then
-                    exopt[#exopt+1]=man2
-                end
-                if man2:sub(2) == higher then
-                    exopt[#exopt+1]=man2
-                end
-                if #exopt > 1 then
-                    --table.print(exopt)
-                    exopts[man] = exopt
-                end
-            end
+        if pilotid != 0 then
+          for _, man in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
+              local Char= man:find("%d")
+              local speed = tonumber(man:sub(Char,Char))
+              local lower = man:sub(2,Char-1) .. tostring(speed - 1) .. man:sub(Char + 1)
+              local higher = man:sub(2,Char-1) .. tostring(speed + 1) .. man:sub(Char + 1)
+              --print("Man:" .. man .. " lower:" .. lower .. " higher:" .. higher)
+              exopt = {man}
+              for _, man2 in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
+                  if man2:sub(2) == lower then
+                      exopt[#exopt+1]=man2
+                  end
+                  if man2:sub(2) == higher then
+                      exopt[#exopt+1]=man2
+                  end
+                  if #exopt > 1 then
+                      --table.print(exopt)
+                      exopts[man] = exopt
+                  end
+              end
+          end
         end
         return exopts
     end,
@@ -2182,7 +2184,7 @@ masterUpgradesDB['angleddeflectors']={
   XWS = 'angleddeflectors',
   slot = 14,
   addAction = {'R'},
-  cost = 'a',
+  cost = 0,
   shd = -1,
   restriction ={Size={small=true, medium=true}}
 }
@@ -2229,7 +2231,7 @@ masterUpgradesDB['precognitivereflexes']={
 	name = "Precognitive Reflexes",
 	XWS = 'precognitivereflexes',
 	slot = 17,
-	cost = 'i',
+	cost = 0,
   restriction = { Size = {small=true}}
 }
 
@@ -2245,14 +2247,14 @@ masterUpgradesDB['snapshot']={
 	name = "Snap Shot",
 	XWS = 'snapshot',
 	slot = 1,
-	cost = 's',
+	cost = 0,
 }
 
 masterUpgradesDB['ensnare']={
 	name = "Ensnare",
 	XWS = 'ensnare',
 	slot = 1,
-	cost = 'i',
+	cost = 0,
   restriction = {ship={['nantexclassstarfighter']=true}}
 }
 
@@ -2677,7 +2679,7 @@ masterUpgradesDB['overdrivethruster']={
     XWS = 'overdrivethruster',
     limited = 1,
     slot = 14,
-    cost = 'i',
+    cost = 0,
     addAction = {'2B', '2BR'},
     restriction = {
         ship = {['t70xwing']=true}
@@ -2759,7 +2761,7 @@ masterUpgradesDB['r2d2-republic']={
     XWS = 'r2d2-republic',
     limited = 1,
     slot = 10,
-    cost = 'a',
+    cost = 0,
     Charge = 2,
     restriction = {
         Faction={[6]=true},
@@ -4697,7 +4699,7 @@ masterUpgradesDB['homingtorpedoes']={
 masterUpgradesDB['notorious']={
     name = "Notorious",
     XWS = 'notorious',
-    slot = 17,
+    slot = 1,
     cost = 2,
     Charge = 2,
     restriction = {
@@ -4777,6 +4779,15 @@ masterUpgradesDB['protoncannons']={
     Charge = 2
 }
 
-
+masterUpgradesDB['combatboardingtube']={
+    name = "Combat Boarding Tube",
+    XWS = 'combatboardingtube',
+    slot = 18,
+    remSlot = {21},
+    restriction = {
+      ship = {['gauntletfighter']=true}
+    },
+    cost = 0,
+}
 
 return masterUpgradesDB
