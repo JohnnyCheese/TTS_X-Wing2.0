@@ -834,7 +834,7 @@ masterPilotDB[42]={
   slot = {21, 1, 8, 12, 14, 14, 15},
     init = 5,
   texture = 'brown',
-  actSet = {'F','TL','B','Rot','BR'}
+  actSet = {'F','TL','B','Rot'}
 }
 
 masterPilotDB[43]={
@@ -847,7 +847,7 @@ masterPilotDB[43]={
   slot = {21, 1, 8, 12, 14, 14, 15},
     init = 3,
   texture = 'brown',
-  actSet = {'F','TL','B','Rot','BR'}
+  actSet = {'F','TL','B','Rot'}
 }
 
 masterPilotDB[44]={
@@ -860,7 +860,7 @@ masterPilotDB[44]={
   slot = {21, 1, 8, 12, 14, 14, 15},
     init = 4,
   texture = 'brown',
-  actSet = {'F','TL','B','Rot','BR'}
+  actSet = {'F','TL','B','Rot'}
 }
 
 masterPilotDB[45]={
@@ -872,7 +872,7 @@ masterPilotDB[45]={
   slot = {21, 8, 12, 14, 14, 15},
     init = 2,
   texture = 'brown',
-  actSet = {'F','TL','B','Rot','BR'}
+  actSet = {'F','TL','B','Rot'}
 }
 
 masterPilotDB[46]={
@@ -6596,7 +6596,7 @@ masterPilotDB[857]={
 --- NEW SHIT:
 masterPilotDB[900]={
   name = 'Fenn Rau',
-  XWS = 'fennrau-fangfighter',
+  XWS = 'fennrau-rebel-fang',
   Faction = 1,
   limited = 1,
   ship_type = 'fangfighter',
@@ -8700,6 +8700,280 @@ masterPilotDB[1032]={
   texture = 'standard',
   actSet = {'F','TL','BR','B','E'}
 }
+
+masterPilotDB[1033]={
+  name = 'Luke Skywalker',
+  XWS = 'lukeskywalker-swz106',
+  title = 'Squadron Starter Pack',
+  Faction = 1,
+  limited = 1,
+  ship_type = 't65xwing',
+  cost = 0,
+  Force = 2,
+  init = 5,
+  texture = 'luke',
+  actSet = {'F','TL', 'BR',},
+  keywords = {'Light Side'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Instinctive Aim', charge=0},
+    {name= 'Proton Torpedoes', charge=2},
+    {name= 'R2-D2', charge=2}
+  }
+}
+
+masterPilotDB[1034]={
+  name = 'Jek Porkins',
+  XWS = 'jekporkins-swz106',
+  title = 'Squadron Starter Pack',
+  Faction = 1,
+  limited = 1,
+  ship_type = 't65xwing',
+  cost = 20,
+    init = 4,
+  texture = 'porkins',
+  actSet = {'F','TL', 'BR',},
+
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Predator', charge=0},
+    {name= 'Proton Torpedoes', charge=2},
+    {name= 'R5-D8', charge=3}
+  }
+}
+
+masterPilotDB[1035]={
+  name = '"Dutch" Vander',
+  XWS = 'dutchvander-swz106',
+  title = 'Squadron Starter Pack',
+  Faction = 1,
+  limited = 1,
+  ship_type = 'btla4ywing',
+  cost = 20,
+  init = 4,
+  texture = 'gold',
+  actSet = {'F','TL', 'BR','B'},
+  addSqdAction = {'TL'},
+  arcs = {fixed = { range=3, type = {'front'}}, turret = {main={name = 'ion cannon turret', range = 2, type = {'singleturret'}}}},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Ion Cannon Turret', charge=0},
+    {name= 'Proton Bombs', charge=2},
+  }
+}
+
+masterPilotDB[1036]={
+    name = 'Horton Salm',
+    XWS = 'hortonsalm-swz106',
+    title = 'Squadron Starter Pack',
+    Faction = 1,
+    limited = 1,
+    ship_type = 'btla4ywing',
+    cost = 36,
+    init = 4,
+    texture = 'horton',
+    actSet = {'F','TL', 'BR'},
+    standardized_loadout = true,
+    standardized_upgrades = {
+      {name= 'Ion Cannon Turret', charge=0},
+      {name= 'Proximity Mines', charge=2},
+    }
+}
+
+masterPilotDB[1037]={
+  name = 'Arvel Crynyd',
+  XWS = 'arvelcrynyd-swz106',
+  title = 'Squadron Starter Pack',
+  Faction = 1,
+  limited = 1,
+  ship_type = 'rz1awing',
+  cost = 32,
+  init = 3,
+  texture = 'arvel',
+  actSet = {'F','TL','E','Ail','BR'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Predator', charge=0},
+    {name= 'Afterburners', charge=2},
+  }
+}
+
+masterPilotDB[1038]={
+  name = 'Jake Farrell',
+  XWS = 'jakefarrell-swz106',
+  title = 'Squadron Starter Pack',
+  Faction = 1,
+  limited = 1,
+  ship_type = 'rz1awing',
+  cost = 34,
+  init = 4,
+  texture = 'jake',
+  actSet = {'F','TL','E','BR','B'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Elusive', charge=1},
+    {name= 'Outmaneuver', charge=0},
+    {name= 'Ion Missiles', charge=3},
+  }
+}
+
+masterPilotDB[1039]={
+  name = 'Shara Bey',
+  XWS = 'sharabey-swz106',
+  title = 'Squadron Starter Pack',
+  Faction = 1,
+  limited = 1,
+  ship_type = 'rz1awing',
+  cost = 32,
+  init = 4,
+  texture = 'shara',
+  actSet = {'F','TL','E','BR','B'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Hopeful', charge=0},
+    {name= 'Concussion Missiles', charge=3},
+  }
+}
+
+masterPilotDB[1040]={
+    name = 'Darth Vader',
+    XWS = 'darthvader-swz105',
+    title = 'Squadron Starter Pack',
+    Faction = 2,
+    limited = 1,
+    ship_type = 'tieadvancedx1',
+    cost = 20,
+    Force = 3,
+    init = 6,
+    Shield = 3,
+    texture = 'blue',
+    actSet = {'F','TL','BR','B'},
+    keywords = {'Dark Side', 'Sith'},
+    standardized_loadout = true,
+    standardized_upgrades = {
+      {name= 'Hate', charge=0},
+      {name= 'Ion Missiles', charge=3},
+      {name= 'Afterburners', charge=2},
+    }
+}
+
+masterPilotDB[1041]={
+    name = 'Maarek Stele',
+    XWS = 'darthvader-swz105',
+    title = 'Squadron Starter Pack',
+    Faction = 2,
+    limited = 1,
+    ship_type = 'tieadvancedx1',
+    cost = 20,
+    init = 6,
+    Shield = 2,
+    texture = 'blue',
+    actSet = {'F','TL','BR','B'},
+    keywords = {'Dark Side', 'Sith'},
+    standardized_loadout = true,
+    standardized_upgrades = {
+      {name= 'Elusive', charge=1},
+      {name= 'Outmaneuver', charge=0},
+      {name= 'Afterburners', charge=2},
+    }
+}
+
+masterPilotDB[1042]={
+  name = 'Captain Jonus',
+  XWS = 'captainjonus-swz105',
+  title = 'Squadron Starter Pack',
+  Faction = 2,
+  limited = 1,
+  ship_type = 'tiesabomber',
+  cost = 45,
+  slot = {21, 1, 5, 6, 6, 16, 12, 12, 14},
+  init = 4,
+  texture = 'blue',
+  actSet = {'F','TL','BR'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Feedback Ping', charge=0},
+    {name= 'Plasma Torpedoes', charge=2},
+    {name= 'Proton Bombs', charge=2},
+  }
+}
+
+masterPilotDB[1043]={
+  name = 'Tomax Bren',
+  XWS = 'tomaxbren-swz105',
+  title = 'Squadron Starter Pack',
+  Faction = 2,
+  limited = 1,
+  ship_type = 'tiesabomber',
+  cost = 45,
+  slot = {21, 1, 5, 6, 6, 16, 12, 12, 14},
+  init = 5,
+  texture = 'blue',
+  actSet = {'F','TL','BR'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Elusive', charge=1},
+    {name= 'Barrage Rockets', charge=5},
+    {name= 'Proximity Mines', charge=2},
+  }
+}
+
+masterPilotDB[1044]={
+    name = '"Night Beast"',
+    XWS = 'nightbeast-swz105',
+    title = 'Squadron Starter Pack',
+    Faction = 2,
+    limited = 1,
+    ship_type = 'tielnfighter',
+    cost = 23,
+    init = 2,
+    texture = 'grey',
+    actSet = {'F','E','BR'},
+    standardized_loadout = true,
+    standardized_upgrades = {
+      {name= 'Disciplined', charge=0},
+      {name= 'Predator', charge=0},
+    }
+}
+
+masterPilotDB[1045]={
+    name = 'Valen Rudor',
+    XWS = 'valenrudor-swz105',
+    title = 'Squadron Starter Pack',
+    Faction = 2,
+    limited = 1,
+    ship_type = 'tielnfighter',
+    cost = 0,
+    init = 3,
+    texture = 'grey',
+    actSet = {'F','E','BR'},
+    standardized_loadout = true,
+    standardized_upgrades = {
+      {name= 'Disciplined', charge=0},
+      {name= 'Precision Ion Engines', charge=2},
+    }
+}
+
+masterPilotDB[1046]={
+  name = 'Iden Versio',
+  XWS = 'idenversio-swz105',
+  title = 'Squadron Starter Pack',
+  Faction = 2,
+  limited = 1,
+  ship_type = 'tielnfighter',
+  cost = 0,
+  Shield =0,
+  Charge = 1,
+  init = 4,
+  texture = 'inferno',
+  actSet = {'F','E','BR'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Disciplined', charge=0},
+    {name= 'Elusive', charge=1},
+  }
+}
+
 
 
 return masterPilotDB
