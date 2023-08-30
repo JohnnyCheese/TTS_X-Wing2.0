@@ -8974,6 +8974,223 @@ masterPilotDB[1046]={
   }
 }
 
+masterPilotDB[1047]={
+  name = '"Deathfire"',
+  title = 'SL',
+  XWS = 'deathfire-swz98',
+  Faction = 2,
+  limited = 1,
+  ship_type = 'tiesabomber',
+  cost = 0,
+  Charge = 2,
+  init = 2,
+  texture = 'grey',
+  actSet = {'F','TL','BR'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Swift Approach', charge=0},
+    {name= 'Conner Nets', charge=1},
+    {name= 'Proton Bombs', charge=2},
+  }
+}
+
+masterPilotDB[1048]={
+  name = 'Captain Jonus',
+  title = 'SL',
+  XWS = 'captainjonus-swz98',
+  Faction = 2,
+  limited = 1,
+  ship_type = 'tiesabomber',
+  cost = 0,
+  init = 4,
+  texture = 'blue',
+  actSet = {'F','TL','E','BR'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Top Cover', charge=0},
+    {name= 'Barrage Rockets', charge=5},
+    {name= 'Proton Bombs', charge=2},
+  }
+}
+
+masterPilotDB[1049]={
+  name = 'Tomax Bren',
+  title = 'SL',
+  XWS = 'tomaxbren-swz98',
+  Faction = 2,
+  limited = 1,
+  ship_type = 'tiesabomber',
+  cost = 0,
+  init = 5,
+  Charge = 2,
+  texture = 'blue',
+  actSet = {'F','TL','BR'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'True Grit', charge=0},
+    {name= 'Plasma Torpedoes', charge=2},
+    {name= 'Ion Bombs', charge=2},
+  }
+}
+
+
+masterPilotDB[1050]={
+  name = 'Major Rhymer',
+  title = 'SL',
+  XWS = 'majorrhymer-swz98',
+  Faction = 2,
+  limited = 1,
+  ship_type = 'tiesabomber',
+  cost = 0,
+  init = 4,
+  texture = 'grey',
+  actSet = {'F','TL','B','BR'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Adv. Proton Torpedoes', charge=1},
+    {name= 'Automated Loaders', charge=1},
+    {name= 'Afterburners', charge=2},
+  }
+}
+
+masterPilotDB[1051]={
+  name = 'Dash Rendar',
+  title = 'Rebel (SL)',
+  XWS = 'dashrendar-swz103-sl-rebelalliance',
+  Faction = 1,
+  limited = 1,
+  ship_type = 'yt2400lightfreighter',
+  cost = 0,
+  init = 5,
+  texture = 'standard',
+  actSet = {'F','TL','BR','Rot'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Mercenary', charge=0},
+    {name= 'Seeker Missiles', charge=4},
+    {name= '"Leebo"', charge=2},
+    {name= 'Outrider', charge=2},
+  }
+}
+
+masterPilotDB[1052]={
+  name = 'Dash Rendar',
+  title = 'Scum (SL)',
+  XWS = 'dashrendar-swz103-sl-scumandvillainy',
+  Faction = 3,
+  limited = 1,
+  ship_type = 'yt2400lightfreighter',
+  cost = 0,
+  init = 5,
+  texture = 'standard',
+  actSet = {'F','TL','BR','Rot'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Mercenary', charge=0},
+    {name= 'Seeker Missiles', charge=4},
+    {name= '"Leebo"', charge=2},
+    {name= 'Outrider', charge=2},
+  }
+}
+
+masterPilotDB[1053]={
+  name = '"Leebo"',
+  title = 'Scum (SL)',
+  XWS = 'leebo-swz103-sl-scumandvillainy',
+  Faction = 3,
+  limited = 1,
+  ship_type = 'yt2400lightfreighter',
+  cost = 0,
+  init = 3,
+  texture = 'standard',
+  actSet = {'C','TL','BR','Rot'},
+  keywords = {'Droid'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Efficient Processing', charge=0},
+    {name= 'Seeker Missiles', charge=4},
+    {name= 'Outrider', charge=2},
+  }
+}
+
+masterPilotDB[1054]={
+  name = '"Leebo"',
+  title = 'Rebel (SL)',
+  XWS = 'leebo-swz103-sl-rebelalliance',
+  Faction = 1,
+  limited = 1,
+  ship_type = 'yt2400lightfreighter',
+  cost = 0,
+  init = 3,
+  texture = 'standard',
+  actSet = {'C','TL','BR','Rot'},
+  keywords = {'Droid'},
+  standardized_loadout = true,
+  standardized_upgrades = {
+    {name= 'Efficient Processing', charge=0},
+    {name= 'Seeker Missiles', charge=4},
+    {name= 'Outrider', charge=2},
+  }
+}
+
+masterPilotDB[1055]={
+  name = 'Dash Rendar',
+  title = 'Rebel',
+  XWS = 'dashrendar-swz103-rebelalliance',
+  Faction = 1,
+  limited = 1,
+  slot = {21, 1, 8, 8, 6, 13, 14, 15},
+  ship_type = 'yt2400lightfreighter',
+  cost = 0,
+  init = 5,
+  texture = 'standard',
+  actSet = {'F','TL','BR','Rot'}
+}
+
+masterPilotDB[1056]={
+  name = 'Dash Rendar',
+  title = 'Scum',
+  XWS = 'dashrendar-swz103-scumandvillainy',
+  Faction = 3,
+  limited = 1,
+  slot = {21, 1, 8, 8, 6, 13, 14, 15},
+  ship_type = 'yt2400lightfreighter',
+  cost = 0,
+  init = 5,
+  texture = 'standard',
+  actSet = {'F','TL','BR','Rot'}
+}
+
+masterPilotDB[1057]={
+  name = '"Leebo"',
+  XWS = 'leebo-swz103-rebelalliance',
+  title = 'Rebel',
+  Faction = 1,
+  limited = 1,
+  slot = {21, 1, 8, 8, 6, 13, 14, 15},
+  ship_type = 'yt2400lightfreighter',
+  cost = 0,
+  init = 3,
+  texture = 'standard',
+  actSet = {'C','TL','BR','Rot'},
+  keywords = {'Droid'}
+}
+
+masterPilotDB[1058]={
+  name = '"Leebo"',
+  title = 'Scum',
+  XWS = 'leebo-swz103-scumandvillainy',
+  Faction = 3,
+  limited = 1,
+  slot = {21, 1, 8, 8, 6, 13, 14, 15},
+  ship_type = 'yt2400lightfreighter',
+  cost = 0,
+  init = 3,
+  texture = 'standard',
+  actSet = {'C','TL','BR','Rot'},
+  keywords = {'Droid'}
+}
+
 
 
 return masterPilotDB

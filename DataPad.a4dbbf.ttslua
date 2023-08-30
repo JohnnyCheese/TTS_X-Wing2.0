@@ -1590,9 +1590,11 @@ function selectShipGeneric(arg)
     local pilot = masterPilotDB[partList.Pilots[shipIndex].id]
     local free_slots = {}
     -- print("Slots for " .. pilot.name)
-    for _, slot in pairs(XWS_DATA.pilots[pilot.XWS].slots) do
-      free_slots[slot] = (free_slots[slot] or 0) + 1
-    --   print(i .. ":" .. slot  )
+    if XWS_DATA.pilots[pilot.XWS].slots then
+      for _, slot in pairs(XWS_DATA.pilots[pilot.XWS].slots) do
+        free_slots[slot] = (free_slots[slot] or 0) + 1
+      --   print(i .. ":" .. slot  )
+      end
     end
 
     local loadout_value = XWS_DATA.pilots[pilot.XWS].loadout
