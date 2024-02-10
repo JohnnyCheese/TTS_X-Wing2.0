@@ -11,6 +11,8 @@ local function createOffsets(move_code, offsets)
         move_code = move_code:sub(1,2)
     elseif move_code:sub(1,1) == "c" then
         move_code = move_code:sub(1,2)
+    elseif move_code:sub(1,2) == "vt" then
+        move_code = move_code:sub(1,4)
     elseif move_code:sub(1,1) == "v" then
         move_code = move_code:sub(1,3)
     elseif move_code:sub(-1,-1) == "t" then

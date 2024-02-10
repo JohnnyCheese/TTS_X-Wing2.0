@@ -874,6 +874,10 @@ function idSpawner(idTable)
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r'
         end
 
+        if masterPilotDB[v].Bomb then
+          fList.Pilots[k].Bomb = true
+        end
+
         id = v
         if masterPilotDB[id].Condition ~= nil then
             fList.Pilots[k].Condition = masterPilotDB[id].Condition
@@ -1329,7 +1333,7 @@ function selectModelGeneric(arg)
 
 
                 aux= aux+1
-                if aux>7 then
+                if aux>8 then
                     aux = 0
                     auxB = auxB+1
                 end
@@ -1563,6 +1567,38 @@ function setPilot24()
     setPilotGeneric(24)
 end
 
+function setPilot25()
+    setPilotGeneric(25)
+end
+
+function setPilot26()
+    setPilotGeneric(26)
+end
+
+function setPilot27()
+    setPilotGeneric(27)
+end
+
+function setPilot28()
+    setPilotGeneric(28)
+end
+
+function setPilot29()
+    setPilotGeneric(29)
+end
+
+function setPilot30()
+    setPilotGeneric(30)
+end
+
+function setPilot31()
+    setPilotGeneric(31)
+end
+
+function setPilot32()
+    setPilotGeneric(32)
+end
+
 function builderSpawn()
     finalList = {}
     finalList.Pilots = {}
@@ -1589,15 +1625,18 @@ function selectShipGeneric(arg)
     shipIndex = arg
     local pilot = masterPilotDB[partList.Pilots[shipIndex].id]
     local free_slots = {}
+    local loadout_value = 0
+    local cost = 0
     -- print("Slots for " .. pilot.name)
-    if XWS_DATA.pilots[pilot.XWS].slots then
+    if XWS_DATA.pilots[pilot.XWS] then
+      loadout_value = XWS_DATA.pilots[pilot.XWS].loadout
+      cost = XWS_DATA.pilots[pilot.XWS].cost
       for _, slot in pairs(XWS_DATA.pilots[pilot.XWS].slots) do
         free_slots[slot] = (free_slots[slot] or 0) + 1
       --   print(i .. ":" .. slot  )
       end
     end
 
-    local loadout_value = XWS_DATA.pilots[pilot.XWS].loadout
     local loadout_cost = 0
 
     slot_buttons = {}
@@ -1637,7 +1676,7 @@ function selectShipGeneric(arg)
     end
 
 
-    self.createButton({click_function = 'Dummy1', function_owner = self, label = partList.Pilots[shipIndex].name ..' ('.. XWS_DATA.pilots[pilot.XWS].cost ..')', position = {-0.3,0.45,-0.35}, width = 2000, height = 320, font_size = 150,  scale = {0.25,0.25,0.25}})
+    self.createButton({click_function = 'Dummy1', function_owner = self, label = partList.Pilots[shipIndex].name ..' ('.. cost ..')', position = {-0.3,0.45,-0.35}, width = 2000, height = 320, font_size = 150,  scale = {0.25,0.25,0.25}})
     self.createButton({click_function = 'mainMenu', function_owner = self, label = 'Back', position = { 0.5,0.45,-0.35}, width = 1000, height = 320, font_size = 150,  scale = {0.25,0.25,0.25}})
     self.createButton({click_function = 'removeShip', function_owner = self, label = 'Remove Ship', position = { 0.6,0.45,0.75}, width = 1000, height = 320, font_size = 150,  scale = {0.25,0.25,0.25}})
     self.createButton({click_function = 'Dummy1', function_owner = self, label = 'Loadout: '.. tostring(loadout_cost) .. '/' .. tostring(loadout_value), position = {-0.6,0.45,0.8}, width = 1000, height = 220, font_size = 150,  scale = {0.25,0.25,0.25}})

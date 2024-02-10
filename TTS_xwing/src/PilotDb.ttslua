@@ -8885,6 +8885,7 @@ masterPilotDB[1042]={
   Faction = 2,
   limited = 1,
   ship_type = 'tiesabomber',
+  Bomb = true,
   cost = 45,
   slot = {21, 1, 5, 6, 6, 16, 12, 12, 14},
   init = 4,
@@ -8905,6 +8906,7 @@ masterPilotDB[1043]={
   Faction = 2,
   limited = 1,
   ship_type = 'tiesabomber',
+  Bomb = true,
   cost = 45,
   slot = {21, 1, 5, 6, 6, 16, 12, 12, 14},
   init = 5,
@@ -8981,6 +8983,7 @@ masterPilotDB[1047]={
   Faction = 2,
   limited = 1,
   ship_type = 'tiesabomber',
+  Bomb = true,
   cost = 0,
   Charge = 2,
   init = 2,
@@ -9001,6 +9004,7 @@ masterPilotDB[1048]={
   Faction = 2,
   limited = 1,
   ship_type = 'tiesabomber',
+  Bomb = true,
   cost = 0,
   init = 4,
   texture = 'blue',
@@ -9020,6 +9024,7 @@ masterPilotDB[1049]={
   Faction = 2,
   limited = 1,
   ship_type = 'tiesabomber',
+  Bomb = true,
   cost = 0,
   init = 5,
   Charge = 2,
@@ -9191,11 +9196,12 @@ masterPilotDB[1058]={
   keywords = {'Droid'}
 }
 
---Battle Over Endor Standardized Pilots
+--Battle over Endor Standardized Pilots
 
 masterPilotDB[1059]={
   name = 'Captain Yorr',
   XWS = 'captainyorr-battleoverendor',
+  title = 'Battle over Endor',
   Faction = 2,
   limited = 1,
   Charge = 2,
@@ -9209,13 +9215,14 @@ masterPilotDB[1059]={
     {name= 'No Escape', charge=0},
     {name= 'Predator', charge=0},
     {name= 'Ion Cannon', charge=0},
-    {name= 'Computer Assisted Handling', charge=1},
+    {name= 'Computer Assisted Handling', charge=1}
+  }
 }
 
 masterPilotDB[1060]={
   name = 'Colonel Jendon',
   XWS = 'coloneljendon-battleoverendor',
-  title = 'Battle Over Endor',
+  title = 'Battle over Endor',
   Faction = 2,
   limited = 1,
   ship_type = 'tiededefender',
@@ -9229,11 +9236,13 @@ masterPilotDB[1060]={
     {name= 'Push The Limit', charge=0},
     {name= 'Proton Cannons', charge=2},
     {name= 'Computer Assisted Handling', charge=1},
+  }
 }
 
 masterPilotDB[1061]={
   name = 'Lieutenant Hebsly',
   XWS = 'lieutenanthebsly-battleoverendor',
+  title = 'Battle over Endor',
   Faction = 2,
   limited = 1,
   ship_type = 'tielnfighter',
@@ -9244,13 +9253,15 @@ masterPilotDB[1061]={
   standardized_loadout = true,
   standardized_upgrades = {
     {name= 'Collected', charge=0},
-    {name= 'Elusive', charge=1}
+    {name= 'Elusive', charge=1},
     {name= 'No Escape', charge=0},
+  }
 }
 
 masterPilotDB[1062]={
   name = 'Major Mianda',
   XWS = 'majormianda-battleoverendor',
+  title = 'Battle over Endor',
   Faction = 2,
   limited = 1,
   ship_type = 'tielnfighter',
@@ -9258,17 +9269,20 @@ masterPilotDB[1062]={
   init = 5,
   shield = 1,
   texture = 'grey',
-  actSet = {'F','E','BR','B'},
+  actSet = {'F','E','BR'},
+  addSqdAction = {'BR','B'},
   standardized_loadout = true,
   standardized_upgrades = {
     {name= 'No Escape', charge=0},
     {name= 'Ruthless', charge=0},
     {name= 'Swarm Tactics', charge=0},
+  }
 }
 
 masterPilotDB[1063]={
   name = 'Scythe 6',
   XWS = 'scythe6-battleoverendor',
+  title = 'Battle over Endor',
   Faction = 2,
   limited = 1,
   ship_type = 'tielnfighter',
@@ -9282,11 +9296,13 @@ masterPilotDB[1063]={
     {name= 'Predator', charge=0},
     {name= 'Ion Maneuvering Jet', charge=2},
     {name= 'Targeting Matrix', charge=0},
+  }
 }
 
 masterPilotDB[1064]={
   name = 'Maus Monare',
   XWS = 'mausmonare-battleoverendor',
+  title = 'Battle over Endor',
   Faction = 2,
   limited = 1,
   ship_type = 'tieininterceptor',
@@ -9300,30 +9316,33 @@ masterPilotDB[1064]={
     {name= 'No Escape', charge=0},
     {name= 'Outmaneuver', charge=0},
     {name= 'Fuel Injection Override', charge=2},
+  }
 }
 
 masterPilotDB[1065]={
   name = 'Sapphire 2',
   XWS = 'sapphire2-battleoverendor',
+  title = 'Battle over Endor',
   Faction = 2,
   limited = 1,
   ship_type = 'tieininterceptor',
   cost = 5,
   init = 1,
   texture = 'grey',
-  actSet = {'F','E','BR','B'},
+  actSet = {'F','E','BR','TR','B'},
   standardized_loadout = true,
   standardized_upgrades = {
     {name= 'No Escape', charge=0},
     {name= 'Reckless', charge=0},
     {name= 'Primed Thrusters', charge=0},
     {name= 'Targeting Matrix', charge=0},
+  }
 }
 
 masterPilotDB[1066]={
   name = 'Soontir Fel',
   XWS = 'soontirfel-battleoverendor',
-  title = 'Battle Over Endor',
+  title = 'Battle over Endor',
   Faction = 2,
   limited = 1,
   Charge = 2,
@@ -9338,14 +9357,17 @@ masterPilotDB[1066]={
     {name= 'No Escape', charge=0},
     {name= 'Blank Signature', charge=1},
     {name= 'Feedback Emitter', charge=1},
+  }
 }
 
 masterPilotDB[1067]={
   name = 'Scimitar 1',
   XWS = 'scimitar1-battleoverendor',
+  title = 'Battle over Endor',
   Faction = 2,
   limited = 1,
   ship_type = 'tiesabomber',
+  Bomb = true,
   cost = 3,
   init = 3,
   Charge = 2,
@@ -9363,9 +9385,11 @@ masterPilotDB[1067]={
 masterPilotDB[1068]={
   name = 'Scimitar 3',
   XWS = 'scimitar3-battleoverendor',
+  title = 'Battle over Endor',
   Faction = 2,
   limited = 1,
   ship_type = 'tiesabomber',
+  Bomb = true,
   cost = 3,
   init = 4,
   Charge = 2,
@@ -9383,6 +9407,7 @@ masterPilotDB[1068]={
 masterPilotDB[1069]={
   name = 'Kendy Idele',
   XWS = 'kendyidele-battleoverendor',
+  title = 'Battle over Endor',
   Faction = 1,
   limited = 1,
   ship_type = 't65xwing',
@@ -9392,7 +9417,7 @@ masterPilotDB[1069]={
   actSet = {'F','TL', 'BR','B'},
   standardized_loadout = true,
   standardized_upgrades = {
-    {name= 'It's a Trap', charge=0},
+    {name= "It's a Trap", charge=0},
     {name= 'Ion Missiles', charge=3},
     {name= 'Modified R4-P Unit', charge=1},
     {name= 'Chaff Particles', charge=0}
@@ -9404,25 +9429,26 @@ masterPilotDB[1070]={
   XWS = 'wedgeantilles-battleoverendor',
   Faction = 1,
   limited = 1,
-  title = 'Battle Over Endor',
+  title = 'Battle over Endor',
   ship_type = 't65xwing',
   cost = 5,
   init = 6,
-  shield = 3, 
+  shield = 3,
   texture = 'wedge',
   actSet = {'F','TL', 'BR','B'},
   standardized_loadout = true,
   standardized_upgrades = {
-    {name= 'It's a Trap', charge=0},
+    {name= "It's a Trap", charge=0},
     {name= 'Predator', charge=0},
     {name= 'Adv. Proton Torpedoes', charge=1},
     {name= 'R2-A3', charge=1}
   }
 }
 
-masterPilotDB[1070]={
+masterPilotDB[1071]={
   name = 'Yendor',
   XWS = 'yendor-battleoverendor',
+  title = 'Battle over Endor',
   Faction = 1,
   limited = 1,
   ship_type = 't65xwing',
@@ -9432,16 +9458,16 @@ masterPilotDB[1070]={
   actSet = {'F','TL', 'BR','B'},
   standardized_loadout = true,
   standardized_upgrades = {
-    {name= 'It's a Trap', charge=0},
+    {name= "It's a Trap", charge=0},
     {name= 'Plasma Torpedoes', charge=2},
     {name= 'Stabilizing Astromech', charge=1}
   }
 }
 
-masterPilotDB[1071]={
+masterPilotDB[1072]={
   name = 'Arvel Crynyd',
   XWS = 'arvelcrynyd-battleoverendor',
-  title = 'Battle Over Endor',
+  title = 'Battle over Endor',
   Faction = 1,
   limited = 1,
   ship_type = 'rz1awing',
@@ -9453,14 +9479,15 @@ masterPilotDB[1071]={
   standardized_loadout = true,
   standardized_upgrades = {
     {name= 'Heroic Sacrifice', charge=0},
-    {name= 'It's a Trap', charge=0},
+    {name= "It's a Trap", charge=0},
     {name= 'Proton Rockets', charge=1},
   }
 }
 
-masterPilotDB[1071]={
+masterPilotDB[1073]={
   name = 'Gemmer Sojan',
   XWS = 'gemmersojan-battleoverendor',
+  title = 'Battle over Endor',
   Faction = 1,
   limited = 1,
   ship_type = 'rz1awing',
@@ -9470,17 +9497,17 @@ masterPilotDB[1071]={
   actSet = {'F','TL','E','BR','B','C'},
   standardized_loadout = true,
   standardized_upgrades = {
-    {name= 'It's a Trap', charge=0},
+    {name= "It's a Trap", charge=0},
     {name= 'Precision-Tuned Cannons', charge=0},
-    {name= 'Chaff Particles', charge=0}
+    {name= 'Chaff Particles', charge=0},
     {name= 'Target-Assist Algorithm', charge=0},
   }
 }
 
-masterPilotDB[1072]={
+masterPilotDB[1074]={
   name = 'Braylen Stramm',
   XWS = 'braylenstramm-battleoverendor',
-  title = 'Battle Over Endor',
+  title = 'Battle over Endor',
   Faction = 1,
   limited = 1,
   charge = 2,
@@ -9488,19 +9515,20 @@ masterPilotDB[1072]={
   cost = 4,
   init = 4,
   texture = 'braylen',
-  actSet = {'F','TL','BR','E'}
+  actSet = {'F','TL','BR','E'},
   standardized_loadout = true,
   standardized_upgrades = {
-    {name= 'It's a Trap', charge=0},
+    {name= "It's a Trap", charge=0},
     {name= 'Homing Missiles', charge=2},
     {name= 'Proton Bombs', charge=2},
     {name= 'Delayed Fuses', charge=0},
   }
 }
 
-masterPilotDB[1073]={
+masterPilotDB[1075]={
   name = 'Adon Fox',
   XWS = 'adonfox-battleoverendor',
+  title = 'Battle over Endor',
   Faction = 1,
   limited = 1,
   charge = 2,
@@ -9508,10 +9536,10 @@ masterPilotDB[1073]={
   cost = 4,
   init = 1,
   texture = 'blade',
-  actSet = {'F','TL','BR','E'}
+  actSet = {'F','TL','BR','E'},
   standardized_loadout = true,
   standardized_upgrades = {
-    {name= 'It's a Trap', charge=0},
+    {name= "It's a Trap", charge=0},
     {name= 'Parting Gift', charge=0},
     {name= 'Proton Rockets', charge=1},
     {name= 'Proton Bombs', charge=2},
@@ -9519,33 +9547,33 @@ masterPilotDB[1073]={
 }
 
 
-masterPilotDB[1074]={
+masterPilotDB[1076]={
   name = 'Gina Moonsong',
   XWS = 'ginamoonsong-battleoverendor',
   Faction = 1,
   limited = 1,
-  title = 'Battle Over Endor',
+  title = 'Battle over Endor',
   charge = 2,
   ship_type = 'asf01bwing',
   cost = 4,
   init = 5,
   texture = 'gina',
-  actSet = {'F','TL','BR','E'}
+  actSet = {'F','TL','BR','E'},
   standardized_loadout = true,
   standardized_upgrades = {
-    {name= 'It's a Trap', charge=0},
+    {name= "It's a Trap", charge=0},
     {name= 'Juke', charge=0},
     {name= 'Proton Torpedoes', charge=2},
     {name= 'Ion Bombs', charge=2},
   }
 }
 
-masterPilotDB[1075]={
+masterPilotDB[1077]={
   name = 'Tycho Celchu',
   XWS = 'tychocelchu-battleoverendor',
   Faction = 1,
   limited = 1,
-  title = 'Battle Over Endor',
+  title = 'Battle over Endor',
   ship_type = 'rz1awing',
   cost = 4,
   init = 5,
@@ -9553,17 +9581,17 @@ masterPilotDB[1075]={
   actSet = {'F','TL','E','BR','B'},
   standardized_loadout = true,
   standardized_upgrades = {
-    {name= 'It's a Trap', charge=0},
+    {name= "It's a Trap", charge=0},
     {name= 'Juke', charge=0},
     {name= 'Proton Rockets', charge=1},
     {name= 'Chaff Particles', charge=0},
   }
 }
 
-masterPilotDB[965]={
+masterPilotDB[1078]={
     name = 'Lando Calrissian',
     XWS = 'landocalrissian-battleoverendor',
-    title = 'Battle Over Endor',
+    title = 'Battle over Endor',
     Faction = 1,
     limited = 1,
     ship_type = 'modifiedyt1300lightfreighter',
@@ -9575,7 +9603,7 @@ masterPilotDB[965]={
     standardized_loadout = true,
     standardized_upgrades = {
       {name= 'Ace inthe Hole', charge=2},
-      {name= 'It's a Trap', charge=0},
+      {name= "It's a Trap", charge=0},
       {name= 'Nien Nunb', charge=0},
       {name= "Airen Cracken", charge=0},
       {name= 'Millennium Falcon', charge=0},

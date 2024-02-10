@@ -111,6 +111,18 @@ function B.setViperBarrelRollState(proxyMode, activate)
     obj.UI.setAttribute("BarrelVLDBtn", "active", extra_buttons)
 end
 
+function B.setTurnBarrelRollState(proxyMode, activate)
+    if activate then
+        obj.UI.setAttribute("BarrelRightFD", "active", "true")
+        obj.UI.setAttribute("BarrelLeftFD", "active", "true")
+    end
+    local extra_buttons = tostring(proxyMode)
+    obj.UI.setAttribute("BarrelVTRUBtn", "active", extra_buttons)
+    obj.UI.setAttribute("BarrelVTRDBtn", "active", extra_buttons)
+    obj.UI.setAttribute("BarrelVTLUBtn", "active", extra_buttons)
+    obj.UI.setAttribute("BarrelVTLDBtn", "active", extra_buttons)
+end
+
 
 
 

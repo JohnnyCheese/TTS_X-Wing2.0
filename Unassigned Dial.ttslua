@@ -611,6 +611,9 @@ function assignShip(args)
         elseif v == 'VR' then
             repos = true
             button.setViperBarrelRollState(proxyMode, true)
+        elseif v == 'TR' then
+            repos = true
+            button.setTurnBarrelRollState(proxyMode, true)
         elseif v == "Nantex" then
             repos = true
             self.UI.setAttribute("BoostFD", "active", "true")
@@ -815,6 +818,11 @@ reposCommands = {
     BarrelVRUBtn = "vrf2",
     BarrelVRDBtn = "vrb2",
 
+    BarrelVTLUBtn = "vtlf2",
+    BarrelVTLDBtn = "vtlb2",
+    BarrelVTRUBtn = "vtrf2",
+    BarrelVTRDBtn = "vtrb2",
+
 }
 
 function Repos(P, option, id)
@@ -1001,6 +1009,7 @@ function toggleProxyMode(enable)
     button.setBarrelRollState(proxyMode)
     button.setBarrelRoll2State(proxyMode)
     button.setViperBarrelRollState(proxyMode)
+    button.setTurnBarrelRollState(proxyMode)
     menu.update()
 end
 
