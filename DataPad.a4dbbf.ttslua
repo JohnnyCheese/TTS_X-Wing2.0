@@ -866,12 +866,16 @@ function idSpawner(idTable)
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s3:tr3:te3'
         elseif v == 205 then  -- Sol Sixxa special drops
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':te1:be1:br1:tr1'
-        elseif Ship == 'tiesabomber' then -- TIE Bomber special drops
-            fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':be1:br1'
+        elseif v == 1068 or v == 1075 then -- Partin gift upgrade special drop
+            fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r:br1r:bl1r'
         elseif v == 161 then -- Constable Zuvio
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r'
         elseif v == 565 then -- Bombardment Drone
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r'
+        end
+
+        if Ship == 'tiesabomber' then -- TIE Bomber special drops
+          fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':be1:br1'
         end
 
         if masterPilotDB[v].Bomb then
