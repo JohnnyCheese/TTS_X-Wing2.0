@@ -872,6 +872,8 @@ function idSpawner(idTable)
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r'
         elseif v == 565 then -- Bombardment Drone
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r'
+        elseif v == 1047 then -- SL Deathfire
+            fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':be3:br3:s3:s3r'
         end
 
         if Ship == 'tiesabomber' then -- TIE Bomber special drops
@@ -1333,11 +1335,11 @@ function selectModelGeneric(arg)
                 if v.title ~= nil then
                     title = '\n' .. v.title
                 end
-                self.createButton({click_function = 'setPilot'..index, function_owner = self, label = v.name..title..' ('..cost..')',  position = {-0.615+auxB*0.65,0.45,aux*0.16-0.35}, width = 1200, height = 220, font_size = 90,  scale = {0.25,0.25,0.25}})
+                self.createButton({click_function = 'setPilot'..index, function_owner = self, label = v.name..title..' ('..cost..')',  position = {-0.615+auxB*0.65,0.45,aux*0.13-0.4}, width = 1200, height = 220, font_size = 90,  scale = {0.25,0.25,0.25}})
 
 
                 aux= aux+1
-                if aux>8 then
+                if aux>9 then
                     aux = 0
                     auxB = auxB+1
                 end
