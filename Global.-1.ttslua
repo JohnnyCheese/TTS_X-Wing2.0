@@ -363,7 +363,7 @@ AIModule.current_move.Reset()
 
 -- Possible commands supported by the AI module
 XW_cmd.AddCommand('ai', 'AI')   -- Enables the AI on the selected ship
-XW_cmd.AddCommand('targets=.*', 'StrikeAI')   -- List of Strike AI ship
+XW_cmd.AddCommand('targets=.*', 'StrikeAI')   -- List of Strike AI Targets
 
 -- Description function to add the AI functions to a ship
 AIModule.EnableAI = function(ship, command)
@@ -448,10 +448,10 @@ AIModule.TargetSelectionFunctions.TargetForStrikeAI = function(ship)
         return nil
     end
 
-    -- Fetch all potential targets with metadata of distance and arc
+    -- potential_targets is a table with: distance, arc, and ship.
     local potential_targets = ArcCheck.GetTargetsInRelationToArc(ship, "all", nil, 9, false)
 
-    -- Filter targets to include only those listed in 'StrikeTargets'
+    -- Extract from potential targets only those listed as Strike Targets
     local strike_targets = {}
     for _, target in ipairs(potential_targets) do
         if (AIModule.IsStrikeTarget(ship, target.ship)) then
@@ -459,10 +459,10 @@ AIModule.TargetSelectionFunctions.TargetForStrikeAI = function(ship)
         end
     end
 
-    -- Sort the filtered list of strike targets by distance to the ship
+    -- Sort the Strike Targets by distance to the Strike AI ship
     table.sort(strike_targets, AIModule.SortTargetsByAIDesirability)
 
-    -- Return the closest strike target, if any
+    -- Return the closest Strike Target, if any
     if #strike_targets > 0 then
         return strike_targets[1].ship
     end
