@@ -593,7 +593,7 @@ AIModule.TargetForStrikeAI = function(ship)
         return nil
     end
 
-    -- potential_targets is a table with: distance, arc, and ship.
+    -- Get potential_targets as a table with: distance, arc, and ship.
     local potential_targets = ArcCheck.GetTargetsInRelationToArc(ship, "all", nil, 9, false)
 
     -- Extract from potential targets only those listed as Strike Targets
