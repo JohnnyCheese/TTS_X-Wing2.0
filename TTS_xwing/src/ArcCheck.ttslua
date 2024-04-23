@@ -703,7 +703,7 @@ ArcCheck.GetShipsWithinRange = function(ship, range, include_enemy_ships, includ
     local potential_ships = {}
     for k, hit in pairs(collisions) do
         if hit.hit_object.getGUID() ~= ship.getGUID() and MoveModule.SelectShipsAndRemotes(hit.hit_object) then
-            local is_enemy_ship = hit.hit_object.getVar("owningPlayer") != ship_owning_player
+            local is_enemy_ship = hit.hit_object.getVar("owningPlayer") ~= ship_owning_player
             if (include_enemy_ships and is_enemy_ship) or (include_friendly_ships and not is_enemy_ship) then
                 table.insert(potential_ships, hit.hit_object)
             end
