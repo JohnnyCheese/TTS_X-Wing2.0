@@ -145,7 +145,7 @@ BehaviourDB.rule_sets[1].ships = {}
 -- TIE/ln Fighter
 ---- This logic is shared between Imperial and Rebel. See Z-95 for an example on how to split them if necessary.
 BehaviourDB.rule_sets[1].ships['tielnfighter'] = {}
-BehaviourDB.rule_sets[1].ships['tielnfighter'].target_selection = {[1]='TargetForStrikeAI', [2]='ClosestInArc', [3]='Closest'}
+BehaviourDB.rule_sets[1].ships['tielnfighter'].target_selection = {[1]='ClosestInArc', [2]='Closest'}
 BehaviourDB.rule_sets[1].ships['tielnfighter'].move_table = {
     bullseye = {
         near = {[1] = 'k4', [3] = 'bl2', [4] = 'br2', [5] = 's2'},
@@ -290,7 +290,7 @@ BehaviourDB.rule_sets[1].ships['tieininterceptor'].action_selection = {
 
 -- TIE Advanced x1
 BehaviourDB.rule_sets[1].ships['tieadvancedx1'] = {}
-BehaviourDB.rule_sets[1].ships['tieadvancedx1'].target_selection = {[1]='LockedInRange', [2]='TargetForStrikeAI',[3]='ClosestInArcLowerInitiative', [4]='ClosestInArc', [5]='Closest'}
+BehaviourDB.rule_sets[1].ships['tieadvancedx1'].target_selection = {[1]='LockedInRange', [2]='ClosestInArcLowerInitiative', [3]='ClosestInArc', [4]='Closest'}
 BehaviourDB.rule_sets[1].ships['tieadvancedx1'].move_table = {
     bullseye = {
         near = {[1] = 'k4', [3] = 's1', [5] = 's2'},

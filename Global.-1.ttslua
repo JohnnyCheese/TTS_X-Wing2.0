@@ -363,7 +363,7 @@ AIModule.current_move.Reset()
 
 -- Possible commands supported by the AI module
 XW_cmd.AddCommand('ai', 'AI')   -- Enables the AI on the selected ship
-XW_cmd.AddCommand('targets=.*', 'StrikeAI')   -- List of Strike AI ship
+XW_cmd.AddCommand('[sS]trike[ ]*.*', 'StrikeAI')   -- List of Strike AI Targets
 
 -- Description function to add the AI functions to a ship
 AIModule.EnableAI = function(ship, command)
@@ -377,9 +377,9 @@ end
 -- This function is intended to parse a comma-separated list of targets'
 -- name or guid and update the ship's Strike Targets table to store those strings.
 AIModule.EnableStrikeAI = function(ship, cmd)
-    --  cmd = "targets=guid1,guid2,name3,name4"
+    --  cmd = "strike guid1,guid2,name3,name4"
     AIModule.EnableAI(ship, 'AI')
-    local pattern = "targets=(.*)"  -- Captures the list after 'targets='
+    local pattern = '[sS]trike[ ]*(.*)'  -- Captures the list after 'strike '
 
     local targetsString = cmd:match(pattern)
     if targetsString then
@@ -433,42 +433,6 @@ targets by various metrics.
 
 -- Target selection functions. These take a ship, and return a target ship
 AIModule.TargetSelectionFunctions = {}
-AIModule.TargetSelectionFunctions.TargetForStrikeAI = function(ship)
-    local isStrikeAI = next(ship.getTable('StrikeTargets') or {}) ~= nil
-    if not isStrikeAI then  -- only Strike AI ships run this targeting logic
-        print("This is not a Strike AI Ship. Abort special targeting.")
-        return nil
-    end
-    print("This is a Strike AI Ship. Using Strike targeting.")
-
-    local strikeTargetNames = ship.getTable('StrikeTargets') or {}
-
-    if #strikeTargetNames == 0 then
-        print("No Strike targets defined for " .. ship.getName())
-        return nil
-    end
-
-    -- Fetch all potential targets with metadata of distance and arc
-    local potential_targets = ArcCheck.GetTargetsInRelationToArc(ship, "all", nil, 9, false)
-
-    -- Filter targets to include only those listed in 'StrikeTargets'
-    local strike_targets = {}
-    for _, target in ipairs(potential_targets) do
-        if (AIModule.IsStrikeTarget(ship, target.ship)) then
-            table.insert(strike_targets, target)
-        end
-    end
-
-    -- Sort the filtered list of strike targets by distance to the ship
-    table.sort(strike_targets, AIModule.SortTargetsByAIDesirability)
-
-    -- Return the closest strike target, if any
-    if #strike_targets > 0 then
-        return strike_targets[1].ship
-    end
-    return nil
-end
-
 AIModule.TargetSelectionFunctions.ClosestInArc = function(ship)
     local targets = AIModule.GetSortedTargetsInArc(ship)
 
@@ -614,6 +578,47 @@ AIModule.SkipTargetLock = function(locking_ship, target_ship)
     return isStrikeAI and not isStrikeAITarget
 end
 
+AIModule.TargetForStrikeAI = function(ship)
+    local isStrikeAI = next(ship.getTable('StrikeTargets') or {}) ~= nil
+    if not isStrikeAI then  -- only Strike AI ships run this targeting logic
+        print("This is not a Strike AI Ship. Abort special targeting.")
+        return nil
+    end
+    print("This is a Strike AI Ship. Using Strike targeting.")
+
+    local strikeTargetNames = ship.getTable('StrikeTargets') or {}
+
+    if #strikeTargetNames == 0 then
+        print("No Strike targets defined for " .. ship.getName())
+        return nil
+    end
+
+    -- potential_targets is a table with: distance, arc, and ship.
+    local potential_targets = ArcCheck.GetTargetsInRelationToArc(ship, "all", nil, 9, false)
+
+    -- Extract from potential targets only those listed as Strike Targets
+    local strike_targets = {}
+    for _, target in ipairs(potential_targets) do
+        if (AIModule.IsStrikeTarget(ship, target.ship)) then
+            -- Give preference to an already locked target
+            if (AIModule.HasTargetLockOnShip(ship, target.ship)) then
+                return target.ship
+            end
+            table.insert(strike_targets, target)
+        end
+    end
+
+    -- Sort the Strike Targets by distance to the Strike AI ship
+    table.sort(strike_targets, AIModule.SortTargetsByAIDesirability)
+
+    -- Return the closest Strike Target, if any
+    if #strike_targets > 0 then
+        return strike_targets[1].ship
+    end
+    return nil
+end
+
+
 --[[ AI maneuver selection
 
 The maneuver selection is the main submodule of the AI, as well as the one that
@@ -660,11 +665,13 @@ AIModule.PerformManeuver = function(ship, take_action)
         local move_code = nil
 
         -- Find this ship's target.
-        local target_ship = nil
-        for _, target_selection_function in ipairs(ship_behaviour.target_selection) do
-            target_ship = AIModule.TargetSelectionFunctions[target_selection_function](ship)
-            if target_ship ~= nil then
-                break
+        local target_ship = AIModule.TargetForStrikeAI(ship)
+        if (target_ship == nil) then
+            for _, target_selection_function in ipairs(ship_behaviour.target_selection) do
+                target_ship = AIModule.TargetSelectionFunctions[target_selection_function](ship)
+                if target_ship ~= nil then
+                    break
+                end
             end
         end
         AIModule.current_move.target = target_ship
