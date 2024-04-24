@@ -270,7 +270,7 @@ function registerPlayerFromGui(player, option, id)
     self.UI.setAttribute(side .. "PointPanel","color", player.color)
     self.UI.setAttribute(side .. "PointPanel", "active", "true")
     for player_color, player in pairs(players) do
-      if player.side and player.side != side then
+      if player.side and player.side ~= side then
         start()
       end
     end
@@ -465,11 +465,11 @@ function recreateIndicators()
     if table.size(sided_players) > 1 then
       leftColor = sided_players["Left"].color
       rightColor = sided_players["Right"].color
-      if sided_players["Left"].round_points[i] and sided_players["Left"].round_points[i] != 0 then
+      if sided_players["Left"].round_points[i] and sided_players["Left"].round_points[i] ~= 0 then
         leftActive = "true"
         leftPoints = sided_players["Left"].round_points[i]
       end
-      if sided_players["Right"].round_points[i] and sided_players["Right"].round_points[i] != 0 then
+      if sided_players["Right"].round_points[i] and sided_players["Right"].round_points[i] ~= 0 then
         rightActive = "true"
         rightPoints = sided_players["Right"].round_points[i]
       end

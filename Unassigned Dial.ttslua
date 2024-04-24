@@ -661,7 +661,7 @@ function onDropped()
                 teamVisibility = ""
                 for k, player in pairs(Player.getPlayers()) do
                     if player.color == playerColor then
-                      if player.team != "None" then
+                      if player.team ~= "None" then
                         playerTeam = player.team
                         teamVisibility = "|" .. playerTeam
                       end

@@ -125,7 +125,7 @@ function DisableAttachedColliders()
   --print("DisableAttachedColliders: " .. self.getName())
   for i, child in ipairs(self.getChildren()) do
     --print("Child ".. tostring(i)..":" .. child.name)
-    if child.name != "New Game Object" then -- The compounded collission mesh seems to be named this.
+    if child.name ~= "New Game Object" then -- The compounded collission mesh seems to be named this.
       DisableColliderInComponent(child, " ")
     end
   end

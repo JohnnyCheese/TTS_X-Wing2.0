@@ -277,7 +277,7 @@ function xwsAction(obj, playerColor, value, editing)
         lista = value
     else
         nl_index = string.find(value, '\n')
-        if nl_index != nil then
+        if nl_index ~= nil then
             lista = string.sub(value, 1, nl_index - 1)
             xwsLoad(playerColor)
         end
@@ -370,12 +370,15 @@ function loadXwsDataShips()
         else
           local upgradedata = JSON.decode(request.text)
           for _, upgrade in pairs(upgradedata) do
-            XWS_DATA.upgrades[upgrade.xws] = {cost = upgrade.cost} --upgrade
+            if upgrade.cost then
+              XWS_DATA.upgrades[upgrade.xws] = {cost = upgrade.cost} --upgrade
+            end -- if upgrade.cost
           end -- for upgradedata.upgrade
         end -- if request.is_error
       end) -- webrequest
     end -- for manifest.upgrades
   end -- if manifest..
+  print("Finished fetching XWS data")
 end --function
 
 
@@ -486,7 +489,7 @@ function action(obj, playerColor, value, editing)
         lista = value
     else
         nl_index = string.find(value, '\n')
-        if nl_index != nil then
+        if nl_index ~= nil then
             lista = string.sub(value, 1,nl_index-1)
             validCheck()
         end
@@ -499,7 +502,7 @@ function action3(obj, playerColor, value, editing)
         single = value
     else
         nl_index = string.find(value, '\n')
-        if nl_index != nil then
+        if nl_index ~= nil then
             single = string.sub(value, 1,nl_index-1)
             singleSearch()
         end
@@ -905,7 +908,8 @@ function idSpawner(idTable)
             fList.Upgrades[k][key] = {}
             fList.Upgrades[k][key].name = name
             local cost = masterUpgradesDB[value].cost
-            if XWS_DATA.upgrades[masterUpgradesDB[value].XWS] and tonumber(XWS_DATA.upgrades[masterUpgradesDB[value].XWS].cost.value) then
+            local xws_data = XWS_DATA.upgrades[masterUpgradesDB[value].XWS]
+            if xws_data and xws_data.cost and tonumber(XWS_DATA.upgrades[masterUpgradesDB[value].XWS].cost.value) then
               cost = XWS_DATA.upgrades[masterUpgradesDB[value].XWS].cost.value
             end
             fList.Pilots[k].list = fList.Pilots[k].list .. '   '..name.. ' ('..tostring(cost) .. ')\n'
@@ -1634,6 +1638,7 @@ function selectShipGeneric(arg)
     local loadout_value = 0
     local cost = 0
     -- print("Slots for " .. pilot.name)
+    free_slots['Command'] = 1
     if XWS_DATA.pilots[pilot.XWS] then
       loadout_value = XWS_DATA.pilots[pilot.XWS].loadout
       cost = XWS_DATA.pilots[pilot.XWS].cost

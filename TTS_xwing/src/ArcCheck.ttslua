@@ -615,7 +615,7 @@ ArcCheck.GetBullseyeTargets = function(ship, pos, length)
     if pos == nil then -- This is a non bullseye remote
       return {}
     end
-    if length != nil then
+    if length ~= nil then
         length = Convert_mm_igu(length)
     end
     local castSize = vector(ArcCheck.bullseye_data.size[1], ArcCheck.bullseye_data.size[2], length or ArcCheck.bullseye_data.size[3])
@@ -632,7 +632,7 @@ ArcCheck.GetBullseyeTargets = function(ship, pos, length)
     local bullseye_targets = {}
     for k, hit in pairs(collissions) do
         if hit.hit_object.getGUID() ~= ship.getGUID() and MoveModule.SelectShipsAndRemotes(hit.hit_object) then
-            if hit.hit_object.getVar("owningPlayer") != myOwningPlayer then
+            if hit.hit_object.getVar("owningPlayer") ~= myOwningPlayer then
                 -- remove false targets, where only the nub is hit
                 if ArcCheck.VerifyBullseye(ship, hit.hit_object) then
                     table.insert(bullseye_targets, hit.hit_object)

@@ -5582,7 +5582,7 @@ BombModule.CheckMineDroppedOverlapping = function(token, ownship)
       local minDist = Convert_mm_igu(110)
       local minePos = mine.getPosition()
       for _,ship in pairs(ships) do
-        if ship != ownship then
+        if ship ~= ownship then
           local shipPos = ship.getPosition()
           local dist = math.sqrt(math.pow((minePos.x - shipPos.x),2) + math.pow((minePos.z - shipPos.z),2))
           if dist < minDist then
@@ -6481,7 +6481,7 @@ function onSave()
     state.tokenData = {tokens={}}
     state.owningPlayer = self.getVar("owningPlayer")
     state.isAi = self.getVar("isAi")
-    state.strikeTargets = self.getTable('StrikeTargets')
+    state.strikeTargets = self.getTable("StrikeTargets")
     for guid, _ in pairs(assigned_tokens) do
         table.insert(state.tokenData.tokens, guid)
     end
@@ -6500,7 +6500,7 @@ function onLoad(savedData)
         self.setVar("finished_setup", state.finishedSetup)
         self.setVar("owningPlayer", state.owningPlayer)
         self.setVar("isAi", state.isAi)
-        self.setTable('StrikeTargets'), state.strikeTargets)
+        self.setTable("StrikeTargets", state.strikeTargets)
         initContextMenu()
         for _, guid in ipairs(state.tokenData.tokens) do
             Global.call('API_AssignToken',{token=getObjectFromGUID(guid), ship = self})

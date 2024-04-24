@@ -398,7 +398,7 @@ DiceControlModule.onObjectStateChange = function(object, old_guid) -- object is 
 	for _,foundObject in ipairs(DiceControlModule.upCast(object)) do -- for each object in the platform scripting zone..
 		if foundObject.tag == "Infinite" then -- if an infinite bag
 			local gmnotes = foundObject.getGMNotes()
-            if gmnotes  and gmnotes != "" then
+            if gmnotes  and gmnotes ~= "" then
                 DiceControlModule.dicecontainer.putObject(foundObject)
     			local lastNumber = tonumber(string.sub(gmnotes,-1)) or 0 -- gives us the very last character in our gmnotes - in our example "Platform 1" would give "1"
     			foundObject.setPosition(Vector(-24,1,10) + Vector(lastNumber * 4, 0, 0)) -- sets the bag starting at 0,2,10, and adding 4 to x, multiplied by the lastNumber - so they all line up.

@@ -51,7 +51,7 @@ function toggleAcesHighSetup()
 
     else
         for k, marker in pairs(markers) do
-            if marker != nil then
+            if marker ~= nil then
                 marker.destruct()
             end
         end
