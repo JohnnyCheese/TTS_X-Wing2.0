@@ -1264,9 +1264,8 @@ function mainMenu()
         local cost = pilot.cost
         local loadout = 0
         for k, upgrade in pairs (pilot.upgrades) do
-            if upgrade.cost~= nil then
-                loadout = loadout+upgrade.cost
-            end
+            loadout = loadout+upgrade.cost
+            cost = cost + upgrade.point_modifier
         end
         local row = (i-1) % 5
         local col = math.floor((i-1) / 5)
@@ -1657,6 +1656,8 @@ function selectShipGeneric(arg)
       local upgrade_entry = masterUpgradesDB[upgrade.id]
       table.insert(slot_buttons, {slot_name = slotName[upgrade_entry.slot], upgrade = upgrade})
       loadout_cost = loadout_cost + upgrade.cost
+      loadout_value = loadout_value + upgrade.loadout_modifier
+      cost = cost + upgrade.point_modifier
       for _, slot_id in pairs(upgrade_entry.addSlot or {}) do
         local slot = slotName[slot_id]
         free_slots[slot] = (free_slots[slot] or 0) + 1
@@ -1808,6 +1809,7 @@ function selectSlotGeneric(slotIndex)
     local loadout_cost = 0
     for i, upgrade in pairs(partList.Pilots[shipIndex].upgrades) do
       loadout_cost = loadout_cost + upgrade.cost
+      loadout_value = loadout_value + upgrade.loadout_modifier
     end
     local loadout_remaining = loadout_value - loadout_cost
 
@@ -1885,7 +1887,7 @@ function selectSlotGeneric(slotIndex)
                 if up.title ~= nil then
                     title = '\n' .. up.title
                 end
-                availableUps[index] = {id=id, name=up.name, cost=up_cost}
+                availableUps[index] = {id=id, name=up.name, cost=up_cost, loadout_modifier=up.LoadoutModifier, point_modifier=up.PointModifier}
                 self.createButton({click_function = 'selectUp'..index, label = up.name..title..' ('..up_cost..')', function_owner = self, position = {-0.53+column*0.58,0.45,row*0.1-0.1}, width = 1100, height = 200, font_size = 100,  scale = {0.25,0.25,0.25}})
                 row=row+1
                 index = index+1
@@ -1897,7 +1899,7 @@ function selectSlotGeneric(slotIndex)
         elseif slotId == 99 then
             local hpCheck={[3]=true,[5]=true,[6]=true}
             if hpCheck[up.slot] == true then
-                availableUps[index] = {id=id, name=up.name, cost=up_cost}
+                availableUps[index] = {id=id, name=up.name, cost=up_cost, loadout_modifier=up.LoadoutModifier, point_modifier=up.PointModifier}
                 self.createButton({click_function = 'selectUp'..index, label = up.name..' ('..up_cost..')', function_owner = self, position = {-0.53+column*0.58,0.45,row*0.1-0.1}, width = 1100, height = 200, font_size = 100,  scale = {0.25,0.25,0.25}})
                 row=row+1
                 index = index+1
@@ -2011,7 +2013,7 @@ function selectUpNone()
 end
 
 function selectUpGeneric(arg)
-    table.insert(partList.Pilots[shipIndex].upgrades, {id = availableUps[arg].id, name = availableUps[arg].name, cost = availableUps[arg].cost})
+    table.insert(partList.Pilots[shipIndex].upgrades, {id = availableUps[arg].id, name = availableUps[arg].name, cost = availableUps[arg].cost, loadout_modifier = (availableUps[arg].loadout_modifier or 0), point_modifier = (availableUps[arg].point_modifier or 0)})
     local name = availableUps[arg].name
     partList.nameCounts[name] = (partList.nameCounts[name] or 0) + 1
     selectShipGeneric(shipIndex)
