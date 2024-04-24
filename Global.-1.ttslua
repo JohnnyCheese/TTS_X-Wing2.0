@@ -253,6 +253,8 @@ XW_cmd.Process = function(obj, cmd)
         DialModule.PerformAction(obj, cmd)
     elseif type == 'bombDrop' then
         BombModule.ToggleDrop(obj, cmd)
+    elseif type == 'StrikeAI' then
+        AIModule.EnableStrikeAI(obj, cmd)
     elseif type == 'AI' then
         AIModule.EnableAI(obj, cmd)
     elseif type == 'rotate' then
@@ -326,7 +328,7 @@ XW_cmd.AddCommand('a[12]', 'actionMove')        -- Adjusts
 --XW_cmd.AddCommand('chs[rle]', 'actionMove')     -- Echo's bullshit, part 2
 --XW_cmd.AddCommand('vr[rle][fb]', 'actionMove')  -- StarViper Mk.II rolls
 
-XW_cmd.AddCommand('name[ *]*[a-zA-Z" \\d]*', 'renameShip')
+XW_cmd.AddCommand('name[ *]*[a-zA-Z" %d]*', 'renameShip')
 XW_cmd.AddCommand('init[ ]?[01234567]', 'changeInitiative')
 
 -- AI Module:
@@ -361,6 +363,7 @@ AIModule.current_move.Reset()
 
 -- Possible commands supported by the AI module
 XW_cmd.AddCommand('ai', 'AI')   -- Enables the AI on the selected ship
+XW_cmd.AddCommand('[sS]trike[ ]*.*', 'StrikeAI')   -- List of Strike AI Targets
 
 -- Description function to add the AI functions to a ship
 AIModule.EnableAI = function(ship, command)
@@ -368,6 +371,37 @@ AIModule.EnableAI = function(ship, command)
       ship.setVar('isAi', true)
       ship.AddContextMenuItem("AI move and action", function(argument) Global.call("PerformAIManeuver", {['ship']=ship, ['take_action']=true}) end, false)
       ship.AddContextMenuItem("AI move only", function(argument) Global.call("PerformAIManeuver", {['ship']=ship, ['take_action']=false}) end, false)
+    end
+end
+
+-- This function is intended to parse a comma-separated list of targets'
+-- name or guid and update the ship's Strike Targets table to store those strings.
+AIModule.EnableStrikeAI = function(ship, cmd)
+    --  cmd = "strike guid1,guid2,name3,name4"
+    AIModule.EnableAI(ship, 'AI')
+    local pattern = '[sS]trike[ ]*(.*)'  -- Captures the list after 'strike '
+
+    local targetsString = cmd:match(pattern)
+    if targetsString then
+        local targets = {}
+        for arg in targetsString:gmatch("([^,]+)") do -- Split by comma
+            local target = arg:match("^%s*(.-)%s*$")  -- Trim spaces from each target
+            if target ~= "" then  -- Ensure no empty strings are added
+                table.insert(targets, target)
+            end
+        end
+
+        print("target list: " .. table.concat(targets, ", "))  -- Output for verification
+
+        -- Check if any valid targets were added
+        if #targets > 0 then
+            ship.setTable('StrikeTargets', targets)
+            print("Strike Targets set for " .. ship.getName() .. ": " .. table.concat(targets, ", "))
+        else
+            print("No valid targets specified for " .. ship.getName())
+        end
+    else
+        print("Invalid format or no targets specified.")
     end
 end
 
@@ -511,6 +545,79 @@ AIModule.HasTargetLockOnShip = function(locking_ship, locked_ship)
     return false
 end
 
+AIModule.IsStrikeTarget = function(ship, target_ship)
+    if (ship == nil or target_ship == nil) then
+        return false;
+    end
+
+    -- Only Strike AI ships have Strike Targets defined
+    local strikeTargets = ship.getTable('StrikeTargets') or {}
+
+    local targetName = target_ship.getName()
+    local targetGUID = target_ship.getGUID()
+
+    -- Check if the target is in the list of strike targets by name or GUID
+    for _, nameOrGUID in ipairs(strikeTargets) do
+        if nameOrGUID == targetName or nameOrGUID == targetGUID then
+            return true  -- Found the designated strike target
+        end
+    end
+
+    return false  -- No match found
+end
+
+-- This function checks if a target lock action should be skipped based on Strike AI
+AIModule.SkipTargetLock = function(locking_ship, target_ship)
+    -- Only Strike AI ships have Strike Targets defined
+    local isStrikeAI = next(locking_ship.getTable('StrikeTargets') or {}) ~= nil
+
+    -- Check whether the target is in the ship's list of designated strike targets
+    local isStrikeAITarget = AIModule.IsStrikeTarget(locking_ship, target_ship)
+
+    -- Skip target lock as it's not a designated strike target
+    return isStrikeAI and not isStrikeAITarget
+end
+
+AIModule.TargetForStrikeAI = function(ship)
+    local isStrikeAI = next(ship.getTable('StrikeTargets') or {}) ~= nil
+    if not isStrikeAI then  -- only Strike AI ships run this targeting logic
+        print("This is not a Strike AI Ship. Abort special targeting.")
+        return nil
+    end
+    print("This is a Strike AI Ship. Using Strike targeting.")
+
+    local strikeTargetNames = ship.getTable('StrikeTargets') or {}
+
+    if #strikeTargetNames == 0 then
+        print("No Strike targets defined for " .. ship.getName())
+        return nil
+    end
+
+    -- Get potential_targets as a table with: distance, arc, and ship.
+    local potential_targets = ArcCheck.GetTargetsInRelationToArc(ship, "all", nil, 9, false)
+
+    -- Extract from potential targets only those listed as Strike Targets
+    local strike_targets = {}
+    for _, target in ipairs(potential_targets) do
+        if (AIModule.IsStrikeTarget(ship, target.ship)) then
+            -- Give preference to an already locked target
+            if (AIModule.HasTargetLockOnShip(ship, target.ship)) then
+                return target.ship
+            end
+            table.insert(strike_targets, target)
+        end
+    end
+
+    -- Sort the Strike Targets by distance to the Strike AI ship
+    table.sort(strike_targets, AIModule.SortTargetsByAIDesirability)
+
+    -- Return the closest Strike Target, if any
+    if #strike_targets > 0 then
+        return strike_targets[1].ship
+    end
+    return nil
+end
+
 
 --[[ AI maneuver selection
 
@@ -558,11 +665,13 @@ AIModule.PerformManeuver = function(ship, take_action)
         local move_code = nil
 
         -- Find this ship's target.
-        local target_ship = nil
-        for _, target_selection_function in ipairs(ship_behaviour.target_selection) do
-            target_ship = AIModule.TargetSelectionFunctions[target_selection_function](ship)
-            if target_ship ~= nil then
-                break
+        local target_ship = AIModule.TargetForStrikeAI(ship)
+        if (target_ship == nil) then
+            for _, target_selection_function in ipairs(ship_behaviour.target_selection) do
+                target_ship = AIModule.TargetSelectionFunctions[target_selection_function](ship)
+                if target_ship ~= nil then
+                    break
+                end
             end
         end
         AIModule.current_move.target = target_ship
@@ -1292,6 +1401,7 @@ AIModule.AttemptAction = function(ship, target, action_definition)
                 local skip_action = false
                 if action == 'targetLock' then
                     skip_action = AIModule.HasTargetLockOnShip(ship, target)
+                                  or AIModule.SkipTargetLock(ship, target)
                 end
 
                 if skip_action == false then
@@ -6371,6 +6481,7 @@ function onSave()
     state.tokenData = {tokens={}}
     state.owningPlayer = self.getVar("owningPlayer")
     state.isAi = self.getVar("isAi")
+    state.strikeTargets = self.getTable('StrikeTargets')
     for guid, _ in pairs(assigned_tokens) do
         table.insert(state.tokenData.tokens, guid)
     end
@@ -6389,6 +6500,7 @@ function onLoad(savedData)
         self.setVar("finished_setup", state.finishedSetup)
         self.setVar("owningPlayer", state.owningPlayer)
         self.setVar("isAi", state.isAi)
+        self.setTable('StrikeTargets'), state.strikeTargets)
         initContextMenu()
         for _, guid in ipairs(state.tokenData.tokens) do
             Global.call('API_AssignToken',{token=getObjectFromGUID(guid), ship = self})
