@@ -1789,7 +1789,6 @@ end
 function selectSlotGeneric(slotIndex)
     self.clearButtons()
 
-
     if slot_buttons[slotIndex].upgrade then
       for i, upgrade in pairs(partList.Pilots[shipIndex].upgrades) do
         if upgrade.id == slot_buttons[slotIndex].upgrade.id then
@@ -1805,13 +1804,9 @@ function selectSlotGeneric(slotIndex)
     for i, upgrade in pairs(partList.Pilots[shipIndex].upgrades) do
       loadout_cost = loadout_cost + upgrade.cost
     end
-
     local loadout_remaining = loadout_value - loadout_cost
 
-
-
     slotId = slot_to_id[slot_buttons[slotIndex].slot_name]
-
     --slotId = partList.Upgrades[shipIndex][slotIndex].slot             -- Value tied for this function!
     currSlotInd = slotIndex
     local index = 1
@@ -1819,11 +1814,11 @@ function selectSlotGeneric(slotIndex)
     local column = 0
     self.createButton({click_function = 'selectUpNone', label = 'None (0)', function_owner = self, position = {-0.45,0.45,-0.2}, width = 1500, height = 220, font_size = 120,  scale = {0.25,0.25,0.25}})
     for id, up in pairs(masterUpgradesDB) do
-        local up_cost = 0
-        if  XWS_DATA.upgrades[up.XWS] then
-          up_cost = tonumber(XWS_DATA.upgrades[up.XWS].cost.value) or 0
-        end
         if up.slot == slotId then
+          local up_cost = up.cost or 0
+          if  XWS_DATA.upgrades[up.XWS] and XWS_DATA.upgrades[up.XWS].cost then
+            up_cost = tonumber(XWS_DATA.upgrades[up.XWS].cost.value) or up_cost
+          end
             local validUp=true
             if up_cost > loadout_remaining then
               validUp=false
@@ -1842,6 +1837,21 @@ function selectSlotGeneric(slotIndex)
                 if up.restriction.ship ~= nil then
                     if up.restriction.ship[masterPilotDB[partList.Pilots[shipIndex].id].ship_type] ~= true then
                         validUp=false
+                    end
+                end
+                if up.restriction.InitiativeGreaterThan ~= nil then
+                    if masterPilotDB[partList.Pilots[shipIndex].id].init <= up.restriction.InitiativeGreaterThan then
+                      validUp=false
+                    end
+                end
+                if up.restriction.IsLimited ~= nil then
+                    if up.restriction.IsLimited ~= ((masterPilotDB[partList.Pilots[shipIndex].id].limited or 0) > 0) then
+                      validUp=false
+                    end
+                end
+                if up.restriction.HasForce ~= nil then
+                    if up.restriction.HasForce ~= ((masterPilotDB[partList.Pilots[shipIndex].id].Force or 0) > 0) then
+                      validUp=false
                     end
                 end
                 if up.restriction.keywords ~= nil then
@@ -1894,7 +1904,6 @@ function selectSlotGeneric(slotIndex)
         end
 
     end
-
     self.createButton({click_function = 'backFromSelectUp', function_owner = self, label = 'Back', position = { 0.5,0.45,-0.35}, width = 1000, height = 320, font_size = 150,  scale = {0.25,0.25,0.25}})
 end
 

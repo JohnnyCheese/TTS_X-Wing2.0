@@ -3098,7 +3098,8 @@ masterUpgradesDB['dreadnoughthunter']={
     slot = 21,
     cost = 3,
     restriction = {
-        Size={small=true} -- TODO: Add initiative 4 or higher restriction
+        Size={small=true},
+        InitiativeGreaterThan=3
     }
 }
 
@@ -4789,5 +4790,99 @@ masterUpgradesDB['combatboardingtube']={
     },
     cost = 0,
 }
+
+-- The YASB epic pack Upgrades
+masterUpgradesDB['newrecruit']={
+    name = "New Recruit",
+    XWS = 'newrecruit',
+    limited = 3,
+    slot = 21,
+    cost = 0,
+    PointModifier = -1,
+}
+
+masterUpgradesDB['lockedturretspecialist']={
+    name = "Locked-Turret Specialist",
+    XWS = 'lockedturretspecialist',
+    slot = 21,
+    cost = 2,
+    Charge = 2,
+    addAction = {'B'},
+    restriction = {
+      -- action: rotate
+    },
+}
+
+masterUpgradesDB['heavyreinforcedvanguard']={
+    name = "Heavy Reinforced Vanguard",
+    XWS = 'heavyreinforcedvanguard',
+    slot = 21,
+    limited = 1,
+    cost = 0,
+    PointModifier = 1,
+    Hull = 2,
+}
+
+masterUpgradesDB['evasiveinterceptor']={
+    name = "Evasive Interceptor",
+    XWS = 'evasiveinterceptor',
+    slot = 21,
+    limited = 1,
+    cost = 8,
+    Hull = -1,
+    PointModifier = -1,
+    --Agility = 1,
+    restriction = {Size = {small=true}}
+}
+
+masterUpgradesDB['countermeasuresspecialist']={
+    name = "Countermeasures Specialist",
+    XWS = 'countermeasuresspecialist',
+    slot = 21,
+    limited = 1,
+    cost = 4,
+    Charge = 2,
+    --addAction = {'Jam'}
+    restriction = {Size = {small=true}}
+}
+
+masterUpgradesDB['combatveteran']={
+    name = "Combat Veteran",
+    XWS = 'combatveteran',
+    slot = 21,
+    limited = 1,
+    cost = 0,
+    PointModifier = 1,
+    restriction = {
+      HasForce=false,
+      IsLimited=true,
+      InitiativeGreaterThan=3
+    },
+    addSlot = {1, 14},
+}
+
+masterUpgradesDB['forceadeptpilot']={
+    name = "Force Adept Pilot",
+    XWS = 'forceadeptpilot',
+    slot = 21,
+    limited = 1,
+    cost = 0,
+    PointModifier = 1,
+    restriction = {
+      HasForce=true,
+    },
+    addSlot = {17},
+}
+
+masterUpgradesDB['adaptablepilot']={
+    name = "Adaptable Pilot",
+    XWS = 'adaptablepilot',
+    slot = 21,
+    limited = 2,
+    cost = 0,
+    PointModifier = 1,
+    LoadoutModifier = 10
+}
+
 
 return masterUpgradesDB
