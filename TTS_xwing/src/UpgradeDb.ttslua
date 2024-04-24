@@ -4872,6 +4872,53 @@ masterUpgradesDB['forceadeptpilot']={
       HasForce=true,
     },
     addSlot = {17},
+    executeOptions = function(moves)
+        return {
+            rtl1 = {[1]='rtl1', [2]='rtl1z'},
+            rtl2 = {[1]='rtl2', [2]='rtl2z'},
+            rtl3 = {[1]='rtl3', [2]='rtl3z'},
+            rtr1 = {[1]='rtr1', [2]='rtr1z'},
+            rtr2 = {[1]='rtr2', [2]='rtr2z'},
+            rtr3 = {[1]='rtr3', [2]='rtr3z'},
+
+            rbl1 = {[1]='rbl1', [2]='rbl1z'},
+            rbl2 = {[1]='rbl2', [2]='rbl2z'},
+            rbl3 = {[1]='rbl3', [2]='rbl3z'},
+            rbr1 = {[1]='rbr1', [2]='rbr1z'},
+            rbr2 = {[1]='rbr2', [2]='rbr2z'},
+            rbr3 = {[1]='rbr3', [2]='rbr3z'},
+
+            wtl1 = {[1]='wtl1', [2]='rtl1z'},
+            wtl2 = {[1]='wtl2', [2]='rtl2z'},
+            wtl3 = {[1]='wtl3', [2]='rtl3z'},
+            wtr1 = {[1]='wtr1', [2]='rtr1z'},
+            wtr2 = {[1]='wtr2', [2]='rtr2z'},
+            wtr3 = {[1]='wtr3', [2]='rtr3z'},
+
+            wbl1 = {[1]='wbl1', [2]='rbl1z'},
+            wbl2 = {[1]='wbl2', [2]='rbl2z'},
+            wbl3 = {[1]='wbl3', [2]='rbl3z'},
+            wbr1 = {[1]='wbr1', [2]='rbr1z'},
+            wbr2 = {[1]='wbr2', [2]='rbr2z'},
+            wbr3 = {[1]='wbr3', [2]='rbr3z'},
+
+            btl1 = {[1]='btl1', [2]='rtl1z'},
+            btl2 = {[1]='btl2', [2]='rtl2z'},
+            btl3 = {[1]='btl3', [2]='rtl3z'},
+            btr1 = {[1]='btr1', [2]='rtr1z'},
+            btr2 = {[1]='btr2', [2]='rtr2z'},
+            btr3 = {[1]='btr3', [2]='rtr3z'},
+
+            bbl1 = {[1]='bbl1', [2]='rbl1z'},
+            bbl2 = {[1]='bbl2', [2]='rbl2z'},
+            bbl3 = {[1]='bbl3', [2]='rbl3z'},
+            bbr1 = {[1]='bbr1', [2]='rbr1z'},
+            bbr2 = {[1]='bbr2', [2]='rbr2z'},
+            bbr3 = {[1]='bbr3', [2]='rbr3z'},
+
+
+        }
+    end,
 }
 
 masterUpgradesDB['adaptablepilot']={
