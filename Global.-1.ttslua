@@ -13,7 +13,7 @@
 
 -- Should the code execute print functions or skip them?
 -- This should be set to false on every release
-print_debug = false
+print_debug = true
 cast_debug = false
 
 TTS_print = print
@@ -34,7 +34,7 @@ function getSelectingPlayers(obj)
 end
 
 -- Vector manipulation
-#include !/TTS_lib/Vector/Vector
+local Vect = require("TTS_Lib.Vector.Vector")
 
 -- Standard libraries extentions
 #include !/TTS_lib/Util/Util
@@ -43,7 +43,7 @@ end
 #include !/TTS_lib/EventSub/EventSub
 
 -- Object type abstraction
-#include !/TTS_lib/ObjType/ObjType
+local ObjType = require("TTS_Lib.ObjType.ObjType")
 
 
 -- Save/load management

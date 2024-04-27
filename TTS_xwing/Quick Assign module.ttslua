@@ -5,11 +5,11 @@
 
 -- TODO Use zone.getValue/setValue
 
-#include !/TTS_lib/Vector/Vector
+local Vect = require("TTS_Lib.Vector.Vector")
 
 #include !/TTS_lib/Util/Util
 
-#include !/TTS_lib/ObjType/ObjType
+local ObjType = require("TTS_Lib.ObjType.ObjType")
 
 
 ObjType.AddType('ship', function(obj)

@@ -1,7 +1,6 @@
 #include !/TTS_lib/Util/Util
-#include !/TTS_lib/Vector/Vector
-
-#include !/TTS_lib/ObjType/ObjType
+local Vect = require("TTS_Lib.Vector.Vector")
+local ObjType = require("TTS_Lib.ObjType.ObjType")
 
 ObjType.AddType('dialBag', function(obj) return (obj.tag == 'Infinite') end)
 
