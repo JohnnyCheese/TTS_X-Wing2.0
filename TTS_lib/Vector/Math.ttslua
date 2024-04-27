@@ -1,0 +1,20 @@
+-- Round to decPlaces decimal places
+-- if decPlaces nil round to nearest integer
+if not math.round then
+    math.round = function(arg, decPlaces)
+        if decPlaces == nil then decPlaces = 0 end
+        if decPlaces == 0 then
+            local frac = arg - math.floor(arg)
+            if frac >= 0.5 then
+                return math.ceil(arg)
+            else
+                return math.floor(arg)
+            end
+        else
+            local mult = 10^(decPlaces or 0)
+            return math.floor(arg * mult + 0.5) / mult
+        end
+    end
+end
+
+return math

@@ -8,9 +8,7 @@
 
 if not package.loaded['ObjType'] then
 
-    if not package.loaded['Vector'] then
-        error('ObjType package: depends on Vector package (not loaded)')
-    end
+    local Vect = require('TTS_Lib.Vector.Vector')
     if not package.loaded['Util'] then
         error('ObjType package: depends on Util package (not loaded)')
     end
