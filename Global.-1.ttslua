@@ -40,7 +40,7 @@ local Vect = require("TTS_Lib.Vector.Vector")
 #include !/TTS_lib/Util/Util
 
 -- Standard event handling
-#include !/TTS_lib/EventSub/EventSub
+local EventSub = require("TTS_Lib.EventSub.EventSub")
 
 -- Object type abstraction
 local ObjType = require("TTS_Lib.ObjType.ObjType")

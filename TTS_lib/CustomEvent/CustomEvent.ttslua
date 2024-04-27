@@ -5,10 +5,7 @@ end
 if not package.loaded['CustomEvent'] then
 
     -- Require EventSub so we can hook into onLoad
-    if not package.loaded['EventSub'] then
-        error('CustomEvent package: depends on EventSub package (not loaded)')
-    end
-    local ES = package.loaded['EventSub']
+    local ES = require("TTS_Lib.EventSub.EventSub")
 
     CustomEvent = {}
     package.loaded['CustomEvent'] = CustomEvent
