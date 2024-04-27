@@ -47,7 +47,7 @@ local ObjType = require("TTS_Lib.ObjType.ObjType")
 
 
 -- Save/load management
-#include !/TTS_lib/SaveManager/SaveManager
+local SaveManager = require("TTS_Lib.SaveManager.SaveManager")
 
 -- Component sizes, unit conversion methods
 #include !/TTS_xwing/src/Dimensions
