@@ -33,18 +33,19 @@ function getSelectingPlayers(obj)
   return selectingPlayers
 end
 
+-- Standard libraries extentions
+math = require("TTS_Lib.Util.Math")
+table = require("TTS_Lib.Util.Table")
+string = require("TTS_Lib.Util.String")
+
 -- Vector manipulation
 local Vect = require("TTS_Lib.Vector.Vector")
-
--- Standard libraries extentions
-#include !/TTS_lib/Util/Util
 
 -- Standard event handling
 local EventSub = require("TTS_Lib.EventSub.EventSub")
 
 -- Object type abstraction
 local ObjType = require("TTS_Lib.ObjType.ObjType")
-
 
 -- Save/load management
 local SaveManager = require("TTS_Lib.SaveManager.SaveManager")
@@ -72,7 +73,7 @@ ArcCheck.Initialize()
 #include !/TTS_xwing/src/ContextGui
 
 -- ConfigManager
-#include !/TTS_xwing/src/ConfigManager
+ConfigManager = require("TTS_xwing/src/ConfigManager")
 
 HotkeyModule = require("TTS_xwing/src/HotkeyManager")
 PlayerEventModule = require("TTS_xwing/src/PlayerActionModule")

@@ -1,5 +1,8 @@
 -- Standard libraries extentions
-#include !/TTS_lib/Util/Util
+math = require('TTS_Lib.Util.Math')
+table = require('TTS_Lib.Util.Table')
+string = require('TTS_Lib.Util.String')
+
 #include !/TTS_xwing/src/ShipCustomizer
 
 __XW_Ship = true

@@ -5,13 +5,13 @@
 -- X-Wing configuration manager module,
 -- Stores global table configurations, and per-player configurations
 -- ~~~~~~
-
-ConfigManager = {}
-ConfigManager.PlayerConfigs = {}
-ConfigManager.SetCallbacks = {}
-ConfigManager.DefaultValues = {
-    TargetLockColorMode = "ShipColorId",
-    TargetLockDisplayName = "true"
+ConfigManager = {
+    PlayerConfigs = {},
+    SetCallbacks = {},
+    DefaultValues = {
+        TargetLockColorMode = "ShipColorId",
+        TargetLockDisplayName = "true"
+    }
 }
 
 ConfigManager.GetPlayerName = function(player_color)
@@ -38,3 +38,5 @@ ConfigManager.SetConfig = function(player_color, param_name, value)
         end
     end
 end
+
+return ConfigManager
