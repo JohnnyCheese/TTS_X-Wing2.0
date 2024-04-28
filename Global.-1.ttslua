@@ -57,7 +57,8 @@ local SaveManager = require("TTS_Lib.SaveManager.SaveManager")
 local BehaviourDB = require("TTS_xwing/src/BehaviourDB")
 
 -- Dice control and dice_statistics
-#include !/TTS_xwing/src/DiceControl
+local DiceControlModule = require("TTS_xwing/src/DiceControl")
+
 
 -- Arc checks
 #include !/TTS_xwing/src/ArcCheck
