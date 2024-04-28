@@ -13,7 +13,7 @@
 
 -- Should the code execute print functions or skip them?
 -- This should be set to false on every release
-print_debug = true
+print_debug = false
 cast_debug = false
 
 TTS_print = print
@@ -85,7 +85,7 @@ StreamManagerModule = require("TTS_xwing/src/StreamManager")
 --StreamManagerModule.AddPresentation("Purple", "left")
 --StreamManagerModule.AddPresentation("Blue", "right")
 
-#include !/TTS_xwing/src/GlobalGuiControl
+local GlobalGuiControl = require("TTS_xwing/src/GlobalGuiControl")
 
 -- Modules API, must be loaded last
 #include !/TTS_xwing/src/API
