@@ -54,14 +54,15 @@ local SaveManager = require("TTS_Lib.SaveManager.SaveManager")
 #include !/TTS_xwing/src/Dimensions
 
 -- AI behaviour sets
-local BehaviourDB = require("TTS_xwing/src/BehaviourDB")
+local BehaviourDB = require("TTS_xwing.src.BehaviourDB")
 
 -- Dice control and dice_statistics
-local DiceControlModule = require("TTS_xwing/src/DiceControl")
+local DiceControlModule = require("TTS_xwing.src.DiceControl")
 
 
 -- Arc checks
 #include !/TTS_xwing/src/ArcCheck
+-- local ArcCheck = require("TTS_xwing.src.ArcCheck")
 ArcCheck.Initialize()
 
 -- Ship proxy
@@ -74,18 +75,18 @@ ArcCheck.Initialize()
 #include !/TTS_xwing/src/ContextGui
 
 -- ConfigManager
-ConfigManager = require("TTS_xwing/src/ConfigManager")
+ConfigManager = require("TTS_xwing.src.ConfigManager")
 
-HotkeyModule = require("TTS_xwing/src/HotkeyManager")
-PlayerEventModule = require("TTS_xwing/src/PlayerActionModule")
-DialManagerModule = require("TTS_xwing/src/DialManager")
-ShipProximityHider = require("TTS_xwing/src/ShipProximityHider")
-StreamManagerModule = require("TTS_xwing/src/StreamManager")
+HotkeyModule = require("TTS_xwing.src.HotkeyManager")
+PlayerEventModule = require("TTS_xwing.src.PlayerActionModule")
+DialManagerModule = require("TTS_xwing.src.DialManager")
+ShipProximityHider = require("TTS_xwing.src.ShipProximityHider")
+StreamManagerModule = require("TTS_xwing.src.StreamManager")
 --StreamManagerModule.SetUI(self)
 --StreamManagerModule.AddPresentation("Purple", "left")
 --StreamManagerModule.AddPresentation("Blue", "right")
 
-local GlobalGuiControl = require("TTS_xwing/src/GlobalGuiControl")
+local GlobalGuiControl = require("TTS_xwing.src.GlobalGuiControl")
 
 -- Modules API, must be loaded last
 #include !/TTS_xwing/src/API
