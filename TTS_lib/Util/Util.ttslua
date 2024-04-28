@@ -5,47 +5,11 @@
 -- Misc functions for extending Lua functionality
 -- Description and usage in README.md in this lib folder in repository
 -- ~~~~~~
+math = require('TTS_Lib.Util.Math')
 
 if not package.loaded['Util'] then
 
     package.loaded['Util'] = true
-
-    -- Return value limited by min and max bounds
-    math.clamp = function(var, min, max)
-        if min and var < min then
-            return min
-        elseif max and var > max then
-            return max
-        end
-        return var
-    end
-
-    -- Sign function, zero for zero
-    math.sgn = function(arg)
-        if arg < 0 then
-            return -1
-        elseif arg > 0 then
-            return 1
-        end
-        return 0
-    end
-
-    -- Round to decPlaces decimal places
-    -- if decPlaces nil round to nearest integer
-    math.round = function(arg, decPlaces)
-        if decPlaces == nil then decPlaces = 0 end
-        if decPlaces == 0 then
-            frac = arg - math.floor(arg)
-            if frac >= 0.5 then
-                return math.ceil(arg)
-            else
-                return math.floor(arg)
-            end
-        else
-            local mult = 10^(decPlaces or 0)
-            return math.floor(arg * mult + 0.5) / mult
-        end
-    end
 
     -- Check if table is empty
     table.empty = function(tab)

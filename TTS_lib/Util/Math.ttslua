@@ -17,4 +17,28 @@ if not math.round then
     end
 end
 
+-- Return value limited by min and max bounds
+if not math.clamp then
+    math.clamp = function(var, min, max)
+        if min and var < min then
+            return min
+        elseif max and var > max then
+            return max
+        end
+        return var
+    end
+end
+
+-- Sign function, zero for zero
+if not math.sgn then
+    math.sgn = function(arg)
+        if arg < 0 then
+            return -1
+        elseif arg > 0 then
+            return 1
+        end
+        return 0
+    end
+end
+
 return math
