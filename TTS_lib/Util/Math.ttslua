@@ -2,42 +2,26 @@
 -- if decPlaces nil round to nearest integer
 if not math.round then
     math.round = function(arg, decPlaces)
-        if decPlaces == nil then decPlaces = 0 end
+        decPlaces = decPlaces or 0
         if decPlaces == 0 then
-            local frac = arg - math.floor(arg)
-            if frac >= 0.5 then
-                return math.ceil(arg)
-            else
-                return math.floor(arg)
-            end
-        else
-            local mult = 10^(decPlaces or 0)
-            return math.floor(arg * mult + 0.5) / mult
+            return math.floor(arg + 0.5)
         end
+        local mult = 10^decPlaces
+        return math.floor(arg * mult + 0.5) / mult
     end
 end
 
 -- Return value limited by min and max bounds
 if not math.clamp then
     math.clamp = function(var, min, max)
-        if min and var < min then
-            return min
-        elseif max and var > max then
-            return max
-        end
-        return var
+        return (var < min and min) or (var > max and max) or var
     end
 end
 
 -- Sign function, zero for zero
 if not math.sgn then
     math.sgn = function(arg)
-        if arg < 0 then
-            return -1
-        elseif arg > 0 then
-            return 1
-        end
-        return 0
+        return arg < 0 and -1 or arg > 0 and 1 or 0
     end
 end
 
