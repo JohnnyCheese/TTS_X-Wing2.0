@@ -54,7 +54,7 @@ local SaveManager = require("TTS_Lib.SaveManager.SaveManager")
 #include !/TTS_xwing/src/Dimensions
 
 -- AI behaviour sets
-#include !/TTS_xwing/src/BehaviourDB
+local BehaviourDB = require("TTS_xwing/src/BehaviourDB")
 
 -- Dice control and dice_statistics
 #include !/TTS_xwing/src/DiceControl

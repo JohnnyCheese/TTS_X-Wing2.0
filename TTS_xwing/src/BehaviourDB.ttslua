@@ -6,7 +6,7 @@
 -- behaviours
 -- ~~~~~~
 
-BehaviourDB = {}
+local BehaviourDB = {}
 BehaviourDB.GetRuleSet = function()
     return BehaviourDB.rule_sets[1]
 end
@@ -6550,3 +6550,5 @@ BehaviourDB.rule_sets[1].ships['nantexclassstarfighter'].action_selection = {
         action = 'focus'
     },
 }
+
+return BehaviourDB
