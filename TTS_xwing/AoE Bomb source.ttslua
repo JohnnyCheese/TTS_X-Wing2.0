@@ -3,7 +3,9 @@
 --
 -- ~~~~~~
 
-#include !/TTS_xwing/src/Dimensions
+-- #include !/TTS_xwing/src/Dimensions
+local Dim = require("TTS_xwing.src.Dim")
+
 
 -- Call bomb drop stick
 function onDropped()
@@ -57,7 +59,7 @@ function ToggleRuler()
             other_pos = obj.getNearestPointFromObject(self)
             other_pos.y = my_pos.y
 
-            distance = Convert_igu_mm(math.sqrt(math.pow(my_pos.x - other_pos.x,2) + math.pow(my_pos.z - other_pos.z,2)))
+            distance = Dim.Convert_igu_mm(math.sqrt(math.pow(my_pos.x - other_pos.x,2) + math.pow(my_pos.z - other_pos.z,2)))
             if distance < 200 then
                 table.insert(vector_lines, {
                     points = {self.positionToLocal(my_pos), self.positionToLocal(other_pos)},
