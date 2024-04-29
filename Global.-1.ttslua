@@ -13,7 +13,7 @@
 
 -- Should the code execute print functions or skip them?
 -- This should be set to false on every release
-print_debug = false
+print_debug = true
 cast_debug = false
 
 TTS_print = print
@@ -69,10 +69,11 @@ ArcCheck.Initialize()
 #include !/TTS_xwing/src/ShipProxy
 
 -- Ship verification
-#include !/TTS_xwing/src/ShipVerification
+local ShipVerification = require("TTS_xwing.src.ShipVerification")
 
 -- ContextGui
 #include !/TTS_xwing/src/ContextGui
+-- ContextGui = require("TTS_xwing.src.ContextGui")
 
 -- ConfigManager
 ConfigManager = require("TTS_xwing.src.ConfigManager")
