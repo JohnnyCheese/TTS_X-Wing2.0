@@ -22,7 +22,7 @@ end
 #include !/TTS_xwing/src/Layouts/Standard
 #include !/TTS_xwing/src/Layouts/Epic
 #include !/TTS_xwing/src/Layouts/HotAC
-#include !/TTS_xwing/src/Layouts/Single
+-- #include !/TTS_xwing/src/Layouts/Single
 
 self.setPosition({0,3,0})
 
@@ -34,11 +34,11 @@ state = {
 }
 
 Layout.AddTempObj = function(obj)
-    state.tempObj[obj.getGUID()] = true
+    state.tempObjs[obj.getGUID()] = true
 end
 
 Layout.ClearTempObjs = function()
-    for guid in pairs(state.tempObj) do
+    for guid in pairs(state.tempObjs) do
         local obj = getObjectFromGUID(guid)
         if obj then obj.destruct() end
     end
@@ -61,8 +61,8 @@ Layout.extIndex = 1
 Layout.required = {}
 function onObjectDestroyed(obj)
     if state.active and Layout.required[obj] then
-        broadcastToAll('An object that was part of layout system was destroyed, disabling layouts', {1, 0.4, 0})
-        --broadcastToAll('You\'re breaking the game, please don\'t', {1, 0.4, 0})
+        --broadcastToAll('An object that was part of layout system was destroyed, disabling layouts', {1, 0.4, 0})
+        broadcastToAll('You\'re breaking the game, please don\'t', {1, 0.4, 0})
         state.active = false
     end
     if state.dialZones[obj.getGUID()] then
@@ -86,7 +86,7 @@ Layout.GetTableRef = function()
         debug = false
     })
     for k, hitData in pairs(hits) do
-        if hitData.hit_object.tag == 'Surface' then
+        if hitData.hit_object.type== 'Surface' then
             return hitData.hit_object
         end
     end
@@ -145,8 +145,9 @@ Layout.Switch = function(newIndex)
         broadcastToAll('Layout system disabled', {1, 0.2, 0})
         return
     end
+    --table.print(Layout.layouts)
     local lay = Layout.layouts[newIndex]
-    print('Switch to ' .. lay.name)
+    --print('Switch to ' .. lay.name)
     local tabRef = Layout.GetTableRef()
     local cust = tabRef.getCustomObject()
     cust.image = lay.tableImage
@@ -217,7 +218,7 @@ end
 
 function onLoad(saveState)
     local load = JSON.decode(saveState)
-    state.active = true --load.active
+    state.active = load.active or state.active
     state.index = load.index
     Layout.FillElements()
     Layout.CreateControls(load.index)
@@ -227,13 +228,13 @@ function onLoad(saveState)
     self.tooltip = false
     self.lock()
 
-    for _, layoutElements in pairs(getObjectsWithTag('TempLayoutElement')) do
+    for _, layoutElement in pairs(getObjectsWithTag('TempLayoutElement')) do
       destroyObject(layoutElement)
     end
 
-    addContextMenuItem("Double setup", function() Layout.Switch(1) end, false)
-    addContextMenuItem("Epic setup", function() Layout.Switch(2) end, false)
-    addContextMenuItem("HotAC setup", function() Layout.Switch(3) end, false)
+    --addContextMenuItem("Standard setup", function() Layout.Switch(1) end, false)
+    --addContextMenuItem("Epic setup", function() Layout.Switch(2) end, false)
+    --addContextMenuItem("HotAC setup", function() Layout.Switch(3) end, false)
 end
 
 function onSave()
