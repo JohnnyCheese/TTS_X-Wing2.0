@@ -53,7 +53,7 @@ local SaveManager = require("TTS_Lib.SaveManager.SaveManager")
 -- Component sizes, unit conversion methods
 local Dim = require("TTS_xwing.src.Dim")
 
--- There are in-object scripts that need global variables set.
+-- There are in-object scripts that need the Dim variables set Globally.
 local Kludge = require("TTS_Lib.Util.DirtyTricks")
 Kludge.exportGlobals(Dim);
 
@@ -63,24 +63,22 @@ local BehaviourDB = require("TTS_xwing.src.BehaviourDB")
 -- Dice control and dice_statistics
 local DiceControlModule = require("TTS_xwing.src.DiceControl")
 
-
 -- Arc checks
-#include !/TTS_xwing/src/ArcCheck
--- local ArcCheck = require("TTS_xwing.src.ArcCheck")
+local ArcCheck = require("TTS_xwing.src.ArcCheck")
 ArcCheck.Initialize()
+CheckArc = ArcCheck.CheckArc
 
 -- Ship proxy
-#include !/TTS_xwing/src/ShipProxy
+local ShipProxyModule = require("TTS_xwing.src.ShipProxy")
 
 -- Ship verification
 local ShipVerification = require("TTS_xwing.src.ShipVerification")
 
 -- ContextGui
-#include !/TTS_xwing/src/ContextGui
--- ContextGui = require("TTS_xwing.src.ContextGui")
+local ContextGui = require("TTS_xwing.src.ContextGui")
 
 -- ConfigManager
-ConfigManager = require("TTS_xwing.src.ConfigManager")
+local ConfigManager = require("TTS_xwing.src.ConfigManager")
 
 HotkeyModule = require("TTS_xwing.src.HotkeyManager")
 PlayerEventModule = require("TTS_xwing.src.PlayerActionModule")

@@ -3,7 +3,7 @@ math = require("TTS_Lib.Util.Math")
 table = require("TTS_Lib.Util.Table")
 string = require("TTS_Lib.Util.String")
 
-#include !/TTS_xwing/src/ShipCustomizer
+local customizer_script = require("TTS_xwing.src.ShipCustomizer")
 
 __XW_Ship = true
 interactable = false
@@ -531,7 +531,7 @@ function SpawnCustomizer()
   end
   customizer.setColorTint(tint)
   customizer.setTable("Configs", configs)
-  customizer.setLuaScript(customizer_scipt)
+  customizer.setLuaScript(customizer_script)
 end
 
 function SetInitiative(args)

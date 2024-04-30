@@ -5,6 +5,8 @@
 -- X-Wing configuration manager module,
 -- Stores global table configurations, and per-player configurations
 -- ~~~~~~
+local EventSub = require("TTS_Lib.EventSub.EventSub")
+
 ConfigManager = {
     PlayerConfigs = {},
     SetCallbacks = {},
