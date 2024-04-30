@@ -7,11 +7,6 @@
 -- ~~~~~~
 
 -- TODO: DELETE ME Please! Nothing is using this, but it must be required by the save file.
-if not package.loaded['Util'] then
-    package.loaded['Util'] = true
-
 math = require("TTS_Lib.Util.Math")
 table = require("TTS_Lib.Util.Table")
 string = require("TTS_Lib.Util.String")
-
-end

@@ -51,7 +51,11 @@ local ObjType = require("TTS_Lib.ObjType.ObjType")
 local SaveManager = require("TTS_Lib.SaveManager.SaveManager")
 
 -- Component sizes, unit conversion methods
-#include !/TTS_xwing/src/Dimensions
+local Dim = require("TTS_xwing.src.Dim")
+
+-- There are in-object scripts that need global variables set.
+local Kludge = require("TTS_Lib.Util.DirtyTricks")
+Kludge.exportGlobals(Dim);
 
 -- AI behaviour sets
 local BehaviourDB = require("TTS_xwing.src.BehaviourDB")
@@ -702,7 +706,7 @@ AIModule.PerformManeuver = function(ship, take_action)
                 -- Move the bullseye position ahead because it's in the middle of
                 -- range ruler rather than one end. Could this be moved into the
                 -- GetBullseyeTargets function?
-                local bullseye_position = vector(ArcCheck.bullseye_data.pos[ship_size][1], ArcCheck.bullseye_data.pos[ship_size][2], ArcCheck.bullseye_data.pos[ship_size][3] + Convert_mm_igu(AIModule.max_distance / 2) - (ArcCheck.bullseye_data.size[3] / 2))
+                local bullseye_position = vector(ArcCheck.bullseye_data.pos[ship_size][1], ArcCheck.bullseye_data.pos[ship_size][2], ArcCheck.bullseye_data.pos[ship_size][3] + Dim.Convert_mm_igu(AIModule.max_distance / 2) - (ArcCheck.bullseye_data.size[3] / 2))
                 local bullseye_targets = ArcCheck.GetBullseyeTargets(ship, bullseye_position, AIModule.max_distance)
                 for i, bullseye_target in pairs(bullseye_targets) do
                     if bullseye_target == target_ship then
@@ -2126,7 +2130,7 @@ end
 
 -- Convert an entry from milimeters to in-game units
 MoveData.ConvertDataToIGU = function(entry)
-    return {Convert_mm_igu(entry[1]), Convert_mm_igu(entry[2]), Convert_mm_igu(entry[3]), entry[4]}
+    return {Dim.Convert_mm_igu(entry[1]), Dim.Convert_mm_igu(entry[2]), Dim.Convert_mm_igu(entry[3]), entry[4]}
 end
 
 -- Change an entry to a left-heading version
@@ -2734,7 +2738,7 @@ MoveModule.AddHistoryEntry = function(ship, entry)
 end
 
 -- How much position can be offset to be considered 'same'
-MoveModule.undoPosCutoff = Convert_mm_igu(1)
+MoveModule.undoPosCutoff = Dim.Convert_mm_igu(1)
 -- How much rotation can be offset to be considered 'same'
 MoveModule.undoRotCutoffDeg = 1
 
@@ -3024,40 +3028,40 @@ MoveModule.castData.small.base = {
     debug=cast_debug,
     direction = {0, -0.001, 0},
     type=3,
-    size={Convert_mm_igu(40), Convert_mm_igu(6), Convert_mm_igu(40)},
+    size={Dim.Convert_mm_igu(40), Dim.Convert_mm_igu(6), Dim.Convert_mm_igu(40)},
     -- + Origin
     -- + Orientation
 }
 MoveModule.castData.small.nubFR = {
     debug=cast_debug,
-    localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(20.858)},
+    localPos = {-1*Dim.Convert_mm_igu(11.38), Dim.Convert_mm_igu(-1.86), -1*Dim.Convert_mm_igu(20.858)},
     direction = {0, -0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
+    size={Dim.Convert_mm_igu(3.4), Dim.Convert_mm_igu(8), Dim.Convert_mm_igu(3.4)},
     -- + Origin
 }
 MoveModule.castData.small.nubFL = {
     debug=cast_debug,
-    localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(20.858)},
+    localPos = {Dim.Convert_mm_igu(11.38), Dim.Convert_mm_igu(-1.86), -1*Dim.Convert_mm_igu(20.858)},
     direction = {0, -0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
+    size={Dim.Convert_mm_igu(3.4), Dim.Convert_mm_igu(8), Dim.Convert_mm_igu(3.4)},
     -- + Origin
 }
 MoveModule.castData.small.nubBR = {
     debug=cast_debug,
-    localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(20.858)},
+    localPos = {-1*Dim.Convert_mm_igu(11.38), Dim.Convert_mm_igu(-1.86), Dim.Convert_mm_igu(20.858)},
     direction = {0, -0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
+    size={Dim.Convert_mm_igu(3.4), Dim.Convert_mm_igu(8), Dim.Convert_mm_igu(3.4)},
     -- + Origin
 }
 MoveModule.castData.small.nubBL = {
     debug=cast_debug,
-    localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(20.858)},
+    localPos = {Dim.Convert_mm_igu(11.38), Dim.Convert_mm_igu(-1.86), Dim.Convert_mm_igu(20.858)},
     direction = {0, -0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
+    size={Dim.Convert_mm_igu(3.4), Dim.Convert_mm_igu(8), Dim.Convert_mm_igu(3.4)},
     -- + Origin
 }
 
@@ -3066,40 +3070,40 @@ MoveModule.castData.medium.base = {
     debug=cast_debug,
     direction = {0, -0.001, 0},
     type=3,
-    size={Convert_mm_igu(60), Convert_mm_igu(6), Convert_mm_igu(60)},
+    size={Dim.Convert_mm_igu(60), Dim.Convert_mm_igu(6), Dim.Convert_mm_igu(60)},
     -- + Origin
     -- + Orientation
 }
 MoveModule.castData.medium.nubFR = {
     debug=cast_debug,
-    localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(30.858)},
+    localPos = {-1*Dim.Convert_mm_igu(11.38), Dim.Convert_mm_igu(-1.86), -1*Dim.Convert_mm_igu(30.858)},
     direction = {0, -0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
+    size={Dim.Convert_mm_igu(3.4), Dim.Convert_mm_igu(8), Dim.Convert_mm_igu(3.4)},
     -- + Origin
 }
 MoveModule.castData.medium.nubFL = {
     debug=cast_debug,
-    localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(30.858)},
+    localPos = {Dim.Convert_mm_igu(11.38), Dim.Convert_mm_igu(-1.86), -1*Dim.Convert_mm_igu(30.858)},
     direction = {0, -0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
+    size={Dim.Convert_mm_igu(3.4), Dim.Convert_mm_igu(8), Dim.Convert_mm_igu(3.4)},
     -- + Origin
 }
 MoveModule.castData.medium.nubBR = {
     debug=cast_debug,
-    localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(30.858)},
+    localPos = {-1*Dim.Convert_mm_igu(11.38), Dim.Convert_mm_igu(-1.86), Dim.Convert_mm_igu(30.858)},
     direction = {0, -0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
+    size={Dim.Convert_mm_igu(3.4), Dim.Convert_mm_igu(8), Dim.Convert_mm_igu(3.4)},
     -- + Origin
 }
 MoveModule.castData.medium.nubBL = {
     debug=cast_debug,
-    localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(30.858)},
+    localPos = {Dim.Convert_mm_igu(11.38), Dim.Convert_mm_igu(-1.86), Dim.Convert_mm_igu(30.858)},
     direction = {0, -0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
+    size={Dim.Convert_mm_igu(3.4), Dim.Convert_mm_igu(8), Dim.Convert_mm_igu(3.4)},
     -- + Origin
 }
 
@@ -3109,40 +3113,40 @@ MoveModule.castData.large.base = {
     debug=cast_debug,
     direction = {0, -0.001, 0},
     type=3,
-    size={Convert_mm_igu(80), Convert_mm_igu(6), Convert_mm_igu(80)},
+    size={Dim.Convert_mm_igu(80), Dim.Convert_mm_igu(6), Dim.Convert_mm_igu(80)},
     -- + Origin
     -- + Orientation
 }
 MoveModule.castData.large.nubFR = {
     debug=cast_debug,
-    localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(40.858)},
+    localPos = {-1*Dim.Convert_mm_igu(11.38), Dim.Convert_mm_igu(-1.86), -1*Dim.Convert_mm_igu(40.858)},
     direction = {0, -0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
+    size={Dim.Convert_mm_igu(3.4), Dim.Convert_mm_igu(8), Dim.Convert_mm_igu(3.4)},
     -- + Origin
 }
 MoveModule.castData.large.nubFL = {
     debug=cast_debug,
-    localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(40.858)},
+    localPos = {Dim.Convert_mm_igu(11.38), Dim.Convert_mm_igu(-1.86), -1*Dim.Convert_mm_igu(40.858)},
     direction = {0, -0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
+    size={Dim.Convert_mm_igu(3.4), Dim.Convert_mm_igu(8), Dim.Convert_mm_igu(3.4)},
     -- + Origin
 }
 MoveModule.castData.large.nubBR = {
     debug=cast_debug,
-    localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(40.858)},
+    localPos = {-1*Dim.Convert_mm_igu(11.38), Dim.Convert_mm_igu(-1.86), Dim.Convert_mm_igu(40.858)},
     direction = {0, -0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
+    size={Dim.Convert_mm_igu(3.4), Dim.Convert_mm_igu(8), Dim.Convert_mm_igu(3.4)},
     -- + Origin
 }
 MoveModule.castData.large.nubBL = {
     debug=cast_debug,
-    localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(40.858)},
+    localPos = {Dim.Convert_mm_igu(11.38), Dim.Convert_mm_igu(-1.86), Dim.Convert_mm_igu(40.858)},
     direction = {0, -0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
+    size={Dim.Convert_mm_igu(3.4), Dim.Convert_mm_igu(8), Dim.Convert_mm_igu(3.4)},
     -- + Origin
 }
 
@@ -3151,40 +3155,40 @@ MoveModule.castData.huge.base = {
     debug=cast_debug,
     direction = {0, -0.001, 0},
     type=3,
-    size={Convert_mm_igu(80), Convert_mm_igu(6), Convert_mm_igu(221)},
+    size={Dim.Convert_mm_igu(80), Dim.Convert_mm_igu(6), Dim.Convert_mm_igu(221)},
     -- + Origin
     -- + Orientation
 }
 MoveModule.castData.huge.nubFR = {
     debug=cast_debug,
-    localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(111.858)},
+    localPos = {-1*Dim.Convert_mm_igu(11.38), Dim.Convert_mm_igu(-1.86), -1*Dim.Convert_mm_igu(111.858)},
     direction = {0, -0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
+    size={Dim.Convert_mm_igu(3.4), Dim.Convert_mm_igu(8), Dim.Convert_mm_igu(3.4)},
     -- + Origin
 }
 MoveModule.castData.huge.nubFL = {
     debug=cast_debug,
-    localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), -1*Convert_mm_igu(111.858)},
+    localPos = {Dim.Convert_mm_igu(11.38), Dim.Convert_mm_igu(-1.86), -1*Dim.Convert_mm_igu(111.858)},
     direction = {0, -0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
+    size={Dim.Convert_mm_igu(3.4), Dim.Convert_mm_igu(8), Dim.Convert_mm_igu(3.4)},
     -- + Origin
 }
 MoveModule.castData.huge.nubBR = {
     debug=cast_debug,
-    localPos = {-1*Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(111.858)},
+    localPos = {-1*Dim.Convert_mm_igu(11.38), Dim.Convert_mm_igu(-1.86), Dim.Convert_mm_igu(111.858)},
     direction = {0, -0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
+    size={Dim.Convert_mm_igu(3.4), Dim.Convert_mm_igu(8), Dim.Convert_mm_igu(3.4)},
     -- + Origin
 }
 MoveModule.castData.huge.nubBL = {
     debug=cast_debug,
-    localPos = {Convert_mm_igu(11.38), Convert_mm_igu(-1.86), Convert_mm_igu(111.858)},
+    localPos = {Dim.Convert_mm_igu(11.38), Dim.Convert_mm_igu(-1.86), Dim.Convert_mm_igu(111.858)},
     direction = {0, -0.001, 0},
     type=2,
-    size={Convert_mm_igu(3.4), Convert_mm_igu(8), Convert_mm_igu(3.4)},
+    size={Dim.Convert_mm_igu(3.4), Dim.Convert_mm_igu(8), Dim.Convert_mm_igu(3.4)},
     -- + Origin
 }
 
@@ -3320,11 +3324,11 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
     end
 
     if templateData.type == "straight" or templateData.type == "roll" or templateData.type == "deCloak" then
-        local offsetDistance = Convert_mm_igu(20)* tonumber(templateData.speed)
-        local size = {Convert_mm_igu(20), Convert_mm_igu(6), templateData.speed*Convert_mm_igu(40)}
+        local offsetDistance = Dim.Convert_mm_igu(20)* tonumber(templateData.speed)
+        local size = {Dim.Convert_mm_igu(20), Dim.Convert_mm_igu(6), templateData.speed*Dim.Convert_mm_igu(40)}
         if (templateData.type =="roll"  or templateData.type == "deCloak") and templateData.shipSize ~= "small" then
-            size = {Convert_mm_igu(40), Convert_mm_igu(6), Convert_mm_igu(20)}
-            offsetDistance = Convert_mm_igu(10)
+            size = {Dim.Convert_mm_igu(40), Dim.Convert_mm_igu(6), Dim.Convert_mm_igu(20)}
+            offsetDistance = Dim.Convert_mm_igu(10)
         end
         local offset = vector(offsetDistance * math.sin(math.rad(templateOrigin.rot.y)),
         0, offsetDistance * math.cos(math.rad(templateOrigin.rot.y)) )
@@ -3344,13 +3348,13 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
         local radius = 0
         local iterations = 0
         if templateData.speed == 1 then
-            radius = Convert_mm_igu(80)
+            radius = Dim.Convert_mm_igu(80)
             iterations = 10
         elseif templateData.speed == 2 then
-            radius = Convert_mm_igu(130)
+            radius = Dim.Convert_mm_igu(130)
             iterations = 15
         elseif templateData.speed == 3 then
-            radius = Convert_mm_igu(180)
+            radius = Dim.Convert_mm_igu(180)
             iterations = 20
         end
         local radianStep = math.pi /(4*iterations)
@@ -3374,7 +3378,7 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
                 orientation  = templateOrigin.rot + orientation_offset * dir_mod,
                 direction    = {0,-0.001,0},
                 type         = 3,
-                size         = {Convert_mm_igu(20), Convert_mm_igu(6), Convert_mm_igu(1)},
+                size         = {Dim.Convert_mm_igu(20), Dim.Convert_mm_igu(6), Dim.Convert_mm_igu(1)},
                 max_distance = 1,
                 debug        = cast_debug
             })
@@ -3384,11 +3388,11 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
     elseif templateData.type == "turn" then
         local radius = 0
         if templateData.speed == 1 then
-            radius = Convert_mm_igu(35)
+            radius = Dim.Convert_mm_igu(35)
         elseif templateData.speed == 2 then
-            radius = Convert_mm_igu(62)
+            radius = Dim.Convert_mm_igu(62)
         elseif templateData.speed == 3 then
-            radius = Convert_mm_igu(90)
+            radius = Dim.Convert_mm_igu(90)
         end
         local iterations = 10
         local radianStep = math.pi /(2*iterations)
@@ -3412,7 +3416,7 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
                 orientation  = templateOrigin.rot + orientation_offset * dir_mod,
                 direction    = {0,-0.001,0},
                 type         = 3,
-                size         = {Convert_mm_igu(20), Convert_mm_igu(6), Convert_mm_igu(1)},
+                size         = {Dim.Convert_mm_igu(20), Dim.Convert_mm_igu(6), Dim.Convert_mm_igu(1)},
                 max_distance = 1,
                 debug        = cast_debug
             })
@@ -3458,11 +3462,11 @@ MoveModule.GetTemplateOrigin = function(shipOrigin, shipOrientation, shipSize, t
         roty = roty - 180
     end
 
-    local distance = Convert_mm_igu(20)
+    local distance = Dim.Convert_mm_igu(20)
     if shipSize == "medium" then
-        distance = Convert_mm_igu(30)
+        distance = Dim.Convert_mm_igu(30)
     elseif shipSize == "large" then
-        distance = Convert_mm_igu(40)
+        distance = Dim.Convert_mm_igu(40)
     end
 
     local position = shipOrigin + vector(distance * math.sin(math.rad(roty)), 0 , distance*math.cos(math.rad(roty)))
@@ -3477,13 +3481,13 @@ MoveModule.CheckCollisions = function(ship, shipPosRot, collShipTable)
     local info = {coll=nil, minMargin=0, numCheck=0, numCast=0}
     local shipInfo = {pos=shipPosRot.pos, rot=shipPosRot.rot, ship=ship}
     local shipSize = ship.getTable("Data").Size or 'small'
-    local certShipReach = Convert_mm_igu(mm_baseSize[shipSize]/2)              -- distance at which other ships MUST bump it
-    local maxShipReach = Convert_mm_igu(mm_baseSize[shipSize]*math.sqrt(2)/2)  -- distance at which other ships CAN bump it
+    local certShipReach = Dim.Convert_mm_igu(Dim.mm_baseSize[shipSize]/2)              -- distance at which other ships MUST bump it
+    local maxShipReach = Dim.Convert_mm_igu(Dim.mm_baseSize[shipSize]*math.sqrt(2)/2)  -- distance at which other ships CAN bump it
 
     --for k, collShip in pairs(collShipTable) do
     --    local collShipSize = collShip.getTable("Data").Size or 'small'
-    --    local certBumpDist = certShipReach + Convert_mm_igu(mm_baseSize[collShipSize]/2)            -- distance at which these two particular ships ships MUST bump
-    --    local maxBumpDist = maxShipReach + Convert_mm_igu(mm_baseSize[collShipSize]*math.sqrt(2)/2) -- distance at which these two particular ships ships CAN bump
+    --    local certBumpDist = certShipReach + Dim.Convert_mm_igu(Dim.mm_baseSize[collShipSize]/2)            -- distance at which these two particular ships ships MUST bump
+    --    local maxBumpDist = maxShipReach + Dim.Convert_mm_igu(Dim.mm_baseSize[collShipSize]*math.sqrt(2)/2) -- distance at which these two particular ships ships CAN bump
 --
 --        local dist = Vect.Distance(shipPosRot.pos, collShip.getPosition())
 --        if dist < maxBumpDist then
@@ -3523,10 +3527,10 @@ MoveModule.MoveProbe = {}
 -- Return: {shipRef1, shipRef2, ... , shipRefN}
 MoveModule.MoveProbe.GetShipsNearPart = function(info, ship, partFun, partRange)
     local middlePart = (partRange.to - partRange.from)/2
-    local maxShipReach = Convert_mm_igu(mm_baseSize[info.size]*math.sqrt(2))/2
+    local maxShipReach = Dim.Convert_mm_igu(Dim.mm_baseSize[info.size]*math.sqrt(2))/2
     local moveReach = math.max( Vect.Distance(partFun(info.code, ship, middlePart).pos, partFun(info.code, ship, partRange.to).pos),
                                 Vect.Distance(partFun(info.code, ship, middlePart).pos, partFun(info.code, ship, partRange.from).pos) )
-    local collShipRange = moveReach + maxShipReach + Convert_mm_igu(mm_largeBase*math.sqrt(2))/2 + Convert_mm_igu(10)
+    local collShipRange = moveReach + maxShipReach + Dim.Convert_mm_igu(Dim.mm_largeBase*math.sqrt(2))/2 + Dim.Convert_mm_igu(10)
     return ObjType.GetNearOfType(partFun(info.code, ship, MoveData.partMax/2).pos, collShipRange, 'ship', {ship})
 end
 -- Get first free part for a partial-enabled move (going through parts as partRange specifies)
@@ -3542,7 +3546,7 @@ end
 --          }
 MoveModule.MoveProbe.GetFreePart = function(info, ship, partFun, partRange, moveLength)
     if moveLength == nil then moveLength = 0 end
-    moveLength = Convert_mm_igu(moveLength)
+    moveLength = Dim.Convert_mm_igu(moveLength)
     local out = {part = nil, info = nil, collObj = nil}
     local checkNum = {rough=0, fine=0}
 
@@ -3617,8 +3621,8 @@ end
 -- Args: SEE MoveModule.MoveProbe.TryFullMove
 -- Return: {shipRef1, shipRef2, ... , shipRefN}
 MoveModule.MoveProbe.GetShipsNearFull = function(info, ship, fullFun)
-    local maxShipReach = Convert_mm_igu(mm_baseSize[info.size]*math.sqrt(2))/2
-    local collShipRange = maxShipReach + Convert_mm_igu(mm_largeBase*math.sqrt(2))/2 + Convert_mm_igu(10)
+    local maxShipReach = Dim.Convert_mm_igu(Dim.mm_baseSize[info.size]*math.sqrt(2))/2
+    local collShipRange = maxShipReach + Dim.Convert_mm_igu(Dim.mm_largeBase*math.sqrt(2))/2 + Dim.Convert_mm_igu(10)
     return ObjType.GetNearOfType(fullFun(info.code, ship).pos, collShipRange, 'ship', {ship})
 end
 
@@ -3802,7 +3806,7 @@ MoveModule.MoveShip = function(ship, finData, saveName, finFunction, waitForToke
     if finData.type ~= 'stationary' then
         TokenModule.QueueShipTokensMove(ship)
         local baseSize = ship.getTable("Data").Size or 'small'
-        local shipReach = Convert_mm_igu(mm_baseSize[baseSize]+5)*(math.sqrt(2)/2)
+        local shipReach = Dim.Convert_mm_igu(Dim.mm_baseSize[baseSize]+5)*(math.sqrt(2)/2)
         TokenModule.ClearPosition(finData.finPos.pos, shipReach, ship)
     end
     local finPos = finData.finPos
@@ -4081,7 +4085,7 @@ end
 -- Returns {dist=distanceFromOwner, owner=ownerRef, margin=marginForNextCloseShip}
 MoveModule.GetTokenOwner = function(tokenPos)
     local out = {owner=nil, dist=0, margin=-1}
-    local nearShips = ObjType.GetNearOfType(tokenPos, Convert_mm_igu(120), 'ship')
+    local nearShips = ObjType.GetNearOfType(tokenPos, Dim.Convert_mm_igu(120), 'ship')
     if nearShips[1] == nil then return out end
     local baseDist = {}
     -- Take the base size into account for distances
@@ -4089,11 +4093,11 @@ MoveModule.GetTokenOwner = function(tokenPos)
         local realDist = Vect.Distance(tokenPos, ship.getPosition())
         local size = ship.getTable("Data").Size or 'small'
         if size == 'large' then
-            realDist = realDist - Convert_mm_igu(10)
+            realDist = realDist - Dim.Convert_mm_igu(10)
         elseif size == 'medium' then
-            realDist = realDist - Convert_mm_igu(5)
+            realDist = realDist - Dim.Convert_mm_igu(5)
         elseif size == 'huge' then
-            realDist = realDist - Convert_mm_igu(15) -- Todo, check if this arbetary number works
+            realDist = realDist - Dim.Convert_mm_igu(15) -- Todo, check if this arbetary number works
         end
         table.insert(baseDist, {ship=ship, dist=realDist})
     end
@@ -4187,10 +4191,10 @@ EventSub.Register('onObjectDropped', TokenModule.onObjectDropped)
 
 
 -- How far can tokens be to be considered owned bya  ship
-TokenModule.tokenReachDistance = Convert_mm_igu(100)
+TokenModule.tokenReachDistance = Dim.Convert_mm_igu(100)
 -- By how much this token has to be distant from other ship "interception zone" to be visible
 -- (how far from an owner-switching-border it has to be so you can see whose it is)
-TokenModule.visibleMargin = Convert_mm_igu(20)
+TokenModule.visibleMargin = Dim.Convert_mm_igu(20)
 
 -- Preset positions for tokens on and near the base
 -- Generally used only when their current position switches its owner after a move
@@ -4365,7 +4369,7 @@ TokenModule.TokenPos = function(tokenName, ship, posTable)
             entry = tEntry
         end
     end
-    local tsPos = {Convert_mm_igu(entry[1]), 0.5, Convert_mm_igu(entry[2])}
+    local tsPos = {Dim.Convert_mm_igu(entry[1]), 0.5, Dim.Convert_mm_igu(entry[2])}
     return Vect.Sum(ship.getPosition(), Vect.RotateDeg(tsPos, ship.getRotation()[2]+180))
 end
 
@@ -4554,9 +4558,9 @@ TokenModule.TokenOwnerInfo = function(tokenPos)
         local realDist = Vect.Distance(pos, ship.getPosition())
         local size = ship.getTable("Data").Size or 'small'
         if size == 'large' then
-          realDist = realDist - Convert_mm_igu(10)
+          realDist = realDist - Dim.Convert_mm_igu(10)
         elseif size == 'medium' then
-          realDist = realDist - Convert_mm_igu(5)
+          realDist = realDist - Dim.Convert_mm_igu(5)
         end
         table.insert(baseDist, {ship=ship, dist=realDist})
     end
@@ -4644,7 +4648,7 @@ end
 -- Tokens that have an owner will be moved near(er)/on it
 -- Stray tokens will be yanked away
 TokenModule.ClearPosition = function(pos, dist, ignoreShip)
-    local clearDist = dist + Convert_mm_igu(20)
+    local clearDist = dist + Dim.Convert_mm_igu(20)
     local posTokenInfo = TokenModule.GetNearTokensInfo(pos, clearDist)
     for k,tokenInfo in pairs(posTokenInfo) do
         if tokenInfo.token.getButtons() == nil then
@@ -5047,7 +5051,7 @@ DialModule.GetShortName = function(ship)
     if ambigNames:find(shipNameWords[1]) ~= nil and #shipNameWords > 1 then
         table.remove(shipNameWords, 1)
     end
-    -- Fucntion for checking if "short name"
+    -- Function for checking if "short name"
     local function sizeJustRight(str)
         if str == nil then
             return false
@@ -5489,12 +5493,12 @@ end
 
 -- Bomb type -> offset data
 BombModule.tokenOffset = {}
-BombModule.tokenOffset.standardAoE = {pos={0, Convert_mm_igu(-2), Convert_mm_igu(-4.5)}, rot={0, 90, 0}}
-BombModule.tokenOffset.prox = {pos={0, Convert_mm_igu(-2), Convert_mm_igu(15)}, rot={0, 90, 0}}
-BombModule.tokenOffset.cluster = {pos={0, Convert_mm_igu(-2), 0}, rot={0, 180, 0}}
-BombModule.tokenOffset.connor = {pos={0, Convert_mm_igu(-2), Convert_mm_igu(21)}, rot={0, 180, 0}}
-BombModule.tokenOffset.rgc = {pos={0, Convert_mm_igu(-1), Convert_mm_igu(9.5)}, rot={0, 0, 0}}
-BombModule.tokenOffset.chaff = {pos={Convert_mm_igu(-0.05), Convert_mm_igu(-1), Convert_mm_igu(12.5)}, rot={0, 90, 0}}
+BombModule.tokenOffset.standardAoE = {pos={0, Dim.Convert_mm_igu(-2), Dim.Convert_mm_igu(-4.5)}, rot={0, 90, 0}}
+BombModule.tokenOffset.prox = {pos={0, Dim.Convert_mm_igu(-2), Dim.Convert_mm_igu(15)}, rot={0, 90, 0}}
+BombModule.tokenOffset.cluster = {pos={0, Dim.Convert_mm_igu(-2), 0}, rot={0, 180, 0}}
+BombModule.tokenOffset.connor = {pos={0, Dim.Convert_mm_igu(-2), Dim.Convert_mm_igu(21)}, rot={0, 180, 0}}
+BombModule.tokenOffset.rgc = {pos={0, Dim.Convert_mm_igu(-1), Dim.Convert_mm_igu(9.5)}, rot={0, 0, 0}}
+BombModule.tokenOffset.chaff = {pos={Dim.Convert_mm_igu(-0.05), Dim.Convert_mm_igu(-1), Dim.Convert_mm_igu(12.5)}, rot={0, 90, 0}}
 
 -- Bomb name -> type data
 BombModule.snapTable = {}
@@ -5539,9 +5543,9 @@ BombModule.OnTokenDrop = function(token)
 
         local size = drop.ship.getTable("Data").Size or 'small'
         if size == 'large' then
-            destPos = Vect.Sum(destPos, Vect.RotateDeg({0, 0, Convert_mm_igu(-20)}, drop.dest.rot[2]))
+            destPos = Vect.Sum(destPos, Vect.RotateDeg({0, 0, Dim.Convert_mm_igu(-20)}, drop.dest.rot[2]))
         elseif size == 'medium' then
-            destPos = Vect.Sum(destPos, Vect.RotateDeg({0, 0, Convert_mm_igu(-10)}, drop.dest.rot[2]))
+            destPos = Vect.Sum(destPos, Vect.RotateDeg({0, 0, Dim.Convert_mm_igu(-10)}, drop.dest.rot[2]))
         end
         local destRot = Vect.Sum(drop.dest.rot, offset.rot)
         destPos[2] = drop.ship.getPosition()[2] + offset.pos[2]
@@ -5583,7 +5587,7 @@ BombModule.CheckMineDroppedOverlapping = function(token, ownship)
   Wait.condition(
     function()
       local ships = getObjectsWithTag('Ship')
-      local minDist = Convert_mm_igu(110)
+      local minDist = Dim.Convert_mm_igu(110)
       local minePos = mine.getPosition()
       for _,ship in pairs(ships) do
         if ship ~= ownship then
@@ -5605,10 +5609,11 @@ end
 
 clusterScript =  [[
 -- Convert argument from IN-GAME UNITS to MILIMETERS
-mm_igu_ratio = 0.03637
-function Convert_igu_mm(in_game_units)
-    return in_game_units/mm_igu_ratio
-end
+local Dim = require("TTS_xwing.src.Dim")
+Dim.mm_igu_ratio = 0.03637
+--function Convert_igu_mm(in_game_units)
+--    return in_game_units/Dim.mm_igu_ratio
+--end
 
 
 checkingRange = nil
@@ -5653,7 +5658,7 @@ function checkRange(range)
       for k,obj in pairs(getObjectsWithAnyTags({'Ship'})) do
           my_pos = self.getNearestPointFromObject(obj)
           closest = Global.call("API_GetClosestPointToShip", {ship=obj,point=my_pos})
-          distance = Convert_igu_mm(closest.length)
+          distance = Dim.Convert_igu_mm(closest.length)
           if distance < 100*range then
               printToAll(obj.getName() .. " is within range ".. range .. " of ".. self.getName(), color(1.0,1.0,0))
               table.insert(vector_lines, {
@@ -5687,7 +5692,7 @@ end
 
 -- Spawn side tokens for cluster mine
 BombModule.ExpandCluster = function(center)
-    local offset = {Convert_mm_igu(43.5), 0, Convert_mm_igu(-1.5)}
+    local offset = {Dim.Convert_mm_igu(43.5), 0, Dim.Convert_mm_igu(-1.5)}
     local tParams = {type='Custom_Token'}
     local tCustom = {image='{verifycache}http://i.imgur.com/MqlYZzR.png', thickness=0.1, merge_distance=5}
 
@@ -5717,7 +5722,7 @@ BombModule.ExpandCluster = function(center)
 end
 
 BombModule.SpawnBlaze = function(center)
-    local offset = {-Convert_mm_igu(53),0, 0}
+    local offset = {-Dim.Convert_mm_igu(53),0, 0}
     local tParams = {type='Custom_Model'}
     local tCustom = {
       mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/tokens/devices/proximity.obj',
@@ -5978,7 +5983,7 @@ function getCorners(shipInfo)
     local spos = shipInfo.pos
     local srot = shipInfo.rot[2]
     local baseSize = shipInfo.ship.getTable("Data").Size or 'small'
-    local size = Convert_mm_igu((mm_baseSize[baseSize]/2) + addidionalCollisionMargin_mm)
+    local size = Dim.Convert_mm_igu((Dim.mm_baseSize[baseSize]/2) + addidionalCollisionMargin_mm)
     local world_coords = {}
     world_coords[1] = {spos[1] - size, spos[3] + size}
     world_coords[2] = {spos[1] + size, spos[3] + size}
@@ -6789,7 +6794,7 @@ function newSpawner(listTable)
                       type              = "Custom_Model",
                       position          = idpos,
                       rotation          = idrot,
-                      scale             = mm_ship_scale,
+                      scale             = Dim.mm_ship_scale,
                       sound             = false,
                       snap_to_grid      = false,
                   })
@@ -6882,7 +6887,7 @@ function newSpawner(listTable)
           newShip = base_prototype.clone()
           newShip.setPositionSmooth(pos, false, true)
           newShip.setRotationSmooth(rot, false, true)
-          newShip.setScale(mm_ship_scale)
+          newShip.setScale(Dim.mm_ship_scale)
 
           newShip.setCustomObject(
           {
@@ -6935,7 +6940,7 @@ function newSpawner(listTable)
                 type              = "Custom_Model",
                 position          = shippos,
                 rotation          = shiprot,
-                scale             = mm_ship_scale,
+                scale             = Dim.mm_ship_scale,
                 sound             = false,
                 snap_to_grid      = false,
             })
@@ -6947,7 +6952,7 @@ function newSpawner(listTable)
                   type              = "Custom_Model",
                   position          = vector(shippos[1],shippos[2],shippos[3]) + shipoffset,
                   rotation          = shiprot,
-                  scale             = mm_ship_scale,
+                  scale             = Dim.mm_ship_scale,
                   sound             = false,
                   snap_to_grid      = false,
               })
@@ -6966,7 +6971,7 @@ function newSpawner(listTable)
                 type              = "Custom_Model",
                 position          = pos,
                 rotation          = rot,
-                scale             = mm_ship_scale,
+                scale             = Dim.mm_ship_scale,
                 sound             = false,
                 snap_to_grid      = false,
             })
@@ -7026,7 +7031,7 @@ function newSpawner(listTable)
                 type              = "Custom_Model",
                 position          = idpos,
                 rotation          = idrot,
-                scale             = mm_ship_scale*0.99,
+                scale             = Dim.mm_ship_scale*0.99,
                 sound             = false,
                 snap_to_grid      = false,
             })
@@ -7058,7 +7063,7 @@ function newSpawner(listTable)
                       type              = "Custom_Model",
                       position          = vector(idpos[1],idpos[2],idpos[3]) + shipoffset,
                       rotation          = idrot,
-                      scale             = mm_ship_scale,
+                      scale             = Dim.mm_ship_scale,
                       sound             = false,
                       snap_to_grid      = false,
                   })
@@ -7121,6 +7126,7 @@ end
             }
           }]]
           --[[
+          local Dim = require("TTS_xwing.src.Dim")
           for k, customization_part in pairs(Pilots[shipIndex].Data.customization_parts or {}) do
             if customization_part.model then
               local customObject = ship.getCustomObject()
@@ -7140,7 +7146,7 @@ end
                     type              = "Custom_Model",
                     position          = vector(idpos[1],idpos[2],idpos[3]) + shipoffset,
                     rotation          = idrot,
-                    scale             = mm_ship_scale*1.01,
+                    scale             = Dim.mm_ship_scale*1.01,
                     sound             = false,
                     snap_to_grid      = false,
                 })
