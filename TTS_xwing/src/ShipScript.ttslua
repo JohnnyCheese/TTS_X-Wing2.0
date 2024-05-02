@@ -555,6 +555,7 @@ function onSave()
     state.tokenData = {tokens={}}
     state.owningPlayer = self.getVar("owningPlayer")
     state.isAi = self.getVar("isAi")
+    state.strikeTargets = self.getTable("StrikeTargets")
     state.uiData = self.getTable("UiData")
     state.interactable = self.interactable
     for guid, _ in pairs(assigned_tokens) do
@@ -574,6 +575,7 @@ function onLoad(savedData)
         self.setVar("finished_setup", state.finishedSetup)
         self.setVar("owningPlayer", state.owningPlayer)
         self.setVar("isAi", state.isAi)
+        self.setTable("StrikeTargets", state.strikeTargets)
         self.interactable = state.interactable or false
         initContextMenu()
         for _, guid in ipairs(state.tokenData.tokens) do
