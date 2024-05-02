@@ -1,5 +1,7 @@
+local Vect = require("TTS_Lib.Vector.Vector")
+
+local standard = {}
 do
-    local standard = {}
     standard.name = 'Standard'
     standard.tableImage = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/table.jpg'
     standard.elements = {
@@ -193,5 +195,6 @@ do
         button.function_owner = self
     end
 
-    Layout.AddLayout(standard)
 end
+
+return standard

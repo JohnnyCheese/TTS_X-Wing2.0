@@ -7,22 +7,19 @@ local ObjType = require("TTS_Lib.ObjType.ObjType")
 
 ObjType.AddType('dialBag', function(obj) return (obj.tag == 'Infinite') end)
 
-Layout = {}
-
-#include !/TTS_xwing/src/Layouts/LayoutElements
-
-
-
+Layout = require("TTS_xwing.src.Layouts.LayoutElements")
 Layout.layouts = {}
 
 Layout.AddLayout = function(layoutTable)
     table.insert(Layout.layouts, layoutTable)
 end
 
-#include !/TTS_xwing/src/Layouts/Standard
-#include !/TTS_xwing/src/Layouts/Epic
-#include !/TTS_xwing/src/Layouts/HotAC
--- #include !/TTS_xwing/src/Layouts/Single
+local standard = require("TTS_xwing.src.Layouts.Standard")
+Layout.AddLayout(standard)
+local epic = require("TTS_xwing.src.Layouts.Epic")
+Layout.AddLayout(epic)
+local hotac = require("TTS_xwing.src.Layouts.HotAC")
+Layout.AddLayout(hotac)
 
 self.setPosition({0,3,0})
 

@@ -1,5 +1,7 @@
+local Vect = require("TTS_Lib.Vector.Vector")
+
+local epic = {}
 do
-    local epic = {}
     epic.name = 'Epic'
     epic.tableImage = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/tableEpic.jpg'
     epic.elements = {
@@ -139,5 +141,6 @@ do
         button.function_owner = self
     end
 
-    Layout.AddLayout(epic)
 end
+
+return epic
