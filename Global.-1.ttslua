@@ -34,9 +34,9 @@ function getSelectingPlayers(obj)
 end
 
 -- Standard libraries extentions
-math = require("TTS_Lib.Util.Math")
-table = require("TTS_Lib.Util.Table")
-string = require("TTS_Lib.Util.String")
+require("TTS_Lib.Util.Math")
+require("TTS_Lib.Util.Table")
+require("TTS_Lib.Util.String")
 
 -- Vector manipulation
 local Vect = require("TTS_Lib.Vector.Vector")
