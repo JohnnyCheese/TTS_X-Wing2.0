@@ -1,4 +1,4 @@
-table = require("TTS_Lib.Util.Table")
+require("TTS_Lib.Util.Table")
 
 local DirtyTricks = {}
 
@@ -16,6 +16,5 @@ function DirtyTricks.exportGlobals(moduleTable, prefix)
         end
     end
 end
-
 
 return DirtyTricks
