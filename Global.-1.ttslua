@@ -94,7 +94,9 @@ local MoveData = require("TTS_xwing.src.MoveData")
 local AnnModule = require("TTS_xwing.src.Announcements")
 
 -- Modules API, must be loaded last
-#include !/TTS_xwing/src/API
+--#include !/TTS_xwing/src/API
+local API = require("TTS_xwing.src.API")
+Kludge.exportGlobals(API)
 
 --------
 -- MISC FUNCTIONS
