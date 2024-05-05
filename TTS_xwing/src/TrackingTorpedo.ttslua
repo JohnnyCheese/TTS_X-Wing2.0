@@ -1,4 +1,5 @@
-#include !/TTS_xwing/src/Dimensions
+local Dim = require("TTS_xwing.src.Dim")
+
 dork = self
 
 assignedShip = nil
@@ -6,10 +7,10 @@ drop_offset = 0.2
 local spawnedRuler = nil
 
 sizeOffset = {
-  small = Convert_mm_igu(10.35),
-  medium = Convert_mm_igu(0.35),
-  large = Convert_mm_igu(-9.65),
-  huge = Convert_mm_igu(-81.0)
+  small = Dim.Convert_mm_igu(10.35),
+  medium = Dim.Convert_mm_igu(0.35),
+  large = Dim.Convert_mm_igu(-9.65),
+  huge = Dim.Convert_mm_igu(-81.0)
 }
 
 function update()
@@ -74,7 +75,7 @@ function ToggleRuler(range)
         if obj ~= nil and obj.tag == 'Figurine' and obj.getVar('__XW_Ship') == true then
             my_pos = self.getNearestPointFromObject(obj)
             closest = Global.call("API_GetClosestPointToShip", {ship=obj,point=my_pos})
-            distance = Convert_igu_mm(closest.length)
+            distance = Dim.Convert_igu_mm(closest.length)
             if distance < 100*range then
                 table.insert(vector_lines, {
                     points = {self.positionToLocal(closest.A)*self.getScale().x, self.positionToLocal(closest.B)*self.getScale().x},
@@ -114,7 +115,7 @@ function onDropped(color)
     if assignedShip == nil then
         local spos = self.getPosition()
         local nearest = nil
-        local minDist = Convert_mm_igu(120)
+        local minDist = Dim.Convert_mm_igu(120)
         for k,ship in pairs(getAllObjects()) do
             if ship.tag == 'Figurine' and ship.name ~= '' then
                 local pos = ship.getPosition()
@@ -131,7 +132,7 @@ function onDropped(color)
             assignedShip = nearest
             local size = assignedShip.getTable('Data').Size
 
-            local pos = LocalPos(assignedShip, vector(0,Convert_mm_igu(1),sizeOffset[size]))
+            local pos = LocalPos(assignedShip, vector(0,Dim.Convert_mm_igu(1),sizeOffset[size]))
             local rot = assignedShip.getRotation()
             dorkMove(pos,rot)
             prepareLaunch()

@@ -1,4 +1,5 @@
-#include !/TTS_xwing/src/Dimensions
+local Dim = require("TTS_xwing.src.Dim")
+
 checkingRange = nil
 selectedShip = nil
 
@@ -49,7 +50,7 @@ function checkRange(range)
       for k,obj in pairs(getObjectsWithAnyTags({'Ship'})) do
           my_pos = self.getNearestPointFromObject(obj)
           closest = Global.call("API_GetClosestPointToShip", {ship=obj,point=my_pos})
-          distance = Convert_igu_mm(closest.length)
+          distance = Dim.Convert_igu_mm(closest.length)
           if distance < 100*range then
               printToAll(obj.getName() .. " is within range ".. range .. " of ".. self.getName(), color(1.0,1.0,0))
               table.insert(vector_lines, {

@@ -1,5 +1,7 @@
+local Vect = require("TTS_Lib.Vector.Vector")
+
+local hotac = {}
 do
-    local hotac = {}
     hotac.name = 'HotAC'
     hotac.tableImage = 'https://raw.githubusercontent.com/reinaurre/TTS_X-Wing2.0/master/assets/HotAC/Table/table.jpg'
     hotac.elements = {
@@ -161,5 +163,6 @@ do
         button.function_owner = self
     end
 
-    Layout.AddLayout(hotac)
 end
+
+return hotac

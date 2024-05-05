@@ -1,6 +1,9 @@
 -- Standard libraries extentions
-#include !/TTS_lib/Util/Util
-#include !/TTS_xwing/src/ShipCustomizer
+require("TTS_Lib.Util.Math")
+require("TTS_Lib.Util.Table")
+require("TTS_Lib.Util.String")
+
+local customizer_script = require("TTS_xwing.src.ShipCustomizer")
 
 __XW_Ship = true
 interactable = false
@@ -528,7 +531,7 @@ function SpawnCustomizer()
   end
   customizer.setColorTint(tint)
   customizer.setTable("Configs", configs)
-  customizer.setLuaScript(customizer_scipt)
+  customizer.setLuaScript(customizer_script)
 end
 
 function SetInitiative(args)
@@ -552,6 +555,7 @@ function onSave()
     state.tokenData = {tokens={}}
     state.owningPlayer = self.getVar("owningPlayer")
     state.isAi = self.getVar("isAi")
+    state.strikeTargets = self.getTable("StrikeTargets")
     state.uiData = self.getTable("UiData")
     state.interactable = self.interactable
     for guid, _ in pairs(assigned_tokens) do
@@ -571,6 +575,7 @@ function onLoad(savedData)
         self.setVar("finished_setup", state.finishedSetup)
         self.setVar("owningPlayer", state.owningPlayer)
         self.setVar("isAi", state.isAi)
+        self.setTable("StrikeTargets", state.strikeTargets)
         self.interactable = state.interactable or false
         initContextMenu()
         for _, guid in ipairs(state.tokenData.tokens) do

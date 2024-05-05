@@ -5,8 +5,7 @@
 --
 -- X-Wing player action module
 -- Handles playe action events
--- ~~~~~~
-
+local DiceControlModule = require("TTS_xwing/src/DiceControl")
 local PlayerActionModule = {}
 
 function onPlayerAction(player, action, targets)

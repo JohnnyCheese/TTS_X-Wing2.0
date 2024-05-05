@@ -4,6 +4,9 @@
 --
 -- Module for handeling ship proxies, used in barrel rolls and more
 -- ~~~~~~
+local Dim = require("TTS_xwing.src.Dim")
+local EventSub = require("TTS_Lib.EventSub.EventSub")
+
 local ShipProxyInstance = {
     state        = nil,
     proxy_table  = {},
@@ -54,16 +57,16 @@ ShipProxyModule = {}
 ShipProxyModule.proxyTable = {}
 ShipProxyModule.hiddenShips = {}
 ShipProxyModule.finalPosOffset = {
-    small = vector(0, 0, Convert_mm_igu(10)),
-    medium = vector(0, 0, Convert_mm_igu(20)),
-    large = vector(0, 0, Convert_mm_igu(20))
+    small = vector(0, 0, Dim.Convert_mm_igu(10)),
+    medium = vector(0, 0, Dim.Convert_mm_igu(20)),
+    large = vector(0, 0, Dim.Convert_mm_igu(20))
 }
 
 ShipProxyModule.barrelRollOffset = {}
 ShipProxyModule.barrelRollOffset = {
-    small = vector(Convert_mm_igu(80), 0, 0),
-    medium = vector(Convert_mm_igu(80), 0, 0),
-    large = vector(Convert_mm_igu(100), 0, 0)
+    small = vector(Dim.Convert_mm_igu(80), 0, 0),
+    medium = vector(Dim.Convert_mm_igu(80), 0, 0),
+    large = vector(Dim.Convert_mm_igu(100), 0, 0)
 }
 
 ShipProxyModule.proxyXmlGui = {}
@@ -397,3 +400,5 @@ ShipProxyModule.onLoad = function()
 end
 
 EventSub.Register('onLoad', ShipProxyModule.onLoad)
+
+return ShipProxyInstance

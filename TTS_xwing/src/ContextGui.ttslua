@@ -4,6 +4,7 @@
 --
 -- Module for handeling object mouse over and contextial gui menus
 -- ~~~~~~
+local EventSub = require("TTS_Lib.EventSub.EventSub")
 
 ContextGui = {}
 
@@ -43,3 +44,5 @@ ContextGui.onObjectHover = function(player_color, hovered_object)
 end
 
 EventSub.Register('onObjectHover', ContextGui.onObjectHover)
+
+return ContextGui

@@ -1,6 +1,9 @@
 -- Scrip created by Eirik 'Flippster' Munthe for the Unified X-Wing 2.0 TTS Module
 -- Standard libraries extentions
-#include !/TTS_lib/Util/Util
+require("TTS_Lib.Util.Math")
+require("TTS_Lib.Util.Table")
+require("TTS_Lib.Util.String")
+
 
 max_rounds = 13
 max_offset = 9
