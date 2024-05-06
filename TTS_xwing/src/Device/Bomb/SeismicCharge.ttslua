@@ -1,11 +1,16 @@
+-- ~~~~~~
+-- Script by Eirik 'Flippster' Munthe
+--
+-- ~~~~~~
+local Dim = require("TTS_xwing.src.Dim")
+
+-- Call bomb drop stick
 function onDropped()
     Global.call('API_BombTokenDrop', { token = self })
 end
 
-local Dim = require("TTS_xwing.src.Dim")
-
-checkingRange = nil
 scale = 1 / self.getScale().x
+checkingRange = nil
 
 local removeButtonUp = {
     click_function = 'removeCheckRange',
@@ -41,9 +46,10 @@ end
 
 function checkRange(range)
     if range and checkingRange ~= range then
-        printToAll("Checking for ships within range " .. range .. " of " .. self.getName(), color(1.0, 1.0, 0))
+        printToAll("Checking for ships and obstacles within range " .. range .. " of " .. self.getName(),
+            color(1.0, 1.0, 0))
         vector_lines = {}
-        for k, obj in pairs(getObjectsWithAnyTags({ 'Ship' })) do
+        for _, obj in pairs(getObjectsWithAnyTags({ 'Ship' })) do
             my_pos = self.getNearestPointFromObject(obj)
             closest = Global.call("API_GetClosestPointToShip", { ship = obj, point = my_pos })
             distance = Dim.Convert_igu_mm(closest.length)
@@ -55,6 +61,23 @@ function checkRange(range)
                     thickness = 0.05 * scale,
                     rotation = vector(0, 0, 0)
                 })
+            end
+        end
+        for _, obj in pairs(getObjectsWithAnyTags({ 'Obstacle' })) do
+            if obj.getName() ~= "Board Edge" then
+                my_pos = self.getNearestPointFromObject(obj) + vector(0, 0.1, 0)
+                other_pos = obj.getNearestPointFromObject(self) + vector(0, 0.1, 0)
+                distance = Dim.Convert_igu_mm(math.sqrt((my_pos.x - other_pos.x) ^ 2 + (my_pos.z - other_pos.z) ^ 2))
+                if distance < 100 * range then
+                    printToAll(obj.getName() .. " is within range " .. range .. " of " .. self.getName(),
+                        color(1.0, 1.0, 0))
+                    table.insert(vector_lines, {
+                        points = { self.positionToLocal(my_pos), self.positionToLocal(other_pos) },
+                        color = { 1, 1, 1 },
+                        thickness = 0.05 * scale,
+                        rotation = vector(0, 0, 0)
+                    })
+                end
             end
         end
         self.clearButtons()

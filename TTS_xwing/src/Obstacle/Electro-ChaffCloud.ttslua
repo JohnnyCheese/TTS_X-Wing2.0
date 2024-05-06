@@ -1,17 +1,25 @@
-function onDropped()
-    Global.call('API_BombTokenDrop', { token = self })
-end
-
 local Dim = require("TTS_xwing.src.Dim")
 
 checkingRange = nil
+selectedShip = nil
+
+sizeFactor = {
+    small = 0,
+    medium = 0.37,
+    large = 0.74,
+}
+
 scale = 1 / self.getScale().x
+
+function onDropped()
+    Global.call('API_BombTokenDrop', { token = self })
+end
 
 local removeButtonUp = {
     click_function = 'removeCheckRange',
     label = 'Remove',
     function_owner = self,
-    position = { 0, 0.1 * scale, 0 },
+    position = { -1.8, 0.1 * scale, 0 },
     rotation = { 0, 90, 0 },
     width = 400 * scale,
     height = 300 * scale,
@@ -23,14 +31,13 @@ local removeButtonDown = {
     click_function = 'removeCheckRange',
     label = 'Remove',
     function_owner = self,
-    position = { 0, -0.1 * scale, 0 },
+    position = { -1.8, -0.1 * scale, 0 },
     rotation = { 180, 90, 0 },
     width = 400 * scale,
     height = 300 * scale,
     font_size = 100 * scale,
     color = { 0.7, 0.7, 0.7 }
 }
-
 function removeCheckRange()
     checkRange(nil)
 end
@@ -43,7 +50,7 @@ function checkRange(range)
     if range and checkingRange ~= range then
         printToAll("Checking for ships within range " .. range .. " of " .. self.getName(), color(1.0, 1.0, 0))
         vector_lines = {}
-        for k, obj in pairs(getObjectsWithAnyTags({ 'Ship' })) do
+        for _, obj in pairs(getObjectsWithAnyTags({ 'Ship' })) do
             my_pos = self.getNearestPointFromObject(obj)
             closest = Global.call("API_GetClosestPointToShip", { ship = obj, point = my_pos })
             distance = Dim.Convert_igu_mm(closest.length)
