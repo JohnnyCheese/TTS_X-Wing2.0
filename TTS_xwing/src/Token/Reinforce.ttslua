@@ -38,11 +38,10 @@ end
 
 -- Name self based on which side is faceup
 function onCollisionEnter()
-    -- commenting out since the name gets doubled.
     if clearDir(1) then
-        -- self.setName('Reinforce (aft)')
+        self.setName('Reinforce (aft)')
     end
     if clearDir(-1) then
-        -- self.setName('Reinforce (fore)')
+        self.setName('Reinforce (fore)')
     end
 end
