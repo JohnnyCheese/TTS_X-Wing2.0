@@ -1,0 +1,135 @@
+function onDropped()
+    Global.call('API_BombTokenDrop', {token=self})
+end
+
+----#include !/TTS_xwing/src/Dimensions
+-- ~~~~~~
+-- Script by dzikakulka
+-- Issues, history at: http://github.com/tjakubo2/TTS_xwing
+--
+-- X-Wing related measurements for TTS
+-- ~~~~~~
+
+-- adjusted length = 40mm = 1.4536igu
+-- 1mm = 0.03634igu
+mm_igu_ratio = 0.03637
+
+-- 40mm = 1.445igu
+-- (s1 length / small base size)
+
+-- 1mm = 0.036125igu
+--mm_igu_ratio = 0.036125
+
+-- Milimeter dimensions of ship bases
+mm_smallBase = 40
+mm_mediumBase = 60
+mm_largeBase = 80
+
+mm_baseSize = {}
+mm_baseSize.small = 40
+mm_baseSize.smallBase = 40
+mm_baseSize.medium = 60
+mm_baseSize.mediumBase = 60
+mm_baseSize.large = 80
+mm_baseSize.largeBase = 80
+mm_baseSize.huge = 80
+mm_baseSize.hugeBase = 80
+
+-- Milimeter dimensions for cards
+mm_upgrade_width = 41
+mm_upgrade_height = 63
+mm_pilot_width = 63.5
+mm_pilot_height = 88
+
+mm_ship_scale = vector(0.629, 0.629, 0.629)
+
+mm_cardSize = {}
+mm_cardSize.upgrade = {width = 41, height = 63}
+mm_cardSize.pilot = {width = 63.5, height = 88}
+
+-- Milimeter dimension for dial cards
+mm_dialSize = 54
+
+-- Convert argument from MILIMETERS to IN-GAME UNITS
+function Convert_mm_igu(milimeters)
+    return milimeters*mm_igu_ratio
+end
+
+-- Convert argument from IN-GAME UNITS to MILIMETERS
+function Convert_igu_mm(in_game_units)
+    return in_game_units/mm_igu_ratio
+end
+
+----#include !/TTS_xwing/src/Dimensions
+checkingRange = nil
+scale = 1/self.getScale().x
+
+local removeButtonUp = {
+    click_function = 'removeCheckRange',
+    label = 'Remove',
+    function_owner = self,
+    position = {0, 0.1*scale, 0},
+    rotation = {0, 90, 0},
+    width = 400*scale,
+    height = 300*scale,
+    font_size = 100*scale,
+    color = {0.7, 0.7, 0.7}
+}
+
+local removeButtonDown = {
+    click_function = 'removeCheckRange',
+    label = 'Remove',
+    function_owner = self,
+    position = {0, -0.1*scale, 0},
+    rotation = {180, 90, 0},
+    width = 400*scale,
+    height = 300*scale,
+    font_size = 100*scale,
+    color = {0.7, 0.7, 0.7}
+}
+
+function removeCheckRange()
+  checkRange(nil)
+end
+
+function onLoad(save_state)
+    self.addContextMenuItem("Check Range 1", function() checkRange(1) end, false)
+end
+
+function checkRange(range)
+    if range and checkingRange ~= range then
+      printToAll("Checking for ships within range ".. range .. " of " .. self.getName(), color(1.0,1.0,0))
+      vector_lines = {}
+      for k,obj in pairs(getObjectsWithAnyTags({'Ship'})) do
+          my_pos = self.getNearestPointFromObject(obj)
+          closest = Global.call("API_GetClosestPointToShip", {ship=obj,point=my_pos})
+          distance = Convert_igu_mm(closest.length)
+          if distance < 100*range then
+              printToAll(obj.getName() .. " is within range ".. range .. " of ".. self.getName(), color(1.0,1.0,0))
+              table.insert(vector_lines, {
+                  points = {self.positionToLocal(closest.A), self.positionToLocal(closest.B)},
+                  color = {1,1,1},
+                  thickness = 0.05*scale,
+                  rotation = vector(0,0,0)
+              })
+          end
+      end
+      self.clearButtons()
+      self.setVectorLines(vector_lines)
+      if #vector_lines > 0 then
+        checkingRange = range
+        if self.is_face_down then
+          self.createButton(removeButtonDown)
+        else
+          self.createButton(removeButtonUp)
+        end
+      else
+        checkingRange = nil
+        printToAll("No ships is within range ".. range .." of " .. self.getName(), color(1.0,1.0,0))
+      end
+    else
+      checkingRange = nil
+      self.clearButtons()
+      self.setVectorLines({})
+    end
+end
