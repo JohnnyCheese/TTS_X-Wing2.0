@@ -14,7 +14,7 @@ __XW_TokenType = 'reinforce'
 function clearDir(dir)
     local clear = true
     local rayHits = checkRay(dir)
-    for k,hitTable in pairs(rayHits) do
+    for k, hitTable in pairs(rayHits) do
         if not ignoreHit(hitTable.hit_object) then
             clear = false
             break
@@ -25,23 +25,24 @@ end
 
 -- Which cast hits should be ignored
 function ignoreHit(obj)
-    return ( (obj.tag == 'Figurine') or (obj.tag == 'Chip') or (obj == self) )
+    return ((obj.tag == 'Figurine') or (obj.tag == 'Chip') or (obj == self))
 end
 
 -- Check for hits in a direction
 function checkRay(dir)
-    local localDir = self.positionToWorld({0, dir, 0})
+    local localDir = self.positionToWorld({ 0, dir, 0 })
     local sPos = self.getPosition()
-    local rayDir = {localDir[1]-sPos[1], localDir[2]-sPos[2], localDir[3]-sPos[3]}
-    return Physics.cast({origin=self.getPosition(), direction=rayDir, type=1})
+    local rayDir = { localDir[1] - sPos[1], localDir[2] - sPos[2], localDir[3] - sPos[3] }
+    return Physics.cast({ origin = self.getPosition(), direction = rayDir, type = 1 })
 end
 
 -- Name self based on which side is faceup
 function onCollisionEnter()
+    -- commenting out since the name gets doubled.
     if clearDir(1) then
-        self.setName('Reinforce (aft)')
+        -- self.setName('Reinforce (aft)')
     end
     if clearDir(-1) then
-        self.setName('Reinforce (fore)')
+        -- self.setName('Reinforce (fore)')
     end
 end

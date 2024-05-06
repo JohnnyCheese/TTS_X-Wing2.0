@@ -46,6 +46,22 @@ function onLoad(save_state)
     end
 end
 
+
+function onFlip(args)
+  if set then
+    player = args.player
+    local target = Global.call("getShipTokenIsAssignedTo",{token=self})
+    if target then
+      printToAll("["..Color.fromString(player.color):toHex().."]" .. player.steam_name .. " spent " .. self.getName() .. "s target lock on "..  target.getName() .. "[-]")
+    else
+      printToAll("["..Color.fromString(player.color):toHex().."]" .. player.steam_name .. " spent ".. self.getName() .. "s target lock[-]")
+    end
+
+    self.destruct()
+  end
+end
+
+
 -- Set function for external calls
 function manualSet(arg)
     set = true

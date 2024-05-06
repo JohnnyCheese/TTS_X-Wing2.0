@@ -305,3 +305,10 @@ function performUndo()
         SpawnDecloakButtons()
     end
 end
+-- Start slide
+function callSlide(obj, playerColor)
+    local started = Global.call('API_StartSlide', {obj=obj, playerColor=playerColor})
+    if started then
+        undoToBackCount = undoToBackCount + 1
+    end
+end

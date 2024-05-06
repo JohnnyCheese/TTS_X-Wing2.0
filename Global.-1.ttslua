@@ -33,6 +33,8 @@ function getSelectingPlayers(obj)
   return selectingPlayers
 end
 
+require("vscode/console")
+
 -- Standard libraries extentions
 require("TTS_Lib.Util.Math")
 require("TTS_Lib.Util.Table")
@@ -545,7 +547,7 @@ end
 
 AIModule.HasTargetLockOnShip = function(locking_ship, locked_ship)
     local lock_tokens = locked_ship.call("GetTokens", {type="targetLock"})
-    for j, token in pairs(lock_tokens) do
+    for j, token in pairs(lock_tokens or {}) do
         if token.GetName() == locking_ship.GetName() then -- TODO: this really should be guid
             return true
         end
