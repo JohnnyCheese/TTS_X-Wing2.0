@@ -56,7 +56,7 @@ function checkRange(range)
     if range and checkingRange ~= range then
         printToAll("Checking for ships within range " .. range .. " of " .. self.getName(), color(1.0, 1.0, 0))
         vector_lines = {}
-        for k, obj in pairs(getObjectsWithAnyTags({ 'Ship' })) do
+        for _, obj in pairs(getObjectsWithAnyTags({ 'Ship' })) do
             my_pos = self.getNearestPointFromObject(obj)
             closest = Global.call("API_GetClosestPointToShip", { ship = obj, point = my_pos })
             distance = Dim.Convert_igu_mm(closest.length)
@@ -112,14 +112,13 @@ function onLoad(save_state)
     end, false)
 end
 
-
 -- Assign on drop near a small base ship
 function onDropped(color)
     if assignedShip == nil then
         local spos = self.getPosition()
         local nearest = nil
         local minDist = 2.89 -- 80mm
-        for k, ship in pairs(getAllObjects()) do
+        for _, ship in pairs(getAllObjects()) do
             if ship.tag == 'Figurine' and ship.name ~= '' then
                 local pos = ship.getPosition()
                 local dist = math.sqrt(math.pow((spos[1] - pos[1]), 2) + math.pow((spos[3] - pos[3]), 2))
@@ -257,7 +256,6 @@ function cancelDrop()
     dorkMove(initialP + vector(0, 0.5, 0), self.getRotation())
     assignedShip = nil
 end
-
 
 --[[
 Neutral
@@ -538,21 +536,21 @@ function RotMatrix(axis, angDeg)
 
     if axis == 'x' then
         return {
-            { 1, 0, 0 },
+            { 1, 0,       0 },
             { 0, cs(ang), -1 * sn(ang) },
             { 0, sn(ang), cs(ang) }
         }
     elseif axis == 'y' then
         return {
-            { cs(ang), 0, sn(ang) },
-            { 0, 1, 0 },
+            { cs(ang),      0, sn(ang) },
+            { 0,            1, 0 },
             { -1 * sn(ang), 0, cs(ang) }
         }
     elseif axis == 'z' then
         return {
             { cs(ang), -1 * sn(ang), 0 },
-            { sn(ang), cs(ang), 0 },
-            { 0, 0, 1 }
+            { sn(ang), cs(ang),      0 },
+            { 0,       0,            1 }
         }
     end
 end
