@@ -13,4 +13,5 @@ This directory contains the scripts for the following Tokens.
 * Strain
 * Stress
 * Target Lock (Lock)
+* Target Lock Bag
 * Tractor
