@@ -93,7 +93,7 @@ end
 
 function cloneItemFromBag(name, client_callback_function)
     local obstacleBag = getObjectFromGUID('203cb8')
-    if obstacleBag ~= nil then
+    if obstacleBag == nil then
         printToAll("Obstacles Bag has gone missing!", { 1, 0, 0 })
         return
     end
