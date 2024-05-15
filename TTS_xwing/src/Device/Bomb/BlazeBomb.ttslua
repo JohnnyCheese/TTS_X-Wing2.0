@@ -10,7 +10,7 @@ function onDropped()
     Global.call('API_BombTokenDrop', { token = self })
 end
 
-local spawnedRuler = nil
+local spawnedRuler
 function update()
     if self.getDescription() == 'r' then
         if ToggleRuler() then
@@ -53,7 +53,7 @@ function ToggleRuler()
     spawnedRuler.setCustomObject(custom)
     spawnedRuler.setColorTint(color(1, 1, 0, 0.2))
     vector_lines = {}
-    for k, obj in pairs(getAllObjects()) do
+    for _, obj in pairs(getAllObjects()) do
         if obj ~= nil and obj.type == 'Figurine' and obj.getVar('__XW_Ship') == true then
             my_pos = self.getNearestPointFromObject(obj)
 
@@ -98,8 +98,7 @@ function cloneItemFromBag(name, client_callback_function)
         return
     end
 
-    local itemGuid = nil
-
+    local itemGuid
     for _, item in ipairs(obstacleBag.getObjects()) do
         if item.name == name then
             itemGuid = item.guid

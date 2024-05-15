@@ -9,7 +9,7 @@ function onDropped()
     Global.call('API_BombTokenDrop', { token = self })
 end
 
-local spawnedRuler = nil
+local spawnedRuler
 function update()
     if self.getDescription() == 'r' then
         if ToggleRuler2() then
@@ -49,7 +49,8 @@ function ToggleRuler(range)
         scale = self.getScale()
     }
     local custom = {
-        mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/new/bomb_range_' .. tostring(range) .. '.obj',
+        mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/new/bomb_range_'
+            .. tostring(range) .. '.obj',
         collider = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/minicollider.obj'
     }
     local removeButton = {
