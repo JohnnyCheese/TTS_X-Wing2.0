@@ -1,28 +1,27 @@
+local AttachTemplateButton = { ['function_owner'] = self, ['click_function'] = 'AttachTemplate', ['label'] = 'Attach',
+    ['position'] = { 0.0, 0.3, 0.3 }, ['rotation'] = { 0, 0, 0 }, ['width'] = 200, ['height'] = 80, ['font_size'] = 50 }
+self.createButton(AttachTemplateButton)
 
-
-	local AttatchTemplateButton = {['function_owner'] = self, ['click_function'] = 'AttatchTemplate', ['label'] = 'Attatch', ['position'] = {0.0, 0.3, 0.3}, ['rotation'] =  {0, 0, 0}, ['width'] = 200, ['height'] = 80, ['font_size'] = 50}
-    self.createButton(AttatchTemplateButton)
-	
-function AttatchTemplate()
-	local spos = self.getPosition()
-        local nearest = nil
-        local minDist = 2.89 -- 80mm
-        for k,ship in pairs(getAllObjects()) do
-            if ship.tag == 'Figurine' and ship.name ~= '' then
-                local pos = ship.getPosition()
-                local dist = math.sqrt(math.pow((spos[1]-pos[1]),2) + math.pow((spos[3]-pos[3]),2))
-                if dist < minDist then
-                    nearest = ship
-                    minDist = dist
-                end
+function AttachTemplate()
+    local spos = self.getPosition()
+    local nearest = nil
+    local minDist = 2.89     -- 80mm
+    for k, ship in pairs(getAllObjects()) do
+        if ship.tag == 'Figurine' and ship.name ~= '' then
+            local pos = ship.getPosition()
+            local dist = math.sqrt(math.pow((spos[1] - pos[1]), 2) + math.pow((spos[3] - pos[3]), 2))
+            if dist < minDist then
+                nearest = ship
+                minDist = dist
             end
         end
-local obj = nil
-local shipGUID = nil
-obj = nearest
-shipGUID = obj.getGUID()
-obj.addAttachment(self)
-self.clearButtons()
+    end
+    local obj = nil
+    local shipGUID = nil
+    obj = nearest
+    shipGUID = obj.getGUID()
+    obj.addAttachment(self)
+    self.clearButtons()
 end
 
 -- ~~~~~~
@@ -46,10 +45,10 @@ function onCollisionEnter(collision_info)
     local body = collision_info.collision_object
     if (not loaded) or (not snap) or (not body) or body.tag ~= 'Figurine' then return end
     local relRot = self.getRotation()[2] - body.getRotation()[2]
-    local tRot = math.round(relRot/90)*90 + body.getRotation()[2]
+    local tRot = math.round(relRot / 90) * 90 + body.getRotation()[2]
     local tPos = body.getPosition()
-    self.setPositionSmooth({tPos[1], tPos[2]+0.3, tPos[3]}, false, true)
-    self.setRotationSmooth({0, tRot, 0}, false, true)
+    self.setPositionSmooth({ tPos[1], tPos[2] + 0.3, tPos[3] }, false, true)
+    self.setRotationSmooth({ 0, tRot, 0 }, false, true)
     snap = false
     startLuaCoroutine(self, 'waitForResting')
 end
@@ -79,7 +78,7 @@ function math.round(arg, decPlaces)
             return math.floor(arg)
         end
     else
-        local mult = 10^(decPlaces or 0)
+        local mult = 10 ^ (decPlaces or 0)
         return math.floor(arg * mult + 0.5) / mult
     end
 end

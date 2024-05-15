@@ -53,45 +53,47 @@ arcCommands = {
 }
 
 arcToCmnd = {
-  front = "f",
-  left = "sl",
-  back = "b",
-  right = "sr",
-  frontback = "frontback",
-  leftright = "leftright",
-  fullfront = "ff",
-  fullback = "fb",
-  bull = "bull",
+    front = "f",
+    left = "sl",
+    back = "b",
+    right = "sr",
+    frontback = "frontback",
+    leftright = "leftright",
+    fullfront = "ff",
+    fullback = "fb",
+    bull = "bull",
 }
 
 mountToId = {
-  main = "1",
-  front = "1",
-  rear = "2"
+    main = "1",
+    front = "1",
+    rear = "2"
 }
 
 -- Save self state
 function onSave()
     if assignedShip ~= nil then
-        local state = {assignedShipGUID=assignedShip.getGUID(),
-                        owningPlayer=playerColor,
-                        owningPlayerTeam=playerTeam,
-                        clickMode = clickMode,
-                        proxyMode = proxyMode,
-                        timeoutDuration = timeoutDuration
-                    }
+        local state = {
+            assignedShipGUID = assignedShip.getGUID(),
+            owningPlayer = playerColor,
+            owningPlayerTeam = playerTeam,
+            clickMode = clickMode,
+            proxyMode = proxyMode,
+            timeoutDuration = timeoutDuration
+        }
         return JSON.encode(state)
     end
 end
 
-firstSet=false
+firstSet = false
 setSinceTemplatePlaced = false -- True if the user has set a movement since the movement template was last placed on the table
-templatePlaced = false  -- True if the movement template is currently on the table (as far as we can tell based on just dial button clicks, anyway)
+templatePlaced = false         -- True if the movement template is currently on the table (as far as we can tell based on just dial button clicks, anyway)
 
 exOptions = {}
 exOptSelected = false
 exOptValue = {}
-exOptButtons = { "ExOpt1", "ExOpt2", "ExOpt3", "ExOpt4", "ExOpt5",  "ExOpt6", "ExOpt7", "ExOpt8", "ExOpt9", "ExOpt10", "ExOpt11", "ExOpt12", "ExOpt13"}
+exOptButtons = { "ExOpt1", "ExOpt2", "ExOpt3", "ExOpt4", "ExOpt5", "ExOpt6", "ExOpt7", "ExOpt8", "ExOpt9", "ExOpt10",
+    "ExOpt11", "ExOpt12", "ExOpt13" }
 
 
 -- Restore self state
@@ -109,20 +111,20 @@ function onLoad(savedData)
 
         local dial = self
         if savedShipGuid then
-          Wait.frames(
-            function()
-              local savedShip = getObjectFromGUID(savedShipGuid)
-              if savedShip then
-                dial.call("assignShip", {ship=savedShip})
-              end
-            end, 1)
+            Wait.frames(
+                function()
+                    local savedShip = getObjectFromGUID(savedShipGuid)
+                    if savedShip then
+                        dial.call("assignShip", { ship = savedShip })
+                    end
+                end, 1)
         end
     end
 
     toggleClickMode(clickMode)
     menu.addToggleItem("clickMode", "click mode", toggleClickMode)
     menu.addToggleItem("proxyMode", "proxy mode", toggleProxyMode)
-    menu.addToggleItem(nil,"Reset dial", resetDial, true)
+    menu.addToggleItem(nil, "Reset dial", resetDial, true)
     menu.update()
 end
 
@@ -137,7 +139,6 @@ function clearOpenPanel()
 end
 
 function clearDial()
-
     self.UI.hide('TalonPanel') -- Talon has to come before CenterFU which it is inside -- hide doesn't work when the parent is already hidden (could also use active=false instead)
     self.UI.hide("ExecutionOptionsPanel")
     self.UI.hide("CenterFD")
@@ -183,76 +184,75 @@ function redraw(face_down)
     end
 end
 
-
 function getManouverIcons(manouver)
-    if manouver:sub(1,1) == 'w' then
-        manColor="White"
-    elseif manouver:sub(1,1) == 'b' then
-        manColor="Blue"
-    elseif manouver:sub(1,1) == 'r' then
-        manColor="Red"
-    elseif manouver:sub(1,1) == 'p' then
-        manColor="Purple"
+    if manouver:sub(1, 1) == 'w' then
+        manColor = "White"
+    elseif manouver:sub(1, 1) == 'b' then
+        manColor = "Blue"
+    elseif manouver:sub(1, 1) == 'r' then
+        manColor = "Red"
+    elseif manouver:sub(1, 1) == 'p' then
+        manColor = "Purple"
     end
 
-    if manouver:sub(-1,-1) == 't' then
+    if manouver:sub(-1, -1) == 't' then
         manType = "Talon"
-    elseif manouver:sub(-1,-1) == 's' then
-        if manouver:sub(2,2) == 't' then
+    elseif manouver:sub(-1, -1) == 's' then
+        if manouver:sub(2, 2) == 't' then
             manType = "TurnSloop"
         else
             manType = "Sloop"
         end
-    elseif manouver:sub(-1,-1) == 'z' then
-        if manouver:sub(2,2) == 't' then
+    elseif manouver:sub(-1, -1) == 'z' then
+        if manouver:sub(2, 2) == 't' then
             manType = "TurnSlip"
         else
             manType = "BankSlip"
         end
-    elseif manouver:sub(-1,-1) == 'r' then
-        if manouver:sub(2,2) == 'b' then
+    elseif manouver:sub(-1, -1) == 'r' then
+        if manouver:sub(2, 2) == 'b' then
             manType = "ReverseBank"
         else
             manType = "ReverseStraight"
         end
-    elseif manouver:sub(2,2) == 't' then
+    elseif manouver:sub(2, 2) == 't' then
         manType = "Turn"
-    elseif manouver:sub(2,2) == 'b' then
+    elseif manouver:sub(2, 2) == 'b' then
         manType = "Bank"
-    elseif manouver:sub(2,2) == 's' then
+    elseif manouver:sub(2, 2) == 's' then
         manType = "Straight"
-    elseif manouver:sub(2,2) == 'k' then
+    elseif manouver:sub(2, 2) == 'k' then
         manType = 'K'
     end
 
-    local Char= manouver:find("%d")
-    manSpeed = manouver:sub(Char,Char)
+    local Char = manouver:find("%d")
+    manSpeed = manouver:sub(Char, Char)
 
-    if manouver:sub(3,3) == 'l' then
+    if manouver:sub(3, 3) == 'l' then
         manBear = "L"
-    elseif manouver:sub(3,3) == 'r' then
+    elseif manouver:sub(3, 3) == 'r' then
         manBear = "R"
     else
         manBear = ""
     end
-    if manSpeed=="0" and manType=="Straight" then
-        manType='Stall'
+    if manSpeed == "0" and manType == "Straight" then
+        manType = 'Stall'
     end
 
-    return {speed = "Speed"..manSpeed, type = manColor .. manType .. manBear }
+    return { speed = "Speed" .. manSpeed, type = manColor .. manType .. manBear }
 end
 
 function manSelect(p, option, id)
     if spectReturn(p) == true or option == false then
         return
     end
-    firstSet=true
-    self.UI.setAttribute("ManBtnGroup","allowSwitchOff","false")
+    firstSet = true
+    self.UI.setAttribute("ManBtnGroup", "allowSwitchOff", "false")
     manButtonId = id
-    curMan=string.lower(id)
+    curMan = string.lower(id)
     icons = getManouverIcons(curMan)
-    speedIcon= icons.speed
-    typeIcon= icons.type
+    speedIcon = icons.speed
+    typeIcon = icons.type
     setMan = curMan:sub(2)
     befAft = '_B'
 end
@@ -277,10 +277,10 @@ function manSetting()
 
         -- Hide the template button when there isn't a manuver set, since it's confusing and undefined in some cases what template should be shown then
         if not templatePlaced then
-          self.UI.setAttribute("Templ", "active", "false")
+            self.UI.setAttribute("Templ", "active", "false")
         end
     end
-    if firstSet== false then
+    if firstSet == false then
         self.UI.setAttribute("TypeIcon", "active", "false")
         self.UI.setAttribute("SpeedIcon", "active", "false")
         self.UI.setAttribute("MoveBtn", "active", "false")
@@ -289,13 +289,13 @@ function manSetting()
 
         -- Hide the template button when there isn't a manuver set, since it's confusing and undefined in some cases what template should be shown then
         if not templatePlaced then
-          self.UI.setAttribute("Templ", "active", "false")
+            self.UI.setAttribute("Templ", "active", "false")
         end
     end
 
     -- Remove template if a new manuver has been set since it was shown, since it could be confusing to still show the old template (and to show the new one you would have to click the button twice, which would be confusing)
     if setSinceTemplatePlaced and templatePlaced then
-      deleteTemplate()
+        deleteTemplate()
     end
 end
 
@@ -304,19 +304,19 @@ function Undo(p)
         return
     end
     assignedShip.setDescription("q")
-    befAft='_B'
+    befAft = '_B'
     self.UI.setAttribute("UndoBtn", "active", "false")
     if setStat then
         return
-    elseif prevMan:sub(-1,-1) ~='t' or proxyMode then
+    elseif prevMan:sub(-1, -1) ~= 't' or proxyMode then
         setMan = prevMan
         setStat = prevMan ~= ""
         if setStat then
-          self.UI.setAttribute("MoveBtn", "active", "true")
-          self.UI.setAttribute("MoveBtn", "textColor", "#FFFFFF")
-          self.UI.setAttribute("TypeIcon", "active", "true")
-          self.UI.setAttribute("SpeedIcon", "active", "true")
-          self.UI.setAttribute("Templ", "active", "true")
+            self.UI.setAttribute("MoveBtn", "active", "true")
+            self.UI.setAttribute("MoveBtn", "textColor", "#FFFFFF")
+            self.UI.setAttribute("TypeIcon", "active", "true")
+            self.UI.setAttribute("SpeedIcon", "active", "true")
+            self.UI.setAttribute("Templ", "active", "true")
         end
     else
         setMan = prevMan
@@ -330,11 +330,11 @@ function allignShip(P)
         return
     end
     rot = assignedShip.getRotation()
-    modint,modfrac = math.modf(rot.y/45)
+    modint, modfrac = math.modf(rot.y / 45)
     if modfrac < 0.5 then
-        rot.y = modint*45
+        rot.y = modint * 45
     else
-        rot.y = (modint+1)*45
+        rot.y = (modint + 1) * 45
     end
     assignedShip.setRotation(rot)
 end
@@ -370,38 +370,37 @@ function setupRot(P, option, id)
 end
 
 setupShifts = {
-    AdjustFBut = vector(0,0,-0.05),
-    AdjustBBut = vector(0,0,0.05),
-    AdjustLBut = vector(0.05,0,0),
-    AdjustRBut = vector(-0.05,0,0),
+    AdjustFBut = vector(0, 0, -0.05),
+    AdjustBBut = vector(0, 0, 0.05),
+    AdjustLBut = vector(0.05, 0, 0),
+    AdjustRBut = vector(-0.05, 0, 0),
 }
 
 function setupShift(P, option, id)
     if (option ~= '-1') or (spectReturn(P) == true) then
         return
     end
-    pos = assignedShip.positionToWorld(setupShifts[id] or vector(0,0,0))
+    pos = assignedShip.positionToWorld(setupShifts[id] or vector(0, 0, 0))
     assignedShip.setLock(true)
     assignedShip.setPosition(pos)
 end
-
 
 function performMove(P)
     if spectReturn(P) == true then
         return
     end
-    if setMan ~= nil and setMan ~="" then
+    if setMan ~= nil and setMan ~= "" then
         self.UI.setAttribute("MoveBtn", "active", "false")
         -- Check alternate execution options
         --print("curMan:" .. curMan)
         if exOptions[curMan] ~= nil and exOptSelected == false then
             setupAlternateExecutionPanel(P, exOptions[curMan])
-        elseif setMan:sub(-1,-1) == 't' then
+        elseif setMan:sub(-1, -1) == 't' then
             if proxyMode then
                 proxy_settings = {
                     ship_guid   = assignedShip.getGUID(),
                     move_code   = setMan,
-                    offsets     = {front = 'ft', center = 't', back = 'bt'},
+                    offsets     = { front = 'ft', center = 't', back = 'bt' },
                     button_func = button.setProxyState,
                 }
                 proxy.spawn(proxy_settings)
@@ -422,9 +421,8 @@ function performMove(P)
         end
         prevMan = setMan
         setMan = nil
-        Global.call("API_SetDial", {dial=self,set=false})
+        Global.call("API_SetDial", { dial = self, set = false })
         self.UI.setAttribute(manButtonId, "isOn", "false")
-
     end
 end
 
@@ -463,11 +461,9 @@ function selectExecuteOption(P, option, id)
     self.UI.setAttribute("TypeIcon", "image", icons.type)
     self.UI.setAttribute("SpeedIcon", "image", icons.speed)
     performMove(P)
-
 end
 
-
-function performTalon(P,option,id)
+function performTalon(P, option, id)
     if spectReturn(P) == true then
         return
     end
@@ -475,21 +471,21 @@ function performTalon(P,option,id)
     self.UI.hide("TalonPanel")
     self.UI.setAttribute("UndoBtn", "active", "true")
     self.UI.setAttribute("UndoBtn", "textColor", "#FFFFFF")
-    if id=="TalonMidBtn" then
+    if id == "TalonMidBtn" then
         assignedShip.setDescription(setMan)
-    elseif id=="TalonReaBtn" then
-        talonMove = setMan:sub(1,3).."b"..setMan:sub(-1,-1)
+    elseif id == "TalonReaBtn" then
+        talonMove = setMan:sub(1, 3) .. "b" .. setMan:sub(-1, -1)
         assignedShip.setDescription(talonMove)
-    elseif id=="TalonForBtn" then
-        talonMove = setMan:sub(1,3).."f"..setMan:sub(-1,-1)
+    elseif id == "TalonForBtn" then
+        talonMove = setMan:sub(1, 3) .. "f" .. setMan:sub(-1, -1)
         assignedShip.setDescription(talonMove)
     end
     exOptSelected = false
-    befAft ='_A'
+    befAft = '_A'
     setDial(P)
     prevMan = setMan
     setMan = nil
-    Global.call("API_SetDial", {dial=self,set=false})
+    Global.call("API_SetDial", { dial = self, set = false })
     self.UI.setAttribute(manButtonId, "isOn", "false")
 end
 
@@ -510,53 +506,52 @@ function assignShip(args)
     self.UI.setAttribute("relocPanel", "active", "true")
     self.UI.setAttribute("setManPeekPanel", "active", "true")
     assignedShip = args.ship
-    Name=assignedShip.getName()
+    Name = assignedShip.getName()
     self.setName(Name)
     finished_setup = assignedShip.getVar("finished_setup") or false
     --self.UI.setAttribute("DialName", Name)
-    self.UI.setValue("Name",Name)
-    self.UI.setValue("SetupName",Name)
-    shipData=assignedShip.getTable("Data")
+    self.UI.setValue("Name", Name)
+    self.UI.setValue("SetupName", Name)
+    shipData = assignedShip.getTable("Data")
     if shipData.arcs and shipData.arcs.fixed then
-      self.UI.setAttribute("FixedArc", "active", "true")
-      arcCommands['FixedArc'] = "a"
+        self.UI.setAttribute("FixedArc", "active", "true")
+        arcCommands['FixedArc'] = "a"
     else
-      self.UI.setAttribute("FixedArc", "active", "false")
+        self.UI.setAttribute("FixedArc", "active", "false")
     end
     if shipData.arcs and shipData.arcs.turret then
-      local buttonname = "TurretArc"
-      for mount, turret in pairs(shipData.arcs.turret) do
-        local id = mountToId[mount]
-        local command_id = id
-        if mount == "main" then
-          command_id = ""
+        local buttonname = "TurretArc"
+        for mount, turret in pairs(shipData.arcs.turret) do
+            local id = mountToId[mount]
+            local command_id = id
+            if mount == "main" then
+                command_id = ""
+            end
+            self.UI.setAttribute("TurretArc" .. id, "active", "true")
+            self.UI.setAttribute("TurretArc" .. id .. "Panel", "active", "true")
+            if turret.type[1] == "doubleturret" then
+                self.UI.setAttribute("TurretArc" .. id .. "Icon", "image", "DoubleTurretArc")
+                arcCommands["RotateLeft" .. id] = "rot" .. command_id
+                self.UI.setAttribute("RotateLeft" .. id, "active", "true")
+            else
+                arcCommands["RotateLeft" .. id] = "rotl" .. command_id
+                self.UI.setAttribute("RotateLeft" .. id, "active", "true")
+                arcCommands["RotateRight" .. id] = "rotr" .. command_id
+                self.UI.setAttribute("RotateRight" .. id, "active", "true")
+            end
+            arcCommands["TurretArc" .. id] = "turret" .. command_id
         end
-        self.UI.setAttribute("TurretArc" .. id , "active", "true")
-        self.UI.setAttribute("TurretArc" .. id  .. "Panel", "active", "true")
-        if turret.type[1] == "doubleturret" then
-          self.UI.setAttribute("TurretArc" .. id  .. "Icon", "image", "DoubleTurretArc")
-          arcCommands["RotateLeft" .. id] = "rot" .. command_id
-          self.UI.setAttribute("RotateLeft" .. id , "active", "true")
-        else
-          arcCommands["RotateLeft" .. id] = "rotl" .. command_id
-          self.UI.setAttribute("RotateLeft" .. id , "active", "true")
-          arcCommands["RotateRight" .. id] = "rotr" .. command_id
-          self.UI.setAttribute("RotateRight" .. id , "active", "true")
-        end
-        arcCommands["TurretArc" .. id] = "turret" .. command_id
-
-      end
     end
 
     exOptions = shipData.executeOptions or {}
-    self.UI.setAttribute("BackGround", "image", tostring(shipData['Faction']).."BG")
-    for k,v in pairs(shipData['moveSet']) do
+    self.UI.setAttribute("BackGround", "image", tostring(shipData['Faction']) .. "BG")
+    for k, v in pairs(shipData['moveSet']) do
         self.UI.setAttribute(string.upper(v), "active", "true")
     end
-    setMan=""
-    prevMan=""
+    setMan = ""
+    prevMan = ""
     local repos = false
-    for k,v in pairs(shipData['actSet']) do
+    for k, v in pairs(shipData['actSet']) do
         if v == 'F' then
             self.UI.setAttribute('FocusBtn', 'active', 'true')
         elseif v == 'TL' then
@@ -578,13 +573,13 @@ function assignShip(args)
             self.UI.setAttribute("BoostSBtn", "active", "true")
             self.UI.setAttribute("BoostRBtn", "active", "true")
             self.UI.setAttribute("BoostLBtn", "active", "true")
-        elseif v =='Ail' then
+        elseif v == 'Ail' then
             repos = true
             self.UI.setAttribute("AileronFD", "active", "true")
             self.UI.setAttribute("AilSBtn", "active", "true")
             self.UI.setAttribute("AilRBtn", "active", "true")
             self.UI.setAttribute("AilLBtn", "active", "true")
-        elseif v =='Piv' then
+        elseif v == 'Piv' then
             repos = true
             self.UI.setAttribute("PivotFD", "active", "true")
             self.UI.setAttribute("PivKBtn", "active", "true")
@@ -625,14 +620,11 @@ function assignShip(args)
     if repos == false then
         self.UI.setAttribute("RelocMenu", "active", "false")
         self.UI.setAttribute("RelocMenuFU", "active", "false")
-
     end
 
-    Global.call("API_AssignDial", {dial=self, ship=assignedShip, player=pColor})
+    Global.call("API_AssignDial", { dial = self, ship = assignedShip, player = pColor })
     redraw(self.is_face_down)
-
 end
-
 
 -- Assign on drop near a small base ship
 function onDropped()
@@ -640,10 +632,10 @@ function onDropped()
         local spos = self.getPosition()
         local nearest = nil
         local minDist = 2.89 -- 80mm
-        for k,ship in pairs(getAllObjects()) do
+        for k, ship in pairs(getAllObjects()) do
             if ship.tag == 'Figurine' and ship.name ~= '' then
                 local pos = ship.getPosition()
-                local dist = math.sqrt(math.pow((spos[1]-pos[1]),2) + math.pow((spos[3]-pos[3]),2))
+                local dist = math.sqrt(math.pow((spos[1] - pos[1]), 2) + math.pow((spos[3] - pos[3]), 2))
                 if dist < minDist then
                     nearest = ship
                     minDist = dist
@@ -651,59 +643,58 @@ function onDropped()
             end
         end
         if nearest ~= nil then
-            if pColor=="White" then
+            if pColor == "White" then
                 printToAll("Please, pick a color before assigning dials")
             else
                 assignedShip = nearest
-                playerColor=pColor
+                playerColor = pColor
 
                 playerTeam = nil
                 teamVisibility = ""
                 for k, player in pairs(Player.getPlayers()) do
                     if player.color == playerColor then
-                      if player.team ~= "None" then
-                        playerTeam = player.team
-                        teamVisibility = "|" .. playerTeam
-                      end
-
+                        if player.team ~= "None" then
+                            playerTeam = player.team
+                            teamVisibility = "|" .. playerTeam
+                        end
                     end
                 end
 
                 nearest.setVar('owningPlayer', pColor)
-                printToAll('Dial assigned to to ' .. nearest.getName(), {0.3, 0.3, 1})
+                printToAll('Dial assigned to to ' .. nearest.getName(), { 0.3, 0.3, 1 })
                 --printToAll('Controlled by the '.. playerColor .. ' player')
                 --if playerTeam then
-                  --printToAll('Of the '.. tostring(playerTeam) .. ' team')
+                --printToAll('Of the '.. tostring(playerTeam) .. ' team')
                 --end
 
                 --sprintToAll('')
                 self.setRotation(nearest.getRotation())
-                assignShip({ship=nearest})
+                assignShip({ ship = nearest })
             end
         end
     end
 end
 
 -- functions called when buttons are pressed
-function genericAction(a,b,c,d)
+function genericAction(a, b, c, d)
     print(a)
     print(b)
     print(c)
     print(d)
 end
 
-function focusTok(p,id)
+function focusTok(p, id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Focus', playerColor, {remove = id ~= '-1'} })
+    Global.call('proxyPerformAction', { assignedShip, 'Focus', playerColor, { remove = id ~= '-1' } })
 end
 
-function evadeTok(p,id)
+function evadeTok(p, id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Evade', playerColor, {remove = id ~= '-1'} })
+    Global.call('proxyPerformAction', { assignedShip, 'Evade', playerColor, { remove = id ~= '-1' } })
 end
 
 function tlTok(p, id)
@@ -711,78 +702,78 @@ function tlTok(p, id)
         return
     end
     if id == '-1' then
-        Global.call('proxyPerformAction', {assignedShip, 'Target Lock', playerColor})
+        Global.call('proxyPerformAction', { assignedShip, 'Target Lock', playerColor })
     end
 end
 
-function tractorTok(p,id)
+function tractorTok(p, id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Tractor', playerColor, {remove = id ~= '-1'} })
+    Global.call('proxyPerformAction', { assignedShip, 'Tractor', playerColor, { remove = id ~= '-1' } })
 end
 
-function jamTok(p,id)
+function jamTok(p, id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Jam', playerColor, {remove = id ~= '-1'} })
+    Global.call('proxyPerformAction', { assignedShip, 'Jam', playerColor, { remove = id ~= '-1' } })
 end
 
-function disarmTok(p,id)
+function disarmTok(p, id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Disarm', playerColor, {remove = id ~= '-1'} })
+    Global.call('proxyPerformAction', { assignedShip, 'Disarm', playerColor, { remove = id ~= '-1' } })
 end
 
-function cloakTok(p,id)
+function cloakTok(p, id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Cloak', playerColor, {remove = id ~= '-1'} })
+    Global.call('proxyPerformAction', { assignedShip, 'Cloak', playerColor, { remove = id ~= '-1' } })
 end
 
-function calcTok(p,id)
+function calcTok(p, id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Calculate', playerColor, {remove = id ~= '-1'} })
+    Global.call('proxyPerformAction', { assignedShip, 'Calculate', playerColor, { remove = id ~= '-1' } })
 end
 
-function reinforceTok(p,id)
+function reinforceTok(p, id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Reinforce', playerColor, {remove = id ~= '-1'} })
+    Global.call('proxyPerformAction', { assignedShip, 'Reinforce', playerColor, { remove = id ~= '-1' } })
 end
 
-function stressTok(p,id)
+function stressTok(p, id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Stress', playerColor, {remove = id ~= '-1'} })
+    Global.call('proxyPerformAction', { assignedShip, 'Stress', playerColor, { remove = id ~= '-1' } })
 end
 
-function strainTok(p,id)
-  if spectReturn(p) == true then
-      return
-  end
-  Global.call('proxyPerformAction', {assignedShip, 'Strain', playerColor, {remove = id ~= '-1'} })
-end
-
-function depleteTok(p,id)
-  if spectReturn(p) == true then
-      return
-  end
-  Global.call('proxyPerformAction', {assignedShip, 'Deplete', playerColor, {remove = id ~= '-1'} })
-end
-
-function ionTok(p,id)
+function strainTok(p, id)
     if spectReturn(p) == true then
         return
     end
-    Global.call('proxyPerformAction', {assignedShip, 'Ion', playerColor, {remove = id ~= '-1'} })
+    Global.call('proxyPerformAction', { assignedShip, 'Strain', playerColor, { remove = id ~= '-1' } })
+end
+
+function depleteTok(p, id)
+    if spectReturn(p) == true then
+        return
+    end
+    Global.call('proxyPerformAction', { assignedShip, 'Deplete', playerColor, { remove = id ~= '-1' } })
+end
+
+function ionTok(p, id)
+    if spectReturn(p) == true then
+        return
+    end
+    Global.call('proxyPerformAction', { assignedShip, 'Ion', playerColor, { remove = id ~= '-1' } })
 end
 
 reposCommands = {
@@ -835,13 +826,12 @@ function Repos(P, option, id)
         proxy_settings = {
             ship_guid   = assignedShip.getGUID(),
             move_code   = move_code,
-            offsets     = {front = '1', center = '2', back = '3'},
+            offsets     = { front = '1', center = '2', back = '3' },
             cancellable = not setStat,
             button_func = button.setProxyState,
         }
         proxy.spawn(proxy_settings)
         clearOpenPanel()
-
     else
         assignedShip.setDescription(move_code)
     end
@@ -851,18 +841,16 @@ function CancelProxy(player, option, id)
     proxy.cancel(assignedShip.getGUID())
 end
 
-
 function Arc(P, option, id)
-    if  spectReturn(P)then
+    if spectReturn(P) then
         return
     end
     includeFriendlies = ""
     if (option ~= '-1') then
         includeFriendlies = "a"
     end
-    assignedShip.setDescription((arcCommands[id] or "") .. includeFriendlies )
+    assignedShip.setDescription((arcCommands[id] or "") .. includeFriendlies)
 end
-
 
 function pivK(p)
     if spectReturn(p) == true then
@@ -886,14 +874,14 @@ function pivL(p)
 end
 
 function Window(p)
-    if winStat ==  nil then
+    if winStat == nil then
         winStat = false
     end
     if spectReturn(p) == false then
         if winStat == false then
             winStat = true
             self.UI.show("ManWin")
-            self.UI.setAttribute("ManWin", "visibility", playerColor .. teamVisibility ..  "|Black")
+            self.UI.setAttribute("ManWin", "visibility", playerColor .. teamVisibility .. "|Black")
             self.UI.setAttribute("ManBtnGroup", "active", "true")
             clearOpenPanel()
         else
@@ -906,13 +894,13 @@ end
 
 function spectReturn(p)
     if p.color == 'Black' then
-      return false
+        return false
     elseif p.color == playerColor then
-      return false
+        return false
     elseif p.team == playerTeam then
-      return false
+        return false
     else
-      return true
+        return true
     end
 end
 
@@ -938,54 +926,66 @@ function hideSetMan(p)
 end
 
 click_functions = {
-    ArcMenu = {show= function() showArcMFD() end,
-                hide= function() hideArcM() end },
-    ArcMenuFU = {show= function() showArcMFU() end,
-                hide= function() hideArcM() end },
-    RelocMenu = {show= function() showRelocMFD() end,
-                hide= function() hideRelocM() end },
-    RelocMenuFU = {show= function() showRelocMFU() end,
-                hide= function() hideRelocM() end },
-    TokenMenu = {show= function() showTokMFD() end,
-                hide= function() hideTokM() end },
-    TokenMenuFU = {show= function() showTokMFU() end,
-                hide= function() hideTokM() end },
+    ArcMenu = {
+        show = function() showArcMFD() end,
+        hide = function() hideArcM() end
+    },
+    ArcMenuFU = {
+        show = function() showArcMFU() end,
+        hide = function() hideArcM() end
+    },
+    RelocMenu = {
+        show = function() showRelocMFD() end,
+        hide = function() hideRelocM() end
+    },
+    RelocMenuFU = {
+        show = function() showRelocMFU() end,
+        hide = function() hideRelocM() end
+    },
+    TokenMenu = {
+        show = function() showTokMFD() end,
+        hide = function() hideTokM() end
+    },
+    TokenMenuFU = {
+        show = function() showTokMFU() end,
+        hide = function() hideTokM() end
+    },
 }
 
 hover_functions = {
     ArcMenu = function()
-                stopClicktimer()
-                showArcMFD()
-              end,
+        stopClicktimer()
+        showArcMFD()
+    end,
     ArcMenuFU = function()
-                showArcMFU()
-                stopClicktimer()
-              end,
+        showArcMFU()
+        stopClicktimer()
+    end,
     arcPanel = function()
-                restartClicktimer()
-              end,
+        restartClicktimer()
+    end,
     RelocMenu = function()
-                showRelocMFD()
-                stopClicktimer()
-              end,
+        showRelocMFD()
+        stopClicktimer()
+    end,
     RelocMenuFU = function()
-                showRelocMFU()
-                stopClicktimer()
-              end,
+        showRelocMFU()
+        stopClicktimer()
+    end,
     relocPanel = function()
-                restartClicktimer()
-              end,
+        restartClicktimer()
+    end,
     TokenMenu = function()
-                showTokMFD()
-                stopClicktimer()
-              end,
+        showTokMFD()
+        stopClicktimer()
+    end,
     TokenMenuFU = function()
-                showTokMFU()
-                stopClicktimer()
-              end,
+        showTokMFU()
+        stopClicktimer()
+    end,
     tokenPanel = function()
-                restartClicktimer()
-              end,
+        restartClicktimer()
+    end,
 }
 
 function toggleClickMode(enable)
@@ -995,9 +995,9 @@ function toggleClickMode(enable)
     self.UI.setAttribute("tokenPanel", "raycastTarget", not clickMode)
     self.UI.setAttribute("relocPanel", "raycastTarget", not clickMode)
     if clickMode then
-      timeoutDuration = 20
+        timeoutDuration = 20
     else
-      timeoutDuration = 2
+        timeoutDuration = 2
     end
 
     menu.update()
@@ -1014,7 +1014,6 @@ function toggleProxyMode(enable)
 end
 
 function resetDial(enable)
-
     self.setName("Unassigned Dial")
     playerColor = nil
     playerTeam = nil
@@ -1024,24 +1023,23 @@ function resetDial(enable)
     self.UI.setAttribute("moveWindow", "active", "true")
     self.UI.setAttribute("moveWindow", "textColor", "#FFFFFF")
     if manButtonId then
-      self.UI.setAttribute(manButtonId, "isOn", "false")
+        self.UI.setAttribute(manButtonId, "isOn", "false")
     end
-    Global.call("API_AssignDial", {dial=self, ship=nil})
+    Global.call("API_AssignDial", { dial = self, ship = nil })
     setStat = false
     setMan = nil
     prevMan = ""
-    self.UI.setValue("Name","")
-    self.UI.setValue("SetupName","")
+    self.UI.setValue("Name", "")
+    self.UI.setValue("SetupName", "")
     clearDial()
     assignedShip = nil
     self.script_state = nil
 end
 
-
 function stopClicktimer()
-  if clicktimer then
-    Wait.stop(clicktimer)
-  end
+    if clicktimer then
+        Wait.stop(clicktimer)
+    end
 end
 
 function restartClicktimer()
@@ -1050,9 +1048,9 @@ function restartClicktimer()
 end
 
 function clickTimeout()
-  if openbutton then
-    click_functions[openbutton].hide()
-  end
+    if openbutton then
+        click_functions[openbutton].hide()
+    end
     clicktimer = nil
 end
 
@@ -1075,8 +1073,6 @@ function menuHover(p, option, id)
     end
     hover_functions[id]()
 end
-
-
 
 function showTokMFD()
     self.UI.show("tokenPanel")
@@ -1107,8 +1103,6 @@ function hideTokM()
         openbutton = nil
     end
 end
-
-
 
 function showArcMFD()
     self.UI.show("arcPanel")
@@ -1182,7 +1176,7 @@ function nextMan(P, opt, id)
     if id == "prevManBut" then
         dir = -1
     end
-    for k,v in pairs(shipData.moveSet) do
+    for k, v in pairs(shipData.moveSet) do
         if v == curMan then
             local newman = k + dir
             if newman == 0 then
@@ -1190,12 +1184,12 @@ function nextMan(P, opt, id)
             elseif newman > #shipData.moveSet then
                 newman = 1
             end
-            manSelect(P,opt,shipData.moveSet[newman])
+            manSelect(P, opt, shipData.moveSet[newman])
             self.UI.setAttribute(string.upper(curMan), "isOn", "true")
             return
         end
     end
-    manSelect(P,opt,shipData.moveSet[1])
+    manSelect(P, opt, shipData.moveSet[1])
     self.UI.setAttribute(string.upper(curMan), "isOn", "true")
 end
 
@@ -1211,25 +1205,24 @@ function setDial(P)
                 self.UI.setAttribute("setBtnFD", "active", "true")
                 self.UI.setAttribute("setBtnFD", "textColor", "#FFFFFF")
                 if (P.color == "Yellow") then
-                   -- White text on yellow button is pretty hard to read, so for the Yellow player change the text to black instead
-                  self.UI.setAttribute("setBtnFD", "textColor", "#000000")
+                    -- White text on yellow button is pretty hard to read, so for the Yellow player change the text to black instead
+                    self.UI.setAttribute("setBtnFD", "textColor", "#000000")
                 end
                 self.UI.setAttribute("moveWindow", "active", "false")
                 setStat = true
                 setSinceTemplatePlaced = true
-                printToAll(P.color.." player has set the maneuver for "..assignedShip.getName(), P.color)
-                Global.call("API_SetDial", {dial=self, set=true})
-                if winStat==true then
+                printToAll(P.color .. " player has set the maneuver for " .. assignedShip.getName(), P.color)
+                Global.call("API_SetDial", { dial = self, set = true })
+                if winStat == true then
                     Window(P)
                 end
-
             else
                 --TODO: Now that the set dial and unset dial buttons are 2 different buttons, this file's code would probably be more readable with this function split in to setDial() and unsetDial()
                 self.UI.setAttribute("setBtnFD", "active", "false")
                 self.UI.setAttribute("setManPeekPanel", "active", "false")
                 self.UI.setAttribute("moveWindow", "active", "true")
                 self.UI.setAttribute("moveWindow", "textColor", "#FFFFFF")
-                Global.call("API_SetDial", {dial=self, set=false})
+                Global.call("API_SetDial", { dial = self, set = false })
                 setStat = false
             end
         else
@@ -1243,22 +1236,22 @@ function spawnTemplate(p)
         return
     end
     templMan = setMan or prevMan
-    if templMan and templMan~='' then
+    if templMan and templMan ~= '' then
         setSinceTemplatePlaced = false
         templatePlaced = not templatePlaced
 
         -- if a manuver is not visible on dial, template button is only here to allow removal, and after that it can be hidden again
         if self.UI.getAttribute("SpeedIcon", "active") == "false" then
-          self.UI.setAttribute("Templ", "active", "false")
+            self.UI.setAttribute("Templ", "active", "false")
         end
 
-        Table={[1]=assignedShip,[2]='spawnMoveTemplate:'..templMan..befAft,[3]=playerColor}
-        Global.call("proxyPerformAction",Table)
+        Table = { [1] = assignedShip, [2] = 'spawnMoveTemplate:' .. templMan .. befAft, [3] = playerColor }
+        Global.call("proxyPerformAction", Table)
     end
 end
 
 function deleteTemplate()
-  templatePlaced = false
-  Table={[1]=assignedShip,[2]='deleteMoveTemplate',[3]=playerColor}
-  Global.call("proxyPerformAction",Table)
+    templatePlaced = false
+    Table = { [1] = assignedShip, [2] = 'deleteMoveTemplate', [3] = playerColor }
+    Global.call("proxyPerformAction", Table)
 end

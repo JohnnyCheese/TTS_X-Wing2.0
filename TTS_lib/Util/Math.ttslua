@@ -6,7 +6,7 @@ if not math.round then
         if decPlaces == 0 then
             return math.floor(arg + 0.5)
         end
-        local mult = 10^decPlaces
+        local mult = 10 ^ decPlaces
         return math.floor(arg * mult + 0.5) / mult
     end
 end

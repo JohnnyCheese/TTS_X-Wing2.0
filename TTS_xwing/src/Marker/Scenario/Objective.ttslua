@@ -78,7 +78,8 @@ function checkArc(type, range, friendly)
             printToAll("Checking for ships at range " .. tostring(range) .. " from " .. self.getName(),
                 color(1.0, 1.0, 0.2, 0.9))
         end
-        rulers = Global.call("CheckArc", { ship = self, arctype = type, range = range, include_friendly_ships = friendly })
+        rulers = Global.call("CheckArc",
+            { ship = self, arctype = type, range = range, include_friendly_ships = friendly })
     end
     if rulers and #rulers > 0 then
         rulerstype = type .. range
@@ -127,7 +128,7 @@ function onUpdate()
                 second_pos = edge.getNearestPointFromObject(first_edge)
 
                 boardLength = Dim.Convert_igu_mm(math.sqrt(math.pow(first_pos.x - second_pos.x, 2) +
-                math.pow(first_pos.z - second_pos.z, 2)))
+                    math.pow(first_pos.z - second_pos.z, 2)))
             end
         end
     end
@@ -144,7 +145,7 @@ function onUpdate()
                 other_pos.y = my_pos.y
 
                 local distance = Dim.Convert_igu_mm(math.sqrt(math.pow(my_pos.x - other_pos.x, 2) +
-                math.pow(my_pos.z - other_pos.z, 2)))
+                    math.pow(my_pos.z - other_pos.z, 2)))
                 if (distance < 200) or (obj.hasTag("CenterObjective") and (distance > 300)) then
                     table.insert(vector_lines, {
                         points = { self.positionToLocal(my_pos) + side_offset, self.positionToLocal(other_pos) + side_offset },
@@ -163,7 +164,7 @@ function onUpdate()
                 other_pos.y = my_pos.y
 
                 local distance = Dim.Convert_igu_mm(math.sqrt(math.pow(my_pos.x - other_pos.x, 2) +
-                math.pow(my_pos.z - other_pos.z, 2)))
+                    math.pow(my_pos.z - other_pos.z, 2)))
                 if (distance < 100) or ((distance > 400) and (boardLength / 2.0 > distance)) then
                     table.insert(vector_lines, {
                         points = { self.positionToLocal(my_pos) + side_offset, self.positionToLocal(other_pos) + side_offset },

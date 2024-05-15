@@ -38,10 +38,10 @@ end
 -- Cast a regular sphere and return hit objects
 ObjType.SphereCast = function(center, distance)
     local hits = Physics.cast({
-        origin = Vect.Sum(center, {0, -1.1*distance, 0}),
-        direction = {0, distance/500, 0},
+        origin = Vect.Sum(center, { 0, -1.1 * distance, 0 }),
+        direction = { 0, distance / 500, 0 },
         type = 2,
-        size = {distance*2, distance*2, distance*2},
+        size = { distance * 2, distance * 2, distance * 2 },
         debug = false
     })
     local nearData = {}
@@ -54,8 +54,8 @@ end
 -- Cast a box of given size and orientation and return hit objects
 ObjType.BoxCast = function(center, orientation, size)
     local hits = Physics.cast({
-        origin = Vect.Sum(center, {0, -1.1*size[2], 0}),
-        direction = {0, size[2]/200, 0},
+        origin = Vect.Sum(center, { 0, -1.1 * size[2], 0 }),
+        direction = { 0, size[2] / 200, 0 },
         type = 3,
         size = size,
         orientation = orientation,
@@ -91,7 +91,7 @@ end
 -- Return: table of objects
 ObjType.GetNearOfType = function(centerPosObj, maxDist, objType, excl)
     excl = excl or {}
-    for k,v in ipairs(excl) do
+    for k, v in ipairs(excl) do
         excl[v] = true
         excl[k] = nil
     end
@@ -117,7 +117,7 @@ end
 -- Return: table of objects
 ObjType.GetBoxOfType = function(centerPosObj, orient, size, objType, excl)
     excl = excl or {}
-    for k,v in ipairs(excl) do
+    for k, v in ipairs(excl) do
         excl[v] = true
         excl[k] = nil
     end

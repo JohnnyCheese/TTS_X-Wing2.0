@@ -1,4 +1,3 @@
-
 --color_by_id = false
 --default_arc_direction = "front"
 --double_arc = false
@@ -15,25 +14,25 @@ function onDropped()
 
     local turretname = "singleturret"
     if double_arc then
-      turretname = "doubleturret"
+        turretname = "doubleturret"
     end
-    for k,ship in pairs(getAllObjects()) do
-        if ((ship.type== 'Figurine') and (ship.getVar('__XW_Ship') == true)) then
+    for k, ship in pairs(getAllObjects()) do
+        if ((ship.type == 'Figurine') and (ship.getVar('__XW_Ship') == true)) then
             local turret = ship.getTable('Data').arcs.turret or {}
             for mount, turret in pairs(turret) do
                 if turret and mount then
-                  if (double_arc and (turret.type[1] == 'doubleturret')) or
-                     (not double_arc) and (turret.type[1] ~= 'doubleturret') then
-                    local pos = ship.call('GetMountingPosition', {mount=mount})
-                    --print("GetMountingPosition " .. mount .. " " .. turret.name .. " " .. tostring(pos))
-                    local dist = math.sqrt(math.pow((spos[1]-pos[1]),2) + math.pow((spos[3]-pos[3]),2))
-                    if dist < minDist then
-                        nearest = ship
-                        nearest_mount = mount
-                        minDist = dist
-                        nearest_mount_position = pos
+                    if (double_arc and (turret.type[1] == 'doubleturret')) or
+                        (not double_arc) and (turret.type[1] ~= 'doubleturret') then
+                        local pos = ship.call('GetMountingPosition', { mount = mount })
+                        --print("GetMountingPosition " .. mount .. " " .. turret.name .. " " .. tostring(pos))
+                        local dist = math.sqrt(math.pow((spos[1] - pos[1]), 2) + math.pow((spos[3] - pos[3]), 2))
+                        if dist < minDist then
+                            nearest = ship
+                            nearest_mount = mount
+                            minDist = dist
+                            nearest_mount_position = pos
+                        end
                     end
-                  end
                 end
             end
         end
@@ -41,11 +40,11 @@ function onDropped()
     if nearest ~= nil then
         local colorId = nearest.getTable('Data').ColorId
         if color_by_id and (colorId ~= nil) and (colorId.a > 0) then
-          self.setColorTint(nearest.getTable('Data').ColorId)
+            self.setColorTint(nearest.getTable('Data').ColorId)
         end
         self.setDescription(nearest_mount)
-        self.setPosition(nearest_mount_position + vector(0,0.15,0))
-        nearest.call("AttachArcIndicator", {indicator=self, mount = nearest_mount})
+        self.setPosition(nearest_mount_position + vector(0, 0.15, 0))
+        nearest.call("AttachArcIndicator", { indicator = self, mount = nearest_mount })
         --local mount_name = ""
         --if mount ~= "main" then
         --  mount_name = " " .. nearest_mount

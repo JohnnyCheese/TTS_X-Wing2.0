@@ -13,15 +13,18 @@ SaveManager.Register = function(key, saveFcn, restoreFcn)
     if SaveManager.moduleList[key] then
         error('SaveManager.Register: Key \'' .. key .. '\' already reserved!')
     end
-    SaveManager.moduleList[key] = {save = saveFcn, restore = restoreFcn}
+    SaveManager.moduleList[key] = { save = saveFcn, restore = restoreFcn }
 end
 
 SaveManager.onLoad = function(saveData)
     local saveTable = SaveManager.Decode(saveData)
-    if type(saveTable) ~= 'table' then print('skip') return end
+    if type(saveTable) ~= 'table' then
+        print('skip')
+        return
+    end
     local responses = {}
-    for key,module in pairs(SaveManager.moduleList) do
-        if saveTable[key] and (not table.empty(saveTable[key]) ) then
+    for key, module in pairs(SaveManager.moduleList) do
+        if saveTable[key] and (not table.empty(saveTable[key])) then
             local response = module.restore(saveTable[key])
             if type(response) == 'string' then
                 table.insert(responses, response)
@@ -40,7 +43,7 @@ if type(onSave) == 'function' then
 end
 function onSave()
     local saveData = {}
-    for key,module in pairs(SaveManager.moduleList) do
+    for key, module in pairs(SaveManager.moduleList) do
         local moduleSave = module.save()
         if type(moduleSave) == 'table' and (not table.empty(moduleSave)) then
             saveData[key] = moduleSave
@@ -59,7 +62,7 @@ end
 
 SaveManager.Notify = function(responses)
     if not table.empty(responses) then
-        printToAll(table.concat(responses, '\n'), {0.8, 0.1, 0.8})
+        printToAll(table.concat(responses, '\n'), { 0.8, 0.1, 0.8 })
     end
 end
 

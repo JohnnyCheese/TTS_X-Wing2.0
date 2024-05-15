@@ -13,7 +13,7 @@ local function changeButtonState(button, activate)
         -- deactivating a button resets text color to black, we have to set it again
         obj.UI.setAttribute(button, "textColor", "#FFFFFF")
     else
-       obj.UI.setAttribute(button, "active", "false")
+        obj.UI.setAttribute(button, "active", "false")
     end
 end
 
@@ -22,9 +22,9 @@ function B.setAttributeFacing(attribute, face_state)
     local down_rotation = "0 0 0"
     local up_z          = "1"
     local down_z        = "-25"
-    local base_xy = offsetXY[attribute]
+    local base_xy       = offsetXY[attribute]
 
-    local attributes = {}
+    local attributes    = {}
     if face_state == "Down" then
         attributes = {
             position = base_xy .. " " .. down_z,
@@ -61,11 +61,11 @@ function B.setProxyState(activate, cancellable, active_proxies)
         return
     end
     for position, guid in pairs(active_proxies) do
-        local attribute_name = string.upper(position:sub(1,1)) .. position:sub(2,-1)
-        obj.UI.setAttribute("proxy"..attribute_name.."Btn", "onMouseEnter", guid.."/onHoverEnter")
-        obj.UI.setAttribute("proxy"..attribute_name.."Btn", "onMouseExit", guid.."/onHoverLeave")
-        obj.UI.setAttribute("proxy"..attribute_name.."Btn", "onClick", guid.."/select")
-        obj.UI.setAttribute("proxy"..attribute_name.."Btn", "active", "true")
+        local attribute_name = string.upper(position:sub(1, 1)) .. position:sub(2, -1)
+        obj.UI.setAttribute("proxy" .. attribute_name .. "Btn", "onMouseEnter", guid .. "/onHoverEnter")
+        obj.UI.setAttribute("proxy" .. attribute_name .. "Btn", "onMouseExit", guid .. "/onHoverLeave")
+        obj.UI.setAttribute("proxy" .. attribute_name .. "Btn", "onClick", guid .. "/select")
+        obj.UI.setAttribute("proxy" .. attribute_name .. "Btn", "active", "true")
     end
 end
 
@@ -122,9 +122,5 @@ function B.setTurnBarrelRollState(proxyMode, activate)
     obj.UI.setAttribute("BarrelVTLUBtn", "active", extra_buttons)
     obj.UI.setAttribute("BarrelVTLDBtn", "active", extra_buttons)
 end
-
-
-
-
 
 return B

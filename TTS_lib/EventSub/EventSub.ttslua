@@ -20,8 +20,8 @@ EventSub.AddEvent = function(eventName)
     end
     -- Set the global event function to call each handler pasing its parameters
     _G[eventName] = function(...)
-        for _,handler in ipairs(EventSub.subs[eventName]) do
-            handler(table.unpack({...}))
+        for _, handler in ipairs(EventSub.subs[eventName]) do
+            handler(table.unpack({ ... }))
         end
     end
 end

@@ -7,14 +7,14 @@
 --modded to work with a FO Buoy and not a bomb
 -- Call buoy drop stick
 function onDropped()
-    Global.call('API_BombTokenDrop', {token=self})
+    Global.call('API_BombTokenDrop', { token = self })
 end
 
 local spawnedRuler = nil
 function update()
     if self.getDescription() == 'r' then
         if ToggleRuler() then
-            printToAll('Spawning ' .. self.getName() .. ' guide', {0, 1, 1})
+            printToAll('Spawning ' .. self.getName() .. ' guide', { 0, 1, 1 })
         end
         self.setDescription('')
     end
@@ -28,7 +28,7 @@ function ToggleRuler()
     end
     local params = {
         type = 'Custom_Model',
-        position = self.positionToWorld({0, 0.2, 0}),
+        position = self.positionToWorld({ 0, 0.2, 0 }),
         rotation = self.getRotation(),
         scale = self.getScale()
     }
@@ -40,16 +40,16 @@ function ToggleRuler()
         click_function = 'ToggleRuler',
         label = 'DEL',
         function_owner = self,
-        position = {0, 0.25, 0},
-        rotation = {0, 270, 0},
+        position = { 0, 0.25, 0 },
+        rotation = { 0, 270, 0 },
         width = 750,
         height = 750,
         font_size = 250,
-        color = {0.7, 0.7, 0.7}
+        color = { 0.7, 0.7, 0.7 }
     }
     spawnedRuler = spawnObject(params)
     spawnedRuler.setCustomObject(custom)
-    spawnedRuler.setColorTint(color(1,1,0,0.2))
+    spawnedRuler.setColorTint(color(1, 1, 0, 0.2))
     spawnedRuler.createButton(removeButton)
     spawnedRuler.lock()
     return true
@@ -58,8 +58,8 @@ end
 function onLoad()
     -- TODO: hey should this be AOE_SensorBouy instead? looks like a copy&paste error
     if self.getName() == 'AoE Bomb source' then
-        self.setPosition({0, -3, 18.28})
-        self.setRotation({0, 0, 0})
+        self.setPosition({ 0, -3, 18.28 })
+        self.setRotation({ 0, 0, 0 })
         self.lock()
         self.tooltip = false
         self.interactable = false
@@ -67,5 +67,4 @@ function onLoad()
     else
         self.addContextMenuItem("Toggle Range 1", ToggleRuler, false)
     end
-
 end

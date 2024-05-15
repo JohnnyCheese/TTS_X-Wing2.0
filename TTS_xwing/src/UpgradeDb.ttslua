@@ -1,1239 +1,1237 @@
-
-masterUpgradesDB={}
-masterUpgradesDB['crackshot']={
-  name = 'Crack Shot',
-  XWS = 'crackshot',
-  slot = 1,
-  cost = 3,
-  Charge = 1,
+masterUpgradesDB = {}
+masterUpgradesDB['crackshot'] = {
+    name = 'Crack Shot',
+    XWS = 'crackshot',
+    slot = 1,
+    cost = 3,
+    Charge = 1,
 }
 
-masterUpgradesDB['daredevil']={
+masterUpgradesDB['daredevil'] = {
     name = 'Daredevil',
     XWS = 'daredevil',
     slot = 1,
-    addAction = {'Dare'},
+    addAction = { 'Dare' },
     cost = 2,
-    restriction = {Size = {small=true}}
+    restriction = { Size = { small = true } }
 }
 
-masterUpgradesDB['debrisgambit']={
-  name = 'Debris Gambit',
-  XWS = 'debrisgambit',
-  slot = 1,
-  addAction = {'E'} ,
-  cost = 3,
-  restriction = {Size = {small=true,medium=true}}
+masterUpgradesDB['debrisgambit'] = {
+    name = 'Debris Gambit',
+    XWS = 'debrisgambit',
+    slot = 1,
+    addAction = { 'E' },
+    cost = 3,
+    restriction = { Size = { small = true, medium = true } }
 }
 
-masterUpgradesDB['elusive']={
-  name = 'Elusive',
-  XWS = 'elusive',
-  slot = 1,
-  cost = 2,
-  Charge = 1,
-  restriction = {Size={small=true,medium=true}}
+masterUpgradesDB['elusive'] = {
+    name = 'Elusive',
+    XWS = 'elusive',
+    slot = 1,
+    cost = 2,
+    Charge = 1,
+    restriction = { Size = { small = true, medium = true } }
 }
 
-masterUpgradesDB['experthandling']={
-  name = 'Expert Handling',
-  XWS = 'experthandling',
-  slot = 1,
-  cost = 0,
+masterUpgradesDB['experthandling'] = {
+    name = 'Expert Handling',
+    XWS = 'experthandling',
+    slot = 1,
+    cost = 0,
 }
 
-masterUpgradesDB['fearless']={
-  name = 'Fearless',
-  XWS = 'fearless',
-  slot = 1,
-  cost = 3,
-  restriction = {
-    Faction = {[3]=true}
-  }
+masterUpgradesDB['fearless'] = {
+    name = 'Fearless',
+    XWS = 'fearless',
+    slot = 1,
+    cost = 3,
+    restriction = {
+        Faction = { [3] = true }
+    }
 }
 
-masterUpgradesDB['intimidation']={
-  name = 'Intimidation',
-  XWS = 'intimidation',
-  slot = 1,
-  cost = 3,
+masterUpgradesDB['intimidation'] = {
+    name = 'Intimidation',
+    XWS = 'intimidation',
+    slot = 1,
+    cost = 3,
 }
 
-masterUpgradesDB['juke']={
-  name = 'Juke',
-  XWS = 'juke',
-  slot = 1,
-  cost = 6,
-  restriction = { Size = {small=true,medium=true}}
+masterUpgradesDB['juke'] = {
+    name = 'Juke',
+    XWS = 'juke',
+    slot = 1,
+    cost = 6,
+    restriction = { Size = { small = true, medium = true } }
 }
 
-masterUpgradesDB['lonewolf']={
-  name = 'Lone Wolf',
-  XWS = 'lonewolf',
-  slot = 1,
-  cost = 5,
-  Charge = 1,
+masterUpgradesDB['lonewolf'] = {
+    name = 'Lone Wolf',
+    XWS = 'lonewolf',
+    slot = 1,
+    cost = 5,
+    Charge = 1,
 }
 
-masterUpgradesDB['marksmanship']={
-  name = 'Marksmanship',
-  XWS = 'marksmanship',
-  slot = 1,
-  cost = 1,
+masterUpgradesDB['marksmanship'] = {
+    name = 'Marksmanship',
+    XWS = 'marksmanship',
+    slot = 1,
+    cost = 1,
 }
 
-masterUpgradesDB['outmaneuver']={
-  name = 'Outmaneuver',
-  XWS = 'outmaneuver',
-  slot = 1,
-  cost = 6,
+masterUpgradesDB['outmaneuver'] = {
+    name = 'Outmaneuver',
+    XWS = 'outmaneuver',
+    slot = 1,
+    cost = 6,
 }
 
-masterUpgradesDB['predator']={
-  name = 'Predator',
-  XWS = 'predator',
-  slot = 1,
-  cost = 2,
+masterUpgradesDB['predator'] = {
+    name = 'Predator',
+    XWS = 'predator',
+    slot = 1,
+    cost = 2,
 }
 
-masterUpgradesDB['ruthless']={
-  name = 'Ruthless',
-  XWS = 'ruthless',
-  slot = 1,
-  cost = 1,
-  restriction = {
-    Faction = {[2]=true}
-  }
+masterUpgradesDB['ruthless'] = {
+    name = 'Ruthless',
+    XWS = 'ruthless',
+    slot = 1,
+    cost = 1,
+    restriction = {
+        Faction = { [2] = true }
+    }
 }
 
-masterUpgradesDB['saturationsalvo']={
-	name = 'Saturation Salvo',
-	XWS = 'saturationsalvo',
-	slot = 1,
-	cost = 3
+masterUpgradesDB['saturationsalvo'] = {
+    name = 'Saturation Salvo',
+    XWS = 'saturationsalvo',
+    slot = 1,
+    cost = 3
 }
 
-masterUpgradesDB['selfless']={
-	name = 'Selfless',
-	XWS = 'selfless',
-	slot = 1,
-	cost = 2,
-	restriction = {Faction = {[1]=true}}
+masterUpgradesDB['selfless'] = {
+    name = 'Selfless',
+    XWS = 'selfless',
+    slot = 1,
+    cost = 2,
+    restriction = { Faction = { [1] = true } }
 }
 
-masterUpgradesDB['squadleader']={
-	name = 'Squad Leader',
-	XWS = 'squadleader',
-	slot = 1,
-	cost = 'i'
+masterUpgradesDB['squadleader'] = {
+    name = 'Squad Leader',
+    XWS = 'squadleader',
+    slot = 1,
+    cost = 'i'
 }
 
-masterUpgradesDB['swarmtactics']={
-	name = 'Swarm Tactics',
-	XWS = 'swarmtactics',
-	slot = 1,
-	cost = 'i'
+masterUpgradesDB['swarmtactics'] = {
+    name = 'Swarm Tactics',
+    XWS = 'swarmtactics',
+    slot = 1,
+    cost = 'i'
 }
 
-masterUpgradesDB['trickshot']={
-	name = 'Trick Shot',
-	XWS = 'trickshot',
-	slot = 1,
-	cost = 4
+masterUpgradesDB['trickshot'] = {
+    name = 'Trick Shot',
+    XWS = 'trickshot',
+    slot = 1,
+    cost = 4
 }
 
-masterUpgradesDB['heightenedperception']={
-	name = 'Heightened Perception',
-	XWS = 'heightenedperception',
-	slot = 17,
-	cost = 3,
+masterUpgradesDB['heightenedperception'] = {
+    name = 'Heightened Perception',
+    XWS = 'heightenedperception',
+    slot = 17,
+    cost = 3,
 }
 
-masterUpgradesDB['instinctiveaim']={
-	name = 'Instinctive Aim',
-	XWS = 'instinctiveaim',
-	slot = 17,
-	cost = 1,
+masterUpgradesDB['instinctiveaim'] = {
+    name = 'Instinctive Aim',
+    XWS = 'instinctiveaim',
+    slot = 17,
+    cost = 1,
 }
 
-masterUpgradesDB['sense']={
-	name = 'Sense',
-	XWS = 'sense',
-	slot = 17,
-	cost = 6,
+masterUpgradesDB['sense'] = {
+    name = 'Sense',
+    XWS = 'sense',
+    slot = 17,
+    cost = 6,
 }
 
-masterUpgradesDB['supernaturalreflexes']={
+masterUpgradesDB['supernaturalreflexes'] = {
     name = 'Supernatural Reflexes',
     XWS = 'supernaturalreflexes',
     slot = 17,
-    addAction = {'B', 'BR'},
+    addAction = { 'B', 'BR' },
     cost = 0,
-    restriction = {Size={small=true}}
+    restriction = { Size = { small = true } }
 }
 
-masterUpgradesDB['advancedsensors']={
-	name = 'Advanced Sensors',
-	XWS = 'advancedsensors',
-	slot = 2,
-	cost = 's'
+masterUpgradesDB['advancedsensors'] = {
+    name = 'Advanced Sensors',
+    XWS = 'advancedsensors',
+    slot = 2,
+    cost = 's'
 }
 
-masterUpgradesDB['collisiondetector']={
-	name = 'Collision Detector',
-	XWS = 'collisiondetector',
-	slot = 2,
-	cost = 6,
-	Charge = 2
+masterUpgradesDB['collisiondetector'] = {
+    name = 'Collision Detector',
+    XWS = 'collisiondetector',
+    slot = 2,
+    cost = 6,
+    Charge = 2
 }
 
-masterUpgradesDB['firecontrolsystem']={
-	name = 'Fire-Control System',
-	XWS = 'firecontrolsystem',
-	slot = 2,
-	cost = 2
+masterUpgradesDB['firecontrolsystem'] = {
+    name = 'Fire-Control System',
+    XWS = 'firecontrolsystem',
+    slot = 2,
+    cost = 2
 }
 
-masterUpgradesDB['trajectorysimulator']={
-	name = 'Trajectory Simulator',
-	XWS = 'trajectorysimulator',
-	slot = 2,
-	cost = 6
+masterUpgradesDB['trajectorysimulator'] = {
+    name = 'Trajectory Simulator',
+    XWS = 'trajectorysimulator',
+    slot = 2,
+    cost = 6
 }
 
-masterUpgradesDB['heavylasercannon']={
-	name = 'Heavy Laser Cannon',
-	XWS = 'heavylasercannon',
-	slot = 3,
-	cost = 4
+masterUpgradesDB['heavylasercannon'] = {
+    name = 'Heavy Laser Cannon',
+    XWS = 'heavylasercannon',
+    slot = 3,
+    cost = 4
 }
 
-masterUpgradesDB['ioncannon']={
-	name = 'Ion Cannon',
-	XWS = 'ioncannon',
-	slot = 3,
-	cost = 6
+masterUpgradesDB['ioncannon'] = {
+    name = 'Ion Cannon',
+    XWS = 'ioncannon',
+    slot = 3,
+    cost = 6
 }
 
-masterUpgradesDB['jammingbeam']={
-	name = 'Jamming Beam',
-	XWS = 'jammingbeam',
-	slot = 3,
-	cost = 0
+masterUpgradesDB['jammingbeam'] = {
+    name = 'Jamming Beam',
+    XWS = 'jammingbeam',
+    slot = 3,
+    cost = 0
 }
 
-masterUpgradesDB['tractorbeam']={
-	name = 'Tractor Beam',
-	XWS = 'tractorbeam',
-	slot = 3,
-	cost = 4
+masterUpgradesDB['tractorbeam'] = {
+    name = 'Tractor Beam',
+    XWS = 'tractorbeam',
+    slot = 3,
+    cost = 4
 }
 
 
-masterUpgradesDB['dorsalturret']={
-  name = 'Dorsal Turret',
+masterUpgradesDB['dorsalturret'] = {
+    name = 'Dorsal Turret',
     XWS = 'dorsalturret',
-  slot = 4,
-  cost = 2,
-  arcs = {turret = {name = 'dorsal turret', range = 2, type = {'singleturret'}}}
+    slot = 4,
+    cost = 2,
+    arcs = { turret = { name = 'dorsal turret', range = 2, type = { 'singleturret' } } }
 }
 
-masterUpgradesDB['ioncannonturret']={
-  name = 'Ion Cannon Turret',
+masterUpgradesDB['ioncannonturret'] = {
+    name = 'Ion Cannon Turret',
     XWS = 'ioncannonturret',
-  slot = 4,
-  cost = 5,
-  arcs = {turret = {name = 'ion cannon turret', range = 2, type = {'singleturret'}}}
+    slot = 4,
+    cost = 5,
+    arcs = { turret = { name = 'ion cannon turret', range = 2, type = { 'singleturret' } } }
 }
 
-masterUpgradesDB['advprotontorpedoes']={
-	name = 'Adv. Proton Torpedoes',
-	XWS = 'advprotontorpedoes',
-	slot = 5,
-	cost = 5,
-	Charge = 1
+masterUpgradesDB['advprotontorpedoes'] = {
+    name = 'Adv. Proton Torpedoes',
+    XWS = 'advprotontorpedoes',
+    slot = 5,
+    cost = 5,
+    Charge = 1
 }
 
-masterUpgradesDB['iontorpedoes']={
-	name = 'Ion Torpedoes',
-	XWS = 'iontorpedoes',
-	slot = 5,
-	cost = 4,
-	Charge = 2
+masterUpgradesDB['iontorpedoes'] = {
+    name = 'Ion Torpedoes',
+    XWS = 'iontorpedoes',
+    slot = 5,
+    cost = 4,
+    Charge = 2
 }
 
-masterUpgradesDB['protontorpedoes']={
-	name = 'Proton Torpedoes',
-	XWS = 'protontorpedoes',
-	slot = 5,
-	cost = 12,
-	Charge = 2,
+masterUpgradesDB['protontorpedoes'] = {
+    name = 'Proton Torpedoes',
+    XWS = 'protontorpedoes',
+    slot = 5,
+    cost = 12,
+    Charge = 2,
 }
 
-masterUpgradesDB['barragerockets']={
-	name = 'Barrage Rockets',
-	XWS = 'barragerockets',
-	slot = 6,
-  remSlot = {6},
-  cost = 8,
-	Charge = 5,
-  cardB = cardBackDB['6b'],
+masterUpgradesDB['barragerockets'] = {
+    name = 'Barrage Rockets',
+    XWS = 'barragerockets',
+    slot = 6,
+    remSlot = { 6 },
+    cost = 8,
+    Charge = 5,
+    cardB = cardBackDB['6b'],
 }
 
-masterUpgradesDB['clustermissiles']={
-	name = 'Cluster Missiles',
-	XWS = 'clustermissiles',
-	slot = 6,
-	cost = 4,
-	Charge = 4
+masterUpgradesDB['clustermissiles'] = {
+    name = 'Cluster Missiles',
+    XWS = 'clustermissiles',
+    slot = 6,
+    cost = 4,
+    Charge = 4
 }
 
-masterUpgradesDB['concussionmissiles']={
-	name = 'Concussion Missiles',
-	XWS = 'concussionmissiles',
-	slot = 6,
-	cost = 6,
-	Charge = 3
+masterUpgradesDB['concussionmissiles'] = {
+    name = 'Concussion Missiles',
+    XWS = 'concussionmissiles',
+    slot = 6,
+    cost = 6,
+    Charge = 3
 }
 
-masterUpgradesDB['homingmissiles']={
-	name = 'Homing Missiles',
-	XWS = 'homingmissiles',
-	slot = 6,
-	cost = 5,
-	Charge = 2
+masterUpgradesDB['homingmissiles'] = {
+    name = 'Homing Missiles',
+    XWS = 'homingmissiles',
+    slot = 6,
+    cost = 5,
+    Charge = 2
 }
 
-masterUpgradesDB['ionmissiles']={
-	name = 'Ion Missiles',
-	XWS = 'ionmissiles',
-	slot = 6,
-	cost = 2,
-	Charge = 3
+masterUpgradesDB['ionmissiles'] = {
+    name = 'Ion Missiles',
+    XWS = 'ionmissiles',
+    slot = 6,
+    cost = 2,
+    Charge = 3
 }
 
-masterUpgradesDB['protonrockets']={
-	name = 'Proton Rockets',
-	XWS = 'protonrockets',
-	slot = 6,
-	cost = 5,
-	Charge = 1
+masterUpgradesDB['protonrockets'] = {
+    name = 'Proton Rockets',
+    XWS = 'protonrockets',
+    slot = 6,
+    cost = 5,
+    Charge = 1
 }
 
-masterUpgradesDB['freelanceslicer']={
-	name = 'Freelance Slicer',
-	XWS = 'freelanceslicer',
-	slot = 8,
-	cost = 3
+masterUpgradesDB['freelanceslicer'] = {
+    name = 'Freelance Slicer',
+    XWS = 'freelanceslicer',
+    slot = 8,
+    cost = 3
 }
 
-masterUpgradesDB['gnkgonkdroid']={
-	name = 'GNK "Gonk" Droid',
-	XWS = 'gnkgonkdroid',
-	slot = 8,
-	cost = 5,
-	Charge = 1
+masterUpgradesDB['gnkgonkdroid'] = {
+    name = 'GNK "Gonk" Droid',
+    XWS = 'gnkgonkdroid',
+    slot = 8,
+    cost = 5,
+    Charge = 1
 }
 
-masterUpgradesDB['informant']={
-	name = 'Informant',
-	XWS = 'informant',
-  Condition = "Listening Device",
-	slot = 8,
-	cost = 4
+masterUpgradesDB['informant'] = {
+    name = 'Informant',
+    XWS = 'informant',
+    Condition = "Listening Device",
+    slot = 8,
+    cost = 4
 }
 
-masterUpgradesDB['novicetechnician']={
-	name = 'Novice Technician',
-	XWS = 'novicetechnician',
-	slot = 8,
-	cost = 2
+masterUpgradesDB['novicetechnician'] = {
+    name = 'Novice Technician',
+    XWS = 'novicetechnician',
+    slot = 8,
+    cost = 2
 }
 
-masterUpgradesDB['perceptivecopilot']={
-	name = 'Perceptive Copilot',
-	XWS = 'perceptivecopilot',
-	slot = 8,
-	cost = 8
+masterUpgradesDB['perceptivecopilot'] = {
+    name = 'Perceptive Copilot',
+    XWS = 'perceptivecopilot',
+    slot = 8,
+    cost = 8
 }
 
-masterUpgradesDB['seasonednavigator']={
+masterUpgradesDB['seasonednavigator'] = {
     name = 'Seasoned Navigator',
     XWS = 'seasonednavigator',
     slot = 8,
     cost = 0,
 
-    restriction = { },
+    restriction = {},
     executeOptions = function(list, pilotid)
         exopts = {}
-        nextdiff = { b = "w", w = "r"}
+        nextdiff = { b = "w", w = "r" }
         if pilotid == 0 then
             return {}
         end
         for i, man in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
-            local Char= man:find("%d")
-            local speed = tonumber(man:sub(Char,Char))
-            local exopt = {man}
+            local Char = man:find("%d")
+            local speed = tonumber(man:sub(Char, Char))
+            local exopt = { man }
             for k, man2 in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
-
-                local diff = man2:sub(1,1)
+                local diff = man2:sub(1, 1)
                 Char = man2:find("%d")
-                local thisspeed = tonumber(man2:sub(Char,Char))
+                local thisspeed = tonumber(man2:sub(Char, Char))
                 if (thisspeed == speed) and (nextdiff[diff] ~= nil) and (man ~= man2) then
                     --print(man .. " " .. man2 .. " " .. tostring(thisspeed))
-                    exopt[#exopt+1] = nextdiff[diff] .. man2:sub(2)
+                    exopt[#exopt + 1] = nextdiff[diff] .. man2:sub(2)
                 end
             end
             if #exopt > 1 then
                 --table.print(exopt)
                 exopts[man] = exopt
-
             end
         end
         return exopts
     end
 }
 
-masterUpgradesDB['tacticalofficer']={
-	name = 'Tactical Officer',
-	XWS = 'tacticalofficer',
-	slot = 8,
-	cost = 3
+masterUpgradesDB['tacticalofficer'] = {
+    name = 'Tactical Officer',
+    XWS = 'tacticalofficer',
+    slot = 8,
+    cost = 3
 }
 
-masterUpgradesDB['hotshotgunner']={
-	name = 'Hotshot Gunner',
-	XWS = 'hotshotgunner',
-	slot = 16,
-	cost = 6
+masterUpgradesDB['hotshotgunner'] = {
+    name = 'Hotshot Gunner',
+    XWS = 'hotshotgunner',
+    slot = 16,
+    cost = 6
 }
 
-masterUpgradesDB['skilledbombardier']={
-	name = 'Skilled Bombardier',
-	XWS = 'skilledbombardier',
-	slot = 16,
-	cost = 2
+masterUpgradesDB['skilledbombardier'] = {
+    name = 'Skilled Bombardier',
+    XWS = 'skilledbombardier',
+    slot = 16,
+    cost = 2
 }
 
-masterUpgradesDB['veterantailgunner']={
-	name = 'Veteran Tail Gunner',
-	XWS = 'veterantailgunner',
-	slot = 16,
-	cost = 2
+masterUpgradesDB['veterantailgunner'] = {
+    name = 'Veteran Tail Gunner',
+    XWS = 'veterantailgunner',
+    slot = 16,
+    cost = 2
 }
 
-masterUpgradesDB['veteranturretgunner']={
-	name = 'Veteran Turret Gunner',
-	XWS = 'veteranturretgunner',
-	slot = 16,
-	cost = 's'
+masterUpgradesDB['veteranturretgunner'] = {
+    name = 'Veteran Turret Gunner',
+    XWS = 'veteranturretgunner',
+    slot = 16,
+    cost = 's'
 }
 
-masterUpgradesDB['r2astromech']={
-	name = 'R2 Astromech',
-	XWS = 'r2astromech',
-	slot = 10,
-	cost = 0,
-	Charge = 2
+masterUpgradesDB['r2astromech'] = {
+    name = 'R2 Astromech',
+    XWS = 'r2astromech',
+    slot = 10,
+    cost = 0,
+    Charge = 2
 }
 
-masterUpgradesDB['r3astromech']={
-	name = 'R3 Astromech',
-	XWS = 'r3astromech',
-	slot = 10,
-	cost = 3
+masterUpgradesDB['r3astromech'] = {
+    name = 'R3 Astromech',
+    XWS = 'r3astromech',
+    slot = 10,
+    cost = 3
 }
 
-masterUpgradesDB['r4astromech']={
-	name = 'R4 Astromech',
-	XWS = 'r4astromech',
-	slot = 10,
-	cost = 2,
-	restriction = { Size = {small=true}}
+masterUpgradesDB['r4astromech'] = {
+    name = 'R4 Astromech',
+    XWS = 'r4astromech',
+    slot = 10,
+    cost = 2,
+    restriction = { Size = { small = true } }
 }
 
-masterUpgradesDB['r5astromech']={
-	name = 'R5 Astromech',
-	XWS = 'r5astromech',
-	slot = 10,
-	cost = 4,
-	Charge = 2
+masterUpgradesDB['r5astromech'] = {
+    name = 'R5 Astromech',
+    XWS = 'r5astromech',
+    slot = 10,
+    cost = 4,
+    Charge = 2
 }
 
-masterUpgradesDB['cloakingdevice']={
+masterUpgradesDB['cloakingdevice'] = {
     name = 'Cloaking Device',
     XWS = 'cloakingdevice',
     slot = 13,
     limited = 1,
-    addAction = {'CL'},
+    addAction = { 'CL' },
     cost = 3,
     Charge = 2,
-    restriction = { Size={small=true,medium=true}}
+    restriction = { Size = { small = true, medium = true } }
 }
 
-masterUpgradesDB['contrabandcybernetics']={
-	name = 'Contraband Cybernetics',
-	XWS = 'contrabandcybernetics',
-	slot = 13,
-	cost = 3,
-	Charge = 1
+masterUpgradesDB['contrabandcybernetics'] = {
+    name = 'Contraband Cybernetics',
+    XWS = 'contrabandcybernetics',
+    slot = 13,
+    cost = 3,
+    Charge = 1
 }
 
-masterUpgradesDB['deadmansswitch']={
-  name = "Deadman's Switch",
-	XWS = 'deadmansswitch',
-	slot = 13,
-	cost = 2
+masterUpgradesDB['deadmansswitch'] = {
+    name = "Deadman's Switch",
+    XWS = 'deadmansswitch',
+    slot = 13,
+    cost = 2
 }
 
-masterUpgradesDB['feedbackarray']={
-	name = 'Feedback Array',
-	XWS = 'feedbackarray',
-	slot = 13,
-	cost = 3
+masterUpgradesDB['feedbackarray'] = {
+    name = 'Feedback Array',
+    XWS = 'feedbackarray',
+    slot = 13,
+    cost = 3
 }
 
-masterUpgradesDB['inertialdampeners']={
-	name = 'Inertial Dampeners',
-	XWS = 'inertialdampeners',
-	slot = 13,
-	cost = 'i'
+masterUpgradesDB['inertialdampeners'] = {
+    name = 'Inertial Dampeners',
+    XWS = 'inertialdampeners',
+    slot = 13,
+    cost = 'i'
 }
 
-masterUpgradesDB['riggedcargochute']={
-	name = 'Rigged Cargo Chute',
-	XWS = 'riggedcargochute',
-	slot = 13,
-  Bomb = true,
-	cost = 4,
-	Charge = 1,
-  restriction = { Size = {large=true,medium=true}}
+masterUpgradesDB['riggedcargochute'] = {
+    name = 'Rigged Cargo Chute',
+    XWS = 'riggedcargochute',
+    slot = 13,
+    Bomb = true,
+    cost = 4,
+    Charge = 1,
+    restriction = { Size = { large = true, medium = true } }
 }
 
-masterUpgradesDB['ablativeplating']={
-	name = 'Ablative Plating',
-	XWS = 'ablativeplating',
-	slot = 14,
-	cost = 4,
-	Charge = 2,
-  restriction = { Size = {large=true,medium=true}}
+masterUpgradesDB['ablativeplating'] = {
+    name = 'Ablative Plating',
+    XWS = 'ablativeplating',
+    slot = 14,
+    cost = 4,
+    Charge = 2,
+    restriction = { Size = { large = true, medium = true } }
 }
 
-masterUpgradesDB['advancedslam']={
-	name = 'Advanced SLAM',
-	XWS = 'advancedslam',
-	slot = 14,
-	cost = 3
+masterUpgradesDB['advancedslam'] = {
+    name = 'Advanced SLAM',
+    XWS = 'advancedslam',
+    slot = 14,
+    cost = 3
 }
 
 
-masterUpgradesDB['afterburners']={
+masterUpgradesDB['afterburners'] = {
     name = 'Afterburners',
     XWS = 'afterburners',
-    addAction = {'B'},
+    addAction = { 'B' },
     slot = 14,
     cost = 0,
     Charge = 2,
     restriction = {
-        Size = {small=true}
+        Size = { small = true }
     }
 }
 
-masterUpgradesDB['electronicbaffle']={
-	name = 'Electronic Baffle',
-	XWS = 'electronicbaffle',
-	slot = 14,
-	cost = 2
+masterUpgradesDB['electronicbaffle'] = {
+    name = 'Electronic Baffle',
+    XWS = 'electronicbaffle',
+    slot = 14,
+    cost = 2
 }
 
-masterUpgradesDB['engineupgrade']={
-	name = 'Engine Upgrade',
-	XWS = 'engineupgrade',
-	slot = 14,
-	cost = 's'
+masterUpgradesDB['engineupgrade'] = {
+    name = 'Engine Upgrade',
+    XWS = 'engineupgrade',
+    slot = 14,
+    cost = 's'
 }
 
-masterUpgradesDB['hullupgrade']={
+masterUpgradesDB['hullupgrade'] = {
     name = 'Hull Upgrade',
     XWS = 'hullupgrade',
     slot = 14,
     cost = 0,
     Hull = 1,
-    restriction={}
+    restriction = {}
 }
-masterUpgradesDB['munitionsfailsafe']={
-	name = 'Munitions Failsafe',
-	XWS = 'munitionsfailsafe',
-	slot = 14,
-	cost = 1
-}
-
-masterUpgradesDB['shieldupgrade']={
-	name = 'Shield Upgrade',
-	XWS = 'shieldupgrade',
-	slot = 14,
-	cost = 0,
-  shd = 1
+masterUpgradesDB['munitionsfailsafe'] = {
+    name = 'Munitions Failsafe',
+    XWS = 'munitionsfailsafe',
+    slot = 14,
+    cost = 1
 }
 
-masterUpgradesDB['staticdischargevanes']={
-	name = 'Static Discharge Vanes',
-	XWS = 'staticdischargevanes',
-	slot = 14,
-	cost = 5
+masterUpgradesDB['shieldupgrade'] = {
+    name = 'Shield Upgrade',
+    XWS = 'shieldupgrade',
+    slot = 14,
+    cost = 0,
+    shd = 1
 }
 
-masterUpgradesDB['stealthdevice']={
-	name = 'Stealth Device',
-	XWS = 'stealthdevice',
-	slot = 14,
-	cost = 0,
-	Charge = 1
+masterUpgradesDB['staticdischargevanes'] = {
+    name = 'Static Discharge Vanes',
+    XWS = 'staticdischargevanes',
+    slot = 14,
+    cost = 5
 }
 
-masterUpgradesDB['tacticalscrambler']={
-	name = 'Tactical Scrambler',
-	XWS = 'tacticalscrambler',
-	slot = 14,
-	cost = 2,
-	restriction = { Size = {large=true,medium=true}}
+masterUpgradesDB['stealthdevice'] = {
+    name = 'Stealth Device',
+    XWS = 'stealthdevice',
+    slot = 14,
+    cost = 0,
+    Charge = 1
 }
 
-masterUpgradesDB['bazemalbus']={
-	name = 'Baze Malbus',
-	XWS = 'bazemalbus',
-	slot = 8,
-	cost = 3,
-	restriction = {Faction = {[1]=true}}
+masterUpgradesDB['tacticalscrambler'] = {
+    name = 'Tactical Scrambler',
+    XWS = 'tacticalscrambler',
+    slot = 14,
+    cost = 2,
+    restriction = { Size = { large = true, medium = true } }
 }
 
-masterUpgradesDB['c3po']={
+masterUpgradesDB['bazemalbus'] = {
+    name = 'Baze Malbus',
+    XWS = 'bazemalbus',
+    slot = 8,
+    cost = 3,
+    restriction = { Faction = { [1] = true } }
+}
+
+masterUpgradesDB['c3po'] = {
     name = 'C-3PO',
     XWS = 'c3po',
     slot = 8,
-    addAction = {'C'},
+    addAction = { 'C' },
     cost = 7,
-    restriction = {Faction={[1]=true}}
+    restriction = { Faction = { [1] = true } }
 }
 
-masterUpgradesDB['cassianandor']={
-	name = 'Cassian Andor',
-	XWS = 'cassianandor',
-	slot = 8,
-	cost = 5,
-	restriction = {Faction = {[1]=true}}
+masterUpgradesDB['cassianandor'] = {
+    name = 'Cassian Andor',
+    XWS = 'cassianandor',
+    slot = 8,
+    cost = 5,
+    restriction = { Faction = { [1] = true } }
 }
 
-masterUpgradesDB['chewbacca']={
-	name = 'Chewbacca',
-	XWS = 'chewbacca',
-	slot = 8,
-	cost = 3,
-	Charge = 2,
-	restriction = {Faction = {[1]=true}}
+masterUpgradesDB['chewbacca'] = {
+    name = 'Chewbacca',
+    XWS = 'chewbacca',
+    slot = 8,
+    cost = 3,
+    Charge = 2,
+    restriction = { Faction = { [1] = true } }
 }
 
-masterUpgradesDB['chopper-crew']={
-	name = '"Chopper"',
-	XWS = 'chopper-crew',
-	slot = 8,
-	cost = 1,
-	restriction = {Faction = {[1]=true}}
+masterUpgradesDB['chopper-crew'] = {
+    name = '"Chopper"',
+    XWS = 'chopper-crew',
+    slot = 8,
+    cost = 1,
+    restriction = { Faction = { [1] = true } }
 }
 
-masterUpgradesDB['herasyndulla']={
-	name = 'Hera Syndulla',
-	XWS = 'herasyndulla',
-	slot = 8,
-	cost = 4,
-	restriction = {Faction = {[1]=true}}
+masterUpgradesDB['herasyndulla'] = {
+    name = 'Hera Syndulla',
+    XWS = 'herasyndulla',
+    slot = 8,
+    cost = 4,
+    restriction = { Faction = { [1] = true } }
 }
 
-masterUpgradesDB['jynerso']={
+masterUpgradesDB['jynerso'] = {
     name = 'Jyn Erso',
     XWS = 'jynerso',
     slot = 8,
     limited = 1,
-    addSqdAction = {'E'},
+    addSqdAction = { 'E' },
     cost = 3,
-    restriction = {Faction={[1]=true}}
+    restriction = { Faction = { [1] = true } }
 }
 
 
-masterUpgradesDB['kananjarrus']={
+masterUpgradesDB['kananjarrus'] = {
     name = 'Kanan Jarrus',
     XWS = 'kananjarrus',
     slot = 8,
     limited = 1,
     cost = 12,
     Force = 1,
-    restriction = {Faction={[1]=true}}
+    restriction = { Faction = { [1] = true } }
 }
 
 
-masterUpgradesDB['landocalrissian']={
+masterUpgradesDB['landocalrissian'] = {
     name = 'Lando Calrissian',
     XWS = 'landocalrissian',
     slot = 8,
-    addAction = {'F','E'},
+    addAction = { 'F', 'E' },
     cost = 2,
-    restriction = {Faction={[1]=true}}
+    restriction = { Faction = { [1] = true } }
 }
 
-masterUpgradesDB['leiaorgana']={
-	name = 'Leia Organa',
-	XWS = 'leiaorgana',
-	slot = 8,
-	cost = 7,
-	Charge = 3,
-	restriction = {Faction = {[1]=true}}
+masterUpgradesDB['leiaorgana'] = {
+    name = 'Leia Organa',
+    XWS = 'leiaorgana',
+    slot = 8,
+    cost = 7,
+    Charge = 3,
+    restriction = { Faction = { [1] = true } }
 }
 
-masterUpgradesDB['magvayarro']={
+masterUpgradesDB['magvayarro'] = {
     name = 'Magva Yarro',
     XWS = 'magvayarro',
     slot = 8,
-    addAction = {'TL'},
+    addAction = { 'TL' },
     cost = 5,
-    restriction = {Faction={[1]=true}}
+    restriction = { Faction = { [1] = true } }
 }
 
-masterUpgradesDB['niennunb']={
-	name = 'Nien Nunb',
-	XWS = 'niennunb',
-	slot = 8,
-	cost = 5,
-	restriction = {Faction = {[1]=true}}
+masterUpgradesDB['niennunb'] = {
+    name = 'Nien Nunb',
+    XWS = 'niennunb',
+    slot = 8,
+    cost = 5,
+    restriction = { Faction = { [1] = true } }
 }
 
-masterUpgradesDB['r2d2-crew']={
-	name = 'R2-D2',
-	XWS = 'r2d2-crew',
-	slot = 8,
-	cost = 8,
-	restriction = {Faction = {[1]=true}}
+masterUpgradesDB['r2d2-crew'] = {
+    name = 'R2-D2',
+    XWS = 'r2d2-crew',
+    slot = 8,
+    cost = 8,
+    restriction = { Faction = { [1] = true } }
 }
 
-masterUpgradesDB['sabinewren']={
-	name = 'Sabine Wren',
-	XWS = 'sabinewren',
-	slot = 8,
-	cost = 3,
-	restriction = {Faction = {[1]=true}}
+masterUpgradesDB['sabinewren'] = {
+    name = 'Sabine Wren',
+    XWS = 'sabinewren',
+    slot = 8,
+    cost = 3,
+    restriction = { Faction = { [1] = true } }
 }
 
-masterUpgradesDB['sawgerrera']={
-	name = 'Saw Gerrera',
-	XWS = 'sawgerrera',
-	slot = 8,
-	cost = 9,
-	restriction = {Faction = {[1]=true}}
+masterUpgradesDB['sawgerrera'] = {
+    name = 'Saw Gerrera',
+    XWS = 'sawgerrera',
+    slot = 8,
+    cost = 9,
+    restriction = { Faction = { [1] = true } }
 }
 
-masterUpgradesDB['zeborrelios']={
-	name = '"Zeb" Orrelios',
-	XWS = 'zeborrelios',
-	slot = 8,
-	cost = 1,
-	restriction = {Faction = {[1]=true}}
+masterUpgradesDB['zeborrelios'] = {
+    name = '"Zeb" Orrelios',
+    XWS = 'zeborrelios',
+    slot = 8,
+    cost = 1,
+    restriction = { Faction = { [1] = true } }
 }
 
-masterUpgradesDB['bistan']={
-	name = 'Bistan',
-	XWS = 'bistan',
-	slot = 16,
-	cost = 8,
-	restriction = {Faction = {[1]=true}}
+masterUpgradesDB['bistan'] = {
+    name = 'Bistan',
+    XWS = 'bistan',
+    slot = 16,
+    cost = 8,
+    restriction = { Faction = { [1] = true } }
 }
 
-masterUpgradesDB['ezrabridger']={
-	name = 'Ezra Bridger',
-	XWS = 'ezrabridger',
-	slot = 16,
-	cost = 10,
-  Force = 1,
-	restriction = {Faction = {[1]=true}}
+masterUpgradesDB['ezrabridger'] = {
+    name = 'Ezra Bridger',
+    XWS = 'ezrabridger',
+    slot = 16,
+    cost = 10,
+    Force = 1,
+    restriction = { Faction = { [1] = true } }
 }
 
-masterUpgradesDB['hansolo']={
-	name = 'Han Solo',
-	XWS = 'hansolo',
-	slot = 16,
-	cost = 10,
-	restriction = {Faction = {[1]=true}}
+masterUpgradesDB['hansolo'] = {
+    name = 'Han Solo',
+    XWS = 'hansolo',
+    slot = 16,
+    cost = 10,
+    restriction = { Faction = { [1] = true } }
 }
 
-masterUpgradesDB['lukeskywalker']={
-	name = 'Luke Skywalker',
-	XWS = 'lukeskywalker',
-	slot = 16,
-	cost = 26,
-	Force = 1,
-	restriction = {Faction = {[1]=true}}
+masterUpgradesDB['lukeskywalker'] = {
+    name = 'Luke Skywalker',
+    XWS = 'lukeskywalker',
+    slot = 16,
+    cost = 26,
+    Force = 1,
+    restriction = { Faction = { [1] = true } }
 }
 
-masterUpgradesDB['chopper']={
-	name = '"Chopper"',
-	XWS = 'chopper',
-	slot = 10,
-	cost = 2,
-	restriction = {Faction = {[1]=true}}
+masterUpgradesDB['chopper'] = {
+    name = '"Chopper"',
+    XWS = 'chopper',
+    slot = 10,
+    cost = 2,
+    restriction = { Faction = { [1] = true } }
 }
 
-masterUpgradesDB['r2d2']={
-	name = 'R2-D2',
-	XWS = 'r2d2',
-	slot = 10,
-	cost = 0,
-	Charge = 3,
-	restriction = {Faction = {[1]=true}}
+masterUpgradesDB['r2d2'] = {
+    name = 'R2-D2',
+    XWS = 'r2d2',
+    slot = 10,
+    cost = 0,
+    Charge = 3,
+    restriction = { Faction = { [1] = true } }
 }
 
-masterUpgradesDB['r5d8']={
-	name = 'R5-D8',
-	XWS = 'r5d8',
-	slot = 10,
-	cost = 6,
-	Charge = 3,
-	restriction = {Faction = {[1]=true}}
+masterUpgradesDB['r5d8'] = {
+    name = 'R5-D8',
+    XWS = 'r5d8',
+    slot = 10,
+    cost = 6,
+    Charge = 3,
+    restriction = { Faction = { [1] = true } }
 }
 
-masterUpgradesDB['ghost']={
-	name = 'Ghost',
-	XWS = 'ghost',
-	slot = 15,
-	cost = 0,
-	restriction = {Faction = {[1]=true}, ship = {['vcx100lightfreighter']=true}}
+masterUpgradesDB['ghost'] = {
+    name = 'Ghost',
+    XWS = 'ghost',
+    slot = 15,
+    cost = 0,
+    restriction = { Faction = { [1] = true }, ship = { ['vcx100lightfreighter'] = true } }
 }
 
-masterUpgradesDB['millenniumfalcon']={
+masterUpgradesDB['millenniumfalcon'] = {
     name = 'Millennium Falcon',
     XWS = 'millenniumfalcon',
     limited = 1,
     slot = 15,
-    addAction = {'E'},
+    addAction = { 'E' },
     cost = 3,
-    restriction = {Faction={[1]=true},ship={['modifiedyt1300lightfreighter'] = true}}
+    restriction = { Faction = { [1] = true }, ship = { ['modifiedyt1300lightfreighter'] = true } }
 }
 
-masterUpgradesDB['moldycrow']={
-  name = 'Moldy Crow',
-  XWS = 'moldycrow',
-  limited = 1,
-  slot = 15,
-  cost = 16,
-  restriction = {
-  Faction = {[1]=true,[3]=true},
-  ship = { ['hwk290lightfreighter']=true} },
-  arcs = {fixed = { range=3, type = {'front'}}}
+masterUpgradesDB['moldycrow'] = {
+    name = 'Moldy Crow',
+    XWS = 'moldycrow',
+    limited = 1,
+    slot = 15,
+    cost = 16,
+    restriction = {
+        Faction = { [1] = true, [3] = true },
+        ship = { ['hwk290lightfreighter'] = true }
+    },
+    arcs = { fixed = { range = 3, type = { 'front' } } }
 }
 
-masterUpgradesDB['outrider']={
-	name = 'Outrider',
-	XWS = 'outrider',
-	slot = 15,
-	cost = 6,
-	restriction = {ship = {['yt2400lightfreighter']=true}}
+masterUpgradesDB['outrider'] = {
+    name = 'Outrider',
+    XWS = 'outrider',
+    slot = 15,
+    cost = 6,
+    restriction = { ship = { ['yt2400lightfreighter'] = true } }
 }
 
-masterUpgradesDB['phantom']={
-	name = 'Phantom',
-	XWS = 'phantom',
-	slot = 15,
-	cost = 0,
-	restriction = {Faction = {[1]=true}, ship = {['attackshuttle']=true,['sheathipedeclassshuttle']=true}}
+masterUpgradesDB['phantom'] = {
+    name = 'Phantom',
+    XWS = 'phantom',
+    slot = 15,
+    cost = 0,
+    restriction = { Faction = { [1] = true }, ship = { ['attackshuttle'] = true, ['sheathipedeclassshuttle'] = true } }
 }
 
-masterUpgradesDB['pivotwing']={
-  name = 'Pivot Wing',
-  XWS = 'pivotwing',
-  slot = 18,
-  addAction = {'Piv'},
-  cost = 0,
-  dual = true,
-  restriction = {Faction={[1]=true},ship={['ut60duwing']=true}}
+masterUpgradesDB['pivotwing'] = {
+    name = 'Pivot Wing',
+    XWS = 'pivotwing',
+    slot = 18,
+    addAction = { 'Piv' },
+    cost = 0,
+    dual = true,
+    restriction = { Faction = { [1] = true }, ship = { ['ut60duwing'] = true } }
 }
 
-masterUpgradesDB['servomotorsfoils']={
+masterUpgradesDB['servomotorsfoils'] = {
     name = 'Servomotor S-Foils',
     XWS = 'servomotorsfoils',
     slot = 18,
-    addAction = {'B'},
+    addAction = { 'B' },
     cost = 0,
     dual = true,
-    restriction={Faction={[1]=true},ship={['t65xwing']=true}}
+    restriction = { Faction = { [1] = true }, ship = { ['t65xwing'] = true } }
 }
 
 
-masterUpgradesDB['admiralsloane']={
-	name = 'Admiral Sloane',
-	XWS = 'admiralsloane',
-	slot = 8,
-	cost = 16,
-	restriction = {Faction = {[2]=true}}
+masterUpgradesDB['admiralsloane'] = {
+    name = 'Admiral Sloane',
+    XWS = 'admiralsloane',
+    slot = 8,
+    cost = 16,
+    restriction = { Faction = { [2] = true } }
 }
 
-masterUpgradesDB['agentkallus']={
-	name = 'Agent Kallus',
-	XWS = 'agentkallus',
-	Condition = "Hunted",
-	slot = 8,
-	cost = 5,
-	restriction = {Faction = {[2]=true}}
+masterUpgradesDB['agentkallus'] = {
+    name = 'Agent Kallus',
+    XWS = 'agentkallus',
+    Condition = "Hunted",
+    slot = 8,
+    cost = 5,
+    restriction = { Faction = { [2] = true } }
 }
 
-masterUpgradesDB['cienaree']={
+masterUpgradesDB['cienaree'] = {
     name = 'Ciena Ree',
     XWS = 'cienaree',
     slot = 8,
     limited = 1,
-    addSqdAction = {'Piv'},
+    addSqdAction = { 'Piv' },
     cost = 4,
-    restriction = {Faction={[2]=true}}
+    restriction = { Faction = { [2] = true } }
 }
 
-masterUpgradesDB['darthvader']={
+masterUpgradesDB['darthvader'] = {
     name = 'Darth Vader',
     XWS = 'darthvader',
     slot = 8,
     limited = 1,
     cost = 14,
     Force = 1,
-    restriction = {Faction={[2]=true}}
+    restriction = { Faction = { [2] = true } }
 }
 
-masterUpgradesDB['deathtroopers']={
-	name = 'Death Troopers',
-	XWS = 'deathtroopers',
-	slot = 8,
-	cost = 6,
-	restriction = {Faction = {[2]=true}}
+masterUpgradesDB['deathtroopers'] = {
+    name = 'Death Troopers',
+    XWS = 'deathtroopers',
+    slot = 8,
+    cost = 6,
+    restriction = { Faction = { [2] = true } }
 }
 
-masterUpgradesDB['directorkrennic']={
+masterUpgradesDB['directorkrennic'] = {
     name = 'Director Krennic',
     XWS = 'directorkrennic',
     Condition = "Optimized Prototype",
     slot = 8,
     limited = 1,
-    addAction = {'TL'},
+    addAction = { 'TL' },
     cost = 4,
-    restriction = {Faction={[2]=true}}
+    restriction = { Faction = { [2] = true } }
 }
 
-masterUpgradesDB['emperorpalpatine']={
-	name = 'Emperor Palpatine',
-	XWS = 'emperorpalpatine',
-	slot = 8,
-	remSlot = {8},
-  cost = 12,
-	Force = 1,
-	restriction = {Faction = {[2]=true}}
+masterUpgradesDB['emperorpalpatine'] = {
+    name = 'Emperor Palpatine',
+    XWS = 'emperorpalpatine',
+    slot = 8,
+    remSlot = { 8 },
+    cost = 12,
+    Force = 1,
+    restriction = { Faction = { [2] = true } }
 }
 
-masterUpgradesDB['grandinquisitor']={
-	name = 'Grand Inquisitor',
-	XWS = 'grandinquisitor',
-	slot = 8,
-	cost = 13,
-	Force = 1,
-	restriction = {Faction = {[2]=true}}
+masterUpgradesDB['grandinquisitor'] = {
+    name = 'Grand Inquisitor',
+    XWS = 'grandinquisitor',
+    slot = 8,
+    cost = 13,
+    Force = 1,
+    restriction = { Faction = { [2] = true } }
 }
 
-masterUpgradesDB['grandmofftarkin']={
-	name = 'Grand Moff Tarkin',
-	XWS = 'grandmofftarkin',
-	slot = 8,
-	cost = 4,
-	Charge = 2,
-	restriction = {Faction = {[2]=true}}
+masterUpgradesDB['grandmofftarkin'] = {
+    name = 'Grand Moff Tarkin',
+    XWS = 'grandmofftarkin',
+    slot = 8,
+    cost = 4,
+    Charge = 2,
+    restriction = { Faction = { [2] = true } }
 }
 
-masterUpgradesDB['isbslicer']={
-	name = 'ISB Slicer',
-	XWS = 'isbslicer',
-	slot = 8,
-	cost = 1,
-	restriction = {Faction = {[2]=true}}
+masterUpgradesDB['isbslicer'] = {
+    name = 'ISB Slicer',
+    XWS = 'isbslicer',
+    slot = 8,
+    cost = 1,
+    restriction = { Faction = { [2] = true } }
 }
 
-masterUpgradesDB['ministertua']={
+masterUpgradesDB['ministertua'] = {
     name = 'Minister Tua',
     XWS = 'ministertua',
     slot = 8,
     limited = 1,
-    addAction = {'R'},
+    addAction = { 'R' },
     cost = 7,
-    restriction = {Faction={[2]=true}}
+    restriction = { Faction = { [2] = true } }
 }
 
-masterUpgradesDB['moffjerjerrod']={
-  name='Moff Jerjerrod',
-  XWS = 'moffjerjerrod',
-  slot = 8,
-  limited = 1,
-  addSqdAction = {'B'},
-  cost = 7,
-  Charge = 2,
-  restriction = {Faction={[2]=true}}
+masterUpgradesDB['moffjerjerrod'] = {
+    name = 'Moff Jerjerrod',
+    XWS = 'moffjerjerrod',
+    slot = 8,
+    limited = 1,
+    addSqdAction = { 'B' },
+    cost = 7,
+    Charge = 2,
+    restriction = { Faction = { [2] = true } }
 }
 
 
-masterUpgradesDB['seventhsister']={
-	name = 'Seventh Sister',
-	XWS = 'seventhsister',
-	slot = 8,
-	cost = 9,
-	Force = 1,
-	restriction = {Faction = {[2]=true}}
+masterUpgradesDB['seventhsister'] = {
+    name = 'Seventh Sister',
+    XWS = 'seventhsister',
+    slot = 8,
+    cost = 9,
+    Force = 1,
+    restriction = { Faction = { [2] = true } }
 }
 
-masterUpgradesDB['fifthbrother']={
-	name = 'Fifth Brother',
-	XWS = 'fifthbrother',
-	slot = 16,
-	cost = 12,
-	Force = 1,
-	restriction = {Faction = {[2]=true}}
+masterUpgradesDB['fifthbrother'] = {
+    name = 'Fifth Brother',
+    XWS = 'fifthbrother',
+    slot = 16,
+    cost = 12,
+    Force = 1,
+    restriction = { Faction = { [2] = true } }
 }
 
-masterUpgradesDB['dauntless']={
-	name = 'Dauntless',
-	XWS = 'dauntless',
-	slot = 15,
-	cost = 4,
-	restriction = {Faction = {[2]=true}, ship = {['vt49decimator']=true}}
+masterUpgradesDB['dauntless'] = {
+    name = 'Dauntless',
+    XWS = 'dauntless',
+    slot = 15,
+    cost = 4,
+    restriction = { Faction = { [2] = true }, ship = { ['vt49decimator'] = true } }
 }
 
-masterUpgradesDB['os1arsenalloadout']={
-	name = 'Os-1 Arsenal Loadout',
-	XWS = 'os1arsenalloadout',
-	slot = 18,
-	cost = 0,
-	addSlot = {5, 6},
-	restriction = {Faction = {[2]=true}, ship = {['alphaclassstarwing']=true}}
+masterUpgradesDB['os1arsenalloadout'] = {
+    name = 'Os-1 Arsenal Loadout',
+    XWS = 'os1arsenalloadout',
+    slot = 18,
+    cost = 0,
+    addSlot = { 5, 6 },
+    restriction = { Faction = { [2] = true }, ship = { ['alphaclassstarwing'] = true } }
 }
 
-masterUpgradesDB['xg1assaultconfiguration']={
-	name = 'Xg-1 Assault Configuration',
-	XWS = 'xg1assaultconfiguration',
-	slot = 18,
-	cost = 0,
-	addSlot = {3},
-	restriction = {Faction = {[2]=true}, ship = {['alphaclassstarwing']=true}}
+masterUpgradesDB['xg1assaultconfiguration'] = {
+    name = 'Xg-1 Assault Configuration',
+    XWS = 'xg1assaultconfiguration',
+    slot = 18,
+    cost = 0,
+    addSlot = { 3 },
+    restriction = { Faction = { [2] = true }, ship = { ['alphaclassstarwing'] = true } }
 }
 
-masterUpgradesDB['000']={
+masterUpgradesDB['000'] = {
     name = '0-0-0',
     XWS = '000',
     slot = 8,
-    addAction = {'C'},
+    addAction = { 'C' },
     cost = 5,
-    restriction = {Faction={[2]=true, [3]=true}, keywords={'Darth Vader'}}
+    restriction = { Faction = { [2] = true, [3] = true }, keywords = { 'Darth Vader' } }
 }
 
-masterUpgradesDB['4lom']={
-	name = '4-LOM',
-	XWS = '4lom',
-	slot = 8,
-	cost = 2,
-	restriction = {Faction = {[3]=true}}
+masterUpgradesDB['4lom'] = {
+    name = '4-LOM',
+    XWS = '4lom',
+    slot = 8,
+    cost = 2,
+    restriction = { Faction = { [3] = true } }
 }
 
-masterUpgradesDB['bobafett']={
-	name = 'Boba Fett',
-	XWS = 'bobafett',
-	slot = 8,
-	cost = 2,
-	restriction = {Faction = {[3]=true}}
+masterUpgradesDB['bobafett'] = {
+    name = 'Boba Fett',
+    XWS = 'bobafett',
+    slot = 8,
+    cost = 2,
+    restriction = { Faction = { [3] = true } }
 }
 
-masterUpgradesDB['cadbane']={
-  name = 'Cad Bane',
-  XWS = 'cadbane',
-  slot = 8,
-  cost = 3,
-  limited = 1,
-  addAction = {'B'},
-  restriction = {Faction={[3]=true}}
+masterUpgradesDB['cadbane'] = {
+    name = 'Cad Bane',
+    XWS = 'cadbane',
+    slot = 8,
+    cost = 3,
+    limited = 1,
+    addAction = { 'B' },
+    restriction = { Faction = { [3] = true } }
 }
 
-masterUpgradesDB['cikatrovizago']={
-	name = 'Cikatro Vizago',
-	XWS = 'cikatrovizago',
-	slot = 8,
-	cost = 1,
-	restriction = {Faction = {[3]=true}}
+masterUpgradesDB['cikatrovizago'] = {
+    name = 'Cikatro Vizago',
+    XWS = 'cikatrovizago',
+    slot = 8,
+    cost = 1,
+    restriction = { Faction = { [3] = true } }
 }
 
-masterUpgradesDB['ig88d']={
-  name = 'IG-88D',
-  XWS = 'ig88d',
-  slot = 8,
-  limited = 1,
-  addAction = {'C'},
-  cost = 3,
-  restriction = { Faction ={[3]=true}}
+masterUpgradesDB['ig88d'] = {
+    name = 'IG-88D',
+    XWS = 'ig88d',
+    slot = 8,
+    limited = 1,
+    addAction = { 'C' },
+    cost = 3,
+    restriction = { Faction = { [3] = true } }
 }
 
-masterUpgradesDB['jabbathehutt']={
-	name = 'Jabba the Hutt',
-	XWS = 'jabbathehutt',
-	slot = 8,
-	remSlot = {8},
-	cost = 11,
-	Charge = 4,
-	restriction = {Faction = {[3]=true}}
+masterUpgradesDB['jabbathehutt'] = {
+    name = 'Jabba the Hutt',
+    XWS = 'jabbathehutt',
+    slot = 8,
+    remSlot = { 8 },
+    cost = 11,
+    Charge = 4,
+    restriction = { Faction = { [3] = true } }
 }
 
-masterUpgradesDB['ketsuonyo']={
-	name = 'Ketsu Onyo',
-	XWS = 'ketsuonyo',
-	slot = 8,
-	cost = 4,
-	restriction = {Faction = {[3]=true}}
+masterUpgradesDB['ketsuonyo'] = {
+    name = 'Ketsu Onyo',
+    XWS = 'ketsuonyo',
+    slot = 8,
+    cost = 4,
+    restriction = { Faction = { [3] = true } }
 }
 
-masterUpgradesDB['lattsrazzi']={
-	name = 'Latts Razzi',
-	XWS = 'lattsrazzi',
-	slot = 8,
-	cost = 5,
-	restriction = {Faction = {[3]=true}}
+masterUpgradesDB['lattsrazzi'] = {
+    name = 'Latts Razzi',
+    XWS = 'lattsrazzi',
+    slot = 8,
+    cost = 5,
+    restriction = { Faction = { [3] = true } }
 }
 
-masterUpgradesDB['maul']={
-	name = 'Maul',
-  title = "Original",
-	XWS = 'maul',
-	slot = 8,
-	cost = 10,
-	Force = 1,
-	--restriction = {Func = function(list) Faction = {[1]=true,[3]=true}}
+masterUpgradesDB['maul'] = {
+    name = 'Maul',
+    title = "Original",
+    XWS = 'maul',
+    slot = 8,
+    cost = 10,
+    Force = 1,
+    --restriction = {Func = function(list) Faction = {[1]=true,[3]=true}}
 }
 
-masterUpgradesDB['unkarplutt']={
-	name = 'Unkar Plutt',
-	XWS = 'unkarplutt',
-	slot = 8,
-	cost = 2,
-	restriction = {Faction = {[3]=true}}
+masterUpgradesDB['unkarplutt'] = {
+    name = 'Unkar Plutt',
+    XWS = 'unkarplutt',
+    slot = 8,
+    cost = 2,
+    restriction = { Faction = { [3] = true } }
 }
 
-masterUpgradesDB['zuckuss']={
-	name = 'Zuckuss',
-	XWS = 'zuckuss',
-	slot = 8,
-	cost = 2,
-	restriction = {Faction = {[3]=true}}
+masterUpgradesDB['zuckuss'] = {
+    name = 'Zuckuss',
+    XWS = 'zuckuss',
+    slot = 8,
+    cost = 2,
+    restriction = { Faction = { [3] = true } }
 }
 
-masterUpgradesDB['bossk']={
-	name = 'Bossk',
-	XWS = 'bossk',
-	slot = 16,
-	cost = 8,
-	restriction = {Faction = {[3]=true}}
+masterUpgradesDB['bossk'] = {
+    name = 'Bossk',
+    XWS = 'bossk',
+    slot = 16,
+    cost = 8,
+    restriction = { Faction = { [3] = true } }
 }
 
-masterUpgradesDB['bt1']={
-	name = 'BT-1',
-	XWS = 'bt1',
-	slot = 16,
-	cost = 2,
-	restriction = {Faction = {[2]=true, [3]=true}}
+masterUpgradesDB['bt1'] = {
+    name = 'BT-1',
+    XWS = 'bt1',
+    slot = 16,
+    cost = 2,
+    restriction = { Faction = { [2] = true, [3] = true } }
 }
 
-masterUpgradesDB['dengar']={
-	name = 'Dengar',
-	XWS = 'dengar',
-	slot = 16,
-	cost = 6,
-	Charge = 1,
-	restriction = {Faction = {[3]=true}}
+masterUpgradesDB['dengar'] = {
+    name = 'Dengar',
+    XWS = 'dengar',
+    slot = 16,
+    cost = 6,
+    Charge = 1,
+    restriction = { Faction = { [3] = true } }
 }
 
-masterUpgradesDB['greedo']={
-	name = 'Greedo',
-	XWS = 'greedo',
-	slot = 16,
-	cost = 1,
-	Charge = 1,
-	restriction = {Faction = {[3]=true}}
+masterUpgradesDB['greedo'] = {
+    name = 'Greedo',
+    XWS = 'greedo',
+    slot = 16,
+    cost = 1,
+    Charge = 1,
+    restriction = { Faction = { [3] = true } }
 }
 
-masterUpgradesDB['genius']={
-	name = '"Genius"',
-	XWS = 'genius',
-	slot = 10,
-	cost = 2,
-	restriction = {Faction = {[3]=true}}
+masterUpgradesDB['genius'] = {
+    name = '"Genius"',
+    XWS = 'genius',
+    slot = 10,
+    cost = 2,
+    restriction = { Faction = { [3] = true } }
 }
 
-masterUpgradesDB['r5p8']={
-	name = 'R5-P8',
-	XWS = 'r5p8',
-	slot = 10,
-	cost = 4,
-	Charge = 3,
-	restriction = {Faction = {[3]=true}}
+masterUpgradesDB['r5p8'] = {
+    name = 'R5-P8',
+    XWS = 'r5p8',
+    slot = 10,
+    cost = 4,
+    Charge = 3,
+    restriction = { Faction = { [3] = true } }
 }
 
-masterUpgradesDB['r5tk']={
-	name = 'R5-TK',
-	XWS = 'r5tk',
-	slot = 10,
-	cost = 0,
-	restriction = {Faction = {[3]=true}}
+masterUpgradesDB['r5tk'] = {
+    name = 'R5-TK',
+    XWS = 'r5tk',
+    slot = 10,
+    cost = 0,
+    restriction = { Faction = { [3] = true } }
 }
 
-masterUpgradesDB['andrasta']={
-	name = 'Andrasta',
-	XWS = 'andrasta',
-	slot = 15,
-	cost = 2,
-	addSlot = {12},
-	restriction = {Faction = {[3]=true}, ship = {['firesprayclasspatrolcraft']=true}}
+masterUpgradesDB['andrasta'] = {
+    name = 'Andrasta',
+    XWS = 'andrasta',
+    slot = 15,
+    cost = 2,
+    addSlot = { 12 },
+    restriction = { Faction = { [3] = true }, ship = { ['firesprayclasspatrolcraft'] = true } }
 }
 
-masterUpgradesDB['havoc']={
-	name = 'Havoc',
-	XWS = 'havoc',
-	slot = 15,
-	cost = 2,
-	addSlot = {2, 10},
-	remSlot = {8},
-	restriction = {Faction = {[3]=true}, ship = {['scurrgh6bomber']=true}}
+masterUpgradesDB['havoc'] = {
+    name = 'Havoc',
+    XWS = 'havoc',
+    slot = 15,
+    cost = 2,
+    addSlot = { 2, 10 },
+    remSlot = { 8 },
+    restriction = { Faction = { [3] = true }, ship = { ['scurrgh6bomber'] = true } }
 }
 
-masterUpgradesDB['houndstooth']={
-  name = "Hound's Tooth",
-	XWS = 'houndstooth',
-  Docking = true,
-	slot = 15,
-	cost = 1,
-	restriction = {Faction = {[3]=true}, ship = {['yv666lightfreighter']=true}}
+masterUpgradesDB['houndstooth'] = {
+    name = "Hound's Tooth",
+    XWS = 'houndstooth',
+    Docking = true,
+    slot = 15,
+    cost = 1,
+    restriction = { Faction = { [3] = true }, ship = { ['yv666lightfreighter'] = true } }
 }
 
 
-masterUpgradesDB['ig2000']={
+masterUpgradesDB['ig2000'] = {
     name = 'IG-2000',
     XWS = 'ig2000',
     slot = 15,
     cost = 1,
     restriction = {
-        Faction = {[3]=true},
-        ship =  {['aggressorassaultfighter']=true}
+        Faction = { [3] = true },
+        ship = { ['aggressorassaultfighter'] = true }
     },
     executeOptions = function(list, me)
         for k, pid in pairs(list.Pilots) do
             pilot = masterPilotDB[pid]
             if pid ~= me and pilot.name == "IG-88D" then
                 for _, uid in pairs(list.Upgrades[k]) do
-                    if  masterUpgradesDB[uid].name == "IG-2000" then
+                    if masterUpgradesDB[uid].name == "IG-2000" then
                         return {
-                            rbl3s = {[1]='rtl3s', [2]='rbl3s', [3]='rk3'},
-                            rbr3s = {[1]='rk3', [2]='rbr3s', [3]='rtr3s'}
+                            rbl3s = { [1] = 'rtl3s', [2] = 'rbl3s', [3] = 'rk3' },
+                            rbr3s = { [1] = 'rk3', [2] = 'rbr3s', [3] = 'rtr3s' }
                         }
                     end
                 end
@@ -1243,1162 +1241,1163 @@ masterUpgradesDB['ig2000']={
     end
 }
 
-masterUpgradesDB['marauder']={
-	name = 'Marauder',
-	XWS = 'marauder',
-	slot = 15,
-	cost = 6,
-	addSlot = {16},
-	restriction = {Faction = {[3]=true}, ship = {['firesprayclasspatrolcraft']=true}}
+masterUpgradesDB['marauder'] = {
+    name = 'Marauder',
+    XWS = 'marauder',
+    slot = 15,
+    cost = 6,
+    addSlot = { 16 },
+    restriction = { Faction = { [3] = true }, ship = { ['firesprayclasspatrolcraft'] = true } }
 }
 
-masterUpgradesDB['misthunter']={
-  name = 'Mist Hunter',
-  XWS = 'misthunter',
-  slot = 15,
-  limited = 1,
-  addAction = {'BR'},
-  cost = 1,
-  addSlot = {3},
-  restriction ={Faction={[3]=true},ship={['g1astarfighter']=true}}
+masterUpgradesDB['misthunter'] = {
+    name = 'Mist Hunter',
+    XWS = 'misthunter',
+    slot = 15,
+    limited = 1,
+    addAction = { 'BR' },
+    cost = 1,
+    addSlot = { 3 },
+    restriction = { Faction = { [3] = true }, ship = { ['g1astarfighter'] = true } }
 }
 
-masterUpgradesDB['punishingone']={
-	name = 'Punishing One',
-	XWS = 'punishingone',
-	slot = 15,
-	cost = 5,
-	addSlot = {10},
-	remSlot = {8},
-	restriction = {Faction = {[3]=true}, ship = {['jumpmaster5000']=true}}
+masterUpgradesDB['punishingone'] = {
+    name = 'Punishing One',
+    XWS = 'punishingone',
+    slot = 15,
+    cost = 5,
+    addSlot = { 10 },
+    remSlot = { 8 },
+    restriction = { Faction = { [3] = true }, ship = { ['jumpmaster5000'] = true } }
 }
 
-masterUpgradesDB['shadowcaster']={
-	name = 'Shadow Caster',
-	XWS = 'shadowcaster',
-	slot = 15,
-	cost = 1,
-	restriction = {Faction = {[3]=true}, ship = {['lancerclasspursuitcraft']=true}}
+masterUpgradesDB['shadowcaster'] = {
+    name = 'Shadow Caster',
+    XWS = 'shadowcaster',
+    slot = 15,
+    cost = 1,
+    restriction = { Faction = { [3] = true }, ship = { ['lancerclasspursuitcraft'] = true } }
 }
 
-masterUpgradesDB['slavei']={
-  name = 'Slave I',
-  XWS = 'slavei',
-  title = "Boba's ride",
-  slot = 15,
-  cost = 6,
-  addSlot = {5},
-  executeOptions = function(list, pid)
-      return {
-          bbl1 = {[1]='bbl1', [2]='bbr1'},
-          wbl2 = {[1]='wbl2', [2]='wbr2'},
-          wbl3 = {[1]='wbl3', [2]='wbr3'},
-          bbr1 = {[1]='bbr1', [2]='bbl1'},
-          wbr2 = {[1]='wbr2', [2]='wbl2'},
-          wbr3 = {[1]='wbr3', [2]='wbl3'},
-          wtl1 = {[1]='wtl1', [2]='wtr1'},
-          wtl2 = {[1]='wtl2', [2]='wtr2'},
-          wtr1 = {[1]='wtr1', [2]='wtl1'},
-          wtr2 = {[1]='wtr2', [2]='wtl2'},
-      }
-  end,
+masterUpgradesDB['slavei'] = {
+    name = 'Slave I',
+    XWS = 'slavei',
+    title = "Boba's ride",
+    slot = 15,
+    cost = 6,
+    addSlot = { 5 },
+    executeOptions = function(list, pid)
+        return {
+            bbl1 = { [1] = 'bbl1', [2] = 'bbr1' },
+            wbl2 = { [1] = 'wbl2', [2] = 'wbr2' },
+            wbl3 = { [1] = 'wbl3', [2] = 'wbr3' },
+            bbr1 = { [1] = 'bbr1', [2] = 'bbl1' },
+            wbr2 = { [1] = 'wbr2', [2] = 'wbl2' },
+            wbr3 = { [1] = 'wbr3', [2] = 'wbl3' },
+            wtl1 = { [1] = 'wtl1', [2] = 'wtr1' },
+            wtl2 = { [1] = 'wtl2', [2] = 'wtr2' },
+            wtr1 = { [1] = 'wtr1', [2] = 'wtl1' },
+            wtr2 = { [1] = 'wtr2', [2] = 'wtl2' },
+        }
+    end,
 
-  restriction = {
-      Faction = {[3]=true},
-      ship = {['firesprayclasspatrolcraft']=true}
-  }
+    restriction = {
+        Faction = { [3] = true },
+        ship = { ['firesprayclasspatrolcraft'] = true }
+    }
 }
-masterUpgradesDB['virago']={
-	name = 'Virago',
-	XWS = 'virago',
-	slot = 15,
-	cost = 7,
-	Charge = 2,
-	shd = 1,
-	addSlot = {14},
-	restriction = {ship={['starviperclassattackplatform']=true}}
-}
-
-masterUpgradesDB['composure']={
-  name = 'Composure',
-  XWS = 'composure',
-  slot =1,
-  addAction = {'F'},
-  cost = 1,
+masterUpgradesDB['virago'] = {
+    name = 'Virago',
+    XWS = 'virago',
+    slot = 15,
+    cost = 7,
+    Charge = 2,
+    shd = 1,
+    addSlot = { 14 },
+    restriction = { ship = { ['starviperclassattackplatform'] = true } }
 }
 
-masterUpgradesDB['chewbacca-crew']={
-	name = 'Chewbacca',
-	XWS = 'chewbacca-crew',
-	slot = 8,
-	cost = 3,
-	restriction = {Faction = {[3]=true}}
+masterUpgradesDB['composure'] = {
+    name = 'Composure',
+    XWS = 'composure',
+    slot = 1,
+    addAction = { 'F' },
+    cost = 1,
 }
 
-masterUpgradesDB['l337']={
-	name = 'L3-37',
-	XWS = 'l337',
-  dual = true,
-	slot = 8,
-	cost = 4,
-	restriction = {Faction = {[3]=true}}
+masterUpgradesDB['chewbacca-crew'] = {
+    name = 'Chewbacca',
+    XWS = 'chewbacca-crew',
+    slot = 8,
+    cost = 3,
+    restriction = { Faction = { [3] = true } }
 }
 
-masterUpgradesDB['landocalrissian-crew']={
-	name = 'Lando Calrissian',
-	XWS = 'landocalrissian-crew',
-	slot = 8,
-	cost = 6,
-	restriction = {Faction = {[3]=true}}
+masterUpgradesDB['l337'] = {
+    name = 'L3-37',
+    XWS = 'l337',
+    dual = true,
+    slot = 8,
+    cost = 4,
+    restriction = { Faction = { [3] = true } }
 }
 
-masterUpgradesDB['tobiasbeckett']={
-	name = 'Tobias Beckett',
-	XWS = 'tobiasbeckett',
-	slot = 8,
-	cost = 2,
-	restriction = {Faction = {[3]=true}}
+masterUpgradesDB['landocalrissian-crew'] = {
+    name = 'Lando Calrissian',
+    XWS = 'landocalrissian-crew',
+    slot = 8,
+    cost = 6,
+    restriction = { Faction = { [3] = true } }
 }
 
-masterUpgradesDB['qira']={
-  name = "Qi'ra",
-	XWS = 'qira',
-	slot = 8,
-	cost = 2,
-	restriction = {Faction = {[3]=true}}
+masterUpgradesDB['tobiasbeckett'] = {
+    name = 'Tobias Beckett',
+    XWS = 'tobiasbeckett',
+    slot = 8,
+    cost = 2,
+    restriction = { Faction = { [3] = true } }
 }
 
-masterUpgradesDB['agilegunner']={
-	name = 'Agile Gunner',
-	XWS = 'agilegunner',
-	slot = 16,
-	cost = 3
+masterUpgradesDB['qira'] = {
+    name = "Qi'ra",
+    XWS = 'qira',
+    slot = 8,
+    cost = 2,
+    restriction = { Faction = { [3] = true } }
 }
 
-masterUpgradesDB['hansolo-gunner']={
-	name = 'Han Solo',
-	XWS = 'hansolo-gunner',
-	slot = 16,
-	cost = 9,
-	restriction = {Faction = {[3]=true}}
+masterUpgradesDB['agilegunner'] = {
+    name = 'Agile Gunner',
+    XWS = 'agilegunner',
+    slot = 16,
+    cost = 3
 }
 
-masterUpgradesDB['landosmillenniumfalcon']={
-  name = "Lando's Millennium Falcon",
-	XWS = 'landosmillenniumfalcon',
-	slot = 15,
-	cost = 3,
-	restriction = {Faction = {[3]=true}, ship = {['customizedyt1300lightfreighter']=true}}
+masterUpgradesDB['hansolo-gunner'] = {
+    name = 'Han Solo',
+    XWS = 'hansolo-gunner',
+    slot = 16,
+    cost = 9,
+    restriction = { Faction = { [3] = true } }
 }
 
-masterUpgradesDB['st321']={
+masterUpgradesDB['landosmillenniumfalcon'] = {
+    name = "Lando's Millennium Falcon",
+    XWS = 'landosmillenniumfalcon',
+    slot = 15,
+    cost = 3,
+    restriction = { Faction = { [3] = true }, ship = { ['customizedyt1300lightfreighter'] = true } }
+}
+
+masterUpgradesDB['st321'] = {
     name = 'ST-321',
     XWS = 'st321',
     slot = 15,
     limited = 1,
-    addAction = {'TL'},
+    addAction = { 'TL' },
     cost = 3,
-    restriction = {Faction = {[2]=true}, ship ={['lambdaclasst4ashuttle']=true}}
+    restriction = { Faction = { [2] = true }, ship = { ['lambdaclasst4ashuttle'] = true } }
 }
 
-masterUpgradesDB['bombletgenerator']={
-	name = 'Bomblet Generator',
-	XWS = 'bombletgenerator',
-	slot = 12,
-	remSlot = {12},
-  Bomb = true,
-	cost = 2,
-	Charge = 2,
-  cardB = cardBackDB['12b']
+masterUpgradesDB['bombletgenerator'] = {
+    name = 'Bomblet Generator',
+    XWS = 'bombletgenerator',
+    slot = 12,
+    remSlot = { 12 },
+    Bomb = true,
+    cost = 2,
+    Charge = 2,
+    cardB = cardBackDB['12b']
 }
 
-masterUpgradesDB['connernets']={
-	name = 'Conner Nets',
-	XWS = 'connernets',
-	slot = 12,
-  Bomb = true,
-	cost = 3,
-	Charge = 1
+masterUpgradesDB['connernets'] = {
+    name = 'Conner Nets',
+    XWS = 'connernets',
+    slot = 12,
+    Bomb = true,
+    cost = 3,
+    Charge = 1
 }
 
-masterUpgradesDB['protonbombs']={
-	name = 'Proton Bombs',
-	XWS = 'protonbombs',
-	slot = 12,
-	Bomb = true,
-	cost = 4,
-	Charge = 2
+masterUpgradesDB['protonbombs'] = {
+    name = 'Proton Bombs',
+    XWS = 'protonbombs',
+    slot = 12,
+    Bomb = true,
+    cost = 4,
+    Charge = 2
 }
 
-masterUpgradesDB['proximitymines']={
-	name = 'Proximity Mines',
-	XWS = 'proximitymines',
-	slot = 12,
-	Bomb = true,
-	cost = 6,
-	Charge = 2
+masterUpgradesDB['proximitymines'] = {
+    name = 'Proximity Mines',
+    XWS = 'proximitymines',
+    slot = 12,
+    Bomb = true,
+    cost = 6,
+    Charge = 2
 }
 
-masterUpgradesDB['seismiccharges']={
-	name = 'Seismic Charges',
-	XWS = 'seismiccharges',
-	slot = 12,
-	Bomb = true,
-	cost = 3,
-	Charge = 2
+masterUpgradesDB['seismiccharges'] = {
+    name = 'Seismic Charges',
+    XWS = 'seismiccharges',
+    slot = 12,
+    Bomb = true,
+    cost = 3,
+    Charge = 2
 }
 
-masterUpgradesDB['fanatical']={
-	name = "Fanatical",
-	XWS = 'fanatical',
-	slot = 1,
-	cost = 2,
-	restriction = {Faction = {[5]=true}}
+masterUpgradesDB['fanatical'] = {
+    name = "Fanatical",
+    XWS = 'fanatical',
+    slot = 1,
+    cost = 2,
+    restriction = { Faction = { [5] = true } }
 }
 
-masterUpgradesDB['advancedoptics']={
-	name = "Advanced Optics",
-	XWS = 'advancedoptics',
-	slot = 19,
-	cost = 5
+masterUpgradesDB['advancedoptics'] = {
+    name = "Advanced Optics",
+    XWS = 'advancedoptics',
+    slot = 19,
+    cost = 5
 }
 
-masterUpgradesDB['hyperspacetrackingdata']={
-	name = "Hyperspace Tracking Data",
-	XWS = 'hyperspacetrackingdata',
-	slot = 19,
-	cost = 2,
-	restriction = {Faction = {[5]=true}}
+masterUpgradesDB['hyperspacetrackingdata'] = {
+    name = "Hyperspace Tracking Data",
+    XWS = 'hyperspacetrackingdata',
+    slot = 19,
+    cost = 2,
+    restriction = { Faction = { [5] = true } }
 }
 
-masterUpgradesDB['patternanalyzer']={
-	name = "Pattern Analyzer",
-	XWS = 'patternanalyzer',
-	slot = 19,
-	cost = 5
+masterUpgradesDB['patternanalyzer'] = {
+    name = "Pattern Analyzer",
+    XWS = 'patternanalyzer',
+    slot = 19,
+    cost = 5
 }
 
-masterUpgradesDB['primedthrusters']={
-	name = "Primed Thrusters",
-	XWS = 'primedthrusters',
-	slot = 19,
-	cost = 'i'
+masterUpgradesDB['primedthrusters'] = {
+    name = "Primed Thrusters",
+    XWS = 'primedthrusters',
+    slot = 19,
+    cost = 'i'
 }
 
-masterUpgradesDB['targetingsynchronizer']={
-	name = "Targeting Synchronizer",
-	XWS = 'targetingsynchronizer',
-	slot = 19,
-	cost = 3
+masterUpgradesDB['targetingsynchronizer'] = {
+    name = "Targeting Synchronizer",
+    XWS = 'targetingsynchronizer',
+    slot = 19,
+    cost = 3
 }
 
-masterUpgradesDB['captainphasma']={
-	name = "Captain Phasma",
-	XWS = 'captainphasma',
-	slot = 8,
-	cost = 5,
-	restriction = {Faction = {[5]=true}}
+masterUpgradesDB['captainphasma'] = {
+    name = "Captain Phasma",
+    XWS = 'captainphasma',
+    slot = 8,
+    cost = 5,
+    restriction = { Faction = { [5] = true } }
 }
 
-masterUpgradesDB['generalhux']={
-	name = "General Hux",
-	XWS = 'generalhux',
-	slot = 8,
-	cost = 3,
-	restriction = {Faction = {[5]=true}}
+masterUpgradesDB['generalhux'] = {
+    name = "General Hux",
+    XWS = 'generalhux',
+    slot = 8,
+    cost = 3,
+    restriction = { Faction = { [5] = true } }
 }
 
-masterUpgradesDB['kyloren']={
-	name = "Kylo Ren",
-	XWS = 'kyloren',
-	Condition = "I'll Show You the Dark Side",
-	slot = 8,
-	cost = 9,
-	Force = 1,
-	restriction = {Faction = {[5]=true}}
+masterUpgradesDB['kyloren'] = {
+    name = "Kylo Ren",
+    XWS = 'kyloren',
+    Condition = "I'll Show You the Dark Side",
+    slot = 8,
+    cost = 9,
+    Force = 1,
+    restriction = { Faction = { [5] = true } }
 }
 
-masterUpgradesDB['pettyofficerthanisson']={
-	name = "Petty Officer Thanisson",
-	XWS = 'pettyofficerthanisson',
-	slot = 8,
-	cost = 3,
-	restriction = {Faction = {[5]=true}}
+masterUpgradesDB['pettyofficerthanisson'] = {
+    name = "Petty Officer Thanisson",
+    XWS = 'pettyofficerthanisson',
+    slot = 8,
+    cost = 3,
+    restriction = { Faction = { [5] = true } }
 }
 
-masterUpgradesDB['supremeleadersnoke']={
-	name = "Supreme Leader Snoke",
-	XWS = 'supremeleadersnoke',
-	slot = 8,
-	remSlot = {8},
-	cost = 13,
-	Force = 1,
-  cardB = cardBackDB['8b'],
-	restriction = {Faction = {[5]=true}}
+masterUpgradesDB['supremeleadersnoke'] = {
+    name = "Supreme Leader Snoke",
+    XWS = 'supremeleadersnoke',
+    slot = 8,
+    remSlot = { 8 },
+    cost = 13,
+    Force = 1,
+    cardB = cardBackDB['8b'],
+    restriction = { Faction = { [5] = true } }
 }
 
-masterUpgradesDB['specialforcesgunner']={
-	name = "Special Forces Gunner",
-	XWS = 'specialforcesgunner',
-	slot = 16,
-	cost = 9,
-	restriction = {Faction = {[5]=true}}
+masterUpgradesDB['specialforcesgunner'] = {
+    name = "Special Forces Gunner",
+    XWS = 'specialforcesgunner',
+    slot = 16,
+    cost = 9,
+    restriction = { Faction = { [5] = true } }
 }
 
-masterUpgradesDB['heroic']={
-	name = "Heroic",
-	XWS = 'heroic',
-	slot = 1,
-	cost = 2,
-	restriction = {Faction = {[4]=true}}
+masterUpgradesDB['heroic'] = {
+    name = "Heroic",
+    XWS = 'heroic',
+    slot = 1,
+    cost = 2,
+    restriction = { Faction = { [4] = true } }
 }
 
-masterUpgradesDB['c3po-crew']={
+masterUpgradesDB['c3po-crew'] = {
     name = "C-3PO",
     XWS = 'c3po-crew',
     slot = 8,
-    addAction = {'C'},
+    addAction = { 'C' },
     cost = 5,
-    restriction = {Faction={[4]=true}}
+    restriction = { Faction = { [4] = true } }
 }
 
-masterUpgradesDB['chewbacca-crew-swz19']={
-	name = "Chewbacca",
-	XWS = 'chewbacca-crew-swz19',
-	slot = 8,
-	cost = 4,
-	Charge = 2,
-	restriction = {Faction = {[4]=true}}
+masterUpgradesDB['chewbacca-crew-swz19'] = {
+    name = "Chewbacca",
+    XWS = 'chewbacca-crew-swz19',
+    slot = 8,
+    cost = 4,
+    Charge = 2,
+    restriction = { Faction = { [4] = true } }
 }
 
-masterUpgradesDB['hansolo-crew']={
+masterUpgradesDB['hansolo-crew'] = {
     name = "Han Solo",
     XWS = 'hansolo-crew',
     slot = 8,
-    addAction = {'E'},
+    addAction = { 'E' },
     cost = 3,
-    restriction = {Faction={[4]=true}}
+    restriction = { Faction = { [4] = true } }
 }
 
-masterUpgradesDB['rosetico']={
+masterUpgradesDB['rosetico'] = {
     name = "Rose Tico",
     XWS = 'rosetico',
     slot = 8,
-    addAction = {'TL'},
+    addAction = { 'TL' },
     cost = 9,
-    restriction = {Faction={[4]=true}}
+    restriction = { Faction = { [4] = true } }
 }
 
-masterUpgradesDB['finn']={
-	name = "Finn",
-	XWS = 'finn',
-	slot = 16,
-	cost = 9,
-	restriction = {Faction = {[4]=true}}
+masterUpgradesDB['finn'] = {
+    name = "Finn",
+    XWS = 'finn',
+    slot = 16,
+    cost = 9,
+    restriction = { Faction = { [4] = true } }
 }
 
-masterUpgradesDB['paigetico']={
-	name = "Paige Tico",
-	XWS = 'paigetico',
-	slot = 16,
-	cost = 6,
-	restriction = {Faction = {[4]=true}}
+masterUpgradesDB['paigetico'] = {
+    name = "Paige Tico",
+    XWS = 'paigetico',
+    slot = 16,
+    cost = 6,
+    restriction = { Faction = { [4] = true } }
 }
 
-masterUpgradesDB['rey-gunner']={
-	name = "Rey",
-	XWS = 'rey-gunner',
-	slot = 16,
-	cost = 10,
-	Force = 1,
-	restriction = {Faction = {[4]=true}}
+masterUpgradesDB['rey-gunner'] = {
+    name = "Rey",
+    XWS = 'rey-gunner',
+    slot = 16,
+    cost = 10,
+    Force = 1,
+    restriction = { Faction = { [4] = true } }
 }
 
-masterUpgradesDB['bb8']={
-  name = "BB-8",
-  XWS = 'bb8',
-  slot = 10,
-  addAction = {'BR'},
-  cost = 0,
-  Charge = 2,
-  restriction = {Faction={[4]=true}}
+masterUpgradesDB['bb8'] = {
+    name = "BB-8",
+    XWS = 'bb8',
+    slot = 10,
+    addAction = { 'BR' },
+    cost = 0,
+    Charge = 2,
+    restriction = { Faction = { [4] = true } }
 }
 
-masterUpgradesDB['bbastromech']={
-  name = "BB Astromech",
-  XWS = 'bbastromech',
-  slot = 10,
-  addAction = {'BR'},
-  cost = 0,
-  Charge = 2,
-  restriction = {Faction={[4]=true}}
+masterUpgradesDB['bbastromech'] = {
+    name = "BB Astromech",
+    XWS = 'bbastromech',
+    slot = 10,
+    addAction = { 'BR' },
+    cost = 0,
+    Charge = 2,
+    restriction = { Faction = { [4] = true } }
 }
 
-masterUpgradesDB['m9g8']={
-	name = "M9-G8",
-	XWS = 'm9g8',
-	slot = 10,
-	cost = 5,
-	restriction = {Faction = {[4]=true}}
+masterUpgradesDB['m9g8'] = {
+    name = "M9-G8",
+    XWS = 'm9g8',
+    slot = 10,
+    cost = 5,
+    restriction = { Faction = { [4] = true } }
 }
 
-masterUpgradesDB['r2ha']={
-	name = "R2-HA",
-	XWS = 'r2ha',
-	slot = 10,
-	cost = 3,
-	restriction = {Faction = {[4]=true}}
+masterUpgradesDB['r2ha'] = {
+    name = "R2-HA",
+    XWS = 'r2ha',
+    slot = 10,
+    cost = 3,
+    restriction = { Faction = { [4] = true } }
 }
 
-masterUpgradesDB['r5x3']={
-	name = "R5-X3",
-	XWS = 'r5x3',
-	slot = 10,
-	cost = 5,
-	Charge = 2,
-	restriction = {Faction = {[4]=true}}
+masterUpgradesDB['r5x3'] = {
+    name = "R5-X3",
+    XWS = 'r5x3',
+    slot = 10,
+    cost = 5,
+    Charge = 2,
+    restriction = { Faction = { [4] = true } }
 }
 
-masterUpgradesDB['blackone']={
-	name = "Black One",
-	XWS = 'blackone',
-	slot = 15,
-	cost = 4,
-	Charge = 1,
-	restriction = {ship = {['t70xwing']=true}}
+masterUpgradesDB['blackone'] = {
+    name = "Black One",
+    XWS = 'blackone',
+    slot = 15,
+    cost = 4,
+    Charge = 1,
+    restriction = { ship = { ['t70xwing'] = true } }
 }
 
-masterUpgradesDB['reysmillenniumfalcon']={
-	name = "Rey's Millennium Falcon",
-	XWS = 'reysmillenniumfalcon',
-	slot = 15,
-	cost = 2,
-	restriction = { ['ship']={['scavengedyt1300lightfreighter']=true}}
+masterUpgradesDB['reysmillenniumfalcon'] = {
+    name = "Rey's Millennium Falcon",
+    XWS = 'reysmillenniumfalcon',
+    slot = 15,
+    cost = 2,
+    restriction = { ['ship'] = { ['scavengedyt1300lightfreighter'] = true } }
 }
 
-masterUpgradesDB['integratedsfoils']={
+masterUpgradesDB['integratedsfoils'] = {
     name = "Integrated S-foils",
     XWS = 'integratedsfoils',
     dual = true,
     slot = 18,
-    addAction = {'BR'},
+    addAction = { 'BR' },
     cost = 0,
-    restriction = {Faction={[4]=true}, ship={['t70xwing']=true}}
+    restriction = { Faction = { [4] = true }, ship = { ['t70xwing'] = true } }
 }
 
-masterUpgradesDB['ferrospherepaint']={
-	name = "Ferrosphere Paint",
-	XWS = 'ferrospherepaint',
-	slot = 19,
-	cost = 3,
-	restriction = {Faction = {[4]=true}}
+masterUpgradesDB['ferrospherepaint'] = {
+    name = "Ferrosphere Paint",
+    XWS = 'ferrospherepaint',
+    slot = 19,
+    cost = 3,
+    restriction = { Faction = { [4] = true } }
 }
 
-masterUpgradesDB['hate']={
-	name = "Hate",
-	XWS = 'hate',
-	slot = 17,
-	cost = 4,
-  restriction = {keywords={'Dark Side'}}
+masterUpgradesDB['hate'] = {
+    name = "Hate",
+    XWS = 'hate',
+    slot = 17,
+    cost = 4,
+    restriction = { keywords = { 'Dark Side' } }
 }
 
-masterUpgradesDB['predictiveshot']={
-	name = "Predictive Shot",
-	XWS = 'predictiveshot',
-	slot = 17,
-	cost = 1
+masterUpgradesDB['predictiveshot'] = {
+    name = "Predictive Shot",
+    XWS = 'predictiveshot',
+    slot = 17,
+    cost = 1
 }
 
-masterUpgradesDB['biohexacryptcodes']={
-	name = "Biohexacrypt Codes",
-	XWS = 'biohexacryptcodes',
-	slot = 19,
-	cost = 1,
-	restriction = {Faction = {[5]=true}}
+masterUpgradesDB['biohexacryptcodes'] = {
+    name = "Biohexacrypt Codes",
+    XWS = 'biohexacryptcodes',
+    slot = 19,
+    cost = 1,
+    restriction = { Faction = { [5] = true } }
 }
 
-masterUpgradesDB['dedicated']={
-	name = "Dedicated",
-	XWS = 'dedicated',
-	slot = 1,
-	cost = 1,
-	restriction = {Faction = {[6]=true}}
+masterUpgradesDB['dedicated'] = {
+    name = "Dedicated",
+    XWS = 'dedicated',
+    slot = 1,
+    cost = 1,
+    restriction = { Faction = { [6] = true } }
 }
 
-masterUpgradesDB['treacherous']={
-	name = "Treacherous",
-	XWS = 'treacherous',
-	slot = 1,
-	cost = 2,
-	Charge = 1,
-	restriction = {Faction = {[7]=true}}
+masterUpgradesDB['treacherous'] = {
+    name = "Treacherous",
+    XWS = 'treacherous',
+    slot = 1,
+    cost = 2,
+    Charge = 1,
+    restriction = { Faction = { [7] = true } }
 }
 
-masterUpgradesDB['tv94']={
-	name = "TV-94",
-	XWS = 'tv94',
-	slot = 20,
-	cost = 5,
-	restriction = {Faction = {[7]=true}}
+masterUpgradesDB['tv94'] = {
+    name = "TV-94",
+    XWS = 'tv94',
+    slot = 20,
+    cost = 5,
+    restriction = { Faction = { [7] = true } }
 }
 
-masterUpgradesDB['kraken']={
+masterUpgradesDB['kraken'] = {
     name = "Kraken",
     XWS = 'kraken',
     slot = 20,
-    addAction = {'C'},
+    addAction = { 'C' },
     cost = 10,
-    restriction = {Faction={[7]=true}}
+    restriction = { Faction = { [7] = true } }
 }
 
-masterUpgradesDB['energyshellcharges']={
-	name = "Energy-Shell Charges",
-	XWS = 'energyshellcharges',
-	slot = 6,
-	cost = 5,
-	Charge = 1,
-	restriction = {Faction = {[7]=true}}
+masterUpgradesDB['energyshellcharges'] = {
+    name = "Energy-Shell Charges",
+    XWS = 'energyshellcharges',
+    slot = 6,
+    cost = 5,
+    Charge = 1,
+    restriction = { Faction = { [7] = true } }
 }
 
-masterUpgradesDB['soullessone']={
-	name = "Soulless One",
-	XWS = 'soullessone',
-	slot = 15,
-	cost = 6,
-	restriction = { ship={['belbulab22starfighter']=true}}
+masterUpgradesDB['soullessone'] = {
+    name = "Soulless One",
+    XWS = 'soullessone',
+    slot = 15,
+    cost = 6,
+    restriction = { ship = { ['belbulab22starfighter'] = true } }
 }
 
-masterUpgradesDB['imperviumplating']={
-	name = "Impervium Plating",
-	XWS = 'imperviumplating',
-	slot = 14,
-	cost = 4,
-	Charge = 2,
-	restriction = {ship={['belbulab22starfighter']=true}}
-}
-
-
-masterUpgradesDB['brilliantevasion']={
-	name = "Brilliant Evasion",
-	XWS = 'brilliantevasion',
-	slot = 17,
-	cost = 2
-}
-
-masterUpgradesDB['k2b4']={
-	name = "K2-B4",
-	XWS = 'k2b4',
-	slot = 20,
-	cost = 5,
-	restriction = {Faction = {[7]=true}}
+masterUpgradesDB['imperviumplating'] = {
+    name = "Impervium Plating",
+    XWS = 'imperviumplating',
+    slot = 14,
+    cost = 4,
+    Charge = 2,
+    restriction = { ship = { ['belbulab22starfighter'] = true } }
 }
 
 
-masterUpgradesDB['countdooku']={
-	name = "Count Dooku",
-	XWS = 'countdooku',
-	slot = 8,
-	cost = 14,
-	Force = 1,
-	restriction = {Faction = {[7]=true}}
+masterUpgradesDB['brilliantevasion'] = {
+    name = "Brilliant Evasion",
+    XWS = 'brilliantevasion',
+    slot = 17,
+    cost = 2
 }
 
-masterUpgradesDB['generalgrievous']={
-	name = "General Grievous",
-	XWS = 'generalgrievous',
-	slot = 8,
-	cost = 3,
-	Charge = 1,
-	restriction = {Faction = {[7]=true}}
+masterUpgradesDB['k2b4'] = {
+    name = "K2-B4",
+    XWS = 'k2b4',
+    slot = 20,
+    cost = 5,
+    restriction = { Faction = { [7] = true } }
 }
 
-masterUpgradesDB['drk1probedroids']={
-	name = "DRK-1 Probe Droids",
-	XWS = 'drk1probedroids',
-	Condition = 'DRK-1 Probe Droid',
-	slot = 12,
-	cost = 5,
-	Charge = 2,
-	restriction = {Faction = {[7]=true}}
+
+masterUpgradesDB['countdooku'] = {
+    name = "Count Dooku",
+    XWS = 'countdooku',
+    slot = 8,
+    cost = 14,
+    Force = 1,
+    restriction = { Faction = { [7] = true } }
 }
 
-masterUpgradesDB['scimitar']={
+masterUpgradesDB['generalgrievous'] = {
+    name = "General Grievous",
+    XWS = 'generalgrievous',
+    slot = 8,
+    cost = 3,
+    Charge = 1,
+    restriction = { Faction = { [7] = true } }
+}
+
+masterUpgradesDB['drk1probedroids'] = {
+    name = "DRK-1 Probe Droids",
+    XWS = 'drk1probedroids',
+    Condition = 'DRK-1 Probe Droid',
+    slot = 12,
+    cost = 5,
+    Charge = 2,
+    restriction = { Faction = { [7] = true } }
+}
+
+masterUpgradesDB['scimitar'] = {
     name = "Scimitar",
     XWS = 'scimitar',
     slot = 15,
     limited = 1,
-    addAction = {'CL'},
+    addAction = { 'CL' },
     cost = 3,
-    restriction = { ship ={['sithinfiltrator']=true}}
+    restriction = { ship = { ['sithinfiltrator'] = true } }
 }
 
 
-masterUpgradesDB['discordmissiles']={
+masterUpgradesDB['discordmissiles'] = {
     name = "Discord Missiles",
     XWS = 'discordmissiles',
-    remotes = {"Buzz Droid Swarm"},
+    remotes = { "Buzz Droid Swarm" },
     limited = 3,
     slot = 6,
     cost = 4,
     Charge = 1,
     restriction = {
-        Faction = {[7]=true}
+        Faction = { [7] = true }
     }
 }
-masterUpgradesDB['battlemeditation']={
-	name = "Battle Meditation",
-	XWS = 'battlemeditation',
-	slot = 17,
-	cost = 0,
-	restriction = {Faction = {[6]=true}}
+masterUpgradesDB['battlemeditation'] = {
+    name = "Battle Meditation",
+    XWS = 'battlemeditation',
+    slot = 17,
+    cost = 0,
+    restriction = { Faction = { [6] = true } }
 }
 
-masterUpgradesDB['r4pastromech']={
-	name = "R4-P Astromech",
-	XWS = 'r4pastromech',
-	slot = 10,
-	cost = 2,
-	Charge = 2,
-	restriction = {Faction = {[6]=true}}
+masterUpgradesDB['r4pastromech'] = {
+    name = "R4-P Astromech",
+    XWS = 'r4pastromech',
+    slot = 10,
+    cost = 2,
+    Charge = 2,
+    restriction = { Faction = { [6] = true } }
 }
 
-masterUpgradesDB['r4p17']={
-	name = "R4-P17",
-	XWS = 'r4p17',
-	slot = 10,
-	cost = 5,
-	Charge = 2,
-	restriction = {Faction = {[6]=true}}
+masterUpgradesDB['r4p17'] = {
+    name = "R4-P17",
+    XWS = 'r4p17',
+    slot = 10,
+    cost = 5,
+    Charge = 2,
+    restriction = { Faction = { [6] = true } }
 }
 
-masterUpgradesDB['delta7b']={
-	name = "Delta-7B",
-	XWS = 'delta7b',
-	slot = 18,
-	cost = 0,
-	shd = 2,
-	restriction = {ship={['delta7aethersprite']=true}}
+masterUpgradesDB['delta7b'] = {
+    name = "Delta-7B",
+    XWS = 'delta7b',
+    slot = 18,
+    cost = 0,
+    shd = 2,
+    restriction = { ship = { ['delta7aethersprite'] = true } }
 }
 
-masterUpgradesDB['calibratedlasertargeting']={
-	name = "Calibrated laser Targeting",
-	XWS = 'calibratedlasertargeting',
-	slot = 18,
-	cost = 0,
-	remSlot = {14},
-  cardB = cardBackDB.mc,
-	restriction = {ship={['delta7aethersprite']=true}}
+masterUpgradesDB['calibratedlasertargeting'] = {
+    name = "Calibrated laser Targeting",
+    XWS = 'calibratedlasertargeting',
+    slot = 18,
+    cost = 0,
+    remSlot = { 14 },
+    cardB = cardBackDB.mc,
+    restriction = { ship = { ['delta7aethersprite'] = true } }
 }
 
-masterUpgradesDB['sparepartscanisters']={
-	name = "Spare Parts Canisters",
-	XWS = 'sparepartscanisters',
-	slot = 14,
-	cost = 3,
-	Charge = 1
+masterUpgradesDB['sparepartscanisters'] = {
+    name = "Spare Parts Canisters",
+    XWS = 'sparepartscanisters',
+    slot = 14,
+    cost = 3,
+    Charge = 1
 }
 
-masterUpgradesDB['r4p44']={
+masterUpgradesDB['r4p44'] = {
     name = "R4-P44",
     XWS = 'r4p44',
     slot = 10,
     limited = 1,
-    addAction = {'C'},
+    addAction = { 'C' },
     cost = 3,
     Charge = 2,
-    restriction = {Faction={[6]=true}}
+    restriction = { Faction = { [6] = true } }
 }
 
-masterUpgradesDB['clonecommandercody']={
-	name = "Clone Commander Cody",
-	XWS = 'clonecommandercody',
-	slot = 16,
-	cost = 4,
-	restriction = {Faction = {[6]=true}}
+masterUpgradesDB['clonecommandercody'] = {
+    name = "Clone Commander Cody",
+    XWS = 'clonecommandercody',
+    slot = 16,
+    cost = 4,
+    restriction = { Faction = { [6] = true } }
 }
 
-masterUpgradesDB['seventhfleetgunner']={
-	name = "Seventh Fleet Gunner",
-	XWS = 'seventhfleetgunner',
-	slot = 16,
-	cost = 8,
-	Charge = 1,
-	restriction = {Faction = {[6]=true}}
+masterUpgradesDB['seventhfleetgunner'] = {
+    name = "Seventh Fleet Gunner",
+    XWS = 'seventhfleetgunner',
+    slot = 16,
+    cost = 8,
+    Charge = 1,
+    restriction = { Faction = { [6] = true } }
 }
 
-masterUpgradesDB['synchronizedconsole']={
-  name = "Synchronized Console",
-  XWS = 'synchronizedconsole',
-  slot = 14,
-  addSqdAction = {'TL'},
-  cost = 1,
-  restriction = {Faction={[6]=true}}
+masterUpgradesDB['synchronizedconsole'] = {
+    name = "Synchronized Console",
+    XWS = 'synchronizedconsole',
+    slot = 14,
+    addSqdAction = { 'TL' },
+    cost = 1,
+    restriction = { Faction = { [6] = true } }
 }
 
-masterUpgradesDB['grapplingstruts']={
-  name = "Grappling Struts",
-  XWS = 'grapplingstruts',
-  dual = true,
-  slot = 18,
-  addAction = {'Piv'},
-  cost = 0,
-  executeOptions = function(moves)
-      return {
-          rk1  = {[1]='rk1', [2]='bs0'},
-          wtl1 = {[1]='wtl1', [2]='btl0'},
-          wtr1 = {[1]='wtr1', [2]='btr0'},
-          wbl2 = {[1]='wbl2', [2]='btl0'},
-          wbr2 = {[1]='wbr2', [2]='btr0'},
-          btl2 = {[1]='btl2', [2]='btl0'},
-          btr2 = {[1]='btr2', [2]='btr0'},
-          rtl2t = {[1]='rtl2t', [2]='btl0'},
-          rtr2t = {[1]='rtr2t', [2]='btr0'},
-          rbl3 = {[1]='rbl3', [2]='btl0'},
-          rbr3 = {[1]='rbr3', [2]='btr0'},
-          wtl3 = {[1]='wtl3', [2]='btl0'},
-          wtr3 = {[1]='wtr3', [2]='btr0'},
-          bs3  = {[1]='bs3', [2]='bs0'},
-          bs4  = {[1]='bs4', [2]='bs0'},
-          ws5  = {[1]='ws5', [2]='bs0'},
-      }
-  end,
-  restriction ={ ship={['vultureclassdroidfighter']=true}}
+masterUpgradesDB['grapplingstruts'] = {
+    name = "Grappling Struts",
+    XWS = 'grapplingstruts',
+    dual = true,
+    slot = 18,
+    addAction = { 'Piv' },
+    cost = 0,
+    executeOptions = function(moves)
+        return {
+            rk1   = { [1] = 'rk1', [2] = 'bs0' },
+            wtl1  = { [1] = 'wtl1', [2] = 'btl0' },
+            wtr1  = { [1] = 'wtr1', [2] = 'btr0' },
+            wbl2  = { [1] = 'wbl2', [2] = 'btl0' },
+            wbr2  = { [1] = 'wbr2', [2] = 'btr0' },
+            btl2  = { [1] = 'btl2', [2] = 'btl0' },
+            btr2  = { [1] = 'btr2', [2] = 'btr0' },
+            rtl2t = { [1] = 'rtl2t', [2] = 'btl0' },
+            rtr2t = { [1] = 'rtr2t', [2] = 'btr0' },
+            rbl3  = { [1] = 'rbl3', [2] = 'btl0' },
+            rbr3  = { [1] = 'rbr3', [2] = 'btr0' },
+            wtl3  = { [1] = 'wtl3', [2] = 'btl0' },
+            wtr3  = { [1] = 'wtr3', [2] = 'btr0' },
+            bs3   = { [1] = 'bs3', [2] = 'bs0' },
+            bs4   = { [1] = 'bs4', [2] = 'bs0' },
+            ws5   = { [1] = 'ws5', [2] = 'bs0' },
+        }
+    end,
+    restriction = { ship = { ['vultureclassdroidfighter'] = true } }
 }
 
 
-masterUpgradesDB['chancellorpalpatine']={
-  name = "Chancellor Palpatine",
-  XWS = 'chancellorpalpatine',
-  slot = 8,
-  limited = 1,
-  addSqdAction = {'F'},
-  cost = 14,
-  Force = 1,
-  dual = true,
-  restriction = {Faction={[6]=true,[7]=true}}
+masterUpgradesDB['chancellorpalpatine'] = {
+    name = "Chancellor Palpatine",
+    XWS = 'chancellorpalpatine',
+    slot = 8,
+    limited = 1,
+    addSqdAction = { 'F' },
+    cost = 14,
+    Force = 1,
+    dual = true,
+    restriction = { Faction = { [6] = true, [7] = true } }
 }
 
-masterUpgradesDB['passivesensors']={
+masterUpgradesDB['passivesensors'] = {
     name = "Passive Sensors",
     XWS = 'passivesensors',
     slot = 2,
-    addAction = {'C','TL'},
+    addAction = { 'C', 'TL' },
     cost = 0,
     Charge = 1,
-    restriction ={ }
+    restriction = {}
 }
 
-masterUpgradesDB['autoblasters']={
-	name = "Autoblasters",
-	XWS = 'autoblasters',
-	slot = 3,
-	cost = 4,
+masterUpgradesDB['autoblasters'] = {
+    name = "Autoblasters",
+    XWS = 'autoblasters',
+    slot = 3,
+    cost = 4,
 }
 
-masterUpgradesDB['plasmatorpedoes']={
-	name = "Plasma Torpedoes",
-	XWS = 'plasmatorpedoes',
-	slot = 5,
-	cost = 7,
-	Charge = 2,
+masterUpgradesDB['plasmatorpedoes'] = {
+    name = "Plasma Torpedoes",
+    XWS = 'plasmatorpedoes',
+    slot = 5,
+    cost = 7,
+    Charge = 2,
 }
 
-masterUpgradesDB['diamondboronmissiles']={
-	name = "Diamond-Boron Missiles",
-	XWS = 'diamondboronmissiles',
-	slot = 6,
-	cost = 5,
-	Charge = 3
+masterUpgradesDB['diamondboronmissiles'] = {
+    name = "Diamond-Boron Missiles",
+    XWS = 'diamondboronmissiles',
+    slot = 6,
+    cost = 5,
+    Charge = 3
 }
-masterUpgradesDB['amilynholdo']={
-	name = "Amilyn Holdo",
-	XWS = 'amilynholdo',
-	slot = 8,
-	cost = 8,
-  restriction = {Faction = {[4]=true}}
+masterUpgradesDB['amilynholdo'] = {
+    name = "Amilyn Holdo",
+    XWS = 'amilynholdo',
+    slot = 8,
+    cost = 8,
+    restriction = { Faction = { [4] = true } }
 }
 
-masterUpgradesDB['ga97']={
+masterUpgradesDB['ga97'] = {
     name = "GA-97",
     XWS = 'ga97',
     slot = 8,
     limited = 1,
-    addAction = {'C'},
+    addAction = { 'C' },
     cost = 5,
     Charge = 5,
-    restriction = {Faction ={[4]=true}},
+    restriction = { Faction = { [4] = true } },
     Condition = "It's the Resistance",
 }
 
-masterUpgradesDB['kaydelconnix']={
-  name = "Kaydel Connix",
-  XWS = 'kaydelconnix',
-  slot = 8,
-  cost = 5,
-  restriction = {
-      Faction = {[4]=true}
-  },
-  executeOptions = function(list, pilotid)
-      exopts = {}
-      nextdiff = { b = "w", w = "r", r = "r", p = "p"}
-      basicman = { [0] = {"tl1", "bl1", "s1", "br1", "tr1"},
-                   [1] = {"tl2", "bl2", "s2", "br2", "tr2"},
-                   [2] = {"tl3", "bl3", "s3", "br3", "tr3"},
-                   [3] = {"s4"},
-                   [4] = {"s5"},
-                   [5] = {}
-                 }
-     if pilotid == 0 then
-         return {}
-     end
-      for _, man in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
-          local Char= man:find("%d")
-          local speed = tonumber(man:sub(Char,Char))
-          --print("Man:" .. man .. " lower:" .. lower .. " higher:" .. higher)
-          exopt = {man}
-          for _, man2 in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
-              local diff = man2:sub(1,1)
-              if nextdiff[diff] ~= nil then
-                  for _, bman in pairs(basicman[speed]) do
-                      if man2:sub(2) == bman then
-                          exopt[#exopt+1]= nextdiff[diff] .. bman
-                      end
-                  end
-              end
-          end
-          if #exopt > 1 then
-              --table.print(exopt)
-              exopts[man] = exopt
-          end
-      end
-      return exopts
-  end
+masterUpgradesDB['kaydelconnix'] = {
+    name = "Kaydel Connix",
+    XWS = 'kaydelconnix',
+    slot = 8,
+    cost = 5,
+    restriction = {
+        Faction = { [4] = true }
+    },
+    executeOptions = function(list, pilotid)
+        exopts = {}
+        nextdiff = { b = "w", w = "r", r = "r", p = "p" }
+        basicman = {
+            [0] = { "tl1", "bl1", "s1", "br1", "tr1" },
+            [1] = { "tl2", "bl2", "s2", "br2", "tr2" },
+            [2] = { "tl3", "bl3", "s3", "br3", "tr3" },
+            [3] = { "s4" },
+            [4] = { "s5" },
+            [5] = {}
+        }
+        if pilotid == 0 then
+            return {}
+        end
+        for _, man in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
+            local Char = man:find("%d")
+            local speed = tonumber(man:sub(Char, Char))
+            --print("Man:" .. man .. " lower:" .. lower .. " higher:" .. higher)
+            exopt = { man }
+            for _, man2 in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
+                local diff = man2:sub(1, 1)
+                if nextdiff[diff] ~= nil then
+                    for _, bman in pairs(basicman[speed]) do
+                        if man2:sub(2) == bman then
+                            exopt[#exopt + 1] = nextdiff[diff] .. bman
+                        end
+                    end
+                end
+            end
+            if #exopt > 1 then
+                --table.print(exopt)
+                exopts[man] = exopt
+            end
+        end
+        return exopts
+    end
 }
 
-masterUpgradesDB['korrsella']={
-	name = "Korr Sella",
-	XWS = 'korrsella',
-	slot = 8,
-	cost = 6,
-  restriction = {Faction = {[4]=true}}
+masterUpgradesDB['korrsella'] = {
+    name = "Korr Sella",
+    XWS = 'korrsella',
+    slot = 8,
+    cost = 6,
+    restriction = { Faction = { [4] = true } }
 }
 
-masterUpgradesDB['larmadacy']={
-	name = "Larma D'Acy",
-	XWS = 'larmadacy',
-	slot = 8,
-	cost = 4,
-  restriction = {Faction = {[4]=true}}
+masterUpgradesDB['larmadacy'] = {
+    name = "Larma D'Acy",
+    XWS = 'larmadacy',
+    slot = 8,
+    cost = 4,
+    restriction = { Faction = { [4] = true } }
 }
 
-masterUpgradesDB['leiaorgana-resistance']={
-	name = "Leia Organa",
-	XWS = 'leiaorgana-resistance',
-	slot = 8,
-	remSlot = {8},
-	cost = 16,
-	Force = 1,
-  cardB = cardBackDB['8b'],
-  restriction = {Faction = {[4]=true}}
+masterUpgradesDB['leiaorgana-resistance'] = {
+    name = "Leia Organa",
+    XWS = 'leiaorgana-resistance',
+    slot = 8,
+    remSlot = { 8 },
+    cost = 16,
+    Force = 1,
+    cardB = cardBackDB['8b'],
+    restriction = { Faction = { [4] = true } }
 }
 
-masterUpgradesDB['pz4co']={
-  name = "PZ-4CO",
-  XWS = 'pz4co',
-  slot = 8,
-  limited = 1,
-  addAction = {'C'},
-  cost = 5,
-  restriction = { Faction={[4]=true}}
+masterUpgradesDB['pz4co'] = {
+    name = "PZ-4CO",
+    XWS = 'pz4co',
+    slot = 8,
+    limited = 1,
+    addAction = { 'C' },
+    cost = 5,
+    restriction = { Faction = { [4] = true } }
 }
 
-masterUpgradesDB['r2a6']={
-	name = "R2-A6",
-	XWS = 'r2a6',
-	slot = 10,
-	cost = 6,
+masterUpgradesDB['r2a6'] = {
+    name = "R2-A6",
+    XWS = 'r2a6',
+    slot = 10,
+    cost = 6,
     executeOptions = function(list, pilotid)
         exopts = {}
         if pilotid ~= 0 then
-          for _, man in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
-              local Char= man:find("%d")
-              local speed = tonumber(man:sub(Char,Char))
-              local lower = man:sub(2,Char-1) .. tostring(speed - 1) .. man:sub(Char + 1)
-              local higher = man:sub(2,Char-1) .. tostring(speed + 1) .. man:sub(Char + 1)
-              --print("Man:" .. man .. " lower:" .. lower .. " higher:" .. higher)
-              exopt = {man}
-              for _, man2 in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
-                  if man2:sub(2) == lower then
-                      exopt[#exopt+1]=man2
-                  end
-                  if man2:sub(2) == higher then
-                      exopt[#exopt+1]=man2
-                  end
-                  if #exopt > 1 then
-                      --table.print(exopt)
-                      exopts[man] = exopt
-                  end
-              end
-          end
+            for _, man in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
+                local Char = man:find("%d")
+                local speed = tonumber(man:sub(Char, Char))
+                local lower = man:sub(2, Char - 1) .. tostring(speed - 1) .. man:sub(Char + 1)
+                local higher = man:sub(2, Char - 1) .. tostring(speed + 1) .. man:sub(Char + 1)
+                --print("Man:" .. man .. " lower:" .. lower .. " higher:" .. higher)
+                exopt = { man }
+                for _, man2 in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
+                    if man2:sub(2) == lower then
+                        exopt[#exopt + 1] = man2
+                    end
+                    if man2:sub(2) == higher then
+                        exopt[#exopt + 1] = man2
+                    end
+                    if #exopt > 1 then
+                        --table.print(exopt)
+                        exopts[man] = exopt
+                    end
+                end
+            end
         end
         return exopts
     end,
-    restriction = {Faction = {[6]=true}}
+    restriction = { Faction = { [6] = true } }
 }
 
-masterUpgradesDB['r2c4']={
-	name = "R2-C4",
-	XWS = 'r2c4',
-	slot = 10,
-	cost = 3,
-  restriction = {Faction = {[6]=true}}
+masterUpgradesDB['r2c4'] = {
+    name = "R2-C4",
+    XWS = 'r2c4',
+    slot = 10,
+    cost = 3,
+    restriction = { Faction = { [6] = true } }
 }
 
-masterUpgradesDB['ta175']={
-	name = "TA-175",
-	XWS = 'ta175',
-	slot = 20,
-	cost = 11,
-  restriction = {Faction = {[7]=true}}
+masterUpgradesDB['ta175'] = {
+    name = "TA-175",
+    XWS = 'ta175',
+    slot = 20,
+    cost = 11,
+    restriction = { Faction = { [7] = true } }
 }
 
-masterUpgradesDB['electroprotonbomb']={
-	name = "Electro-Proton Bomb",
-	XWS = 'electroprotonbomb',
-	slot = 12,
-	Bomb = true,
-	cost = 8,
-	Charge = 1,
-	remSlot = {14},
+masterUpgradesDB['electroprotonbomb'] = {
+    name = "Electro-Proton Bomb",
+    XWS = 'electroprotonbomb',
+    slot = 12,
+    Bomb = true,
+    cost = 8,
+    Charge = 1,
+    remSlot = { 14 },
 }
 
-masterUpgradesDB['delayedfuses']={
-	name = "Delayed Fuses",
-	XWS = 'delayedfuses',
-	slot = 14,
-	cost = 1,
+masterUpgradesDB['delayedfuses'] = {
+    name = "Delayed Fuses",
+    XWS = 'delayedfuses',
+    slot = 14,
+    cost = 1,
 }
 
-masterUpgradesDB['angleddeflectors']={
-  name = "Angled Deflectors",
-  XWS = 'angleddeflectors',
-  slot = 14,
-  addAction = {'R'},
-  cost = 0,
-  shd = -1,
-  restriction ={Size={small=true, medium=true}}
+masterUpgradesDB['angleddeflectors'] = {
+    name = "Angled Deflectors",
+    XWS = 'angleddeflectors',
+    slot = 14,
+    addAction = { 'R' },
+    cost = 0,
+    shd = -1,
+    restriction = { Size = { small = true, medium = true } }
 }
 
-masterUpgradesDB['landingstruts']={
-  name = "Landing Struts",
-  XWS = 'landingstruts',
-  slot = 18,
-  addAction = {'Piv'},
-  cost = 0,
-  executeOptions = function(moves)
-      return {
-          ws1  = {[1]='ws1', [2]='bs0'},
-          rbl1 = {[1]='rbl1', [2]='btl0'},
-          rbr1 = {[1]='rbr1', [2]='btr0'},
-          wtl1 = {[1]='wtl1', [2]='btl0'},
-          wtr1 = {[1]='wtr1', [2]='btr0'},
-          wbl2 = {[1]='wbl2', [2]='btl0'},
-          wbr2 = {[1]='wbr2', [2]='btr0'},
-          btl2 = {[1]='btl2', [2]='btl0'},
-          btr2 = {[1]='btr2', [2]='btr0'},
-          rk2 = {[1]='rk2', [2]='bs0'},
-          rtl2t = {[1]='rtl2t', [2]='btl0'},
-          rtr2t = {[1]='rtr2t', [2]='btr0'},
-          wtl3 = {[1]='wtl3', [2]='btl0'},
-          wtr3 = {[1]='wtr3', [2]='btr0'},
-          bs3  = {[1]='bs3', [2]='bs0'},
-          ws4  = {[1]='ws4', [2]='bs0'},
-          rs5  = {[1]='rs5', [2]='bs0'},
-      }
-  end,
-  dual = true,
-  restriction ={Faction={[7]=true}, ship={['hyenaclassdroidbomber']=true}}
+masterUpgradesDB['landingstruts'] = {
+    name = "Landing Struts",
+    XWS = 'landingstruts',
+    slot = 18,
+    addAction = { 'Piv' },
+    cost = 0,
+    executeOptions = function(moves)
+        return {
+            ws1   = { [1] = 'ws1', [2] = 'bs0' },
+            rbl1  = { [1] = 'rbl1', [2] = 'btl0' },
+            rbr1  = { [1] = 'rbr1', [2] = 'btr0' },
+            wtl1  = { [1] = 'wtl1', [2] = 'btl0' },
+            wtr1  = { [1] = 'wtr1', [2] = 'btr0' },
+            wbl2  = { [1] = 'wbl2', [2] = 'btl0' },
+            wbr2  = { [1] = 'wbr2', [2] = 'btr0' },
+            btl2  = { [1] = 'btl2', [2] = 'btl0' },
+            btr2  = { [1] = 'btr2', [2] = 'btr0' },
+            rk2   = { [1] = 'rk2', [2] = 'bs0' },
+            rtl2t = { [1] = 'rtl2t', [2] = 'btl0' },
+            rtr2t = { [1] = 'rtr2t', [2] = 'btr0' },
+            wtl3  = { [1] = 'wtl3', [2] = 'btl0' },
+            wtr3  = { [1] = 'wtr3', [2] = 'btr0' },
+            bs3   = { [1] = 'bs3', [2] = 'bs0' },
+            ws4   = { [1] = 'ws4', [2] = 'bs0' },
+            rs5   = { [1] = 'rs5', [2] = 'bs0' },
+        }
+    end,
+    dual = true,
+    restriction = { Faction = { [7] = true }, ship = { ['hyenaclassdroidbomber'] = true } }
 }
 
-masterUpgradesDB['foresight']={
-	name = "Foresight",
-	XWS = 'foresight',
-	slot = 17,
-	cost = 5,
+masterUpgradesDB['foresight'] = {
+    name = "Foresight",
+    XWS = 'foresight',
+    slot = 17,
+    cost = 5,
 }
 
-masterUpgradesDB['precognitivereflexes']={
-	name = "Precognitive Reflexes",
-	XWS = 'precognitivereflexes',
-	slot = 17,
-	cost = 0,
-  restriction = { Size = {small=true}}
+masterUpgradesDB['precognitivereflexes'] = {
+    name = "Precognitive Reflexes",
+    XWS = 'precognitivereflexes',
+    slot = 17,
+    cost = 0,
+    restriction = { Size = { small = true } }
 }
 
-masterUpgradesDB['targetingcomputer']={
-  name = "Targeting Computer",
-  XWS = 'targetingcomputer',
-  slot = 14,
-  addAction = {'TL'},
-  cost = 3,
+masterUpgradesDB['targetingcomputer'] = {
+    name = "Targeting Computer",
+    XWS = 'targetingcomputer',
+    slot = 14,
+    addAction = { 'TL' },
+    cost = 3,
 }
 
-masterUpgradesDB['snapshot']={
-	name = "Snap Shot",
-	XWS = 'snapshot',
-	slot = 1,
-	cost = 0,
+masterUpgradesDB['snapshot'] = {
+    name = "Snap Shot",
+    XWS = 'snapshot',
+    slot = 1,
+    cost = 0,
 }
 
-masterUpgradesDB['ensnare']={
-	name = "Ensnare",
-	XWS = 'ensnare',
-	slot = 1,
-	cost = 0,
-  restriction = {ship={['nantexclassstarfighter']=true}}
+masterUpgradesDB['ensnare'] = {
+    name = "Ensnare",
+    XWS = 'ensnare',
+    slot = 1,
+    cost = 0,
+    restriction = { ship = { ['nantexclassstarfighter'] = true } }
 }
 
-masterUpgradesDB['graviticdeflection']={
-	name = "Gravitic Deflection",
-	XWS = 'graviticdeflection',
-	slot = 1,
-	cost = 4,
-  restriction = {ship = {['nantexclassstarfighter']=true}}
+masterUpgradesDB['graviticdeflection'] = {
+    name = "Gravitic Deflection",
+    XWS = 'graviticdeflection',
+    slot = 1,
+    cost = 4,
+    restriction = { ship = { ['nantexclassstarfighter'] = true } }
 }
 
-masterUpgradesDB['c110p']={
-  name = "C1-10P",
-  XWS = 'c110p',
-  slot = 10,
-  cost = 8,
-  addAction = {'E'},
-  dual = true,
-  Charge = 2,
-  restriction = {Faction = {[6]=true}}
+masterUpgradesDB['c110p'] = {
+    name = "C1-10P",
+    XWS = 'c110p',
+    slot = 10,
+    cost = 8,
+    addAction = { 'E' },
+    dual = true,
+    Charge = 2,
+    restriction = { Faction = { [6] = true } }
 }
 
 
-masterUpgradesDB['c3po-republic']={
+masterUpgradesDB['c3po-republic'] = {
     name = "C-3PO",
     XWS = 'c3po-republic',
     slot = 8,
-    addAction = {'C'},
+    addAction = { 'C' },
     cost = 7,
-    restriction = {Faction={[6]=true}}
-  }
-
-masterUpgradesDB['ahsokatano']={
-  name = "Ahsoka Tano",
-	XWS = 'ahsokatano',
-	slot = 16,
-	cost = 12,
-  Force = 1,
-  restriction = {Faction = {[6]=true}}
+    restriction = { Faction = { [6] = true } }
 }
 
-masterUpgradesDB['r1j5']={
+masterUpgradesDB['ahsokatano'] = {
+    name = "Ahsoka Tano",
+    XWS = 'ahsokatano',
+    slot = 16,
+    cost = 12,
+    Force = 1,
+    restriction = { Faction = { [6] = true } }
+}
+
+masterUpgradesDB['r1j5'] = {
     name = "R1-J5",
     XWS = 'r1j5',
     slot = 10,
     limited = 1,
     cost = 5,
     Charge = 3,
-    restriction = {Faction={[4]=true}}
+    restriction = { Faction = { [4] = true } }
 }
 
 
-masterUpgradesDB['stabilizedsfoils']={
+masterUpgradesDB['stabilizedsfoils'] = {
     name = "Stabilized S-Foils",
     XWS = 'stabilizedsfoils',
     dual = true,
     slot = 18,
-    addAction = {'E'},
+    addAction = { 'E' },
     cost = 0,
-    restriction ={ship={['asf01bwing']=true}}
+    restriction = { ship = { ['asf01bwing'] = true } }
 }
 
 
-masterUpgradesDB['k2so']={
+masterUpgradesDB['k2so'] = {
     name = "K-2SO",
     XWS = 'k2so',
     slot = 8,
     limited = 1,
-    addAction = {'C'},
+    addAction = { 'C' },
     cost = 6,
-    restriction ={Faction={[1]=true}}
+    restriction = { Faction = { [1] = true } }
 }
 
-masterUpgradesDB['clustermines']={
-	name = 'Cluster Mines',
-	XWS = 'clustermines',
-	slot = 12,
-	Bomb = true,
-	cost = 7,
-	Charge = 1
+masterUpgradesDB['clustermines'] = {
+    name = 'Cluster Mines',
+    XWS = 'clustermines',
+    slot = 12,
+    Bomb = true,
+    cost = 7,
+    Charge = 1
 }
 
-masterUpgradesDB['ionbombs']={
-	name = 'Ion Bombs',
-	XWS = 'ionbombs',
-	slot = 12,
-	Bomb = true,
-	cost = 4,
-	Charge = 2
+masterUpgradesDB['ionbombs'] = {
+    name = 'Ion Bombs',
+    XWS = 'ionbombs',
+    slot = 12,
+    Bomb = true,
+    cost = 4,
+    Charge = 2
 }
 
-masterUpgradesDB['coaxiumhyperfuel']={
-	name = "Coaxium Hyperfuel",
-	XWS = 'coaxiumhyperfuel',
-	slot = 13,
-	cost = 1,
+masterUpgradesDB['coaxiumhyperfuel'] = {
+    name = "Coaxium Hyperfuel",
+    XWS = 'coaxiumhyperfuel',
+    slot = 13,
+    cost = 1,
 }
 
-masterUpgradesDB['magpulsewarheads']={
-	name = "Mag-Pulse Warheads",
-	XWS = 'magpulsewarheads',
-	slot = 6,
-	cost = 5,
-	Charge = 2
+masterUpgradesDB['magpulsewarheads'] = {
+    name = "Mag-Pulse Warheads",
+    XWS = 'magpulsewarheads',
+    slot = 6,
+    cost = 5,
+    Charge = 2
 }
 
-masterUpgradesDB['proudtradition']={
-	name = "Proud Tradition",
-	XWS = 'proudtradition',
-  dual = true,
-	slot = 1,
-	cost = 2,
-  restriction = {Faction = {[5]=true}}
+masterUpgradesDB['proudtradition'] = {
+    name = "Proud Tradition",
+    XWS = 'proudtradition',
+    dual = true,
+    slot = 1,
+    cost = 2,
+    restriction = { Faction = { [5] = true } }
 }
 
-masterUpgradesDB['deuteriumpowercells']={
-	name = "Deuterium Power Cells",
-	XWS = 'deuteriumpowercells',
-	slot = 19,
-	cost = 8,
-	Charge = 2,
-	remSlot = {14},
-  restriction = {Faction = {[5]=true}}
+masterUpgradesDB['deuteriumpowercells'] = {
+    name = "Deuterium Power Cells",
+    XWS = 'deuteriumpowercells',
+    slot = 19,
+    cost = 8,
+    Charge = 2,
+    remSlot = { 14 },
+    restriction = { Faction = { [5] = true } }
 }
 
-masterUpgradesDB['kazsfireball']={
-	name = "Kaz's Fireball",
-	XWS = 'kazsfireball',
-	slot = 15,
-  cost = 1,
-  restriction ={ship={['fireball']=true}}
+masterUpgradesDB['kazsfireball'] = {
+    name = "Kaz's Fireball",
+    XWS = 'kazsfireball',
+    slot = 15,
+    cost = 1,
+    restriction = { ship = { ['fireball'] = true } }
 }
 
-masterUpgradesDB['deadeyeshot']={
+masterUpgradesDB['deadeyeshot'] = {
     name = "Deadeye Shot",
     XWS = 'deadeyeshot',
     slot = 1,
     cost = 1,
     restriction = {
-        Size = { small=true, medium=true}
+        Size = { small = true, medium = true }
     }
 }
 
-masterUpgradesDB['automatedtargetpriority']={
+masterUpgradesDB['automatedtargetpriority'] = {
     name = "Automated Target Priority",
     XWS = 'automatedtargetpriority',
     slot = 19,
@@ -2408,39 +2407,39 @@ masterUpgradesDB['automatedtargetpriority']={
     }
 }
 
-masterUpgradesDB['sensorbuoysuite']={
+masterUpgradesDB['sensorbuoysuite'] = {
     name = "Sensor Buoy Suite",
     XWS = 'sensorbuoysuite',
     slot = 19,
     cost = 4,
     restriction = {
-        Faction = {[5]=true},
-        Size = { medium=true, large=true}
+        Faction = { [5] = true },
+        Size = { medium = true, large = true }
     },
-    remotes = {'Sensor Buoy (Red)', 'Sensor Buoy (Blue)'}
+    remotes = { 'Sensor Buoy (Red)', 'Sensor Buoy (Blue)' }
 }
 
-masterUpgradesDB['multimissilepods']={
+masterUpgradesDB['multimissilepods'] = {
     name = "Multi-Missile Pods",
     XWS = 'multimissilepods',
     slot = 6,
-    remSlot = {6},
+    remSlot = { 6 },
     Charge = 5,
     cost = 4,
     restriction = {},
 }
 
-masterUpgradesDB['syncedlasercannons']={
+masterUpgradesDB['syncedlasercannons'] = {
     name = "Synced Laser Cannons",
     XWS = 'syncedlasercannons',
     slot = 3,
-    remSlot = {3},
+    remSlot = { 3 },
     cost = 7,
     cardB = cardBackDB['3b'],
     restriction = {}
 }
 
-masterUpgradesDB['aaylasecura']={
+masterUpgradesDB['aaylasecura'] = {
     name = "Aayla Secura",
     XWS = 'aaylasecura',
     Force = 1,
@@ -2448,38 +2447,38 @@ masterUpgradesDB['aaylasecura']={
     slot = 8,
     cost = 14,
     restriction = {
-        Faction = {[6]=true}
+        Faction = { [6] = true }
     }
 }
 
-masterUpgradesDB['kitfisto']={
+masterUpgradesDB['kitfisto'] = {
     name = "Kit Fisto",
     XWS = 'kitfisto',
     Force = 1,
     limited = 1,
-    addAction = {'E'},
+    addAction = { 'E' },
     slot = 8,
     cost = 8,
     restriction = {
-        Faction = {[6]=true}
+        Faction = { [6] = true }
     }
 }
 
 
-masterUpgradesDB['plokoon']={
+masterUpgradesDB['plokoon'] = {
     name = "Plo Koon",
     XWS = 'plokoon',
     Force = 1,
     limited = 1,
     slot = 8,
-    addAction = {'R'},
+    addAction = { 'R' },
     cost = 9,
     restriction = {
-        Faction = {[6]=true}
+        Faction = { [6] = true }
     }
 }
 
-masterUpgradesDB['yoda']={
+masterUpgradesDB['yoda'] = {
     name = "Yoda",
     XWS = 'yoda',
     Force = 2,
@@ -2487,61 +2486,61 @@ masterUpgradesDB['yoda']={
     slot = 8,
     cost = 12,
     restriction = {
-        Faction = {[6]=true}
+        Faction = { [6] = true }
     }
 }
 
-masterUpgradesDB['fives']={
+masterUpgradesDB['fives'] = {
     name = '"Fives"',
     XWS = 'fives',
     limited = 1,
     slot = 8,
     cost = 3,
     restriction = {
-        Faction = {[6]=true}
+        Faction = { [6] = true }
     }
 }
 
-masterUpgradesDB['wolfpack']={
+masterUpgradesDB['wolfpack'] = {
     name = "Wolfpack",
     XWS = 'wolfpack',
     limited = 1,
     slot = 16,
-    remSlot = {8},
+    remSlot = { 8 },
     cost = 4,
     restriction = {
-        Faction = {[6]=true}
+        Faction = { [6] = true }
     }
 }
 
-masterUpgradesDB['ghostcompany']={
+masterUpgradesDB['ghostcompany'] = {
     name = "Ghost Company",
     XWS = 'ghostcompany',
     limited = 1,
     slot = 16,
-    addAction = {'F'},
-    remSlot = {8},
+    addAction = { 'F' },
+    remSlot = { 8 },
     cost = 5,
     restriction = {
-        Faction = {[6]=true}
+        Faction = { [6] = true }
         -- Todo: Add rotate requirement
     }
 }
 
-masterUpgradesDB['kalani']={
+masterUpgradesDB['kalani'] = {
     name = "Kalani",
     XWS = 'kalani',
     limited = 1,
     slot = 20,
-    addAction = {'C'},
+    addAction = { 'C' },
     Charge = 3,
     cost = 5,
     restriction = {
-        Faction={[7]=true}
+        Faction = { [7] = true }
     },
 }
 
-masterUpgradesDB['commandermalarus']={
+masterUpgradesDB['commandermalarus'] = {
     name = "Commander Malarus",
     XWS = 'commandermalarus',
     dual = true,
@@ -2549,46 +2548,46 @@ masterUpgradesDB['commandermalarus']={
     limited = 1,
     cost = 6,
     restriction = {
-        Faction = {[5]=true}
+        Faction = { [5] = true }
     }
 }
 
-masterUpgradesDB['agentterex']={
+masterUpgradesDB['agentterex'] = {
     name = "Agent Terex",
     XWS = 'agentterex',
     dual = true,
     slot = 8,
     limited = 1,
     cost = 7,
-    addSqdAction = {'C'},
+    addSqdAction = { 'C' },
     restriction = {
-        Faction = {[5]=true}
+        Faction = { [5] = true }
     }
 }
 
-masterUpgradesDB['commanderpyre']={
+masterUpgradesDB['commanderpyre'] = {
     name = 'Commander Pyre',
     XWS = 'commanderpyre',
     slot = 8,
     limited = 1,
     cost = 5,
     restriction = {
-        Faction = {[5]=true}
+        Faction = { [5] = true }
     }
 }
 
-masterUpgradesDB['clonecaptainrex']={
+masterUpgradesDB['clonecaptainrex'] = {
     name = "Clone Captain Rex",
     XWS = 'clonecaptainrex',
     limited = 1,
     slot = 16,
     cost = 2,
     restriction = {
-        Faction = {[6]=true}
+        Faction = { [6] = true }
     }
 }
 
-masterUpgradesDB['suppressivegunner']={
+masterUpgradesDB['suppressivegunner'] = {
     name = "Suppressive Gunner",
     XWS = 'suppressivegunner',
     slot = 16,
@@ -2596,7 +2595,7 @@ masterUpgradesDB['suppressivegunner']={
     restriction = {}
 }
 
-masterUpgradesDB['concussionbombs']={
+masterUpgradesDB['concussionbombs'] = {
     name = "Concussion Bombs",
     XWS = 'concussionbombs',
     slot = 12,
@@ -2608,85 +2607,86 @@ masterUpgradesDB['concussionbombs']={
 }
 
 
-masterUpgradesDB['repulsorliftstabilizers']={
+masterUpgradesDB['repulsorliftstabilizers'] = {
     name = "Repulsorlift Stabilizers",
     XWS = 'repulsorliftstabilizers',
     dual = true,
     slot = 18,
     cost = 0,
     restriction = {
-        ship = {['hmpdroidgunship']=true}
+        ship = { ['hmpdroidgunship'] = true }
     },
     executeOptions = function()
         return {
-        rbl1 = {'rbl1', 'rbl1z'},
-        rbr1 = {'rbr1', 'rbr1z'},
-        btl2 = {'btl2', 'btl2z'},
-        wbl2 = {'wbl2', 'wbl2z'},
-        wbr2 = {'wbr2', 'wbr2z'},
-        btr2 = {'btr2', 'btr2z'},
-        wtl3 = {'wtl3', 'wtl3z'},
-        rbl3 = {'rbl3', 'rbl3z'},
-        rbr3 = {'rbr3', 'rbr3z'},
-        wtr3 = {'wtr3', 'wtr3z'}
-    } end
+            rbl1 = { 'rbl1', 'rbl1z' },
+            rbr1 = { 'rbr1', 'rbr1z' },
+            btl2 = { 'btl2', 'btl2z' },
+            wbl2 = { 'wbl2', 'wbl2z' },
+            wbr2 = { 'wbr2', 'wbr2z' },
+            btr2 = { 'btr2', 'btr2z' },
+            wtl3 = { 'wtl3', 'wtl3z' },
+            rbl3 = { 'rbl3', 'rbl3z' },
+            rbr3 = { 'rbr3', 'rbr3z' },
+            wtr3 = { 'wtr3', 'wtr3z' }
+        }
+    end
 }
 
-masterUpgradesDB['maneuverassistmgk300']={
+masterUpgradesDB['maneuverassistmgk300'] = {
     name = "Maneuver-Assist MGK-300",
     XWS = 'maneuverassistmgk300',
     slot = 18,
     cost = 0,
     restriction = {
-        ship = {['tierbheavy']=true}
+        ship = { ['tierbheavy'] = true }
     },
 }
 
-masterUpgradesDB['targetassistmgk300']={
+masterUpgradesDB['targetassistmgk300'] = {
     name = "Target-Assist MGK-300",
     XWS = 'targetassistmgk300',
     slot = 18,
     cost = 1,
     restriction = {
-        ship = {['tierbheavy']=true}
+        ship = { ['tierbheavy'] = true }
     },
 }
 
-masterUpgradesDB['ionlimiteroverride']={
+masterUpgradesDB['ionlimiteroverride'] = {
     name = "Ion Limiter Override",
     XWS = 'ionlimiteroverride',
     slot = 1,
     cost = 2,
-    addAction = {'BR'},
+    addAction = { 'BR' },
     restriction = {
-        keywords = {'TIE'}
+        keywords = { 'TIE' }
     },
 }
 
-masterUpgradesDB['backwardstailslide']={
+masterUpgradesDB['backwardstailslide'] = {
     name = "Backwards Tailslide",
     XWS = 'backwardstailslide',
     slot = 1,
-    addAction = {'E'},
+    addAction = { 'E' },
     cost = 2,
     restriction = {
-        keywords = {'X-Wing'}
+        keywords = { 'X-Wing' }
     },
 }
 
-masterUpgradesDB['overdrivethruster']={
+masterUpgradesDB['overdrivethruster'] = {
     name = "Overdrive Thruster",
     XWS = 'overdrivethruster',
     limited = 1,
     slot = 14,
     cost = 0,
-    addAction = {'2B', '2BR'},
+    addAction = { '2B', '2BR' },
     restriction = {
-        ship = {['t70xwing']=true}
+        ship = { ['t70xwing'] = true }
     },
 }
 
-masterUpgradesDB['r2d2-resistance']={
+masterUpgradesDB['r2d2-resistance'] = {
     name = "R2-D2",
     XWS = 'r2d2-resistance',
     limited = 1,
@@ -2694,57 +2694,57 @@ masterUpgradesDB['r2d2-resistance']={
     cost = 6,
     Charge = 4,
     restriction = {
-        Faction={[4]=true},
+        Faction = { [4] = true },
     },
 }
 
-masterUpgradesDB['r6d8']={
+masterUpgradesDB['r6d8'] = {
     name = "R6-D8",
     XWS = 'r6d8',
     limited = 1,
     slot = 10,
     cost = 4,
     restriction = {
-        Faction={[4]=true},
+        Faction = { [4] = true },
     },
 }
 
-masterUpgradesDB['underslungblastercannon']={
+masterUpgradesDB['underslungblastercannon'] = {
     name = "Underslung Blaster Cannon",
     XWS = 'underslungblastercannon',
     slot = 3,
     cost = 2,
     restriction = {
-        Faction={[4]=true},
-        ship = {['t70xwing']=true}
+        Faction = { [4] = true },
+        ship = { ['t70xwing'] = true }
     },
-    arcs = {turret = {name = 'underslung blaster cannon', range = 1, type = {'singleturret'}}}
+    arcs = { turret = { name = 'underslung blaster cannon', range = 1, type = { 'singleturret' } } }
 }
 
-masterUpgradesDB['starbirdslash']={
+masterUpgradesDB['starbirdslash'] = {
     name = "Starbird Slash",
     XWS = 'starbirdslash',
     slot = 1,
     cost = 1,
     restriction = {
-        keywords = {'A-Wing'}
+        keywords = { 'A-Wing' }
     },
     movethrough = true,
 }
 
-masterUpgradesDB['extrememaneuvers']={
+masterUpgradesDB['extrememaneuvers'] = {
     name = "Extreme Maneuvers",
     XWS = 'extrememaneuvers',
     slot = 17,
     cost = 5,
-    addAction = {'Dare'},
+    addAction = { 'Dare' },
     restriction = {
-        Size = { small=true },
+        Size = { small = true },
         -- Todo: add boost requirement
     },
 }
 
-masterUpgradesDB['jedicommander']={
+masterUpgradesDB['jedicommander'] = {
     name = "Jedi Commander",
     XWS = 'jedicommander',
     slot = 21,
@@ -2752,11 +2752,11 @@ masterUpgradesDB['jedicommander']={
     dual = true,
     cost = 4,
     restriction = {
-        Ship = { ['eta2actis']=true, ['delta7aethersprite']=true }
+        Ship = { ['eta2actis'] = true, ['delta7aethersprite'] = true }
     },
 }
 
-masterUpgradesDB['r2d2-republic']={
+masterUpgradesDB['r2d2-republic'] = {
     name = "R2-D2",
     XWS = 'r2d2-republic',
     limited = 1,
@@ -2764,45 +2764,45 @@ masterUpgradesDB['r2d2-republic']={
     cost = 0,
     Charge = 2,
     restriction = {
-        Faction={[6]=true},
+        Faction = { [6] = true },
     }
 }
 
-masterUpgradesDB['patience']={
+masterUpgradesDB['patience'] = {
     name = "Patience",
     XWS = 'patience',
     slot = 17,
     cost = 2,
-    restriction = {keywords={'Light Side'}}
+    restriction = { keywords = { 'Light Side' } }
 }
 
-masterUpgradesDB['alpha3bbesh']={
+masterUpgradesDB['alpha3bbesh'] = {
     name = 'Alpha-3B "Besh"',
     XWS = 'alpha3bbesh',
     slot = 18,
     cost = 1,
-    addSlot ={12},
+    addSlot = { 12 },
     restriction = {
-        ship={
-            ['nimbusclassvwing']=true,
+        ship = {
+            ['nimbusclassvwing'] = true,
         },
     }
 }
 
-masterUpgradesDB['alpha3eesk']={
+masterUpgradesDB['alpha3eesk'] = {
     name = 'Alpha-3E "Esk"',
     XWS = 'alpha3eesk',
     slot = 18,
     cost = 0,
     Charge = 2,
     restriction = {
-        ship={
-            ['nimbusclassvwing']=true,
+        ship = {
+            ['nimbusclassvwing'] = true,
         },
     }
 }
 
-masterUpgradesDB['thermaldetonators']={
+masterUpgradesDB['thermaldetonators'] = {
     name = 'Thermal Detonators',
     XWS = 'thermaldetonators',
     slot = 12,
@@ -2811,7 +2811,7 @@ masterUpgradesDB['thermaldetonators']={
     Bomb = true,
 }
 
-masterUpgradesDB['r7a7']={
+masterUpgradesDB['r7a7'] = {
     name = 'R7-A7',
     XWS = 'r7a7',
     limited = 1,
@@ -2819,11 +2819,11 @@ masterUpgradesDB['r7a7']={
     cost = 3,
     Charge = 3,
     restriction = {
-        Faction={[6]=true},
+        Faction = { [6] = true },
     }
 }
 
-masterUpgradesDB['precisionionengines']={
+masterUpgradesDB['precisionionengines'] = {
     name = 'Precision Ion Engines',
     XWS = 'precisionionengines',
     slot = 14,
@@ -2831,46 +2831,46 @@ masterUpgradesDB['precisionionengines']={
     Charge = 2,
     executeOptions = function(list, pid)
         return {
-            rk1   = {[1]='rk1', [2]='rbl1s', [3]='rbr1s'},
-            rk2   = {[1]='rk2', [2]='rbl2s', [3]='rbr2s'},
-            rk3   = {[1]='rk3', [2]='rbl3s', [3]='rbr3s'},
-            wk1   = {[1]='wk1', [2]='wbl1s', [3]='wbr1s'},
-            wk2   = {[1]='wk2', [2]='wbl2s', [3]='wbr2s'},
-            wk3   = {[1]='wk3', [2]='wbl3s', [3]='wbr3s'},
+            rk1 = { [1] = 'rk1', [2] = 'rbl1s', [3] = 'rbr1s' },
+            rk2 = { [1] = 'rk2', [2] = 'rbl2s', [3] = 'rbr2s' },
+            rk3 = { [1] = 'rk3', [2] = 'rbl3s', [3] = 'rbr3s' },
+            wk1 = { [1] = 'wk1', [2] = 'wbl1s', [3] = 'wbr1s' },
+            wk2 = { [1] = 'wk2', [2] = 'wbl2s', [3] = 'wbr2s' },
+            wk3 = { [1] = 'wk3', [2] = 'wbl3s', [3] = 'wbr3s' },
         }
     end,
     restriction = {
         ship = {
-        keywords = {'TIE'}
+            keywords = { 'TIE' }
         },
     }
 }
 
-masterUpgradesDB['q7astromech']={
+masterUpgradesDB['q7astromech'] = {
     name = 'Q7 Astromech',
     XWS = 'q7astromech',
     slot = 10,
     cost = 3,
     restriction = {
-        Faction={[6]=true},
+        Faction = { [6] = true },
     }
 }
 
-masterUpgradesDB['interceptbooster']={
+masterUpgradesDB['interceptbooster'] = {
     name = 'Intercept Booster',
     XWS = 'interceptbooster',
     slot = 18,
     cost = 1,
     Charge = 3,
-    addAction = {'TL'},
+    addAction = { 'TL' },
     dual = true,
     restriction = {
-        Faction={[7]=true},
-        ship={['droidtrifighter']=true}
+        Faction = { [7] = true },
+        ship = { ['droidtrifighter'] = true }
     }
 }
 
-masterUpgradesDB['xx23sthreadtracers']={
+masterUpgradesDB['xx23sthreadtracers'] = {
     name = 'XX-23 S-Thread Tracers',
     XWS = 'xx23sthreadtracers',
     slot = 6,
@@ -2878,43 +2878,46 @@ masterUpgradesDB['xx23sthreadtracers']={
     Charge = 2,
 }
 
-masterUpgradesDB['margsablclosure']={
+masterUpgradesDB['margsablclosure'] = {
     name = 'Marg Sabl Closure',
     XWS = 'margsablclosure',
     slot = 1,
     cost = 1,
     restriction = {
-        Size = { small=true,
-                 medium=true},
+        Size = {
+            small = true,
+            medium = true
+        },
     },
     movethrough = true,
 }
 
-masterUpgradesDB['independentcalculations']={
+masterUpgradesDB['independentcalculations'] = {
     name = 'Independent Calculations',
     XWS = 'independentcalculations',
     slot = 14,
     cost = 0,
     restriction = {
-        ship={
-            ['vultureclassdroidfighter']=true,
-            ['hyenaclassdroidbomber']=true,
-            ['droidtrifighter']=true} -- Network calculations
+        ship = {
+            ['vultureclassdroidfighter'] = true,
+            ['hyenaclassdroidbomber'] = true,
+            ['droidtrifighter'] = true
+        }                             -- Network calculations
     },
 }
 
-masterUpgradesDB['jangofett']={
+masterUpgradesDB['jangofett'] = {
     name = 'Jango Fett',
     XWS = 'jangofett',
     limited = 1,
     slot = 8,
     cost = 6,
     restriction = {
-        Faction={[3]=true, [7]=true},
+        Faction = { [3] = true, [7] = true },
     },
 }
 
-masterUpgradesDB['zamwesell']={
+masterUpgradesDB['zamwesell'] = {
     name = 'Zam Wesell',
     XWS = 'zamwesell',
     limited = 1,
@@ -2923,11 +2926,11 @@ masterUpgradesDB['zamwesell']={
     cost = 11,
     Charge = 2,
     restriction = {
-        Faction={[3]=true, [7]=true},
+        Faction = { [3] = true, [7] = true },
     },
 }
 
-masterUpgradesDB['hondoohnaka']={
+masterUpgradesDB['hondoohnaka'] = {
     name = 'Hondo Ohnaka',
     XWS = 'hondoohnaka',
     limited = 1,
@@ -2935,40 +2938,44 @@ masterUpgradesDB['hondoohnaka']={
     cost = 5,
 }
 
-masterUpgradesDB['slavei-swz82']={
+masterUpgradesDB['slavei-swz82'] = {
     name = 'Slave I',
     XWS = 'slavei-swz82',
     title = "Jango's ride",
     slot = 15,
     cost = 3,
-    addSlot = {16},
+    addSlot = { 16 },
     restriction = {
-        Faction = {[3]=true,
-                   [7]=true},
-        ship = {['firesprayclasspatrolcraft']=true}
+        Faction = {
+            [3] = true,
+            [7] = true
+        },
+        ship = { ['firesprayclasspatrolcraft'] = true }
     }
 }
 
-masterUpgradesDB['bobafett-gunner']={
+masterUpgradesDB['bobafett-gunner'] = {
     name = 'Boba Fett',
     XWS = 'bobafett-gunner',
     limited = 1,
     slot = 16,
     cost = 6,
     restriction = {
-        Faction = {[3]=true,
-                   [7]=true}
+        Faction = {
+            [3] = true,
+            [7] = true
+        }
     }
 }
 
-masterUpgradesDB['weaponssystemsofficer']={
+masterUpgradesDB['weaponssystemsofficer'] = {
     name = 'Weapons Systems Officer',
     XWS = 'weaponssystemsofficer',
     slot = 16,
     cost = 5,
 }
 
-masterUpgradesDB['falsetranspondercodes']={
+masterUpgradesDB['falsetranspondercodes'] = {
     name = 'False Transponder Codes',
     XWS = 'falsetranspondercodes',
     slot = 13,
@@ -2976,293 +2983,304 @@ masterUpgradesDB['falsetranspondercodes']={
     Charge = 1,
 }
 
-masterUpgradesDB['admiralozzel']={
+masterUpgradesDB['admiralozzel'] = {
     name = "Admiral Ozzel",
     XWS = 'admiralozzel',
     slot = 21,
-    remSlot = {8},
+    remSlot = { 8 },
     cost = 6,
     restriction = {
-        Faction = {[2]=true},
-        Size={huge=true}
+        Faction = { [2] = true },
+        Size = { huge = true }
     }
 }
-masterUpgradesDB['azmorigan']={
+masterUpgradesDB['azmorigan'] = {
     name = "Azmorigan",
     XWS = 'azmorigan',
     slot = 21,
-    remSlot = {8},
+    remSlot = { 8 },
     cost = 4,
-    cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Epic+Crew.png',
+    cardB =
+    'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Epic+Crew.png',
     restriction = {
-        Faction = {[3]=true},
-        Size={huge=true}
+        Faction = { [3] = true },
+        Size = { huge = true }
     }
 }
-masterUpgradesDB['captainneeda']={
+masterUpgradesDB['captainneeda'] = {
     name = "Captain Needa",
     XWS = 'captainneeda',
     slot = 21,
-    remSlot = {8},
+    remSlot = { 8 },
     cost = 8,
     Charge = 4,
-    cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Epic+Crew.png',
+    cardB =
+    'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Epic+Crew.png',
     restriction = {
-        Faction = {[2]=true},
-        Size={huge=true}
+        Faction = { [2] = true },
+        Size = { huge = true }
     }
 }
-masterUpgradesDB['carlistrieekan']={
+masterUpgradesDB['carlistrieekan'] = {
     name = "Carlist Rieekan",
     XWS = 'carlistrieekan',
     slot = 21,
-    addAction = {'E'},
-    remSlot = {8},
+    addAction = { 'E' },
+    remSlot = { 8 },
     cost = 4,
-    cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Epic+Crew.png',
+    cardB =
+    'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Epic+Crew.png',
     restriction = {
-        Faction = {[1]=true},
-        Size={huge=true}
+        Faction = { [1] = true },
+        Size = { huge = true }
     }
 }
-masterUpgradesDB['jandodonna']={
+masterUpgradesDB['jandodonna'] = {
     name = "Jan Dodonna",
     XWS = 'jandodonna',
     slot = 21,
-    remSlot = {8},
+    remSlot = { 8 },
     cost = 3,
-    cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Epic+Crew.png',
+    cardB =
+    'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Epic+Crew.png',
     restriction = {
-        Faction = {[1]=true},
-        Size={huge=true}
+        Faction = { [1] = true },
+        Size = { huge = true }
     }
 }
-masterUpgradesDB['raymusantilles']={
+masterUpgradesDB['raymusantilles'] = {
     name = "Raymus Antilles",
     XWS = 'raymusantilles',
     slot = 21,
-    remSlot = {8},
+    remSlot = { 8 },
     cost = 8,
-    cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Epic+Crew.png',
+    cardB =
+    'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Epic+Crew.png',
     restriction = {
-        Faction = {[1]=true},
-        Size={huge=true}
+        Faction = { [1] = true },
+        Size = { huge = true }
     }
 }
-masterUpgradesDB['stalwartcaptain']={
+masterUpgradesDB['stalwartcaptain'] = {
     name = "Stalwart Captain",
     XWS = 'stalwartcaptain',
     slot = 21,
-    remSlot = {8},
+    remSlot = { 8 },
     cost = 6,
-    cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Epic+Crew.png',
+    cardB =
+    'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Epic+Crew.png',
     restriction = {
-        Size={huge=true}
+        Size = { huge = true }
     }
 }
-masterUpgradesDB['agentoftheempire']={
+masterUpgradesDB['agentoftheempire'] = {
     name = "Agent of the Empire",
     XWS = 'agentoftheempire',
     wingleader = true,
     slot = 21,
     cost = 4,
     restriction = {
-        Faction={[2]=true},
-        ship = {['tieadvancedx1']=true, ['tieadvancedv1']=true}
+        Faction = { [2] = true },
+        ship = { ['tieadvancedx1'] = true, ['tieadvancedv1'] = true }
     }
 }
-masterUpgradesDB['firstorderelite']={
+masterUpgradesDB['firstorderelite'] = {
     name = "First Order Elite",
     XWS = 'firstorderelite',
     wingleader = true,
     slot = 21,
     cost = 4,
     restriction = {
-        Faction = {[5]=true},
-        ship = {['tiesffighter']=true, ['tievnsilencer']=true}
+        Faction = { [5] = true },
+        ship = { ['tiesffighter'] = true, ['tievnsilencer'] = true }
     }
 }
-masterUpgradesDB['veteranwingleader']={
+masterUpgradesDB['veteranwingleader'] = {
     name = "Veteran Wing Leader",
     XWS = 'veteranwingleader',
     wingleader = true,
     slot = 21,
     cost = 2,
     restriction = {
-        Size={small=true}
+        Size = { small = true }
     }
 }
-masterUpgradesDB['dreadnoughthunter']={
+masterUpgradesDB['dreadnoughthunter'] = {
     name = "Dreadnought hunter",
     XWS = 'dreadnoughthunter',
     slot = 21,
     cost = 3,
     restriction = {
-        Size={small=true},
-        InitiativeGreaterThan=3
+        Size = { small = true },
+        InitiativeGreaterThan = 3
     }
 }
 
-masterUpgradesDB['ioncannonbattery']={
+masterUpgradesDB['ioncannonbattery'] = {
     name = "Ion Cannon Battery",
     XWS = 'ioncannonbattery',
     slot = 24,
     cost = 5,
     dual = true,
-    cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/IonCannonBattery(Offline).png',
+    cardB =
+    'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/IonCannonBattery(Offline).png',
     restriction = {},
-    arcs = {turret = {name = 'ion cannon', range = 4, type = {'singleturret'}}}
+    arcs = { turret = { name = 'ion cannon', range = 4, type = { 'singleturret' } } }
 }
 
-masterUpgradesDB['targetingbattery']={
+masterUpgradesDB['targetingbattery'] = {
     name = "Targeting Battery",
     XWS = 'targetingbattery',
     slot = 24,
     cost = 5,
     dual = true,
-    cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/TargetingBattery(Offline).png',
+    cardB =
+    'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/TargetingBattery(Offline).png',
     restriction = {},
-    arcs = {turret = {name = 'targeting', range = 5, type = {'singleturret'}}}
+    arcs = { turret = { name = 'targeting', range = 5, type = { 'singleturret' } } }
 }
 
-masterUpgradesDB['ordnancetubes']={
+masterUpgradesDB['ordnancetubes'] = {
     name = "Ordnance Tubes",
     XWS = 'ordnancetubes',
     slot = 24,
     cost = 1,
     dual = true,
-    cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/OrdnanceTubes(Offline).png',
+    cardB =
+    'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/OrdnanceTubes(Offline).png',
     restriction = {}
 }
 
-masterUpgradesDB['pointdefensebattery']={
+masterUpgradesDB['pointdefensebattery'] = {
     name = "Point-Defense Battery",
     XWS = 'pointdefensebattery',
     slot = 24,
     cost = 9,
     dual = true,
-    cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/PointDefenseBattery(Offline).png',
+    cardB =
+    'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/PointDefenseBattery(Offline).png',
     restriction = {},
-    arcs = {turret = {name = 'point defence', range = 2, type = {'doubleturret'}}}
+    arcs = { turret = { name = 'point defence', range = 2, type = { 'doubleturret' } } }
 }
 
-masterUpgradesDB['turbolaserbattery']={
+masterUpgradesDB['turbolaserbattery'] = {
     name = "Turbolaser Battery",
     XWS = 'turbolaserbattery',
     slot = 24,
     cost = 10,
     dual = true,
-    cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/TurbolaserBattery(Offline).png',
+    cardB =
+    'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/TurbolaserBattery(Offline).png',
     restriction = {
         -- TODO: Add restriction energy 5 or higher
     },
-    arcs = {turret = {name = 'turbolaser', range = 5, type = {'singleturret'}}}
+    arcs = { turret = { name = 'turbolaser', range = 5, type = { 'singleturret' } } }
 }
 
-masterUpgradesDB['bombardmentspecialists']={
+masterUpgradesDB['bombardmentspecialists'] = {
     name = "Bombardment Specialists",
     XWS = 'bombardmentspecialists',
     slot = 23,
-    addAction = {'TL','C'},
+    addAction = { 'TL', 'C' },
     cost = 6,
 
     restriction = {}
 }
 
-masterUpgradesDB['commsteam']={
+masterUpgradesDB['commsteam'] = {
     name = "Comms Team",
     XWS = 'commsteam',
     slot = 23,
-    addAction = {'C'},
+    addAction = { 'C' },
     cost = 7,
     restriction = {}
 }
 
-masterUpgradesDB['igrmdroids']={
+masterUpgradesDB['igrmdroids'] = {
     name = "IG-RM Droids",
     XWS = 'igrmdroids',
     slot = 23,
-    addAction = {'C'},
+    addAction = { 'C' },
     cost = 2,
     restriction = {
-        Faction = {[3]=true}
+        Faction = { [3] = true }
     }
 }
 
-masterUpgradesDB['gunneryspecialists']={
+masterUpgradesDB['gunneryspecialists'] = {
     name = "Gunnery Specialists",
     XWS = 'gunneryspecialists',
     slot = 23,
-    addAction = {'C'},
+    addAction = { 'C' },
     cost = 5,
     restriction = {}
 }
 
-masterUpgradesDB['damagecontrolteam']={
+masterUpgradesDB['damagecontrolteam'] = {
     name = "Damage Control Team",
     XWS = 'damagecontrolteam',
     slot = 23,
-    addAction = {'R','C'},
+    addAction = { 'R', 'C' },
     cost = 3,
     restriction = {}
 }
 
-masterUpgradesDB['ordnanceteam']={
+masterUpgradesDB['ordnanceteam'] = {
     name = "Ordnance Team",
     XWS = 'ordnanceteam',
     slot = 23,
-    addAction = {'C'},
+    addAction = { 'C' },
     cost = 2,
 
     restriction = {}
 }
 
-masterUpgradesDB['sensorexperts']={
+masterUpgradesDB['sensorexperts'] = {
     name = "Sensor Experts",
     XWS = 'sensorexperts',
     slot = 23,
-    addAction = {'TL','C'},
+    addAction = { 'TL', 'C' },
     cost = 6,
     restriction = {}
 }
 
-masterUpgradesDB['quickreleaselocks']={
+masterUpgradesDB['quickreleaselocks'] = {
     name = "Quick-Release Locks",
     XWS = 'quickreleaselocks',
     slot = 13,
     cost = 5,
     Charge = 2,
     restriction = {
-        Size={huge=true}
+        Size = { huge = true }
     }
 }
-masterUpgradesDB['saboteursmap']={
+masterUpgradesDB['saboteursmap'] = {
     name = "Saboteur's Map",
     XWS = 'saboteursmap',
     slot = 13,
     cost = 3,
     restriction = {
-        Size={huge=true}
+        Size = { huge = true }
     }
 }
-masterUpgradesDB['scannerbaffler']={
+masterUpgradesDB['scannerbaffler'] = {
     name = "Scanner Baffler",
     XWS = 'scannerbaffler',
     slot = 13,
     cost = 8,
     restriction = {
-        Size={huge=true}
+        Size = { huge = true }
     }
 }
 -- Cargo
-masterUpgradesDB['adaptiveshields']={
+masterUpgradesDB['adaptiveshields'] = {
     name = "Adaptive Shields",
     XWS = 'adaptiveshields',
     slot = 22,
     cost = 5,
     restriction = {}
 }
-masterUpgradesDB['boostedscanners']={
+masterUpgradesDB['boostedscanners'] = {
     name = "Boosted Scanners",
     XWS = 'boostedscanners',
     slot = 22,
@@ -3270,7 +3288,7 @@ masterUpgradesDB['boostedscanners']={
     restriction = {}
 }
 
-masterUpgradesDB['optimizedpowercore']={
+masterUpgradesDB['optimizedpowercore'] = {
     name = "Optimized Power Core",
     XWS = 'optimizedpowercore',
     slot = 22,
@@ -3278,7 +3296,7 @@ masterUpgradesDB['optimizedpowercore']={
     restriction = {}
 }
 
-masterUpgradesDB['tibannareserves']={
+masterUpgradesDB['tibannareserves'] = {
     name = "Tibanna Reserves",
     XWS = 'tibannareserves',
     slot = 22,
@@ -3287,34 +3305,34 @@ masterUpgradesDB['tibannareserves']={
     restriction = {}
 }
 
-masterUpgradesDB['torynfarr']={
+masterUpgradesDB['torynfarr'] = {
     name = "Toryn Farr",
     XWS = 'torynfarr',
     slot = 8,
-    addAction = {'TL'},
+    addAction = { 'TL' },
     cost = 4,
     restriction = {
-        Faction = {[1]=true},
-        Size={huge=true}
+        Faction = { [1] = true },
+        Size = { huge = true }
     }
 }
 
-masterUpgradesDB['dodonnaspride']={
+masterUpgradesDB['dodonnaspride'] = {
     name = "Dodonna's Pride",
     XWS = 'dodonnaspride',
     limited = 1,
     slot = 15,
-    addAction = {'E','F'},
+    addAction = { 'E', 'F' },
     cost = 4,
     shd = -2,
-    addSlot ={23, 22},
+    addSlot = { 23, 22 },
     restriction = {
-        Faction={[1]=true},
-        ship = {['cr90corvette']=true}
+        Faction = { [1] = true },
+        ship = { ['cr90corvette'] = true }
     }
 }
 
-masterUpgradesDB['jainaslight']={
+masterUpgradesDB['jainaslight'] = {
     name = "Jaina's Light",
     XWS = 'jainaslight',
     slot = 15,
@@ -3323,12 +3341,12 @@ masterUpgradesDB['jainaslight']={
     shd = 1,
     Energy = -1,
     restriction = {
-        Faction={[1]=true},
-        ship = {['cr90corvette']=true}
+        Faction = { [1] = true },
+        ship = { ['cr90corvette'] = true }
     }
 }
 
-masterUpgradesDB['liberator']={
+masterUpgradesDB['liberator'] = {
     name = "Liberator",
     XWS = 'liberator',
     slot = 15,
@@ -3336,47 +3354,47 @@ masterUpgradesDB['liberator']={
     Energy = 1,
     Docking = true,
     restriction = {
-        Faction={[1]=true},
-        ship = {['cr90corvette']=true}
+        Faction = { [1] = true },
+        ship = { ['cr90corvette'] = true }
     }
 }
 
-masterUpgradesDB['tantiveiv']={
+masterUpgradesDB['tantiveiv'] = {
     name = "Tantive IV",
     XWS = 'tantiveiv',
     slot = 15,
     cost = 5,
-    addSlot ={8, 8},
+    addSlot = { 8, 8 },
     restriction = {
-        Faction={[1]=true},
-        ship = {['cr90corvette']=true}
+        Faction = { [1] = true },
+        ship = { ['cr90corvette'] = true }
     }
 }
 
-masterUpgradesDB['thunderstrike']={
+masterUpgradesDB['thunderstrike'] = {
     name = "Thunderstrike",
     XWS = 'thunderstrike',
     slot = 15,
     cost = 4,
-    addSlot = {16},
+    addSlot = { 16 },
     shd = -3,
     Hull = 3,
     restriction = {
-        Faction={[1]=true},
-        ship = {['cr90corvette']=true}
+        Faction = { [1] = true },
+        ship = { ['cr90corvette'] = true }
     }
 }
-masterUpgradesDB['brighthope']={
+masterUpgradesDB['brighthope'] = {
     name = "Bright Hope",
     XWS = 'brighthope',
     slot = 15,
     cost = 5,
     restriction = {
-        Faction={[1]=true},
-        ship = {['gr75mediumtransport']=true}
+        Faction = { [1] = true },
+        ship = { ['gr75mediumtransport'] = true }
     }
 }
-masterUpgradesDB['luminous']={
+masterUpgradesDB['luminous'] = {
     name = "Luminous",
     XWS = 'luminous',
     slot = 15,
@@ -3384,23 +3402,23 @@ masterUpgradesDB['luminous']={
     shd = -1,
     Energy = 2,
     restriction = {
-        Faction={[1]=true},
-        ship = {['gr75mediumtransport']=true}
+        Faction = { [1] = true },
+        ship = { ['gr75mediumtransport'] = true }
     }
 }
-masterUpgradesDB['quantumstorm']={
+masterUpgradesDB['quantumstorm'] = {
     name = "Quantum Storm",
     XWS = 'quantumstorm',
     slot = 15,
     cost = 3,
     Energy = 1,
-    addSlot = {23, 22},
+    addSlot = { 23, 22 },
     restriction = {
-        Faction={[1]=true},
-        ship = {['gr75mediumtransport']=true}
+        Faction = { [1] = true },
+        ship = { ['gr75mediumtransport'] = true }
     }
 }
-masterUpgradesDB['assailer']={
+masterUpgradesDB['assailer'] = {
     name = "Assailer",
     XWS = 'assailer',
     slot = 15,
@@ -3408,27 +3426,27 @@ masterUpgradesDB['assailer']={
     cost = 5,
     shd = -2,
     Hull = 2,
-    addSlot = {16},
+    addSlot = { 16 },
     restriction = {
-        Faction={[2]=true},
-        ship = {['raiderclasscorvette']=true}
+        Faction = { [2] = true },
+        ship = { ['raiderclasscorvette'] = true }
     }
 }
-masterUpgradesDB['corvus']={
+masterUpgradesDB['corvus'] = {
     name = "Corvus",
     XWS = 'corvus',
     slot = 15,
     limited = 1,
-    addAction = {'C'},
+    addAction = { 'C' },
     cost = 3,
     Docking = true,
     restriction = {
-        Faction={[2]=true},
-        ship = {['raiderclasscorvette']=true}
+        Faction = { [2] = true },
+        ship = { ['raiderclasscorvette'] = true }
     }
 }
 
-masterUpgradesDB['impetuous']={
+masterUpgradesDB['impetuous'] = {
     name = "Impetuous",
     XWS = 'impetuous',
     slot = 15,
@@ -3436,25 +3454,25 @@ masterUpgradesDB['impetuous']={
     cost = 4,
     shd = -2,
     Energy = 2,
-    addSlot = {8},
+    addSlot = { 8 },
     restriction = {
-        Faction={[2]=true},
-        ship = {['raiderclasscorvette']=true}
+        Faction = { [2] = true },
+        ship = { ['raiderclasscorvette'] = true }
     }
 }
-masterUpgradesDB['instigator']={
+masterUpgradesDB['instigator'] = {
     name = "Instigator",
     XWS = 'instigator',
     slot = 15,
     limited = 1,
     cost = 6,
-    addSlot = {23},
+    addSlot = { 23 },
     restriction = {
-        Faction={[2]=true},
-        ship = {['raiderclasscorvette']=true}
+        Faction = { [2] = true },
+        ship = { ['raiderclasscorvette'] = true }
     }
 }
-masterUpgradesDB['bloodcrow']={
+masterUpgradesDB['bloodcrow'] = {
     name = "Blood Crow",
     XWS = 'bloodcrow',
     slot = 15,
@@ -3462,26 +3480,26 @@ masterUpgradesDB['bloodcrow']={
     cost = 8,
     Energy = 2,
     shd = -1,
-    addSlot = {16},
+    addSlot = { 16 },
     restriction = {
-        Faction={[2]=true},
-        ship = {['gozanticlasscruiser']=true}
+        Faction = { [2] = true },
+        ship = { ['gozanticlasscruiser'] = true }
     }
 }
 
-masterUpgradesDB['requiem']={
+masterUpgradesDB['requiem'] = {
     name = "Requiem",
     XWS = 'requiem',
     slot = 15,
     limited = 1,
     cost = 7,
     restriction = {
-        Faction={[2]=true},
-        ship = {['gozanticlasscruiser']=true}
+        Faction = { [2] = true },
+        ship = { ['gozanticlasscruiser'] = true }
     }
 }
 
-masterUpgradesDB['suppressor']={
+masterUpgradesDB['suppressor'] = {
     name = "Suppressor",
     XWS = 'suppressor',
     slot = 15,
@@ -3489,55 +3507,55 @@ masterUpgradesDB['suppressor']={
     cost = 6,
     shd = 2,
     Hull = -2,
-    addSlot = {2},
+    addSlot = { 2 },
     restriction = {
-        Faction={[2]=true},
-        ship = {['gozanticlasscruiser']=true}
+        Faction = { [2] = true },
+        ship = { ['gozanticlasscruiser'] = true }
     }
 }
 
-masterUpgradesDB['vector']={
+masterUpgradesDB['vector'] = {
     name = "Vector",
     XWS = 'vector',
     slot = 15,
     limited = 1,
-    addSqdAction = {'E','B'},
+    addSqdAction = { 'E', 'B' },
     cost = 7,
-    addSlot = {8, 22},
+    addSlot = { 8, 22 },
     restriction = {
-        Faction={[2]=true},
-        ship = {['gozanticlasscruiser']=true}
+        Faction = { [2] = true },
+        ship = { ['gozanticlasscruiser'] = true }
     }
 }
 
-masterUpgradesDB['brokenhorn']={
+masterUpgradesDB['brokenhorn'] = {
     name = "Broken Horn",
     XWS = 'brokenhorn',
     slot = 15,
     limited = 1,
     cost = 4,
-    addSlot = {8, 13},
+    addSlot = { 8, 13 },
     restriction = {
-        Faction={[3]=true},
-        ship = {['croccruiser']=true}
+        Faction = { [3] = true },
+        ship = { ['croccruiser'] = true }
     }
 }
 
-masterUpgradesDB['merchantone']={
+masterUpgradesDB['merchantone'] = {
     name = "Merchant One",
     XWS = 'merchantone',
     slot = 15,
     limited = 1,
-    addAction = {'E'},
+    addAction = { 'E' },
     cost = 8,
-    addSlot = {4, 23, 22},
+    addSlot = { 4, 23, 22 },
     restriction = {
-        Faction={[3]=true},
-        ship = {['croccruiser']=true}
+        Faction = { [3] = true },
+        ship = { ['croccruiser'] = true }
     }
 }
 
-masterUpgradesDB['insatiableworrt']={
+masterUpgradesDB['insatiableworrt'] = {
     name = "Insatiable Worrt",
     XWS = 'insatiableworrt',
     slot = 15,
@@ -3545,14 +3563,14 @@ masterUpgradesDB['insatiableworrt']={
     shd = -1,
     Energy = -1,
     Hull = 3,
-    addSlot = {22},
+    addSlot = { 22 },
     restriction = {
-        Faction={[3]=true},
-        ship = {['croccruiser']=true}
+        Faction = { [3] = true },
+        ship = { ['croccruiser'] = true }
     }
 }
 
-masterUpgradesDB['corsairrefit']={
+masterUpgradesDB['corsairrefit'] = {
     name = "Corsair Refit",
     XWS = 'corsairrefit',
     slot = 18,
@@ -3560,85 +3578,86 @@ masterUpgradesDB['corsairrefit']={
     shd = -2,
     Energy = 1,
     Hull = 2,
-    addSlot = {3, 4, 6},
+    addSlot = { 3, 4, 6 },
     restriction = {
-        ship = {['croccruiser']=true}
+        ship = { ['croccruiser'] = true }
     }
 }
 
-masterUpgradesDB['strategiccommander']={
+masterUpgradesDB['strategiccommander'] = {
     name = "Strategic Commander",
     XWS = 'strategiccommander',
     slot = 21,
-    remSlot = {8},
+    remSlot = { 8 },
     cost = 6,
-    cardB = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Epic+Crew.png',
+    cardB =
+    'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Epic+Crew.png',
     restriction = {
-        Size={huge=true}
+        Size = { huge = true }
     }
 }
 
-masterUpgradesDB['vectoredcannonsrz1']={
+masterUpgradesDB['vectoredcannonsrz1'] = {
     name = "Vectored Cannons (RZ-1)",
     XWS = 'vectoredcannonsrz1',
     slot = 18,
     cost = 0,
     restriction = {
-        ship = {['rz1awing']=true}
+        ship = { ['rz1awing'] = true }
     },
-    arcs = {turret = {name= 'primary', type={'front', 'back'}}},
+    arcs = { turret = { name = 'primary', type = { 'front', 'back' } } },
 }
 
-masterUpgradesDB['b6bladewingprototype1']={
+masterUpgradesDB['b6bladewingprototype1'] = {
     name = "B6 Blade Wing Prototype",
     XWS = 'b6bladewingprototype1',
     slot = 15,
     limited = 1,
     cost = 1,
-    addSlot = {16},
+    addSlot = { 16 },
     restriction = {
-        Faction = {[1]=true},
-        ship = {['asf01bwing']=true}
+        Faction = { [1] = true },
+        ship = { ['asf01bwing'] = true }
     },
 }
 
-masterUpgradesDB['b6bladewingprototype']={
+masterUpgradesDB['b6bladewingprototype'] = {
     name = "B6 Blade Wing Prototype",
     XWS = 'b6bladewingprototype',
     slot = 21,
     limited = 1,
     cost = 12,
-    addSlot = {16},
-    remSlot = {15},
+    addSlot = { 16 },
+    remSlot = { 15 },
     restriction = {
-        Faction = {[1]=true},
-        ship = {['asf01bwing']=true}
+        Faction = { [1] = true },
+        ship = { ['asf01bwing'] = true }
     },
 }
 
-masterUpgradesDB['hopeful']={
+masterUpgradesDB['hopeful'] = {
     name = "Hopeful",
     XWS = 'hopeful',
     slot = 1,
     cost = 1,
     restriction = {
-        Faction = {[1]=true}
+        Faction = { [1] = true }
     },
-    addAction = {'B', 'F'},
+    addAction = { 'B', 'F' },
 }
 
-masterUpgradesDB['sabinewren-gunner']={
+masterUpgradesDB['sabinewren-gunner'] = {
     name = "Sabine Wren",
     XWS = 'sabinewren-gunner',
     slot = 16,
     limited = 1,
     cost = 2,
     restriction = {
-        Faction = {[1]=true}
+        Faction = { [1] = true }
     },
 }
 
-masterUpgradesDB['phoenixsquadron']={
+masterUpgradesDB['phoenixsquadron'] = {
     name = "Phoenix Squadron",
     XWS = 'phoenixsquadron',
     slot = 21,
@@ -3647,35 +3666,37 @@ masterUpgradesDB['phoenixsquadron']={
     dual = true,
     cost = 4,
     restriction = {
-        Faction = {[1]=true},
-        ship = {['vcx100lightfreighter']=true}
+        Faction = { [1] = true },
+        ship = { ['vcx100lightfreighter'] = true }
     },
 }
 
-masterUpgradesDB['disciplined']={
+masterUpgradesDB['disciplined'] = {
     name = "Disciplined",
     XWS = 'disciplined',
     slot = 1,
     cost = 2,
     restriction = {
-        Faction = {[2]=true}
+        Faction = { [2] = true }
     },
-    addAction = {'TL', 'BR'},
+    addAction = { 'TL', 'BR' },
 }
 
 
-masterUpgradesDB['sensitivecontrols']={
+masterUpgradesDB['sensitivecontrols'] = {
     name = "Sensitive Controls",
     XWS = 'sensitivecontrols',
     slot = 18,
     cost = 0,
     restriction = {
-        ship = {['tieininterceptor']=true,
-                ['tievnsilencer']= true}
+        ship = {
+            ['tieininterceptor'] = true,
+            ['tievnsilencer'] = true
+        }
     }
 }
 
-masterUpgradesDB['skystrikeacademyclass']={
+masterUpgradesDB['skystrikeacademyclass'] = {
     name = "Skystrike Academy Class",
     XWS = 'skystrikeacademyclass',
     slot = 21,
@@ -3684,15 +3705,15 @@ masterUpgradesDB['skystrikeacademyclass']={
     dual = true,
     cost = 3,
     restriction = {
-        Faction = {[2]=true},
+        Faction = { [2] = true },
         ship = {
-          ['tielnfighter'] = true, --TIE fighter
-          ['tieininterceptor'] = true, --TIE interceptor
+            ['tielnfighter'] = true,   --TIE fighter
+            ['tieininterceptor'] = true, --TIE interceptor
         }
     },
 }
 
-masterUpgradesDB['shadowwing']={
+masterUpgradesDB['shadowwing'] = {
     name = "Shadow Wing",
     XWS = 'shadowwing',
     slot = 21,
@@ -3701,265 +3722,265 @@ masterUpgradesDB['shadowwing']={
     dual = true,
     cost = 4,
     restriction = {
-        Faction = {[2]=true},
+        Faction = { [2] = true },
         ship = {
-          ['tielnfighter'] = true, --TIE fighter
-          ['tieininterceptor'] = true, --TIE interceptor
-          ['tiesabomber'] = true, --TIE bomber
+            ['tielnfighter'] = true,   --TIE fighter
+            ['tieininterceptor'] = true, --TIE interceptor
+            ['tiesabomber'] = true,    --TIE bomber
         }
     },
 }
 
-masterUpgradesDB['gamutkey']={
+masterUpgradesDB['gamutkey'] = {
     name = "Gamut Key",
     XWS = 'gamutkey',
     slot = 8,
     Charge = 2,
-    addAction = {'TL'},
+    addAction = { 'TL' },
     cost = 6,
     restriction = {
-        Faction = {[3]=true}
+        Faction = { [3] = true }
     }
 }
 
 
-masterUpgradesDB['cutthroat']={
+masterUpgradesDB['cutthroat'] = {
     name = "Cutthroat",
     XWS = 'cutthroat',
     slot = 1,
     cost = 2,
     restriction = {
-        Faction = {[3]=true}
+        Faction = { [3] = true }
     },
 }
 
-masterUpgradesDB['bounty']={
+masterUpgradesDB['bounty'] = {
     name = "Bounty",
     XWS = 'bounty',
     dual = true,
     slot = 21,
     cost = 1,
     restriction = {
-        Faction = {[3]=true}
+        Faction = { [3] = true }
     },
 }
 
-masterUpgradesDB['initforthemoney']={
+masterUpgradesDB['initforthemoney'] = {
     name = "In It For The Money",
     XWS = 'initforthemoney',
     dual = true,
     slot = 21,
     cost = 1,
     restriction = {
-        Faction = {[3]=true}
+        Faction = { [3] = true }
     },
 }
 
-masterUpgradesDB['interloperturn']={
+masterUpgradesDB['interloperturn'] = {
     name = "Interloper Turn",
     XWS = 'interloperturn',
     slot = 1,
     cost = 1,
     restriction = {
-        ship = {['tiededefender']=true}
+        ship = { ['tiededefender'] = true }
     },
-    addAction = {'TL', 'BR'},
+    addAction = { 'TL', 'BR' },
 }
 
-masterUpgradesDB['protectorategleb']={
+masterUpgradesDB['protectorategleb'] = {
     name = "Protectorate Gleb",
     XWS = 'protectorategleb',
     slot = 8,
     cost = 6,
     restriction = {
-        Faction = {[2]=true,[3]=true,[5]=true}
+        Faction = { [2] = true, [3] = true, [5] = true }
     }
 }
 
-masterUpgradesDB['r4b11']={
+masterUpgradesDB['r4b11'] = {
     name = "R4-B11",
     XWS = 'r4b11',
     slot = 10,
     cost = 3,
     restriction = {
-        Faction = {[3]=true}
+        Faction = { [3] = true }
     }
 }
 
-masterUpgradesDB['tiedefenderelite']={
+masterUpgradesDB['tiedefenderelite'] = {
     name = "TIE Defender Elite",
     XWS = 'tiedefenderelite',
     slot = 18,
     cost = 0,
     restriction = {
-        Faction = {[2]=true},
-        ship = {['tiededefender']=true}
+        Faction = { [2] = true },
+        ship = { ['tiededefender'] = true }
     }
 }
 
-masterUpgradesDB['tierfonbellyrun']={
+masterUpgradesDB['tierfonbellyrun'] = {
     name = "Tierfon Belly Run",
     XWS = 'tierfonbellyrun',
     slot = 1,
     cost = 1,
     restriction = {
-        ship = {['btla4ywing']=true}
+        ship = { ['btla4ywing'] = true }
     }
 }
 
 
-masterUpgradesDB['asajjventress']={
+masterUpgradesDB['asajjventress'] = {
     name = "Asajj Ventress",
     XWS = 'asajjventress',
     Force = 1,
     slot = 21,
-    remSlot = {8},
+    remSlot = { 8 },
     limited = 1,
     cost = 8,
-    addAction = {"F"},
+    addAction = { "F" },
     restriction = {
-        Size = {huge=true},
-        Faction = {[3]=true, [7]=true}
+        Size = { huge = true },
+        Faction = { [3] = true, [7] = true }
     }
 }
 
-masterUpgradesDB['rifftamson']={
+masterUpgradesDB['rifftamson'] = {
     name = "Riff Tamson",
     XWS = 'rifftamson',
     slot = 21,
-    remSlot = {8},
+    remSlot = { 8 },
     limited = 1,
     cost = 6,
     restriction = {
-        Size = {huge=true},
-        Faction = {[7]=true}
+        Size = { huge = true },
+        Faction = { [7] = true }
     }
 }
 
-masterUpgradesDB['generalgrievous-command']={
+masterUpgradesDB['generalgrievous-command'] = {
     name = "General Grievous",
     XWS = 'generalgrievous-command',
     slot = 21,
-    remSlot = {8},
+    remSlot = { 8 },
     limited = 1,
     cost = 5,
     restriction = {
-        Size = {huge=true},
-        Faction = {[7]=true}
+        Size = { huge = true },
+        Faction = { [7] = true }
     }
 }
 
-masterUpgradesDB['tractortechnicians']={
+masterUpgradesDB['tractortechnicians'] = {
     name = "Tractor Technicians",
     XWS = 'tractortechnicians',
     slot = 23,
     cost = 2
 }
 
-masterUpgradesDB['hondoohnaka-command']={
+masterUpgradesDB['hondoohnaka-command'] = {
     name = "Hondo Ohnaka",
     XWS = 'hondoohnaka-command',
     slot = 21,
     limite = 1,
-    remSlot = {8},
+    remSlot = { 8 },
     cost = 5,
     Charge = 2,
     restriction = {
-        Size = {huge=true},
+        Size = { huge = true },
     }
 }
 
-masterUpgradesDB['corsaircrew']={
+masterUpgradesDB['corsaircrew'] = {
     name = "Corsair Crew",
     XWS = 'corsaircrew',
     slot = 23,
-    remSlot = {16},
+    remSlot = { 16 },
     cost = 5,
     restriction = {
-        Faction = {[3]=true},
+        Faction = { [3] = true },
     }
 }
 
-masterUpgradesDB['martuuk']={
+masterUpgradesDB['martuuk'] = {
     name = "Mar Tuuk",
     XWS = 'martuuk',
     slot = 21,
     limited = 1,
-    remSlot = {8},
+    remSlot = { 8 },
     cost = 4,
     restriction = {
-        Faction = {[7]=true},
-        Size = {huge=true},
+        Faction = { [7] = true },
+        Size = { huge = true },
     }
 }
 
-masterUpgradesDB['zealouscaptain']={
+masterUpgradesDB['zealouscaptain'] = {
     name = "Zealous Captain",
     XWS = 'zealouscaptain',
     slot = 21,
     limited = 1,
-    remSlot = {8},
+    remSlot = { 8 },
     cost = 4,
     restriction = {
-        Size = {huge=true},
+        Size = { huge = true },
     }
 }
 
-masterUpgradesDB['tractortentacles']={
+masterUpgradesDB['tractortentacles'] = {
     name = "Tractor Tentacles",
     XWS = 'tractortentacles',
     slot = 24,
     cost = 0,
     restriction = {
-        ship = {['tridentclassassaultship']=true},
+        ship = { ['tridentclassassaultship'] = true },
     }
 }
 
-masterUpgradesDB['drillbeak']={
+masterUpgradesDB['drillbeak'] = {
     name = "Drill Beak",
     XWS = 'drillbeak',
     slot = 24,
-    remSlot = {22},
+    remSlot = { 22 },
     cost = 4,
     restriction = {
-        ship = {['tridentclassassaultship']=true},
+        ship = { ['tridentclassassaultship'] = true },
     }
 }
 
-masterUpgradesDB['enhancedpropulsion']={
+masterUpgradesDB['enhancedpropulsion'] = {
     name = "Enhanced Propulsion",
     XWS = 'enhancedpropulsion',
     slot = 24,
-    remSlot = {22},
+    remSlot = { 22 },
     cost = 6,
     restriction = {
-        ship = {['tridentclassassaultship']=true},
+        ship = { ['tridentclassassaultship'] = true },
     }
 }
 
-masterUpgradesDB['protoncannonbattery']={
+masterUpgradesDB['protoncannonbattery'] = {
     name = "Proton Cannon Battery",
     XWS = 'protoncannonbattery',
     slot = 24,
-    remSlot = {22},
+    remSlot = { 22 },
     cost = 10,
     restriction = {
-        Size = {huge=true},
+        Size = { huge = true },
     }
 }
 
-masterUpgradesDB['droidcrew']={
+masterUpgradesDB['droidcrew'] = {
     name = "Droid Crew",
     XWS = 'droidcrew',
     slot = 23,
     cost = 5,
-    addAction = {'C','TL'},
+    addAction = { 'C', 'TL' },
     restriction = {
-        Faction = {[7]=true},
+        Faction = { [7] = true },
     }
 }
 
-masterUpgradesDB['grappler']={
+masterUpgradesDB['grappler'] = {
     name = "Grappler",
     XWS = 'grappler',
     limited = 1,
@@ -3968,11 +3989,11 @@ masterUpgradesDB['grappler']={
     Shield = -1,
     Hull = 2,
     restriction = {
-        ship = {['tridentclassassaultship']=true},
+        ship = { ['tridentclassassaultship'] = true },
     }
 }
 
-masterUpgradesDB['nautolansrevenge']={
+masterUpgradesDB['nautolansrevenge'] = {
     name = "Nautolan's Revenge",
     XWS = 'nautolansrevenge',
     slot = 15,
@@ -3982,40 +4003,40 @@ masterUpgradesDB['nautolansrevenge']={
     Hull = -2,
     Energy = 1,
     restriction = {
-        ship = {['tridentclassassaultship']=true},
-        Faction = {[3]=true}
+        ship = { ['tridentclassassaultship'] = true },
+        Faction = { [3] = true }
     }
 }
 
-masterUpgradesDB['neimoidiangrasp']={
+masterUpgradesDB['neimoidiangrasp'] = {
     name = "Neimoidian Grasp",
     XWS = 'neimoidiangrasp',
     slot = 15,
     cost = 5,
     limited = 1,
     Hull = -2,
-    addAction = {"E"},
+    addAction = { "E" },
     restriction = {
-        ship = {['tridentclassassaultship']=true},
-        Faction = {[7]=true}
+        ship = { ['tridentclassassaultship'] = true },
+        Faction = { [7] = true }
     }
 }
 
-masterUpgradesDB['trident']={
+masterUpgradesDB['trident'] = {
     name = "Trident",
     XWS = 'trident',
     slot = 15,
     cost = 4,
     limited = 1,
     Energy = 1,
-    addAction = {"E"},
+    addAction = { "E" },
     restriction = {
-        ship = {['tridentclassassaultship']=true},
-        Faction = {[7]=true}
+        ship = { ['tridentclassassaultship'] = true },
+        Faction = { [7] = true }
     }
 }
 
-masterUpgradesDB['trackingtorpedoes']={
+masterUpgradesDB['trackingtorpedoes'] = {
     name = "Tracking Torpedoes",
     XWS = 'trackingtorpedoes',
     slot = 5,
@@ -4023,106 +4044,106 @@ masterUpgradesDB['trackingtorpedoes']={
     limited = 1,
     Charge = 3,
     restriction = {
-        Size = {huge=true}
+        Size = { huge = true }
     }
 }
 
-masterUpgradesDB['feedbackping']={
+masterUpgradesDB['feedbackping'] = {
     name = "Feedback Ping",
     XWS = 'feedbackping',
     slot = 1,
     cost = 1,
-    restriction = { -- Tie, Reload
+    restriction = {               -- Tie, Reload
         ship = {
-          ['tiesabomber']=true, -- Tie/sa Bomber
-          ['tiecepunisher']=true, -- Tie Punisher
-          ['tiesebomber']=true, -- Tie/Se Bomber
-      },
+            ['tiesabomber'] = true, -- Tie/sa Bomber
+            ['tiecepunisher'] = true, -- Tie Punisher
+            ['tiesebomber'] = true, -- Tie/Se Bomber
+        },
     }
 }
 
-masterUpgradesDB['sensorscramblers']={
+masterUpgradesDB['sensorscramblers'] = {
     name = "Sensor Scramblers",
     XWS = 'sensorscramblers',
     slot = 19,
     cost = 1,
     restriction = {
         ship = {
-          ['tiewiwhispermodifiedinterceptor']=true, -- Tie Whisper
-          ['tievnsilencer']=true, -- Tie Silencer
-      },
+            ['tiewiwhispermodifiedinterceptor'] = true, -- Tie Whisper
+            ['tievnsilencer'] = true,               -- Tie Silencer
+        },
     }
 }
 
-masterUpgradesDB['enhancedjammingsuite']={
+masterUpgradesDB['enhancedjammingsuite'] = {
     name = "Enhanced Jamming Suite",
     XWS = 'enhancedjammingsuite',
     slot = 18,
-    remSlot = {19},
+    remSlot = { 19 },
     cost = 0,
     restriction = {
-      ship = {
-          ['tiewiwhispermodifiedinterceptor']=true, -- Tie Whisper
-      },
+        ship = {
+            ['tiewiwhispermodifiedinterceptor'] = true, -- Tie Whisper
+        },
     }
 }
 
-masterUpgradesDB['l4er5']={
+masterUpgradesDB['l4er5'] = {
     name = "L4E-R5",
     XWS = 'l4er5',
     slot = 10,
     limited = 1,
     cost = 4,
-    addAction = {'C'},
+    addAction = { 'C' },
     restriction = {
-      Faction = {[4]=true}
+        Faction = { [4] = true }
     },
 }
 
-masterUpgradesDB['overtunedmodulators']={
+masterUpgradesDB['overtunedmodulators'] = {
     name = "Overtuned Modulators",
     XWS = 'overtunedmodulators',
     slot = 13,
     Charge = 1,
     cost = 3,
-    addAction = {'C'},
+    addAction = { 'C' },
 }
 
-masterUpgradesDB['wartimeloadout']={
+masterUpgradesDB['wartimeloadout'] = {
     name = "Wartime Loadout",
     XWS = 'wartimeloadout',
     slot = 18,
-    remSlot = {14},
-    addSlot = {5,6},
+    remSlot = { 14 },
+    addSlot = { 5, 6 },
     cost = 4,
     shd = 2,
-    addAction = {'TL'},
+    addAction = { 'TL' },
     restriction = {
         ship = {
-          ['btanr2ywing']=true, -- Res Y-Wing
-      },
+            ['btanr2ywing'] = true, -- Res Y-Wing
+        },
     }
 }
 
-masterUpgradesDB['watchfulastromech']={
+masterUpgradesDB['watchfulastromech'] = {
     name = "Watchful Astromech",
     XWS = 'watchfulastromech',
     slot = 10,
     cost = 2,
-    addAction = {'C'},
+    addAction = { 'C' },
 }
 
-masterUpgradesDB['dt798']={
+masterUpgradesDB['dt798'] = {
     name = "DT-798",
     XWS = 'dt798',
     slot = 16,
     cost = 5,
     restriction = {
-      Faction = {[5]=true}
+        Faction = { [5] = true }
     },
 }
 
-masterUpgradesDB['electrochaffmissiles']={
+masterUpgradesDB['electrochaffmissiles'] = {
     name = "Electro-Chaff Missiles",
     XWS = 'electrochaffmissiles',
     limited = 2,
@@ -4130,21 +4151,21 @@ masterUpgradesDB['electrochaffmissiles']={
     cost = 4,
     Charge = 1,
     Bomb = true,
-    remSlot = {12},
+    remSlot = { 12 },
 }
 
-masterUpgradesDB['firstorderordnancetech']={
+masterUpgradesDB['firstorderordnancetech'] = {
     name = "First Order Ordnance Tech",
     XWS = 'firstorderordnancetech',
     slot = 16,
     cost = 3,
-    addAction = {'TL'},
+    addAction = { 'TL' },
     restriction = {
-      Faction = {[5]=true}
+        Faction = { [5] = true }
     },
 }
 
-masterUpgradesDB['babufrik']={
+masterUpgradesDB['babufrik'] = {
     name = "Babu Frik",
     XWS = 'babufrik',
     limited = 1,
@@ -4152,31 +4173,31 @@ masterUpgradesDB['babufrik']={
     slot = 13,
     cost = 7,
     restriction = {
-      Faction = {[3]=true,[4]=true}
+        Faction = { [3] = true, [4] = true }
     },
 }
 
-masterUpgradesDB['compassion']={
+masterUpgradesDB['compassion'] = {
     name = "Compassion",
     XWS = 'compassion',
     slot = 17,
     cost = 1,
     restriction = {
-      keywords={'Light Side'}
+        keywords = { 'Light Side' }
     },
 }
 
-masterUpgradesDB['malice']={
+masterUpgradesDB['malice'] = {
     name = "Malice",
     XWS = 'malice',
     slot = 17,
     cost = 6,
     restriction = {
-      keywords={'Dark Side'}
+        keywords = { 'Dark Side' }
     },
 }
 
-masterUpgradesDB['shatteringshot']={
+masterUpgradesDB['shatteringshot'] = {
     name = "Shattering Shot",
     XWS = 'shatteringshot',
     slot = 17,
@@ -4185,104 +4206,104 @@ masterUpgradesDB['shatteringshot']={
 
 -- Pride of Mandalore reinforcement pack
 
-masterUpgradesDB['ahsokatano-crew']={
+masterUpgradesDB['ahsokatano-crew'] = {
     name = "Ahsoka Tano",
     limited = 1,
     XWS = 'ahsokatano-crew',
     slot = 8,
     cost = 200,
     Force = 1,
-    addSqdAction = {'F'},
+    addSqdAction = { 'F' },
     restriction = {
-      Faction = {[3]=true, [6]=true}
+        Faction = { [3] = true, [6] = true }
     },
 }
 
-masterUpgradesDB['primeministeralmec']={
+masterUpgradesDB['primeministeralmec'] = {
     name = "Prime Minister Almec",
     limited = 1,
     XWS = 'primeministeralmec',
     slot = 8,
     cost = 200,
     dual = true,
-    addSqdAction = {'C'},
+    addSqdAction = { 'C' },
     restriction = {
-      Faction = {[3]=true, [6]=true}
+        Faction = { [3] = true, [6] = true }
     },
 }
 
-masterUpgradesDB['bokatankryze']={
+masterUpgradesDB['bokatankryze'] = {
     name = "Bo-Katan Kryze",
     limited = 1,
     XWS = 'bokatankryze',
     slot = 8,
     cost = 200,
     restriction = {
-      Faction = {[6]=true, [7]=true}
+        Faction = { [6] = true, [7] = true }
     },
 }
 
-masterUpgradesDB['bokatankryze-rebel-scum']={
+masterUpgradesDB['bokatankryze-rebel-scum'] = {
     name = "Bo-Katan Kryze",
     limited = 1,
     XWS = 'bokatankryze-rebel-scum',
     slot = 8,
     cost = 200,
     restriction = {
-      Faction = {[1]=true, [3]=true}
+        Faction = { [1] = true, [3] = true }
     },
 }
 
-masterUpgradesDB['korkiekryze']={
+masterUpgradesDB['korkiekryze'] = {
     name = "Korkie Kryze",
     limited = 1,
     XWS = 'korkiekryze',
     slot = 8,
     cost = 5,
     restriction = {
-      Faction = {[6]=true}
+        Faction = { [6] = true }
     },
 }
 
-masterUpgradesDB['maul-crew']={
+masterUpgradesDB['maul-crew'] = {
     name = "Maul",
     title = "Mandalore",
     limited = 1,
     XWS = 'maul-crew',
     slot = 8,
-    remSlot = {8},
-    addSlot = {13},
+    remSlot = { 8 },
+    addSlot = { 13 },
     cost = 200,
     Force = 1,
     restriction = {
-      Faction = {[3]=true}
+        Faction = { [3] = true }
     },
 }
 
-masterUpgradesDB['previzsla']={
+masterUpgradesDB['previzsla'] = {
     name = "Pre Vizsla",
     limited = 1,
     XWS = 'previzsla',
     slot = 8,
     cost = 200,
     restriction = {
-      Faction = {[3]=true, [7]=true}
+        Faction = { [3] = true, [7] = true }
     },
 }
 
-masterUpgradesDB['rookkast']={
+masterUpgradesDB['rookkast'] = {
     name = "Rook Kast",
     limited = 1,
     XWS = 'rookkast',
     slot = 8,
     cost = 200,
-    addAction = {'TL'},
+    addAction = { 'TL' },
     restriction = {
-      Faction = {[3]=true}
+        Faction = { [3] = true }
     },
 }
 
-masterUpgradesDB['savageopress']={
+masterUpgradesDB['savageopress'] = {
     name = "Savage Opress",
     limited = 1,
     Force = 1,
@@ -4290,36 +4311,36 @@ masterUpgradesDB['savageopress']={
     slot = 8,
     cost = 200,
     restriction = {
-      Faction = {[3]=true, [7]=true}
+        Faction = { [3] = true, [7] = true }
     },
 }
 
-masterUpgradesDB['talmerrik']={
+masterUpgradesDB['talmerrik'] = {
     name = "Tal Merrik",
     limited = 1,
     XWS = 'talmerrik',
     slot = 8,
     cost = 10,
     restriction = {
-      Faction = { [7]=true}
+        Faction = { [7] = true }
     },
     Condition = "False Friend",
 }
 
-masterUpgradesDB['sabinewren-crew']={
+masterUpgradesDB['sabinewren-crew'] = {
     name = "Sabine Wren",
     limited = 1,
     XWS = 'sabinewren-crew',
     slot = 8,
     cost = 200,
     restriction = {
-      Faction = { [1]=true},
-      Size = {small=true, medium=true, large=true}
+        Faction = { [1] = true },
+        Size = { small = true, medium = true, large = true }
     },
     Condition = "Trials of the Darksaber",
 }
 
-masterUpgradesDB['captainhark']={
+masterUpgradesDB['captainhark'] = {
     name = "Captain Hark",
     limited = 1,
     XWS = 'captainhark',
@@ -4327,33 +4348,33 @@ masterUpgradesDB['captainhark']={
     cost = 200,
     Charge = 2,
     restriction = {
-      Faction = { [2]=true},
+        Faction = { [2] = true },
     },
 }
 
-masterUpgradesDB['fennrau']={
+masterUpgradesDB['fennrau'] = {
     name = "Fenn Rau",
     limited = 1,
     XWS = 'fennrau',
     slot = 8,
     cost = 200,
     restriction = {
-      Faction = { [1]=true, [3]=true},
+        Faction = { [1] = true, [3] = true },
     },
 }
 
-masterUpgradesDB['garsaxon']={
+masterUpgradesDB['garsaxon'] = {
     name = "Gar Saxon",
     limited = 1,
     XWS = 'garsaxon',
     slot = 8,
     cost = 200,
     restriction = {
-      Faction = { [2]=true},
+        Faction = { [2] = true },
     },
 }
 
-masterUpgradesDB['obiwankenobi']={
+masterUpgradesDB['obiwankenobi'] = {
     name = "Obi-Wan Kenobi",
     limited = 1,
     XWS = 'obiwankenobi',
@@ -4361,11 +4382,11 @@ masterUpgradesDB['obiwankenobi']={
     cost = 200,
     Force = 1,
     restriction = {
-      Faction = { [6]=true},
+        Faction = { [6] = true },
     },
 }
 
-masterUpgradesDB['satinekryze']={
+masterUpgradesDB['satinekryze'] = {
     name = "Satine Kryze",
     limited = 1,
     XWS = 'satinekryze',
@@ -4373,22 +4394,22 @@ masterUpgradesDB['satinekryze']={
     cost = 200,
     Charge = 2,
     restriction = {
-      Faction = { [6]=true},
+        Faction = { [6] = true },
     },
 }
 
-masterUpgradesDB['kuiil']={
+masterUpgradesDB['kuiil'] = {
     name = "Kuiil",
     limited = 1,
     XWS = 'kuiil',
     slot = 8,
     cost = 4,
     restriction = {
-      Faction = { [3]=true},
+        Faction = { [3] = true },
     },
 }
 
-masterUpgradesDB['tristanwren']={
+masterUpgradesDB['tristanwren'] = {
     name = "Tristan Wren",
     limited = 1,
     XWS = 'tristanwren',
@@ -4396,35 +4417,35 @@ masterUpgradesDB['tristanwren']={
     cost = 200,
     Charge = 1,
     restriction = {
-      Faction = { [1]=true},
-      keywords={'Gar Saxon'}
+        Faction = { [1] = true },
+        keywords = { 'Gar Saxon' }
     },
 }
 
-masterUpgradesDB['ursawren']={
+masterUpgradesDB['ursawren'] = {
     name = "Ursa Wren",
     limited = 1,
     XWS = 'ursawren',
     slot = 8,
     cost = 200,
     restriction = {
-      Faction = { [1]=true},
+        Faction = { [1] = true },
     },
 }
 
-masterUpgradesDB['garsaxon-gunner']={
+masterUpgradesDB['garsaxon-gunner'] = {
     name = "Gar Saxon",
     limited = 1,
     XWS = 'garsaxon-gunner',
     slot = 16,
     cost = 200,
     restriction = {
-      Faction = { [3]=true},
-      Size = {large=true,huge=true}
+        Faction = { [3] = true },
+        Size = { large = true, huge = true }
     },
 }
 
-masterUpgradesDB['tibersaxon']={
+masterUpgradesDB['tibersaxon'] = {
     name = "Tiber Saxon",
     limited = 1,
     XWS = 'tibersaxon',
@@ -4432,34 +4453,34 @@ masterUpgradesDB['tibersaxon']={
     cost = 200,
     Charge = 2,
     restriction = {
-      Faction = { [2]=true}
+        Faction = { [2] = true }
     },
 }
 
-masterUpgradesDB['ursawren-gunner']={
+masterUpgradesDB['ursawren-gunner'] = {
     name = "Ursa Wren",
     limited = 1,
     XWS = 'ursawren-gunner',
     slot = 16,
     cost = 200,
     restriction = {
-      Faction = { [6]=true, [7]=true}
+        Faction = { [6] = true, [7] = true }
     },
 }
 
 
-masterUpgradesDB['clantraining']={
+masterUpgradesDB['clantraining'] = {
     name = "Clan Training",
     XWS = 'clantraining',
     slot = 1,
     Charge = 1,
     cost = 200,
     restriction = {
-      keywords={'Mandalorian'}
+        keywords = { 'Mandalorian' }
     },
 }
 
-masterUpgradesDB['blazerbomb']={
+masterUpgradesDB['blazerbomb'] = {
     name = "Blazer Bomb",
     XWS = 'blazerbomb',
     slot = 12,
@@ -4468,331 +4489,331 @@ masterUpgradesDB['blazerbomb']={
     Bomb = true,
 }
 
-masterUpgradesDB['beskarreinforcedplating']={
+masterUpgradesDB['beskarreinforcedplating'] = {
     name = "Beskar Reinforced Plating",
     XWS = 'beskarreinforcedplating',
     slot = 14,
     Charge = 2,
     cost = 200,
     restriction = {
-      keywords={'Mandalorian'}
+        keywords = { 'Mandalorian' }
     },
 }
 
-masterUpgradesDB['mandalorianoptics']={
+masterUpgradesDB['mandalorianoptics'] = {
     name = "Mandalorian Optics",
     XWS = 'mandalorianoptics',
     slot = 14,
     Charge = 2,
     cost = 200,
     restriction = {
-      keywords={'Mandalorian'}
+        keywords = { 'Mandalorian' }
     },
 }
 
-masterUpgradesDB['gauntlet']={
+masterUpgradesDB['gauntlet'] = {
     name = "Gauntlet",
     XWS = 'gauntlet',
     limited = 1,
     slot = 15,
-    remSlot = {18},
-    addSlot = {8},
+    remSlot = { 18 },
+    addSlot = { 8 },
     Charge = 2,
     cost = 200,
     restriction = {
-      Faction = {[6]=true, [7]=true},
-      ship = {['gauntletfighter']=true}
+        Faction = { [6] = true, [7] = true },
+        ship = { ['gauntletfighter'] = true }
     }
 }
 
-masterUpgradesDB['nightbrother']={
+masterUpgradesDB['nightbrother'] = {
     name = "Nightbrother",
     XWS = 'nightbrother',
     limited = 1,
     slot = 15,
-    remSlot = {18},
-    addSlot = {8},
+    remSlot = { 18 },
+    addSlot = { 8 },
     Charge = 2,
     cost = 200,
     restriction = {
-      Faction = {[1]=true, [3]=true},
-      ship = {['gauntletfighter']=true}
+        Faction = { [1] = true, [3] = true },
+        ship = { ['gauntletfighter'] = true }
     }
 }
 
-masterUpgradesDB['razorcrest']={
+masterUpgradesDB['razorcrest'] = {
     name = "Razor Crest",
     XWS = 'razorcrest',
     limited = 1,
     slot = 15,
-    addAction = {'E','BR'},
+    addAction = { 'E', 'BR' },
     cost = 200,
     restriction = {
-      ship = {['st70assaultship']=true}
+        ship = { ['st70assaultship'] = true }
     }
 }
 
-masterUpgradesDB['trackingfob']={
+masterUpgradesDB['trackingfob'] = {
     name = "Tracking Fob",
     XWS = 'trackingfob',
     limited = 3,
     slot = 13,
     cost = 200,
     restriction = {
-      keywords={'Bounty Hunter'}
+        keywords = { 'Bounty Hunter' }
     },
     Condition = "Marked for Elimination",
 }
 
-masterUpgradesDB['ig11']={
+masterUpgradesDB['ig11'] = {
     name = "IG-11",
     XWS = 'ig11',
     limited = 1,
     slot = 8,
     cost = 200,
-    addAction = {'C'},
+    addAction = { 'C' },
     restriction = {
-      Faction = {[3]=true},
+        Faction = { [3] = true },
     },
     dual = true,
 }
 
-masterUpgradesDB['burnoutthrusters']={
+masterUpgradesDB['burnoutthrusters'] = {
     name = "Burnout Thrusters",
     XWS = 'burnoutthrusters',
     Charge = 1,
     slot = 14,
     cost = 200,
     restriction = {
-      Faction = {[3]=true},
-      Size = {small=true, medium=true}
+        Faction = { [3] = true },
+        Size = { small = true, medium = true }
     },
 }
 
-masterUpgradesDB['thechild']={
+masterUpgradesDB['thechild'] = {
     name = "The Child",
     XWS = 'thechild',
     Force = 2,
     slot = 8,
     cost = 200,
     restriction = {
-      Faction = {[1]=true, [2]=true, [3]=true},
+        Faction = { [1] = true, [2] = true, [3] = true },
     },
     Condition = "Merciless Pursuit",
 }
 
-masterUpgradesDB['themandalorian']={
+masterUpgradesDB['themandalorian'] = {
     name = "The Mandalorian",
     XWS = 'themandalorian',
     slot = 8,
     cost = 200,
-    addAction = {'R'},
+    addAction = { 'R' },
     restriction = {
-      Faction = {[3]=true},
+        Faction = { [3] = true },
     },
 }
 
-masterUpgradesDB['swivelwing']={
+masterUpgradesDB['swivelwing'] = {
     name = "Swivel Wing",
     XWS = 'swivelwing',
     slot = 18,
     cost = 200,
     restriction = {
-      ship = {['gauntletfighter']=true}
+        ship = { ['gauntletfighter'] = true }
     },
     dual = true,
 }
 
 
-masterUpgradesDB['clanwrencommandos']={
+masterUpgradesDB['clanwrencommandos'] = {
     name = "Clan Wren Commandos",
     XWS = 'clanwrencommandos',
-    remotes = {"Clan Wren Commandos (A)","Clan Wren Commandos (B)"},
+    remotes = { "Clan Wren Commandos (A)", "Clan Wren Commandos (B)" },
     limited = 1,
     slot = 8,
-    remSlot = {8},
+    remSlot = { 8 },
     cost = 3,
     Charge = 2,
     restriction = {
-      Faction = {[1]=true},
-      Size = {medium=true, large=true, huge=true}
+        Faction = { [1] = true },
+        Size = { medium = true, large = true, huge = true }
     },
 }
 
-masterUpgradesDB['imperialsupercommandos']={
+masterUpgradesDB['imperialsupercommandos'] = {
     name = "Imperial Super Commandos",
     XWS = 'imperialsupercommandos',
-    remotes = {"Imperial Super Commandos (A)","Imperial Super Commandos (B)"},
+    remotes = { "Imperial Super Commandos (A)", "Imperial Super Commandos (B)" },
     limited = 1,
     slot = 8,
-    remSlot = {8},
+    remSlot = { 8 },
     cost = 3,
     Charge = 2,
     restriction = {
-      Faction = {[2]=true},
-      Size = {medium=true, large=true, huge=true}
+        Faction = { [2] = true },
+        Size = { medium = true, large = true, huge = true }
     },
 }
 
-masterUpgradesDB['mandaloriansupercommandos']={
+masterUpgradesDB['mandaloriansupercommandos'] = {
     name = "Mandalorian Super Commandos",
     XWS = 'mandaloriansupercommandos',
-    remotes = {"Mandalorian Super Commandos (A)","Mandalorian Super Commandos (B)"},
+    remotes = { "Mandalorian Super Commandos (A)", "Mandalorian Super Commandos (B)" },
     limited = 1,
     slot = 8,
-    remSlot = {8},
+    remSlot = { 8 },
     cost = 3,
     Charge = 2,
     restriction = {
-      Faction = {[3]=true},
-      Size = {medium=true, large=true, huge=true}
+        Faction = { [3] = true },
+        Size = { medium = true, large = true, huge = true }
     },
 }
 
-masterUpgradesDB['niteowlcommandos']={
+masterUpgradesDB['niteowlcommandos'] = {
     name = "Nite Owl Commandos",
     XWS = 'niteowlcommandos',
-    remotes = {"Nite Owl Commandos (A)","Nite Owl Commandos (B)"},
+    remotes = { "Nite Owl Commandos (A)", "Nite Owl Commandos (B)" },
     limited = 1,
     slot = 8,
-    remSlot = {8},
+    remSlot = { 8 },
     cost = 3,
     Charge = 2,
     restriction = {
-      Faction = {[6]=true},
-      Size = {medium=true, large=true, huge=true}
+        Faction = { [6] = true },
+        Size = { medium = true, large = true, huge = true }
     },
 }
 
-masterUpgradesDB['deathwatchcommandos']={
+masterUpgradesDB['deathwatchcommandos'] = {
     name = "Death Watch Commandos",
     XWS = 'deathwatchcommandos',
-    remotes = {"Death Watch Commandos (A)","Death Watch Commandos (B)"},
+    remotes = { "Death Watch Commandos (A)", "Death Watch Commandos (B)" },
     limited = 1,
     slot = 8,
-    remSlot = {8},
+    remSlot = { 8 },
     cost = 3,
     Charge = 2,
     restriction = {
-      Faction = {[7]=true},
-      Size = {medium=true, large=true, huge=true}
+        Faction = { [7] = true },
+        Size = { medium = true, large = true, huge = true }
     },
 }
 
-masterUpgradesDB['dropseatbay']={
+masterUpgradesDB['dropseatbay'] = {
     name = "Drop-Seat bay",
     XWS = 'dropseatbay',
     slot = 14,
     cost = 1,
     restriction = {
-      ship = {['gauntletfighter']=true}
+        ship = { ['gauntletfighter'] = true }
     },
 }
 
-masterUpgradesDB['homingtorpedoes']={
-	name = 'Homing Torpedoes',
-	XWS = 'homingtorpedoes',
-	slot = 5,
-	cost = 12,
-  Charge = 2,
+masterUpgradesDB['homingtorpedoes'] = {
+    name = 'Homing Torpedoes',
+    XWS = 'homingtorpedoes',
+    slot = 5,
+    cost = 12,
+    Charge = 2,
 }
 
-masterUpgradesDB['notorious']={
+masterUpgradesDB['notorious'] = {
     name = "Notorious",
     XWS = 'notorious',
     slot = 1,
     cost = 2,
     Charge = 2,
     restriction = {
-      -- equipped: illicit
+        -- equipped: illicit
     },
 }
 
-masterUpgradesDB['enduring']={
+masterUpgradesDB['enduring'] = {
     name = "Enduring",
     XWS = 'enduring',
     slot = 1,
     cost = 2,
 }
 
-masterUpgradesDB['pelimotto']={
+masterUpgradesDB['pelimotto'] = {
     name = "Peli Motto",
     XWS = 'pelimotto',
     restriction = {
-      Faction = {[3] = true},
-      Size = {medium=true,large=true}
+        Faction = { [3] = true },
+        Size = { medium = true, large = true }
     },
     slot = 8,
     cost = 200,
     limited = 1,
 }
 
-masterUpgradesDB['greefkarga']={
+masterUpgradesDB['greefkarga'] = {
     name = "Greef Karga",
     XWS = 'greefkarga',
     restriction = {
-      Faction = {[3] = true}
+        Faction = { [3] = true }
     },
     slot = 8,
     cost = 200,
     limited = 1,
 }
 
-masterUpgradesDB['migsmayfeld']={
+masterUpgradesDB['migsmayfeld'] = {
     name = "Migs Mayfeld",
     XWS = 'migsmayfeld',
     restriction = {
-      Faction = {[2] = true, [3] = true}
+        Faction = { [2] = true, [3] = true }
     },
     slot = 16,
     cost = 200,
     limited = 1,
 }
 
-masterUpgradesDB['hotshottailblaster']={
+masterUpgradesDB['hotshottailblaster'] = {
     name = "Hotshot Tail Blaster",
     XWS = 'hotshottailblaster',
     Charge = 2,
     slot = 14,
     cost = 200,
     restriction = {
-      Size = {medium=true, large=true}
+        Size = { medium = true, large = true }
     },
 }
 
-masterUpgradesDB['xanadublood']={
+masterUpgradesDB['xanadublood'] = {
     name = "Xanadu Blood",
     XWS = 'xanadublood',
     slot = 15,
     cost = 200,
     restriction = {
-      ship = {['rogueclassstarfighter']=true}
+        ship = { ['rogueclassstarfighter'] = true }
     },
 }
 
-masterUpgradesDB['protoncannons']={
+masterUpgradesDB['protoncannons'] = {
     name = "Proton Cannons",
     XWS = 'protoncannons',
     slot = 3,
-    remSlot = {3},
+    remSlot = { 3 },
     cost = 5,
     cardB = cardBackDB['3b'],
     Charge = 2
 }
 
-masterUpgradesDB['combatboardingtube']={
+masterUpgradesDB['combatboardingtube'] = {
     name = "Combat Boarding Tube",
     XWS = 'combatboardingtube',
     slot = 18,
-    remSlot = {21},
+    remSlot = { 21 },
     restriction = {
-      ship = {['gauntletfighter']=true}
+        ship = { ['gauntletfighter'] = true }
     },
     cost = 0,
 }
 
 -- The YASB epic pack Upgrades
-masterUpgradesDB['newrecruit']={
+masterUpgradesDB['newrecruit'] = {
     name = "New Recruit",
     XWS = 'newrecruit',
     limited = 3,
@@ -4801,19 +4822,19 @@ masterUpgradesDB['newrecruit']={
     PointModifier = -1,
 }
 
-masterUpgradesDB['lockedturretspecialist']={
+masterUpgradesDB['lockedturretspecialist'] = {
     name = "Locked-Turret Specialist",
     XWS = 'lockedturretspecialist',
     slot = 21,
     cost = 2,
     Charge = 2,
-    addAction = {'B'},
+    addAction = { 'B' },
     restriction = {
-      -- action: rotate
+        -- action: rotate
     },
 }
 
-masterUpgradesDB['heavyreinforcedvanguard']={
+masterUpgradesDB['heavyreinforcedvanguard'] = {
     name = "Heavy Reinforced Vanguard",
     XWS = 'heavyreinforcedvanguard',
     slot = 21,
@@ -4823,7 +4844,7 @@ masterUpgradesDB['heavyreinforcedvanguard']={
     Hull = 2,
 }
 
-masterUpgradesDB['evasiveinterceptor']={
+masterUpgradesDB['evasiveinterceptor'] = {
     name = "Evasive Interceptor",
     XWS = 'evasiveinterceptor',
     slot = 21,
@@ -4832,10 +4853,10 @@ masterUpgradesDB['evasiveinterceptor']={
     Hull = -1,
     PointModifier = -1,
     --Agility = 1,
-    restriction = {Size = {small=true}}
+    restriction = { Size = { small = true } }
 }
 
-masterUpgradesDB['countermeasuresspecialist']={
+masterUpgradesDB['countermeasuresspecialist'] = {
     name = "Countermeasures Specialist",
     XWS = 'countermeasuresspecialist',
     slot = 21,
@@ -4843,10 +4864,10 @@ masterUpgradesDB['countermeasuresspecialist']={
     cost = 4,
     Charge = 2,
     --addAction = {'Jam'}
-    restriction = {Size = {small=true}}
+    restriction = { Size = { small = true } }
 }
 
-masterUpgradesDB['combatveteran']={
+masterUpgradesDB['combatveteran'] = {
     name = "Combat Veteran",
     XWS = 'combatveteran',
     slot = 21,
@@ -4854,14 +4875,14 @@ masterUpgradesDB['combatveteran']={
     cost = 0,
     PointModifier = 1,
     restriction = {
-      HasForce=false,
-      IsLimited=true,
-      InitiativeGreaterThan=3
+        HasForce = false,
+        IsLimited = true,
+        InitiativeGreaterThan = 3
     },
-    addSlot = {1, 14},
+    addSlot = { 1, 14 },
 }
 
-masterUpgradesDB['forceadeptpilot']={
+masterUpgradesDB['forceadeptpilot'] = {
     name = "Force Adept Pilot",
     XWS = 'forceadeptpilot',
     slot = 21,
@@ -4869,59 +4890,59 @@ masterUpgradesDB['forceadeptpilot']={
     cost = 0,
     PointModifier = 1,
     restriction = {
-      HasForce=true,
+        HasForce = true,
     },
-    addSlot = {17},
+    addSlot = { 17 },
     executeOptions = function(moves)
         return {
-            rtl1 = {[1]='rtl1', [2]='rtl1z'},
-            rtl2 = {[1]='rtl2', [2]='rtl2z'},
-            rtl3 = {[1]='rtl3', [2]='rtl3z'},
-            rtr1 = {[1]='rtr1', [2]='rtr1z'},
-            rtr2 = {[1]='rtr2', [2]='rtr2z'},
-            rtr3 = {[1]='rtr3', [2]='rtr3z'},
+            rtl1 = { [1] = 'rtl1', [2] = 'rtl1z' },
+            rtl2 = { [1] = 'rtl2', [2] = 'rtl2z' },
+            rtl3 = { [1] = 'rtl3', [2] = 'rtl3z' },
+            rtr1 = { [1] = 'rtr1', [2] = 'rtr1z' },
+            rtr2 = { [1] = 'rtr2', [2] = 'rtr2z' },
+            rtr3 = { [1] = 'rtr3', [2] = 'rtr3z' },
 
-            rbl1 = {[1]='rbl1', [2]='rbl1z'},
-            rbl2 = {[1]='rbl2', [2]='rbl2z'},
-            rbl3 = {[1]='rbl3', [2]='rbl3z'},
-            rbr1 = {[1]='rbr1', [2]='rbr1z'},
-            rbr2 = {[1]='rbr2', [2]='rbr2z'},
-            rbr3 = {[1]='rbr3', [2]='rbr3z'},
+            rbl1 = { [1] = 'rbl1', [2] = 'rbl1z' },
+            rbl2 = { [1] = 'rbl2', [2] = 'rbl2z' },
+            rbl3 = { [1] = 'rbl3', [2] = 'rbl3z' },
+            rbr1 = { [1] = 'rbr1', [2] = 'rbr1z' },
+            rbr2 = { [1] = 'rbr2', [2] = 'rbr2z' },
+            rbr3 = { [1] = 'rbr3', [2] = 'rbr3z' },
 
-            wtl1 = {[1]='wtl1', [2]='rtl1z'},
-            wtl2 = {[1]='wtl2', [2]='rtl2z'},
-            wtl3 = {[1]='wtl3', [2]='rtl3z'},
-            wtr1 = {[1]='wtr1', [2]='rtr1z'},
-            wtr2 = {[1]='wtr2', [2]='rtr2z'},
-            wtr3 = {[1]='wtr3', [2]='rtr3z'},
+            wtl1 = { [1] = 'wtl1', [2] = 'rtl1z' },
+            wtl2 = { [1] = 'wtl2', [2] = 'rtl2z' },
+            wtl3 = { [1] = 'wtl3', [2] = 'rtl3z' },
+            wtr1 = { [1] = 'wtr1', [2] = 'rtr1z' },
+            wtr2 = { [1] = 'wtr2', [2] = 'rtr2z' },
+            wtr3 = { [1] = 'wtr3', [2] = 'rtr3z' },
 
-            wbl1 = {[1]='wbl1', [2]='rbl1z'},
-            wbl2 = {[1]='wbl2', [2]='rbl2z'},
-            wbl3 = {[1]='wbl3', [2]='rbl3z'},
-            wbr1 = {[1]='wbr1', [2]='rbr1z'},
-            wbr2 = {[1]='wbr2', [2]='rbr2z'},
-            wbr3 = {[1]='wbr3', [2]='rbr3z'},
+            wbl1 = { [1] = 'wbl1', [2] = 'rbl1z' },
+            wbl2 = { [1] = 'wbl2', [2] = 'rbl2z' },
+            wbl3 = { [1] = 'wbl3', [2] = 'rbl3z' },
+            wbr1 = { [1] = 'wbr1', [2] = 'rbr1z' },
+            wbr2 = { [1] = 'wbr2', [2] = 'rbr2z' },
+            wbr3 = { [1] = 'wbr3', [2] = 'rbr3z' },
 
-            btl1 = {[1]='btl1', [2]='rtl1z'},
-            btl2 = {[1]='btl2', [2]='rtl2z'},
-            btl3 = {[1]='btl3', [2]='rtl3z'},
-            btr1 = {[1]='btr1', [2]='rtr1z'},
-            btr2 = {[1]='btr2', [2]='rtr2z'},
-            btr3 = {[1]='btr3', [2]='rtr3z'},
+            btl1 = { [1] = 'btl1', [2] = 'rtl1z' },
+            btl2 = { [1] = 'btl2', [2] = 'rtl2z' },
+            btl3 = { [1] = 'btl3', [2] = 'rtl3z' },
+            btr1 = { [1] = 'btr1', [2] = 'rtr1z' },
+            btr2 = { [1] = 'btr2', [2] = 'rtr2z' },
+            btr3 = { [1] = 'btr3', [2] = 'rtr3z' },
 
-            bbl1 = {[1]='bbl1', [2]='rbl1z'},
-            bbl2 = {[1]='bbl2', [2]='rbl2z'},
-            bbl3 = {[1]='bbl3', [2]='rbl3z'},
-            bbr1 = {[1]='bbr1', [2]='rbr1z'},
-            bbr2 = {[1]='bbr2', [2]='rbr2z'},
-            bbr3 = {[1]='bbr3', [2]='rbr3z'},
+            bbl1 = { [1] = 'bbl1', [2] = 'rbl1z' },
+            bbl2 = { [1] = 'bbl2', [2] = 'rbl2z' },
+            bbl3 = { [1] = 'bbl3', [2] = 'rbl3z' },
+            bbr1 = { [1] = 'bbr1', [2] = 'rbr1z' },
+            bbr2 = { [1] = 'bbr2', [2] = 'rbr2z' },
+            bbr3 = { [1] = 'bbr3', [2] = 'rbr3z' },
 
 
         }
     end,
 }
 
-masterUpgradesDB['adaptablepilot']={
+masterUpgradesDB['adaptablepilot'] = {
     name = "Adaptable Pilot",
     XWS = 'adaptablepilot',
     slot = 21,

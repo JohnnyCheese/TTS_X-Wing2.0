@@ -18,7 +18,7 @@ ConfigManager = {
 
 ConfigManager.GetPlayerName = function(player_color)
     local player = Player[player_color]
-    return "["..Color.fromString(player.color):toHex(false).."]" .. player.steam_name .. "[-]"
+    return "[" .. Color.fromString(player.color):toHex(false) .. "]" .. player.steam_name .. "[-]"
 end
 
 ConfigManager.GetConfig = function(player_color, param_name)
@@ -34,7 +34,10 @@ ConfigManager.SetConfig = function(player_color, param_name, value)
             ConfigManager.PlayerConfigs[player_color] = {}
         end
         ConfigManager.PlayerConfigs[player_color][param_name] = value
-        printToAll(ConfigManager.GetPlayerName(player_color) .. " changed " .. param_name .. " configuration to " .. tostring(value), color(0.1, 1, 1))
+        printToAll(
+            ConfigManager.GetPlayerName(player_color) ..
+            " changed " .. param_name .. " configuration to " .. tostring(value),
+            color(0.1, 1, 1))
         if ConfigManager.SetCallbacks[param_name] ~= nil then
             ConfigManager.SetCallbacks[param_name](player_color, value)
         end

@@ -7,13 +7,13 @@
 local AnnModule = {
     announceColor = {
         -- color configuration for announcements
-        moveClear = {0.1, 1, 0.1},     -- Green
-        moveCollision = {1, 0.7, 0.1}, -- Orange
-        action = {0.3, 0.3, 1},        -- Blue
-        historyHandle = {0.1, 1, 1},   -- Cyan
-        error = {1, 0.15, 0.15},       -- Red
-        warn = {1, 0.4, 0},            -- Red-orange
-        info = {0.8, 0.1, 0.8}         -- Purple
+        moveClear = { 0.1, 1, 0.1 },     -- Green
+        moveCollision = { 1, 0.7, 0.1 }, -- Orange
+        action = { 0.3, 0.3, 1 },        -- Blue
+        historyHandle = { 0.1, 1, 1 },   -- Cyan
+        error = { 1, 0.15, 0.15 },       -- Red
+        warn = { 1, 0.4, 0 },            -- Red-orange
+        info = { 0.8, 0.1, 0.8 }         -- Purple
     },
     -- Record of players that already got note of some ID
     -- Key: playerSteamID
@@ -46,7 +46,12 @@ AnnModule.Announce = function(info, target, shipPrefix)
             else
                 coltype = "[2222ff]only enemy[ffb219]"
             end
-            annString = shipName .. info.note .. ' (' .. info.code .. ') but it ended overlapping ' .. coltype .. ' ship(s) and is now touching ' .. info.collidedShip.getName()
+            annString = shipName ..
+                info.note ..
+                ' (' ..
+                info.code ..
+                ') but it ended overlapping ' ..
+                coltype .. ' ship(s) and is now touching ' .. info.collidedShip.getName()
             annColor = AnnModule.announceColor.moveCollision
         end
     elseif info.type == 'overlap' then

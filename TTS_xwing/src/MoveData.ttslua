@@ -10,7 +10,7 @@ MoveData = {}
 -- Stored on another object to reduce clutter, passsed on load
 MoveData.LUT = {}
 MoveData.onLoad = function()
-    for k,obj in pairs(getAllObjects()) do
+    for k, obj in pairs(getAllObjects()) do
         if obj.getName() == 'MoveLUT' then
             MoveData.LUT.Parse(obj)
         end
@@ -39,19 +39,20 @@ MoveData.LUT.ConstructData = function(moveInfo, part)
         part = MoveData.partMax
     end
     if moveInfo.speed == 0 and moveInfo.type == 'straight' then
-        return {0, 0, 0, 0}
+        return { 0, 0, 0, 0 }
     end
     part = math.clamp(part, 0, MoveData.partMax)
     local LUTtable = MoveData.LUT.Data[moveInfo.size .. 'Base'][moveInfo.type][moveInfo.speed]
-    local LUTindex = (part/MoveData.partMax)*LUTtable.dataNum
+    local LUTindex = (part / MoveData.partMax) * LUTtable.dataNum
     if LUTindex < 1 then LUTindex = 1 end
     -- Interpolation between two nearest indexes
     local aProp = LUTindex - math.floor(LUTindex)
     local bProp = 1 - aProp
-    local outPos = Vect.Sum(Vect.Scale(LUTtable.posXZ[math.floor(LUTindex)], bProp), Vect.Scale(LUTtable.posXZ[math.ceil(LUTindex)], aProp))
+    local outPos = Vect.Sum(Vect.Scale(LUTtable.posXZ[math.floor(LUTindex)], bProp),
+        Vect.Scale(LUTtable.posXZ[math.ceil(LUTindex)], aProp))
     local outRot = (LUTtable.rotY[math.floor(LUTindex)] * bProp) + (LUTtable.rotY[math.ceil(LUTindex)] * aProp)
 
-    local outData = {outPos[1], 0, outPos[2], outRot}
+    local outData = { outPos[1], 0, outPos[2], outRot }
     return outData
 end
 
@@ -72,37 +73,40 @@ end
 
 -- Convert an entry from milimeters to in-game units
 MoveData.ConvertDataToIGU = function(entry)
-    return {Dim.Convert_mm_igu(entry[1]), Dim.Convert_mm_igu(entry[2]), Dim.Convert_mm_igu(entry[3]), entry[4]}
+    return { Dim.Convert_mm_igu(entry[1]), Dim.Convert_mm_igu(entry[2]), Dim.Convert_mm_igu(entry[3]), entry[4] }
 end
 
 -- Change an entry to a left-heading version
 MoveData.LeftVariant = function(entry)
-    return {-1*entry[1], entry[2], entry[3], -1*entry[4]}
+    return { -1 * entry[1], entry[2], entry[3], -1 * entry[4] }
 end
 
 -- Change an entry to be k-turn like (+180deg rot at the end)
 MoveData.TurnAroundVariant = function(entry)
-    return {entry[1], entry[2], entry[3], entry[4]+180}
+    return { entry[1], entry[2], entry[3], entry[4] + 180 }
 end
 
 -- Change an entry to be talon-roll like (+90deg INWARD rot at the end)
 MoveData.TurnInwardVariant = function(entry)
     local dir = 0
-    if entry[1] > 0 then dir = 90
-    elseif entry[1] < 0 then dir = -90 end
-    return {entry[1], entry[2], entry[3], entry[4]+dir}
+    if entry[1] > 0 then
+        dir = 90
+    elseif entry[1] < 0 then
+        dir = -90
+    end
+    return { entry[1], entry[2], entry[3], entry[4] + dir }
 end
 
 -- Change an entry to be reverse type
 MoveData.ReverseVariant = function(entry)
-    return {entry[1], entry[2], -1*entry[3], -1*entry[4]}
+    return { entry[1], entry[2], -1 * entry[3], -1 * entry[4] }
 end
 
 -- Rotate an entry by given degrees
 -- Helps define rolls as straights rotated 90deg sideways etc
 MoveData.RotateEntry = function(entry, angDeg)
     local rotEntry = Vect.RotateDeg(entry, angDeg)
-    return {rotEntry[1], rotEntry[2], rotEntry[3], entry[4]+angDeg}
+    return { rotEntry[1], rotEntry[2], rotEntry[3], entry[4] + angDeg }
 end
 
 -- Apply move modifiers that happen even if move is partial
@@ -135,22 +139,22 @@ end
 
 -- Decode a move command into table with type, direction, speed etc info
 -- TODO make a lookup table?
-MoveData.DecodeInfo = function (move_code, ship)
+MoveData.DecodeInfo = function(move_code, ship)
     local info = {
         -- [option1] [option2] ... [optionN]  // [errorOption]
-        type='invalid',     -- [straight] [bank] [turn] [roll] [viper] [cloak] [echo] [bankSlip] [ turnSlip]//  [invalid]
-        speed=nil,          -- [1] [2] [3] [4] [5]  //  [nil]
-        dir=nil,            -- [left] [right] [nil]
-        extra=nil,          -- [koiogran] [segnor] [talon] [reverse] [straight] [forward] [backward] [nil]
+        type = 'invalid', -- [straight] [bank] [turn] [roll] [viper] [cloak] [echo] [bankSlip] [ turnSlip]//  [invalid]
+        speed = nil,    -- [1] [2] [3] [4] [5]  //  [nil]
+        dir = nil,      -- [left] [right] [nil]
+        extra = nil,    -- [koiogran] [segnor] [talon] [reverse] [straight] [forward] [backward] [nil]
         traits =
         {
-            full=false,     -- [true] [false] if this move can be attempted as a full move
-            part=false      -- [true] [false] if this move can be attempted as a partial move
+            full = false, -- [true] [false] if this move can be attempted as a full move
+            part = false -- [true] [false] if this move can be attempted as a partial move
         },
-        size=nil,           -- [small] [large]  //  [nil]
-        note=nil,           -- [string] eg. 'banked xxx'       //  [nil]
-        collNote=nil,       -- [string] eg. 'tried to do xxx'  //  [nil]
-        code=move_code      -- [string] eg. 'be2'              //  [nil]
+        size = nil,     -- [small] [large]  //  [nil]
+        note = nil,     -- [string] eg. 'banked xxx'       //  [nil]
+        collNote = nil, -- [string] eg. 'tried to do xxx'  //  [nil]
+        code = move_code -- [string] eg. 'be2'              //  [nil]
     }
     if ship ~= nil then
         info.size = ship.getTable("Data").Size or 'small'
@@ -158,20 +162,20 @@ MoveData.DecodeInfo = function (move_code, ship)
         info.size = 'small'
     end
     -- Straights and koiograns, regular stuff
-    if move_code:sub(1,1) == 's' or move_code:sub(1,1) == 'k' then
+    if move_code:sub(1, 1) == 's' or move_code:sub(1, 1) == 'k' then
         info.type = 'straight'
-        info.speed = tonumber(move_code:sub(2,2))
+        info.speed = tonumber(move_code:sub(2, 2))
         info.traits.full = true
         info.traits.part = true
-        if move_code:sub(1,1) == 'k' then
+        if move_code:sub(1, 1) == 'k' then
             info.extra = 'koiogran'
             info.note = 'koiogran turned ' .. info.speed
             info.collNote = 'tried to koiogran turn ' .. info.speed
-        elseif move_code:sub(-1,-1) == 'r' then
+        elseif move_code:sub(-1, -1) == 'r' then
             info.extra = 'reverse'
             info.note = 'flew reverse ' .. info.speed
             info.collNote = 'tried to fly reverse ' .. info.speed
-        elseif move_code:sub(-1,-1) == 'b' then
+        elseif move_code:sub(-1, -1) == 'b' then
             info.traits.part = false
             local boostSpd = ''
             if info.speed > 1 then
@@ -192,9 +196,9 @@ MoveData.DecodeInfo = function (move_code, ship)
             end
         end
         -- Banks, regular stuff
-    elseif move_code:sub(1,1) == 'a' then
+    elseif move_code:sub(1, 1) == 'a' then
         info.type = 'adjust'
-        info.speed = tonumber(move_code:sub(2,2))
+        info.speed = tonumber(move_code:sub(2, 2))
         info.traits.full = true
         info.traits.part = false
         if info.speed == 1 then
@@ -204,33 +208,33 @@ MoveData.DecodeInfo = function (move_code, ship)
             info.note = 'adjusted backward'
             info.collNote = 'tried to adjust backward'
         end
-    elseif move_code:sub(1,1) == 'b' then
+    elseif move_code:sub(1, 1) == 'b' then
         info.type = 'bank'
         info.dir = 'right'
-        info.speed = tonumber(move_code:sub(3,3))
+        info.speed = tonumber(move_code:sub(3, 3))
         info.traits.full = true
         info.traits.part = true
-        if move_code:sub(2,2) == 'l' or move_code:sub(2,2) == 'e' then
+        if move_code:sub(2, 2) == 'l' or move_code:sub(2, 2) == 'e' then
             info.dir = 'left'
         end
-        if move_code:sub(-1,-1) == 's' then
+        if move_code:sub(-1, -1) == 's' then
             info.extra = 'segnor'
             info.note = 'segnor looped ' .. info.dir .. ' ' .. info.speed
             info.collNote = 'tried to segnor loop ' .. info.dir .. ' ' .. info.speed
-        elseif move_code:sub(-1,-1) == 't' then
+        elseif move_code:sub(-1, -1) == 't' then
             info.extra = 'talon'
             info.note = 'talon rolled (bank template) ' .. info.dir .. ' ' .. info.speed
             info.collNote = 'tried to talon roll ' .. info.dir .. ' ' .. info.speed
-        elseif move_code:sub(-1,-1) == 'r' then
+        elseif move_code:sub(-1, -1) == 'r' then
             info.extra = 'reverse'
             info.note = 'flew reverse bank ' .. info.dir .. ' ' .. info.speed
             info.collNote = 'tried to fly reverse bank ' .. info.dir .. ' ' .. info.speed
-        elseif move_code:sub(-1,-1) == 'z' then
+        elseif move_code:sub(-1, -1) == 'z' then
             info.type = 'bankSlip'
             info.extra = 'bankSlip'
             info.note = 'sliped bank ' .. info.dir .. ' ' .. info.speed
             info.collNote = 'tried to slip bank ' .. info.dir .. ' ' .. info.speed
-        elseif move_code:sub(-1,-1) == 'b' then
+        elseif move_code:sub(-1, -1) == 'b' then
             info.traits.part = false
             local boostSpd = ''
             if info.speed > 1 then
@@ -243,7 +247,7 @@ MoveData.DecodeInfo = function (move_code, ship)
             info.collNote = 'tried to bank ' .. info.dir .. ' ' .. info.speed
         end
         -- Turns, regular stuff
-    elseif move_code:sub(1,1) == 't' then
+    elseif move_code:sub(1, 1) == 't' then
         if info.size == 'huge' then
             info.note = "tried to turn, but huge ships can't do that"
             info.collNote = "tried to turn, but huge ships can't do that"
@@ -251,39 +255,39 @@ MoveData.DecodeInfo = function (move_code, ship)
         end
         info.type = 'turn'
         info.dir = 'right'
-        info.speed = tonumber(move_code:sub(3,3))
+        info.speed = tonumber(move_code:sub(3, 3))
         info.traits.full = true
         info.traits.part = true
-        if move_code:sub(2,2) == 'l' or move_code:sub(2,2) == 'e' then
+        if move_code:sub(2, 2) == 'l' or move_code:sub(2, 2) == 'e' then
             info.dir = 'left'
         end
-        if move_code:sub(-1,-1) == 't' then
+        if move_code:sub(-1, -1) == 't' then
             info.type = 'talon'
             info.note = 'talon rolled ' .. info.dir .. ' ' .. info.speed
             info.collNote = 'tried to talon roll ' .. info.dir .. ' ' .. info.speed
-            if move_code:sub(-2,-2) == 'f' then
+            if move_code:sub(-2, -2) == 'f' then
                 info.type = 'talonF'
                 info.note = 'talon rolled ' .. info.dir .. ' ' .. info.speed .. 'adjusting Forward'
                 info.collNote = 'tried to talon roll ' .. info.dir .. ' ' .. info.speed .. 'adjusting Forward'
-            elseif move_code:sub(-2,-2) == 'b' then
+            elseif move_code:sub(-2, -2) == 'b' then
                 info.type = 'talonB'
                 info.note = 'talon rolled ' .. info.dir .. ' ' .. info.speed .. 'adjusting Backward'
                 info.collNote = 'tried to talon roll ' .. info.dir .. ' ' .. info.speed .. 'adjusting Backward'
             end
-        elseif move_code:sub(-1,-1) == 's' then
+        elseif move_code:sub(-1, -1) == 's' then
             info.extra = 'segnor'
             info.note = 'segnor looped (turn template) ' .. info.dir .. ' ' .. info.speed
             info.collNote = 'tried to segnor loop (turn template) ' .. info.dir .. ' ' .. info.speed
-        elseif move_code:sub(-1,-1) == 'r' then
+        elseif move_code:sub(-1, -1) == 'r' then
             info.extra = 'reverse'
             info.note = 'flew reverse turn ' .. info.dir .. ' ' .. info.speed
             info.collNote = 'tried to fly reverse turn ' .. info.dir .. ' ' .. info.speed
-        elseif move_code:sub(-1,-1) == 'z' then
+        elseif move_code:sub(-1, -1) == 'z' then
             info.type = 'turnSlip'
             info.extra = 'turnSlip'
             info.note = 'sliped turn ' .. info.dir .. ' ' .. info.speed
             info.collNote = 'tried to slip turn ' .. info.dir .. ' ' .. info.speed
-        elseif move_code:sub(-1,-1) == 'b' then
+        elseif move_code:sub(-1, -1) == 'b' then
             info.traits.part = false
             local boostSpd = ''
             if info.speed > 1 then
@@ -295,7 +299,7 @@ MoveData.DecodeInfo = function (move_code, ship)
             info.note = 'turned ' .. info.dir .. ' ' .. info.speed
             info.collNote = 'tried to turn ' .. info.dir .. ' ' .. info.speed
         end
-        if tonumber(move_code:sub(3,3)) == 4 then
+        if tonumber(move_code:sub(3, 3)) == 4 then
             info.traits.part = false
             info.note = 'Pivoted ' .. info.dir
             info.collNote = 'tried pivoting ' .. info.dir
@@ -303,101 +307,100 @@ MoveData.DecodeInfo = function (move_code, ship)
 
 
         -- New Barrel Roll
-    elseif move_code:sub(1,1) == 'r' then
+    elseif move_code:sub(1, 1) == 'r' then
         info.type = 'roll'
         info.dir = 'right'
-        if move_code:sub(2,2) == 'l' or move_code:sub(2,2) == 'e' then
+        if move_code:sub(2, 2) == 'l' or move_code:sub(2, 2) == 'e' then
             info.dir = 'left'
         end
         info.collNote = 'tried barrel rolling ' .. info.dir
-        info.speed = tonumber(move_code:sub(3,3))
+        info.speed = tonumber(move_code:sub(3, 3))
         info.traits.full = true
         info.traits.part = false
-        if tonumber(move_code:sub(3,3)) == 1 then
+        if tonumber(move_code:sub(3, 3)) == 1 then
             info.note = 'barrel rolled ' .. info.dir .. ' forward'
-            info.collNote = 'tried barrel rolling ' ..info.dir .. ' forward'
-        elseif tonumber(move_code:sub(3,3)) == 2 then
+            info.collNote = 'tried barrel rolling ' .. info.dir .. ' forward'
+        elseif tonumber(move_code:sub(3, 3)) == 2 then
             info.note = 'barrel rolled ' .. info.dir .. ' straight'
-            info.collNote = 'tried barrel rolling ' ..info.dir .. ' straight'
-        elseif tonumber(move_code:sub(3,3)) == 3 then
+            info.collNote = 'tried barrel rolling ' .. info.dir .. ' straight'
+        elseif tonumber(move_code:sub(3, 3)) == 3 then
             info.note = 'barrel rolled ' .. info.dir .. ' backward'
-            info.collNote = 'tried barrel rolling ' ..info.dir .. ' backward'
+            info.collNote = 'tried barrel rolling ' .. info.dir .. ' backward'
         end
-
-    elseif move_code:sub(1,2) == 'vt' then
+    elseif move_code:sub(1, 2) == 'vt' then
         info.type = 'viperTurn'
         info.dir = 'right'
-        if move_code:sub(3,3) == 'l' or move_code:sub(3,3) == 'e' then
+        if move_code:sub(3, 3) == 'l' or move_code:sub(3, 3) == 'e' then
             info.dir = 'left'
         end
-        info.speed = tonumber(move_code:sub(-1,-1))
+        info.speed = tonumber(move_code:sub(-1, -1))
         info.traits.full = true
         info.traits.part = false
-        if move_code:sub(4,4) == 'f' then
+        if move_code:sub(4, 4) == 'f' then
             info.type = 'viperTurnF'
             info.extra = 'forward'
         else
             info.type = 'viperTurnB'
             info.extra = 'backward'
         end
-        if tonumber(move_code:sub(-1,-1)) == 1 then
+        if tonumber(move_code:sub(-1, -1)) == 1 then
             info.note = 'barrel rolled using turn template ' .. info.dir .. ' ' .. info.extra .. ' adjusting forward'
-            info.collNote = 'tried barrel rolling using turn template ' ..info.dir .. ' ' .. info.extra
-        elseif tonumber(move_code:sub(-1,-1)) == 2 then
+            info.collNote = 'tried barrel rolling using turn template ' .. info.dir .. ' ' .. info.extra
+        elseif tonumber(move_code:sub(-1, -1)) == 2 then
             info.note = 'barrel rolled using turn template ' .. info.dir .. ' ' .. info.extra .. ' adjusting straight'
-            info.collNote = 'tried barrel rolling using turn template ' ..info.dir .. ' ' .. info.extra
-        elseif tonumber(move_code:sub(-1,-1)) == 3 then
+            info.collNote = 'tried barrel rolling using turn template ' .. info.dir .. ' ' .. info.extra
+        elseif tonumber(move_code:sub(-1, -1)) == 3 then
             info.note = 'barrel rolled using turn template ' .. info.dir .. ' ' .. info.extra .. ' adjusting backward'
-            info.collNote = 'tried barrel rolling using turn template ' ..info.dir .. ' ' .. info.extra
+            info.collNote = 'tried barrel rolling using turn template ' .. info.dir .. ' ' .. info.extra
         end
         -- New Viper roll
-    elseif move_code:sub(1,1) == 'v' then
+    elseif move_code:sub(1, 1) == 'v' then
         info.type = 'viper'
         info.dir = 'right'
-        if move_code:sub(2,2) == 'l' or move_code:sub(2,2) == 'e' then
+        if move_code:sub(2, 2) == 'l' or move_code:sub(2, 2) == 'e' then
             info.dir = 'left'
         end
-        info.speed = tonumber(move_code:sub(-1,-1))
+        info.speed = tonumber(move_code:sub(-1, -1))
         info.traits.full = true
         info.traits.part = false
-        if move_code:sub(3,3) == 'f' then
+        if move_code:sub(3, 3) == 'f' then
             info.type = 'viperF'
             info.extra = 'forward'
         else
             info.type = 'viperB'
             info.extra = 'backward'
         end
-        if tonumber(move_code:sub(-1,-1)) == 1 then
+        if tonumber(move_code:sub(-1, -1)) == 1 then
             info.note = 'barrel rolled using bank template ' .. info.dir .. ' ' .. info.extra .. ' adjusting forward'
-            info.collNote = 'tried barrel rolling using bank template ' ..info.dir .. ' ' .. info.extra
-        elseif tonumber(move_code:sub(-1,-1)) == 2 then
+            info.collNote = 'tried barrel rolling using bank template ' .. info.dir .. ' ' .. info.extra
+        elseif tonumber(move_code:sub(-1, -1)) == 2 then
             info.note = 'barrel rolled using bank template ' .. info.dir .. ' ' .. info.extra .. ' adjusting straight'
-            info.collNote = 'tried barrel rolling using bank template ' ..info.dir .. ' ' .. info.extra
-        elseif tonumber(move_code:sub(-1,-1)) == 3 then
+            info.collNote = 'tried barrel rolling using bank template ' .. info.dir .. ' ' .. info.extra
+        elseif tonumber(move_code:sub(-1, -1)) == 3 then
             info.note = 'barrel rolled using bank template ' .. info.dir .. ' ' .. info.extra .. ' adjusting backward'
-            info.collNote = 'tried barrel rolling using bank template ' ..info.dir .. ' ' .. info.extra
+            info.collNote = 'tried barrel rolling using bank template ' .. info.dir .. ' ' .. info.extra
         end
         -- New Decloak
-    elseif move_code:sub(1,1) == 'c' then
+    elseif move_code:sub(1, 1) == 'c' then
         info.type = 'deCloak'
         info.dir = 'right'
-        if move_code:sub(2,2) == 'l' or move_code:sub(2,2) == 'e' then
+        if move_code:sub(2, 2) == 'l' or move_code:sub(2, 2) == 'e' then
             info.dir = 'left'
         end
-        info.speed = tonumber(move_code:sub(-1,-1))
+        info.speed = tonumber(move_code:sub(-1, -1))
         info.traits.full = true
         info.traits.part = false
-        if tonumber(move_code:sub(-1,-1)) == 1 then
+        if tonumber(move_code:sub(-1, -1)) == 1 then
             info.note = 'decloaked ' .. info.dir .. ' forward'
-            info.collNote = 'tried decloaking ' ..info.dir .. ' forward'
-        elseif tonumber(move_code:sub(-1,-1)) == 2 then
+            info.collNote = 'tried decloaking ' .. info.dir .. ' forward'
+        elseif tonumber(move_code:sub(-1, -1)) == 2 then
             info.note = 'decloaked ' .. info.dir .. ' straight'
-            info.collNote = 'tried decloaking ' ..info.dir .. ' straight'
-        elseif tonumber(move_code:sub(-1,-1)) == 3 then
+            info.collNote = 'tried decloaking ' .. info.dir .. ' straight'
+        elseif tonumber(move_code:sub(-1, -1)) == 3 then
             info.note = 'decloaked ' .. info.dir .. ' backward'
-            info.collNote = 'tried decloaking ' ..info.dir .. ' backward'
+            info.collNote = 'tried decloaking ' .. info.dir .. ' backward'
         end
-        if move_code:sub(2,2) == 's' then
+        if move_code:sub(2, 2) == 's' then
             info.type = 'straight'
             if info.size == "small" then
                 info.speed = 2
@@ -409,66 +412,66 @@ MoveData.DecodeInfo = function (move_code, ship)
             info.collNote = 'tried decloacking forward'
         end
         --New Echo
-    elseif move_code:sub(1,1) == 'e' then
+    elseif move_code:sub(1, 1) == 'e' then
         info.type = 'Echo'
         info.dir = 'right'
-        if move_code:sub(2,2) == 'l' or move_code:sub(2,2) == 'e' then
+        if move_code:sub(2, 2) == 'l' or move_code:sub(2, 2) == 'e' then
             info.dir = 'left'
         end
-        info.speed = tonumber(move_code:sub(4,4))
+        info.speed = tonumber(move_code:sub(4, 4))
         info.traits.full = true
         info.traits.part = false
-        if move_code:sub(3,3) == 'f' then
+        if move_code:sub(3, 3) == 'f' then
             info.type = 'echoF'
             info.extra = 'forward'
-        elseif move_code:sub(3,3) == 'b' then
+        elseif move_code:sub(3, 3) == 'b' then
             info.type = 'echoB'
             info.extra = 'backward'
         end
-        if tonumber(move_code:sub(4,4)) == 1 then
+        if tonumber(move_code:sub(4, 4)) == 1 then
             info.note = 'decloacked ' .. info.dir .. ' ' .. info.extra .. ' adjusting forward'
-            info.collNote = 'tried decloacking ' ..info.dir .. ' ' .. info.extra
-        elseif tonumber(move_code:sub(4,4)) == 2 then
+            info.collNote = 'tried decloacking ' .. info.dir .. ' ' .. info.extra
+        elseif tonumber(move_code:sub(4, 4)) == 2 then
             info.note = 'decloacked ' .. info.dir .. ' ' .. info.extra .. ' adjusting straight'
-            info.collNote = 'tried decloacking ' ..info.dir .. ' ' .. info.extra
-        elseif tonumber(move_code:sub(4,4)) == 3 then
+            info.collNote = 'tried decloacking ' .. info.dir .. ' ' .. info.extra
+        elseif tonumber(move_code:sub(4, 4)) == 3 then
             info.note = 'decloacked ' .. info.dir .. ' ' .. info.extra .. ' adjusting backward'
-            info.collNote = 'tried decloacking ' ..info.dir .. ' ' .. info.extra
+            info.collNote = 'tried decloacking ' .. info.dir .. ' ' .. info.extra
         end
-        if move_code:sub(2,2) == 's' then
+        if move_code:sub(2, 2) == 's' then
             info.type = 'bank'
             info.speed = 2
             info.note = 'decloaked banking right'
             info.collNote = 'tried decloacking banking right'
-            if move_code:sub(3,3) == 'l' or move_code:sub(3,3) == 'e' then
+            if move_code:sub(3, 3) == 'l' or move_code:sub(3, 3) == 'e' then
                 info.dir = 'left'
                 info.note = 'decloaked banking left'
                 info.collNote = 'tried decloacking banking left'
             end
         end
         -- Barrel rolls and decloaks, spaghetti
-    elseif move_code:sub(1,2) == 'ch' or move_code:sub(1,2) == 'vr' then
+    elseif move_code:sub(1, 2) == 'ch' or move_code:sub(1, 2) == 'vr' then
         -- Echo's fucking bullshit which goes against ALL the standards
         -- StarViper handled the same
         info.type = 'echo'
-        if move_code:sub(1,2) == 'vr' then
+        if move_code:sub(1, 2) == 'vr' then
             info.type = 'viper'
         end
         info.dir = 'right'
         info.extra = 'forward'
-        if move_code:sub(4,4) == 'b' then
+        if move_code:sub(4, 4) == 'b' then
             info.extra = 'backward'
         end
-        if move_code:sub(3,3) == 'l' or move_code:sub(3,3) == 'e' then
+        if move_code:sub(3, 3) == 'l' or move_code:sub(3, 3) == 'e' then
             -- Ones going right/left
             info.dir = 'left'
-        elseif move_code:sub(3,3) == 's' then
+        elseif move_code:sub(3, 3) == 's' then
             -- Ones going forward
-            info = MoveData.DecodeInfo('b' .. move_code:sub(4,4) .. '2', ship)
+            info = MoveData.DecodeInfo('b' .. move_code:sub(4, 4) .. '2', ship)
             info.traits.part = false
             info.code = move_code
         end
-        if move_code:sub(1,2) == 'ch' then
+        if move_code:sub(1, 2) == 'ch' then
             -- Echo dedscriptions
             if info.type == 'echo' then
                 info.note = 'dechocloaked ' .. info.dir .. ' ' .. info.extra
@@ -486,19 +489,19 @@ MoveData.DecodeInfo = function (move_code, ship)
         if move_code == 'chadj' or move_code == 'vradj' then
             info.extra = 'adjust'
         end
-    elseif move_code:sub(1,1) == 'x' or move_code:sub(1,1) == 'c' then
+    elseif move_code:sub(1, 1) == 'x' or move_code:sub(1, 1) == 'c' then
         -- Rolls
         info.type = 'roll'
         info.dir = 'right'
         info.speed = 1
-        if move_code:sub(2,2) == 'l' or move_code:sub(2,2) == 'e' then
+        if move_code:sub(2, 2) == 'l' or move_code:sub(2, 2) == 'e' then
             info.dir = 'left'
         end
         info.note = 'barrel rolled'
         info.collNote = 'tried to barrel roll'
         -- Decloaks
         -- Straigh decloak is treated as a roll before, now just return straight 2 data
-        if move_code:sub(2,2) == 's' then
+        if move_code:sub(2, 2) == 's' then
             info.type = 'straight'
             info.speed = 2
             info.traits.full = true
@@ -506,7 +509,7 @@ MoveData.DecodeInfo = function (move_code, ship)
             info.collNote = 'tried to decloak forward'
             info.dir = nil
             -- Side decloak is a barrel roll, but with 2 speed
-        elseif move_code:sub(1,1) == 'c' then
+        elseif move_code:sub(1, 1) == 'c' then
             info.note = 'decloaked'
             info.collNote = 'tried to decloak'
             info.speed = 2
@@ -514,11 +517,11 @@ MoveData.DecodeInfo = function (move_code, ship)
 
         -- Forward/backward modifiers
         if info.type ~= 'straight' then
-            if move_code:sub(-1,-1) == 'f' then
+            if move_code:sub(-1, -1) == 'f' then
                 info.extra = 'forward'
                 info.note = info.note .. ' forward ' .. info.dir
                 info.collNote = info.collNote .. ' forward ' .. info.dir
-            elseif move_code:sub(-1,-1) == 'b' then
+            elseif move_code:sub(-1, -1) == 'b' then
                 info.extra = 'backward'
                 info.note = info.note .. ' backward ' .. info.dir
                 info.collNote = info.collNote .. ' forward ' .. info.dir
@@ -538,7 +541,7 @@ MoveData.DecodeFullMove = function(move_code, ship)
     local info = MoveData.DecodeInfo(move_code, ship)
     if info.type == 'invalid' then
         print('MoveData.DecodeFullMove: invalid move type')
-        return {0, 0, 0, 0}
+        return { 0, 0, 0, 0 }
     else
         data = MoveData.DecodePartMove(move_code, ship, MoveData.partMax)
     end
@@ -554,7 +557,7 @@ MoveData.DecodePartMove = function(move_code, ship, part)
     part = math.clamp(part, 0, MoveData.partMax)
     if info.type == 'invalid' then
         print('MoveData.DecodePartMove: invalid move type')
-        return {0, 0, 0, 0}
+        return { 0, 0, 0, 0 }
     end
     data = MoveData.LUT.ConstructData(info, part)
     data = MoveData.ApplyBasicModifiers(data, info)

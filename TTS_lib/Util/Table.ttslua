@@ -9,12 +9,12 @@ end
 if not table.join then
     table.join = function(tab1, tab2)
         local out = {}
-        for k=1,#tab1 do
+        for k = 1, #tab1 do
             out[k] = tab1[k]
         end
         local off = #tab1
-        for k=1,#tab2 do
-            out[k+off] = tab2[k]
+        for k = 1, #tab2 do
+            out[k + off] = tab2[k]
         end
         return out
     end
@@ -77,7 +77,7 @@ if not table.min then
     table.min = function(tab, eval)
         if not tab[1] then return end
         local min = { el = tab[1], val = eval(tab[1]) }
-        for k=2,#tab do
+        for k = 2, #tab do
             local val = eval(tab[k])
             if val < min.val then
                 min.val = val
@@ -92,10 +92,10 @@ end
 if not table.max then
     table.max = function(tab, eval)
         local function invEval(el)
-            return -1*eval(el)
+            return -1 * eval(el)
         end
         local el, min = table.min(tab, invEval)
-        return el, -1*min
+        return el, -1 * min
     end
 end
 
@@ -104,7 +104,7 @@ if not table.sieve then
     table.sieve = function(tab, valid)
         local passed = {}
         local rejected = {}
-        for k,v in ipairs(tab) do
+        for k, v in ipairs(tab) do
             if valid(v) then
                 if type(k) == 'number' then
                     table.insert(passed, v)
@@ -126,7 +126,7 @@ end
 -- Try to find en element in the table, return key if found, nil otherwise
 if not table.find then
     table.find = function(tab, el)
-        for k,v in pairs(tab) do
+        for k, v in pairs(tab) do
             if v == el then
                 return k
             end
@@ -146,7 +146,7 @@ if not table.print then
             end
             return str
         end
-        for k,v in pairs(tab) do
+        for k, v in pairs(tab) do
             print('   [' .. stringify(k) .. '] -> ' .. stringify(v))
         end
         print('')
@@ -167,10 +167,10 @@ if not table.print_r then
             return str
         end
         local indentStr = string.rep('    ', indent)
-        for k,v in pairs(tab) do
+        for k, v in pairs(tab) do
             print(indentStr .. '[' .. stringify(k) .. '] -> ' .. stringify(v))
             if type(v) == 'table' then
-                table.print_r(v, indentStr .. stringify(v), indent+1)
+                table.print_r(v, indentStr .. stringify(v), indent + 1)
             end
         end
         if indent == 1 then
@@ -183,7 +183,7 @@ end
 if not table.process then
     table.process = function(tab, fcn)
         local out = {}
-        for k,v in pairs(tab) do
+        for k, v in pairs(tab) do
             out[k] = fcn(v)
         end
         return out

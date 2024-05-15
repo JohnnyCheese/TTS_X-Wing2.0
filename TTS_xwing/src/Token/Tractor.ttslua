@@ -17,8 +17,8 @@ set = false
 
 -- Save self state
 function onSave()
-    if set  then
-        local state = {set=set}
+    if set then
+        local state = { set = set }
         return JSON.encode(state)
     end
 end
@@ -43,7 +43,7 @@ end
 
 -- Set function for external calls
 function manualSet(arg)
-    ship=arg.ref
+    ship = arg.ref
     set = true
     self.UI.setAttribute("Center", "active", "true")
 end
@@ -54,10 +54,10 @@ function onDropped()
     local spos = self.getPosition()
     local nearest = nil
     local minDist = 3.6125 -- 100 mm
-    for k,ship in pairs(getAllObjects()) do
-        if ship.type== 'Figurine' and ship.getName() ~= '' then
+    for k, ship in pairs(getAllObjects()) do
+        if ship.type == 'Figurine' and ship.getName() ~= '' then
             local pos = ship.getPosition()
-            local dist = math.sqrt(math.pow((spos[1]-pos[1]),2) + math.pow((spos[3]-pos[3]),2))
+            local dist = math.sqrt(math.pow((spos[1] - pos[1]), 2) + math.pow((spos[3] - pos[3]), 2))
             if dist < minDist then
                 nearest = ship
                 minDist = dist
@@ -70,21 +70,21 @@ function onDropped()
 
         self.setRotation(nearest.getRotation())
 
-        printToAll(ship.getName().." takes a tractor token")
+        printToAll(ship.getName() .. " takes a tractor token")
     else
         ship = nil
         set = false
     end
 end
 
-stat=false
+stat = false
 
 function onContextOpen(player_color)
     showBtn()
 end
 
 function showBtn()
-    if stat==false and ship~=nil then
+    if stat == false and ship ~= nil then
         if self.is_face_down then
             self.UI.setAttribute("btnPanel", "rotation", "180 0 0")
             self.UI.setAttribute("btnPanel", "position", "0 0 30")
@@ -93,14 +93,14 @@ function showBtn()
             self.UI.setAttribute("btnPanel", "position", "0 0 -30")
         end
         self.UI.show("btnPanel")
-        stat=true
+        stat = true
     end
 end
 
 function hideBtn()
-    if stat==true then
+    if stat == true then
         self.UI.hide("btnPanel")
-        stat=false
+        stat = false
     end
 end
 

@@ -52,9 +52,8 @@ function API.API_BombTokenDrop(argTable)
 end
 
 function API.API_MineDrop(argTable)
-  BombModule.CheckMineDroppedOverlapping(argTable.mine, argTable.ship)
+    BombModule.CheckMineDroppedOverlapping(argTable.mine, argTable.ship)
 end
-
 
 function API.API_AssignToken(argTable)
     TokenModule.AssignToken(argTable.token, argTable.ship)
@@ -73,7 +72,7 @@ function API.API_SetPlayerConfig(argTable)
 end
 
 function API.API_SetGlobalConfig(argTable)
-    return ConfigManager.SetConfig("global",argTable.param_name, argTable.value)
+    return ConfigManager.SetConfig("global", argTable.param_name, argTable.value)
 end
 
 function API.API_GetClosestPointToShip(argTable)
@@ -83,12 +82,12 @@ function API.API_GetClosestPointToShip(argTable)
     local closestRange = 100000
     local closestDistance = nil
     for _, segment in pairs(segments) do
-      distance = ArcCheck.GetDistanceBetweenLineSegmentAndPoint(segment, argTable.point, false)
-      --print("Dist: " .. tostring(distance.length))
-      if distance.length < closestRange then
-        closestRange = distance.length
-        closestDistance = distance
-      end
+        distance = ArcCheck.GetDistanceBetweenLineSegmentAndPoint(segment, argTable.point, false)
+        --print("Dist: " .. tostring(distance.length))
+        if distance.length < closestRange then
+            closestRange = distance.length
+            closestDistance = distance
+        end
     end
     return closestDistance
 end
@@ -98,32 +97,31 @@ function API.API_AssignDial(argTable)
 end
 
 function API.API_SetDial(argTable)
-  if argTable.set then
-    DialManagerModule.setDial(argTable.dial)
-  else
-    DialManagerModule.unSetDial(argTable.dial)
-  end
+    if argTable.set then
+        DialManagerModule.setDial(argTable.dial)
+    else
+        DialManagerModule.unSetDial(argTable.dial)
+    end
 end
 
 function API.API_IsAllDialsSet(argTable)
-  return DialManagerModule.isAllDialsSet(argTable.player)
+    return DialManagerModule.isAllDialsSet(argTable.player)
 end
 
-
 function API.API_ClearPosition(argTable)
-  TokenModule.ClearPosition(argTable.pos, argTable.reach, argTable.ship)
+    TokenModule.ClearPosition(argTable.pos, argTable.reach, argTable.ship)
 end
 
 function API.API_SetTokenSize(argTable)
-  TokenModule.token_scale = argTable.size
+    TokenModule.token_scale = argTable.size
 end
 
 function API.API_StreamAnnounce(argTable)
-  StreamManagerModule.Announce(argTable.text, argTable.player)
+    StreamManagerModule.Announce(argTable.text, argTable.player)
 end
 
 function API.API_ToggleAnnouncement(argTable)
-  StreamManagerModule.Announce(argTable.text, argTable.player)
+    StreamManagerModule.Announce(argTable.text, argTable.player)
 end
 
 --------

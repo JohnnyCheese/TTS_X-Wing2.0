@@ -35,7 +35,8 @@ ContextGui.onObjectHover = function(player_color, hovered_object)
     end
     if hovered_object ~= nil then
         if (hovered_object.getVar("onContextOpen") ~= nil) then
-            ContextGui.playerTable[player_color].timerid = Wait.time(function() ContextGui.onTimout(player_color, hovered_object) end, 1)
+            ContextGui.playerTable[player_color].timerid = Wait.time(
+                function() ContextGui.onTimout(player_color, hovered_object) end, 1)
         end
         if (hovered_object.getVar("onHoverEnter") ~= nil) then
             hovered_object.call("onHoverEnter", player_color)
