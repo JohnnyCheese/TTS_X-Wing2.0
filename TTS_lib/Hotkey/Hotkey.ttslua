@@ -33,21 +33,18 @@ if not package.loaded['Hotkey'] then
             Hotkey.ReleaseButton(index, playerColor)
         end
     end
-    
+
     -- Hook into event functions, use EventSub if present
-    if package.loaded['EventSub'] then
-        EventSub.Register('onScriptingButtonDown', Hotkey.onScriptingButtonDown)
-        EventSub.Register('onScriptingButtonUp', Hotkey.onScriptingButtonUp)
-    else
-        assert(onScriptingButtonDown == nil, 'Hotkey init: Event onScriptingButtonDown already defined!')
-        function onScriptingButtonDown(...)
-            Hotkey.onScriptingButtonDown(table.unpack({...}))
-        end
-        assert(onScriptingButtonUp == nil, 'Hotkey init: Event onScriptingButtonUp already defined!')
-        function onScriptingButtonUp(...)
-            Hotkey.onScriptingButtonUp(table.unpack({...}))
-        end
-    end
+    local EventSub = require("TTS_Lib.EventSub.EventSub")
+
+    -- Now just register the handlers without checking if EventSub is loaded
+    EventSub.Register('onScriptingButtonDown', function(...)
+        Hotkey.onScriptingButtonDown(table.unpack({...}))
+    end)
+
+    EventSub.Register('onScriptingButtonUp', function(...)
+        Hotkey.onScriptingButtonUp(table.unpack({...}))
+    end)
 
     -- Amount of available buttons
     Hotkey.keyCount = 10

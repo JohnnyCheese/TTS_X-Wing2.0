@@ -56,6 +56,7 @@ function ToggleRuler()
 end
 
 function onLoad()
+    -- TODO: hey should this be AOE_SensorBouy instead? looks like a copy&paste error
     if self.getName() == 'AoE Bomb source' then
         self.setPosition({0, -3, 18.28})
         self.setRotation({0, 0, 0})

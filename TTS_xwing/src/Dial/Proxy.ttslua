@@ -87,13 +87,12 @@ function P.spawn(args)
     local proxy_objects, success = Global.call("SpawnProxyOptions", proxy_args)
 
     if not success then return end
-
-    Wait.condition(|| setActiveProxies(proxy_objects.proxy_table),    || isReady(proxy_objects))
-    Wait.condition(|| button_func(true, cancellable, active_proxies), || isReady(proxy_objects))
-
-    Wait.condition(   unsetActiveProxies,         || isDone(proxy_objects))
-    Wait.condition(|| button_func(false),         || isDone(proxy_objects))
-    Wait.condition(|| obj.setVar("befAft", "_A"), || isDone(proxy_objects))
+    
+    Wait.condition(function() setActiveProxies(proxy_objects.proxy_table) end, function() isReady(proxy_objects)end)
+    Wait.condition(function() button_func(true, cancellable, active_proxies) end, function() isReady(proxy_objects) end)
+    Wait.condition(unsetActiveProxies, function() return isDone(proxy_objects) end)
+    Wait.condition(function() button_func(false) end, function() return isDone(proxy_objects) end)
+    Wait.condition(function() obj.setVar("befAft", "_A") end, function() return isDone(proxy_objects) end)
 end
 
 return P

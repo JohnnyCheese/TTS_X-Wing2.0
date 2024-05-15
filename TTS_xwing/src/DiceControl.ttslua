@@ -7,23 +7,25 @@
 -- Prevents dice tampering, and presents dice results.
 -- Stores and presents dice statistics
 -- ~~~~~~
+local EventSub = require("TTS_Lib.EventSub.EventSub")
 
-DiceControlModule = {}
-DiceControlModule.dice_statistics = {}
-DiceControlModule.rolled_dice = {}
-DiceControlModule.dice_roller_state = {}
-DiceControlModule.player_colors = {}
-
-DiceControlModule.enabled = true
-
-DiceControlModule.error_color = color(1.0,0.2,0.1)
-DiceControlModule.info_color = color(0.7,0.7,0.4)
-DiceControlModule.highlight_color = "[FFFF55]"
-
-DiceControlModule.test_mode = false
-
-DiceControlModule.first_player_scores = {Crit = 100, Eye = 10, Hit = 1, Blank = 0}
-
+local DiceControlModule = {
+    dice_statistics = {},
+    rolled_dice = {},
+    dice_roller_state = {},
+    player_colors = {},
+    enabled = true,
+    error_color = color(1.0, 0.2, 0.1),
+    info_color = color(0.7, 0.7, 0.4),
+    highlight_color = "[FFFF55]",
+    test_mode = false,
+    first_player_scores = {
+        Crit = 100,
+        Eye = 10,
+        Hit = 1,
+        Blank = 0
+    }
+}
 
 
 DiceControlModule.dice_types = {
@@ -418,3 +420,5 @@ DiceControlModule.onObjectStateChange = function(object, old_guid) -- object is 
 end
 
 EventSub.Register('onObjectStateChange', DiceControlModule.onObjectStateChange)
+
+return DiceControlModule

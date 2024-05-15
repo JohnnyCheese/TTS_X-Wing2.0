@@ -4,7 +4,7 @@
 --
 -- All cross-script-callable functions
 -- ~~~~~~
-
+local API = {}
 
 -- "API" functions, to be working in TTS:
 -- Must take one and only one argument, of table type
@@ -17,7 +17,7 @@
 -- Argument: { code = moveCode, ship = shipReference, ignoreCollisions = [true/false] }
 -- Return: TRUE if move completed, FALSE if overlap prevented ship from moving
 -- Return:                         FALSE if invalid (non-move) command or ship not ready
-function API_PerformMove(argTable)
+function API.API_PerformMove(argTable)
     local type = XW_cmd.CheckCommand(argTable.code)
     if (type ~= 'move' and type ~= 'actionMove') or not XW_cmd.isReady(argTable.ship) then
         return false
@@ -29,7 +29,7 @@ end
 -- To be called immediately before changing position of a ship
 -- Argument: { ship = shipRef, finPos = { pos = finalPosition, rot = finalRotation} }
 -- finPos field may be nil (no position set after wait then)
-function API_QueueShipTokensMove(argTable)
+function API.API_QueueShipTokensMove(argTable)
     -- Set the ship busy if it's not to try prevent double ready later
     if XW_cmd.isReady(argTable.ship) then
         XW_cmd.SetBusy(argTable.ship)
@@ -47,36 +47,36 @@ end
 -- Indicate dropping of a bomb token from outside Global
 -- Argument: { token = droppedTokenRef }
 -- Return: true if token snapped, false otherwise
-function API_BombTokenDrop(argTable)
+function API.API_BombTokenDrop(argTable)
     return BombModule.OnTokenDrop(argTable.token)
 end
 
-function API_MineDrop(argTable)
+function API.API_MineDrop(argTable)
   BombModule.CheckMineDroppedOverlapping(argTable.mine, argTable.ship)
 end
 
 
-function API_AssignToken(argTable)
+function API.API_AssignToken(argTable)
     TokenModule.AssignToken(argTable.token, argTable.ship)
 end
 
-function API_GetPlayerConfig(argTable)
+function API.API_GetPlayerConfig(argTable)
     return ConfigManager.GetConfig(argTable.player_color, argTable.param_name)
 end
 
-function API_GetGlobalConfig(argTable)
+function API.API_GetGlobalConfig(argTable)
     return ConfigManager.GetConfig("global", argTable.param_name)
 end
 
-function API_SetPlayerConfig(argTable)
+function API.API_SetPlayerConfig(argTable)
     return ConfigManager.SetConfig(argTable.player_color, argTable.param_name, argTable.value)
 end
 
-function API_SetGlobalConfig(argTable)
+function API.API_SetGlobalConfig(argTable)
     return ConfigManager.SetConfig("global",argTable.param_name, argTable.value)
 end
 
-function API_GetClosestPointToShip(argTable)
+function API.API_GetClosestPointToShip(argTable)
     local size = argTable.ship.getTable('Data').Size or "small"
     local segments = ArcCheck.GetOwnArcLineSegments(argTable.ship, ArcCheck.arc_line_segments[size].full.segments)
 
@@ -93,11 +93,11 @@ function API_GetClosestPointToShip(argTable)
     return closestDistance
 end
 
-function API_AssignDial(argTable)
+function API.API_AssignDial(argTable)
     DialManagerModule.assignDial(argTable.dial, argTable.ship, argTable.player)
 end
 
-function API_SetDial(argTable)
+function API.API_SetDial(argTable)
   if argTable.set then
     DialManagerModule.setDial(argTable.dial)
   else
@@ -105,24 +105,24 @@ function API_SetDial(argTable)
   end
 end
 
-function API_IsAllDialsSet(argTable)
+function API.API_IsAllDialsSet(argTable)
   return DialManagerModule.isAllDialsSet(argTable.player)
 end
 
 
-function API_ClearPosition(argTable)
+function API.API_ClearPosition(argTable)
   TokenModule.ClearPosition(argTable.pos, argTable.reach, argTable.ship)
 end
 
-function API_SetTokenSize(argTable)
+function API.API_SetTokenSize(argTable)
   TokenModule.token_scale = argTable.size
 end
 
-function API_StreamAnnounce(argTable)
+function API.API_StreamAnnounce(argTable)
   StreamManagerModule.Announce(argTable.text, argTable.player)
 end
 
-function API_ToggleAnnouncement(argTable)
+function API.API_ToggleAnnouncement(argTable)
   StreamManagerModule.Announce(argTable.text, argTable.player)
 end
 
@@ -141,3 +141,5 @@ end
 -- token : 'idle'               - false / (true/nil)        <- This token should be ignored when moving tokens / Not
 
 --------
+
+return API

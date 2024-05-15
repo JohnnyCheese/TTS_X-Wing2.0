@@ -11,8 +11,9 @@
 -- The inquire happens in cases of pilots on the same faction using different ships (Sabine, Ezra, "Zeb") and in cases of upgrades with the same name (R2-D2 crew and astromech)
 -- ~~~~~~
 
-
-#include !/TTS_lib/Util/Util
+require("TTS_Lib.Util.Math")
+require("TTS_Lib.Util.Table")
+require("TTS_Lib.Util.String")
 
 self.interactable = false
 
