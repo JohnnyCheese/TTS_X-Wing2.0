@@ -252,8 +252,8 @@ function SpawnProxyOptions(args)
         return nil, false
     end
 
-    Wait.condition(|| ship_proxies:setActive(), || ship_proxies:ready())
-
+    Wait.condition(function() ship_proxies:setActive() end, function() return ship_proxies:ready() end)
+    
     ShipProxyModule.proxyTable[ship.getGUID()] = ShipProxyModule.proxyTable[ship.getGUID()] or {}
     table.insert(ShipProxyModule.proxyTable[ship.getGUID()], ship_proxies)
     return ship_proxies, true

@@ -70,7 +70,7 @@ ChatCmd.AddCommand = function(info)
     assert(type(info.fcn) == 'function', 'ChatCmd.AddCommand: no function specified')
     ChatCmd.commands[info.name] = {
         usage = (info.usage and info.usage:gsub('<p>', ChatCmd.prefix)) or (ChatCmd.prefix .. info.name),
-        examples = info.examples or {}
+        examples = info.examples or {},
         desc = info.desc or '(no description)',
         fcn = info.fcn,
         permissions = info.perm or 'everyone'
