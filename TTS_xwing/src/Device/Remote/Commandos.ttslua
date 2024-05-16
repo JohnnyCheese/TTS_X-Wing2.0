@@ -27,14 +27,14 @@ ship_drop_positions =
 
 
 backwards = false
-droporigin = nil
+dropOrigin = nil
 dropped = false
 stat = false
-arcsopen = false
+arcsOpen = false
 side = "(A)"
 
 rulers = {}
-rulerstype = nil
+rulersType = nil
 
 Data = { Size = "objective" }
 
@@ -78,7 +78,7 @@ function onDropped(playerColor)
     local nearest_loc
     local nearest_pos
     local minDist = Dim.Convert_mm_igu(80)
-    droporigin = self.getPosition()
+    dropOrigin = self.getPosition()
     for _, ship in pairs(getObjectsWithTag('Ship')) do
         local pos = ship.getPosition()
         for loc, pos_rot in pairs(ship_drop_positions[ship.getTable('Data').Size or "small"]) do
@@ -130,7 +130,7 @@ function onContextOpen(player_color)
 end
 
 function showBtn()
-    if stat == false and dropped and not arcsopen then
+    if stat == false and dropped and not arcsOpen then
         if self.is_face_down then
             --self.UI.setAttribute("btnPanel", "rotation", "180 0 180")
             self.UI.setAttribute("btnPanel", "rotation", "180 0 0")
@@ -169,8 +169,8 @@ function checkArc(type, range, friendly)
         destroyObject(ruler)
     end
     rulers = {}
-    if rulerstype == type .. range then
-        rulerstype = nil
+    if rulersType == type .. range then
+        rulersType = nil
     else
         if type == "full" then
             printToAll("Checking for ships at range " .. tostring(range) .. " from " .. self.getName(), color(1.0, 1.0, 0.2, 0.9))
@@ -178,8 +178,8 @@ function checkArc(type, range, friendly)
         rulers = Global.call("CheckArc", { ship = self, arctype = type, range = range, include_friendly_ships = friendly })
     end
     if rulers and #rulers > 0 then
-        rulerstype = type .. range
-        arcsopen = true
+        rulersType = type .. range
+        arcsOpen = true
         hideBtn()
         local rotation = vector(0, -90, 0)
         local up = vector(0, 1, 0)
@@ -199,8 +199,8 @@ function checkArc(type, range, friendly)
             font_size      = 40
         })
     else
-        rulerstype = nil
-        arcsopen = false
+        rulersType = nil
+        arcsOpen = false
     end
 end
 
@@ -210,8 +210,8 @@ function removeArcs()
         destroyObject(ruler)
         rulers = {}
     end
-    rulerstype = nil
-    arcsopen = false
+    rulersType = nil
+    arcsOpen = false
 end
 
 moves = {
@@ -313,7 +313,7 @@ function showDropButtons()
 end
 
 function cancelDrop()
-    self.setPositionSmooth(droporigin, false, false)
+    self.setPositionSmooth(dropOrigin, false, false)
     self.setLock(false)
     self.clearButtons()
 end

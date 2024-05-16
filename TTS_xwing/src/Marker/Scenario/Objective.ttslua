@@ -2,12 +2,12 @@ local Dim = require("TTS_xwing.src.Dim")
 
 held = false
 waiting = false
-linedrawing = true
-waitduration = 0.1
+lineDrawing = true
+waitDuration = 0.1
 scale = 0.2
 
 rulers = {}
-rulerstype = nil
+rulersType = nil
 
 boardLength = nil
 
@@ -27,13 +27,13 @@ end
 function onLoad(save_state)
     local state = JSON.decode(save_state)
     if state then
-        linedrawing = state.linedrawing or true
+        lineDrawing = state.linedrawing or true
     end
     SetupContextMenu()
 end
 
 function onSave()
-    return JSON.encode({ linedrawing = linedrawing })
+    return JSON.encode({ linedrawing = lineDrawing })
 end
 
 function SetupContextMenu()
@@ -42,16 +42,16 @@ function SetupContextMenu()
     self.addContextMenuItem("Check Range 2", checkRange2, false)
     self.addContextMenuItem("Claim", claim, false)
     self.addContextMenuItem("Remove Claim", unclaim, false)
-    if linedrawing then
+    if lineDrawing then
         self.addContextMenuItem("Disable lines",
             function()
-                linedrawing = false
+                lineDrawing = false
                 self.setVectorLines({})
                 SetupContextMenu()
             end, false)
     else
         self.addContextMenuItem("Enable lines", function()
-            linedrawing = true
+            lineDrawing = true
             SetupContextMenu()
         end, false)
     end
@@ -71,8 +71,8 @@ function checkArc(type, range, friendly)
         destroyObject(ruler)
     end
     rulers = {}
-    if rulerstype == type .. range then
-        rulerstype = nil
+    if rulersType == type .. range then
+        rulersType = nil
     else
         if type == "full" then
             printToAll("Checking for ships at range " .. tostring(range) .. " from " .. self.getName(),
@@ -82,8 +82,8 @@ function checkArc(type, range, friendly)
             { ship = self, arctype = type, range = range, include_friendly_ships = friendly })
     end
     if rulers and #rulers > 0 then
-        rulerstype = type .. range
-        arcsopen = true
+        rulersType = type .. range
+        arcsOpen = true
         local rotation = vector(0, -90, 0)
         local up = vector(0, 1, 0)
         if self.is_face_down then
@@ -102,8 +102,8 @@ function checkArc(type, range, friendly)
             font_size      = 40
         })
     else
-        rulerstype = nil
-        arcsopen = false
+        rulersType = nil
+        arcsOpen = false
     end
 end
 
@@ -113,8 +113,8 @@ function removeArcs()
         destroyObject(ruler)
         rulers = {}
     end
-    rulerstype = nil
-    arcsopen = false
+    rulersType = nil
+    arcsOpen = false
 end
 
 function onUpdate()
@@ -132,13 +132,13 @@ function onUpdate()
             end
         end
     end
-    if linedrawing and not waiting and held then
+    if lineDrawing and not waiting and held then
         vector_lines = {}
         local side_offset = vector(0, 0.01, 0)
         if self.is_face_down then
             side_offset = side_offset * -1
         end
-        for k, obj in pairs(getObjectsWithTag("Objective")) do
+        for _, obj in pairs(getObjectsWithTag("Objective")) do
             if obj ~= self then
                 local my_pos = self.getNearestPointFromObject(obj)
                 local other_pos = obj.getNearestPointFromObject(self)
@@ -157,7 +157,7 @@ function onUpdate()
             end
         end
 
-        for k, obj in pairs(getObjectsWithTag("PlayerBoardEdge")) do
+        for _, obj in pairs(getObjectsWithTag("PlayerBoardEdge")) do
             if obj ~= self then
                 my_pos = self.getNearestPointFromObject(obj)
                 other_pos = obj.getNearestPointFromObject(self)
@@ -178,7 +178,7 @@ function onUpdate()
 
         self.setVectorLines(vector_lines)
         waiting = true
-        Wait.time(function() waiting = false end, waitduration)
+        Wait.time(function() waiting = false end, waitDuration)
     end
 end
 
