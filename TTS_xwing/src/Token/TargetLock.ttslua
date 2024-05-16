@@ -51,14 +51,9 @@ function onFlip(args)
         player = args.player
         local target = Global.call("getShipTokenIsAssignedTo", { token = self })
         if target then
-            printToAll("[" ..
-                Color.fromString(player.color):toHex() ..
-                "]" ..
-                player.steam_name .. " spent " .. self.getName() .. "s target lock on " .. target.getName() .. "[-]")
+            printToAll("[" .. Color.fromString(player.color):toHex() .. "]" .. player.steam_name .. " spent " .. self.getName() .. "s target lock on " .. target.getName() .. "[-]")
         else
-            printToAll("[" ..
-                Color.fromString(player.color):toHex() ..
-                "]" .. player.steam_name .. " spent " .. self.getName() .. "s target lock[-]")
+            printToAll("[" .. Color.fromString(player.color):toHex() .. "]" .. player.steam_name .. " spent " .. self.getName() .. "s target lock[-]")
         end
 
         self.destruct()
@@ -83,11 +78,9 @@ end
 -- Set name on drop near a ship or obstacle
 function onDropped(player_color)
     local spos = self.getPosition()
-    local spos = self.getPosition()
-    local nearest = nil
+    local nearest
     local minDist = 3.6125 -- 100 mm
     for _, object in pairs(getObjectsWithAnyTags({ 'Ship', 'Obstacle' })) do
-        local name = object.getName()
         local pos = object.getPosition()
         local dist = math.sqrt(math.pow((spos[1] - pos[1]), 2) + math.pow((spos[3] - pos[3]), 2))
         if dist < minDist then

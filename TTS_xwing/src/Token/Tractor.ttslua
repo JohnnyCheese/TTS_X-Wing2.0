@@ -51,10 +51,9 @@ end
 -- Set name on drop near a ship
 function onDropped()
     local spos = self.getPosition()
-    local spos = self.getPosition()
-    local nearest = nil
+    local nearest
     local minDist = 3.6125 -- 100 mm
-    for k, ship in pairs(getAllObjects()) do
+    for _, ship in pairs(getAllObjects()) do
         if ship.type == 'Figurine' and ship.getName() ~= '' then
             local pos = ship.getPosition()
             local dist = math.sqrt(math.pow((spos[1] - pos[1]), 2) + math.pow((spos[3] - pos[3]), 2))
