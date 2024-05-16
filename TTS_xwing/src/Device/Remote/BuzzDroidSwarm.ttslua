@@ -79,6 +79,8 @@ function checkRange(range)
             mainSet()
             self.setVectorLines({})
         end
+    else 
+        printToAll("No ship assigned to " .. self.getName(), color(1.0, 1.0, 0))
     end
 end
 

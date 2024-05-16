@@ -81,7 +81,7 @@ function onDropped(playerColor)
     dropOrigin = self.getPosition()
     for _, ship in pairs(getObjectsWithTag('Ship')) do
         local pos = ship.getPosition()
-        for loc, pos_rot in pairs(ship_drop_positions[ship.getTable('Data').Size or "small"]) do
+        for _, pos_rot in pairs(ship_drop_positions[ship.getTable('Data').Size or "small"]) do
             local drop_pos = pos + Dim.Convert_mm_igu(ship.getTransformRight() * pos_rot.pos.x) +
                 Dim.Convert_mm_igu(ship.getTransformForward() * pos_rot.pos.y)
             local dist = math.sqrt(math.pow((spos[1] - drop_pos[1]), 2) + math.pow((spos[3] - drop_pos[3]), 2))
