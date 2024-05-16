@@ -6,17 +6,16 @@ local Dim = require("TTS_xwing.src.Dim")
 
 function onDropped()
     local spos = self.getPosition()
-    local nearest = nil
-    local nearest_mount = nil
-    local nearest_mount_position = nil
-    local minDist = 3.6125 -- 100 mm
-    --local minDist = Dim.Convert_mm_igu(100)
+    local nearest
+    local nearest_mount
+    local nearest_mount_position
+    local minDist = Dim.Convert_mm_igu(100)
 
-    local turretname = "singleturret"
+    local turretName = "singleturret"
     if double_arc then
-        turretname = "doubleturret"
+        turretName = "double turret"
     end
-    for k, ship in pairs(getAllObjects()) do
+    for _, ship in pairs(getAllObjects()) do
         if ((ship.type == 'Figurine') and (ship.getVar('__XW_Ship') == true)) then
             local turret = ship.getTable('Data').arcs.turret or {}
             for mount, turret in pairs(turret) do
