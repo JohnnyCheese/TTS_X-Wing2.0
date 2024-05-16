@@ -22,10 +22,10 @@ assignedShip = nil
 playerColor = nil
 playerTeam = nil
 teamVisibility = ""
-openpanel = nil
-openbutton = nil
-opencolor = "#555555"
-closedcolor = "#222222"
+openPanel = nil
+openButton = nil
+openColor = "#555555"
+closedColor = "#222222"
 setMan = nil
 prevMan = nil
 manButtonId = nil
@@ -36,7 +36,7 @@ finished_setup = true
 
 timeoutDuration = 5
 
-clicktimer = nil
+clickTimer = nil
 
 arcCommands = {
     Range1 = "r1",
@@ -129,13 +129,13 @@ function onLoad(savedData)
 end
 
 function clearOpenPanel()
-    if openpanel ~= nil then
-        self.UI.hide(openpanel)
-        self.UI.setAttribute(openbutton, "color", closedcolor)
-        self.UI.setAttribute(openbutton, "textColor", "#FFFFFF")
+    if openPanel ~= nil then
+        self.UI.hide(openPanel)
+        self.UI.setAttribute(openButton, "color", closedColor)
+        self.UI.setAttribute(openButton, "textColor", "#FFFFFF")
     end
-    openpanel = nil
-    openbutton = nil
+    openPanel = nil
+    openButton = nil
 end
 
 function clearDial()
@@ -184,53 +184,53 @@ function redraw(face_down)
     end
 end
 
-function getManouverIcons(manouver)
-    if manouver:sub(1, 1) == 'w' then
+function getManeuverIcons(maneuver)
+    if maneuver:sub(1, 1) == 'w' then
         manColor = "White"
-    elseif manouver:sub(1, 1) == 'b' then
+    elseif maneuver:sub(1, 1) == 'b' then
         manColor = "Blue"
-    elseif manouver:sub(1, 1) == 'r' then
+    elseif maneuver:sub(1, 1) == 'r' then
         manColor = "Red"
-    elseif manouver:sub(1, 1) == 'p' then
+    elseif maneuver:sub(1, 1) == 'p' then
         manColor = "Purple"
     end
 
-    if manouver:sub(-1, -1) == 't' then
+    if maneuver:sub(-1, -1) == 't' then
         manType = "Talon"
-    elseif manouver:sub(-1, -1) == 's' then
-        if manouver:sub(2, 2) == 't' then
+    elseif maneuver:sub(-1, -1) == 's' then
+        if maneuver:sub(2, 2) == 't' then
             manType = "TurnSloop"
         else
             manType = "Sloop"
         end
-    elseif manouver:sub(-1, -1) == 'z' then
-        if manouver:sub(2, 2) == 't' then
+    elseif maneuver:sub(-1, -1) == 'z' then
+        if maneuver:sub(2, 2) == 't' then
             manType = "TurnSlip"
         else
             manType = "BankSlip"
         end
-    elseif manouver:sub(-1, -1) == 'r' then
-        if manouver:sub(2, 2) == 'b' then
+    elseif maneuver:sub(-1, -1) == 'r' then
+        if maneuver:sub(2, 2) == 'b' then
             manType = "ReverseBank"
         else
             manType = "ReverseStraight"
         end
-    elseif manouver:sub(2, 2) == 't' then
+    elseif maneuver:sub(2, 2) == 't' then
         manType = "Turn"
-    elseif manouver:sub(2, 2) == 'b' then
+    elseif maneuver:sub(2, 2) == 'b' then
         manType = "Bank"
-    elseif manouver:sub(2, 2) == 's' then
+    elseif maneuver:sub(2, 2) == 's' then
         manType = "Straight"
-    elseif manouver:sub(2, 2) == 'k' then
+    elseif maneuver:sub(2, 2) == 'k' then
         manType = 'K'
     end
 
-    local Char = manouver:find("%d")
-    manSpeed = manouver:sub(Char, Char)
+    local Char = maneuver:find("%d")
+    manSpeed = maneuver:sub(Char, Char)
 
-    if manouver:sub(3, 3) == 'l' then
+    if maneuver:sub(3, 3) == 'l' then
         manBear = "L"
-    elseif manouver:sub(3, 3) == 'r' then
+    elseif maneuver:sub(3, 3) == 'r' then
         manBear = "R"
     else
         manBear = ""
@@ -250,7 +250,7 @@ function manSelect(p, option, id)
     self.UI.setAttribute("ManBtnGroup", "allowSwitchOff", "false")
     manButtonId = id
     curMan = string.lower(id)
-    icons = getManouverIcons(curMan)
+    icons = getManeuverIcons(curMan)
     speedIcon = icons.speed
     typeIcon = icons.type
     setMan = curMan:sub(2)
@@ -275,7 +275,7 @@ function manSetting()
         self.UI.setAttribute("UndoBtn", "active", "false")
         self.UI.setAttribute("Templ", "textColor", "#FFFFFF")
 
-        -- Hide the template button when there isn't a manuver set, since it's confusing and undefined in some cases what template should be shown then
+        -- Hide the template button when there isn't a maneuver set, since it's confusing and undefined in some cases what template should be shown then
         if not templatePlaced then
             self.UI.setAttribute("Templ", "active", "false")
         end
@@ -287,13 +287,13 @@ function manSetting()
         self.UI.setAttribute("UndoBtn", "active", "false")
         self.UI.setAttribute("Templ", "textColor", "#FFFFFF")
 
-        -- Hide the template button when there isn't a manuver set, since it's confusing and undefined in some cases what template should be shown then
+        -- Hide the template button when there isn't a maneuver set, since it's confusing and undefined in some cases what template should be shown then
         if not templatePlaced then
             self.UI.setAttribute("Templ", "active", "false")
         end
     end
 
-    -- Remove template if a new manuver has been set since it was shown, since it could be confusing to still show the old template (and to show the new one you would have to click the button twice, which would be confusing)
+    -- Remove template if a new maneuver has been set since it was shown, since it could be confusing to still show the old template (and to show the new one you would have to click the button twice, which would be confusing)
     if setSinceTemplatePlaced and templatePlaced then
         deleteTemplate()
     end
@@ -432,13 +432,13 @@ function setupAlternateExecutionPanel(P, executionOptions)
     self.UI.setAttribute("Templ", "active", "false")
     self.UI.setAttribute("undoFU", "active", "false")
     self.UI.show("ExecutionOptionsPanel")
-    for i, button in pairs(exOptButtons) do
+    for _, button in pairs(exOptButtons) do
         self.UI.setAttribute(button .. 'But', "active", "false")
     end
     for i, option in pairs(executionOptions) do
         self.UI.setAttribute(exOptButtons[i] .. "But", "active", "true")
         exOptValue[exOptButtons[i] .. 'But'] = option
-        local icons = getManouverIcons(option)
+        local icons = getManeuverIcons(option)
         self.UI.setAttribute(exOptButtons[i] .. "TypeIcon", "image", icons.type)
         self.UI.setAttribute(exOptButtons[i] .. "SpeedIcon", "image", icons.speed)
     end
@@ -451,7 +451,7 @@ function selectExecuteOption(P, option, id)
     self.UI.hide("ExecutionOptionsPanel")
     exOptSelected = true
     setMan = exOptValue[id]:sub(2)
-    local icons = getManouverIcons(exOptValue[id])
+    local icons = getManeuverIcons(exOptValue[id])
     self.UI.setAttribute("TypeIcon", "active", "true")
     self.UI.setAttribute("SpeedIcon", "active", "true")
     self.UI.setAttribute("Templ", "active", "true")
@@ -545,13 +545,13 @@ function assignShip(args)
 
     exOptions = shipData.executeOptions or {}
     self.UI.setAttribute("BackGround", "image", tostring(shipData['Faction']) .. "BG")
-    for k, v in pairs(shipData['moveSet']) do
+    for _, v in pairs(shipData['moveSet']) do
         self.UI.setAttribute(string.upper(v), "active", "true")
     end
     setMan = ""
     prevMan = ""
     local repos = false
-    for k, v in pairs(shipData['actSet']) do
+    for _, v in pairs(shipData['actSet']) do
         if v == 'F' then
             self.UI.setAttribute('FocusBtn', 'active', 'true')
         elseif v == 'TL' then
@@ -632,7 +632,7 @@ function onDropped()
         local spos = self.getPosition()
         local nearest = nil
         local minDist = 2.89 -- 80mm
-        for k, ship in pairs(getAllObjects()) do
+        for _, ship in pairs(getAllObjects()) do
             if ship.tag == 'Figurine' and ship.name ~= '' then
                 local pos = ship.getPosition()
                 local dist = math.sqrt(math.pow((spos[1] - pos[1]), 2) + math.pow((spos[3] - pos[3]), 2))
@@ -651,7 +651,7 @@ function onDropped()
 
                 playerTeam = nil
                 teamVisibility = ""
-                for k, player in pairs(Player.getPlayers()) do
+                for _, player in pairs(Player.getPlayers()) do
                     if player.color == playerColor then
                         if player.team ~= "None" then
                             playerTeam = player.team
@@ -954,37 +954,37 @@ click_functions = {
 
 hover_functions = {
     ArcMenu = function()
-        stopClicktimer()
+        stopClickTimer()
         showArcMFD()
     end,
     ArcMenuFU = function()
         showArcMFU()
-        stopClicktimer()
+        stopClickTimer()
     end,
     arcPanel = function()
-        restartClicktimer()
+        restartClickTimer()
     end,
     RelocMenu = function()
         showRelocMFD()
-        stopClicktimer()
+        stopClickTimer()
     end,
     RelocMenuFU = function()
         showRelocMFU()
-        stopClicktimer()
+        stopClickTimer()
     end,
     relocPanel = function()
-        restartClicktimer()
+        restartClickTimer()
     end,
     TokenMenu = function()
         showTokMFD()
-        stopClicktimer()
+        stopClickTimer()
     end,
     TokenMenuFU = function()
         showTokMFU()
-        stopClicktimer()
+        stopClickTimer()
     end,
     tokenPanel = function()
-        restartClicktimer()
+        restartClickTimer()
     end,
 }
 
@@ -1036,34 +1036,34 @@ function resetDial(enable)
     self.script_state = nil
 end
 
-function stopClicktimer()
-    if clicktimer then
-        Wait.stop(clicktimer)
+function stopClickTimer()
+    if clickTimer then
+        Wait.stop(clickTimer)
     end
 end
 
-function restartClicktimer()
-    stopClicktimer()
-    clicktimer = Wait.time(clickTimeout, timeoutDuration)
+function restartClickTimer()
+    stopClickTimer()
+    clickTimer = Wait.time(clickTimeout, timeoutDuration)
 end
 
 function clickTimeout()
-    if openbutton then
-        click_functions[openbutton].hide()
+    if openButton then
+        click_functions[openButton].hide()
     end
-    clicktimer = nil
+    clickTimer = nil
 end
 
 function menuClick(p, option, id)
     if winStat or (not clickMode) or proxy.isActive() or spectReturn(p) == true then
         return
     end
-    if openbutton == id then
+    if openButton == id then
         click_functions[id].hide(p)
-        stopClicktimer()
+        stopClickTimer()
     else
         click_functions[id].show(p)
-        restartClicktimer()
+        restartClickTimer()
     end
 end
 
@@ -1076,40 +1076,40 @@ end
 
 function showTokMFD()
     self.UI.show("tokenPanel")
-    self.UI.setAttribute("TokenMenu", "color", opencolor)
+    self.UI.setAttribute("TokenMenu", "color", openColor)
     clearOpenPanel()
-    openpanel = "tokenPanel"
-    openbutton = "TokenMenu"
+    openPanel = "tokenPanel"
+    openButton = "TokenMenu"
     self.UI.setAttribute("tokenPanel", "position", "-360 -165 -25")
     self.UI.setAttribute("tokenPanel", "rotation", "180 180 0")
 end
 
 function showTokMFU()
     self.UI.show("tokenPanel")
-    self.UI.setAttribute("TokenMenuFU", "color", opencolor)
+    self.UI.setAttribute("TokenMenuFU", "color", openColor)
     clearOpenPanel()
-    openpanel = "tokenPanel"
-    openbutton = "TokenMenuFU"
+    openPanel = "tokenPanel"
+    openButton = "TokenMenuFU"
     self.UI.setAttribute("tokenPanel", "position", "360 -165 1")
     self.UI.setAttribute("tokenPanel", "rotation", "180 0 0")
 end
 
 function hideTokM()
-    if openpanel == "tokenPanel" then
-        self.UI.hide(openpanel)
-        self.UI.setAttribute(openbutton, "color", closedcolor)
-        self.UI.setAttribute(openbutton, "textColor", "#FFFFFF")
-        openpanel = nil
-        openbutton = nil
+    if openPanel == "tokenPanel" then
+        self.UI.hide(openPanel)
+        self.UI.setAttribute(openButton, "color", closedColor)
+        self.UI.setAttribute(openButton, "textColor", "#FFFFFF")
+        openPanel = nil
+        openButton = nil
     end
 end
 
 function showArcMFD()
     self.UI.show("arcPanel")
-    self.UI.setAttribute("ArcMenu", "color", opencolor)
+    self.UI.setAttribute("ArcMenu", "color", openColor)
     clearOpenPanel()
-    openpanel = "arcPanel"
-    openbutton = "ArcMenu"
+    openPanel = "arcPanel"
+    openButton = "ArcMenu"
 
     self.UI.setAttribute("arcPanel", "position", "340 -150 -25")
     self.UI.setAttribute("arcPanel", "rotation", "180 180 0")
@@ -1117,31 +1117,31 @@ end
 
 function showArcMFU()
     self.UI.show("arcPanel")
-    self.UI.setAttribute("ArcMenuFu", "color", opencolor)
+    self.UI.setAttribute("ArcMenuFu", "color", openColor)
     clearOpenPanel()
-    openpanel = "arcPanel"
-    openbutton = "ArcMenuFU"
+    openPanel = "arcPanel"
+    openButton = "ArcMenuFU"
 
     self.UI.setAttribute("arcPanel", "position", "-340 -150 1")
     self.UI.setAttribute("arcPanel", "rotation", "180 0 0")
 end
 
 function hideArcM()
-    if openpanel == "arcPanel" then
-        self.UI.hide(openpanel)
-        self.UI.setAttribute(openbutton, "color", closedcolor)
-        self.UI.setAttribute(openbutton, "textColor", "#FFFFFF")
-        openpanel = nil
-        openbutton = nil
+    if openPanel == "arcPanel" then
+        self.UI.hide(openPanel)
+        self.UI.setAttribute(openButton, "color", closedColor)
+        self.UI.setAttribute(openButton, "textColor", "#FFFFFF")
+        openPanel = nil
+        openButton = nil
     end
 end
 
 function showRelocMFD()
     self.UI.show("relocPanel")
-    self.UI.setAttribute("RelocMenu", "color", opencolor)
+    self.UI.setAttribute("RelocMenu", "color", openColor)
     clearOpenPanel()
-    openpanel = "relocPanel"
-    openbutton = "RelocMenu"
+    openPanel = "relocPanel"
+    openButton = "RelocMenu"
 
     self.UI.setAttribute("relocPanel", "position", "0 -215 -25")
     self.UI.setAttribute("relocPanel", "rotation", "180 180 0")
@@ -1149,22 +1149,22 @@ end
 
 function showRelocMFU()
     self.UI.show("relocPanel")
-    self.UI.setAttribute("RelocMenuFu", "color", opencolor)
+    self.UI.setAttribute("RelocMenuFu", "color", openColor)
     clearOpenPanel()
-    openpanel = "relocPanel"
-    openbutton = "RelocMenuFU"
+    openPanel = "relocPanel"
+    openButton = "RelocMenuFU"
 
     self.UI.setAttribute("relocPanel", "position", "0 -215 1")
     self.UI.setAttribute("relocPanel", "rotation", "180 0 0")
 end
 
 function hideRelocM()
-    if openpanel == "relocPanel" then
-        self.UI.hide(openpanel)
-        self.UI.setAttribute(openbutton, "color", closedcolor)
-        self.UI.setAttribute(openbutton, "textColor", "#FFFFFF")
-        openpanel = nil
-        openbutton = nil
+    if openPanel == "relocPanel" then
+        self.UI.hide(openPanel)
+        self.UI.setAttribute(openButton, "color", closedColor)
+        self.UI.setAttribute(openButton, "textColor", "#FFFFFF")
+        openPanel = nil
+        openButton = nil
     end
 end
 
@@ -1240,7 +1240,7 @@ function spawnTemplate(p)
         setSinceTemplatePlaced = false
         templatePlaced = not templatePlaced
 
-        -- if a manuver is not visible on dial, template button is only here to allow removal, and after that it can be hidden again
+        -- if a maneuver is not visible on dial, template button is only here to allow removal, and after that it can be hidden again
         if self.UI.getAttribute("SpeedIcon", "active") == "false" then
             self.UI.setAttribute("Templ", "active", "false")
         end
