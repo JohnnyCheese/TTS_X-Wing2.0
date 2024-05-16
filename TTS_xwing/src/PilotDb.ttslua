@@ -1,6 +1,17 @@
 masterPilotDB = {}
-masterPilotDB[0] = { ['name'] = '', ['XWS'] = '', ['Faction'] = 0, ['ship_type'] = 0, ['cost'] = 0, ['slot'] = {},
-    ['Shield'] = 0, ['card'] = '', ['cardB'] = '', ['init'] = 0, ['actSet'] = {} }
+masterPilotDB[0] = {
+    ['name'] = '',
+    ['XWS'] = '',
+    ['Faction'] = 0,
+    ['ship_type'] = 0,
+    ['cost'] = 0,
+    ['slot'] = {},
+    ['Shield'] = 0,
+    ['card'] = '',
+    ['cardB'] = '',
+    ['init'] = 0,
+    ['actSet'] = {}
+}
 
 
 
@@ -7387,10 +7398,10 @@ masterPilotDB[957] = {
     keywords = { 'Light Side' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Attack Speed',    charge = 0 },
-        { name = 'Instinctive Aim', charge = 0 },
+        { name = 'Attack Speed',     charge = 0 },
+        { name = 'Instinctive Aim',  charge = 0 },
         { name = 'Proton Torpedoes', charge = 2 },
-        { name = 'R2-D2',           charge = 2 }
+        { name = 'R2-D2',            charge = 2 }
     }
 }
 
@@ -7408,10 +7419,10 @@ masterPilotDB[958] = {
 
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Attack Speed',    charge = 0 },
-        { name = 'Marksmanship',    charge = 0 },
+        { name = 'Attack Speed',     charge = 0 },
+        { name = 'Marksmanship',     charge = 0 },
         { name = 'Proton Torpedoes', charge = 2 },
-        { name = 'R2-A3',           charge = 2 }
+        { name = 'R2-A3',            charge = 2 }
     }
 }
 
@@ -7429,8 +7440,8 @@ masterPilotDB[959] = {
 
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Adv. Proton Torpedoes',    charge = 1 },
-        { name = 'Proton Torpedoes',         charge = 2 },
+        { name = 'Adv. Proton Torpedoes',     charge = 1 },
+        { name = 'Proton Torpedoes',          charge = 2 },
         { name = 'Unstable Sublight Engines', charge = 0 }
     }
 }
@@ -7450,7 +7461,7 @@ masterPilotDB[960] = {
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Adv. Proton Torpedoes', charge = 1 },
-        { name = 'R5-K6',                charge = 2 }
+        { name = 'R5-K6',                 charge = 2 }
     }
 }
 
@@ -7468,10 +7479,10 @@ masterPilotDB[961] = {
 
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Attack Speed',    charge = 0 },
-        { name = 'Selfless',        charge = 0 },
+        { name = 'Attack Speed',     charge = 0 },
+        { name = 'Selfless',         charge = 0 },
         { name = 'Proton Torpedoes', charge = 2 },
-        { name = 'R2-F2',           charge = 2 },
+        { name = 'R2-F2',            charge = 2 },
     }
 }
 
@@ -7489,9 +7500,9 @@ masterPilotDB[962] = {
     arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'ion cannon turret', range = 2, type = { 'singleturret' } } } },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Dorsal Turret',        charge = 0 },
+        { name = 'Dorsal Turret',         charge = 0 },
         { name = 'Adv. Proton Torpedoes', charge = 1 },
-        { name = 'R4 Astromech',         charge = 0 },
+        { name = 'R4 Astromech',          charge = 0 },
     }
 }
 
@@ -7509,9 +7520,9 @@ masterPilotDB[963] = {
     arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'ion cannon turret', range = 2, type = { 'singleturret' } } } },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Dorsal Turret',        charge = 0 },
+        { name = 'Dorsal Turret',         charge = 0 },
         { name = 'Adv. Proton Torpedoes', charge = 1 },
-        { name = 'Precise Astromech',    charge = 2 },
+        { name = 'Precise Astromech',     charge = 2 },
     }
 }
 
@@ -7529,9 +7540,9 @@ masterPilotDB[964] = {
     arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'ion cannon turret', range = 2, type = { 'singleturret' } } } },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Ion Cannon Turret',    charge = 0 },
+        { name = 'Ion Cannon Turret',     charge = 0 },
         { name = 'Adv. Proton Torpedoes', charge = 1 },
-        { name = 'R4 Astromech',         charge = 2 },
+        { name = 'R4 Astromech',          charge = 2 },
     }
 }
 
@@ -7549,9 +7560,9 @@ masterPilotDB[965] = {
     actSet = { 'F', 'TL', 'B', 'E' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Chewbacca',          charge = 0 },
-        { name = 'Rigged Cargo Chute', charge = 1 },
-        { name = 'Millennium Falcon',  charge = 0 },
+        { name = 'Chewbacca',           charge = 0 },
+        { name = 'Rigged Cargo Chute',  charge = 1 },
+        { name = 'Millennium Falcon',   charge = 0 },
         { name = "L3-37's Programming", charge = 0 },
     }
 }
@@ -7574,7 +7585,7 @@ masterPilotDB[966] = {
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Marksmanship', charge = 0 },
-        { name = 'Hate',        charge = 0 },
+        { name = 'Hate',         charge = 0 },
         { name = 'Afterburners', charge = 2 },
     }
 }
@@ -7592,7 +7603,7 @@ masterPilotDB[967] = {
     actSet = { 'F', 'E', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Predator',    charge = 0 },
+        { name = 'Predator',     charge = 0 },
         { name = 'Afterburners', charge = 2 },
     }
 }
@@ -7611,7 +7622,7 @@ masterPilotDB[968] = {
     actSet = { 'F', 'E', 'BR' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Elusive', charge = 1 },
+        { name = 'Elusive',  charge = 1 },
         { name = 'Vengeful', charge = 0 },
     }
 }
@@ -7632,7 +7643,7 @@ masterPilotDB[969] = {
         rk3 = { [1] = 'rk3', [2] = 'rbl3s', [3] = 'rbr3s' },
     },
     standardized_upgrades = {
-        { name = 'Ruthless',             charge = 0 },
+        { name = 'Ruthless',              charge = 0 },
         { name = 'Precision Ion Engines', charge = 2 },
     }
 }
@@ -7650,8 +7661,8 @@ masterPilotDB[970] = {
     actSet = { 'F', 'E', 'BR', 'B', 'TL' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Crackshot',   charge = 1 },
-        { name = 'Disciplined', charge = 0 },
+        { name = 'Crackshot',    charge = 1 },
+        { name = 'Disciplined',  charge = 0 },
         { name = 'Afterburners', charge = 2 },
     }
 }
@@ -7671,7 +7682,7 @@ masterPilotDB[971] = {
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Predator', charge = 0 },
-        { name = 'Fanatic', charge = 0 },
+        { name = 'Fanatic',  charge = 0 },
     }
 }
 
@@ -7689,7 +7700,7 @@ masterPilotDB[972] = {
     actSet = { 'F', 'E', 'BR', 'B', 'TL' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Disciplined',     charge = 0 },
+        { name = 'Disciplined',      charge = 0 },
         { name = 'Primed Thrusters', charge = 0 },
     }
 }
@@ -7709,7 +7720,7 @@ masterPilotDB[973] = {
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Sensor Jammer', charge = 0 },
-        { name = 'Elusive',      charge = 1 },
+        { name = 'Elusive',       charge = 1 },
     }
 }
 
@@ -7727,7 +7738,7 @@ masterPilotDB[974] = {
     actSet = { 'F', 'E', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Daredevil',   charge = 0 },
+        { name = 'Daredevil',    charge = 0 },
         { name = 'Afterburners', charge = 2 },
     }
 }
@@ -7746,7 +7757,7 @@ masterPilotDB[975] = {
     actSet = { 'F', 'E', 'BR', 'B', 'TL' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Marksmanship',       charge = 0 },
+        { name = 'Marksmanship',        charge = 0 },
         { name = 'Fire-Control System', charge = 0 },
     }
 }
@@ -7766,9 +7777,9 @@ masterPilotDB[976] = {
     arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'ion cannon turret', range = 2, type = { 'singleturret' } } } },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Ion Cannon Turret',    charge = 0 },
+        { name = 'Ion Cannon Turret',     charge = 0 },
         { name = 'Adv. Proton Torpedoes', charge = 1 },
-        { name = 'Targeting Astromech',  charge = 0 },
+        { name = 'Targeting Astromech',   charge = 0 },
     }
 }
 -- Siege of corruscant
@@ -7789,9 +7800,9 @@ masterPilotDB[977] = {
     keywords = { 'Dark Side', 'Light Side', 'Jedi' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Malice',               charge = 0 },
+        { name = 'Malice',                charge = 0 },
         { name = 'Ancillary Ion Weapons', charge = 2 },
-        { name = 'R2-D2',                charge = 2 },
+        { name = 'R2-D2',                 charge = 2 },
     }
 }
 
@@ -7811,9 +7822,9 @@ masterPilotDB[978] = {
     keywords = { 'Light Side', 'Jedi' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Patience',             charge = 0 },
+        { name = 'Patience',              charge = 0 },
         { name = 'Ancillary Ion Weapons', charge = 2 },
-        { name = 'R4-P17',               charge = 2 },
+        { name = 'R4-P17',                charge = 2 },
     }
 }
 
@@ -7833,10 +7844,10 @@ masterPilotDB[979] = {
     keywords = { 'Light Side', 'Jedi' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Marksmanship',         charge = 0 },
-        { name = 'Brilliant Evasion',    charge = 0 },
+        { name = 'Marksmanship',          charge = 0 },
+        { name = 'Brilliant Evasion',     charge = 0 },
         { name = 'Ancillary Ion Weapons', charge = 2 },
-        { name = 'R4-P Astromech',       charge = 2 },
+        { name = 'R4-P Astromech',        charge = 2 },
     }
 }
 
@@ -7856,7 +7867,7 @@ masterPilotDB[980] = {
     addSqdAction = { 'TL' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Deadeye Shot',   charge = 0 },
+        { name = 'Deadeye Shot',    charge = 0 },
         { name = 'Barrage Rockets', charge = 5 },
     }
 }
@@ -7877,7 +7888,7 @@ masterPilotDB[981] = {
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Diamond-Boron Missiles', charge = 3 },
-        { name = 'Munitions Failsafe',    charge = 0 },
+        { name = 'Munitions Failsafe',     charge = 0 },
     }
 }
 
@@ -7897,9 +7908,9 @@ masterPilotDB[982] = {
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Ion Limiter Override', charge = 0 },
-        { name = 'Precise Astromech',   charge = 2 },
-        { name = 'Ion Bombs',           charge = 2 },
-        { name = 'Alpha-3b "Besh"',     charge = 0 },
+        { name = 'Precise Astromech',    charge = 2 },
+        { name = 'Ion Bombs',            charge = 2 },
+        { name = 'Alpha-3b "Besh"',      charge = 0 },
     }
 }
 
@@ -7919,8 +7930,8 @@ masterPilotDB[983] = {
     keywords = { 'Clone' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Veteran Tail Gunner', charge = 0 },
-        { name = 'R4-P Astromech',      charge = 2 },
+        { name = 'Veteran Tail Gunner',  charge = 0 },
+        { name = 'R4-P Astromech',       charge = 2 },
         { name = 'Synchronized Console', charge = 0 },
     }
 }
@@ -7941,9 +7952,9 @@ masterPilotDB[984] = {
     keywords = { 'Clone' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Wolfpack',           charge = 0 },
+        { name = 'Wolfpack',            charge = 0 },
         { name = 'Veteran Tail Gunner', charge = 0 },
-        { name = 'Q7 Astromech',       charge = 0 },
+        { name = 'Q7 Astromech',        charge = 0 },
     }
 }
 
@@ -7964,9 +7975,9 @@ masterPilotDB[985] = {
     keywords = { 'Clone' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Selfless',           charge = 0 },
+        { name = 'Selfless',            charge = 0 },
         { name = 'Veteran Tail Gunner', charge = 0 },
-        { name = 'R4-P Astromech',     charge = 2 },
+        { name = 'R4-P Astromech',      charge = 2 },
     }
 }
 
@@ -7986,9 +7997,9 @@ masterPilotDB[986] = {
     keywords = { 'Dark Side', 'Sith' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Malice',       charge = 0 },
+        { name = 'Malice',        charge = 0 },
         { name = 'Roiling Anger', charge = 0 },
-        { name = 'Scimitar',     charge = 0 },
+        { name = 'Scimitar',      charge = 0 },
     }
 }
 
@@ -8007,9 +8018,9 @@ masterPilotDB[987] = {
     texture = 'dfs081',
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Discord Missiles',    charge = 1 },
+        { name = 'Discord Missiles',     charge = 1 },
         { name = 'Contingency Protocol', charge = 0 },
-        { name = 'Strut-Lock Override', charge = 2 },
+        { name = 'Strut-Lock Override',  charge = 2 },
     }
 }
 
@@ -8028,9 +8039,9 @@ masterPilotDB[988] = {
     texture = 'dfs311',
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Discord Missiles',    charge = 1 },
+        { name = 'Discord Missiles',     charge = 1 },
         { name = 'Contingency Protocol', charge = 0 },
-        { name = 'Strut-Lock Override', charge = 2 },
+        { name = 'Strut-Lock Override',  charge = 2 },
     }
 }
 
@@ -8048,9 +8059,9 @@ masterPilotDB[989] = {
     texture = 'proto',
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Ion Missiles',        charge = 3 },
+        { name = 'Ion Missiles',         charge = 3 },
         { name = 'Contingency Protocol', charge = 0 },
-        { name = 'Strut-Lock Override', charge = 2 },
+        { name = 'Strut-Lock Override',  charge = 2 },
     }
 }
 
@@ -8550,9 +8561,9 @@ masterPilotDB[1023] = {
     actSet = { 'C', 'E', 'TL', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Afterburners',        charge = 2 },
+        { name = 'Afterburners',         charge = 2 },
         { name = 'Contingency Protocol', charge = 0 },
-        { name = 'Evasion Sequence 7',  charge = 0 },
+        { name = 'Evasion Sequence 7',   charge = 0 },
     }
 }
 
@@ -8570,8 +8581,8 @@ masterPilotDB[1024] = {
     actSet = { 'C', 'E', 'TL', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Outmaneuver',         charge = 0 },
-        { name = 'Afterburners',        charge = 2 },
+        { name = 'Outmaneuver',          charge = 0 },
+        { name = 'Afterburners',         charge = 2 },
         { name = 'Contingency Protocol', charge = 0 },
     }
 }
@@ -8590,8 +8601,8 @@ masterPilotDB[1025] = {
     actSet = { 'C', 'E', 'TL', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Marksmanship',        charge = 0 },
-        { name = 'Afterburners',        charge = 2 },
+        { name = 'Marksmanship',         charge = 0 },
+        { name = 'Afterburners',         charge = 2 },
         { name = 'Contingency Protocol', charge = 0 },
     }
 }
@@ -8610,9 +8621,9 @@ masterPilotDB[1026] = {
     texture = 'baktoid',
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Homing Missiles',     charge = 2 },
+        { name = 'Homing Missiles',      charge = 2 },
         { name = 'Contingency Protocol', charge = 0 },
-        { name = 'Strut-Lock Override', charge = 2 },
+        { name = 'Strut-Lock Override',  charge = 2 },
     }
 }
 
@@ -8631,8 +8642,8 @@ masterPilotDB[1027] = {
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Adv. Proton Torpedoes', charge = 1 },
-        { name = 'Contingency Protocol', charge = 0 },
-        { name = 'Strut-Lock Override',  charge = 2 },
+        { name = 'Contingency Protocol',  charge = 0 },
+        { name = 'Strut-Lock Override',   charge = 2 },
     }
 }
 
@@ -8651,9 +8662,9 @@ masterPilotDB[1028] = {
     texture = 'standard',
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Plasma Torpedoes',    charge = 2 },
+        { name = 'Plasma Torpedoes',     charge = 2 },
         { name = 'Contingency Protocol', charge = 0 },
-        { name = 'Strut-Lock Override', charge = 2 },
+        { name = 'Strut-Lock Override',  charge = 2 },
     }
 }
 
@@ -8703,9 +8714,9 @@ masterPilotDB[1031] = {
         rk2 = { [1] = 'rk2', [2] = 'rbl2s', [3] = 'rbr2s' },
     },
     standardized_upgrades = {
-        { name = 'R3 Astromech',         charge = 0 },
+        { name = 'R3 Astromech',          charge = 0 },
         { name = 'Precision Ion Engines', charge = 2 },
-        { name = 'Alpha-3E "Esk"',       charge = 2 },
+        { name = 'Alpha-3E "Esk"',        charge = 2 },
     }
 }
 
@@ -8739,9 +8750,9 @@ masterPilotDB[1033] = {
     keywords = { 'Light Side' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Instinctive Aim', charge = 0 },
+        { name = 'Instinctive Aim',  charge = 0 },
         { name = 'Proton Torpedoes', charge = 2 },
-        { name = 'R2-D2',           charge = 2 }
+        { name = 'R2-D2',            charge = 2 }
     }
 }
 
@@ -8759,9 +8770,9 @@ masterPilotDB[1034] = {
 
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Predator',        charge = 0 },
+        { name = 'Predator',         charge = 0 },
         { name = 'Proton Torpedoes', charge = 2 },
-        { name = 'R5-D8',           charge = 3 }
+        { name = 'R5-D8',            charge = 3 }
     }
 }
 
@@ -8781,7 +8792,7 @@ masterPilotDB[1035] = {
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Ion Cannon Turret', charge = 0 },
-        { name = 'Proton Bombs',     charge = 2 },
+        { name = 'Proton Bombs',      charge = 2 },
     }
 }
 
@@ -8799,7 +8810,7 @@ masterPilotDB[1036] = {
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Ion Cannon Turret', charge = 0 },
-        { name = 'Proximity Mines',  charge = 2 },
+        { name = 'Proximity Mines',   charge = 2 },
     }
 }
 
@@ -8816,7 +8827,7 @@ masterPilotDB[1037] = {
     actSet = { 'F', 'TL', 'E', 'Ail', 'BR' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Predator',    charge = 0 },
+        { name = 'Predator',     charge = 0 },
         { name = 'Afterburners', charge = 2 },
     }
 }
@@ -8834,8 +8845,8 @@ masterPilotDB[1038] = {
     actSet = { 'F', 'TL', 'E', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Elusive',     charge = 1 },
-        { name = 'Outmaneuver', charge = 0 },
+        { name = 'Elusive',      charge = 1 },
+        { name = 'Outmaneuver',  charge = 0 },
         { name = 'Ion Missiles', charge = 3 },
     }
 }
@@ -8853,7 +8864,7 @@ masterPilotDB[1039] = {
     actSet = { 'F', 'TL', 'E', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Hopeful',            charge = 0 },
+        { name = 'Hopeful',             charge = 0 },
         { name = 'Concussion Missiles', charge = 3 },
     }
 }
@@ -8874,7 +8885,7 @@ masterPilotDB[1040] = {
     keywords = { 'Dark Side', 'Sith' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Hate',        charge = 0 },
+        { name = 'Hate',         charge = 0 },
         { name = 'Ion Missiles', charge = 3 },
         { name = 'Afterburners', charge = 2 },
     }
@@ -8895,8 +8906,8 @@ masterPilotDB[1041] = {
     keywords = { 'Dark Side', 'Sith' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Elusive',     charge = 1 },
-        { name = 'Outmaneuver', charge = 0 },
+        { name = 'Elusive',      charge = 1 },
+        { name = 'Outmaneuver',  charge = 0 },
         { name = 'Afterburners', charge = 2 },
     }
 }
@@ -8916,9 +8927,9 @@ masterPilotDB[1042] = {
     actSet = { 'F', 'TL', 'BR' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Feedback Ping',   charge = 0 },
+        { name = 'Feedback Ping',    charge = 0 },
         { name = 'Plasma Torpedoes', charge = 2 },
-        { name = 'Proton Bombs',    charge = 2 },
+        { name = 'Proton Bombs',     charge = 2 },
     }
 }
 
@@ -8937,7 +8948,7 @@ masterPilotDB[1043] = {
     actSet = { 'F', 'TL', 'BR' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Elusive',        charge = 1 },
+        { name = 'Elusive',         charge = 1 },
         { name = 'Barrage Rockets', charge = 5 },
         { name = 'Proximity Mines', charge = 2 },
     }
@@ -8957,7 +8968,7 @@ masterPilotDB[1044] = {
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Disciplined', charge = 0 },
-        { name = 'Predator',   charge = 0 },
+        { name = 'Predator',    charge = 0 },
     }
 }
 
@@ -8974,7 +8985,7 @@ masterPilotDB[1045] = {
     actSet = { 'F', 'E', 'BR' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Disciplined',          charge = 0 },
+        { name = 'Disciplined',           charge = 0 },
         { name = 'Precision Ion Engines', charge = 2 },
     }
 }
@@ -8995,7 +9006,7 @@ masterPilotDB[1046] = {
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Disciplined', charge = 0 },
-        { name = 'Elusive',    charge = 1 },
+        { name = 'Elusive',     charge = 1 },
     }
 }
 
@@ -9015,8 +9026,8 @@ masterPilotDB[1047] = {
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Swift Approach', charge = 0 },
-        { name = 'Conner Nets',   charge = 1 },
-        { name = 'Proton Bombs',  charge = 2 },
+        { name = 'Conner Nets',    charge = 1 },
+        { name = 'Proton Bombs',   charge = 2 },
     }
 }
 
@@ -9034,9 +9045,9 @@ masterPilotDB[1048] = {
     actSet = { 'F', 'TL', 'E', 'BR' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Top Cover',      charge = 0 },
+        { name = 'Top Cover',       charge = 0 },
         { name = 'Barrage Rockets', charge = 5 },
-        { name = 'Proton Bombs',   charge = 2 },
+        { name = 'Proton Bombs',    charge = 2 },
     }
 }
 
@@ -9055,9 +9066,9 @@ masterPilotDB[1049] = {
     actSet = { 'F', 'TL', 'BR' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'True Grit',       charge = 0 },
+        { name = 'True Grit',        charge = 0 },
         { name = 'Plasma Torpedoes', charge = 2 },
-        { name = 'Ion Bombs',       charge = 2 },
+        { name = 'Ion Bombs',        charge = 2 },
     }
 }
 
@@ -9076,8 +9087,8 @@ masterPilotDB[1050] = {
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Adv. Proton Torpedoes', charge = 1 },
-        { name = 'Automated Loaders',    charge = 1 },
-        { name = 'Afterburners',         charge = 2 },
+        { name = 'Automated Loaders',     charge = 1 },
+        { name = 'Afterburners',          charge = 2 },
     }
 }
 
@@ -9094,10 +9105,10 @@ masterPilotDB[1051] = {
     actSet = { 'F', 'TL', 'BR', 'Rot' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Mercenary',      charge = 0 },
+        { name = 'Mercenary',       charge = 0 },
         { name = 'Seeker Missiles', charge = 4 },
-        { name = '"Leebo"',        charge = 2 },
-        { name = 'Outrider',       charge = 2 },
+        { name = '"Leebo"',         charge = 2 },
+        { name = 'Outrider',        charge = 2 },
     }
 }
 
@@ -9114,10 +9125,10 @@ masterPilotDB[1052] = {
     actSet = { 'F', 'TL', 'BR', 'Rot' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Mercenary',      charge = 0 },
+        { name = 'Mercenary',       charge = 0 },
         { name = 'Seeker Missiles', charge = 4 },
-        { name = '"Leebo"',        charge = 2 },
-        { name = 'Outrider',       charge = 2 },
+        { name = '"Leebo"',         charge = 2 },
+        { name = 'Outrider',        charge = 2 },
     }
 }
 
@@ -9136,8 +9147,8 @@ masterPilotDB[1053] = {
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Efficient Processing', charge = 0 },
-        { name = 'Seeker Missiles',     charge = 4 },
-        { name = 'Outrider',            charge = 2 },
+        { name = 'Seeker Missiles',      charge = 4 },
+        { name = 'Outrider',             charge = 2 },
     }
 }
 
@@ -9156,8 +9167,8 @@ masterPilotDB[1054] = {
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Efficient Processing', charge = 0 },
-        { name = 'Seeker Missiles',     charge = 4 },
-        { name = 'Outrider',            charge = 2 },
+        { name = 'Seeker Missiles',      charge = 4 },
+        { name = 'Outrider',             charge = 2 },
     }
 }
 
@@ -9235,9 +9246,9 @@ masterPilotDB[1059] = {
     actSet = { 'F', 'E', 'BR', 'TL', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'No Escape',                 charge = 0 },
-        { name = 'Predator',                  charge = 0 },
-        { name = 'Ion Cannon',                charge = 0 },
+        { name = 'No Escape',                  charge = 0 },
+        { name = 'Predator',                   charge = 0 },
+        { name = 'Ion Cannon',                 charge = 0 },
         { name = 'Computer Assisted Handling', charge = 1 }
     }
 }
@@ -9255,9 +9266,9 @@ masterPilotDB[1060] = {
     actSet = { 'F', 'E', 'BR', 'TL', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'No Escape',                 charge = 0 },
-        { name = 'Push The Limit',            charge = 0 },
-        { name = 'Proton Cannons',            charge = 2 },
+        { name = 'No Escape',                  charge = 0 },
+        { name = 'Push The Limit',             charge = 0 },
+        { name = 'Proton Cannons',             charge = 2 },
         { name = 'Computer Assisted Handling', charge = 1 },
     }
 }
@@ -9276,7 +9287,7 @@ masterPilotDB[1061] = {
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Collected', charge = 0 },
-        { name = 'Elusive',  charge = 1 },
+        { name = 'Elusive',   charge = 1 },
         { name = 'No Escape', charge = 0 },
     }
 }
@@ -9296,8 +9307,8 @@ masterPilotDB[1062] = {
     addSqdAction = { 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'No Escape',    charge = 0 },
-        { name = 'Ruthless',     charge = 0 },
+        { name = 'No Escape',     charge = 0 },
+        { name = 'Ruthless',      charge = 0 },
         { name = 'Swarm Tactics', charge = 0 },
     }
 }
@@ -9315,10 +9326,10 @@ masterPilotDB[1063] = {
     actSet = { 'F', 'E', 'BR' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'No Escape',          charge = 0 },
-        { name = 'Predator',           charge = 0 },
+        { name = 'No Escape',           charge = 0 },
+        { name = 'Predator',            charge = 0 },
         { name = 'Ion Maneuvering Jet', charge = 2 },
-        { name = 'Targeting Matrix',   charge = 0 },
+        { name = 'Targeting Matrix',    charge = 0 },
     }
 }
 
@@ -9336,8 +9347,8 @@ masterPilotDB[1064] = {
     actSet = { 'F', 'E', 'BR', 'B', '2B', '2BR', 'C' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'No Escape',              charge = 0 },
-        { name = 'Outmaneuver',            charge = 0 },
+        { name = 'No Escape',               charge = 0 },
+        { name = 'Outmaneuver',             charge = 0 },
         { name = 'Fuel Injection Override', charge = 2 },
     }
 }
@@ -9355,8 +9366,8 @@ masterPilotDB[1065] = {
     actSet = { 'F', 'E', 'BR', 'TR', 'B', 'Dare' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'No Escape',       charge = 0 },
-        { name = 'Reckless',        charge = 0 },
+        { name = 'No Escape',        charge = 0 },
+        { name = 'Reckless',         charge = 0 },
         { name = 'Primed Thrusters', charge = 0 },
         { name = 'Targeting Matrix', charge = 0 },
     }
@@ -9376,9 +9387,9 @@ masterPilotDB[1066] = {
     actSet = { 'F', 'E', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Apex Predator',   charge = 0 },
-        { name = 'No Escape',       charge = 0 },
-        { name = 'Blank Signature', charge = 1 },
+        { name = 'Apex Predator',    charge = 0 },
+        { name = 'No Escape',        charge = 0 },
+        { name = 'Blank Signature',  charge = 1 },
         { name = 'Feedback Emitter', charge = 1 },
     }
 }
@@ -9398,10 +9409,10 @@ masterPilotDB[1067] = {
     actSet = { 'F', 'TL', 'BR' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Marksmanship',    charge = 0 },
-        { name = 'No Escape',       charge = 0 },
+        { name = 'Marksmanship',     charge = 0 },
+        { name = 'No Escape',        charge = 0 },
         { name = 'Proton Torpedoes', charge = 2 },
-        { name = 'Ion Bombs',       charge = 2 },
+        { name = 'Ion Bombs',        charge = 2 },
     }
 }
 
@@ -9420,10 +9431,10 @@ masterPilotDB[1068] = {
     actSet = { 'F', 'TL', 'BR' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'No Escape',       charge = 0 },
-        { name = 'Parting Gift',    charge = 0 },
+        { name = 'No Escape',        charge = 0 },
+        { name = 'Parting Gift',     charge = 0 },
         { name = 'Proton Torpedoes', charge = 2 },
-        { name = 'Proton Bombs',    charge = 2 },
+        { name = 'Proton Bombs',     charge = 2 },
     }
 }
 
@@ -9440,10 +9451,10 @@ masterPilotDB[1069] = {
     actSet = { 'F', 'TL', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = "It's a Trap",       charge = 0 },
-        { name = 'Ion Missiles',      charge = 3 },
+        { name = "It's a Trap",        charge = 0 },
+        { name = 'Ion Missiles',       charge = 3 },
         { name = 'Modified R4-P Unit', charge = 1 },
-        { name = 'Chaff Particles',   charge = 0 }
+        { name = 'Chaff Particles',    charge = 0 }
     }
 }
 
@@ -9461,10 +9472,10 @@ masterPilotDB[1070] = {
     actSet = { 'F', 'TL', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = "It's a Trap",          charge = 0 },
-        { name = 'Predator',             charge = 0 },
+        { name = "It's a Trap",           charge = 0 },
+        { name = 'Predator',              charge = 0 },
         { name = 'Adv. Proton Torpedoes', charge = 1 },
-        { name = 'R2-A3',                charge = 1 }
+        { name = 'R2-A3',                 charge = 1 }
     }
 }
 
@@ -9481,8 +9492,8 @@ masterPilotDB[1071] = {
     actSet = { 'F', 'TL', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = "It's a Trap",          charge = 0 },
-        { name = 'Plasma Torpedoes',     charge = 2 },
+        { name = "It's a Trap",           charge = 0 },
+        { name = 'Plasma Torpedoes',      charge = 2 },
         { name = 'Stabilizing Astromech', charge = 1 }
     }
 }
@@ -9503,8 +9514,8 @@ masterPilotDB[1072] = {
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Heroic Sacrifice', charge = 0 },
-        { name = "It's a Trap",     charge = 0 },
-        { name = 'Proton Rockets',  charge = 1 },
+        { name = "It's a Trap",      charge = 0 },
+        { name = 'Proton Rockets',   charge = 1 },
     }
 }
 
@@ -9522,9 +9533,9 @@ masterPilotDB[1073] = {
     actSet = { 'F', 'TL', 'E', 'BR', 'B', 'C' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = "It's a Trap",            charge = 0 },
+        { name = "It's a Trap",             charge = 0 },
         { name = 'Precision-Tuned Cannons', charge = 0 },
-        { name = 'Chaff Particles',        charge = 0 },
+        { name = 'Chaff Particles',         charge = 0 },
         { name = 'Target-Assist Algorithm', charge = 0 },
     }
 }
@@ -9545,10 +9556,10 @@ masterPilotDB[1074] = {
     actSet = { 'F', 'TL', 'BR', 'E' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = "It's a Trap",    charge = 0 },
+        { name = "It's a Trap",     charge = 0 },
         { name = 'Homing Missiles', charge = 2 },
-        { name = 'Proton Bombs',   charge = 2 },
-        { name = 'Delayed Fuses',  charge = 0 },
+        { name = 'Proton Bombs',    charge = 2 },
+        { name = 'Delayed Fuses',   charge = 0 },
     }
 }
 
@@ -9567,10 +9578,10 @@ masterPilotDB[1075] = {
     actSet = { 'F', 'TL', 'BR', 'E' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = "It's a Trap",   charge = 0 },
-        { name = 'Parting Gift',  charge = 0 },
+        { name = "It's a Trap",    charge = 0 },
+        { name = 'Parting Gift',   charge = 0 },
         { name = 'Proton Rockets', charge = 1 },
-        { name = 'Proton Bombs',  charge = 2 },
+        { name = 'Proton Bombs',   charge = 2 },
     }
 }
 
@@ -9591,10 +9602,10 @@ masterPilotDB[1076] = {
     actSet = { 'F', 'TL', 'BR', 'E' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = "It's a Trap",     charge = 0 },
-        { name = 'Juke',            charge = 0 },
+        { name = "It's a Trap",      charge = 0 },
+        { name = 'Juke',             charge = 0 },
         { name = 'Proton Torpedoes', charge = 2 },
-        { name = 'Ion Bombs',       charge = 2 },
+        { name = 'Ion Bombs',        charge = 2 },
     }
 }
 
@@ -9613,9 +9624,9 @@ masterPilotDB[1077] = {
     actSet = { 'F', 'TL', 'E', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = "It's a Trap",    charge = 0 },
-        { name = 'Juke',           charge = 0 },
-        { name = 'Proton Rockets', charge = 1 },
+        { name = "It's a Trap",     charge = 0 },
+        { name = 'Juke',            charge = 0 },
+        { name = 'Proton Rockets',  charge = 1 },
         { name = 'Chaff Particles', charge = 0 },
     }
 }
@@ -9634,10 +9645,10 @@ masterPilotDB[1078] = {
     actSet = { 'F', 'TL', 'B', 'BR', 'E' },
     standardized_loadout = true,
     standardized_upgrades = {
-        { name = 'Ace inthe Hole',   charge = 2 },
-        { name = "It's a Trap",      charge = 0 },
-        { name = 'Nien Nunb',        charge = 0 },
-        { name = "Airen Cracken",    charge = 0 },
+        { name = 'Ace inthe Hole',    charge = 2 },
+        { name = "It's a Trap",       charge = 0 },
+        { name = 'Nien Nunb',         charge = 0 },
+        { name = "Airen Cracken",     charge = 0 },
         { name = 'Millennium Falcon', charge = 0 },
     }
 }

@@ -34,10 +34,7 @@ ConfigManager.SetConfig = function(player_color, param_name, value)
             ConfigManager.PlayerConfigs[player_color] = {}
         end
         ConfigManager.PlayerConfigs[player_color][param_name] = value
-        printToAll(
-            ConfigManager.GetPlayerName(player_color) ..
-            " changed " .. param_name .. " configuration to " .. tostring(value),
-            color(0.1, 1, 1))
+        printToAll( ConfigManager.GetPlayerName(player_color) .. " changed " .. param_name .. " configuration to " .. tostring(value), color(0.1, 1, 1))
         if ConfigManager.SetCallbacks[param_name] ~= nil then
             ConfigManager.SetCallbacks[param_name](player_color, value)
         end

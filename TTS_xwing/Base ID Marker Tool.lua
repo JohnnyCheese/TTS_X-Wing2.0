@@ -4,9 +4,9 @@ self.createButton(AttachTemplateButton)
 
 function AttachTemplate()
     local spos = self.getPosition()
-    local nearest = nil
-    local minDist = 2.89     -- 80mm
-    for k, ship in pairs(getAllObjects()) do
+    local nearest
+    local minDist = 2.89 -- 80mm
+    for _, ship in pairs(getAllObjects()) do
         if ship.tag == 'Figurine' and ship.name ~= '' then
             local pos = ship.getPosition()
             local dist = math.sqrt(math.pow((spos[1] - pos[1]), 2) + math.pow((spos[3] - pos[3]), 2))
@@ -16,8 +16,8 @@ function AttachTemplate()
             end
         end
     end
-    local obj = nil
-    local shipGUID = nil
+    local obj
+    local shipGUID
     obj = nearest
     shipGUID = obj.getGUID()
     obj.addAttachment(self)

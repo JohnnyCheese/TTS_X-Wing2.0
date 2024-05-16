@@ -7,10 +7,10 @@ MoveData = {}
 
 -- Lookup table for most of the moves
 -- Generated using Matlab, source: https://github.com/tjakubo2/xwing_traj
--- Stored on another object to reduce clutter, passsed on load
+-- Stored on another object to reduce clutter, passed on load
 MoveData.LUT = {}
 MoveData.onLoad = function()
-    for k, obj in pairs(getAllObjects()) do
+    for _, obj in pairs(getAllObjects()) do
         if obj.getName() == 'MoveLUT' then
             MoveData.LUT.Parse(obj)
         end
@@ -33,7 +33,7 @@ MoveData.partMax = 1000
 --
 -- Only returns data for RIGHT direction move (if applies)
 -- Doesn't take any segnor, talon versions etc into considerations
--- Above things are considered MODIFIERS with functions to apply them defined futher
+-- Above things are considered MODIFIERS with functions to apply them defined further
 MoveData.LUT.ConstructData = function(moveInfo, part)
     if part == nil then
         part = MoveData.partMax
@@ -56,7 +56,7 @@ MoveData.LUT.ConstructData = function(moveInfo, part)
     return outData
 end
 
--- Get true move length from LUT data *IN MILIMETERS*
+-- Get true move length from LUT data *IN MILLIMETERS*
 -- True as in trajectory length, not distance between start and end
 -- (stored in LUT to reduce load here)
 MoveData.MoveLength = function(moveInfo)
@@ -143,18 +143,18 @@ MoveData.DecodeInfo = function(move_code, ship)
     local info = {
         -- [option1] [option2] ... [optionN]  // [errorOption]
         type = 'invalid', -- [straight] [bank] [turn] [roll] [viper] [cloak] [echo] [bankSlip] [ turnSlip]//  [invalid]
-        speed = nil,    -- [1] [2] [3] [4] [5]  //  [nil]
-        dir = nil,      -- [left] [right] [nil]
-        extra = nil,    -- [koiogran] [segnor] [talon] [reverse] [straight] [forward] [backward] [nil]
+        speed = nil,      -- [1] [2] [3] [4] [5]  //  [nil]
+        dir = nil,        -- [left] [right] [nil]
+        extra = nil,      -- [koiogran] [segnor] [talon] [reverse] [straight] [forward] [backward] [nil]
         traits =
         {
             full = false, -- [true] [false] if this move can be attempted as a full move
-            part = false -- [true] [false] if this move can be attempted as a partial move
+            part = false  -- [true] [false] if this move can be attempted as a partial move
         },
-        size = nil,     -- [small] [large]  //  [nil]
-        note = nil,     -- [string] eg. 'banked xxx'       //  [nil]
-        collNote = nil, -- [string] eg. 'tried to do xxx'  //  [nil]
-        code = move_code -- [string] eg. 'be2'              //  [nil]
+        size = nil,       -- [small] [large]  //  [nil]
+        note = nil,       -- [string] eg. 'banked xxx'       //  [nil]
+        collNote = nil,   -- [string] eg. 'tried to do xxx'  //  [nil]
+        code = move_code  -- [string] eg. 'be2'              //  [nil]
     }
     if ship ~= nil then
         info.size = ship.getTable("Data").Size or 'small'

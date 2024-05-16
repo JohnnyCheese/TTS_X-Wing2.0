@@ -51,8 +51,7 @@ function checkRange(range)
                 closest = Global.call("API_GetClosestPointToShip", { ship = obj, point = my_pos })
                 distance = Dim.Convert_igu_mm(closest.length)
                 if distance < 100 * range then
-                    printToAll(obj.getName() .. " is within range " .. range .. " of " .. self.getName(),
-                        color(1.0, 1.0, 0))
+                    printToAll(obj.getName() .. " is within range " .. range .. " of " .. self.getName(), color(1.0, 1.0, 0))
                     table.insert(vector_lines, {
                         points = { self.positionToLocal(closest.A), self.positionToLocal(closest.B) },
                         color = { 1, 1, 1 },

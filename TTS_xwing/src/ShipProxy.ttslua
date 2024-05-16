@@ -2,7 +2,7 @@
 -- Script by Eirik 'Flippster' Munthe
 -- Issues, history at: https://github.com/JohnnyCheese/TTS_X-Wing2.0
 --
--- Module for handeling ship proxies, used in barrel rolls and more
+-- Module for handling ship proxies, used in barrel rolls and more
 -- ~~~~~~
 local Dim = require("TTS_xwing.src.Dim")
 local EventSub = require("TTS_Lib.EventSub.EventSub")
@@ -29,7 +29,7 @@ end
 function ShipProxyInstance:ready()
     if not self.proxy_table then return false end
 
-    for position, proxy in pairs(self.proxy_table) do
+    for _, proxy in pairs(self.proxy_table) do
         if proxy.getGUID() ~= "" then return true end
     end
 
@@ -196,7 +196,7 @@ function StartBarrelRoll(args)
     local offsets = { code .. '1', code .. '2', code .. '3' }
 
     local collide = true
-    for i, v in ipairs(offsets) do
+    for _, v in ipairs(offsets) do
         local proxy, result = ShipProxyModule.CreateMoveProxy(v, ship)
         if result ~= 'overlap' then
             collide = false
@@ -232,8 +232,8 @@ function SpawnProxyOptions(args)
     local move_codes    = args.move_codes or {}
     local base_position = args.base_position or 'center'
 
-    local ok            = nil
-    local finType       = nil
+    local ok
+    local finType
     local ship_proxies  = ShipProxyInstance:new()
     for position, move_code in pairs(move_codes) do
         local proxy, finPos = ShipProxyModule.CreateMoveProxy(move_code, ship)
@@ -302,7 +302,7 @@ end
 ShipProxyModule.StartFinalPositionSelection = function(ship, positionOffset)
     local size = ship.getTable('Data').Size or "small"
     local offset = ShipProxyModule.finalPosOffset[size]
-    for k, off in pairs({ offset, vector(0, 0, 0), vector(0, 0, 0) - offset }) do
+    for _, off in pairs({ offset, vector(0, 0, 0), vector(0, 0, 0) - offset }) do
         ShipProxyModule.spawnProxy(ship, false, positionOffset + off, color(0, 0.1, 1, 0.2), "finalPos")
     end
 end
@@ -310,7 +310,7 @@ end
 function DeleteShipProxies(args)
     local ship_guid = args.ship_guid
 
-    for i = 1, table.size(ShipProxyModule.proxyTable[ship_guid]) do
+    for _ = 1, table.size(ShipProxyModule.proxyTable[ship_guid]) do
         local proxy = table.remove(ShipProxyModule.proxyTable[ship_guid])
         if proxy.destroy then
             proxy:destroy()
@@ -396,7 +396,7 @@ ShipProxyModule.spawnProxy = function(ship, hide, finpos, didCollide, script, mo
 end
 
 ShipProxyModule.onLoad = function()
-    for k, obj in pairs(getAllObjects()) do
+    for _, obj in pairs(getAllObjects()) do
         if obj.hasTag("ProxyInstance") then
             destroyObject(obj)
         end

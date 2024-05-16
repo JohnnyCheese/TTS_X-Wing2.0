@@ -75,8 +75,7 @@ function checkArc(type, range, friendly)
         rulersType = nil
     else
         if type == "full" then
-            printToAll("Checking for ships at range " .. tostring(range) .. " from " .. self.getName(),
-                color(1.0, 1.0, 0.2, 0.9))
+            printToAll("Checking for ships at range " .. tostring(range) .. " from " .. self.getName(), color(1.0, 1.0, 0.2, 0.9))
         end
         rulers = Global.call("CheckArc",
             { ship = self, arctype = type, range = range, include_friendly_ships = friendly })
