@@ -4,6 +4,7 @@
 --
 -- Token for easy barrel rolls with StarViper Mk.II title
 -- ~~~~~~
+local Dim = require("TTS_xwing.src.Dim")
 
 -- Scripted token properties
 __XW_Token = true
@@ -65,7 +66,7 @@ function onDropped()
     if assignedShip == nil then
         local spos = self.getPosition()
         local nearest
-        local minDist = 2.89 -- 80mm
+        local minDist = Dim.Convert_mm_igu(80)
         for _, ship in pairs(getAllObjects()) do
             if ship.type == 'Figurine' and ship.name ~= '' then
                 local pos = ship.getPosition()

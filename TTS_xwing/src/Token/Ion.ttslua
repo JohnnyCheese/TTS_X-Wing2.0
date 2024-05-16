@@ -4,6 +4,7 @@
 --
 -- Target lock color and name script
 -- ~~~~~~
+local Dim = require("TTS_xwing.src.Dim")
 
 -- Scripted token properties
 __XW_Token = true
@@ -42,7 +43,7 @@ end
 function onDropped()
     local spos = self.getPosition()
     local nearest
-    local minDist = 3.6125 -- 100 mm
+    local minDist = Dim.Convert_mm_igu(100)
     for _, ship in pairs(getAllObjects()) do
         if ship.type == 'Figurine' and ship.name ~= '' then
             local pos = ship.getPosition()

@@ -85,7 +85,7 @@ end
 function onDropped(color)
     local spos = self.getPosition()
     local nearest
-    local minDist = 2.89 -- 80mm
+    local minDist = Dim.Convert_mm_igu(80)
     for _, ship in pairs(getObjectsWithTag('Ship')) do
         local pos = ship.getPosition()
         local dist = math.sqrt(math.pow((spos[1] - pos[1]), 2) + math.pow((spos[3] - pos[3]), 2))

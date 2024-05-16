@@ -4,6 +4,7 @@
 --
 -- Target lock color and name script
 -- ~~~~~~
+local Dim = require("TTS_xwing.src.Dim")
 
 -- Scripted token properties
 __XW_Token = true
@@ -79,7 +80,7 @@ end
 function onDropped(player_color)
     local spos = self.getPosition()
     local nearest
-    local minDist = 3.6125 -- 100 mm
+    local minDist = Dim.Convert_mm_igu(100)
     for _, object in pairs(getObjectsWithAnyTags({ 'Ship', 'Obstacle' })) do
         local pos = object.getPosition()
         local dist = math.sqrt(math.pow((spos[1] - pos[1]), 2) + math.pow((spos[3] - pos[3]), 2))

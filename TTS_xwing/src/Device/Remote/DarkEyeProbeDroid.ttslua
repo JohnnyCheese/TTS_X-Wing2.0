@@ -119,7 +119,7 @@ function onDropped(color)
     if assignedShip == nil then
         local spos = self.getPosition()
         local nearest
-        local minDist = 2.89 -- 80mm
+        local minDist = Dim.Convert_mm_igu(80)
         for _, ship in pairs(getAllObjects()) do
             if ship.tag == 'Figurine' and ship.name ~= '' then
                 local pos = ship.getPosition()
