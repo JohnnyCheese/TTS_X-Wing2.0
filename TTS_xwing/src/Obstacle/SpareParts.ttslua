@@ -82,7 +82,7 @@ end
 function onDropped()
     if assignedShip == nil then
         local spos = self.getPosition()
-        local nearest = nil
+        local nearest
         local minDist = 2.89 -- 80mm
         for _, ship in pairs(getAllObjects()) do
             if ship.type == 'Figurine' and ship.name ~= '' then
