@@ -115,6 +115,56 @@ a symbolic link to where the files get deposited can be quite handy:
 ```sh
 mklink /D vscode %TEMP%\TabletopSimulatorLua
 ```
+<hr>
+
+# Setting up the Debugger
+
+A little Background Info: 
+* Tabletop Simulator (TTS) 13.0 is written in Unity.
+* It uses a Lua (v5.2) Interpreter from MoonSharp (v2.0.0.0). [https://www.moonsharp.org/]
+* MoonSharp is written in C#.
+
+To get the Debugger working with TTS you'll need to defeat the sandbox
+which TTS has MoonSharp running in. This is actually a security safety net, but
+if you want to be able to debug the Lua scripts you'll have to break out of the sandbox.
+
+Note: The easiest way to test if you have successfully gotten out of the sandbox, is you can now ask for a stacktrace from the Lua Interpreter.
+In TTS using Chat, you can type the following:
+```lua
+/execute print(debug.traceback())
+```
+
+This is the "official" MoonSharp Extension for VSCode:
+https://marketplace.visualstudio.com/items?itemName=xanathar.moonsharp-debug
+
+This fork apparently uses an older version of this extension but was for use with TTS:
+Note to self: Now that you've got this version working, see if the marco extension works without this fork.
+
+Download the `.vsix` and `.dll.zip` from here:
+https://github.com/tts-community/moonsharp-tts-debug/releases
+
+Follow this `README.md` on where to drop the `.dll` and how to install the extension.
+
+https://github.com/tts-community/moonsharp-tts-debug
+
+
+You will need a `launch.json` configuration file.
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "MoonSharp Attach",
+            "type": "moonsharp-debug",
+            "debugServer": 41912,
+            "request": "attach"
+        }
+    ]
+}
+```
+Note: this is a "corrected one."
+For more info: https://github.com/tts-community/moonsharp-tts-debug/issues/4
+
 
 
 
