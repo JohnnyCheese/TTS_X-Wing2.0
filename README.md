@@ -102,8 +102,8 @@ Here's an example of a typical VSCode workspace configuration:
 
 ## Additional Setup
 
-Note: Atom's plugin directory is: `Tabletop Simulator Lua/`
-VSCode's plugin directory is: `TabletopSimulatorLua/`
+Note: VSCode's plugin directory is: `TabletopSimulatorLua/`
+<br/>Atom's plugin directory is: `Tabletop Simulator Lua/`
 
 When you retrieve the scripts they will be placed in VSCode's File
 Explorer under the name `In-Game Scripts`, but they will actually be located
@@ -164,6 +164,9 @@ You will need a `launch.json` configuration file.
 ```
 Note: this is a "corrected one."
 For more info: https://github.com/tts-community/moonsharp-tts-debug/issues/4
+
+This may be useful to learn about Debuggers in VSCode.
+https://code.visualstudio.com/docs/editor/debugging
 
 
 
