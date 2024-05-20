@@ -119,10 +119,10 @@ DiceControlModule.dice_types = {
     }
 }
 
-DiceControlModule.GetDefaultDiceStats = function(dicecolor)
+DiceControlModule.GetDefaultDiceStats = function(diceColor)
     def = { Total = 0 }
-    if DiceControlModule.dice_types[dicecolor] and DiceControlModule.dice_types[dicecolor].luck_values then
-        for result, value in pairs(DiceControlModule.dice_types[dicecolor].luck_values) do
+    if DiceControlModule.dice_types[diceColor] and DiceControlModule.dice_types[diceColor].luck_values then
+        for result, _ in pairs(DiceControlModule.dice_types[diceColor].luck_values) do
             def[result] = 0
         end
     end
@@ -151,44 +151,30 @@ EventSub.Register('onLoad', DiceControlModule.onLoad)
 DiceControlModule.presentStatistics = function()
     for player, types in pairs(DiceControlModule.dice_statistics) do
         local total = 0
-        printToAll(
-            "[" ..
-            Color.fromString(DiceControlModule.player_colors[player]):toHex() .. "]" .. player .. "[-] have rolled:",
-            DiceControlModule.info_color)
-        local playerluck = nil
+        printToAll("[" .. Color.fromString(DiceControlModule.player_colors[player]):toHex() .. "]" .. player .. "[-] have rolled:", DiceControlModule.info_color)
+        local playerLuck
         for type, results in pairs(types) do
-            local typetotal = results.Total
-            total = total + typetotal
+            local typeTotal = results.Total
+            total = total + typeTotal
             local luck = 0
-            local typecolor = DiceControlModule.dice_types[type].color or "[#FFFFFF]"
+            local typeColor = DiceControlModule.dice_types[type].color or "[#FFFFFF]"
             for result, number in pairs(results) do
-                local percentage = tostring(math.floor(number / typetotal * 1000) / 10)
-                local luckvalue = DiceControlModule.dice_types[type].luck_values
-                local luckstring = ""
-                if luckvalue ~= nil and luckvalue[result] ~= nil then
-                    luckstring = " - Expected: " .. tostring(luckvalue[result].expected * typetotal)
-                    luck = luck + ((number - (luckvalue[result].expected * typetotal)) * luckvalue[result].luck)
+                local percentage = tostring(math.floor(number / typeTotal * 1000) / 10)
+                local luckValue = DiceControlModule.dice_types[type].luck_values
+                local luckString = ""
+                if luckValue ~= nil and luckValue[result] ~= nil then
+                    luckString = " - Expected: " .. tostring(luckValue[result].expected * typeTotal)
+                    luck = luck + ((number - (luckValue[result].expected * typeTotal)) * luckValue[result].luck)
                 end
-                printToAll(
-                    typecolor ..
-                    type ..
-                    "[-] " ..
-                    result ..
-                    ": " ..
-                    DiceControlModule.highlight_color .. tostring(number) .. "[-] (" .. percentage .. "%)" .. luckstring,
-                    DiceControlModule.info_color)
+                printToAll(typeColor .. type .. "[-] " .. result .. ": " .. DiceControlModule.highlight_color .. tostring(number) .. "[-] (" .. percentage .. "%)" .. luckString, DiceControlModule.info_color)
             end
             if DiceControlModule.dice_types[type] ~= nil then
-                printToAll(
-                    typecolor ..
-                    type .. "[-] dice luck score: " .. DiceControlModule.highlight_color .. tostring(luck) .. "[-]",
-                    DiceControlModule.info_color)
-                playerluck = (playerluck or 0) + luck
+                printToAll(typeColor .. type .. "[-] dice luck score: " .. DiceControlModule.highlight_color .. tostring(luck) .. "[-]", DiceControlModule.info_color)
+                playerLuck = (playerLuck or 0) + luck
             end
         end
-        if playerluck ~= nil then
-            printToAll("Total luck score: " .. DiceControlModule.highlight_color .. tostring(playerluck) .. "[-]",
-                DiceControlModule.info_color)
+        if playerLuck ~= nil then
+            printToAll("Total luck score: " .. DiceControlModule.highlight_color .. tostring(playerLuck) .. "[-]", DiceControlModule.info_color)
         end
     end
 end
@@ -220,20 +206,19 @@ DiceControlModule.onObjectRandomize = function(object, playerInstance)
                 function() return DiceControlModule.UntilRolledDiceAreStill(player) end, 6,
                 function() DiceControlModule.RollTimeout(player) end)
         elseif DiceControlModule.dice_roller_state[player] == "starting" then
-            for i, dice in pairs(DiceControlModule.rolled_dice[player]) do
+            for _, dice in pairs(DiceControlModule.rolled_dice[player]) do
                 if dice == object then
                     return
                 end
             end
             DiceControlModule.PrepareDice(object, player)
         elseif DiceControlModule.dice_roller_state[player] == "waiting" then
-            for i, dice in pairs(DiceControlModule.rolled_dice[player]) do
+            for _, dice in pairs(DiceControlModule.rolled_dice[player]) do
                 if dice == object then
                     return
                 end
             end
-            printToAll("Please don't start new rolls while waiting for the result of another",
-                DiceControlModule.error_color)
+            printToAll("Please don't start new rolls while waiting for the result of another", DiceControlModule.error_color)
             destroyObject(object)
         end
     end
@@ -247,7 +232,7 @@ DiceControlModule.PrepareDice = function(die, player)
         Wait.time(function() die.roll() end, 0.1)
         die.interactable = false
         players = getSelectingPlayers(die)
-        for j, playerInstance in pairs(players) do
+        for _, playerInstance in pairs(players) do
             die.removeFromPlayerSelection(playerInstance.color)
         end
         table.insert(DiceControlModule.rolled_dice[player], die)
@@ -261,7 +246,7 @@ end
 
 DiceControlModule.RollTimeout = function(player)
     printToAll("Roll timed out, please try again", DiceControlModule.error_color)
-    for k, dice in pairs(DiceControlModule.rolled_dice[player]) do
+    for _, dice in pairs(DiceControlModule.rolled_dice[player]) do
         dice.interactable = true
     end
     DiceControlModule.dice_roller_state[player] = "idle"
@@ -269,75 +254,65 @@ end
 
 DiceControlModule.PresentDiceRollerResult = function(player)
     local resultTable = {}
-    for k, dice in pairs(DiceControlModule.rolled_dice[player]) do
+    for _, dice in pairs(DiceControlModule.rolled_dice[player]) do
         dice.interactable = true
     end
 
-    for k, dice in pairs(DiceControlModule.rolled_dice[player]) do
-        local dicecolor = dice.getVar("dicecolor") or "Default"
+    for _, dice in pairs(DiceControlModule.rolled_dice[player]) do
+        local diceColor = dice.getVar("dicecolor") or "Default"
         local result = dice.getRotationValue()
-        resultTable[dicecolor] = resultTable[dicecolor] or {}
-        resultTable[dicecolor][result] = (resultTable[dicecolor][result] or 0) + 1
-        local playerstats = DiceControlModule.dice_statistics[player] or {}
-        playerstats[dicecolor] = playerstats[dicecolor] or DiceControlModule.GetDefaultDiceStats(dicecolor)
-        playerstats[dicecolor].Total = (playerstats[dicecolor].Total or 0) + 1
-        playerstats[dicecolor][result] = (playerstats[dicecolor][result] or 0) + 1
-        DiceControlModule.dice_statistics[player] = playerstats
+        resultTable[diceColor] = resultTable[diceColor] or {}
+        resultTable[diceColor][result] = (resultTable[diceColor][result] or 0) + 1
+        local playerStats = DiceControlModule.dice_statistics[player] or {}
+        playerStats[diceColor] = playerStats[diceColor] or DiceControlModule.GetDefaultDiceStats(diceColor)
+        playerStats[diceColor].Total = (playerStats[diceColor].Total or 0) + 1
+        playerStats[diceColor][result] = (playerStats[diceColor][result] or 0) + 1
+        DiceControlModule.dice_statistics[player] = playerStats
     end
     local any_result = false
-    local resulttext = "[" ..
-        Color.fromString(DiceControlModule.player_colors[player]):toHex() ..
-        "]" ..
-        player ..
-        "[-] rolled " ..
-        DiceControlModule.highlight_color .. tostring(#DiceControlModule.rolled_dice[player]) .. "[-] dice and got "
-    local resulttexts = {}
+    local resultText = "[" .. Color.fromString(DiceControlModule.player_colors[player]):toHex() .. "]" .. player .. "[-] rolled " .. DiceControlModule.highlight_color .. tostring(#DiceControlModule.rolled_dice[player]) .. "[-] dice and got "
+    local resultTexts = {}
     for dice_color, results in pairs(resultTable) do
         if DiceControlModule.dice_types[dice_color].result_order ~= nil then
-            for i, result in pairs(DiceControlModule.dice_types[dice_color].result_order) do
+            for _, result in pairs(DiceControlModule.dice_types[dice_color].result_order) do
                 if results[result] ~= nil then
                     local plural_s = ""
                     if results[result] > 1 then
                         plural_s = "s"
                     end
                     any_result = true
-                    table.insert(resulttexts,
-                        DiceControlModule.highlight_color ..
-                        tostring(results[result]) ..
-                        "[-] " .. DiceControlModule.dice_types[dice_color].color .. result .. plural_s .. "[-] ")
+                    table.insert(resultTexts, DiceControlModule.highlight_color .. tostring(results[result]) .. "[-] " .. DiceControlModule.dice_types[dice_color].color .. result .. plural_s .. "[-] ")
                 end
             end
         else
             for res, num in pairs(results) do
-                resulttext = resulttext ..
-                    DiceControlModule.highlight_color ..
-                    tostring(num) .. "[-]x" .. DiceControlModule.dice_types[dice_color].color .. res .. "[-] "
+                resultText = resultText .. DiceControlModule.highlight_color .. tostring(num) .. "[-]x" .. DiceControlModule.dice_types[dice_color].color .. res .. "[-] "
             end
         end
     end
     if any_result == false then
-        resulttext = resulttext .. DiceControlModule.highlight_color .. "Got nothing![-]"
+        resultText = resultText .. DiceControlModule.highlight_color .. "Got nothing![-]"
     else
-        for i = 1, #resulttexts, 1 do
-            resulttext = resulttext .. resulttexts[i]
-            if #resulttexts - i > 1 then
-                resulttext = resulttext .. ", "
-            elseif #resulttexts - i == 1 then
-                resulttext = resulttext .. " and "
+        for i = 1, #resultTexts, 1 do
+            resultText = resultText .. resultTexts[i]
+            if #resultTexts - i > 1 then
+                resultText = resultText .. ", "
+            elseif #resultTexts - i == 1 then
+                resultText = resultText .. " and "
             end
         end
     end
-    printToAll(resulttext, DiceControlModule.info_color)
+    printToAll(resultText, DiceControlModule.info_color)
     DiceControlModule.CheckFirstPlayerRoll(player)
     DiceControlModule.dice_roller_state[player] = "idle"
 
     if DiceControlModule.test_mode then
-        for k, dice in pairs(DiceControlModule.rolled_dice[player]) do
+        for _, dice in pairs(DiceControlModule.rolled_dice[player]) do
             dice.setRotation(vector(326.26, 179.99, 90.00))
         end
         Wait.time(
             function()
-                for k, dice in pairs(DiceControlModule.rolled_dice[player]) do
+                for _, dice in pairs(DiceControlModule.rolled_dice[player]) do
                     if dice then
                         dice.randomize(player)
                     end
@@ -349,7 +324,7 @@ end
 DiceControlModule.CheckFirstPlayerRoll = function(player)
     if #DiceControlModule.rolled_dice[player] == 3 then
         local score = 0
-        for k, dice in pairs(DiceControlModule.rolled_dice[player]) do
+        for _, dice in pairs(DiceControlModule.rolled_dice[player]) do
             if dice.getVar("dicecolor") ~= "PlayerOrder" then
                 print("Not PlayerOrder dice")
                 return
@@ -366,7 +341,7 @@ DiceControlModule.UntilRolledDiceAreStill = function(player)
     for k = #DiceControlModule.rolled_dice[player], 1, -1 do
         local dice = DiceControlModule.rolled_dice[player][k]
         if dice == nil then
-            printToAll("A dice dissapeared while rolling!", DiceControlModule.error_color)
+            printToAll("A dice disappeared while rolling!", DiceControlModule.error_color)
             table.remove(DiceControlModule.rolled_dice[player], k)
         elseif dice.held_by_color ~= nil then
             printToAll("Please don't grab dice that are being rolled!", DiceControlModule.error_color)
@@ -379,7 +354,7 @@ DiceControlModule.UntilRolledDiceAreStill = function(player)
     return result
 end
 
--- [[ Following is addtion for changing dice looks by Snake3y3s]]
+-- [[ Following is addition for changing dice looks by Snake3y3s]]
 DiceControlModule.platformToBag = {
     ["atkPlat01"] = "atkOG1",
     ["atkPlat02"] = "atkBLACK1",
@@ -415,7 +390,7 @@ DiceControlModule.upCast = function(obj, dist, offset, multi)
         debug        = false,
     })
     local hitObjects = {}
-    for i, v in pairs(hits) do
+    for _, v in pairs(hits) do
         if v.hit_object ~= obj then table.insert(hitObjects, v.hit_object) end
     end
     return hitObjects
@@ -423,15 +398,15 @@ end
 
 
 DiceControlModule.getObjectInContainerByGMNote = function(container, gmnoteToFind) -- most of the script here to find out if, and if so which, item is in the container
-    local takenObject = nil                                                        -- keep the scope local outside of the loop
-    for i, c in ipairs(container.getObjects()) do
+    local takenObject                                                              -- keep the scope local outside of the loop
+    for _, c in ipairs(container.getObjects()) do
         if c.gm_notes == gmnoteToFind then
             takenObject = container.takeObject({ -- correct call syntax, use .takeObject() on your container
                 index = c.index,                 -- c.index to get the correct index always
                 position = Vector(0, 0, 0),
                 smooth = false,
                 callback_function = function(newBag)     -- executes when newBag finished spawning
-                    newBag.translate(Vector(0, 0.08, 0)) -- moves it 1 unit striaght down
+                    newBag.translate(Vector(0, 0.08, 0)) -- moves it 1 unit straight down
                 end
             })                                           -- position correctly spelled and correct case
             takenObject.setLock(true)                    -- locks it

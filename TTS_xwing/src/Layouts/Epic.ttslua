@@ -148,7 +148,7 @@ do
     }
 
 
-    for k, button in ipairs(epic.controls) do
+    for _, button in ipairs(epic.controls) do
         button.width = bWidth
         button.height = bHeight
         button.font_size = bFontSize

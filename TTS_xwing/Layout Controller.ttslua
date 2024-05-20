@@ -85,7 +85,7 @@ Layout.GetTableRef = function()
         orientation = { 0, 0, 0 },
         debug = false
     })
-    for k, hitData in pairs(hits) do
+    for _, hitData in pairs(hits) do
         if hitData.hit_object.type == 'Surface' then
             return hitData.hit_object
         end
@@ -127,7 +127,7 @@ end
 
 Layout.GetMats = function()
     local mats = {}
-    for k, obj in pairs(getAllObjects()) do
+    for _, obj in pairs(getAllObjects()) do
         if obj.getVar('__XW_Mat') then
             local lay, ID = obj.getVar('__XW_MatLayout'), obj.getVar('__XW_MatID')
             if not mats[lay] then
@@ -180,7 +180,7 @@ Layout.Switch = function(newIndex)
     end
     Layout.CreateControls(newIndex)
     function setHandsDelayed()
-        for k = 1, 10 do
+        for _ = 1, 10 do
             coroutine.yield()
         end
         for color, data in pairs(lay.hands) do
@@ -200,7 +200,7 @@ end
 
 Layout.CreateControls = function(index)
     local lay = Layout.layouts[index]
-    for k, button in pairs(lay.controls) do
+    for _, button in pairs(lay.controls) do
         self.createButton(button)
     end
 end

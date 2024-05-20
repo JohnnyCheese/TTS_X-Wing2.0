@@ -36,7 +36,7 @@ function getSelectingPlayers(obj)
     return selectingPlayers
 end
 
--- require("vscode/console")
+require("vscode/console")
 function showMe(guid)
     local object = getObjectFromGUID(guid)
     if object then
@@ -784,8 +784,7 @@ AIModule.PerformManeuver = function(ship, take_action)
             local range_bracket = nil
             if stress then
                 range_bracket = 'stress'
-                printToAll(' Selected target: ' ..
-                    target_ship.getName() .. ', in the ' .. target_arc .. ' arc, while stressed.')
+                printToAll(' Selected target: ' .. target_ship.getName() .. ', in the ' .. target_arc .. ' arc, while stressed.')
             else
                 local target_range = nil
                 -- Find the range, if we haven't got it already.
@@ -836,9 +835,7 @@ AIModule.PerformManeuver = function(ship, take_action)
                     end
                 end
 
-                printToAll(' Selected target: ' ..
-                    target_ship.getName() ..
-                    ', in the ' .. target_arc .. ' arc at range ' .. tostring(target_range) .. closing_text)
+                printToAll(' Selected target: ' .. target_ship.getName() .. ', in the ' .. target_arc .. ' arc at range ' .. tostring(target_range) .. closing_text)
 
                 -- Get the move for our situation.
                 -- Convert our target's range and facing into a range bracket.
@@ -1385,8 +1382,7 @@ AIModule.SelectAction = function(ship)
     end
 
     local ship_id = ship.getTable('Data')['shipId']
-    printToAll('No AI actions found for ship ID ' .. tostring(ship_id) .. ', please make actions manually.',
-        color(1.0, 1.0, 0.2, 0.9))
+    printToAll('No AI actions found for ship ID ' .. tostring(ship_id) .. ', please make actions manually.', color(1.0, 1.0, 0.2, 0.9))
 end
 
 AIModule.AttemptAction = function(ship, target, action_definition)
@@ -3756,9 +3752,8 @@ TokenModule.onObjectDropped = function(player_color, object)
     if ObjType.IsOfType(object, 'token') then
         if object.getVar('__XW_TokenType') ~= 'targetLock' then -- Target lock has special onDrop handling on its own
             local spos = object.getPosition()
-            local spos = object.getPosition()
             local nearest = nil
-            local minDist = 3.6125 -- 100 mm
+            local minDist = Dim.Convert_mm_igu(100)
             for k, ship in pairs(getAllObjects()) do
                 if MoveModule.SelectShips(ship) then
                     local pos = ship.getPosition()

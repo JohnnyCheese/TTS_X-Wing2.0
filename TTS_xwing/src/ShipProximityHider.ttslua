@@ -7,10 +7,10 @@ M.tint_values = { far = color(1, 1, 1, 1), close = color(1, 1, 1, 0.2) }
 M.size_mod = { small = 0, medium = 0.8, large = 1.6, huge = 1.2 }
 
 M.proximity_check = function()
-    for _1, hider_ship in pairs(getObjectsWithAllTags({ 'Ship', 'ProximityHider' })) do
+    for _, hider_ship in pairs(getObjectsWithAllTags({ 'Ship', 'ProximityHider' })) do
         local is_close = "far"
         local hider_pos = hider_ship.getPosition()
-        for _2, other_ship in pairs(getObjectsWithTag('Ship')) do
+        for _, other_ship in pairs(getObjectsWithTag('Ship')) do
             if hider_ship ~= other_ship then
                 local size = other_ship.getTable('Data').Size or 'small'
                 --print(string.format("Distance between %s and %s is %f", hider_ship.getName(), other_ship.getName(), hider_pos:distance(other_ship.getPosition())))

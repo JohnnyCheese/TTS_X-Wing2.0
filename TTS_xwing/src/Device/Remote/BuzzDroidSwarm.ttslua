@@ -51,8 +51,7 @@ function checkRange(range)
                 closest = Global.call("API_GetClosestPointToShip", { ship = obj, point = my_pos })
                 distance = Dim.Convert_igu_mm(closest.length)
                 if distance < 100 * range then
-                    printToAll(obj.getName() .. " is within range " .. range .. " of " .. self.getName(),
-                        color(1.0, 1.0, 0))
+                    printToAll(obj.getName() .. " is within range " .. range .. " of " .. self.getName(), color(1.0, 1.0, 0))
                     table.insert(vector_lines, {
                         points = { self.positionToLocal(closest.A), self.positionToLocal(closest.B) },
                         color = { 1, 1, 1 },
@@ -80,6 +79,8 @@ function checkRange(range)
             mainSet()
             self.setVectorLines({})
         end
+    else 
+        printToAll("No ship assigned to " .. self.getName(), color(1.0, 1.0, 0))
     end
 end
 
@@ -87,8 +88,8 @@ end
 function onDropped(color)
     if assignedShip == nil then
         local spos = self.getPosition()
-        local nearest = nil
-        local minDist = 2.89 -- 80mm
+        local nearest
+        local minDist = Dim.Convert_mm_igu(80)
         for _, ship in pairs(getAllObjects()) do
             if ship.tag == 'Figurine' and ship.name ~= '' then
                 local pos = ship.getPosition()
@@ -216,7 +217,7 @@ end
 -- Dz = 5.84
 
 
--- Straigth
+-- Straight
 -- -6.14
 -- -11.88
 -- Dz = 5.74

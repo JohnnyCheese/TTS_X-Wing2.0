@@ -2,8 +2,8 @@ local Dim = require("TTS_xwing.src.Dim")
 
 held = false
 waiting = false
-linedrawing = true
-waitduration = 0.1
+lineDrawing = true
+waitDuration = 0.1
 
 boardLength = nil
 
@@ -22,13 +22,13 @@ end
 function onLoad(save_state)
     local state = JSON.decode(save_state)
     if state then
-        linedrawing = state.linedrawing or true
+        lineDrawing = state.linedrawing or true
     end
     SetupContextMenu()
 end
 
 function onSave()
-    return JSON.encode({ linedrawing = linedrawing })
+    return JSON.encode({ linedrawing = lineDrawing })
 end
 
 function SetupContextMenu()
@@ -37,16 +37,16 @@ function SetupContextMenu()
     self.addContextMenuItem("Check Range 2", function() checkRange(2) end, false)
     self.addContextMenuItem("Claim", claim, false)
     self.addContextMenuItem("Remove Claim", unclaim, false)
-    if linedrawing then
+    if lineDrawing then
         self.addContextMenuItem("Disable lines",
             function()
-                linedrawing = false
+                lineDrawing = false
                 self.setVectorLines({})
                 SetupContextMenu()
             end, false)
     else
         self.addContextMenuItem("Enable lines", function()
-            linedrawing = true
+            lineDrawing = true
             SetupContextMenu()
         end, false)
     end
@@ -96,7 +96,7 @@ function checkRange(range)
         if self.is_face_down then
             side_offset = side_offset * -1
         end
-        for k, obj in pairs(getObjectsWithAnyTags({ 'Ship' })) do
+        for _, obj in pairs(getObjectsWithAnyTags({ 'Ship' })) do
             my_pos = self.getNearestPointFromObject(obj)
             closest = Global.call("API_GetClosestPointToShip", { ship = obj, point = my_pos })
             distance = Dim.Convert_igu_mm(closest.length)
@@ -145,13 +145,13 @@ function onUpdate()
             end
         end
     end
-    if linedrawing and not waiting and held then
+    if lineDrawing and not waiting and held then
         vector_lines = {}
         local side_offset = vector(0, 0.01, 0)
         if self.is_face_down then
             side_offset = side_offset * -1
         end
-        for k, obj in pairs(getObjectsWithTag("Objective")) do
+        for _, obj in pairs(getObjectsWithTag("Objective")) do
             if obj ~= self then
                 local my_pos = self.getNearestPointFromObject(obj)
                 local other_pos = obj.getNearestPointFromObject(self)
@@ -170,7 +170,7 @@ function onUpdate()
             end
         end
 
-        for k, obj in pairs(getObjectsWithTag("PlayerBoardEdge")) do
+        for _, obj in pairs(getObjectsWithTag("PlayerBoardEdge")) do
             if obj ~= self then
                 my_pos = self.getNearestPointFromObject(obj)
                 other_pos = obj.getNearestPointFromObject(self)
@@ -191,7 +191,7 @@ function onUpdate()
 
         self.setVectorLines(vector_lines)
         waiting = true
-        Wait.time(function() waiting = false end, waitduration)
+        Wait.time(function() waiting = false end, waitDuration)
     end
 end
 

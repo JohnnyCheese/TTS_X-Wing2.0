@@ -9,7 +9,7 @@ local API = {}
 -- "API" functions, to be working in TTS:
 -- Must take one and only one argument, of table type
 -- Must return one and only one value
--- Cannot recieve/return function or thread type values
+-- Cannot receive/return function or thread type values
 -- Have to be called after callee loads (its onLoad triggers)
 
 
@@ -34,7 +34,7 @@ function API.API_QueueShipTokensMove(argTable)
     if XW_cmd.isReady(argTable.ship) then
         XW_cmd.SetBusy(argTable.ship)
     end
-    local lockFun = nil
+    local lockFun
     if argTable.noLock == true then
         lockFun = function(ship)
             ship.unlock()
@@ -80,7 +80,7 @@ function API.API_GetClosestPointToShip(argTable)
     local segments = ArcCheck.GetOwnArcLineSegments(argTable.ship, ArcCheck.arc_line_segments[size].full.segments)
 
     local closestRange = 100000
-    local closestDistance = nil
+    local closestDistance
     for _, segment in pairs(segments) do
         distance = ArcCheck.GetDistanceBetweenLineSegmentAndPoint(segment, argTable.point, false)
         --print("Dist: " .. tostring(distance.length))

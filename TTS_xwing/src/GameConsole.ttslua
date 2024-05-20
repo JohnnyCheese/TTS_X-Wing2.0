@@ -1,5 +1,5 @@
 -- Scrip created by Eirik 'Flippster' Munthe for the Unified X-Wing 2.0 TTS Module
--- Standard libraries extentions
+-- Standard libraries extensions
 require("TTS_Lib.Util.Math")
 require("TTS_Lib.Util.Table")
 require("TTS_Lib.Util.String")
@@ -160,7 +160,7 @@ function startButton()
     self.UI.setAttribute("StartedClockPanel", "active", true)
     if timerStats.random then
         local minutes = 0
-        for i = 1, 3, 1
+        for _ = 1, 3, 1
         do
             if math.random(8) <= 5 then
                 minutes = minutes + 1
@@ -236,10 +236,10 @@ function updateTime()
             local seconds = elapsed_time % 60
             self.UI.setAttribute("TimerText", "text", string.format("%d:%02d:%02d", hours, minutes, seconds))
         else
-            local secondstotal = timerStats.total_time - elapsed_time
-            local hours = math.floor(secondstotal / 3600)
-            local minutes = math.floor((secondstotal - hours * 3600) / 60)
-            local seconds = secondstotal % 60
+            local secondsTotal = timerStats.total_time - elapsed_time
+            local hours = math.floor(secondsTotal / 3600)
+            local minutes = math.floor((secondsTotal - hours * 3600) / 60)
+            local seconds = secondsTotal % 60
             self.UI.setAttribute("TimerText", "text", string.format("%d:%02d:%02d", hours, minutes, seconds))
         end
     end
@@ -261,7 +261,7 @@ function registerPlayerFromGui(player, option, id)
         printToAll("Please select a player color before registering", { 1, 0.4, 0 })
     else
         if players[player.color] and players[player.color].side then
-            printToAll(player.steam_name .. " allready registered with the game console", { 1, 0.4, 0 })
+            printToAll(player.steam_name .. " already registered with the game console", { 1, 0.4, 0 })
             return
         end
         printToAll(player.steam_name .. " registered with the game console", { 1, 0.4, 0 })
@@ -270,7 +270,7 @@ function registerPlayerFromGui(player, option, id)
         self.UI.setAttribute(id, "active", "false")
         self.UI.setAttribute(side .. "PointPanel", "color", player.color)
         self.UI.setAttribute(side .. "PointPanel", "active", "true")
-        for player_color, player in pairs(players) do
+        for _, player in pairs(players) do
             if player.side and player.side ~= side then
                 start()
             end
@@ -348,9 +348,9 @@ function setDiceMode(enabled)
     dice_roll_mode = enabled
     setContextMenu()
     if enabled then
-        printToAll("Dice roll mode enabled for the first player randomiser", { 1, 0.4, 0 })
+        printToAll("Dice roll mode enabled for the first player randomizer", { 1, 0.4, 0 })
     else
-        printToAll("Dice roll mode disabled for the first player randomiser", { 1, 0.4, 0 })
+        printToAll("Dice roll mode disabled for the first player randomizer", { 1, 0.4, 0 })
     end
 end
 
@@ -396,7 +396,7 @@ function start()
     end
     state = "active"
     setContextMenu()
-    for color, player in pairs(players) do
+    for color, _ in pairs(players) do
         table.insert(stones, color)
         table.insert(stones, color)
         table.insert(stones, color)
@@ -409,7 +409,7 @@ end
 
 function registerPlayer(new_player)
     if players[new_player] then
-        printToAll(new_player .. " player allready registered with the game console", { 1, 0.4, 0 })
+        printToAll(new_player .. " player already registered with the game console", { 1, 0.4, 0 })
         return
     end
     printToAll(new_player .. " player registered with the game console", { 1, 0.4, 0 })
@@ -417,20 +417,20 @@ function registerPlayer(new_player)
 end
 
 function recreateIndicators()
-    for i, indicator in pairs(indicators) do
+    for _, indicator in pairs(indicators) do
         destroyObject(indicator)
     end
     indicators = {}
 
     self.destroyAttachments()
     local adjusted_max_offset = max_offset
-    local scalefactor = 0
+    local scaleFactor = 0
     if max_rounds > 12 then
         adjusted_max_offset = adjusted_max_offset + 0.02 * (max_rounds - 12)
-        scalefactor = 0.02
+        scaleFactor = 0.02
         for i = 1, max_rounds - 12, 1
         do
-            scalefactor = scalefactor + 0.25 * (0.99 ^ i)
+            scaleFactor = scaleFactor + 0.25 * (0.99 ^ i)
         end
     end
     local range = 2 * adjusted_max_offset
@@ -443,7 +443,7 @@ function recreateIndicators()
             type         = "Custom_Model",
             position     = self.positionToWorld(vector(-0.1, 0.05, offset)),
             rotation     = self.getRotation() + vector(0, 0, 45),
-            scale        = vector(0.65, 0.65, 0.65) - vector(0.05, 0, 0.1) * scalefactor,
+            scale        = vector(0.65, 0.65, 0.65) - vector(0.05, 0, 0.1) * scaleFactor,
             sound        = false,
             snap_to_grid = false,
         })
@@ -542,10 +542,7 @@ function randomizeNext(verbose)
         setIndicator(round, color)
     end
     if verbose then
-        printToAll(
-            "[" ..
-            Color.fromString(color):toHex() .. "]" .. color .. "[-] player is first in round " .. tostring(round - 1),
-            { 1, 0.4, 0 })
+        printToAll( "[" .. Color.fromString(color):toHex() .. "]" .. color .. "[-] player is first in round " .. tostring(round - 1), { 1, 0.4, 0 })
     end
     return color
 end
@@ -560,7 +557,7 @@ function randomTest(verbose)
         table.insert(stones, player.color)
         table.insert(stones, player.color)
     end
-    for i = 1, max_rounds, 1
+    for _ = 1, max_rounds, 1
     do
         local color = randomizeNext()
         counts[color] = counts[color] + 1
@@ -640,9 +637,9 @@ end
 
 function changePrevious()
     if round > 0 then
-        local first_color = nil
+        local first_color
         local choose_next = false
-        for color, player in pairs(players) do
+        for color, _ in pairs(players) do
             if first_color == nil then
                 first_color = color
             end
@@ -666,14 +663,14 @@ function recreateStoneBag()
     local total_stones = 3 + math.floor(round / table.size(players))
     for color, player in pairs(players) do
         local player_stones = total_stones
-        -- Remove allready drawn stones for a player
+        -- Remove already drawn stones for a player
         for _, h in pairs(history) do
             if h == color then
                 player_stones = player_stones - 1
             end
         end
         -- Add the remaining stones to the bag
-        for i = 1, player_stones, 1
+        for _ = 1, player_stones, 1
         do
             table.insert(stones, color)
         end -- For player_stones
@@ -682,8 +679,7 @@ end
 
 function firstPlayerRoll(args)
     if dice_roll_mode and state == "active" and required_dice_roll_players[args.color] then
-        printToAll("[" .. Color.fromString(args.color):toHex() .. "]" .. args.player .. "[-] rolled for first player",
-            { 1, 0.4, 0 })
+        printToAll("[" .. Color.fromString(args.color):toHex() .. "]" .. args.player .. "[-] rolled for first player", { 1, 0.4, 0 })
         --printToAll("Score:" .. tostring(args.score), {1, 0.4, 0})
 
         dice_roll_scores[args.color] = args.score
@@ -729,11 +725,7 @@ function firstPlayerRoll(args)
                         startButton()
                     end
                 end
-                printToAll(
-                    "[" ..
-                    Color.fromString(color):toHex() ..
-                    "]" .. color .. "[-] player is first in round " .. tostring(round - 1),
-                    { 1, 0.4, 0 })
+                printToAll( "[" .. Color.fromString(color):toHex() .. "]" .. color .. "[-] player is first in round " .. tostring(round - 1), { 1, 0.4, 0 })
                 Global.call("API_StreamAnnounce", { text = "First Player", player = color })
                 dice_roll_scores = {}
             end
@@ -745,7 +737,6 @@ function firstPlayerRoll(args)
 end
 
 function firstPlayerRollTimeout()
-    printToAll("Automatic detection of first player roll timed out, all players must roll at the same time.",
-        { 1, 0.4, 0 })
+    printToAll("Automatic detection of first player roll timed out, all players must roll at the same time.", { 1, 0.4, 0 })
     dice_roll_scores = {}
 end

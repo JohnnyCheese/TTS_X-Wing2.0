@@ -2,7 +2,6 @@
 -- Script by dzikakulka
 -- Issues, history at: https://github.com/tjakubo2/TTS_xwing
 -- ~~~~~~
-
 local Vect = require("TTS_lib.Vector.Vector")
 
 TempModule = {}
@@ -28,7 +27,7 @@ TempModule.children = {}
 -- Name: "TEMPLATE{tempName}"
 -- tempName is one of the TempModule.objects keys
 TempModule.Init = function()
-    for k, obj in pairs(getAllObjects()) do
+    for _, obj in pairs(getAllObjects()) do
         if TempModule.IsTemplate(obj) then
             local tName = TempModule.GetTrueName(obj)
             if TempModule.objects[tName] == 'empty' then
@@ -80,7 +79,7 @@ end
 -- Destroy all children of some template
 TempModule.DeleteTempChildren = function(tName)
     if TempModule.children[tName] ~= nil then
-        for k, child in pairs(TempModule.children[tName]) do
+        for _, child in pairs(TempModule.children[tName]) do
             if child ~= nil then
                 child.destruct()
             end
@@ -91,7 +90,7 @@ end
 
 -- Destroy all children from all templates
 TempModule.DeleteAllChildren = function()
-    for tName, t in pairs(TempModule.children) do
+    for tName, _ in pairs(TempModule.children) do
         TempModule.DeleteTempChildren(tName)
     end
 end
@@ -106,7 +105,7 @@ TempModule.AddChildren = function(tName, obj)
     if TempModule.children[tName] == nil then
         TempModule.children[tName] = {}
     end
-    for k, cObj in pairs(TempModule.children[tName]) do
+    for _, cObj in pairs(TempModule.children[tName]) do
         if obj == cObj then return end
     end
     obj.setVar('tempChild', true)
@@ -118,7 +117,7 @@ TempModule.MakeOrphan = function(obj)
     local orphaned = false
     for k, cTable in pairs(TempModule.children) do
         local filtered = {}
-        for k2, cObj in pairs(cTable) do
+        for _, cObj in pairs(cTable) do
             if cObj ~= obj then
                 table.insert(filtered, cObj)
             else
@@ -152,7 +151,7 @@ function onObjectEnterScriptingZone(zone, enter_object)
     --
 end
 
--- Remove an object afrom any child tables if it dies (so there are no 'nil' holes in tables)
+-- Remove an object from any child tables if it dies (so there are no 'nil' holes in tables)
 function onObjectDestroyed(dying_object)
     if dying_object.getVar('tempChild') == true then
         TempModule.MakeOrphan(dying_object)
@@ -221,7 +220,7 @@ function SBM_clickBuilder()
     bagsOffset['Ship Models Bag'] = { -11, 0.5, 2.5 }
     bagsOffset['Pilot Cards Bag'] = { -11, 0.5, -2.5 }
     local bagRefs = {}
-    for k, oTable in pairs(bags) do
+    for _, oTable in pairs(bags) do
         local newBag = spawnerBag.takeObject({ guid = oTable.guid, position = Vect.Sum(sPos, bagsOffset[oTable.name]) })
         bagRefs[newBag.getName()] = newBag
         newBag.setRotation({ 0, 90, 0 })
@@ -267,7 +266,7 @@ function SBM_clickItemBrowser()
     bagsOffset['Ship Models Bag'] = { -11, 0.5, 2.5 }
     bagsOffset['Pilot Cards Bag'] = { -11, 0.5, -2.5 }
     local bagRefs = {}
-    for k, oTable in pairs(bags) do
+    for _, oTable in pairs(bags) do
         local newBag = spawnerBag.takeObject({ guid = oTable.guid, position = Vect.Sum(sPos, bagsOffset[oTable.name]) })
         if oTable.name == 'Upgrades Bag' then
             newBag.setDescription('itemBrowserMode')
@@ -294,7 +293,7 @@ function SBM_clickCollection()
     DR_bag.tooltip = false
     local items = DR_bag.getObjects()
     local DR_sPos = Vect.Sum(sPos, { -11, 0.5, 25 })
-    for k, info in pairs(items) do
+    for _, info in pairs(items) do
         local newObj = DR_bag.takeObject({ guid = info.guid })
         newObj.setPosition(DR_sPos)
         DR_sPos = Vect.Sum(DR_sPos, { -2, 0, 0 })
@@ -306,7 +305,7 @@ function SBM_clickCollection()
     UC_bag.tooltip = false
     items = UC_bag.getObjects()
     local UC_sPos = Vect.Sum(sPos, { -13, 0.5, 22 })
-    for k, info in pairs(items) do
+    for _, info in pairs(items) do
         local newObj = UC_bag.takeObject({ guid = info.guid, rotation = { 180, -90, 0 } })
         newObj.setPosition(UC_sPos)
         UC_sPos = Vect.Sum(UC_sPos, { 0, 0, -2 })
@@ -318,7 +317,7 @@ function SBM_clickCollection()
     SM_bag.tooltip = false
     items = SM_bag.getObjects()
     local SM_sPos = { UC_sPos[1] + 2, UC_sPos[2] + 0.5, UC_sPos[3] - 1 }
-    for k, info in pairs(items) do
+    for _, info in pairs(items) do
         local newObj = SM_bag.takeObject({ guid = info.guid })
         newObj.setPosition(SM_sPos)
         SM_sPos = Vect.Sum(SM_sPos, { -2, 0, 0 })
@@ -330,7 +329,7 @@ function SBM_clickCollection()
     PC_bag.tooltip = false
     items = PC_bag.getObjects()
     local PC_sPos = { SM_sPos[1] + 4, SM_sPos[2] + 0.5, SM_sPos[3] - 3 }
-    for k, info in pairs(items) do
+    for _, info in pairs(items) do
         local newObj = PC_bag.takeObject({ guid = info.guid, rotation = { 180, -90, 0 } })
         newObj.setPosition(PC_sPos)
         PC_sPos = Vect.Sum(PC_sPos, { 0, 0, -3 })

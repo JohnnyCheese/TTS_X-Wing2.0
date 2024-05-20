@@ -369,11 +369,11 @@ masterUpgradesDB['seasonednavigator'] = {
         if pilotid == 0 then
             return {}
         end
-        for i, man in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
+        for _, man in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
             local Char = man:find("%d")
             local speed = tonumber(man:sub(Char, Char))
             local exopt = { man }
-            for k, man2 in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
+            for _, man2 in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
                 local diff = man2:sub(1, 1)
                 Char = man2:find("%d")
                 local thisspeed = tonumber(man2:sub(Char, Char))

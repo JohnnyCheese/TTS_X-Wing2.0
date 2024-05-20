@@ -2676,8 +2676,7 @@ function parseList()
                         if restricted then
                             printToAll('Upgrade "' .. cardN .. '" is restricted to another faction', { 1, 0, 0 })
                         else
-                            printToAll("Unable to find upgrade: " .. cardN .. " please check correct spelling",
-                                { 1, 0, 0 })
+                            printToAll("Unable to find upgrade: " .. cardN .. " please check correct spelling", { 1, 0, 0 })
                         end
                         goto continue
                         finalList.Upgrades[pilotIndex][k - 1] = nil

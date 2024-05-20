@@ -16,5 +16,6 @@ function onFlip(args)
     elseif energy_owner then
         printToAll("[" .. Color.fromString(player.color):toHex() .. "]" .. player.steam_name .. spent .. energy_owner .. "s energy token[-]")
     else
-        printToAll("[" .. Color.fromString(player.color):toHex() .. "]" .. player.steam_name .. spent .. "a energy token[-]") end
+        printToAll("[" .. Color.fromString(player.color):toHex() .. "]" .. player.steam_name .. spent .. "a energy token[-]")
+    end
 end
