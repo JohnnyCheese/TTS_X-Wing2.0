@@ -1,4 +1,5 @@
 local Dim = require("TTS_xwing.src.Dim")
+local Vect = require("TTS_lib.Vector.Vector")
 
 Buzz = self
 Attach = false
@@ -392,17 +393,6 @@ function RotateVector(rotMat, vect)
     return out
 end
 
--- Sum of two vectors (of any size)
-function Vect_Sum(vec1, vec2)
-    local out = {}
-    local k = 1
-    while vec1[k] ~= nil and vec2[k] ~= nil do
-        out[k] = vec1[k] + vec2[k]
-        k = k + 1
-    end
-    return out
-end
-
 function LocalPos(object, position)
     local rot = object.getRotation()
     local lPos = { position[1], position[2], position[3] }
@@ -414,5 +404,5 @@ function LocalPos(object, position)
     local yRot = RotMatrix('y', rot['y'])
     lPos = RotateVector(yRot, lPos)
 
-    return Vect_Sum(lPos, object.getPosition())
+    return Vect.Sum(lPos, object.getPosition())
 end

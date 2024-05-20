@@ -3,6 +3,8 @@
 -- Issues, history at: https://github.com/tjakubo2/TTS_xwing
 -- ~~~~~~
 
+local Vect = require("TTS_lib.Vector.Vector")
+
 TempModule = {}
 TempModule.objects = {}
 TempModule.objects['[b]INSTRUCTIONS[/b]'] = 'empty'
@@ -200,17 +202,6 @@ SBM_buttons.collection = {
     font_size = 300
 }
 
--- Sum of two vectors (of any size)
-function Vect_Sum(vec1, vec2)
-    local out = {}
-    local k = 1
-    while vec1[k] ~= nil and vec2[k] ~= nil do
-        out[k] = vec1[k] + vec2[k]
-        k = k + 1
-    end
-    return out
-end
-
 -- Click functions for spawning things, taking other from bags, adding them as children
 --   setting positions, rotations ....  boring
 
@@ -221,7 +212,7 @@ end
 function SBM_clickBuilder()
     TM.DeleteAllChildren()
     local sPos = self.getPosition()
-    local spawnerBag = TM.Instantiate('Spawner Bags', Vect_Sum(sPos, { 0, -5, 0 }), { 1, 1, 1 }, { 0, 90, 0 })
+    local spawnerBag = TM.Instantiate('Spawner Bags', Vect.Sum(sPos, { 0, -5, 0 }), { 1, 1, 1 }, { 0, 90, 0 })
     spawnerBag.lock()
     local bags = spawnerBag.getObjects()
     local bagsOffset = {}
@@ -231,20 +222,20 @@ function SBM_clickBuilder()
     bagsOffset['Pilot Cards Bag'] = { -11, 0.5, -2.5 }
     local bagRefs = {}
     for k, oTable in pairs(bags) do
-        local newBag = spawnerBag.takeObject({ guid = oTable.guid, position = Vect_Sum(sPos, bagsOffset[oTable.name]) })
+        local newBag = spawnerBag.takeObject({ guid = oTable.guid, position = Vect.Sum(sPos, bagsOffset[oTable.name]) })
         bagRefs[newBag.getName()] = newBag
         newBag.setRotation({ 0, 90, 0 })
-        newBag.setPosition(Vect_Sum(sPos, bagsOffset[oTable.name]))
+        newBag.setPosition(Vect.Sum(sPos, bagsOffset[oTable.name]))
         newBag.lock()
         TempModule.AddChildren('Upgrades Bag', newBag)
     end
     --bagRefs['Upgrades Bag'].call('API_linkBag', {bagRefs['Accesories Bag'], 'Accesories Bag'})
     --bagRefs['Upgrades Bag'].call('API_linkBag', {bagRefs['Ship Models Bag'], 'Ship Models Bag'})
     --bagRefs['Upgrades Bag'].call('API_linkBag', {bagRefs['Pilot Cards Bag'], 'Pilot Cards Bag'})
-    local iNote = TM.Instantiate('[b]INSTRUCTIONS[/b]', Vect_Sum(sPos, { -17, 0.5, 22 }), { 1.5, 1.5, 1.5 },
+    local iNote = TM.Instantiate('[b]INSTRUCTIONS[/b]', Vect.Sum(sPos, { -17, 0.5, 22 }), { 1.5, 1.5, 1.5 },
         { 0, -90, 0 })
     iNote.setLuaScript('')
-    local eNote = TM.Instantiate('Example squad to paste', Vect_Sum(sPos, { -10, 0.5, 22 }), { 1.5, 1.5, 1.5 },
+    local eNote = TM.Instantiate('Example squad to paste', Vect.Sum(sPos, { -10, 0.5, 22 }), { 1.5, 1.5, 1.5 },
         { 0, -90, 0 })
     eNote.setLuaScript('')
 
@@ -267,7 +258,7 @@ end
 function SBM_clickItemBrowser()
     TM.DeleteAllChildren()
     local sPos = self.getPosition()
-    local spawnerBag = TM.Instantiate('Spawner Bags', Vect_Sum(sPos, { 0, -5, 0 }), { 1, 1, 1 }, { 0, 90, 0 })
+    local spawnerBag = TM.Instantiate('Spawner Bags', Vect.Sum(sPos, { 0, -5, 0 }), { 1, 1, 1 }, { 0, 90, 0 })
     spawnerBag.lock()
     local bags = spawnerBag.getObjects()
     local bagsOffset = {}
@@ -277,17 +268,17 @@ function SBM_clickItemBrowser()
     bagsOffset['Pilot Cards Bag'] = { -11, 0.5, -2.5 }
     local bagRefs = {}
     for k, oTable in pairs(bags) do
-        local newBag = spawnerBag.takeObject({ guid = oTable.guid, position = Vect_Sum(sPos, bagsOffset[oTable.name]) })
+        local newBag = spawnerBag.takeObject({ guid = oTable.guid, position = Vect.Sum(sPos, bagsOffset[oTable.name]) })
         if oTable.name == 'Upgrades Bag' then
             newBag.setDescription('itemBrowserMode')
         end
         bagRefs[newBag.getName()] = newBag
         newBag.setRotation({ 0, 90, 0 })
-        newBag.setPosition(Vect_Sum(sPos, bagsOffset[oTable.name]))
+        newBag.setPosition(Vect.Sum(sPos, bagsOffset[oTable.name]))
         newBag.lock()
         TempModule.AddChildren('Upgrades Bag', newBag)
     end
-    local iNote = TM.Instantiate('[b]ITEM BROWSER INSTRUCTIONS[/b]', Vect_Sum(sPos, { 1, 0.5, 11 }), { 1.8, 1.8, 1.8 },
+    local iNote = TM.Instantiate('[b]ITEM BROWSER INSTRUCTIONS[/b]', Vect.Sum(sPos, { 1, 0.5, 11 }), { 1.8, 1.8, 1.8 },
         { 0, -90, 0 })
     iNote.setLuaScript('')
     iNote.interactable = true
@@ -298,31 +289,31 @@ function SBM_clickCollection()
     TM.DeleteAllChildren()
     --13,22
     local sPos = self.getPosition()
-    local DR_bag = TM.Instantiate('Dials & Refcards Collection', Vect_Sum(sPos, { 0, -2, 0 }))
+    local DR_bag = TM.Instantiate('Dials & Refcards Collection', Vect.Sum(sPos, { 0, -2, 0 }))
     DR_bag.lock()
     DR_bag.tooltip = false
     local items = DR_bag.getObjects()
-    local DR_sPos = Vect_Sum(sPos, { -11, 0.5, 25 })
+    local DR_sPos = Vect.Sum(sPos, { -11, 0.5, 25 })
     for k, info in pairs(items) do
         local newObj = DR_bag.takeObject({ guid = info.guid })
         newObj.setPosition(DR_sPos)
-        DR_sPos = Vect_Sum(DR_sPos, { -2, 0, 0 })
+        DR_sPos = Vect.Sum(DR_sPos, { -2, 0, 0 })
         TempModule.AddChildren('Dials & Refcards Collection', newObj)
     end
     --TM.DeleteTempChildren('Dials & Refcards Collection')
-    local UC_bag = TM.Instantiate('Upgrade Collection', Vect_Sum(sPos, { 0, -3, 0 }))
+    local UC_bag = TM.Instantiate('Upgrade Collection', Vect.Sum(sPos, { 0, -3, 0 }))
     UC_bag.lock()
     UC_bag.tooltip = false
     items = UC_bag.getObjects()
-    local UC_sPos = Vect_Sum(sPos, { -13, 0.5, 22 })
+    local UC_sPos = Vect.Sum(sPos, { -13, 0.5, 22 })
     for k, info in pairs(items) do
         local newObj = UC_bag.takeObject({ guid = info.guid, rotation = { 180, -90, 0 } })
         newObj.setPosition(UC_sPos)
-        UC_sPos = Vect_Sum(UC_sPos, { 0, 0, -2 })
+        UC_sPos = Vect.Sum(UC_sPos, { 0, 0, -2 })
         TempModule.AddChildren('Upgrade Collection', newObj)
     end
     --TM.DeleteTempChildren('Upgrade Collection')
-    local SM_bag = TM.Instantiate('Ship Models Collection', Vect_Sum(sPos, { 0, -4, 0 }))
+    local SM_bag = TM.Instantiate('Ship Models Collection', Vect.Sum(sPos, { 0, -4, 0 }))
     SM_bag.lock()
     SM_bag.tooltip = false
     items = SM_bag.getObjects()
@@ -330,11 +321,11 @@ function SBM_clickCollection()
     for k, info in pairs(items) do
         local newObj = SM_bag.takeObject({ guid = info.guid })
         newObj.setPosition(SM_sPos)
-        SM_sPos = Vect_Sum(SM_sPos, { -2, 0, 0 })
+        SM_sPos = Vect.Sum(SM_sPos, { -2, 0, 0 })
         TempModule.AddChildren('Ship Models Collection', newObj)
     end
     --TM.DeleteTempChildren('Ship Models Collection')
-    local PC_bag = TM.Instantiate('Pilot Cards Collection', Vect_Sum(sPos, { 0, -5, 0 }))
+    local PC_bag = TM.Instantiate('Pilot Cards Collection', Vect.Sum(sPos, { 0, -5, 0 }))
     PC_bag.lock()
     PC_bag.tooltip = false
     items = PC_bag.getObjects()
@@ -342,11 +333,11 @@ function SBM_clickCollection()
     for k, info in pairs(items) do
         local newObj = PC_bag.takeObject({ guid = info.guid, rotation = { 180, -90, 0 } })
         newObj.setPosition(PC_sPos)
-        PC_sPos = Vect_Sum(PC_sPos, { 0, 0, -3 })
+        PC_sPos = Vect.Sum(PC_sPos, { 0, 0, -3 })
         TempModule.AddChildren('Pilot Cards Collection', newObj)
     end
     --TM.DeleteTempChildren('Pilot Cards Collection')
-    local warnNote = TM.Instantiate('[b]WARNING[/b]', Vect_Sum(PC_sPos, { 0, 0, -3 }), { 1.25, 1.25, 1.25 },
+    local warnNote = TM.Instantiate('[b]WARNING[/b]', Vect.Sum(PC_sPos, { 0, 0, -3 }), { 1.25, 1.25, 1.25 },
         { 0, 180, 0 })
     warnNote.setLuaScript('')
     warnNote.interactable = true

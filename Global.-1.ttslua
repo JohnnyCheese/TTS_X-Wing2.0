@@ -5694,7 +5694,7 @@ function LocalPos(object, position)
     local yRot = RotMatrix('y', rot.y)
     lPos = RotateVector(yRot, lPos)
 
-    return Vect_Sum(lPos, object.getPosition())
+    return Vect.Sum(lPos, object.getPosition())
 end
 
 ------
@@ -7080,17 +7080,6 @@ function RotateVector(rotMat, vect)
         for j = 1, 3, 1 do
             out[i] = out[i] + rotMat[i][j] * vect[j]
         end
-    end
-    return out
-end
-
--- Sum of two vectors (of any size)
-function Vect_Sum(vec1, vec2)
-    local out = {}
-    local k = 1
-    while vec1[k] ~= nil and vec2[k] ~= nil do
-        out[k] = vec1[k] + vec2[k]
-        k = k + 1
     end
     return out
 end
