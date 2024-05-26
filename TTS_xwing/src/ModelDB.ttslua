@@ -15,15 +15,12 @@ ModelDB.LoadData = function(obj)
     return obj.getTable('__ModelDB_data')
 end
 
--- List of ships we warned about being unrocognized in the script
+-- List of ships we warned about being unrecognized in the script
 ModelDB.warnList = {}
 -- Warn user that this model is outsourced or unrecognized for some other reason
 ModelDB.UnrecognizedWarn = function(model)
     if not ModelDB.warnList[model] then
-        broadcastToAll(
-            model.getName() ..
-            '\'s model not recognized - use LGS in name if large base and contact author about the issue',
-            { 1, 0.1, 0.1 })
+        broadcastToAll( model.getName() .. '\'s model not recognized - use LGS in name if large base and contact author about the issue', { 1, 0.1, 0.1 })
         ModelDB.warnList[model] = true
     end
 end

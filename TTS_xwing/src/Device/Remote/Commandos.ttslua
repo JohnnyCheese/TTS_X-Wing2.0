@@ -1,5 +1,5 @@
 local Dim = require("TTS_xwing.src.Dim")
-ObjectiveTokenData = require("TTS_xwing/src/ObjectiveTokenData")
+ObjectiveTokenData = require("TTS_xwing.src.ObjectiveTokenData")
 
 ship_drop_positions =
 {
@@ -27,14 +27,14 @@ ship_drop_positions =
 
 
 backwards = false
-droporigin = nil
+dropOrigin = nil
 dropped = false
 stat = false
-arcsopen = false
+arcsOpen = false
 side = "(A)"
 
 rulers = {}
-rulerstype = nil
+rulersType = nil
 
 Data = { Size = "objective" }
 
@@ -74,14 +74,14 @@ scale = 1 / self.getScale().x
 
 function onDropped(playerColor)
     local spos = self.getPosition()
-    local nearest = nil
-    local nearest_loc = nil
-    local nearest_pos = nil
-    local minDist = 2.89
-    droporigin = self.getPosition() -- 80mm
+    local nearest
+    local nearest_loc
+    local nearest_pos
+    local minDist = Dim.Convert_mm_igu(80)
+    dropOrigin = self.getPosition()
     for _, ship in pairs(getObjectsWithTag('Ship')) do
         local pos = ship.getPosition()
-        for loc, pos_rot in pairs(ship_drop_positions[ship.getTable('Data').Size or "small"]) do
+        for _, pos_rot in pairs(ship_drop_positions[ship.getTable('Data').Size or "small"]) do
             local drop_pos = pos + Dim.Convert_mm_igu(ship.getTransformRight() * pos_rot.pos.x) +
                 Dim.Convert_mm_igu(ship.getTransformForward() * pos_rot.pos.y)
             local dist = math.sqrt(math.pow((spos[1] - drop_pos[1]), 2) + math.pow((spos[3] - drop_pos[3]), 2))
@@ -104,7 +104,6 @@ function onDropped(playerColor)
         if self.is_face_down then
             side_offset = side_offset * -1
         end
-
 
         backwards = math.abs(math.fmod((self.getRotation().y + 90) - (nearest.getRotation().y + nearest_loc.rot), 360)) < 90
 
@@ -131,7 +130,7 @@ function onContextOpen(player_color)
 end
 
 function showBtn()
-    if stat == false and dropped and not arcsopen then
+    if stat == false and dropped and not arcsOpen then
         if self.is_face_down then
             --self.UI.setAttribute("btnPanel", "rotation", "180 0 180")
             self.UI.setAttribute("btnPanel", "rotation", "180 0 0")
@@ -170,8 +169,8 @@ function checkArc(type, range, friendly)
         destroyObject(ruler)
     end
     rulers = {}
-    if rulerstype == type .. range then
-        rulerstype = nil
+    if rulersType == type .. range then
+        rulersType = nil
     else
         if type == "full" then
             printToAll("Checking for ships at range " .. tostring(range) .. " from " .. self.getName(), color(1.0, 1.0, 0.2, 0.9))
@@ -179,8 +178,8 @@ function checkArc(type, range, friendly)
         rulers = Global.call("CheckArc", { ship = self, arctype = type, range = range, include_friendly_ships = friendly })
     end
     if rulers and #rulers > 0 then
-        rulerstype = type .. range
-        arcsopen = true
+        rulersType = type .. range
+        arcsOpen = true
         hideBtn()
         local rotation = vector(0, -90, 0)
         local up = vector(0, 1, 0)
@@ -200,8 +199,8 @@ function checkArc(type, range, friendly)
             font_size      = 40
         })
     else
-        rulerstype = nil
-        arcsopen = false
+        rulersType = nil
+        arcsOpen = false
     end
 end
 
@@ -211,8 +210,8 @@ function removeArcs()
         destroyObject(ruler)
         rulers = {}
     end
-    rulerstype = nil
-    arcsopen = false
+    rulersType = nil
+    arcsOpen = false
 end
 
 moves = {
@@ -314,7 +313,7 @@ function showDropButtons()
 end
 
 function cancelDrop()
-    self.setPositionSmooth(droporigin, false, false)
+    self.setPositionSmooth(dropOrigin, false, false)
     self.setLock(false)
     self.clearButtons()
 end

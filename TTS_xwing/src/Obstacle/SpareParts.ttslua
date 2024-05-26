@@ -1,4 +1,5 @@
 local Dim = require("TTS_xwing.src.Dim")
+local Vect = require("TTS_lib.Vector.Vector")
 
 Parts = self
 Attach = false
@@ -82,8 +83,8 @@ end
 function onDropped()
     if assignedShip == nil then
         local spos = self.getPosition()
-        local nearest = nil
-        local minDist = 2.89 -- 80mm
+        local nearest
+        local minDist = Dim.Convert_mm_igu(80)
         for _, ship in pairs(getAllObjects()) do
             if ship.type == 'Figurine' and ship.name ~= '' then
                 local pos = ship.getPosition()
@@ -172,17 +173,6 @@ function RotateVector(rotMat, vect)
     return out
 end
 
--- Sum of two vectors (of any size)
-function Vect_Sum(vec1, vec2)
-    local out = {}
-    local k = 1
-    while vec1[k] ~= nil and vec2[k] ~= nil do
-        out[k] = vec1[k] + vec2[k]
-        k = k + 1
-    end
-    return out
-end
-
 function LocalPos(object, position)
     local rot = object.getRotation()
     local lPos = { position[1], position[2], position[3] }
@@ -194,5 +184,5 @@ function LocalPos(object, position)
     local yRot = RotMatrix('y', rot['y'])
     lPos = RotateVector(yRot, lPos)
 
-    return Vect_Sum(lPos, object.getPosition())
+    return Vect.Sum(lPos, object.getPosition())
 end

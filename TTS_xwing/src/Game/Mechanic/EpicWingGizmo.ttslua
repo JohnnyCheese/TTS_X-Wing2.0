@@ -6,11 +6,14 @@
 -- Epic Wing gizmo token v0.1 test canadate.
 -- ~~~~~~
 
+local Dim = require("TTS_xwing.src.Dim")
+
 -- Scripted token properties
 __XW_Token = true
 __XW_TokenIdle = false
 __XW_TokenType = 'helper:epicWing'
 
+local Vect = require("TTS_lib.Vector.Vector")
 local s1 = 0.73
 
 wingPositions = {
@@ -112,8 +115,16 @@ function onLoad(save_state)
         toolOpen = state.toolOpen or false
     end
     if configured then
-        local formWingButton = { ['function_owner'] = self, ['click_function'] = 'SetWing', ['label'] = 'Form Wing',
-            ['position'] = { 0, 0.25, 0 }, ['rotation'] = { 0, 0, 0 }, ['width'] = 700, ['height'] = 200, ['font_size'] = 100 }
+        local formWingButton = {
+            ['function_owner'] = self,
+            ['click_function'] = 'SetWing',
+            ['label'] = 'Form Wing',
+            ['position'] = { 0, 0.25, 0 },
+            ['rotation'] = { 0, 0, 0 },
+            ['width'] = 700,
+            ['height'] = 200,
+            ['font_size'] = 100
+        }
         self.createButton(formWingButton)
     else
         SpawnFirstButtons()
@@ -123,9 +134,17 @@ end
 function SpawnFirstButtons()
     if nameAssigned == 'Epic Wing Token' then
         self.clearButtons()
-        local nameWingButton = { ['function_owner'] = self, ['click_function'] = 'nameWingButton', ['label'] =
-        'Click to Start', ['position'] = { 0, 0.25, 0 }, ['rotation'] = { 0, 0, 0 }, ['width'] = 700, ['height'] = 200,
-            ['font_size'] = 100 }
+        local nameWingButton = {
+            ['function_owner'] = self,
+            ['click_function'] = 'nameWingButton',
+            ['label'] =
+            'Click to Start',
+            ['position'] = { 0, 0.25, 0 },
+            ['rotation'] = { 0, 0, 0 },
+            ['width'] = 700,
+            ['height'] = 200,
+            ['font_size'] = 100
+        }
         self.createButton(nameWingButton)
     else
         SpawnLastButtons()
@@ -140,11 +159,27 @@ end
 
 function SpawnLastButtons()
     self.clearButtons()
-    local ResetButton = { ['function_owner'] = self, ['click_function'] = 'selfReset', ['label'] = 'Reset', ['position'] = { 0, 0.25, 0.8 },
-        ['rotation'] = { 0, 0, 0 }, ['width'] = 700, ['height'] = 200, ['font_size'] = 100 }
+    local ResetButton = {
+        ['function_owner'] = self,
+        ['click_function'] = 'selfReset',
+        ['label'] = 'Reset',
+        ['position'] = { 0, 0.25, 0.8 },
+        ['rotation'] = { 0, 0, 0 },
+        ['width'] = 700,
+        ['height'] = 200,
+        ['font_size'] = 100
+    }
     self.createButton(ResetButton)
-    local formWingButton = { ['function_owner'] = self, ['click_function'] = 'SetWing', ['label'] = 'Form Wing',
-        ['position'] = { 0, 0.25, 0 }, ['rotation'] = { 0, 0, 0 }, ['width'] = 700, ['height'] = 200, ['font_size'] = 100 }
+    local formWingButton = {
+        ['function_owner'] = self,
+        ['click_function'] = 'SetWing',
+        ['label'] = 'Form Wing',
+        ['position'] = { 0, 0.25, 0 },
+        ['rotation'] = { 0, 0, 0 },
+        ['width'] = 700,
+        ['height'] = 200,
+        ['font_size'] = 100
+    }
     self.createButton(formWingButton)
     toolOpen = true
     wingName = self.getName()
@@ -164,15 +199,15 @@ function selfReset()
     local newSelf = self.reload()
 end
 
---asign ships to wing Place token on the ship and press the Left Wing Button
+-- assign ships to wing Place token on the ship and press the Left Wing Button
 -- Assign on drop near a small base ship
 -- Add a wingmate to the wing
 function AddWingmate()
-    --find which posistion to fill next
+    --find which position to fill next
     local spos = self.getPosition()
-    local nearest = nil
-    local minDist = 2.89 -- 80mm
-    for k, ship in pairs(getAllObjects()) do
+    local nearest
+    local minDist = Dim.Convert_mm_igu(80)
+    for _, ship in pairs(getAllObjects()) do
         if ship.type == 'Figurine' and ship.name ~= '' then
             local pos = ship.getPosition()
             local dist = math.sqrt(math.pow((spos[1] - pos[1]), 2) + math.pow((spos[3] - pos[3]), 2))
@@ -190,12 +225,12 @@ function AddWingmate()
             SpawnFirstButtons()
         elseif #assignedShips < 5 then
             if nearest == leader_ship then
-                printToAll("Unable to add " .. nearest.getName() .. " to " .. wingName .. ", it is allready in it")
+                printToAll("Unable to add " .. nearest.getName() .. " to " .. wingName .. ", it is already in it")
                 return
             end
-            for i, assignment in pairs(assignedShips) do
+            for _, assignment in pairs(assignedShips) do
                 if getObjectFromGUID(assignment.guid) == nearest then
-                    printToAll("Unable to add " .. nearest.getName() .. " to " .. wingName .. ", it is allready in it")
+                    printToAll("Unable to add " .. nearest.getName() .. " to " .. wingName .. ", it is already in it")
                     return
                 end
             end
@@ -205,40 +240,88 @@ function AddWingmate()
             printToAll(wingName .. ' ' .. posNames[#assignedShips] .. ': assigned to ' .. nearest.getName())
             return
         else
-            printToAll("Unable to add " .. nearest.getName() .. " to " .. wingName .. ", it is allready full")
+            printToAll("Unable to add " .. nearest.getName() .. " to " .. wingName .. ", it is already full")
             return
         end
     end
 end
 
 -------------------------------------------
-----Flavor Script for Nameing Squadrons----
+----Flavor Script for Naming Squadrons----
 
 function nameWingButton()
     self.clearButtons()
 
-    local SetRedSquadron = { ['function_owner'] = self, ['click_function'] = 'SetRedSquadron', ['label'] = 'Red Squadron',
-        ['position'] = { -2.5, 0.25, 1 }, ['rotation'] = { 0, 0, 0 }, ['width'] = 900, ['height'] = 200, ['font_size'] = 100 }
+    local SetRedSquadron = {
+        ['function_owner'] = self,
+        ['click_function'] = 'SetRedSquadron',
+        ['label'] = 'Red Squadron',
+        ['position'] = { -2.5, 0.25, 1 },
+        ['rotation'] = { 0, 0, 0 },
+        ['width'] = 900,
+        ['height'] = 200,
+        ['font_size'] = 100
+    }
     self.createButton(SetRedSquadron)
-    local SetGoldSquadron = { ['function_owner'] = self, ['click_function'] = 'SetGoldSquadron', ['label'] =
-    'Gold Squadron', ['position'] = { -2.5, 0.25, 0 }, ['rotation'] = { 0, 0, 0 }, ['width'] = 900, ['height'] = 200,
-        ['font_size'] = 100 }
+    local SetGoldSquadron = {
+        ['function_owner'] = self,
+        ['click_function'] = 'SetGoldSquadron',
+        ['label'] =
+        'Gold Squadron',
+        ['position'] = { -2.5, 0.25, 0 },
+        ['rotation'] = { 0, 0, 0 },
+        ['width'] = 900,
+        ['height'] = 200,
+        ['font_size'] = 100
+    }
     self.createButton(SetGoldSquadron)
-    local SetBlueSquadron = { ['function_owner'] = self, ['click_function'] = 'SetBlueSquadron', ['label'] =
-    'Blue Squadron', ['position'] = { -2.5, 0.25, -1 }, ['rotation'] = { 0, 0, 0 }, ['width'] = 900, ['height'] = 200,
-        ['font_size'] = 100 }
+    local SetBlueSquadron = {
+        ['function_owner'] = self,
+        ['click_function'] = 'SetBlueSquadron',
+        ['label'] =
+        'Blue Squadron',
+        ['position'] = { -2.5, 0.25, -1 },
+        ['rotation'] = { 0, 0, 0 },
+        ['width'] = 900,
+        ['height'] = 200,
+        ['font_size'] = 100
+    }
     self.createButton(SetBlueSquadron)
-    local SetGreenSquadron = { ['function_owner'] = self, ['click_function'] = 'SetGreenSquadron', ['label'] =
-    'Green Squadron', ['position'] = { 2.5, 0.25, 1 }, ['rotation'] = { 0, 0, 0 }, ['width'] = 900, ['height'] = 200,
-        ['font_size'] = 100 }
+    local SetGreenSquadron = {
+        ['function_owner'] = self,
+        ['click_function'] = 'SetGreenSquadron',
+        ['label'] =
+        'Green Squadron',
+        ['position'] = { 2.5, 0.25, 1 },
+        ['rotation'] = { 0, 0, 0 },
+        ['width'] = 900,
+        ['height'] = 200,
+        ['font_size'] = 100
+    }
     self.createButton(SetGreenSquadron)
-    local SetBlackSquadron = { ['function_owner'] = self, ['click_function'] = 'SetBlackSquadron', ['label'] =
-    'Black Squadron', ['position'] = { 2.5, 0.25, 0 }, ['rotation'] = { 0, 0, 0 }, ['width'] = 900, ['height'] = 200,
-        ['font_size'] = 100 }
+    local SetBlackSquadron = {
+        ['function_owner'] = self,
+        ['click_function'] = 'SetBlackSquadron',
+        ['label'] =
+        'Black Squadron',
+        ['position'] = { 2.5, 0.25, 0 },
+        ['rotation'] = { 0, 0, 0 },
+        ['width'] = 900,
+        ['height'] = 200,
+        ['font_size'] = 100
+    }
     self.createButton(SetBlackSquadron)
-    local SetWhiteSquadron = { ['function_owner'] = self, ['click_function'] = 'SetWhiteSquadron', ['label'] =
-    'White Squadron', ['position'] = { 2.5, 0.25, -1 }, ['rotation'] = { 0, 0, 0 }, ['width'] = 900, ['height'] = 200,
-        ['font_size'] = 100 }
+    local SetWhiteSquadron = {
+        ['function_owner'] = self,
+        ['click_function'] = 'SetWhiteSquadron',
+        ['label'] =
+        'White Squadron',
+        ['position'] = { 2.5, 0.25, -1 },
+        ['rotation'] = { 0, 0, 0 },
+        ['width'] = 900,
+        ['height'] = 200,
+        ['font_size'] = 100
+    }
     self.createButton(SetWhiteSquadron)
 end
 
@@ -320,8 +403,16 @@ function SetWing()
     end
     self.clearButtons()
     WingMateLand(1, true)
-    local formWingButton = { ['function_owner'] = self, ['click_function'] = 'SetWing', ['label'] = 'Form Wing',
-        ['position'] = { 0, 0.25, 0 }, ['rotation'] = { 0, 0, 0 }, ['width'] = 700, ['height'] = 200, ['font_size'] = 100 }
+    local formWingButton = {
+        ['function_owner'] = self,
+        ['click_function'] = 'SetWing',
+        ['label'] = 'Form Wing',
+        ['position'] = { 0, 0.25, 0 },
+        ['rotation'] = { 0, 0, 0 },
+        ['width'] = 700,
+        ['height'] = 200,
+        ['font_size'] = 100
+    }
     self.createButton(formWingButton)
 end
 
@@ -330,9 +421,9 @@ function WingMateLand(index, recursive)
     local wingpos = wingPositions[wingConfigurations[configuration][index]]
     local leader_ship = getObjectFromGUID(leader)
     if ship ~= nil and assignedShips[index].active then
-        desiredpos = LocalPos(leader_ship, wingpos.posOffset)
+        desiredPos = LocalPos(leader_ship, wingpos.posOffset)
 
-        local success = Global.call("epicMoveWingmate", { ship, desiredpos, leader_ship.getRotation() })
+        local success = Global.call("epicMoveWingmate", { ship, desiredPos, leader_ship.getRotation() })
         if not success then
             printToAll(wingpos.posName .. ' needs to break off') -- Break from wing, and mark for movement after all other wing members have been moved
             assignedShips[index].active = false
@@ -380,7 +471,7 @@ function LocalPos(object, position)
     local yRot = RotMatrix('y', rot['y'])
     lPos = RotateVector(yRot, lPos)
 
-    return Vect_Sum(lPos, object.getPosition())
+    return Vect.Sum(lPos, object.getPosition())
 end
 
 function RotMatrix(axis, angDeg)
@@ -396,15 +487,15 @@ function RotMatrix(axis, angDeg)
         }
     elseif axis == 'y' then
         return {
-            { cs(ang),    0, sn(ang) },
-            { 0,          1, 0 },
+            { cs(ang),      0, sn(ang) },
+            { 0,            1, 0 },
             { -1 * sn(ang), 0, cs(ang) }
         }
     elseif axis == 'z' then
         return {
             { cs(ang), -1 * sn(ang), 0 },
-            { sn(ang), cs(ang),    0 },
-            { 0,       0,          1 }
+            { sn(ang), cs(ang),      0 },
+            { 0,       0,            1 }
         }
     end
 end
@@ -417,17 +508,6 @@ function RotateVector(rotMat, vect)
         for j = 1, 3, 1 do
             out[i] = out[i] + rotMat[i][j] * vect[j]
         end
-    end
-    return out
-end
-
--- Sum of two vectors (of any size)
-function Vect_Sum(vec1, vec2)
-    local out = {}
-    local k = 1
-    while vec1[k] ~= nil and vec2[k] ~= nil do
-        out[k] = vec1[k] + vec2[k]
-        k = k + 1
     end
     return out
 end

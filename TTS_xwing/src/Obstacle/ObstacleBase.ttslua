@@ -3,7 +3,7 @@ local Dim = require("TTS_xwing.src.Dim")
 r1_visible = false
 held = false
 waiting = false
-waitduration = 0.1
+waitDuration = 0.1
 
 function onLoad(save_state)
     self.addContextMenuItem("Check Range 1", function() checkRange(1) end, false)
@@ -71,7 +71,7 @@ function checkRange(range)
             end
         else
             checkingRange = nil
-            printToAll("No ships is within range " .. range .. " of " .. self.getName(), color(1.0, 1.0, 0))
+            printToAll("No ships are within range " .. range .. " of " .. self.getName(), color(1.0, 1.0, 0))
         end
     else
         checkingRange = nil
@@ -102,7 +102,7 @@ function onUpdate()
         end
         self.setVectorLines(vector_lines)
         waiting = true
-        Wait.time(function() waiting = false end, waitduration)
+        Wait.time(function() waiting = false end, waitDuration)
     end
 end
 

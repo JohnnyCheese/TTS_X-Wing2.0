@@ -46,8 +46,7 @@ end
 
 function checkRange(range)
     if range and checkingRange ~= range then
-        printToAll("Checking for ships and obstacles within range " .. range .. " of " .. self.getName(),
-            color(1.0, 1.0, 0))
+        printToAll("Checking for ships and obstacles within range " .. range .. " of " .. self.getName(), color(1.0, 1.0, 0))
         vector_lines = {}
         for _, obj in pairs(getObjectsWithAnyTags({ 'Ship' })) do
             my_pos = self.getNearestPointFromObject(obj)
@@ -69,8 +68,7 @@ function checkRange(range)
                 other_pos = obj.getNearestPointFromObject(self) + vector(0, 0.1, 0)
                 distance = Dim.Convert_igu_mm(math.sqrt((my_pos.x - other_pos.x) ^ 2 + (my_pos.z - other_pos.z) ^ 2))
                 if distance < 100 * range then
-                    printToAll(obj.getName() .. " is within range " .. range .. " of " .. self.getName(),
-                        color(1.0, 1.0, 0))
+                    printToAll(obj.getName() .. " is within range " .. range .. " of " .. self.getName(), color(1.0, 1.0, 0))
                     table.insert(vector_lines, {
                         points = { self.positionToLocal(my_pos), self.positionToLocal(other_pos) },
                         color = { 1, 1, 1 },

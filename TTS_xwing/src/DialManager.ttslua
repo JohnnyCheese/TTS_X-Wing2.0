@@ -56,7 +56,7 @@ D.onObjectDestroyed = function(obj)
 end
 
 D.isAllDialsSet = function(player)
-    for idx, dial in D.assignedDials do
+    for _, dial in D.assignedDials do
         if dial.player == player and dial.set == false then
             return false
         end

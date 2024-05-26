@@ -83,7 +83,7 @@ M.Presentation = function(color, side)
     }
     presentation.SetDiceResult = function(result)
         M.PresentedDice[result.die] = presentation
-        for n, dice in pairs(presentation.dice) do
+        for _, dice in pairs(presentation.dice) do
             if not dice.presented or dice.dice_object == result.die then
                 Global.UI.setAttribute(dice.image, "image", result.type .. result.value)
                 Global.UI.setAttribute(dice.image, "active", "true")
@@ -102,7 +102,7 @@ M.Presentation = function(color, side)
     end
 
     presentation.Timout = function()
-        for n, dice in pairs(presentation.dice) do
+        for _, dice in pairs(presentation.dice) do
             Global.UI.setAttribute(dice.image, "image", "RedBlank")
             Global.UI.setAttribute(dice.image, "active", "false")
             if dice.dice_object then
@@ -148,7 +148,7 @@ M.SetDiceData = function(DiceData, player)
         natties = true
     end
     for _, result in pairs(DiceData) do
-        local presentation = nil
+        local presentation
         if M.PresentedDice[result.die] then
             presentation = M.PresentedDice[result.die]
         else

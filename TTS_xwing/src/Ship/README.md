@@ -7,8 +7,10 @@ not necessary scripts which operate on Ships, which might go best under
 `Game.Mechanic`.
 
 Currently, Ships can:
+
 * Deploy (Devices or Shuttles)
 * Maneuver (Move)
- 
+
 Have Modifications like
+
 * Turret

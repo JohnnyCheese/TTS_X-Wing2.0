@@ -1,12 +1,14 @@
+local Dim = require("TTS_xwing.src.Dim")
+
 local AttachTemplateButton = { ['function_owner'] = self, ['click_function'] = 'AttachTemplate', ['label'] = 'Attach',
     ['position'] = { 0.0, 0.3, 0.3 }, ['rotation'] = { 0, 0, 0 }, ['width'] = 200, ['height'] = 80, ['font_size'] = 50 }
 self.createButton(AttachTemplateButton)
 
 function AttachTemplate()
     local spos = self.getPosition()
-    local nearest = nil
-    local minDist = 2.89     -- 80mm
-    for k, ship in pairs(getAllObjects()) do
+    local nearest
+    local minDist = Dim.Convert_mm_igu(80)
+    for _, ship in pairs(getAllObjects()) do
         if ship.tag == 'Figurine' and ship.name ~= '' then
             local pos = ship.getPosition()
             local dist = math.sqrt(math.pow((spos[1] - pos[1]), 2) + math.pow((spos[3] - pos[3]), 2))
@@ -16,8 +18,8 @@ function AttachTemplate()
             end
         end
     end
-    local obj = nil
-    local shipGUID = nil
+    local obj
+    local shipGUID
     obj = nearest
     shipGUID = obj.getGUID()
     obj.addAttachment(self)
