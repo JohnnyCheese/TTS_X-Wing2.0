@@ -450,6 +450,7 @@ function setupUI()
         self.UI.setAttribute("InitiativeIcon", "position", initiativeIconPos[size])
         self.UI.setValue("Name", self.getTable("UiData").name)
         self.UI.setAttribute("Name", "position", NamePos[size])
+        self.setName(self.getTable("Data").Name)
     end
     DisableAttachedColliders()
     Wait.time(DisableAttachedColliders, 5)
@@ -579,7 +580,7 @@ function onLoad(savedData)
         self.setVar("isAi", state.isAi)
         self.setTable("StrikeTargets", state.strikeTargets)
         self.interactable = state.interactable or false
-        initContextMenu()
+        --initContextMenu()
         for _, guid in ipairs(state.tokenData.tokens) do
             Global.call('API_AssignToken', { token = getObjectFromGUID(guid), ship = self })
         end
