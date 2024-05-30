@@ -6,7 +6,7 @@ state = {
 
 __XW_LayoutHandlers = { hide = 'DestroyChild' }
 
-scaleConstant = {0.0272, 0.5, 0.1025}
+scaleConstant = { 0.0272, 0.5, 0.1025 }
 extendDistance = 12
 
 function FitToZone(arg)
@@ -15,19 +15,23 @@ function FitToZone(arg)
             coroutine.yield(0)
         until (not arg.zone.isSmoothMoving()) and arg.zone.resting
         local zoneScale = arg.zone.getScale()
-        local targetScale = {zoneScale[1]*scaleConstant[1], scaleConstant[2], zoneScale[3]*scaleConstant[3]}
+        local targetScale = { zoneScale[1] * scaleConstant[1], scaleConstant[2], zoneScale[3] * scaleConstant[3] }
         local targetRot = arg.zone.getRotation()
         targetRot.z = targetRot.z + 180
         local targetPos = arg.zone.getPosition()
-        targetPos.y = targetPos.y - 0.5*zoneScale[2] + 0.15
+        targetPos.y = targetPos.y - 0.5 * zoneScale[2] + 0.15
         self.setRotation(targetRot)
         self.setScale(targetScale)
         self.setPosition(targetPos)
         state.extended = false
         state.parent = arg.zone
-        if state.child then state.child.destruct() state.child = nil end
+        if state.child then
+            state.child.destruct()
+            state.child = nil
+        end
         return 1
     end
+
     startLuaCoroutine(self, 'DelayedFit')
 end
 
@@ -42,7 +46,10 @@ function SpawnChild()
 end
 
 function DestroyChild()
-    if state.child then state.child.destruct() state.child = nil end
+    if state.child then
+        state.child.destruct()
+        state.child = nil
+    end
 end
 
 function onLoad(saveState)
@@ -68,7 +75,7 @@ end
 function retract()
     if state.extended then
         DestroyChild()
-        local targetLocal = {0, 0, extendDistance/self.getScale()[3]}
+        local targetLocal = { 0, 0, extendDistance / self.getScale()[3] }
         self.setPosition(self.positionToWorld(targetLocal))
         state.extended = false
     end
@@ -76,7 +83,7 @@ end
 
 function extend()
     if not state.extended then
-        local targetLocal = {0, 0, -1*extendDistance/self.getScale()[3]}
+        local targetLocal = { 0, 0, -1 * extendDistance / self.getScale()[3] }
         self.setPosition(self.positionToWorld(targetLocal))
         SpawnChild()
         state.extended = true

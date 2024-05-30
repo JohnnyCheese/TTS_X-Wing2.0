@@ -10,17 +10,17 @@ ChatCmd = {}
 ChatCmd.prefix = '!'
 
 ChatCmd.colors = {}
-ChatCmd.colors.ok = {0.5, 1, 0.5}
-ChatCmd.colors.warn = {1, 0.5, 0}
-ChatCmd.colors.error = {1, 0.4, 0.4}
+ChatCmd.colors.ok = { 0.5, 1, 0.5 }
+ChatCmd.colors.warn = { 1, 0.5, 0 }
+ChatCmd.colors.error = { 1, 0.4, 0.4 }
 
 ChatCmd.IsCommand = function(msg)
     local pLen = ChatCmd.prefix:len()
-    return (msg:sub(1,pLen) == ChatCmd.prefix)
+    return (msg:sub(1, pLen) == ChatCmd.prefix)
 end
 
 ChatCmd.DecodeCommand = function(cmd, player)
-    cmd = cmd:sub(ChatCmd.prefix:len()+1, -1)
+    cmd = cmd:sub(ChatCmd.prefix:len() + 1, -1)
     local words = {}
     for word in cmd:gmatch('[%w]+') do
         table.insert(words, word)
@@ -52,9 +52,9 @@ ChatCmd.HasPermissions = function(player, permission)
 end
 
 ChatCmd.AssertPermissions = function(player, permission)
-    local errorColor = {1, 0.4, 0.4}
     if not ChatCmd.HasPermissions(player, permission) then
-        player.broadcast('You don\'t have permissions (' .. permission .. ') to execute this command!', ChatCmd.colors.error)
+        player.broadcast('You don\'t have permissions (' .. permission .. ') to execute this command!',
+            ChatCmd.colors.error)
         return false
     end
     return true
@@ -70,7 +70,7 @@ ChatCmd.AddCommand = function(info)
     assert(type(info.fcn) == 'function', 'ChatCmd.AddCommand: no function specified')
     ChatCmd.commands[info.name] = {
         usage = (info.usage and info.usage:gsub('<p>', ChatCmd.prefix)) or (ChatCmd.prefix .. info.name),
-        examples = info.examples or {}
+        examples = info.examples or {},
         desc = info.desc or '(no description)',
         fcn = info.fcn,
         permissions = info.perm or 'everyone'
@@ -120,7 +120,7 @@ ChatCmd.fcns.roll = function(cmd)
     if dieFaces < 3 then dieFaces = 3 end
 
     local results = {}
-    for k=1,dieNum do
+    for _ = 1, dieNum do
         table.insert(results, math.random(1, dieFaces))
     end
     local dieName = ((dieNum > 1 and (dieNum .. ' D' .. dieFaces .. '\'s')) or 'a D' .. dieFaces)
@@ -134,31 +134,31 @@ ChatCmd.fcns.roll = function(cmd)
 
     if dieType == 'att' or dieType == 'def' then
         local translate = {
-            att = {4, 3, 2, 2, 4, 3, 2, 1},
-            def = {3, 2, 1, 1, 3, 3, 1, 3},
+            att = { 4, 3, 2, 2, 4, 3, 2, 1 },
+            def = { 3, 2, 1, 1, 3, 3, 1, 3 },
         }
-        for k,res in pairs(results) do
+        for k, res in pairs(results) do
             results[k] = translate[dieType][res]
         end
     end
     table.sort(results)
     if dieType == 'att' or dieType == 'def' then
         local translate = {
-            att = {'crit', 'hit', 'eye', 'blank'},
-            def = {'evade', 'eye', 'blank'},
+            att = { 'crit', 'hit', 'eye', 'blank' },
+            def = { 'evade', 'eye', 'blank' },
         }
-        for k,res in pairs(results) do
+        for k, res in pairs(results) do
             results[k] = translate[dieType][res]
         end
     end
 
-    for k, res in ipairs(results) do
+    for _, res in ipairs(results) do
         out = out .. res .. ', '
     end
     out = out:sub(1, -3) .. ' ]'
     if dieType ~= 'att' and dieType ~= 'def' and dieNum > 1 then
         local sum = 0
-        for k, res in ipairs(results) do
+        for _, res in ipairs(results) do
             sum = sum + res
         end
         out = out .. ', sum: ' .. sum
@@ -174,7 +174,7 @@ ChatCmd.AddCommand(
 )
 ChatCmd.fcns.help = function(cmd)
     local out = '\nAVAILABLE COMMANDS:\n'
-    for name, info in pairs(ChatCmd.commands) do
+    for _, info in pairs(ChatCmd.commands) do
         out = out .. info.usage .. '\n'
     end
     cmd.giver.print(out, ChatCmd.colors.ok)
@@ -189,7 +189,6 @@ ChatCmd.Process = function(cmd)
         end
         return fcn(cmd)
     else
-        local warnColor = {1, 0.5, 0}
         cmd.giver.broadcast('\'' .. cmd.name .. '\' is not a valid command, use ' .. ChatCmd.prefix .. 'help to list all commands', ChatCmd.colors.warn)
         return false
     end

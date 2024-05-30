@@ -18,18 +18,18 @@ end
 function M.update()
     obj.clearContextMenu()
 
-    for i, v in ipairs(toggleItems) do
+    for _, v in ipairs(toggleItems) do
         local text = ""
         local value = _G[v.name] or false
         if v.noToggle then
-          text = v.text
+            text = v.text
         elseif value then
             text = "Disable " .. v.text
         else
             text = "Enable " .. v.text
         end
 
-        obj.addContextMenuItem(text, || v.func(not value))
+        obj.addContextMenuItem(text, function() v.func(not value) end)
     end
 end
 

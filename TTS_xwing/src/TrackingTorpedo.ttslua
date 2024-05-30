@@ -1,21 +1,22 @@
-#include !/TTS_xwing/src/Dimensions
+local Dim = require("TTS_xwing.src.Dim")
+local Vect = require("TTS_lib.Vector.Vector")
+
 dork = self
 
 assignedShip = nil
 drop_offset = 0.2
-local spawnedRuler = nil
-
+local spawnedRuler
 sizeOffset = {
-  small = Convert_mm_igu(10.35),
-  medium = Convert_mm_igu(0.35),
-  large = Convert_mm_igu(-9.65),
-  huge = Convert_mm_igu(-81.0)
+    small = Dim.Convert_mm_igu(10.35),
+    medium = Dim.Convert_mm_igu(0.35),
+    large = Dim.Convert_mm_igu(-9.65),
+    huge = Dim.Convert_mm_igu(-81.0)
 }
 
 function update()
     if self.getDescription() == 'r' then
         if ToggleRuler3() then
-            printToAll('Spawning ' .. self.getName() .. ' guide', {0, 1, 1})
+            printToAll('Spawning ' .. self.getName() .. ' guide', { 0, 1, 1 })
         end
         self.setDescription('')
     end
@@ -30,14 +31,14 @@ function ToggleRuler3()
 end
 
 function DeleteRuler()
-    if spawnedRuler  then
+    if spawnedRuler then
         spawnedRuler.destruct()
         spawnedRuler = nil
     end
 end
 
 function ToggleRuler(range)
-    if spawnedRuler  then
+    if spawnedRuler then
         spawnedRuler.destruct()
         spawnedRuler = nil
         if spawnedRulerRange == range then
@@ -46,41 +47,43 @@ function ToggleRuler(range)
     end
     local params = {
         type = 'Custom_Model',
-        position = self.positionToWorld({0, 0, 0}),
+        position = self.positionToWorld({ 0, 0, 0 }),
         rotation = self.getRotation(),
-        scale = vector(1,1,1)
+        scale = vector(1, 1, 1)
     }
     local custom = {
-        mesh = '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/DRK1/R' .. tostring(range) .. '.obj',
+        mesh =
+            '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/DRK1/R' ..
+            tostring(range) .. '.obj',
         collider = 'http://pastebin.com/raw.php?i=UK3Urmw1'
     }
     local removeButton = {
         click_function = 'DeleteRuler',
         label = 'DEL',
         function_owner = self,
-        position = {0, 0.1, 0},
-        rotation = {0, 270, 0},
+        position = { 0, 0.1, 0 },
+        rotation = { 0, 270, 0 },
         width = 750,
         height = 750,
         font_size = 250,
-        color = {0.7, 0.7, 0.7}
+        color = { 0.7, 0.7, 0.7 }
     }
     spawnedRuler = spawnObject(params)
     spawnedRuler.setCustomObject(custom)
-    spawnedRuler.setColorTint(color(1,1,0,0.2))
+    spawnedRuler.setColorTint(color(1, 1, 0, 0.2))
     spawnedRuler.createButton(removeButton)
     local vector_lines = {}
-    for k,obj in pairs(getAllObjects()) do
+    for _, obj in pairs(getAllObjects()) do
         if obj ~= nil and obj.tag == 'Figurine' and obj.getVar('__XW_Ship') == true then
             my_pos = self.getNearestPointFromObject(obj)
-            closest = Global.call("API_GetClosestPointToShip", {ship=obj,point=my_pos})
-            distance = Convert_igu_mm(closest.length)
-            if distance < 100*range then
+            closest = Global.call("API_GetClosestPointToShip", { ship = obj, point = my_pos })
+            distance = Dim.Convert_igu_mm(closest.length)
+            if distance < 100 * range then
                 table.insert(vector_lines, {
-                    points = {self.positionToLocal(closest.A)*self.getScale().x, self.positionToLocal(closest.B)*self.getScale().x},
-                    color = {1,1,1},
+                    points = { self.positionToLocal(closest.A) * self.getScale().x, self.positionToLocal(closest.B) * self.getScale().x },
+                    color = { 1, 1, 1 },
                     thickness = 0.1,
-                    rotation = vector(0,0,0)
+                    rotation = vector(0, 0, 0)
                 })
             end
         end
@@ -98,7 +101,7 @@ end
 
 function onSave()
     if assignedShip ~= nil then
-        local state = {assignedShipGUID=assignedShip.getGUID()}
+        local state = { assignedShipGUID = assignedShip.getGUID() }
         return JSON.encode(state)
     end
 end
@@ -108,17 +111,16 @@ function onLoad(save_state)
     --self.addContextMenuItem("Toggle Range 3", ToggleRuler3, false)
 end
 
-
 -- Assign on drop near a small base ship
 function onDropped(color)
     if assignedShip == nil then
         local spos = self.getPosition()
-        local nearest = nil
-        local minDist = Convert_mm_igu(120)
-        for k,ship in pairs(getAllObjects()) do
+        local nearest
+        local minDist = Dim.Convert_mm_igu(120)
+        for _, ship in pairs(getAllObjects()) do
             if ship.tag == 'Figurine' and ship.name ~= '' then
                 local pos = ship.getPosition()
-                local dist = math.sqrt(math.pow((spos[1]-pos[1]),2) + math.pow((spos[3]-pos[3]),2))
+                local dist = math.sqrt(math.pow((spos[1] - pos[1]), 2) + math.pow((spos[3] - pos[3]), 2))
                 if dist < minDist then
                     nearest = ship
                     minDist = dist
@@ -126,21 +128,19 @@ function onDropped(color)
             end
         end
         if nearest ~= nil then
-            printToAll('DRK-1 Probe preparing to drop/lauch')
+            printToAll('DRK-1 Probe preparing to drop/launch')
             initialP = self.getPosition()
             assignedShip = nearest
             local size = assignedShip.getTable('Data').Size
 
-            local pos = LocalPos(assignedShip, vector(0,Convert_mm_igu(1),sizeOffset[size]))
+            local pos = LocalPos(assignedShip, vector(0, Dim.Convert_mm_igu(1), sizeOffset[size]))
             local rot = assignedShip.getRotation()
-            dorkMove(pos,rot)
+            dorkMove(pos, rot)
             prepareLaunch()
         end
     end
     self.setColorTint(Color.fromString(color))
 end
-
-
 
 function prepareLaunch()
     self.lock()
@@ -148,39 +148,37 @@ function prepareLaunch()
     moveSet()
 end
 
-
 function moveSet()
     self.createButton({
-      click_function = "moveR",
-      function_owner = self,
-      label          = "^",
-      position       = {0.2,0.05,-0.3 },
-      rotation       = {0,45,0},
-      width          = 70,
-      height         = 70,
-      font_size      = 80
+        click_function = "moveR",
+        function_owner = self,
+        label          = "^",
+        position       = { 0.2, 0.05, -0.3 },
+        rotation       = { 0, 45, 0 },
+        width          = 70,
+        height         = 70,
+        font_size      = 80
     })
     self.createButton({
-      click_function = "moveS",
-      function_owner = self,
-      label          = "^",
-      position       = {0,0.05,-0.3 },
-      width          = 70,
-      height         = 70,
-      font_size      = 80
+        click_function = "moveS",
+        function_owner = self,
+        label          = "^",
+        position       = { 0, 0.05, -0.3 },
+        width          = 70,
+        height         = 70,
+        font_size      = 80
     })
     self.createButton({
-      click_function = "moveL",
-      function_owner = self,
-      label          = "^",
-      position       = {-0.2,0.05,-0.3 },
-      rotation       = {0,-45,0},
-      width          = 70,
-      height         = 70,
-      font_size      = 80
+        click_function = "moveL",
+        function_owner = self,
+        label          = "^",
+        position       = { -0.2, 0.05, -0.3 },
+        rotation       = { 0, -45, 0 },
+        width          = 70,
+        height         = 70,
+        font_size      = 80
     })
 end
-
 
 --[[
 Neutral
@@ -207,52 +205,50 @@ Dz=3.93
 function moveL()
     --print("BL")
     self.clearButtons()
-    dork=self
-    pos = LocalPos(dork,{2.68, 0, -6.49})
+    dork = self
+    pos = LocalPos(dork, { 2.68, 0, -6.49 })
     local rot = self.getRotation()
-    newRot={}
-    newRot[1]=rot[1]
-    newRot[2]=rot[2]-45
-    newRot[3]=rot[3]
-    dorkMove(pos,newRot)
+    newRot = {}
+    newRot[1] = rot[1]
+    newRot[2] = rot[2] - 45
+    newRot[3] = rot[3]
+    dorkMove(pos, newRot)
     moveSet()
 end
 
 function moveS()
     --print("S")
     self.clearButtons()
-    dork=self
-    pos = LocalPos(dork,{0, 0, -8})
+    dork = self
+    pos = LocalPos(dork, { 0, 0, -8 })
     local rot = self.getRotation()
-    newRot={}
-    newRot[1]=rot[1]
-    newRot[2]=rot[2]
-    newRot[3]=rot[3]
-    dorkMove(pos,newRot)
+    newRot = {}
+    newRot[1] = rot[1]
+    newRot[2] = rot[2]
+    newRot[3] = rot[3]
+    dorkMove(pos, newRot)
     moveSet()
 end
 
 function moveR()
     --print("BR")
     self.clearButtons()
-    dork=self
-    pos = LocalPos(dork,{-2.68, 0, -6.49})
+    dork = self
+    pos = LocalPos(dork, { -2.68, 0, -6.49 })
     local rot = self.getRotation()
-    newRot={}
-    newRot[1]=rot[1]
-    newRot[2]=rot[2]+45
-    newRot[3]=rot[3]
-    dorkMove(pos,newRot)
+    newRot = {}
+    newRot[1] = rot[1]
+    newRot[2] = rot[2] + 45
+    newRot[3] = rot[3]
+    dorkMove(pos, newRot)
     moveSet()
 end
 
-
-function dorkMove(pos,rot)
-    Global.call("API_ClearPosition", {pos = pos, reach = 0.5})
+function dorkMove(pos, rot)
+    Global.call("API_ClearPosition", { pos = pos, reach = 0.5 })
     self.setPositionSmooth(pos, false, true)
     self.setRotationSmooth(rot, false, true)
 end
-
 
 function RotMatrix(axis, angDeg)
     local ang = math.rad(angDeg)
@@ -261,51 +257,40 @@ function RotMatrix(axis, angDeg)
 
     if axis == 'x' then
         return {
-                    { 1,        0,             0 },
-                    { 0,   cs(ang),   -1*sn(ang) },
-                    { 0,   sn(ang),      cs(ang) }
-               }
+            { 1, 0,       0 },
+            { 0, cs(ang), -1 * sn(ang) },
+            { 0, sn(ang), cs(ang) }
+        }
     elseif axis == 'y' then
         return {
-                    {    cs(ang),   0,   sn(ang) },
-                    {          0,   1,         0 },
-                    { -1*sn(ang),   0,   cs(ang) }
-               }
+            { cs(ang),      0, sn(ang) },
+            { 0,            1, 0 },
+            { -1 * sn(ang), 0, cs(ang) }
+        }
     elseif axis == 'z' then
         return {
-                    { cs(ang),   -1*sn(ang),   0 },
-                    { sn(ang),      cs(ang),   0 },
-                    { 0,                  0,   1 }
-               }
+            { cs(ang), -1 * sn(ang), 0 },
+            { sn(ang), cs(ang),      0 },
+            { 0,       0,            1 }
+        }
     end
 end
 
 -- Apply given rotation matrix on given vector
 -- (multiply matrix and column vector)
 function RotateVector(rotMat, vect)
-    local out = {0, 0, 0}
-    for i=1,3,1 do
-        for j=1,3,1 do
-            out[i] = out[i] + rotMat[i][j]*vect[j]
+    local out = { 0, 0, 0 }
+    for i = 1, 3, 1 do
+        for j = 1, 3, 1 do
+            out[i] = out[i] + rotMat[i][j] * vect[j]
         end
-    end
-    return out
-end
-
--- Sum of two vectors (of any size)
-function Vect_Sum(vec1, vec2)
-    local out = {}
-    local k = 1
-    while vec1[k] ~= nil and vec2[k] ~= nil do
-        out[k] = vec1[k] + vec2[k]
-        k = k+1
     end
     return out
 end
 
 function LocalPos(object, position)
     local rot = object.getRotation()
-    local lPos = {position[1], position[2], position[3]}
+    local lPos = { position[1], position[2], position[3] }
     -- Z-X-Y extrinsic
     local zRot = RotMatrix('z', rot['z'])
     lPos = RotateVector(zRot, lPos)
@@ -314,5 +299,5 @@ function LocalPos(object, position)
     local yRot = RotMatrix('y', rot['y'])
     lPos = RotateVector(yRot, lPos)
 
-    return Vect_Sum(lPos, object.getPosition())
+    return Vect.Sum(lPos, object.getPosition())
 end

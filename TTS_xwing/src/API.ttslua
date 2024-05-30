@@ -4,12 +4,12 @@
 --
 -- All cross-script-callable functions
 -- ~~~~~~
-
+local API = {}
 
 -- "API" functions, to be working in TTS:
 -- Must take one and only one argument, of table type
 -- Must return one and only one value
--- Cannot recieve/return function or thread type values
+-- Cannot receive/return function or thread type values
 -- Have to be called after callee loads (its onLoad triggers)
 
 
@@ -17,7 +17,7 @@
 -- Argument: { code = moveCode, ship = shipReference, ignoreCollisions = [true/false] }
 -- Return: TRUE if move completed, FALSE if overlap prevented ship from moving
 -- Return:                         FALSE if invalid (non-move) command or ship not ready
-function API_PerformMove(argTable)
+function API.API_PerformMove(argTable)
     local type = XW_cmd.CheckCommand(argTable.code)
     if (type ~= 'move' and type ~= 'actionMove') or not XW_cmd.isReady(argTable.ship) then
         return false
@@ -29,12 +29,12 @@ end
 -- To be called immediately before changing position of a ship
 -- Argument: { ship = shipRef, finPos = { pos = finalPosition, rot = finalRotation} }
 -- finPos field may be nil (no position set after wait then)
-function API_QueueShipTokensMove(argTable)
+function API.API_QueueShipTokensMove(argTable)
     -- Set the ship busy if it's not to try prevent double ready later
     if XW_cmd.isReady(argTable.ship) then
         XW_cmd.SetBusy(argTable.ship)
     end
-    local lockFun = nil
+    local lockFun
     if argTable.noLock == true then
         lockFun = function(ship)
             ship.unlock()
@@ -47,83 +47,81 @@ end
 -- Indicate dropping of a bomb token from outside Global
 -- Argument: { token = droppedTokenRef }
 -- Return: true if token snapped, false otherwise
-function API_BombTokenDrop(argTable)
+function API.API_BombTokenDrop(argTable)
     return BombModule.OnTokenDrop(argTable.token)
 end
 
-function API_MineDrop(argTable)
-  BombModule.CheckMineDroppedOverlapping(argTable.mine, argTable.ship)
+function API.API_MineDrop(argTable)
+    BombModule.CheckMineDroppedOverlapping(argTable.mine, argTable.ship)
 end
 
-
-function API_AssignToken(argTable)
+function API.API_AssignToken(argTable)
     TokenModule.AssignToken(argTable.token, argTable.ship)
 end
 
-function API_GetPlayerConfig(argTable)
+function API.API_GetPlayerConfig(argTable)
     return ConfigManager.GetConfig(argTable.player_color, argTable.param_name)
 end
 
-function API_GetGlobalConfig(argTable)
+function API.API_GetGlobalConfig(argTable)
     return ConfigManager.GetConfig("global", argTable.param_name)
 end
 
-function API_SetPlayerConfig(argTable)
+function API.API_SetPlayerConfig(argTable)
     return ConfigManager.SetConfig(argTable.player_color, argTable.param_name, argTable.value)
 end
 
-function API_SetGlobalConfig(argTable)
-    return ConfigManager.SetConfig("global",argTable.param_name, argTable.value)
+function API.API_SetGlobalConfig(argTable)
+    return ConfigManager.SetConfig("global", argTable.param_name, argTable.value)
 end
 
-function API_GetClosestPointToShip(argTable)
+function API.API_GetClosestPointToShip(argTable)
     local size = argTable.ship.getTable('Data').Size or "small"
     local segments = ArcCheck.GetOwnArcLineSegments(argTable.ship, ArcCheck.arc_line_segments[size].full.segments)
 
     local closestRange = 100000
-    local closestDistance = nil
+    local closestDistance
     for _, segment in pairs(segments) do
-      distance = ArcCheck.GetDistanceBetweenLineSegmentAndPoint(segment, argTable.point, false)
-      --print("Dist: " .. tostring(distance.length))
-      if distance.length < closestRange then
-        closestRange = distance.length
-        closestDistance = distance
-      end
+        distance = ArcCheck.GetDistanceBetweenLineSegmentAndPoint(segment, argTable.point, false)
+        --print("Dist: " .. tostring(distance.length))
+        if distance.length < closestRange then
+            closestRange = distance.length
+            closestDistance = distance
+        end
     end
     return closestDistance
 end
 
-function API_AssignDial(argTable)
+function API.API_AssignDial(argTable)
     DialManagerModule.assignDial(argTable.dial, argTable.ship, argTable.player)
 end
 
-function API_SetDial(argTable)
-  if argTable.set then
-    DialManagerModule.setDial(argTable.dial)
-  else
-    DialManagerModule.unSetDial(argTable.dial)
-  end
+function API.API_SetDial(argTable)
+    if argTable.set then
+        DialManagerModule.setDial(argTable.dial)
+    else
+        DialManagerModule.unSetDial(argTable.dial)
+    end
 end
 
-function API_IsAllDialsSet(argTable)
-  return DialManagerModule.isAllDialsSet(argTable.player)
+function API.API_IsAllDialsSet(argTable)
+    return DialManagerModule.isAllDialsSet(argTable.player)
 end
 
-
-function API_ClearPosition(argTable)
-  TokenModule.ClearPosition(argTable.pos, argTable.reach, argTable.ship)
+function API.API_ClearPosition(argTable)
+    TokenModule.ClearPosition(argTable.pos, argTable.reach, argTable.ship)
 end
 
-function API_SetTokenSize(argTable)
-  TokenModule.token_scale = argTable.size
+function API.API_SetTokenSize(argTable)
+    TokenModule.token_scale = argTable.size
 end
 
-function API_StreamAnnounce(argTable)
-  StreamManagerModule.Announce(argTable.text, argTable.player)
+function API.API_StreamAnnounce(argTable)
+    StreamManagerModule.Announce(argTable.text, argTable.player)
 end
 
-function API_ToggleAnnouncement(argTable)
-  StreamManagerModule.Announce(argTable.text, argTable.player)
+function API.API_ToggleAnnouncement(argTable)
+    StreamManagerModule.Announce(argTable.text, argTable.player)
 end
 
 --------
@@ -141,3 +139,5 @@ end
 -- token : 'idle'               - false / (true/nil)        <- This token should be ignored when moving tokens / Not
 
 --------
+
+return API

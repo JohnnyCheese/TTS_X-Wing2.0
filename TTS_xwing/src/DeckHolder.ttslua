@@ -21,6 +21,7 @@ function Enable()
         end
         return 1
     end
+
     startLuaCoroutine(self, 'DelayedDrawCoroutine')
 end
 
@@ -48,8 +49,8 @@ end
 function SnapDeck(deck)
     local sPos = self.getPosition()
     local sRot = self.getRotation()
-    deck.setPositionSmooth({sPos[1], sPos[2]+0.3, sPos[3]}, false, true)
-    deck.setRotationSmooth({sRot[1]+180, sRot[2], sRot[3]}, false, true)
+    deck.setPositionSmooth({ sPos[1], sPos[2] + 0.3, sPos[3] }, false, true)
+    deck.setRotationSmooth({ sRot[1] + 180, sRot[2], sRot[3] }, false, true)
     state.deck = deck
     deck.randomize()
 end
@@ -84,7 +85,7 @@ function onLoad(saveState)
 end
 
 function onSave()
-    local sState = {active = state.active}
+    local sState = { active = state.active }
     if state.deck then
         sState.deckGUID = state.deck.getGUID()
     end

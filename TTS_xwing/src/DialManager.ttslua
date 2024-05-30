@@ -6,62 +6,62 @@ D.announceColor = color(0.1, 1, 0.1)
 D.assignedDials = {}
 
 D.assignDial = function(dial, ship, player)
-  if ship then
-    D.assignedDials[dial.getGUID()] = {dial = dial, ship = ship, player = player, set = false}
-  else
-    D.assignedDials[dial.getGUID()] = nil
-  end
+    if ship then
+        D.assignedDials[dial.getGUID()] = { dial = dial, ship = ship, player = player, set = false }
+    else
+        D.assignedDials[dial.getGUID()] = nil
+    end
 end
 
 D.setDial = function(dial)
-  if D.assignedDials[dial.getGUID()] then
-    D.assignedDials[dial.getGUID()].set = true
+    if D.assignedDials[dial.getGUID()] then
+        D.assignedDials[dial.getGUID()].set = true
 
-    local unset_dials = false
-    for _, dial in pairs(D.assignedDials) do
-      if dial.set == false then
-        unset_dials = true
-        break
-      end
+        local unset_dials = false
+        for _, dial in pairs(D.assignedDials) do
+            if dial.set == false then
+                unset_dials = true
+                break
+            end
+        end
+        if unset_dials == false then
+            printToAll("All dials have been set by all players", D.announceColor)
+        end
+    else
+        printToAll("Attempted to set dial, but dial not assigned", D.announceColor)
     end
-    if unset_dials == false then
-      printToAll("All dials have been set by all players", D.announceColor)
-    end
-  else
-    printToAll("Attempted to set dial, but dial not assigned", D.announceColor)
-  end
 end
 
 D.unSetDial = function(dial)
-  if D.assignedDials[dial.getGUID()] then
-    D.assignedDials[dial.getGUID()].set = false
-  else
-    printToAll("Attempted to unset dial, but dial not assigned", D.announceColor)
-  end
+    if D.assignedDials[dial.getGUID()] then
+        D.assignedDials[dial.getGUID()].set = false
+    else
+        printToAll("Attempted to unset dial, but dial not assigned", D.announceColor)
+    end
 end
 
 D.onObjectDestroyed = function(obj)
-  --print("In table: " .. tostring(D.assignedDials[obj.getGUID()]))
-  if D.assignedDials[obj.getGUID()] ~= nil then
-    D.assignedDials[obj.getGUID()] = nil
-    return
-  end
-  --print("Deleted obj: " .. tostring(obj))
-  for idx, dial in pairs(D.assignedDials) do
-    --print("In table: " .. tostring(dial.ship))
-    if dial.ship == obj then
-      D.assignedDials[idx] = nil
+    --print("In table: " .. tostring(D.assignedDials[obj.getGUID()]))
+    if D.assignedDials[obj.getGUID()] ~= nil then
+        D.assignedDials[obj.getGUID()] = nil
+        return
     end
-  end
+    --print("Deleted obj: " .. tostring(obj))
+    for idx, dial in pairs(D.assignedDials) do
+        --print("In table: " .. tostring(dial.ship))
+        if dial.ship == obj then
+            D.assignedDials[idx] = nil
+        end
+    end
 end
 
 D.isAllDialsSet = function(player)
-  for idx, dial in D.assignedDials do
-    if dial.player == player and dial.set == false then
-      return false
+    for _, dial in D.assignedDials do
+        if dial.player == player and dial.set == false then
+            return false
+        end
     end
-  end
-  return true
+    return true
 end
 
 return D

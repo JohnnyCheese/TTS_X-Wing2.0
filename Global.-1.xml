@@ -1,22 +1,20 @@
 <Defaults>
   <Panel class="PlayerPanel"
          color="rgba(0,0,0,0)"
-         visibility="Yellow"
+         visibility="-"
          allowDragging="true"
          returnToOriginalPositionWhenReleased="false"
          height="200" width="400"
          rectAlignment="MiddleCenter"
-         active="false"
-         showAnimation="FadeIn"
-         hideAnimation="FadeOut"/>
-  <Image class="DiceImage" preserveAspect="true" width="80" height="80" active="false" visibility="Yellow" image="RedBlank"/>
-  <Image class="PresentationImage" image="DiceResultBackground" color="rgba(0,0,1,1.0)" visibility="Yellow" />
-  <Text class="PlayerText" fontSize="20" color="rgba(1,1,1,1)" visibility="Yellow"/>
+         active="false"/>
+  <Image class="DiceImage" preserveAspect="true" width="80" height="80" active="false" visibility="-" image="RedBlank" showAnimation="FadeIn" hideAnimation="FadeOut"/>
+  <Image class="PresentationImage" image="DiceResultBackground" color="rgba(0,0,1,1.0)" visibility="-" />
+  <Text class="PlayerText" fontSize="20" color="rgba(1,1,1,1)" visibility="-"/>
 </Defaults>
 
-<Panel id="AnnouncementPanel" rectAlignment="UpperCenter" active="false" showAnimation="SlideIn_Left" hideAnimation="SlideOut_Right" visibility="Yellow" height="300" width="600" offsetXY="0 -200">
-    <Image id="AnnouncementImage" preserveAspect="true" image="BrushStroke" color="rgba(1,1,0,1.0)" offsetXY="0 -10"/>
-    <Text  id="AnnouncementText" fontSize="60" color="rgba(1,1,1,1)"><i>Natties!</i></Text>
+<Panel id="AnnouncementPanel" rectAlignment="UpperCenter" active="false" showAnimation="SlideIn_Left" hideAnimation="SlideOut_Right" visibility="-" height="300" width="600" offsetXY="0 -200">
+    <Image id="AnnouncementImage" preserveAspect="true" image="BrushStroke" color="rgba(1,1,0,1.0)"  offsetXY="0 -10"/>
+    <Text  id="AnnouncementText" fontSize="60" color="rgba(1,1,1,1)" ><i>Natties!</i></Text>
 </Panel>
 
 <Panel id="PresentationPanel1" class="PlayerPanel">

@@ -2,8 +2,9 @@
 -- Script by Eirik 'Flippster' Munthe
 -- Issues, history at: https://github.com/JohnnyCheese/TTS_X-Wing2.0
 --
--- Module for handeling object mouse over and contextial gui menus
+-- Module for handling object mouse over and contextual gui menus
 -- ~~~~~~
+local EventSub = require("TTS_Lib.EventSub.EventSub")
 
 ContextGui = {}
 
@@ -34,7 +35,8 @@ ContextGui.onObjectHover = function(player_color, hovered_object)
     end
     if hovered_object ~= nil then
         if (hovered_object.getVar("onContextOpen") ~= nil) then
-            ContextGui.playerTable[player_color].timerid = Wait.time(function() ContextGui.onTimout(player_color, hovered_object) end, 1)
+            ContextGui.playerTable[player_color].timerid = Wait.time(
+                function() ContextGui.onTimout(player_color, hovered_object) end, 1)
         end
         if (hovered_object.getVar("onHoverEnter") ~= nil) then
             hovered_object.call("onHoverEnter", player_color)
@@ -43,3 +45,5 @@ ContextGui.onObjectHover = function(player_color, hovered_object)
 end
 
 EventSub.Register('onObjectHover', ContextGui.onObjectHover)
+
+return ContextGui

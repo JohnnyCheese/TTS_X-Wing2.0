@@ -1,4 +1,6 @@
-ObjectiveTokenData = require("TTS_xwing/src/ObjectiveTokenData")
+local ObjectiveTokenData = require("TTS_xwing.src.ObjectiveTokenData")
+local Vect = require("TTS_Lib.Vector.Vector")
+local Dim = require("TTS_xwing.src.Dim")
 
 ArcCheck = {}
 ArcCheck.initialized = false
@@ -14,28 +16,28 @@ ArcCheck.arc_line_segments.large = {}
 ArcCheck.arc_line_segments.huge = {}
 ArcCheck.arc_line_segments.objective = {}
 
-ArcCheck.bullseye_data =
-{
-    pos={
-        small=vector(0,0,Convert_mm_igu(170)),
-        medium=vector(0,0,Convert_mm_igu(180)),
-        large=vector(0,0,Convert_mm_igu(190)),
-        huge=vector(0,0,Convert_mm_igu(110.5)),
+ArcCheck.bullseye_data = {
+    pos = {
+        small = vector(0, 0, Dim.Convert_mm_igu(170)),
+        medium = vector(0, 0, Dim.Convert_mm_igu(180)),
+        large = vector(0, 0, Dim.Convert_mm_igu(190)),
+        huge = vector(0, 0, Dim.Convert_mm_igu(110.5)),
         objective = nil
     },
-    size=vector(Convert_mm_igu(14), 0.1, Convert_mm_igu(300))
+    size = vector(Dim.Convert_mm_igu(14), 0.1, Dim.Convert_mm_igu(300))
 }
 
-ArcCheck.Initialize = function() -- Arc values based on Muon's assesments (vassal)
-     if ArcCheck.initialized == false then
-         ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.small, 81.24, 20, 20)
-         ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.medium, 82.8, 30, 30)
-         ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.large, 83.52, 40, 40)
-         ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.huge, 82.9, 40, 110.5 )
-         ArcCheck.arc_line_segments.objective = ObjectiveTokenData.arc_line_segments
-         ArcCheck.initialized = true
-     end
- end
+ArcCheck.Initialize = function()
+    -- Arc values based on Muon's assessments (vassal)
+    if ArcCheck.initialized == false then
+        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.small, 81.24, 20, 20)
+        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.medium, 82.8, 30, 30)
+        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.large, 83.52, 40, 40)
+        ArcCheck.CalculateArcLineSegments(ArcCheck.arc_line_segments.huge, 82.9, 40, 110.5)
+        ArcCheck.arc_line_segments.objective = ObjectiveTokenData.arc_line_segments
+        ArcCheck.initialized = true
+    end
+end
 
 --[[ArcCheck.Initialize = function() -- Arc values matching TTS ruler objects
     if ArcCheck.initialized == false then
@@ -49,79 +51,92 @@ end]]
 
 
 ArcCheck.CalculateArcLineSegments = function(table, degree, size_w, size_l)
-    size_w = Convert_mm_igu(size_w)
-    size_l = Convert_mm_igu(size_l)
-    local edge_arc = Vect.AngleDeg2D({-size_w, 0, size_l}, {size_w, 0,size_l})
+    size_w = Dim.Convert_mm_igu(size_w)
+    size_l = Dim.Convert_mm_igu(size_l)
+    local edge_arc = Vect.AngleDeg2D({ -size_w, 0, size_l }, { size_w, 0, size_l })
     --print("Size_W:" .. tostring(size_w) .. " size_l:"..size_l .. " edge_arc=".. tostring(edge_arc))
-    if size_w == size_l then -- Rectangular base sizes (small, medium and large ships)
+    if size_w == size_l then
+        -- Rectangular base sizes (small, medium and large ships)
         --print("Rectangular:".. tostring(size_w)..","..tostring(size_l))
-        local r = math.rad(degree/2)
+        local r = math.rad(degree / 2)
         local a = math.tan(r) * size_l
-        table.front =    {   segments={ {vector(-a, 0, size_l), vector(a, 0, size_l)} },-- Front segment
-                                degrees={direction=0, spread=degree/2}
-                            }
-        table.back =     {   segments={ {vector(-a, 0, -size_l), vector(a, 0, -size_l)} }, -- Front segment
-                                degrees={direction=180, spread=degree/2}
-                            }
-        table.left =     {   segments={ {vector(-a, 0, -size_l), vector(-size_w, 0, -size_l)},   -- back segment
-                                           {vector(-size_w, 0, -size_l), vector(-size_w, 0, size_l)}, -- left edge
-                                           {vector(-size_w, 0, size_l), vector(-a, 0, size_l)}  -- front segment
-                                       },
-                                degrees={direction=-90, spread=(180-degree)/2}
-                            }
-        table.right =    {   segments={ {vector(a, 0, -size_l), vector(size_w, 0, -size_l)},   -- back segment
-                                           {vector(size_w, 0, -size_l), vector(size_w, 0, size_l)}, -- right edge
-                                           {vector(size_w, 0, size_l), vector(a, 0, size_l)}  -- front segment
-                                       },
-                                degrees={direction=90, spread=(180-degree)/2}
-                            }
-
-    else -- Long base size (huge ships)
+        table.front = {
+            segments = { { vector(-a, 0, size_l), vector(a, 0, size_l) } }, -- Front segment
+            degrees = { direction = 0, spread = degree / 2 }
+        }
+        table.back = {
+            segments = { { vector(-a, 0, -size_l), vector(a, 0, -size_l) } }, -- Front segment
+            degrees = { direction = 180, spread = degree / 2 }
+        }
+        table.left = {
+            segments = { { vector(-a, 0, -size_l), vector(-size_w, 0, -size_l) }, -- back segment
+                { vector(-size_w, 0, -size_l), vector(-size_w, 0, size_l) },      -- left edge
+                { vector(-size_w, 0, size_l),  vector(-a, 0, size_l) }            -- front segment
+            },
+            degrees = { direction = -90, spread = (180 - degree) / 2 }
+        }
+        table.right = {
+            segments = { { vector(a, 0, -size_l), vector(size_w, 0, -size_l) }, -- back segment
+                { vector(size_w, 0, -size_l), vector(size_w, 0, size_l) },      -- right edge
+                { vector(size_w, 0, size_l),  vector(a, 0, size_l) }            -- front segment
+            },
+            degrees = { direction = 90, spread = (180 - degree) / 2 }
+        }
+    else
+        -- Long base size (huge ships)
         --print("Long:".. tostring(size_w)..","..tostring(size_l))
-        local r = math.rad(90 - degree/2)
+        local r = math.rad(90 - degree / 2)
         local a = math.tan(r) * size_w
-        table.front =    {   segments={  {vector(-size_w, 0, a), vector(-size_w, 0, size_l)}, -- left segment
-                                            {vector(-size_w, 0, size_l), vector(size_w, 0, size_l)}, -- front edge
-                                            {vector(size_w, 0, size_l), vector(size_w, 0, a)} },-- right segment
-                                degrees={direction=0, spread=degree/2}
-                            }
-        table.back =    {   segments={  {vector(-size_w, 0, -a), vector(-size_w, 0, -size_l)}, -- left segment
-                                            {vector(-size_w, 0, -size_l), vector(size_w, 0, -size_l)}, -- back edge
-                                            {vector(size_w, 0, -size_l), vector(size_w, 0, -a)} },-- right segment
-                                degrees={direction=180, spread=degree/2}
-                            }
-        table.left =     {   segments={ {vector(-size_w, 0, -a), vector(-size_w, 0, a)}}, -- left segment
-                                degrees={direction=-90, spread=(180-degree)/2}
-                            }
-        table.right =    {   segments={ {vector(size_w, 0, -a), vector(size_w, 0, a)}}, -- right segment
-                                degrees={direction=90, spread=(180-degree)/2}
-                            }
+        table.front = {
+            segments = { { vector(-size_w, 0, a), vector(-size_w, 0, size_l) }, -- left segment
+                { vector(-size_w, 0, size_l), vector(size_w, 0, size_l) },      -- front edge
+                { vector(size_w, 0, size_l),  vector(size_w, 0, a) } },         -- right segment
+            degrees = { direction = 0, spread = degree / 2 }
+        }
+        table.back = {
+            segments = { { vector(-size_w, 0, -a), vector(-size_w, 0, -size_l) }, -- left segment
+                { vector(-size_w, 0, -size_l), vector(size_w, 0, -size_l) },      -- back edge
+                { vector(size_w, 0, -size_l),  vector(size_w, 0, -a) } },         -- right segment
+            degrees = { direction = 180, spread = degree / 2 }
+        }
+        table.left = {
+            segments = { { vector(-size_w, 0, -a), vector(-size_w, 0, a) } }, -- left segment
+            degrees = { direction = -90, spread = (180 - degree) / 2 }
+        }
+        table.right = {
+            segments = { { vector(size_w, 0, -a), vector(size_w, 0, a) } }, -- right segment
+            degrees = { direction = 90, spread = (180 - degree) / 2 }
+        }
     end
-    table.bullseye = {   segments={ {vector(-ArcCheck.bullseye_data.size[1]/2, 0, size_l), vector(ArcCheck.bullseye_data.size[1]/2, 0, size_l)} }, -- Bullseye segments
-                            degrees={direction=0, spread=0, bullseye=true}
-                        }
-    table.fullfront = {  segments={ {vector(-size_w, 0, 0), vector(-size_w, 0, size_l)},   -- left segment
-                                        {vector(-size_w, 0, size_l), vector(size_w, 0, size_l)}, -- front edge
-                                        {vector(size_w, 0, size_l), vector(size_w, 0, 0)}  -- right segment
-                                       },
-                            degrees={direction=0, spread=90}
-                        }
-    table.fullback = {  segments={ {vector(-size_w, 0, 0), vector(-size_w, 0, -size_l)},   -- left segment
-                                       {vector(-size_w, 0, -size_l), vector(size_w, 0, -size_l)}, -- back edge
-                                       {vector(size_w, 0, -size_l), vector(size_w, 0, 0)}  -- right segment
-                                   },
-                            degrees={direction=180, spread=90}
-                        }
-     table.full =    {   segments={ {vector(-size_w, 0, size_l), vector(size_w, 0, size_l)},   -- front edge
-                                       {vector(size_w, 0, size_l), vector(size_w, 0, -size_l)}, -- right edge
-                                       {vector(size_w, 0, -size_l), vector(-size_w, 0, -size_l)},  -- back edge
-                                       {vector(-size_w, 0, -size_l), vector(-size_w, 0, size_l)}  -- left edge
-                                   },
-                            degrees={direction=0, spread=180}
-                        }
+    table.bullseye = {
+        segments = { { vector(-ArcCheck.bullseye_data.size[1] / 2, 0, size_l), vector(ArcCheck.bullseye_data.size[1] / 2, 0, size_l) } }, -- Bullseye segments
+        degrees = { direction = 0, spread = 0, bullseye = true }
+    }
+    table.fullfront = {
+        segments = { { vector(-size_w, 0, 0), vector(-size_w, 0, size_l) }, -- left segment
+            { vector(-size_w, 0, size_l), vector(size_w, 0, size_l) },      -- front edge
+            { vector(size_w, 0, size_l),  vector(size_w, 0, 0) }            -- right segment
+        },
+        degrees = { direction = 0, spread = 90 }
+    }
+    table.fullback = {
+        segments = { { vector(-size_w, 0, 0), vector(-size_w, 0, -size_l) }, -- left segment
+            { vector(-size_w, 0, -size_l), vector(size_w, 0, -size_l) },     -- back edge
+            { vector(size_w, 0, -size_l),  vector(size_w, 0, 0) }            -- right segment
+        },
+        degrees = { direction = 180, spread = 90 }
+    }
+    table.full = {
+        segments = { { vector(-size_w, 0, size_l), vector(size_w, 0, size_l) }, -- front edge
+            { vector(size_w, 0, size_l),   vector(size_w, 0, -size_l) },        -- right edge
+            { vector(size_w, 0, -size_l),  vector(-size_w, 0, -size_l) },       -- back edge
+            { vector(-size_w, 0, -size_l), vector(-size_w, 0, size_l) }         -- left edge
+        },
+        degrees = { direction = 0, spread = 180 }
+    }
 end
 
-function CheckArc(args)
+function ArcCheck.CheckArc(args)
     -- Remove player selection to prevent accidental deletion.
     local playerColors = getSelectingPlayers(args.ship)
     for _, player in ipairs(playerColors) do
@@ -138,7 +153,7 @@ function CheckArc(args)
 
     table.sort(targets, ArcCheck.SortTargetsByDesirability)
     local found = false
-    for i, target in pairs(targets) do
+    for _, target in pairs(targets) do
         ship = target.ship
         if target.in_arc == false then
             printToAll(' - ' .. ship.getName() .. ' not in arc')
@@ -153,9 +168,8 @@ function CheckArc(args)
             end
 
             if args.arctype == "full" then
-                printToAll(" - " .. ship.getName().. " in range", color(1.0, 1.0, 0.2, 0.9))
+                printToAll(" - " .. ship.getName() .. " in range", color(1.0, 1.0, 0.2, 0.9))
             else
-
                 obstructedtext = ' is'
                 if (target.obstructed == 'likely_unobstructed') then
                     obstructedtext = ' is most likely UNOBSTRUCTED'
@@ -176,7 +190,7 @@ function CheckArc(args)
                 if target.bullseye == true then
                     bullseyetext = ' in bullseye'
                 end
-                printToAll(" - " .. ship.getName().. multipletext .. obstructedtext .. ' at range ' ..tostring(target.closest.range) .. bullseyetext, color(1.0, 1.0, 0.2, 0.9))
+                printToAll( " - " .. ship.getName() .. multipletext .. obstructedtext .. ' at range ' .. tostring(target.closest.range) .. bullseyetext, color(1.0, 1.0, 0.2, 0.9))
             end
         end
     end
@@ -228,7 +242,7 @@ ArcCheck.GetTargetsInRelationToArc = function(ship, arc, fixed_targets, range, i
     local arc_parts = {}
     local arc_table = {}
     if type(arc) == 'string' then
-        arc_table = {arc}
+        arc_table = { arc }
     else
         arc_table = arc;
     end
@@ -251,37 +265,39 @@ ArcCheck.GetTargetsInRelationToArc = function(ship, arc, fixed_targets, range, i
     ship.setLock(true)
     local shipSize = ship.getTable("Data").Size or 'small'
 
-    local potential_targets = fixed_targets or ArcCheck.GetPotentialTargets(ship, (range+1)*250, true, include_friendly_ships or false)
+    local potential_targets = fixed_targets or
+        ArcCheck.GetPotentialTargets(ship, (range + 1) * 250, true, include_friendly_ships or false)
     local bullseye_targets = ArcCheck.GetBullseyeTargets(ship, ArcCheck.bullseye_data.pos[shipSize])
 
     local own_line_segments = {}
-    for i, arc in ipairs(arc_parts) do
+    for _, arc in ipairs(arc_parts) do
         local segments = ArcCheck.GetOwnArcLineSegments(ship, ArcCheck.arc_line_segments[shipSize][arc]["segments"])
-        for k, segment in ipairs(segments) do
+        for _, segment in ipairs(segments) do
             table.insert(own_line_segments, segment)
         end
     end
 
     targets = {}
     local found = false
-    for k, pt in pairs(potential_targets) do
-        target = {['ship'] = pt, ['bullseye'] = false}
-        for i, bt in pairs(bullseye_targets) do
+    for _, pt in pairs(potential_targets) do
+        target = { ['ship'] = pt, ['bullseye'] = false }
+        for _, bt in pairs(bullseye_targets) do
             if bt == pt then
                 target.bullseye = true
             end
         end
         local target_line_segments = {}
-        for i, arc in ipairs(arc_parts) do
-            local segments = ArcCheck.GetTargetLineSegmentsInArc(ship, pt, ArcCheck.arc_line_segments[shipSize][arc]["degrees"])
-            for k, segment in ipairs(segments) do
+        for _, arc in ipairs(arc_parts) do
+            local segments = ArcCheck.GetTargetLineSegmentsInArc(ship, pt,
+                ArcCheck.arc_line_segments[shipSize][arc]["degrees"])
+            for _, segment in ipairs(segments) do
                 table.insert(target_line_segments, segment)
             end
         end
 
         if #target_line_segments ~= 0 then
-            local other = nil
-            local closest = nil
+            local other
+            local closest
             closest, other = ArcCheck.GetDistanceBetweenLineSegments(own_line_segments, target_line_segments)
             target.in_arc = true
             target.obstructed = 'unobstructed'
@@ -312,7 +328,7 @@ ArcCheck.GetTargetsInRelationToArc = function(ship, arc, fixed_targets, range, i
                         target.obstructed = 'obstructed'
                     end
                 else
-                    if other ~=nil and #other.obstructions ~= 0 then
+                    if other ~= nil and #other.obstructions ~= 0 then
                         target.obstructed = 'chosen_obstructed'
                     end
                 end
@@ -390,16 +406,16 @@ end
 
 ArcCheck.CheckObstruction = function(data, ship, ownship)
     local collissions = Physics.cast({
-        origin       = data.midpoint,
-        orientation  = {0,data.angle, 0},
-        direction    = {0,-0.3,0},
-        type         = 3,
-        size         = {0,0,data.length},
+        origin = data.midpoint,
+        orientation = { 0, data.angle, 0 },
+        direction = { 0, -0.3, 0 },
+        type = 3,
+        size = { 0, 0, data.length },
         max_distance = 3,
-        debug        = false
+        debug = false
     })
     local hit_obstacles = {}
-    for k, hit in pairs(collissions) do
+    for _, hit in pairs(collissions) do
         if (hit.hit_object ~= ship) and (hit.hit_object ~= ownship) and (MoveModule.SelectObstacles(hit.hit_object) or MoveModule.SelectHugeShips(hit.hit_object)) then
             table.insert(hit_obstacles, hit.hit_object)
         end
@@ -410,24 +426,26 @@ end
 ArcCheck.SpawnObstructionRuler = function(data)
     if data.range > 0 then
         if not (ArcCheck.model_cache["ArcCheckRuler" .. data.range]) then
-          ArcCheck.model_cache["ArcCheckRuler" .. data.range] = spawnObject({
-              type              = "Custom_Model",
-              position          = vector(0, - 1.21, 0),
-              rotation          = {0, 0, 0},
-              scale             = {0.363, 0.363, 0.5},
-              sound             = false,
-              snap_to_grid      = false
-          })
-          ArcCheck.model_cache["ArcCheckRuler" .. data.range].setCustomObject({
-              mesh =  '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/ArcCheckRuler'.. data.range .. '.obj',
-              material = 3
-          })
-          ArcCheck.model_cache["ArcCheckRuler" .. data.range].addTag('TempLayoutElement')
-          ArcCheck.model_cache["ArcCheckRuler" .. data.range].interactable = false
-          ArcCheck.model_cache["ArcCheckRuler" .. data.range].setLock(true)
+            ArcCheck.model_cache["ArcCheckRuler" .. data.range] = spawnObject({
+                type = "Custom_Model",
+                position = vector(0, -1.21, 0),
+                rotation = { 0, 0, 0 },
+                scale = { 0.363, 0.363, 0.5 },
+                sound = false,
+                snap_to_grid = false
+            })
+            ArcCheck.model_cache["ArcCheckRuler" .. data.range].setCustomObject({
+                mesh =
+                    '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/ArcCheckRuler' ..
+                    data.range .. '.obj',
+                material = 3
+            })
+            ArcCheck.model_cache["ArcCheckRuler" .. data.range].addTag('TempLayoutElement')
+            ArcCheck.model_cache["ArcCheckRuler" .. data.range].interactable = false
+            ArcCheck.model_cache["ArcCheckRuler" .. data.range].setLock(true)
         end
         ruler = ArcCheck.model_cache["ArcCheckRuler" .. data.range].clone()
-        ruler.setRotation({0, data.angle + 90,0})
+        ruler.setRotation({ 0, data.angle + 90, 0 })
         ruler.setPosition(vector(data.A[1], 1.21, data.A[3]))
         local tintcolor = color(1.0, 1.0, 0.2, 1.0) -- Yellow obstructed tint
         if #data.obstructions == 0 then
@@ -444,7 +462,6 @@ ArcCheck.SpawnObstructionRuler = function(data)
             end
         end
 
-
         ruler.setColorTint(tintcolor)
         ruler.setLock(true)
         local rigid = ruler.getComponent("Rigidbody")
@@ -459,22 +476,21 @@ end
 -- Calculates closest distance between two set of line segments. Returns table with range, and line points
 ArcCheck.GetDistanceBetweenLineSegments = function(own_line_segments, target_line_segments)
     local closest = {
-        length=10000,
+        length = 10000,
         range = 0,
-        midpoint={0,0,0},
-        angle=0,
-        A={0,0,0},
-        B={0,0,0}
+        midpoint = { 0, 0, 0 },
+        angle = 0,
+        A = { 0, 0, 0 },
+        B = { 0, 0, 0 }
     }
-    local other = nil
+    local other
     local epsilon = 0.001 -- This to dumb down the mathematical accuracy to match the analog game experience
-    for k_o, seg_o in pairs(own_line_segments) do
-        for k_t, seg_t in pairs(target_line_segments) do
-            for k_p, point in pairs(seg_t) do
+    for _, seg_o in pairs(own_line_segments) do
+        for _, seg_t in pairs(target_line_segments) do
+            for _, point in pairs(seg_t) do
                 local distance = ArcCheck.GetDistanceBetweenLineSegmentAndPoint(seg_o, point, false)
-                if not ArcCheck.CheckEqualLineSegments(distance.A, distance.B, closest.A, closest.B ) then
+                if not ArcCheck.CheckEqualLineSegments(distance.A, distance.B, closest.A, closest.B) then
                     if (distance.length <= (closest.length + epsilon)) then
-
                         if math.abs(distance.length - closest.length) < epsilon then
                             --print("Real close: " .. tostring(distance.length).. " - " .. tostring(distance.length - closest.length))
                             if distance.length < closest.length then
@@ -490,16 +506,16 @@ ArcCheck.GetDistanceBetweenLineSegments = function(own_line_segments, target_lin
                         end
                     end
                 elseif distance.length < closest.length then
-                  --print("Equal lines, and closer")
-                  closest = distance
-                  other = nil
+                    --print("Equal lines, and closer")
+                    closest = distance
+                    other = nil
                 else
-                  --print("Equal lines, farther")
+                    --print("Equal lines, farther")
                 end
             end
-            for k_p, point in pairs(seg_o) do
+            for _, point in pairs(seg_o) do
                 local distance = ArcCheck.GetDistanceBetweenLineSegmentAndPoint(seg_t, point, true)
-                if not ArcCheck.CheckEqualLineSegments(distance.A, distance.B, closest.A, closest.B ) then
+                if not ArcCheck.CheckEqualLineSegments(distance.A, distance.B, closest.A, closest.B) then
                     if (distance.length <= (closest.length + epsilon)) then
                         if math.abs(distance.length - closest.length) < epsilon then
                             --print("Real close2: " .. tostring(distance.length).. " - " .. tostring(distance.length - closest.length))
@@ -516,11 +532,11 @@ ArcCheck.GetDistanceBetweenLineSegments = function(own_line_segments, target_lin
                         end
                     end
                 elseif distance.length < closest.length then
-                  --print("Equal lines, and closer")
-                  closest = distance
-                  other = nil
+                    --print("Equal lines, and closer")
+                    closest = distance
+                    other = nil
                 else
-                  --print("Equal lines, farther")
+                    --print("Equal lines, farther")
                 end
             end
         end
@@ -528,7 +544,7 @@ ArcCheck.GetDistanceBetweenLineSegments = function(own_line_segments, target_lin
     return closest, other
 end
 
-ArcCheck.GetAngleBetweenPoints = function(A,B,C)
+ArcCheck.GetAngleBetweenPoints = function(A, B, C)
     local BA = Vect.Between(B, A)
     local BC = Vect.Between(B, C)
     return Vect.AngleDeg(BA, BC)
@@ -536,13 +552,13 @@ end
 
 ArcCheck.CheckEqualLineSegments = function(line1A, line1B, line2A, line2B)
     local epsilon = 0.02
-    if Vect.Distance(line1A,line2A) < epsilon then
+    if Vect.Distance(line1A, line2A) < epsilon then
         return true
-    elseif Vect.Distance(line1B,line2B) < epsilon then
+    elseif Vect.Distance(line1B, line2B) < epsilon then
         return true
-    elseif Vect.Distance(line1A,line2B) < epsilon then
-      return true
-    elseif Vect.Distance(line1B,line2A) < epsilon then
+    elseif Vect.Distance(line1A, line2B) < epsilon then
+        return true
+    elseif Vect.Distance(line1B, line2A) < epsilon then
         return true
     end
     return false
@@ -559,7 +575,7 @@ ArcCheck.GetDistanceBetweenLineSegmentAndPoint = function(segment, point, revers
         -- Similarily for the second segment point
         P = segment[2]
     else
-    -- The closest point is somewhere in between, along the normal of the line segment
+        -- The closest point is somewhere in between, along the normal of the line segment
         local u = Vect.ToUnit(Vect.Between(segment[1], segment[2]))
         local baseline_norm = Vector(-u[3], u[2], u[1])
         local d = Vect.DotProd(Vect.Between(point, segment[1]), baseline_norm)
@@ -574,11 +590,10 @@ ArcCheck.GetDistanceBetweenLineSegmentAndPoint = function(segment, point, revers
         B = point
     end
     local distance = Vect.Distance(P, point)
-    local range =math.floor(Convert_igu_mm(distance / 100)) + 1
+    local range = math.floor(Dim.Convert_igu_mm(distance / 100)) + 1
 
     local midpoint = Vect.Middle(A, B)
     midpoint[2] = 1.52
-
 
     local AB = Vect.Between(A, B)
     local angle = Vect.AngleDeg(AB, vector(0, 0, 1))
@@ -586,21 +601,23 @@ ArcCheck.GetDistanceBetweenLineSegmentAndPoint = function(segment, point, revers
         angle = -angle
     end
 
-    return { length=distance,
-             A=A,
-             B=B,
-             range=range,
-             midpoint=midpoint,
-             angle=angle
-           }
+    return {
+        length = distance,
+        A = A,
+        B = B,
+        range = range,
+        midpoint = midpoint,
+        angle = angle
+    }
 end
 
 -- Returns list of line segments which are within a given arc type
 ArcCheck.GetOwnArcLineSegments = function(ship, segments)
     local outsegments = {}
-    for k, segment in pairs(segments) do
-        table.insert(outsegments, {Vect.Sum(ship.getPosition(), Vect.RotateDeg(segment[1], ship.getRotation()[2] + 180)),
-                                   Vect.Sum(ship.getPosition(), Vect.RotateDeg(segment[2], ship.getRotation()[2] + 180))})
+    for _, segment in pairs(segments) do
+        table.insert(outsegments,
+            { Vect.Sum(ship.getPosition(), Vect.RotateDeg(segment[1], ship.getRotation()[2] + 180)),
+                Vect.Sum(ship.getPosition(), Vect.RotateDeg(segment[2], ship.getRotation()[2] + 180)) })
     end
     return outsegments
 end
@@ -612,27 +629,29 @@ end
 
 -- Finds all targets in bullseye
 ArcCheck.GetBullseyeTargets = function(ship, pos, length)
-    if pos == nil then -- This is a non bullseye remote
-      return {}
+    if pos == nil then
+        -- This is a non bullseye remote
+        return {}
     end
-    if length != nil then
-        length = Convert_mm_igu(length)
+    if length ~= nil then
+        length = Dim.Convert_mm_igu(length)
     end
-    local castSize = vector(ArcCheck.bullseye_data.size[1], ArcCheck.bullseye_data.size[2], length or ArcCheck.bullseye_data.size[3])
+    local castSize = vector(ArcCheck.bullseye_data.size[1], ArcCheck.bullseye_data.size[2],
+        length or ArcCheck.bullseye_data.size[3])
     local collissions = Physics.cast({
-        origin       = Vect.Sum(ship.getPosition() + vector(0,0.1,0), Vect.RotateDeg(pos, ship.getRotation()[2] + 180)),
-        orientation  = ship.getRotation(),
-        direction    = {0,-0.03,0},
-        type         = 3,
-        size         = castSize,
+        origin = Vect.Sum(ship.getPosition() + vector(0, 0.1, 0), Vect.RotateDeg(pos, ship.getRotation()[2] + 180)),
+        orientation = ship.getRotation(),
+        direction = { 0, -0.03, 0 },
+        type = 3,
+        size = castSize,
         max_distance = 3,
-        debug        = false
+        debug = false
     })
     local myOwningPlayer = ship.getVar("owningPlayer")
     local bullseye_targets = {}
-    for k, hit in pairs(collissions) do
+    for _, hit in pairs(collissions) do
         if hit.hit_object.getGUID() ~= ship.getGUID() and MoveModule.SelectShipsAndRemotes(hit.hit_object) then
-            if hit.hit_object.getVar("owningPlayer") != myOwningPlayer then
+            if hit.hit_object.getVar("owningPlayer") ~= myOwningPlayer then
                 -- remove false targets, where only the nub is hit
                 if ArcCheck.VerifyBullseye(ship, hit.hit_object) then
                     table.insert(bullseye_targets, hit.hit_object)
@@ -645,14 +664,14 @@ end
 
 ArcCheck.VerifyBullseye = function(ship, target)
     if MoveModule.SelectRemotes(target) then
-      return true
+        return true
     end
     local left = false
     local right = false
-    local half_bullseye = (ArcCheck.bullseye_data.size[1]/2)
+    local half_bullseye = (ArcCheck.bullseye_data.size[1] / 2)
 
     -- Translate target corners into ship object Space
-    local size = Convert_mm_igu((mm_baseSize[target.getTable("Data").Size]/2))
+    local size = Dim.Convert_mm_igu((Dim.mm_baseSize[target.getTable("Data").Size] / 2))
     local t_rotation = target.getRotation().y
     local s_rotation = ship.getRotation().y
     local target_corners = {}
@@ -661,8 +680,8 @@ ArcCheck.VerifyBullseye = function(ship, target)
     target_corners[3] = vector(size, 0, size)
     target_corners[4] = vector(size, 0, -size)
     for _, target_corner in pairs(target_corners) do
-        local world_corner = target_corner:rotateOver('y',t_rotation) + target.getPosition() - ship.getPosition()
-        local local_corner = world_corner:rotateOver('y', - s_rotation)
+        local world_corner = target_corner:rotateOver('y', t_rotation) + target.getPosition() - ship.getPosition()
+        local local_corner = world_corner:rotateOver('y', -s_rotation)
         --print ("Local corner: " .. tostring(local_corner[1]) .. "," .. tostring(local_corner[2]) ..  "," .. tostring(local_corner[3]))
         if local_corner.x > -half_bullseye then
             right = true
@@ -673,7 +692,6 @@ ArcCheck.VerifyBullseye = function(ship, target)
         if left and right then
             return true
         end
-
     end
     return false
 end
@@ -689,21 +707,21 @@ ArcCheck.GetShipsWithinRange = function(ship, range, include_enemy_ships, includ
         include_friendly_ships = false
     end
 
-    local cast_radius = Convert_mm_igu(range)
+    local cast_radius = Dim.Convert_mm_igu(range)
     local collisions = Physics.cast({
-        origin       = ship.getPosition() + vector(0,0.1,0),
-        direction    = {0,-0.001,0},
-        type         = 2,
-        size         = {cast_radius, cast_radius, cast_radius},
+        origin = ship.getPosition() + vector(0, 0.1, 0),
+        direction = { 0, -0.001, 0 },
+        type = 2,
+        size = { cast_radius, cast_radius, cast_radius },
         max_distance = 1,
-        debug        = false
+        debug = false
     })
 
     local ship_owning_player = ship.getVar("owningPlayer")
     local potential_ships = {}
-    for k, hit in pairs(collisions) do
+    for _, hit in pairs(collisions) do
         if hit.hit_object.getGUID() ~= ship.getGUID() and MoveModule.SelectShipsAndRemotes(hit.hit_object) then
-            local is_enemy_ship = hit.hit_object.getVar("owningPlayer") != ship_owning_player
+            local is_enemy_ship = hit.hit_object.getVar("owningPlayer") ~= ship_owning_player
             if (include_enemy_ships and is_enemy_ship) or (include_friendly_ships and not is_enemy_ship) then
                 table.insert(potential_ships, hit.hit_object)
             end
@@ -713,27 +731,28 @@ ArcCheck.GetShipsWithinRange = function(ship, range, include_enemy_ships, includ
     return potential_ships
 end
 
-
 ArcCheck.GetDistanceBetweenShips = function(ship, target, arcs)
-    local arcs = arcs or {'front', 'back', 'left', 'right'}
+    local arcs = arcs or { 'front', 'back', 'left', 'right' }
     local ship_size = ship.getTable("Data").Size or 'small'
 
     local ship_line_segments = {}
     local target_line_segments = {}
     for _, arc in pairs(arcs) do
-        local ship_segments = ArcCheck.GetOwnArcLineSegments(ship, ArcCheck.arc_line_segments[ship_size][arc]["segments"])
+        local ship_segments = ArcCheck.GetOwnArcLineSegments(ship, ArcCheck.arc_line_segments[ship_size][arc]
+            ["segments"])
         for _, ship_segment in pairs(ship_segments) do
             table.insert(ship_line_segments, ship_segment)
         end
 
-        local target_segments = ArcCheck.GetTargetLineSegmentsInArc(ship, target, ArcCheck.arc_line_segments[ship_size][arc]["degrees"])
+        local target_segments = ArcCheck.GetTargetLineSegmentsInArc(ship, target,
+            ArcCheck.arc_line_segments[ship_size][arc]["degrees"])
         for _, target_segment in pairs(target_segments) do
             table.insert(target_line_segments, target_segment)
         end
     end
 
     if #target_line_segments ~= 0 then
-        local closest = nil
+        local closest
         closest, _ = ArcCheck.GetDistanceBetweenLineSegments(ship_line_segments, target_line_segments)
         return closest
     end
@@ -747,22 +766,22 @@ ArcCheck.GetTargetLineSegmentsInArc = function(ship, target, arcinfo)
     local targetShipData = target.getTable("Data")
     -- Get the full line segments for the ship
     if targetShipData == nil then
-      printToAll("Unable to get Data table for " .. ship.getName())
-      return {}
+        printToAll("Unable to get Data table for " .. ship.getName())
+        return {}
     end
     local segments = ArcCheck.arc_line_segments[targetShipData.Size]["full"]["segments"]
     local outsegments = {}
     local arc_center_vector = Vect.RotateDeg(vector(0, 0, -30), ship.getRotation()[2] + arcinfo.direction)
     --print("Arc_center_vector = " .. tostring(arc_center_vector[1]).."," .. tostring(arc_center_vector[2]) ..","..tostring(arc_center_vector[3]))
     if arcinfo.bullseye == nil then
-        for k, segment in pairs(segments) do
+        for _, segment in pairs(segments) do
             -- Calculate part of line segment within arc
-            local rotated_segment = {Vect.Sum(target.getPosition(), Vect.RotateDeg(segment[1], target.getRotation()[2])),
-                                       Vect.Sum(target.getPosition(), Vect.RotateDeg(segment[2], target.getRotation()[2]))}
+            local rotated_segment = { Vect.Sum(target.getPosition(), Vect.RotateDeg(segment[1], target.getRotation()[2])),
+                Vect.Sum(target.getPosition(), Vect.RotateDeg(segment[2], target.getRotation()[2])) }
 
             -- Check if points are in arc
-            local angleoffsets = {Vect.AngleDeg(Vect.Between(ship.getPosition(), rotated_segment[1]), arc_center_vector),
-                            Vect.AngleDeg(Vect.Between(ship.getPosition(), rotated_segment[2]), arc_center_vector)}
+            local angleoffsets = { Vect.AngleDeg(Vect.Between(ship.getPosition(), rotated_segment[1]), arc_center_vector),
+                Vect.AngleDeg(Vect.Between(ship.getPosition(), rotated_segment[2]), arc_center_vector) }
 
             --print("Angle offsets: " .. target.getName() .. "[".. tostring(k) .. "] "..  tostring(angleoffsets[1]) .. " - " .. tostring(angleoffsets[2]) )
 
@@ -775,10 +794,12 @@ ArcCheck.GetTargetLineSegmentsInArc = function(ship, target, arcinfo)
                 if Vect.AngleDeg(Vect.Between(ship.getPosition(), Vect.Middle(rotated_segment[1], rotated_segment[2])), arc_center_vector) < arcinfo.spread then
                     -- print("Both out, in front. deg: " .. tostring(Vect.AngleDeg(Vect.Between(ship.getPosition(), Vect.Middle(rotated_segment[1], rotated_segment[2])), arc_center_vector)))
                     -- The target is infront, but both points are outside the arc.
-                    local newsegment = {ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, -arcinfo.spread))
-                                          , rotated_segment[1], rotated_segment[2]),
-                                  ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, arcinfo.spread))
-                                          , rotated_segment[1], rotated_segment[2])}
+                    local newsegment = { ArcCheck.GetLineLineIntersection(ship.getPosition(),
+                        Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, -arcinfo.spread))
+                        , rotated_segment[1], rotated_segment[2]),
+                        ArcCheck.GetLineLineIntersection(ship.getPosition(),
+                            Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, arcinfo.spread))
+                            , rotated_segment[1], rotated_segment[2]) }
                     --print("Newsegment: ".. tostring(newsegment[1]) .. "," .. tostring(newsegment[2]))
                     table.insert(outsegments, newsegment)
                 else
@@ -787,54 +808,70 @@ ArcCheck.GetTargetLineSegmentsInArc = function(ship, target, arcinfo)
             else
                 -- one inside, one out
                 local p1 = rotated_segment[1]
-                if(angleoffsets[1] > arcinfo.spread) then
+                if (angleoffsets[1] > arcinfo.spread) then
                     p1 = rotated_segment[2]
                 end
-                local p2 = ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, arcinfo.spread)) , rotated_segment[1], rotated_segment[2])
+                local p2 = ArcCheck.GetLineLineIntersection(ship.getPosition(),
+                    Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, arcinfo.spread)), rotated_segment[1],
+                    rotated_segment[2])
                 if p2 == nil then
-                    p2 = ArcCheck.GetLineLineIntersection(ship.getPosition(), Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, -arcinfo.spread)) , rotated_segment[1], rotated_segment[2])
+                    p2 = ArcCheck.GetLineLineIntersection(ship.getPosition(),
+                        Vect.Sum(ship.getPosition(), Vect.RotateDeg(arc_center_vector, -arcinfo.spread)),
+                        rotated_segment[1], rotated_segment[2])
                 end
                 if p2 ~= nil then
-                    table.insert(outsegments, {p1, p2})
+                    table.insert(outsegments, { p1, p2 })
                 end
             end
         end
-    else -- Special Bullseye handling
-        local half_bullseye = ArcCheck.bullseye_data.size[1]/2
+    else
+        -- Special Bullseye handling
+        local half_bullseye = ArcCheck.bullseye_data.size[1] / 2
         --print("\nBullseye check to: " ..target.getName() .. " half bullseye: " .. tostring(half_bullseye))
-        for k, segment in pairs(segments) do
-            local rotated_segment = {Vect.Sum(target.getPosition(), Vect.RotateDeg(segment[1], target.getRotation()[2])),
-                                       Vect.Sum(target.getPosition(), Vect.RotateDeg(segment[2], target.getRotation()[2]))}
-            local ownship_oriented_segment = {Vect.RotateDeg(Vect.Between(ship.getPosition(), rotated_segment[1]), -ship.getRotation()[2]),
-                                            Vect.RotateDeg(Vect.Between(ship.getPosition(), rotated_segment[2] ), -ship.getRotation()[2])}
+        for _, segment in pairs(segments) do
+            local rotated_segment = { Vect.Sum(target.getPosition(), Vect.RotateDeg(segment[1], target.getRotation()[2])),
+                Vect.Sum(target.getPosition(), Vect.RotateDeg(segment[2], target.getRotation()[2])) }
+            local ownship_oriented_segment = { Vect.RotateDeg(Vect.Between(ship.getPosition(), rotated_segment[1]),
+                -ship.getRotation()[2]),
+                Vect.RotateDeg(Vect.Between(ship.getPosition(), rotated_segment[2]), -ship.getRotation()[2]) }
             local x1 = math.min(ownship_oriented_segment[1][1], ownship_oriented_segment[2][1])
             local x2 = math.max(ownship_oriented_segment[1][1], ownship_oriented_segment[2][1])
             --print("x1:" .. tostring(x1) .. " x2:" .. tostring(x2))
             --print("ownship_oriented_segment[1][3]:" .. tostring(ownship_oriented_segment[1][3]))
-            local in_arc = true
-            if ownship_oriented_segment[1][3] < 0 then -- Target in front (Yeah it is backwards)
+            if ownship_oriented_segment[1][3] < 0 then
+                -- Target in front (Yeah it is backwards)
                 if x1 < -half_bullseye then
                     --print("From minus")
                     x1 = -half_bullseye
                     if x2 > -half_bullseye then
                         x2 = math.min(half_bullseye, x2)
-                        p1 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x1, ownship_oriented_segment[1][2], 0), vector(x1, ownship_oriented_segment[1][2], -100), true)
-                        p2 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x2, ownship_oriented_segment[1][2], 0), vector(x2, ownship_oriented_segment[1][2], -100), true)
+                        p1 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2],
+                            vector(x1, ownship_oriented_segment[1][2], 0),
+                            vector(x1, ownship_oriented_segment[1][2], -100), true)
+                        p2 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2],
+                            vector(x2, ownship_oriented_segment[1][2], 0),
+                            vector(x2, ownship_oriented_segment[1][2], -100), true)
                         if p1 ~= nil and p2 ~= nil then
                             print("test1")
-                          table.insert(outsegments, { Vect.Sum(Vect.RotateDeg(p1, ship.getRotation()[2]), ship.getPosition()),
-                                                      Vect.Sum(Vect.RotateDeg(p2, ship.getRotation()[2]), ship.getPosition())})
+                            table.insert(outsegments,
+                                { Vect.Sum(Vect.RotateDeg(p1, ship.getRotation()[2]), ship.getPosition()),
+                                    Vect.Sum(Vect.RotateDeg(p2, ship.getRotation()[2]), ship.getPosition()) })
                         end
                     end
                 elseif x1 < half_bullseye then
                     --print("From plus")
                     x2 = math.min(half_bullseye, x2)
-                    p1 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x1, ownship_oriented_segment[1][2], 0), vector(x1, ownship_oriented_segment[1][2], -100), true)
-                    p2 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2], vector(x2, ownship_oriented_segment[1][2], 0), vector(x2, ownship_oriented_segment[1][2], -100), true)
+                    p1 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2],
+                        vector(x1, ownship_oriented_segment[1][2], 0), vector(x1, ownship_oriented_segment[1][2], -100),
+                        true)
+                    p2 = ArcCheck.GetLineLineIntersection(ownship_oriented_segment[1], ownship_oriented_segment[2],
+                        vector(x2, ownship_oriented_segment[1][2], 0), vector(x2, ownship_oriented_segment[1][2], -100),
+                        true)
                     if p1 ~= nil and p2 ~= nil then
                         --print("test2")
-                      table.insert(outsegments, { Vect.Sum(Vect.RotateDeg(p1, ship.getRotation()[2]), ship.getPosition()),
-                                                  Vect.Sum(Vect.RotateDeg(p2, ship.getRotation()[2]), ship.getPosition())})
+                        table.insert(outsegments,
+                            { Vect.Sum(Vect.RotateDeg(p1, ship.getRotation()[2]), ship.getPosition()),
+                                Vect.Sum(Vect.RotateDeg(p2, ship.getRotation()[2]), ship.getPosition()) })
                     end
                 end
             end
@@ -844,7 +881,6 @@ ArcCheck.GetTargetLineSegmentsInArc = function(ship, target, arcinfo)
 end
 
 ArcCheck.GetLineLineIntersection = function(p0, p1, p2, p3, expect_intersection)
-
     local max = 1
     local min = 0
     if expect_intersection then
@@ -858,12 +894,14 @@ ArcCheck.GetLineLineIntersection = function(p0, p1, p2, p3, expect_intersection)
     local s2_y = p3[3] - p2[3]
 
     local s = (-s1_y * (p0[1] - p2[1]) + s1_x * (p0[3] - p2[3])) / (-s2_x * s1_y + s1_x * s2_y)
-    local t = ( s2_x * (p0[3] - p2[3]) - s2_y * (p0[1] - p2[1])) / (-s2_x * s1_y + s1_x * s2_y)
+    local t = (s2_x * (p0[3] - p2[3]) - s2_y * (p0[1] - p2[1])) / (-s2_x * s1_y + s1_x * s2_y)
     if (s >= min and s <= max and t >= min and t <= max) then
         -- Collision detected
-        return vector( p0[1] + (t * s1_x), p0[2], p0[3] + (t * s1_y))
+        return vector(p0[1] + (t * s1_x), p0[2], p0[3] + (t * s1_y))
     end
-    print("S:".. tostring(s) .. " t:" .. tostring(t))
+    print("S:" .. tostring(s) .. " t:" .. tostring(t))
 
-    return nil -- no collission
+    return nil -- no collision
 end
+
+return ArcCheck

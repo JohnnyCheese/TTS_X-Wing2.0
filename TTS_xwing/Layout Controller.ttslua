@@ -1,28 +1,27 @@
-#include !/TTS_lib/Util/Util
-#include !/TTS_lib/Vector/Vector
+require("TTS_Lib.Util.Math")
+require("TTS_Lib.Util.Table")
+require("TTS_Lib.Util.String")
 
-#include !/TTS_lib/ObjType/ObjType
+local Vect = require("TTS_Lib.Vector.Vector")
+local ObjType = require("TTS_Lib.ObjType.ObjType")
 
 ObjType.AddType('dialBag', function(obj) return (obj.tag == 'Infinite') end)
 
-Layout = {}
-
-#include !/TTS_xwing/src/Layouts/LayoutElements
-
-
-
+Layout = require("TTS_xwing.src.Layouts.LayoutElements")
 Layout.layouts = {}
 
 Layout.AddLayout = function(layoutTable)
     table.insert(Layout.layouts, layoutTable)
 end
 
-#include !/TTS_xwing/src/Layouts/Standard
-#include !/TTS_xwing/src/Layouts/Epic
-#include !/TTS_xwing/src/Layouts/HotAC
-#include !/TTS_xwing/src/Layouts/Single
+local standard = require("TTS_xwing.src.Layouts.Standard")
+Layout.AddLayout(standard)
+local epic = require("TTS_xwing.src.Layouts.Epic")
+Layout.AddLayout(epic)
+local hotac = require("TTS_xwing.src.Layouts.HotAC")
+Layout.AddLayout(hotac)
 
-self.setPosition({0,3,0})
+self.setPosition({ 0, 3, 0 })
 
 state = {
     active = true,
@@ -32,26 +31,28 @@ state = {
 }
 
 Layout.AddTempObj = function(obj)
-    state.tempObj[obj.getGUID()] = true
+    state.tempObjs[obj.getGUID()] = true
 end
 
 Layout.ClearTempObjs = function()
-    for guid in pairs(state.tempObj) do
+    for guid in pairs(state.tempObjs) do
         local obj = getObjectFromGUID(guid)
         if obj then obj.destruct() end
     end
 end
 
 Layout.NearLocal = function(zone, pos)
-    local posAdj = Vect.ScaleEach(Vect.Sub(pos, {0, zone.getPosition()[2], zone.getScale()[3]/2}), Vect.Inverse(zone.getScale()))
-    posAdj[1] = posAdj[1] + 0.5*math.sgn(posAdj[1])
+    local posAdj = Vect.ScaleEach(Vect.Sub(pos, { 0, zone.getPosition()[2], zone.getScale()[3] / 2 }),
+        Vect.Inverse(zone.getScale()))
+    posAdj[1] = posAdj[1] + 0.5 * math.sgn(posAdj[1])
     return posAdj
 end
 
 Layout.NearGlobal = function(zone, pos)
-    local posAdj = Vect.ScaleEach(Vect.Sub(pos, {0, zone.getPosition()[2], zone.getScale()[3]/2}), Vect.Inverse(zone.getScale()))
-    posAdj[1] = posAdj[1] + 0.5*math.sgn(posAdj[1])
-    return zone.positionToWorld(Vect.ScaleEach(posAdj, {-1, 1, 1}))
+    local posAdj = Vect.ScaleEach(Vect.Sub(pos, { 0, zone.getPosition()[2], zone.getScale()[3] / 2 }),
+        Vect.Inverse(zone.getScale()))
+    posAdj[1] = posAdj[1] + 0.5 * math.sgn(posAdj[1])
+    return zone.positionToWorld(Vect.ScaleEach(posAdj, { -1, 1, 1 }))
 end
 
 Layout.extIndex = 1
@@ -59,8 +60,8 @@ Layout.extIndex = 1
 Layout.required = {}
 function onObjectDestroyed(obj)
     if state.active and Layout.required[obj] then
-        broadcastToAll('An object that was part of layout system was destroyed, disabling layouts', {1, 0.4, 0})
-        --broadcastToAll('You\'re breaking the game, please don\'t', {1, 0.4, 0})
+        --broadcastToAll('An object that was part of layout system was destroyed, disabling layouts', {1, 0.4, 0})
+        broadcastToAll('You\'re breaking the game, please don\'t', { 1, 0.4, 0 })
         state.active = false
     end
     if state.dialZones[obj.getGUID()] then
@@ -68,6 +69,7 @@ function onObjectDestroyed(obj)
         SaveState()
     end
 end
+
 Layout.RequireFromGUID = function(guid)
     local obj = (getObjectFromGUID(guid) or error('Layout.RequireFromGUID: object with \'' .. guid .. '\' GUID not found'))
     Layout.required[obj] = true
@@ -76,15 +78,15 @@ end
 
 Layout.GetTableRef = function()
     local hits = Physics.cast({
-        origin = {0, 0, 0},
-        direction = {0, -1, 0},
+        origin = { 0, 0, 0 },
+        direction = { 0, -1, 0 },
         type = 3,
-        size = {1, 1, 1},
-        orientation = {0, 0, 0},
+        size = { 1, 1, 1 },
+        orientation = { 0, 0, 0 },
         debug = false
     })
-    for k, hitData in pairs(hits) do
-        if hitData.hit_object.tag == 'Surface' then
+    for _, hitData in pairs(hits) do
+        if hitData.hit_object.type == 'Surface' then
             return hitData.hit_object
         end
     end
@@ -97,7 +99,7 @@ Layout.Hide = function(obj)
     obj.lock()
     obj.tooltip = false
     obj.interactable = false
-    obj.setPositionSmooth({0, -5, 0}, false, true)
+    obj.setPositionSmooth({ 0, -5, 0 }, false, true)
     local handlers = obj.getTable('__XW_LayoutHandlers') or {}
     if handlers.hide then
         obj.call(handlers.hide)
@@ -125,7 +127,7 @@ end
 
 Layout.GetMats = function()
     local mats = {}
-    for k,obj in pairs(getAllObjects()) do
+    for _, obj in pairs(getAllObjects()) do
         if obj.getVar('__XW_Mat') then
             local lay, ID = obj.getVar('__XW_MatLayout'), obj.getVar('__XW_MatID')
             if not mats[lay] then
@@ -140,19 +142,20 @@ end
 Layout.Switch = function(newIndex)
     self.clearButtons()
     if not state.active then
-        broadcastToAll('Layout system disabled', {1, 0.2, 0})
+        broadcastToAll('Layout system disabled', { 1, 0.2, 0 })
         return
     end
+    --table.print(Layout.layouts)
     local lay = Layout.layouts[newIndex]
-    print('Switch to ' .. lay.name)
+    --print('Switch to ' .. lay.name)
     local tabRef = Layout.GetTableRef()
     local cust = tabRef.getCustomObject()
     cust.image = lay.tableImage
     tabRef.setCustomObject(cust)
     tabRef.reload()
-    for name,el in pairs(Layout.elements) do
+    for name, el in pairs(Layout.elements) do
         if lay.elements[name] then
-            el.highlightOn({0, 0, 1}, 2)
+            el.highlightOn({ 0, 0, 1 }, 2)
             Layout.Put(el, lay.elements[name])
         else
             Layout.Hide(el)
@@ -162,11 +165,11 @@ Layout.Switch = function(newIndex)
     local matData = Layout.GetMats()
     for layout, mats in pairs(matData) do
         if layout ~= lay.name then
-            for _,mat in pairs(mats) do
+            for _, mat in pairs(mats) do
                 Layout.Hide(mat)
             end
         else
-            for id,mat in pairs(mats) do
+            for id, mat in pairs(mats) do
                 if lay.mats[id] then
                     Layout.Put(mat, lay.mats[id])
                 else
@@ -177,7 +180,7 @@ Layout.Switch = function(newIndex)
     end
     Layout.CreateControls(newIndex)
     function setHandsDelayed()
-        for k=1,10 do
+        for _ = 1, 10 do
             coroutine.yield()
         end
         for color, data in pairs(lay.hands) do
@@ -189,6 +192,7 @@ Layout.Switch = function(newIndex)
         end
         return 1
     end
+
     startLuaCoroutine(self, 'setHandsDelayed')
     state.index = newIndex
     SaveState()
@@ -196,7 +200,7 @@ end
 
 Layout.CreateControls = function(index)
     local lay = Layout.layouts[index]
-    for k,button in pairs(lay.controls) do
+    for _, button in pairs(lay.controls) do
         self.createButton(button)
     end
 end
@@ -212,26 +216,25 @@ function onChat(message, player)
     --]]
 end
 
-
 function onLoad(saveState)
     local load = JSON.decode(saveState)
-    state.active = true --load.active
+    state.active = load.active or state.active
     state.index = load.index
     Layout.FillElements()
     Layout.CreateControls(load.index)
     local sPos = self.getPosition()
-    self.setPosition({sPos[1], 0, sPos[3]})
+    self.setPosition({ sPos[1], 0, sPos[3] })
     self.interactable = false
     self.tooltip = false
     self.lock()
 
-    for _, layoutElements in pairs(getObjectsWithTag('TempLayoutElement')) do
-      destroyObject(layoutElement)
+    for _, layoutElement in pairs(getObjectsWithTag('TempLayoutElement')) do
+        destroyObject(layoutElement)
     end
 
-    addContextMenuItem("Double setup", function() Layout.Switch(1) end, false)
-    addContextMenuItem("Epic setup", function() Layout.Switch(2) end, false)
-    addContextMenuItem("HotAC setup", function() Layout.Switch(3) end, false)
+    --addContextMenuItem("Standard setup", function() Layout.Switch(1) end, false)
+    --addContextMenuItem("Epic setup", function() Layout.Switch(2) end, false)
+    --addContextMenuItem("HotAC setup", function() Layout.Switch(3) end, false)
 end
 
 function onSave()
