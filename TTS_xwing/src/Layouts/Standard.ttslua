@@ -120,7 +120,7 @@ do
     }
     standard.mats = {
         ['Red-Blue'] = { pos = { -20.5142, 1, 0.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { 1.655, 1.2, 1.655 }, int = false },
-        ['Purple-Orange'] = { pos = { 20.5142, 1, 0.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { 1.63, 1.2, 1.63 }, int = false },
+        ['Purple-Orange'] = { pos = { 20.5142, 1, 0.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { 1.27, 1.2, 1.27 }, int = false },
     }
     function StandardCallMat(matName, callFcn)
         local mat = Layout.GetMats()[standard.name][matName]
