@@ -84,7 +84,7 @@ local Dim = require("TTS_xwing.src.Dim")
 
 -- There are in-object scripts that need the Dim variables set Globally.
 local Kludge = require("TTS_Lib.Util.DirtyTricks")
-Kludge.exportGlobals(Dim);
+--Kludge.exportGlobals(Dim);
 
 -- AI behaviour sets
 local BehaviourDB = require("TTS_xwing.src.BehaviourDB")
@@ -146,7 +146,9 @@ end)
 
 
 -- Dud function for info buttons and not yet written sections where Lua complains about no code
-function dummy() return end
+function dummy()
+    return
+end
 
 -- END MISC FUNCTIONS
 --------
@@ -166,8 +168,12 @@ XW_cmd.ValidCommands = {}
 -- Add given regen expression as a valid command for processing
 XW_cmd.AddCommand = function(cmdRegex, type)
     -- When adding available commands, assert beggining and end of string automatically
-    if cmdRegex:sub(1, 1) ~= '^' then cmdRegex = '^' .. cmdRegex end
-    if cmdRegex:sub(-1, -1) ~= '$' then cmdRegex = cmdRegex .. '$' end
+    if cmdRegex:sub(1, 1) ~= '^' then
+        cmdRegex = '^' .. cmdRegex
+    end
+    if cmdRegex:sub(-1, -1) ~= '$' then
+        cmdRegex = cmdRegex .. '$'
+    end
     table.insert(XW_cmd.ValidCommands, { string.lower(cmdRegex), type })
 end
 
@@ -211,7 +217,9 @@ XW_cmd.AddCommand('diag', 'special')
 XW_cmd.Diagnose = function(ship)
     -- Check and unlock XW_cmd lock if it's on
     local issueFound = false
-    if ObjType.IsOfType(ship, 'ship') ~= true then return end
+    if ObjType.IsOfType(ship, 'ship') ~= true then
+        return
+    end
     if XW_cmd.isReady(ship) ~= true then
         XW_cmd.SetReady(ship)
         printToAll(ship.getName() .. '\'s deadlock resolved', { 0.1, 0.1, 1 })
@@ -409,9 +417,13 @@ AIModule.EnableAI = function(ship, command)
     if not ship.getVar('isAi') then
         ship.setVar('isAi', true)
         ship.AddContextMenuItem("AI move and action",
-            function(argument) Global.call("PerformAIManeuver", { ['ship'] = ship, ['take_action'] = true }) end, false)
+            function(argument)
+                Global.call("PerformAIManeuver", { ['ship'] = ship, ['take_action'] = true })
+            end, false)
         ship.AddContextMenuItem("AI move only",
-            function(argument) Global.call("PerformAIManeuver", { ['ship'] = ship, ['take_action'] = false }) end, false)
+            function(argument)
+                Global.call("PerformAIManeuver", { ['ship'] = ship, ['take_action'] = false })
+            end, false)
     end
 end
 
@@ -425,9 +437,11 @@ AIModule.EnableStrikeAI = function(ship, cmd)
     local targetsString = cmd:match(pattern)
     if targetsString then
         local targets = {}
-        for arg in targetsString:gmatch("([^,]+)") do -- Split by comma
-            local target = arg:match("^%s*(.-)%s*$")  -- Trim spaces from each target
-            if target ~= "" then                      -- Ensure no empty strings are added
+        for arg in targetsString:gmatch("([^,]+)") do
+            -- Split by comma
+            local target = arg:match("^%s*(.-)%s*$") -- Trim spaces from each target
+            if target ~= "" then
+                -- Ensure no empty strings are added
                 table.insert(targets, target)
             end
         end
@@ -582,7 +596,8 @@ end
 AIModule.HasTargetLockOnShip = function(locking_ship, locked_ship)
     local lock_tokens = locked_ship.call("GetTokens", { type = "targetLock" })
     for j, token in pairs(lock_tokens or {}) do
-        if token.GetName() == locking_ship.GetName() then -- TODO: this really should be guid
+        if token.GetName() == locking_ship.GetName() then
+            -- TODO: this really should be guid
             return true
         end
     end
@@ -625,7 +640,8 @@ end
 
 AIModule.TargetForStrikeAI = function(ship)
     local isStrikeAI = next(ship.getTable('StrikeTargets') or {}) ~= nil
-    if not isStrikeAI then -- only Strike AI ships run this targeting logic
+    if not isStrikeAI then
+        -- only Strike AI ships run this targeting logic
         print("This is not a Strike AI Ship. Abort special targeting.")
         return nil
     end
@@ -784,7 +800,8 @@ AIModule.PerformManeuver = function(ship, take_action)
             local range_bracket = nil
             if stress then
                 range_bracket = 'stress'
-                printToAll(' Selected target: ' .. target_ship.getName() .. ', in the ' .. target_arc .. ' arc, while stressed.')
+                printToAll(' Selected target: ' ..
+                    target_ship.getName() .. ', in the ' .. target_arc .. ' arc, while stressed.')
             else
                 local target_range = nil
                 -- Find the range, if we haven't got it already.
@@ -835,7 +852,9 @@ AIModule.PerformManeuver = function(ship, take_action)
                     end
                 end
 
-                printToAll(' Selected target: ' .. target_ship.getName() .. ', in the ' .. target_arc .. ' arc at range ' .. tostring(target_range) .. closing_text)
+                printToAll(' Selected target: ' ..
+                    target_ship.getName() ..
+                    ', in the ' .. target_arc .. ' arc at range ' .. tostring(target_range) .. closing_text)
 
                 -- Get the move for our situation.
                 -- Convert our target's range and facing into a range bracket.
@@ -1382,7 +1401,8 @@ AIModule.SelectAction = function(ship)
     end
 
     local ship_id = ship.getTable('Data')['shipId']
-    printToAll('No AI actions found for ship ID ' .. tostring(ship_id) .. ', please make actions manually.', color(1.0, 1.0, 0.2, 0.9))
+    printToAll('No AI actions found for ship ID ' .. tostring(ship_id) .. ', please make actions manually.',
+        color(1.0, 1.0, 0.2, 0.9))
 end
 
 AIModule.AttemptAction = function(ship, target, action_definition)
@@ -1913,7 +1933,6 @@ AIModule.condition_functions.hasShot = function(ship, target, probe, arguments)
     if probe.shot_range == nil then
         probe.shot_range = -1
 
-
         local original_position_rotation = AIModule.GetShipState(ship)
         AIModule.ApplyProbe(ship, probe)
         local arcs = ship.call('GetAllArcs')
@@ -2071,7 +2090,8 @@ AIModule.condition_functions.inEnemyArc = function(ship, target, probe, argument
         -- is also int eh fullback arc.
         if wholly_within_arc and AIModule.arc_adjacencies[arc] ~= nil then
             for _, adjacent_arc in pairs(AIModule.arc_adjacencies[arc]) do
-                if #enemies_in_arc > 0 then -- Quick check to avoid unnecessary calls to ArcCheck.GetTargetsInRelationToArc
+                if #enemies_in_arc > 0 then
+                    -- Quick check to avoid unnecessary calls to ArcCheck.GetTargetsInRelationToArc
                     enemies_in_adjacent_arc = ArcCheck.GetTargetsInRelationToArc(ship, adjacent_arc)
                     enemies_in_adjacent_arc = table.sieve(targets, AIModule.FilterInArc)
                     enemies_in_arc = table.sieve(enemies_in_arc,
@@ -2125,7 +2145,8 @@ AIModule.condition_functions.hasCoordinateTarget = function(ship, target, probe,
                 -- Are we are the right range for coordinate?
                 if distance.range >= 1 and distance.range <= 2 then
                     -- Is the ship not stressed?
-                    if TokenModule.GetShipTokenCount(friendly_ship, "Stress") == 0 then -- TODO: appears to be an error with counting stress tokens?
+                    if TokenModule.GetShipTokenCount(friendly_ship, "Stress") == 0 then
+                        -- TODO: appears to be an error with counting stress tokens?
                         -- Are we closer than the previously closest ship?
                         if closest_distance == nil or closest_distance > distance.length then
                             probe.action_targets.coordinate = friendly_ship
@@ -2288,8 +2309,7 @@ MoveModule.SaveStateToHistory = function(ship, beQuiet)
             rot = ship.getRotation(),
             move = 'position save',
             part = nil,
-            finType =
-            'special'
+            finType = 'special'
         }
         MoveModule.AddHistoryEntry(ship, entry)
         if beQuiet ~= true then
@@ -2427,7 +2447,9 @@ end
 -- Create a restore entry from last set position in history
 -- Delete history if present
 MoveModule.onObjectDestroyed = function(obj)
-    if not ObjType.IsOfType(obj, 'ship') then return end
+    if not ObjType.IsOfType(obj, 'ship') then
+        return
+    end
     if MoveModule.GetLastMove(obj).move ~= 'none' then
         local lastMove = MoveModule.GetLastMove(obj)
         MoveModule.AddRestorePoint({ srcName = obj.getName(), savedPos = { pos = lastMove.pos, rot = lastMove.rot } })
@@ -2643,7 +2665,6 @@ MoveModule.castData.medium.nubBL = {
     size = { Dim.Convert_mm_igu(3.4), Dim.Convert_mm_igu(8), Dim.Convert_mm_igu(3.4) },
     -- + Origin
 }
-
 
 MoveModule.castData.large = {}
 MoveModule.castData.large.base = {
@@ -2881,13 +2902,13 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
             0, offsetDistance * math.cos(math.rad(templateOrigin.rot.y)))
 
         local collissions = Physics.cast({
-            origin       = templateOrigin.pos + offset,
-            orientation  = templateOrigin.rot,
-            direction    = { 0, -0.001, 0 },
-            type         = 3,
-            size         = size,
+            origin = templateOrigin.pos + offset,
+            orientation = templateOrigin.rot,
+            direction = { 0, -0.001, 0 },
+            type = 3,
+            size = size,
             max_distance = 1,
-            debug        = cast_debug
+            debug = cast_debug
         })
 
         MoveModule.AddCollissionEntry(gTable, collList, collissions, SelectFun)
@@ -2921,13 +2942,13 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
             local position_offset = vector(px * c + pz * s, 0, pz * c - px * s)
 
             local collissions = Physics.cast({
-                origin       = templateOrigin.pos + position_offset,
-                orientation  = templateOrigin.rot + orientation_offset * dir_mod,
-                direction    = { 0, -0.001, 0 },
-                type         = 3,
-                size         = { Dim.Convert_mm_igu(20), Dim.Convert_mm_igu(6), Dim.Convert_mm_igu(1) },
+                origin = templateOrigin.pos + position_offset,
+                orientation = templateOrigin.rot + orientation_offset * dir_mod,
+                direction = { 0, -0.001, 0 },
+                type = 3,
+                size = { Dim.Convert_mm_igu(20), Dim.Convert_mm_igu(6), Dim.Convert_mm_igu(1) },
                 max_distance = 1,
-                debug        = cast_debug
+                debug = cast_debug
             })
             MoveModule.AddCollissionEntry(gTable, collList, collissions, SelectFun)
         end
@@ -2958,13 +2979,13 @@ MoveModule.TemplateCastCheck = function(excludeObj, collList, templateData, Sele
             local position_offset = vector(px * c + pz * s, 0, pz * c - px * s)
 
             local collissions = Physics.cast({
-                origin       = templateOrigin.pos + position_offset,
-                orientation  = templateOrigin.rot + orientation_offset * dir_mod,
-                direction    = { 0, -0.001, 0 },
-                type         = 3,
-                size         = { Dim.Convert_mm_igu(20), Dim.Convert_mm_igu(6), Dim.Convert_mm_igu(1) },
+                origin = templateOrigin.pos + position_offset,
+                orientation = templateOrigin.rot + orientation_offset * dir_mod,
+                direction = { 0, -0.001, 0 },
+                type = 3,
+                size = { Dim.Convert_mm_igu(20), Dim.Convert_mm_igu(6), Dim.Convert_mm_igu(1) },
                 max_distance = 1,
-                debug        = cast_debug
+                debug = cast_debug
             })
             MoveModule.AddCollissionEntry(gTable, collList, collissions, SelectFun)
         end
@@ -3092,7 +3113,9 @@ end
 --      collObj     <- nil if first part was free, object ref to last colliding ship otherwise
 --          }
 MoveModule.MoveProbe.GetFreePart = function(info, ship, partFun, partRange, moveLength)
-    if moveLength == nil then moveLength = 0 end
+    if moveLength == nil then
+        moveLength = 0
+    end
     moveLength = Dim.Convert_mm_igu(moveLength)
     local out = { part = nil, info = nil, collObj = nil }
     local checkNum = { rough = 0, fine = 0 }
@@ -3119,7 +3142,9 @@ MoveModule.MoveProbe.GetFreePart = function(info, ship, partFun, partRange, move
             if distToSkip > 0 then
                 -- Calculate how big part it is and skip away
                 partDelta = math.sgn(partDelta) * ((distToSkip * MoveData.partMax) / moveLength)
-                if math.abs(partDelta) < minPartDelta then partDelta = math.sgn(partDelta) * minPartDelta end
+                if math.abs(partDelta) < minPartDelta then
+                    partDelta = math.sgn(partDelta) * minPartDelta
+                end
             else
                 partDelta = math.sgn(partDelta) * minPartDelta
             end
@@ -3178,7 +3203,9 @@ end
 -- Return: {shipRef1, shipRef2, ... , shipRefN}
 MoveModule.MoveProbe.GetHugeShipsNearFull = function(info, ship, fullFun)
     local shipsfound = MoveModule.MoveProbe.GetShipsNearFull(info, ship, fullFun)
-    shipsfound = table.sieve(shipsfound, function(obj) return (obj.getTable('Data').Size == 'huge') end)
+    shipsfound = table.sieve(shipsfound, function(obj)
+        return (obj.getTable('Data').Size == 'huge')
+    end)
     return shipsfound
 end
 
@@ -3229,8 +3256,7 @@ MoveModule.MoveProbe.TryFullMove = function(info, ship, fullFun)
     -- for the template check (but not for the final position check)
     local startingObstacleCollisions = MoveModule.CheckMineAndObstacleCollisions(ship, startPosRot, false, nil)
 
-    local templateData =
-    {
+    local templateData = {
         origin = ship.GetPosition(),
         orientation = ship.GetRotation(),
         dir = info.dir,
@@ -3497,8 +3523,7 @@ MoveModule.PerformMove = function(move_code, ship, ignoreCollisions, finishFunct
     end
     AnnModule.Announce(annInfo, 'all', ship)
 
-    local templateData =
-    {
+    local templateData = {
         origin = originalPos,
         orientation = origionalRot,
         dir = info.dir,
@@ -3535,7 +3560,11 @@ end
 MoveModule.RemoveOverlapReminder = function(ship)
     local buttons = ship.getButtons()
     if buttons ~= nil then
-        for k, but in pairs(buttons) do if but.label == 'BUMPED' then ship.removeButton(but.index) end end
+        for k, but in pairs(buttons) do
+            if but.label == 'BUMPED' then
+                ship.removeButton(but.index)
+            end
+        end
     end
 end
 
@@ -3656,7 +3685,9 @@ end
 MoveModule.GetTokenOwner = function(tokenPos)
     local out = { owner = nil, dist = 0, margin = -1 }
     local nearShips = ObjType.GetNearOfType(tokenPos, Dim.Convert_mm_igu(120), 'ship')
-    if nearShips[1] == nil then return out end
+    if nearShips[1] == nil then
+        return out
+    end
     local baseDist = {}
     -- Take the base size into account for distances
     for k, ship in pairs(nearShips) do
@@ -3673,7 +3704,9 @@ MoveModule.GetTokenOwner = function(tokenPos)
     end
     local nearest = baseDist[1]
     for k, data in pairs(baseDist) do
-        if data.dist < nearest.dist then nearest = data end
+        if data.dist < nearest.dist then
+            nearest = data
+        end
     end
     local nextNearest = { dist = 999 }
     for k, data in pairs(baseDist) do
@@ -3750,7 +3783,8 @@ end
 
 TokenModule.onObjectDropped = function(player_color, object)
     if ObjType.IsOfType(object, 'token') then
-        if object.getVar('__XW_TokenType') ~= 'targetLock' then -- Target lock has special onDrop handling on its own
+        if object.getVar('__XW_TokenType') ~= 'targetLock' then
+            -- Target lock has special onDrop handling on its own
             local spos = object.getPosition()
             local nearest = nil
             local minDist = Dim.Convert_mm_igu(100)
@@ -3773,177 +3807,176 @@ EventSub.Register('onObjectDropped', TokenModule.onObjectDropped)
 
 
 -- How far can tokens be to be considered owned bya  ship
-TokenModule.tokenReachDistance       = Dim.Convert_mm_igu(100)
+TokenModule.tokenReachDistance = Dim.Convert_mm_igu(100)
 -- By how much this token has to be distant from other ship "interception zone" to be visible
 -- (how far from an owner-switching-border it has to be so you can see whose it is)
-TokenModule.visibleMargin            = Dim.Convert_mm_igu(20)
+TokenModule.visibleMargin = Dim.Convert_mm_igu(20)
 
 -- Preset positions for tokens on and near the base
 -- Generally used only when their current position switches its owner after a move
 -- Positions on the base
 
-TokenModule.basePos                  = {}
+TokenModule.basePos = {}
 
 -- On base - small ships
-TokenModule.basePos.small            = {}
-TokenModule.basePos.small.Focus      = { 12, 12 }
-TokenModule.basePos.small.Calculate  = { 12, 24 }
-TokenModule.basePos.small.Evade      = { 12, -12 }
-TokenModule.basePos.small.Stress     = { -12, 12 }
-TokenModule.basePos.small.Ion        = { -12, -24 }
-TokenModule.basePos.small.Strain     = { -12, 24 }
-TokenModule.basePos.small.Deplete    = { -12, 36 }
+TokenModule.basePos.small = {}
+TokenModule.basePos.small.Focus = { 12, 12 }
+TokenModule.basePos.small.Calculate = { 12, 24 }
+TokenModule.basePos.small.Evade = { 12, -12 }
+TokenModule.basePos.small.Stress = { -12, 12 }
+TokenModule.basePos.small.Ion = { -12, -24 }
+TokenModule.basePos.small.Strain = { -12, 24 }
+TokenModule.basePos.small.Deplete = { -12, 36 }
 
-TokenModule.basePos.small.Reinforce  = { -24, 24 }
-TokenModule.basePos.small.Cloak      = { -24, -24 }
-TokenModule.basePos.small.Jam        = { 24, -12 }
-TokenModule.basePos.small.Disarm     = { 24, 12 }
-TokenModule.basePos.small.Tractor    = { 24, 24 }
+TokenModule.basePos.small.Reinforce = { -24, 24 }
+TokenModule.basePos.small.Cloak = { -24, -24 }
+TokenModule.basePos.small.Jam = { 24, -12 }
+TokenModule.basePos.small.Disarm = { 24, 12 }
+TokenModule.basePos.small.Tractor = { 24, 24 }
 
-TokenModule.basePos.small.rest       = { -12, -12 }
+TokenModule.basePos.small.rest = { -12, -12 }
 
 --On base - medium ships
-TokenModule.basePos.medium           = {}
-TokenModule.basePos.medium.Focus     = { 25, 25 }
+TokenModule.basePos.medium = {}
+TokenModule.basePos.medium.Focus = { 25, 25 }
 TokenModule.basePos.medium.Calculate = { 25, 35 }
-TokenModule.basePos.medium.Evade     = { 25, -25 }
-TokenModule.basePos.medium.Stress    = { -25, 25 }
-TokenModule.basePos.medium.Ion       = { -25, -35 }
-TokenModule.basePos.medium.Strain    = { -25, 35 }
-TokenModule.basePos.medium.Deplete   = { -25, -45 }
+TokenModule.basePos.medium.Evade = { 25, -25 }
+TokenModule.basePos.medium.Stress = { -25, 25 }
+TokenModule.basePos.medium.Ion = { -25, -35 }
+TokenModule.basePos.medium.Strain = { -25, 35 }
+TokenModule.basePos.medium.Deplete = { -25, -45 }
 
-TokenModule.basePos.medium.Reinfoce  = { -35, 35 }
-TokenModule.basePos.medium.Cloak     = { -35, -35 }
-TokenModule.basePos.medium.Jam       = { 35, -25 }
-TokenModule.basePos.medium.Disarm    = { 35, 25 }
-TokenModule.basePos.medium.Tractor   = { 35, 35 }
+TokenModule.basePos.medium.Reinfoce = { -35, 35 }
+TokenModule.basePos.medium.Cloak = { -35, -35 }
+TokenModule.basePos.medium.Jam = { 35, -25 }
+TokenModule.basePos.medium.Disarm = { 35, 25 }
+TokenModule.basePos.medium.Tractor = { 35, 35 }
 
-TokenModule.basePos.medium.rest      = { -25, -25 }
+TokenModule.basePos.medium.rest = { -25, -25 }
 
 -- On base - large ships
-TokenModule.basePos.large            = {}
-TokenModule.basePos.large.Focus      = { 30, 30 }
-TokenModule.basePos.large.Calculate  = { 30, 40 }
-TokenModule.basePos.large.Evade      = { 30, 0 }
-TokenModule.basePos.large.Stress     = { 30, -30 }
-TokenModule.basePos.large.Strain     = { 30, -40 }
-TokenModule.basePos.large.Deplete    = { -30, -40 }
-TokenModule.basePos.large.Tractor    = { -30, 30 }
-TokenModule.basePos.large.Ion        = { -30, 0 }
-TokenModule.basePos.large.Lock       = { 0, 30 }
+TokenModule.basePos.large = {}
+TokenModule.basePos.large.Focus = { 30, 30 }
+TokenModule.basePos.large.Calculate = { 30, 40 }
+TokenModule.basePos.large.Evade = { 30, 0 }
+TokenModule.basePos.large.Stress = { 30, -30 }
+TokenModule.basePos.large.Strain = { 30, -40 }
+TokenModule.basePos.large.Deplete = { -30, -40 }
+TokenModule.basePos.large.Tractor = { -30, 30 }
+TokenModule.basePos.large.Ion = { -30, 0 }
+TokenModule.basePos.large.Lock = { 0, 30 }
 
-TokenModule.basePos.large.Cloak      = { 30, 30 }
-TokenModule.basePos.large.Reinforce  = { -30, 30 }
-TokenModule.basePos.large.Jam        = { -30, -30 }
-TokenModule.basePos.large.Disarm     = { 40, 30 }
+TokenModule.basePos.large.Cloak = { 30, 30 }
+TokenModule.basePos.large.Reinforce = { -30, 30 }
+TokenModule.basePos.large.Jam = { -30, -30 }
+TokenModule.basePos.large.Disarm = { 40, 30 }
 
-TokenModule.basePos.large.rest       = { -30, -30 }
+TokenModule.basePos.large.rest = { -30, -30 }
 
 -- On base - huge ships
-TokenModule.basePos.huge             = {}
-TokenModule.basePos.huge.Focus       = { 30, 30 }
-TokenModule.basePos.huge.Calculate   = { 30, 40 }
-TokenModule.basePos.huge.Evade       = { 30, 0 }
-TokenModule.basePos.huge.Stress      = { 30, -30 }
-TokenModule.basePos.huge.Strain      = { 30, -40 }
-TokenModule.basePos.huge.Deplete     = { -30, -40 }
-TokenModule.basePos.huge.Tractor     = { -30, 30 }
-TokenModule.basePos.huge.Ion         = { -30, 0 }
-TokenModule.basePos.huge.Lock        = { 0, 30 }
+TokenModule.basePos.huge = {}
+TokenModule.basePos.huge.Focus = { 30, 30 }
+TokenModule.basePos.huge.Calculate = { 30, 40 }
+TokenModule.basePos.huge.Evade = { 30, 0 }
+TokenModule.basePos.huge.Stress = { 30, -30 }
+TokenModule.basePos.huge.Strain = { 30, -40 }
+TokenModule.basePos.huge.Deplete = { -30, -40 }
+TokenModule.basePos.huge.Tractor = { -30, 30 }
+TokenModule.basePos.huge.Ion = { -30, 0 }
+TokenModule.basePos.huge.Lock = { 0, 30 }
 
-TokenModule.basePos.huge.Cloak       = { 30, 30 }
-TokenModule.basePos.huge.Reinforce   = { -30, 30 }
-TokenModule.basePos.huge.Jam         = { -30, -30 }
-TokenModule.basePos.huge.Disarm      = { 40, 30 }
+TokenModule.basePos.huge.Cloak = { 30, 30 }
+TokenModule.basePos.huge.Reinforce = { -30, 30 }
+TokenModule.basePos.huge.Jam = { -30, -30 }
+TokenModule.basePos.huge.Disarm = { 40, 30 }
 
-TokenModule.basePos.huge.rest        = { -30, -30 }
+TokenModule.basePos.huge.rest = { -30, -30 }
 
 -- Positions near the base
 -- Near base - small ships
-TokenModule.nearPos                  = {}
+TokenModule.nearPos = {}
 
-TokenModule.nearPos.small            = {}
-TokenModule.nearPos.small.Focus      = { 35, 25 }
-TokenModule.nearPos.small.Calculate  = { 15, 35 }
-TokenModule.nearPos.small.Evade      = { 35, 0 }
-TokenModule.nearPos.small.Stress     = { 35, -25 }
-TokenModule.nearPos.small.Strain     = { 35, -35 }
-TokenModule.nearPos.small.Deplete    = { -35, -35 }
-TokenModule.nearPos.small.Ion        = { -35, 25 }
-TokenModule.nearPos.small.Tractor    = { -35, 0 }
-TokenModule.nearPos.small.Lock       = { 0, 40 }
+TokenModule.nearPos.small = {}
+TokenModule.nearPos.small.Focus = { 35, 25 }
+TokenModule.nearPos.small.Calculate = { 15, 35 }
+TokenModule.nearPos.small.Evade = { 35, 0 }
+TokenModule.nearPos.small.Stress = { 35, -25 }
+TokenModule.nearPos.small.Strain = { 35, -35 }
+TokenModule.nearPos.small.Deplete = { -35, -35 }
+TokenModule.nearPos.small.Ion = { -35, 25 }
+TokenModule.nearPos.small.Tractor = { -35, 0 }
+TokenModule.nearPos.small.Lock = { 0, 40 }
 
+TokenModule.nearPos.small.Reinfoce = { -35, 35 }
+TokenModule.nearPos.small.Cloak = { -35, -35 }
+TokenModule.nearPos.small.Jam = { 35, -25 }
+TokenModule.nearPos.small.Disarm = { 35, 25 }
 
-TokenModule.nearPos.small.Reinfoce   = { -35, 35 }
-TokenModule.nearPos.small.Cloak      = { -35, -35 }
-TokenModule.nearPos.small.Jam        = { 35, -25 }
-TokenModule.nearPos.small.Disarm     = { 35, 25 }
-
-TokenModule.nearPos.small.rest       = { -35, -25 }
+TokenModule.nearPos.small.rest = { -35, -25 }
 
 -- Near base - medium ships
-TokenModule.nearPos.medium           = {}
-TokenModule.nearPos.medium.Focus     = { 45, 28 }
+TokenModule.nearPos.medium = {}
+TokenModule.nearPos.medium.Focus = { 45, 28 }
 TokenModule.nearPos.medium.Calculate = { 45, 56 }
-TokenModule.nearPos.medium.Evade     = { 45, 0 }
-TokenModule.nearPos.medium.Stress    = { 45, -28 }
-TokenModule.nearPos.medium.Strain    = { 45, -45 }
-TokenModule.nearPos.medium.Deplete   = { -45, -45 }
-TokenModule.nearPos.medium.Ion       = { -45, 28 }
-TokenModule.nearPos.medium.Tractor   = { -45, 0 }
-TokenModule.nearPos.medium.Lock      = { 0, 45 }
+TokenModule.nearPos.medium.Evade = { 45, 0 }
+TokenModule.nearPos.medium.Stress = { 45, -28 }
+TokenModule.nearPos.medium.Strain = { 45, -45 }
+TokenModule.nearPos.medium.Deplete = { -45, -45 }
+TokenModule.nearPos.medium.Ion = { -45, 28 }
+TokenModule.nearPos.medium.Tractor = { -45, 0 }
+TokenModule.nearPos.medium.Lock = { 0, 45 }
 
-TokenModule.nearPos.medium.Reinfoce  = { -35, 35 }
-TokenModule.nearPos.medium.Cloak     = { -35, -35 }
-TokenModule.nearPos.medium.Jam       = { 35, -25 }
-TokenModule.nearPos.medium.Disarm    = { 35, 25 }
+TokenModule.nearPos.medium.Reinfoce = { -35, 35 }
+TokenModule.nearPos.medium.Cloak = { -35, -35 }
+TokenModule.nearPos.medium.Jam = { 35, -25 }
+TokenModule.nearPos.medium.Disarm = { 35, 25 }
 
-TokenModule.nearPos.medium.rest      = { -45, -35 }
-
--- Near base - large ships
-TokenModule.nearPos.large            = {}
-TokenModule.nearPos.large.Focus      = { 55, 30 }
-TokenModule.nearPos.large.Calculate  = { 55, 30 }
-TokenModule.nearPos.large.Evade      = { 55, 0 }
-TokenModule.nearPos.large.Stress     = { 55, -30 }
-TokenModule.nearPos.large.Strain     = { 55, -55 }
-TokenModule.nearPos.large.Deplete    = { -55, -55 }
-TokenModule.nearPos.large.Tractor    = { -55, 45 }
-TokenModule.nearPos.large.Ion        = { -55, 15 }
-TokenModule.nearPos.large.Weapons    = { -55, -15 }
-TokenModule.nearPos.large.Lock       = { 0, 50 }
-
-TokenModule.nearPos.large.Reinfoce   = { -45, 45 }
-TokenModule.nearPos.large.Cloak      = { -45, -45 }
-TokenModule.nearPos.large.Jam        = { 45, -45 }
-TokenModule.nearPos.large.Disarm     = { 45, 45 }
-
-TokenModule.nearPos.large.rest       = { -55, -45 }
+TokenModule.nearPos.medium.rest = { -45, -35 }
 
 -- Near base - large ships
-TokenModule.nearPos.huge             = {}
-TokenModule.nearPos.huge.Focus       = { 55, 30 }
-TokenModule.nearPos.huge.Calculate   = { 55, 30 }
-TokenModule.nearPos.huge.Evade       = { 55, 0 }
-TokenModule.nearPos.huge.Stress      = { 55, -30 }
-TokenModule.nearPos.huge.Strain      = { 55, -55 }
-TokenModule.nearPos.huge.Deplete     = { -55, -55 }
-TokenModule.nearPos.huge.Tractor     = { -55, 45 }
-TokenModule.nearPos.huge.Ion         = { -55, 15 }
-TokenModule.nearPos.huge.Weapons     = { -55, -15 }
-TokenModule.nearPos.huge.Lock        = { 0, 50 }
+TokenModule.nearPos.large = {}
+TokenModule.nearPos.large.Focus = { 55, 30 }
+TokenModule.nearPos.large.Calculate = { 55, 30 }
+TokenModule.nearPos.large.Evade = { 55, 0 }
+TokenModule.nearPos.large.Stress = { 55, -30 }
+TokenModule.nearPos.large.Strain = { 55, -55 }
+TokenModule.nearPos.large.Deplete = { -55, -55 }
+TokenModule.nearPos.large.Tractor = { -55, 45 }
+TokenModule.nearPos.large.Ion = { -55, 15 }
+TokenModule.nearPos.large.Weapons = { -55, -15 }
+TokenModule.nearPos.large.Lock = { 0, 50 }
 
-TokenModule.nearPos.huge.Reinfoce    = { -45, 45 }
-TokenModule.nearPos.huge.Cloak       = { -45, -45 }
-TokenModule.nearPos.huge.Jam         = { 45, -45 }
-TokenModule.nearPos.huge.Disarm      = { 45, 45 }
+TokenModule.nearPos.large.Reinfoce = { -45, 45 }
+TokenModule.nearPos.large.Cloak = { -45, -45 }
+TokenModule.nearPos.large.Jam = { 45, -45 }
+TokenModule.nearPos.large.Disarm = { 45, 45 }
 
-TokenModule.nearPos.huge.rest        = { -55, -45 }
+TokenModule.nearPos.large.rest = { -55, -45 }
 
-TokenModule.token_scale              = 1
+-- Near base - large ships
+TokenModule.nearPos.huge = {}
+TokenModule.nearPos.huge.Focus = { 55, 30 }
+TokenModule.nearPos.huge.Calculate = { 55, 30 }
+TokenModule.nearPos.huge.Evade = { 55, 0 }
+TokenModule.nearPos.huge.Stress = { 55, -30 }
+TokenModule.nearPos.huge.Strain = { 55, -55 }
+TokenModule.nearPos.huge.Deplete = { -55, -55 }
+TokenModule.nearPos.huge.Tractor = { -55, 45 }
+TokenModule.nearPos.huge.Ion = { -55, 15 }
+TokenModule.nearPos.huge.Weapons = { -55, -15 }
+TokenModule.nearPos.huge.Lock = { 0, 50 }
+
+TokenModule.nearPos.huge.Reinfoce = { -45, 45 }
+TokenModule.nearPos.huge.Cloak = { -45, -45 }
+TokenModule.nearPos.huge.Jam = { 45, -45 }
+TokenModule.nearPos.huge.Disarm = { 45, 45 }
+
+TokenModule.nearPos.huge.rest = { -55, -45 }
+
+TokenModule.token_scale = 1
 
 -- Deduct target token position in the world for a ship, token and some entry from TokenModule.basePos or .nearPos
-TokenModule.TokenPos                 = function(tokenName, ship, posTable)
+TokenModule.TokenPos = function(tokenName, ship, posTable)
     local baseSize = ship.getTable("Data").Size or 'small'
     local entry = posTable[baseSize].rest
     for tokenEntryName, tEntry in pairs(posTable[baseSize]) do
@@ -3956,7 +3989,7 @@ TokenModule.TokenPos                 = function(tokenName, ship, posTable)
 end
 
 -- Return position for a given token that is on the base of given ship
-TokenModule.BasePosition             = function(tokenName, ship)
+TokenModule.BasePosition = function(tokenName, ship)
     local name = nil
     if type(tokenName) == 'string' then
         name = tokenName
@@ -3966,7 +3999,7 @@ TokenModule.BasePosition             = function(tokenName, ship)
     return TokenModule.TokenPos(name, ship, TokenModule.basePos)
 end
 -- Return position for a given token that is near the base of given ship
-TokenModule.NearPosition             = function(tokenName, ship)
+TokenModule.NearPosition = function(tokenName, ship)
     local name = nil
     if type(tokenName) == 'string' then
         name = tokenName
@@ -3982,7 +4015,7 @@ end
 -- 2. Prefer position on a stack if a stack of tokens already belongs to a ship
 -- 3. Prefer position NEAR ship base as position table dictates
 -- 3. Prefer position ON ship base as position table dictates (if all else fails, this will be returned)
-TokenModule.VisiblePosition          = function(tokenName, ship, preferredPos)
+TokenModule.VisiblePosition = function(tokenName, ship, preferredPos)
     -- Check preferred position margin
     if preferredPos ~= nil then
         local prefInfo = TokenModule.TokenOwnerInfo(preferredPos)
@@ -4014,7 +4047,7 @@ end
 
 -- Check which tokens belong to a ship and queue them to be moved with it
 -- Needs the MoveModule.WaitForResting fired to actually use stuff from this queue
-TokenModule.QueueShipTokensMove      = function(ship)
+TokenModule.QueueShipTokensMove = function(ship)
     local selfTokens = TokenModule.GetShipTokens(ship)
     local waitTable = { tokens = {}, ship = ship }
     -- Save relative position/rotation
@@ -4029,7 +4062,7 @@ end
 
 -- Table for locks to be set and callback to trigger their naming and coloring
 -- Entry: {lock=targetLockRef, color=colorToTint, name=nameToSet}
-TokenModule.locksToBeSet             = {}
+TokenModule.locksToBeSet = {}
 
 -- Callback to set ALL the locks in wueue
 function TokenModule_SetLocks()
@@ -4132,7 +4165,9 @@ TokenModule.TokenOwnerInfo = function(tokenPos)
         pos = tokenPos.getPosition()
     end
     local nearShips = ObjType.GetNearOfType(pos, TokenModule.tokenReachDistance, 'ship')
-    if nearShips[1] == nil then return out end
+    if nearShips[1] == nil then
+        return out
+    end
     local baseDist = {}
     -- Take the base size into account for distances
     for k, ship in pairs(nearShips) do
@@ -4275,7 +4310,9 @@ TokenModule.AssignToken = function(token, ship)
                     token.setDescription("Unassigned")
                 end
             end,
-            function() return (not token.spawning) end)
+            function()
+                return (not token.spawning)
+            end)
     end
 end
 
@@ -4418,7 +4455,6 @@ DialModule.RotateCmd = {
     rotr2 = { direction = 'rotateright', mount = 'rear' },
 }
 
-
 DialModule.RotateArc = function(ship, cmd)
     ship.call("RotateAttachedArcIndicator", DialModule.RotateCmd[cmd])
 end
@@ -4428,7 +4464,6 @@ DialModule.TurretArcCmd = {
     turret1 = { mount = 'front' },
     turret2 = { mount = 'rear' },
 }
-
 
 DialModule.TurretArc = function(ship, cmd)
     local arc = ship.call("GetTurretArc", DialModule.TurretArcCmd[cmd])
@@ -4846,7 +4881,6 @@ RulerModule.meshes.mediumBase.range[3] =
 RulerModule.meshes.mediumBase.range[4] =
 '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/new/medium_range_4.obj'
 
-
 RulerModule.meshes.largeBase = {}
 RulerModule.meshes.largeBase.scale = { 0.629, 0.629, 0.629 }
 RulerModule.meshes.largeBase.diffuse =
@@ -5065,15 +5099,13 @@ RulerModule.SpawnRuler = function(ship, rulerType, beQuiet, include_friendly_shi
     newRuler.setPosition(ship.getPosition())
     newRuler.setRotation(rulerData.params.rotation)
 
-
     local arclines = {}
     if RulerModule.typeToArc[rulerType] then
         arclines = CheckArc({
             ship = ship,
             arctype = RulerModule.typeToArc[rulerType],
             range = range,
-            include_friendly_ships =
-                include_friendly_ships
+            include_friendly_ships = include_friendly_ships
         })
     end
     table.insert(RulerModule.spawnedRulers, { ship = ship, ruler = newRuler, arclines = arclines, type = rulerType })
@@ -5133,7 +5165,9 @@ RulerModule.ToggleRuler = function(ship, rulerType, beQuiet)
             AnnModule.Announce(annInfo, 'all', ship)
         end
         ship.setLock(true)
-        Wait.frames(function() RulerModule.SpawnRuler(ship, spawnType, beQuiet, includeFriendlies, range) end, 1)
+        Wait.frames(function()
+            RulerModule.SpawnRuler(ship, spawnType, beQuiet, includeFriendlies, range)
+        end, 1)
     end
 end
 
@@ -5186,7 +5220,9 @@ BombModule.SpawnDrop = function(ship, dropCode)
         temp.createButton(BombModule.deleteButton)
         dropPos = MoveModule.GetFinalPosData(templateCode .. 'r', ship, true)
     end
-    if dropPos == nil or temp == nil then return end
+    if dropPos == nil or temp == nil then
+        return
+    end
     table.insert(BombModule.dropTable, { ship = ship, temp = temp, code = dropCode, dest = dropPos.finPos })
 end
 
@@ -5287,7 +5323,7 @@ BombModule.OnTokenDrop = function(token)
             fuseBag = getObjectFromGUID('568727')
             fuseBag.takeObject({
                 position = vector(destPos[1], destPos[2], destPos[3]) + vector(0, 1, 0),
-                smooth   = true,
+                smooth = true,
             })
         end
 
@@ -5336,7 +5372,9 @@ BombModule.CheckMineDroppedOverlapping = function(token, ownship)
                 end
             end
         end,
-        function() return (mine.resting == true) and (mine.isSmoothMoving() == false) end)
+        function()
+            return (mine.resting == true) and (mine.isSmoothMoving() == false)
+        end)
 end
 
 clusterScript = [[
@@ -5483,7 +5521,7 @@ BombModule.SpawnBlaze = function(center)
     fuseBag = getObjectFromGUID('568727')
     fuseBag.takeObject({
         position = Vect.Sum(Vect.Sum(center.pos, destOffset1), { 0, 1, 0 }),
-        smooth   = true,
+        smooth = true,
     })
 end
 
@@ -5502,7 +5540,6 @@ end
 
 time_time = Time.time
 os_time = os.time()
-
 
 function init_event_check()
     Wait.time(event_check, 0.2, -1)
@@ -5701,7 +5738,6 @@ end
 XW_cmd.AddCommand('rot[lr]?[12]?', 'rotate')
 XW_cmd.AddCommand('turret[12]?', 'turretarc')
 XW_cmd.AddCommand('a', 'fixedarc')
-
 
 mountRotations = {
     front = vector(0, 0, 0),
@@ -6155,9 +6191,7 @@ function onLoad(savedData)
 end
 ]]
 
-
-pilotCardScript =
-[[
+pilotCardScript = [[
 dial = nil
 ship = nil
 function addTintObject(params)
@@ -6274,18 +6308,17 @@ function newSpawner(listTable)
     storePos = spawnCard.getPosition()
     storeRot = spawnCard.getRotation()
 
-
     shipIndex = 1 --Sets index of ship being spawned
 
     while Pilots[shipIndex] ~= nil do
         --Values used for accessories spawn and layout
-        forceValue           = 0
-        shieldValue          = 0
-        UpNum                = 0
-        Turret               = 0
-        dualTurret           = 0
-        Bombs                = 0
-        hasMob               = 0
+        forceValue = 0
+        shieldValue = 0
+        UpNum = 0
+        Turret = 0
+        dualTurret = 0
+        Bombs = 0
+        hasMob = 0
         bombTokenDescription = ''
         local configCardGUID = nil
 
@@ -6338,7 +6371,8 @@ function newSpawner(listTable)
             end
         end
         for j, Up in pairs(Upgrades[shipIndex]) do
-            if Up.Config ~= true then --Indicates there's a card left of the pilot card, for layout purposes
+            if Up.Config ~= true then
+                --Indicates there's a card left of the pilot card, for layout purposes
                 pos = LocalPos(spawnCard, { -1.42 - 1.78 * UpNum, 1 - 0.2 * UpNum, 5.5 })
                 rot = spawnCard.getRotation()
                 rot.y = rot.y - 90
@@ -6354,7 +6388,8 @@ function newSpawner(listTable)
                 rotUp.y = rotUp.y + 90
                 newUp = card:spawn({ position = pos, rotation = rotUp, scale = { 0.68, 0.68, 0.68 } })
                 newUp.setName(Up.name)
-                if Up.Condition ~= nil then --Checks and spawn conditions associated to pilots
+                if Up.Condition ~= nil then
+                    --Checks and spawn conditions associated to pilots
                     for k, acc in ipairs(listaAcc) do
                         if acc.name == Up.Condition then
                             pos = LocalPos(spawnCard, { -2 - 1.78 * UpNum, 1 - 0.2 * UpNum, 8 })
@@ -6407,7 +6442,6 @@ function newSpawner(listTable)
             modeltint = Customization[pilotName].modeltint or color(1, 1, 1, 1)
         end
 
-
         pos = LocalPos(spawnCard, { 0, 1.2, 5.5 })
         rot = spawnCard.getRotation()
         local newPil = nil
@@ -6428,11 +6462,11 @@ function newSpawner(listTable)
 
                 pilotIdSpawnFunc = function()
                     local pilotId = spawnObject({
-                        type         = "Custom_Model",
-                        position     = idpos,
-                        rotation     = idrot,
-                        scale        = Dim.mm_ship_scale,
-                        sound        = false,
+                        type = "Custom_Model",
+                        position = idpos,
+                        rotation = idrot,
+                        scale = Dim.mm_ship_scale,
+                        sound = false,
                         snap_to_grid = false,
                     })
                     pilotId.setCustomObject({
@@ -6446,7 +6480,9 @@ function newSpawner(listTable)
                     card.addAttachment(pilotId)
                     card.setLock(false)
                 end
-                Wait.condition(pilotIdSpawnFunc, function() return (not card.spawning) end)
+                Wait.condition(pilotIdSpawnFunc, function()
+                    return (not card.spawning)
+                end)
             end
         end
         if pilotName ~= '' then
@@ -6464,7 +6500,9 @@ function newSpawner(listTable)
                     local newDial = dial.clone()
                     newDial.setPosition(pos)
                     tempBagAcc.putObject(dial)
-                    local conditionFunc = function() return (not card.spawning) and (not newDial.spawning) end
+                    local conditionFunc = function()
+                        return (not card.spawning) and (not newDial.spawning)
+                    end
                     local executeFunc = function()
                         newDial.setCustomObject({ ['diffuse'] = dialSkin })
                         newDial = newDial.reload()
@@ -6477,8 +6515,9 @@ function newSpawner(listTable)
                 end
             end
         end
-        forceValue = Pilots[shipIndex].Force       --Checks for force value on Pilot and update forceValue
-        if Pilots[shipIndex].Condition ~= nil then --Checks and spawn conditions associated to pilots
+        forceValue = Pilots[shipIndex].Force --Checks for force value on Pilot and update forceValue
+        if Pilots[shipIndex].Condition ~= nil then
+            --Checks and spawn conditions associated to pilots
             for k, acc in ipairs(listaAcc) do
                 if acc.name == Pilots[shipIndex].Condition then
                     pos = LocalPos(spawnCard, { -2 - 1.78 * UpNum, 1, 8 })
@@ -6580,11 +6619,11 @@ function newSpawner(listTable)
 
             local pegAndShipSpawnFunction = function()
                 local pegModel = spawnObject({
-                    type         = "Custom_Model",
-                    position     = shippos,
-                    rotation     = shiprot,
-                    scale        = Dim.mm_ship_scale,
-                    sound        = false,
+                    type = "Custom_Model",
+                    position = shippos,
+                    rotation = shiprot,
+                    scale = Dim.mm_ship_scale,
+                    sound = false,
                     snap_to_grid = false,
                 })
                 pegModel.setName("Peg")
@@ -6592,11 +6631,11 @@ function newSpawner(listTable)
                 ship.addAttachment(pegModel)
                 if shipCustomObject then
                     local shipModel = spawnObject({
-                        type         = "Custom_Model",
-                        position     = vector(shippos[1], shippos[2], shippos[3]) + shipoffset,
-                        rotation     = shiprot,
-                        scale        = Dim.mm_ship_scale,
-                        sound        = false,
+                        type = "Custom_Model",
+                        position = vector(shippos[1], shippos[2], shippos[3]) + shipoffset,
+                        rotation = shiprot,
+                        scale = Dim.mm_ship_scale,
+                        sound = false,
                         snap_to_grid = false,
                     })
                     shipModel.setName("Ship")
@@ -6606,17 +6645,19 @@ function newSpawner(listTable)
                 end
             end
             Wait.condition(pegAndShipSpawnFunction,
-                function() return (not ship.spawning) and (not ship.isSmoothMoving()) end)
+                function()
+                    return (not ship.spawning) and (not ship.isSmoothMoving())
+                end)
         else
             pos = LocalPos(spawnCard, { 0, 0, 9 })
             rot = spawnCard.getRotation()
             if (Pilots[shipIndex].id ~= 0) then
                 newShip = spawnObject({
-                    type         = "Custom_Model",
-                    position     = pos,
-                    rotation     = rot,
-                    scale        = Dim.mm_ship_scale,
-                    sound        = false,
+                    type = "Custom_Model",
+                    position = pos,
+                    rotation = rot,
+                    scale = Dim.mm_ship_scale,
+                    sound = false,
                     snap_to_grid = false,
                 })
             end
@@ -6677,11 +6718,11 @@ function newSpawner(listTable)
             end
             local shipIdSpawnFunc = function()
                 local shipId = spawnObject({
-                    type         = "Custom_Model",
-                    position     = idpos,
-                    rotation     = idrot,
-                    scale        = Dim.mm_ship_scale * 0.99,
-                    sound        = false,
+                    type = "Custom_Model",
+                    position = idpos,
+                    rotation = idrot,
+                    scale = Dim.mm_ship_scale * 0.99,
+                    sound = false,
                     snap_to_grid = false,
                 })
                 shipId.setCustomObject(customObj)
@@ -6700,7 +6741,9 @@ function newSpawner(listTable)
                 ship.addTag("ProximityHider")
             end
             Wait.condition(shipIdSpawnFunc,
-                function() return (not ship.spawning) and (not ship.isSmoothMoving()) and (not card.spawning) end)
+                function()
+                    return (not ship.spawning) and (not ship.isSmoothMoving()) and (not card.spawning)
+                end)
 
             if Pilots[shipIndex].Data.Config and Pilots[shipIndex].Data.Config.States then
                 for k, config in pairs(Pilots[shipIndex].Data.Config.States) do
@@ -6710,11 +6753,11 @@ function newSpawner(listTable)
                         customObject.diffuse = texture
                         local configSpawnFunction = function()
                             local configModel = spawnObject({
-                                type         = "Custom_Model",
-                                position     = vector(idpos[1], idpos[2], idpos[3]) + shipoffset,
-                                rotation     = idrot,
-                                scale        = Dim.mm_ship_scale,
-                                sound        = false,
+                                type = "Custom_Model",
+                                position = vector(idpos[1], idpos[2], idpos[3]) + shipoffset,
+                                rotation = idrot,
+                                scale = Dim.mm_ship_scale,
+                                sound = false,
                                 snap_to_grid = false,
                             })
                             configModel.setName("Config")
@@ -6725,12 +6768,20 @@ function newSpawner(listTable)
                                 configModel.setScale(vector(0.0001, 0.0001, 0.0001))
                             end
                             ship.addAttachment(configModel)
-                            Wait.frames(function() ship.call("DisableAttachedColliders") end, 2)
-                            Wait.frames(function() ship.call("DisableAttachedColliders") end, 10)
-                            Wait.frames(function() ship.call("DisableAttachedColliders") end, 30)
+                            Wait.frames(function()
+                                ship.call("DisableAttachedColliders")
+                            end, 2)
+                            Wait.frames(function()
+                                ship.call("DisableAttachedColliders")
+                            end, 10)
+                            Wait.frames(function()
+                                ship.call("DisableAttachedColliders")
+                            end, 30)
                         end
                         Wait.condition(configSpawnFunction,
-                            function() return (not ship.spawning) and (not ship.isSmoothMoving()) end)
+                            function()
+                                return (not ship.spawning) and (not ship.isSmoothMoving())
+                            end)
                     end -- if Config.Model
                 end     -- for Data.Config
                 if Pilots[shipIndex].Data.Config and Pilots[shipIndex].Data.Config.Token then
@@ -6751,19 +6802,19 @@ function newSpawner(listTable)
                     })
                     configToken.setLuaScript(
                         [[
-__XW_Token = true
-__XW_TokenIdle = true
-__XW_TokenType = 'config'
+    __XW_Token = true
+    __XW_TokenIdle = true
+    __XW_TokenType = 'config'
 
-self.addTag('Flippable')
+    self.addTag('Flippable')
 
-function onFlip()
-  local ship = Global.call("getShipTokenIsAssignedTo",{token=self})
-  if ship and ship.getVar("SetConfiguration") then
-    ship.call("SetConfiguration", {ConfigId=self.is_face_down and 1 or 2})
-  end
-end
-]])
+    function onFlip()
+      local ship = Global.call("getShipTokenIsAssignedTo",{token=self})
+      if ship and ship.getVar("SetConfiguration") then
+        ship.call("SetConfiguration", {ConfigId=self.is_face_down and 1 or 2})
+      end
+    end
+    ]])
                 end -- token
             end     -- config
 
@@ -6836,7 +6887,8 @@ end
             end
         end
 
-        if Pilots[shipIndex].Bomb == true then --Checks and spawn bomb drop token if needed
+        if Pilots[shipIndex].Bomb == true then
+            --Checks and spawn bomb drop token if needed
             for k, acc in ipairs(listaAcc) do
                 if acc.name == 'Bomb drop token (unassigned)' then
                     pos = LocalPos(spawnCard, { -1.5, 1, 8.7 })
@@ -6927,7 +6979,8 @@ end
                     if forceValue > 2 then
                         pos = LocalPos(spawnCard, { 0.5 + 0.9 * (forceValue - 3), 1, 2.5 })
                     end
-                elseif hasMob == 1 then --adjusts layout if Mobile Upgrade is present
+                elseif hasMob == 1 then
+                    --adjusts layout if Mobile Upgrade is present
                     pos = LocalPos(spawnCard, { 1.7 + 0.9 * forceValue, 1, 3.4 })
                     if forceValue > 2 then
                         pos = LocalPos(spawnCard, { 1.7 + 0.9 * (forceValue - 3), 1, 2.5 })
@@ -6941,7 +6994,8 @@ end
             end
         end
         --Spawns Shields
-        if Pilots[shipIndex].Shield > 0 then --spawn shield tokens, layout good for up to 9 shields
+        if Pilots[shipIndex].Shield > 0 then
+            --spawn shield tokens, layout good for up to 9 shields
             while Pilots[shipIndex].Shield > 0 do
                 Pilots[shipIndex].Shield = Pilots[shipIndex].Shield - 1
                 if Pilots[shipIndex].standardized_loadout then
@@ -6964,7 +7018,6 @@ end
                 shieldClone.setVar("shield_owner", Pilots[shipIndex].name)
             end
         end
-
 
         if Pilots[shipIndex].standardized_loadout then
             finalPos = LocalPos(spawnCard, { -6, 0, 0 })
@@ -7001,7 +7054,6 @@ end
     for k, token in pairs(tokens) do
         token.destruct()
     end
-
 
     if listTable.Obstacles ~= nil then
         tempObstacleBag = getObjectFromGUID('203cb8').clone({ position = PosBag3 }) -- Obstacles bag
@@ -7357,7 +7409,9 @@ do
         end,
         removeMany = function(self, ...)
             local indices = { ... }
-            table.sort(indices, function(e1, e2) return self:index(e1) > self:index(e2) end)
+            table.sort(indices, function(e1, e2)
+                return self:index(e1) > self:index(e2)
+            end)
             for _, ind in ipairs(indices) do
                 self:remove(ind, true)
             end
@@ -7481,7 +7535,9 @@ function epicMoveWingmate(table)
     local desiredPosRot = { pos = table[2], rot = table[3] }
     print("Ship size=" .. ship.getTable("Data").Size)
     local info = { size = ship.getTable("Data").Size, code = "dummy", type = "" }
-    local fullFunc = function(info, ship) return desiredPosRot end
+    local fullFunc = function(info, ship)
+        return desiredPosRot
+    end
     result = MoveModule.MoveProbe.TryFullMove(info, ship, fullFunc)
     if result.done then
         MoveModule.MoveShip(ship, { finPos = desiredPosRot })
