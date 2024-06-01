@@ -6534,7 +6534,6 @@ function newSpawner(listTable)
                     material = 1,
                     type = 1
                 })
-            newShip.setName(pilotName)
             newShip.setTable("Data", Pilots[shipIndex].Data)
             newShip.setLock(true)
             if Pilots[shipIndex].Data.ProximityHider then
