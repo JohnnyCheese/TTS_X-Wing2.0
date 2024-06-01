@@ -839,21 +839,21 @@ masterShipDB['t65xwing'] = {
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'bbl1', 'bs1', 'bbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'wtl3', 'wbl3', 'ws3', 'wbr3', 'wtr3', 'ws4', 'rtl3t', 'rtr3t', 'rk4' },
     mesh =
-    'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/xwingbasev2.obj',
+    'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/xwingbasev3.obj',
     keywords = { 'X-Wing' },
     Config = {
         States = {
             [1] = {
                 Name = "S-Foils (Open)",
                 Model =
-                "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/xwingopenv1.obj",
+                "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/xwingopenv3.obj",
                 ZRot = 0,
                 Message = " opened their wings.",
             },
             [2] = {
                 Name = "S-Foils (Closed)",
                 Model =
-                "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/xwingclosedv1.obj",
+                "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/xwingclosedv3.obj",
                 ZRot = 180,
                 Message = " closed their wings.",
             }
