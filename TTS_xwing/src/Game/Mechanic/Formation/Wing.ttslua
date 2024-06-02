@@ -1,35 +1,34 @@
 require("TTS_lib.Util.Math")
-require("TTS_lib.Util.Table")
-local Vect = require("TTS_lib.Vector.Vector")
 local Dim = require("TTS_xwing.src.Dim")
 
 local offset = Dim.Convert_mm_igu(8.3)
-local cm = Dim.Convert_mm_igu(10)
 
--- Define the positions for each quadrant
+-- Define the positions for each Wing Formation
 local wingFormations = {
     [1] = {                                          -- Configuration for 6 ships
         { x = 0.0,           y = 0.0, z = -offset }, -- Lead
         { x = -2.0 * offset, y = 0.0, z = -offset }, -- Right Wing
-        { x = 2.0 * offset,  y = 0.0, z = -offset }, -- Slot
-        { x = 0.0,           y = 0.0, z = offset },  -- Left Wing
-        { x = -2.0 * offset, y = 0.0, z = offset },  -- Left Outer Wing
-        { x = 2.0 * offset,  y = 0.0, z = offset }   -- Right Outer Wing
+        { x = 2.0 * offset,  y = 0.0, z = -offset }, -- Left Wing
+        { x = 0.0,           y = 0.0, z = offset },  -- Slot
+        { x = -2.0 * offset, y = 0.0, z = offset },  -- Right Outer Wing
+        { x = 2.0 * offset,  y = 0.0, z = offset }   -- Left Outer Wing
     },
     [2] = {                                          -- Configuration for 2 ships
-        { x = 0.0, y = 0.0, z = -offset },           -- Left Wing
-        { x = 0.0, y = 0.0, z = offset }             -- Right Wing
+        { x = 0.0, y = 0.0, z = -offset },           -- lead
+        { x = 0.0, y = 0.0, z = offset }             -- Slot
     },
     [3] = {                                          -- Configuration for 4 ships
-        { x = offset,  y = 0.0, z = -offset },       -- Left Wing
+        { x = offset,  y = 0.0, z = -offset },       -- Lead
         { x = -offset, y = 0.0, z = -offset },       -- Right Wing
         { x = offset,  y = 0.0, z = offset },        -- Slot
-        { x = -offset, y = 0.0, z = offset }         -- Lead
+        { x = -offset, y = 0.0, z = offset }         -- Right Rear Wing
     }
 }
 
 local nextSlot = 1
 local prevShip
+local debounce
+
 
 function getWingFormation(stateId)
     return wingFormations[stateId] or wingFormations[3] -- Default to 4 positions if the state is unknown
@@ -42,81 +41,42 @@ function positionShip(ship)
     end
     prevShip = ship
 
-    local rotation = self.getRotation()
-    --rotation.y = 180  -- Adjust the y rotation
-
     local stateId = self.getStateId()
     local currentFormation = getWingFormation(stateId)
 
-    printToAll("nextSlot is " .. nextSlot)
     local slot = nextSlot
     if slot > #currentFormation then
         slot = 1
     end
 
+    local rotation = self.getRotation()
     ship.setRotationSmooth(rotation, false, true)
+
     local pos = currentFormation[slot]
     pos.x = math.round(pos.x, 2)
     pos.y = math.round(pos.y, 2)
     pos.z = math.round(pos.z, 2)
-    table.print(pos)
-    -- Vect.Print(pos, "pos")
-    Vect.Print(self.getPosition(), "self position")
     local newPos = self.positionToWorld(pos)
     ship.setPositionSmooth(newPos, false, true)
     nextSlot = (slot % #currentFormation) + 1
 end
-
---local nextSlot = 1
---local prevShip
---
----- Function to position a ship in the first available quadrant
---function positionShip(ship)
---    if ship == prevShip then
---        return
---    end
---    prevShip = ship
---
---    local rotation = self.getRotation()
---
---    ship.setRotationSmooth(rotation, false, true)
---    local pos = slots[nextSlot]
---    local newPos = self.positionToWorld(pos)
---    ship.setPositionSmooth(newPos, false, true)
---    nextSlot = (nextSlot % 4) + 1
---end
-
---function positionShip(ship)
---    local rotation = { 0, 180, 0 }
---
---    for i, pos in ipairs(quadrant) do
---        if wingSpot[i] == ship then
---            return
---        end
---
---        if wingSpot[i] == nil then
---            wingSpot[i] = ship
---            ship.setRotationSmooth(rotation, false, true)
---            ship.setPositionSmooth(self.positionToWorld(pos), false, true)
---
---            return
---        end
---    end
---end
 
 -- Function to check if an object is a ship
 function isShip(obj)
     return obj.hasTag("Ship")
 end
 
--- Event triggered when an object collides with the tool
+-- Event triggered when a ship collides with the tool
 function onCollisionEnter(collision_info)
     local obj = collision_info.collision_object
+    
+    if debounce == obj then
+        return
+    end
 
+    debounce = obj
     if isShip(obj) then
-        self.unregisterCollisions()
         obj.setLock(true)
-        obj.unregisterCollisions()
         positionShip(obj)
         obj.setLock(false)
     end
@@ -124,38 +84,20 @@ end
 
 function onCollisionExit(collision_info)
     local obj = collision_info.collision_object
-    if isShip(obj) then
-        Wait.time(function()
-            obj.registerCollisions()
-            self.registerCollisions()
-        end, 1)
-    end
+    debounce = nil
 end
 
-function reset()
+function clearWing()
     nextSlot = 1
     prevShip = nil
+    debounce = nil
 end
 
 function onLoad()
-    self.addContextMenuItem("Reform", reset)
-    reset()
+    self.addContextMenuItem("Clear Template", clearWing)
+    clearWing()
 end
 
 function onDrop(player_color)
-    reset()
-    Vect.Print(self.getPosition())
-end
-
-function onObjectStateChange(changedObject, stateId)
-    printToAll("State changed to: " .. self.getStateId())
-    if changedObject == self then
-        printToAll("State changed to: " .. stateId)
-        reset()
-    end
-end
-
-function onStateChange(old_state_guid)
-    printToAll("New state: " .. self.getStateId() .. " GUID: " .. self.guid)
-    printToAll("Previous state: " .. self.getStateId() .. " GUID: " .. old_state_guid)
+    clearWing()
 end
