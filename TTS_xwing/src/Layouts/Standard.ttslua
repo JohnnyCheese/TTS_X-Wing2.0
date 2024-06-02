@@ -61,8 +61,7 @@ do
         ['Range 1-2 Rulers']        = { pos = { -43.50, 1.00, 2.40 }, rot = { 0.00, 270.00, 180.00 }, scale = { 0.63, 0.63, 0.63 } },
         ['Range 1-3 Rulers']        = { pos = { -42.70, 1.00, 0.00 }, rot = { 0.00, 90.00, 0.00 }, scale = { 0.63, 0.63, 0.63 } },
         ['First player coin']       = { pos = { -2.52, 0.96, -15.59 }, rot = { 0.00, 90.00, 0.00 }, scale = { 0.40, 0.86, 0.40 }, lock = false },
-        ['First Player Randomizer'] = { pos = { -38.22, 1.61, 0.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { 0.65, 0.65, 0.65 } },
-        --['Round Clock']             = { pos = {-38.81, 2.21, 0.00}, rot = {35.52, 270.44, 0.01}, scale = {0.75, 0.75, 0.13} },
+        ['Game Console']            = { pos = { -38.22, 1.61, 0.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { 0.65, 0.65, 0.65 } },
         ['1 Straight Templates 2']  = { pos = { 38.00, 0.97, 2.25 }, rot = { 0.00, 180.00, 0.00 }, scale = { 3.63, 3.63, 3.63 } },
         ['2 Straight Templates 2']  = { pos = { 40.00, 0.97, -3.00 }, rot = { 0.00, 0.00, 0.00 }, scale = { 3.63, 3.63, 3.63 } },
         ['3 Straight Templates 2']  = { pos = { 38.00, 0.97, -0.80 }, rot = { 0.00, 0.00, 0.00 }, scale = { 3.63, 3.63, 3.63 } },
@@ -121,7 +120,7 @@ do
     }
     standard.mats = {
         ['Red-Blue'] = { pos = { -20.5142, 1, 0.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { 1.655, 1.2, 1.655 }, int = false },
-        ['Purple-Orange'] = { pos = { 20.5142, 1, 0.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { 1.63, 1.2, 1.63 }, int = false },
+        ['Purple-Orange'] = { pos = { 20.5142, 1, 0.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { 1.27, 1.2, 1.27 }, int = false },
     }
     function StandardCallMat(matName, callFcn)
         local mat = Layout.GetMats()[standard.name][matName]

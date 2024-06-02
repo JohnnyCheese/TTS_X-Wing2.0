@@ -4,6 +4,8 @@ require("TTS_Lib.Util.Math")
 require("TTS_Lib.Util.Table")
 require("TTS_Lib.Util.String")
 
+__XW_LayoutHandlers = { hide = 'deleteIndicators', show = 'show' }
+
 
 max_rounds = 13
 max_offset = 9
@@ -416,12 +418,19 @@ function registerPlayer(new_player)
     players[new_player] = { color = new_player, set = false, side = nil, points = 0, round_points = {} }
 end
 
-function recreateIndicators()
+function deleteIndicators()
     for _, indicator in pairs(indicators) do
         destroyObject(indicator)
     end
     indicators = {}
+end
 
+function show()
+    Wait.condition(recreateIndicators, function() return (not self.isSmoothMoving()) end)
+end
+
+function recreateIndicators()
+    deleteIndicators()
     self.destroyAttachments()
     local adjusted_max_offset = max_offset
     local scaleFactor = 0
