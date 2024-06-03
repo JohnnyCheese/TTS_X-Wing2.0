@@ -15,7 +15,7 @@ end
 --[[
 ## Star Forge
 
-Utility Object to aid in Game Mod Script Updates. Locating and creating Objects.
+Utility Object to aid in Game Mod Script Updates. Locating and "sourcing" Objects.
 - This should replace the Accessories Bag or at least provide a Facade in front of it
 - Extract and layout out all scripted objects
     - Possibly be sensitive to HotAC vs Standard Layout
@@ -26,7 +26,7 @@ Utility Object to aid in Game Mod Script Updates. Locating and creating Objects.
         2. Save the Game
         3. Load the Game
         4. Push all scripts
-        5. Reset bag and replace object
+        5. Reset bags and replace objects
 - Assess each Container as a possible source of objects.
     - Point out when there are duplicate sources for an object.
     - Front all containers/dispensers as a registry for objects
@@ -100,7 +100,7 @@ Optional, defaults to 0.
 - 7: Infinite bag
 ]]
 
-function noop(obj)
+function NoOp(obj)
 end
 
 function handlers()
