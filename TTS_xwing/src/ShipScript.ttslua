@@ -41,24 +41,24 @@ function initContextMenu()
             end
             local config = self.getTable("Data").Config
             if config then
-                self.addContextMenuItem(config.ContextText, function() self.call(SetConfiguration()) end, false)
+                self.addContextMenuItem(config.ContextText, function() self.call('SetConfiguration') end, false)
             end
 
-            self.AddContextMenuItem("Mark ship", function(argument) Global.call("MarkShip", { ship = self }) end, false)
+            self.addContextMenuItem("Mark ship", function(argument) Global.call("MarkShip", { ship = self }) end, false)
 
             if Global.getVar('test_AI') or self.getVar('isAi') then
-                self.AddContextMenuItem("AI move and action",
+                self.addContextMenuItem("AI move and action",
                     function(argument) Global.call("PerformAIManeuver", { ['ship'] = self, ['take_action'] = true }) end,
                     false)
-                self.AddContextMenuItem("AI move",
+                self.addContextMenuItem("AI move",
                     function(argument) Global.call("PerformAIManeuver", { ['ship'] = self, ['take_action'] = false }) end,
                     false)
             end
         end
     else
-        self.AddContextMenuItem("Next Texture", NextTexture, false)
-        self.AddContextMenuItem("Toggle Peg", TogglePeg, false)
-        self.AddContextMenuItem("Spawn Customizer", SpawnCustomizer, false)
+        self.addContextMenuItem("Next Texture", NextTexture, false)
+        self.addContextMenuItem("Toggle Peg", TogglePeg, false)
+        self.addContextMenuItem("Spawn Customizer", SpawnCustomizer, false)
     end
 end
 
@@ -115,9 +115,9 @@ function SetConfiguration(args)
     for i = #attachments, 1, -1 do
         local attachment = attachments[i]
         if attachment.name == "Config" then
-            local scale = vector(0.0001, 0.0001, 0.0001)
+            local scale = Vector(0.0001, 0.0001, 0.0001)
             if attachment.description == tostring(current_config) then
-                scale = vector(0.629, 0.629, 0.629)
+                scale = Vector(0.629, 0.629, 0.629)
                 printToAll(self.getName() .. self.getTable("Data").Config.States[current_config].Message)
             end
             id = self.removeAttachment(attachment.index)
@@ -185,7 +185,7 @@ function AttachArcIndicator(args)
         color_by_id = args.indicator.getVar("color_by_id") or false
     }
     args.indicator.setDescription(turret_mount)
-    args.indicator.setRotation(self.getRotation() + Global.getTable('mountRotations')[default_direction] or vector(0, 0,
+    args.indicator.setRotation(self.getRotation() + Global.getTable('mountRotations')[default_direction] or Vector(0, 0,
         0))
     Wait.frames(DisableAttachedColliders, 2)
 
@@ -232,7 +232,7 @@ function RotateAttachedArcIndicator(args)
             local next_direction = GetNextValidRotation(turret_mount, args.direction)
             id = self.removeAttachment(attachment.index)
             arc_indicators[turret_mount].arc = next_direction
-            id.setRotation(self.getRotation() + Global.getTable('mountRotations')[next_direction] or vector(0, 0, 0))
+            id.setRotation(self.getRotation() + Global.getTable('mountRotations')[next_direction] or Vector(0, 0, 0))
             self.addAttachment(id)
             Wait.frames(DisableAttachedColliders, 2)
             return
@@ -252,7 +252,7 @@ function GetAvailableMountPositions(args)
     local ship_position = self.getPosition()
     local ship_rotation = math.rad(self.GetRotation().y) * -1
     for location, position in pairs(mount_positions) do
-        local transformed_position = vector(
+        local transformed_position = Vector(
             ship_position.x + math.cos(ship_rotation) * position[1] - math.sin(ship_rotation) * position[2],
             ship_position.y,
             ship_position.z + math.sin(ship_rotation) * position[1] + math.cos(ship_rotation) * position[2]
@@ -267,7 +267,7 @@ function GetMountingPosition(args)
     local mount_position = self.getTable('Data').mountingPoints[turret_mount] or { 0, 0 }
     local ship_position = self.getPosition()
     local ship_rotation = math.rad(self.GetRotation().y) * -1
-    return vector(
+    return Vector(
         ship_position.x + math.cos(ship_rotation) * mount_position[1] - math.sin(ship_rotation) * mount_position[2],
         ship_position.y,
         ship_position.z + math.sin(ship_rotation) * mount_position[1] + math.cos(ship_rotation) * mount_position[2]
@@ -367,7 +367,7 @@ function SetTurretArc(args)
         for _, attachment in pairs(self.getAttachments()) do
             if attachment.name:find("Arc Indicator") and (attachment.description == turret_mount) then
                 id = self.removeAttachment(attachment.index)
-                id.setRotation(self.getRotation() + Global.getTable('mountRotations')[args.arc] or vector(0, 0, 0))
+                id.setRotation(self.getRotation() + Global.getTable('mountRotations')[args.arc] or Vector(0, 0, 0))
                 self.addAttachment(id)
                 Wait.frames(DisableAttachedColliders, 2)
             end
@@ -585,6 +585,8 @@ function onLoad(savedData)
             Global.call('API_AssignToken', { token = getObjectFromGUID(guid), ship = self })
         end
     end
-    Wait.condition(setupUI,
-        function() return (not self.spawning) and (not self.UI.loading) and (not self.loading_custom) end)
+    local function hasLoadFinished()
+        return (not self.spawning) and (not self.UI.loading) and (not self.loading_custom)
+    end
+    Wait.condition(setupUI, hasLoadFinished)
 end

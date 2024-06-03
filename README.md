@@ -51,15 +51,16 @@ Provides JSON syntax highlighting and formatting tools.
 
 ### Tabletop Simulator Lua
 Support for Tabletop Simulator Lua scripting.
+- [Tabletop Simulator Lua v2-rc1 by Rolandostar from GitHub](https://github.com/rolandostar/tabletopsimulator-lua-vscode)
+    ```bash
+    git clone git@github.com:rolandostar/tabletopsimulator-lua-vscode.git
+    cd tabletopsimulator-lua-vscode/
+    npm install -g @vscode/vsce
+    vsce package
+    code --install-extension tabletopsimulator-lua-2.0.0-rc1.vsix
+    ```
+- Alternatively, install the released version 1.1.3 
 - [Tabletop Simulator Lua v1.1.3 by Rolandostar](https://marketplace.visualstudio.com/items?itemName=rolandostar.tabletopsimulator-lua)
-    - Alternatively, install the pre-release version 2.0 from GitHub:
-      ```bash
-      git clone git@github.com:rolandostar/tabletopsimulator-lua-vscode.git
-      cd tabletopsimulator-lua-vscode/
-      npm install -g @vscode/vsce
-      vsce package
-      code --install-extension tabletopsimulator-lua-2.0.0-rc1.vsix
-      ```
 
 ### EmmyLua
 Provides advanced Lua editing features.
@@ -121,7 +122,7 @@ mklink /D vscode %TEMP%\TabletopSimulatorLua
 
 A little Background Info: 
 * Tabletop Simulator (TTS) 13.0 is written in Unity.
-* It uses a Lua (v5.2) Interpreter from MoonSharp (v2.0.0.0). [https://www.moonsharp.org/]
+* It uses a Lua (v5.2) Interpreter from MoonSharp (v2.0.0.0). https://www.moonsharp.org/
 * MoonSharp is written in C#.
 
 To get the Debugger working with TTS you'll need to defeat the sandbox
@@ -134,19 +135,25 @@ In TTS using Chat, you can type the following:
 /execute print(debug.traceback())
 ```
 
-This is the "official" MoonSharp Extension for VSCode:
-https://marketplace.visualstudio.com/items?itemName=xanathar.moonsharp-debug
+There is an ["official" MoonSharp Extension for VSCode 1.8.3:](https://marketplace.visualstudio.com/items?itemName=xanathar.moonsharp-debug)
+But it is not clear how to set it up.
 
-This fork apparently uses an older version of this extension but was for use with TTS:
-Note to self: Now that you've got this version working, see if the marco extension works without this fork.
-
-Download the `.vsix` and `.dll.zip` from here:
-https://github.com/tts-community/moonsharp-tts-debug/releases
-
-Follow this `README.md` on where to drop the `.dll` and how to install the extension.
+There is a fork by Benjamin Dobell using an older (1.8.2) version of the MoonSharp Debugger extension that he made to work with TTS:
 
 https://github.com/tts-community/moonsharp-tts-debug
 
+Download the `.vsix` and `.dll.zip` from here:
+
+https://github.com/tts-community/moonsharp-tts-debug/releases
+
+You will need to disable auto-update for extensions in VSCode:
+If you don't, immediately after you install the extension from the fork that works (1.8.2), it will auto-update and install the "offical" MoonSharp version that doesn't (1.8.3).
+
+To disable auto-update in VSCode:
+* `Ctrl+Shift+P` - to enter command mode
+* type: `Extensions: Disable Auto Update for All Extensions`
+
+Follow Benjamin Dobell's `README.md` on where to drop the `.dll` and how to install the extension.
 
 You will need a `launch.json` configuration file.
 ```json

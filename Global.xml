@@ -1,0 +1,51 @@
+<Defaults>
+  <Panel class="PlayerPanel"
+         color="rgba(0,0,0,0)"
+         visibility="-"
+         allowDragging="true"
+         returnToOriginalPositionWhenReleased="false"
+         height="200" width="400"
+         rectAlignment="MiddleCenter"
+         active="false"/>
+  <Image class="DiceImage" preserveAspect="true" width="80" height="80" active="false" visibility="-" image="RedBlank" showAnimation="FadeIn" hideAnimation="FadeOut"/>
+  <Image class="PresentationImage" image="DiceResultBackground" color="rgba(0,0,1,1.0)" visibility="-" />
+  <Text class="PlayerText" fontSize="20" color="rgba(1,1,1,1)" visibility="-"/>
+</Defaults>
+
+<Panel id="AnnouncementPanel" rectAlignment="UpperCenter" active="false" showAnimation="SlideIn_Left" hideAnimation="SlideOut_Right" visibility="-" height="300" width="600" offsetXY="0 -200">
+    <Image id="AnnouncementImage" preserveAspect="true" image="BrushStroke" color="rgba(1,1,0,1.0)"  offsetXY="0 -10"/>
+    <Text  id="AnnouncementText" fontSize="60" color="rgba(1,1,1,1)" ><i>Natties!</i></Text>
+</Panel>
+
+<Panel id="PresentationPanel1" class="PlayerPanel">
+    <Image id="PresentationPanel1Background" class="PresentationImage" />
+    <Text  id="PresentationPanel1Player" class="PlayerText">Player 1</Text>
+    <Image id="Presentation1Die1" class="DiceImage" offsetXY="-100 20"/>
+    <Image id="Presentation1Die2" class="DiceImage" offsetXY="-50 -20"/>
+    <Image id="Presentation1Die3" class="DiceImage" offsetXY="0 20"/>
+    <Image id="Presentation1Die4" class="DiceImage" offsetXY="50 -20"/>
+    <Image id="Presentation1Die5" class="DiceImage" offsetXY="100 20"/>
+    <Image id="Presentation1Die6" class="DiceImage" offsetXY="150 -20"/>
+</Panel>
+
+<Panel id="PresentationPanel2" class="PlayerPanel">
+    <Image id="PresentationPanel2Background" class="PresentationImage" />
+    <Text  id="PresentationPanel2Player" class="PlayerText">Player 2</Text>
+    <Image id="Presentation2Die1" class="DiceImage" offsetXY="-100 20"/>
+    <Image id="Presentation2Die2" class="DiceImage" offsetXY="-50 -20"/>
+    <Image id="Presentation2Die3" class="DiceImage" offsetXY="0 20"/>
+    <Image id="Presentation2Die4" class="DiceImage" offsetXY="50 -20"/>
+    <Image id="Presentation2Die5" class="DiceImage" offsetXY="100 20"/>
+    <Image id="Presentation2Die6" class="DiceImage" offsetXY="150 -20"/>
+</Panel>
+
+<Panel id="PresentationPanel3" class="PlayerPanel">
+    <Image id="PresentationPanel3Background" class="PresentationImage" />
+    <Text  id="PresentationPanel3Player" class="PlayerText">Player 3</Text>
+    <Image id="Presentation3Die1" class="DiceImage" offsetXY="-100 20"/>
+    <Image id="Presentation3Die2" class="DiceImage" offsetXY="-50 -20"/>
+    <Image id="Presentation3Die3" class="DiceImage" offsetXY="0 20"/>
+    <Image id="Presentation3Die4" class="DiceImage" offsetXY="50 -20"/>
+    <Image id="Presentation3Die5" class="DiceImage" offsetXY="100 20"/>
+    <Image id="Presentation3Die6" class="DiceImage" offsetXY="150 -20"/>
+</Panel>

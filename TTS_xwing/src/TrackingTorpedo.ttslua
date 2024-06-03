@@ -49,7 +49,7 @@ function ToggleRuler(range)
         type = 'Custom_Model',
         position = self.positionToWorld({ 0, 0, 0 }),
         rotation = self.getRotation(),
-        scale = vector(1, 1, 1)
+        scale = Vector(1, 1, 1)
     }
     local custom = {
         mesh =
@@ -74,7 +74,7 @@ function ToggleRuler(range)
     spawnedRuler.createButton(removeButton)
     local vector_lines = {}
     for _, obj in pairs(getAllObjects()) do
-        if obj ~= nil and obj.tag == 'Figurine' and obj.getVar('__XW_Ship') == true then
+        if obj ~= nil and obj.type == 'Figurine' and obj.getVar('__XW_Ship') == true then
             my_pos = self.getNearestPointFromObject(obj)
             closest = Global.call("API_GetClosestPointToShip", { ship = obj, point = my_pos })
             distance = Dim.Convert_igu_mm(closest.length)
@@ -83,7 +83,7 @@ function ToggleRuler(range)
                     points = { self.positionToLocal(closest.A) * self.getScale().x, self.positionToLocal(closest.B) * self.getScale().x },
                     color = { 1, 1, 1 },
                     thickness = 0.1,
-                    rotation = vector(0, 0, 0)
+                    rotation = Vector(0, 0, 0)
                 })
             end
         end
@@ -118,7 +118,7 @@ function onDropped(color)
         local nearest
         local minDist = Dim.Convert_mm_igu(120)
         for _, ship in pairs(getAllObjects()) do
-            if ship.tag == 'Figurine' and ship.name ~= '' then
+            if ship.type == 'Figurine' and ship.name ~= '' then
                 local pos = ship.getPosition()
                 local dist = math.sqrt(math.pow((spos[1] - pos[1]), 2) + math.pow((spos[3] - pos[3]), 2))
                 if dist < minDist then
@@ -133,7 +133,7 @@ function onDropped(color)
             assignedShip = nearest
             local size = assignedShip.getTable('Data').Size
 
-            local pos = LocalPos(assignedShip, vector(0, Dim.Convert_mm_igu(1), sizeOffset[size]))
+            local pos = LocalPos(assignedShip, Vector(0, Dim.Convert_mm_igu(1), sizeOffset[size]))
             local rot = assignedShip.getRotation()
             dorkMove(pos, rot)
             prepareLaunch()
@@ -182,23 +182,22 @@ end
 
 --[[
 Neutral
-x=27.36
-z=-6.92
+x = 27.36
+z = -6.92
 
 bank
-x=24.94
-z=-1.23
+x = 24.94
+z = -1.23
 
-Dx=2.42
-Dz=5.76
+Dx = 2.42
+Dz = 5.76
 
 Turn
-x=31.27
-z=2.99
+x = 31.27
+z = 2.99
 
-Dx=3.96
-Dz=3.93
-
+Dx = 3.96
+Dz = 3.93
 ]]
 
 
