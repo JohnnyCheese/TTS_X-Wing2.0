@@ -36,6 +36,9 @@ Utility Object to aid in Game Mod Script Updates. Locating and "sourcing" Object
         - each of their names and
         - a way to recognize which one to morph to
     - names may include: Bag name, Object Contents name, or NickName
+
+### Requirements
+- Each object to be produced needs a unique name.
 ]]
 local StarForge = {
     factories = {}
@@ -103,37 +106,122 @@ Optional, defaults to 0.
 function NoOp(obj)
 end
 
-function handlers()
+handlers = function()
     local typeHandlers = {
-        Generic = noop,
-        Figurine = noop,
-        Dice = noop,
-        Coin = noop,
-        Board = noop,
-        Chip = noop,
-        Bag = noop,
-        Infinite = noop,
+        Generic = NoOp,
+        Figurine = NoOp,
+        Dice = NoOp,
+        Coin = NoOp,
+        Board = NoOp,
+        Chip = NoOp,
+        Bag = NoOp,
+        Infinite = NoOp
     }
     return typeHandlers
 end
 
 UpdateFactories = function()
     printToAll("Update Factories")
+    local position = self.getPosition()
+    position.x = position.x + 7
+    position.z = position.z - 15
+    local layout = {}
+    layout.position = position
+    layout.count = 0
+    layout.call_back = nil
     local everything = getObjects()
     for _, object in ipairs(everything) do
         local product = object.getName()
         local objType = object.type
+        -- printToAll(tostring(object.name) .. " is of type: " .. tostring(objType))
         if objType == "Infinite" then
-            local products = extractProducts(object)
-            local factory = factory(object, printInfiniteBag, 'printInfiniteBag')
+            layout = layoutInfiniteBag(object, layout)
+            -- local products = extractProducts(object)
+            -- local factory = factory(object, printInfiniteBag, 'printInfiniteBag')
             -- StarForge.factories[next(products)] = factory
         end
         if objType == "Bag" then
-            local factory = factory(object, printBag, 'printBag')
-            StarForge.factories[product] = factory
+            layout = layoutMixedBag(object, layout)
+            -- local factory = factory(object, printBag, 'printBag')
+            -- StarForge.factories[product] = factory
         end
     end
     printToAll("Update Factories Done")
+end
+
+function layoutInfiniteBag(infiniteBag, layout)
+    local position = layout.position
+    local count = layout.count
+
+    count = count + 1
+    local spreadPos = {
+        x = position.x + math.floor(count / 10) * 3.5,
+        y = position.y + 1,
+        z = position.z + (count % 10) * 3
+    }
+
+    infiniteBag.takeObject({
+        position = spreadPos,
+        -- index = i - 1,         -- Adjust index to current position in the array
+        smooth = false
+    })
+
+    layout.count = count
+    layout.position = position
+
+    return layout
+end
+
+function layoutMixedBag(mixedBag, layout)
+    local items = mixedBag.getObjects()
+    local position = layout.position
+    local count = layout.count
+
+    for i = #items, 1, -1 do
+        local item = items[i]
+        if item.lua_script ~= "" then
+            count = count + 1
+            local spreadPos = {
+                x = position.x + math.floor(count / 10) * 3.5,
+                y = position.y + 1,
+                z = position.z + (count % 10) * 3
+            }
+
+            mixedBag.takeObject({
+                position = spreadPos,
+                index = i - 1, -- Adjust index to current position in the array
+                smooth = false,
+                callback_function = layout.call_back
+            })
+        end
+    end
+
+    layout.count = count
+    layout.position = position
+
+    return layout
+end
+
+function layoutMultiStateObject(obj)
+    local states = obj.getStates()
+    -- returns table of items. item:
+    --   name                      string
+    --   description               string
+    --   guid                      string
+    --   id                        int
+    --   lua_script                string
+    --   lua_script_state          string
+    if states ~= nil then
+        local position = self.getPosition()
+        -- position.y = position.y + 1
+        -- obj.clone({
+        --     position = position,
+        --     lock = true
+        -- })
+        -- parameters is a table:
+        --   position                  Vector   [x=0, y=3, z=0]
+        --   snap_to_grid              bool     [false]
+    end
 end
 
 function factory(dispenser, func, funcName)
@@ -258,7 +346,84 @@ function tableContains(tbl, value)
     return false
 end
 
-function layoutObjects()
+function FindDuplicates()
+    printToAll("Find Duplicates")
+    local everything = getObjects()
+    for _, object in ipairs(everything) do
+        local product = object.getName()
+        local objType = object.type
+        if objType == "Infinite" then
+            local products = takeAlook(object)
+            -- local factory = factory(object, printInfiniteBag, 'printInfiniteBag')
+            printToAll("InfiniteBag: " .. object.getName)
+            table.print(products, object.getName())
+        end
+        if objType == "Bag" then
+            local products = watchaGot(object)
+            -- local factory = factory(object, printBag, 'printBag')
+            -- StarForge.factories[product] = factory
+            printToAll("Bag: " .. object.getName)
+            table.print(products, object.getName())
+        end
+    end
+    printToAll("Update Factories Done")
+end
+
+function getInfiniteBagProductName(asset_bag)
+    local name = asset_bag.getName()
+    local product = asset_bag.takeObject()
+
+    if asset_bag then
+        for _, containedObject in ipairs(asset_bag.getObjects()) do
+            asset = asset_bag.takeObject({
+                index = containedObject.index,
+                position = self.getPosition() + Vector(10, 2, 0),
+                rotation = self.getRotation() + Vector(180, 0, 0),
+            })
+            assetClone = asset.clone()
+            asset_bag.putObject(assetClone)
+            break
+        end
+    end
+end
+
+function watchaGot(bag)
+    if bag.type == "InfiniteBag" then
+        return tookAnObject(bag)
+    elseif bag.type == "Bag" then
+        return whatsInTheBag(bag)
+    end
+    printToAll("Not a Bag")
+    return {}
+end
+
+function tookAnObject(infiniteBag)
+end
+
+function whatsInTheBag(mixedBag)
+    if bag == nil then
+        printToAll("How did we get a nil bag!?")
+        return
+    end
+    local names = {}
+    printToAll("bag.type: " .. bag.type)
+    printToAll("function is " .. tostring(bag.getObjects))
+    local result = bag.getObjects
+    printToAll("result is " .. tostring(result))
+    result = result()
+    if result == nil then
+        return
+    end
+    for _, product in ipairs(result) do
+        local name = product.getName()
+        if name ~= nil then
+            table.insert(names, name)
+        end
+    end
+    return names
+end
+
+function emptyBag()
     local items = self.getObjects()
     local position = self.getPosition()
 
@@ -283,22 +448,4 @@ function layoutObjects()
             })
         end
     end
-end
-
-function FindDuplicates()
-    printToAll("Find Duplicates")
-    local everything = getObjects()
-    for _, object in ipairs(everything) do
-        local product = object.getName()
-        local objType = object.type
-        if objType == "Infinite" then
-            local products = extractProducts(object)
-            local factory = factory(object, printInfiniteBag, 'printInfiniteBag')
-        end
-        if objType == "Bag" then
-            local factory = factory(object, printBag, 'printBag')
-            StarForge.factories[product] = factory
-        end
-    end
-    printToAll("Update Factories Done")
 end

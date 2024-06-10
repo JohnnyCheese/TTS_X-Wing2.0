@@ -1,3 +1,5 @@
+local Dim = require("TTS_xwing.src.Dim")
+
 ShipVerification = {}
 
 ShipVerification.colliders = {
@@ -12,9 +14,9 @@ ShipVerification.colliders = {
 }
 
 ShipVerification.VerifyShipBase = function(ship)
-    if ship.getScale() ~= mm_ship_scale then
+    if ship.getScale() ~= Dim.mm_ship_scale then
         printToAll("Ship " .. ship.getName() .. " has wrong scale, don't scale the ships please!", color(1, 0.2, 0.2))
-        ship.setScale(mm_ship_scale)
+        ship.setScale(Dim.mm_ship_scale)
     end
     local size = ship.getTable("Data").Size
     if size == nil then
