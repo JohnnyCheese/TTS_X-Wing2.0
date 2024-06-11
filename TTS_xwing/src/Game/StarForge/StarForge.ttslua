@@ -4,6 +4,7 @@
 -- StarForge.ttslua
 
 require("TTS_lib.Util.Table")
+local Vect = require("TTS_lib.Vector.Vector")
 
 if not self.hasTag("Star Forge") then
     printToAll("Only the Star Forge itself should run this script.")
@@ -17,16 +18,40 @@ end
 
 Utility Object to aid in Game Mod Script Updates. Locating and "sourcing" Objects.
 - This should replace the Accessories Bag or at least provide a Facade in front of it
-- Extract and layout out all scripted objects
-    - Possibly be sensitive to HotAC vs Standard Layout
+- Extract and lay out all scripted objects
+    - Possibly be sensitive to HotAC vs Standard Layout vs Epic Layout
     - Reset each script back to itself to force an update.
-    - Will need to keep track of where each object came from to survive a save and reload.
-        1. Layout all scripted objects
-            a. Range sensitive objects may be better placed > Range-1 from each other
-        2. Save the Game
-        3. Load the Game
-        4. Push all scripts
-        5. Reset bags and replace objects
+    - Keep track of where each object came from to survive a save and reload.
+
+### Steps:
+
+1. **Extract All Objects**:
+    - Trigger a context menu to "Take Everything Out," which will:
+    1. Lay out all scripted objects.
+    2. Keep track of which Bag each object came from, as they need to be returned to their original bag.
+    3. If the object is a multi-state object:
+        - Keep track of the initial state (baseState).
+        - Clone the object for each state and stack them vertically.
+        - This allows VSCode to update the alternative state's scripts.
+
+2. **Save and Reload**:
+    1. Save the game via TTS UI.
+    2. Load the game via TTS UI.
+    3. Send all scripts from VSCode.
+
+3. **Put Everything Away**:
+    - Trigger a context menu to "Put Everything Away," which will:
+    - For each object that was taken out:
+        1. Reset the bag it came from.
+        2. Put the object back.
+        3. If the object is the initial state of a multi-state object:
+            - Traverse all initial state's copies and have them:
+                - Change the baseState object to match their state.
+                - Set the baseState's script for that state to the new one from the extra state object.
+                - Destroy the extra state object.
+            - Set the initial state object back to its baseState.
+        4. Put the initial state object back in the bag it came from.
+
 - Assess each Container as a possible source of objects.
     - Point out when there are duplicate sources for an object.
     - Front all containers/dispensers as a registry for objects
@@ -44,9 +69,7 @@ local StarForge = {
     factories = {}
 }
 
-StarForge.initialize = function()
-    StarForge.factories = {}
-end
+local SFScript = require("TTS_xwing.src.Game.StarForge.StarForgeScriptManager")
 
 function onLoad(save_data)
     -- self.setLock(true)
@@ -55,15 +78,32 @@ function onLoad(save_data)
 end
 
 function addContextMenus()
-    self.addContextMenuItem("Factory Search", UpdateFactories)
+    self.addContextMenuItem("Multi-State Object", MultiStateExp)
     self.addContextMenuItem("List Factories", ListFactories)
     self.addContextMenuItem("Find Duplicates", FindDuplicates)
+    self.addContextMenuItem("Extract All Products", SFScript.ExtractAllProducts)
+    self.addContextMenuItem("Put Everything Away", SFScript.PutEverythingAway)
+    self.addContextMenuItem("Dump Products", SFScript.dumpProducts)
 end
 
-StarForge.RegisterFactory = function(factory, product)
-    local previousFactory = StarForge.factories[product]
-    StarForge.factories[product] = factory
-    return previousFactory
+MultiStateExp = function()
+    local wingBag = getObjectFromGUID("ae62df")
+    if wingBag == nil then
+        printToAll("Wing Bag is nil")
+        return
+    end
+    
+    local chargeBag = getObjectFromGUID("224816")
+    if chargeBag == nil then
+        printToAll("Charge Bag is nil")
+        return
+    end
+    
+    printToAll("Wing Bag type is " .. tostring(wingBag.type))
+    printToAll("Charge Bag type is " .. tostring(chargeBag.type))
+    
+    SFScript.takeObject(wingBag, "")
+    SFScript.takeObject(chargeBag, "")
 end
 
 ListFactories = function()
@@ -80,28 +120,38 @@ ListFactories = function()
     printToAll("End Factories:")
 end
 
---[[
-## Update Factories
-Scan all game objects
-- if it's an Infinite Bag,
-    find out of what and register the object in the bag.
-- if it's an Mixed Bag,
-    find out of what and register the objects in the bag.
-- if the Objects are Multi-state,
- consider registering each state with a "<key>.#".
+FindDuplicates = function()
+    printToAll("Find Duplicates")
+    local everything = getObjects()
+    for _, object in ipairs(everything) do
+        local product = object.getName()
+        local objType = object.type
+        if objType == "Infinite" then
+            local products = takeAlook(object)
+            -- local factory = factory(object, printInfiniteBag, 'printInfiniteBag')
+            printToAll("InfiniteBag: " .. object.getName)
+            table.print(products, object.getName())
+        end
+        if objType == "Bag" then
+            local products = watchaGot(object)
+            -- local factory = factory(object, printBag, 'printBag')
+            -- StarForge.factories[product] = factory
+            printToAll("Bag: " .. object.getName)
+            table.print(products, object.getName())
+        end
+    end
+    printToAll("Update Factories Done")
+end
 
- ### Useful Info
-type: An Int representing the Object's type.
-Optional, defaults to 0.
-- 0: Generic
-- 1: Figurine
-- 2: Dice
-- 3: Coin
-- 4: Board
-- 5: Chip
-- 6: Bag
-- 7: Infinite bag
-]]
+
+StarForge.RegisterFactory = function(factory, product)
+    local previousFactory = StarForge.factories[product]
+    if previousFactory ~= nil then
+        printToAll("Replacing " .. previousFactory.getName() .. " with " .. factory.getName())
+    end
+    StarForge.factories[product] = factory
+    return previousFactory
+end
 
 function NoOp(obj)
 end
@@ -120,111 +170,8 @@ handlers = function()
     return typeHandlers
 end
 
-UpdateFactories = function()
-    printToAll("Update Factories")
-    local position = self.getPosition()
-    position.x = position.x + 7
-    position.z = position.z - 15
-    local layout = {}
-    layout.position = position
-    layout.count = 0
-    layout.call_back = nil
-    local everything = getObjects()
-    for _, object in ipairs(everything) do
-        local product = object.getName()
-        local objType = object.type
-        -- printToAll(tostring(object.name) .. " is of type: " .. tostring(objType))
-        if objType == "Infinite" then
-            layout = layoutInfiniteBag(object, layout)
-            -- local products = extractProducts(object)
-            -- local factory = factory(object, printInfiniteBag, 'printInfiniteBag')
-            -- StarForge.factories[next(products)] = factory
-        end
-        if objType == "Bag" then
-            layout = layoutMixedBag(object, layout)
-            -- local factory = factory(object, printBag, 'printBag')
-            -- StarForge.factories[product] = factory
-        end
-    end
-    printToAll("Update Factories Done")
-end
 
-function layoutInfiniteBag(infiniteBag, layout)
-    local position = layout.position
-    local count = layout.count
-
-    count = count + 1
-    local spreadPos = {
-        x = position.x + math.floor(count / 10) * 3.5,
-        y = position.y + 1,
-        z = position.z + (count % 10) * 3
-    }
-
-    infiniteBag.takeObject({
-        position = spreadPos,
-        -- index = i - 1,         -- Adjust index to current position in the array
-        smooth = false
-    })
-
-    layout.count = count
-    layout.position = position
-
-    return layout
-end
-
-function layoutMixedBag(mixedBag, layout)
-    local items = mixedBag.getObjects()
-    local position = layout.position
-    local count = layout.count
-
-    for i = #items, 1, -1 do
-        local item = items[i]
-        if item.lua_script ~= "" then
-            count = count + 1
-            local spreadPos = {
-                x = position.x + math.floor(count / 10) * 3.5,
-                y = position.y + 1,
-                z = position.z + (count % 10) * 3
-            }
-
-            mixedBag.takeObject({
-                position = spreadPos,
-                index = i - 1, -- Adjust index to current position in the array
-                smooth = false,
-                callback_function = layout.call_back
-            })
-        end
-    end
-
-    layout.count = count
-    layout.position = position
-
-    return layout
-end
-
-function layoutMultiStateObject(obj)
-    local states = obj.getStates()
-    -- returns table of items. item:
-    --   name                      string
-    --   description               string
-    --   guid                      string
-    --   id                        int
-    --   lua_script                string
-    --   lua_script_state          string
-    if states ~= nil then
-        local position = self.getPosition()
-        -- position.y = position.y + 1
-        -- obj.clone({
-        --     position = position,
-        --     lock = true
-        -- })
-        -- parameters is a table:
-        --   position                  Vector   [x=0, y=3, z=0]
-        --   snap_to_grid              bool     [false]
-    end
-end
-
-function factory(dispenser, func, funcName)
+factory = function(dispenser, func, funcName)
     local factory = {}
     factory.dispenser = dispenser
     factory.func = printInfiniteBag
@@ -232,7 +179,7 @@ function factory(dispenser, func, funcName)
     return factory
 end
 
-function extractProducts(dispenser)
+extractProducts = function(dispenser)
     local names = {}
     local call_back = function(obj)
         print(tostring(obj))
@@ -244,7 +191,7 @@ function extractProducts(dispenser)
     return names
 end
 
-function interrogateContainer(dispenser, position, callback)
+interrogateContainer = function(dispenser, position, callback)
     dispenser.takeObject({
         -- guid = itemGuid,
         smooth = true,
@@ -279,10 +226,10 @@ function StarForge.getObjectFromFactory(factoryName, objectName, position, callb
         print("Factory not found: " .. factoryName)
         return
     end
-
+    
     local items = factory.getObjects() -- Retrieve a list of all items in the bag
     local itemGuid = nil               -- This will store the GUID of the requested object
-
+    
     -- Search through the items to find the requested object
     for _, item in ipairs(items) do
         if item.name == objectName then
@@ -290,7 +237,7 @@ function StarForge.getObjectFromFactory(factoryName, objectName, position, callb
             break
         end
     end
-
+    
     if itemGuid then
         factory.takeObject({
             guid = itemGuid,
@@ -346,33 +293,10 @@ function tableContains(tbl, value)
     return false
 end
 
-function FindDuplicates()
-    printToAll("Find Duplicates")
-    local everything = getObjects()
-    for _, object in ipairs(everything) do
-        local product = object.getName()
-        local objType = object.type
-        if objType == "Infinite" then
-            local products = takeAlook(object)
-            -- local factory = factory(object, printInfiniteBag, 'printInfiniteBag')
-            printToAll("InfiniteBag: " .. object.getName)
-            table.print(products, object.getName())
-        end
-        if objType == "Bag" then
-            local products = watchaGot(object)
-            -- local factory = factory(object, printBag, 'printBag')
-            -- StarForge.factories[product] = factory
-            printToAll("Bag: " .. object.getName)
-            table.print(products, object.getName())
-        end
-    end
-    printToAll("Update Factories Done")
-end
-
 function getInfiniteBagProductName(asset_bag)
     local name = asset_bag.getName()
     local product = asset_bag.takeObject()
-
+    
     if asset_bag then
         for _, containedObject in ipairs(asset_bag.getObjects()) do
             asset = asset_bag.takeObject({
@@ -426,11 +350,11 @@ end
 function emptyBag()
     local items = self.getObjects()
     local position = self.getPosition()
-
+    
     position.x = position.x + 10
     position.z = position.z - 15
     local count = 0
-
+    
     for i = #items, 1, -1 do
         local item = items[i]
         if item.lua_script ~= "" then
@@ -440,7 +364,7 @@ function emptyBag()
                 y = position.y + 1,
                 z = position.z + (count % 3) * 3
             }
-
+            
             self.takeObject({
                 position = spreadPos,
                 index = i - 1, -- Adjust index to current position in the array
@@ -449,3 +373,4 @@ function emptyBag()
         end
     end
 end
+
