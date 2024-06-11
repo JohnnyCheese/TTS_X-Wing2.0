@@ -154,7 +154,6 @@ stackMultiStateObjects = function(multiObject)
     local lastObject = multiObject
     for _, state in ipairs(allStates) do
         printToAll("state: " .. tostring(state), Color.Orange)
-        table.print(state)
         Wait.condition(function()
             pos.y = pos.y + 1
             local dup = multiObject.clone({ position = pos })
@@ -361,42 +360,7 @@ end
 -- end
 
 
--- StarForgeScriptManager.PutEverythingAway = function()
---     printToAll("Put Everything Away", Color.Orange)
---     local products = StarForgeScriptManager.objects
 
---     for _, object in pairs(products) do
---         local bag = getObjectFromGUID(object.bagGUID)
---         local product = getObjectFromGUID(object.guid)
-
---         if product then
---             if #object.states > 0 then
---                 copyMultiStateScripts(object, product, function(updatedProduct)
---                     putObjectBackInBag(bag, updatedProduct)
---                 end)
---             else
---                 putObjectBackInBag(bag, product)
---             end
---         end
---     end
-
---     printToAll("Everything Put Away", Color.Orange)
--- end
-
--- -- Function to reset a single-state object
--- putObjectBackInBag = function(bag, product)
---     if bag == nil then
---         printToAll("Didn't get bag back", Color.Yellow)
---         return
---     end
-
---     Wait.condition(function()
---         if bag.type == "Infinite" then
---             bag.reset()
---         end
---         bag.putObject(product)
---     end, function() return not product.spawning and not bag.spawning end)
--- end
 
 -- -- Function to reset a multi-state object
 -- copyMultiStateScripts = function(object, product, callback)
@@ -451,54 +415,40 @@ StarForgeScriptManager.PutEverythingAway = function()
         local product = getObjectFromGUID(object.guid)
         local altStates = {}
 
+        if product == nil then
+            printToAll("Object: " .. object.name .. " wasn't found by GUID: " .. object.guid, Color.Red)
+        end
+
         for stateId, stateData in pairs(object.states) do
             altStates[stateId] = getObjectFromGUID(stateData.guid)
         end
 
-        copyScripts(object, product, altStates)
-
-        for _, alt in ipairs(altStates) do
-            alt.destroyObject()
+        -- copyScripts(object, product, altStates)
+        printToAll("copy Scripts", Color.Orange)
+        local lastObject = product
+        for stateId, stateData in pairs(object.states) do
+            lastObject = lastObject.setState(stateId)
+            Wait.condition(function()
+                if stateData.hasScript then
+                    local script = altStates[stateId].getLuaScript()
+                    lastObject.setLuaScript(script)
+                end
+            end, function()
+                return not lastObject.spawning
+            end)
+            altStates[stateId].destroyObject()
         end
+        product = lastObject.setState(product.getStateId())
 
-        printToAll(
-            "product " ..
-            product.getName() .. " in state: " .. product.getStateId() .. "transitioning to state: " .. object.stateId,
-            Color.Yellow)
-        if product.getStateId ~= object.stateId then
-            product = product.setState(object.stateId)
-        end
 
         Wait.condition(function()
-            putObjectBackInBag(bag, product)
+            Wait.frames(function() putObjectBackInBag(bag, product) end, 2)
         end, function()
             return product and not product.spawning
         end)
     end
 
     printToAll("Everything Put Away", Color.Orange)
-end
-
-
-copyScripts = function(object, product, altStates)
-    printToAll("copy Scripts", Color.Orange)
-    local lastObject = product
-    for stateId, stateData in pairs(object.states) do
-        if stateData.hasScript then
-            Wait.condition(function()
-                lastObject = lastObject.setState(stateId)
-                Wait.condition(function()
-                    local script = altStates[stateId].getLuaScript()
-                    lastObject.setLuaScript(script)
-                end, function()
-                    return not lastObject.spawning
-                end)
-            end, function()
-                return altStates[stateId] and not altStates[stateId].spawning
-            end)
-        end
-    end
-    printToAll("copy Scripts done", Color.Orange)
 end
 
 -- Function to reset a single-state object
