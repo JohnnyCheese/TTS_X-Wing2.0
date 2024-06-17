@@ -79,6 +79,7 @@ end
 
 function addContextMenus()
     self.addContextMenuItem("Multi-State Object", MultiStateExp)
+    self.addContextMenuItem("Copy Scripts from States", SFScript.CopyScripts)
     self.addContextMenuItem("List Factories", ListFactories)
     self.addContextMenuItem("Find Duplicates", FindDuplicates)
     self.addContextMenuItem("Extract All Products", SFScript.ExtractAllProducts)
@@ -86,24 +87,24 @@ function addContextMenus()
     self.addContextMenuItem("Dump Products", SFScript.dumpProducts)
 end
 
+local function colorText(text, color)
+    return "[" .. color:toHex() .. "]" .. text .. "[-]"
+end
+
+
 MultiStateExp = function()
-    local wingBag = getObjectFromGUID("ae62df")
-    if wingBag == nil then
-        printToAll("Wing Bag is nil")
+    -- local bag = getObjectFromGUID("224816") -- Charge Token
+    -- local bag = getObjectFromGUID("ae62df") -- Wing Tool
+    -- local bag = getObjectFromGUID("07d45b") -- Shield
+    local bag = getObjectFromGUID("8b1614") -- Gas Cloud
+    if bag == nil then
+        printToAll("Bag is nil")
         return
     end
-    
-    local chargeBag = getObjectFromGUID("224816")
-    if chargeBag == nil then
-        printToAll("Charge Bag is nil")
-        return
-    end
-    
-    printToAll("Wing Bag type is " .. tostring(wingBag.type))
-    printToAll("Charge Bag type is " .. tostring(chargeBag.type))
-    
-    SFScript.takeObject(wingBag, "")
-    SFScript.takeObject(chargeBag, "")
+
+    printToAll(colorText(bag.getName(), Color.Orange) .. " Bag type is " .. colorText(tostring(bag.type), Color.Blue))
+
+    SFScript.takeObject(bag, "")
 end
 
 ListFactories = function()
@@ -226,10 +227,10 @@ function StarForge.getObjectFromFactory(factoryName, objectName, position, callb
         print("Factory not found: " .. factoryName)
         return
     end
-    
+
     local items = factory.getObjects() -- Retrieve a list of all items in the bag
     local itemGuid = nil               -- This will store the GUID of the requested object
-    
+
     -- Search through the items to find the requested object
     for _, item in ipairs(items) do
         if item.name == objectName then
@@ -237,7 +238,7 @@ function StarForge.getObjectFromFactory(factoryName, objectName, position, callb
             break
         end
     end
-    
+
     if itemGuid then
         factory.takeObject({
             guid = itemGuid,
@@ -296,7 +297,7 @@ end
 function getInfiniteBagProductName(asset_bag)
     local name = asset_bag.getName()
     local product = asset_bag.takeObject()
-    
+
     if asset_bag then
         for _, containedObject in ipairs(asset_bag.getObjects()) do
             asset = asset_bag.takeObject({
@@ -350,11 +351,11 @@ end
 function emptyBag()
     local items = self.getObjects()
     local position = self.getPosition()
-    
+
     position.x = position.x + 10
     position.z = position.z - 15
     local count = 0
-    
+
     for i = #items, 1, -1 do
         local item = items[i]
         if item.lua_script ~= "" then
@@ -364,7 +365,7 @@ function emptyBag()
                 y = position.y + 1,
                 z = position.z + (count % 3) * 3
             }
-            
+
             self.takeObject({
                 position = spreadPos,
                 index = i - 1, -- Adjust index to current position in the array
@@ -373,4 +374,3 @@ function emptyBag()
         end
     end
 end
-
