@@ -79,7 +79,6 @@ end
 
 function addContextMenus()
     self.addContextMenuItem("Multi-State Object", MultiStateExp)
-    self.addContextMenuItem("Copy Scripts from States", SFScript.CopyScripts)
     self.addContextMenuItem("List Factories", ListFactories)
     self.addContextMenuItem("Find Duplicates", FindDuplicates)
     self.addContextMenuItem("Extract All Products", SFScript.ExtractAllProducts)

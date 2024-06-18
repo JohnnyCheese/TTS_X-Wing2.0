@@ -108,7 +108,6 @@ local layoutMixedBag = function(mixedBag)
     end
 end
 
-
 --[[
 ## Layout Products
 Scan all game objects
@@ -190,13 +189,6 @@ function putObjectBackInBag(bag, product)
     end
 end
 
---[[
-Above this line is pretty solid.
----->8----8<---->8----8<---->8----8<----
-Below is still very much in flux.
-]]
-
-
 function copyStateScript(index, entry, multiObject, callback)
     if index == 0 then
         multiObject = multiObject.setState(entry.stateId)
@@ -223,8 +215,8 @@ function copyStateScript(index, entry, multiObject, callback)
     end)
 end
 
-StarForgeScriptManager.CopyScripts = function()
-    printToAll("Copy Scripts", Color.Orange)
+StarForgeScriptManager.PutEverythingAway = function()
+    printToAll("Put Everything Away", Color.Orange)
     local products = StarForgeScriptManager.objects -- #654
     for guid, entry in pairs(products) do
         local bag = getObjectFromGUID(entry.bagGUID)
@@ -243,143 +235,7 @@ StarForgeScriptManager.CopyScripts = function()
             end)
         end
     end
-    printToAll("Copy Scripts Done", Color.Blue)
-end
-
-StarForgeScriptManager.PutEverythingAway = function()
-    printToAll("Put Everything Away", Color.Orange)
-    local products = StarForgeScriptManager.objects
-    for guid, entry in pairs(products) do
-        local bag = getObjectFromGUID(entry.bagGUID)
-        local product = getObjectFromGUID(entry.guid)
-        Wait.condition(function()
-            putObjectBackInBag(bag, product)
-        end, function()
-            local bagReady = bag ~= nil and not bag.spawning
-            local productReady = product ~= nil and not product.spawning and not product.isDestroyed()
-            return bagReady and productReady
-        end)
-    end
     printToAll("Everything Put Away", Color.Orange)
-end
-
-
-setStateAndWait = function(object, stateId)
-    local lastObject = object.setState(stateId)
-    Wait.condition(function()
-        return lastObject
-    end, function()
-        return not lastObject.spawning
-    end)
-end
-
--- Function to set the state and wait for completion
-setStateAndWait = function(object, stateId, callback)
-    local lastObject = object.setState(stateId)
-    Wait.condition(function()
-        if callback then
-            callback(lastObject)
-        end
-    end, function()
-        return not lastObject.spawning
-    end)
-end
-
--- Function to set the Lua script and destroy the state object
-setScriptAndDestroy = function(lastObject, stateObj)
-    printToAll("setting Lua script", Color.Orange)
-    local script = nil
-    Wait.condition(function()
-        script = stateObj.getLuaScript()
-    end, function()
-        return not stateObj.spawning
-    end)
-    if script ~= nil then
-        lastObject.setLuaScript(script)
-    else
-        printToAll(stateObj.getName() .. " has No script for state " .. stateObj.getStateId(), Color.Orange)
-    end
-    destroyObject(stateObj)
-end
-
-
-StarForgeScriptManager.PutEverythingAway6 = function()
-    printToAll("Put Everything Away", Color.Orange)
-    local products = StarForgeScriptManager.objects
-
-    for _, object in pairs(products) do
-        local bag = getObjectFromGUID(object.bagGUID)
-        local product = getObjectFromGUID(object.guid)
-
-        if #object.states > 0 then
-            product = handleStates(object, product)
-        end
-
-        Wait.frames(function()
-            putObjectBackInBag(bag, product)
-        end, 2)
-    end
-    printToAll("Everything Put Away", Color.Orange)
-end
-
-function handleStates(object, product)
-    local lastObject = product
-    local alternate
-    for stateId, stateInfo in pairs(object.states) do
-        alternate = getObjectFromGUID(stateInfo.guid)
-        if alternate == nil then
-            printToAll("Couldn't load alternate state with guid: " .. stateInfo.guid)
-            goto skip
-        end
-        lastObject = lastObject.setState(stateId)
-        Wait.condition(function()
-            local script = alternate.getLuaScript()
-            script = script or ""
-            lastObject.setLuaScript(script)
-        end, function()
-            return not lastObject.spawning
-        end)
-        destroyObject(alternate)
-        Wait.condition(function()
-        end, function()
-            return alternate.isDestroyed()
-        end)
-        :: skip ::
-    end
-    product = lastObject.setState(object.stateId)
-    Wait.condition(function()
-        return product
-    end, function()
-        return not product.spawning
-    end)
-end
-
-
--- Function to reset a multi-state object
-copyMultiStateScripts = function(object, product)
-    local baseState = product.getStateId()
-    local lastObject = product
-
-    for stateId, stateEntry in pairs(object.states) do
-        local stateObj = getObjectFromGUID(stateEntry.guid)
-        if stateObj then
-            Wait.condition(function()
-                printToAll("about to set scripts and destroy extra states ", Color.Orange)
-                lastObject = setStateAndWait(lastObject, stateId)
-                setScriptAndDestroy(lastObject, stateObj)
-            end, function()
-                return not stateObj.spawning
-            end)
-        else
-            printToAll("Didn't get stateObj", Color.Red)
-        end
-    end
-
-    Wait.condition(function()
-        return product.setState(baseState)
-    end, function()
-        return not lastObject.spawning
-    end)
 end
 
 return StarForgeScriptManager
