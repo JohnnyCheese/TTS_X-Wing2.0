@@ -109,14 +109,11 @@ local layoutMixedBag = function(mixedBag)
 end
 
 --[[
-## Layout Products
+## Extract All Products
 Scan all game objects
-- if it's an Infinite Bag,
-    find out of what and register the object in the bag.
-- if it's an Mixed Bag,
-    find out of what and register the objects in the bag.
-- if the Objects are Multi-state,
- consider registering each state with a "<key>.#".
+- if it's an Infinite Bag, find out of what and register the object in the bag.
+- if it's an Mixed Bag, find out of what and register the objects in the bag.
+- if the Objects are Multi-state, consider registering each state with a "<key>.#".
 ]]
 StarForgeScriptManager.ExtractAllProducts = function()
     printToAll("Extract All Products")
