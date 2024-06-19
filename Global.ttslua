@@ -5385,6 +5385,7 @@ BombModule.CheckMineDroppedOverlapping = function(token, ownship)
         end)
 end
 
+-- TODO: try to move or integrate this with Bomb Code
 clusterScript = [[
 -- Convert argument from IN-GAME UNITS to MILIMETERS
 local Dim = require("TTS_xwing.src.Dim")
@@ -5499,6 +5500,7 @@ BombModule.ExpandCluster = function(center)
     BombModule.CheckMineDroppedOverlapping(t2)
 end
 
+-- TODO: compare with BlazeBomb code
 BombModule.SpawnBlaze = function(center)
     local offset = { -Dim.Convert_mm_igu(53), 0, 0 }
     local tParams = { type = 'Custom_Model' }
@@ -5814,6 +5816,7 @@ mountToIndex = {
     rear = '2'
 }
 
+-- TODO: this is used by DataPad with Ship Spawning
 pilotCardScript =
 [[
 dial = nil
