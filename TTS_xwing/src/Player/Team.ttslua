@@ -1,5 +1,6 @@
 local Team = {}
 
+-- Spieler
 -- Function to get player by color
 Team.getPlayerByColor = function(color)
     for _, player in pairs(Player.getPlayers()) do
@@ -8,6 +9,14 @@ Team.getPlayerByColor = function(color)
         end
     end
     return nil
+end
+
+Team.getPlayerName = function(player_color)
+    local player = Team.getPlayerByColor(player_color)
+    if player ~= nil then
+        return player.steam_name or player_color
+    end
+    return player_color or "no one"
 end
 
 -- Function to check if two players are on the same team

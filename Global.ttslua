@@ -454,9 +454,11 @@ AIModule.EnableStrikeAI = function(ship, cmd)
             print("Strike Targets set for " .. ship.getName() .. ": " .. table.concat(targets, ", "))
         else
             print("No valid targets specified for " .. ship.getName())
+            ship.setTable('StrikeTargets', nil)
         end
     else
         print("Invalid format or no targets specified.")
+        ship.setTable('StrikeTargets', nil)
     end
 end
 
@@ -626,10 +628,16 @@ AIModule.IsStrikeTarget = function(ship, target_ship)
     return false -- No match found
 end
 
+AIModule.IsStrikeShip = function(ship)
+    local strikeTargets = ship.getTable('StrikeTargets')
+    local isStrikeAI = strikeTargets ~= nil and next(strikeTargets) ~= nil
+    return isStrikeAI
+end
+
 -- This function checks if a target lock action should be skipped based on Strike AI
 AIModule.SkipTargetLock = function(locking_ship, target_ship)
     -- Only Strike AI ships have Strike Targets defined
-    local isStrikeAI = next(locking_ship.getTable('StrikeTargets') or {}) ~= nil
+    local isStrikeAI = AIModule.IsStrikeShip(locking_ship)
 
     -- Check whether the target is in the ship's list of designated strike targets
     local isStrikeAITarget = AIModule.IsStrikeTarget(locking_ship, target_ship)
@@ -639,7 +647,7 @@ AIModule.SkipTargetLock = function(locking_ship, target_ship)
 end
 
 AIModule.TargetForStrikeAI = function(ship)
-    local isStrikeAI = next(ship.getTable('StrikeTargets') or {}) ~= nil
+    local isStrikeAI = AIModule.IsStrikeShip(ship)
     if not isStrikeAI then
         -- only Strike AI ships run this targeting logic
         print("This is not a Strike AI Ship. Abort special targeting.")
@@ -5377,6 +5385,7 @@ BombModule.CheckMineDroppedOverlapping = function(token, ownship)
         end)
 end
 
+-- TODO: try to move or integrate this with Bomb Code
 clusterScript = [[
 -- Convert argument from IN-GAME UNITS to MILIMETERS
 local Dim = require("TTS_xwing.src.Dim")
@@ -5491,6 +5500,7 @@ BombModule.ExpandCluster = function(center)
     BombModule.CheckMineDroppedOverlapping(t2)
 end
 
+-- TODO: compare with BlazeBomb code
 BombModule.SpawnBlaze = function(center)
     local offset = { -Dim.Convert_mm_igu(53), 0, 0 }
     local tParams = { type = 'Custom_Model' }
@@ -5806,6 +5816,7 @@ mountToIndex = {
     rear = '2'
 }
 
+-- TODO: this is used by DataPad with Ship Spawning
 pilotCardScript =
 [[
 dial = nil
