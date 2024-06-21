@@ -580,7 +580,6 @@ function onLoad(savedData)
         self.setVar("isAi", state.isAi)
         self.setTable("StrikeTargets", state.strikeTargets)
         self.interactable = state.interactable or false
-        --initContextMenu()
         for _, guid in ipairs(state.tokenData.tokens) do
             Global.call('API_AssignToken', { token = getObjectFromGUID(guid), ship = self })
         end
@@ -588,5 +587,8 @@ function onLoad(savedData)
     local function hasLoadFinished()
         return (not self.spawning) and (not self.UI.loading) and (not self.loading_custom)
     end
-    Wait.condition(setupUI, hasLoadFinished)
+    Wait.condition(function() 
+        initContextMenu()
+        setupUI()
+    end, hasLoadFinished)
 end
