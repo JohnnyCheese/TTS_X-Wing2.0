@@ -49,7 +49,7 @@ Utility Object to aid in Game Mod Script Updates. Locating and "sourcing" Object
 local StarForgeScriptManager = {
     objects = {},
 
-    -- Define a function to add an object to the manager
+    -- Add an object to the manager
     addObject = function(self, bag, object)
         local entry = {
             guid = object.getGUID(),
@@ -57,11 +57,12 @@ local StarForgeScriptManager = {
             bagGUID = bag.getGUID(),
             stateId = object.getStateId(),
             states = {},  -- Table to hold states if it's a multi-state object
-            istates = {}, -- Table to hold states if it's a multi-state object
         }
 
         self.objects[object.getGUID()] = entry
     end,
+
+    -- Add a state to an existing multi-state object
     addState = function(self, multiObject, stateClone)
         if multiObject == stateClone then
             return
@@ -75,23 +76,7 @@ local StarForgeScriptManager = {
     end
 }
 
-local Layout = {
-    epic = { x = -35, y = 2, z = -14 },
-    start = { x = -35, y = 2, z = -14 },
-    position = { x = 0, y = 0, z = 0 },
-    count = 0,
-
-    -- Function to calculate the next position based on count
-    nextPosition = function(self)
-        self.count = self.count + 1
-        self.position = {
-            x = self.start.x + math.floor(self.count / 10) * 3.5,
-            y = self.start.y,
-            z = self.start.z + (self.count % 10) * 3
-        }
-        return self.position
-    end
-}
+local Layout = require("TTS_xwing.src.Game.StarForge.StarForgeLayout")
 
 local layoutInfiniteBag = function(infiniteBag)
     StarForgeScriptManager.takeObject(infiniteBag, "")
@@ -121,8 +106,7 @@ StarForgeScriptManager.ExtractAllProducts = function()
     for _, object in ipairs(everything) do
         if object.type == "Infinite" then
             layoutInfiniteBag(object)
-        end
-        if object.type == "Bag" then
+        elseif object.type == "Bag" then
             layoutMixedBag(object)
         end
     end
@@ -207,8 +191,8 @@ function copyStateScript(index, entry, multiObject, callback)
         return copyStateScript(index - 1, entry, multiObject, callback)
     end, function()
         local isMultiObjectReady = multiObject ~= nil and not multiObject.spawning
-        local isstateReady = stateCopy ~= nil and not stateCopy.spawning
-        return isMultiObjectReady and isstateReady
+        local isStateReady = stateCopy ~= nil and not stateCopy.spawning
+        return isMultiObjectReady and isStateReady
     end)
 end
 

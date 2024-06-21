@@ -71,7 +71,15 @@ local StarForge = {
 
 local SFScript = require("TTS_xwing.src.Game.StarForge.StarForgeScriptManager")
 
-function onLoad(save_data)
+function onSave()
+    local saveData = JSON.encode(SFScript.objects)
+    return saveData
+end
+
+function onLoad(saveData)
+    if saveData ~= "" then
+        SFScript.objects = JSON.decode(saveData)
+    end
     -- self.setLock(true)
     -- self.unregisterCollisions()
     addContextMenus()
@@ -80,7 +88,6 @@ end
 function addContextMenus()
     self.addContextMenuItem("Multi-State Object", MultiStateExp)
     self.addContextMenuItem("List Factories", ListFactories)
-    self.addContextMenuItem("Find Duplicates", FindDuplicates)
     self.addContextMenuItem("Extract All Products", SFScript.ExtractAllProducts)
     self.addContextMenuItem("Put Everything Away", SFScript.PutEverythingAway)
     self.addContextMenuItem("Dump Products", SFScript.dumpProducts)
@@ -89,7 +96,6 @@ end
 local function colorText(text, color)
     return "[" .. color:toHex() .. "]" .. text .. "[-]"
 end
-
 
 MultiStateExp = function()
     -- local bag = getObjectFromGUID("224816") -- Charge Token
@@ -119,30 +125,6 @@ ListFactories = function()
     end
     printToAll("End Factories:")
 end
-
-FindDuplicates = function()
-    printToAll("Find Duplicates")
-    local everything = getObjects()
-    for _, object in ipairs(everything) do
-        local product = object.getName()
-        local objType = object.type
-        if objType == "Infinite" then
-            local products = takeAlook(object)
-            -- local factory = factory(object, printInfiniteBag, 'printInfiniteBag')
-            printToAll("InfiniteBag: " .. object.getName)
-            table.print(products, object.getName())
-        end
-        if objType == "Bag" then
-            local products = watchaGot(object)
-            -- local factory = factory(object, printBag, 'printBag')
-            -- StarForge.factories[product] = factory
-            printToAll("Bag: " .. object.getName)
-            table.print(products, object.getName())
-        end
-    end
-    printToAll("Update Factories Done")
-end
-
 
 StarForge.RegisterFactory = function(factory, product)
     local previousFactory = StarForge.factories[product]
