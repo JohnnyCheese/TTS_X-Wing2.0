@@ -3,13 +3,16 @@
 
 -- StarForge.ttslua
 
+local surface = false
+-- local surface = true
+
 require("TTS_lib.Util.Table")
 local Vect = require("TTS_lib.Vector.Vector")
 
 if not self.hasTag("Star Forge") then
     printToAll("Only the Star Forge itself should run this script.")
     return
-else
+elseif surface == true then
     printToAll("Star Forge is active and online!", Color.Orange)
 end
 
@@ -79,6 +82,21 @@ end
 function onLoad(saveData)
     if saveData ~= "" then
         SFScript.objects = JSON.decode(saveData)
+    end
+    if surface == false then
+        local sPos = self.getPosition()
+        self.setPosition({ sPos[1], -3, sPos[3] })
+        self.setScale({0.0001,0.0001,0.0001})
+        self.interactable = false
+        self.tooltip = false
+        self.lock()
+    else
+        local sPos = self.getPosition()
+        self.setPosition({ sPos[1], 3, sPos[3] })
+        self.setScale({2.10, 2.10, 2.10})
+        self.interactable = true
+        self.tooltip = true
+        self.lock()
     end
     -- self.setLock(true)
     -- self.unregisterCollisions()
