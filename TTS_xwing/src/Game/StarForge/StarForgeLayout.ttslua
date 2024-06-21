@@ -1,0 +1,33 @@
+-- StarForgeLayout.ttslua
+
+StarForgeLayout = {
+    epic = { x = -35, y = 2, z = -14 },
+    start = { x = -35, y = 2, z = -14 },
+    position = { x = 0, y = 0, z = 0 },
+    count = 0,
+    
+    -- Calculate the next position based on count
+    nextPosition = function(self)
+        self.count = self.count + 1
+        self.position = {
+            x = self.start.x + math.floor(self.count / 10) * 3.5,
+            y = self.start.y,
+            z = self.start.z + (self.count % 10) * 3
+        }
+        return self.position
+    end
+}
+
+function printActiveLayout()
+    -- TODO: should be able to use this to determine which Layout the table is in.
+    local layoutControllerGUID = "b3992e"
+    local layoutController = getObjectFromGUID(layoutControllerGUID)
+    if layoutController then
+        local activeLayoutIndex = layoutController.call("getActiveLayoutIndex")
+        print("Current active layout index is:", activeLayoutIndex)
+    else
+        print("Layout Controller not found")
+    end
+end
+
+return StarForgeLayout
