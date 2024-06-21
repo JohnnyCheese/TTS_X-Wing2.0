@@ -159,11 +159,9 @@ XWS_DATA = {
     upgrades = {}
 }
 
-
 -- on load initiate the process
 function onLoad(save_state)
     if save_state and save_state ~= nil then
-        --print(save_state)
         local loadState = json.parse(save_state)
         if loadState and loadState ~= {} then
             XWS_DATA.pilots = loadState.pilots or {}
@@ -342,12 +340,13 @@ function configuration()
             tokenSizeStr[tokenSize],
         position = { 0, 0.45, -0.2 },
         width = 2600,
-        height = 460,
+        height = 360,
         font_size = 240,
         scale = { 0.25, 0.25, 0.25 }
     })
-    self.createButton({ click_function = 'toggleAnnouncement', function_owner = self, label = 'Toggle announcement', position = { 0, 0.45, 0.1 }, width = 2600, height = 460, font_size = 240, scale = { 0.25, 0.25, 0.25 } })
-    self.createButton({ click_function = 'resetXwsData', function_owner = self, label = 'Fetch XWS values', position = { 0.0, 0.45, 0.4 }, width = 2600, height = 460, font_size = 240, scale = { 0.25, 0.25, 0.25 } })
+    self.createButton({ click_function = 'toggleAnnouncement', function_owner = self, label = 'Toggle announcement', position = { 0, 0.45, 0.0 }, width = 2600, height = 360, font_size = 240, scale = { 0.25, 0.25, 0.25 } })
+    self.createButton({ click_function = 'resetXwsData', function_owner = self, label = 'Fetch XWS values', position = { 0.0, 0.45, 0.2 }, width = 2600, height = 360, font_size = 240, scale = { 0.25, 0.25, 0.25 } })
+    self.createButton({ click_function = 'toggleStarForge', function_owner = self, label = 'Toggle StarForge', position = { 0.0, 0.45, 0.4 }, width = 2600, height = 360, font_size = 240, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'initiate', function_owner = self, label = 'Back', position = { 0.3, 0.45, 0.7 }, width = 1800, height = 520, font_size = 240, scale = { 0.15, 0.15, 0.15 } })
 end
 
@@ -362,6 +361,18 @@ end
 
 function toggleAnnouncement(obj, player_color, alt_click)
     Global.call("API_ToggleAnnouncmentVisibility", { player = player_color })
+    configuration()
+end
+
+function toggleStarForge()
+    starforge = getObjectFromGUID("5500bc")
+    local hidden = starforge.getVar("hidden")
+    showStarForge = not showStarForge
+    if hidden then
+        starforge.call("show", {})
+    else
+        starforge.call("hide", {})
+    end
     configuration()
 end
 
