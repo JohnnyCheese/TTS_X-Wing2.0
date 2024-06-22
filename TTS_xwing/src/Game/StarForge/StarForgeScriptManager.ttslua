@@ -56,12 +56,11 @@ local StarForgeScriptManager = {
             name = object.getName(),
             bagGUID = bag.getGUID(),
             stateId = object.getStateId(),
-            states = {},  -- Table to hold states if it's a multi-state object
+            states = {}, -- Table to hold states if it's a multi-state object
         }
 
         self.objects[object.getGUID()] = entry
     end,
-
     -- Add a state to an existing multi-state object
     addState = function(self, multiObject, stateClone)
         if multiObject == stateClone then
@@ -73,6 +72,9 @@ local StarForgeScriptManager = {
             guid = stateClone.getGUID(),
             name = stateClone.getName()
         })
+    end,
+    reset = function(self)
+        self.objects = {}
     end
 }
 
@@ -101,6 +103,7 @@ Scan all game objects
 - if the Objects are Multi-state, consider registering each state with a "<key>.#".
 ]]
 StarForgeScriptManager.ExtractAllProducts = function()
+    StarForgeScriptManager:reset()
     printToAll("Extract All Products")
     local everything = getObjects()
     for _, object in ipairs(everything) do
