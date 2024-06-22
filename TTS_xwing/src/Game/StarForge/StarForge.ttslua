@@ -5,7 +5,7 @@
 
 require("TTS_lib.Util.Table")
 local SFScript = require("TTS_xwing.src.Game.StarForge.StarForgeScriptManager")
--- local SFDeduper = require("TTS_xwing.src.Game.StarForge.StarForgeDeduper")
+local SFDeduper = require("TTS_xwing.src.Game.StarForge.StarForgeDeduper")
 
 if not self.hasTag("Star Forge") then
     printToAll("Only the Star Forge itself should run this script.")
@@ -96,8 +96,8 @@ end
 function addContextMenus()
     self.addContextMenuItem("Multi-State Object", MultiStateExp)
     self.addContextMenuItem("List Factories", ListFactories)
-    -- self.addContextMenuItem("Scan For Duplicates", SFDeduper.ScanAllBags)
-    -- self.addContextMenuItem("Layout Duplicates", SFDeduper.LayoutDuplicates)
+    self.addContextMenuItem("Scan For Duplicates", SFDeduper.ScanAllBags)
+    self.addContextMenuItem("Layout Duplicates", SFDeduper.LayoutDuplicates)
     self.addContextMenuItem("Extract All Products", SFScript.ExtractAllProducts)
     self.addContextMenuItem("Put Everything Away", SFScript.PutEverythingAway)
     self.addContextMenuItem("Dump Products", SFScript.dumpProducts)
