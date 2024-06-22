@@ -107,7 +107,6 @@ function setToEpicLayout()
     local layout = getObjectFromGUID("b3992e")
     if layout then
         layout.call("EpicLayout")
-        printToAll("Layout Switch should have been executed.", Color.Orange)
     else
         printToAll("Layout object not found.", Color.Orange)
     end
