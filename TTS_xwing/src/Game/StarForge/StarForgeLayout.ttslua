@@ -15,6 +15,9 @@ StarForgeLayout = {
             z = self.start.z + (self.count % 10) * 3
         }
         return self.position
+    end,
+    reset = function (self)
+        self.count = 0
     end
 }
 

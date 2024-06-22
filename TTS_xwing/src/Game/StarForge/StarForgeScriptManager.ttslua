@@ -78,7 +78,7 @@ local StarForgeScriptManager = {
     end
 }
 
-local Layout = require("TTS_xwing.src.Game.StarForge.StarForgeLayout")
+local SFLayout = require("TTS_xwing.src.Game.StarForge.StarForgeLayout")
 
 local layoutInfiniteBag = function(infiniteBag)
     StarForgeScriptManager.takeObject(infiniteBag, "")
@@ -119,7 +119,7 @@ end
 StarForgeScriptManager.takeObject = function(Bag, guid)
     local guid = guid or ""
     local product = Bag.takeObject({
-        position = Layout:nextPosition(),
+        position = SFLayout:nextPosition(),
         smooth = false,
         guid = guid,
         -- callback_function = function(obj) printToAll("We have Call Back!", Color.Orange) end
