@@ -9,11 +9,9 @@ local StarForgeDeduper = {
     -- Add an object to the manager
     addObject = function(self, bag, object)
         local entry = {
-            guid = object.getGUID(),
-            name = object.getName(),
+            guid = object.guid,
+            name = object.name,
             bagGUID = bag.getGUID(),
-            stateId = object.getStateId(),
-            states = {},
         }
 
         if entry.name and entry.name ~= "" then
@@ -29,18 +27,7 @@ local StarForgeDeduper = {
             table.insert(self.unNamedObjects[entry.guid], entry)
         end
 
-        self.allObjects[object.getGUID()] = entry
-    end,
-    addState = function(self, multiObject, stateClone)
-        if multiObject == stateClone then
-            return
-        end
-
-        table.insert(self.allObjects[multiObject.getGUID()].states, {
-            stateId = stateClone.getStateId(),
-            guid = stateClone.getGUID(),
-            name = stateClone.getName()
-        })
+        self.allObjects[entry.guid] = entry
     end,
     getDups = function(self)
         local dups = {}
@@ -65,21 +52,13 @@ end
 local scanMixedBag = function(mixedBag)
     local items = mixedBag.getObjects()
 
-    for i = #items, 0, -1 do
-        local item = items[i]
-        if item and item.lua_script ~= "" then
-            StarForgeDeduper.takeObject(mixedBag, item.guid, function(object)
-                StarForgeDeduper:addObject(mixedBag, object)
-                mixedBag.putObject(object)
-            end)
-        end
+    for _, item in ipairs(items) do
+        StarForgeDeduper:addObject(mixedBag, item)
     end
 end
 
 StarForgeDeduper.takeObject = function(Bag, guid, callback)
-    printToAll("take Object")
     local guid = guid or ""
-    printToAll("args: " .. tostring(Bag) .. " -> " .. guid, Color.Orange)
     local product = Bag.takeObject({
         position = SFLayout:nextPosition(),
         smooth = false,
@@ -90,11 +69,10 @@ StarForgeDeduper.takeObject = function(Bag, guid, callback)
             end
         end
     })
-    printToAll("Take Object Done")
 end
 
 StarForgeDeduper.ScanAllBags = function()
-    printToAll("Scan All Bags")
+    print("Scan All Bags")
     local everything = getObjects()
     for _, object in ipairs(everything) do
         if object.type == "Infinite" then
@@ -103,7 +81,7 @@ StarForgeDeduper.ScanAllBags = function()
             scanMixedBag(object)
         end
     end
-    printToAll("Scan All Bags Done")
+    print("Scan All Bags Done")
 end
 
 StarForgeDeduper.LayoutDuplicates = function()
