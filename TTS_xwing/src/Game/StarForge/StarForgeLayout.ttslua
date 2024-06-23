@@ -7,6 +7,7 @@ StarForgeLayout = {
     count = 0,
     
     -- Calculate the next position based on count
+    -- TODO: Could take the object to be placed and attempt to avoid collisions.
     nextPosition = function(self)
         self.count = self.count + 1
         self.position = {
