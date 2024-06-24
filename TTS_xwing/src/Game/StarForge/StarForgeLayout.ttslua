@@ -15,19 +15,10 @@ StarForgeLayout = {
             z = self.start.z + (self.count % 10) * 3
         }
         return self.position
+    end,
+    reset = function (self)
+        self.count = 0
     end
 }
-
-function printActiveLayout()
-    -- TODO: should be able to use this to determine which Layout the table is in.
-    local layoutControllerGUID = "b3992e"
-    local layoutController = getObjectFromGUID(layoutControllerGUID)
-    if layoutController then
-        local activeLayoutIndex = layoutController.call("getActiveLayoutIndex")
-        print("Current active layout index is:", activeLayoutIndex)
-    else
-        print("Layout Controller not found")
-    end
-end
 
 return StarForgeLayout

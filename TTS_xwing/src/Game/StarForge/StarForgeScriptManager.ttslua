@@ -56,12 +56,11 @@ local StarForgeScriptManager = {
             name = object.getName(),
             bagGUID = bag.getGUID(),
             stateId = object.getStateId(),
-            states = {},  -- Table to hold states if it's a multi-state object
+            states = {}, -- Table to hold states if it's a multi-state object
         }
 
         self.objects[object.getGUID()] = entry
     end,
-
     -- Add a state to an existing multi-state object
     addState = function(self, multiObject, stateClone)
         if multiObject == stateClone then
@@ -73,10 +72,13 @@ local StarForgeScriptManager = {
             guid = stateClone.getGUID(),
             name = stateClone.getName()
         })
+    end,
+    reset = function(self)
+        self.objects = {}
     end
 }
 
-local Layout = require("TTS_xwing.src.Game.StarForge.StarForgeLayout")
+local SFLayout = require("TTS_xwing.src.Game.StarForge.StarForgeLayout")
 
 local layoutInfiniteBag = function(infiniteBag)
     StarForgeScriptManager.takeObject(infiniteBag, "")
@@ -101,6 +103,7 @@ Scan all game objects
 - if the Objects are Multi-state, consider registering each state with a "<key>.#".
 ]]
 StarForgeScriptManager.ExtractAllProducts = function()
+    StarForgeScriptManager:reset()
     printToAll("Extract All Products")
     local everything = getObjects()
     for _, object in ipairs(everything) do
@@ -116,7 +119,7 @@ end
 StarForgeScriptManager.takeObject = function(Bag, guid)
     local guid = guid or ""
     local product = Bag.takeObject({
-        position = Layout:nextPosition(),
+        position = SFLayout:nextPosition(),
         smooth = false,
         guid = guid,
         -- callback_function = function(obj) printToAll("We have Call Back!", Color.Orange) end

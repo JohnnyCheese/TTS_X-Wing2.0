@@ -1928,9 +1928,9 @@ end
 
 AIModule.condition_functions = {}
 AIModule.condition_functions.hasShot = function(ship, target, probe, arguments)
-    -- TODO: This should favour a shot at the target. To do so we might need to
-    -- create a different condition function "hasShotOnTarget" and have it occur
-    -- before the generic hasShot checks.
+    --[[ TODO: This should favour a shot at the target. To do so we might need to
+           create a different condition function "hasShotOnTarget" and have it occur
+           before the generic hasShot checks.]]
     local min_range = 1
     local max_range = 3
     if arguments ~= nil then
@@ -2154,8 +2154,8 @@ AIModule.condition_functions.hasCoordinateTarget = function(ship, target, probe,
                 if distance.range >= 1 and distance.range <= 2 then
                     -- Is the ship not stressed?
                     if TokenModule.GetShipTokenCount(friendly_ship, "Stress") == 0 then
-                        -- TODO: appears to be an error with counting stress tokens?
-                        -- Are we closer than the previously closest ship?
+                        --[[ TODO: appears to be an error with counting stress tokens?
+                                Are we closer than the previously closest ship? ]]
                         if closest_distance == nil or closest_distance > distance.length then
                             probe.action_targets.coordinate = friendly_ship
                             closest_distance = distance.length

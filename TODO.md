@@ -3,8 +3,10 @@
 1. `ShipProxy.ttslua` shows as "unused" in `Global.-1.ttslua`,
 but in reality it defines `MarkShip()` and `UnMarkShip()` in Global namespace.
 1. TTS_lib/Vector: Many of these Vector functions are now TTS standard and could be replaced.
-1. Remove the base on the Star Forge.
 1. Add either a Math or Vector distance() function
+1. AOE_SensorBuoy has an `onLoad()` but no `onSave()`. It also uses the wrong name in the `onLoad()`
+1. Delete: `TTS_lib/Util/Util.ttslua`
+1. Remove the base on the Star Forge.
 1. Add a nearest ship utility function for dropping/assigning tokens
 1. Migrate the Initiative Token to a single object with a key press script and the initiative displayed with XML UI. (Notes from Flipster)
     1. Store the current initiative value as a variable.
