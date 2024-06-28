@@ -57,16 +57,16 @@ ShipProxyModule = {}
 ShipProxyModule.proxyTable = {}
 ShipProxyModule.hiddenShips = {}
 ShipProxyModule.finalPosOffset = {
-    small = vector(0, 0, Dim.Convert_mm_igu(10)),
-    medium = vector(0, 0, Dim.Convert_mm_igu(20)),
-    large = vector(0, 0, Dim.Convert_mm_igu(20))
+    small = Vector(0, 0, Dim.Convert_mm_igu(10)),
+    medium = Vector(0, 0, Dim.Convert_mm_igu(20)),
+    large = Vector(0, 0, Dim.Convert_mm_igu(20))
 }
 
 ShipProxyModule.barrelRollOffset = {}
 ShipProxyModule.barrelRollOffset = {
-    small = vector(Dim.Convert_mm_igu(80), 0, 0),
-    medium = vector(Dim.Convert_mm_igu(80), 0, 0),
-    large = vector(Dim.Convert_mm_igu(100), 0, 0)
+    small = Vector(Dim.Convert_mm_igu(80), 0, 0),
+    medium = Vector(Dim.Convert_mm_igu(80), 0, 0),
+    large = Vector(Dim.Convert_mm_igu(100), 0, 0)
 }
 
 ShipProxyModule.proxyXmlGui = {}

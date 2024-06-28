@@ -1,3 +1,10 @@
+--------
+-- MOVEMENT DATA MODULE
+-- Stores and processes data about moves
+-- NOT aware of any ship position, operation solely on relative movements
+-- Used for feeding data about a move to a higher level movement module
+-- Exclusively uses millimeters and degrees for values, needs external conversion
+
 local EventSub = require("TTS_Lib.EventSub.EventSub")
 local Vect = require("TTS_lib.Vector.Vector")
 
@@ -68,8 +75,6 @@ MoveData.MoveLength = function(moveInfo)
         return MoveData.LUT.Data[moveInfo.size .. 'Base'][moveInfo.type][moveInfo.speed].length
     end
 end
-
-
 
 -- Convert an entry from milimeters to in-game units
 MoveData.ConvertDataToIGU = function(entry)
@@ -564,7 +569,7 @@ MoveData.DecodePartMove = function(move_code, ship, part)
     return data
 end
 
-
-return MoveData
 -- END MOVEMENT DATA MODULE
 --------
+
+return MoveData
