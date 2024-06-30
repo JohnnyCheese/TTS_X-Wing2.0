@@ -3,14 +3,15 @@
 
 -- StarForge.ttslua
 
-require("TTS_lib.Util.Table")
-local SFScript = require("TTS_xwing.src.Game.StarForge.StarForgeScriptManager")
-local SFDeduper = require("TTS_xwing.src.Game.StarForge.StarForgeDeduper")
-
 if not self.hasTag("Star Forge") then
     printToAll("Only the Star Forge itself should run this script.")
     return
 end
+
+require("TTS_lib.Util.Table")
+local SFScript  = require("TTS_xwing.src.Game.StarForge.StarForgeScriptManager")
+local SFDeduper = require("TTS_xwing.src.Game.StarForge.StarForgeDeduper")
+local SFTester  = require("TTS_xwing.src.Game.StarForge.SmokeTest")
 
 --[[
 ## Star Forge
@@ -91,9 +92,11 @@ function onLoad(saveData)
         show()
     end
     addContextMenus()
+    -- SFTester.onLoad(self)
 end
 
 function addContextMenus()
+    self.addContextMenuItem("Run Smoke Test", SFTester.runSmokeTest)
     self.addContextMenuItem("Multi-State Object", MultiStateExp)
     self.addContextMenuItem("List Factories", ListFactories)
     self.addContextMenuItem("Scan For Duplicates", SFDeduper.ScanAllBags)
