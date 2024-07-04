@@ -168,6 +168,9 @@ function putObjectBackInBag(bag, product)
             bag.reset()
         end
         if product and not product.isDestroyed() then
+            if product.type == "Deck" and product.is_face_down == false then
+                product.setRotation(product.getRotation() + Vector(0, 0, 180))
+            end
             bag.putObject(product)
         end
     end
