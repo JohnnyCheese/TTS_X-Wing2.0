@@ -1,12 +1,8 @@
 TestButton = {}
 
 TestButton.Click = function(seq, host_obj, label_pattern, player_color, alternate_key)
-    local NoSequence = {
-        next = function()
-        end
-    }
-    seq = seq or NoSequence
-    
+    seq = seq or Sequence.NoSeq
+
     local target
     Wait.condition(function()
         pressButton(target, host_obj, player_color, alternate_key)
@@ -38,7 +34,7 @@ pressButton = function(target, host_obj, player_color, alternate_key)
         printToAll("Button Press Test Failed: Button not found", { 1, 0, 0 })
         return
     end
-    
+
     print("pressButton: " .. target.label)
     host_obj.call(target.click_function, { host_obj, player_color, alternate_key })
 end

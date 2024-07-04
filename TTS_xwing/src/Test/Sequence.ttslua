@@ -10,7 +10,7 @@ function Sequence:new()
 end
 
 function Sequence:add(task, ...)
-    table.insert(self.tasks, {func = task, args = {...}})
+    table.insert(self.tasks, { func = task, args = { ... } })
 end
 
 function Sequence:next()
@@ -25,5 +25,9 @@ function Sequence:start()
     self.current = 1
     self:next()
 end
+
+NoSeq = {
+    next = function() end
+}
 
 return Sequence
