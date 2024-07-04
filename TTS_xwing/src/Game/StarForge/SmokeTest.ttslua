@@ -33,7 +33,6 @@ local box = {
 
 -- Test pressing a button (simulate bycalling the function directly)
 function SmokeTest.testButtonPress()
-    printToAll("Testing Button Press...", { 1, 1, 0 })
     local dataPad = getObjectFromGUID("a4dbbf")
     if dataPad == nil then
         printToAll("Didn't find DataPad", { 0, 1, 0 })
@@ -46,13 +45,14 @@ function SmokeTest.testButtonPress()
     seq:add(ButtonTest.Click, dataPad, 'Add Ship', Color.Blue, false)
     seq:add(ButtonTest.Click, dataPad, 'TIE/ln Fighter', Color.Blue, false)
     seq:add(ButtonTest.Click, dataPad, '"Howlrunner"%s*%(%d+%)', Color.Blue, false)
-    -- seq:add(ButtonTest.Click, dataPad, 'Add Ship', Color.Blue, false)
-    -- seq:add(ButtonTest.Click, dataPad, 'TIE Advanced x1', Color.Blue, false)
-    -- seq:add(ButtonTest.Click, dataPad, 'Darth Vader%s*%(%d+%)', Color.Blue, false)
+    seq:add(ButtonTest.Click, dataPad, 'Add Ship', Color.Blue, false)
+    seq:add(ButtonTest.Click, dataPad, 'TIE Advanced x1', Color.Blue, false)
+    seq:add(ButtonTest.Click, dataPad, 'Darth Vader%s*%(%d+%)', Color.Blue, false)
     seq:add(ButtonTest.Click, dataPad, 'Spawn List', Color.Blue, false)
-    -- seq:add(MoveShip, 'Darth Vader', Color.Blue)
-    seq:add(MoveShip, '"Howlrunner"', Color.Blue)
-    -- seq:add(function() Wait.frames(function() movement() end, 50) end)
+    -- seq:add(SmokeTest.MoveShip, 'Darth Vader', Color.Blue)
+    -- seq:add(SmokeTest.MoveShip, '"Howlrunner"', Color.Blue)
+    seq:add(function() Wait.frames(function() movement() end, 50) end)
+    seq:add(dropDials)
 
     -- Start the sequence
     seq:start()
@@ -64,7 +64,17 @@ pos[2] = { x = 0, y = 2.5, z = 0 }
 
 local n = 1
 
-MoveShip = function(seq, namePattern, player)
+SmokeTest.MoveShips = function()
+    local ships = getObjectsWithTag('Ship')
+    table.print_r(ships)
+    local target
+    for _, ship in ipairs(ships) do
+        printToAll(ship.getName() .. " matches pattern assigning as target")
+        target = ship
+    end
+end
+
+SmokeTest.MoveShip = function(seq, namePattern, player)
     local seq = seq or Sequence.NoSeq
     printToAll("MoveShip: pattern " .. namePattern)
     local allObjects = getObjects()
@@ -107,14 +117,6 @@ movement = function()
 
     local group = joinObjectsForMove(newObjects)
     moveAndRotate(group)
-    table.print(newObjects)
-    -- for _, obj in ipairs(newObjects) do
-    --     Wait.condition(function()
-    --         -- moveAndRotate(obj.hit_object)
-    --     end, function()
-    --         return obj ~= nil and not obj.hit_object.spawning
-    --     end)
-    -- end
     Wait.condition(function()
         detachObjectsAfterMove(group)
     end, function()
@@ -149,8 +151,6 @@ function moveAndRotate(obj)
         y = obj.getPosition().y,
         z = obj.getPosition().z
     }
-    -- obj.setPositionSmooth(newPos, false, false)
-    -- obj.setPosition(newPos)
     newPos.z = newPos.z + 14
     obj.translate({ x = 35, y = 2.5, z = -5 })
 
@@ -188,6 +188,10 @@ function SmokeTest.testObjectPosition()
     else
         printToAll("Object Position Test Failed: Object not found", { 1, 0, 0 })
     end
+end
+
+dropDials = function ()
+    
 end
 
 return SmokeTest
