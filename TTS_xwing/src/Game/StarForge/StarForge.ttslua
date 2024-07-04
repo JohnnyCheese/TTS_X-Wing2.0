@@ -96,14 +96,16 @@ function onLoad(saveData)
 end
 
 function addContextMenus()
-    self.addContextMenuItem("Run Smoke Test", SFTester.runSmokeTest)
-    self.addContextMenuItem("Multi-State Object", MultiStateExp)
-    self.addContextMenuItem("List Factories", ListFactories)
-    self.addContextMenuItem("Scan For Duplicates", SFDeduper.ScanAllBags)
-    self.addContextMenuItem("Layout Duplicates", SFDeduper.LayoutDuplicates)
-    self.addContextMenuItem("Extract All Products", SFScript.ExtractAllProducts)
-    self.addContextMenuItem("Put Everything Away", SFScript.PutEverythingAway)
-    self.addContextMenuItem("Dump Products", SFScript.dumpProducts)
+    showMainMenu()
+    --self.addContextMenuItem("Run Smoke Test", SFTester.runSmokeTest)
+    --self.addContextMenuItem("Multi-State Object", MultiStateExp)
+    --self.addContextMenuItem("List Factories", ListFactories)
+    --self.addContextMenuItem("Scan For Duplicates", SFDeduper.ScanAllBags)
+    --self.addContextMenuItem("Layout Duplicates", SFDeduper.LayoutDuplicates)
+    --self.addContextMenuItem("Extract All Products", SFScript.ExtractAllProducts)
+    --self.addContextMenuItem("Put Everything Away", SFScript.PutEverythingAway)
+    --self.addContextMenuItem("Dump Products", SFScript.dumpProducts)
+    --self.addContextMenuItem("Launch Probe", LaunchProbe)
 end
 
 function setToEpicLayout()
@@ -402,3 +404,58 @@ function emptyBag()
         end
     end
 end
+
+LaunchProbe = function()
+    local probe = spawnObject({
+        type = "Custom_Token",
+        position = { -30, 3, -20 },
+        scale = { 1, 1, 1 },
+        sound = true,
+        callback_function = function(spawned_object)
+            spawned_object.setName("Probe")
+        end
+    })
+
+    probe.setCustomObject({
+        image = "https://static.wikia.nocookie.net/starwars/images/f/f2/Sith_probe_droid.png?raw=true"
+    })
+end
+
+-- Function to show a menu based on the menu name
+function showMenu(menu)
+    self.clearContextMenu()
+    for _, item in ipairs(menus[menu]) do
+        self.addContextMenuItem(item[1], item[2], false)
+    end
+end
+
+function showMainMenu()
+    showMenu("main")
+end
+
+menus = {
+    main = {
+        { "Script Manager >", function() showMenu("scripting") end },
+        { "Smoke Tester >",   function() showMenu("testing") end },
+        { "Deduplicator>",    function() showMenu("deduper") end },
+        { "Launch Probe",     LaunchProbe },
+        { "Surface Bags",     function() end },
+        { "List Factories",   ListFactories },
+    },
+    scripting = {
+        { "Back to Main >",      showMainMenu },
+        { "Multi-State Object",  MultiStateExp },
+        { "Take Everything Out", SFScript.ExtractAllProducts },
+        { "Put Everything Away", SFScript.PutEverythingAway },
+        { "Dump Products",       SFScript.dumpProducts },
+    },
+    testing = {
+        { "Back to Main >", showMainMenu },
+        { "Run Smoke Test", SFTester.runSmokeTest },
+    },
+    deduper = {
+        { "Back to Main >",      showMainMenu },
+        { "Scan For Duplicates", SFDeduper.ScanAllBags },
+        { "Layout Duplicates",   SFDeduper.LayoutDuplicates },
+    },
+}
