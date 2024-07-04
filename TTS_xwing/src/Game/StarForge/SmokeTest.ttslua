@@ -1,0 +1,193 @@
+require("TTS_lib.Util.Table")
+Sequence = require("TTS_xwing.src.Test.Sequence")
+ButtonTest = require("TTS_xwing.src.Test.ButtonTest")
+
+local SmokeTest = {}
+
+function SmokeTest.onLoad(obj)
+    printToAll("Trying to add Smoke Test...", { 0, 1, 0 })
+    obj.addContextMenuItem("Run Smoke Test", runSmokeTest)
+    printToAll("onLoad Done ...", { 0, 1, 0 })
+end
+
+SmokeTest.runSmokeTest = function()
+    printToAll("Starting Smoke Test...", { 0, 1, 0 })
+
+    -- Example test cases
+    SmokeTest.testButtonPress()
+    SmokeTest.testObjectPosition()
+
+    printToAll("Smoke Test Completed.", { 0, 1, 0 })
+end
+
+local box = {
+    --origin = { x = -1, y = 5, z = 0 }, -- Vector
+    origin = { x = -64.00, y = 0.0, z = -15.00 },
+    direction = { x = 0, y = 0, z = 1 },   -- Vector
+    type = 3,
+    size = { x = 17, y = 10, z = 30 },     -- Vector
+    orientation = { x = 0, y = 0, z = 0 }, -- Vector
+    max_distance = 75,
+    debug = true,
+}
+
+-- Test pressing a button (simulate bycalling the function directly)
+function SmokeTest.testButtonPress()
+    printToAll("Testing Button Press...", { 1, 1, 0 })
+    local dataPad = getObjectFromGUID("a4dbbf")
+    if dataPad == nil then
+        printToAll("Didn't find DataPad", { 0, 1, 0 })
+        return
+    end
+    -- Create a sequence of button presses
+    local seq = Sequence:new()
+    seq:add(ButtonTest.Click, dataPad, 'Builder', Color.Blue, false)
+    seq:add(ButtonTest.Click, dataPad, 'Imperial', Color.Blue, false)
+    seq:add(ButtonTest.Click, dataPad, 'Add Ship', Color.Blue, false)
+    seq:add(ButtonTest.Click, dataPad, 'TIE/ln Fighter', Color.Blue, false)
+    seq:add(ButtonTest.Click, dataPad, '"Howlrunner"%s*%(%d+%)', Color.Blue, false)
+    -- seq:add(ButtonTest.Click, dataPad, 'Add Ship', Color.Blue, false)
+    -- seq:add(ButtonTest.Click, dataPad, 'TIE Advanced x1', Color.Blue, false)
+    -- seq:add(ButtonTest.Click, dataPad, 'Darth Vader%s*%(%d+%)', Color.Blue, false)
+    seq:add(ButtonTest.Click, dataPad, 'Spawn List', Color.Blue, false)
+    -- seq:add(MoveShip, 'Darth Vader', Color.Blue)
+    seq:add(MoveShip, '"Howlrunner"', Color.Blue)
+    -- seq:add(function() Wait.frames(function() movement() end, 50) end)
+
+    -- Start the sequence
+    seq:start()
+end
+
+local pos = {}
+pos[1] = { x = 5, y = 2.5, z = 0 }
+pos[2] = { x = 0, y = 2.5, z = 0 }
+
+local n = 1
+
+MoveShip = function(seq, namePattern, player)
+    local seq = seq or Sequence.NoSeq
+    printToAll("MoveShip: pattern " .. namePattern)
+    local allObjects = getObjects()
+    for _, object in ipairs(allObjects) do
+        local name = object.getName() or ""
+        printToAll("object:  " .. name)
+        if string.match(name, namePattern) then
+            table.print(object.getTags())
+        end
+    end
+
+    local ships = getObjectsWithTag('Ship')
+    table.print_r(ships)
+    local target
+    for _, ship in ipairs(ships) do
+        if string.match(ship.getName(), namePattern) then
+            printToAll(ship.getName() .. " matches pattern assigning as target")
+            target = ship
+        end
+    end
+    if target ~= nil then
+        target.translate(pos[n])
+        n = n + 1
+    end
+    seq:next()
+end
+
+movement = function()
+    local castResult = Physics.cast(box)
+
+    local moveable = function(obj)
+        return obj.locked == false and obj.interactable == true
+    end
+    local newObjects = {}
+    for _, hit_result in ipairs(castResult) do
+        if moveable(hit_result.hit_object) then
+            table.insert(newObjects, hit_result.hit_object)
+        end
+    end
+
+    local group = joinObjectsForMove(newObjects)
+    moveAndRotate(group)
+    table.print(newObjects)
+    -- for _, obj in ipairs(newObjects) do
+    --     Wait.condition(function()
+    --         -- moveAndRotate(obj.hit_object)
+    --     end, function()
+    --         return obj ~= nil and not obj.hit_object.spawning
+    --     end)
+    -- end
+    Wait.condition(function()
+        detachObjectsAfterMove(group)
+    end, function()
+        return group.resting
+    end)
+end
+
+joinObjectsForMove = function(objects)
+    if objects == nil or #objects < 2 then
+        return objects
+    end
+    local base = objects[1]
+    for i = 2, #objects, 1 do
+        base.addAttachment(objects[i])
+    end
+    return base
+end
+
+detachObjectsAfterMove = function(Object)
+    Object.removeAttachments()
+end
+
+-- Function to move and rotate an object
+function moveAndRotate(obj)
+    if obj == nil or obj.locked == true then
+        printToAll("move and rotate obj is nil", { 1, 1, 0 })
+        return
+    end
+    -- Move the object along the X-axis by 5 units
+    local newPos = {
+        x = obj.getPosition().x + 35,
+        y = obj.getPosition().y,
+        z = obj.getPosition().z
+    }
+    -- obj.setPositionSmooth(newPos, false, false)
+    -- obj.setPosition(newPos)
+    newPos.z = newPos.z + 14
+    obj.translate({ x = 35, y = 2.5, z = -5 })
+
+    -- Rotate the object 90 degrees around the Y-axis
+    local newRot = {
+        x = obj.getRotation().x,
+        y = obj.getRotation().y + 90,
+        z = obj.getRotation().z
+    }
+    -- obj.setRotationSmooth(newRot, false, false)
+    obj.setRotation(newRot)
+end
+
+-- Test object position (simulate interaction by moving the object)
+function SmokeTest.testObjectPosition()
+    printToAll("Testing Object Position...", { 1, 1, 0 })
+    local obj = getObjectFromGUID("object_guid_here") -- Replace with actual object GUID
+    if obj then
+        local originalPosition = obj.getPosition()
+        local testPosition = { originalPosition.x + 1, originalPosition.y, originalPosition.z }
+
+        -- Move object to test position
+        obj.setPosition(testPosition)
+
+        -- Verify object position
+        local newPosition = obj.getPosition()
+        if newPosition.x == testPosition.x and newPosition.y == testPosition.y and newPosition.z == testPosition.z then
+            printToAll("Object Position Test Passed", { 0, 1, 0 })
+        else
+            printToAll("Object Position Test Failed", { 1, 0, 0 })
+        end
+
+        -- Reset object position
+        obj.setPosition(originalPosition)
+    else
+        printToAll("Object Position Test Failed: Object not found", { 1, 0, 0 })
+    end
+end
+
+return SmokeTest
