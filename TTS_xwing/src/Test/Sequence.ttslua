@@ -26,7 +26,7 @@ function Sequence:start()
     self:next()
 end
 
-NoSeq = {
+Sequence.NoSeq = {
     next = function() end
 }
 
