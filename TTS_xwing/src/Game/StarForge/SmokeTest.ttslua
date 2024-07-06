@@ -4,58 +4,86 @@ ButtonTest = require("TTS_xwing.src.Test.ButtonTest")
 
 local SmokeTest = {}
 
-function SmokeTest.onLoad(obj)
-    printToAll("Trying to add Smoke Test...", { 0, 1, 0 })
-    obj.addContextMenuItem("Run Smoke Test", runSmokeTest)
-    printToAll("onLoad Done ...", { 0, 1, 0 })
-end
+-- function SmokeTest.onLoad(obj)
+--     printToAll("Trying to add Smoke Test...", { 0, 1, 0 })
+--     obj.addContextMenuItem("Run Smoke Test", runSmokeTest)
+--     printToAll("onLoad Done ...", { 0, 1, 0 })
+-- end
 
 SmokeTest.runSmokeTest = function()
     printToAll("Starting Smoke Test...", { 0, 1, 0 })
 
-    -- Example test cases
-    SmokeTest.testButtonPress()
-    SmokeTest.testObjectPosition()
+    local seq = Sequence:new()
+    local startPos = Vector(-25, 2.5, -23)
+    local delta = Vector(10, 0, 0)
+    -- SmokeTest.spawnRebelShips(seq, Color.Red, startPos + delta:scale(0), -90)
+    SmokeTest.spawnImperialShips(seq, Color.Blue, startPos, -90)
+    SmokeTest.spawnImperialShips(seq, Color.Blue, startPos + delta, 90)
+    SmokeTest.spawnImperialShips(seq, Color.Blue, startPos + delta + delta, 180)
+    SmokeTest.spawnImperialShips(seq, Color.Blue, startPos + delta + delta + delta, 0)
+    seq:start()
 
     printToAll("Smoke Test Completed.", { 0, 1, 0 })
 end
 
-local box = {
-    --origin = { x = -1, y = 5, z = 0 }, -- Vector
-    origin = { x = -64.00, y = 0.0, z = -15.00 },
-    direction = { x = 0, y = 0, z = 1 },   -- Vector
-    type = 3,
-    size = { x = 17, y = 10, z = 30 },     -- Vector
-    orientation = { x = 0, y = 0, z = 0 }, -- Vector
-    max_distance = 75,
-    debug = true,
-}
-
 -- Test pressing a button (simulate bycalling the function directly)
-function SmokeTest.testButtonPress()
+function SmokeTest.spawnImperialShips(seq, player_color, targetPosition, rotDegrees)
     local dataPad = getObjectFromGUID("a4dbbf")
     if dataPad == nil then
         printToAll("Didn't find DataPad", { 0, 1, 0 })
         return
     end
+
     -- Create a sequence of button presses
-    local seq = Sequence:new()
-    seq:add(ButtonTest.Click, dataPad, 'Builder', Color.Blue, false)
-    seq:add(ButtonTest.Click, dataPad, 'Imperial', Color.Blue, false)
-    seq:add(ButtonTest.Click, dataPad, 'Add Ship', Color.Blue, false)
-    seq:add(ButtonTest.Click, dataPad, 'TIE/ln Fighter', Color.Blue, false)
-    seq:add(ButtonTest.Click, dataPad, '"Howlrunner"%s*%(%d+%)', Color.Blue, false)
-    seq:add(ButtonTest.Click, dataPad, 'Add Ship', Color.Blue, false)
-    seq:add(ButtonTest.Click, dataPad, 'TIE Advanced x1', Color.Blue, false)
-    seq:add(ButtonTest.Click, dataPad, 'Darth Vader%s*%(%d+%)', Color.Blue, false)
-    seq:add(ButtonTest.Click, dataPad, 'Spawn List', Color.Blue, false)
-    -- seq:add(SmokeTest.MoveShip, 'Darth Vader', Color.Blue)
-    -- seq:add(SmokeTest.MoveShip, '"Howlrunner"', Color.Blue)
-    seq:add(function() Wait.frames(function() movement() end, 50) end)
-    seq:add(dropDials)
+    seq:add(ButtonTest.Click, dataPad, 'Builder', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'Imperial', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'Add Ship', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'TIE/ln Fighter', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, '"Howlrunner"%s*%(%d+%)', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'Add Ship', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'TIE Advanced x1', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'Darth Vader%s*%(%d+%)', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'Spawn List', player_color, false)
+    seq:add(function(seq)
+        Wait.frames(function()
+            -- movement(targetPosition, 90)
+            movement(targetPosition, rotDegrees)
+            seq:next()
+        end, 120)
+    end)
+    -- seq:add(function(seq)
+    --     Wait.frames(function()
+    --         dropDials(seq)
+    --     end, 120)
+    -- end)
 
     -- Start the sequence
-    seq:start()
+end
+
+function SmokeTest.spawnRebelShips(seq, player_color, targetPosition, rotDegrees)
+    local dataPad = getObjectFromGUID("a4dbbf")
+    if dataPad == nil then
+        printToAll("Didn't find DataPad", { 0, 1, 0 })
+        return
+    end
+
+    -- Create a sequence of button presses
+    seq:add(ButtonTest.Click, dataPad, 'Builder', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'Rebel', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'Add Ship', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'Y%-Wing', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'Gray Squadron Bomber%s*%(%d+%)', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'Add Ship', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'X%-Wing', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'Luke Skywalker%sRed Five%s*%(%d+%)', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'Spawn List', player_color, false)
+    seq:add(function(seq)
+        Wait.frames(function()
+            -- movement(targetPosition, 90)
+            movement(targetPosition, rotDegrees)
+            seq:next()
+        end, 120)
+    end)
 end
 
 local pos = {}
@@ -102,45 +130,9 @@ SmokeTest.MoveShip = function(seq, namePattern, player)
     seq:next()
 end
 
-movement = function()
-    local castResult = Physics.cast(box)
-
-    local moveable = function(obj)
-        return obj.locked == false and obj.interactable == true
-    end
-    local newObjects = {}
-    for _, hit_result in ipairs(castResult) do
-        if moveable(hit_result.hit_object) then
-            table.insert(newObjects, hit_result.hit_object)
-        end
-    end
-
-    local group = joinObjectsForMove(newObjects)
-    moveAndRotate(group)
-    Wait.condition(function()
-        detachObjectsAfterMove(group)
-    end, function()
-        return group.resting
-    end)
-end
-
-joinObjectsForMove = function(objects)
-    if objects == nil or #objects < 2 then
-        return objects
-    end
-    local base = objects[1]
-    for i = 2, #objects, 1 do
-        base.addAttachment(objects[i])
-    end
-    return base
-end
-
-detachObjectsAfterMove = function(Object)
-    Object.removeAttachments()
-end
 
 -- Function to move and rotate an object
-function moveAndRotate(obj)
+function moveAndRotateOrig(obj)
     if obj == nil or obj.locked == true then
         printToAll("move and rotate obj is nil", { 1, 1, 0 })
         return
@@ -155,43 +147,138 @@ function moveAndRotate(obj)
     obj.translate({ x = 35, y = 2.5, z = -5 })
 
     -- Rotate the object 90 degrees around the Y-axis
-    local newRot = {
-        x = obj.getRotation().x,
-        y = obj.getRotation().y + 90,
-        z = obj.getRotation().z
-    }
+    local newRot = obj.getRotation()
+    newRot.y = newRot.y + 90
     -- obj.setRotationSmooth(newRot, false, false)
     obj.setRotation(newRot)
 end
 
--- Test object position (simulate interaction by moving the object)
-function SmokeTest.testObjectPosition()
-    printToAll("Testing Object Position...", { 1, 1, 0 })
-    local obj = getObjectFromGUID("object_guid_here") -- Replace with actual object GUID
-    if obj then
-        local originalPosition = obj.getPosition()
-        local testPosition = { originalPosition.x + 1, originalPosition.y, originalPosition.z }
+function moveAndRotateOld(obj)
+    if obj == nil or obj.locked == true then
+        printToAll("move and rotate obj is nil", { 1, 1, 0 })
+        return
+    end
+    -- Move the object along the X-axis by 5 units
+    Wait.condition(function()
+        local newPos = {
+            x = obj.getPosition().x + 35,
+            y = obj.getPosition().y,
+            z = obj.getPosition().z
+        }
+        newPos.z = newPos.z + 14
+        obj.translate({ x = 35, y = 2.5, z = -5 })
+    end, function()
+        return not obj.spawning and obj.resting == true
+    end)
 
-        -- Move object to test position
-        obj.setPosition(testPosition)
+    -- Rotate the object 90 degrees around the Y-axis
+    Wait.condition(function()
+        local newRot = obj.getRotation()
+        newRot.y = newRot.y + 90
+        -- obj.setRotationSmooth(newRot, false, false)
+        obj.setRotation(newRot)
+    end, function()
+        return obj.resting
+    end)
+end
 
-        -- Verify object position
-        local newPosition = obj.getPosition()
-        if newPosition.x == testPosition.x and newPosition.y == testPosition.y and newPosition.z == testPosition.z then
-            printToAll("Object Position Test Passed", { 0, 1, 0 })
-        else
-            printToAll("Object Position Test Failed", { 1, 0, 0 })
+dropDials = function(seq)
+    seq = seq or Sequence.NoSeq()
+    local toShip = { 0, 3, 3 }
+    for _, obj in ipairs(getObjects()) do
+        if obj.getName() == "Unassigned Dial" then
+            obj.translate(toShip)
         end
+    end
+    seq:next()
+end
 
-        -- Reset object position
-        obj.setPosition(originalPosition)
-    else
-        printToAll("Object Position Test Failed: Object not found", { 1, 0, 0 })
+-- Function to calculate the centroid of a group of objects
+function calculateCentroid(objects)
+    local sum = Vector(0, 0, 0)
+    for _, obj in ipairs(objects) do
+        sum = sum + obj.getPosition()
+    end
+    return sum:scale(1 / #objects)
+end
+
+-- Function to rotate a point around the Y-axis by a given angle
+function rotatePointAroundY(point, origin, angle)
+    local rad = math.rad(angle)
+    local cos = math.cos(rad)
+    local sin = math.sin(rad)
+    local relativePos = point - origin
+
+    local rotatedPos = Vector(
+        cos * relativePos.x - sin * relativePos.z,
+        point.y,
+        sin * relativePos.x + cos * relativePos.z
+    ) + origin
+
+    return rotatedPos
+end
+
+-- Function to determine the correct rotation for each piece based on the centroid
+function adjustRotationBasedOnCentroid(obj, centroid, rotationOffset)
+    local rot = obj.getRotation()
+    local newRot = {
+        x = rot.x,
+        y = 180 - rot.y - rotationOffset,
+        z = rot.z,
+    }
+
+    return newRot
+end
+
+-- Function to move and rotate objects relative to a reference point
+function moveAndRotateGroup(objects, target, rotationOffset)
+    if #objects == 0 then return end
+
+    local centroid = calculateCentroid(objects)
+
+    for _, obj in ipairs(objects) do
+        -- Rotate the object around the centroid
+        local pos = obj.getPosition()
+        local rotatedPos = rotatePointAroundY(pos, centroid, rotationOffset)
+
+        -- Calculate the new position relative to the target
+        local newPos = target + (rotatedPos - centroid)
+
+        obj.setPositionSmooth(newPos)
+
+        -- Adjust the rotation based on the centroid and rotationOffset
+        local newRot = adjustRotationBasedOnCentroid(obj, centroid, rotationOffset)
+        obj.setRotationSmooth(newRot, false, false)
     end
 end
 
-dropDials = function ()
-    
+-- Function to handle the movement and rotation of objects
+function movement(targetPosition, rotationOffset)
+    -- Define the box for Physics.cast
+    local box = {
+        origin = Vector(-64.00, 0.0, -30.00), -- Start below the objects
+        direction = Vector(0, 0, 1),          -- Move in the positive z-direction
+        type = 3,
+        size = Vector(17, 10, 5),             -- Extend in the x, y, and z dimensions
+        orientation = Vector(0, 0, 0),        -- No rotation
+        max_distance = 75,
+        debug = true,
+    }
+
+    -- Perform the cast
+    local castResult = Physics.cast(box)
+
+    -- Filter out moveable objects
+    local newObjects = {}
+    for _, hit_result in ipairs(castResult) do
+        local obj = hit_result.hit_object
+        if obj.locked == false and obj.interactable == true then
+            table.insert(newObjects, obj)
+        end
+    end
+
+    -- Apply move and rotate to all new objects as a group
+    moveAndRotateGroup(newObjects, targetPosition, rotationOffset)
 end
 
 return SmokeTest
