@@ -84,28 +84,12 @@ function onLoad(saveData)
         end
         self.setVar("hidden", loadData.hidden or false)
     end
-    -- self.setLock(true)
-    -- self.unregisterCollisions()
     if self.getVar("hidden") then
         hide()
     else
         show()
     end
-    addContextMenus()
-    -- SFTester.onLoad(self)
-end
-
-function addContextMenus()
     showMainMenu()
-    --self.addContextMenuItem("Run Smoke Test", SFTester.runSmokeTest)
-    --self.addContextMenuItem("Multi-State Object", MultiStateExp)
-    --self.addContextMenuItem("List Factories", ListFactories)
-    --self.addContextMenuItem("Scan For Duplicates", SFDeduper.ScanAllBags)
-    --self.addContextMenuItem("Layout Duplicates", SFDeduper.LayoutDuplicates)
-    --self.addContextMenuItem("Extract All Products", SFScript.ExtractAllProducts)
-    --self.addContextMenuItem("Put Everything Away", SFScript.PutEverythingAway)
-    --self.addContextMenuItem("Dump Products", SFScript.dumpProducts)
-    --self.addContextMenuItem("Launch Probe", LaunchProbe)
 end
 
 function setToEpicLayout()
@@ -113,7 +97,7 @@ function setToEpicLayout()
     if layout then
         layout.call("EpicLayout")
     else
-        printToAll("Layout object not found.", Color.Orange)
+        printToAll("Error: Layout object not found.", Color.Orange)
     end
 end
 
@@ -352,9 +336,6 @@ function watchaGot(bag)
     return {}
 end
 
-function tookAnObject(infiniteBag)
-end
-
 function whatsInTheBag(mixedBag)
     if bag == nil then
         printToAll("How did we get a nil bag!?")
@@ -436,26 +417,27 @@ end
 menus = {
     main = {
         { "Script Manager >", function() showMenu("scripting") end },
-        { "Smoke Tester >",   function() showMenu("testing") end },
+        { "Game Tester >",    function() showMenu("testing") end },
         { "Deduplicator>",    function() showMenu("deduper") end },
         { "Launch Probe",     LaunchProbe },
         { "Surface Bags",     function() end },
         { "List Factories",   ListFactories },
     },
     scripting = {
-        { "Back to Main >",      showMainMenu },
         { "Multi-State Object",  MultiStateExp },
-        { "Take Everything Out", SFScript.ExtractAllProducts },
+        { "Take Everything Out", SFScript.TakeEveryThingOut },
         { "Put Everything Away", SFScript.PutEverythingAway },
         { "Dump Products",       SFScript.dumpProducts },
+        { "Back to Main >",      showMainMenu },
     },
     testing = {
-        { "Back to Main >", showMainMenu },
         { "Run Smoke Test", SFTester.runSmokeTest },
+        { "Move Ships",     SFTester.MoveShips },
+        { "Back to Main >", showMainMenu },
     },
     deduper = {
-        { "Back to Main >",      showMainMenu },
         { "Scan For Duplicates", SFDeduper.ScanAllBags },
         { "Layout Duplicates",   SFDeduper.LayoutDuplicates },
+        { "Back to Main >",      showMainMenu },
     },
 }
