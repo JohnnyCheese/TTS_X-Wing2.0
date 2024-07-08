@@ -66,11 +66,13 @@ Utility Object to aid in Game Mod Script Updates. Locating and "sourcing" Object
 - Each object to be produced needs a unique name.
 ]]
 local StarForge = {
-    factories = {}
+    factories = {},
+    lastLayout = 1
 }
 
 function onSave()
     local saveData = {}
+    saveData.lastLayout = StarForge.lastLayout
     saveData.objects = SFScript.objects
     saveData.hidden = self.getVar("hidden")
     return JSON.encode(saveData)
@@ -79,6 +81,9 @@ end
 function onLoad(saveData)
     if saveData ~= "" then
         local loadData = JSON.decode(saveData)
+        if loadData and loadData.lastLayout ~= nil then
+            StarForge.lastLayout = loadData.lastLayout
+        end
         if loadData and loadData.objects ~= nil then
             SFScript.objects = loadData.objects
         end
@@ -92,17 +97,16 @@ function onLoad(saveData)
     showMainMenu()
 end
 
-function setToEpicLayout()
+function setToLayout(layoutNumber)
     local layout = getObjectFromGUID("b3992e")
     if layout then
-        layout.call("EpicLayout")
+        StarForge.lastLayout = layout.call("setLayoutState", layoutNumber)
     else
         printToAll("Error: Layout object not found.", Color.Orange)
     end
 end
 
 function show()
-    setToEpicLayout()
     local sPos = self.getPosition()
     self.setPosition({ sPos[1], 0.8, sPos[3] })
     self.setScale({ 2.10, 2.10, 2.10 })
@@ -411,12 +415,18 @@ function showMenu(menu)
 end
 
 function showMainMenu()
+    setToLayout(StarForge.lastLayout)
     showMenu("main")
+end
+
+function showScriptingMenu()
+    setToLayout(2) -- Epic Layout
+    showMenu("scripting")
 end
 
 menus = {
     main = {
-        { "Script Manager >", function() showMenu("scripting") end },
+        { "Script Manager >", showScriptingMenu },
         { "Game Tester >",    function() showMenu("testing") end },
         { "Deduplicator>",    function() showMenu("deduper") end },
         { "Launch Probe",     LaunchProbe },
