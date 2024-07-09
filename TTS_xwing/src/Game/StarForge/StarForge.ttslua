@@ -83,6 +83,8 @@ function onLoad(saveData)
         local loadData = JSON.decode(saveData)
         if loadData and loadData.lastLayout ~= nil then
             StarForge.lastLayout = loadData.lastLayout
+        else
+            StarForge.lastLayout = 1
         end
         if loadData and loadData.objects ~= nil then
             SFScript.objects = loadData.objects
