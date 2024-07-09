@@ -18,8 +18,7 @@ function onCollisionEnter(info)
 end
 
 function toggleInteractive()
-    local isInteractive = subject.interactable
-    subject.interactable = not isInteractive
+    subject.interactable = not subject.interactable
 end
 
 local function color(text, color)
