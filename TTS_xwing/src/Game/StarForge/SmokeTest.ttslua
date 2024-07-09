@@ -1,6 +1,7 @@
 require("TTS_lib.Util.Table")
 Sequence = require("TTS_xwing.src.Test.Sequence")
 ButtonTest = require("TTS_xwing.src.Test.ButtonTest")
+Dim = require("TTS_xwing.src.Dim")
 
 local SmokeTest = {}
 
@@ -103,11 +104,14 @@ dropDials = function(seq)
     printToAll("dropDials:")
     seq = seq or Sequence.NoSeq()
     local toShip = { 0, 5, -3 }
-    for _, obj in ipairs(getObjects()) do
-        if obj.getName() == "Unassigned Dial" then
-            obj.translate(toShip)
-            local color, name = Color.Blue
-            obj.call("onDrop", { name })
+    for _, dial in ipairs(getObjects()) do
+        if dial.getName() == "Unassigned Dial" then
+            dial.translate(toShip)
+            Wait.condition(function ()
+                assignNearestShip(dial, Color.Blue:toString())
+            end, function ()
+                return dial.resting
+            end)
         end
     end
     Wait.frames(function()
@@ -115,6 +119,55 @@ dropDials = function(seq)
         seq:next()
     end, 120)
 end
+
+-- Function to assign the dial to the nearest ship
+assignNearestShip = function(dial, playerColor)
+    if dial == nil then
+        printToAll("dial is nil", Color.Orange)
+        return
+    end
+    if playerColor == nil then
+        printToAll("color is nil", Color.Orange)
+        return
+    end
+    local spos = dial.getPosition()
+    local nearest = nil
+    local minDist = Dim.Convert_mm_igu(80)
+    for _, ship in pairs(getObjects()) do
+        if ship.tag == 'Figurine' and ship.name ~= '' then
+            local pos = ship.getPosition()
+            local dist = math.sqrt(math.pow((spos[1] - pos[1]), 2) + math.pow((spos[3] - pos[3]), 2))
+            -- local dist = spos:distance(pos)
+            if dist < minDist then
+                nearest = ship
+                minDist = dist
+            end
+        end
+    end
+
+    if nearest ~= nil then
+        if playerColor == "White" then
+            printToAll("Please, pick a color before assigning dials")
+        else
+            local playerTeam = nil
+            local teamVisibility = ""
+            for _, player in pairs(Player.getPlayers()) do
+                if player.color == playerColor then
+                    if player.team ~= "None" then
+                        playerTeam = player.team
+                        teamVisibility = "|" .. playerTeam
+                    end
+                end
+            end
+
+            nearest.setVar('owningPlayer', playerColor)
+            printToAll('Dial assigned to ' .. nearest.getName(), { 0.3, 0.3, 1 })
+            dial.setRotation(nearest.getRotation())
+            dial.call("assignShip", { ship = nearest })
+        end
+    end
+end
+
 
 -- Function to calculate the centroid of a group of objects
 function calculateCentroid(objects)
