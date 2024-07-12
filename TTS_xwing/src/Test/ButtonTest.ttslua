@@ -3,7 +3,7 @@ TestButton = {}
 TestButton.Click = function(seq, host_obj, label_pattern, player_color, alternate_key)
     seq = seq or Sequence.NoSeq
 
-    local target
+    local target = nil
     Wait.condition(function()
         pressButton(target, host_obj, player_color, alternate_key)
         seq:next()
@@ -15,7 +15,7 @@ end
 
 findButton = function(host_obj, label_pattern)
     local buttons = host_obj.getButtons()
-    local target
+    local target = nil
     for _, button in ipairs(buttons) do
         if string.match(button.label, label_pattern) then
             target = button

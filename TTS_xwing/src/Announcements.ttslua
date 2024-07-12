@@ -40,7 +40,7 @@ AnnModule.Announce = function(info, target, shipPrefix)
             annString = shipName .. info.note .. ' (' .. info.code .. ')'
             annColor = AnnModule.announceColor.moveClear
         else
-            local coltype
+            local coltype = nil
             if info.friendlyCollission then
                 coltype = "[ff2222]friendly[ffb219]"
             else

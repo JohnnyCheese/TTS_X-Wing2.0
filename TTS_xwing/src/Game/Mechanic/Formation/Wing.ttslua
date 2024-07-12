@@ -26,8 +26,8 @@ local wingFormations = {
 }
 
 local nextSlot = 1
-local prevShip
-local debounce
+local prevShip = nil
+local debounce = nil
 
 
 function getWingFormation(stateId)

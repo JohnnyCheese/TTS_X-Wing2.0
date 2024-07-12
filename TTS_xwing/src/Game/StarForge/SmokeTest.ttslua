@@ -170,6 +170,7 @@ end
 
 
 -- Function to calculate the centroid of a group of objects
+-- TODO: move this into Transform
 function calculateCentroid(objects)
     local sum = Vector(0, 0, 0)
     for _, obj in ipairs(objects) do
@@ -179,6 +180,7 @@ function calculateCentroid(objects)
 end
 
 -- Function to rotate a point around the Y-axis by a given angle
+-- TODO: move this into Transform
 function rotatePointAroundY(point, origin, angle)
     local rad = math.rad(angle)
     local cos = math.cos(rad)
@@ -195,6 +197,7 @@ function rotatePointAroundY(point, origin, angle)
 end
 
 -- Function to move and rotate objects relative to a reference point
+-- TODO: move this into Transform
 function moveAndRotateGroup(objects, target, rotationOffset)
     if #objects == 0 then
         return

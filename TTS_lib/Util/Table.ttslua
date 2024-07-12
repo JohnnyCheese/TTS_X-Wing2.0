@@ -42,7 +42,7 @@ end
 if not table.shallowcopy then
     table.shallowcopy = function(orig)
         local orig_type = type(orig)
-        local copy
+        local copy = nil
         if orig_type == 'table' then
             copy = {}
             for orig_key, orig_value in pairs(orig) do
@@ -60,7 +60,7 @@ end
 if not table.deepcopy then
     table.deepcopy = function(orig)
         local orig_type = type(orig)
-        local copy
+        local copy = nil
         if orig_type == 'table' then
             copy = {}
             for orig_key, orig_value in next, orig, nil do

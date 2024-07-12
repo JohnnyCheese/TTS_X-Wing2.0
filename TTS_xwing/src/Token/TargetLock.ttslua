@@ -79,7 +79,7 @@ end
 -- Set name on drop near a ship or obstacle
 function onDropped(player_color)
     local spos = self.getPosition()
-    local nearest
+    local nearest = nil
     local minDist = Dim.Convert_mm_igu(100)
     for _, object in pairs(getObjectsWithAnyTags({ 'Ship', 'Obstacle' })) do
         local pos = object.getPosition()

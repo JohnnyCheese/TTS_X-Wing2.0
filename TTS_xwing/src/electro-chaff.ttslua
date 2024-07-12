@@ -84,7 +84,7 @@ end
 -- Assign on drop near a small base ship
 function onDropped(color)
     local spos = self.getPosition()
-    local nearest
+    local nearest = nil
     local minDist = Dim.Convert_mm_igu(80)
     for _, ship in pairs(getObjectsWithTag('Ship')) do
         local pos = ship.getPosition()

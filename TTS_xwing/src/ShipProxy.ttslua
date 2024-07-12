@@ -232,8 +232,8 @@ function SpawnProxyOptions(args)
     local move_codes    = args.move_codes or {}
     local base_position = args.base_position or 'center'
 
-    local ok
-    local finType
+    local ok = nil
+    local finType = nil
     local ship_proxies  = ShipProxyInstance:new()
     for position, move_code in pairs(move_codes) do
         local proxy, finPos = ShipProxyModule.CreateMoveProxy(move_code, ship)

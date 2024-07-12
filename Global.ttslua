@@ -3170,7 +3170,7 @@ MoveModule.MoveProbe.GetFreePart = function(info, ship, partFun, partRange, move
         -- Right now, we're out of any collisions or at part 0 (no move)
         -- Go fineResolution of a move forward until we have a collision, then skip one back
         partDelta = math.sgn(partRange.to - partRange.from) * (MoveData.partMax * MoveModule.partResolutionFine) * -1
-        local collInfo
+        local collInfo = nil
         repeat
             local nPos = partFun(info.code, ship, actPart)
             collInfo = MoveModule.CheckCollisions(ship, nPos, { out.collObj })
@@ -6710,7 +6710,7 @@ do
     Decker = {}
 
     -- provide unique ID starting from 20 for present decks
-    local nextID
+    local nextID = nil
     do
         local _nextID = 20
         nextID = function()
@@ -6830,7 +6830,7 @@ do
     end
 
     -- For copy method
-    local deepcopy
+    local deepcopy = nil
     deepcopy = function(t)
         local copy = {}
         for k, v in pairs(t) do

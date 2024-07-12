@@ -74,9 +74,9 @@ scale = 1 / self.getScale().x
 
 function onDropped(playerColor)
     local spos = self.getPosition()
-    local nearest
-    local nearest_loc
-    local nearest_pos
+    local nearest = nil
+    local nearest_loc = nil
+    local nearest_pos = nil
     local minDist = Dim.Convert_mm_igu(80)
     dropOrigin = self.getPosition()
     for _, ship in pairs(getObjectsWithTag('Ship')) do

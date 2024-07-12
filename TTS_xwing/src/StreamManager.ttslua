@@ -148,7 +148,7 @@ M.SetDiceData = function(DiceData, player)
         natties = true
     end
     for _, result in pairs(DiceData) do
-        local presentation
+        local presentation = nil
         if M.PresentedDice[result.die] then
             presentation = M.PresentedDice[result.die]
         else

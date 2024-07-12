@@ -10,7 +10,7 @@ function onDropped()
     Global.call('API_BombTokenDrop', { token = self })
 end
 
-local spawnedRuler
+local spawnedRuler = nil
 function update()
     if self.getDescription() == 'r' then
         if ToggleRuler() then
