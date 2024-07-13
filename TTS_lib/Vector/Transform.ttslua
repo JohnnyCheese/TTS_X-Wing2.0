@@ -1,0 +1,77 @@
+-- Define a class for Transform
+Transform = {}
+Transform.__index = Transform
+
+-- Constructor
+function Transform:new(position, rotation)
+    local self = setmetatable({}, Transform)
+    self.position = position
+    self.rotation = rotation
+    return self
+end
+
+-- Method to apply the transformation to a single object
+function Transform:applyToObject(object)
+    object.setPositionSmooth(self.position)
+    object.setRotationSmooth(self.rotation)
+end
+
+-- Method to apply the transformation to a table of objects
+function Transform:applyToObjects(objects)
+    for _, obj in ipairs(objects) do
+        self:applyToObject(obj)
+    end
+end
+
+function Transform:calculateCentroid(objects)
+    local sum = Vector(0, 0, 0)
+    for _, obj in ipairs(objects) do
+        sum = sum + obj.getPosition()
+    end
+    return sum:scale(1.0 / #objects)
+end
+
+-- Method to rotate a point around the Y-axis by a given angle
+function Transform:rotateAroundY(point, origin, angle)
+    local rad = math.rad(angle)
+    local cos = math.cos(rad)
+    local sin = math.sin(rad)
+    local relativePos = point - origin
+
+    local rotatedPos = Vector(
+        cos * relativePos.x - sin * relativePos.z,
+        point.y,
+        sin * relativePos.x + cos * relativePos.z
+    ) + origin
+
+    return rotatedPos
+end
+
+-- Method to move and rotate objects relative to a reference point
+function Transform:translate(objects)
+    if #objects == 0 then return end
+
+    local centroid = self:calculateCentroid(objects)
+
+    for _, obj in ipairs(objects) do
+        -- Rotate the object around the centroid
+        local pos = obj.getPosition()
+        local rotatedPos = Transform:rotateAroundY(pos, centroid, self.rotation)
+
+        -- Calculate the new position relative to the target
+        local newPos = self.position + (rotatedPos - centroid)
+
+        obj.setPositionSmooth(newPos)
+
+        -- Adjust the rotation based on the centroid and rotationOffset
+        local rot = obj.getRotation()
+        local newRot = {
+            x = rot.x,
+            y = 180 - rot.y - self.rotation,
+            z = rot.z,
+        }
+        obj.setRotationSmooth(newRot, false, false)
+    end
+end
+
+return Transform

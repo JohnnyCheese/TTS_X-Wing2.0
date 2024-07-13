@@ -1,34 +1,34 @@
 require("TTS_lib.Util.Table")
-Sequence = require("TTS_xwing.src.Test.Sequence")
-ButtonTest = require("TTS_xwing.src.Test.ButtonTest")
-Dim = require("TTS_xwing.src.Dim")
+local Sequence = require("TTS_xwing.src.Test.Sequence")
+local ButtonTest = require("TTS_xwing.src.Test.ButtonTest")
+local Dim = require("TTS_xwing.src.Dim")
+local PlayerArea = require("TTS_xwing.src.Player.PlayerArea")
 
 local SmokeTest = {}
 
 SmokeTest.runSmokeTest = function()
     printToAll("Starting Smoke Test...", { 0, 1, 0 })
 
-    local blueInfo = getPlayerHandZoneInfo(Player["Blue"])
-    local redInfo = getPlayerHandZoneInfo(Player["Red"])
-    local yellowInfo = getPlayerHandZoneInfo(Player["Yellow"])
-    local brownInfo = getPlayerHandZoneInfo(Player["Brown"])
+    local bluePlayerArea = PlayerArea:new(Player["Blue"], "Standard")
+    local redPlayerArea = PlayerArea:new(Player["Red"], "Standard")
 
     local seq = Sequence:new()
-
-    SmokeTest.spawnImperialShips(seq, Color.Blue, blueInfo.position, blueInfo.rotationOffset)
-    SmokeTest.spawnRebelShips(seq, Color.Red, redInfo.position, redInfo.rotationOffset)
+    
+    SmokeTest.spawnImperialShips(seq, bluePlayerArea)
+    SmokeTest.spawnRebelShips(seq, redPlayerArea)
 
     seq:start()
 
     printToAll("Smoke Test Completed.", { 0, 1, 0 })
 end
 
-function SmokeTest.spawnImperialShips(seq, player_color, targetPosition, rotDegrees)
+function SmokeTest.spawnImperialShips(seq, playerArea)
     local dataPad = getObjectFromGUID("a4dbbf")
     if dataPad == nil then
         printToAll("Didn't find DataPad", { 0, 1, 0 })
         return
     end
+    local player_color = playerArea.player.color
 
     seq:add(ButtonTest.Click, dataPad, 'Builder', player_color, false)
     seq:add(ButtonTest.Click, dataPad, 'Imperial', player_color, false)
@@ -39,7 +39,7 @@ function SmokeTest.spawnImperialShips(seq, player_color, targetPosition, rotDegr
     seq:add(ButtonTest.Click, dataPad, 'TIE Advanced x1', player_color, false)
     seq:add(ButtonTest.Click, dataPad, 'Darth Vader%s*%(%d+%)', player_color, false)
     seq:add(ButtonTest.Click, dataPad, 'Spawn List', player_color, false)
-    seq:add(waitAndMove, targetPosition, rotDegrees, 120)
+    seq:add(waitAndMove, playerArea, 120)
     seq:add(function(seq)
         Wait.frames(function()
             dropDials(seq)
@@ -47,12 +47,13 @@ function SmokeTest.spawnImperialShips(seq, player_color, targetPosition, rotDegr
     end)
 end
 
-function SmokeTest.spawnRebelShips(seq, player_color, targetPosition, rotDegrees)
+function SmokeTest.spawnRebelShips(seq, playerArea)
     local dataPad = getObjectFromGUID("a4dbbf")
     if dataPad == nil then
         printToAll("Didn't find DataPad", { 0, 1, 0 })
         return
     end
+    local player_color = playerArea.player.color
 
     seq:add(ButtonTest.Click, dataPad, 'Builder', player_color, false)
     seq:add(ButtonTest.Click, dataPad, 'Rebel', player_color, false)
@@ -63,39 +64,13 @@ function SmokeTest.spawnRebelShips(seq, player_color, targetPosition, rotDegrees
     seq:add(ButtonTest.Click, dataPad, 'X%-Wing', player_color, false)
     seq:add(ButtonTest.Click, dataPad, 'Luke Skywalker%sRed Five%s*%(%d+%)', player_color, false)
     seq:add(ButtonTest.Click, dataPad, 'Spawn List', player_color, false)
-    seq:add(waitAndMove, targetPosition, rotDegrees, 120)
-end
-
--- Utility function to get player hand zone info
-function getPlayerHandZoneInfo(player)
-    local handTransform = player.getHandTransform()
-    local position = handTransform.position + handTransform.forward * 19
-    local rotationOffset = getRotationOffset(handTransform.forward)
-    return {
-        position = position,
-        rotationOffset = rotationOffset
-    }
-end
-
--- Function to calculate the rotation offset based on the forward vector
-function getRotationOffset(forwardVector)
-    local worldForward = Vector(0, 0, 1)
-    local dotProduct = forwardVector:dot(worldForward)
-    local angle = math.deg(math.acos(dotProduct))
-
-    -- Determine the sign of the angle based on the cross product
-    local crossProduct = forwardVector:cross(worldForward)
-    if crossProduct.y < 0 then
-        angle = -angle
-    end
-
-    return angle - 90
+    seq:add(waitAndMove, playerArea, 120)
 end
 
 -- Helper function to perform movement after a delay
-function waitAndMove(seq, targetPosition, rotDegrees, delay)
+function waitAndMove(seq, playerArea, delay)
     Wait.frames(function()
-        movement(targetPosition, rotDegrees)
+        moveTo(playerArea)
         seq:next()
     end, delay)
 end
@@ -134,7 +109,7 @@ assignNearestShip = function(dial, playerColor)
     local nearest = nil
     local minDist = Dim.Convert_mm_igu(80)
     for _, ship in pairs(getObjects()) do
-        if ship.tag == 'Figurine' and ship.name ~= '' then
+        if ship.type == 'Figurine' and ship.name ~= '' then
             local pos = ship.getPosition()
             local dist = math.sqrt(math.pow((spos[1] - pos[1]), 2) + math.pow((spos[3] - pos[3]), 2))
             -- local dist = spos:distance(pos)
@@ -168,66 +143,8 @@ assignNearestShip = function(dial, playerColor)
     end
 end
 
-
--- Function to calculate the centroid of a group of objects
--- TODO: move this into Transform
-function calculateCentroid(objects)
-    local sum = Vector(0, 0, 0)
-    for _, obj in ipairs(objects) do
-        sum = sum + obj.getPosition()
-    end
-    return sum:scale(1.0 / #objects)
-end
-
--- Function to rotate a point around the Y-axis by a given angle
--- TODO: move this into Transform
-function rotatePointAroundY(point, origin, angle)
-    local rad = math.rad(angle)
-    local cos = math.cos(rad)
-    local sin = math.sin(rad)
-    local relativePos = point - origin
-
-    local rotatedPos = Vector(
-        cos * relativePos.x - sin * relativePos.z,
-        point.y,
-        sin * relativePos.x + cos * relativePos.z
-    ) + origin
-
-    return rotatedPos
-end
-
--- Function to move and rotate objects relative to a reference point
--- TODO: move this into Transform
-function moveAndRotateGroup(objects, target, rotationOffset)
-    if #objects == 0 then
-        return
-    end
-
-    local centroid = calculateCentroid(objects)
-
-    for _, obj in ipairs(objects) do
-        -- Rotate the object around the centroid
-        local pos = obj.getPosition()
-        local rotatedPos = rotatePointAroundY(pos, centroid, rotationOffset)
-
-        -- Calculate the new position relative to the target
-        local newPos = target + (rotatedPos - centroid)
-
-        obj.setPositionSmooth(newPos)
-
-        -- Adjust the rotation based on the centroid and rotationOffset
-        local rot = obj.getRotation()
-        local newRot = {
-            x = rot.x,
-            y = 180 - rot.y - rotationOffset,
-            z = rot.z,
-        }
-        obj.setRotationSmooth(newRot, false, false)
-    end
-end
-
--- Function to handle the movement and rotation of objects
-function movement(targetPosition, rotationOffset)
+---- Function to handle the movement and rotation of objects
+function moveTo(playerArea)
     -- Define the box for Physics.cast
     local box = {
         origin = Vector(-64.00, 0.0, -30.00), -- Start below the objects
@@ -250,9 +167,8 @@ function movement(targetPosition, rotationOffset)
             table.insert(newObjects, obj)
         end
     end
-
-    -- Apply move and rotate to all new objects as a group
-    moveAndRotateGroup(newObjects, targetPosition, rotationOffset)
+    
+    playerArea:translate(newObjects)
 end
 
 return SmokeTest
