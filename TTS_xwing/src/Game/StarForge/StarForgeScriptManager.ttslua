@@ -102,7 +102,7 @@ Scan all game objects
 - if it's an Mixed Bag, find out of what and register the objects in the bag.
 - if the Objects are Multi-state, consider registering each state with a "<key>.#".
 ]]
-StarForgeScriptManager.ExtractAllProducts = function()
+StarForgeScriptManager.TakeEveryThingOut = function()
     StarForgeScriptManager:reset()
     printToAll("Extract All Products")
     local everything = getObjects()
@@ -168,6 +168,9 @@ function putObjectBackInBag(bag, product)
             bag.reset()
         end
         if product and not product.isDestroyed() then
+            if product.type == "Deck" and product.is_face_down == false then
+                product.setRotation(product.getRotation() + Vector(0, 0, 180))
+            end
             bag.putObject(product)
         end
     end

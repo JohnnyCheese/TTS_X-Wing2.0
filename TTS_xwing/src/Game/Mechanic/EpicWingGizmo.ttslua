@@ -205,7 +205,7 @@ end
 function AddWingmate()
     --find which position to fill next
     local spos = self.getPosition()
-    local nearest
+    local nearest = nil
     local minDist = Dim.Convert_mm_igu(80)
     for _, ship in pairs(getAllObjects()) do
         if ship.type == 'Figurine' and ship.name ~= '' then

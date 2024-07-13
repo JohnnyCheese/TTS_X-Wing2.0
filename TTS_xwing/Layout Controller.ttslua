@@ -14,12 +14,9 @@ Layout.AddLayout = function(layoutTable)
     table.insert(Layout.layouts, layoutTable)
 end
 
-local standard = require("TTS_xwing.src.Layouts.Standard")
-Layout.AddLayout(standard)
-local epic = require("TTS_xwing.src.Layouts.Epic")
-Layout.AddLayout(epic)
-local hotac = require("TTS_xwing.src.Layouts.HotAC")
-Layout.AddLayout(hotac)
+Layout.AddLayout(require("TTS_xwing.src.Layouts.Standard"))
+Layout.AddLayout(require("TTS_xwing.src.Layouts.Epic"))
+Layout.AddLayout(require("TTS_xwing.src.Layouts.HotAC"))
 
 self.setPosition({ 0, 3, 0 })
 
@@ -139,7 +136,15 @@ Layout.GetMats = function()
     return mats
 end
 
-Layout.Switch = function(newIndex)
+function setLayoutState(index)
+    local prev = state.index
+    if state.index ~= index then
+        Layout.Switch(index)
+    end
+    return prev
+end
+
+function Layout.Switch(newIndex)
     self.clearButtons()
     if not state.active then
         broadcastToAll('Layout system disabled', { 1, 0.2, 0 })
@@ -244,3 +249,5 @@ end
 function SaveState()
     self.script_state = JSON.encode(state)
 end
+
+return Layout

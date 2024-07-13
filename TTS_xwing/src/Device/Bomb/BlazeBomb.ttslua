@@ -10,7 +10,7 @@ function onDropped()
     Global.call('API_BombTokenDrop', { token = self })
 end
 
-local spawnedRuler
+local spawnedRuler = nil
 function update()
     if self.getDescription() == 'r' then
         if ToggleRuler() then
@@ -98,7 +98,7 @@ function cloneItemFromBag(name, client_callback_function)
         return
     end
 
-    local itemGuid
+    local itemGuid = nil
     for _, item in ipairs(obstacleBag.getObjects()) do
         if item.name == name then
             itemGuid = item.guid

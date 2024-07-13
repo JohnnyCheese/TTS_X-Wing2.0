@@ -152,7 +152,7 @@ DiceControlModule.presentStatistics = function()
     for player, types in pairs(DiceControlModule.dice_statistics) do
         local total = 0
         printToAll("[" .. Color.fromString(DiceControlModule.player_colors[player]):toHex() .. "]" .. player .. "[-] have rolled:", DiceControlModule.info_color)
-        local playerLuck
+        local playerLuck = nil
         for type, results in pairs(types) do
             local typeTotal = results.Total
             total = total + typeTotal
@@ -398,7 +398,7 @@ end
 
 
 DiceControlModule.getObjectInContainerByGMNote = function(container, gmnoteToFind) -- most of the script here to find out if, and if so which, item is in the container
-    local takenObject                                                              -- keep the scope local outside of the loop
+    local takenObject = nil                                                        -- keep the scope local outside of the loop 
     for _, c in ipairs(container.getObjects()) do
         if c.gm_notes == gmnoteToFind then
             takenObject = container.takeObject({ -- correct call syntax, use .takeObject() on your container

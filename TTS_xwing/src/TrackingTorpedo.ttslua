@@ -5,7 +5,7 @@ dork = self
 
 assignedShip = nil
 drop_offset = 0.2
-local spawnedRuler
+local spawnedRuler = nil
 sizeOffset = {
     small = Dim.Convert_mm_igu(10.35),
     medium = Dim.Convert_mm_igu(0.35),
@@ -115,7 +115,7 @@ end
 function onDropped(color)
     if assignedShip == nil then
         local spos = self.getPosition()
-        local nearest
+        local nearest = nil
         local minDist = Dim.Convert_mm_igu(120)
         for _, ship in pairs(getAllObjects()) do
             if ship.type == 'Figurine' and ship.name ~= '' then

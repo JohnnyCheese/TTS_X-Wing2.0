@@ -3,14 +3,15 @@
 
 -- StarForge.ttslua
 
-require("TTS_lib.Util.Table")
-local SFScript = require("TTS_xwing.src.Game.StarForge.StarForgeScriptManager")
-local SFDeduper = require("TTS_xwing.src.Game.StarForge.StarForgeDeduper")
-
 if not self.hasTag("Star Forge") then
     printToAll("Only the Star Forge itself should run this script.")
     return
 end
+
+require("TTS_lib.Util.Table")
+local SFScript  = require("TTS_xwing.src.Game.StarForge.StarForgeScriptManager")
+local SFDeduper = require("TTS_xwing.src.Game.StarForge.StarForgeDeduper")
+local SFTester  = require("TTS_xwing.src.Game.StarForge.SmokeTest")
 
 --[[
 ## Star Forge
@@ -65,11 +66,13 @@ Utility Object to aid in Game Mod Script Updates. Locating and "sourcing" Object
 - Each object to be produced needs a unique name.
 ]]
 local StarForge = {
-    factories = {}
+    factories = {},
+    lastLayout = 1
 }
 
 function onSave()
     local saveData = {}
+    saveData.lastLayout = StarForge.lastLayout
     saveData.objects = SFScript.objects
     saveData.hidden = self.getVar("hidden")
     return JSON.encode(saveData)
@@ -78,42 +81,34 @@ end
 function onLoad(saveData)
     if saveData ~= "" then
         local loadData = JSON.decode(saveData)
+        if loadData and loadData.lastLayout ~= nil then
+            StarForge.lastLayout = loadData.lastLayout
+        else
+            StarForge.lastLayout = 1
+        end
         if loadData and loadData.objects ~= nil then
             SFScript.objects = loadData.objects
         end
         self.setVar("hidden", loadData.hidden or false)
     end
-    -- self.setLock(true)
-    -- self.unregisterCollisions()
     if self.getVar("hidden") then
         hide()
     else
         show()
     end
-    addContextMenus()
+    showMainMenu()
 end
 
-function addContextMenus()
-    self.addContextMenuItem("Multi-State Object", MultiStateExp)
-    self.addContextMenuItem("List Factories", ListFactories)
-    self.addContextMenuItem("Scan For Duplicates", SFDeduper.ScanAllBags)
-    self.addContextMenuItem("Layout Duplicates", SFDeduper.LayoutDuplicates)
-    self.addContextMenuItem("Extract All Products", SFScript.ExtractAllProducts)
-    self.addContextMenuItem("Put Everything Away", SFScript.PutEverythingAway)
-    self.addContextMenuItem("Dump Products", SFScript.dumpProducts)
-end
-
-function setToEpicLayout()
+function setToLayout(layoutNumber)
     local layout = getObjectFromGUID("b3992e")
     if layout then
-        layout.call("EpicLayout")
+        StarForge.lastLayout = layout.call("setLayoutState", layoutNumber)
     else
-        printToAll("Layout object not found.", Color.Orange)
+        printToAll("Error: Layout object not found.", Color.Orange)
     end
 end
 
 function show()
-    setToEpicLayout()
     local sPos = self.getPosition()
     self.setPosition({ sPos[1], 0.8, sPos[3] })
     self.setScale({ 2.10, 2.10, 2.10 })
@@ -347,9 +342,6 @@ function watchaGot(bag)
     return {}
 end
 
-function tookAnObject(infiniteBag)
-end
-
 function whatsInTheBag(mixedBag)
     if bag == nil then
         printToAll("How did we get a nil bag!?")
@@ -399,3 +391,64 @@ function emptyBag()
         end
     end
 end
+
+LaunchProbe = function()
+    local probe = spawnObject({
+        type = "Custom_Token",
+        position = { -30, 3, -20 },
+        scale = { 1, 1, 1 },
+        sound = true,
+        callback_function = function(spawned_object)
+            spawned_object.setName("Probe")
+        end
+    })
+
+    probe.setCustomObject({
+        image = "https://static.wikia.nocookie.net/starwars/images/f/f2/Sith_probe_droid.png?raw=true"
+    })
+end
+
+-- Function to show a menu based on the menu name
+function showMenu(menu)
+    self.clearContextMenu()
+    for _, item in ipairs(menus[menu]) do
+        self.addContextMenuItem(item[1], item[2], false)
+    end
+end
+
+function showMainMenu()
+    setToLayout(StarForge.lastLayout)
+    showMenu("main")
+end
+
+function showScriptingMenu()
+    setToLayout(2) -- Epic Layout
+    showMenu("scripting")
+end
+
+menus = {
+    main = {
+        { "Script Manager >", showScriptingMenu },
+        { "Game Tester >",    function() showMenu("testing") end },
+        { "Deduplicator>",    function() showMenu("deduper") end },
+        { "Launch Probe",     LaunchProbe },
+        { "Surface Bags",     function() end },
+        { "List Factories",   ListFactories },
+    },
+    scripting = {
+        { "Multi-State Object",  MultiStateExp },
+        { "Take Everything Out", SFScript.TakeEveryThingOut },
+        { "Put Everything Away", SFScript.PutEverythingAway },
+        { "Dump Products",       SFScript.dumpProducts },
+        { "Back to Main >",      showMainMenu },
+    },
+    testing = {
+        { "Run Smoke Test", SFTester.runSmokeTest },
+        { "Back to Main >", showMainMenu },
+    },
+    deduper = {
+        { "Scan For Duplicates", SFDeduper.ScanAllBags },
+        { "Layout Duplicates",   SFDeduper.LayoutDuplicates },
+        { "Back to Main >",      showMainMenu },
+    },
+}

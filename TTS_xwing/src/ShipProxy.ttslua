@@ -6,6 +6,7 @@
 -- ~~~~~~
 local Dim = require("TTS_xwing.src.Dim")
 local EventSub = require("TTS_Lib.EventSub.EventSub")
+local AnnModule = require("TTS_xwing.src.Announcements")
 
 local ShipProxyInstance = {
     state        = nil,
@@ -57,16 +58,16 @@ ShipProxyModule = {}
 ShipProxyModule.proxyTable = {}
 ShipProxyModule.hiddenShips = {}
 ShipProxyModule.finalPosOffset = {
-    small = vector(0, 0, Dim.Convert_mm_igu(10)),
-    medium = vector(0, 0, Dim.Convert_mm_igu(20)),
-    large = vector(0, 0, Dim.Convert_mm_igu(20))
+    small = Vector(0, 0, Dim.Convert_mm_igu(10)),
+    medium = Vector(0, 0, Dim.Convert_mm_igu(20)),
+    large = Vector(0, 0, Dim.Convert_mm_igu(20))
 }
 
 ShipProxyModule.barrelRollOffset = {}
 ShipProxyModule.barrelRollOffset = {
-    small = vector(Dim.Convert_mm_igu(80), 0, 0),
-    medium = vector(Dim.Convert_mm_igu(80), 0, 0),
-    large = vector(Dim.Convert_mm_igu(100), 0, 0)
+    small = Vector(Dim.Convert_mm_igu(80), 0, 0),
+    medium = Vector(Dim.Convert_mm_igu(80), 0, 0),
+    large = Vector(Dim.Convert_mm_igu(100), 0, 0)
 }
 
 ShipProxyModule.proxyXmlGui = {}
@@ -232,8 +233,8 @@ function SpawnProxyOptions(args)
     local move_codes    = args.move_codes or {}
     local base_position = args.base_position or 'center'
 
-    local ok
-    local finType
+    local ok = nil
+    local finType = nil
     local ship_proxies  = ShipProxyInstance:new()
     for position, move_code in pairs(move_codes) do
         local proxy, finPos = ShipProxyModule.CreateMoveProxy(move_code, ship)

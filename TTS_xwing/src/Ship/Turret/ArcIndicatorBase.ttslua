@@ -6,9 +6,9 @@ local Dim = require("TTS_xwing.src.Dim")
 
 function onDropped()
     local spos = self.getPosition()
-    local nearest
-    local nearest_mount
-    local nearest_mount_position
+    local nearest = nil
+    local nearest_mount = nil
+    local nearest_mount_position = nil
     local minDist = Dim.Convert_mm_igu(100)
 
     local turretName = "singleturret"

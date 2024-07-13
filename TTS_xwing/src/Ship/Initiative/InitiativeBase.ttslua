@@ -4,7 +4,7 @@ local Team = require("TTS_xwing.src.Player.Team")
 
 --[[
 TODO: swiped from Dial onDropped(). Would be nice to have a library
-function to locate nearest/onDropped ship.
+    function to locate nearest/onDropped ship.
 ]]
 function onDrop(player_color)
     local spos = self.getPosition()

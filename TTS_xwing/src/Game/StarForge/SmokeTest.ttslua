@@ -1,0 +1,174 @@
+require("TTS_lib.Util.Table")
+local Sequence = require("TTS_xwing.src.Test.Sequence")
+local ButtonTest = require("TTS_xwing.src.Test.ButtonTest")
+local Dim = require("TTS_xwing.src.Dim")
+local PlayerArea = require("TTS_xwing.src.Player.PlayerArea")
+
+local SmokeTest = {}
+
+SmokeTest.runSmokeTest = function()
+    printToAll("Starting Smoke Test...", { 0, 1, 0 })
+
+    local bluePlayerArea = PlayerArea:new(Player["Blue"], "Standard")
+    local redPlayerArea = PlayerArea:new(Player["Red"], "Standard")
+
+    local seq = Sequence:new()
+    
+    SmokeTest.spawnImperialShips(seq, bluePlayerArea)
+    SmokeTest.spawnRebelShips(seq, redPlayerArea)
+
+    seq:start()
+
+    printToAll("Smoke Test Completed.", { 0, 1, 0 })
+end
+
+function SmokeTest.spawnImperialShips(seq, playerArea)
+    local dataPad = getObjectFromGUID("a4dbbf")
+    if dataPad == nil then
+        printToAll("Didn't find DataPad", { 0, 1, 0 })
+        return
+    end
+    local player_color = playerArea.player.color
+
+    seq:add(ButtonTest.Click, dataPad, 'Builder', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'Imperial', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'Add Ship', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'TIE/ln Fighter', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, '"Howlrunner"%s*%(%d+%)', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'Add Ship', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'TIE Advanced x1', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'Darth Vader%s*%(%d+%)', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'Spawn List', player_color, false)
+    seq:add(waitAndMove, playerArea, 120)
+    seq:add(function(seq)
+        Wait.frames(function()
+            dropDials(seq)
+        end, 120)
+    end)
+end
+
+function SmokeTest.spawnRebelShips(seq, playerArea)
+    local dataPad = getObjectFromGUID("a4dbbf")
+    if dataPad == nil then
+        printToAll("Didn't find DataPad", { 0, 1, 0 })
+        return
+    end
+    local player_color = playerArea.player.color
+
+    seq:add(ButtonTest.Click, dataPad, 'Builder', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'Rebel', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'Add Ship', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'Y%-Wing', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'Gray Squadron Bomber%s*%(%d+%)', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'Add Ship', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'X%-Wing', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'Luke Skywalker%sRed Five%s*%(%d+%)', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'Spawn List', player_color, false)
+    seq:add(waitAndMove, playerArea, 120)
+end
+
+-- Helper function to perform movement after a delay
+function waitAndMove(seq, playerArea, delay)
+    Wait.frames(function()
+        moveTo(playerArea)
+        seq:next()
+    end, delay)
+end
+
+dropDials = function(seq)
+    printToAll("dropDials:")
+    seq = seq or Sequence.NoSeq()
+    local toShip = { 0, 5, -3 }
+    for _, dial in ipairs(getObjects()) do
+        if dial.getName() == "Unassigned Dial" then
+            dial.translate(toShip)
+            Wait.condition(function ()
+                assignNearestShip(dial, Color.Blue:toString())
+            end, function ()
+                return dial.resting
+            end)
+        end
+    end
+    Wait.frames(function()
+        printToAll("Done waiting")
+        seq:next()
+    end, 120)
+end
+
+-- Function to assign the dial to the nearest ship
+assignNearestShip = function(dial, playerColor)
+    if dial == nil then
+        printToAll("dial is nil", Color.Orange)
+        return
+    end
+    if playerColor == nil then
+        printToAll("color is nil", Color.Orange)
+        return
+    end
+    local spos = dial.getPosition()
+    local nearest = nil
+    local minDist = Dim.Convert_mm_igu(80)
+    for _, ship in pairs(getObjects()) do
+        if ship.type == 'Figurine' and ship.name ~= '' then
+            local pos = ship.getPosition()
+            local dist = math.sqrt(math.pow((spos[1] - pos[1]), 2) + math.pow((spos[3] - pos[3]), 2))
+            -- local dist = spos:distance(pos)
+            if dist < minDist then
+                nearest = ship
+                minDist = dist
+            end
+        end
+    end
+
+    if nearest ~= nil then
+        if playerColor == "White" then
+            printToAll("Please, pick a color before assigning dials")
+        else
+            local playerTeam = nil
+            local teamVisibility = ""
+            for _, player in pairs(Player.getPlayers()) do
+                if player.color == playerColor then
+                    if player.team ~= "None" then
+                        playerTeam = player.team
+                        teamVisibility = "|" .. playerTeam
+                    end
+                end
+            end
+
+            nearest.setVar('owningPlayer', playerColor)
+            printToAll('Dial assigned to ' .. nearest.getName(), { 0.3, 0.3, 1 })
+            dial.setRotation(nearest.getRotation())
+            dial.call("assignShip", { ship = nearest })
+        end
+    end
+end
+
+---- Function to handle the movement and rotation of objects
+function moveTo(playerArea)
+    -- Define the box for Physics.cast
+    local box = {
+        origin = Vector(-64.00, 0.0, -30.00), -- Start below the objects
+        direction = Vector(0, 0, 1),          -- Move in the positive z-direction
+        type = 3,
+        size = Vector(13, 10, 5),             -- Extend in the x, y, and z dimensions
+        orientation = Vector(0, 0, 0),
+        max_distance = 30,
+        debug = true,
+    }
+
+    -- Perform the cast
+    local castResult = Physics.cast(box)
+
+    -- Filter out moveable objects
+    local newObjects = {}
+    for _, hit_result in ipairs(castResult) do
+        local obj = hit_result.hit_object
+        if obj.locked == false and obj.interactable == true then
+            table.insert(newObjects, obj)
+        end
+    end
+    
+    playerArea:translate(newObjects)
+end
+
+return SmokeTest

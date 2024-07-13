@@ -6,7 +6,7 @@ self.createButton(AttachTemplateButton)
 
 function AttachTemplate()
     local spos = self.getPosition()
-    local nearest
+    local nearest = nil
     local minDist = Dim.Convert_mm_igu(80)
     for _, ship in pairs(getAllObjects()) do
         if ship.tag == 'Figurine' and ship.name ~= '' then
@@ -18,8 +18,8 @@ function AttachTemplate()
             end
         end
     end
-    local obj
-    local shipGUID
+    local obj = nil
+    local shipGUID = nil
     obj = nearest
     shipGUID = obj.getGUID()
     obj.addAttachment(self)

@@ -5,6 +5,23 @@ if not table.empty then
     end
 end
 
+-- Utility function to check if a table contains an object based on a comparison function
+if not table.contains then
+    table.contains = function(tbl, object, compareFunc)
+        compareFunc = compareFunc or function(obj1, obj2)
+            return obj1.guid == obj2.guid
+        end
+
+        for _, obj in ipairs(tbl) do
+            if compareFunc(obj, object) then
+                return true
+            end
+        end
+        return false
+    end
+end
+
+
 -- Mash together two tables
 if not table.join then
     table.join = function(tab1, tab2)
@@ -25,7 +42,7 @@ end
 if not table.shallowcopy then
     table.shallowcopy = function(orig)
         local orig_type = type(orig)
-        local copy
+        local copy = nil
         if orig_type == 'table' then
             copy = {}
             for orig_key, orig_value in pairs(orig) do
@@ -43,7 +60,7 @@ end
 if not table.deepcopy then
     table.deepcopy = function(orig)
         local orig_type = type(orig)
-        local copy
+        local copy = nil
         if orig_type == 'table' then
             copy = {}
             for orig_key, orig_value in next, orig, nil do

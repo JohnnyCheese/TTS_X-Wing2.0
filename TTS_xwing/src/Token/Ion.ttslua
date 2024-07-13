@@ -42,7 +42,7 @@ end
 -- Set name on drop near a ship
 function onDropped()
     local spos = self.getPosition()
-    local nearest
+    local nearest = nil
     local minDist = Dim.Convert_mm_igu(100)
     for _, ship in pairs(getAllObjects()) do
         if ship.type == 'Figurine' and ship.name ~= '' then

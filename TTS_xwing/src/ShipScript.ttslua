@@ -458,7 +458,7 @@ end
 
 function NextTexture()
     local data = self.getTable("Data")
-    local next_texture
+    local next_texture = nil
     local select_next = false
     for texture, url in pairs(data.textures) do
         if next_texture == nil then
@@ -500,7 +500,7 @@ end
 function SpawnCustomizer()
     local sizemod = { small = 1.0, medium = 0.75, large = 0.5 }
     local data = self.getTable('Data')
-    local customizer
+    local customizer = nil
     customizer = spawnObject({
         type         = "Custom_Model",
         position     = self.getPosition() - self.getTransformRight() * 3.5,
@@ -587,7 +587,7 @@ function onLoad(savedData)
     local function hasLoadFinished()
         return (not self.spawning) and (not self.UI.loading) and (not self.loading_custom)
     end
-    Wait.condition(function() 
+    Wait.condition(function()
         initContextMenu()
         setupUI()
     end, hasLoadFinished)
