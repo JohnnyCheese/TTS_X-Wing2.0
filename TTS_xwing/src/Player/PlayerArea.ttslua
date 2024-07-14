@@ -13,64 +13,25 @@ function PlayerArea:new(player, layout)
     return self
 end
 
--- -- Method to calculate the player's hand zone information
+-- Method to calculate the player's hand zone information
 function PlayerArea:calculateHandZoneInfo()
     local handTransform = self.player.getHandTransform()
     local position = handTransform.position + handTransform.forward * self:getScalar(self.layout)
-    local rotationOffset = self:getRotationOffset(handTransform.forward)
-    self.transform = Transform:new(position, rotationOffset)
+    self.transform = Transform:new(position, handTransform.forward)
 end
 
--- -- Method to get the distance multiplier based on the layout
+-- Method to get the distance multiplier based on the layout
 function PlayerArea:getScalar(layout)
     local multipliers = {
         Epic = 24,
         Standard = 18,
-        HotAC = 21
+        HotAC = 15
     }
     return multipliers[layout] or 18 -- Default to Standard if layout not specified
 end
 
--- -- Method to calculate the rotation offset based on the forward vector
-function PlayerArea:getRotationOffset(forwardVector)
-    local worldForward = Vector(0, 0, 1)
-    local dotProduct = forwardVector:dot(worldForward)
-    local angle = math.deg(math.acos(dotProduct))
-
-    -- Determine the sign of the angle based on the cross product
-    local crossProduct = forwardVector:cross(worldForward)
-    if crossProduct.y < 0 then
-        angle = -angle
-    end
-
-    return angle - 90
-end
-
--- -- Method to return the player's hand zone position
-function PlayerArea:getPosition()
-    return self.position
-end
-
 function PlayerArea:translate(objects)
-    if self.transform then
-        self.transform:translate(objects)
-    else
-        print("Transform is not calculated. Please call calculateHandZoneInfo() first.")
-    end
-end
-
--- -- Method to return the player's hand zone rotation offset
-function PlayerArea:getRotationOffsetValue()
-    return self.rotationOffset
-end
-
--- -- Utility function to create and get player hand zone info
-function getPlayerAreaInfo(player, layout)
-    local playerHandZone = PlayerArea:new(player, layout)
-    return {
-        position = playerHandZone:getPosition(),
-        rotationOffset = playerHandZone:getRotationOffsetValue()
-    }
+    self.transform:translate(objects)
 end
 
 return PlayerArea
