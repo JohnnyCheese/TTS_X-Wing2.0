@@ -35,7 +35,6 @@ pressButton = function(target, host_obj, player_color, alternate_key)
         return
     end
 
-    print("pressButton: " .. target.label)
     host_obj.call(target.click_function, { host_obj, player_color, alternate_key })
 end
 
