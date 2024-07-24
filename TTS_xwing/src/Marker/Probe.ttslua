@@ -1,6 +1,6 @@
 require("TTS_lib.Util.Table")
 
--- Checker script
+local Probe = {}
 local subject = {}
 
 function onLoad()
@@ -11,7 +11,8 @@ end
 function onCollisionEnter(info)
     subject = info.collision_object
     if subject.type ~= "Surface" then
-        printObjectInfo(subject)
+        printToAll("=====" .. vectorToString(self.getPosition()) .. "=====", Color.Orange)
+        Probe.printObjectInfo(subject)
     else
         printToAll("Object Position: " .. vectorToString(self.getPosition()), { 0, 1, 0 })
     end
@@ -25,8 +26,11 @@ local function color(text, color)
     return "[" .. color:toHex() .. "]" .. tostring(text) .. "[-]"
 end
 
-function printObjectInfo(object)
-    printToAll("=====" .. vectorToString(self.getPosition()) .. "=====", Color.Orange)
+function Probe.printObjectInfo(object)
+    if object == nil then
+        printToAll("pringObjectInfo(object) is nil.", Color.Red)
+        return
+    end
     printToAll("Object.type: " .. color(object.type, Color.Yellow), { 0, 1, 0 })
     printToAll("Object.tag: " .. color(object.tag, Color.Yellow), { 0, 1, 0 })
     printToAll("Object.name: " .. color(object.name, Color.Yellow), { 0, 1, 0 })
@@ -51,3 +55,5 @@ end
 function vectorToString(vector)
     return string.format("x: %.2f, y: %.2f, z: %.2f", vector.x, vector.y, vector.z)
 end
+
+return Probe
