@@ -144,6 +144,10 @@ function setLayoutState(index)
     return prev
 end
 
+function getLayoutState(index)
+    return state.index
+end
+
 function Layout.Switch(newIndex)
     self.clearButtons()
     if not state.active then
@@ -198,6 +202,7 @@ function Layout.Switch(newIndex)
         return 1
     end
 
+    self.setTable("elements", Layout.elements)
     startLuaCoroutine(self, 'setHandsDelayed')
     state.index = newIndex
     SaveState()

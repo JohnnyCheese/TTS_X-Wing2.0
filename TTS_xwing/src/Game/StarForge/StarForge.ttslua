@@ -12,6 +12,7 @@ require("TTS_lib.Util.Table")
 local SFScript  = require("TTS_xwing.src.Game.StarForge.StarForgeScriptManager")
 local SFDeduper = require("TTS_xwing.src.Game.StarForge.StarForgeDeduper")
 local SFTester  = require("TTS_xwing.src.Game.StarForge.SmokeTest")
+local SFVector  = require("TTS_xwing.src.Test.HotAC.ApproachVectorTest")
 
 --[[
 ## Star Forge
@@ -70,6 +71,8 @@ local StarForge = {
     lastLayout = 1
 }
 
+local layoutController_GUID = "b3992e"
+
 function onSave()
     local saveData = {}
     saveData.lastLayout = StarForge.lastLayout
@@ -100,12 +103,23 @@ function onLoad(saveData)
 end
 
 function setToLayout(layoutNumber)
-    local layout = getObjectFromGUID("b3992e")
+    local layout = getObjectFromGUID(layoutController_GUID)
     if layout then
         StarForge.lastLayout = layout.call("setLayoutState", layoutNumber)
     else
         printToAll("Error: Layout object not found.", Color.Orange)
     end
+end
+
+function getCurrentLayout()
+    local layout = getObjectFromGUID(layoutController_GUID)
+    if layout then
+        local currentLayout = layout.call("getLayoutState", layoutNumber)
+    else
+        printToAll("Error: Layout object not found.", Color.Orange)
+    end
+
+    return layout
 end
 
 function show()
@@ -443,8 +457,9 @@ menus = {
         { "Back to Main >",      showMainMenu },
     },
     testing = {
-        { "Run Smoke Test", SFTester.runSmokeTest },
-        { "Back to Main >", showMainMenu },
+        { "DataPad Spawn Test",   SFTester.runSmokeTest },
+        { "Approach Vector Test", SFVector.runSmokeTest },
+        { "Back to Main >",       showMainMenu },
     },
     deduper = {
         { "Scan For Duplicates", SFDeduper.ScanAllBags },

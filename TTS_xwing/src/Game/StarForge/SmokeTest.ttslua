@@ -3,17 +3,18 @@ local Sequence = require("TTS_xwing.src.Test.Sequence")
 local ButtonTest = require("TTS_xwing.src.Test.ButtonTest")
 local Dim = require("TTS_xwing.src.Dim")
 local PlayerArea = require("TTS_xwing.src.Player.PlayerArea")
+local SpawnedGroup = require("TTS_xwing.src.Game.StarForge.SpawnedGroup")
 
 local SmokeTest = {}
 
 SmokeTest.runSmokeTest = function()
     printToAll("Starting Smoke Test...", { 0, 1, 0 })
 
-    local bluePlayerArea = PlayerArea:new(Player["Blue"], "Standard")
-    local redPlayerArea = PlayerArea:new(Player["Red"], "Standard")
+    local bluePlayerArea = PlayerArea:new(Player["Blue"])
+    local redPlayerArea = PlayerArea:new(Player["Red"])
 
     local seq = Sequence:new()
-    
+
     SmokeTest.spawnImperialShips(seq, bluePlayerArea)
     SmokeTest.spawnRebelShips(seq, redPlayerArea)
 
@@ -40,11 +41,6 @@ function SmokeTest.spawnImperialShips(seq, playerArea)
     seq:add(ButtonTest.Click, dataPad, 'Darth Vader%s*%(%d+%)', player_color, false)
     seq:add(ButtonTest.Click, dataPad, 'Spawn List', player_color, false)
     seq:add(waitAndMove, playerArea, 120)
-    seq:add(function(seq)
-        Wait.frames(function()
-            dropDials(seq)
-        end, 120)
-    end)
 end
 
 function SmokeTest.spawnRebelShips(seq, playerArea)
@@ -67,6 +63,33 @@ function SmokeTest.spawnRebelShips(seq, playerArea)
     seq:add(waitAndMove, playerArea, 120)
 end
 
+local function waitForAllObjectsAtRest(seq, newObjects)
+    Wait.condition(function()
+        seq:next()
+    end, function()
+        return newObjects:allObjectsAtRest()
+    end)
+end
+
+local function moveTo(playerArea)
+    local newObjects = SpawnedGroup:new(playerArea)
+    local seq = Sequence:new()
+
+    seq:add(function(seq)
+        playerArea:translate(newObjects:getObjects())
+        waitForAllObjectsAtRest(seq, newObjects)
+    end)
+
+    seq:add(function(seq)
+        newObjects:dropDials()
+        waitForAllObjectsAtRest(seq, newObjects)
+    end)
+    -- seq:add(ButtonTest.Click, dataPad, 'Spawn List', player_color, false)
+    -- seq:add(ButtonTest.Click, host_obj, "Place Ship", playerArea.player.color, false)
+
+    seq:start()
+end
+
 -- Helper function to perform movement after a delay
 function waitAndMove(seq, playerArea, delay)
     Wait.frames(function()
@@ -75,100 +98,19 @@ function waitAndMove(seq, playerArea, delay)
     end, delay)
 end
 
-dropDials = function(seq)
-    printToAll("dropDials:")
-    seq = seq or Sequence.NoSeq()
-    local toShip = { 0, 5, -3 }
-    for _, dial in ipairs(getObjects()) do
-        if dial.getName() == "Unassigned Dial" then
-            dial.translate(toShip)
-            Wait.condition(function ()
-                assignNearestShip(dial, Color.Blue:toString())
-            end, function ()
-                return dial.resting
-            end)
-        end
-    end
-    Wait.frames(function()
-        printToAll("Done waiting")
-        seq:next()
-    end, 120)
-end
+function moveToOld(playerArea)
+    local newObjects = SpawnedGroup:new(playerArea)
 
--- Function to assign the dial to the nearest ship
-assignNearestShip = function(dial, playerColor)
-    if dial == nil then
-        printToAll("dial is nil", Color.Orange)
-        return
-    end
-    if playerColor == nil then
-        printToAll("color is nil", Color.Orange)
-        return
-    end
-    local spos = dial.getPosition()
-    local nearest = nil
-    local minDist = Dim.Convert_mm_igu(80)
-    for _, ship in pairs(getObjects()) do
-        if ship.type == 'Figurine' and ship.name ~= '' then
-            local pos = ship.getPosition()
-            local dist = math.sqrt(math.pow((spos[1] - pos[1]), 2) + math.pow((spos[3] - pos[3]), 2))
-            -- local dist = spos:distance(pos)
-            if dist < minDist then
-                nearest = ship
-                minDist = dist
-            end
-        end
-    end
-
-    if nearest ~= nil then
-        if playerColor == "White" then
-            printToAll("Please, pick a color before assigning dials")
-        else
-            local playerTeam = nil
-            local teamVisibility = ""
-            for _, player in pairs(Player.getPlayers()) do
-                if player.color == playerColor then
-                    if player.team ~= "None" then
-                        playerTeam = player.team
-                        teamVisibility = "|" .. playerTeam
-                    end
-                end
-            end
-
-            nearest.setVar('owningPlayer', playerColor)
-            printToAll('Dial assigned to ' .. nearest.getName(), { 0.3, 0.3, 1 })
-            dial.setRotation(nearest.getRotation())
-            dial.call("assignShip", { ship = nearest })
-        end
-    end
-end
-
----- Function to handle the movement and rotation of objects
-function moveTo(playerArea)
-    -- Define the box for Physics.cast
-    local box = {
-        origin = Vector(-64.00, 0.0, -30.00), -- Start below the objects
-        direction = Vector(0, 0, 1),          -- Move in the positive z-direction
-        type = 3,
-        size = Vector(13, 10, 5),             -- Extend in the x, y, and z dimensions
-        orientation = Vector(0, 0, 0),
-        max_distance = 30,
-        debug = true,
-    }
-
-    -- Perform the cast
-    local castResult = Physics.cast(box)
-
-    -- Filter out moveable objects
-    local newObjects = {}
-    for _, hit_result in ipairs(castResult) do
-        local obj = hit_result.hit_object
-        if obj.locked == false and obj.interactable == true then
-            table.insert(newObjects, obj)
-        end
-    end
-    
-    playerArea:translate(newObjects)
+    Wait.condition(function()
+        playerArea:translate(newObjects:getObjects())
+        Wait.condition(function()
+            newObjects:dropDials()
+        end, function()
+            return newObjects:allObjectsAtRest()
+        end)
+    end, function()
+        return newObjects:allObjectsAtRest()
+    end)
 end
 
 return SmokeTest
