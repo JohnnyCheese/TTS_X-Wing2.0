@@ -4,6 +4,11 @@ local Dim = require("TTS_xwing.src.Dim")
 ApproachVector = {}
 ApproachVector.__index = ApproachVector
 
+local image_url =
+"https://github.com/mikerieser/TTS_X-Wing2.0/blob/master/assets/HotAC/Table/Approach%20Vector.png?raw=true"
+local model_url =
+"https://github.com/mikerieser/TTS_X-Wing2.0/blob/master/assets/HotAC/Table/Approach%20Vector.obj?raw=true"
+
 -- Constructor for the ApproachVectorArea class
 function ApproachVector:new(index, notation)
     local self = setmetatable({}, ApproachVector)
@@ -116,12 +121,10 @@ function ApproachVector:addApproachVectorCard()
         end
     }
 
-    local url =
-    "https://steamusercontent-a.akamaihd.net/ugc/2486633548116497678/C1B8456AB9E60A621295A489CA16E4DBBF8F970E"
     local cardData = {
         type = 0,
-        face = url,
-        back = url
+        face = image_url,
+        back = image_url
     }
 
     local approachVector = spawnObject(card)
@@ -155,15 +158,11 @@ function ApproachVector:addApproachVectorObject()
         end
     }
 
-    local url =
-    "https://steamusercontent-a.akamaihd.net/ugc/2486633548116497678/C1B8456AB9E60A621295A489CA16E4DBBF8F970E"
 
     local customUI = {
         type = 0,
-        mesh =
-        "https://steamusercontent-a.akamaihd.net/ugc/2482130582400930766/987FF04A1A94CB02F47D84FB2213C043AE6E3F76/",
-        diffuse = url,
-        -- normal = url,
+        mesh = model_url,
+        diffuse = image_url,
         material = 3,
     }
 
