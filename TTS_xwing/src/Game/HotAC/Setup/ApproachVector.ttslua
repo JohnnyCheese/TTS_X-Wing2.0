@@ -92,7 +92,7 @@ function ApproachVector:createApproachVectorUI(index)
 end
 
 function ApproachVector:addApproachVector()
-    self:addApproachVectorCard()
+    self:addApproachVectorObject()
 end
 
 function ApproachVector:addApproachVectorCard()
@@ -134,10 +134,12 @@ function ApproachVector:addApproachVectorObject()
     local angle = targetForward:angle(currentForward)
     local direction = currentForward:cross(targetForward)
     angle = direction * angle
+    local pos = self.position
+    pos.y = 1.1
 
     local object = {
         type = "Custom_Model",
-        position = self.position,
+        position = pos,
         rotation = angle,
         scale = { 1, 1, 1 },
         sound = false,
@@ -146,6 +148,10 @@ function ApproachVector:addApproachVectorObject()
             self:attachUIToVector(obj)
             local name = "Approach Vector #" .. self.index .. " [" .. self.notation .. "]"
             obj.setName(name)
+            if obj.is_face_down then
+                printToAll("flipping: " .. obj.getName())
+                obj.flip()
+            end
         end
     }
 
@@ -155,9 +161,9 @@ function ApproachVector:addApproachVectorObject()
     local customUI = {
         type = 0,
         mesh =
-        "https://steamusercontent-a.akamaihd.net/ugc/2482130582395588792/25CF06E0B2522A037FB281A3A036E3AE12D0D576/",
+        "https://steamusercontent-a.akamaihd.net/ugc/2482130582400930766/987FF04A1A94CB02F47D84FB2213C043AE6E3F76/",
         diffuse = url,
-        normal = url,
+        -- normal = url,
         material = 3,
     }
 
@@ -196,7 +202,7 @@ function ApproachVector:attachUIToVector(obj)
         {
             tag = "Text",
             attributes = {
-                text = tostring(self.index),
+                text = "Vector " .. tostring(self.index),
                 color = "#FFFFFF",
                 fontSize = "300",
                 alignment = "MiddleCenter",
