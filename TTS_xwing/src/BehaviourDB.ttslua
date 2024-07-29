@@ -290,8 +290,12 @@ BehaviourDB.rule_sets[1].ships['tieininterceptor'].action_selection = {
 
 -- TIE Advanced x1
 BehaviourDB.rule_sets[1].ships['tieadvancedx1'] = {}
-BehaviourDB.rule_sets[1].ships['tieadvancedx1'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['tieadvancedx1'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['tieadvancedx1'].move_table = {
     bullseye = {
         near = { [1] = 'k4', [3] = 's1', [5] = 's2' },
@@ -361,8 +365,11 @@ BehaviourDB.rule_sets[1].ships['tieadvancedx1'].action_selection = {
 
 -- TIE/sa Bomber
 BehaviourDB.rule_sets[1].ships['tiesabomber'] = {}
-BehaviourDB.rule_sets[1].ships['tiesabomber'].target_selection = { [1] = 'LockedInRange', [2] = 'ClosestInArc', [3] =
-'Closest' }
+BehaviourDB.rule_sets[1].ships['tiesabomber'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['tiesabomber'].move_table = {
     bullseye = {
         near = { [1] = 'k5', [3] = 's1', [5] = 's2' },
@@ -450,8 +457,12 @@ BehaviourDB.rule_sets[1].ships['tiesabomber'].action_selection = {
 
 -- TIE/de Defender
 BehaviourDB.rule_sets[1].ships['tiededefender'] = {}
-BehaviourDB.rule_sets[1].ships['tiededefender'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['tiededefender'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['tiededefender'].action_selection = {}
 BehaviourDB.rule_sets[1].ships['tiededefender'].move_table = {
     bullseye = {
@@ -662,8 +673,11 @@ BehaviourDB.rule_sets[1].ships['lambdaclasst4ashuttle'].action_selection = {
 
 -- VT-49 Decimator
 BehaviourDB.rule_sets[1].ships['vt49decimator'] = {}
-BehaviourDB.rule_sets[1].ships['vt49decimator'].target_selection = { [1] = 'LockedInRange', [2] = 'ClosestInArc', [3] =
-'Closest' }
+BehaviourDB.rule_sets[1].ships['vt49decimator'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['vt49decimator'].action_selection = {}
 BehaviourDB.rule_sets[1].ships['vt49decimator'].move_table = {
     bullseye = {
@@ -742,8 +756,12 @@ BehaviourDB.rule_sets[1].ships['vt49decimator'].action_selection = {
 
 -- TIE/rb Heavy
 BehaviourDB.rule_sets[1].ships['tierbheavy'] = {}
-BehaviourDB.rule_sets[1].ships['tierbheavy'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['tierbheavy'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['tierbheavy'].move_table = {
     bullseye = {
         near = { [1] = 's1', [3] = 's2', [4] = 'tl2', [5] = 'tr2', [6] = 's4' },
@@ -833,8 +851,12 @@ BehaviourDB.rule_sets[1].ships['tierbheavy'].action_selection = {
 
 -- TIE/ca Punisher
 BehaviourDB.rule_sets[1].ships['tiecapunisher'] = {}
-BehaviourDB.rule_sets[1].ships['tiecapunisher'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['tiecapunisher'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['tiecapunisher'].move_table = {
     bullseye = {
         near = { [1] = 's0', [2] = 'k4', [4] = 's1', [6] = 's2' },
@@ -927,8 +949,12 @@ BehaviourDB.rule_sets[1].ships['tiecapunisher'].action_selection = {
 
 -- TIE/ag Aggressor
 BehaviourDB.rule_sets[1].ships['tieagaggressor'] = {}
-BehaviourDB.rule_sets[1].ships['tieagaggressor'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['tieagaggressor'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['tieagaggressor'].move_table = {
     bullseye = {
         near = { [1] = 'k4', [3] = 's1', [6] = 's2' },
@@ -1009,8 +1035,11 @@ BehaviourDB.rule_sets[1].ships['tieagaggressor'].action_selection = {
 
 -- TIE Advanced v1
 BehaviourDB.rule_sets[1].ships['tieadvancedv1'] = {}
-BehaviourDB.rule_sets[1].ships['tieadvancedv1'].target_selection = { [1] = 'ClosestInArcLowerInitiative', [2] =
-'ClosestInArc', [3] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['tieadvancedv1'].target_selection = {
+    [1] = 'ClosestInArcLowerInitiative',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['tieadvancedv1'].move_table = {
     bullseye = {
         near = { [1] = 'k4', [3] = 'bl1', [4] = 'br1', [5] = 's2' },
@@ -1095,8 +1124,12 @@ BehaviourDB.rule_sets[1].ships['tieadvancedv1'].action_selection = {
 
 -- Alpha-class Star Wing
 BehaviourDB.rule_sets[1].ships['alphaclassstarwing'] = {}
-BehaviourDB.rule_sets[1].ships['alphaclassstarwing'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['alphaclassstarwing'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['alphaclassstarwing'].move_table = {
     bullseye = {
         near = { [1] = 's1', [3] = 'bl1', [4] = 'br1', [5] = 's2' },
@@ -1300,8 +1333,11 @@ BehaviourDB.rule_sets[1].ships['tieskstriker'].action_selection = {
 -- Gauntlet Fighter
 ---- This logic is shared between Imperial, Rebel, Scum, Republic, and Separatist. See Z-95 for an example on how to split them if necessary.
 BehaviourDB.rule_sets[1].ships['gauntletfighter'] = {}
-BehaviourDB.rule_sets[1].ships['gauntletfighter'].target_selection = { [1] = 'LockedInRange', [2] = 'ClosestInArc', [3] =
-'Closest' }
+BehaviourDB.rule_sets[1].ships['gauntletfighter'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['gauntletfighter'].move_table = {
     bullseye = {
         near = { [1] = 's0', [3] = 's2', [4] = 'tl2', [5] = 'tr2', [6] = 's4' },
@@ -1386,8 +1422,11 @@ BehaviourDB.rule_sets[1].ships['gauntletfighter'].action_selection = {
 BehaviourDB.rule_sets[1].ships['z95af4headhunter'] = {}
 BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions = {}
 BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[1] = {}
-BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[1].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArc', [3] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[1].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[1].move_table = {
     bullseye = {
         near = { [1] = 'k3', [3] = 's1', [5] = 's2' },
@@ -1419,6 +1458,10 @@ BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[1].move_table = {
         distant = { [1] = 'k3', [4] = 'tr2' },
         stress = { [1] = 's1', [3] = 'br2', [6] = 'tr3' },
     },
+}
+BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[1].flee_table = {
+    edge = { bullseye = 's4' },
+    hyper = { [1] = 'bl2', [2] = 'br2', [3] = 's2', [5] = 's3' }
 }
 BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[1].action_selection = {
     [1] = { -- Target lock if not in enemy's arc
@@ -1457,8 +1500,12 @@ BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[1].action_selection 
 
 -- T-65 X-Wing
 BehaviourDB.rule_sets[1].ships['t65xwing'] = {}
-BehaviourDB.rule_sets[1].ships['t65xwing'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['t65xwing'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['t65xwing'].move_table = {
     bullseye = {
         near = { [1] = 'k4', [3] = 's1', [5] = 's2' },
@@ -1490,6 +1537,10 @@ BehaviourDB.rule_sets[1].ships['t65xwing'].move_table = {
         distant = { [1] = 'tr3t', [4] = 'tr2' },
         stress = { [1] = 'br1', [4] = 'br2', [6] = 'tr3' },
     },
+}
+BehaviourDB.rule_sets[1].ships['t65xwing'].flee_table = {
+    edge = { bullseye = 's4' },
+    hyper = { [1] = 's1', [3] = 'bl1', [4] = 'br1', [5] = 's2' }
 }
 BehaviourDB.rule_sets[1].ships['t65xwing'].action_selection = {
     [1] = { -- (target not moved) Target lock if not in any arcs
@@ -1529,8 +1580,11 @@ BehaviourDB.rule_sets[1].ships['t65xwing'].action_selection = {
 -- BTL-A4 Y-Wing
 ---- This logic is shared between Rebel and Scum. See Z-95 for an example on how to split them if necessary.
 BehaviourDB.rule_sets[1].ships['btla4ywing'] = {}
-BehaviourDB.rule_sets[1].ships['btla4ywing'].target_selection = { [1] = 'LockedInRange', [2] = 'ClosestInArc', [3] =
-'Closest' }
+BehaviourDB.rule_sets[1].ships['btla4ywing'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['btla4ywing'].move_table = {
     bullseye = {
         near = { [1] = 'k4', [2] = 's1', [5] = 's2' },
@@ -1562,6 +1616,10 @@ BehaviourDB.rule_sets[1].ships['btla4ywing'].move_table = {
         distant = { [1] = 'k4', [3] = 'tr2' },
         stress = { [1] = 'br1', [4] = 's1', [6] = 'tr2' },
     },
+}
+BehaviourDB.rule_sets[1].ships['btla4ywing'].flee_table = {
+    edge = { bullseye = 's4' },
+    hyper = { [1] = 's1', [2] = 'bl1', [4] = 'br1', [6] = 's2' }
 }
 BehaviourDB.rule_sets[1].ships['btla4ywing'].action_selection = {
     [1] = { -- Target lock if charges left
@@ -1605,8 +1663,12 @@ BehaviourDB.rule_sets[1].ships['btla4ywing'].action_selection = {
 
 -- RZ-1 A-Wing
 BehaviourDB.rule_sets[1].ships['rz1awing'] = {}
-BehaviourDB.rule_sets[1].ships['rz1awing'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['rz1awing'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['rz1awing'].move_table = {
     bullseye = {
         near = { [1] = 'k5', [2] = 'br3s', [4] = 'bl3s', [6] = 's2' },
@@ -1638,6 +1700,10 @@ BehaviourDB.rule_sets[1].ships['rz1awing'].move_table = {
         distant = { [1] = 'bl3s', [4] = 'tr2' },
         stress = { [1] = 'tr2', [5] = 'tr3', [6] = 's5' },
     },
+}
+BehaviourDB.rule_sets[1].ships['rz1awing'].flee_table = {
+    edge = { bullseye = 's5' },
+    hyper = { [1] = 'bl2', [2] = 'br2', [3] = 's4', [5] = 's5' }
 }
 BehaviourDB.rule_sets[1].ships['rz1awing'].action_selection = {
     [1] = { -- (target not moved) Target lock if not in any arcs
@@ -1693,8 +1759,12 @@ BehaviourDB.rule_sets[1].ships['rz1awing'].action_selection = {
 
 -- A/SF-01 B-Wing
 BehaviourDB.rule_sets[1].ships['asf01bwing'] = {}
-BehaviourDB.rule_sets[1].ships['asf01bwing'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['asf01bwing'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['asf01bwing'].move_table = {
     bullseye = {
         near = { [1] = 's1', [5] = 's2' },
@@ -1726,6 +1796,10 @@ BehaviourDB.rule_sets[1].ships['asf01bwing'].move_table = {
         distant = { [1] = 'tr1t', [4] = 'tr2' },
         stress = { [1] = 'br1', [5] = 's1', [6] = 's2' },
     },
+}
+BehaviourDB.rule_sets[1].ships['asf01bwing'].flee_table = {
+    edge = { bullseye = 's4' },
+    hyper = { [1] = 's1', [3] = 'bl1', [4] = 'br1', [5] = 's3' }
 }
 BehaviourDB.rule_sets[1].ships['asf01bwing'].action_selection = {
     [1] = { -- (target not moved) Target lock if not in any arcs
@@ -1764,8 +1838,12 @@ BehaviourDB.rule_sets[1].ships['asf01bwing'].action_selection = {
 
 -- YT-2400 Light Freighter
 BehaviourDB.rule_sets[1].ships['yt2400lightfreighter'] = {}
-BehaviourDB.rule_sets[1].ships['yt2400lightfreighter'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['yt2400lightfreighter'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['yt2400lightfreighter'].move_table = {
     bullseye = {
         near = { [1] = 'k4', [3] = 'tl2', [5] = 'tr2' },
@@ -1798,6 +1876,10 @@ BehaviourDB.rule_sets[1].ships['yt2400lightfreighter'].move_table = {
         stress = { [1] = 'tr1', [3] = 'br1' },
     },
 }
+BehaviourDB.rule_sets[1].ships['yt2400lightfreighter'].flee_table = {
+    edge = { bullseye = 's4' },
+    hyper = { [1] = 'bl1', [3] = 'br1', [4] = 's1', [5] = 's2' }
+}
 BehaviourDB.rule_sets[1].ships['yt2400lightfreighter'].action_selection = {
     [1] = { -- Rotate turret to get a shot
         description = "%s rotated its turret to get a shot.",
@@ -1824,8 +1906,11 @@ BehaviourDB.rule_sets[1].ships['yt2400lightfreighter'].action_selection = {
 
 -- Modified YT-1300 Light Freighter
 BehaviourDB.rule_sets[1].ships['modifiedyt1300lightfreighter'] = {}
-BehaviourDB.rule_sets[1].ships['modifiedyt1300lightfreighter'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArc', [3] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['modifiedyt1300lightfreighter'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['modifiedyt1300lightfreighter'].move_table = {
     bullseye = {
         near = { [1] = 'tl2', [3] = 'tr2', [5] = 'tl3', [6] = 'tr3' },
@@ -1858,6 +1943,10 @@ BehaviourDB.rule_sets[1].ships['modifiedyt1300lightfreighter'].move_table = {
         stress = { [1] = 'tr2', [4] = 'br2' },
     },
 }
+BehaviourDB.rule_sets[1].ships['modifiedyt1300lightfreighter'].flee_table = {
+    edge = { bullseye = 's4' },
+    hyper = { [1] = 'bl2', [2] = 'br2', [3] = 's2', [5] = 's3' }
+}
 BehaviourDB.rule_sets[1].ships['modifiedyt1300lightfreighter'].action_selection = {
     [1] = { -- Rotate turret to get a shot
         description = "%s rotated its turret to get a shot.",
@@ -1884,8 +1973,11 @@ BehaviourDB.rule_sets[1].ships['modifiedyt1300lightfreighter'].action_selection 
 
 -- VCX-100 Light Freighter
 BehaviourDB.rule_sets[1].ships['vcx100lightfreighter'] = {}
-BehaviourDB.rule_sets[1].ships['vcx100lightfreighter'].target_selection = { [1] = 'LockedInRange', [2] = 'ClosestInArc',
-    [3] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['vcx100lightfreighter'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['vcx100lightfreighter'].move_table = {
     bullseye = {
         near = { [1] = 'k4', [2] = 's1', [3] = 'tl2', [5] = 'tr2' },
@@ -1917,6 +2009,10 @@ BehaviourDB.rule_sets[1].ships['vcx100lightfreighter'].move_table = {
         distant = { [1] = 'k4', [4] = 'tr2' },
         stress = { [1] = 'tr2', [4] = 'br2' },
     },
+}
+BehaviourDB.rule_sets[1].ships['vcx100lightfreighter'].flee_table = {
+    edge = { bullseye = 's4' },
+    hyper = { [1] = 's1', [2] = 'bl2', [4] = 'br2', [6] = 's2' }
 }
 BehaviourDB.rule_sets[1].ships['vcx100lightfreighter'].action_selection = {
     [1] = { --  manual Rotate (upgrade) prompt
@@ -1953,8 +2049,12 @@ BehaviourDB.rule_sets[1].ships['vcx100lightfreighter'].action_selection = {
 -- ARC-170 Starfighter
 ---- This logic is shared between Rebel and Republic. See Z-95 for an example on how to split them if necessary.
 BehaviourDB.rule_sets[1].ships['arc170starfighter'] = {}
-BehaviourDB.rule_sets[1].ships['arc170starfighter'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['arc170starfighter'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['arc170starfighter'].move_table = {
     bullseye = {
         near = { [1] = 'k4', [3] = 's1', [5] = 'tl2', [6] = 'tr2' },
@@ -2023,8 +2123,12 @@ BehaviourDB.rule_sets[1].ships['arc170starfighter'].action_selection = {
 
 -- Attack Shuttle
 BehaviourDB.rule_sets[1].ships['attackshuttle'] = {}
-BehaviourDB.rule_sets[1].ships['attackshuttle'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['attackshuttle'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['attackshuttle'].move_table = {
     bullseye = {
         near = { [1] = 'k4', [4] = 's1', [6] = 's2' },
@@ -2105,8 +2209,12 @@ BehaviourDB.rule_sets[1].ships['attackshuttle'].action_selection = {
 
 -- Auzituck Gunship
 BehaviourDB.rule_sets[1].ships['auzituckgunship'] = {}
-BehaviourDB.rule_sets[1].ships['auzituckgunship'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['auzituckgunship'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['auzituckgunship'].move_table = {
     bullseye = {
         near = { [1] = 's0', [3] = 'bl1', [4] = 'br1', [5] = 's1' },
@@ -2175,8 +2283,12 @@ BehaviourDB.rule_sets[1].ships['auzituckgunship'].action_selection = {
 
 -- E-Wing
 BehaviourDB.rule_sets[1].ships['ewing'] = {}
-BehaviourDB.rule_sets[1].ships['ewing'].target_selection = { [1] = 'LockedInRange', [2] = 'ClosestInArcLowerInitiative',
-    [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['ewing'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['ewing'].move_table = {
     bullseye = {
         near = { [1] = 'k4', [3] = 'bl3s', [4] = 'br3s', [5] = 's1' },
@@ -2275,8 +2387,12 @@ BehaviourDB.rule_sets[1].ships['ewing'].action_selection = {
 
 -- Sheathipede-class Shuttle
 BehaviourDB.rule_sets[1].ships['sheathipedeclassshuttle'] = {}
-BehaviourDB.rule_sets[1].ships['sheathipedeclassshuttle'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['sheathipedeclassshuttle'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['sheathipedeclassshuttle'].move_table = {
     bullseye = {
         near = { [1] = 's1r', [2] = 'k4', [3] = 's1', [4] = 'bl3', [5] = 'br3', [6] = 's4' },
@@ -2328,8 +2444,12 @@ BehaviourDB.rule_sets[1].ships['sheathipedeclassshuttle'].action_selection = {
 
 -- UT-60D U-Wing
 BehaviourDB.rule_sets[1].ships['ut60duwing'] = {}
-BehaviourDB.rule_sets[1].ships['ut60duwing'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['ut60duwing'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['ut60duwing'].move_table = {
     bullseye = {
         near = { [1] = 's0', [3] = 's1', [4] = 'tl2', [5] = 'tr2', [6] = 's2' },
@@ -2391,8 +2511,12 @@ BehaviourDB.rule_sets[1].ships['ut60duwing'].action_selection = {
 
 -- BTL-S8 K-Wing
 BehaviourDB.rule_sets[1].ships['btls8kwing'] = {}
-BehaviourDB.rule_sets[1].ships['btls8kwing'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['btls8kwing'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['btls8kwing'].move_table = {
     bullseye = {
         near = { [1] = 's1', [3] = 'tl2', [4] = 'tr2', [5] = 'bl3', [6] = 'br3' },
@@ -2467,8 +2591,11 @@ BehaviourDB.rule_sets[1].ships['btls8kwing'].action_selection = {
 -- Z-95-AF4 Headhunter. This is already defined in the Rebel section, so we have
 -- to add a new faction to the existing one.
 BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[3] = {}
-BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[3].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArc', [3] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[3].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[3].move_table = {
     bullseye = {
         near = { [1] = 'k3', [3] = 's1', [5] = 's2' },
@@ -2501,7 +2628,10 @@ BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[3].move_table = {
         stress = { [1] = 's1', [3] = 'br2', [6] = 'tr3' },
     },
 }
-
+BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[3].flee_table = {
+    edge = { bullseye = 's4' },
+    hyper = { [1] = 'bl2', [2] = 'br2', [3] = 's2', [5] = 's3' }
+}
 BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[3].action_selection = {
     [1] = { -- Target lock if not in enemy's arc
         description = { text = "%s target locked %s outside target's arc.", strings = { 'ship', 'target' } },
@@ -2560,6 +2690,10 @@ BehaviourDB.rule_sets[1].ships['m3ainterceptor'].move_table = {
         stress = { [1] = 'br1', [3] = 'tr2', [5] = 's3' },
     },
 }
+BehaviourDB.rule_sets[1].ships['m3ainterceptor'].flee_table = {
+    edge = { bullseye = 's5' },
+    hyper = { [1] = 'bl1', [3] = 'br1', [5] = 's2', [6] = 's3' }
+}
 BehaviourDB.rule_sets[1].ships['m3ainterceptor'].action_selection = {
     [1] = { -- Target lock if charges left
         description = { text = "%s target locked %s. If %s has no charges on its upgrades, then undo this action and perform it manually.", strings = { 'ship', 'target', 'ship' } },
@@ -2585,8 +2719,12 @@ BehaviourDB.rule_sets[1].ships['m3ainterceptor'].action_selection = {
 
 -- Khiraxz Fighter
 BehaviourDB.rule_sets[1].ships['kihraxzfighter'] = {}
-BehaviourDB.rule_sets[1].ships['kihraxzfighter'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['kihraxzfighter'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['kihraxzfighter'].move_table = {
     bullseye = {
         near = { [1] = 'k4', [3] = 'bl1', [5] = 'br1' },
@@ -2618,6 +2756,10 @@ BehaviourDB.rule_sets[1].ships['kihraxzfighter'].move_table = {
         distant = { [1] = 'tr2t', [4] = 'tr1' },
         stress = { [1] = 'tr1', [2] = 'br1', [4] = 'br2' },
     },
+}
+BehaviourDB.rule_sets[1].ships['kihraxzfighter'].flee_table = {
+    edge = { bullseye = 's4' },
+    hyper = { [1] = 'bl2', [3] = 'br2', [5] = 's2', [6] = 's3' }
 }
 BehaviourDB.rule_sets[1].ships['kihraxzfighter'].action_selection = {
     [1] = { -- (target not moved) Target lock if not in any arcs
@@ -2655,8 +2797,11 @@ BehaviourDB.rule_sets[1].ships['kihraxzfighter'].action_selection = {
 
 -- StarViper-class Attack Platform
 BehaviourDB.rule_sets[1].ships['starviperclassattackplatform'] = {}
-BehaviourDB.rule_sets[1].ships['starviperclassattackplatform'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArc', [3] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['starviperclassattackplatform'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['starviperclassattackplatform'].move_table = {
     bullseye = {
         near = { [1] = 'br3s', [2] = 'bl3s', [3] = 's1', [5] = 's2' },
@@ -2688,6 +2833,10 @@ BehaviourDB.rule_sets[1].ships['starviperclassattackplatform'].move_table = {
         distant = { [1] = 'br3s', [4] = 'tr2' },
         stress = { [1] = 'br1', [4] = 'tr2', [5] = 'br2' },
     },
+}
+BehaviourDB.rule_sets[1].ships['starviperclassattackplatform'].flee_table = {
+    edge = { bullseye = 's4' },
+    hyper = { [1] = 'bl2', [2] = 'br2', [3] = 's2', [5] = 's3' }
 }
 BehaviourDB.rule_sets[1].ships['starviperclassattackplatform'].action_selection = {
     [1] = { -- Target lock
@@ -2741,8 +2890,11 @@ BehaviourDB.rule_sets[1].ships['starviperclassattackplatform'].action_selection 
 -- Fang Fighter
 ---- This logic is shared between Scum and Rebel. See Z-95 for an example on how to split them if necessary.
 BehaviourDB.rule_sets[1].ships['fangfighter'] = {}
-BehaviourDB.rule_sets[1].ships['fangfighter'].target_selection = { [1] = 'LockedInRange', [2] = 'ClosestInArc', [3] =
-'Closest' }
+BehaviourDB.rule_sets[1].ships['fangfighter'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['fangfighter'].move_table = {
     bullseye = {
         near = { [1] = 'k4', [3] = 'bl2', [4] = 'br2', [5] = 's2' },
@@ -2774,6 +2926,10 @@ BehaviourDB.rule_sets[1].ships['fangfighter'].move_table = {
         distant = { [1] = 'tr2t', [4] = 'tr2' },
         stress = { [1] = 'tr2', [4] = 'br2', [6] = 's2' },
     },
+}
+BehaviourDB.rule_sets[1].ships['fangfighter'].flee_table = {
+    edge = { bullseye = 's5' },
+    hyper = { [1] = 'tl2', [2] = 'tr2', [3] = 'bl2', [5] = 'br2' }
 }
 BehaviourDB.rule_sets[1].ships['fangfighter'].action_selection = {
     [1] = { -- Target lock
@@ -2826,8 +2982,11 @@ BehaviourDB.rule_sets[1].ships['fangfighter'].action_selection = {
 -- HWK-290 Light Freighter
 ---- This logic is shared between Scum and Rebel. See Z-95 for an example on how to split them if necessary.
 BehaviourDB.rule_sets[1].ships['hwk290lightfreighter'] = {}
-BehaviourDB.rule_sets[1].ships['hwk290lightfreighter'].target_selection = { [1] = 'LockedInRange', [2] = 'ClosestInArc',
-    [3] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['hwk290lightfreighter'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['hwk290lightfreighter'].move_table = {
     bullseye = {
         near = { [1] = 's0', [4] = 'bl1', [5] = 'br1', [6] = 's1' },
@@ -2859,6 +3018,10 @@ BehaviourDB.rule_sets[1].ships['hwk290lightfreighter'].move_table = {
         distant = { [1] = 'br1', [4] = 'tr2' },
         stress = { [1] = 'br1', [5] = 's1', [6] = 'tr2' },
     },
+}
+BehaviourDB.rule_sets[1].ships['hwk290lightfreighter'].flee_table = {
+    edge = { bullseye = 's4' },
+    hyper = { [1] = 'bl1', [2] = 'br1', [3] = 's2', [5] = 's3' }
 }
 BehaviourDB.rule_sets[1].ships['hwk290lightfreighter'].action_selection = {
     [1] = { -- Target lock
@@ -2904,8 +3067,11 @@ BehaviourDB.rule_sets[1].ships['hwk290lightfreighter'].action_selection = {
 -- Firespray-Class Patrol Craft
 ---- This logic is shared between Scum and CIS. See Z-95 for an example on how to split them if necessary.
 BehaviourDB.rule_sets[1].ships['firesprayclasspatrolcraft'] = {}
-BehaviourDB.rule_sets[1].ships['firesprayclasspatrolcraft'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArc', [3] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['firesprayclasspatrolcraft'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['firesprayclasspatrolcraft'].move_table = {
     bullseye = {
         near = { [1] = 'k4', [3] = 's1', [5] = 's2' },
@@ -2937,6 +3103,10 @@ BehaviourDB.rule_sets[1].ships['firesprayclasspatrolcraft'].move_table = {
         distant = { [1] = 'tr3t', [4] = 'tr2' },
         stress = { [1] = 'bl1', [3] = 'br1', [6] = 'tr2' },
     },
+}
+BehaviourDB.rule_sets[1].ships['firesprayclasspatrolcraft'].flee_table = {
+    edge = { bullseye = 's4' },
+    hyper = { [1] = 'bl1', [2] = 'br1', [3] = 's2', [5] = 's3' }
 }
 BehaviourDB.rule_sets[1].ships['firesprayclasspatrolcraft'].action_selection = {
     [1] = { -- (target not moved) Target lock if not in any arcs
@@ -3018,6 +3188,9 @@ BehaviourDB.rule_sets[1].ships['modifiedtielnfighter'].move_table = {
         stress = { [1] = 'br2', [6] = 'tr3' },
     },
 }
+BehaviourDB.rule_sets[1].ships['modifiedtielnfighter'].flee_table = {
+    edge = { nearest = 's5' },
+}
 BehaviourDB.rule_sets[1].ships['modifiedtielnfighter'].action_selection = {
     [1] = { -- Barrel roll to avoid target's arc and still get a shot
         description = { text = "%s barrel rolled to avoid %s's arc and still get a shot.", strings = { 'ship', 'target' } },
@@ -3050,8 +3223,11 @@ BehaviourDB.rule_sets[1].ships['modifiedtielnfighter'].action_selection = {
 
 -- Customized YT-1300 Light Freighter
 BehaviourDB.rule_sets[1].ships['customizedyt1300lightfreighter'] = {}
-BehaviourDB.rule_sets[1].ships['customizedyt1300lightfreighter'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArc', [3] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['customizedyt1300lightfreighter'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['customizedyt1300lightfreighter'].move_table = {
     bullseye = {
         near = { [1] = 'k4', [2] = 'bl3s', [3] = 'br3s', [4] = 's1', [5] = 'tl2', [6] = 'tr2' },
@@ -3111,8 +3287,12 @@ BehaviourDB.rule_sets[1].ships['customizedyt1300lightfreighter'].action_selectio
 
 -- Aggressor Assault StarFighter
 BehaviourDB.rule_sets[1].ships['aggressorassaultfighter'] = {}
-BehaviourDB.rule_sets[1].ships['aggressorassaultfighter'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['aggressorassaultfighter'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['aggressorassaultfighter'].move_table = {
     bullseye = {
         near = { [1] = 'k4', [3] = 'bl3s', [4] = 'br3s', [5] = 's1', [6] = 's2' },
@@ -3192,8 +3372,12 @@ BehaviourDB.rule_sets[1].ships['aggressorassaultfighter'].action_selection = {
 
 -- Escape Craft
 BehaviourDB.rule_sets[1].ships['escapecraft'] = {}
-BehaviourDB.rule_sets[1].ships['escapecraft'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['escapecraft'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['escapecraft'].move_table = {
     bullseye = {
         near = { [1] = 'k3', [2] = 's0', [4] = 's1', [6] = 's2' },
@@ -3263,8 +3447,12 @@ BehaviourDB.rule_sets[1].ships['escapecraft'].action_selection = {
 
 -- G-1A Starfighter
 BehaviourDB.rule_sets[1].ships['g1astarfighter'] = {}
-BehaviourDB.rule_sets[1].ships['g1astarfighter'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['g1astarfighter'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['g1astarfighter'].move_table = {
     bullseye = {
         near = { [1] = 's0', [3] = 'k4', [5] = 's1' },
@@ -3326,8 +3514,11 @@ BehaviourDB.rule_sets[1].ships['g1astarfighter'].action_selection = {
 
 -- Lancer-class Pursuit Craft
 BehaviourDB.rule_sets[1].ships['lancerclasspursuitcraft'] = {}
-BehaviourDB.rule_sets[1].ships['lancerclasspursuitcraft'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArc', [3] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['lancerclasspursuitcraft'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['lancerclasspursuitcraft'].move_table = {
     bullseye = {
         near = { [1] = 'k5', [3] = 's1', [4] = 'tl3', [5] = 'tr3', [6] = 's4' },
@@ -3400,8 +3591,11 @@ BehaviourDB.rule_sets[1].ships['lancerclasspursuitcraft'].action_selection = {
 
 -- M12-L Kimogila Fighter
 BehaviourDB.rule_sets[1].ships['m12lkimogilafighter'] = {}
-BehaviourDB.rule_sets[1].ships['m12lkimogilafighter'].target_selection = { [1] = 'LockedInRange', [2] = 'ClosestInArc',
-    [3] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['m12lkimogilafighter'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['m12lkimogilafighter'].move_table = {
     bullseye = {
         near = { [1] = 'k4', [4] = 's1', [6] = 's2' },
@@ -3469,8 +3663,11 @@ BehaviourDB.rule_sets[1].ships['m12lkimogilafighter'].action_selection = {
 
 -- Scurrg H-6 Bomber
 BehaviourDB.rule_sets[1].ships['scurrgh6bomber'] = {}
-BehaviourDB.rule_sets[1].ships['scurrgh6bomber'].target_selection = { [1] = 'LockedInRange', [2] = 'ClosestInArc', [3] =
-'Closest' }
+BehaviourDB.rule_sets[1].ships['scurrgh6bomber'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['scurrgh6bomber'].move_table = {
     bullseye = {
         near = { [1] = 'tl3t', [2] = 'tr3t', [3] = 's1', [6] = 's2' },
@@ -3539,8 +3736,12 @@ BehaviourDB.rule_sets[1].ships['scurrgh6bomber'].action_selection = {
 
 -- YV-666 Light Freighter
 BehaviourDB.rule_sets[1].ships['yv666lightfreighter'] = {}
-BehaviourDB.rule_sets[1].ships['yv666lightfreighter'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['yv666lightfreighter'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['yv666lightfreighter'].move_table = {
     bullseye = {
         near = { [1] = 's0', [3] = 'bl1', [4] = 'br1', [5] = 's1' }
@@ -3608,8 +3809,11 @@ BehaviourDB.rule_sets[1].ships['yv666lightfreighter'].action_selection = {
 
 -- JumpMaster 5000
 BehaviourDB.rule_sets[1].ships['jumpmaster5000'] = {}
-BehaviourDB.rule_sets[1].ships['jumpmaster5000'].target_selection = { [1] = 'LockedInRange', [2] = 'ClosestInArc', [3] =
-'Closest' }
+BehaviourDB.rule_sets[1].ships['jumpmaster5000'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['jumpmaster5000'].move_table = {
     bullseye = {
         near = { [1] = 'k4', [3] = 'bl3s', [4] = 's1', [5] = 'tl2', [6] = 'bl3' },
@@ -3785,8 +3989,12 @@ BehaviourDB.rule_sets[1].ships['quadrijettransferspacetug'].action_selection = {
 
 -- ST-70 Assault Ship
 BehaviourDB.rule_sets[1].ships['st70assaultship'] = {}
-BehaviourDB.rule_sets[1].ships['st70assaultship'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['st70assaultship'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['st70assaultship'].move_table = {
     bullseye = {
         near = { [1] = 's0', [3] = 'k5', [5] = 's1' },
@@ -3863,8 +4071,12 @@ BehaviourDB.rule_sets[1].ships['st70assaultship'].action_selection = {
 -- Rogue-class Starfighter
 ---- This logic is shared between Scum and CIS. See Z-95 for an example on how to split them if necessary.
 BehaviourDB.rule_sets[1].ships['rogueclassstarfighter'] = {}
-BehaviourDB.rule_sets[1].ships['rogueclassstarfighter'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['rogueclassstarfighter'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['rogueclassstarfighter'].move_table = {
     bullseye = {
         near = { [1] = 'k5', [3] = 'bl1', [5] = 'br1' },
@@ -3947,8 +4159,11 @@ BehaviourDB.rule_sets[1].ships['rogueclassstarfighter'].action_selection = {
 
 -- TIE/fo Fighter
 BehaviourDB.rule_sets[1].ships['tiefofighter'] = {}
-BehaviourDB.rule_sets[1].ships['tiefofighter'].target_selection = { [1] = 'LockedInRange', [2] = 'ClosestInArc', [3] =
-'Closest' }
+BehaviourDB.rule_sets[1].ships['tiefofighter'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['tiefofighter'].move_table = {
     bullseye = {
         near = { [1] = 'k4', [3] = 'bl2', [4] = 'br2', [5] = 's2' },
@@ -4018,8 +4233,11 @@ BehaviourDB.rule_sets[1].ships['tiefofighter'].action_selection = {
 
 -- TIE/sf Fighter
 BehaviourDB.rule_sets[1].ships['tiesffighter'] = {}
-BehaviourDB.rule_sets[1].ships['tiesffighter'].target_selection = { [1] = 'LockedInRange', [2] = 'ClosestInArc', [3] =
-'Closest' }
+BehaviourDB.rule_sets[1].ships['tiesffighter'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['tiesffighter'].move_table = {
     bullseye = {
         near = { [1] = 'br3s', [2] = 'bl3s', [3] = 's1', [5] = 's2' },
@@ -4113,8 +4331,11 @@ BehaviourDB.rule_sets[1].ships['tiesffighter'].action_selection = {
 
 -- TIE/se Bomber
 BehaviourDB.rule_sets[1].ships['tiesebomber'] = {}
-BehaviourDB.rule_sets[1].ships['tiesebomber'].target_selection = { [1] = 'LockedInRange', [2] = 'ClosestInArc', [3] =
-'Closest' }
+BehaviourDB.rule_sets[1].ships['tiesebomber'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['tiesebomber'].move_table = {
     bullseye = {
         near = { [1] = 'br3s', [2] = 'bl3s', [3] = 's1', [5] = 's2', [6] = 's4' },
@@ -4210,8 +4431,12 @@ BehaviourDB.rule_sets[1].ships['tiesebomber'].action_selection = {
 
 -- TIE/vn Silencer
 BehaviourDB.rule_sets[1].ships['tievnsilencer'] = {}
-BehaviourDB.rule_sets[1].ships['tievnsilencer'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['tievnsilencer'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['tievnsilencer'].move_table = {
     bullseye = {
         near = { [1] = 'k4', [4] = 's2', [5] = 'tl3', [6] = 'tr3' },
@@ -4304,8 +4529,12 @@ BehaviourDB.rule_sets[1].ships['tievnsilencer'].action_selection = {
 
 -- TIE/wi Whisper Modified Interceptor
 BehaviourDB.rule_sets[1].ships['tiewiwhispermodifiedinterceptor'] = {}
-BehaviourDB.rule_sets[1].ships['tiewiwhispermodifiedinterceptor'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['tiewiwhispermodifiedinterceptor'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['tiewiwhispermodifiedinterceptor'].move_table = {
     bullseye = {
         near = { [1] = 'k5', [3] = 'bl3s', [4] = 'br3s', [5] = 'tl3', [6] = 'tr3' },
@@ -4558,8 +4787,12 @@ BehaviourDB.rule_sets[1].ships['xiclasslightshuttle'].action_selection = {
 
 -- TIE/ba Interceptor
 BehaviourDB.rule_sets[1].ships['tiebainterceptor'] = {}
-BehaviourDB.rule_sets[1].ships['tiebainterceptor'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['tiebainterceptor'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['tiebainterceptor'].move_table = {
     bullseye = {
         near = { [1] = 'k5', [3] = 'bl2s', [4] = 'br2s', [5] = 's2' },
@@ -4652,8 +4885,11 @@ BehaviourDB.rule_sets[1].ships['tiebainterceptor'].action_selection = {
 
 -- Scavenged YT-1300
 BehaviourDB.rule_sets[1].ships['scavengedyt1300lightfreighter'] = {}
-BehaviourDB.rule_sets[1].ships['scavengedyt1300lightfreighter'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArc', [3] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['scavengedyt1300lightfreighter'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['scavengedyt1300lightfreighter'].move_table = {
     bullseye = {
         near = { [1] = 'bl3s', [2] = 'br3s', [3] = 's1', [4] = 'tl3', [5] = 'tr3', [6] = 's4' },
@@ -4727,8 +4963,12 @@ BehaviourDB.rule_sets[1].ships['scavengedyt1300lightfreighter'].action_selection
 
 -- T-70 X-Wing
 BehaviourDB.rule_sets[1].ships['t70xwing'] = {}
-BehaviourDB.rule_sets[1].ships['t70xwing'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['t70xwing'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['t70xwing'].move_table = {
     bullseye = {
         near = { [1] = 'k4', [3] = 's1', [6] = 's2' },
@@ -4803,8 +5043,11 @@ BehaviourDB.rule_sets[1].ships['t70xwing'].action_selection = {
 
 -- BTL-NR2 Y-Wing
 BehaviourDB.rule_sets[1].ships['btanr2ywing'] = {}
-BehaviourDB.rule_sets[1].ships['btanr2ywing'].target_selection = { [1] = 'LockedInRange', [2] = 'ClosestInArc', [3] =
-'Closest' }
+BehaviourDB.rule_sets[1].ships['btanr2ywing'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['btanr2ywing'].move_table = {
     bullseye = {
         near = { [1] = 'k5', [3] = 's1', [6] = 's2' },
@@ -4888,8 +5131,11 @@ BehaviourDB.rule_sets[1].ships['btanr2ywing'].action_selection = {
 
 -- MG-100 StarFortress SF-17
 BehaviourDB.rule_sets[1].ships['mg100starfortress'] = {}
-BehaviourDB.rule_sets[1].ships['mg100starfortress'].target_selection = { [1] = 'LockedInRange', [2] = 'ClosestInArc', [3] =
-'Closest' }
+BehaviourDB.rule_sets[1].ships['mg100starfortress'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['mg100starfortress'].move_table = {
     bullseye = {
         near = { [1] = 's0', [3] = 's1', [4] = 's3', [5] = 'tl2', [6] = 'tr2' },
@@ -4957,8 +5203,11 @@ BehaviourDB.rule_sets[1].ships['mg100starfortress'].action_selection = {
 
 -- Resistance Transport
 BehaviourDB.rule_sets[1].ships['resistancetransport'] = {}
-BehaviourDB.rule_sets[1].ships['resistancetransport'].target_selection = { [1] = 'LockedInRange', [2] = 'ClosestInArc',
-    [3] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['resistancetransport'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['resistancetransport'].action_selection = {}
 BehaviourDB.rule_sets[1].ships['resistancetransport'].move_table = {
     bullseye = {
@@ -5031,8 +5280,11 @@ BehaviourDB.rule_sets[1].ships['resistancetransport'].action_selection = {
 
 -- Resistance Transport Pod
 BehaviourDB.rule_sets[1].ships['resistancetransportpod'] = {}
-BehaviourDB.rule_sets[1].ships['resistancetransportpod'].target_selection = { [1] = 'LockedInRange', [2] = 'ClosestInArc',
-    [3] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['resistancetransportpod'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['resistancetransportpod'].move_table = {
     bullseye = {
         near = { [1] = 'k3', [2] = 's1', [4] = 's2', [5] = 'tl2', [6] = 'tr2' },
@@ -5107,8 +5359,12 @@ BehaviourDB.rule_sets[1].ships['resistancetransportpod'].action_selection = {
 
 -- RZ-2 A-Wing
 BehaviourDB.rule_sets[1].ships['rz2awing'] = {}
-BehaviourDB.rule_sets[1].ships['rz2awing'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['rz2awing'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['rz2awing'].move_table = {
     bullseye = {
         near = { [1] = 'k5', [3] = 's2', [4] = 'tl3', [5] = 'tr3', [6] = 's5' },
@@ -5295,8 +5551,11 @@ BehaviourDB.rule_sets[1].ships['fireball'].action_selection = {
 
 -- BTL-B Y-Wing
 BehaviourDB.rule_sets[1].ships['btlbywing'] = {}
-BehaviourDB.rule_sets[1].ships['btlbywing'].target_selection = { [1] = 'LockedInRange', [2] = 'ClosestInArc', [3] =
-'Closest' }
+BehaviourDB.rule_sets[1].ships['btlbywing'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['btlbywing'].move_table = {
     bullseye = {
         near = { [1] = 'k4', [3] = 's1', [6] = 's2' },
@@ -5364,8 +5623,12 @@ BehaviourDB.rule_sets[1].ships['btlbywing'].action_selection = {
 
 -- V-19 Torrent Starfighter
 BehaviourDB.rule_sets[1].ships['v19torrentstarfighter'] = {}
-BehaviourDB.rule_sets[1].ships['v19torrentstarfighter'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['v19torrentstarfighter'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['v19torrentstarfighter'].move_table = {
     bullseye = {
         near = { [1] = 'k3', [3] = 's1', [4] = 's2', [5] = 'tl2', [6] = 'tr2' },
@@ -5446,8 +5709,11 @@ BehaviourDB.rule_sets[1].ships['v19torrentstarfighter'].action_selection = {
 
 -- Nimbus-class V-Wing
 BehaviourDB.rule_sets[1].ships['nimbusclassvwing'] = {}
-BehaviourDB.rule_sets[1].ships['nimbusclassvwing'].target_selection = { [1] = 'LockedInRange', [2] = 'ClosestInArc', [3] =
-'Closest' }
+BehaviourDB.rule_sets[1].ships['nimbusclassvwing'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['nimbusclassvwing'].move_table = {
     bullseye = {
         near = { [1] = 'k4', [4] = 's2', [5] = 'tl3', [6] = 'tr3' },
@@ -5531,8 +5797,12 @@ BehaviourDB.rule_sets[1].ships['nimbusclassvwing'].action_selection = {
 
 -- Delta-7 Aethersprite
 BehaviourDB.rule_sets[1].ships['delta7aethersprite'] = {}
-BehaviourDB.rule_sets[1].ships['delta7aethersprite'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['delta7aethersprite'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['delta7aethersprite'].move_table = {
     bullseye = {
         near = { [1] = 'k5', [3] = 'bl2s', [4] = 'br2s', [5] = 's2', [6] = 's5' },
@@ -5630,8 +5900,12 @@ BehaviourDB.rule_sets[1].ships['delta7aethersprite'].action_selection = {
 
 -- Delta-7b Aethersprite
 BehaviourDB.rule_sets[1].ships['delta7baethersprite'] = {}
-BehaviourDB.rule_sets[1].ships['delta7baethersprite'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['delta7baethersprite'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['delta7baethersprite'].move_table = {
     bullseye = {
         near = { [1] = 'k5', [3] = 'bl2s', [4] = 'br2s', [5] = 's2', [6] = 's5' },
@@ -5729,8 +6003,12 @@ BehaviourDB.rule_sets[1].ships['delta7baethersprite'].action_selection = {
 
 -- Eta-2 Actis-class Interceptor
 BehaviourDB.rule_sets[1].ships['eta2actis'] = {}
-BehaviourDB.rule_sets[1].ships['eta2actis'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['eta2actis'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['eta2actis'].action_selection = {}
 BehaviourDB.rule_sets[1].ships['eta2actis'].move_table = {
     bullseye = {
@@ -5815,8 +6093,11 @@ BehaviourDB.rule_sets[1].ships['eta2actis'].action_selection = {
 
 -- LAAT/i Gunship
 BehaviourDB.rule_sets[1].ships['laatigunship'] = {}
-BehaviourDB.rule_sets[1].ships['laatigunship'].target_selection = { [1] = 'LockedInRange', [2] = 'ClosestInArc', [3] =
-'Closest' }
+BehaviourDB.rule_sets[1].ships['laatigunship'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['laatigunship'].move_table = {
     bullseye = {
         near = { [1] = 's0', [2] = 's1', [3] = 'tl2', [4] = 'tr2', [5] = 'bl3', [6] = 'br3' },
@@ -5894,8 +6175,12 @@ BehaviourDB.rule_sets[1].ships['laatigunship'].action_selection = {
 
 -- Naboo Royal N-1 Starfighter
 BehaviourDB.rule_sets[1].ships['nabooroyaln1starfighter'] = {}
-BehaviourDB.rule_sets[1].ships['nabooroyaln1starfighter'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['nabooroyaln1starfighter'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['nabooroyaln1starfighter'].action_selection = {}
 BehaviourDB.rule_sets[1].ships['nabooroyaln1starfighter'].move_table = {
     bullseye = {
@@ -5982,8 +6267,11 @@ BehaviourDB.rule_sets[1].ships['nabooroyaln1starfighter'].special_rules = { 'ful
 
 -- Clone Z-95 Headhunter.
 BehaviourDB.rule_sets[1].ships['clonez95headhunter'] = {}
-BehaviourDB.rule_sets[1].ships['clonez95headhunter'].target_selection = { [1] = 'LockedInRange', [2] = 'ClosestInArc',
-    [3] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['clonez95headhunter'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['clonez95headhunter'].action_selection = {}
 BehaviourDB.rule_sets[1].ships['clonez95headhunter'].move_table = {
     bullseye = {
@@ -6059,8 +6347,12 @@ BehaviourDB.rule_sets[1].ships['clonez95headhunter'].action_selection = {
 
 -- Hyena-class Droid Bomber
 BehaviourDB.rule_sets[1].ships['hyenaclassdroidbomber'] = {}
-BehaviourDB.rule_sets[1].ships['hyenaclassdroidbomber'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['hyenaclassdroidbomber'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['hyenaclassdroidbomber'].move_table = {
     bullseye = {
         near = { [1] = 's1', [3] = 's2', [4] = 'tl2', [5] = 'tr2', [6] = 's4' },
@@ -6147,8 +6439,12 @@ BehaviourDB.rule_sets[1].ships['hyenaclassdroidbomber'].action_selection = {
 
 -- Vulture-class Droid Fighter
 BehaviourDB.rule_sets[1].ships['vultureclassdroidfighter'] = {}
-BehaviourDB.rule_sets[1].ships['vultureclassdroidfighter'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['vultureclassdroidfighter'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['vultureclassdroidfighter'].move_table = {
     bullseye = {
         near = { [1] = 's2', [2] = 'tl2', [3] = 'tr2', [4] = 'tl3', [5] = 'tr3', [6] = 's5' },
@@ -6225,8 +6521,12 @@ BehaviourDB.rule_sets[1].ships['vultureclassdroidfighter'].action_selection = {
 
 -- Belbullab-22 Starfighter
 BehaviourDB.rule_sets[1].ships['belbulab22starfighter'] = {}
-BehaviourDB.rule_sets[1].ships['belbulab22starfighter'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['belbulab22starfighter'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['belbulab22starfighter'].move_table = {
     bullseye = {
         near = { [1] = 'bl3s', [3] = 'br3s', [5] = 's2', [6] = 's5' },
@@ -6315,8 +6615,12 @@ BehaviourDB.rule_sets[1].ships['belbulab22starfighter'].action_selection = {
 
 -- Droid Tri-Fighter
 BehaviourDB.rule_sets[1].ships['droidtrifighter'] = {}
-BehaviourDB.rule_sets[1].ships['droidtrifighter'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['droidtrifighter'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['droidtrifighter'].move_table = {
     bullseye = {
         near = { [1] = 'k5', [4] = 's2', [5] = 'tl3', [6] = 'tr3' },
@@ -6409,8 +6713,11 @@ BehaviourDB.rule_sets[1].ships['droidtrifighter'].action_selection = {
 
 -- HMP Droid Gunship
 BehaviourDB.rule_sets[1].ships['hmpdroidgunship'] = {}
-BehaviourDB.rule_sets[1].ships['hmpdroidgunship'].target_selection = { [1] = 'LockedInRange', [2] = 'ClosestInArc', [3] =
-'Closest' }
+BehaviourDB.rule_sets[1].ships['hmpdroidgunship'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['hmpdroidgunship'].move_table = {
     bullseye = {
         near = { [1] = 's0', [2] = 's1', [3] = 'bl2z', [4] = 'br2z', [5] = 'tl2z', [6] = 'tr2z' },
@@ -6492,8 +6799,12 @@ BehaviourDB.rule_sets[1].ships['hmpdroidgunship'].action_selection = {
 
 -- Sith Infiltrator
 BehaviourDB.rule_sets[1].ships['sithinfiltrator'] = {}
-BehaviourDB.rule_sets[1].ships['sithinfiltrator'].target_selection = { [1] = 'LockedInRange', [2] =
-'ClosestInArcLowerInitiative', [3] = 'ClosestInArc', [4] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['sithinfiltrator'].target_selection = {
+    [1] = 'LockedInRange',
+    [2] = 'ClosestInArcLowerInitiative',
+    [3] = 'ClosestInArc',
+    [4] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['sithinfiltrator'].move_table = {
     bullseye = {
         near = { [1] = 'k5', [3] = 'br2s', [4] = 'bl2s', [5] = 's1', [6] = 's4' },
@@ -6562,8 +6873,11 @@ BehaviourDB.rule_sets[1].ships['sithinfiltrator'].action_selection = {
 
 -- Nantex-class Starfighter
 BehaviourDB.rule_sets[1].ships['nantexclassstarfighter'] = {}
-BehaviourDB.rule_sets[1].ships['nantexclassstarfighter'].target_selection = { [1] = 'ClosestInArcLowerInitiative', [2] =
-'ClosestInArc', [3] = 'Closest' }
+BehaviourDB.rule_sets[1].ships['nantexclassstarfighter'].target_selection = {
+    [1] = 'ClosestInArcLowerInitiative',
+    [2] = 'ClosestInArc',
+    [3] = 'Closest'
+}
 BehaviourDB.rule_sets[1].ships['nantexclassstarfighter'].move_table = {
     bullseye = {
         near = { [1] = 'k5', [3] = 'bl3s', [4] = 'br3s', [5] = 'bl2', [6] = 'br2' },
