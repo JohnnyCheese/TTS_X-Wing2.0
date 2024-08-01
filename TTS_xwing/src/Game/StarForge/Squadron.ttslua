@@ -4,17 +4,17 @@ local Dim = require("TTS_xwing.src.Dim")
 local PlayerArea = require("TTS_xwing.src.Player.PlayerArea")
 local ButtonTest = require("TTS_xwing.src.Test.ButtonTest")
 
-local SpawnedGroup = {}
-SpawnedGroup.__index = SpawnedGroup
+local Squadron = {}
+Squadron.__index = Squadron
 
-function SpawnedGroup:new(playerArea)
-    local self = setmetatable({}, SpawnedGroup)
+function Squadron:new(playerArea)
+    local self = setmetatable({}, Squadron)
     self.objects = self:performCast()
     self.playerArea = playerArea
     return self
 end
 
-function SpawnedGroup:performCast()
+function Squadron:performCast()
     local dataPadSpawnArea = {
         origin = Vector(-64.00, 0.0, -30.00), -- Start below the objects
         direction = Vector(0, 0, 1),          -- Move in the positive z-direction
@@ -36,11 +36,11 @@ function SpawnedGroup:performCast()
     return spawnedObjects
 end
 
-function SpawnedGroup:getObjects()
+function Squadron:getObjects()
     return self.objects
 end
 
-function SpawnedGroup:getDials()
+function Squadron:getDials()
     local dials = {}
     for _, obj in ipairs(self.objects) do
         if obj.getName() == "Unassigned Dial" then
@@ -51,7 +51,7 @@ function SpawnedGroup:getDials()
     return dials
 end
 
-function SpawnedGroup:getShips()
+function Squadron:getShips()
     local ships = {}
     for _, obj in ipairs(self.objects) do
         if obj.type == 'Figurine' then
@@ -63,7 +63,7 @@ function SpawnedGroup:getShips()
 end
 
 -- Method to check if all objects are at rest
-function SpawnedGroup:allObjectsAtRest()
+function Squadron:allObjectsAtRest()
     for _, obj in ipairs(self.objects) do
         if obj.isSmoothMoving() or not obj.resting then
             return false
@@ -73,7 +73,7 @@ function SpawnedGroup:allObjectsAtRest()
 end
 
 -- Function to assign the dial to the nearest ship
-function SpawnedGroup:assignNearestShip(dial)
+function Squadron:assignNearestShip(dial)
     printToAll("assignNearestShip ", Color.Orange)
 
     local playerColor = self.playerArea.color
@@ -97,31 +97,21 @@ function SpawnedGroup:assignNearestShip(dial)
         end
     end
 
-    printToAll("Pick a color before assigning dials: " .. tostring(nearest))
     if nearest ~= nil then
         if playerColor == "White" then
             printToAll("Please, pick a color before assigning dials")
         else
-            local playerTeam = nil
-            local teamVisibility = ""
-            for _, player in pairs(Player.getPlayers()) do
-                if player.color == playerColor then
-                    if player.team ~= "None" then
-                        playerTeam = player.team
-                        teamVisibility = "|" .. playerTeam
-                    end
-                end
-            end
-
             nearest.setVar('owningPlayer', playerColor)
             dial.setRotation(nearest.getRotation())
             dial.call("assignShip", { ship = nearest })
             dial.call("placeShip", { playerColor })
+            Global.call("API_AssignDial", { dial = dial, ship = nearest, player = playerColor })
+            -- dial.call("redraw", { dial.is_face_down })
         end
     end
 end
 
-function SpawnedGroup:dropDials()
+function Squadron:dropDials()
     local toShip = 3 * self.playerArea.forward
     toShip.y = 5
     for _, dial in ipairs(self:getDials()) do
@@ -139,4 +129,4 @@ function SpawnedGroup:dropDials()
     end
 end
 
-return SpawnedGroup
+return Squadron

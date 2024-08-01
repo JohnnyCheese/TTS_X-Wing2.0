@@ -3,11 +3,11 @@ local Sequence = require("TTS_xwing.src.Test.Sequence")
 local ButtonTest = require("TTS_xwing.src.Test.ButtonTest")
 local Dim = require("TTS_xwing.src.Dim")
 local PlayerArea = require("TTS_xwing.src.Player.PlayerArea")
-local SpawnedGroup = require("TTS_xwing.src.Game.StarForge.SpawnedGroup")
+local Squadron = require("TTS_xwing.src.Game.StarForge.Squadron")
 
-local SmokeTest = {}
+local DataPadTest = {}
 
-SmokeTest.runSmokeTest = function()
+DataPadTest.runSmokeTest = function()
     printToAll("Starting Smoke Test...", { 0, 1, 0 })
 
     local bluePlayerArea = PlayerArea:new(Player["Blue"])
@@ -15,15 +15,15 @@ SmokeTest.runSmokeTest = function()
 
     local seq = Sequence:new()
 
-    SmokeTest.spawnImperialShips(seq, bluePlayerArea)
-    SmokeTest.spawnRebelShips(seq, redPlayerArea)
+    DataPadTest.spawnImperialShips(seq, bluePlayerArea)
+    DataPadTest.spawnRebelShips(seq, redPlayerArea)
 
     seq:start()
 
     printToAll("Smoke Test Completed.", { 0, 1, 0 })
 end
 
-function SmokeTest.spawnImperialShips(seq, playerArea)
+function DataPadTest.spawnImperialShips(seq, playerArea)
     local dataPad = getObjectFromGUID("a4dbbf")
     if dataPad == nil then
         printToAll("Didn't find DataPad", { 0, 1, 0 })
@@ -43,7 +43,7 @@ function SmokeTest.spawnImperialShips(seq, playerArea)
     seq:add(waitAndMove, playerArea, 120)
 end
 
-function SmokeTest.spawnRebelShips(seq, playerArea)
+function DataPadTest.spawnRebelShips(seq, playerArea)
     local dataPad = getObjectFromGUID("a4dbbf")
     if dataPad == nil then
         printToAll("Didn't find DataPad", { 0, 1, 0 })
@@ -72,17 +72,17 @@ local function waitForAllObjectsAtRest(seq, newObjects)
 end
 
 local function moveTo(playerArea)
-    local newObjects = SpawnedGroup:new(playerArea)
+    local squad = Squadron:new(playerArea)
     local seq = Sequence:new()
 
     seq:add(function(seq)
-        playerArea:translate(newObjects:getObjects())
-        waitForAllObjectsAtRest(seq, newObjects)
+        playerArea:translate(squad:getObjects())
+        waitForAllObjectsAtRest(seq, squad)
     end)
 
     seq:add(function(seq)
-        newObjects:dropDials()
-        waitForAllObjectsAtRest(seq, newObjects)
+        squad:dropDials()
+        waitForAllObjectsAtRest(seq, squad)
     end)
     -- seq:add(ButtonTest.Click, dataPad, 'Spawn List', player_color, false)
     -- seq:add(ButtonTest.Click, host_obj, "Place Ship", playerArea.player.color, false)
@@ -98,19 +98,4 @@ function waitAndMove(seq, playerArea, delay)
     end, delay)
 end
 
-function moveToOld(playerArea)
-    local newObjects = SpawnedGroup:new(playerArea)
-
-    Wait.condition(function()
-        playerArea:translate(newObjects:getObjects())
-        Wait.condition(function()
-            newObjects:dropDials()
-        end, function()
-            return newObjects:allObjectsAtRest()
-        end)
-    end, function()
-        return newObjects:allObjectsAtRest()
-    end)
-end
-
-return SmokeTest
+return DataPadTest
