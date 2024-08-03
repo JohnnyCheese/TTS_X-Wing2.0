@@ -76,7 +76,7 @@ end
 function Squadron:assignNearestShip(dial)
     printToAll("assignNearestShip ", Color.Orange)
 
-    local playerColor = self.playerArea.color
+    local playerColor = self.playerArea.player.color
     local dialPos = dial.getPosition()
     local minDist = Dim.Convert_mm_igu(80)
     local ships = self:getShips()
@@ -89,7 +89,6 @@ function Squadron:assignNearestShip(dial)
         if ship.type == 'Figurine' and ship.name ~= '' then
             local shipPos = ship.getPosition()
             local dist = dialPos:distance(shipPos)
-            printToAll(ship.getName() .. " dist: " .. tostring(dist), Color.Orange)
             if dist < minDist then
                 nearest = ship
                 minDist = dist
@@ -102,11 +101,11 @@ function Squadron:assignNearestShip(dial)
             printToAll("Please, pick a color before assigning dials")
         else
             nearest.setVar('owningPlayer', playerColor)
+            dial.setVar('playerColor', playerColor)
             dial.setRotation(nearest.getRotation())
             dial.call("assignShip", { ship = nearest })
             dial.call("placeShip", { playerColor })
             Global.call("API_AssignDial", { dial = dial, ship = nearest, player = playerColor })
-            -- dial.call("redraw", { dial.is_face_down })
         end
     end
 end
