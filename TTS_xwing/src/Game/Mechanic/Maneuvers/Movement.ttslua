@@ -11,7 +11,7 @@ function MovementStrategy:new()
     return setmetatable({}, self)
 end
 
-function MovementStrategy:execute(ship)
+function MovementStrategy:execute(ship, forward)
     -- To be overridden by subclasses
 end
 
@@ -31,43 +31,59 @@ function StraightMove:new(distance)
     return setmetatable(instance, StraightMove)
 end
 
-function StraightMove:execute(ship)
-    local forward = ship.getTransformForward()
+function StraightMove:execute(ship, forward)
     local baseSize = self:getBaseSize(ship)
-    local posDelta = Vector(self.distance + baseSize, 0, 0) * forward
+    local posDelta = (self.distance + baseSize) * forward
     local newPos = ship.getPosition() + posDelta
-    ship.setPositionSmooth(newPos, false, false)
+    ship.setPositionSmooth(newPos, false, true)
 end
 
--- TurnMove class inherits from MovementStrategy
-local TurnMove = setmetatable({}, { __index = MovementStrategy })
-TurnMove.__index = TurnMove
+-- KoiogranTurn class inherits from StraightMove
+local KoiogranTurn = setmetatable({}, { __index = StraightMove })
+KoiogranTurn.__index = KoiogranTurn
 
-function TurnMove:new(radius, angle)
+function KoiogranTurn:new(distance)
+    local instance = StraightMove:new(distance) -- Properly initialize distance
+    instance.rotation = 180
+    return setmetatable(instance, KoiogranTurn)
+end
+
+function KoiogranTurn:execute(ship, forward)
+    StraightMove.execute(self, ship, forward) -- Call the base execute method with the forward vector
+    local currentRotation = ship.getRotation()
+    local newRotation = currentRotation + Vector(0, self.rotation, 0)
+    ship.setRotationSmooth(newRotation, false, false)
+end
+
+-- Moves along a curved path
+local ArcMove = setmetatable({}, { __index = MovementStrategy })
+ArcMove.__index = ArcMove
+
+function ArcMove:new(radius, angle)
     local instance = MovementStrategy:new()
     instance.radius = igu(radius)
     instance.angle = angle
-    return setmetatable(instance, TurnMove)
+    return setmetatable(instance, ArcMove)
 end
 
-function TurnMove:execute(ship)
-    local forward = ship.getTransformForward()
-    local right = ship.getTransformRight()
+function ArcMove:execute(ship, forward)
+    -- local right = ship.getTransformRight()
+    local right = -1 * forward
 
     local baseSize = self:getBaseSize(ship)
-    
-    -- Calculate the center of the turn
-    local centerOfTurn = ship.getPosition() - right * (self.radius + baseSize)
+
+    -- Calculate the center of the arc
+    local centerOfArc = ship.getPosition() - right * (self.radius + baseSize)
 
     -- Calculate the angle in radians
     local angleRadians = math.rad(self.angle)
-    
+
     -- Calculate the new position using trigonometry
     local cosAngle = math.cos(angleRadians)
     local sinAngle = math.sin(angleRadians)
-    local offsetX = (ship.getPosition().x - centerOfTurn.x) * cosAngle - (ship.getPosition().z - centerOfTurn.z) * sinAngle
-    local offsetZ = (ship.getPosition().x - centerOfTurn.x) * sinAngle + (ship.getPosition().z - centerOfTurn.z) * cosAngle
-    local newPos = Vector(centerOfTurn.x + offsetX, ship.getPosition().y, centerOfTurn.z + offsetZ)
+    local offsetX = (ship.getPosition().x - centerOfArc.x) * cosAngle - (ship.getPosition().z - centerOfArc.z) * sinAngle
+    local offsetZ = (ship.getPosition().x - centerOfArc.x) * sinAngle + (ship.getPosition().z - centerOfArc.z) * cosAngle
+    local newPos = Vector(centerOfArc.x + offsetX, ship.getPosition().y, centerOfArc.z + offsetZ)
 
     -- Determine the new rotation
     local newRotation = ship.getRotation() + Vector(0, self.angle, 0)
@@ -77,89 +93,51 @@ function TurnMove:execute(ship)
     ship.setRotationSmooth(newRotation, false, false)
 end
 
--- BankMove class inherits from MovementStrategy
-local BankMove = setmetatable({}, { __index = MovementStrategy })
+-- TurnMove class inherits from ArcMove
+local TurnMove = setmetatable({}, { __index = ArcMove })
+TurnMove.__index = TurnMove
+
+function TurnMove:new(radius)
+    return setmetatable(ArcMove:new(radius, 90), TurnMove)
+end
+
+-- BankMove class inherits from ArcMove
+local BankMove = setmetatable({}, { __index = ArcMove })
 BankMove.__index = BankMove
 
-function BankMove:new(radius, angle)
-    local instance = MovementStrategy:new()
-    instance.radius = igu(radius)
-    instance.angle = angle
-    return setmetatable(instance, BankMove)
+function BankMove:new(radius)
+    return setmetatable(ArcMove:new(radius, 45), BankMove)
 end
 
-function BankMove:execute(ship)
-    local forward = ship.getTransformForward()
-    local right = ship.getTransformRight()
-    local baseSize = self:getBaseSize(ship)
-
-    -- Calculate the center of the bank
-    local centerOfTurn = ship.getPosition() - right * (self.radius + baseSize)
-
-    -- Calculate the angle in radians
-    local angleRadians = math.rad(self.angle)
-
-    -- Calculate the new position using trigonometry
-    local cosAngle = math.cos(angleRadians)
-    local sinAngle = math.sin(angleRadians)
-    local offsetX = (ship.getPosition().x - centerOfTurn.x) * cosAngle - (ship.getPosition().z - centerOfTurn.z) * sinAngle
-    local offsetZ = (ship.getPosition().x - centerOfTurn.x) * sinAngle + (ship.getPosition().z - centerOfTurn.z) * cosAngle
-    local newPos = Vector(centerOfTurn.x + offsetX, ship.getPosition().y, centerOfTurn.z + offsetZ)
-
-    -- Determine the new rotation
-    local newRotation = ship.getRotation() + Vector(0, self.angle / 2, 0)
-
-    -- Update ship position and rotation smoothly
-    ship.setPositionSmooth(newPos, false, false)
-    ship.setRotationSmooth(newRotation, false, false)
-end
-
--- KoiogranTurn class inherits from StraightMove
-local KoiogranTurn = setmetatable({}, { __index = StraightMove })
-KoiogranTurn.__index = KoiogranTurn
-
-function KoiogranTurn:new(distance)
-    local instance = StraightMove:new(distance)
-    instance.rotation = 180
-    return setmetatable(instance, KoiogranTurn)
-end
-
-function KoiogranTurn:execute(ship)
-    StraightMove:execute(ship)
-    local currentRotation = ship.getRotation()
-    local newRotation = currentRotation + Vector(0, self.rotation, 0)
-    ship.setRotationSmooth(newRotation, false, false)
-end
-
--- SegnorLoop class inherits from BankMove
-local SegnorLoop = setmetatable({}, { __index = BankMove })
+-- SegnorLoop class inherits from ArcMove
+local SegnorLoop = setmetatable({}, { __index = ArcMove })
 SegnorLoop.__index = SegnorLoop
 
-function SegnorLoop:new(radius, angle, rotation)
-    local instance = BankMove:new(radius, angle)
-    instance.rotation = rotation
+function SegnorLoop:new(radius, rotation)
+    local instance = ArcMove:new(radius, 45) -- Using 45 degrees as the bank angle
+    instance.rotation = rotation or 180      -- Defaulting to a 180-degree rotation
     return setmetatable(instance, SegnorLoop)
 end
 
-function SegnorLoop:execute(ship)
-    BankMove:execute(ship)
+function SegnorLoop:execute(ship, forward)
+    ArcMove:execute(ship, forward)
     local currentRotation = ship.getRotation()
     local newRotation = currentRotation + Vector(0, self.rotation, 0)
     ship.setRotationSmooth(newRotation, false, false)
 end
 
--- TallonRoll class inherits from TurnMove
-local TallonRoll = setmetatable({}, { __index = TurnMove })
+-- TallonRoll class inherits from ArcMove
+local TallonRoll = setmetatable({}, { __index = ArcMove })
 TallonRoll.__index = TallonRoll
 
-function TallonRoll:new(radius, angle, extraRotation)
-    local instance = TurnMove:new(radius, angle)
-    instance.extraRotation = extraRotation
+function TallonRoll:new(radius, extraRotation)
+    local instance = ArcMove:new(radius, 90)      -- Using 90 degrees as the turn angle
+    instance.extraRotation = extraRotation or -90 -- Defaulting to a 90-degree additional rotation
     return setmetatable(instance, TallonRoll)
 end
 
-function TallonRoll:execute(ship)
-    TurnMove:execute(ship)
+function TallonRoll:execute(ship, forward)
+    ArcMove:execute(ship, forward)
     local currentRotation = ship.getRotation()
     local newRotation = currentRotation + Vector(0, self.extraRotation, 0)
     ship.setRotationSmooth(newRotation, false, false)
@@ -169,12 +147,21 @@ end
 local Movement = {}
 Movement.__index = Movement
 
-function Movement:new()
+--[[
+If the forward Vector of the object doesn't line up with the object visually,
+you can pass a Vector here that correct the forward vector by rotating it around the y-axis by
+ the provided angle in degrees.
+This will allow object's forward vector to move it properly.
+]]
+function Movement:new(forwardAdjustment)
     local instance = setmetatable({}, self)
+
+    -- Store the forwardAdjustment angle, defaulting to 0, if not provided
+    instance.forwardAdjustment = forwardAdjustment or 0
 
     -- Initialize movement strategies once and store them in a table
     instance.moveStrategies = {
-        --    -- Straight maneuvers
+        -- Straight maneuvers
         s1 = StraightMove:new(40),
         s2 = StraightMove:new(80),
         s3 = StraightMove:new(120),
@@ -189,33 +176,39 @@ function Movement:new()
         k5 = KoiogranTurn:new(200),
 
         -- Turn maneuvers
-        tr1 = TurnMove:new(35, 90),
-        tr2 = TurnMove:new(63, 90),
-        tr3 = TurnMove:new(90, 90),
+        tr1 = TurnMove:new(35),
+        tr2 = TurnMove:new(63),
+        tr3 = TurnMove:new(90),
 
         -- Bank maneuvers
-        br1 = BankMove:new(80, 45),
-        br2 = BankMove:new(130, 45),
-        br3 = BankMove:new(180, 45),
+        br1 = BankMove:new(80),
+        br2 = BankMove:new(130),
+        br3 = BankMove:new(180),
 
         -- Segnor's Loop (uses the bank template and reverses facing)
-        br1s = SegnorLoop:new(80, 45, 180),  -- Left Segnor's Loop
-        br2s = SegnorLoop:new(130, 45, 180), -- Right Segnor's Loop
-        br3s = SegnorLoop:new(180, 45, 180), -- Right Segnor's Loop
+        br1s = SegnorLoop:new(80, 180),  -- Left Segnor's Loop
+        br2s = SegnorLoop:new(130, 180), -- Right Segnor's Loop
+        br3s = SegnorLoop:new(180, 180), -- Right Segnor's Loop
 
         -- Tallon Roll (uses the turn template and rotates the ship 90º at the end)
-        tr1tl = TallonRoll:new(35, 90, -90), -- Right Tallon Roll
-        tr2tl = TallonRoll:new(63, 90, -90),
-        tr3tl = TallonRoll:new(90, 90, -90)
+        tr1tl = TallonRoll:new(35, -90), -- Right Tallon Roll
+        tr2tl = TallonRoll:new(63, -90),
+        tr3tl = TallonRoll:new(90, -90)
     }
 
     return instance
 end
 
+function Movement:getForwardVector(ship)
+    local forward = ship.getTransformForward()
+    forward = forward:rotateOver("y", self.forwardAdjustment)
+    return forward:normalized()
+end
+
 function Movement:Move(ship, moveType)
     local moveStrategy = self.moveStrategies[moveType]
     if moveStrategy then
-        moveStrategy:execute(ship)
+        moveStrategy:execute(ship, self:getForwardVector(ship))
     else
         print("Invalid move type: " .. moveType)
     end
