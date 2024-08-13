@@ -22,10 +22,10 @@ function MovementStrategy:getBaseSize(ship)
 end
 
 --[[
-If the forward Vector of the object doesn't line up with the object
-visually, you can attach an angle value here to correct the forward vector
-by rotating it around the y-axis by the provided angle in degrees.
-This will allow object's forward vector to move it properly.
+    If the forward Vector of the object doesn't line up with the object
+    visually, you can attach an angle value here to correct the forward vector
+    by rotating it around the y-axis by the provided angle in degrees.
+    This will allow object's forward vector to move it properly.
  ]]
 function MovementStrategy:getForwardVector(ship)
     local forward = ship.getTransformForward()
@@ -42,7 +42,7 @@ StraightMove.__index = StraightMove
 function StraightMove:new(distance)
     local instance = MovementStrategy:new()
     instance.distance = igu(distance)
-    return setmetatable(instance, StraightMove)
+    return setmetatable(instance, self)
 end
 
 function StraightMove:execute(ship)
@@ -58,13 +58,13 @@ local KoiogranTurn = setmetatable({}, { __index = StraightMove })
 KoiogranTurn.__index = KoiogranTurn
 
 function KoiogranTurn:new(distance)
-    local instance = StraightMove:new(distance) -- Properly initialize distance
+    local instance = StraightMove:new(distance)
     instance.rotation = 180
-    return setmetatable(instance, KoiogranTurn)
+    return setmetatable(instance, self)
 end
 
 function KoiogranTurn:execute(ship)
-    StraightMove:execute(ship)
+    StraightMove.execute(self, ship)
     local currentRotation = ship.getRotation()
     local newRotation = currentRotation + Vector(0, self.rotation, 0)
     ship.setRotationSmooth(newRotation, false, false)
@@ -74,46 +74,37 @@ end
 local ArcMove = setmetatable({}, { __index = MovementStrategy })
 ArcMove.__index = ArcMove
 
-function ArcMove:new(radius, angle, direction)
+function ArcMove:new(radius, angle, direction, extraRotation)
     local instance = MovementStrategy:new()
     instance.radius = igu(radius)
     instance.angle = angle
     instance.direction = direction or "right" -- Default to right if no direction is provided
-    return setmetatable(instance, ArcMove)
+    instance.extraRotation = extraRotation or 0
+    return setmetatable(instance, self)
 end
 
 function ArcMove:execute(ship)
-    local forward = self:getForwardVector(ship)
-    -- Determine the sign for the angle based on direction
     local angleMultiplier = self.direction == "left" and 1 or -1
     local adjustedAngle = self.angle * angleMultiplier
 
-    local directionToCenter = forward:copy():rotateOver("y", angleMultiplier * 90):normalized()
-
+    -- Get ship's forward vector and base size
+    local forward = self:getForwardVector(ship)
     local baseSize = self:getBaseSize(ship)
 
     -- Calculate the center of the arc
+    local directionToCenter = forward:copy():rotateOver("y", 90 * angleMultiplier):normalized()
     local centerOfArc = ship.getPosition() - directionToCenter * (self.radius + baseSize)
 
-    -- Calculate the angle in radians
-    local angleRadians = math.rad(adjustedAngle)
+    -- Calculate the new position by rotating the position vector
+    local newPos = centerOfArc + (ship.getPosition() - centerOfArc):rotateOver("y", -adjustedAngle)
 
-    -- Calculate the new position using trigonometry
-    local cosAngle = math.cos(angleRadians)
-    local sinAngle = math.sin(angleRadians)
-    local offsetX = (ship.getPosition().x - centerOfArc.x) * cosAngle - (ship.getPosition().z - centerOfArc.z) * sinAngle
-    local offsetZ = (ship.getPosition().x - centerOfArc.x) * sinAngle + (ship.getPosition().z - centerOfArc.z) * cosAngle
-    local newPos = Vector(centerOfArc.x + offsetX, ship.getPosition().y, centerOfArc.z + offsetZ)
-
-    -- Determine the new rotation
-    -- local spin = forward:cross(directionToCenter):dot(Vector(0, 1, 0))
-    local spin = angleMultiplier * directionToCenter:cross(forward):dot(Vector(0, 1, 0))
-
-    local newRotation = ship.getRotation() + Vector(0, spin * adjustedAngle, 0)
+    -- Calculate the new rotation directly
+    local newRot = ship.getRotation() + Vector(0, -adjustedAngle, 0)
+    -- local newRot = ship.getRotation():copy():rotateOver("y", angleMultiplier * self.extraRotation)
 
     -- Update ship position and rotation smoothly
     ship.setPositionSmooth(newPos, false, false)
-    ship.setRotationSmooth(newRotation, false, false)
+    ship.setRotationSmooth(newRot, false, false)
 end
 
 -- TurnMove class inherits from ArcMove
@@ -121,7 +112,7 @@ local TurnMove = setmetatable({}, { __index = ArcMove })
 TurnMove.__index = TurnMove
 
 function TurnMove:new(radius, direction)
-    return setmetatable(ArcMove:new(radius, 90, direction), TurnMove)
+    return setmetatable(ArcMove:new(radius, 90, direction), self)
 end
 
 -- BankMove class inherits from ArcMove
@@ -129,7 +120,7 @@ local BankMove = setmetatable({}, { __index = ArcMove })
 BankMove.__index = BankMove
 
 function BankMove:new(radius, direction)
-    return setmetatable(ArcMove:new(radius, 45, direction), BankMove)
+    return setmetatable(ArcMove:new(radius, 45, direction), self)
 end
 
 -- SegnorLoop class inherits from ArcMove
@@ -139,11 +130,11 @@ SegnorLoop.__index = SegnorLoop
 function SegnorLoop:new(radius, direction, rotation)
     local instance = ArcMove:new(radius, 45, direction) -- Using 45 degrees as the bank angle
     instance.rotation = rotation or 180                 -- Defaulting to a 180-degree rotation
-    return setmetatable(instance, SegnorLoop)
+    return setmetatable(instance, self)
 end
 
 function SegnorLoop:execute(ship)
-    ArcMove:execute(ship)
+    ArcMove.execute(self, ship)
     local currentRotation = ship.getRotation()
     local newRotation = currentRotation + Vector(0, self.rotation, 0)
     ship.setRotationSmooth(newRotation, false, false)
@@ -154,13 +145,13 @@ local TallonRoll = setmetatable({}, { __index = ArcMove })
 TallonRoll.__index = TallonRoll
 
 function TallonRoll:new(radius, direction, extraRotation)
-    local instance = ArcMove:new(radius, 90, direction) -- Using 90 degrees as the bank angle
-    instance.extraRotation = extraRotation or -90       -- Defaulting to a 90-degree additional rotation
-    return setmetatable(instance, TallonRoll)
+    local instance = ArcMove:new(radius, 90, direction, 90)
+    -- instance.extraRotation = extraRotation or -90
+    return setmetatable(instance, self)
 end
 
 function TallonRoll:execute(ship)
-    ArcMove:execute(ship)
+    ArcMove.execute(self, ship)
     local currentRotation = ship.getRotation()
     local newRotation = currentRotation + Vector(0, self.extraRotation, 0)
     ship.setRotationSmooth(newRotation, false, false)
