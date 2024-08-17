@@ -1,10 +1,9 @@
+require("TTS_lib.Util.Table")
 local Dim = require("TTS_xwing.src.Dim")
 
 local igu = Dim.Convert_mm_igu
--- TODO: check template speed distances: straights, and banks etc.
+-- TODO: check template speed distances: e.g. straights, and banks etc.
 -- TODO: add reverse move, and reverse bank
--- TODO: internalize the move-1 templates instead of mm
--- TODO: ship size specified in mm or shirt sizes
 
 ----------------------------------------
 -- Standard X-Wing Maneuver Templates --
@@ -12,9 +11,14 @@ local igu = Dim.Convert_mm_igu
 
 local XWingTemplates = {
     straight = { 40, 80, 120, 160, 200 },
-    turn = { 35, 63, 90 },
-    bank = { 80, 130, 180 }
+    turn = { 35, 63, 90 },   -- Turn Middle Radius
+    bank = { 80, 130, 180 }, -- Bank Middle Radius
+    -- turn_inner = {25, 53, 80},       -- Turn Inside Radius
+    -- turn_outer = {45, 73, 100},      -- Turn Outside Radius
+    -- bank_inner = { 70, 120, 170},    -- Bank Inside Radius
+    -- bank_outer = { 90, 140, 190},    -- Bank Outside Radius
 }
+
 
 -----------------------------
 -- Strategy Design Pattern --
@@ -35,7 +39,13 @@ end
 function ManeuverStrategy:getBaseSize(ship)
     local shipData = ship.getTable("Data")
     local size = shipData.Size or "small"
-    return igu(Dim.mm_baseSize[size])
+    if type(size) == "string" then
+        return igu(Dim.mm_baseSize[size])
+    elseif type(size) == "number" then
+        return igu(size) -- Assuming the size is provided in mm
+    else
+        error("Invalid size type")
+    end
 end
 
 --[[
@@ -82,8 +92,7 @@ end
 
 function KoiogranTurn:execute(ship)
     Straight.execute(self, ship)
-    local currentRotation = ship.getRotation()
-    local newRotation = currentRotation + Vector(0, self.rotation, 0)
+    local newRotation = ship.getRotation() + Vector(0, self.rotation, 0)
     ship.setRotationSmooth(newRotation, false, false)
 end
 
@@ -115,7 +124,7 @@ function ArcMove:execute(ship)
 
     -- Calculate the new position by rotating the position vector around the arc center
     local newPos = arcCenter + (ship.getPosition() - arcCenter):rotateOver("y", turnAngle)
-    local newRot = Vector(0, rotAngle, 180)
+    local newRot = ship.getRotation() + Vector(0, rotAngle, 0)
 
     -- Update ship position and rotation smoothly
     ship.setPositionSmooth(newPos, false, false)
@@ -163,7 +172,7 @@ local Maneuver = {}
 Maneuver.__index = Maneuver
 
 -- Define the moveStrategies table once, outside of the constructor
-Maneuver.moveStrategies = {
+Maneuver.maneuverTemplates = {
     -- Straight maneuvers
     s1 = Straight:new(1),
     s2 = Straight:new(2),
@@ -216,17 +225,15 @@ Maneuver.moveStrategies = {
 }
 
 function Maneuver:new()
-    local instance = setmetatable({}, self)
-    instance.moveStrategies = self.moveStrategies
-    return instance
+    return setmetatable({}, self)
 end
 
-function Maneuver:Move(ship, moveType)
-    local moveStrategy = self.moveStrategies[moveType]
-    if ship and moveStrategy then
-        moveStrategy:execute(ship)
+function Maneuver:execute(ship, maneuverType)
+    local maneuver = self.maneuverTemplates[maneuverType]
+    if ship and maneuver then
+        maneuver:execute(ship)
     else
-        print("Invalid: ship: " .. tostring(ship) .. " with move type: " .. moveType)
+        print("Invalid: ship: " .. tostring(ship) .. " with move type: " .. maneuverType)
     end
 end
 
