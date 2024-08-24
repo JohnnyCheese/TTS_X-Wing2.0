@@ -2,7 +2,6 @@ require("TTS_lib.Util.Table")
 local Dim = require("TTS_xwing.src.Dim")
 
 local igu = Dim.Convert_mm_igu
--- TODO: check template speed distances: e.g. straights, and banks etc.
 -- TODO: add reverse move, and reverse bank
 
 ----------------------------------------
@@ -10,15 +9,10 @@ local igu = Dim.Convert_mm_igu
 ----------------------------------------
 
 local XWingTemplates = {
-    straight = { 40, 80, 120, 160, 200 },
-    turn = { 35, 63, 90 },   -- Turn Middle Radius
+    straight = { 40, 80, 120, 160, 200 }, -- speed to millimeters
+    turn = { 35, 63, 90 }, -- Turn Middle Radius
     bank = { 80, 130, 180 }, -- Bank Middle Radius
-    -- turn_inner = {25, 53, 80},       -- Turn Inside Radius
-    -- turn_outer = {45, 73, 100},      -- Turn Outside Radius
-    -- bank_inner = { 70, 120, 170},    -- Bank Inside Radius
-    -- bank_outer = { 90, 140, 190},    -- Bank Outside Radius
 }
-
 
 -----------------------------
 -- Strategy Design Pattern --
@@ -96,7 +90,7 @@ function KoiogranTurn:execute(ship)
     ship.setRotationSmooth(newRotation, false, false)
 end
 
--- Moves along a curved path
+-- Moves along a curved template
 local ArcMove = setmetatable({}, { __index = ManeuverStrategy })
 ArcMove.__index = ArcMove
 
@@ -112,18 +106,26 @@ end
 function ArcMove:execute(ship)
     local sign = self.bearing == "right" and 1 or -1 -- + is clockwise, - is counter-clockwise
     local turnAngle = sign * self.angle
-    local rotAngle = sign * (self.angle + self.extraRotation)
+    local rotAngle = sign * self.extraRotation + turnAngle
 
     -- Get ship's forward vector and base size
     local forward = self:getForwardVector(ship)
+    local baseSize = self:getBaseSize(ship)
+
+    -- Step 1: Initial straight move by half the base size
+    local initialPos = ship.getPosition() + (baseSize / 2) * forward
+
+    -- Recalculate arcCenter based on the new position
     local turnDirection = sign * forward:copy():rotateOver("y", 90):normalized()
+    local arcCenter = initialPos + turnDirection * self.radius
 
-    -- Calculate the center of the arc
-    local arcRadius = self.radius + self:getBaseSize(ship) / 2
-    local arcCenter = ship.getPosition() + turnDirection * arcRadius
+    -- Step 2: Arc move
+    local newPos = arcCenter + (initialPos - arcCenter):rotateOver("y", turnAngle)
 
-    -- Calculate the new position by rotating the position vector around the arc center
-    local newPos = arcCenter + (ship.getPosition() - arcCenter):rotateOver("y", turnAngle)
+    -- Step 3: Final straight move by half the base size
+    newPos = newPos + (baseSize / 2) * forward:rotateOver("y", turnAngle):normalized()
+
+    -- Determine new rotation
     local newRot = ship.getRotation() + Vector(0, rotAngle, 0)
 
     -- Update ship position and rotation smoothly
@@ -131,7 +133,6 @@ function ArcMove:execute(ship)
     ship.setRotationSmooth(newRot, false, false)
 end
 
--- https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/tokens/devices/Mandos.png?1
 -- TurnMove class inherits from ArcMove
 local TurnMove = setmetatable({}, { __index = ArcMove })
 TurnMove.__index = TurnMove
