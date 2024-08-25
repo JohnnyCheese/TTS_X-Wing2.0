@@ -174,21 +174,21 @@ Maneuver.__index = Maneuver
 
 -- Define the moveStrategies table once, outside of the constructor
 Maneuver.maneuverTemplates = {
-    -- Straight maneuvers
+    -- Straight Maneuvers
     s1 = Straight:new(1),
     s2 = Straight:new(2),
     s3 = Straight:new(3),
     s4 = Straight:new(4),
     s5 = Straight:new(5),
 
-    -- Koiogran Turn (180º turn using the same template as the straight maneuver)
+    -- Koiogran Turn (Straight Move with a 180º Rotation Maneuver)
     k1 = KoiogranTurn:new(1),
     k2 = KoiogranTurn:new(2),
     k3 = KoiogranTurn:new(3),
     k4 = KoiogranTurn:new(4),
     k5 = KoiogranTurn:new(5),
 
-    -- Turn maneuvers
+    -- Turn (90º Turn Maneuver)
     tr1 = TurnMove:new(1, "right"),
     tr2 = TurnMove:new(2, "right"),
     tr3 = TurnMove:new(3, "right"),
@@ -197,7 +197,7 @@ Maneuver.maneuverTemplates = {
     tl2 = TurnMove:new(2, "left"),
     tl3 = TurnMove:new(3, "left"),
 
-    -- Bank maneuvers
+    -- Bank (45º Turn Maneuver)
     br1 = BankMove:new(1, "right"),
     br2 = BankMove:new(2, "right"),
     br3 = BankMove:new(3, "right"),
@@ -206,7 +206,7 @@ Maneuver.maneuverTemplates = {
     bl2 = BankMove:new(2, "left"),
     bl3 = BankMove:new(3, "left"),
 
-    -- Segnor's Loop
+    -- Segnor Loop (45º Turn with a 180º Rotation Maneuver)
     br1s = SegnorLoop:new(1, "right"),
     br2s = SegnorLoop:new(2, "right"),
     br3s = SegnorLoop:new(3, "right"),
@@ -215,14 +215,14 @@ Maneuver.maneuverTemplates = {
     bl2s = SegnorLoop:new(2, "left"),
     bl3s = SegnorLoop:new(3, "left"),
 
-    -- Tallon Roll
-    tr1tl = TallonRoll:new(1, "right"),
-    tr2tl = TallonRoll:new(2, "right"),
-    tr3tl = TallonRoll:new(3, "right"),
+    -- Tallon Roll (90º Turn with a 90º Rotation Maneuver)
+    tr1t = TallonRoll:new(1, "right"),
+    tr2t = TallonRoll:new(2, "right"),
+    tr3t = TallonRoll:new(3, "right"),
 
-    tl1tl = TallonRoll:new(1, "left"),
-    tl2tl = TallonRoll:new(2, "left"),
-    tl3tl = TallonRoll:new(3, "left"),
+    tl1t = TallonRoll:new(1, "left"),
+    tl2t = TallonRoll:new(2, "left"),
+    tl3t = TallonRoll:new(3, "left"),
 }
 
 function Maneuver:new()
