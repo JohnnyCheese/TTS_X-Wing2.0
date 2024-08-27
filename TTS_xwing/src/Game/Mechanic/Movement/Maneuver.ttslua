@@ -10,8 +10,8 @@ local igu = Dim.Convert_mm_igu
 
 local XWingTemplates = {
     straight = { 40, 80, 120, 160, 200 }, -- speed to millimeters
-    turn = { 35, 63, 90 }, -- Turn Middle Radius
-    bank = { 80, 130, 180 }, -- Bank Middle Radius
+    turn = { 35, 63, 90 },                -- Turn Middle Radius
+    bank = { 80, 130, 180 },              -- Bank Middle Radius
 }
 
 -----------------------------
@@ -46,7 +46,8 @@ end
     If the forward Vector of the object doesn't line up with the object
     visually, you can attach an angle value here to correct the forward vector
     by rotating it around the y-axis by the provided angle in degrees.
-    This will allow object's forward vector to move it properly.
+    This will correct an object's forward vector to move it properly.
+    [+ is clockwise, - is counter-clockwise]
  ]]
 function ManeuverStrategy:getForwardVector(ship)
     local shipData = ship.getTable("Data")
