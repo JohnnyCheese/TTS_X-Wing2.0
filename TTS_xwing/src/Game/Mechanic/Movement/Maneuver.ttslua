@@ -105,7 +105,7 @@ function ArcMove:new(radius, angle, bearing, extraRot)
 end
 
 function ArcMove:execute(ship)
-    local sign = self.bearing == "right" and 1 or -1 -- + is clockwise, - is counter-clockwise
+    local sign = (self.bearing == "right" and 1) or -1 -- + is clockwise, - is counter-clockwise
     local turnAngle = sign * self.angle
     local rotAngle = sign * self.extraRotation + turnAngle
 
@@ -165,7 +165,6 @@ TallonRoll.__index = TallonRoll
 
 function TallonRoll:new(speed, bearing)
     local instance = ArcMove:new(XWingTemplates.turn[speed], 90, bearing, 90)
-    -- instance.extraRotation = extraRotation or -90
     return setmetatable(instance, self)
 end
 
