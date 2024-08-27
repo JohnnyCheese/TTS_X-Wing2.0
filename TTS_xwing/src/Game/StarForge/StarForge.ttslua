@@ -75,7 +75,7 @@ local layoutController_GUID = "b3992e"
 
 function onSave()
     local saveData = {}
-    saveData.lastLayout = StarForge.lastLayout
+    saveData.lastLayout = getCurrentLayout()
     saveData.objects = SFScript.objects
     saveData.hidden = self.getVar("hidden")
     return JSON.encode(saveData)
@@ -87,7 +87,7 @@ function onLoad(saveData)
         if loadData and loadData.lastLayout ~= nil then
             StarForge.lastLayout = loadData.lastLayout
         else
-            StarForge.lastLayout = 1
+            StarForge.lastLayout = getCurrentLayout()
         end
         if loadData and loadData.objects ~= nil then
             SFScript.objects = loadData.objects
@@ -114,12 +114,12 @@ end
 function getCurrentLayout()
     local layout = getObjectFromGUID(layoutController_GUID)
     if layout then
-        local currentLayout = layout.call("getLayoutState", layoutNumber)
+        return layout.call("getLayoutState", layoutNumber)
     else
         printToAll("Error: Layout object not found.", Color.Orange)
     end
 
-    return layout
+    return -1
 end
 
 function show()
