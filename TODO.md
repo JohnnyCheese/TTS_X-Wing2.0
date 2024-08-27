@@ -12,6 +12,10 @@ but in reality it defines `MarkShip()` and `UnMarkShip()` in Global namespace.
     1. Store the current initiative value as a variable.
     2. Set its name (setName) and the ui `self.UI.getAttribute("InitiativeLabel", "text")`.
     3. Then on the keystroke event implementation, overwrite the current initiative and call the setInitiative function which resets the name and UI attribute.
+1. Flee AI
+2. Escape AI
+3. Escort AI
+3. Random Obstacle Setup
     Reference: 
     https://api.tabletopsimulator.com/events/#object-event-handlers
     <br/>`onObjectNumberTyped`
