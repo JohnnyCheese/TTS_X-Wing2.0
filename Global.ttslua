@@ -123,8 +123,7 @@ local MoveData = require("TTS_xwing.src.MoveData")
 local AnnModule = require("TTS_xwing.src.Announcements")
 
 -- Modules API, must be loaded last
-local API = require("TTS_xwing.src.API")
-Kludge.exportGlobals(API)
+require("TTS_xwing.src.API")
 
 --------
 -- MISC FUNCTIONS
@@ -6195,7 +6194,8 @@ function newSpawner(listTable)
                 {
                     mesh = spawnPrefix .. "bases/" .. size .. "/base.obj?1",
                     collider = ShipVerification.colliders[size],
-                    diffuse = spawnPrefix .. "bases/" .. size .. "/" .. fixedarc .. "/" .. factionnames[Faction] .. ".png",
+                    diffuse = spawnPrefix ..
+                        "bases/" .. size .. "/" .. fixedarc .. "/" .. factionnames[Faction] .. ".png",
                     convex = true,
                     material = 1,
                     type = 1
@@ -6210,8 +6210,11 @@ function newSpawner(listTable)
             if Pilots[shipIndex].Data.limited and Pilots[shipIndex].Data.limited > 0 then
                 base_name_str = string.rep("•", Pilots[shipIndex].Data.limited) .. " " .. pilotName
             end
-            newShip.setTable("UiData",
-                { name = base_name_str, icon = Pilots[shipIndex].Ship, init = "init" .. Pilots[shipIndex].Data.initiative })
+            newShip.setTable("UiData", {
+                name = base_name_str,
+                icon = Pilots[shipIndex].Ship,
+                init = "init" .. Pilots[shipIndex].Data.initiative
+            })
 
             local pegtype = Pilots[shipIndex].peg or size
             local pegCustomObject = {
@@ -6266,7 +6269,8 @@ function newSpawner(listTable)
                     ship.addAttachment(shipModel)
                 end
             end
-            Wait.condition(pegAndShipSpawnFunction, function() return (not ship.spawning) and (not ship.isSmoothMoving()) end)
+            Wait.condition(pegAndShipSpawnFunction,
+                function() return (not ship.spawning) and (not ship.isSmoothMoving()) end)
             if newShip ~= nil then
                 local ship = newShip
                 local card = newPil
@@ -6531,8 +6535,9 @@ function newSpawner(listTable)
                         if upg.charge > 0 then
                             for i = 1, upg.charge, 1 do
                                 chargeClone = tokens.Charge.clone()
-                                chargeClone.setPosition(LocalPos(spawnCard, { -2.7 - i * 0.6, 1, 4 + step * (k - 1) + step /
-                                2 }))
+                                chargeClone.setPosition(LocalPos(spawnCard,
+                                    { -2.7 - i * 0.6, 1, 4 + step * (k - 1) + step /
+                                    2 }))
                                 chargeClone.setVar("charge_owner", Pilots[shipIndex].name)
                                 chargeClone.setVar("charge_name", upg.name)
                                 chargeClone.setScale(chargeClone.getScale() * 0.75)
