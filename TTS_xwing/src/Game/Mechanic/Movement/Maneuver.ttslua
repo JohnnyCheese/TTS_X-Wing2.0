@@ -1,4 +1,3 @@
-require("TTS_lib.Util.Table")
 local Dim = require("TTS_xwing.src.Dim")
 
 local igu = Dim.Convert_mm_igu
@@ -10,7 +9,7 @@ local igu = Dim.Convert_mm_igu
 
 local XWingTemplates = {
     straight = { 40, 80, 120, 160, 200 }, -- speed to millimeters
-    turn = { 35, 63, 90 },                -- Turn Middle Radius
+    turn = { 35, 62.5, 90 },              -- Turn Middle Radius
     bank = { 80, 130, 180 },              -- Bank Middle Radius
 }
 
@@ -61,9 +60,10 @@ end
 local Straight = setmetatable({}, { __index = ManeuverStrategy })
 Straight.__index = Straight
 
-function Straight:new(speed)
+function Straight:new(speed, rotation)
     local instance = ManeuverStrategy:new()
     instance.speed = igu(XWingTemplates.straight[speed])
+    instance.rotation = rotation or 0
     return setmetatable(instance, self)
 end
 
@@ -72,7 +72,9 @@ function Straight:execute(ship)
     local baseSize = self:getBaseSize(ship)
     local posDelta = (self.speed + baseSize) * forward
     local newPos = ship.getPosition() + posDelta
+    local newRot = ship.getRotation() + Vector(0, self.rotation, 0)
     ship.setPositionSmooth(newPos, false, true)
+    ship.setRotationSmooth(newRot, false, false)
 end
 
 -- KoiogranTurn class inherits from StraightMove
@@ -80,15 +82,12 @@ local KoiogranTurn = setmetatable({}, { __index = Straight })
 KoiogranTurn.__index = KoiogranTurn
 
 function KoiogranTurn:new(speed)
-    local instance = Straight:new(speed)
-    instance.rotation = 180
+    local instance = Straight:new(speed, 180)
     return setmetatable(instance, self)
 end
 
 function KoiogranTurn:execute(ship)
     Straight.execute(self, ship)
-    local newRotation = ship.getRotation() + Vector(0, self.rotation, 0)
-    ship.setRotationSmooth(newRotation, false, false)
 end
 
 -- Moves along a curved template
