@@ -34,6 +34,16 @@ Dim.mm_baseSize = {
     objective = 33,
 }
 
+----------------------------------------
+-- Standard X-Wing Maneuver Templates --
+----------------------------------------
+
+Dim.XWingTemplates = {
+    straight = { 40, 80, 120, 160, 200 }, -- Speed to millimeters
+    turn = { 35, 62.5, 90 },              -- Turn Middle Radius (mm)
+    bank = { 80, 130, 180 },              -- Bank Middle Radius (mm)
+}
+
 -- Millimeter dimensions for cards
 Dim.mm_upgrade_width = 41
 Dim.mm_upgrade_height = 63
