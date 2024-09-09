@@ -422,6 +422,22 @@ LaunchProbe = function()
     })
 end
 
+function HiddenBags(operation)
+    local guids = {
+        'a3690e', -- Extra Assets 15 items
+        '203cb8', -- ObstacleBag 31 items
+        'f0e7b9', -- Dice Bag 10 items
+        '53ad3d', -- Accessories 79 items
+    }
+
+    for _, guid in ipairs(guids) do
+        local bag = getObjectFromGUID(guid)
+        if bag ~= nil then
+            bag.call(operation)
+        end
+    end
+end
+
 -- Function to show a menu based on the menu name
 function showMenu(menu)
     self.clearContextMenu()
@@ -444,10 +460,15 @@ menus = {
     main = {
         { "Script Manager >", showScriptingMenu },
         { "Game Tester >",    function() showMenu("testing") end },
-        { "Deduplicator>",    function() showMenu("deduper") end },
+        { "Deduplicator >",   function() showMenu("deduper") end },
+        { "Hidden Bags >",    function() showMenu("bags") end },
         { "Launch Probe",     LaunchProbe },
-        { "Surface Bags",     function() end },
         { "List Factories",   ListFactories },
+    },
+    bags = {
+        { "Surface Bags",   function() HiddenBags("surface") end },
+        { "Submerge Bags",  function() HiddenBags("submerge") end },
+        { "Back to Main >", showMainMenu },
     },
     scripting = {
         { "Multi-State Object",  MultiStateExp },
