@@ -37,6 +37,9 @@ Scripting Changes
 4. Try using an external unit testing framework, the IDE and require to attempt to run tests
 5. See whether separating domain logic from TTS UI logic is doable.
 6. Create videos for X-Wing Standard/HotAC/TTS Development
+1. Add the barrel roll to AI Swerve mechanics.
+1. Add the AI avoid at any cost mechanic for board edge.
+
 
 Requires an updated Beta Save
 1. Add damage tokens to HotAC mode.
