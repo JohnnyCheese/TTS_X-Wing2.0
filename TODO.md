@@ -51,6 +51,12 @@ Requires an updated Beta Save
 1. Generalize 'disappear on flip' and 'assign on drop' to Global event handlers and tag all objects which should get that behavior
    1. 'remove on flip' - tag all tokens you want to be removed when flipped
    2. 'assign on drop' - use the 'closest ship' logic to assign the token a ship
+1. Aid to migrate HotAC-type games. Perhaps a Memory Bag type "Transport" (or Bulk Freighter) to collect all player artifacts and transport them to a new release of the Unified Mod.
+    1. baseline all in-game objects.
+    1. Save player objects and store in Transport Memory Bag.
+    1. save transport
+    1. load new unified mod
+    1. deploy transported game objects
 
 
 # Was this intended?
