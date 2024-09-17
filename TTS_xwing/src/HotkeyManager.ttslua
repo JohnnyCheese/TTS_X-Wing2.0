@@ -1,4 +1,6 @@
 -- Hotkey module, By Eirik W. Munthe (eirikmun)
+local EventSub = require("TTS_Lib.EventSub.EventSub")
+local ObjType = require("TTS_Lib.ObjType.ObjType")
 local H = {}
 
 H.arcCheckFixedArcs = function(player_color, hovered_object, world_position, key_down_up)
@@ -29,8 +31,6 @@ H.onLoad = function()
     addHotkey("R3 and TL", H.TlAndRangeCheck, false)
 end
 
-local EventSub = require("TTS_Lib.EventSub.EventSub")
 EventSub.Register('onLoad', H.onLoad)
-
 
 return H

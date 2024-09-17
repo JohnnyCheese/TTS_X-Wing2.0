@@ -1,8 +1,7 @@
 local Dim = require("TTS_xwing.src.Dim")
 ObjectiveTokenData = require("TTS_xwing.src.ObjectiveTokenData")
 
-ship_drop_positions =
-{
+ship_drop_positions = {
     small = {
         right = { pos = vector(-20, 0, 0), rot = 90 },
         left = { pos = vector(20, 0, 0), rot = -90 },
@@ -24,7 +23,6 @@ ship_drop_positions =
         back = { pos = vector(0, 80, 0), rot = 180 }
     },
 }
-
 
 backwards = false
 dropOrigin = nil
@@ -82,8 +80,9 @@ function onDropped(playerColor)
     for _, ship in pairs(getObjectsWithTag('Ship')) do
         local pos = ship.getPosition()
         for _, pos_rot in pairs(ship_drop_positions[ship.getTable('Data').Size or "small"]) do
-            local drop_pos = pos + Dim.Convert_mm_igu(ship.getTransformRight() * pos_rot.pos.x) +
-                Dim.Convert_mm_igu(ship.getTransformForward() * pos_rot.pos.y)
+            local drop_pos = pos
+                + Dim.Convert_mm_igu(ship.getTransformRight() * pos_rot.pos.x)
+                + Dim.Convert_mm_igu(ship.getTransformForward() * pos_rot.pos.y)
             local dist = math.sqrt(math.pow((spos[1] - drop_pos[1]), 2) + math.pow((spos[3] - drop_pos[3]), 2))
             if dist < minDist then
                 nearest = ship
@@ -95,10 +94,7 @@ function onDropped(playerColor)
         end
     end
     if nearest ~= nil then
-        side = "(B)"
-        if self.is_face_down then
-            side = "(A)"
-        end
+        side = self.is_face_down and "(A)" or "(B)"
         printToAll('Mandalorian Commandos ' .. side .. ' ready to drop', color(1.0, 1.0, 0))
         local side_offset = vector(0, 0.05, 0)
         if self.is_face_down then
@@ -173,7 +169,8 @@ function checkArc(type, range, friendly)
         rulersType = nil
     else
         if type == "full" then
-            printToAll("Checking for ships at range " .. tostring(range) .. " from " .. self.getName(), color(1.0, 1.0, 0.2, 0.9))
+            printToAll("Checking for ships at range " .. tostring(range) .. " from " .. self.getName(),
+                color(1.0, 1.0, 0.2, 0.9))
         end
         rulers = Global.call("CheckArc", { ship = self, arctype = type, range = range, include_friendly_ships = friendly })
     end
@@ -267,18 +264,17 @@ function showDropButtons()
         rotation = rotation + vector(0, 0, 180)
     end
 
-
     local raise = 0.03 * up
 
     self.createButton({
         click_function = "dropL",
         function_owner = self,
-        label          = "^",
-        position       = -0.2 * right + raise + 0.3 * forward,
-        rotation       = vector(0, 45, 0) + rotation,
-        width          = 60,
-        height         = 60,
-        font_size      = 40
+        label = "^",
+        position = -0.2 * right + raise + 0.3 * forward,
+        rotation = vector(0, 45, 0) + rotation,
+        width = 60,
+        height = 60,
+        font_size = 40
     })
     self.createButton({
         click_function = "dropS",

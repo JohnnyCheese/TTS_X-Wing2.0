@@ -1,18 +1,7 @@
-require("TTS_lib.Util.Table")
 local Dim = require("TTS_xwing.src.Dim")
 
 local igu = Dim.Convert_mm_igu
 -- TODO: add reverse move, and reverse bank
-
-----------------------------------------
--- Standard X-Wing Maneuver Templates --
-----------------------------------------
-
-local XWingTemplates = {
-    straight = { 40, 80, 120, 160, 200 }, -- speed to millimeters
-    turn = { 35, 63, 90 },                -- Turn Middle Radius
-    bank = { 80, 130, 180 },              -- Bank Middle Radius
-}
 
 -----------------------------
 -- Strategy Design Pattern --
@@ -61,9 +50,10 @@ end
 local Straight = setmetatable({}, { __index = ManeuverStrategy })
 Straight.__index = Straight
 
-function Straight:new(speed)
+function Straight:new(speed, rotation)
     local instance = ManeuverStrategy:new()
-    instance.speed = igu(XWingTemplates.straight[speed])
+    instance.speed = igu(Dim.XWingTemplates.straight[speed])
+    instance.rotation = rotation or 0
     return setmetatable(instance, self)
 end
 
@@ -72,7 +62,9 @@ function Straight:execute(ship)
     local baseSize = self:getBaseSize(ship)
     local posDelta = (self.speed + baseSize) * forward
     local newPos = ship.getPosition() + posDelta
+    local newRot = ship.getRotation() + Vector(0, self.rotation, 0)
     ship.setPositionSmooth(newPos, false, true)
+    ship.setRotationSmooth(newRot, false, false)
 end
 
 -- KoiogranTurn class inherits from StraightMove
@@ -80,15 +72,12 @@ local KoiogranTurn = setmetatable({}, { __index = Straight })
 KoiogranTurn.__index = KoiogranTurn
 
 function KoiogranTurn:new(speed)
-    local instance = Straight:new(speed)
-    instance.rotation = 180
+    local instance = Straight:new(speed, 180)
     return setmetatable(instance, self)
 end
 
 function KoiogranTurn:execute(ship)
     Straight.execute(self, ship)
-    local newRotation = ship.getRotation() + Vector(0, self.rotation, 0)
-    ship.setRotationSmooth(newRotation, false, false)
 end
 
 -- Moves along a curved template
@@ -139,7 +128,7 @@ local TurnMove = setmetatable({}, { __index = ArcMove })
 TurnMove.__index = TurnMove
 
 function TurnMove:new(speed, bearing)
-    return setmetatable(ArcMove:new(XWingTemplates.turn[speed], 90, bearing), self)
+    return setmetatable(ArcMove:new(Dim.XWingTemplates.turn[speed], 90, bearing), self)
 end
 
 -- BankMove class inherits from ArcMove
@@ -147,7 +136,7 @@ local BankMove = setmetatable({}, { __index = ArcMove })
 BankMove.__index = BankMove
 
 function BankMove:new(speed, bearing)
-    return setmetatable(ArcMove:new(XWingTemplates.bank[speed], 45, bearing), self)
+    return setmetatable(ArcMove:new(Dim.XWingTemplates.bank[speed], 45, bearing), self)
 end
 
 -- SegnorLoop class inherits from ArcMove
@@ -155,7 +144,7 @@ local SegnorLoop = setmetatable({}, { __index = ArcMove })
 SegnorLoop.__index = SegnorLoop
 
 function SegnorLoop:new(speed, bearing)
-    local instance = ArcMove:new(XWingTemplates.bank[speed], 45, bearing, 180) -- Using 45 degrees as the bank angle
+    local instance = ArcMove:new(Dim.XWingTemplates.bank[speed], 45, bearing, 180) -- Using 45 degrees as the bank angle
     return setmetatable(instance, self)
 end
 
@@ -164,7 +153,7 @@ local TallonRoll = setmetatable({}, { __index = ArcMove })
 TallonRoll.__index = TallonRoll
 
 function TallonRoll:new(speed, bearing)
-    local instance = ArcMove:new(XWingTemplates.turn[speed], 90, bearing, 90)
+    local instance = ArcMove:new(Dim.XWingTemplates.turn[speed], 90, bearing, 90)
     return setmetatable(instance, self)
 end
 
