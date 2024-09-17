@@ -154,7 +154,8 @@ tokenSize = 1
 tokenSizeStr = { [1] = "Small", [2] = "Medium", [3] = "Large" }
 tokenSizeModifiers = { [1] = 1.0, [2] = 1.5, [3] = 2.0 }
 
-XWS_DATA = {
+VERSION_DATA = {
+    ruleset = "none",
     pilots = {},
     upgrades = {}
 }
@@ -164,8 +165,9 @@ function onLoad(save_state)
     if save_state and save_state ~= nil then
         local loadState = json.parse(save_state)
         if loadState and loadState ~= {} then
-            XWS_DATA.pilots = loadState.pilots or {}
-            XWS_DATA.upgrades = loadState.upgrades or {}
+            VERSION_DATA.pilots = loadState.pilots or {}
+            VERSION_DATA.upgrades = loadState.upgrades or {}
+            VERSION_DATA.ruleset = loadState.ruleset or "none"
         end
     end
     initiate()
@@ -173,8 +175,9 @@ end
 
 function onSave()
     local sState = {}
-    sState.pilots = XWS_DATA.pilots
-    sState.upgrades = XWS_DATA.upgrades
+    sState.pilots = VERSION_DATA.pilots
+    sState.upgrades = VERSION_DATA.upgrades
+    sState.ruleset = VERSION_DATA.ruleset
     return json.serialize(sState)
     --return JSON.encode(sState)
 end
@@ -183,13 +186,53 @@ end
 function initiate()
     self.clearButtons()
     self.clearInputs()
-    self.createButton({ click_function = 'xwsStart', function_owner = self, label = 'XWS Spawner', position = { 0.5, 0.45, -0.1 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
-    self.createButton({ click_function = 'singleSpawner', function_owner = self, label = 'Single Spawner', position = { -0.45, 0.45, 0.15 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
-    self.createButton({ click_function = 'spawnerStart', function_owner = self, label = 'TTS Spawner', position = { 0.5, 0.45, 0.15 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
-    self.createButton({ click_function = 'builderStart', function_owner = self, label = 'Builder', position = { 0.5, 0.45, 0.4 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
-    self.createButton({ click_function = 'assetSpawn', function_owner = self, label = "Asset Spawner", position = { -0.45, 0.45, 0.4 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
-    self.createButton({ click_function = 'configuration', function_owner = self, label = "Configuration", position = { -0.45, 0.45, -0.1 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
-    self.createButton({ click_function = 'scenario', function_owner = self, label = "Scenario Setup", position = { 0, 0.45, 0.65 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
+    -- self.createButton({ click_function = 'xwsStart', function_owner = self, label = 'XWS Spawner', position = { 0.5, 0.45, -0.1 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
+    self.createButton({ click_function = 'singleSpawner', function_owner = self, label = 'Single Spawner', position = { -0.5, 0.45, 0.15 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
+    -- self.createButton({ click_function = 'spawnerStart', function_owner = self, label = 'TTS Spawner', position = { -0.5, 0.45, 0.4 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
+    -- self.createButton({ click_function = 'builderStart', function_owner = self, label = 'Builder', position = { 0.5, 0.45, 0.4 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })   
+    self.createButton({ click_function = 'assetSpawn', function_owner = self, label = "Asset Spawner", position = { 0.5, 0.45, 0.15 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
+    self.createButton({ click_function = 'configuration', function_owner = self, label = "Configuration", position = { -0.5, 0.45, -0.1 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
+    self.createButton({ click_function = 'scenario', function_owner = self, label = "Scenario Setup", position = { 0.5, 0.45, -0.1 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
+    self.createButton({ click_function = 'spawnStart', function_owner = self, label = 'Spawn List', position = { 0, 0.45, 0.45 }, width = 2000, height = 500, font_size = 200, scale = { 0.25, 0.25, 0.25 } }) 
+end
+
+function spawnStart()
+    self.clearButtons()
+    self.createButton({ click_function = 'amgPoints', function_owner = self, label = "AMG Points", position = { 0, 0.45, -0.1 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
+    self.createButton({ click_function = 'xwaPoints', function_owner = self, label = "XWA Points", position = { 0, 0.45, 0.2 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
+    addResetButton()
+    
+end
+
+function addResetButton()
+    self.createButton({
+        click_function = 'initiate',
+        function_owner = self,
+        label = 'Back',
+        position = { 0.4, 0.43, 0.8 },
+        width = 1650,
+        height = 520,
+        font_size = 240,
+        scale = { 0.15, 0.15, 0.15 }
+    })
+end
+
+function amgPoints()
+    loadPoints("AMG")
+    spawnOptions()
+end
+
+function xwaPoints()
+    loadPoints("XWA")
+    spawnOptions()
+end
+
+function spawnOptions()
+    self.clearButtons()
+    self.createButton({ click_function = 'xwsStart', function_owner = self, label = 'XWS Spawner', position = { 0.0, 0.45, -0.1 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
+    self.createButton({ click_function = 'spawnerStart', function_owner = self, label = 'TTS Spawner', position = { 0.0, 0.45, 0.2 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
+    self.createButton({ click_function = 'builderStart', function_owner = self, label = 'Builder', position = { 0.0, 0.45, 0.5 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })   
+    addResetButton()
 end
 
 function scenario()
@@ -420,92 +463,93 @@ function xwsLoad(playerColor)
     end
 end
 
-function resetXwsData()
-    XWS_DATA = {
+function loadPoints(ruleset)
+    if VERSION_DATA.ruleset == ruleset .. "Done" then
+        return
+    end
+    VERSION_DATA = {
         pilots = {},
-        upgrades = {}
+        upgrades = {},
+        ruleset = ruleset
     }
-    loadXwsData()
+    loadVersion(ruleset)
 end
-
-function loadXwsData()
-    --print("Loading xws")
-    WebRequest.get('https://raw.githubusercontent.com/guidokessels/xwing-data2/master/data/manifest.json',
+function loadVersion(ruleset)
+    WebRequest.get('https://raw.githubusercontent.com/eirikmun/xwing-points/main/points-version.json',
         function(request)
             if request.is_error then
-                print("Failed to load manifest.json which is required to get updated point costs.")
+                print("Failed to load X-Wing points manifest.")
             elseif request.is_done then
-                print("Received xws data manifest")
-                XWS_DATA.manifest = table.deepcopy(json.parse(request.text))
-                loadXwsDataShips()
+                loadVersionData(ruleset, json.parse(request.text))
             end
         end)
-    WebRequest.get('https://raw.githubusercontent.com/guidokessels/xwing-data2/master/data/factions/factions.json',
-        function(request)
-            if request.is_error then
-                print("Failed to load factions.json which is required to get updated point costs.")
-            elseif request.is_done then
-                XWS_DATA.factions = {}
-                print("Received xws factions")
-                for _, faction in pairs(json.parse(request.text)) do
-                    XWS_DATA.factions[faction.xws] = faction
+end
+
+function loadVersionData(ruleset, point_versions)
+    if point_versions[ruleset] then
+        WebRequest.get('https://raw.githubusercontent.com/eirikmun/xwing-points/main/' .. point_versions[ruleset].location,
+            function(request)
+                if request.is_error then
+                    print("Failed to load X-Wing points data for " .. ruleset .. " points version")
+                elseif request.is_done then
+                    loadVersionRevisions(ruleset, json.parse(request.text))
                 end
-                loadXwsDataShips()
-            end
-        end)
+            end)
+    else
+        print("Data for " .. ruleset .. " is not available") 
+    end
 end
 
-function loadXwsDataShips()
-    if XWS_DATA.manifest and XWS_DATA.factions then
-        for _, faction in pairs(XWS_DATA.manifest.pilots) do
-            --print("Faction: " .. XWS_DATA.factions[faction.faction].name)
-            --XWS_DATA.factions[faction.faction].ships = {}
-            for _, ship in pairs(faction.ships) do
-                --print(" - " .. ship)
-                WebRequest.get('https://raw.githubusercontent.com/guidokessels/xwing-data2/master/' .. ship,
-                    function(request)
-                        if request.is_error then
-                            print(
-                                'Unable to retreive data from "https://raw.githubusercontent.com/guidokessels/xwing-data2/master/' ..
-                                ship .. '"')
-                        else
-                            shipdata = JSON.decode(request.text)
-                            --shipdata = json.parse(request.text)
-                            --XWS_DATA.factions[faction.faction].ships[shipdata.xws] = shipdata
-                            for _, pilot in pairs(shipdata.pilots) do
-                                XWS_DATA.pilots[pilot.xws] = {
-                                    cost = pilot.cost,
-                                    loadout = pilot.loadout,
-                                    slots = pilot
-                                        .slots
-                                }        --pilot
-                            end          -- for shipdata.pilots
-                        end              -- if request.is_error
-                    end)                 -- webrequest
-            end                          -- for faction.ships
-        end                              -- for manifest.pilots
+function loadVersionRevisions(ruleset, version_revisions)
+    if version_revisions.current_revision then
+        WebRequest.get('https://raw.githubusercontent.com/eirikmun/xwing-points/main/' .. version_revisions.current_revision,
+            function(request)
+                if request.is_error then
+                    print("Failed to load X-Wing points data for " .. ruleset .. " points version")
+                elseif request.is_done then
+                    loadVersionRevision(ruleset, json.parse(request.text))
+                end
+            end)
+    else
+        print("Current revision for " + ruleset + " is not available") 
+    end
+end
 
-        for _, upgrade in pairs(XWS_DATA.manifest.upgrades) do
-            --print("Upgrade: " .. upgrade)
-            WebRequest.get('https://raw.githubusercontent.com/guidokessels/xwing-data2/master/' .. upgrade,
-                function(request)
-                    if request.is_error then
-                        print(
-                            'Unable to retreive data from "https://raw.githubusercontent.com/guidokessels/xwing-data2/master/' ..
-                            upgrade .. '"')
-                    else
-                        local upgradedata = JSON.decode(request.text)
-                        for _, upgrade in pairs(upgradedata) do
-                            if upgrade.cost then
-                                XWS_DATA.upgrades[upgrade.xws] = { cost = upgrade.cost } --upgrade
-                            end                                                          -- if upgrade.cost
-                        end                                                              -- for upgradedata.upgrade
-                    end                                                                  -- if request.is_error
-                end)                                                                     -- webrequest
-        end                                                                              -- for manifest.upgrades
-    end                                                                                  -- if manifest..
-    print("Finished fetching XWS data")
-end                                                                                      --function
+function loadVersionRevision(ruleset, version_revision)
+    for file, path in pairs(version_revision.files) do
+        URL = 'https://raw.githubusercontent.com/eirikmun/xwing-points/main/' .. path
+        WebRequest.get('https://raw.githubusercontent.com/eirikmun/xwing-points/main/' .. path,
+            function(request)
+                if request.is_error then
+                    print("Failed to " .. file .. " points data for " .. ruleset .. " points version")
+                elseif request.is_done then
+                    if file == "upgrades" then
+                        loadUpgrades(json.parse(request.text))
+                    else 
+                        loadPilots(json.parse(request.text))
+                    end
+                end
+            end)
+    end
+end
+
+function loadUpgrades(upgrades)
+    for xws, upgrade in pairs(upgrades) do
+        if upgrade.cost then
+            VERSION_DATA.upgrades[xws] = upgrade
+        end                                                          
+    end           
+end
+
+function loadPilots(ships)
+    for ship_xws, ship in pairs(ships) do
+        for pilot_xws, pilot in pairs(ship) do
+            if pilot.cost then
+                VERSION_DATA.pilots[pilot_xws] = pilot
+            end       
+        end                                                   
+    end           
+end
 
 function findByXws(table, xws_id)
     for i, record in pairs(table) do
@@ -550,7 +594,7 @@ function xwsSpawn(list, playerColor)
           end
         end]]
         parts.Obstacles = {}
-        parts.Format = listToFormat(list.version, list.vendor)
+        parts.Format = listToFormat(list.ruleset, list.vendor)
 
         for k, v in pairs(list.pilots) do
             local pilotId = findByXws(masterPilotDB, v.id)
@@ -977,8 +1021,8 @@ function idSpawner(idTable)
         fList.Pilots[k].id = v
         fList.Pilots[k].name = pilotName
         local cost = 20
-        if XWS_DATA.pilots[masterPilotDB[v].XWS] then
-            cost = XWS_DATA.pilots[masterPilotDB[v].XWS].cost
+        if VERSION_DATA.pilots[masterPilotDB[v].XWS] then
+            cost = VERSION_DATA.pilots[masterPilotDB[v].XWS].cost
         end
         fList.Pilots[k].cost = cost
         fList.Customization[pilotName] = masterPilotDB[v].Customization or {}
@@ -1078,9 +1122,9 @@ function idSpawner(idTable)
             fList.Upgrades[k][key] = {}
             fList.Upgrades[k][key].name = name
             local cost = masterUpgradesDB[value].cost
-            local xws_data = XWS_DATA.upgrades[masterUpgradesDB[value].XWS]
-            if xws_data and xws_data.cost and tonumber(XWS_DATA.upgrades[masterUpgradesDB[value].XWS].cost.value) then
-                cost = XWS_DATA.upgrades[masterUpgradesDB[value].XWS].cost.value
+            local xws_data = VERSION_DATA.upgrades[masterUpgradesDB[value].XWS]
+            if xws_data and xws_data.cost and tonumber(VERSION_DATA.upgrades[masterUpgradesDB[value].XWS].cost) then
+                cost = VERSION_DATA.upgrades[masterUpgradesDB[value].XWS].cost
             end
             fList.Pilots[k].list = fList.Pilots[k].list .. '   ' .. name .. ' (' .. tostring(cost) .. ')\n'
             loadout = loadout + cost
@@ -1216,9 +1260,9 @@ function idSpawner(idTable)
             fList.Pilots[k].bombD = bombD
         end
         local loadout_string = ''
-        if XWS_DATA.pilots[masterPilotDB[v].XWS] then
+        if VERSION_DATA.pilots[masterPilotDB[v].XWS] then
             loadout_string = '\nLoadout: ' ..
-                tostring(loadout) .. '/' .. tostring(XWS_DATA.pilots[masterPilotDB[v].XWS].loadout)
+                tostring(loadout) .. '/' .. tostring(VERSION_DATA.pilots[masterPilotDB[v].XWS].loadout)
         end
         fList.Pilots[k].list = fList.Pilots[k].list ..
             loadout_string ..
@@ -1528,9 +1572,9 @@ function selectModelGeneric(arg)
             if validOption and v.Faction == partList.Faction then
                 local cost = v.cost
                 local loadout = 0
-                if XWS_DATA.pilots[v.XWS] then
-                    cost = XWS_DATA.pilots[v.XWS].cost
-                    loadout = XWS_DATA.pilots[v.XWS].loadout
+                if VERSION_DATA.pilots[v.XWS] then
+                    cost = VERSION_DATA.pilots[v.XWS].cost
+                    loadout = VERSION_DATA.pilots[v.XWS].loadout
                 end
                 availablePilots[index] = { id = k, name = v.name, cost = cost, loadout = loadout, keywords = {}, upgrades = {} }
                 for _, keyword in pairs(masterShipDB[chosenModel].keywords or {}) do
@@ -1848,10 +1892,10 @@ function selectShipGeneric(arg)
     local cost = 0
     -- print("Slots for " .. pilot.name)
     free_slots['Command'] = 1
-    if XWS_DATA.pilots[pilot.XWS] then
-        loadout_value = XWS_DATA.pilots[pilot.XWS].loadout
-        cost = XWS_DATA.pilots[pilot.XWS].cost
-        for _, slot in pairs(XWS_DATA.pilots[pilot.XWS].slots) do
+    if VERSION_DATA.pilots[pilot.XWS] then
+        loadout_value = VERSION_DATA.pilots[pilot.XWS].loadout
+        cost = VERSION_DATA.pilots[pilot.XWS].cost
+        for _, slot in pairs(VERSION_DATA.pilots[pilot.XWS].slots) do
             free_slots[slot] = (free_slots[slot] or 0) + 1
             --   print(i .. ":" .. slot  )
         end
@@ -1909,7 +1953,7 @@ function selectShipGeneric(arg)
 
 
     self.createButton({
-        click_function = 'Dummy1',
+        click_function = 'Dummy',
         function_owner = self,
         label = partList.Pilots[shipIndex].name ..
             ' (' .. cost .. ')',
@@ -1922,7 +1966,7 @@ function selectShipGeneric(arg)
     self.createButton({ click_function = 'mainMenu', function_owner = self, label = 'Back', position = { 0.5, 0.45, -0.35 }, width = 1000, height = 320, font_size = 150, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'removeShip', function_owner = self, label = 'Remove Ship', position = { 0.6, 0.45, 0.75 }, width = 1000, height = 320, font_size = 150, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({
-        click_function = 'Dummy1',
+        click_function = 'Dummy',
         function_owner = self,
         label = 'Loadout: ' ..
             tostring(loadout_cost) .. '/' .. tostring(loadout_value),
@@ -1932,7 +1976,7 @@ function selectShipGeneric(arg)
         font_size = 150,
         scale = { 0.25, 0.25, 0.25 }
     })
-    self.createButton({ click_function = 'Dummy1', function_owner = self, label = 'List cost: ' .. listCost, position = { 0, 0.45, 0.8 }, width = 1000, height = 220, font_size = 150, scale = { 0.25, 0.25, 0.25 } })
+    self.createButton({ click_function = 'Dummy', function_owner = self, label = 'List cost: ' .. listCost, position = { 0, 0.45, 0.8 }, width = 1000, height = 220, font_size = 150, scale = { 0.25, 0.25, 0.25 } })
 end
 
 function removeShip()
@@ -2063,8 +2107,8 @@ function selectSlotGeneric(slotIndex)
     for id, up in pairs(masterUpgradesDB) do
         if up.slot == slotId then
             local up_cost = up.cost or 0
-            if XWS_DATA.upgrades[up.XWS] and XWS_DATA.upgrades[up.XWS].cost then
-                up_cost = tonumber(XWS_DATA.upgrades[up.XWS].cost.value) or up_cost
+            if VERSION_DATA.upgrades[up.XWS] and VERSION_DATA.upgrades[up.XWS].cost then
+                up_cost = tonumber(VERSION_DATA.upgrades[up.XWS].cost) or up_cost
             end
             local validUp = true
             if up_cost > loadout_remaining then

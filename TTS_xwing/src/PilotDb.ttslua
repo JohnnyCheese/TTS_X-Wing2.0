@@ -2225,6 +2225,7 @@ masterPilotDB[130] = {
 
 masterPilotDB[131] = {
     name = '"Whisper"',
+    title = 'Soft-Spoken Slayer',
     XWS = 'whisper',
     Faction = 2,
     limited = 1,
@@ -2238,6 +2239,7 @@ masterPilotDB[131] = {
 
 masterPilotDB[132] = {
     name = '"Echo"',
+    title = 'Slippery Trickster',
     XWS = 'echo',
     Faction = 2,
     limited = 1,
@@ -2275,6 +2277,7 @@ masterPilotDB[134] = {
 
 masterPilotDB[135] = {
     name = 'Major Vynder',
+    title = 'Pragmatic Survivor',
     XWS = 'majorvynder',
     Faction = 2,
     limited = 1,
@@ -2288,6 +2291,7 @@ masterPilotDB[135] = {
 
 masterPilotDB[136] = {
     name = 'Lieutenant Karsabi',
+    title = 'Brash Noble',
     XWS = 'lieutenantkarsabi',
     Faction = 2,
     limited = 1,
@@ -9641,5 +9645,82 @@ masterPilotDB[1078] = {
     }
 }
 
+masterPilotDB[1079] = {
+    name = '"Echo"',
+    title = 'Copycat',
+    XWS = 'echo-ssl',
+    Faction = 2,
+    limited = 1,
+    Charge = 1,
+    ship_type = 'tiephphantom',
+    cost = 5,
+    init = 4,
+    texture = 'echo',
+    actSet = { 'F', 'E', 'BR', 'CL' },
+    standardized_loadout = true,
+    standardized_upgrades = {
+        { name = 'Silent Hunter',     charge = 0 },
+        { name = 'Stealth Gambit',    charge = 0 },
+        { name = 'Manual Ailerons',   charge = 2 }
+    }
+}
+
+masterPilotDB[1080] = {
+    name = '"Whisper"',
+    title = 'Unseen Assailant',
+    XWS = 'whisper-ssl',
+    Faction = 2,
+    limited = 1,
+    Charge = 2,
+    ship_type = 'tiephphantom',
+    cost = 5,
+    init = 5,
+    texture = 'blue',
+    actSet = { 'F', 'E', 'BR', 'CL', 'B' },
+    standardized_loadout = true,
+    standardized_upgrades = {
+        { name = 'Without a Trace',  charge = 0 },
+        { name = 'Relay System',     charge = 0 },
+        { name = 'Stygium Reserve',  charge = 1 }
+    }
+}
+
+masterPilotDB[1081] = {
+    name = 'Major Vynder',
+    title = 'Helping Hand',
+    XWS = 'majorvynder-ssl',
+    Faction = 2,
+    limited = 1,
+    ship_type = 'alphaclassstarwing',
+    cost = 5,
+    init = 4,
+    texture = 'standard',
+    actSet = { 'F', 'TL' },
+    standardized_loadout = true,
+    standardized_upgrades = {
+        { name = 'Long-Range Scanners',     charge = 2 },
+        { name = 'Ion Cannon',              charge = 0 },
+        { name = 'Heavy Plasma Missiles',   charge = 2 }
+    }
+}
+
+masterPilotDB[1082] = {
+    name = 'Lieutenant Karsabi',
+    title = 'Payload Courier',
+    XWS = 'lieutenantkarsabi-ssl',
+    Faction = 2,
+    limited = 1,
+    ship_type = 'alphaclassstarwing',
+    cost = 5,
+    init = 3,
+    texture = 'standard',
+    actSet = { 'F', 'TL' },
+    standardized_loadout = true,
+    standardized_upgrades = {
+        { name = 'Proton Torpedoes',  charge = 2 },
+        { name = 'Saturation Rockets',     charge = 4 },
+        { name = 'Electronic Baffle',  charge = 0 }
+    }
+}
 
 return masterPilotDB
