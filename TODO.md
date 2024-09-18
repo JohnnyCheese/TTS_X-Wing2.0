@@ -35,10 +35,21 @@ Scripting Changes
 2. Move All AI Ships with 1-button.
 3. Remove all the extra turrets and see what breaks
 4. Try using an external unit testing framework, the IDE and require to attempt to run tests
-5. See whether separating domain logic from TTS UI logic is doable.
+5. See whether separating domain logic from TTS UI logic is useful.
 6. Create videos for X-Wing Standard/HotAC/TTS Development
 1. Add the barrel roll to AI Swerve mechanics.
 1. Add the AI avoid at any cost mechanic for board edge.
+2. Turn-Phase Observer Event Model. Things like Tracking Torpedo which
+    move during the System Phase. Explode during the Engagement Phase, and
+    Target Lock during the End phase could be register for the Events then be polled to get input (or
+    skip). The `showMe()` function might be useful for finding each object
+    which needs to act.
+1. Tags system for interaction:
+   1. 'Targetable' = shows up in Range checks
+   1. 'Ship' = acts like a ship
+   2. 'Remote' = obeys rules for Remotes
+   3. 'AttackAI' = obeys Attack AI for movement and activation
+   4. 'StrikeAI' = etc
 
 
 Requires an updated Beta Save
