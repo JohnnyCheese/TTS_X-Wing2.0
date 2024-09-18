@@ -6599,7 +6599,11 @@ function newSpawner(listTable)
         end
 
         if Pilots[shipIndex].standardized_loadout then
-            finalPos = LocalPos(spawnCard, { -6, 0, 0 })
+            charges = 0
+            for _, upgrade in pairs(Pilots[shipIndex].standardized_upgrades) do
+                charges = math.max(charges, upgrade.charge)
+            end
+            finalPos = LocalPos(spawnCard, { -(5.5 + charges * 0.7), 0, 0 })
         else
             finalPos = LocalPos(spawnCard, { -4 - 1.78 * UpNum, 0, 0 })
         end
