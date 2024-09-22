@@ -150,10 +150,6 @@ dualUpgradeList[685] = 686 -- Agent terex
 dualUpgradeList[691] = 692 -- Repulsorlift Stabilizers
 dualUpgradeList[617] = 618 -- C1-10P
 
-tokenSize = 1
-tokenSizeStr = { [1] = "Small", [2] = "Medium", [3] = "Large" }
-tokenSizeModifiers = { [1] = 1.0, [2] = 1.5, [3] = 2.0 }
-
 VERSION_DATA = {
     ruleset = "none",
     pilots = {},
@@ -189,11 +185,11 @@ function initiate()
     -- self.createButton({ click_function = 'xwsStart', function_owner = self, label = 'XWS Spawner', position = { 0.5, 0.45, -0.1 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'singleSpawner', function_owner = self, label = 'Single Spawner', position = { -0.5, 0.45, 0.15 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
     -- self.createButton({ click_function = 'spawnerStart', function_owner = self, label = 'TTS Spawner', position = { -0.5, 0.45, 0.4 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
-    -- self.createButton({ click_function = 'builderStart', function_owner = self, label = 'Builder', position = { 0.5, 0.45, 0.4 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })   
+    -- self.createButton({ click_function = 'builderStart', function_owner = self, label = 'Builder', position = { 0.5, 0.45, 0.4 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'assetSpawn', function_owner = self, label = "Asset Spawner", position = { 0.5, 0.45, 0.15 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'configuration', function_owner = self, label = "Configuration", position = { -0.5, 0.45, -0.1 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'scenario', function_owner = self, label = "Scenario Setup", position = { 0.5, 0.45, -0.1 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
-    self.createButton({ click_function = 'spawnStart', function_owner = self, label = 'Spawn List', position = { 0, 0.45, 0.45 }, width = 2000, height = 500, font_size = 200, scale = { 0.25, 0.25, 0.25 } }) 
+    self.createButton({ click_function = 'spawnStart', function_owner = self, label = 'Spawn List', position = { 0, 0.45, 0.45 }, width = 2000, height = 500, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
 end
 
 function spawnStart()
@@ -201,7 +197,6 @@ function spawnStart()
     self.createButton({ click_function = 'amgPoints', function_owner = self, label = "AMG Points", position = { 0, 0.45, -0.1 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'xwaPoints', function_owner = self, label = "XWA Points", position = { 0, 0.45, 0.2 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
     addResetButton()
-    
 end
 
 function addResetButton()
@@ -231,7 +226,7 @@ function spawnOptions()
     self.clearButtons()
     self.createButton({ click_function = 'xwsStart', function_owner = self, label = 'XWS Spawner', position = { 0.0, 0.45, -0.1 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'spawnerStart', function_owner = self, label = 'TTS Spawner', position = { 0.0, 0.45, 0.2 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
-    self.createButton({ click_function = 'builderStart', function_owner = self, label = 'Builder', position = { 0.0, 0.45, 0.5 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })   
+    self.createButton({ click_function = 'builderStart', function_owner = self, label = 'Builder', position = { 0.0, 0.45, 0.5 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
     addResetButton()
 end
 
@@ -367,7 +362,7 @@ function scenarioBoYavin()
     red_blue_mat.call("clearScenario", nil)
     local custom = red_blue_mat.getCustomObject()
     custom.diffuse =
-    'http://cloud-3.steamusercontent.com/ugc/1863954854624717161/2BEED383E5A41762625D3C0A3D3F8AB7BF0B9863/'
+    'https://steamusercontent-a.akamaihd.net/ugc/1863954854624717161/2BEED383E5A41762625D3C0A3D3F8AB7BF0B9863/'
     red_blue_mat.setCustomObject(custom)
     red_blue_mat = red_blue_mat.reload()
     Wait.condition(function() red_blue_mat.call('SelectBoY') end,
@@ -375,12 +370,13 @@ function scenarioBoYavin()
 end
 
 function configuration()
+    local tokenSizeStr = { [1] = "Small", [2] = "Medium", [3] = "Large" }
+    local tokenSize = Global.call("API_GetTokenSize", {}) or 1
     self.clearButtons()
     self.createButton({
         click_function = 'toggleTokenSize',
         function_owner = self,
-        label = 'Token size: ' ..
-            tokenSizeStr[tokenSize],
+        label = 'Token size: ' .. tokenSizeStr[tokenSize],
         position = { 0, 0.45, -0.2 },
         width = 2600,
         height = 360,
@@ -394,11 +390,12 @@ function configuration()
 end
 
 function toggleTokenSize()
+    local tokenSize = Global.call("API_GetTokenSize", {}) or 1
     tokenSize = tokenSize + 1
     if tokenSize > 3 then
         tokenSize = 1
     end
-    Global.call("API_SetTokenSize", { size = tokenSizeModifiers[tokenSize] })
+    Global.call("API_SetTokenSize", { size = tokenSize })
     configuration()
 end
 
@@ -474,6 +471,7 @@ function loadPoints(ruleset)
     }
     loadVersion(ruleset)
 end
+
 function loadVersion(ruleset)
     WebRequest.get('https://raw.githubusercontent.com/eirikmun/xwing-points/main/points-version.json',
         function(request)
@@ -487,7 +485,8 @@ end
 
 function loadVersionData(ruleset, point_versions)
     if point_versions[ruleset] then
-        WebRequest.get('https://raw.githubusercontent.com/eirikmun/xwing-points/main/' .. point_versions[ruleset].location,
+        WebRequest.get(
+            'https://raw.githubusercontent.com/eirikmun/xwing-points/main/' .. point_versions[ruleset].location,
             function(request)
                 if request.is_error then
                     print("Failed to load X-Wing points data for " .. ruleset .. " points version")
@@ -496,13 +495,14 @@ function loadVersionData(ruleset, point_versions)
                 end
             end)
     else
-        print("Data for " .. ruleset .. " is not available") 
+        print("Data for " .. ruleset .. " is not available")
     end
 end
 
 function loadVersionRevisions(ruleset, version_revisions)
     if version_revisions.current_revision then
-        WebRequest.get('https://raw.githubusercontent.com/eirikmun/xwing-points/main/' .. version_revisions.current_revision,
+        WebRequest.get(
+            'https://raw.githubusercontent.com/eirikmun/xwing-points/main/' .. version_revisions.current_revision,
             function(request)
                 if request.is_error then
                     print("Failed to load X-Wing points data for " .. ruleset .. " points version")
@@ -511,7 +511,7 @@ function loadVersionRevisions(ruleset, version_revisions)
                 end
             end)
     else
-        print("Current revision for " + ruleset + " is not available") 
+        print("Current revision for " + ruleset + " is not available")
     end
 end
 
@@ -525,7 +525,7 @@ function loadVersionRevision(ruleset, version_revision)
                 elseif request.is_done then
                     if file == "upgrades" then
                         loadUpgrades(json.parse(request.text))
-                    else 
+                    else
                         loadPilots(json.parse(request.text))
                     end
                 end
@@ -537,8 +537,8 @@ function loadUpgrades(upgrades)
     for xws, upgrade in pairs(upgrades) do
         if upgrade.cost then
             VERSION_DATA.upgrades[xws] = upgrade
-        end                                                          
-    end           
+        end
+    end
 end
 
 function loadPilots(ships)
@@ -546,9 +546,9 @@ function loadPilots(ships)
         for pilot_xws, pilot in pairs(ship) do
             if pilot.cost then
                 VERSION_DATA.pilots[pilot_xws] = pilot
-            end       
-        end                                                   
-    end           
+            end
+        end
+    end
 end
 
 function findByXws(table, xws_id)
@@ -2732,7 +2732,8 @@ function parseList()
                         if restricted then
                             printToAll('Upgrade "' .. cardN .. '" is restricted to another faction', { 1, 0, 0 })
                         else
-                            printToAll("Unable to find upgrade: " .. cardN .. " please check correct spelling", { 1, 0, 0 })
+                            printToAll("Unable to find upgrade: " .. cardN .. " please check correct spelling",
+                                { 1, 0, 0 })
                         end
                         goto continue
                         finalList.Upgrades[pilotIndex][k - 1] = nil
