@@ -46,7 +46,7 @@ SaveManager.onSave = function()
             saveData[key] = moduleSave
         end
     end
-    return SaveManager.Encode(saveData)
+    return SaveManager.Encode(saveData)  -- Encode the table of JSON strings
 end
 
 SaveManager.Encode = function(dataTable)
