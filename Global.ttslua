@@ -82,10 +82,6 @@ local SaveManager = require("TTS_Lib.SaveManager.SaveManager")
 -- Component sizes, unit conversion methods
 local Dim = require("TTS_xwing.src.Dim")
 
--- There are in-object scripts that need the Dim variables set Globally.
-local Kludge = require("TTS_Lib.Util.DirtyTricks")
---Kludge.exportGlobals(Dim);
-
 -- AI behaviour sets
 local BehaviourDB = require("TTS_xwing.src.BehaviourDB")
 
@@ -121,9 +117,15 @@ StreamManagerModule = require("TTS_xwing.src.StreamManager")
 local GlobalGuiControl = require("TTS_xwing.src.GlobalGuiControl")
 local MoveData = require("TTS_xwing.src.MoveData")
 local AnnModule = require("TTS_xwing.src.Announcements")
+local Maneuver = require("TTS_xwing.src.Game.Mechanic.Movement.Maneuver")
+local Relocator = Maneuver:new()
 
 -- Modules API, must be loaded last
 require("TTS_xwing.src.API")
+
+function onSave()
+    return SaveManager.onSave()
+end
 
 --------
 -- MISC FUNCTIONS
@@ -3731,14 +3733,20 @@ end
 -- TOKEN MODULE
 -- Moves tokens, clears positions from tokens, checks its owners, deducts a visible position after a ship move
 
-TokenModule = {}
 -- Table with refs for different token and template sources
-TokenModule.tokenSources = {}
-
-TokenModule.tokenAssignments = {}
+TokenModule = {
+    tokenSize = 1,
+    tokenSources = {},
+    tokenAssignments = {},
+    scaleModifiers = { [1] = 1.0, [2] = 1.5, [3] = 2.0 },
+}
 
 -- Update token and template sources on each load
 TokenModule.onLoad = function(save_data)
+    if save_data then
+        TokenModule.tokenSize = save_data.tokenSize
+    end
+
     for k, obj in pairs(getAllObjects()) do
         if obj.tag == 'Infinite' then
             if obj.getName() == 'Focus' then
@@ -3779,7 +3787,15 @@ TokenModule.onLoad = function(save_data)
         end
     end
 end
-EventSub.Register('onLoad', TokenModule.onLoad)
+
+TokenModule.onSave = function()
+    local saveData = {}
+    saveData.tokenSize = TokenModule.tokenSize
+    -- return JSON.encode(saveData)
+    return saveData
+end
+
+SaveManager.Register('TokenModule', TokenModule.onSave, TokenModule.onLoad)
 
 TokenModule.onObjectDestroyed = function(destroyed_object)
     if TokenModule.tokenAssignments[destroyed_object.getGUID()] ~= nil then
@@ -3980,8 +3996,6 @@ TokenModule.nearPos.huge.Disarm = { 45, 45 }
 
 TokenModule.nearPos.huge.rest = { -55, -45 }
 
-TokenModule.token_scale = 1
-
 -- Deduct target token position in the world for a ship, token and some entry from TokenModule.basePos or .nearPos
 TokenModule.TokenPos = function(tokenName, ship, posTable)
     local baseSize = ship.getTable("Data").Size or 'small'
@@ -4151,7 +4165,9 @@ TokenModule.TakeToken = function(type, playerColor, dest, flip)
     end
     local newToken = TokenModule.tokenSources[type].src.takeObject(takeTable)
     newToken.highlightOn(highlightColor, 3)
-    newToken.setScale(newToken.getScale() * TokenModule.token_scale)
+
+    local scale = TokenModule.scaleModifiers[TokenModule.tokenSize]
+    newToken.setScale(newToken.getScale() * scale)
     return newToken
 end
 
@@ -4498,7 +4514,7 @@ end
 
 
 
--- Spawned tempaltes are kept there
+-- Spawned templates are kept there
 -- Entry: {ship=shipRef, template=templateObjRef}
 DialModule.SpawnedTemplates = {}
 
@@ -4542,10 +4558,10 @@ DialModule.TemplateData.baseOffset.small = { 0, 0, 20, 0 }
 DialModule.TemplateData.baseOffset.medium = { 0, 0, 30, 0 }
 DialModule.TemplateData.baseOffset.large = { 0, 0, 40, 0 }
 
--- Spawn a tempalte on given ship
+-- Spawn a template on given ship
 -- dialCode is move code PLUS identifier if ship already did it or not
 -- be3_A means "spawn a bank left 3 template behind me" (A as in after move)
--- tr1_B means "spawn a turn right 1 tempalte in front of me" (B as in before move)
+-- tr1_B means "spawn a turn right 1 template in front of me" (B as in before move)
 -- Return template reference
 -- TODO toggletemplate?
 DialModule.SpawnTemplate = function(ship, dialCode)
@@ -6190,16 +6206,15 @@ function newSpawner(listTable)
             newShip.setRotationSmooth(rot, false, true)
             newShip.setScale(Dim.mm_ship_scale)
 
-            newShip.setCustomObject(
-                {
-                    mesh = spawnPrefix .. "bases/" .. size .. "/base.obj?1",
-                    collider = ShipVerification.colliders[size],
-                    diffuse = spawnPrefix ..
-                        "bases/" .. size .. "/" .. fixedarc .. "/" .. factionnames[Faction] .. ".png",
-                    convex = true,
-                    material = 1,
-                    type = 1
-                })
+            newShip.setCustomObject({
+                mesh = spawnPrefix .. "bases/" .. size .. "/base.obj?1",
+                collider = ShipVerification.colliders[size],
+                diffuse = spawnPrefix ..
+                    "bases/" .. size .. "/" .. fixedarc .. "/" .. factionnames[Faction] .. ".png",
+                convex = true,
+                material = 1,
+                type = 1
+            })
             newShip.setTable("Data", Pilots[shipIndex].Data)
             newShip.setLock(true)
             if Pilots[shipIndex].Data.ProximityHider then
