@@ -19,37 +19,34 @@ end
 SaveManager.onLoad = function(saveData)
     local saveTable = SaveManager.Decode(saveData)
     if type(saveTable) ~= 'table' then
-        print('skip')
+        print('Save data is invalid or empty')
         return
     end
     local responses = {}
     for key, module in pairs(SaveManager.moduleList) do
         if saveTable[key] and (not table.empty(saveTable[key])) then
             local response = module.restore(saveTable[key])
-            if type(response) == 'string' then
+            if response and type(response) == 'string' then
                 table.insert(responses, response)
             end
         end
     end
-    if not table.empty(responses) then
+    if #responses > 0 then
         table.insert(responses, 1, 'Attempting to restore state...')
     end
     SaveManager.Notify(responses)
 end
 ES.Register('onLoad', SaveManager.onLoad)
 
-if type(onSave) == 'function' then
-    error('SaveManager: onSave event trigger already defined!')
-end
-function onSave()
+SaveManager.onSave = function()
     local saveData = {}
     for key, module in pairs(SaveManager.moduleList) do
         local moduleSave = module.save()
-        if type(moduleSave) == 'table' and (not table.empty(moduleSave)) then
+        if moduleSave and type(moduleSave) == 'table' and (not table.empty(moduleSave)) then
             saveData[key] = moduleSave
         end
     end
-    return SaveManager.Encode(saveData)
+    return SaveManager.Encode(saveData)  -- Encode the table of JSON strings
 end
 
 SaveManager.Encode = function(dataTable)
@@ -61,7 +58,7 @@ SaveManager.Decode = function(encodedData)
 end
 
 SaveManager.Notify = function(responses)
-    if not table.empty(responses) then
+    if #responses > 0 then
         printToAll(table.concat(responses, '\n'), { 0.8, 0.1, 0.8 })
     end
 end

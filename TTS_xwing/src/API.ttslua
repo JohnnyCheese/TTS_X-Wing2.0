@@ -24,6 +24,10 @@ function API_PerformMove(argTable)
     return MoveModule.PerformMove(argTable.code, argTable.ship, argTable.ignoreCollisions)
 end
 
+function API_Relocate(argTable)
+    Relocator:execute(argTable.ship, argTable.moveType)
+end
+
 -- Queue tokens near a ship for movement
 -- To be called immediately before changing position of a ship
 -- Argument: { ship = shipRef, finPos = { pos = finalPosition, rot = finalRotation} }
@@ -111,8 +115,12 @@ function API_ClearPosition(argTable)
     TokenModule.ClearPosition(argTable.pos, argTable.reach, argTable.ship)
 end
 
+function API_GetTokenSize()
+    return TokenModule.tokenSize
+end
+
 function API_SetTokenSize(argTable)
-    TokenModule.token_scale = argTable.size
+    TokenModule.tokenSize = argTable.size
 end
 
 function API_StreamAnnounce(argTable)
