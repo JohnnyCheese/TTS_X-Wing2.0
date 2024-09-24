@@ -158,24 +158,11 @@ VERSION_DATA = {
 
 -- on load initiate the process
 function onLoad(save_state)
-    if save_state and save_state ~= nil then
-        local loadState = json.parse(save_state)
-        if loadState and loadState ~= {} then
-            VERSION_DATA.pilots = loadState.pilots or {}
-            VERSION_DATA.upgrades = loadState.upgrades or {}
-            VERSION_DATA.ruleset = loadState.ruleset or "none"
-        end
-    end
     initiate()
 end
 
 function onSave()
-    local sState = {}
-    sState.pilots = VERSION_DATA.pilots
-    sState.upgrades = VERSION_DATA.upgrades
-    sState.ruleset = VERSION_DATA.ruleset
-    return json.serialize(sState)
-    --return JSON.encode(sState)
+
 end
 
 -- Initial function: Creates a start button for each mode: FFG Spawner (paste the link of the squad in the FFG web site and spawn), TTS Spawner (write or paste a snippet and spawn) and List Builder (offers options to build a squadron on the fly)
