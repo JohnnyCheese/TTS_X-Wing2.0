@@ -30,6 +30,8 @@ function DataPadTest.spawnImperialShips(seq, playerArea)
     end
     local player_color = playerArea.player.color
 
+    seq:add(ButtonTest.Click, dataPad, 'Spawn List', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'XWA Points', player_color, false)
     seq:add(ButtonTest.Click, dataPad, 'Builder', player_color, false)
     seq:add(ButtonTest.Click, dataPad, 'Imperial', player_color, false)
     seq:add(ButtonTest.Click, dataPad, 'Add Ship', player_color, false)
@@ -50,6 +52,8 @@ function DataPadTest.spawnRebelShips(seq, playerArea)
     end
     local player_color = playerArea.player.color
 
+    seq:add(ButtonTest.Click, dataPad, 'Spawn List', player_color, false)
+    seq:add(ButtonTest.Click, dataPad, 'XWA Points', player_color, false)
     seq:add(ButtonTest.Click, dataPad, 'Builder', player_color, false)
     seq:add(ButtonTest.Click, dataPad, 'Rebel', player_color, false)
     seq:add(ButtonTest.Click, dataPad, 'Add Ship', player_color, false)
