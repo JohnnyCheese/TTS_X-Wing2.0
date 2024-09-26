@@ -436,6 +436,13 @@ function HiddenBags(operation)
             bag.call(operation)
         end
     end
+    for _, obj in ipairs(getObjects()) do
+        local pos = obj.getPosition()
+        if (pos.y < 0) then
+            pos.y = -1 * pos.y
+            obj.setPosition(pos)
+        end
+    end
 end
 
 -- Function to show a menu based on the menu name
