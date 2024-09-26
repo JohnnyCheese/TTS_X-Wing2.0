@@ -40,6 +40,7 @@ require("vscode/console")
 function showMe(guid)
     local object = getObjectFromGUID(guid)
     if object then
+        local origColor = object.getColorTint()
         -- Highlight the object by changing its color tint
         object.setColorTint({ r = 1, g = 0, b = 0 }) -- Set to red for visibility
 
@@ -55,7 +56,7 @@ function showMe(guid)
 
         -- Optionally, reset the color after a delay
         Wait.time(function()
-            object.setColorTint({ r = 1, g = 1, b = 1 }) -- Reset to white or original color
+            object.setColorTint(origColor) -- Reset to white or original color
         end, 5)                                          -- Delay in seconds before the color reset happens
     else
         print("Object not found.")
