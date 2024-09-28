@@ -4,6 +4,7 @@ local Probe = {}
 local subject = {}
 
 function onLoad()
+    self.setScale({ 0.5, 0.5, 0.5 })
     -- Add a context menu item to manually check the object
     self.addContextMenuItem("Toggle Interactive", toggleInteractive)
 end
