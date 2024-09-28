@@ -9,12 +9,12 @@
 -- Just add their links to the table below in the same fashion
 
 -- Table of all images to be cycled through with NextImage()
-imageSet = {    'http://cloud-3.steamusercontent.com/ugc/5123439130600131751/A0015A12B09E8F0B985B919A08254853FECA7EFE/',
+imageSet = {    'https://steamusercontent-a.akamaihd.net/ugc/5123439130600131751/A0015A12B09E8F0B985B919A08254853FECA7EFE/',
                 'http://i.imgur.com/6IkNucB.jpg',
-                'http://cloud-3.steamusercontent.com/ugc/1483326815456337025/EB436BA5C3D1B0BAF4ED3325456E7211A669E3BF/',
-                'http://cloud-3.steamusercontent.com/ugc/1483326815456320038/68F5C582DBCBDC1070ACD4CE12091BFA73AE93F4/',
-                'http://cloud-3.steamusercontent.com/ugc/1760324221436739587/059F900D0ABE33682825A2F0F7D00737E8327B1A/',
-                'http://cloud-3.steamusercontent.com/ugc/1760324221436914449/FDE3C20CE192980B8176964A41D3A03851D0CB5C/',
+                'https://steamusercontent-a.akamaihd.net/ugc/1483326815456337025/EB436BA5C3D1B0BAF4ED3325456E7211A669E3BF/',
+                'https://steamusercontent-a.akamaihd.net/ugc/1483326815456320038/68F5C582DBCBDC1070ACD4CE12091BFA73AE93F4/',
+                'https://steamusercontent-a.akamaihd.net/ugc/1760324221436739587/059F900D0ABE33682825A2F0F7D00737E8327B1A/',
+                'https://steamusercontent-a.akamaihd.net/ugc/1760324221436914449/FDE3C20CE192980B8176964A41D3A03851D0CB5C/',
                 'https://i.imgur.com/siDMVxH.mp4',
                 'https://i.imgur.com/HXUBMXE.mp4',
                 'http://i.imgur.com/dczrasC.jpg',

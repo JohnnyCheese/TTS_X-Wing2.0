@@ -1,3 +1,4 @@
+-- TODO: dispose of properly - this file was in the repo but unused.
 -- ~~~~~~
 -- Script by dzikakulka
 -- Issues, history at: https://github.com/tjakubo2/TTS_xwing
