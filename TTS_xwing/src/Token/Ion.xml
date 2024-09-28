@@ -1,0 +1,26 @@
+<Defaults>
+    <Button class="DarkButton" color="#222222" outline="#BBBBBB" outlineSize="2 2" fontSize="22" textColor="#FFFFFF" fontStyle="Bold"/>
+    <Button class="ManButton" color="#555555" outline="#BBBBBB" outlineSize="2 2" fontSize="22" textColor="#FFFFFF" fontStyle="Bold"/>
+</Defaults>
+<Panel id="Center"
+    width="600"
+    height="500"
+    position="0 0 -30"
+    rotation="0 0 180"
+    color="#aaffaa00"
+    onMouseExit="hideBtn"
+    showAnimation="Grow"
+    hideAnimation="Shrink"
+    active="false">
+
+    <Button id="MoveL" class="ManButton" offsetXY="-130 60" width="120" height="120" active="true" onClick="ionMoveL">
+        <Image id="BlueIconL" image="BlueLeft" preserveAspect="true"></Image>
+    </Button>
+    <Button id="MoveS" class="ManButton" offsetXY="0 60" width="120" height="120" active="true" onClick="ionMove">
+        <Image id="BlueIcon" image="BlueStraight" preserveAspect="true"></Image>
+    </Button>
+    <Button id="MoveR" class="ManButton" offsetXY="130 60" width="120" height="120" active="true" onClick="ionMoveR">
+        <Image id="BlueIconR" image="BlueRight" preserveAspect="true"></Image>
+    </Button>
+    <Button id="Delbtn" class="DarkButton" offsetXY="0 -50" width="120" height="70" active="true" onClick="Delete" fontSize='25'>DEL</Button>
+</Panel>
