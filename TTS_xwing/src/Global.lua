@@ -95,7 +95,7 @@ ArcCheck.Initialize()
 CheckArc = ArcCheck.CheckArc
 
 -- Ship proxy
-local ShipProxyModule = require("TTS_xwing.src.ShipProxy")
+local ShipProxyModule = require("TTS_xwing.src.Ship.ShipProxy")
 
 -- Ship verification
 local ShipVerification = require("TTS_xwing.src.Ship.ShipVerification")
