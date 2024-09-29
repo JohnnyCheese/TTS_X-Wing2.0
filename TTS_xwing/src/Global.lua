@@ -115,7 +115,7 @@ StreamManagerModule = require("TTS_xwing.src.StreamManager")
 --StreamManagerModule.AddPresentation("Purple", "left")
 --StreamManagerModule.AddPresentation("Blue", "right")
 
-local GlobalGuiControl = require("TTS_xwing.src.GlobalGuiControl")
+local GlobalGuiControl = require("TTS_xwing.src.Player.GlobalGuiControl")
 local MoveData = require("TTS_xwing.src.MoveData")
 local AnnModule = require("TTS_xwing.src.Player.Announcements")
 local Maneuver = require("TTS_xwing.src.Game.Mechanic.Movement.Maneuver")
