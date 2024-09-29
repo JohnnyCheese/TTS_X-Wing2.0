@@ -104,7 +104,7 @@ local ShipVerification = require("TTS_xwing.src.ShipVerification")
 local ContextGui = require("TTS_xwing.src.ContextGui")
 
 -- ConfigManager
-local ConfigManager = require("TTS_xwing.src.ConfigManager")
+local ConfigManager = require("TTS_xwing.src.Player.ConfigManager")
 
 HotkeyModule = require("TTS_xwing.src.HotkeyManager")
 PlayerEventModule = require("TTS_xwing.src.PlayerActionModule")
