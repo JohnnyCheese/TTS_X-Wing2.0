@@ -3,7 +3,7 @@ require("TTS_Lib.Util.Math")
 require("TTS_Lib.Util.Table")
 require("TTS_Lib.Util.String")
 
-local customizer_script = require("TTS_xwing.src.ShipCustomizer")
+local customizer_script = require("TTS_xwing.src.Ship.ShipCustomizer")
 
 __XW_Ship = true
 interactable = false
