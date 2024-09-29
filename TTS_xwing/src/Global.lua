@@ -101,7 +101,7 @@ local ShipProxyModule = require("TTS_xwing.src.ShipProxy")
 local ShipVerification = require("TTS_xwing.src.ShipVerification")
 
 -- ContextGui
-local ContextGui = require("TTS_xwing.src.ContextGui")
+local ContextGui = require("TTS_xwing.src.Player.ContextGui")
 
 -- ConfigManager
 local ConfigManager = require("TTS_xwing.src.Player.ConfigManager")
