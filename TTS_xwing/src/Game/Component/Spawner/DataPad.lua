@@ -117,9 +117,9 @@ cardBackDB.mc =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/ModConfig.jpg' -- mod and config
 
 
-masterShipDB = require("TTS_xwing.src.ShipDb")
-masterPilotDB = require("TTS_xwing.src.PilotDb")
-masterUpgradesDB = require("TTS_xwing.src.UpgradeDb")
+masterShipDB = require("TTS_xwing.src.Game.Component.Spawner.ShipDb")
+masterPilotDB = require("TTS_xwing.src.Game.Component.Spawner.PilotDb")
+masterUpgradesDB = require("TTS_xwing.src.Game.Component.Spawner.UpgradeDb")
 
 ffgSpecial = {}
 ffgSpecial[315] = 'Crew'         --r2d2crew
