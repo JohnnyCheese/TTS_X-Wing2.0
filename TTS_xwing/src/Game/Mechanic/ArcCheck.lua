@@ -1,4 +1,4 @@
-local ObjectiveTokenData = require("TTS_xwing.src.ObjectiveTokenData")
+local ObjectiveTokenData = require("TTS_xwing.src.Marker.Scenario.ObjectiveTokenData")
 local Vect = require("TTS_Lib.Vector.Vector")
 local Dim = require("TTS_xwing.src.Dim")
 
