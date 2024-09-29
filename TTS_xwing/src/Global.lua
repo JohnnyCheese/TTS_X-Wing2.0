@@ -108,7 +108,7 @@ local ConfigManager = require("TTS_xwing.src.ConfigManager")
 
 HotkeyModule = require("TTS_xwing.src.HotkeyManager")
 PlayerEventModule = require("TTS_xwing.src.PlayerActionModule")
-DialManagerModule = require("TTS_xwing.src.DialManager")
+DialManagerModule = require("TTS_xwing.src.Dial.DialManager")
 ShipProximityHider = require("TTS_xwing.src.ShipProximityHider")
 StreamManagerModule = require("TTS_xwing.src.StreamManager")
 --StreamManagerModule.SetUI(self)
