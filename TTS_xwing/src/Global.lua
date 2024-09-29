@@ -117,7 +117,7 @@ StreamManagerModule = require("TTS_xwing.src.StreamManager")
 
 local GlobalGuiControl = require("TTS_xwing.src.GlobalGuiControl")
 local MoveData = require("TTS_xwing.src.MoveData")
-local AnnModule = require("TTS_xwing.src.Announcements")
+local AnnModule = require("TTS_xwing.src.Player.Announcements")
 local Maneuver = require("TTS_xwing.src.Game.Mechanic.Movement.Maneuver")
 local Relocator = Maneuver:new()
 

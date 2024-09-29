@@ -6,7 +6,7 @@
 -- ~~~~~~
 local Dim = require("TTS_xwing.src.Dim")
 local EventSub = require("TTS_Lib.EventSub.EventSub")
-local AnnModule = require("TTS_xwing.src.Announcements")
+local AnnModule = require("TTS_xwing.src.Player.Announcements")
 
 local ShipProxyInstance = {
     state        = nil,
