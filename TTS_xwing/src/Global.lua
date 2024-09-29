@@ -87,10 +87,10 @@ local Dim = require("TTS_xwing.src.Dim")
 local BehaviourDB = require("TTS_xwing.src.BehaviourDB")
 
 -- Dice control and dice_statistics
-local DiceControlModule = require("TTS_xwing.src.DiceControl")
+local DiceControlModule = require("TTS_xwing.src.Game.Component.Dice.DiceControl")
 
 -- Arc checks
-local ArcCheck = require("TTS_xwing.src.ArcCheck")
+local ArcCheck = require( "TTS_xwing.src.Game.Mechanic.ArcCheck")
 ArcCheck.Initialize()
 CheckArc = ArcCheck.CheckArc
 
