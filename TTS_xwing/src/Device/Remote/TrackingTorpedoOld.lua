@@ -22,6 +22,15 @@ function update()
     end
 end
 
+function onPickUp(color)
+    self.setColorTint(Color.fromString(color))
+end
+
+function onLoad(save_state)
+    --self.addContextMenuItem("Toggle Range 1", ToggleRuler1, false)
+    --self.addContextMenuItem("Toggle Range 3", ToggleRuler3, false)
+end
+
 function ToggleRuler1()
     return ToggleRuler(1)
 end
@@ -95,20 +104,11 @@ function ToggleRuler(range)
     return true
 end
 
-function onPickUp(color)
-    self.setColorTint(Color.fromString(color))
-end
-
 function onSave()
     if assignedShip ~= nil then
         local state = { assignedShipGUID = assignedShip.getGUID() }
         return JSON.encode(state)
     end
-end
-
-function onLoad(save_state)
-    --self.addContextMenuItem("Toggle Range 1", ToggleRuler1, false)
-    --self.addContextMenuItem("Toggle Range 3", ToggleRuler3, false)
 end
 
 -- Assign on drop near a small base ship

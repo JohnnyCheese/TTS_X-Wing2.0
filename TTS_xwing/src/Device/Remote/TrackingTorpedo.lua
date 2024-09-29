@@ -122,7 +122,7 @@ function onDropped(color)
             end
         end
         if nearest ~= nil then
-            printToAll('DRK-1 Probe preparing to drop/lauch')
+            printToAll('DRK-1 Probe preparing to drop/launch')
             initialP = self.getPosition()
             assignedShip = nearest
             local size = assignedShip.getTable('Data').Size
