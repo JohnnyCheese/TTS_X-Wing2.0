@@ -98,7 +98,7 @@ CheckArc = ArcCheck.CheckArc
 local ShipProxyModule = require("TTS_xwing.src.ShipProxy")
 
 -- Ship verification
-local ShipVerification = require("TTS_xwing.src.ShipVerification")
+local ShipVerification = require("TTS_xwing.src.Ship.ShipVerification")
 
 -- ContextGui
 local ContextGui = require("TTS_xwing.src.Player.ContextGui")
