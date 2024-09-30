@@ -436,7 +436,7 @@ function HiddenBags(operation)
             bag.call(operation)
         end
     end
-    
+
     local guids = {
         '2ef5bb', -- Relay (Mod Load Counter)
         '900937', -- MoveLUT
@@ -446,17 +446,26 @@ function HiddenBags(operation)
         '0db84a', -- Red-Blue playmat
         '224031', -- Purple-Orange playmat
     }
-    
+
     for _, guid in ipairs(guids) do
         local obj = getObjectFromGUID(guid)
         local pos = obj.getPosition()
-        pos.y = -1 * pos.y
+        if "submerge" == operation and pos.y > 0 then
+            pos.y = -1 * pos.y
+        elseif "surface" == operation and pos.y < 0 then
+            pos.y = -1 * pos.y
+        end
         obj.setPosition(pos)
     end
 
-    local obj = getObjectFromGUID('8c3322')
+    local compositeBaseGUID = '8c3322'
+    local obj = getObjectFromGUID(compositeBaseGUID)
     local pos = obj.getPosition()
-    obj.setPosition(Vector(0, -3, 0))
+    if "submerge" == operation then
+        obj.setPosition(Vector(0, -3, 0))
+    else
+        obj.setPosition(Vector(0, 3, 0))
+    end
 end
 
 -- Function to show a menu based on the menu name
