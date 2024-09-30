@@ -1,7 +1,7 @@
-local menu   = require("TTS_xwing.src.Dial.Menu")
-local button = require("TTS_xwing.src.Dial.Button")
-local proxy  = require("TTS_xwing.src.Dial.Proxy")
-local Dim = require("TTS_xwing.src.Dim")
+local menu   = require("Dial.Menu")
+local button = require("Dial.Button")
+local proxy  = require("Dial.Proxy")
+local Dim = require("Dim")
 
 -- ~~~~~~
 -- Script by dzikakulka

@@ -7,7 +7,7 @@
 --modded to work with a FO Buoy and not a bomb
 -- Call buoy drop stick
 
-local Dim = require("TTS_xwing.src.Dim")
+local Dim = require("Dim")
 
 function onDropped(color)
     Global.call('API_BombTokenDrop', { token = self })

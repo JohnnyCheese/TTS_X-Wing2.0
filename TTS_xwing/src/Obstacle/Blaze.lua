@@ -1,4 +1,4 @@
-local Dim = require("TTS_xwing.src.Dim")
+local Dim = require("Dim")
 
 checkingRange = nil
 scale = 1 / self.getScale().x

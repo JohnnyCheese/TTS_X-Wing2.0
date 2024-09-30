@@ -1,4 +1,4 @@
-local Dim = require("TTS_xwing.src.Dim")
+local Dim = require("Dim")
 local Vect = require("TTS_lib.Vector.Vector")
 
 Buzz = self

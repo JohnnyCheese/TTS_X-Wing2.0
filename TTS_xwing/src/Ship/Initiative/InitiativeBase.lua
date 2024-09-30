@@ -1,6 +1,6 @@
 require("TTS_lib.Util.Table")
-local Dim = require("TTS_xwing.src.Dim")
-local Team = require("TTS_xwing.src.Player.Team")
+local Dim = require("Dim")
+local Team = require("Player.Team")
 
 --[[
 TODO: swiped from Dial onDropped(). Would be nice to have a library

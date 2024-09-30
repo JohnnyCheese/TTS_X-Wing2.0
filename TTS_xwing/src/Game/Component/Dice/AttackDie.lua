@@ -1,2 +1,2 @@
 dicecolor = "Red"
-require("TTS_xwing.src.Game.Component.Dice.Dice")
+require("Game.Component.Dice.Dice")

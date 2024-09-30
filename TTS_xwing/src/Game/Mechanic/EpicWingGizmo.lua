@@ -6,7 +6,7 @@
 -- Epic Wing gizmo token v0.1 test canadate.
 -- ~~~~~~
 
-local Dim = require("TTS_xwing.src.Dim")
+local Dim = require("Dim")
 
 -- Scripted token properties
 __XW_Token = true

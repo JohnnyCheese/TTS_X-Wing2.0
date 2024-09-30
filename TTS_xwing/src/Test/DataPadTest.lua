@@ -1,8 +1,8 @@
 require("TTS_lib.Util.Table")
-local Sequence = require("TTS_xwing.src.Test.Sequence")
-local ButtonTest = require("TTS_xwing.src.Test.ButtonTest")
-local PlayerArea = require("TTS_xwing.src.Player.PlayerArea")
-local Squadron = require("TTS_xwing.src.Game.StarForge.Squadron")
+local Sequence = require("Test.Sequence")
+local ButtonTest = require("Test.ButtonTest")
+local PlayerArea = require("Player.PlayerArea")
+local Squadron = require("Game.StarForge.Squadron")
 
 local DataPadTest = {}
 

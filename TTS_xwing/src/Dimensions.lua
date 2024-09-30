@@ -5,6 +5,6 @@
 -- X-Wing related measurements for TTS
 -- ~~~~~~
 
-local Dim = require("TTS_xwing.src.Dim")
+local Dim = require("Dim")
 local Kludge = require("TTS_Lib.Util.DirtyTricks")
 Kludge.exportGlobals(Dim);

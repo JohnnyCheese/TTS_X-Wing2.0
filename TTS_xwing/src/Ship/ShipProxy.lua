@@ -4,9 +4,9 @@
 --
 -- Module for handling ship proxies, used in barrel rolls and more
 -- ~~~~~~
-local Dim = require("TTS_xwing.src.Dim")
+local Dim = require("Dim")
 local EventSub = require("TTS_Lib.EventSub.EventSub")
-local AnnModule = require("TTS_xwing.src.Player.Announcements")
+local AnnModule = require("Player.Announcements")
 
 local ShipProxyInstance = {
     state        = nil,

@@ -1,8 +1,8 @@
 require("TTS_lib.Util.Table")
-local Probe = require("TTS_xwing.src.Marker.Probe")
-local Dim = require("TTS_xwing.src.Dim")
-local PlayerArea = require("TTS_xwing.src.Player.PlayerArea")
-local ButtonTest = require("TTS_xwing.src.Test.ButtonTest")
+local Probe = require("Marker.Probe")
+local Dim = require("Dim")
+local PlayerArea = require("Player.PlayerArea")
+local ButtonTest = require("Test.ButtonTest")
 
 local Squadron = {}
 Squadron.__index = Squadron

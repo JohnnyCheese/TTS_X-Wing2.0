@@ -4,7 +4,7 @@
 --
 -- Target lock color and name script
 -- ~~~~~~
-local Dim = require("TTS_xwing.src.Dim")
+local Dim = require("Dim")
 
 -- Scripted token properties
 __XW_Token = true

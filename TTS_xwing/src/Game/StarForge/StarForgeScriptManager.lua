@@ -78,7 +78,7 @@ local StarForgeScriptManager = {
     end
 }
 
-local SFLayout = require("TTS_xwing.src.Game.StarForge.StarForgeLayout")
+local SFLayout = require("Game.StarForge.StarForgeLayout")
 
 local layoutInfiniteBag = function(infiniteBag)
     StarForgeScriptManager.takeObject(infiniteBag, "")

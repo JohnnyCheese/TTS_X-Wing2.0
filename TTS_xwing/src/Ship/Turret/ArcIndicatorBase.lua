@@ -2,7 +2,7 @@
 --color_by_id = false
 --default_arc_direction = "front"
 --double_arc = false
-local Dim = require("TTS_xwing.src.Dim")
+local Dim = require("Dim")
 
 function onDropped()
     local spos = self.getPosition()

@@ -1,4 +1,4 @@
-local Sequence = require("TTS_xwing.src.Test.Sequence")
+local Sequence = require("Test.Sequence")
 
 TestButton = {}
 

@@ -1,4 +1,4 @@
-local Dim = require("TTS_xwing.src.Dim")
+local Dim = require("Dim")
 
 local igu = Dim.Convert_mm_igu
 -- TODO: add reverse move, and reverse bank

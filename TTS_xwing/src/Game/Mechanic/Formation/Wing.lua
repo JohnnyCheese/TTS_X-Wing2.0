@@ -1,5 +1,5 @@
 require("TTS_lib.Util.Math")
-local Dim = require("TTS_xwing.src.Dim")
+local Dim = require("Dim")
 
 local offset = Dim.Convert_mm_igu(8.3)
 

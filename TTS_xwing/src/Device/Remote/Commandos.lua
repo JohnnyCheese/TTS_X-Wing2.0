@@ -1,5 +1,5 @@
-local Dim = require("TTS_xwing.src.Dim")
-ObjectiveTokenData = require("TTS_xwing.src.Marker.Scenario.ObjectiveTokenData")
+local Dim = require("Dim")
+ObjectiveTokenData = require("Marker.Scenario.ObjectiveTokenData")
 
 ship_drop_positions = {
     small = {

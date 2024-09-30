@@ -1,5 +1,5 @@
 require("TTS_lib.Util.Table")
-local SFLayout = require("TTS_xwing.src.Game.StarForge.StarForgeLayout")
+local SFLayout = require("Game.StarForge.StarForgeLayout")
 
 local StarForgeDeduper = {
     allObjects = {},

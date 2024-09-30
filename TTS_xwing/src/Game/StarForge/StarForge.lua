@@ -9,10 +9,10 @@ if not self.hasTag("Star Forge") then
 end
 
 require("TTS_lib.Util.Table")
-local SFScript  = require("TTS_xwing.src.Game.StarForge.StarForgeScriptManager")
-local SFDeduper = require("TTS_xwing.src.Game.StarForge.StarForgeDeduper")
-local SFTester  = require("TTS_xwing.src.Test.DataPadTest")
-local SFVector  = require("TTS_xwing.src.Test.HotAC.ApproachVectorTest")
+local SFScript  = require("Game.StarForge.StarForgeScriptManager")
+local SFDeduper = require("Game.StarForge.StarForgeDeduper")
+local SFTester  = require("Test.DataPadTest")
+local SFVector  = require("Test.HotAC.ApproachVectorTest")
 
 --[[
 ## Star Forge

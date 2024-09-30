@@ -1,4 +1,4 @@
-local ApproachVector = require("TTS_xwing.src.Game.HotAC.Setup.ApproachVector")
+local ApproachVector = require("Game.HotAC.Setup.ApproachVector")
 
 MissionApproachVectors = {}
 MissionApproachVectors.__index = MissionApproachVectors

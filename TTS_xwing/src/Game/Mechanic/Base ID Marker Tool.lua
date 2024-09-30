@@ -1,4 +1,4 @@
-local Dim = require("TTS_xwing.src.Dim")
+local Dim = require("Dim")
 
 local AttachTemplateButton = { ['function_owner'] = self, ['click_function'] = 'AttachTemplate', ['label'] = 'Attach',
     ['position'] = { 0.0, 0.3, 0.3 }, ['rotation'] = { 0, 0, 0 }, ['width'] = 200, ['height'] = 80, ['font_size'] = 50 }

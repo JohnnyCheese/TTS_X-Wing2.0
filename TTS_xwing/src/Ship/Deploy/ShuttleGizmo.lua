@@ -5,7 +5,7 @@
 -- Shuttle launch gizmo token
 -- ~~~~~~
 
-local Dim = require("TTS_xwing.src.Dim")
+local Dim = require("Dim")
 
 -- Scripted token properties
 __XW_Token = true

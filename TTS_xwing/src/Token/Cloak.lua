@@ -4,7 +4,7 @@
 --
 -- Token for easy barrel rolls with StarViper Mk.II title
 -- ~~~~~~
-local Dim = require("TTS_xwing.src.Dim")
+local Dim = require("Dim")
 
 -- Scripted token properties
 __XW_Token = true

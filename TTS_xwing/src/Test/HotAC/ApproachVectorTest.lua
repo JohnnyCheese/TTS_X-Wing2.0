@@ -1,5 +1,5 @@
 require("TTS_lib.Util.Table")
-local MissionApproachVectors = require("TTS_xwing.src.Game.HotAC.Setup.MissionApproachVectors")
+local MissionApproachVectors = require("Game.HotAC.Setup.MissionApproachVectors")
 
 local SmokeTest = {}
 

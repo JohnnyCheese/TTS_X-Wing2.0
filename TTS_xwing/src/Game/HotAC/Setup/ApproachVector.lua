@@ -1,5 +1,5 @@
 local Transform = require("TTS_lib.Vector.Transform")
-local Dim = require("TTS_xwing.src.Dim")
+local Dim = require("Dim")
 
 ApproachVector = {}
 ApproachVector.__index = ApproachVector

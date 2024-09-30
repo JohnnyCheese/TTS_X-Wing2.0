@@ -81,48 +81,48 @@ local ObjType = require("TTS_Lib.ObjType.ObjType")
 local SaveManager = require("TTS_Lib.SaveManager.SaveManager")
 
 -- Component sizes, unit conversion methods
-local Dim = require("TTS_xwing.src.Dim")
+local Dim = require("Dim")
 
 -- AI behaviour sets
-local BehaviourDB = require("TTS_xwing.src.Game.HotAC.AI.BehaviourDB")
+local BehaviourDB = require("Game.HotAC.AI.BehaviourDB")
 
 -- Dice control and dice_statistics
-local DiceControlModule = require("TTS_xwing.src.Game.Component.Dice.DiceControl")
+local DiceControlModule = require("Game.Component.Dice.DiceControl")
 
 -- Arc checks
-local ArcCheck = require("TTS_xwing.src.Game.Mechanic.ArcCheck")
+local ArcCheck = require("Game.Mechanic.ArcCheck")
 ArcCheck.Initialize()
 CheckArc = ArcCheck.CheckArc
 
 -- Ship proxy
-local ShipProxyModule = require("TTS_xwing.src.Ship.ShipProxy")
+local ShipProxyModule = require("Ship.ShipProxy")
 
 -- Ship verification
-local ShipVerification = require("TTS_xwing.src.Ship.ShipVerification")
+local ShipVerification = require("Ship.ShipVerification")
 
 -- ContextGui
-local ContextGui = require("TTS_xwing.src.Player.ContextGui")
+local ContextGui = require("Player.ContextGui")
 
 -- ConfigManager
-local ConfigManager = require("TTS_xwing.src.Player.ConfigManager")
+local ConfigManager = require("Player.ConfigManager")
 
-HotkeyModule = require("TTS_xwing.src.Player.HotkeyManager")
-PlayerEventModule = require("TTS_xwing.src.Player.PlayerActionModule")
-DialManagerModule = require("TTS_xwing.src.Dial.DialManager")
-ShipProximityHider = require("TTS_xwing.src.Ship.ShipProximityHider")
-StreamManagerModule = require("TTS_xwing.src.Player.StreamManager")
+HotkeyModule = require("Player.HotkeyManager")
+PlayerEventModule = require("Player.PlayerActionModule")
+DialManagerModule = require("Dial.DialManager")
+ShipProximityHider = require("Ship.ShipProximityHider")
+StreamManagerModule = require("Player.StreamManager")
 --StreamManagerModule.SetUI(self)
 --StreamManagerModule.AddPresentation("Purple", "left")
 --StreamManagerModule.AddPresentation("Blue", "right")
 
-local GlobalGuiControl = require("TTS_xwing.src.Player.GlobalGuiControl")
-local MoveData = require("TTS_xwing.src.Game.Mechanic.Movement.MoveData")
-local AnnModule = require("TTS_xwing.src.Player.Announcements")
-local Maneuver = require("TTS_xwing.src.Game.Mechanic.Movement.Maneuver")
+local GlobalGuiControl = require("Player.GlobalGuiControl")
+local MoveData = require("Game.Mechanic.Movement.MoveData")
+local AnnModule = require("Player.Announcements")
+local Maneuver = require("Game.Mechanic.Movement.Maneuver")
 local Relocator = Maneuver:new()
 
 -- Modules API, must be loaded last
-require("TTS_xwing.src.API")
+require("API")
 
 function onSave()
     return SaveManager.onSave()
@@ -5404,7 +5404,7 @@ end
 -- TODO: try to move or integrate this with Bomb Code
 clusterScript = [[
 -- Convert argument from IN-GAME UNITS to MILIMETERS
-local Dim = require("TTS_xwing.src.Dim")
+local Dim = require("Dim")
 Dim.mm_igu_ratio = 0.03637
 --function Convert_igu_mm(in_game_units)
 --    return in_game_units/Dim.mm_igu_ratio
@@ -6423,7 +6423,7 @@ function newSpawner(listTable)
                 }
             }]]
                 --[[
-            local Dim = require("TTS_xwing.src.Dim")
+            local Dim = require("Dim")
             for k, customization_part in pairs(Pilots[shipIndex].Data.customization_parts or {}) do
                 if customization_part.model then
                 local customObject = ship.getCustomObject()

@@ -1,6 +1,6 @@
-local ObjectiveTokenData = require("TTS_xwing.src.Marker.Scenario.ObjectiveTokenData")
+local ObjectiveTokenData = require("Marker.Scenario.ObjectiveTokenData")
 local Vect = require("TTS_Lib.Vector.Vector")
-local Dim = require("TTS_xwing.src.Dim")
+local Dim = require("Dim")
 
 ArcCheck = {}
 ArcCheck.initialized = false

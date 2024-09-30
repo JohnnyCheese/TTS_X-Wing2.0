@@ -8,7 +8,7 @@
 local EventSub = require("TTS_Lib.EventSub.EventSub")
 local Vect = require("TTS_lib.Vector.Vector")
 
-local Dim = require("TTS_xwing.src.Dim")
+local Dim = require("Dim")
 
 MoveData = {}
 

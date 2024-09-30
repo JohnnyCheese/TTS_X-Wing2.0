@@ -3,7 +3,7 @@
 --
 -- ~~~~~~
 
-local Dim = require("TTS_xwing.src.Dim")
+local Dim = require("Dim")
 
 -- Call bomb drop stick
 function onDropped()
