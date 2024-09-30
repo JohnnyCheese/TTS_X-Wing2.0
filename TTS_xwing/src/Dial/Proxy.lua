@@ -88,8 +88,8 @@ function P.spawn(args)
 
     if not success then return end
 
-    Wait.condition(function() setActiveProxies(proxy_objects.proxy_table) end, function() isReady(proxy_objects) end)
-    Wait.condition(function() button_func(true, cancellable, active_proxies) end, function() isReady(proxy_objects) end)
+    Wait.condition(function() setActiveProxies(proxy_objects.proxy_table) end, function() return isReady(proxy_objects) end)
+    Wait.condition(function() button_func(true, cancellable, active_proxies) end, function() return isReady(proxy_objects) end)
     Wait.condition(unsetActiveProxies, function() return isDone(proxy_objects) end)
     Wait.condition(function() button_func(false) end, function() return isDone(proxy_objects) end)
     Wait.condition(function() obj.setVar("befAft", "_A") end, function() return isDone(proxy_objects) end)
