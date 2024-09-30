@@ -423,26 +423,40 @@ LaunchProbe = function()
 end
 
 function HiddenBags(operation)
-    local guids = {
+    local bagGuids = {
         'a3690e', -- Extra Assets 15 items
         '203cb8', -- ObstacleBag 31 items
         'f0e7b9', -- Dice Bag 10 items
         '53ad3d', -- Accessories 79 items
     }
 
-    for _, guid in ipairs(guids) do
+    for _, guid in ipairs(bagGuids) do
         local bag = getObjectFromGUID(guid)
         if bag ~= nil then
             bag.call(operation)
         end
     end
-    for _, obj in ipairs(getObjects()) do
+    
+    local guids = {
+        '2ef5bb', -- Relay (Mod Load Counter)
+        '900937', -- MoveLUT
+        'f8f07c', -- Dial Set source
+        '3d63d2', -- dice Preload Green
+        'be075b', -- dice Preload Red
+        '0db84a', -- Red-Blue playmat
+        '224031', -- Purple-Orange playmat
+    }
+    
+    for _, guid in ipairs(guids) do
+        local obj = getObjectFromGUID(guid)
         local pos = obj.getPosition()
-        if (pos.y < 0) then
-            pos.y = -1 * pos.y
-            obj.setPosition(pos)
-        end
+        pos.y = -1 * pos.y
+        obj.setPosition(pos)
     end
+
+    local obj = getObjectFromGUID('8c3322')
+    local pos = obj.getPosition()
+    obj.setPosition(Vector(0, -3, 0))
 end
 
 -- Function to show a menu based on the menu name
