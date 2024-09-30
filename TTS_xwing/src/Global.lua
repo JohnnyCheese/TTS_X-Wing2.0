@@ -84,13 +84,13 @@ local SaveManager = require("TTS_Lib.SaveManager.SaveManager")
 local Dim = require("TTS_xwing.src.Dim")
 
 -- AI behaviour sets
-local BehaviourDB = require("TTS_xwing.src.BehaviourDB")
+local BehaviourDB = require("TTS_xwing.src.Game.HotAC.AI.BehaviourDB")
 
 -- Dice control and dice_statistics
 local DiceControlModule = require("TTS_xwing.src.Game.Component.Dice.DiceControl")
 
 -- Arc checks
-local ArcCheck = require( "TTS_xwing.src.Game.Mechanic.ArcCheck")
+local ArcCheck = require("TTS_xwing.src.Game.Mechanic.ArcCheck")
 ArcCheck.Initialize()
 CheckArc = ArcCheck.CheckArc
 
