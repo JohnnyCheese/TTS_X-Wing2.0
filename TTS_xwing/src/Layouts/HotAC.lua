@@ -3,7 +3,7 @@ local Vect = require("TTS_Lib.Vector.Vector")
 local hotac = {}
 do
     hotac.name         = 'HotAC'
-    hotac.tableImage   = 'https://raw.githubusercontent.com/reinaurre/TTS_X-Wing2.0/master/assets/HotAC/Table/table.jpg'
+    hotac.tableImage   = 'https://github.com/JohnnyCheese/TTS_X-Wing2.0/blob/master/assets/HotAC/Table/table.jpg?raw=true'
     hotac.elements     = {
         ['Damage Decks']           = { pos = { 1.89 + 38, 1.06, -0.06 }, rot = { 0.00, 45.01, 0.00 }, scale = { 1.00, 0.95, 1.00 } },
         ['Huge Ship Damage Decks'] = { pos = { 2.49 + 38, 1.00, -1.95 }, rot = { 0.00, 45.01, 0.00 }, scale = { 0.44, 0.42, 0.44 } },
