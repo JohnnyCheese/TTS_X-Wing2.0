@@ -57,7 +57,7 @@ function showMe(guid)
         -- Optionally, reset the color after a delay
         Wait.time(function()
             object.setColorTint(origColor) -- Reset to white or original color
-        end, 5)                                          -- Delay in seconds before the color reset happens
+        end, 5)                            -- Delay in seconds before the color reset happens
     else
         print("Object not found.")
     end
@@ -3829,6 +3829,20 @@ end
 
 EventSub.Register('onObjectDropped', TokenModule.onObjectDropped)
 
+TokenModule.removeOnFlip = function(object, player)
+    local ship = Global.call("getShipTokenIsAssignedTo", { token = object })
+    local color = Color.fromString(player.color):toHex()
+    local player = player.steam_name
+    local token = object.getName()
+
+    if ship then
+        printToAll(string.format("[%s]%s spent %s's %s token[-]", color, player, ship.getName(), token))
+    else
+        printToAll(string.format("[%s]%s spent a %s token[-]", color, player, token))
+    end
+
+    object.destruct()
+end
 
 -- How far can tokens be to be considered owned bya  ship
 TokenModule.tokenReachDistance = Dim.Convert_mm_igu(100)

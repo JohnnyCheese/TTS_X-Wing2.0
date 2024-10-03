@@ -62,6 +62,10 @@ function API_AssignToken(argTable)
     TokenModule.AssignToken(argTable.token, argTable.ship)
 end
 
+function API_RemoveTokenOnFlip(argTable)
+    TokenModule.removeOnFlip(argTable.object, argTable.player)
+end
+
 function API_GetPlayerConfig(argTable)
     return ConfigManager.GetConfig(argTable.player_color, argTable.param_name)
 end
