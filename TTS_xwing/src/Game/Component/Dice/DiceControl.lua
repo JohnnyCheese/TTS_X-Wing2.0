@@ -7,6 +7,7 @@
 -- Stores and presents dice statistics
 -- ~~~~~~
 local EventSub = require("TTS_Lib.EventSub.EventSub")
+local Team = require("Player.Team")
 
 local DiceControlModule = {
     dice_statistics = {},
@@ -179,7 +180,8 @@ DiceControlModule.presentStatistics = function()
     end
 end
 
-DiceControlModule.onObjectRandomize = function(object, playerInstance)
+DiceControlModule.onObjectRandomize = function(object, playerColor)
+    local playerInstance = Team.getPlayerByColor(playerColor)
     local player = playerInstance.steam_name
     DiceControlModule.player_colors[player] = playerInstance.color
     if DiceControlModule.enabled and (object.tag == "Dice") and not object.locked and (object.held_by_color == nil) then
@@ -224,7 +226,7 @@ DiceControlModule.onObjectRandomize = function(object, playerInstance)
     end
 end
 
---EventSub.Register('onObjectRandomize', DiceControlModule.onObjectRandomize)
+EventSub.Register('onObjectRandomize', DiceControlModule.onObjectRandomize)
 
 DiceControlModule.PrepareDice = function(die, player)
     if not die.isSmoothMoving() then
@@ -398,7 +400,7 @@ end
 
 
 DiceControlModule.getObjectInContainerByGMNote = function(container, gmnoteToFind) -- most of the script here to find out if, and if so which, item is in the container
-    local takenObject = nil                                                        -- keep the scope local outside of the loop 
+    local takenObject = nil                                                        -- keep the scope local outside of the loop
     for _, c in ipairs(container.getObjects()) do
         if c.gm_notes == gmnoteToFind then
             takenObject = container.takeObject({ -- correct call syntax, use .takeObject() on your container

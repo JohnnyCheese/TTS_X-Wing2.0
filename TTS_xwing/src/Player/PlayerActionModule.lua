@@ -29,11 +29,6 @@ local tagActions = {
             object.call("onFlip", { player = player }) -- Calls the flip behavior for Flippable objects
         end
     },
-    DiceControl = {
-        [Player.Action.Randomize] = function(object, player)
-            DiceControlModule.onObjectRandomize(object, player) -- Handle randomizing objects
-        end
-    },
     RemoveOnFlip = {
         [Player.Action.FlipOver] = function(object, player)
             return Global.call("API_RemoveTokenOnFlip", { object = object, player = player })
