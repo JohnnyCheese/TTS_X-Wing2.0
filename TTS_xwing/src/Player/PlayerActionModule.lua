@@ -3,7 +3,6 @@
 --
 --
 -- X-Wing player action module
-local DiceControlModule = require("Game.Component.Dice.DiceControl")
 
 -- Define actions for various tags
 -- Each tag has a handler for each Player.Action
@@ -52,19 +51,19 @@ function onPlayerAction(player, action, targets)
     return true
 end
 
--- The following are Player.Action.* constants. They are `int`s
---Copy | Copy (or commence cloning) the targets.
---Cut | Cut (copy and delete) the targets.
---Delete | Delete the targets.
---FlipIncrementalLeft | Incrementally rotate the targets counter-clockwise around their flip axes, typically the scene's Z-axis.
---FlipIncrementalRight | Incrementally rotate the targets clockwise around their flip axes, typically the scene's Z-axis.
---FlipOver | Rotate the targets 179 degrees around their flip axes, typically the scene's Z-axis i.e. toggle the targets between face up and face down.
---Group | Group the targets.
---Paste | Paste (spawn) the targets.
---PickUp | Pick up the targets.
---Randomize | Randomize the targets.
---RotateIncrementalLeft | Rotate the targets incrementally, typically counter-clockwise around the scene's Y-axis. Instead of being rotated exclusively around the Y-axis, dice will be rotated to the previous rotation value.
---RotateIncrementalRight | Rotate the targets incrementally, typically clockwise around the scene's Y-axis. Instead of being rotated exclusively around the Y-axis, dice will be rotated to the next rotation value.
---RotateOver | Rotate the targets 179 degrees around the scene's Y-axis.
---Select | Add the targets to the player's selection.
---Under | Move the targets underneath objects below them on table.
+-- The following are the available Player.Action.* constants. They are `int`s
+-- Copy - Copy (or commence cloning) the targets.
+-- Cut - Cut (copy and delete) the targets.
+-- Delete - Delete the targets.
+-- FlipIncrementalLeft - Incrementally rotate the targets counter-clockwise around their flip axes, typically the scene's Z-axis.
+-- FlipIncrementalRight - Incrementally rotate the targets clockwise around their flip axes, typically the scene's Z-axis.
+-- FlipOver - Rotate the targets 179 degrees around their flip axes, typically the scene's Z-axis i.e. toggle the targets between face up and face down.
+-- Group - Group the targets.
+-- Paste - Paste (spawn) the targets.
+-- PickUp - Pick up the targets.
+-- Randomize - Randomize the targets.
+-- RotateIncrementalLeft - Rotate the targets incrementally, typically counter-clockwise around the scene's Y-axis. Instead of being rotated exclusively around the Y-axis, dice will be rotated to the previous rotation value.
+-- RotateIncrementalRight - Rotate the targets incrementally, typically clockwise around the scene's Y-axis. Instead of being rotated exclusively around the Y-axis, dice will be rotated to the next rotation value.
+-- RotateOver - Rotate the targets 179 degrees around the scene's Y-axis.
+-- Select - Add the targets to the player's selection.
+-- Under - Move the targets underneath objects below them on table.
