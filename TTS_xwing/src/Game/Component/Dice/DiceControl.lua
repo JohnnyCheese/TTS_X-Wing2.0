@@ -7,7 +7,7 @@
 -- Stores and presents dice statistics
 -- ~~~~~~
 local EventSub = require("TTS_Lib.EventSub.EventSub")
-local Team = require("Player.Team")
+local Players = require("Player.Players")
 
 local DiceControlModule = {
     dice_statistics = {},
@@ -181,7 +181,7 @@ DiceControlModule.presentStatistics = function()
 end
 
 DiceControlModule.onObjectRandomize = function(object, playerColor)
-    local playerInstance = Team.getPlayerByColor(playerColor)
+    local playerInstance = Players.getPlayerByColor(playerColor)
     local player = playerInstance.steam_name
     DiceControlModule.player_colors[player] = playerInstance.color
     if DiceControlModule.enabled and (object.tag == "Dice") and not object.locked and (object.held_by_color == nil) then

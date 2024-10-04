@@ -1,6 +1,6 @@
 require("TTS_lib.Util.Table")
 local Dim = require("Dim")
-local Team = require("Player.Team")
+local Players = require("Player.Players")
 
 --[[
 TODO: swiped from Dial onDropped(). Would be nice to have a library
@@ -23,8 +23,8 @@ function onDrop(player_color)
     if nearest ~= nil then
         local ship = nearest
         local owner_color = ship.getVar('owningPlayer')
-        local owner_name = Team.getPlayerName(owner_color)
-        local player_name = Team.getPlayerName(player_color)
+        local owner_name = Players.getPlayerName(owner_color)
+        local player_name = Players.getPlayerName(player_color)
 
         local initValue = string.match(self.getName(), ".*(%d)")
         ship.setDescription("init" .. initValue)
