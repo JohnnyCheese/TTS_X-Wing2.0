@@ -84,3 +84,5 @@
 ### Was this intended?
 1. TrackingTorpedo.ttslua: 93:     spawnedRuler.lock()
 
+### Anomalies from Reorg
+1. 'No Stats Dice' has a lua script in it's .xml file

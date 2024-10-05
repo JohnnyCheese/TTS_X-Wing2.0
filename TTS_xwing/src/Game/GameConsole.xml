@@ -1,0 +1,78 @@
+<Defaults>
+    <Button class="TimerButtons" height="75" audioVolume="0" width="150" color="#ccccccff" fontSize="25" textColor="#000000FF" fontStyle="Bold" active="true"/>
+</Defaults>
+
+<Panel id="Clock"
+    active="true"
+    width="750"
+    height="110"
+    position="125 0 -155"
+    rotation="0 55 -90"
+    color="#222222ff">
+    <HorizontalLayout id="SetupPanel" childForceExpandWidth="true" childForceExpandHeight="true" childAlignment="MiddleCenter" spacing="1">
+
+        <Panel minWidth="40" maxWidth="40" color="#aaaaff00" childForceExpandWidth="false" childForceExpandHeight="true">
+          <VerticalLayout width="80%" minWidth="20" maxWidth="20" childForceExpandHeight="false" childForceExpandWidth="true" childAlignment="MiddleCenter" color="#FFaaff00">
+            <Button height="65%" id="LengthButton" audioVolume="0" minHeight="40" minWidth="30" maxHeight="45" fontSize="25" maxWidth="30" color="#ccccccff" fontStyle="Bold" active="true" onClick="lengthButton">75 Min</Button>
+            <HorizontalLayout height="40%" childForceExpandWidth="true" childForceExpandHeight="false" childAlignment="MiddleCenter" >
+              <Button id="MinusLengthButton" audioVolume="0" minHeight="35" minWidth="60" maxHeight="30" maxWidth="60" fontSize="20" class="TimerButtons" onClick="minusLengthButton">-</Button>
+              <Button id="PlusLengthButton" audioVolume="0" minHeight="35" minWidth="60" maxHeight="30" maxWidth="60" fontSize="20" class="TimerButtons" onClick="plusLengthButton">+</Button>
+            </HorizontalLayout>
+          </VerticalLayout>
+        </Panel>
+
+
+      <Panel minWidth="40" maxWidth="40" color="#aaaaff00">
+        <Button id="RandomButton" class="TimerButtons" onClick="randomButton">Fixed</Button>
+      </Panel>
+      <Panel minWidth="40" maxWidth="40" color="#ffaaaa00">
+        <Button id="HiddenButton" class="TimerButtons" onClick="hiddenButton">Visible</Button>
+      </Panel>
+      <Panel minWidth="40" maxWidth="40" color="#ffaaaa00">
+        <VerticalLayout width="80%" minWidth="20" maxWidth="20" childForceExpandHeight="false" childForceExpandWidth="true" childAlignment="MiddleCenter" color="#FFaaff00">
+          <Button id="StartButton" class="TimerButtons"  minHeight="50" maxHeight="80" onClick="startButton">Start</Button>
+          <Button id="AutoStartButton" class="TimerButtons" minHeight="33" maxHeight="50" onClick="autoStartButton">Auto</Button>
+        </VerticalLayout>
+
+
+      </Panel>
+
+    </HorizontalLayout>
+    <HorizontalLayout id="StartedClockPanel" color="#222222ff" childForceExpandWidth="true" childForceExpandHeight="true" childAlignment="MiddleCenter" onClick="startButton" spacing="0" active="false">
+      <Text id="TimerText" height="75" width="150" color="#FF3333ff" audioVolume="0" fontSize="95" fontStyle="Bold" onClick="pauseButton">Start</Text>
+    </HorizontalLayout>
+</Panel>
+
+<Panel id="LeftPlayer"
+    active="true"
+    width="300"
+    height="215"
+    position="0 1145 0"
+    rotation="0 45 -90"
+    color="#222222ff">
+    <Button id="RegisterLeft" class="TimerButtons" width="200" height="130" fontSize="40" onClick="registerPlayerFromGui">Register</Button>
+    <HorizontalLayout id="LeftPointPanel" color="#222222FF" childForceExpandWidth="false" childForceExpandHeight="true" childAlignment="MiddleCenter" spacing="0" padding="5 5 5 5" active="false">
+      <Text id="LeftPointText" height="75" minWidth="40" preferredWidth="230" maxWidth="500" color="#000000ff" fontSize="150" fontStyle="Bold">0</Text>
+      <VerticalLayout childForceExpandWidth="false" childForceExpandHeight="true" width="20%" childAlignment="MiddleCenter" spacing="4" active="true">
+        <Button id="LeftPointPlus" class="TimerButtons" minWidth="20" preferredWidth="50" maxWidth="60" onClick="addPoint">+</Button>
+        <Button id="LeftPointMinus" class="TimerButtons" minWidth="20" preferredWidth="50" maxWidth="60" onClick="addPoint">-</Button>
+      </VerticalLayout>
+    </HorizontalLayout>
+</Panel>
+
+<Panel id="RightPlayer"
+    active="true"
+    width="300"
+    height="215"
+    position="0 -1145 0"
+    rotation="0 45 -90"
+    color="#222222ff">
+    <Button id="RegisterRight" class="TimerButtons" width="200" height="130" fontSize="40" onClick="registerPlayerFromGui">Register</Button>
+    <HorizontalLayout id="RightPointPanel" color="#222222FF" childForceExpandWidth="false" childForceExpandHeight="true" childAlignment="MiddleCenter" spacing="0" padding="5 5 5 5" active="false">
+      <Text id="RightPointText" height="75" minWidth="40" preferredWidth="230" maxWidth="500" color="#000000ff" fontSize="150" fontStyle="Bold">0</Text>
+      <VerticalLayout childForceExpandWidth="false" childForceExpandHeight="true" width="20%" childAlignment="MiddleCenter" spacing="4" active="true">
+        <Button id="RightPointPlus" class="TimerButtons" minWidth="20" preferredWidth="50" maxWidth="60" onClick="addPoint">+</Button>
+        <Button id="RightPointMinus" class="TimerButtons" minWidth="20" preferredWidth="50" maxWidth="60" onClick="addPoint">-</Button>
+      </VerticalLayout>
+    </HorizontalLayout>
+</Panel>
