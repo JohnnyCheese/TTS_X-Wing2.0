@@ -162,7 +162,6 @@ function onLoad(save_state)
 end
 
 function onSave()
-
 end
 
 -- Initial function: Creates a start button for each mode: FFG Spawner (paste the link of the squad in the FFG web site and spawn), TTS Spawner (write or paste a snippet and spawn) and List Builder (offers options to build a squadron on the fly)
@@ -172,17 +171,18 @@ function initiate()
     -- self.createButton({ click_function = 'xwsStart', function_owner = self, label = 'XWS Spawner', position = { 0.5, 0.45, -0.1 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'singleSpawner', function_owner = self, label = 'Single Spawner', position = { -0.5, 0.45, 0.15 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
     -- self.createButton({ click_function = 'spawnerStart', function_owner = self, label = 'TTS Spawner', position = { -0.5, 0.45, 0.4 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
-    -- self.createButton({ click_function = 'builderStart', function_owner = self, label = 'Builder', position = { 0.5, 0.45, 0.4 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
+    -- self.createButton({ click_function = 'builderStart', function_owner = self, label = 'Builder', position = { 0.5, 0.45, 0.4 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })   
     self.createButton({ click_function = 'assetSpawn', function_owner = self, label = "Asset Spawner", position = { 0.5, 0.45, 0.15 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'configuration', function_owner = self, label = "Configuration", position = { -0.5, 0.45, -0.1 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'scenario', function_owner = self, label = "Scenario Setup", position = { 0.5, 0.45, -0.1 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
-    self.createButton({ click_function = 'spawnStart', function_owner = self, label = 'Spawn List', position = { 0, 0.45, 0.45 }, width = 2000, height = 500, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
+    self.createButton({ click_function = 'spawnStart', function_owner = self, label = 'Spawn List', position = { 0, 0.45, 0.45 }, width = 2000, height = 500, font_size = 200, scale = { 0.25, 0.25, 0.25 } }) 
 end
 
 function spawnStart()
     self.clearButtons()
     self.createButton({ click_function = 'amgPoints', function_owner = self, label = "AMG Points", position = { 0, 0.45, -0.1 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'xwaPoints', function_owner = self, label = "XWA Points", position = { 0, 0.45, 0.2 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
+    self.createButton({ click_function = 'x2poPoints', function_owner = self, label = "Legacy Points", position = { 0, 0.45, 0.5 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
     addResetButton()
 end
 
@@ -201,19 +201,26 @@ end
 
 function amgPoints()
     loadPoints("AMG")
-    spawnOptions()
+    spawnOptions("AMG")
 end
 
 function xwaPoints()
     loadPoints("XWA")
-    spawnOptions()
+    spawnOptions("XWA")
 end
 
-function spawnOptions()
+function x2poPoints()
+    loadPoints("X2PO")
+    spawnOptions("X2PO")
+end
+
+function spawnOptions(version)
     self.clearButtons()
     self.createButton({ click_function = 'xwsStart', function_owner = self, label = 'XWS Spawner', position = { 0.0, 0.45, -0.1 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'spawnerStart', function_owner = self, label = 'TTS Spawner', position = { 0.0, 0.45, 0.2 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
-    self.createButton({ click_function = 'builderStart', function_owner = self, label = 'Builder', position = { 0.0, 0.45, 0.5 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
+    if version ~= "X2PO" then
+        self.createButton({ click_function = 'builderStart', function_owner = self, label = 'Builder', position = { 0.0, 0.45, 0.5 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })   
+    end
     addResetButton()
 end
 
@@ -448,7 +455,7 @@ function xwsLoad(playerColor)
 end
 
 function loadPoints(ruleset)
-    if VERSION_DATA.ruleset == ruleset .. "Done" then
+    if VERSION_DATA.ruleset == ruleset then
         return
     end
     VERSION_DATA = {
@@ -456,7 +463,9 @@ function loadPoints(ruleset)
         upgrades = {},
         ruleset = ruleset
     }
-    loadVersion(ruleset)
+    if ruleset ~= "X2PO" then
+        loadVersion(ruleset)
+    end
 end
 
 function loadVersion(ruleset)
@@ -482,7 +491,7 @@ function loadVersionData(ruleset, point_versions)
                 end
             end)
     else
-        print("Data for " .. ruleset .. " is not available")
+        print("Data for " .. ruleset .. " is not available") 
     end
 end
 
@@ -498,7 +507,7 @@ function loadVersionRevisions(ruleset, version_revisions)
                 end
             end)
     else
-        print("Current revision for " + ruleset + " is not available")
+        print("Current revision for " + ruleset + " is not available") 
     end
 end
 
@@ -512,7 +521,7 @@ function loadVersionRevision(ruleset, version_revision)
                 elseif request.is_done then
                     if file == "upgrades" then
                         loadUpgrades(json.parse(request.text))
-                    else
+                    else 
                         loadPilots(json.parse(request.text))
                     end
                 end
@@ -524,8 +533,8 @@ function loadUpgrades(upgrades)
     for xws, upgrade in pairs(upgrades) do
         if upgrade.cost then
             VERSION_DATA.upgrades[xws] = upgrade
-        end
-    end
+        end                                                          
+    end           
 end
 
 function loadPilots(ships)
@@ -533,9 +542,9 @@ function loadPilots(ships)
         for pilot_xws, pilot in pairs(ship) do
             if pilot.cost then
                 VERSION_DATA.pilots[pilot_xws] = pilot
-            end
-        end
-    end
+            end       
+        end                                                   
+    end           
 end
 
 function findByXws(table, xws_id)
@@ -547,9 +556,9 @@ function findByXws(table, xws_id)
     return nil
 end
 
-function listToFormat(version, vendor)
-    if string.find(version, '2.0.') then
-        return "2.0"
+function listToFormat(ruleset, version, vendor)
+    if version and string.find(version, '2.0.') then
+        return "2.0-legacy"
     else
         return "2.5"
     end
@@ -581,7 +590,7 @@ function xwsSpawn(list, playerColor)
           end
         end]]
         parts.Obstacles = {}
-        parts.Format = listToFormat(list.ruleset, list.vendor)
+        parts.Format = listToFormat(list.ruleset, list.version, list.vendor)
 
         for k, v in pairs(list.pilots) do
             local pilotId = findByXws(masterPilotDB, v.id)
@@ -995,6 +1004,10 @@ function idSpawner(idTable)
     fList.factionDial = dialSkin[fList.Faction]
     fList.sqdAction = {}
     local Format = idTable.Format or "2.5"
+    local repo = "eirikmun"
+    if Format == "2.0-legacy" then
+        repo = "SogeMoge"
+    end
     pilotIndicators = calculateShipIndicators(idTable)
     for k, v in pairs(idTable.Pilots) do
         --print(tostring(k) .. " " .. v  )
@@ -1021,7 +1034,7 @@ function idSpawner(idTable)
         end
         --fList.Pilots[k].tint = tintColors[pilotIndicators[k]]
         --fList.Pilots[k].card = masterPilotDB[v].card
-        fList.Pilots[k].card = "{verifycache}https://raw.githubusercontent.com/eirikmun/x-wing2.0-project-goldenrod/" ..
+        fList.Pilots[k].card = "{verifycache}https://raw.githubusercontent.com/" .. repo .. "/x-wing2.0-project-goldenrod/" ..
             Format .. "/src/images/En/pilots/" .. masterPilotDB[v].XWS .. ".png"
         fList.Pilots[k].cardB = cardBackDB[ffgFaction[fList.Faction]]
         fList.Pilots[k].standardized_loadout = masterPilotDB[v].standardized_loadout
@@ -1117,10 +1130,10 @@ function idSpawner(idTable)
             loadout = loadout + cost
 
             --fList.Upgrades[k][key].card = masterUpgradesDB[value].card
-            fList.Upgrades[k][key].card = "https://raw.githubusercontent.com/eirikmun/x-wing2.0-project-goldenrod/" ..
+            fList.Upgrades[k][key].card = "https://raw.githubusercontent.com/".. repo .. "/x-wing2.0-project-goldenrod/" ..
                 Format .. "/src/images/En/upgrades/" .. masterUpgradesDB[value].XWS .. ".png"
             if masterUpgradesDB[value].dual == true then
-                fList.Upgrades[k][key].cardB = "https://raw.githubusercontent.com/eirikmun/x-wing2.0-project-goldenrod/" ..
+                fList.Upgrades[k][key].cardB = "https://raw.githubusercontent.com/".. repo .. "/x-wing2.0-project-goldenrod/" ..
                     Format .. "/src/images/En/upgrades/" .. masterUpgradesDB[value].XWS .. "-sideb.png"
             elseif masterUpgradesDB[value].cardB == nil then
                 fList.Upgrades[k][key].cardB = cardBackDB[tostring(upSlot)]
@@ -2647,6 +2660,10 @@ function parseList()
         ships = splitlist[1]
         obstacles = splitlist[2]
         finalList.Obstacles = {}
+        finalList.Format = "2.5"
+        if VERSION_DATA.ruleset == "X2PO" then
+            finalList.Format = "2.0-legacy"
+        end
         if obstacles ~= nil then
             obstacleList = mysplit(obstacles, '/', true)
             for i, obstacle in ipairs(obstacleList) do
