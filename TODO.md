@@ -79,6 +79,7 @@
     1. Save transport as an external object
     1. Load new version of the Unified Mod
     1. Redeploy transported game objects
+1. TargetLocks have an owner and an assigned ship. Perhaps we can handle these behaviors with tags?
 
 
 ### Was this intended?
