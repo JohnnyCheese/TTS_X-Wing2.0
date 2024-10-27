@@ -1,7 +1,7 @@
 local menu   = require("Dial.Menu")
 local button = require("Dial.Button")
 local proxy  = require("Dial.Proxy")
-local Dim = require("Dim")
+local Dim    = require("Dim")
 
 -- ~~~~~~
 -- Script by dzikakulka
@@ -71,8 +71,15 @@ mountToId = {
     rear = "2"
 }
 
+function removeQuotes(name)
+    if name then
+        return name:gsub('"', "")
+    end
+end
+
 -- Save self state
 function onSave()
+    self.setName(removeQuotes(self.getName()))
     if assignedShip ~= nil then
         local state = {
             assignedShipGUID = assignedShip.getGUID(),
@@ -112,13 +119,16 @@ function onLoad(savedData)
 
         local dial = self
         if savedShipGuid then
-            Wait.frames(
+            Wait.condition(
                 function()
                     local savedShip = getObjectFromGUID(savedShipGuid)
                     if savedShip then
                         dial.call("assignShip", { ship = savedShip })
                     end
-                end, 1)
+                end, function()
+                    local savedShip = getObjectFromGUID(savedShipGuid)
+                    return savedShip ~= nil and not savedShip.loading_custom
+                end, 30)
         end
     end
 
@@ -507,7 +517,7 @@ function assignShip(args)
     self.UI.setAttribute("relocPanel", "active", "true")
     self.UI.setAttribute("setManPeekPanel", "active", "true")
     assignedShip = args.ship
-    Name = assignedShip.getName()
+    Name = removeQuotes(assignedShip.getName())
     self.setName(Name)
     finished_setup = assignedShip.getVar("finished_setup") or false
     --self.UI.setAttribute("DialName", Name)

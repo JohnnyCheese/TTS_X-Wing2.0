@@ -450,7 +450,7 @@ function setupUI()
         self.UI.setAttribute("InitiativeIcon", "position", initiativeIconPos[size])
         self.UI.setValue("Name", self.getTable("UiData").name)
         self.UI.setAttribute("Name", "position", NamePos[size])
-        self.setName(self.getTable("Data").name)
+        self.setName(self.getTable("UiData").name)
     end
     DisableAttachedColliders()
     Wait.time(DisableAttachedColliders, 5)
@@ -546,13 +546,37 @@ end
 
 function SetName(args)
     local uitable = self.getTable("UiData")
-    uitable.name = string.gsub(args.name, '*', '•')
+    if uitable == nil then
+        return
+    end
+    uitable.name = replaceStarWithDot(args.name)
     self.setTable('UiData', uitable)
     setupUI()
 end
 
+-- Replaces "•" with "*"
+function replaceDotWithStar(name)
+    if name then
+        return name:gsub('•', function(char) if char == '•' then return '*' end end)
+    end
+end
+
+-- Replaces "*" back to "•"
+function replaceStarWithDot(name)
+    if name then
+        return name:gsub("%*", "•")
+    end
+end
+
+function removeQuotes(name)
+    if name then
+        return name:gsub('"', "")
+    end
+end
+
 -- Save self state
 function onSave()
+    self.setName(removeQuotes(self.getName()))
     local state = { shipData = self.getTable("Data"), arcIndicators = self.getTable("arc_indicators") }
     state.finishedSetup = self.getVar("finished_setup")
     state.tokenData = { tokens = {} }
@@ -560,6 +584,11 @@ function onSave()
     state.isAi = self.getVar("isAi")
     state.strikeTargets = self.getTable("StrikeTargets")
     state.uiData = self.getTable("UiData")
+
+    if state.uiData and state.uiData.name then
+        state.uiData.name = replaceDotWithStar(state.uiData.name)
+    end
+
     state.interactable = self.interactable
     for guid, _ in pairs(assigned_tokens) do
         table.insert(state.tokenData.tokens, guid)
@@ -575,6 +604,9 @@ function onLoad(savedData)
         self.setTable("Data", state.shipData)
         self.setTable("arc_indicators", state.arcIndicators)
         self.setTable("UiData", state.uiData)
+        if UiData then
+            UiData['name'] = replaceStarWithDot(UiData['name'])
+        end
         self.setVar("finished_setup", state.finishedSetup)
         self.setVar("owningPlayer", state.owningPlayer)
         self.setVar("isAi", state.isAi)
