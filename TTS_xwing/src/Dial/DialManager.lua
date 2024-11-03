@@ -14,23 +14,30 @@ D.assignDial = function(dial, ship, player)
 end
 
 D.setDial = function(dial)
-    if D.assignedDials[dial.getGUID()] then
-        D.assignedDials[dial.getGUID()].set = true
+    local dialGUID = dial.getGUID()
+
+    if D.assignedDials[dialGUID] then
+        D.assignedDials[dialGUID].set = true
 
         local unset_dials = false
-        for _, dial in pairs(D.assignedDials) do
-            if dial.set == false then
+
+        for _, assignedDial in pairs(D.assignedDials) do
+            local playerColor = assignedDial.ownerColor
+
+            if playerColor ~= "Black" and assignedDial.set == false then
                 unset_dials = true
                 break
             end
         end
-        if unset_dials == false then
+
+        if not unset_dials then
             printToAll("All dials have been set by all players", D.announceColor)
         end
     else
         printToAll("Attempted to set dial, but dial not assigned", D.announceColor)
     end
 end
+
 
 D.unSetDial = function(dial)
     if D.assignedDials[dial.getGUID()] then
