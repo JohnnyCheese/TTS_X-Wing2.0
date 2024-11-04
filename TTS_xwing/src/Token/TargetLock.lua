@@ -28,6 +28,9 @@ colorTable['Yellow'] = { 1, 1, 0 }
 colorTable['Orange'] = { 1, 0.4, 0 }
 colorTable['Black'] = { 0.2, 0.2, 0.2 }
 
+--[[
+TODO: TargetLocks have an owner and an assigned ship. Perhaps we can handle these behaviors with tags?
+]]
 -- Save self state
 function onSave()
     if set then

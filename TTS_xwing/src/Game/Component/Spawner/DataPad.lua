@@ -171,11 +171,11 @@ function initiate()
     -- self.createButton({ click_function = 'xwsStart', function_owner = self, label = 'XWS Spawner', position = { 0.5, 0.45, -0.1 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'singleSpawner', function_owner = self, label = 'Single Spawner', position = { -0.5, 0.45, 0.15 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
     -- self.createButton({ click_function = 'spawnerStart', function_owner = self, label = 'TTS Spawner', position = { -0.5, 0.45, 0.4 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
-    -- self.createButton({ click_function = 'builderStart', function_owner = self, label = 'Builder', position = { 0.5, 0.45, 0.4 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })      
+    -- self.createButton({ click_function = 'builderStart', function_owner = self, label = 'Builder', position = { 0.5, 0.45, 0.4 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'assetSpawn', function_owner = self, label = "Asset Spawner", position = { 0.5, 0.45, 0.15 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'configuration', function_owner = self, label = "Configuration", position = { -0.5, 0.45, -0.1 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'scenario', function_owner = self, label = "Scenario Setup", position = { 0.5, 0.45, -0.1 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
-    self.createButton({ click_function = 'spawnStart', function_owner = self, label = 'Spawn List', position = { 0, 0.45, 0.45 }, width = 2000, height = 500, font_size = 200, scale = { 0.25, 0.25, 0.25 } })  
+    self.createButton({ click_function = 'spawnStart', function_owner = self, label = 'Spawn List', position = { 0, 0.45, 0.45 }, width = 2000, height = 500, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
 end
 
 function spawnStart()
@@ -212,11 +212,6 @@ end
 
 function x2poPoints()
     loadPoints("X2PO")
-    spawnOptions("X2PO""XWA")
-end
-
-function x2poPoints()
-    loadPoints("X2PO")
     spawnOptions("X2PO")
 end
 
@@ -225,9 +220,7 @@ function spawnOptions(versionversion)
     self.createButton({ click_function = 'xwsStart', function_owner = self, label = 'XWS Spawner', position = { 0.0, 0.45, -0.1 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'spawnerStart', function_owner = self, label = 'TTS Spawner', position = { 0.0, 0.45, 0.2 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
     if version ~= "X2PO" then
-        if version ~= "X2PO" then
-        self.createButton({ click_function = 'builderStart', function_owner = self, label = 'Builder', position = { 0.0, 0.45, 0.5 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })      
-    end
+        self.createButton({ click_function = 'builderStart', function_owner = self, label = 'Builder', position = { 0.0, 0.45, 0.5 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
     end
     addResetButton()
 end
@@ -464,7 +457,6 @@ end
 
 function loadPoints(ruleset)
     if VERSION_DATA.ruleset == ruleset then
-    if VERSION_DATA.ruleset == ruleset then
         return
     end
     VERSION_DATA = {
@@ -473,9 +465,7 @@ function loadPoints(ruleset)
         ruleset = ruleset
     }
     if ruleset ~= "X2PO" then
-        if ruleset ~= "X2PO" then
         loadVersion(ruleset)
-    end
     end
 end
 
@@ -502,7 +492,7 @@ function loadVersionData(ruleset, point_versions)
                 end
             end)
     else
-        print("Data for " .. ruleset .. " is not available")  
+        print("Data for " .. ruleset .. " is not available")
     end
 end
 
@@ -518,7 +508,7 @@ function loadVersionRevisions(ruleset, version_revisions)
                 end
             end)
     else
-        print("Current revision for " + ruleset + " is not available")  
+        print("Current revision for " + ruleset + " is not available")
     end
 end
 
@@ -532,7 +522,7 @@ function loadVersionRevision(ruleset, version_revision)
                 elseif request.is_done then
                     if file == "upgrades" then
                         loadUpgrades(json.parse(request.text))
-                    else 
+                    else
                         loadPilots(json.parse(request.text))
                     end
                 end
@@ -544,8 +534,8 @@ function loadUpgrades(upgrades)
     for xws, upgrade in pairs(upgrades) do
         if upgrade.cost then
             VERSION_DATA.upgrades[xws] = upgrade
-        end                                                                                                                    
-    end                      
+        end
+    end
 end
 
 function loadPilots(ships)
@@ -553,9 +543,9 @@ function loadPilots(ships)
         for pilot_xws, pilot in pairs(ship) do
             if pilot.cost then
                 VERSION_DATA.pilots[pilot_xws] = pilot
-            end              
-        end                                                                                                      
-    end                      
+            end
+        end
+    end
 end
 
 function findByXws(table, xws_id)
@@ -596,10 +586,10 @@ function xwsSpawn(list, playerColor)
         parts.Faction = 0
         parts.Faction = factions[list.faction]
         --[[for _, faction in pairs(XWS_DATA.factions) do
-          if faction.xws == list.faction then
-            parts.Faction = faction.ffg
-          end
-        end]]
+         if faction.xws == list.faction then
+           parts.Faction = faction.ffg
+         end
+       end]]
         parts.Obstacles = {}
         parts.Format = listToFormat(list.ruleset, list.version, list.vendor)
 
@@ -956,11 +946,11 @@ function singleUpSpawn(upId)
 end
 
 --[[
-    id table should look like this:
-    idTable.Pilots = {[1]=id1, [2]=id2}
-    idTable.Upgrades = {[1] = {[1]=upId1, [2]=upId2},
-                        [2]={[1]=upId3, [2]=upId3}}
-    idTable.Faction = masterPilotDB[id1].Faction
+   id table should look like this:
+   idTable.Pilots = {[1]=id1, [2]=id2}
+   idTable.Upgrades = {[1] = {[1]=upId1, [2]=upId2},
+                       [2]={[1]=upId3, [2]=upId3}}
+   idTable.Faction = masterPilotDB[id1].Faction
 ]]
 
 dialSkin = {
@@ -1016,10 +1006,6 @@ function idSpawner(idTable)
     fList.sqdAction = {}
     local Format = idTable.Format or "2.5"
     local repo = "eirikmun"
-    if Format == "2.0-legacy" then
-        repo = "SogeMoge"
-    end
-    local repo = "eirikmun"
     if Format == "2.0" then
         repo = "SogeMoge"
     end
@@ -1049,8 +1035,8 @@ function idSpawner(idTable)
         end
         --fList.Pilots[k].tint = tintColors[pilotIndicators[k]]
         --fList.Pilots[k].card = masterPilotDB[v].card
-        fList.Pilots[k].card = "{verifycache}https://raw.githubusercontent.com/" .. repo .. "/x-wing2.0-project-goldenrod/" ..
-        fList.Pilots[k].card = "{verifycache}https://raw.githubusercontent.com/" .. repo .. "/x-wing2.0-project-goldenrod/" ..
+        fList.Pilots[k].card = "{verifycache}https://raw.githubusercontent.com/" ..
+            repo .. "/x-wing2.0-project-goldenrod/" ..
             Format .. "/src/images/En/pilots/" .. masterPilotDB[v].XWS .. ".png"
         fList.Pilots[k].cardB = cardBackDB[ffgFaction[fList.Faction]]
         fList.Pilots[k].standardized_loadout = masterPilotDB[v].standardized_loadout
@@ -1095,17 +1081,17 @@ function idSpawner(idTable)
 
         fList.Pilots[k].Data.Faction = fList.Faction
         fList.Pilots[k].Data.Size = fList.Pilots[k].Size
-        if v == 150 then                   -- Emon Azzameen special drops
+        if v == 150 then                  -- Emon Azzameen special drops
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s3:tr3:te3'
-        elseif v == 205 then               -- Sol Sixxa special drops
+        elseif v == 205 then              -- Sol Sixxa special drops
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':te1:be1:br1:tr1'
         elseif v == 1068 or v == 1075 then -- Partin gift upgrade special drop
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r:br1r:bl1r'
-        elseif v == 161 then               -- Constable Zuvio
+        elseif v == 161 then              -- Constable Zuvio
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r'
-        elseif v == 565 then               -- Bombardment Drone
+        elseif v == 565 then              -- Bombardment Drone
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r'
-        elseif v == 1047 then              -- SL Deathfire
+        elseif v == 1047 then             -- SL Deathfire
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':be3:br3:s3:s3r'
         end
 
@@ -1146,10 +1132,12 @@ function idSpawner(idTable)
             loadout = loadout + cost
 
             --fList.Upgrades[k][key].card = masterUpgradesDB[value].card
-            fList.Upgrades[k][key].card = "https://raw.githubusercontent.com/".. repo .. "/x-wing2.0-project-goldenrod/" ..
+            fList.Upgrades[k][key].card = "https://raw.githubusercontent.com/" ..
+                repo .. "/x-wing2.0-project-goldenrod/" ..
                 Format .. "/src/images/En/upgrades/" .. masterUpgradesDB[value].XWS .. ".png"
             if masterUpgradesDB[value].dual == true then
-                fList.Upgrades[k][key].cardB = "https://raw.githubusercontent.com/".. repo .. "/x-wing2.0-project-goldenrod/" ..
+                fList.Upgrades[k][key].cardB = "https://raw.githubusercontent.com/" ..
+                    repo .. "/x-wing2.0-project-goldenrod/" ..
                     Format .. "/src/images/En/upgrades/" .. masterUpgradesDB[value].XWS .. "-sideb.png"
             elseif masterUpgradesDB[value].cardB == nil then
                 fList.Upgrades[k][key].cardB = cardBackDB[tostring(upSlot)]
@@ -1248,12 +1236,12 @@ function idSpawner(idTable)
             if value == 'skilledbombardier' then -- Skilled Bombardier special drops
                 skilled_bombardier = true
                 --fList.Pilots[k].bombD = fList.Pilots[k].bombD ..  ':s2:tr2:te2:be2:br2'
-            elseif value == 'trajectorysimulator' then  -- Trajectory Simulator special drop
+            elseif value == 'trajectorysimulator' then -- Trajectory Simulator special drop
                 fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s5r'
             elseif value == 'electrochaffmissiles' then -- Electro-Chaff Missiles
                 fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s4r:be3r:br3r'
-            elseif value == 'thermaldetonators' then    -- Thermal Detinators
-                if Ship == 'tiesabomber' then           -- TIE Bomber special drops
+            elseif value == 'thermaldetonators' then   -- Thermal Detinators
+                if Ship == 'tiesabomber' then          -- TIE Bomber special drops
                     fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':be2:s2:br2'
                 else
                     fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s2'
@@ -1315,95 +1303,95 @@ end
 
 cardLua = [[
 self.createButton({
-  click_function = 'spawnerCaller',
-  function_owner = self,
-  label          = 'Spawn',
-  position       = {0,0.02,0.35},
-  rotation       = {0,0,0},
-  scale          = {0.1,0.1,0.1},
-  width          = 2000,
-  height         = 500,
-  font_size      = 400,
-  color          = 'Black',
-  font_color     = 'White',
-  tooltip        = 'Click here to spawn the saved list',
+ click_function = 'spawnerCaller',
+ function_owner = self,
+ label          = 'Spawn',
+ position       = {0,0.02,0.35},
+ rotation       = {0,0,0},
+ scale          = {0.1,0.1,0.1},
+ width          = 2000,
+ height         = 500,
+ font_size      = 400,
+ color          = 'Black',
+ font_color     = 'White',
+ tooltip        = 'Click here to spawn the saved list',
 })
 
 customizing = true
 
 function spawnerCaller()
-    spawnTable = self.getTable("List")
-    spawnTable.spawnCard = self
-    Global.call('newSpawner', spawnTable)
-    spawnTable = nil
+   spawnTable = self.getTable("List")
+   spawnTable.spawnCard = self
+   Global.call('newSpawner', spawnTable)
+   spawnTable = nil
 end
 
 function onSave()
-    if state == nil then
-        local state = {cardData=self.getTable("List")}
-        return JSON.encode(state)
-    end
+   if state == nil then
+       local state = {cardData=self.getTable("List")}
+       return JSON.encode(state)
+   end
 end
 
 function onObjectDrop(player_color, dropped_object)
-    if customizing then
-        local relpos = self.positionToLocal(dropped_object.getPosition())
-        local distance = math.sqrt(relpos[1]*relpos[1] + relpos[2]*relpos[2] + relpos[3]*relpos[3])
-        if distance < 1 then
-            if (dropped_object.tag == 'Figurine') and (dropped_object.getVar("__XW_Ship") == true) then
-                printToAll(self.getName() .. " gets the customization of " .. dropped_object.getName(), color(1.0,0.5,0.0))
-                local customobj = dropped_object.getCustomObject()
-                customization = List.Customization[dropped_object.getName()] or {}
-                customization.model = customobj.mesh
-                customization.texture = customobj.diffuse
-                customization.modeltint = dropped_object.getColorTint()
-                local shipfound = false
-                for i, attachment in pairs(dropped_object.getAttachments()) do
-                    if attachment.name == "Ship" then
-                      id = dropped_object.removeAttachment(attachment.index)
-                      customization.texture = id.getCustomObject().diffuse
-                      customization.modeltint = id.getColorTint()
-                      dropped_object.addAttachment(id)
-                      shipfound = true
-                    end
-                end
-                if not shipfound then -- Is probably a ship without base mesh
-                  for i, attachment in pairs(dropped_object.getAttachments()) do
-                      if attachment.name == "Config" then
-                        id = dropped_object.removeAttachment(attachment.index)
-                        customization.texture = id.getCustomObject().diffuse
-                        customization.modeltint = id.getColorTint()
-                        dropped_object.addAttachment(id)
-                        break
-                      end
-                  end
-                end
-
-                for i, attachment in pairs(dropped_object.getAttachments()) do
-                    if attachment.name == "ColorId" then
-                      id = dropped_object.removeAttachment(attachment.index)
-                      customization.tint = id.getColorTint(tint)
-                      dropped_object.addAttachment(id)
-                    end
-                end
-                List.Customization[dropped_object.getName()] = customization
-            elseif dropped_object.tag == 'Card' then
-              printToAll(self.getName() .. " gets the customization of " .. dropped_object.getName() .." card", color(1.0,0.5,0.0))
+   if customizing then
+       local relpos = self.positionToLocal(dropped_object.getPosition())
+       local distance = math.sqrt(relpos[1]*relpos[1] + relpos[2]*relpos[2] + relpos[3]*relpos[3])
+       if distance < 1 then
+           if (dropped_object.tag == 'Figurine') and (dropped_object.getVar("__XW_Ship") == true) then
+               printToAll(self.getName() .. " gets the customization of " .. dropped_object.getName(), color(1.0,0.5,0.0))
+               local customobj = dropped_object.getCustomObject()
                customization = List.Customization[dropped_object.getName()] or {}
-               customization.face = dropped_object.getCustomObject().face
-               customization.back = dropped_object.getCustomObject().back
+               customization.model = customobj.mesh
+               customization.texture = customobj.diffuse
+               customization.modeltint = dropped_object.getColorTint()
+               local shipfound = false
+               for i, attachment in pairs(dropped_object.getAttachments()) do
+                   if attachment.name == "Ship" then
+                     id = dropped_object.removeAttachment(attachment.index)
+                     customization.texture = id.getCustomObject().diffuse
+                     customization.modeltint = id.getColorTint()
+                     dropped_object.addAttachment(id)
+                     shipfound = true
+                   end
+               end
+               if not shipfound then -- Is probably a ship without base mesh
+                 for i, attachment in pairs(dropped_object.getAttachments()) do
+                     if attachment.name == "Config" then
+                       id = dropped_object.removeAttachment(attachment.index)
+                       customization.texture = id.getCustomObject().diffuse
+                       customization.modeltint = id.getColorTint()
+                       dropped_object.addAttachment(id)
+                       break
+                     end
+                 end
+               end
+
+               for i, attachment in pairs(dropped_object.getAttachments()) do
+                   if attachment.name == "ColorId" then
+                     id = dropped_object.removeAttachment(attachment.index)
+                     customization.tint = id.getColorTint(tint)
+                     dropped_object.addAttachment(id)
+                   end
+               end
                List.Customization[dropped_object.getName()] = customization
-            end
-        end
-    end
+           elseif dropped_object.tag == 'Card' then
+             printToAll(self.getName() .. " gets the customization of " .. dropped_object.getName() .." card", color(1.0,0.5,0.0))
+              customization = List.Customization[dropped_object.getName()] or {}
+              customization.face = dropped_object.getCustomObject().face
+              customization.back = dropped_object.getCustomObject().back
+              List.Customization[dropped_object.getName()] = customization
+           end
+       end
+   end
 end
 
 -- Restore self state
 function onLoad(savedData)
-    --print("OnLoad: ".. self.getName() .. " " .. savedData)
-    if savedData ~= "" then
-        self.setTable("List", JSON.decode(savedData).cardData)
-    end
+   --print("OnLoad: ".. self.getName() .. " " .. savedData)
+   if savedData ~= "" then
+       self.setTable("List", JSON.decode(savedData).cardData)
+   end
 end
 ]]
 
@@ -1417,8 +1405,7 @@ function saveToDisk(finalList)
                 position = { -66, 1, -15 },
                 rotation = { 0, 90, 0 },
                 scale = { 3.75, 3.75, 3.75 },
-                guid =
-                    v.guid
+                guid = v.guid
             })
             dataDiskClone = dataDisk.clone()
             accBag.putObject(dataDiskClone)
@@ -2765,7 +2752,7 @@ function parseList()
                     ::continue::
                     Aux = 0
                 end -- if Pilot and upgrade
-            end     -- for card
+            end    -- for card
         end
         pChecker()
     else
@@ -3157,5 +3144,3 @@ function RotateVector(rotMat, vect)
     end
     return out
 end
-
-------
