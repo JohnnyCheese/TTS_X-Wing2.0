@@ -63,19 +63,7 @@ end
 -- Assign on drop near a small base ship
 function onDropped()
     if assignedShip == nil then
-        local spos = self.getPosition()
-        local nearest = nil
-        local minDist = Dim.Convert_mm_igu(80)
-        for _, ship in pairs(getAllObjects()) do
-            if ship.type == 'Figurine' and ship.name ~= '' then
-                local pos = ship.getPosition()
-                local dist = math.sqrt(math.pow((spos[1] - pos[1]), 2) + math.pow((spos[3] - pos[3]), 2))
-                if dist < minDist then
-                    nearest = ship
-                    minDist = dist
-                end
-            end
-        end
+        local nearest = Global.call("API_FindNearestShip", { object = self, max_distance = 80 })
         if nearest ~= nil then
             printToAll('Shuttle Launcher Token assigned to ' .. nearest.getName(), { 0.2, 0.2, 1 })
             SpawnShuttleFindButtons()
@@ -88,19 +76,7 @@ end
 -- Assign Shuttle to this ship
 function SYNCshuttle()
     if assignedShuttle == nil then
-        local spos = self.getPosition()
-        local nearest = nil
-        local minDist = Dim.Convert_mm_igu(80)
-        for _, ship in pairs(getAllObjects()) do
-            if ship.type == 'Figurine' and ship.name ~= '' then
-                local pos = ship.getPosition()
-                local dist = math.sqrt(math.pow((spos[1] - pos[1]), 2) + math.pow((spos[3] - pos[3]), 2))
-                if dist < minDist then
-                    nearest = ship
-                    minDist = dist
-                end
-            end
-        end
+        local nearest = Global.call("API_FindNearestShip", { object = self, max_distance = 80 })
         if nearest ~= nil then
             printToAll(nearest.getName() .. ' is docked to ' .. assignedShip.getName())
             SpawnFirstButtons()

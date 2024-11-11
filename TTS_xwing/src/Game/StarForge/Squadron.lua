@@ -77,25 +77,7 @@ function Squadron:assignNearestShip(dial)
     printToAll("assignNearestShip ", Color.Orange)
 
     local playerColor = self.playerArea.player.color
-    local dialPos = dial.getPosition()
-    local minDist = Dim.Convert_mm_igu(80)
-    local ships = self:getShips()
-    local nearest = nil
-    printToAll("#ships " .. #ships, Color.Orange)
-    printToAll("minDist " .. tostring(minDist), Color.Orange)
-
-    for _, ship in pairs(self:getShips()) do
-        -- Probe.printObjectInfo(ship)
-        if ship.type == 'Figurine' and ship.name ~= '' then
-            local shipPos = ship.getPosition()
-            local dist = dialPos:distance(shipPos)
-            if dist < minDist then
-                nearest = ship
-                minDist = dist
-            end
-        end
-    end
-
+    local nearest = Global.call("API_FindNearestShip", { object = dial, max_distance = 80 })
     if nearest ~= nil then
         if playerColor == "White" then
             printToAll("Please, pick a color before assigning dials")

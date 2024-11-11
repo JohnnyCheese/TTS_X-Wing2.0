@@ -83,17 +83,7 @@ end
 
 -- Assign on drop near a small base ship
 function onDropped(color)
-    local spos = self.getPosition()
-    local nearest = nil
-    local minDist = Dim.Convert_mm_igu(80)
-    for _, ship in pairs(getObjectsWithTag('Ship')) do
-        local pos = ship.getPosition()
-        local dist = math.sqrt(math.pow((spos[1] - pos[1]), 2) + math.pow((spos[3] - pos[3]), 2))
-        if dist < minDist then
-            nearest = ship
-            minDist = dist
-        end
-    end
+    local nearest = Global.call("API_FindNearestShip", { object = self, max_distance = 80 })
     if nearest ~= nil then
         printToAll('Electro-Chaff Missiles preparing to launch')
         initialP = self.getPosition()
