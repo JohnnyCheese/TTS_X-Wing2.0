@@ -82,6 +82,14 @@ function API_SetGlobalConfig(argTable)
     return ConfigManager.SetConfig("global", argTable.param_name, argTable.value)
 end
 
+function API_SpawnTemplate(args)
+    return DialModule.SpawnTemplate(args.ship, args.dialCode)
+end
+
+function API_FindNearestShip(args)
+    return FindNearestShip(args.object, args.max_distance)
+end
+
 function API_GetClosestPointToShip(argTable)
     local size = argTable.ship.getTable('Data').Size or "small"
     local segments = ArcCheck.GetOwnArcLineSegments(argTable.ship, ArcCheck.arc_line_segments[size].full.segments)

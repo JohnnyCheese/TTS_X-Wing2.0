@@ -4192,7 +4192,7 @@ end
 --      owner   <- ship ref to owner, nil if none
 --      dist    <- distance to owner (igu)
 --      margin  <- how far from owner token would have to be moved to change owner
---          }
+-- }
 TokenModule.TokenOwnerInfo = function(tokenPos)
     local pos = nil
     local out = { token = nil, owner = nil, dist = 0, margin = -1 }
@@ -4579,49 +4579,73 @@ DialModule.TemplateData.baseOffset.large = { 0, 0, 40, 0 }
 -- tr1_B means "spawn a turn right 1 template in front of me" (B as in before move)
 -- Return template reference
 -- TODO toggletemplate?
+-- Decode the dial code into a moveData table with move details
+DialModule.decodeDialCode = function(ship, dialCode)
+    local moveInfo = MoveData.DecodeInfo(dialCode:sub(1, -3), ship) -- Decodes movement type, speed, etc.
+    local positionKey = dialCode:sub(-1, -1)                        -- Last character defines position
+
+    moveInfo.position = ({
+        A = 'back',
+        B = 'front',
+        P = 'port',
+        S = 'starboard'
+    })[positionKey] or 'front'
+
+    return moveInfo
+end
+
 DialModule.SpawnTemplate = function(ship, dialCode)
-    local moveCode = dialCode:sub(1, -3)
-    local moveInfo = MoveData.DecodeInfo(moveCode, ship)
-    if moveInfo.speed == 0 then
+    local moveInfo = DialModule.decodeDialCode(ship, dialCode)
+
+    local speed = moveInfo.speed
+    local type = moveInfo.type
+    local position = moveInfo.position
+    local dir = moveInfo.dir
+    local extra = moveInfo.extra
+
+    return DialModule.PlaceTemplate(ship, speed, type, position, dir, extra)
+end
+
+DialModule.PlaceTemplate = function(ship, speed, type, position, dir, extra)
+    if speed == 0 then
         return nil
     end
-    local tempEntry = DialModule.TemplateData[moveInfo.type][moveInfo.speed]
+    local tempEntry = DialModule.TemplateData[type][speed]
     local baseSize = ship.getTable("Data").Size or 'small'
     tempEntry = Vect.Sum(tempEntry, DialModule.TemplateData.baseOffset[baseSize])
     local ref = ship
-    if dialCode:sub(-1, -1) == 'A' then
+    if position == 'back' then
         ref = MoveModule.GetOldMove(ship, 1)
     end
     --TODO LAST MOVE LOGIC OUT!!!
     --TODO dont barf if no last move
 
-    if moveInfo.dir == 'left' then
+    if dir == 'left' then
         tempEntry = MoveData.LeftVariant(tempEntry)
-        tempEntry[4] = tempEntry[4] + 180 - DialModule.TemplateData[moveInfo.type].leftRot
+        tempEntry[4] = tempEntry[4] + 180 - DialModule.TemplateData[type].leftRot
     end
-    if moveInfo.extra == 'reverse' then
+    if extra == 'reverse' then
         tempEntry = MoveData.ReverseVariant(tempEntry)
-        if moveInfo.type ~= 'straight' then
-            tempEntry[4] = tempEntry[4] - DialModule.TemplateData[moveInfo.type].leftRot
+        if type ~= 'straight' then
+            tempEntry[4] = tempEntry[4] - DialModule.TemplateData[type].leftRot
         end
     end
-    if moveInfo.dir ~= nil then
-        if moveInfo.extra ~= 'reverse' then
-            tempEntry = Vect.Sum(tempEntry, DialModule.TemplateData[moveInfo.type].trim[moveInfo.dir][moveInfo.speed])
+    if dir ~= nil then
+        if extra ~= 'reverse' then
+            tempEntry = Vect.Sum(tempEntry, DialModule.TemplateData[type].trim[dir][speed])
         else
-            if moveInfo.dir == 'right' then
-                moveInfo.dir = 'left'
-            elseif moveInfo.dir == 'left' then
-                moveInfo.dir = 'right'
+            if dir == 'right' then
+                dir = 'left'
+            elseif dir == 'left' then
+                dir = 'right'
             end
             tempEntry = Vect.Sum(tempEntry,
-                Vect.ScaleEach(DialModule.TemplateData[moveInfo.type].trim[moveInfo.dir][moveInfo.speed],
-                    { -1, 1, -1, -1 }))
+                Vect.ScaleEach(DialModule.TemplateData[type].trim[dir][speed], { -1, 1, -1, -1 }))
         end
     end
 
     local finPos = MoveModule.EntryToPos(tempEntry, ref)
-    local src = TokenModule.tokenSources[moveInfo.type:sub(1, 1) .. moveInfo.speed]
+    local src = TokenModule.tokenSources[type:sub(1, 1) .. speed]
     local newTemplate = src.takeObject({ position = finPos.pos, rotation = finPos.rot })
     newTemplate.lock()
     newTemplate.setPosition(finPos.pos)
@@ -4643,7 +4667,6 @@ DialModule.DeleteTemplate = function(ship)
     end
     return false
 end
-
 
 
 -- Char width table by Indimeco
@@ -7160,4 +7183,78 @@ function epicMoveWingmate(table)
         -- Todo announce some stuff
         return false
     end
+end
+
+--------
+-- START TEMPLATE
+local Template = {}
+
+function Template.TypeAndSpeed(object)
+    local name = object.getName():lower()
+    local type, speed = string.match(name, "^(%a+) (%d)$")
+    return type, tonumber(speed)
+end
+
+function Template.Bearing(object)
+    local type, _ = Template.TypeAndSpeed(object)
+
+    if type == 'straight' then
+        return nil
+    end
+
+    if object.is_face_down then
+        return 'left'
+    else
+        return 'right'
+    end
+end
+
+function Template.IsTemplate(object)
+    local type, speed = Template.TypeAndSpeed(object)
+    return type ~= nil and speed ~= nil
+end
+
+function Template.SnapToShip(player_color, template)
+    local ship = FindNearestShip(template)
+    if ship == nil then
+        return
+    end
+
+    local type, speed = Template.TypeAndSpeed(template)
+    local bearing = Template.Bearing(template)
+    local position = 'front' -- For now, just spawn out the front
+    destroyObject(template)
+    DialModule.PlaceTemplate(ship, speed, type, position, bearing, nil)
+end
+
+function Template.onObjectDropped(player_color, template)
+    if not Template.IsTemplate(template) then
+        return
+    end
+
+    Template.SnapToShip(player_color, template)
+end
+
+EventSub.Register('onObjectDropped', Template.onObjectDropped)
+
+-- END TEMPLATE
+--------
+
+function FindNearestShip(object, max_distance)
+    local min_dist = Dim.Convert_mm_igu(max_distance or 100) -- default 100 mm
+    local spos = object.getPosition()
+    local nearest = nil
+
+    for _, ship in pairs(getObjects()) do
+        if MoveModule.SelectShips(ship) then
+            local pos = ship.getPosition()
+            local dist = spos:distance(pos)
+            if dist < min_dist then
+                nearest = ship
+                min_dist = dist
+            end
+        end
+    end
+
+    return nearest
 end
