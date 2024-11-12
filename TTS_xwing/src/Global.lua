@@ -16,6 +16,12 @@
 print_debug = true
 cast_debug = false
 
+Accessories_Bag_GUID = '53ad3d'
+CompositeBase_GUID = '8c3322'
+Fuse_Bag_GUID = '568727'
+Obstacle_Bag_GUID = '203cb8'
+Straight_1_Bag_GUID = '637ad7'
+
 TTS_print = print
 function print(...)
     if print_debug == true then
@@ -5369,7 +5375,7 @@ BombModule.OnTokenDrop = function(token)
         end
 
         if token.getName() == 'Electro-Chaff Cloud' then
-            fuseBag = getObjectFromGUID('568727')
+            fuseBag = getObjectFromGUID(Fuse_Bag_GUID)
             fuseBag.takeObject({
                 position = vector(destPos[1], destPos[2], destPos[3]) + vector(0, 1, 0),
                 smooth = true,
@@ -5569,7 +5575,7 @@ BombModule.SpawnBlaze = function(center)
     t1.addTag('Obstacle')
     t1.setLuaScript(clusterScript)
     BombModule.CheckMineDroppedOverlapping(t1)
-    fuseBag = getObjectFromGUID('568727')
+    fuseBag = getObjectFromGUID(Fuse_Bag_GUID)
     fuseBag.takeObject({
         position = Vect.Sum(Vect.Sum(center.pos, destOffset1), { 0, 1, 0 }),
         smooth = true,
@@ -5956,7 +5962,7 @@ function newSpawner(listTable)
     PosBag3 = { 15, 15, 0 }
     PosBag4 = { 20, 20, 0 }
     PoaBag5 = { 25, 25, 0 }
-    tempBagAcc = getObjectFromGUID('53ad3d').clone({ position = PosBag3 }) -- Accessories bag
+    tempBagAcc = getObjectFromGUID(Accessories_Bag_GUID).clone({ position = PosBag3 }) -- Accessories bag
 
     --Stablishes lists of available upgrades, pilots, accessories, ships and mobile upgrades
     listaAcc = tempBagAcc.getObjects()
@@ -6226,7 +6232,7 @@ function newSpawner(listTable)
             end
             pos = LocalPos(spawnCard, { 0, 0, 9 })
             rot = spawnCard.getRotation()
-            local base_prototype = getObjectFromGUID("8c3322")
+            local base_prototype = getObjectFromGUID(CompositeBase_GUID)
             newShip = base_prototype.clone()
             newShip.setPositionSmooth(pos, false, true)
             newShip.setRotationSmooth(rot, false, true)
@@ -6680,7 +6686,7 @@ function newSpawner(listTable)
     end
 
     if listTable.Obstacles ~= nil then
-        tempObstacleBag = getObjectFromGUID('203cb8').clone({ position = PosBag3 }) -- Obstacles bag
+        tempObstacleBag = getObjectFromGUID(Obstacle_Bag_GUID).clone({ position = PosBag3 }) -- Obstacles bag
         obstacleAcc = tempObstacleBag.getObjects()
         for i, obstacleName in ipairs(listTable.Obstacles) do
             local found = false
@@ -6690,8 +6696,7 @@ function newSpawner(listTable)
                     pos = LocalPos(spawnCard, { 0, 1, 0 })
                     obstacleToken = tempObstacleBag.takeObject({
                         rotation = spawnCard.getRotation(),
-                        guid = obstacle
-                            .guid,
+                        guid = obstacle.guid,
                         smooth = false
                     })
                     obstacleClone = obstacleToken.clone()
@@ -7197,9 +7202,18 @@ function Template.Bearing(object)
     end
 end
 
+function Template.Find1StraightTemplateBag()
+    local s1Bag = getObjectFromGUID(Straight_1_Bag_GUID)
+    if s1Bag then
+        return s1Bag.hasTag('ezTemplates')
+    end
+    return false
+end
+
 function Template.IsTemplate(object)
     local type, speed = Template.TypeAndSpeed(object)
-    return type ~= nil and speed ~= nil
+    local ezTemplates = Template.Find1StraightTemplateBag()
+    return ezTemplates and type ~= nil and speed ~= nil
 end
 
 function Template.SnapToShip(player_color, template)
@@ -7212,7 +7226,23 @@ function Template.SnapToShip(player_color, template)
     local bearing = Template.Bearing(template)
     local position = 'front' -- For now, just spawn out the front
     destroyObject(template)
-    DialModule.PlaceTemplate(ship, speed, type, position, bearing, nil)
+    template = DialModule.PlaceTemplate(ship, speed, type, position, bearing, nil)
+
+    local removeButton = {
+        click_function = 'deleteObject',
+        label = 'Del',
+        position = { 0, 0.05, 0 },
+        width = 180,
+        height = 125,
+        font_size = 100,
+        color = { 0.7, 0.7, 0.7 },
+        tooltip = "Remove the template"
+    }
+    template.createButton(removeButton)
+end
+
+function deleteObject(obj, color, alt_click)
+    destroyObject(obj)
 end
 
 function Template.onObjectDropped(player_color, template)
