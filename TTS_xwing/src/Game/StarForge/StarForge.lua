@@ -29,6 +29,7 @@ Utility Object to aid in Game Mod Script Updates. Locating and "sourcing" Object
 1. **Extract All Objects**:
     - Trigger a context menu to "Take Everything Out," which will:
     1. Lay out all scripted objects.
+
     2. Keep track of which Bag each object came from, as they need to be returned to their original bag.
     3. If the object is a multi-state object:
         - Keep track of the initial state (baseState).
