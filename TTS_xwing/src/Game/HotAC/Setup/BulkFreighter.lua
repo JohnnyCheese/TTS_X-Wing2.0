@@ -14,6 +14,7 @@ local name = "HotAC Transport Freighter"
 
 -- Table to store the exclude list of base game object GUIDs
 local excludeList = {
+    self.getGUID()
     -- populate with base game objects
 }
 
@@ -22,16 +23,15 @@ local transportCargo = {}
 
 -- Respawns any ship with this script to turn it into a Transport Freighter "Bag"
 function createTransportFreighterBag()
-    -- Spawning a bag if one does not exist
-    -- local transportFreighterBag = self.clone()
     local transportFreighterBag = self
-    -- transportFreighterBag.setName(name)
+    transportFreighterBag.setName(name)
     transportFreighterBag.setDescription("name " .. name)
 
     local info = transportFreighterBag.getCustomObject()
     info.type = 6
     info.cast_shadows = true
     transportFreighterBag.setCustomObject(info)
+    transportFreighterBag.removeTag("Ship")
     transportFreighterBag.reload()
 
     -- Add action buttons to the bag
@@ -67,21 +67,27 @@ function createFreighterButtons(obj)
     })
 end
 
+function round(num, decimalPlaces)
+    local mult = 10 ^ (decimalPlaces or 0)
+    return math.floor(num * mult + 0.5) / mult
+end
+
 -- Pack up objects from the table, excluding those in the base mod (exclude list)
 function packObjects()
     transportCargo = {} -- Reset transported data
 
     -- Loop through all objects on the table
     for _, obj in ipairs(getObjects()) do
-        local guid = obj.getGUID()
+        -- Check if object should be excluded
+        if not isExcluded(obj) then
+            local pos = obj.getPosition()
+            local rot = obj.getRotation()
 
-        -- Check if object is in the exclude list
-        if not isExcluded(guid) then
             local item = {
-                guid = guid,
+                guid = obj.getGUID(),
                 name = obj.getName(),
-                pos = obj.getPosition(),
-                rot = obj.getRotation(),
+                pos = { x = round(pos.x, 4), y = round(pos.y, 4), z = round(pos.z, 4) },
+                rot = { x = round(rot.x, 4), y = round(rot.y, 4), z = round(rot.z, 4) },
                 state = obj.script_state or "", -- Save object state if any
                 locked = obj.getLock(),
             }
@@ -96,35 +102,71 @@ function packObjects()
         end
     end
 
+    -- Sort cargo by y-position during packing
+    table.sort(transportCargo, function(a, b)
+        return a.pos.y < b.pos.y
+    end)
     printToAll("Objects packed into " .. name, Color.Yellow)
 end
 
 -- Check if an object GUID is in the exclude list
-function isExcluded(guid)
+function isExcluded(obj)
+    if obj.hasTag("TempLayoutElement") then
+        return true
+    end
+
+    local guid = obj.getGUID()
+
     for _, excludedGUID in ipairs(excludeList) do
         if guid == excludedGUID then
             return true
         end
     end
+
     return false
 end
 
 -- Deploy stored objects from the Transport Freighter back to the table
 function deployObjects()
-    for _, item in ipairs(transportCargo) do
+    -- Deploy each object sequentially
+    local function deployNext(index)
+        if index > #transportCargo then
+            printToAll("All objects deployed.", Color.Yellow)
+            return
+        end
+
+        local item = transportCargo[index]
         local obj = self.takeObject({
+            guid = item.guid,
             position = item.pos,
             rotation = item.rot,
-            smooth = true,
+            smooth = false, -- Skip smooth placement to avoid physics issues
             callback_function = function(spawnedObj)
-                spawnedObj.setLock(item.locked)
-                spawnedObj.script_state = item.state -- Restore object state
-                -- spawnedObj.reload()                  -- not sure if I need this one or not
+                if spawnedObj then
+                    spawnedObj.setLock(true) -- Temporarily lock object to disable physics
+                    spawnedObj.setPosition(item.pos)
+                    spawnedObj.setRotation(item.rot)
+                    spawnedObj.script_state = item.state -- Restore object state
+                else
+                    printToAll("Failed to deploy object with GUID: " .. item.guid, Color.Red)
+                end
             end,
         })
+
+        local placedObj
+        -- Wait for the object to settle before deploying the next
+        Wait.condition(function()
+            placedObj.setLock(item.locked)
+
+            deployNext(index + 1)
+        end, function()
+            placedObj = getObjectFromGUID(item.guid)
+            return placedObj ~= nil and placedObj.resting
+        end)
     end
 
-    printToAll("Objects deployed from " .. name, Color.Yellow)
+    -- Start deploying from the first item
+    deployNext(1)
 end
 
 function baselineExclusions()
@@ -147,13 +189,13 @@ function onLoad(saved_data)
         excludeList = loadedCargo.excludeList or {}
     end
 
-    log(self.type, "type is ")
-    if self.type == "Bag" then
+    local objInfo = self.getCustomObject()
+    if objInfo and objInfo.type == 6 then -- Type 6 corresponds to "Bag"
         self.addContextMenuItem("Packup Game", packObjects, false)
         self.addContextMenuItem("Deploy Game", deployObjects, false)
         self.addContextMenuItem("Baseline Game Mod", baselineExclusions, false)
+        createFreighterButtons(self)
     else
-        self.addContextMenuItem("Spawn Freighter", createTransportFreighterBag, false)
+        self.addContextMenuItem("Convert To Freighter", createTransportFreighterBag, false)
     end
-    createFreighterButtons(self)
 end
