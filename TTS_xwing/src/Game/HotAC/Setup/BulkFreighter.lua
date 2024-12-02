@@ -128,10 +128,11 @@ end
 
 -- Deploy stored objects from the Transport Freighter back to the table
 function deployObjects()
+    printToAll('[b]Redeploying objects...[/b] wait for message: "All objects deployed."', Color.Yellow)
     -- Deploy each object sequentially
     local function deployNext(index)
         if index > #transportCargo then
-            printToAll("All objects deployed.", Color.Yellow)
+            printToAll("[b]All objects deployed.[/b]", Color.Yellow)
             return
         end
 
