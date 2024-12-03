@@ -45,8 +45,8 @@ end
 require("vscode/console")
 
 function submerge(object, originalPos)
-    object.setPosition(originalPos)
     if originalPos.y < 0 then
+        object.setPosition(originalPos)
         object.setLock(true)
     end
 end
@@ -68,7 +68,6 @@ function showMe(guid)
         print("Object not found.")
         return
     end
-    local pos = object.getPosition()
     local origPos = surface(object)
     local origColor = object.getColorTint()
     -- Highlight the object by changing its color tint
