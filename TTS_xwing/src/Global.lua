@@ -43,30 +43,52 @@ function getSelectingPlayers(obj)
 end
 
 require("vscode/console")
+
+function submerge(object, originalPos)
+    object.setPosition(originalPos)
+    if originalPos.y < 0 then
+        object.setLock(true)
+    end
+end
+
+function surface(object)
+    local originalPos = object.getPosition()
+    if originalPos.y < 0 then
+        local sPos = originalPos:copy()
+        sPos.y = -sPos.y
+        object.setPosition(sPos)
+        object.setLock(true)
+    end
+    return originalPos
+end
+
 function showMe(guid)
     local object = getObjectFromGUID(guid)
-    if object then
-        local origColor = object.getColorTint()
-        -- Highlight the object by changing its color tint
-        object.setColorTint({ r = 1, g = 0, b = 0 }) -- Set to red for visibility
-
-        -- Move the camera to focus on the object
-        -- Adjusting the parameters might be necessary based on your specific use case
-        local position = object.getPosition()
-        position.y = position.y + 5 -- Raise the camera slightly above the object
-        Player["White"].lookAt({
-            position = position,
-            pitch = 60,   -- Angle of the camera looking down at the object
-            distance = 10 -- Distance from the object (adjust as needed)
-        })
-
-        -- Optionally, reset the color after a delay
-        Wait.time(function()
-            object.setColorTint(origColor) -- Reset to white or original color
-        end, 5)                            -- Delay in seconds before the color reset happens
-    else
+    if object == nil then
         print("Object not found.")
+        return
     end
+    local pos = object.getPosition()
+    local origPos = surface(object)
+    local origColor = object.getColorTint()
+    -- Highlight the object by changing its color tint
+    object.setColorTint({ r = 1, g = 0, b = 0 }) -- Set to red for visibility
+
+    -- Move the camera to focus on the object
+    -- Adjusting the parameters might be necessary based on your specific use case
+    local position = object.getPosition()
+    position.y = position.y + 5 -- Raise the camera slightly above the object
+    Player["White"].lookAt({
+        position = position,
+        pitch = 60,   -- Angle of the camera looking down at the object
+        distance = 10 -- Distance from the object (adjust as needed)
+    })
+
+    -- Optionally, reset the color after a delay
+    Wait.time(function()
+        object.setColorTint(origColor) -- Reset to white or original color
+        submerge(object, origPos)
+    end, 5)                            -- Delay in seconds before the color reset happens
 end
 
 -- Standard libraries extentions
