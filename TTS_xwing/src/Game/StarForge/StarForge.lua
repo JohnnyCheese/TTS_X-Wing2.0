@@ -444,8 +444,6 @@ function HiddenBags(operation)
         'f8f07c', -- Dial Set source
         '3d63d2', -- dice Preload Green
         'be075b', -- dice Preload Red
-        '0db84a', -- Red-Blue playmat
-        '224031', -- Purple-Orange playmat
     }
 
     for _, guid in ipairs(guids) do
