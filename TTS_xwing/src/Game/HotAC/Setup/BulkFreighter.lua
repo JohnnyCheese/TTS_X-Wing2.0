@@ -1,16 +1,30 @@
 --[[ Tranport Freighter
-  Aid to migrate HotAC-type games. Perhaps a Memory Bag type "Rebel Transport" (or "Bulk Freighter")
-    to collect all player artifacts and transport them to a new release of the Unified Mod.
-    1. Create a baseline of all default in-game objects - these don't have to be moved.
-    1. Packup player's objects and store in Transport Memory Bag.
-    1. Save transport as an external object
-    1. Load new version of the X-Wing Mod
-    1. Spawn the saved Transport external object
-    1. Deploy transported game objects
+Aid to migrate HotAC-type games. Add this script to any ship model
+e.g. "Rebel Transport" or "Bulk Freighter," and convert it to a "Transport Freighter"
+(Memory Bag). It's intended to collect all player artifacts and transport
+them to a new release of the Unified Mod.
+    1. Create a baseline of all default in-game objects this should be done from an unmodified game (as released).
+        * this creates an exclusion list of objects which will not be packed up.
+    2. `Pack up` player's objects and store them in the Transport Freighter.
+    3. Save the Transport Freighter as an external object
+    4. Load the new version of the X-Wing Mod
+    5. Spawn the saved Transport Freighter external object into the game
+    6. Deploy the transported game objects
 ]]
 require("TTS_lib.Util.Table")
 
-local name = "HotAC Transport Freighter"
+local name = "Transport Freighter"
+local desc = [[
+[b]Pack Up Game[/b]:
+Adds all objects on the table (except those in its exclusion list) to the freighter.
+
+[b]Deploy Game[/b]:
+Redeploys all stored objects from the freighter out to the current table.
+
+[b]Baseline Game Mod[/b]:
+Creates an exclusion list based on the current table's objects.  Excluded items will not be packed for transport.
+(This should be done first from an unmodified game.)
+]]
 
 -- Table to store the exclude list of base game object GUIDs
 local excludeList = {
@@ -21,30 +35,32 @@ local excludeList = {
 -- Table to store transported objects' data
 local transportCargo = {}
 
--- Respawns any ship with this script to turn it into a Transport Freighter "Bag"
+-- Respawns any ship with this script to turn it into a Transport Freighter "Memory Bag"
 function createTransportFreighterBag()
-    local transportFreighterBag = self
-    transportFreighterBag.setName(name)
-    transportFreighterBag.setDescription("name " .. name)
+    self.setName(name)
+    self.setDescription(desc)
 
-    local info = transportFreighterBag.getCustomObject()
+    local info = self.getCustomObject()
     info.type = 6
     info.cast_shadows = true
-    transportFreighterBag.setCustomObject(info)
-    transportFreighterBag.removeTag("Ship")
-    transportFreighterBag.reload()
+    self.setCustomObject(info)
+    self.removeTag("Ship")
+    self.reload()
 
     -- Add action buttons to the bag
-    createFreighterButtons(transportFreighterBag)
+    createFreighterButtons(self)
 end
 
 -- Adds action buttons for packing and unpacking
 function createFreighterButtons(obj)
+    local bounds = obj.getBounds()
+    local position = Vector(-1.25, 0.05, bounds.size.z)
+
     obj.createButton({
         label = "Pack Up",
         click_function = "packObjects",
         function_owner = obj,
-        position = { -1.25, 0.3, 3.0 },
+        position = position,
         rotation = { 0, 0, 0 },
         width = 1000,
         height = 400,
@@ -57,7 +73,7 @@ function createFreighterButtons(obj)
         label = "Deploy",
         click_function = "deployObjects",
         function_owner = obj,
-        position = { 1.25, 0.3, 3.0 },
+        position = position:scale(Vector(-1, 1, 1)),
         rotation = { 0, 0, 0 },
         width = 1000,
         height = 400,
@@ -187,7 +203,7 @@ function onLoad(saved_data)
     local loadedCargo = JSON.decode(saved_data)
     if loadedCargo then
         transportCargo = loadedCargo.transportedCargo or {}
-        excludeList = loadedCargo.excludeList or {}
+        excludeList = loadedCargo.excludeList or { self.getGUID() }
     end
 
     local objInfo = self.getCustomObject()
