@@ -7200,63 +7200,68 @@ function epicMoveWingmate(table)
 end
 
 --------
--- START TEMPLATE
-local Template = {}
+-- START EZ-TEMPLATES
+local ezTemplates = {}
 
-function Template.TypeAndSpeed(object)
+function ezTemplates.Maneuver(object)
+    function direction(object, bearing)
+        if bearing == 'straight' then
+            return 'forward'
+        end
+
+        if object.is_face_down then
+            return 'left'
+        else
+            return 'right'
+        end
+    end
+
     local name = object.getName():lower()
-    local type, speed = string.match(name, "^(%a+) (%d)$")
-    return type, tonumber(speed)
+    local bearing, speed = string.match(name, "^(%a+) (%d)$")
+    return tonumber(speed), bearing, direction(object, bearing)
 end
 
-function Template.Bearing(object)
-    local type, _ = Template.TypeAndSpeed(object)
-
-    if type == 'straight' then
-        return nil
+function ezTemplates.IsEasyTemplate(object)
+    function ezTemplatesEnabled()
+        local s1Bag = getObjectFromGUID(Straight_1_Bag_GUID)
+        if s1Bag then
+            return s1Bag.hasTag('ezTemplates')
+        end
+        return false
     end
 
-    if object.is_face_down then
-        return 'left'
-    else
-        return 'right'
-    end
+    local speed, bearing, direction = ezTemplates.Maneuver(object)
+    local enabled = ezTemplatesEnabled()
+    return enabled and bearing ~= nil and speed ~= nil
 end
 
-function Template.Find1StraightTemplateBag()
-    local s1Bag = getObjectFromGUID(Straight_1_Bag_GUID)
-    if s1Bag then
-        return s1Bag.hasTag('ezTemplates')
-    end
-    return false
-end
-
-function Template.IsTemplate(object)
-    local type, speed = Template.TypeAndSpeed(object)
-    local ezTemplates = Template.Find1StraightTemplateBag()
-    return ezTemplates and type ~= nil and speed ~= nil
-end
-
-function Template.SnapToShip(player_color, template)
+function ezTemplates.SnapToShip(player_color, template)
     local ship = FindNearestShip(template)
     if ship == nil then
         return
     end
 
-    local type, speed = Template.TypeAndSpeed(template)
-    local bearing = Template.Bearing(template)
+    local speed, bearing, direction = ezTemplates.Maneuver(template)
     local position = 'front' -- For now, just spawn out the front
     destroyObject(template)
-    template = DialModule.PlaceTemplate(ship, speed, type, position, bearing, nil)
+    template = DialModule.PlaceTemplate(ship, speed, bearing, position, direction, nil)
+
+    local shipRot = ship.getRotation()
+    local buttonRotation = {
+        shipRot.x, -- Align x rotation
+        shipRot.y, -- Align y rotation
+        shipRot.z  -- Align z rotation
+    }
 
     local removeButton = {
         click_function = 'deleteObject',
         label = 'Del',
         position = { 0, 0.05, 0 },
+        rotation = buttonRotation,
         width = 180,
         height = 125,
         font_size = 100,
-        color = { 0.7, 0.7, 0.7 },
+        color = { 0.8, 0.8, 0.8 },
         tooltip = "Remove the template"
     }
     template.createButton(removeButton)
@@ -7266,17 +7271,17 @@ function deleteObject(obj, color, alt_click)
     destroyObject(obj)
 end
 
-function Template.onObjectDropped(player_color, template)
-    if not Template.IsTemplate(template) then
+function ezTemplates.onObjectDropped(player_color, template)
+    if not ezTemplates.IsEasyTemplate(template) then
         return
     end
 
-    Template.SnapToShip(player_color, template)
+    ezTemplates.SnapToShip(player_color, template)
 end
 
-EventSub.Register('onObjectDropped', Template.onObjectDropped)
+EventSub.Register('onObjectDropped', ezTemplates.onObjectDropped)
 
--- END TEMPLATE
+-- END EZ-TEMPLATES
 --------
 
 function FindNearestShip(object, max_distance)
