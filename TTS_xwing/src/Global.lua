@@ -7199,7 +7199,7 @@ function epicMoveWingmate(table)
     end
 end
 
---------
+---------------------
 -- START EZ-TEMPLATES
 local ezTemplates = {}
 
@@ -7246,29 +7246,35 @@ function ezTemplates.SnapToShip(player_color, template)
     destroyObject(template)
     template = DialModule.PlaceTemplate(ship, speed, bearing, position, direction, nil)
 
-    local shipRot = ship.getRotation()
-    local buttonRotation = {
-        shipRot.x, -- Align x rotation
-        shipRot.y, -- Align y rotation
-        shipRot.z  -- Align z rotation
-    }
+    function buttonRotation(ship, bearing, direction)
+        local rot = ship.getRotation()
+        if direction == 'left' then
+            local adj = 90
+            if bearing == 'bank' then
+                adj = 45
+            end
+
+            rot.y = rot.y - 180 + adj
+        end
+        return rot
+    end
+
+    local buttonRot = buttonRotation(ship, bearing, direction)
 
     local removeButton = {
-        click_function = 'deleteObject',
+        -- click_function = 'deleteObject',
+        click_function = 'destroyObject',
         label = 'Del',
         position = { 0, 0.05, 0 },
-        rotation = buttonRotation,
+        rotation = buttonRot,
         width = 180,
         height = 125,
         font_size = 100,
-        color = { 0.8, 0.8, 0.8 },
+        font_color = { 225 / 255, 225 / 255, 225 / 255 },
+        color = { 17 / 255, 16 / 255, 15 / 255 },
         tooltip = "Remove the template"
     }
     template.createButton(removeButton)
-end
-
-function deleteObject(obj, color, alt_click)
-    destroyObject(obj)
 end
 
 function ezTemplates.onObjectDropped(player_color, template)
@@ -7282,7 +7288,7 @@ end
 EventSub.Register('onObjectDropped', ezTemplates.onObjectDropped)
 
 -- END EZ-TEMPLATES
---------
+-------------------
 
 function FindNearestShip(object, max_distance)
     local min_dist = Dim.Convert_mm_igu(max_distance or 100) -- default 100 mm
