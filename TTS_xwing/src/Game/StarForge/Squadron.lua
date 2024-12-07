@@ -1,8 +1,4 @@
 require("TTS_lib.Util.Table")
-local Probe = require("Marker.Probe")
-local Dim = require("Dim")
-local PlayerArea = require("Player.PlayerArea")
-local ButtonTest = require("Test.ButtonTest")
 
 local Squadron = {}
 Squadron.__index = Squadron
@@ -47,7 +43,6 @@ function Squadron:getDials()
             table.insert(dials, obj)
         end
     end
-    table.print(dials, "dials: ")
     return dials
 end
 
@@ -58,7 +53,6 @@ function Squadron:getShips()
             table.insert(ships, obj)
         end
     end
-    table.print(ships, "ship: ")
     return ships
 end
 
@@ -74,8 +68,6 @@ end
 
 -- Function to assign the dial to the nearest ship
 function Squadron:assignNearestShip(dial)
-    printToAll("assignNearestShip ", Color.Orange)
-
     local playerColor = self.playerArea.player.color
     local nearest = Global.call("API_FindNearestShip", { object = dial, max_distance = 80 })
     if nearest ~= nil then
