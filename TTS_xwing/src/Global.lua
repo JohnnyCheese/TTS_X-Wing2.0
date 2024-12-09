@@ -7206,7 +7206,7 @@ local ezTemplates = {}
 function ezTemplates.Maneuver(object)
     function direction(object, bearing)
         if bearing == 'straight' then
-            return 'forward'
+            return nil
         end
 
         if object.is_face_down then
@@ -7236,7 +7236,7 @@ function ezTemplates.IsEasyTemplate(object)
 end
 
 function ezTemplates.SnapToShip(player_color, template)
-    local ship = FindNearestShip(template)
+    local ship = FindNearestShip(template, 150, IsInFrontOfShip)
     if ship == nil then
         return
     end
@@ -7246,20 +7246,22 @@ function ezTemplates.SnapToShip(player_color, template)
     destroyObject(template)
     template = DialModule.PlaceTemplate(ship, speed, bearing, position, direction, nil)
 
-    function buttonRotation(ship, bearing, direction)
-        local rot = ship.getRotation()
-        if direction == 'left' then
-            local adj = 90
-            if bearing == 'bank' then
-                adj = 45
-            end
+    function alignButtonWithShip(template, ship)
+        -- Get world rotations
+        local shipRot = ship.getRotation()
+        local templateRot = template.getRotation()
 
-            rot.y = rot.y - 180 + adj
-        end
-        return rot
+        -- Calculate relative rotation
+        local relativeRot = {
+            x = shipRot.x - templateRot.x,
+            y = shipRot.y - templateRot.y,
+            z = shipRot.z - templateRot.z,
+        }
+
+        return relativeRot
     end
 
-    local buttonRot = buttonRotation(ship, bearing, direction)
+    local buttonRot = alignButtonWithShip(template, ship)
 
     local removeButton = {
         -- click_function = 'deleteObject',
@@ -7290,7 +7292,36 @@ EventSub.Register('onObjectDropped', ezTemplates.onObjectDropped)
 -- END EZ-TEMPLATES
 -------------------
 
-function FindNearestShip(object, max_distance)
+function IsInFrontOfShip(object, ship)
+    -- Get the positions of the object and the ship
+    local objPos = object.getPosition()
+    local shipPos = ship.getPosition()
+
+    -- Calculate the forward direction vector of the ship
+    local shipForward = ship.getTransformForward()
+
+    -- Calculate the vector from the ship to the object
+    local toObject = {
+        x = shipPos.x - objPos.x,
+        y = shipPos.y - objPos.y,
+        z = shipPos.z - objPos.z
+    }
+
+    -- Convert to a normalized vector (direction only)
+    local toObjectNormalized = Vector(toObject):normalize()
+
+    -- Calculate the dot product between the forward vector and the toObject vector
+    local dotProduct = shipForward.x * toObjectNormalized.x +
+        shipForward.y * toObjectNormalized.y +
+        shipForward.z * toObjectNormalized.z
+
+    -- Check if the object is in front (dotProduct > 0) and within a reasonable margin
+    return dotProduct > 0.7 -- Adjust the threshold for precision if needed
+end
+
+function FindNearestShip(object, max_distance, filter_function)
+    filter_function = filter_function or function() return true end
+
     local min_dist = Dim.Convert_mm_igu(max_distance or 100) -- default 100 mm
     local spos = object.getPosition()
     local nearest = nil
@@ -7299,7 +7330,7 @@ function FindNearestShip(object, max_distance)
         if MoveModule.SelectShips(ship) then
             local pos = ship.getPosition()
             local dist = spos:distance(pos)
-            if dist < min_dist then
+            if dist < min_dist and filter_function(object, ship) then
                 nearest = ship
                 min_dist = dist
             end
