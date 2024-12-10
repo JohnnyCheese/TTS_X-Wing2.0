@@ -9,10 +9,11 @@ if not self.hasTag("Star Forge") then
 end
 
 require("TTS_lib.Util.Table")
-local SFScript  = require("Game.StarForge.StarForgeScriptManager")
-local SFDeduper = require("Game.StarForge.StarForgeDeduper")
-local SFTester  = require("Test.DataPadTest")
-local SFVector  = require("Test.HotAC.ApproachVectorTest")
+local SFScript   = require("Game.StarForge.StarForgeScriptManager")
+local SFDeduper  = require("Game.StarForge.StarForgeDeduper")
+local SFTester   = require("Test.DataPadTest")
+local SFVector   = require("Test.HotAC.ApproachVectorTest")
+local BagHandler = require("Game.Component.Spawner.BagHandler")
 
 --[[
 ## Star Forge
@@ -408,19 +409,8 @@ function emptyBag()
 end
 
 LaunchProbe = function()
-    local probe = spawnObject({
-        type = "Custom_Token",
-        position = { -30, 3, -20 },
-        scale = { 1, 1, 1 },
-        sound = true,
-        callback_function = function(spawned_object)
-            spawned_object.setName("Probe")
-        end
-    })
-
-    probe.setCustomObject({
-        image = "https://static.wikia.nocookie.net/starwars/images/f/f2/Sith_probe_droid.png?raw=true"
-    })
+    local myBagHandler = BagHandler:new('53ad3d')
+    myBagHandler:takeItemByName("Probe", { position = { -30, 2, -20 } })
 end
 
 function HiddenBags(operation)
@@ -428,7 +418,7 @@ function HiddenBags(operation)
         'a3690e', -- Extra Assets 15 items
         '203cb8', -- ObstacleBag 31 items
         'f0e7b9', -- Dice Bag 10 items
-        '53ad3d', -- Accessories 79 items
+        '53ad3d', -- Accessories 81 items
     }
 
     for _, guid in ipairs(bagGuids) do
@@ -444,6 +434,8 @@ function HiddenBags(operation)
         'f8f07c', -- Dial Set source
         '3d63d2', -- dice Preload Green
         'be075b', -- dice Preload Red
+        '0db84a', -- Red-Blue playmat
+        '224031', -- Purple-Orange playmat
     }
 
     for _, guid in ipairs(guids) do
