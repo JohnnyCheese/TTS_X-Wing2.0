@@ -18,21 +18,14 @@ function BagHandler:_findAndTakeItem(criterion, parameters)
 
     local item = nil
 
-    Wait.condition(
-        function()
-            for _, objData in ipairs(clonedBag.getObjects()) do
-                if criterion(objData) then
-                    parameters.guid = objData.guid
-                    item = clonedBag.takeObject(parameters)
-                    break
-                end
-            end
-            clonedBag.destruct()
-        end,
-        function()
-            return clonedBag.resting
+    for _, objData in ipairs(clonedBag.getObjects()) do
+        if criterion(objData) then
+            parameters.guid = objData.guid
+            item = clonedBag.takeObject(parameters)
+            break
         end
-    )
+    end
+    clonedBag.destruct()
 
     return item
 end
