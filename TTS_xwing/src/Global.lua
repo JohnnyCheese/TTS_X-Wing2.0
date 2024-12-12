@@ -404,7 +404,7 @@ XW_cmd.AddCommand('a[12]', 'actionMove')        -- Adjusts
 --XW_cmd.AddCommand('chs[rle]', 'actionMove')     -- Echo's bullshit, part 2
 --XW_cmd.AddCommand('vr[rle][fb]', 'actionMove')  -- StarViper Mk.II rolls
 
-XW_cmd.AddCommand('name[ *]*[a-zA-Z" %d]*', 'renameShip')
+XW_cmd.AddCommand('name[ *]*[-a-zA-Z" %d]*', 'renameShip')
 XW_cmd.AddCommand('init[ ]?[01234567]', 'changeInitiative')
 
 -- AI Module:
