@@ -7316,7 +7316,7 @@ function IsInFrontOfShip(object, ship)
         shipForward.z * toObjectNormalized.z
 
     -- Check if the object is in front (dotProduct > 0) and within a reasonable margin
-    return dotProduct > 0.7 -- Adjust the threshold for precision if needed
+    return dotProduct > 0.01 -- Adjust the threshold for precision if needed
 end
 
 function FindNearestShip(object, max_distance, filter_function)
