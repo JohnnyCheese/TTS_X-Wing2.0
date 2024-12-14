@@ -211,7 +211,11 @@ function onLoad(saved_data)
         self.addContextMenuItem("Packup Game", packObjects, false)
         self.addContextMenuItem("Deploy Game", deployObjects, false)
         self.addContextMenuItem("Baseline Game Mod", baselineExclusions, false)
-        createFreighterButtons(self)
+
+        Wait.condition(
+            function() createFreighterButtons(self) end,
+            function() return self.resting and not self.spawning end
+        )
     else
         self.addContextMenuItem("Convert To Freighter", createTransportFreighterBag, false)
     end
