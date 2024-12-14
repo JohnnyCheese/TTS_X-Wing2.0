@@ -58,6 +58,10 @@ function API_MineDrop(argTable)
     BombModule.CheckMineDroppedOverlapping(argTable.mine, argTable.ship)
 end
 
+function API_IsShipType(argTable)
+    return ObjType.IsOfType(argTable.ship, 'ship')
+end
+
 function API_AssignToken(argTable)
     TokenModule.AssignToken(argTable.token, argTable.ship)
 end
