@@ -15,8 +15,8 @@ function onDropped()
     if double_arc then
         turretName = "double turret"
     end
-    for _, ship in pairs(getAllObjects()) do
-        if ((ship.type == 'Figurine') and (ship.getVar('__XW_Ship') == true)) then
+    for _, ship in pairs(getObjects()) do
+        if Global.call("API_IsShipType", { ship = ship }) then
             local turret = ship.getTable('Data').arcs.turret or {}
             for mount, turret in pairs(turret) do
                 if turret and mount then
