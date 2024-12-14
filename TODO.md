@@ -1,6 +1,7 @@
 # TODO List for TTS_X-Wing
 
 ## Scripting Changes
+
 1. `ShipProxy.ttslua` shows as "unused" in `Global.ttslua`,
     but in reality it defines `MarkShip()` and `UnMarkShip()` in Global namespace.
 1. `TTS_lib/Vector`: Many of these `Vector` functions are now TTS standard and could be replaced.
@@ -60,6 +61,7 @@
 
 
 ## Requires an updated Beta Save
+
 1. Add damage tokens to HotAC mode.
 1. Remove the base on the Star Forge.
 1. Finish externalizing the scripts for the following objects: 
@@ -80,10 +82,27 @@
     1. Load new version of the Unified Mod
     1. Redeploy transported game objects
 1. TargetLocks have an owner and an assigned ship. Perhaps we can handle these behaviors with tags?
-
+1. Create a HotAC & FGA Ship Builder based on Pilot level and available XP
+    * Would be cool to have the buttons be the images of the upgrade icons
+    * If I was looking for making a Hotac builder.
+    * I would start from scratch mostly. Building it with XML gui.
+    * Taking inspiration from parts of the DataPad.
+    * It could be the first step to rewriting that thing.
+    * The one advantage of the old ways is that its dynamic. And you can add another button whenever you need it.
+    * In the xml gui all elements must be defined initially. But you can turn elements on and off.
+    * But, this also forces you to reuse elements, and you need to think slightly different.
+    * The gui could be moved away from the Control and Builder logic.
+    * Building gui controllers, that accept generic content (list of ships + lambda functions).
+    * And Control functions that alter these controllers.
+    * When something is selected it modifies some data. And calls another control (view) function.
+    * Something like this.
+    * The gui controllers can this way be maintained for all needs. And the builder logic is maintained somewhere else.
+    * And the builder does some very similar things over and over. It wouldn’t need that many controllers.
 
 ### Was this intended?
+
 1. TrackingTorpedo.ttslua: 93:     spawnedRuler.lock()
 
 ### Anomalies from Reorg
+
 1. 'No Stats Dice' has a lua script in it's .xml file
