@@ -73,6 +73,13 @@ local StarForge = {
     lastLayout = 1
 }
 
+local bagGuids = {
+    'a3690e', -- Extra Assets 15 items
+    '203cb8', -- ObstacleBag 31 items
+    'f0e7b9', -- Dice Bag 10 items
+    '53ad3d', -- Accessories 81 items
+}
+
 local layoutController_GUID = "b3992e"
 
 function onSave()
@@ -414,13 +421,6 @@ LaunchProbe = function()
 end
 
 function HiddenBags(operation)
-    local bagGuids = {
-        'a3690e', -- Extra Assets 15 items
-        '203cb8', -- ObstacleBag 31 items
-        'f0e7b9', -- Dice Bag 10 items
-        '53ad3d', -- Accessories 81 items
-    }
-
     for _, guid in ipairs(bagGuids) do
         local bag = getObjectFromGUID(guid)
         if bag ~= nil then
@@ -434,8 +434,6 @@ function HiddenBags(operation)
         'f8f07c', -- Dial Set source
         '3d63d2', -- dice Preload Green
         'be075b', -- dice Preload Red
-        '0db84a', -- Red-Blue playmat
-        '224031', -- Purple-Orange playmat
     }
 
     for _, guid in ipairs(guids) do
