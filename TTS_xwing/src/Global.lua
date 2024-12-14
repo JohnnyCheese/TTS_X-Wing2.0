@@ -102,7 +102,7 @@ local Vect = require("TTS_Lib.Vector.Vector")
 local EventSub = require("TTS_Lib.EventSub.EventSub")
 
 -- Object type abstraction
-local ObjType = require("TTS_Lib.ObjType.ObjType")
+ObjType = require("TTS_Lib.ObjType.ObjType")
 
 -- Save/load management
 local SaveManager = require("TTS_Lib.SaveManager.SaveManager")
@@ -117,7 +117,7 @@ local BehaviourDB = require("Game.HotAC.AI.BehaviourDB")
 local DiceControlModule = require("Game.Component.Dice.DiceControl")
 
 -- Arc checks
-local ArcCheck = require("Game.Mechanic.ArcCheck")
+ArcCheck = require("Game.Mechanic.ArcCheck")
 ArcCheck.Initialize()
 CheckArc = ArcCheck.CheckArc
 
@@ -145,8 +145,8 @@ StreamManagerModule = require("Player.StreamManager")
 local GlobalGuiControl = require("Player.GlobalGuiControl")
 local MoveData = require("Game.Mechanic.Movement.MoveData")
 local AnnModule = require("Player.Announcements")
-local Maneuver = require("Game.Mechanic.Movement.Maneuver")
-local Relocator = Maneuver:new()
+Maneuver = require("Game.Mechanic.Movement.Maneuver")
+Relocator = Maneuver:new()
 
 -- Modules API, must be loaded last
 require("API")
@@ -164,7 +164,7 @@ function TTS_Serialize(pos)
 end
 
 ObjType.AddType('ship', function(obj)
-    return ((obj.tag == 'Figurine') and (obj.getVar('__XW_Ship') == true))
+    return (obj ~= nil) and (((obj.tag == 'Figurine') and (obj.getVar('__XW_Ship') == true)) or obj.hasTag('Ship'))
 end)
 ObjType.AddType('token', function(obj)
     return (obj.tag == 'Chip' or obj.tag == 'Coin' or (obj.getVar('__XW_Token') and obj.getVar('__XW_TokenIdle')))
@@ -2573,7 +2573,7 @@ end
 
 -- Selection function for MoveModule.JoinHitTables - ships only
 MoveModule.SelectShips = function(obj)
-    return ((obj.tag == 'Figurine') and (obj.getVar('__XW_Ship') == true or obj.hasTag('Ship')))
+    return ObjType.IsOfType(obj, 'ship')
 end
 
 -- Selection function for MoveModule.JoinHitTables - ships only
@@ -3840,6 +3840,29 @@ TokenModule.onObjectDropped = function(player_color, object)
             TokenModule.AssignToken(object, nearest)
         end
     end
+    if isAssignable(object) then
+        local spos = object.getPosition()
+        local nearest = nil
+        local minDist = Dim.Convert_mm_igu(100)
+        for k, ship in pairs(getObjects()) do
+            if MoveModule.SelectShips(ship) then
+                local pos = ship.getPosition()
+                local dist = spos:distance(pos)
+                if dist < minDist then
+                    nearest = ship
+                    minDist = dist
+                end
+            end
+        end
+        TokenModule.AssignToken(object, nearest)
+    end
+end
+
+function isAssignable(object)
+    -- Target lock has special onDrop handling on its own
+    return object.getVar('__XW_TokenType') ~= 'targetLock'
+        and ObjType.IsOfType(object, 'token')
+        or object.hasTag('Assignable')
 end
 
 EventSub.Register('onObjectDropped', TokenModule.onObjectDropped)
@@ -4049,6 +4072,7 @@ TokenModule.BasePosition = function(tokenName, ship)
     end
     return TokenModule.TokenPos(name, ship, TokenModule.basePos)
 end
+
 -- Return position for a given token that is near the base of given ship
 TokenModule.NearPosition = function(tokenName, ship)
     local name = nil
@@ -4065,7 +4089,7 @@ end
 -- 1. Prefer the position given as 3rd argument if passed
 -- 2. Prefer position on a stack if a stack of tokens already belongs to a ship
 -- 3. Prefer position NEAR ship base as position table dictates
--- 3. Prefer position ON ship base as position table dictates (if all else fails, this will be returned)
+-- 4. Prefer position ON ship base as position table dictates (if all else fails, this will be returned)
 TokenModule.VisiblePosition = function(tokenName, ship, preferredPos)
     -- Check preferred position margin
     if preferredPos ~= nil then
@@ -4202,7 +4226,7 @@ TokenModule.TakeToken = function(type, playerColor, dest, flip)
 end
 
 -- Get owner info from a token or positions
--- Return:  {
+-- Return: {
 --      token   <- passed token ref if arg was a token ref
 --      owner   <- ship ref to owner, nil if none
 --      dist    <- distance to owner (igu)
@@ -5121,10 +5145,10 @@ RulerModule.DefaultShipArc = function(ship)
 end
 
 -- Create tables for spawning a ruler
--- Return:  {
+-- Return: {
 --      params      <- table suitable for spawnObject(params) call
 --      custom      <- table suitable for obj.setCustomObject(custom) call
---          }
+-- }
 RulerModule.CreateCustomTables = function(ship, rulerType, range)
     if rulerType == 'A' then
         rulerType = rulerType .. RulerModule.DefaultShipArc(ship)
