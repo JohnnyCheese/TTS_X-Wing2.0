@@ -27,10 +27,7 @@ Creates an exclusion list based on the current table's objects.  Excluded items 
 ]]
 
 -- Table to store the exclude list of base game object GUIDs
-local excludeList = {
-    self.getGUID()
-    -- populate with base game objects
-}
+local excludeList = {}
 
 -- Table to store transported objects' data
 local transportCargo = {}
@@ -127,11 +124,10 @@ end
 
 -- Check if an object GUID is in the exclude list
 function isExcluded(obj)
-    if obj.hasTag("TempLayoutElement") then
+    local guid = obj.getGUID()
+    if guid == self.getGUID() or obj.hasTag("TempLayoutElement") then
         return true
     end
-
-    local guid = obj.getGUID()
 
     for _, excludedGUID in ipairs(excludeList) do
         if guid == excludedGUID then
