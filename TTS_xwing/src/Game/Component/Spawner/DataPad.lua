@@ -1136,7 +1136,7 @@ function idSpawner(idTable)
             local upSlot = masterUpgradesDB[value].slot
             fList.Upgrades[k][key] = {}
             fList.Upgrades[k][key].name = name
-            local cost = masterUpgradesDB[value].cost
+            local cost = 0
             local xws_data = VERSION_DATA.upgrades[masterUpgradesDB[value].XWS]
             if xws_data and xws_data.cost and tonumber(VERSION_DATA.upgrades[masterUpgradesDB[value].XWS].cost) then
                 cost = VERSION_DATA.upgrades[masterUpgradesDB[value].XWS].cost
