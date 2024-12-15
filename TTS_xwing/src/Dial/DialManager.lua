@@ -19,18 +19,18 @@ D.setDial = function(dial)
     if D.assignedDials[dialGUID] then
         D.assignedDials[dialGUID].set = true
 
-        local unset_dials = false
+        local all_dials_set = true
 
         for _, assignedDial in pairs(D.assignedDials) do
-            local playerColor = assignedDial.ownerColor
+            local playerColor = assignedDial.ship.getVar("owningPlayer") or ""
 
-            if playerColor ~= "Black" and assignedDial.set == false then
-                unset_dials = true
+            if playerColor:lower() ~= "black" and assignedDial.set == false then
+                all_dials_set = false
                 break
             end
         end
 
-        if not unset_dials then
+        if all_dials_set then
             printToAll("All dials have been set by all players", D.announceColor)
         end
     else

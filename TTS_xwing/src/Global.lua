@@ -13,8 +13,14 @@
 
 -- Should the code execute print functions or skip them?
 -- This should be set to false on every release
-print_debug = true
+print_debug = false
 cast_debug = false
+
+Accessories_Bag_GUID = '53ad3d'
+CompositeBase_GUID = '8c3322'
+Fuse_Bag_GUID = '568727'
+Obstacle_Bag_GUID = '203cb8'
+Straight_1_Bag_GUID = '637ad7'
 
 TTS_print = print
 function print(...)
@@ -37,30 +43,51 @@ function getSelectingPlayers(obj)
 end
 
 require("vscode/console")
+
+function submerge(object, originalPos)
+    if originalPos.y < 0 then
+        object.setPosition(originalPos)
+        object.setLock(true)
+    end
+end
+
+function surface(object)
+    local originalPos = object.getPosition()
+    if originalPos.y < 0 then
+        local sPos = originalPos:copy()
+        sPos.y = -sPos.y
+        object.setPosition(sPos)
+        object.setLock(true)
+    end
+    return originalPos
+end
+
 function showMe(guid)
     local object = getObjectFromGUID(guid)
-    if object then
-        local origColor = object.getColorTint()
-        -- Highlight the object by changing its color tint
-        object.setColorTint({ r = 1, g = 0, b = 0 }) -- Set to red for visibility
-
-        -- Move the camera to focus on the object
-        -- Adjusting the parameters might be necessary based on your specific use case
-        local position = object.getPosition()
-        position.y = position.y + 5 -- Raise the camera slightly above the object
-        Player["White"].lookAt({
-            position = position,
-            pitch = 60,   -- Angle of the camera looking down at the object
-            distance = 10 -- Distance from the object (adjust as needed)
-        })
-
-        -- Optionally, reset the color after a delay
-        Wait.time(function()
-            object.setColorTint(origColor) -- Reset to white or original color
-        end, 5)                            -- Delay in seconds before the color reset happens
-    else
+    if object == nil then
         print("Object not found.")
+        return
     end
+    local origPos = surface(object)
+    local origColor = object.getColorTint()
+    -- Highlight the object by changing its color tint
+    object.setColorTint({ r = 1, g = 0, b = 0 }) -- Set to red for visibility
+
+    -- Move the camera to focus on the object
+    -- Adjusting the parameters might be necessary based on your specific use case
+    local position = object.getPosition()
+    position.y = position.y + 5 -- Raise the camera slightly above the object
+    Player["White"].lookAt({
+        position = position,
+        pitch = 60,   -- Angle of the camera looking down at the object
+        distance = 10 -- Distance from the object (adjust as needed)
+    })
+
+    -- Optionally, reset the color after a delay
+    Wait.time(function()
+        object.setColorTint(origColor) -- Reset to white or original color
+        submerge(object, origPos)
+    end, 5)                            -- Delay in seconds before the color reset happens
 end
 
 -- Standard libraries extentions
@@ -75,7 +102,7 @@ local Vect = require("TTS_Lib.Vector.Vector")
 local EventSub = require("TTS_Lib.EventSub.EventSub")
 
 -- Object type abstraction
-local ObjType = require("TTS_Lib.ObjType.ObjType")
+ObjType = require("TTS_Lib.ObjType.ObjType")
 
 -- Save/load management
 local SaveManager = require("TTS_Lib.SaveManager.SaveManager")
@@ -90,7 +117,7 @@ local BehaviourDB = require("Game.HotAC.AI.BehaviourDB")
 local DiceControlModule = require("Game.Component.Dice.DiceControl")
 
 -- Arc checks
-local ArcCheck = require("Game.Mechanic.ArcCheck")
+ArcCheck = require("Game.Mechanic.ArcCheck")
 ArcCheck.Initialize()
 CheckArc = ArcCheck.CheckArc
 
@@ -118,8 +145,8 @@ StreamManagerModule = require("Player.StreamManager")
 local GlobalGuiControl = require("Player.GlobalGuiControl")
 local MoveData = require("Game.Mechanic.Movement.MoveData")
 local AnnModule = require("Player.Announcements")
-local Maneuver = require("Game.Mechanic.Movement.Maneuver")
-local Relocator = Maneuver:new()
+Maneuver = require("Game.Mechanic.Movement.Maneuver")
+Relocator = Maneuver:new()
 
 -- Modules API, must be loaded last
 require("API")
@@ -137,7 +164,7 @@ function TTS_Serialize(pos)
 end
 
 ObjType.AddType('ship', function(obj)
-    return ((obj.tag == 'Figurine') and (obj.getVar('__XW_Ship') == true))
+    return (obj ~= nil) and (((obj.tag == 'Figurine') and (obj.getVar('__XW_Ship') == true)) or obj.hasTag('Ship'))
 end)
 ObjType.AddType('token', function(obj)
     return (obj.tag == 'Chip' or obj.tag == 'Coin' or (obj.getVar('__XW_Token') and obj.getVar('__XW_TokenIdle')))
@@ -377,7 +404,7 @@ XW_cmd.AddCommand('a[12]', 'actionMove')        -- Adjusts
 --XW_cmd.AddCommand('chs[rle]', 'actionMove')     -- Echo's bullshit, part 2
 --XW_cmd.AddCommand('vr[rle][fb]', 'actionMove')  -- StarViper Mk.II rolls
 
-XW_cmd.AddCommand('name[ *]*[a-zA-Z" %d]*', 'renameShip')
+XW_cmd.AddCommand('name[ *]*[-a-zA-Z" %d]*', 'renameShip')
 XW_cmd.AddCommand('init[ ]?[01234567]', 'changeInitiative')
 
 -- AI Module:
@@ -2546,7 +2573,7 @@ end
 
 -- Selection function for MoveModule.JoinHitTables - ships only
 MoveModule.SelectShips = function(obj)
-    return ((obj.tag == 'Figurine') and (obj.getVar('__XW_Ship') == true or obj.hasTag('Ship')))
+    return ObjType.IsOfType(obj, 'ship')
 end
 
 -- Selection function for MoveModule.JoinHitTables - ships only
@@ -3809,22 +3836,33 @@ TokenModule.onObjectDropped = function(player_color, object)
     if ObjType.IsOfType(object, 'token') then
         if object.getVar('__XW_TokenType') ~= 'targetLock' then
             -- Target lock has special onDrop handling on its own
-            local spos = object.getPosition()
-            local nearest = nil
-            local minDist = Dim.Convert_mm_igu(100)
-            for k, ship in pairs(getAllObjects()) do
-                if MoveModule.SelectShips(ship) then
-                    local pos = ship.getPosition()
-                    local dist = math.sqrt(math.pow((spos[1] - pos[1]), 2) + math.pow((spos[3] - pos[3]), 2))
-                    if dist < minDist then
-                        nearest = ship
-                        minDist = dist
-                    end
-                end
-            end
+            local nearest = Global.call("API_FindNearestShip", { object = object, max_distance = 100 })
             TokenModule.AssignToken(object, nearest)
         end
     end
+    if isAssignable(object) then
+        local spos = object.getPosition()
+        local nearest = nil
+        local minDist = Dim.Convert_mm_igu(100)
+        for k, ship in pairs(getObjects()) do
+            if MoveModule.SelectShips(ship) then
+                local pos = ship.getPosition()
+                local dist = spos:distance(pos)
+                if dist < minDist then
+                    nearest = ship
+                    minDist = dist
+                end
+            end
+        end
+        TokenModule.AssignToken(object, nearest)
+    end
+end
+
+function isAssignable(object)
+    -- Target lock has special onDrop handling on its own
+    return object.getVar('__XW_TokenType') ~= 'targetLock'
+        and ObjType.IsOfType(object, 'token')
+        or object.hasTag('Assignable')
 end
 
 EventSub.Register('onObjectDropped', TokenModule.onObjectDropped)
@@ -4034,6 +4072,7 @@ TokenModule.BasePosition = function(tokenName, ship)
     end
     return TokenModule.TokenPos(name, ship, TokenModule.basePos)
 end
+
 -- Return position for a given token that is near the base of given ship
 TokenModule.NearPosition = function(tokenName, ship)
     local name = nil
@@ -4050,7 +4089,7 @@ end
 -- 1. Prefer the position given as 3rd argument if passed
 -- 2. Prefer position on a stack if a stack of tokens already belongs to a ship
 -- 3. Prefer position NEAR ship base as position table dictates
--- 3. Prefer position ON ship base as position table dictates (if all else fails, this will be returned)
+-- 4. Prefer position ON ship base as position table dictates (if all else fails, this will be returned)
 TokenModule.VisiblePosition = function(tokenName, ship, preferredPos)
     -- Check preferred position margin
     if preferredPos ~= nil then
@@ -4187,12 +4226,12 @@ TokenModule.TakeToken = function(type, playerColor, dest, flip)
 end
 
 -- Get owner info from a token or positions
--- Return:  {
+-- Return: {
 --      token   <- passed token ref if arg was a token ref
 --      owner   <- ship ref to owner, nil if none
 --      dist    <- distance to owner (igu)
 --      margin  <- how far from owner token would have to be moved to change owner
---          }
+-- }
 TokenModule.TokenOwnerInfo = function(tokenPos)
     local pos = nil
     local out = { token = nil, owner = nil, dist = 0, margin = -1 }
@@ -4579,49 +4618,73 @@ DialModule.TemplateData.baseOffset.large = { 0, 0, 40, 0 }
 -- tr1_B means "spawn a turn right 1 template in front of me" (B as in before move)
 -- Return template reference
 -- TODO toggletemplate?
+-- Decode the dial code into a moveData table with move details
+DialModule.decodeDialCode = function(ship, dialCode)
+    local moveInfo = MoveData.DecodeInfo(dialCode:sub(1, -3), ship) -- Decodes movement type, speed, etc.
+    local positionKey = dialCode:sub(-1, -1)                        -- Last character defines position
+
+    moveInfo.position = ({
+        A = 'back',
+        B = 'front',
+        P = 'port',
+        S = 'starboard'
+    })[positionKey] or 'front'
+
+    return moveInfo
+end
+
 DialModule.SpawnTemplate = function(ship, dialCode)
-    local moveCode = dialCode:sub(1, -3)
-    local moveInfo = MoveData.DecodeInfo(moveCode, ship)
-    if moveInfo.speed == 0 then
+    local moveInfo = DialModule.decodeDialCode(ship, dialCode)
+
+    local speed = moveInfo.speed
+    local type = moveInfo.type
+    local position = moveInfo.position
+    local dir = moveInfo.dir
+    local extra = moveInfo.extra
+
+    return DialModule.PlaceTemplate(ship, speed, type, position, dir, extra)
+end
+
+DialModule.PlaceTemplate = function(ship, speed, type, position, dir, extra)
+    if speed == 0 then
         return nil
     end
-    local tempEntry = DialModule.TemplateData[moveInfo.type][moveInfo.speed]
+    local tempEntry = DialModule.TemplateData[type][speed]
     local baseSize = ship.getTable("Data").Size or 'small'
     tempEntry = Vect.Sum(tempEntry, DialModule.TemplateData.baseOffset[baseSize])
     local ref = ship
-    if dialCode:sub(-1, -1) == 'A' then
+    if position == 'back' then
         ref = MoveModule.GetOldMove(ship, 1)
     end
     --TODO LAST MOVE LOGIC OUT!!!
     --TODO dont barf if no last move
 
-    if moveInfo.dir == 'left' then
+    if dir == 'left' then
         tempEntry = MoveData.LeftVariant(tempEntry)
-        tempEntry[4] = tempEntry[4] + 180 - DialModule.TemplateData[moveInfo.type].leftRot
+        tempEntry[4] = tempEntry[4] + 180 - DialModule.TemplateData[type].leftRot
     end
-    if moveInfo.extra == 'reverse' then
+    if extra == 'reverse' then
         tempEntry = MoveData.ReverseVariant(tempEntry)
-        if moveInfo.type ~= 'straight' then
-            tempEntry[4] = tempEntry[4] - DialModule.TemplateData[moveInfo.type].leftRot
+        if type ~= 'straight' then
+            tempEntry[4] = tempEntry[4] - DialModule.TemplateData[type].leftRot
         end
     end
-    if moveInfo.dir ~= nil then
-        if moveInfo.extra ~= 'reverse' then
-            tempEntry = Vect.Sum(tempEntry, DialModule.TemplateData[moveInfo.type].trim[moveInfo.dir][moveInfo.speed])
+    if dir ~= nil then
+        if extra ~= 'reverse' then
+            tempEntry = Vect.Sum(tempEntry, DialModule.TemplateData[type].trim[dir][speed])
         else
-            if moveInfo.dir == 'right' then
-                moveInfo.dir = 'left'
-            elseif moveInfo.dir == 'left' then
-                moveInfo.dir = 'right'
+            if dir == 'right' then
+                dir = 'left'
+            elseif dir == 'left' then
+                dir = 'right'
             end
             tempEntry = Vect.Sum(tempEntry,
-                Vect.ScaleEach(DialModule.TemplateData[moveInfo.type].trim[moveInfo.dir][moveInfo.speed],
-                    { -1, 1, -1, -1 }))
+                Vect.ScaleEach(DialModule.TemplateData[type].trim[dir][speed], { -1, 1, -1, -1 }))
         end
     end
 
     local finPos = MoveModule.EntryToPos(tempEntry, ref)
-    local src = TokenModule.tokenSources[moveInfo.type:sub(1, 1) .. moveInfo.speed]
+    local src = TokenModule.tokenSources[type:sub(1, 1) .. speed]
     local newTemplate = src.takeObject({ position = finPos.pos, rotation = finPos.rot })
     newTemplate.lock()
     newTemplate.setPosition(finPos.pos)
@@ -4643,7 +4706,6 @@ DialModule.DeleteTemplate = function(ship)
     end
     return false
 end
-
 
 
 -- Char width table by Indimeco
@@ -5083,10 +5145,10 @@ RulerModule.DefaultShipArc = function(ship)
 end
 
 -- Create tables for spawning a ruler
--- Return:  {
+-- Return: {
 --      params      <- table suitable for spawnObject(params) call
 --      custom      <- table suitable for obj.setCustomObject(custom) call
---          }
+-- }
 RulerModule.CreateCustomTables = function(ship, rulerType, range)
     if rulerType == 'A' then
         rulerType = rulerType .. RulerModule.DefaultShipArc(ship)
@@ -5358,7 +5420,7 @@ BombModule.OnTokenDrop = function(token)
         end
 
         if token.getName() == 'Electro-Chaff Cloud' then
-            fuseBag = getObjectFromGUID('568727')
+            fuseBag = getObjectFromGUID(Fuse_Bag_GUID)
             fuseBag.takeObject({
                 position = vector(destPos[1], destPos[2], destPos[3]) + vector(0, 1, 0),
                 smooth = true,
@@ -5558,7 +5620,7 @@ BombModule.SpawnBlaze = function(center)
     t1.addTag('Obstacle')
     t1.setLuaScript(clusterScript)
     BombModule.CheckMineDroppedOverlapping(t1)
-    fuseBag = getObjectFromGUID('568727')
+    fuseBag = getObjectFromGUID(Fuse_Bag_GUID)
     fuseBag.takeObject({
         position = Vect.Sum(Vect.Sum(center.pos, destOffset1), { 0, 1, 0 }),
         smooth = true,
@@ -5945,7 +6007,7 @@ function newSpawner(listTable)
     PosBag3 = { 15, 15, 0 }
     PosBag4 = { 20, 20, 0 }
     PoaBag5 = { 25, 25, 0 }
-    tempBagAcc = getObjectFromGUID('53ad3d').clone({ position = PosBag3 }) -- Accessories bag
+    tempBagAcc = getObjectFromGUID(Accessories_Bag_GUID).clone({ position = PosBag3 }) -- Accessories bag
 
     --Stablishes lists of available upgrades, pilots, accessories, ships and mobile upgrades
     listaAcc = tempBagAcc.getObjects()
@@ -6215,7 +6277,7 @@ function newSpawner(listTable)
             end
             pos = LocalPos(spawnCard, { 0, 0, 9 })
             rot = spawnCard.getRotation()
-            local base_prototype = getObjectFromGUID("8c3322")
+            local base_prototype = getObjectFromGUID(CompositeBase_GUID)
             newShip = base_prototype.clone()
             newShip.setPositionSmooth(pos, false, true)
             newShip.setRotationSmooth(rot, false, true)
@@ -6669,7 +6731,7 @@ function newSpawner(listTable)
     end
 
     if listTable.Obstacles ~= nil then
-        tempObstacleBag = getObjectFromGUID('203cb8').clone({ position = PosBag3 }) -- Obstacles bag
+        tempObstacleBag = getObjectFromGUID(Obstacle_Bag_GUID).clone({ position = PosBag3 }) -- Obstacles bag
         obstacleAcc = tempObstacleBag.getObjects()
         for i, obstacleName in ipairs(listTable.Obstacles) do
             local found = false
@@ -6679,8 +6741,7 @@ function newSpawner(listTable)
                     pos = LocalPos(spawnCard, { 0, 1, 0 })
                     obstacleToken = tempObstacleBag.takeObject({
                         rotation = spawnCard.getRotation(),
-                        guid = obstacle
-                            .guid,
+                        guid = obstacle.guid,
                         smooth = false
                     })
                     obstacleClone = obstacleToken.clone()
@@ -7160,4 +7221,145 @@ function epicMoveWingmate(table)
         -- Todo announce some stuff
         return false
     end
+end
+
+---------------------
+-- START EZ-TEMPLATES
+local ezTemplates = {}
+
+function ezTemplates.Maneuver(object)
+    function direction(object, bearing)
+        if bearing == 'straight' then
+            return nil
+        end
+
+        if object.is_face_down then
+            return 'left'
+        else
+            return 'right'
+        end
+    end
+
+    local name = object.getName():lower()
+    local bearing, speed = string.match(name, "^(%a+) (%d)$")
+    return tonumber(speed), bearing, direction(object, bearing)
+end
+
+function ezTemplates.IsEasyTemplate(object)
+    function ezTemplatesEnabled()
+        local s1Bag = getObjectFromGUID(Straight_1_Bag_GUID)
+        if s1Bag then
+            return s1Bag.hasTag('ezTemplates')
+        end
+        return false
+    end
+
+    local speed, bearing, direction = ezTemplates.Maneuver(object)
+    local enabled = ezTemplatesEnabled()
+    return enabled and bearing ~= nil and speed ~= nil
+end
+
+function ezTemplates.SnapToShip(player_color, template)
+    local ship = FindNearestShip(template, 150, IsInFrontOfShip)
+    if ship == nil then
+        return
+    end
+
+    local speed, bearing, direction = ezTemplates.Maneuver(template)
+    local position = 'front' -- For now, just spawn out the front
+    destroyObject(template)
+    template = DialModule.PlaceTemplate(ship, speed, bearing, position, direction, nil)
+
+    function alignButtonWithShip(template, ship)
+        -- Get world rotations
+        local shipRot = ship.getRotation()
+        local templateRot = template.getRotation()
+
+        -- Calculate relative rotation
+        local relativeRot = {
+            x = shipRot.x - templateRot.x,
+            y = shipRot.y - templateRot.y,
+            z = shipRot.z - templateRot.z,
+        }
+
+        return relativeRot
+    end
+
+    local buttonRot = alignButtonWithShip(template, ship)
+
+    local removeButton = {
+        -- click_function = 'deleteObject',
+        click_function = 'destroyObject',
+        label = 'Del',
+        position = { 0, 0.05, 0 },
+        rotation = buttonRot,
+        width = 180,
+        height = 125,
+        font_size = 100,
+        font_color = { 225 / 255, 225 / 255, 225 / 255 },
+        color = { 17 / 255, 16 / 255, 15 / 255 },
+        tooltip = "Remove the template"
+    }
+    template.createButton(removeButton)
+end
+
+function ezTemplates.onObjectDropped(player_color, template)
+    if not ezTemplates.IsEasyTemplate(template) then
+        return
+    end
+
+    ezTemplates.SnapToShip(player_color, template)
+end
+
+EventSub.Register('onObjectDropped', ezTemplates.onObjectDropped)
+
+-- END EZ-TEMPLATES
+-------------------
+
+function IsInFrontOfShip(object, ship)
+    -- Get the positions of the object and the ship
+    local objPos = object.getPosition()
+    local shipPos = ship.getPosition()
+
+    -- Calculate the forward direction vector of the ship
+    local shipForward = ship.getTransformForward()
+
+    -- Calculate the vector from the ship to the object
+    local toObject = {
+        x = shipPos.x - objPos.x,
+        y = shipPos.y - objPos.y,
+        z = shipPos.z - objPos.z
+    }
+
+    -- Convert to a normalized vector (direction only)
+    local toObjectNormalized = Vector(toObject):normalize()
+
+    -- Calculate the dot product between the forward vector and the toObject vector
+    local dotProduct = shipForward.x * toObjectNormalized.x +
+        shipForward.y * toObjectNormalized.y +
+        shipForward.z * toObjectNormalized.z
+
+    -- Check if the object is in front (dotProduct > 0) and within a reasonable margin
+    return dotProduct > 0.01 -- Adjust the threshold for precision if needed
+end
+
+function FindNearestShip(object, max_distance, filter_function)
+    filter_function = filter_function or function() return true end
+
+    local min_dist = Dim.Convert_mm_igu(max_distance or 100) -- default 100 mm
+    local spos = object.getPosition()
+    local nearest = nil
+
+    for _, ship in pairs(getObjects()) do
+        if MoveModule.SelectShips(ship) then
+            local pos = ship.getPosition()
+            local dist = spos:distance(pos)
+            if dist < min_dist and filter_function(object, ship) then
+                nearest = ship
+                min_dist = dist
+            end
+        end
+    end
+
+    return nearest
 end

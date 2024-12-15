@@ -700,6 +700,12 @@ extraAssets = {
             generic = { label = "Generic", tag = "mancard" },
         }
     },
+    coop_assets = {
+        label = "HotAC/FGA",
+        items = {
+            hotac = { label = "Transport Freighter", tag = "transportfreighter" },
+        }
+    },
 }
 
 extraAssetsGUID = "a3690e"
@@ -718,8 +724,7 @@ function assetSpawn()
             click_function = "assetCategory_" .. category,
             function_owner = self,
             label = elements.label,
-            position =
-                position,
+            position = position,
             width = 1500,
             height = 280,
             font_size = 200,
@@ -741,15 +746,19 @@ function assetCategory(args)
     for key, asset in pairs(extraAssets[args.category].items) do
         local position = vector(-0.45 + (i % 2) * 0.9, 0.45, math.floor(i / 2) * 0.20)
         self.setVar("spawnAssetItem_" .. key, function() self.call("spawnAssetItem", { tag = asset.tag }) end)
+
+        local font_size = 200
+        if asset.label:len() > 15 then
+            font_size = font_size * 0.8
+        end
         self.createButton({
             click_function = 'spawnAssetItem_' .. key,
             function_owner = self,
             label = asset.label,
-            position =
-                position,
+            position = position,
             width = 1500,
             height = 280,
-            font_size = 200,
+            font_size = font_size,
             scale = { 0.25, 0.25, 0.25 }
         })
         i = i + 1
@@ -763,10 +772,14 @@ function spawnAssetItem(args)
     if asset_bag then
         for _, containedObject in ipairs(asset_bag.getObjects()) do
             if containedObject.gm_notes == args.tag then
+                local addRot = Vector(180, 180, 0)
+                if containedObject.gm_notes == 'transportfreighter' then
+                    addRot = Vector(0, 0, 0)
+                end
                 asset = asset_bag.takeObject({
                     index = containedObject.index,
-                    position = self.getPosition() + vector(10, 2, 0),
-                    rotation = self.getRotation() + vector(180, 0, 0),
+                    position = self.getPosition() + Vector(10, 2, 0),
+                    rotation = self.getRotation() + addRot,
                 })
                 assetClone = asset.clone()
                 asset_bag.putObject(assetClone)
@@ -1081,17 +1094,17 @@ function idSpawner(idTable)
 
         fList.Pilots[k].Data.Faction = fList.Faction
         fList.Pilots[k].Data.Size = fList.Pilots[k].Size
-        if v == 150 then                  -- Emon Azzameen special drops
+        if v == 150 then                   -- Emon Azzameen special drops
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s3:tr3:te3'
-        elseif v == 205 then              -- Sol Sixxa special drops
+        elseif v == 205 then               -- Sol Sixxa special drops
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':te1:be1:br1:tr1'
         elseif v == 1068 or v == 1075 then -- Partin gift upgrade special drop
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r:br1r:bl1r'
-        elseif v == 161 then              -- Constable Zuvio
+        elseif v == 161 then               -- Constable Zuvio
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r'
-        elseif v == 565 then              -- Bombardment Drone
+        elseif v == 565 then               -- Bombardment Drone
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r'
-        elseif v == 1047 then             -- SL Deathfire
+        elseif v == 1047 then              -- SL Deathfire
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':be3:br3:s3:s3r'
         end
 
@@ -1236,12 +1249,12 @@ function idSpawner(idTable)
             if value == 'skilledbombardier' then -- Skilled Bombardier special drops
                 skilled_bombardier = true
                 --fList.Pilots[k].bombD = fList.Pilots[k].bombD ..  ':s2:tr2:te2:be2:br2'
-            elseif value == 'trajectorysimulator' then -- Trajectory Simulator special drop
+            elseif value == 'trajectorysimulator' then  -- Trajectory Simulator special drop
                 fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s5r'
             elseif value == 'electrochaffmissiles' then -- Electro-Chaff Missiles
                 fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s4r:be3r:br3r'
-            elseif value == 'thermaldetonators' then   -- Thermal Detinators
-                if Ship == 'tiesabomber' then          -- TIE Bomber special drops
+            elseif value == 'thermaldetonators' then    -- Thermal Detinators
+                if Ship == 'tiesabomber' then           -- TIE Bomber special drops
                     fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':be2:s2:br2'
                 else
                     fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s2'
@@ -2752,7 +2765,7 @@ function parseList()
                     ::continue::
                     Aux = 0
                 end -- if Pilot and upgrade
-            end    -- for card
+            end     -- for card
         end
         pChecker()
     else

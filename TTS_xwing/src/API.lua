@@ -58,6 +58,10 @@ function API_MineDrop(argTable)
     BombModule.CheckMineDroppedOverlapping(argTable.mine, argTable.ship)
 end
 
+function API_IsShipType(argTable)
+    return ObjType.IsOfType(argTable.ship, 'ship')
+end
+
 function API_AssignToken(argTable)
     TokenModule.AssignToken(argTable.token, argTable.ship)
 end
@@ -80,6 +84,14 @@ end
 
 function API_SetGlobalConfig(argTable)
     return ConfigManager.SetConfig("global", argTable.param_name, argTable.value)
+end
+
+function API_SpawnTemplate(args)
+    return DialModule.SpawnTemplate(args.ship, args.dialCode)
+end
+
+function API_FindNearestShip(args)
+    return FindNearestShip(args.object, args.max_distance)
 end
 
 function API_GetClosestPointToShip(argTable)

@@ -9,10 +9,11 @@ if not self.hasTag("Star Forge") then
 end
 
 require("TTS_lib.Util.Table")
-local SFScript  = require("Game.StarForge.StarForgeScriptManager")
-local SFDeduper = require("Game.StarForge.StarForgeDeduper")
-local SFTester  = require("Test.DataPadTest")
-local SFVector  = require("Test.HotAC.ApproachVectorTest")
+local SFScript   = require("Game.StarForge.StarForgeScriptManager")
+local SFDeduper  = require("Game.StarForge.StarForgeDeduper")
+local SFTester   = require("Test.DataPadTest")
+local SFVector   = require("Test.HotAC.ApproachVectorTest")
+local BagHandler = require("Game.Component.Spawner.BagHandler")
 
 --[[
 ## Star Forge
@@ -29,6 +30,7 @@ Utility Object to aid in Game Mod Script Updates. Locating and "sourcing" Object
 1. **Extract All Objects**:
     - Trigger a context menu to "Take Everything Out," which will:
     1. Lay out all scripted objects.
+
     2. Keep track of which Bag each object came from, as they need to be returned to their original bag.
     3. If the object is a multi-state object:
         - Keep track of the initial state (baseState).
@@ -69,6 +71,13 @@ Utility Object to aid in Game Mod Script Updates. Locating and "sourcing" Object
 local StarForge = {
     factories = {},
     lastLayout = 1
+}
+
+local bagGuids = {
+    'a3690e', -- Extra Assets 15 items
+    '203cb8', -- ObstacleBag 31 items
+    'f0e7b9', -- Dice Bag 10 items
+    '53ad3d', -- Accessories 81 items
 }
 
 local layoutController_GUID = "b3992e"
@@ -407,29 +416,11 @@ function emptyBag()
 end
 
 LaunchProbe = function()
-    local probe = spawnObject({
-        type = "Custom_Token",
-        position = { -30, 3, -20 },
-        scale = { 1, 1, 1 },
-        sound = true,
-        callback_function = function(spawned_object)
-            spawned_object.setName("Probe")
-        end
-    })
-
-    probe.setCustomObject({
-        image = "https://static.wikia.nocookie.net/starwars/images/f/f2/Sith_probe_droid.png?raw=true"
-    })
+    local myBagHandler = BagHandler:new('53ad3d')
+    myBagHandler:takeItemByName("Probe", { position = { -30, 2, -20 } })
 end
 
 function HiddenBags(operation)
-    local bagGuids = {
-        'a3690e', -- Extra Assets 15 items
-        '203cb8', -- ObstacleBag 31 items
-        'f0e7b9', -- Dice Bag 10 items
-        '53ad3d', -- Accessories 79 items
-    }
-
     for _, guid in ipairs(bagGuids) do
         local bag = getObjectFromGUID(guid)
         if bag ~= nil then
@@ -443,8 +434,6 @@ function HiddenBags(operation)
         'f8f07c', -- Dial Set source
         '3d63d2', -- dice Preload Green
         'be075b', -- dice Preload Red
-        '0db84a', -- Red-Blue playmat
-        '224031', -- Purple-Orange playmat
     }
 
     for _, guid in ipairs(guids) do
