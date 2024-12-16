@@ -1,5 +1,3 @@
-require("TTS_lib.Util.Table")
-
 local Squadron = {}
 Squadron.__index = Squadron
 
@@ -15,10 +13,10 @@ function Squadron:performCast()
         origin = Vector(-64.00, 0.0, -30.00), -- Start below the objects
         direction = Vector(0, 0, 1),          -- Move in the positive z-direction
         type = 3,
-        size = Vector(13, 10, 5),             -- Extend in the x, y, and z dimensions
+        size = Vector(14, 10, 5),             -- Extend in the x, y, and z dimensions
         orientation = Vector(0, 0, 0),
-        max_distance = 30,
-        debug = true,
+        max_distance = 45,
+        debug = false,
     }
 
     local castResult = Physics.cast(dataPadSpawnArea)
