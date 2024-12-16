@@ -106,3 +106,14 @@
 ### Anomalies from Reorg
 
 1. 'No Stats Dice' has a lua script in it's .xml file
+
+### Bugs
+
+1. Verify AI Swerve for obstacles. Give chat messages to let players
+   know what was considered so they know it's working when it runs over
+   an obstacle.
+   1. Check if board edge detection and avoidance works.
+   1. Add barrel roll if obstacle is withing Range-1 and in Bullseye Arc.
+2. Attachable Turrets don't attach.
+3. Check AI control of Medium or Large base ships.
+4. Does the game support ground assault and movement of the AT-AT.

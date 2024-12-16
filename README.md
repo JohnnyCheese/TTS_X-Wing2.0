@@ -30,7 +30,9 @@ Support for Tabletop Simulator Lua scripting.
 - Alternatively, install the released version 1.1.3 
 - [Tabletop Simulator Lua v1.1.3 by Rolandostar](https://marketplace.visualstudio.com/items?itemName=rolandostar.tabletopsimulator-lua)
 
-### Lua by Sumenko
+Choose one of either Sumneko or EmmyLua. 
+
+### Lua by Sumneko
 Provides advanced Lua editing features. Millions of downloads. Probably the best if you're using only Visual Studio Code
 - [Lua by Sumneko](https://marketplace.visualstudio.com/items?itemName=sumneko.lua)
 
@@ -46,7 +48,11 @@ Adds code formatting for EmmyLua.
 
 It's recommended not to check the workspace file into version control as it contains user-specific paths.
 
-Here's an example of a typical VSCode workspace configuration:
+Here's an example of a typical VSCode workspace configuration. The order of the paths is entirely individual preference.
+
+NOTE: the rolandostar plugin changed folder locations to receive scripts between versions.
+version 2.0-rc1 uses:  `%TEMP%/TabletopSimulatorLua`
+version 1.1.3 uses:  `<?>/Tabletop Simulator Lua`
 
 ```json
 {
@@ -57,6 +63,9 @@ Here's an example of a typical VSCode workspace configuration:
         {
             "name": "In-Game Scripts",
             "path": "C:/Users/<your-username>/AppData/Local/Temp/TabletopSimulatorLua"
+        },
+        {
+            "path": "../TTS_xwing/src"
         }
     ],
     "settings": {},
