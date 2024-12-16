@@ -45,9 +45,9 @@ end
 
 function PlayerArea:getScalar()
     local multipliers = {
-        Standard = 19.5,
-        Epic = 19.5,
-        HotAC = 15
+        Standard = 18,
+        Epic = 19.1,
+        HotAC = 14.5
     }
 
     return multipliers[self.layout] or 18
