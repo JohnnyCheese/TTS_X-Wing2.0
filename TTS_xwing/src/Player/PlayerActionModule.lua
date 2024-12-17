@@ -6,6 +6,9 @@
 
 -- Define actions for various tags
 -- Each tag has a handler for each Player.Action
+
+local DiceControlModule = require("Game.Component.Dice.DiceControl")
+
 local tagActions = {
     NonDeletable = {
         [Player.Action.Delete] = function(object, player)
@@ -26,6 +29,11 @@ local tagActions = {
     Flippable = {
         [Player.Action.FlipOver] = function(object, player)
             object.call("onFlip", { player = player }) -- Calls the flip behavior for Flippable objects
+        end
+    },
+    DiceControl = {
+        [Player.Action.Randomize] = function(object, player)
+            DiceControlModule.playerActionRandomize(object, player) -- Handle randomizing objects
         end
     },
     RemoveOnFlip = {

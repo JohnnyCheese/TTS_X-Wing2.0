@@ -180,8 +180,7 @@ DiceControlModule.presentStatistics = function()
     end
 end
 
-DiceControlModule.onObjectRandomize = function(object, playerColor)
-    local playerInstance = Players.getPlayerByColor(playerColor)
+DiceControlModule.playerActionRandomize = function(object, playerInstance)
     local player = playerInstance.steam_name
     DiceControlModule.player_colors[player] = playerInstance.color
     if DiceControlModule.enabled and (object.tag == "Dice") and not object.locked and (object.held_by_color == nil) then
@@ -225,8 +224,6 @@ DiceControlModule.onObjectRandomize = function(object, playerColor)
         end
     end
 end
-
-EventSub.Register('onObjectRandomize', DiceControlModule.onObjectRandomize)
 
 DiceControlModule.PrepareDice = function(die, player)
     if not die.isSmoothMoving() then
