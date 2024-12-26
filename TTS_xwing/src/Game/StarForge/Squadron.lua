@@ -1,3 +1,4 @@
+-- TODO: perhaps this should be a 'SpawnedList' rather than Squadron
 local Squadron = {}
 Squadron.__index = Squadron
 
@@ -8,6 +9,7 @@ function Squadron:new(playerArea)
     return self
 end
 
+-- TODO: The cast should probably go in DataPad
 function Squadron:performCast()
     local dataPadSpawnArea = {
         origin = Vector(-64.00, 0.0, -30.00), -- Start below the objects
@@ -54,6 +56,7 @@ function Squadron:getShips()
     return ships
 end
 
+-- TODO: this may be better in the 'Mover' script
 -- Method to check if all objects are at rest
 function Squadron:allObjectsAtRest()
     for _, obj in ipairs(self.objects) do

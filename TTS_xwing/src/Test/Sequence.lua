@@ -2,11 +2,7 @@ Sequence = {}
 Sequence.__index = Sequence
 
 function Sequence:new()
-    local seq = {}
-    setmetatable(seq, Sequence)
-    seq.tasks = {}
-    seq.current = 1
-    return seq
+    return setmetatable({tasks = {}, context = {}, current = 1}, Sequence)
 end
 
 function Sequence:add(task, ...)

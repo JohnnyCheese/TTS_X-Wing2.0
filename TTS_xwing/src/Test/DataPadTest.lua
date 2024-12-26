@@ -3,6 +3,7 @@ local Sequence = require("Test.Sequence")
 local ButtonTest = require("Test.ButtonTest")
 local PlayerArea = require("Player.PlayerArea")
 local Squadron = require("Game.StarForge.Squadron")
+local Mover = require("Game.Component.Spawner.Mover")
 
 local DataPadTest = {}
 
@@ -41,7 +42,7 @@ function DataPadTest.spawnImperialShips(seq, playerArea)
     seq:add(ButtonTest.Click, dataPad, 'TIE Advanced x1', player_color, false)
     seq:add(ButtonTest.Click, dataPad, 'Darth Vader%s*%(%d+%)', player_color, false)
     seq:add(ButtonTest.Click, dataPad, 'Spawn List', player_color, false)
-    seq:add(waitAndMove, playerArea, 120)
+    seq:add(Mover.Move, playerArea, 120)
 end
 
 function DataPadTest.spawnRebelShips(seq, playerArea)
@@ -63,42 +64,7 @@ function DataPadTest.spawnRebelShips(seq, playerArea)
     seq:add(ButtonTest.Click, dataPad, 'X%-Wing', player_color, false)
     seq:add(ButtonTest.Click, dataPad, 'Luke Skywalker%sRed Five%s*%(%d+%)', player_color, false)
     seq:add(ButtonTest.Click, dataPad, 'Spawn List', player_color, false)
-    seq:add(waitAndMove, playerArea, 120)
-end
-
-local function waitForAllObjectsAtRest(seq, newObjects)
-    Wait.condition(function()
-        seq:next()
-    end, function()
-        return newObjects:allObjectsAtRest()
-    end)
-end
-
-local function moveTo(playerArea)
-    local squad = Squadron:new(playerArea)
-    local seq = Sequence:new()
-
-    seq:add(function(seq)
-        playerArea:translate(squad:getObjects())
-        waitForAllObjectsAtRest(seq, squad)
-    end)
-
-    seq:add(function(seq)
-        squad:dropDials()
-        waitForAllObjectsAtRest(seq, squad)
-    end)
-    -- seq:add(ButtonTest.Click, dataPad, 'Spawn List', player_color, false)
-    -- seq:add(ButtonTest.Click, host_obj, "Place Ship", playerArea.player.color, false)
-
-    seq:start()
-end
-
--- Helper function to perform movement after a delay
-function waitAndMove(seq, playerArea, delay)
-    Wait.frames(function()
-        moveTo(playerArea)
-        seq:next()
-    end, delay)
+    seq:add(Mover.Move, playerArea, 120)
 end
 
 return DataPadTest

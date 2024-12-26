@@ -15,6 +15,9 @@ require("TTS_Lib.Util.Math")
 require("TTS_Lib.Util.Table")
 require("TTS_Lib.Util.String")
 local Vect = require("TTS_lib.Vector.Vector")
+local Sequence = require("Test.Sequence")
+local PlayerArea = require("Player.PlayerArea")
+local Mover = require("Game.Component.Spawner.Mover")
 
 self.interactable = false
 
@@ -1500,8 +1503,9 @@ end
 function mainMenu()
     totalCost = {}
     self.clearButtons()
-    self.createButton({ click_function = 'addShip', function_owner = self, label = 'Add Ship', position = { -0.45, 0.45, -0.3 }, width = 1300, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
-    self.createButton({ click_function = 'builderSpawn', function_owner = self, label = 'Spawn List', position = { 0.45, 0.45, -0.3 }, width = 1300, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
+    self.createButton({ click_function = 'addShip', function_owner = self, label = 'Add Ship', position = { -0.6, 0.45, -0.3 }, width = 1100, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
+    self.createButton({ click_function = 'builderSpawn', function_owner = self, label = 'Spawn List', position = { 0.025, 0.45, -0.3 }, width = 1100, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
+    self.createButton({ click_function = 'relocateSpawned', function_owner = self, label = 'Spawn & Move\nList', position = { 0.65, 0.45, -0.3 }, width = 1100, height = 380, font_size = 150, scale = { 0.25, 0.25, 0.25 } })
     for i, pilot in pairs(partList.Pilots) do
         local cost = pilot.cost
         local loadout = 0
@@ -1877,6 +1881,17 @@ end
 
 function setPilot32()
     setPilotGeneric(32)
+end
+
+function relocateSpawned(obj, player_color, alt_click)
+    printToAll("relocating for color " .. player_color, player_color or Color.Pink)
+    local playerArea = PlayerArea:new(Player[player_color])
+    local seq = Sequence:new()
+
+    seq:add(function(seq) builderSpawn(); seq:next() end)
+    seq:add(Mover.Move, playerArea, 120)
+
+    seq:start()
 end
 
 function builderSpawn()
@@ -2590,8 +2605,13 @@ function inputList()
     })
 end
 
--- This function is supposed to store the list in the script of the data disk object and set up a button wich will spawn the stored list calling the list parser and providing the string.
--- The disk can be saved in the TTS chest for easy retrieval. Could it be set up in a way to store and spawn several lists?
+--[[ This function is supposed to store the list in the script of the
+    data disk object and set up a button wich will spawn the stored list
+    calling the list parser and providing the string.
+]]
+--[[ The disk can be saved in the TTS chest for easy retrieval. Could
+it be set up in a way to store and spawn several lists?
+]]
 
 function saveList()
     print('Saving List')
