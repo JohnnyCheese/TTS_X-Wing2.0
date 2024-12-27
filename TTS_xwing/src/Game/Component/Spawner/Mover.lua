@@ -37,7 +37,6 @@ function Mover.Move(seq, playerArea, delay)
     end, delay)
 end
 
-
 -- Method to check if all objects are at rest
 function Mover.allObjectsAtRest()
     for _, obj in ipairs(self.objects) do
@@ -47,7 +46,5 @@ function Mover.allObjectsAtRest()
     end
     return true
 end
-
-
 
 return Mover
