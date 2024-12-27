@@ -5,9 +5,21 @@ function Sequence:new()
     return setmetatable({ tasks = {}, context = {}, current = 0 }, Sequence)
 end
 
-function Sequence:add(task, ...)
+function Sequence:add(...)
+    self:addStep(...)
+end
+
+function Sequence:addStep(step, ...)
+    assert(type(step) == "function", "Expected a function for step, got " .. tostring(step))
+    table.insert(self.tasks, { func = step, args = { ... } })
+end
+
+function Sequence:addTask(task, ...)
     assert(type(task) == "function", "Expected a function for task, got " .. tostring(task))
-    table.insert(self.tasks, { func = task, args = { ... } })
+    self:addStep(function(seq, ...)
+        task(...)
+        seq:next()
+    end, ...)
 end
 
 function Sequence:next()
