@@ -1,8 +1,13 @@
 local Sequence = {}
 Sequence.__index = Sequence
 
-function Sequence:new()
-    return setmetatable({ tasks = {}, context = {}, current = 0 }, Sequence)
+function Sequence:new(autoRegisterPlugins)
+    local seq = setmetatable({ tasks = {}, context = {}, current = 0, plugins = {} }, Sequence)
+    if autoRegisterPlugins then
+        seq:registerPlugin("Click", require("Test.ButtonClickPlugin"))
+        -- Add additional plugins here if needed
+    end
+    return seq
 end
 
 function Sequence:add(...)
@@ -35,33 +40,18 @@ function Sequence:start()
     self:next()
 end
 
-local function _executeButtonClick(seq, host_obj, label_pattern, player_color, alternate_key)
-    local function findButton(obj, pattern)
-        for _, button in ipairs(obj.getButtons() or {}) do
-            if string.match(button.label, pattern) then
-                return button
-            end
-        end
-        return nil
+function Sequence:registerPlugin(name, plugin)
+    assert(type(plugin) == "table", "Plugin must be a table or a valid module name.")
+    self.plugins[name] = plugin
+    if type(plugin.init) == "function" then
+        plugin.init(self) -- Allow plugin to initialize with the Sequence instance
     end
-
-    local button = nil
-
-    Wait.condition(function()
-        if button ~= nil then
-            host_obj.call(button.click_function, { host_obj, player_color, alternate_key })
+    for method, func in pairs(plugin) do
+        if method ~= "init" then
+            assert(type(method) == "string" and type(func) == "function", "Invalid plugin format.")
+            self[method] = func
         end
-        seq:next()
-    end, function()
-        button = findButton(host_obj, label_pattern)
-        return button ~= nil and (not button.spawning)
-    end, 4.0)
-end
-
-function Sequence:clickButton(host_obj, label_pattern, player_color, alternate_key)
-    assert(host_obj, "Host object is nil in Sequence:push.")
-    assert(type(label_pattern) == "string", "Label pattern must be a string.")
-    self:add(_executeButtonClick, host_obj, label_pattern, player_color, alternate_key)
+    end
 end
 
 Sequence.NoSeq = Sequence:new()
