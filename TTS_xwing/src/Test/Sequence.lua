@@ -2,12 +2,20 @@ local Sequence = {}
 Sequence.__index = Sequence
 
 function Sequence:new(autoRegisterPlugins)
-    local seq = setmetatable({ tasks = {}, context = {}, current = 0, plugins = {} }, Sequence)
+    local seq = setmetatable({
+        tasks = {},
+        result = nil, -- Framework-managed result
+        vars = {},    -- User-defined space
+        current = 0,
+        plugins = {}
+    }, Sequence)
+
     if autoRegisterPlugins then
         seq:registerPlugin("Click", require("Test.ButtonClickPlugin"))
         seq:registerPlugin("Cast", require("Test.CastGroupPlugin"))
-        --seq:registerPlugin("Mover", require("Test.MoverPlugin"))
+        seq:registerPlugin("Mover", require("Test.MoverPlugin"))
     end
+
     return seq
 end
 
@@ -23,7 +31,7 @@ end
 function Sequence:addTask(task, ...)
     assert(type(task) == "function", "Expected a function for task, got " .. tostring(task))
     self:addStep(function(seq, ...)
-        task(...)
+        seq.result = task(...)
         seq:next()
     end, ...)
 end
@@ -32,7 +40,7 @@ function Sequence:next()
     if self.current <= #self.tasks then
         local task = self.tasks[self.current]
         self.current = self.current + 1
-        task.func(self, table.unpack(task.args))
+        task.func(self, table.unpack(task.args)) -- Assign result to framework result
     end
 end
 
