@@ -63,30 +63,27 @@ function DataPadTest.spawnRebelShips(seq, playerArea)
     seq:clickButton(dataPad, 'Luke Skywalker%sRed Five%s*%(%d+%)', player_color, false)
     seq:clickButton(dataPad, 'Spawn List', player_color, false)
     seq:waitFrames(60)
-    seq:addStep(function(seq)
-        local rebelSquadron = ObjectContainer:fromCast(dataPadSpawnArea, moveableFilter)
-        seq.context.rebelSquadron = rebelSquadron
-        printToAll("Rebel Squadron: " .. rebelSquadron, Color.Pink)
-        seq:next()
-    end)
+
+    seq:castGroup(dataPadSpawnArea, moveableFilter)
+
     seq:waitCondition(
         function()
-            playerArea:translate(seq.context.rebelSquadron:getObjects())
+            seq.vars.rebelSquadron = seq.result
+            playerArea:translate(seq.vars.rebelSquadron:getObjects())
         end,
         function()
-            return seq.context.rebelSquadron:allAtRest()
+            return seq.result:allAtRest()
         end
     )
     seq:waitCondition(function()
-            local dials = seq.context.rebelSquadron:filter(function(obj)
+            local dials = seq.vars.rebelSquadron:filter(function(obj)
                 return obj.getName() == "Unassigned Dial"
             end)
             DataPadTest.dropDials(dials, playerArea)
         end,
         function()
-            return seq.context.rebelSquadron:allAtRest()
-        end
-    )
+            return seq.vars.rebelSquadron:allAtRest()
+    end)
 end
 
 function moveableFilter(obj)
@@ -116,7 +113,6 @@ function DataPadTest.dropDials(dials, playerArea)
 end
 
 function DataPadTest.assignNearestShip(dial, playerColor)
-    printToAll("Assigning " .. playerColor .. " dial to nearest ship", { 0, 1, 0 })
     local nearest = Global.call("API_FindNearestShip", { object = dial, max_distance = 80 })
     if nearest ~= nil then
         if playerColor == "White" then
