@@ -3,7 +3,7 @@ Sequence.__index = Sequence
 
 function Sequence:new(autoRegisterPlugins)
     local seq = setmetatable({
-        tasks = {},
+        steps = {},
         result = nil, -- Framework-managed result
         vars = {},    -- User-defined space
         current = 0,
@@ -25,7 +25,7 @@ end
 
 function Sequence:addStep(step, ...)
     assert(type(step) == "function", "Expected a function for step, got " .. tostring(step))
-    table.insert(self.tasks, { func = step, args = { ... } })
+    table.insert(self.steps, { func = step, args = { ... } })
 end
 
 function Sequence:addTask(task, ...)
@@ -37,10 +37,10 @@ function Sequence:addTask(task, ...)
 end
 
 function Sequence:next()
-    if self.current <= #self.tasks then
-        local task = self.tasks[self.current]
+    if self.current <= #self.steps then
+        local step = self.steps[self.current]
         self.current = self.current + 1
-        task.func(self, table.unpack(task.args)) -- Assign result to framework result
+        step.func(self, table.unpack(step.args)) -- Assign result to framework result
     end
 end
 
