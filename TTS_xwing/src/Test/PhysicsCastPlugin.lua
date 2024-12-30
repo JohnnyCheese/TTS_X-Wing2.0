@@ -12,7 +12,7 @@ local Empty = ObjectContainer:new({})
 --- @param seq Sequence: The current sequence instance.
 --- @param castParams table: Parameters for the Physics.cast operation.
 --- @param filterFunc? function: A filter function to determine which objects to include (optional).
-function PhysicsCastPlugin.cast(seq, castParams, filterFunc)
+function PhysicsCastPlugin.physicsCast(seq, castParams, filterFunc)
     assert(type(castParams) == "table", "castParams must be a table.")
     filterFunc = filterFunc or function() return true end -- Default no-op filter
 

@@ -1,8 +1,6 @@
 require("TTS_lib.Util.Table")
 local Sequence = require("Test.Sequence")
 local PlayerArea = require("Player.PlayerArea")
-local Mover = require("Game.Component.Spawner.Mover")
-local ObjectContainer = require("Test.ObjectContainer") -- Adjust the path to your file
 
 local DataPadTest = {}
 
@@ -39,8 +37,27 @@ function DataPadTest.spawnImperialShips(seq, playerArea)
     seq:clickButton(dataPad, 'TIE Advanced x1', player_color, false)
     seq:clickButton(dataPad, 'Darth Vader%s*%(%d+%)', player_color, false)
     seq:clickButton(dataPad, 'Spawn List', player_color, false)
-    seq:addStep(Mover.Move, playerArea, 60)
     seq:waitFrames(60)
+    seq:physicsCast(dataPadSpawnArea, moveableFilter)
+
+    seq:waitCondition(
+        function()
+            seq.vars.imperialSquadron = seq.result
+            playerArea:translate(seq.vars.imperialSquadron:getObjects())
+        end,
+        function()
+            return seq.result:allAtRest()
+        end
+    )
+    seq:waitCondition(function()
+            local dials = seq.vars.imperialSquadron:filter(function(obj)
+                return obj.getName() == "Unassigned Dial"
+            end)
+            DataPadTest.dropDials(dials, playerArea)
+        end,
+        function()
+            return seq.vars.imperialSquadron:allAtRest()
+        end)
 end
 
 function DataPadTest.spawnRebelShips(seq, playerArea)
@@ -63,8 +80,7 @@ function DataPadTest.spawnRebelShips(seq, playerArea)
     seq:clickButton(dataPad, 'Luke Skywalker%sRed Five%s*%(%d+%)', player_color, false)
     seq:clickButton(dataPad, 'Spawn List', player_color, false)
     seq:waitFrames(60)
-
-    seq:castGroup(dataPadSpawnArea, moveableFilter)
+    seq:physicsCast(dataPadSpawnArea, moveableFilter)
 
     seq:waitCondition(
         function()
@@ -83,7 +99,7 @@ function DataPadTest.spawnRebelShips(seq, playerArea)
         end,
         function()
             return seq.vars.rebelSquadron:allAtRest()
-    end)
+        end)
 end
 
 function moveableFilter(obj)
