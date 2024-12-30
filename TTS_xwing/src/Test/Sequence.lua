@@ -5,7 +5,8 @@ function Sequence:new(autoRegisterPlugins)
     local seq = setmetatable({ tasks = {}, context = {}, current = 0, plugins = {} }, Sequence)
     if autoRegisterPlugins then
         seq:registerPlugin("Click", require("Test.ButtonClickPlugin"))
-        -- Add additional plugins here if needed
+        seq:registerPlugin("Cast", require("Test.CastGroupPlugin"))
+        --seq:registerPlugin("Mover", require("Test.MoverPlugin"))
     end
     return seq
 end
@@ -40,16 +41,32 @@ function Sequence:start()
     self:next()
 end
 
+function Sequence:waitCondition(runFunc, conditionFunc, timeout, timeoutFunc)
+    self:addStep(function(seq)
+        Wait.condition(function()
+            if runFunc then
+                runFunc()
+            end
+            seq:next()
+        end, conditionFunc, timeout, timeoutFunc)
+    end)
+end
+
+function Sequence:waitFrames(frames)
+    self:addStep(function(seq)
+        Wait.frames(function()
+            seq:next()
+        end, frames)
+    end)
+end
+
 function Sequence:registerPlugin(name, plugin)
     assert(type(plugin) == "table", "Plugin must be a table or a valid module name.")
     self.plugins[name] = plugin
-    if type(plugin.init) == "function" then
-        plugin.init(self) -- Allow plugin to initialize with the Sequence instance
-    end
     for method, func in pairs(plugin) do
-        if method ~= "init" then
-            assert(type(method) == "string" and type(func) == "function", "Invalid plugin format.")
-            self[method] = func
+        assert(type(method) == "string" and type(func) == "function", "Invalid plugin format.")
+        self[method] = function(self, ...)
+            self:add(func, ...)
         end
     end
 end
