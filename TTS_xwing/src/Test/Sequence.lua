@@ -1,26 +1,25 @@
 ---@class Sequence
 ---A modular framework for managing and executing sequences of tasks in Lua.
 ---Provides functionality for step-by-step execution, waiting for conditions, and integration with plugins.
----@field steps   holds the sequence of steps (functions) to execute.
----@field result  the return value of the last task function or explicitly set by a step.
----@field vars    user-defined space for storing intermediate data.
----@field current index of the current step in the sequence.
----@field plugins table of registered plugins.
+--- @field steps   table[] Holds the sequence of steps (functions) to execute.
+--- @field result  any     The return value of the last task function or explicitly set by a step.
+--- @field ctx     table   User-defined space for storing intermediate data.
+--- @field current number  Index of the current step in the sequence.
+--- @field plugins table   Table of registered plugins.
 local Sequence = {}
 Sequence.__index = Sequence
 
 --- Creates a new Sequence instance.
 --- Optionally registers default plugins if `autoRegisterPlugins` is true.
---- @param autoRegisterPlugins boolean: Whether to auto-register default plugins.
+--- @param autoUsePlugins boolean: Whether to auto-use common plugins.
 --- @return Sequence: A new Sequence instance.
-function Sequence:new(autoRegisterPlugins)
-    local seq = setmetatable({ steps = {}, result = nil, vars = {}, current = 0, plugins = {} }, Sequence)
+function Sequence:new(autoUsePlugins)
+    local seq = setmetatable({ steps = {}, result = nil, ctx = {}, current = 0, plugins = {} }, Sequence)
 
-    if autoRegisterPlugins then
+    if autoUsePlugins then
         -- Automatically registers commonly used plugins.
-        seq:registerPlugin("Click", require("Test.ButtonClickPlugin"))
-        seq:registerPlugin("Cast", require("Test.PhysicsCastPlugin"))
-        seq:registerPlugin("Mover", require("Test.MoverPlugin"))
+        seq:usePlugin("Click", require("Test.ButtonClickPlugin"))
+        seq:usePlugin("Cast", require("Test.PhysicsCastPlugin"))
     end
 
     return seq
@@ -33,6 +32,7 @@ end
 --- @param ... any: Additional arguments to pass to the step.
 function Sequence:addStep(step, ...)
     assert(type(step) == "function", "Expected a function for step, got " .. tostring(step))
+    assert(getmetatable(self) == Sequence, "addStep must be called on a Sequence instance.")
     table.insert(self.steps, { func = step, args = { ... } }) -- Stores the step and its arguments.
 end
 
@@ -94,10 +94,10 @@ function Sequence:waitFrames(frames)
     end)
 end
 
---- Registers a plugin with the sequence, making its methods callable within the sequence.
+--- Integrates a plugin with the sequence, making its methods callable within the sequence.
 --- @param name string: The name of the plugin.
 --- @param plugin table: A table containing plugin methods.
-function Sequence:registerPlugin(name, plugin)
+function Sequence:usePlugin(name, plugin)
     assert(type(plugin) == "table", "Plugin must be a table or a valid module name.")
     self.plugins[name] = plugin
     for method, func in pairs(plugin) do
