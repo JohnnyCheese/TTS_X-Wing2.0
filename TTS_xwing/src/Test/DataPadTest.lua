@@ -37,26 +37,22 @@ function DataPadTest.spawnImperialShips(seq, playerArea)
     seq:clickButton(dataPad, 'TIE Advanced x1', player_color, false)
     seq:clickButton(dataPad, 'Darth Vader%s*%(%d+%)', player_color, false)
     seq:clickButton(dataPad, 'Spawn List', player_color, false)
-    seq:waitFrames(60)
-    seq:physicsCast(dataPadSpawnArea, moveableFilter)
-
-    seq:waitCondition(
-        function()
-            seq.vars.imperialSquadron = seq.result
-            playerArea:translate(seq.vars.imperialSquadron:getObjects())
-        end,
-        function()
-            return seq.result:allAtRest()
-        end
-    )
+    seq:waitFrames(120)
+    seq:physicsCast(dataPad.getTable('data_pad_spawn_area'), moveableFilter)
     seq:waitCondition(function()
-            local dials = seq.vars.imperialSquadron:filter(function(obj)
+        seq.ctx.imperialSquadron = seq.result
+        playerArea:translate(seq.ctx.imperialSquadron:getObjects())
+    end, function()
+        return seq.result:allAtRest()
+    end)
+    seq:waitCondition(function()
+            local dials = seq.ctx.imperialSquadron:filter(function(obj)
                 return obj.getName() == "Unassigned Dial"
             end)
             DataPadTest.dropDials(dials, playerArea)
         end,
         function()
-            return seq.vars.imperialSquadron:allAtRest()
+            return seq.ctx.imperialSquadron:allAtRest()
         end)
 end
 
@@ -78,43 +74,22 @@ function DataPadTest.spawnRebelShips(seq, playerArea)
     seq:clickButton(dataPad, 'Add Ship', player_color, false)
     seq:clickButton(dataPad, 'X%-Wing', player_color, false)
     seq:clickButton(dataPad, 'Luke Skywalker%sRed Five%s*%(%d+%)', player_color, false)
-    seq:clickButton(dataPad, 'Spawn List', player_color, false)
-    seq:waitFrames(60)
-    seq:physicsCast(dataPadSpawnArea, moveableFilter)
-
-    seq:waitCondition(
-        function()
-            seq.vars.rebelSquadron = seq.result
-            playerArea:translate(seq.vars.rebelSquadron:getObjects())
+    seq:clickButton(dataPad, 'Spawn & Move.List', player_color, false)
+    seq:waitFrames(200)
+    seq:physicsCast(playerArea:castParams(), function(obj)
+        return obj.getName() == "Unassigned Dial"
+    end)
+    seq:waitCondition(function()
+            DataPadTest.dropDials(seq.result, playerArea)
         end,
         function()
             return seq.result:allAtRest()
-        end
-    )
-    seq:waitCondition(function()
-            local dials = seq.vars.rebelSquadron:filter(function(obj)
-                return obj.getName() == "Unassigned Dial"
-            end)
-            DataPadTest.dropDials(dials, playerArea)
-        end,
-        function()
-            return seq.vars.rebelSquadron:allAtRest()
         end)
 end
 
 function moveableFilter(obj)
     return obj.locked == false and obj.interactable == true
 end
-
-dataPadSpawnArea = {
-    origin = Vector(-64.00, 0.0, -30.00), -- Start below the objects
-    direction = Vector(0, 0, 1),          -- Move in the positive z-direction
-    type = 3,
-    size = Vector(14, 10, 5),             -- Extend in the x, y, and z dimensions
-    orientation = Vector(0, 0, 0),
-    max_distance = 45,
-    debug = true,
-}
 
 function DataPadTest.dropDials(dials, playerArea)
     dials:forEach(function(dial)
