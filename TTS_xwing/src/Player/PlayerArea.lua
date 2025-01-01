@@ -57,4 +57,16 @@ function PlayerArea:translate(objects)
     self.transform:translate(objects)
 end
 
+function PlayerArea:castParams()
+    return {
+        origin = self.position,
+        direction = self.forward:copy():rotateOver('y', 180),
+        type = 3,
+        size = Vector(14, 10, 5),
+        orientation = Vector(-1, 0, 0),
+        max_distance = 10,
+        debug = true
+    }
+end
+
 return PlayerArea
