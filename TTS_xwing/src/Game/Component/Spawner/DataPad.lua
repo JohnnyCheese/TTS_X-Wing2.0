@@ -17,7 +17,6 @@ require("TTS_Lib.Util.String")
 local Vect = require("TTS_lib.Vector.Vector")
 local Sequence = require("Test.Sequence")
 local PlayerArea = require("Player.PlayerArea")
-local Mover = require("Game.Component.Spawner.Mover")
 
 self.interactable = false
 
@@ -1883,13 +1882,36 @@ function setPilot32()
     setPilotGeneric(32)
 end
 
-function relocateSpawned(obj, player_color, alt_click)
-    printToAll("relocating for color " .. player_color, player_color or Color.Pink)
-    local playerArea = PlayerArea:new(Player[player_color])
-    local seq = Sequence:new()
+data_pad_spawn_area = {
+    origin = Vector(-64.00, 0.0, -30.00),
+    direction = Vector(0, 0, 1),
+    type = 3,
+    size = Vector(14, 10, 5),
+    orientation = Vector(0, 0, 0),
+    max_distance = 45,
+    debug = true
+}
 
-    seq:add(function(seq) builderSpawn(); seq:next() end)
-    seq:add(Mover.Move, playerArea, 120)
+function relocateSpawned(args, player_color, alt_click)
+    if args and player_color == nil and type(args.getName) ~= "function" then
+        player_color = args[2]
+    end
+    printToAll("Relocating pieces for player " .. tostring(player_color), player_color or Color.Pink)
+
+    local playerArea = PlayerArea:new(Player[player_color])
+    local seq = Sequence:new(true)
+
+    seq:addTask(builderSpawn)
+    seq:waitFrames(120)
+    seq:physicsCast(data_pad_spawn_area, function(obj)
+        return obj.locked == false and obj.interactable == true
+    end)
+    seq:waitCondition(function()
+        playerArea:translate(seq.result:getObjects())
+    end, function()
+        return seq.result:allAtRest()
+    end
+    )
 
     seq:start()
 end
