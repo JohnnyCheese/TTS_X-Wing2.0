@@ -85,11 +85,31 @@ function Sequence:waitCondition(runFunc, conditionFunc, timeout, timeoutFunc)
 end
 
 --- Adds a step that waits for a specific number of frames before progressing.
---- @param frames number: The number of frames to wait.
-function Sequence:waitFrames(frames)
+--- Accepts either:
+---   - A number (frames to wait), or
+---   - A function (callback(seq) to execute after default frames).
+--- @param arg1 number|function: Frames or callback function.
+--- @param arg2 number?: Frames to wait if `arg1` is a callback.
+function Sequence:waitFrames(arg1, arg2)
+    local callback = nil
+    local frames = nil
+
+    if type(arg1) == "function" then
+        callback = arg1
+        frames = arg2 or 1 -- Default to 1 frame if no frames are specified
+    elseif type(arg1) == "number" then
+        callback = nil
+        frames = arg1
+    else
+        error("Invalid argument for waitFrames: Expected number or function.")
+    end
+
     self:addStep(function(seq)
         Wait.frames(function()
-            seq:next() -- Advances the sequence after the wait.
+            if callback then
+                callback(seq) -- Execute the user-defined function
+            end
+            seq:next() -- Proceed to the next step in the sequence
         end, frames)
     end)
 end
