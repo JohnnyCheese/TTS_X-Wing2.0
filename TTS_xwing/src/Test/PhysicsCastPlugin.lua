@@ -1,8 +1,9 @@
+local ObjectContainer = require("Test.ObjectContainer")
+
 ---@class PhysicsCastPlugin
 ---A plugin for performing physics-based casting and filtering using ObjectContainer.
 ---Integrates with the Sequence framework to allow casting operations within sequences.
 local PhysicsCastPlugin = {}
-local ObjectContainer = require("Test.ObjectContainer")
 
 -- Define a static empty ObjectContainer instance
 local Empty = ObjectContainer:new({})
