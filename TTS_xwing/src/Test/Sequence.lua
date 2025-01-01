@@ -1,6 +1,6 @@
----@class Sequence
----A modular framework for managing and executing sequences of tasks in Lua.
----Provides functionality for step-by-step execution, waiting for conditions, and integration with plugins.
+--- @class Sequence
+--- A modular framework for managing and executing sequences of tasks in Lua.
+--- Provides functionality for step-by-step execution, waiting for conditions, and integration with plugins.
 --- @field steps   table[] Holds the sequence of steps (functions) to execute.
 --- @field result  any     The return value of the last task function or explicitly set by a step.
 --- @field ctx     table   User-defined space for storing intermediate data.
@@ -10,7 +10,7 @@ local Sequence = {}
 Sequence.__index = Sequence
 
 --- Creates a new Sequence instance.
---- Optionally registers default plugins if `autoRegisterPlugins` is true.
+--- Optionally integrates default plugins if `autoUsePlugins` is true.
 --- @param autoUsePlugins boolean: Whether to auto-use common plugins.
 --- @return Sequence: A new Sequence instance.
 function Sequence:new(autoUsePlugins)
