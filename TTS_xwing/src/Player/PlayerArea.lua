@@ -27,9 +27,9 @@ end
 
 function PlayerArea:calculateHandZoneInfo()
     local handTransform = self.player.getHandTransform()
-    local position = handTransform.position + handTransform.forward * self:getScalar()
+    self.position = handTransform.position + handTransform.forward * self:getScalar()
     self.forward = handTransform.forward
-    self.transform = Transform:new(position, handTransform.forward)
+    self.transform = Transform:new(self.position, handTransform.forward)
 end
 
 function PlayerArea:getCurrentLayout()
