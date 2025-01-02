@@ -7246,14 +7246,18 @@ function ezTemplates.Maneuver(object)
 end
 
 function ezTemplates.IsEasyTemplate(object)
-    function ezTemplatesEnabled()
-        local s1Bag = getObjectFromGUID(Straight_1_Bag_GUID)
-        if s1Bag then
-            return s1Bag.hasTag('ezTemplates')
-        end
+    if not object then return false end
+    local name = object.getName():lower()
+    if not (string.match(name, "^straight %d+$")
+            or string.match(name, "^bank %d+$")
+            or string.match(name, "^turn %d+$")) then
         return false
     end
 
+    local function ezTemplatesEnabled()
+        local s1Bag = getObjectFromGUID(Straight_1_Bag_GUID)
+        return s1Bag and s1Bag.hasTag('ezTemplates') or false
+    end
     local speed, bearing, direction = ezTemplates.Maneuver(object)
     local enabled = ezTemplatesEnabled()
     return enabled and bearing ~= nil and speed ~= nil
