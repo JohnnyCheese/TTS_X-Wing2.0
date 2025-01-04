@@ -166,6 +166,8 @@ end
 function onSave()
 end
 
+hasSpawned = false
+
 -- Initial function: Creates a start button for each mode: FFG Spawner (paste the link of the squad in the FFG web site and spawn), TTS Spawner (write or paste a snippet and spawn) and List Builder (offers options to build a squadron on the fly)
 function initiate()
     self.clearButtons()
@@ -178,13 +180,15 @@ function initiate()
     self.createButton({ click_function = 'configuration', function_owner = self, label = "Configuration", position = { -0.5, 0.45, -0.1 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'scenario', function_owner = self, label = "Scenario Setup", position = { 0.5, 0.45, -0.1 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'spawnStart', function_owner = self, label = 'Spawn List', position = { 0, 0.45, 0.45 }, width = 2000, height = 500, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
+    if hasSpawned then
+        self.createButton({ click_function = 'relocateSpawned', function_owner = self, label = 'Move To Player', position = { 0.6, 0.45, 0.8 }, width = 1600, height = 380, font_size = 200, scale = { 0.15, 0.15, 0.15 } })
+    end
 end
 
 function spawnStart()
     self.clearButtons()
     self.createButton({ click_function = 'amgPoints', function_owner = self, label = "AMG Points", position = { 0, 0.45, -0.1 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'xwaPoints', function_owner = self, label = "XWA Points", position = { 0, 0.45, 0.2 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
-    self.createButton({ click_function = 'x2poPoints', function_owner = self, label = "Legacy Points", position = { 0, 0.45, 0.5 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'x2poPoints', function_owner = self, label = "Legacy Points", position = { 0, 0.45, 0.5 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
     addResetButton()
 end
@@ -1502,9 +1506,8 @@ end
 function mainMenu()
     totalCost = {}
     self.clearButtons()
-    self.createButton({ click_function = 'addShip', function_owner = self, label = 'Add Ship', position = { -0.6, 0.45, -0.3 }, width = 1100, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
-    self.createButton({ click_function = 'builderSpawn', function_owner = self, label = 'Spawn List', position = { 0.025, 0.45, -0.3 }, width = 1100, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
-    self.createButton({ click_function = 'relocateSpawned', function_owner = self, label = 'Spawn & Move\nList', position = { 0.65, 0.45, -0.3 }, width = 1100, height = 380, font_size = 150, scale = { 0.25, 0.25, 0.25 } })
+    self.createButton({ click_function = 'addShip', function_owner = self, label = 'Add Ship', position = { -0.45, 0.45, -0.3 }, width = 1300, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
+    self.createButton({ click_function = 'builderSpawn', function_owner = self, label = 'Spawn List', position = { 0.45, 0.45, -0.3 }, width = 1300, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
     for i, pilot in pairs(partList.Pilots) do
         local cost = pilot.cost
         local loadout = 0
@@ -1889,10 +1892,11 @@ data_pad_spawn_area = {
     size = Vector(14, 10, 5),
     orientation = Vector(0, 0, 0),
     max_distance = 45,
-    debug = true
+    debug = false
 }
 
 function relocateSpawned(args, player_color, alt_click)
+    hasSpawned = false
     if args and player_color == nil and type(args.getName) ~= "function" then
         player_color = args[2]
     end
@@ -1901,8 +1905,8 @@ function relocateSpawned(args, player_color, alt_click)
     local playerArea = PlayerArea:new(Player[player_color])
     local seq = Sequence:new(true)
 
-    seq:addTask(builderSpawn)
-    seq:waitFrames(120)
+    -- seq:addTask(builderSpawn)
+    -- seq:waitFrames(120)
     seq:physicsCast(data_pad_spawn_area, function(obj)
         return obj.locked == false and obj.interactable == true
     end)
@@ -1910,13 +1914,13 @@ function relocateSpawned(args, player_color, alt_click)
         playerArea:translate(seq.result:getObjects())
     end, function()
         return seq.result:allAtRest()
-    end
-    )
+    end)
 
     seq:start()
 end
 
 function builderSpawn()
+    hasSpawned = true
     finalList = {}
     finalList.Pilots = {}
     finalList.Upgrades = {}
