@@ -1898,7 +1898,7 @@ data_pad_spawn_area = {
 function relocateSpawned(args, player_color, alt_click)
     hasSpawned = false
     if args and player_color == nil and type(args.getName) ~= "function" then
-        player_color = args[2]
+        player_color = args[2] -- the test script can't pass multiple args, so we need to get it from the args
     end
     printToAll("Relocating pieces for player " .. tostring(player_color), player_color or Color.Pink)
 
