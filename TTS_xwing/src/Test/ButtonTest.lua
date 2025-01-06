@@ -2,6 +2,36 @@ local Sequence = require("Test.Sequence")
 
 TestButton = {}
 
+-- TestButton.Click = function(host_obj, label_pattern, player_color, alternate_key, seq)
+--     seq = seq or Sequence.NoSeq
+--     print("Arguments passed to TestButton.Click:")
+--     print("host_obj:", host_obj)
+--     print("label_pattern:", label_pattern)
+--     print("player_color:", player_color)
+--     print("alternate_key:", alternate_key)
+--     print("seq:", seq)
+
+--     -- Validate arguments
+--     if type(host_obj) ~= "userdata" then
+--         error("Invalid host_obj: Expected TTS object, got " .. type(host_obj))
+--     end
+--     if type(label_pattern) ~= "string" then
+--         error("Invalid label_pattern: Expected string, got " .. type(label_pattern))
+--     end
+--     if seq and type(seq) ~= "table" then
+--         error("Invalid seq: Expected Sequence object, got " .. type(seq))
+--     end
+
+--     -- Iterate through buttons
+--     for _, button in ipairs(host_obj.getButtons() or {}) do
+--         if string.match(button.label, label_pattern) then
+--             print("Button matched:", button.label)
+--             seq:next()
+--             return -- Exit after handling the first match
+--         end
+--     end
+-- end
+
 TestButton.Click = function(seq, host_obj, label_pattern, player_color, alternate_key)
     seq = seq or Sequence.NoSeq
 

@@ -102,7 +102,7 @@ mklink /D vscode-tts %TEMP%\TabletopSimulatorLua
 # Setting up the Debugger
 
 A little Background Info which may be useful: 
-* Tabletop Simulator (TTS) 13.0 is written in Unity.
+* Tabletop Simulator (TTS) 13.2 is written in Unity.
 * TTS uses a Lua (v5.2) Interpreter from MoonSharp (v2.0.0.0).
     https://www.moonsharp.org/
 * MoonSharp and Unity are written in C#.

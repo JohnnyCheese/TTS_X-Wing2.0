@@ -27,9 +27,9 @@ end
 
 function PlayerArea:calculateHandZoneInfo()
     local handTransform = self.player.getHandTransform()
-    local position = handTransform.position + handTransform.forward * self:getScalar()
+    self.position = handTransform.position + handTransform.forward * self:getScalar()
     self.forward = handTransform.forward
-    self.transform = Transform:new(position, handTransform.forward)
+    self.transform = Transform:new(self.position, handTransform.forward)
 end
 
 function PlayerArea:getCurrentLayout()
@@ -45,9 +45,9 @@ end
 
 function PlayerArea:getScalar()
     local multipliers = {
-        Standard = 19.5,
-        Epic = 19.5,
-        HotAC = 15
+        Standard = 18,
+        Epic = 19.1,
+        HotAC = 14.5
     }
 
     return multipliers[self.layout] or 18
@@ -55,6 +55,18 @@ end
 
 function PlayerArea:translate(objects)
     self.transform:translate(objects)
+end
+
+function PlayerArea:castParams()
+    return {
+        origin = self.position,
+        direction = self.forward:copy():rotateOver('y', 180),
+        type = 3,
+        size = Vector(14, 10, 5),
+        orientation = Vector(-1, 0, 0),
+        max_distance = 10,
+        debug = true
+    }
 end
 
 return PlayerArea

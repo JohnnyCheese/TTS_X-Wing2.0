@@ -15,6 +15,8 @@ require("TTS_Lib.Util.Math")
 require("TTS_Lib.Util.Table")
 require("TTS_Lib.Util.String")
 local Vect = require("TTS_lib.Vector.Vector")
+local Sequence = require("Test.Sequence")
+local PlayerArea = require("Player.PlayerArea")
 
 self.interactable = false
 
@@ -164,6 +166,8 @@ end
 function onSave()
 end
 
+hasSpawned = false
+
 -- Initial function: Creates a start button for each mode: FFG Spawner (paste the link of the squad in the FFG web site and spawn), TTS Spawner (write or paste a snippet and spawn) and List Builder (offers options to build a squadron on the fly)
 function initiate()
     self.clearButtons()
@@ -176,13 +180,15 @@ function initiate()
     self.createButton({ click_function = 'configuration', function_owner = self, label = "Configuration", position = { -0.5, 0.45, -0.1 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'scenario', function_owner = self, label = "Scenario Setup", position = { 0.5, 0.45, -0.1 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'spawnStart', function_owner = self, label = 'Spawn List', position = { 0, 0.45, 0.45 }, width = 2000, height = 500, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
+    if hasSpawned then
+        self.createButton({ click_function = 'relocateSpawned', function_owner = self, label = 'Move To Player', position = { 0.6, 0.45, 0.8 }, width = 1600, height = 380, font_size = 200, scale = { 0.15, 0.15, 0.15 } })
+    end
 end
 
 function spawnStart()
     self.clearButtons()
     self.createButton({ click_function = 'amgPoints', function_owner = self, label = "AMG Points", position = { 0, 0.45, -0.1 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'xwaPoints', function_owner = self, label = "XWA Points", position = { 0, 0.45, 0.2 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
-    self.createButton({ click_function = 'x2poPoints', function_owner = self, label = "Legacy Points", position = { 0, 0.45, 0.5 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'x2poPoints', function_owner = self, label = "Legacy Points", position = { 0, 0.45, 0.5 }, width = 1600, height = 380, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
     addResetButton()
 end
@@ -1879,7 +1885,42 @@ function setPilot32()
     setPilotGeneric(32)
 end
 
+data_pad_spawn_area = {
+    origin = Vector(-64.00, 0.0, -30.00),
+    direction = Vector(0, 0, 1),
+    type = 3,
+    size = Vector(14, 10, 5),
+    orientation = Vector(0, 0, 0),
+    max_distance = 45,
+    debug = false
+}
+
+function relocateSpawned(args, player_color, alt_click)
+    hasSpawned = false
+    if args and player_color == nil and type(args.getName) ~= "function" then
+        player_color = args[2] -- the test script can't pass multiple args, so we need to get it from the args
+    end
+    printToAll("Relocating pieces for player " .. tostring(player_color), player_color or Color.Pink)
+
+    local playerArea = PlayerArea:new(Player[player_color])
+    local seq = Sequence:new(true)
+
+    -- seq:addTask(builderSpawn)
+    -- seq:waitFrames(120)
+    seq:physicsCast(data_pad_spawn_area, function(obj)
+        return obj.locked == false and obj.interactable == true
+    end)
+    seq:waitCondition(function()
+        playerArea:translate(seq.result:getObjects())
+    end, function()
+        return seq.result:allAtRest()
+    end)
+
+    seq:start()
+end
+
 function builderSpawn()
+    hasSpawned = true
     finalList = {}
     finalList.Pilots = {}
     finalList.Upgrades = {}
@@ -2590,8 +2631,13 @@ function inputList()
     })
 end
 
--- This function is supposed to store the list in the script of the data disk object and set up a button wich will spawn the stored list calling the list parser and providing the string.
--- The disk can be saved in the TTS chest for easy retrieval. Could it be set up in a way to store and spawn several lists?
+--[[ This function is supposed to store the list in the script of the
+    data disk object and set up a button wich will spawn the stored list
+    calling the list parser and providing the string.
+]]
+--[[ The disk can be saved in the TTS chest for easy retrieval. Could
+it be set up in a way to store and spawn several lists?
+]]
 
 function saveList()
     print('Saving List')
