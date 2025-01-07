@@ -1025,7 +1025,7 @@ function idSpawner(idTable)
     fList.sqdAction = {}
     local Format = idTable.Format or "2.5"
     local repo = "eirikmun"
-    if Format == "2.0" then
+    if Format == "2.0-legacy" then
         repo = "SogeMoge"
     end
     pilotIndicators = calculateShipIndicators(idTable)
