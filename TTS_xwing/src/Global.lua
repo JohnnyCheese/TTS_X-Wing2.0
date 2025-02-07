@@ -1,6 +1,6 @@
 -- ~~~~~~
 -- Script by dzikakulka
--- Issues, history at: http://github.com/tjakubo2/TTS_xwing
+-- Issues, history at: https://github.com/tjakubo2/TTS_xwing
 --
 -- Based on a work of: Flolania, Hera Vertigo
 -- ~~~~~~
@@ -8,7 +8,7 @@
 -- ~~~~~~
 -- Code contributions
 --  - Characted width data: Indimeco
---  - http://github.com/Indimeco/Tabletop-Simulator-Misc
+--  - https://github.com/Indimeco/Tabletop-Simulator-Misc
 -- ~~~~~~
 
 -- Should the code execute print functions or skip them?
@@ -5565,7 +5565,7 @@ end
 BombModule.ExpandCluster = function(center)
     local offset = { Dim.Convert_mm_igu(43.5), 0, Dim.Convert_mm_igu(-1.5) }
     local tParams = { type = 'Custom_Token' }
-    local tCustom = { image = '{verifycache}http://i.imgur.com/MqlYZzR.png', thickness = 0.1, merge_distance = 5 }
+    local tCustom = { image = '{verifycache}https://i.imgur.com/MqlYZzR.png', thickness = 0.1, merge_distance = 5 }
 
     local t1 = spawnObject(tParams)
     t1.setCustomObject(tCustom)
@@ -5746,7 +5746,7 @@ end
 addidionalCollisionMargin_mm = -0.5
 -- ~~~~~~
 
--- General idea here: http://www.gamedev.net/page/resources/_/technical/game-programming/2d-rotated-rectangle-collision-r2604
+-- General idea here: https://www.gamedev.net/page/resources/_/technical/game-programming/2d-rotated-rectangle-collision-r2604
 -- Originally written by Flolania and Hera Verigo, slightly refitted here
 
 -- Return corners of ship base in a {xPos, zPos} table format
@@ -7348,16 +7348,18 @@ function IsInFrontOfShip(object, ship)
 end
 
 function FindNearestShip(object, max_distance, filter_function)
-    filter_function = filter_function or function() return true end
+    filter_function = filter_function or function(obj, ship) return true end
 
     local min_dist = Dim.Convert_mm_igu(max_distance or 100) -- default 100 mm
-    local spos = object.getPosition()
+    local objPos = object.getPosition()
+    objPos.y = 0
     local nearest = nil
 
     for _, ship in pairs(getObjects()) do
         if MoveModule.SelectShips(ship) then
-            local pos = ship.getPosition()
-            local dist = spos:distance(pos)
+            local shipPos = ship.getPosition()
+            shipPos.y = 0
+            local dist = shipPos:distance(objPos)
             if dist < min_dist and filter_function(object, ship) then
                 nearest = ship
                 min_dist = dist
