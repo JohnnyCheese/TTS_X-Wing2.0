@@ -7354,14 +7354,12 @@ function FindNearestShip(object, max_distance, filter_function)
     filter_function = filter_function or function(obj, ship) return true end
 
     local min_dist = Dim.Convert_mm_igu(max_distance or 100) -- default 100 mm
-    local objPos = object.getPosition()
-    objPos.y = 0
+    local objPos = object.getPosition():setAt('y', 0)
     local nearest = nil
 
     for _, ship in pairs(getObjects()) do
         if MoveModule.SelectShips(ship) then
-            local shipPos = ship.getPosition()
-            shipPos.y = 0
+            local shipPos = ship.getPosition():setAt('y', 0)
             local dist = shipPos:distance(objPos)
             if dist < min_dist and filter_function(object, ship) then
                 nearest = ship
