@@ -62,7 +62,8 @@ function surface(object)
     return originalPos
 end
 
-function showMe(guid)
+function showMe(arg)
+    local guid = type(arg) == "table" and arg[1] or arg
     local object = getObjectFromGUID(guid)
     if object == nil then
         print("Object not found.")
@@ -77,11 +78,13 @@ function showMe(guid)
     -- Adjusting the parameters might be necessary based on your specific use case
     local position = object.getPosition()
     position.y = position.y + 5 -- Raise the camera slightly above the object
-    Player["White"].lookAt({
-        position = position,
-        pitch = 60,   -- Angle of the camera looking down at the object
-        distance = 10 -- Distance from the object (adjust as needed)
-    })
+    for _, player in ipairs(Player.getPlayers()) do
+        player.lookAt({
+            position = position,
+            pitch = 60,   -- Angle of the camera looking down at the object
+            distance = 10 -- Distance from the object (adjust as needed)
+        })
+    end
 
     -- Optionally, reset the color after a delay
     Wait.time(function()
