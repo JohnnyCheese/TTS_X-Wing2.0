@@ -3,7 +3,7 @@
 --- Provides functionality for step-by-step execution, waiting for conditions, and integration with plugins.
 --- @field steps   table[] Holds the sequence of steps (functions) to execute.
 --- @field result  any     The return value of the last task function or explicitly set by a step.
---- @field ctx     table   User-defined space for storing intermediate data.
+--- @field ctx     table   User-defined space for storing intermediate data between steps.
 --- @field current number  Index of the current step in the sequence.
 --- @field plugins table   Table of registered plugins.
 local Sequence = {}
@@ -18,8 +18,8 @@ function Sequence:new(autoUsePlugins)
 
     if autoUsePlugins then
         -- Automatically registers commonly used plugins.
-        seq:usePlugin("Click", require("Test.ButtonClickPlugin"))
-        seq:usePlugin("Cast", require("Test.PhysicsCastPlugin"))
+        seq:usePlugin("Click", require("TTS_lib.Sequence.ButtonClickPlugin"))
+        seq:usePlugin("Cast", require("TTS_lib.Sequence.PhysicsCastPlugin"))
     end
 
     return seq

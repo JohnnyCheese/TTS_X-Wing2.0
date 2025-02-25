@@ -15,7 +15,7 @@ require("TTS_Lib.Util.Math")
 require("TTS_Lib.Util.Table")
 require("TTS_Lib.Util.String")
 local Vect = require("TTS_lib.Vector.Vector")
-local Sequence = require("Test.Sequence")
+local Sequence = require("TTS_lib.Sequence.Sequence")
 local PlayerArea = require("Player.PlayerArea")
 
 self.interactable = false

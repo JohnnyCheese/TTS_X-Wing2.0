@@ -1,4 +1,4 @@
-local ObjectContainer = require("Test.ObjectContainer")
+local ObjectContainer = require("TTS_lib.Sequence.ObjectContainer")
 
 ---@class PhysicsCastPlugin
 ---A plugin for performing physics-based casting and filtering using ObjectContainer.
