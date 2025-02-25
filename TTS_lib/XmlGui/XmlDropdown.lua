@@ -83,7 +83,7 @@ function XmlDropdown:getValue(name)
     return self.optionsTable[name]
 end
 
--- 🚀 Corrected `apply()` method: Requires `uiOwner` (Global or object)
+-- apply() method: Requires `uiOwner`: Global.UI or object.UI (self.UI)
 function XmlDropdown:apply(uiOwner)
     if uiOwner and uiOwner.UI then
         uiOwner.UI.setXmlTable(self.uiTable)
