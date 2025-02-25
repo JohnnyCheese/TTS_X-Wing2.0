@@ -640,7 +640,7 @@ end
 -- Assign on drop near a small base ship
 function onDropped()
     if assignedShip == nil then
-        local nearest = Global.call("API_FindNearestShip", { object = self, max_distance = 80 })
+        local nearest = Global.call("API_FindNearestShip", { object = self, max_distance = 100 })
         if nearest ~= nil then
             if pColor == "White" then
                 printToAll("Please, pick a color before assigning dials")
@@ -670,7 +670,11 @@ function onDropped()
                 self.setRotation(nearest.getRotation())
                 assignShip({ ship = nearest })
             end
+        else
+            printToAll('No ship near dial', { 0.3, 0.3, 1 })
         end
+    else
+        printToAll('Dial already assigned to ship', { 0.3, 0.3, 1 })
     end
 end
 
