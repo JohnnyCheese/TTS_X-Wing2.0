@@ -91,7 +91,7 @@ function API_SpawnTemplate(args)
 end
 
 function API_FindNearestShip(args)
-    return FindNearestShip(args.object, args.max_distance)
+    return FindNearestShip(args.object, args.max_distance, args.filter_function)
 end
 
 function API_GetClosestPointToShip(argTable)
@@ -145,6 +145,12 @@ end
 
 function API_ToggleAnnouncement(argTable)
     StreamManagerModule.Announce(argTable.text, argTable.player)
+end
+
+function API_XWcmd_isReady(argTable)
+    local ship = argTable.ship
+
+    return ship.resting and ship.getDescription() == "" and XW_cmd.isReady(ship)
 end
 
 --------
