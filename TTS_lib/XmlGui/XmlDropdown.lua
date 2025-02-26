@@ -1,19 +1,22 @@
 --- @class XmlDropdown
 --- A utility class for managing Tabletop Simulator XML UI Dropdown elements.
---- Allows manipulation of dropdown options and syncing with the UI system.
+--- Maintains a shared UI table per uiOwner, similar to a Java static variable.
 --- Usage example:
 --- ```lua
---- local dropdown = XmlDropdown.new(self, "myDropdown") -- self or Global
---- dropdown:setOptions({{name="Red", value=Color(1,0,0)}, {name="Blue", value=Color(0,0,1)}})
---- dropdown:apply() -- Uses stored uiOwner
+--- local dropdown = XmlDropdown.new(self, "myDropdown")
+--- dropdown:setOptions({{name="Red", value=Color(1,0,0)}})
+--- dropdown:apply() -- Updates shared UI table
 --- ```
 XmlDropdown = {}
 XmlDropdown.__index = XmlDropdown
 
+--- Shared UI tables, keyed by uiOwner (e.g., self or Global)
+XmlDropdown._sharedUiTables = {}
+
 --- Creates a new XmlDropdown instance.
 --- @param uiOwner table The object with the UI property (e.g., self or Global).
 --- @param dropdownId string The ID of the dropdown element to manage.
---- @param uiTable table|nil Optional raw XML table (fallback if uiOwner is unavailable).
+--- @param uiTable table|nil Optional raw XML table (overrides shared table if provided).
 --- @return XmlDropdown The new XmlDropdown instance.
 --- @error If uiOwner lacks UI property and uiTable is invalid, or if dropdownId is not a string.
 function XmlDropdown.new(uiOwner, dropdownId, uiTable)
@@ -28,7 +31,18 @@ function XmlDropdown.new(uiOwner, dropdownId, uiTable)
 
     local self = setmetatable({}, XmlDropdown)
     self.uiOwner = uiOwner
-    self.uiTable = uiTable or (uiOwner and uiOwner.UI.getXmlTable()) or nil
+    -- Use shared uiTable if uiOwner is provided and no override uiTable is given
+    if uiOwner and not uiTable then
+        if not XmlDropdown._sharedUiTables[uiOwner] then
+            XmlDropdown._sharedUiTables[uiOwner] = uiOwner.UI.getXmlTable()
+            if not XmlDropdown._sharedUiTables[uiOwner] then
+                printToAll("XmlDropdown.new: Failed to fetch UI table for " .. tostring(uiOwner))
+            end
+        end
+        self.uiTable = XmlDropdown._sharedUiTables[uiOwner]
+    else
+        self.uiTable = uiTable -- Fallback to provided table
+    end
     self.dropdownId = dropdownId
     self.dropdown = XmlDropdown.findElementById(self.uiTable, dropdownId)
     self.options = {}
@@ -81,7 +95,6 @@ function XmlDropdown:clearOptions()
 end
 
 --- Sets multiple options, replacing existing ones.
---- Options can be a list of strings or tables with name/value pairs.
 --- @param options table Array of options: { "name" } or { {name="name", value=val} }.
 --- @param default string|nil Optional name of the option to mark as selected.
 function XmlDropdown:setOptions(options, default)
@@ -167,13 +180,14 @@ function XmlDropdown:setSelected(name)
     end
 end
 
---- Applies the modified XML table to the UI using the stored uiOwner.
+--- Applies the modified shared UI table to the UI.
 function XmlDropdown:apply()
     if not self.uiOwner or not self.uiOwner.UI then
         printToAll("XmlDropdown.apply: No valid `uiOwner` - must have UI property")
         return
     end
     self.uiOwner.UI.setXmlTable(self.uiTable)
+    printToAll("Applied shared UI table for " .. self.dropdownId) -- Debug
 end
 
 return XmlDropdown

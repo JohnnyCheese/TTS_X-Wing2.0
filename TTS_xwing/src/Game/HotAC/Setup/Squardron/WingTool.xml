@@ -1,0 +1,92 @@
+<Defaults>
+    <Text class="title" fontSize="14" fontStyle="Bold" color="#000000" resizeTextForBestFit="true" />
+    <Text class="label" fontSize="14" fontStyle="Bold" color="#000000" alignment="MiddleRight" />
+    <Color Name="Imperial" color="#405b6f" />
+    <Dropdown fontSize="14" color="#405b6f" itemTextColor="Black" resizeTextForBestFit="true"
+        textColor="#E1E1E1" />
+</Defaults>
+<Panel id="squadronPopup" active="false" width="350" height="200" color="Imperial"
+    position="0 0 -50" allowDragging="false" returnToOriginalPosition="true"
+>
+    <VerticalLayout padding="15 15 10 10" spacing="5" preferredHeight="20">
+        <Panel>
+            <Text text="Squadron" class="title" />
+        </Panel>
+        <HorizontalLayout spacing="5">
+            <Panel>
+                <HorizontalLayout spacing="5">
+                    <Text text="Faction:" class="label" preferredWidth="30" minWidth="20" />
+                    <Dropdown id="Faction"
+                        flexibleWidth="true"
+                        onValueChanged="onFactionChange"
+                    >
+                        <Option selected="true">Galactic Empire</Option>
+                        <Option>Rebel Alliance</Option>
+                        <Option>Scum &amp; Villany</Option>
+                    </Dropdown>
+                </HorizontalLayout>
+            </Panel>
+            <Panel>
+                <HorizontalLayout spacing="5">
+                    <Text text="# of Ships:" class="label" preferredWidth="30" minWidth="20" />
+                    <Dropdown id="squadronShipCountDropdown"
+                        flexibleWidth="true"
+                        onValueChanged="onSquadronShipCountChange"
+                    >
+                        <Option selected="true">4</Option>
+                        <Option>3</Option>
+                        <Option>2</Option>
+                        <Option>1</Option>
+                    </Dropdown>
+                </HorizontalLayout>
+            </Panel>
+        </HorizontalLayout>
+        <HorizontalLayout spacing="5">
+            <Panel>
+                <HorizontalLayout spacing="5">
+                    <Text text="Name:" class="label" preferredWidth="30" minWidth="20" />
+                    <Dropdown id="squadronNameDropdown"
+                        onValueChanged="onSquadronNameDropdownChange"
+                        preferredWidth="80" minWidth="50"
+                        flexibleWidth="true"
+                    />
+                    <InputField id="squadronNameInput"
+                        onEndEdit="onSquadronNameChange"
+                        color="#E1E1E1"
+                        minWidth="50"
+                        preferredWidth="80"
+                        textColor="Black"
+                        flexibleWidth="true"
+                        resizeTextForBestFit="true"
+                    />
+                </HorizontalLayout>
+            </Panel>
+        </HorizontalLayout>
+
+        <Panel>
+            <HorizontalLayout spacing="5">
+                <Text text="Color:" class="label" preferredWidth="30" minWidth="20" />
+                <Panel flexibleWidth="true" padding="0 0 0 0">
+                    <Dropdown id="squadronColorDropdown"
+                        onValueChanged="onSquadronColorChange"
+                        preferredWidth="80"
+                    >
+                        <Option>Blue</Option>
+                        <Option>Black</Option>
+                    </Dropdown>
+                </Panel>
+                <Panel id="colorPreview" color="#FFFFFF" preferredWidth="30" width="30"
+                    minWidth="30"
+                    maxWidth="30" />
+            </HorizontalLayout>
+        </Panel>
+        <HorizontalLayout>
+            <Panel />
+            <Button id="applySquadronSettings" text="Set" onClick="applySquadronSettings"
+                textcolor="#E1E1E1" color="#11100F"
+                width="50" height="20" minWidth="20"
+            />
+            <Panel />
+        </HorizontalLayout>
+    </VerticalLayout>
+</Panel>
