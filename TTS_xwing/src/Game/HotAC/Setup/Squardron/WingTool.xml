@@ -1,14 +1,12 @@
 <Defaults>
     <Text class="title" fontSize="14" fontStyle="Bold" color="Black" alignment="MiddleCenter"
-        preferredHeight="20"
-        resizeTextForBestFit="true" />
+        preferredHeight="20" resizeTextForBestFit="true" />
     <Text class="label" fontSize="14" fontStyle="Bold" color="Black" alignment="MiddleRight"
-        preferredHeight="20" preferredWidth="20"
-        resizeTextForBestFit="false" />
-    <Dropdown fontSize="14" color="#405b6f" itemTextColor="Black" resizeTextForBestFit="true"
-        textColor="#FFFFFF" flexibleWidth="1" preferredWidth="50" preferredHeight="20" />
-    <InputField fontSize="12" color="#E1E1E1" textColor="Black" resizeTextForBestFit="true"
-        flexibleWidth="1" preferredWidth="40" />
+        preferredHeight="20" preferredWidth="15" resizeTextForBestFit="false" />
+    <Dropdown fontSize="16" color="#405b6f" itemTextColor="Black" textColor="#FFFFFF"
+        preferredHeight="20" preferredWidth="60" flexibleWidth="1" />
+    <InputField fontSize="16" color="#E1E1E1" textColor="Black" alignment="MiddleLeft"
+        preferredHeight="20" />
     <Panel color="#405b6f" />
     <Button fontSize="12" color="#11100F" textColor="#E1E1E1" />
 </Defaults>
@@ -21,38 +19,45 @@
         <!-- Faction Section -->
         <HorizontalLayout spacing="5">
             <Text text="Faction:" class="label" />
-            <Dropdown id="Faction" onValueChanged="onFactionChange" preferredWidth="40">
+            <Dropdown id="Faction" onValueChanged="onFactionChange" alignment="MiddleRight">
                 <Option selected="true">Empire</Option>
                 <Option>Rebel</Option>
                 <Option>Scum</Option>
             </Dropdown>
-
-            <!-- # of Ships Section -->
-            <Text text="# of ships:" class="label" />
-            <Dropdown id="shipCount" onValueChanged="onShipCountChange" preferredWidth="12">
-                <Option selected="true">4</Option>
-                <Option>3</Option>
-                <Option>2</Option>
-                <Option>1</Option>
-            </Dropdown>
+            <Panel padding="0 0 0 0" preferredWidth="30">
+                <HorizontalLayout spacing="5">
+                    <Text text="# of ships:" class="label" />
+                    <Dropdown id="shipCount" onValueChanged="onShipCountChange" preferredWidth="10"
+                        textAlignment="MiddleCenter">
+                        <Option selected="true">4</Option>
+                        <Option>3</Option>
+                        <Option>2</Option>
+                        <Option>1</Option>
+                    </Dropdown>
+                </HorizontalLayout>
+            </Panel>
         </HorizontalLayout>
 
         <!-- Name Section -->
-        <HorizontalLayout spacing="5">
+        <HorizontalLayout spacing="10" childAlignment="MiddleLeft">
             <Text text="Name:" class="label" />
             <Dropdown id="squadronNameDropdown" onValueChanged="onSquadronNameDropdownChange" />
-            <InputField id="squadronNameInput" onEndEdit="onSquadronNameChange" />
+
+            <Panel padding="0 0 0 0" preferredWidth="30">
+                <InputField id="squadronNameInput" onEndEdit="onSquadronNameChange"
+                    textAlignment="MiddleLeft" />
+            </Panel>
         </HorizontalLayout>
 
         <!-- Color Section -->
-        <HorizontalLayout spacing="5">
+        <HorizontalLayout spacing="10" childAlignment="MiddleLeft">
             <Text text="Color:" class="label" />
             <Dropdown id="squadronColorDropdown" onValueChanged="onSquadronColorChange">
                 <Option selected="true">Rebel Slate</Option>
                 <Option>Imperial Gray</Option>
                 <Option>Scum Yellow</Option>
             </Dropdown>
-            <Panel id="colorPreview" color="#FFFFFF" width="30" height="20" />
+            <Panel id="colorPreview" onClick="colorPreviewClicked" color="#FFFFFF" preferredWidth="30" />
         </HorizontalLayout>
 
         <!-- Set Button -->
