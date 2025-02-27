@@ -35,14 +35,14 @@ local squadronMate = {
     slot = 0,
     ai = "ai",
     squadronColor = Color(0.29, 0.31, 0.17, 1), -- Renamed from squad_color
-    ownerColor = "Black",                        -- Renamed from owner_color
+    ownerColor = "Black",                       -- Renamed from owner_color
     faction = "Imperial",
 }
 
 local nextSlot = 0
 local shipCount = 4
 local squadronColor = Color(0.29, 0.31, 0.17, 1) -- Renamed from squad_color
-local squadronName = nil                          -- No initial default
+local squadronName = nil                         -- No initial default
 local selectedColorIndex = 1
 
 -- Color table with 6 colors per faction
@@ -104,7 +104,7 @@ end
 -- === UI HANDLING ===
 
 function onSquadronNameChange(player, value, id) -- Renamed from onWingNameChange
-    squadronName = value -- No default here; empty string is valid
+    squadronName = value                         -- No default here; empty string is valid
 end
 
 function applySquadronSettings() -- Renamed from applyWingSettings
@@ -236,7 +236,8 @@ function toggleSquadronPopup() -- Renamed from toggleWingPopup
     isHotACMode = true
     self.UI.setAttribute("squadronPopup", "active", isActive == "false" and "true" or "false")
     if not squadronName then
-        self.UI.setAttribute("squadronNameInput", "text", self.UI.getAttribute("squadronNameDropdown", "text") or squadronNames[1])
+        self.UI.setAttribute("squadronNameInput", "text",
+            self.UI.getAttribute("squadronNameDropdown", "text") or squadronNames[1])
     end
 end
 
@@ -275,5 +276,9 @@ end
 
 -- Handle manual edits to the input field
 function onSquadronNameChange(player, value, id) -- Already renamed above
-    squadName = value -- No default here
+    squadName = value                            -- No default here
+end
+
+function colorPreviewClicked()
+    printToAll("Color preview clicked")
 end
