@@ -1,17 +1,16 @@
+require("TTS_lib.Util.Table")
 --- @class XmlDropdown
 --- A utility class for managing Tabletop Simulator XML UI Dropdown elements.
 --- Maintains a shared UI table per uiOwner, similar to a Java static variable.
+--- Changes are queued and applied atomically via apply(), updating only the specified dropdown.
 --- Usage example:
 --- ```lua
 --- local dropdown = XmlDropdown.new(self, "myDropdown")
 --- dropdown:setOptions({{name="Red", value=Color(1,0,0)}})
---- dropdown:apply() -- Updates shared UI table
+--- dropdown:apply() -- Updates only the dropdown in the UI’s XML
 --- ```
 XmlDropdown = {}
 XmlDropdown.__index = XmlDropdown
-
---- Shared UI tables, keyed by uiOwner (e.g., self or Global)
-XmlDropdown._sharedUiTables = {}
 
 --- Creates a new XmlDropdown instance.
 --- @param uiOwner table The object with the UI property (e.g., self or Global).
@@ -31,24 +30,15 @@ function XmlDropdown.new(uiOwner, dropdownId, uiTable)
 
     local self = setmetatable({}, XmlDropdown)
     self.uiOwner = uiOwner
-    -- Use shared uiTable if uiOwner is provided and no override uiTable is given
-    if uiOwner and not uiTable then
-        if not XmlDropdown._sharedUiTables[uiOwner] then
-            XmlDropdown._sharedUiTables[uiOwner] = uiOwner.UI.getXmlTable()
-            if not XmlDropdown._sharedUiTables[uiOwner] then
-                printToAll("XmlDropdown.new: Failed to fetch UI table for " .. tostring(uiOwner))
-            end
-        end
-        self.uiTable = XmlDropdown._sharedUiTables[uiOwner]
-    else
-        self.uiTable = uiTable -- Fallback to provided table
-    end
+    self.uiTable = uiTable or uiOwner.UI.getXmlTable()
     self.dropdownId = dropdownId
     self.dropdown = XmlDropdown.findElementById(self.uiTable, dropdownId)
     self.options = {}
+    self.pendingOptions = nil  -- Queue for new options
+    self.pendingSelected = nil -- Queue for new selection
 
     if not self.dropdown then
-        printToAll("XmlDropdown Error: Dropdown ID '" .. dropdownId .. "' not found in UI table!")
+        print("XmlDropdown Error: Dropdown ID '" .. dropdownId .. "' not found in UI table!")
     else
         self:syncOptions()
     end
@@ -80,43 +70,46 @@ function XmlDropdown:syncOptions()
         for _, option in ipairs(self.dropdown.children) do
             if option.tag == "Option" then
                 self.options[option.value] = option.attributes and (option.attributes.value or option.value) or
-                option.value
+                    option.value
             end
         end
     end
 end
 
---- Clears all options from the dropdown.
+--- Clears all options from the dropdown, queuing the change for apply().
 function XmlDropdown:clearOptions()
     if self.dropdown then
         self.dropdown.children = {}
         self.options = {}
+        self.pendingOptions = {}
+        self.pendingSelected = nil
     end
 end
 
---- Sets multiple options, replacing existing ones.
+--- Sets multiple options, replacing existing ones, and queues the change for apply().
 --- @param options table Array of options: { "name" } or { {name="name", value=val} }.
 --- @param default string|nil Optional name of the option to mark as selected.
 function XmlDropdown:setOptions(options, default)
     if not self.dropdown then return end
     if not options or type(options) ~= "table" then
-        printToAll("XmlDropdown.setOptions: `options` must be a table")
+        print("XmlDropdown.setOptions: `options` must be a table")
         return
     end
 
-    self:clearOptions()
+    self.pendingOptions = {}
+    self.pendingSelected = default
     for i, option in ipairs(options) do
         if type(option) == "table" then
             self:addOption(option.name, option.value, option.name == default)
         elseif type(option) == "string" then
-            self:addOption(option, option, option == default)
+            self:addOption(option, nil, option == default)
         else
-            printToAll("XmlDropdown.setOptions: Skipping invalid option at index " .. i)
+            print("XmlDropdown.setOptions: Skipping invalid option at index " .. i)
         end
     end
 end
 
---- Adds a single option to the dropdown.
+--- Adds a single option to the dropdown, queuing the change for apply().
 --- @param name string The display name of the option.
 --- @param value any The value associated with the option (defaults to name if nil).
 --- @param selected boolean|nil If true, marks this option as selected.
@@ -124,7 +117,7 @@ end
 function XmlDropdown:addOption(name, value, selected, overwrite)
     if not self.dropdown then return end
     if not name then
-        printToAll("XmlDropdown.addOption: `name` is required")
+        print("XmlDropdown.addOption: `name` is required")
         return
     end
 
@@ -133,61 +126,108 @@ function XmlDropdown:addOption(name, value, selected, overwrite)
         return
     end
 
-    local optionElement = {
-        tag = "Option",
-        attributes = { value = tostring(value) },
-        value = tostring(name)
-    }
+    if not self.pendingOptions then self.pendingOptions = {} end
+    self.pendingOptions[name] = value
     if selected then
-        optionElement.attributes.selected = "true"
+        self.pendingSelected = name
     end
-    table.insert(self.dropdown.children, optionElement)
-    self.options[name] = value
 end
 
---- Gets the current options as a table.
+--- Gets the current options as a table (from pending or actual state).
 --- @return table A table mapping option names to their values.
 function XmlDropdown:getOptions()
-    return self.options
+    return self.pendingOptions or self.options
 end
 
---- Gets the value associated with a specific option name.
+--- Gets the value associated with a specific option name (from pending or actual state).
 --- @param name string The name of the option.
 --- @return any|nil The value, or nil if not found.
 function XmlDropdown:getValue(name)
-    return self.options[name]
+    local options = self.pendingOptions or self.options
+    return options and options[name]
 end
 
---- Gets the currently selected option name from the UI.
+--- Gets the currently selected option name from the UI or queued state.
 --- @return string|nil The selected option name, or nil if unavailable.
 function XmlDropdown:getSelected()
+    if self.pendingSelected then
+        return self.pendingSelected
+    end
     if not self.uiOwner or not self.uiOwner.UI then return nil end
     local currentText = self.uiOwner.UI.getAttribute(self.dropdownId, "text")
-    return currentText or next(self.options)
+    return currentText or (self.options and next(self.options))
 end
 
---- Sets the selected option by name.
+--- Sets the selected option by name, queuing the change for apply().
 --- @param name string The name of the option to select.
 function XmlDropdown:setSelected(name)
     if not self.uiOwner or not self.uiOwner.UI then
-        printToAll("XmlDropdown.setSelected: No valid `uiOwner` set")
+        print("XmlDropdown.setSelected: No valid `uiOwner` set")
         return
     end
-    if self.options[name] then
-        self.uiOwner.UI.setAttribute(self.dropdownId, "text", name)
-    else
-        printToAll("XmlDropdown.setSelected: Option '" .. tostring(name) .. "' not found")
+    if (self.pendingOptions or self.options)[name] then
+        self.pendingSelected = name
     end
 end
 
---- Applies the modified shared UI table to the UI.
+--- Applies all queued changes (options and selection) to the dropdown, updating only the dropdown in the UI’s XML.
 function XmlDropdown:apply()
     if not self.uiOwner or not self.uiOwner.UI then
-        printToAll("XmlDropdown.apply: No valid `uiOwner` - must have UI property")
+        print("XmlDropdown.apply: No valid `uiOwner` - must have UI property")
         return
     end
-    self.uiOwner.UI.setXmlTable(self.uiTable)
-    printToAll("Applied shared UI table for " .. self.dropdownId) -- Debug
+
+    -- Fetch the current UI XML table
+    local currentUiTable = self.uiOwner.UI.getXmlTable()
+    if not currentUiTable then
+        print("XmlDropdown.apply: Failed to fetch current UI table")
+        return
+    end
+
+    -- Find and update the dropdown in the current UI table
+    local dropdownElement = XmlDropdown.findElementById(currentUiTable, self.dropdownId)
+    if not dropdownElement then
+        print("XmlDropdown.apply: Dropdown ID '" .. self.dropdownId .. "' not found in current UI")
+        return
+    end
+
+    -- Apply pending options if any
+    if self.pendingOptions then
+        local newChildren = {}
+        for name, value in pairs(self.pendingOptions) do
+            local option = {
+                tag = "Option",
+                attributes = { value = tostring(value) },
+                value = tostring(name)
+            }
+            if name == self.pendingSelected then
+                option.attributes.selected = "true"
+            end
+            table.insert(newChildren, option)
+        end
+        dropdownElement.children = newChildren
+        self.options = table.shallowcopy(self.pendingOptions) -- Use shallowcopy from Util.Table
+        self.pendingOptions = nil
+    end
+
+    -- Apply pending selection if any
+    if self.pendingSelected then
+        local index = 0
+        for i, name in ipairs(self.options) do
+            if name == self.pendingSelected then
+                index = i - 1 -- Convert to 0-based for potential future use (if needed)
+                break
+            end
+        end
+        if index >= 0 then
+            self.selected = self.pendingSelected
+            self.uiOwner.UI.setAttribute(self.dropdownId, "text", self.selected) -- Set text for selection
+        end
+        self.pendingSelected = nil
+    end
+
+    -- Apply the updated UI table, preserving the rest of the UI
+    self.uiOwner.UI.setXmlTable(currentUiTable)
 end
 
 return XmlDropdown
