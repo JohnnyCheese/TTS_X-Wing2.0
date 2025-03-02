@@ -4,10 +4,17 @@ XmlDropdown = require("TTS_lib.XmlGui.XmlDropdown")
 local Dim = require("Dim")
 local Sequence = require("TTS_lib.Sequence.Sequence")
 
-local offset = Dim.Convert_mm_igu(8.3)
-dropdown = nil
+--- TODOD:
+--- The numbering of the squadron slots is not consistent with the squadron formation.
+--- refine color scheme for Empire, Rebel and Scum factions
+--- fix squadron formation slot positions
+--- align the label and panel layout in the UI
+--- add a color picker for the squadron color (have it change the dropdown to 'Custom' and update the color)
+--- add Strike AI and corresponding target list in a separate input panel
 
--- Squadron formation slot positions (renamed from wingFormations)
+local offset = Dim.Convert_mm_igu(8.3)
+
+-- Squadron formation slot positions (unchanged for brevity)
 local squadronFormations = {
     [1] = {
         { x = 0.0,           y = 0.0, z = -offset },
@@ -29,99 +36,187 @@ local squadronFormations = {
     }
 }
 
+local factions = { "Empire", "Rebel", "Scum" }
+
+-- Faction-specific squadron name lists
+local factionNames = {
+    ["Empire"] = { "Alpha", "Beta", "Delta", "Gamma", "Epsilon", "Elite" },
+    ["Rebel"] = { "Blue", "Green", "Grey", "Red", "Rogue", "Skull", "Vassal" },
+    ["Scum"] = { "Adam", "Baker", "Bandit", "Black Sun", "Cartel", "Charlie", "Syndicate" }
+}
+
+-- Faction-specific color names
+local factionColors = {
+    ["Empire"] = { "Ash", "Frost", "Onyx", "Slate", "Steel", "Teal" },
+    ["Rebel"] = { "Crimson", "Gold", "Ochre", "Red", "Sand", "Slate" },
+    ["Scum"] = { "Amber", "Dust", "Indigo", "Murk", "Rust", "Venom" }
+}
+
+-- Color values mapped by name
+local colorValues = {
+    Amber = Color(0.55, 0.37, 0.18),
+    Ash = Color(0.18, 0.24, 0.28),
+    Crimson = Color(0.42, 0.18, 0.20),
+    Dust = Color(0.48, 0.41, 0.32),
+    Frost = Color(0.54, 0.61, 0.66),
+    Gold = Color(0.83, 0.63, 0.09),
+    Indigo = Color(0.29, 0.23, 0.37),
+    Murk = Color(0.29, 0.31, 0.17),
+    Ochre = Color(0.70, 0.35, 0.16),
+    Onyx = Color(0.12, 0.15, 0.15),
+    Red = Color(0.56, 0.11, 0.12),
+    Rust = Color(0.42, 0.29, 0.20),
+    Sand = Color(0.81, 0.68, 0.48),
+    Slate = Color(0.37, 0.42, 0.44),
+    Steel = Color(0.42, 0.45, 0.47),
+    Teal = Color(0.18, 0.35, 0.36),
+    Venom = Color(0.24, 0.36, 0.18),
+}
+
+-- Current settings stored in squadronMate
 local squadronMate = {
     ship = nil,
     squadronName = nil,
-    slot = 0,
+    slot = -1,
     ai = "ai",
-    squadronColor = Color(0.29, 0.31, 0.17, 1), -- Renamed from squad_color
-    ownerColor = "Black",                       -- Renamed from owner_color
-    faction = "Imperial",
+    squadronColor = colorValues["Slate"],
+    ownerColor = "Black",
+    faction = "Empire"
 }
 
-local nextSlot = 0
+local nextSlot = -1
 local shipCount = 4
-local squadronColor = Color(0.29, 0.31, 0.17, 1) -- Renamed from squad_color
-local squadronName = nil                         -- No initial default
-local selectedColorIndex = 1
 
--- Color table with 6 colors per faction
-local colors = {
-    -- Rebel
-    { name = "Rebel Slate",    value = Color(0.37, 0.42, 0.44) },
-    { name = "Rebel Crimson",  value = Color(0.42, 0.18, 0.20) },
-    { name = "Rebel Red",      value = Color(0.56, 0.11, 0.12) },
-    { name = "Rebel Ochre",    value = Color(0.70, 0.35, 0.16) },
-    { name = "Rebel Sand",     value = Color(0.81, 0.68, 0.48) },
-    { name = "Rebel Gold",     value = Color(0.83, 0.63, 0.09) },
-    -- Imperial
-    { name = "Imperial Onyx",  value = Color(0.12, 0.15, 0.15) },
-    { name = "Imperial Ash",   value = Color(0.18, 0.24, 0.28) },
-    { name = "Imperial Teal",  value = Color(0.18, 0.35, 0.36) },
-    { name = "Imperial Slate", value = Color(0.25, 0.36, 0.44) },
-    { name = "Imperial Steel", value = Color(0.42, 0.45, 0.47) },
-    { name = "Imperial Frost", value = Color(0.54, 0.61, 0.66) },
-    -- Scum & Villainy
-    { name = "Scum Venom",     value = Color(0.24, 0.36, 0.18) },
-    { name = "Scum Indigo",    value = Color(0.29, 0.23, 0.37) },
-    { name = "Scum Murk",      value = Color(0.29, 0.31, 0.17) },
-    { name = "Scum Rust",      value = Color(0.42, 0.29, 0.20) },
-    { name = "Scum Dust",      value = Color(0.48, 0.41, 0.32) },
-    { name = "Scum Amber",     value = Color(0.55, 0.37, 0.18) }
-}
+-- ### Helper Functions
 
--- Squadron names from HotAC histogram (shortened list from your version)
-local squadronNames = {
-    "Alpha", "Beta", "Delta", "Gamma", "Epsilon", "Elite"
-}
+local function getColorByName(name)
+    return colorValues[name]
+end
 
--- === FORMATION HANDLING ===
+local function getFactionColors(faction)
+    local names = factionColors[faction] or {}
+    local result = {}
+    for _, name in ipairs(names) do
+        local colorValue = colorValues[name]
+        if colorValue then
+            table.insert(result, { name = name, value = colorValue })
+        end
+    end
+    return result
+end
 
-function getSquadronFormation() -- Renamed from getWingFormation
+function getSquadronFormation()
     return squadronFormations[self.getStateId()] or squadronFormations[3]
 end
 
-function positionShipInSquadron(ship) -- Renamed from positionShipInWing
+function positionShipInSquadron(ship)
     local pos = getSquadronFormation()[nextSlot]
     pos = self.positionToWorld(pos):setAt('y', 1.30)
-
     ship.setPositionSmooth(pos, false, true)
     ship.setRotationSmooth(self.getRotation():setAt('y', 180), false, true)
 end
 
 function onObjectDrop(player_color, dropped_object)
     if not isNearByShip(dropped_object) then return end
-
     local ship = dropped_object
     local slot = shipCount - nextSlot
-    nextSlot = nextSlot % shipCount + 1
-    local ai = "AI"
-    local owner_color = "Black"
-
-    addSquadronMate(ship, squadronName, slot, ai, squadronColor, owner_color) -- Renamed
+    nextSlot = (nextSlot % shipCount) + 1
+    addSquadronMate(ship, squadronMate.squadronName, slot, squadronMate.ai, squadronMate.squadronColor,
+        squadronMate.ownerColor)
 end
 
--- === UI HANDLING ===
+-- UI Handling
+function updateNameDropdown(names)
+    printToAll("names: " .. JSON.encode_pretty(names), Color.Purple)
 
-function onSquadronNameChange(player, value, id) -- Renamed from onWingNameChange
-    squadronName = value                         -- No default here; empty string is valid
-end
-
-function applySquadronSettings() -- Renamed from applyWingSettings
-    -- Use input field value if set, else dropdown, else first squadronName
     local nameDropdown = XmlDropdown.new(self, "squadronNameDropdown")
-    squadronName = self.UI.getAttribute("squadronNameInput", "text") or nameDropdown:getSelected() or squadronNames[1]
-    self.UI.setAttribute("squadronPopup", "active", "false")
+    nameDropdown:clearOptions()
+    nameDropdown:setOptions(names, names[1] or "")
+    nameDropdown:apply()
+
+    return names[1] or ""
 end
 
--- === AI COLOR OVERRIDE ===
+function updateColorDropdown(factionColorsList)
+    local colorDropdown = XmlDropdown.new(self, "squadronColorDropdown")
 
+    colorDropdown:clearOptions()
+    colorDropdown:setOptions(factionColorsList, factionColorsList[1].name or "")
+    colorDropdown:apply()
+
+    return factionColorsList[1].value or Color(1, 1, 1)
+end
+
+function onFactionChange(player, selectedFaction, dropdownId)
+    squadronMate.faction = selectedFaction
+
+    local seq = Sequence:new(true)
+
+    seq:waitCondition(function()
+        local index = table.index_of(factions, selectedFaction) or 1
+        self.UI.setAttribute(dropdownId, "value", index - 1)
+    end, function() return not self.UI.loading end)
+
+    seq:waitCondition(function()
+        local names = factionNames[selectedFaction] or {}
+        onSquadronNameDropdownChange(player, updateNameDropdown(names), "squadronNameDropdown")
+    end, function() return not self.UI.loading end)
+
+    seq:waitCondition(function()
+        local factionColorsList = getFactionColors(selectedFaction)
+        seq.ctx.color = updateColorDropdown(factionColorsList)
+        onSquadronColorChange(player, seq.ctx.color, "squadronColorDropdown")
+    end, function() return not self.UI.loading end)
+
+    seq:waitCondition(function()
+        self.UI.setAttribute("colorPreview", "color", "#" .. seq.ctx.color:toHex(true))
+    end, function() return not self.UI.loading end)
+
+    seq:start()
+end
+
+function onSquadronNameDropdownChange(player, selectedSquadron, dropdownId)
+    squadronMate.squadronName = selectedSquadron
+    self.UI.setAttribute("squadronNameInput", "text", selectedSquadron)
+end
+
+function onSquadronNameChange(player, value, id)
+    squadronMate.squadronName = value
+end
+
+function onSquadronColorChange(player, selectedColorName, dropdownId)
+    local color = getColorByName(selectedColorName)
+    if color then
+        self.UI.setAttribute("colorPreview", "color", "#" .. color:toHex(true))
+        printToAll("color: " .. color:toHex(true), color)
+        squadronMate.squadronColor = color
+    end
+end
+
+function applySquadronSettings()
+    self.UI.setAttribute("squadronPopup", "active", "false")
+    nextSlot = 0 -- Reset for next set
+end
+
+function colorPreviewClicked(player, value, id)
+    local player = player or Player["White"]
+    local color = self.UI.getAttribute("colorPreview", "color")
+    player.showColorDialog(
+        color, function(newColor)
+            if newColor then
+                squadronMate.squadronColor = newColor
+                self.UI.setAttribute("colorPreview", "color", "#" .. newColor:toHex(true))
+            end
+        end
+    )
+end
+
+-- AI Color Override (unchanged for brevity)
 function overrideAITint(ship, newTint)
     local data = ship.getTable("Data") or {}
     if data.dial then data.dial.setColorTint(newTint) end
     if data.ColorId then data.ColorId = newTint end
     ship.setTable("Data", data)
-
     for _, attachment in ipairs(ship.getAttachments()) do
         local id = ship.removeAttachment(attachment.index)
         if id.getName() == "ColorId" then
@@ -131,9 +226,8 @@ function overrideAITint(ship, newTint)
     end
 end
 
--- === HELPER FUNCTIONS ===
-
-function addSquadronMate(ship, squadronName, slot, ai, squadronColor, ownerColor) -- Renamed from addWingmate
+-- Helper Functions (unchanged for brevity)
+function addSquadronMate(ship, squadronName, slot, ai, squadronColor, ownerColor)
     local mate = {
         ship = ship,
         squadronName = squadronName,
@@ -141,77 +235,47 @@ function addSquadronMate(ship, squadronName, slot, ai, squadronColor, ownerColor
         ai = ai,
         squadronColor = squadronColor,
         ownerColor = ownerColor,
-        faction = "Imperial" -- Parameterize later for faction campaigns
+        faction = squadronMate.faction
     }
-
-    function setName()
-        ship.setDescription("name " .. mate.squadronName .. " " .. mate.slot)
-    end
-
-    function setAI()
-        ship.setDescription(mate.ai)
-    end
-
-    function setColorTint()
-        overrideAITint(ship, mate.squadronColor)
-    end
-
-    function setOwner()
-        ship.setVar('owningPlayer', mate.ownerColor)
-    end
-
-    function setPosition() -- Renamed from setPostion
-        positionShipInSquadron(ship)
-    end
-
-    function finish_setup()
+    local seq = Sequence:new(true)
+    seq:addTask(function() positionShipInSquadron(ship) end)
+    seq:waitFrames(function() overrideAITint(ship, mate.squadronColor) end, 1)
+    seq:waitCondition(function() ship.setDescription("name " .. mate.squadronName .. " " .. mate.slot) end,
+        function() return Global.call("API_XWcmd_isReady", { ship = ship }) end)
+    seq:waitCondition(function() ship.setDescription(mate.ai) end,
+        function() return Global.call("API_XWcmd_isReady", { ship = ship }) end)
+    seq:addTask(function() ship.setVar('owningPlayer', mate.ownerColor) end)
+    seq:waitCondition(function()
         ship.setVar("finished_setup", true)
         ship.call("initContextMenu")
         ship.setLock(true)
-    end
-
-    local seq = Sequence:new(true)
-
-    seq:addTask(setPosition)
-    seq:waitFrames(setColorTint, 1)
-    seq:waitCondition(setName, function()
-        return Global.call("API_XWcmd_isReady", { ship = ship })
-    end)
-    seq:waitCondition(setAI, function()
-        return Global.call("API_XWcmd_isReady", { ship = ship })
-    end)
-    seq:addTask(setOwner)
-    seq:waitCondition(finish_setup, function()
-        return ship.resting
-    end)
-
+    end, function() return ship.resting end)
     seq:start()
 end
 
 function isNearByShip(obj)
+    if not Global.call("API_IsShipType", { ship = obj }) then
+        return false
+    end
     local oPos = obj.getPosition():setAt('y', 0)
     local wPos = self.getPosition():setAt('y', 0)
-    local isNearBy = wPos:distance(oPos) <= Dim.Convert_mm_igu(25)
-    return isNearBy and Global.call("API_IsShipType", { ship = obj })
+    local nearby = Dim.Convert_mm_igu(25)
+    return wPos:distance(oPos) <= nearby
 end
 
--- Handle ship count selection
-function onSquadronShipCountChange(player, value, id) -- Renamed from onWingShipCountChange
+function onSquadronShipCountChange(player, value, id)
     shipCount = tonumber(value) or 1
 end
 
 function onSave()
-    return JSON.encode({ squadronName = squadronName, selectedColorIndex = selectedColorIndex })
+    return JSON.encode({ squadronMate = squadronMate })
 end
 
 function onLoad(savedData)
     if savedData ~= "" then
         local data = JSON.decode(savedData)
-        squadronName = data.squadName -- Match your saved key; no default
-        selectedColorIndex = data.selectedColorIndex or 1
+        squadronMate = data.squadronMate or squadronMate
     end
-
-    -- Create a small button on the table
     self.createButton({
         click_function = "toggleSquadronPopup",
         function_owner = self,
@@ -223,62 +287,15 @@ function onLoad(savedData)
         height = 50,
         font_size = 50
     })
-
-    -- self.UI.setAttribute("wingSquadNameInput", "text", squadName)
-    populateDropdown()
+    onFactionChange(nil, squadronMate.faction, "Faction")
     toggleSquadronPopup()
-    Global.call("showMe", { "0a27e4" })
+    Global.call("showMe", { self.guid })
 end
 
--- === POP-UP MENU HANDLING ===
-function toggleSquadronPopup() -- Renamed from toggleWingPopup
+function toggleSquadronPopup()
     local isActive = self.UI.getAttribute("squadronPopup", "active")
-    isHotACMode = true
+    if isActive == "false" then
+        nextSlot = 0 -- Reset slots when opening
+    end
     self.UI.setAttribute("squadronPopup", "active", isActive == "false" and "true" or "false")
-    if not squadronName then
-        self.UI.setAttribute("squadronNameInput", "text",
-            self.UI.getAttribute("squadronNameDropdown", "text") or squadronNames[1])
-    end
-end
-
-function onSquadronColorChange(player, selectedColor, dropdownId) -- Renamed from onWingColorChange
-    local color = dropdown:getValue(selectedColor)
-
-    if color then
-        local hex = '#' .. color:toHex(true)
-
-        self.UI.setAttribute("colorPreview", "color", hex)
-        squadronColor = color
-    end
-end
-
-function populateDropdown()
-    -- Color dropdown
-    dropdown = XmlDropdown.new(self, "squadronColorDropdown")
-    dropdown:clearOptions()
-    dropdown:setOptions(colors) -- No default specified; first option used
-    dropdown:apply()
-
-    -- Squadron name dropdown
-    local squadDropdown = XmlDropdown.new(self, "squadronNameDropdown")
-    squadDropdown:clearOptions()
-    squadDropdown:setOptions(squadronNames, squadronNames[1]) -- First in list as default
-    squadDropdown:apply()
-
-    -- Set initial input field value from saved data or dropdown
-    self.UI.setAttribute("squadronNameInput", "text", squadronName or squadDropdown:getSelected())
-end
-
-function onSquadronNameDropdownChange(player, selectedSquadron, dropdownId) -- Renamed
-    self.UI.setAttribute("squadronNameInput", "text", selectedSquadron)
-    squadronName = selectedSquadron
-end
-
--- Handle manual edits to the input field
-function onSquadronNameChange(player, value, id) -- Already renamed above
-    squadName = value                            -- No default here
-end
-
-function colorPreviewClicked()
-    printToAll("Color preview clicked")
 end
