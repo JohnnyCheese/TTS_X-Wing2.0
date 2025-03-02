@@ -11,6 +11,8 @@ local Sequence = require("TTS_lib.Sequence.Sequence")
 --- align the label and panel layout in the UI
 --- add a color picker for the squadron color (have it change the dropdown to 'Custom' and update the color)
 --- add Strike AI and corresponding target list in a separate input panel
+--- rename WingTool to FormationTool
+--- rename Squardron to Squadron
 
 local offset = Dim.Convert_mm_igu(8.3)
 
