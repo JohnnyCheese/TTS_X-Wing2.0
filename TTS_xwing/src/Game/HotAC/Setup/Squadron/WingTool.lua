@@ -31,10 +31,10 @@ local squadronFormations = {
         { x = 0.0, y = 0.0, z = offset }
     },
     [3] = {
-        { x = offset,  y = 0.0, z = -offset },
-        { x = -offset, y = 0.0, z = -offset },
+        { x = -offset, y = 0.0, z = offset },
         { x = offset,  y = 0.0, z = offset },
-        { x = -offset, y = 0.0, z = offset }
+        { x = -offset, y = 0.0, z = -offset },
+        { x = offset,  y = 0.0, z = -offset },
     }
 }
 
@@ -42,31 +42,33 @@ local factions = { "Empire", "Rebel", "Scum" }
 
 -- Faction-specific squadron name lists
 local factionNames = {
-    ["Empire"] = { "Alpha", "Beta", "Delta", "Gamma", "Epsilon", "Elite" },
+    ["Empire"] = { "Alpha", "Beta", "Delta", "Gamma", "Epsilon", "Elite", "Inquisitor" },
     ["Rebel"] = { "Blue", "Green", "Grey", "Red", "Rogue", "Skull", "Vassal" },
     ["Scum"] = { "Adam", "Baker", "Bandit", "Black Sun", "Cartel", "Charlie", "Syndicate" }
 }
 
 -- Faction-specific color names
 local factionColors = {
-    ["Empire"] = { "Ash", "Frost", "Onyx", "Slate", "Steel", "Teal" },
-    ["Rebel"] = { "Crimson", "Gold", "Ochre", "Red", "Sand", "Slate" },
-    ["Scum"] = { "Amber", "Dust", "Indigo", "Murk", "Rust", "Venom" }
+    ["Empire"] = { "Blue", "Frost", "Inquisitor", "Onyx", "Royal Red", "Steel", "Teal", },
+    ["Rebel"] = { "Blue", "Gold", "Green", "Grey", "Red", "Sand", },
+    ["Scum"] = { "Amber", "Dust", "Indigo", "Murk", "Rust", "Venom", }
 }
 
 -- Color values mapped by name
 local colorValues = {
     Amber = Color(0.55, 0.37, 0.18),
-    Ash = Color(0.18, 0.24, 0.28),
-    Crimson = Color(0.42, 0.18, 0.20),
+    Blue = Color(0.15, 0.25, 0.45),
     Dust = Color(0.48, 0.41, 0.32),
     Frost = Color(0.54, 0.61, 0.66),
     Gold = Color(0.83, 0.63, 0.09),
+    Green = Color(0.25, 0.35, 0.20),
+    Grey = Color(0.37, 0.42, 0.44),
     Indigo = Color(0.29, 0.23, 0.37),
     Murk = Color(0.29, 0.31, 0.17),
-    Ochre = Color(0.70, 0.35, 0.16),
     Onyx = Color(0.12, 0.15, 0.15),
-    Red = Color(0.56, 0.11, 0.12),
+    Inquisitor = Color(0.25, 0.15, 0.35),
+    Red = Color(0.70, 0.15, 0.15),
+    ["Royal Red"] = Color(0.45, 0.10, 0.10),
     Rust = Color(0.42, 0.29, 0.20),
     Sand = Color(0.81, 0.68, 0.48),
     Slate = Color(0.37, 0.42, 0.44),
@@ -86,7 +88,7 @@ local squadronMate = {
     faction = "Empire"
 }
 
-local nextSlot = -1
+local nextSlot = 0
 local shipCount = 4
 
 -- ### Helper Functions
@@ -111,11 +113,13 @@ function getSquadronFormation()
     return squadronFormations[self.getStateId()] or squadronFormations[3]
 end
 
-function positionShipInSquadron(ship)
+function positionShipInSquadron(ship, slot)
     local pos = getSquadronFormation()[nextSlot]
-    pos = self.positionToWorld(pos):setAt('y', 1.30)
+    -- local pos = getSquadronFormation()[slot]
+    printToAll("Squadron: " .. slot .. " exceeds shipCount " .. shipCount .. ". Resetting nextSlot.", Color.Green)
+    pos = self.positionToWorld(pos):setAt('y', 1.15)
     ship.setPositionSmooth(pos, false, true)
-    ship.setRotationSmooth(self.getRotation():setAt('y', 180), false, true)
+    ship.setRotationSmooth(self.getRotation(), false, true)
 end
 
 function onObjectDrop(player_color, dropped_object)
@@ -123,6 +127,14 @@ function onObjectDrop(player_color, dropped_object)
     local ship = dropped_object
     local slot = shipCount - nextSlot
     nextSlot = (nextSlot % shipCount) + 1
+    if slot == 0 then
+        printToAll("Warning: Slot " .. slot .. " exceeds shipCount " .. shipCount .. ". Resetting nextSlot.", Color.Red)
+        nextSlot = 1
+        slot = shipCount - nextSlot
+    end
+    printToAll("Dropping ship - shipCount: " .. shipCount .. ", nextSlot: " .. nextSlot .. ", slot: " .. slot,
+        Color.Yellow)
+
     addSquadronMate(ship, squadronMate.squadronName, slot, squadronMate.ai, squadronMate.squadronColor,
         squadronMate.ownerColor)
 end
@@ -197,7 +209,7 @@ end
 
 function applySquadronSettings()
     self.UI.setAttribute("squadronPopup", "active", "false")
-    nextSlot = 0 -- Reset for next set
+    nextSlot = 0 -- Reset to 0 for next drop, starting with slot 1
 end
 
 function colorPreviewClicked(player, value, id)
@@ -240,7 +252,7 @@ function addSquadronMate(ship, squadronName, slot, ai, squadronColor, ownerColor
         faction = squadronMate.faction
     }
     local seq = Sequence:new(true)
-    seq:addTask(function() positionShipInSquadron(ship) end)
+    seq:addTask(function() positionShipInSquadron(ship, slot) end) -- Pass slot directly
     seq:waitFrames(function() overrideAITint(ship, mate.squadronColor) end, 1)
     seq:waitCondition(function() ship.setDescription("name " .. mate.squadronName .. " " .. mate.slot) end,
         function() return Global.call("API_XWcmd_isReady", { ship = ship }) end)
@@ -265,8 +277,9 @@ function isNearByShip(obj)
     return wPos:distance(oPos) <= nearby
 end
 
-function onSquadronShipCountChange(player, value, id)
+function onShipCountChange(player, value, id)
     shipCount = tonumber(value) or 1
+    printToAll("Updated shipCount to: " .. shipCount, Color.Yellow) -- Debug print to verify
 end
 
 function onSave()
@@ -278,6 +291,7 @@ function onLoad(savedData)
         local data = JSON.decode(savedData)
         squadronMate = data.squadronMate or squadronMate
     end
+    printToAll("Initial shipCount: " .. shipCount, Color.Yellow) -- Debug initial value
     self.createButton({
         click_function = "toggleSquadronPopup",
         function_owner = self,
@@ -297,7 +311,7 @@ end
 function toggleSquadronPopup()
     local isActive = self.UI.getAttribute("squadronPopup", "active")
     if isActive == "false" then
-        nextSlot = 0 -- Reset slots when opening
+        nextSlot = 0 -- Reset to 0 for next drop, starting with slot 1
     end
     self.UI.setAttribute("squadronPopup", "active", isActive == "false" and "true" or "false")
 end
