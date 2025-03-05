@@ -13,7 +13,7 @@
 
 -- Should the code execute print functions or skip them?
 -- This should be set to false on every release
-print_debug = false
+print_debug = true
 cast_debug = false
 
 Accessories_Bag_GUID = '53ad3d'
@@ -6023,6 +6023,8 @@ function newSpawner(listTable)
             tokens.Force = tempBagAcc.takeObject({ rotation = spawnCard.getRotation(), guid = acc.guid, smooth = false })
         elseif acc.name == 'Shield' then
             tokens.Shield = tempBagAcc.takeObject({ rotation = spawnCard.getRotation(), guid = acc.guid, smooth = false })
+        elseif acc.name == 'Energy' then
+            tokens.Energy = tempBagAcc.takeObject({ rotation = spawnCard.getRotation(), guid = acc.guid, smooth = false })
         end
     end
 
@@ -6034,8 +6036,6 @@ function newSpawner(listTable)
 
     while Pilots[shipIndex] ~= nil do
         --Values used for accessories spawn and layout
-        forceValue = 0
-        shieldValue = 0
         UpNum = 0
         Turret = 0
         dualTurret = 0
@@ -6238,7 +6238,6 @@ function newSpawner(listTable)
                     end
                 end
             end
-            forceValue = Pilots[shipIndex].Force --Checks for force value on Pilot and update forceValue
             if Pilots[shipIndex].Condition ~= nil then
                 --Checks and spawn conditions associated to pilots
                 for k, acc in ipairs(listaAcc) do
@@ -6278,7 +6277,11 @@ function newSpawner(listTable)
             if arcs.fixed then
                 fixedarc = arcs.fixed.type[1] or "none"
             end
-            pos = LocalPos(spawnCard, { 0, 0, 9 })
+            if size == "huge" then
+                pos = LocalPos(spawnCard, { 0, 0, 12 })
+            else
+                pos = LocalPos(spawnCard, { 0, 0, 9 })
+            end
             rot = spawnCard.getRotation()
             local base_prototype = getObjectFromGUID(CompositeBase_GUID)
             newShip = base_prototype.clone()
@@ -6600,20 +6603,21 @@ function newSpawner(listTable)
 
             --spawn pilot charge tokens
             if Pilots[shipIndex].Charge > 0 or Pilots[shipIndex].standardized_loadout then
-                while Pilots[shipIndex].Charge > 0 do
-                    Pilots[shipIndex].Charge = Pilots[shipIndex].Charge - 1
+                local chargeValue = Pilots[shipIndex].Charge
+                while chargeValue > 0 do
+                    chargeValue = chargeValue - 1
                     if Pilots[shipIndex].standardized_loadout then
-                        pos = LocalPos(spawnCard, { 0.5 + 0.9 * Pilots[shipIndex].Charge, 1, 3.4 })
-                        if Pilots[shipIndex].Charge > 2 then
-                            pos = LocalPos(spawnCard, { 0.5 + 0.9 * (Pilots[shipIndex].Charge - 3), 1, 2.5 })
+                        pos = LocalPos(spawnCard, { 0.5 + 0.9 * chargeValue, 1, 3.4 })
+                        if chargeValue > 2 then
+                            pos = LocalPos(spawnCard, { 0.5 + 0.9 * (chargeValue - 3), 1, 2.5 })
                         end
-                    elseif Pilots[shipIndex].Charge == 3 then
+                    elseif chargeValue == 3 then
                         pos = LocalPos(spawnCard, { -0.9, 1, 0.6 })
-                    elseif Pilots[shipIndex].Charge == 2 then
+                    elseif chargeValue == 2 then
                         pos = LocalPos(spawnCard, { 0.9, 1, 1.6 })
-                    elseif Pilots[shipIndex].Charge == 1 then
+                    elseif chargeValue == 1 then
                         pos = LocalPos(spawnCard, { 0, 1, 1.6 })
-                    elseif Pilots[shipIndex].Charge == 0 then
+                    elseif chargeValue == 0 then
                         pos = LocalPos(spawnCard, { -0.9, 1, 1.6 })
                     else
                         charges = 0
@@ -6644,14 +6648,11 @@ function newSpawner(listTable)
 
             -- spawn force
             if Pilots[shipIndex].Force > 0 then
+                local forceValue = Pilots[shipIndex].Force
                 while forceValue > 0 do
                     forceValue = forceValue - 1
                     if Pilots[shipIndex].standardized_loadout then
-                        --pos = LocalPos(spawnCard, {3.3, 1, 5 + 0.9*Pilots[shipIndex].Force})
-                        pos = LocalPos(spawnCard, { 0.5 + 0.9 * forceValue, 1, 3.4 })
-                        if forceValue > 2 then
-                            pos = LocalPos(spawnCard, { 0.5 + 0.9 * (forceValue - 3), 1, 2.5 })
-                        end
+                        pos = LocalPos(spawnCard, { 3.2, 1, 4.5 + 0.9 * forceValue })
                     elseif hasMob == 1 then
                         --adjusts layout if Mobile Upgrade is present
                         pos = LocalPos(spawnCard, { 1.7 + 0.9 * forceValue, 1, 3.4 })
@@ -6666,24 +6667,46 @@ function newSpawner(listTable)
                     forceClone.setVar("force_owner", Pilots[shipIndex].name)
                 end
             end
-            --Spawns Shields
-            if Pilots[shipIndex].Shield > 0 then
-                --spawn shield tokens, layout good for up to 9 shields
-                while Pilots[shipIndex].Shield > 0 do
-                    Pilots[shipIndex].Shield = Pilots[shipIndex].Shield - 1
+
+            -- spawn energy
+            if Pilots[shipIndex].Energy > 0 then
+                local energyValue = Pilots[shipIndex].Energy
+                while energyValue > 0 do
+                    energyValue = energyValue - 1
                     if Pilots[shipIndex].standardized_loadout then
-                        pos = LocalPos(spawnCard, { -2.2 + 0.9 * Pilots[shipIndex].Shield, 1, 3.4 })
-                        if Pilots[shipIndex].Shield > 5 then
-                            pos = LocalPos(spawnCard, { -2.2 + 0.9 * (Pilots[shipIndex].Shield - 6), 1, 1.6 })
-                        elseif Pilots[shipIndex].Shield > 2 then
-                            pos = LocalPos(spawnCard, { -2.2 + 0.9 * (Pilots[shipIndex].Shield - 3), 1, 2.5 })
+                        --pos = LocalPos(spawnCard, {3.3, 1, 5 + 0.9*Pilots[shipIndex].Force})
+                        pos = LocalPos(spawnCard, { 0.5 + 0.9 * energyValue, 1, 3.4 })
+                        if energyValue > 2 then
+                            pos = LocalPos(spawnCard, { 0.5 + 0.9 * (energyValue - 3), 1, 2.5 })
                         end
                     else
-                        pos = LocalPos(spawnCard, { -1 + 0.9 * Pilots[shipIndex].Shield, 1, 3.4 })
-                        if Pilots[shipIndex].Shield > 5 then
-                            pos = LocalPos(spawnCard, { -1 + 0.9 * (Pilots[shipIndex].Shield - 6), 1, 1.6 })
-                        elseif Pilots[shipIndex].Shield > 2 then
-                            pos = LocalPos(spawnCard, { -1 + 0.9 * (Pilots[shipIndex].Shield - 3), 1, 2.5 })
+                        pos = LocalPos(spawnCard, { 1.7, 1, 3.7 + 0.9 * energyValue })
+                    end
+                    energyClone = tokens.Energy.clone()
+                    energyClone.setPosition(pos)
+                    energyClone.setVar("energy_owner", Pilots[shipIndex].name)
+                end
+            end
+
+            --Spawns Shields
+            if Pilots[shipIndex].Shield > 0 then
+                local shieldValue = Pilots[shipIndex].Shield
+                --spawn shield tokens, layout good for up to 9 shields
+                while shieldValue > 0 do
+                    shieldValue = shieldValue - 1
+                    if Pilots[shipIndex].standardized_loadout then
+                        pos = LocalPos(spawnCard, { -2.2 + 0.9 * shieldValue, 1, 3.4 })
+                        if shieldValue > 5 then
+                            pos = LocalPos(spawnCard, { -2.2 + 0.9 * (shieldValue - 6), 1, 1.6 })
+                        elseif shieldValue > 2 then
+                            pos = LocalPos(spawnCard, { -2.2 + 0.9 * (shieldValue - 3), 1, 2.5 })
+                        end
+                    else
+                        pos = LocalPos(spawnCard, { -1 + 0.9 * shieldValue, 1, 3.4 })
+                        if shieldValue > 5 then
+                            pos = LocalPos(spawnCard, { -1 + 0.9 * (shieldValue - 6), 1, 1.6 })
+                        elseif shieldValue > 2 then
+                            pos = LocalPos(spawnCard, { -1 + 0.9 * (shieldValue - 3), 1, 2.5 })
                         end
                     end
                     shieldClone = tokens.Shield.clone()

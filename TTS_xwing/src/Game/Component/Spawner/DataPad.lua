@@ -120,7 +120,9 @@ cardBackDB.mc =
 
 
 masterShipDB = require("Game.Component.Spawner.ShipDb")
-masterPilotDB = require("Game.Component.Spawner.PilotDb")
+amgPilotDB = require("Game.Component.Spawner.PilotDb")
+xwaPilotDB = require("Game.Component.Spawner.XwaPilotDb")
+masterPilotDB = table.join_sparse(amgPilotDB, xwaPilotDB)
 masterUpgradesDB = require("Game.Component.Spawner.UpgradeDb")
 
 ffgSpecial = {}
@@ -1065,7 +1067,6 @@ function idSpawner(idTable)
         fList.Pilots[k].peg = masterShipDB[Ship].peg
         fList.Pilots[k].Size = masterShipDB[Ship].size
         fList.Pilots[k].Shield = masterPilotDB[v].Shield or masterShipDB[Ship].Shield
-        fList.Pilots[k].Energy = masterShipDB[Ship].Energy
         fList.Pilots[k].Hull = masterShipDB[Ship].Hull
         fList.Pilots[k].list = pilotName .. ' - ' .. masterShipDB[Ship].name .. '\n'
         fList.Pilots[k].newSpawner = masterShipDB[Ship].newSpawner or false
@@ -1132,6 +1133,7 @@ function idSpawner(idTable)
 
         fList.Pilots[k].Charge = (masterShipDB[Ship].Charge or 0) + (masterPilotDB[id].Charge or 0)
         fList.Pilots[k].Force = masterPilotDB[id].Force or 0
+        fList.Pilots[k].Energy = masterShipDB[Ship].Energy or 0
         fList.Upgrades[k] = {}
         local skilled_bombardier = false
         local loadout = 0
@@ -1592,7 +1594,7 @@ function selectModelGeneric(arg)
                 end
             end
             if validOption and v.Faction == partList.Faction then
-                local cost = v.cost
+                local cost = v.cost or 0
                 local loadout = 0
                 if VERSION_DATA.pilots[v.XWS] then
                     cost = VERSION_DATA.pilots[v.XWS].cost
