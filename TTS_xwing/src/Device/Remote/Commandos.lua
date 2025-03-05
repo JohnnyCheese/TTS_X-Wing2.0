@@ -267,10 +267,20 @@ function showDropButtons()
     local raise = 0.03 * up
 
     self.createButton({
-        click_function = "dropL",
+        click_function = "dropR",
         function_owner = self,
-        label = "^",
+        label = "1R",
         position = -0.2 * right + raise + 0.3 * forward,
+        rotation = vector(0, 45, 0) + rotation,
+        width = 60,
+        height = 60,
+        font_size = 40
+    })
+    self.createButton({
+        click_function = "drop2R",
+        function_owner = self,
+        label = "2R",
+        position = -0.25 * right + raise + 0.45 * forward,
         rotation = vector(0, 45, 0) + rotation,
         width = 60,
         height = 60,
@@ -279,18 +289,38 @@ function showDropButtons()
     self.createButton({
         click_function = "dropS",
         function_owner = self,
-        label          = "^",
-        position       = raise + 0.3 * forward,
+        label          = "1s",
+        position       = raise + 0.35 * forward,
         rotation       = rotation,
         width          = 60,
         height         = 60,
         font_size      = 40
     })
     self.createButton({
-        click_function = "dropR",
+        click_function = "drop2S",
         function_owner = self,
-        label          = "^",
+        label          = "2S",
+        position       = raise + 0.5 * forward,
+        rotation       = rotation,
+        width          = 60,
+        height         = 60,
+        font_size      = 40
+    })
+    self.createButton({
+        click_function = "dropL",
+        function_owner = self,
+        label          = "1L",
         position       = 0.2 * right + raise + 0.3 * forward,
+        rotation       = vector(0, -45, 0) + rotation,
+        width          = 60,
+        height         = 60,
+        font_size      = 40
+    })
+    self.createButton({
+        click_function = "drop2L",
+        function_owner = self,
+        label          = "2L",
+        position       = 0.25 * right + raise + 0.45 * forward,
         rotation       = vector(0, -45, 0) + rotation,
         width          = 60,
         height         = 60,
@@ -314,19 +344,34 @@ function cancelDrop()
     self.clearButtons()
 end
 
-function dropL()
-    printToAll('Mandalorian Commandos ' .. side .. ' dropped using a left bank template', color(1.0, 1.0, 0))
+function dropR()
+    printToAll('Mandalorian Commandos ' .. side .. ' dropped using a 1 right bank template', color(1.0, 1.0, 0))
     drop(vector(2.44, 0, -1.24), vector(0, 45, 0))
 end
 
-function dropR()
-    printToAll('Mandalorian Commandos ' .. side .. ' dropped using a right bank template', color(1.0, 1.0, 0))
+function drop2R()
+    printToAll('Mandalorian Commandos ' .. side .. ' dropped using a 2 right bank template', color(1.0, 1.0, 0))
+    drop(vector(3.73, 0, -1.77), vector(0, 45, 0))
+end
+
+function dropL()
+    printToAll('Mandalorian Commandos ' .. side .. ' dropped using a 1 left bank template', color(1.0, 1.0, 0))
     drop(vector(2.44, 0, 1.24), vector(0, -45, 0))
 end
 
+function drop2L()
+    printToAll('Mandalorian Commandos ' .. side .. ' dropped using a 2 left bank template', color(1.0, 1.0, 0))
+    drop(vector(3.73, 0, 1.77), vector(0, -45, 0))
+end
+
 function dropS()
-    printToAll('Mandalorian Commandos ' .. side .. ' dropped using a straight template', color(1.0, 1.0, 0))
+    printToAll('Mandalorian Commandos ' .. side .. ' dropped using a 1 straight template', color(1.0, 1.0, 0))
     drop(vector(2, 0, 0), vector(0, 0, 0))
+end
+
+function drop2S()
+    printToAll('Mandalorian Commandos ' .. side .. ' dropped using a 2 straight template', color(1.0, 1.0, 0))
+    drop(vector(3, 0, 0), vector(0, 0, 0))
 end
 
 function drop(position, rotation)

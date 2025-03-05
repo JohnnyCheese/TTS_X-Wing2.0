@@ -37,6 +37,19 @@ if not table.join then
     end
 end
 
+if not table.join_sparse then
+    table.join_sparse = function(tab1, tab2)
+        local out = {}
+        for k, val in pairs(tab1) do
+            out[k] = val
+        end
+        for k, val in pairs(tab2) do
+            out[k] = val
+        end
+        return out
+    end
+end
+
 -- Shallow table copy
 -- Does not include metatables
 if not table.shallowcopy then
