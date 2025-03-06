@@ -111,7 +111,7 @@ local function getFactionColors(faction)
     for _, name in ipairs(names) do
         local colorValue = colorValues[name]
         if colorValue then
-            table.insert(result, { name = name, value = colorValue })
+            table.insert(result, { option = name, value = colorValue })
         end
     end
     return result
@@ -163,7 +163,7 @@ function updateColorDropdown(factionColorsList)
     local colorDropdown = XmlDropdown.new(self, "squadronColorDropdown")
 
     colorDropdown:clearOptions()
-    colorDropdown:setOptions(factionColorsList, factionColorsList[1].name or "")
+    colorDropdown:setOptions(factionColorsList, factionColorsList[1].option or "")
     colorDropdown:apply()
 
     return factionColorsList[1].value or Color(1, 1, 1)
