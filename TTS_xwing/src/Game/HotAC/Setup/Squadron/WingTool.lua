@@ -5,18 +5,14 @@ local Dim = require("Dim")
 local Sequence = require("TTS_lib.Sequence.Sequence")
 
 --- TODOD:
---- The numbering of the squadron slots is not consistent with the squadron formation.
---- refine color scheme for Empire, Rebel and Scum factions
---- fix squadron formation slot positions
 --- align the label and panel layout in the UI
 --- add a color picker for the squadron color (have it change the dropdown to 'Custom' and update the color)
 --- add Strike AI and corresponding target list in a separate input panel
 --- rename WingTool to FormationTool
---- rename Squardron to Squadron
+--- handle restarting the cycle after all ships have been dropped
 
 local offset = Dim.Convert_mm_igu(8.3)
 
--- Squadron formation slot positions (unchanged for brevity)
 local squadronFormations = {
     [1] = {
         { x = 0.0,           y = 0.0, z = -offset },
@@ -31,10 +27,10 @@ local squadronFormations = {
         { x = 0.0, y = 0.0, z = offset }
     },
     [3] = {
-        { x = -offset, y = 0.0, z = offset },
-        { x = offset,  y = 0.0, z = offset },
-        { x = -offset, y = 0.0, z = -offset },
         { x = offset,  y = 0.0, z = -offset },
+        { x = -offset, y = 0.0, z = -offset },
+        { x = offset,  y = 0.0, z = offset },
+        { x = -offset, y = 0.0, z = offset },
     }
 }
 
@@ -59,7 +55,7 @@ local colorValues = {
     Amber = Color(0.70, 0.50, 0.30),          -- Scummy Yellow/Gold, slightly muted but bright
     Blue = Color(0.30, 0.40, 0.60),           -- Standard bright blue for Rebels/Empire
     Bone = Color(0.95, 0.90, 0.85),           -- Creamy off-white for Rebel Skull, bone-like
-    Dust = Color(0.48, 0.41, 0.32), -- (Removed)
+    Dust = Color(0.48, 0.41, 0.32),           -- (Removed)
     Frost = Color(0.65, 0.70, 0.75),          -- Light bluish-grey for Empire, icy and cold
     Gold = Color(0.90, 0.70, 0.20),           -- Bright gold for Rebel valor
     Green = Color(0.40, 0.50, 0.35),          -- Earthy green for Rebels, muted green for Empire
@@ -90,6 +86,7 @@ local colorValues = {
 
 -- Current settings stored in squadronMate
 local squadronMate = {
+    shipCount = 4,
     ship = nil,
     squadronName = nil,
     slot = -1,
@@ -125,16 +122,16 @@ function getSquadronFormation()
 end
 
 function positionShipInSquadron(ship, slot)
-    local pos = getSquadronFormation()[nextSlot]
-    -- local pos = getSquadronFormation()[slot]
+    local pos = getSquadronFormation()[slot]
     printToAll("Squadron: " .. slot .. " exceeds shipCount " .. shipCount .. ". Resetting nextSlot.", Color.Green)
     pos = self.positionToWorld(pos):setAt('y', 1.15)
     ship.setPositionSmooth(pos, false, true)
-    ship.setRotationSmooth(self.getRotation(), false, true)
+    ship.setRotationSmooth(self.getRotation():setAt('y', 180), false, true)
 end
 
 function onObjectDrop(player_color, dropped_object)
     if not isNearByShip(dropped_object) then return end
+    printToAll("shipCount: " .. tostring(shipCount), Color.Purple)
     local ship = dropped_object
     local slot = shipCount - nextSlot
     nextSlot = (nextSlot % shipCount) + 1
@@ -195,6 +192,7 @@ function onFactionChange(player, selectedFaction, dropdownId)
 
     seq:waitCondition(function()
         self.UI.setAttribute("colorPreview", "color", "#" .. seq.ctx.color:toHex(true))
+        squadronMate.squadronColor = seq.ctx.color
     end, function() return not self.UI.loading end)
 
     seq:start()
@@ -220,7 +218,7 @@ end
 
 function applySquadronSettings()
     self.UI.setAttribute("squadronPopup", "active", "false")
-    nextSlot = 0 -- Reset to 0 for next drop, starting with slot 1
+    nextSlot = 0
 end
 
 function colorPreviewClicked(player, value, id)
@@ -262,19 +260,22 @@ function addSquadronMate(ship, squadronName, slot, ai, squadronColor, ownerColor
         ownerColor = ownerColor,
         faction = squadronMate.faction
     }
+
     local seq = Sequence:new(true)
+
     seq:addTask(function() positionShipInSquadron(ship, slot) end) -- Pass slot directly
     seq:waitFrames(function() overrideAITint(ship, mate.squadronColor) end, 1)
-    seq:waitCondition(function() ship.setDescription("name " .. mate.squadronName .. " " .. mate.slot) end,
+    seq:waitCondition(function() ship.setDescription("name " .. mate.squadronName .. " " .. (shipCount - slot + 1)) end,
         function() return Global.call("API_XWcmd_isReady", { ship = ship }) end)
     seq:waitCondition(function() ship.setDescription(mate.ai) end,
         function() return Global.call("API_XWcmd_isReady", { ship = ship }) end)
-    seq:addTask(function() ship.setVar('owningPlayer', mate.ownerColor) end)
     seq:waitCondition(function()
+        ship.setVar('owningPlayer', mate.ownerColor)
         ship.setVar("finished_setup", true)
         ship.call("initContextMenu")
-        ship.setLock(true)
+        ship.setLock(false)
     end, function() return ship.resting end)
+
     seq:start()
 end
 
@@ -284,7 +285,7 @@ function isNearByShip(obj)
     end
     local oPos = obj.getPosition():setAt('y', 0)
     local wPos = self.getPosition():setAt('y', 0)
-    local nearby = Dim.Convert_mm_igu(25)
+    local nearby = Dim.Convert_mm_igu(35)
     return wPos:distance(oPos) <= nearby
 end
 
@@ -322,7 +323,7 @@ end
 function toggleSquadronPopup()
     local isActive = self.UI.getAttribute("squadronPopup", "active")
     if isActive == "false" then
-        nextSlot = 0 -- Reset to 0 for next drop, starting with slot 1
+        nextSlot = 0 -- Reset to 0 for next drop, starting with slot N
     end
     self.UI.setAttribute("squadronPopup", "active", isActive == "false" and "true" or "false")
 end
