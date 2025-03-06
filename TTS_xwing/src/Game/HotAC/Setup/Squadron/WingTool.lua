@@ -123,7 +123,6 @@ end
 
 function positionShipInSquadron(ship, slot)
     local pos = getSquadronFormation()[slot]
-    printToAll("Squadron: " .. slot .. " exceeds shipCount " .. shipCount .. ". Resetting nextSlot.", Color.Green)
     pos = self.positionToWorld(pos):setAt('y', 1.15)
     ship.setPositionSmooth(pos, false, true)
     ship.setRotationSmooth(self.getRotation():setAt('y', 180), false, true)
@@ -131,17 +130,13 @@ end
 
 function onObjectDrop(player_color, dropped_object)
     if not isNearByShip(dropped_object) then return end
-    printToAll("shipCount: " .. tostring(shipCount), Color.Purple)
     local ship = dropped_object
     local slot = shipCount - nextSlot
     nextSlot = (nextSlot % shipCount) + 1
     if slot == 0 then
-        printToAll("Warning: Slot " .. slot .. " exceeds shipCount " .. shipCount .. ". Resetting nextSlot.", Color.Red)
         nextSlot = 1
         slot = shipCount - nextSlot
     end
-    printToAll("Dropping ship - shipCount: " .. shipCount .. ", nextSlot: " .. nextSlot .. ", slot: " .. slot,
-        Color.Yellow)
 
     addSquadronMate(ship, squadronMate.squadronName, slot, squadronMate.ai, squadronMate.squadronColor,
         squadronMate.ownerColor)
@@ -149,8 +144,6 @@ end
 
 -- UI Handling
 function updateNameDropdown(names)
-    printToAll("names: " .. JSON.encode_pretty(names), Color.Purple)
-
     local nameDropdown = XmlDropdown.new(self, "squadronNameDropdown")
     nameDropdown:clearOptions()
     nameDropdown:setOptions(names, names[1] or "")
@@ -211,7 +204,6 @@ function onSquadronColorChange(player, selectedColorName, dropdownId)
     local color = getColorByName(selectedColorName)
     if color then
         self.UI.setAttribute("colorPreview", "color", "#" .. color:toHex(true))
-        printToAll("color: " .. color:toHex(true), color)
         squadronMate.squadronColor = color
     end
 end
@@ -224,14 +216,12 @@ end
 function colorPreviewClicked(player, value, id)
     local player = player or Player["White"]
     local color = self.UI.getAttribute("colorPreview", "color")
-    player.showColorDialog(
-        color, function(newColor)
-            if newColor then
-                squadronMate.squadronColor = newColor
-                self.UI.setAttribute("colorPreview", "color", "#" .. newColor:toHex(true))
-            end
+    player.showColorDialog(color, function(newColor)
+        if newColor then
+            squadronMate.squadronColor = newColor
+            self.UI.setAttribute("colorPreview", "color", "#" .. newColor:toHex(true))
         end
-    )
+    end)
 end
 
 -- AI Color Override (unchanged for brevity)
@@ -291,7 +281,6 @@ end
 
 function onShipCountChange(player, value, id)
     shipCount = tonumber(value) or 1
-    printToAll("Updated shipCount to: " .. shipCount, Color.Yellow) -- Debug print to verify
 end
 
 function onSave()
@@ -303,7 +292,6 @@ function onLoad(savedData)
         local data = JSON.decode(savedData)
         squadronMate = data.squadronMate or squadronMate
     end
-    printToAll("Initial shipCount: " .. shipCount, Color.Yellow) -- Debug initial value
     self.createButton({
         click_function = "toggleSquadronPopup",
         function_owner = self,
