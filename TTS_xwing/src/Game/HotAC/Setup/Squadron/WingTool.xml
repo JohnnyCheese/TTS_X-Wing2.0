@@ -2,7 +2,7 @@
     <Text class="title" fontStyle="Bold" color="Black" alignment="MiddleCenter"
         preferredHeight="20" resizeTextForBestFit="true" />
     <Text class="label" fontSize="14" fontStyle="Bold" color="Black" alignment="MiddleRight"
-        preferredHeight="20" preferredWidth="15" resizeTextForBestFit="false" />
+        preferredHeight="20" preferredWidth="20" resizeTextForBestFit="false" />
     <Dropdown fontSize="16" color="#405b6f" itemTextColor="Black" textColor="#FFFFFF"
         preferredHeight="20" preferredWidth="60" flexibleWidth="1" />
     <InputField fontSize="16" color="#E1E1E1" textColor="Black" alignment="MiddleLeft"
@@ -11,24 +11,27 @@
     <Button fontSize="16" color="#11100F" textColor="#E1E1E1" />
 </Defaults>
 
-<Panel id="squadronPopup" active="false" width="350" height="250" position="0 0 -50">
+<Panel id="squadronPopup" active="false" width="350" height="250" position="0 0 -100">
     <VerticalLayout padding="10 15 10 15" spacing="10">
         <!-- Title -->
         <Text text="AI Squadron" class="title" />
 
         <!-- Faction Section -->
         <HorizontalLayout spacing="5">
-            <Text text="Faction:" class="label" />
-            <Dropdown id="Faction" onValueChanged="onFactionChange" alignment="MiddleRight">
-                <Option selected="true">Empire</Option>
-                <Option>Rebel</Option>
-                <Option>Scum</Option>
-            </Dropdown>
-            <Panel padding="0 0 0 0" preferredWidth="30">
-                <HorizontalLayout spacing="5">
+            <Panel>
+                <HorizontalLayout spacing="5" preferredHeight="20">
+                    <Text text="Faction:" class="label" />
+                    <Dropdown id="Faction" onValueChanged="onFactionChange" alignment="MiddleRight">
+                        <Option selected="true">Empire</Option>
+                        <Option>Rebel</Option>
+                        <Option>Scum</Option>
+                    </Dropdown>
+                </HorizontalLayout>
+            </Panel>
+            <Panel preferredHeight="20">
+                <HorizontalLayout spacing="5" preferredHeight="20">
                     <Text text="# of ships:" class="label" />
-                    <Dropdown id="shipCount" onValueChanged="onShipCountChange" preferredWidth="10"
-                        textAlignment="MiddleCenter">
+                    <Dropdown id="shipCount" onValueChanged="onShipCountChange" textAlignment="MiddleCenter" >
                         <Option selected="true">4</Option>
                         <Option>3</Option>
                         <Option>2</Option>
@@ -40,7 +43,7 @@
 
         <!-- Name Section -->
         <HorizontalLayout spacing="10" childAlignment="MiddleLeft">
-            <Text text="Name:" class="label" />
+            <Text text="Name:" class="label" preferredWidth="5" />
             <Dropdown id="squadronNameDropdown" onValueChanged="onSquadronNameDropdownChange" />
 
             <Panel padding="0 0 0 0" preferredWidth="30">
@@ -51,11 +54,9 @@
 
         <!-- Color Section -->
         <HorizontalLayout spacing="10" childAlignment="MiddleLeft">
-            <Text text="Color:" class="label" />
+            <Text text="Color:" class="label" preferredWidth="5" />
             <Dropdown id="squadronColorDropdown" onValueChanged="onSquadronColorChange" />
-            <Panel id="colorPreview" color="#abefef" onClick="colorPreviewClicked" preferredWidth="30" />
-            <!-- <Button id="colorPreview" onClick="colorPreviewClicked" color="#FFFFFF"
-            preferredWidth="30" /> -->
+            <Panel id="colorPreview" onClick="colorPreviewClicked" preferredWidth="30" />
         </HorizontalLayout>
 
         <!-- Set Button -->
