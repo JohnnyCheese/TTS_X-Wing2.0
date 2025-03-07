@@ -10,6 +10,7 @@ local Sequence = require("TTS_lib.Sequence.Sequence")
 --- add Strike AI and corresponding target list in a separate input panel
 --- rename WingTool to FormationTool
 --- handle restarting the cycle after all ships have been dropped
+--- find a way to spawn it into a game.
 
 local offset = Dim.Convert_mm_igu(8.3)
 
