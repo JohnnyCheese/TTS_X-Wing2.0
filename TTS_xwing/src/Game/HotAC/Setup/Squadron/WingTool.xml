@@ -31,7 +31,8 @@
             <Panel preferredHeight="20">
                 <HorizontalLayout spacing="5" preferredHeight="20">
                     <Text text="# of ships:" class="label" />
-                    <Dropdown id="shipCount" onValueChanged="onShipCountChange" textAlignment="MiddleCenter" >
+                    <Dropdown id="shipCount" onValueChanged="onShipCountChange"
+                        textAlignment="MiddleLeft">
                         <Option selected="true">4</Option>
                         <Option>3</Option>
                         <Option>2</Option>
@@ -42,21 +43,23 @@
         </HorizontalLayout>
 
         <!-- Name Section -->
-        <HorizontalLayout spacing="10" childAlignment="MiddleLeft">
+        <HorizontalLayout spacing="5" childAlignment="MiddleLeft">
             <Text text="Name:" class="label" preferredWidth="5" />
             <Dropdown id="squadronNameDropdown" onValueChanged="onSquadronNameDropdownChange" />
 
-            <Panel padding="0 0 0 0" preferredWidth="30">
+            <Panel padding="5 0 0 0" preferredWidth="95">
                 <InputField id="squadronNameInput" onEndEdit="onSquadronNameChange"
                     textAlignment="MiddleLeft" />
             </Panel>
         </HorizontalLayout>
 
         <!-- Color Section -->
-        <HorizontalLayout spacing="10" childAlignment="MiddleLeft">
+        <HorizontalLayout spacing="5" childAlignment="MiddleLeft">
             <Text text="Color:" class="label" preferredWidth="5" />
             <Dropdown id="squadronColorDropdown" onValueChanged="onSquadronColorChange" />
-            <Panel id="colorPreview" onClick="colorPreviewClicked" preferredWidth="30" />
+            <Panel padding="5 0 0 0" preferredWidth="95">
+                <Panel id="colorPreview" onClick="colorPreviewClicked" />
+            </Panel>
         </HorizontalLayout>
 
         <!-- Set Button -->
