@@ -11,7 +11,7 @@
     <Button fontSize="16" color="#11100F" textColor="#E1E1E1" />
 </Defaults>
 
-<Panel id="squadronPopup" active="false" width="350" height="250" position="0 0 -100">
+<Panel id="squadronPopup" active="false" width="350" height="280" position="0 0 -100">
     <VerticalLayout padding="10 15 10 15" spacing="10">
         <!-- Title -->
         <Text text="AI Squadron" class="title" />
@@ -32,13 +32,29 @@
                 <HorizontalLayout spacing="5" preferredHeight="20">
                     <Text text="# of ships:" class="label" />
                     <Dropdown id="shipCount" onValueChanged="onShipCountChange"
-                        textAlignment="MiddleLeft">
+                        preferredWidth="1" textAlignment="MiddleLeft">
                         <Option selected="true">4</Option>
                         <Option>3</Option>
                         <Option>2</Option>
                         <Option>1</Option>
                     </Dropdown>
                 </HorizontalLayout>
+            </Panel>
+        </HorizontalLayout>
+
+        <!-- AI Section -->
+        <HorizontalLayout spacing="5" childAlignment="MiddleLeft">
+            <Text text="AI:" class="label" preferredWidth="5" />
+            <Dropdown id="aiDropdown" onValueChanged="onAiDropdownChange">
+                <Option selected="true">Attack</Option>
+                <Option>Strike</Option>
+            </Dropdown>
+            <Panel padding="5 0 0 0" preferredWidth="95">
+                <InputField id="aiStrikeTargets" placeholder="Strike Targets comma separated"
+                    onEndEdit="onAiStrikeTargetsChange" textAlignment="MiddleLeft"
+                    tooltip="Comma separated list of targets for Strike AI"
+                    active="false"
+                />
             </Panel>
         </HorizontalLayout>
 
@@ -65,8 +81,8 @@
         <!-- Set Button -->
         <HorizontalLayout>
             <Panel flexibleWidth="1" />
-            <Button id="applySquadronSettings" text="Set" onClick="applySquadronSettings" width="60"
-                height="30" />
+            <Button id="applySquadronSettings" text="Set"
+                preferredHeight="30" preferredWidth="50" onClick="applySquadronSettings" />
             <Panel flexibleWidth="1" />
         </HorizontalLayout>
     </VerticalLayout>

@@ -173,6 +173,18 @@ function onFactionChange(player, selectedFaction, dropdownId)
     end, function() return not self.UI.loading end)
 
     seq:waitCondition(function()
+        local isStrike = squadronMate.ai:startsWith("strike") or false
+        local value = isStrike and 1 or 0
+
+        if isStrike then
+            local targets = string.match(squadronMate.ai, "strike (.*)")
+            self.UI.setAttribute("aiStrikeTargets", "text", targets)
+            self.UI.setAttribute("aiStrikeTargets", "active", tostring(isStrike))
+        end
+        self.UI.setAttribute("aiDropdown", "value", value)
+    end, function() return not self.UI.loading end)
+
+    seq:waitCondition(function()
         local names = factionNames[selectedFaction] or {}
         onSquadronNameDropdownChange(player, updateNameDropdown(names), "squadronNameDropdown")
     end, function() return not self.UI.loading end)
@@ -189,6 +201,28 @@ function onFactionChange(player, selectedFaction, dropdownId)
     end, function() return not self.UI.loading end)
 
     seq:start()
+end
+
+function getAiLogic(value)
+    local logic = { Attack = "ai", Strike = "strike" }
+    if value == "Strike" then
+        local targets = self.UI.getValue("aiStrikeTargets")
+        printToAll("targets type: " .. type(targets) .. " value: " .. tostring(targets))
+        if targets then
+            return logic[value] .. " " .. tostring(targets)
+        end
+    end
+    return logic[value] or "ai"
+end
+
+function onAiDropdownChange(player, value, id)
+    squadronMate.ai = getAiLogic(value)
+    local isStrike = value == "Strike"
+    self.UI.setAttribute("aiStrikeTargets", "active", tostring(isStrike))
+end
+
+function onAiStrikeTargetsChange(player, value, id)
+    squadronMate.ai = "strike " .. tostring(value)
 end
 
 function onSquadronNameDropdownChange(player, selectedSquadron, dropdownId)
