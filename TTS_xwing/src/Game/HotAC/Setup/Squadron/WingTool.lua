@@ -328,11 +328,12 @@ function onLoad(savedData)
     end
     self.createButton({
         click_function = "toggleSquadronPopup",
+        color = { 205 / 255, 205 / 255, 205 / 255, 1.0 },
         function_owner = self,
-        label = "x",
-        position = { 0, 0.08, 0 },
+        label = " ",
+        position = { 0, 0.0749, 0 },
         rotation = { 0, 180, 0 },
-        scale = { 0.6, 0.6, 0.6 },
+        scale = { 0.65, 0.65, 0.65 },
         width = 50,
         height = 50,
         font_size = 50
