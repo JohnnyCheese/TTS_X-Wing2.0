@@ -5,11 +5,8 @@ local Dim = require("Dim")
 local Sequence = require("TTS_lib.Sequence.Sequence")
 
 --- TODOD:
---- align the label and panel layout in the UI
---- add Strike AI and corresponding target list in a separate input panel
 --- rename WingTool to FormationTool
 --- handle restarting the cycle after all ships have been dropped
---- find a way to spawn it into a game.
 
 local offset = Dim.Convert_mm_igu(8.3)
 
@@ -125,7 +122,10 @@ function positionShipInSquadron(ship, slot)
     local pos = getSquadronFormation()[slot]
     pos = self.positionToWorld(pos):setAt('y', 1.15)
     ship.setPositionSmooth(pos, false, true)
-    ship.setRotationSmooth(self.getRotation():setAt('y', 180), false, true)
+
+    local rotation = self.getRotation()
+    rotation.y = (rotation.y + 180) % 360 -- Ensures proper rotation without exceeding 360 degrees
+    ship.setRotationSmooth(rotation, false, true)
 end
 
 function onObjectDrop(player_color, dropped_object)
@@ -321,6 +321,14 @@ function onSave()
     return JSON.encode({ squadronMate = squadronMate })
 end
 
+function toggleSquadronPopup()
+    local isActive = self.UI.getAttribute("squadronPopup", "active")
+    if isActive == "false" then
+        nextSlot = 0
+    end
+    self.UI.setAttribute("squadronPopup", "active", isActive == "false" and "true" or "false")
+end
+
 function onLoad(savedData)
     if savedData ~= "" then
         local data = JSON.decode(savedData)
@@ -330,23 +338,14 @@ function onLoad(savedData)
         click_function = "toggleSquadronPopup",
         color = { 205 / 255, 205 / 255, 205 / 255, 1.0 },
         function_owner = self,
-        label = " ",
+        label = "▲",
         position = { 0, 0.0749, 0 },
         rotation = { 0, 180, 0 },
         scale = { 0.65, 0.65, 0.65 },
         width = 50,
         height = 50,
-        font_size = 50
+        font_size = 50,
+        font_color = { 23 / 255, 22 / 255, 21 / 255 }
     })
     onFactionChange(nil, squadronMate.faction, "Faction")
-    toggleSquadronPopup()
-    Global.call("showMe", { self.guid })
-end
-
-function toggleSquadronPopup()
-    local isActive = self.UI.getAttribute("squadronPopup", "active")
-    if isActive == "false" then
-        nextSlot = 0 -- Reset to 0 for next drop, starting with slot N
-    end
-    self.UI.setAttribute("squadronPopup", "active", isActive == "false" and "true" or "false")
 end
