@@ -7290,7 +7290,7 @@ function ezTemplates.IsEasyTemplate(object)
 end
 
 function ezTemplates.SnapToShip(player_color, template)
-    local ship = FindNearestShip(template, 150, IsInFrontOfShip)
+    local ship = FindNearestShip(template, 40, IsInFrontOfShip)
     if ship == nil then
         return
     end
