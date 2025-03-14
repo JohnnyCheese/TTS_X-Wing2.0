@@ -56,8 +56,8 @@ function initContextMenu()
             end
         end
     else
-        self.addContextMenuItem("Next Texture", NextTexture, false)
-        self.addContextMenuItem("Toggle Peg", TogglePeg, false)
+        self.addContextMenuItem("Next Texture", NextTexture, true)
+        self.addContextMenuItem("Toggle Peg", TogglePeg, true)
         self.addContextMenuItem("Spawn Customizer", SpawnCustomizer, false)
     end
 end
