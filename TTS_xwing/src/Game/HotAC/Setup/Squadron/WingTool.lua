@@ -138,8 +138,7 @@ function onObjectDrop(player_color, dropped_object)
         slot = shipCount - nextSlot
     end
 
-    addSquadronMate(ship, squadronMate.squadronName, slot, squadronMate.ai, squadronMate.squadronColor,
-        squadronMate.ownerColor)
+    addSquadronMate(ship, slot, squadronMate)
 end
 
 -- UI Handling
@@ -274,20 +273,10 @@ function overrideAITint(ship, newTint)
 end
 
 -- Helper Functions (unchanged for brevity)
-function addSquadronMate(ship, squadronName, slot, ai, squadronColor, ownerColor)
-    local mate = {
-        ship = ship,
-        squadronName = squadronName,
-        slot = slot,
-        ai = ai,
-        squadronColor = squadronColor,
-        ownerColor = ownerColor,
-        faction = squadronMate.faction
-    }
-
+function addSquadronMate(ship, slot, mate)
     local seq = Sequence:new(true)
 
-    seq:addTask(function() positionShipInSquadron(ship, slot) end) -- Pass slot directly
+    seq:addTask(positionShipInSquadron, ship, slot)
     seq:waitFrames(function() overrideAITint(ship, mate.squadronColor) end, 1)
     seq:waitCondition(function() ship.setDescription("name " .. mate.squadronName .. " " .. (shipCount - slot + 1)) end,
         function() return Global.call("API_XWcmd_isReady", { ship = ship }) end)
