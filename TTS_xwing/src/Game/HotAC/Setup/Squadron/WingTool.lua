@@ -4,7 +4,7 @@ XmlDropdown = require("TTS_lib.XmlGui.XmlDropdown")
 local Dim = require("Dim")
 local Sequence = require("TTS_lib.Sequence.Sequence")
 
---- TODOD:
+--- TODO:
 --- rename WingTool to FormationTool
 --- handle restarting the cycle after all ships have been dropped
 
@@ -52,7 +52,7 @@ local colorValues = {
     Amber = Color(0.70, 0.50, 0.30),          -- Scummy Yellow/Gold, slightly muted but bright
     Blue = Color(0.30, 0.40, 0.60),           -- Standard bright blue for Rebels/Empire
     Bone = Color(0.95, 0.90, 0.85),           -- Creamy off-white for Rebel Skull, bone-like
-    Dust = Color(0.48, 0.41, 0.32),           -- (Removed)
+    Dust = Color(0.48, 0.41, 0.32),           -- (Unused)
     Frost = Color(0.65, 0.70, 0.75),          -- Light bluish-grey for Empire, icy and cold
     Gold = Color(0.90, 0.70, 0.20),           -- Bright gold for Rebel valor
     Green = Color(0.40, 0.50, 0.35),          -- Earthy green for Rebels, muted green for Empire
@@ -60,7 +60,7 @@ local colorValues = {
     Imperial = Color(0.29, 0.41, 0.50),       -- Bright bluish-grey for Empire, TIE Fighter theme
     Indigo = Color(0.45, 0.35, 0.50),         -- Deep purple-blue for Scum, mysterious
     Inquisitor = Color(0.40, 0.30, 0.50),     -- Purple for Empire, elite and dark
-    Murk = Color(0.40, 0.42, 0.25),           -- (Removed, not needed in new scheme)
+    Murk = Color(0.40, 0.42, 0.25),           --
     Onyx = Color(0.25, 0.30, 0.30),           -- Dark black for Empire, Stormtroopers
     Plum = Color(0.70, 0.50, 0.70),           -- Deeper purple for Rebel Vassal, masculine and loyal
     ["Rebel Red"] = Color(0.65, 0.12, 0.14),  -- Rebel Red faction color
@@ -72,8 +72,8 @@ local colorValues = {
     Sewer = Color(0.44, 0.23, 0.09),          -- Darker brownish, muddy color for Scum, scummy
     ["Smog Blue"] = Color(0.30, 0.40, 0.45),  -- Dull, polluted blue for Scum, scummy
     Slate = Color(0.50, 0.55, 0.57),          -- Greyish-blue for Empire, industrial
-    Steel = Color(0.55, 0.58, 0.60),          -- (Removed, replaced with Slate for consistency)
-    Sun = Color(243 / 255, 234 / 255, 105 / 255),
+    Steel = Color(0.55, 0.58, 0.60),          -- (Unused, replaced with Slate for consistency)
+    Sun = Color(0.95, 0.92, 0.41),
     ["Solar Yellow"] = Color(1.0, 0.71, 0.0), -- Bright yellow-orange for Empire, fiery
     Sunset = Color(0.90, 0.50, 0.30),         -- Bright orange-yellow for Empire, fiery
     Teal = Color(0.30, 0.50, 0.50),           -- (Removed, not needed in new scheme)
@@ -257,7 +257,6 @@ function colorPreviewClicked(player, value, id)
     end)
 end
 
--- AI Color Override (unchanged for brevity)
 function overrideAITint(ship, newTint)
     local data = ship.getTable("Data") or {}
     if data.dial then data.dial.setColorTint(newTint) end
@@ -272,7 +271,6 @@ function overrideAITint(ship, newTint)
     end
 end
 
--- Helper Functions (unchanged for brevity)
 function addSquadronMate(ship, slot, mate)
     local seq = Sequence:new(true)
 
