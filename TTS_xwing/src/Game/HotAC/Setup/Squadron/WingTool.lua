@@ -81,10 +81,10 @@ local colorValues = {
     ["White"] = Color(1.0, 1.0, 1.0),         -- Bright white for Empire, Snowtroopers/Stormtroopers
 }
 
--- Current settings stored in squadronMate
-local squadronMate = {
+-- Current settings stored in squadron
+local squadron = {
     shipCount = 4,
-    ship = nil,
+    ship = {},
     squadronName = nil,
     slot = -1,
     ai = "ai",
@@ -94,7 +94,6 @@ local squadronMate = {
 }
 
 local nextSlot = 0
-local shipCount = 4
 
 -- ### Helper Functions
 
@@ -131,14 +130,14 @@ end
 function onObjectDrop(player_color, dropped_object)
     if not isNearByShip(dropped_object) then return end
     local ship = dropped_object
-    local slot = shipCount - nextSlot
-    nextSlot = (nextSlot % shipCount) + 1
+    local slot = squadron.shipCount - nextSlot
+    nextSlot = (nextSlot % squadron.shipCount) + 1
     if slot == 0 then
         nextSlot = 1
-        slot = shipCount - nextSlot
+        slot = squadron.shipCount - nextSlot
     end
 
-    addSquadronMate(ship, slot, squadronMate)
+    addSquadronMate(ship, slot, squadron)
 end
 
 -- UI Handling
@@ -162,25 +161,26 @@ function updateColorDropdown(factionColorsList)
 end
 
 function onFactionChange(player, selectedFaction, dropdownId)
-    squadronMate.faction = selectedFaction
+    squadron.faction = selectedFaction
 
     local seq = Sequence:new(true)
 
     seq:waitCondition(function()
+        -- This should be unnecessary, but TTS calls the handler function before updating the UI table/XML.
         local index = table.index_of(factions, selectedFaction) or 1
         self.UI.setAttribute(dropdownId, "value", index - 1)
     end, function() return not self.UI.loading end)
 
     seq:waitCondition(function()
-        local isStrike = squadronMate.ai:startsWith("strike") or false
-        local value = isStrike and 1 or 0
+        local isStrike = squadron.ai:startsWith("strike") or false
+        local isActive = isStrike and 1 or 0
 
         if isStrike then
-            local targets = string.match(squadronMate.ai, "strike (.*)")
+            local targets = string.match(squadron.ai, "strike (.*)")
             self.UI.setAttribute("aiStrikeTargets", "text", targets)
             self.UI.setAttribute("aiStrikeTargets", "active", tostring(isStrike))
         end
-        self.UI.setAttribute("aiDropdown", "value", value)
+        self.UI.setAttribute("aiDropdown", "value", isActive)
     end, function() return not self.UI.loading end)
 
     seq:waitCondition(function()
@@ -196,7 +196,7 @@ function onFactionChange(player, selectedFaction, dropdownId)
 
     seq:waitCondition(function()
         self.UI.setAttribute("colorPreview", "color", "#" .. seq.ctx.color:toHex(true))
-        squadronMate.squadronColor = seq.ctx.color
+        squadron.squadronColor = seq.ctx.color
     end, function() return not self.UI.loading end)
 
     seq:start()
@@ -206,7 +206,6 @@ function getAiLogic(value)
     local logic = { Attack = "ai", Strike = "strike" }
     if value == "Strike" then
         local targets = self.UI.getValue("aiStrikeTargets")
-        printToAll("targets type: " .. type(targets) .. " value: " .. tostring(targets))
         if targets then
             return logic[value] .. " " .. tostring(targets)
         end
@@ -215,29 +214,29 @@ function getAiLogic(value)
 end
 
 function onAiDropdownChange(player, value, id)
-    squadronMate.ai = getAiLogic(value)
+    squadron.ai = getAiLogic(value)
     local isStrike = value == "Strike"
     self.UI.setAttribute("aiStrikeTargets", "active", tostring(isStrike))
 end
 
 function onAiStrikeTargetsChange(player, value, id)
-    squadronMate.ai = "strike " .. tostring(value)
+    squadron.ai = "strike " .. tostring(value)
 end
 
 function onSquadronNameDropdownChange(player, selectedSquadron, dropdownId)
-    squadronMate.squadronName = selectedSquadron
+    squadron.squadronName = selectedSquadron
     self.UI.setAttribute("squadronNameInput", "text", selectedSquadron)
 end
 
 function onSquadronNameChange(player, value, id)
-    squadronMate.squadronName = value
+    squadron.squadronName = value
 end
 
 function onSquadronColorChange(player, selectedColorName, dropdownId)
     local color = getColorByName(selectedColorName)
     if color then
         self.UI.setAttribute("colorPreview", "color", "#" .. color:toHex(true))
-        squadronMate.squadronColor = color
+        squadron.squadronColor = color
     end
 end
 
@@ -251,7 +250,7 @@ function colorPreviewClicked(player, value, id)
     local color = self.UI.getAttribute("colorPreview", "color")
     player.showColorDialog(color, function(newColor)
         if newColor then
-            squadronMate.squadronColor = newColor
+            squadron.squadronColor = newColor
             self.UI.setAttribute("colorPreview", "color", "#" .. newColor:toHex(true))
         end
     end)
@@ -275,10 +274,16 @@ function addSquadronMate(ship, slot, mate)
     local seq = Sequence:new(true)
 
     seq:addTask(positionShipInSquadron, ship, slot)
-    seq:waitFrames(function() overrideAITint(ship, mate.squadronColor) end, 1)
-    seq:waitCondition(function() ship.setDescription("name " .. mate.squadronName .. " " .. (shipCount - slot + 1)) end,
+    seq:waitFrames(function()
+        overrideAITint(ship, mate.squadronColor)
+    end, 1)
+    seq:waitCondition(function()
+            ship.setDescription("name " .. mate.squadronName .. " " .. (squadron.shipCount - slot + 1))
+        end,
         function() return Global.call("API_XWcmd_isReady", { ship = ship }) end)
-    seq:waitCondition(function() ship.setDescription(mate.ai) end,
+    seq:waitCondition(function()
+            ship.setDescription(mate.ai)
+        end,
         function() return Global.call("API_XWcmd_isReady", { ship = ship }) end)
     seq:waitCondition(function()
         ship.setVar('owningPlayer', mate.ownerColor)
@@ -301,11 +306,7 @@ function isNearByShip(obj)
 end
 
 function onShipCountChange(player, value, id)
-    shipCount = tonumber(value) or 1
-end
-
-function onSave()
-    return JSON.encode({ squadronMate = squadronMate })
+    squadron.shipCount = tonumber(value) or 1
 end
 
 function toggleSquadronPopup()
@@ -319,11 +320,12 @@ end
 function onLoad(savedData)
     if savedData ~= "" then
         local data = JSON.decode(savedData)
-        squadronMate = data.squadronMate or squadronMate
+        squadron = data.squadron or squadron
     end
+
     self.createButton({
         click_function = "toggleSquadronPopup",
-        color = { 205 / 255, 205 / 255, 205 / 255, 1.0 },
+        color = { 0.80, 0.80, 0.80, 1.0 },
         function_owner = self,
         label = "▲",
         position = { 0, 0.0749, 0 },
@@ -334,5 +336,9 @@ function onLoad(savedData)
         font_size = 50,
         font_color = { 23 / 255, 22 / 255, 21 / 255 }
     })
-    onFactionChange(nil, squadronMate.faction, "Faction")
+    onFactionChange(nil, squadron.faction, "Faction")
+end
+
+function onSave()
+    return JSON.encode({ squadron = squadron })
 end
