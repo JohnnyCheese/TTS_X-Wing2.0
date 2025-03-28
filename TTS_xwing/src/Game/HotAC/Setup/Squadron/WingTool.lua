@@ -7,6 +7,7 @@ local Sequence = require("TTS_lib.Sequence.Sequence")
 --- TODO:
 --- rename WingTool to FormationTool
 --- handle restarting the cycle after all ships have been dropped
+--- provide a reset context menu
 
 local offset = Dim.Convert_mm_igu(8.3)
 
@@ -31,19 +32,19 @@ local squadronFormations = {
     }
 }
 
-local factions = { "Empire", "Rebel", "Scum" }
+local factions = { "Rebel", "Empire", "Scum" }
 
 -- Faction-specific squadron name lists
 local factionNames = {
-    ["Empire"] = { "Alpha", "Beta", "Delta", "Gamma", "Epsilon", "Elite", "Inquisitor" },
     ["Rebel"] = { "Blue", "Green", "Grey", "Red", "Rogue", "Skull", "Vassal" },
+    ["Empire"] = { "Alpha", "Beta", "Delta", "Gamma", "Epsilon", "Elite", "Inquisitor" },
     ["Scum"] = { "Adam", "Baker", "Bandit", "Black Sun", "Cartel", "Charlie", "Syndicate" }
 }
 
 -- Faction-specific color names (faction color first, then alphabetical order)
 local factionColors = {
-    ["Empire"] = { "Imperial", "Frost", "Green", "Inquisitor", "Onyx", "Royal Red", "Slate", "Solar Yellow", "Sunset", "White", },
     ["Rebel"] = { "Rebel Red", "Blue", "Bone", "Gold", "Green", "Grey", "Plum", "Red", "Sand", },
+    ["Empire"] = { "Imperial", "Frost", "Green", "Inquisitor", "Onyx", "Royal Red", "Slate", "Solar Yellow", "Sunset", "White", },
     ["Scum"] = { "Scum", "Amber", "Indigo", "Murk", "Rust", "Sand", "Sewer", "Smog Blue", "Sun", "Teal", "Venom" }
 }
 
@@ -164,11 +165,17 @@ function onFactionChange(player, selectedFaction, dropdownId)
     squadron.faction = selectedFaction
 
     local seq = Sequence:new(true)
+    local index = table.index_of(factions, selectedFaction) or 1
+    printToAll("Faction: " .. selectedFaction .. " (" .. index .. ")")
 
     seq:waitCondition(function()
         -- This should be unnecessary, but TTS calls the handler function before updating the UI table/XML.
-        local index = table.index_of(factions, selectedFaction) or 1
         self.UI.setAttribute(dropdownId, "value", index - 1)
+    end, function() return not self.UI.loading end)
+
+    seq:waitCondition(function()
+        self.UI.setAttribute("faction", "color", selectedFaction)
+        self.UI.setAttribute("squadronPopup", "image", tostring(index) .. "BG")
     end, function() return not self.UI.loading end)
 
     seq:waitCondition(function()
@@ -337,6 +344,8 @@ function onLoad(savedData)
         font_color = { 23 / 255, 22 / 255, 21 / 255 }
     })
     onFactionChange(nil, squadron.faction, "Faction")
+    self.UI.setAttribute("squadronPopup", "active", "true")
+    Global.call("showMe", { self.guid })
 end
 
 function onSave()
