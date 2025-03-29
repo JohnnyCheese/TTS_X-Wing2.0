@@ -6,8 +6,7 @@ local Sequence = require("TTS_lib.Sequence.Sequence")
 
 --- TODO:
 --- rename WingTool to FormationTool
---- handle restarting the cycle after all ships have been dropped
---- provide a reset context menu
+--- change table squadronFormation to use Vectors
 
 local offset = Dim.Convert_mm_igu(8.3)
 
@@ -133,9 +132,8 @@ function onObjectDrop(player_color, dropped_object)
     local ship = dropped_object
     local slot = squadron.shipCount - nextSlot
     nextSlot = (nextSlot % squadron.shipCount) + 1
-    if slot == 0 then
-        nextSlot = 1
-        slot = squadron.shipCount - nextSlot
+    if slot == 1 then
+        nextSlot = 0
     end
 
     addSquadronMate(ship, slot, squadron)
@@ -277,6 +275,14 @@ function overrideAITint(ship, newTint)
     end
 end
 
+function computeShipName(slot, squadron)
+    printToAll("shipCount: " .. squadron.shipCount, Color.Orange)
+    if squadron.shipCount == 1 then
+        return squadron.squadronName
+    end
+    return squadron.squadronName .. " " .. (squadron.shipCount - slot + 1)
+end
+
 function addSquadronMate(ship, slot, mate)
     local seq = Sequence:new(true)
 
@@ -285,7 +291,7 @@ function addSquadronMate(ship, slot, mate)
         overrideAITint(ship, mate.squadronColor)
     end, 1)
     seq:waitCondition(function()
-            ship.setDescription("name " .. mate.squadronName .. " " .. (squadron.shipCount - slot + 1))
+            ship.setDescription("name " .. computeShipName(slot, mate))
         end,
         function() return Global.call("API_XWcmd_isReady", { ship = ship }) end)
     seq:waitCondition(function()
@@ -325,10 +331,10 @@ function toggleSquadronPopup()
 end
 
 function onLoad(savedData)
-    if savedData ~= "" then
-        local data = JSON.decode(savedData)
-        squadron = data.squadron or squadron
-    end
+    -- if savedData ~= "" then
+    --     local data = JSON.decode(savedData)
+    --     squadron = data.squadron or squadron
+    -- end
 
     self.createButton({
         click_function = "toggleSquadronPopup",
@@ -349,5 +355,5 @@ function onLoad(savedData)
 end
 
 function onSave()
-    return JSON.encode({ squadron = squadron })
+    -- return JSON.encode({ squadron = squadron })
 end
