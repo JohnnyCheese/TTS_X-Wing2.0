@@ -279,9 +279,6 @@ function addSquadronMate(ship, squad)
 
     local seq = Sequence:new(true)
 
-    printToAll("Adding ship to squadron: " .. ship.getName() .. " in slot " .. slot, Color.Orange)
-    table.print(squad.ships, "squadron")
-
     seq:addTask(positionShipInSquadron, ship, slot)
     seq:waitFrames(function()
         overrideAITint(ship, squad.squadronColor)
@@ -324,11 +321,6 @@ function toggleSquadronPopup()
 end
 
 function onLoad(savedData)
-    -- if savedData ~= "" then
-    --     local data = JSON.decode(savedData)
-    --     squadron = data.squadron or squadron
-    -- end
-
     self.createButton({
         click_function = "toggleSquadronPopup",
         color = { 0.80, 0.80, 0.80, 1.0 },
@@ -342,11 +334,6 @@ function onLoad(savedData)
         font_size = 50,
         font_color = { 23 / 255, 22 / 255, 21 / 255 }
     })
-    onFactionChange(nil, squadron.faction, "Faction")
-    self.UI.setAttribute("squadronPopup", "active", "true")
-    Global.call("showMe", { self.guid })
-end
 
-function onSave()
-    -- return JSON.encode({ squadron = squadron })
+    onFactionChange(nil, squadron.faction, "Faction")
 end
