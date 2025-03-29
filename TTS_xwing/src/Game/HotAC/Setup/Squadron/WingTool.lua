@@ -6,7 +6,6 @@ local Sequence = require("TTS_lib.Sequence.Sequence")
 
 --- TODO:
 --- rename WingTool to FormationTool
---- change table squadronFormation to use Vectors
 
 local offset = Dim.Convert_mm_igu(8.3)
 
@@ -84,16 +83,17 @@ local colorValues = {
 -- Current settings stored in squadron
 local squadron = {
     shipCount = 4,
-    ship = {},
-    squadronName = nil,
-    slot = -1,
+    ships = {},
+    squadronName = "Alpha",
     ai = "ai",
-    squadronColor = colorValues["Slate"],
+    squadronColor = colorValues["Imperial"],
     ownerColor = "Black",
     faction = "Empire"
 }
 
-local nextSlot = 0
+function clearSquadron()
+    squadron.ships = {}
+end
 
 -- ### Helper Functions
 
@@ -127,16 +127,9 @@ function positionShipInSquadron(ship, slot)
     ship.setRotationSmooth(rotation, false, true)
 end
 
-function onObjectDrop(player_color, dropped_object)
-    if not isNearByShip(dropped_object) then return end
-    local ship = dropped_object
-    local slot = squadron.shipCount - nextSlot
-    nextSlot = (nextSlot % squadron.shipCount) + 1
-    if slot == 1 then
-        nextSlot = 0
-    end
-
-    addSquadronMate(ship, slot, squadron)
+function onObjectDrop(player_color, ship)
+    if not isNearByShip(ship) then return end
+    addSquadronMate(ship, squadron)
 end
 
 -- UI Handling
@@ -194,13 +187,12 @@ function onFactionChange(player, selectedFaction, dropdownId)
 
     seq:waitCondition(function()
         local factionColorsList = getFactionColors(selectedFaction)
-        seq.ctx.color = updateColorDropdown(factionColorsList)
-        onSquadronColorChange(player, seq.ctx.color, "squadronColorDropdown")
+        squadron.squadronColor = updateColorDropdown(factionColorsList)
+        onSquadronColorChange(player, squadron.squadronColor, "squadronColorDropdown")
     end, function() return not self.UI.loading end)
 
     seq:waitCondition(function()
-        self.UI.setAttribute("colorPreview", "color", "#" .. seq.ctx.color:toHex(true))
-        squadron.squadronColor = seq.ctx.color
+        self.UI.setAttribute("colorPreview", "color", "#" .. squadron.squadronColor:toHex(true))
     end, function() return not self.UI.loading end)
 
     seq:start()
@@ -246,7 +238,7 @@ end
 
 function applySquadronSettings()
     self.UI.setAttribute("squadronPopup", "active", "false")
-    nextSlot = 0
+    clearSquadron()
 end
 
 function colorPreviewClicked(player, value, id)
@@ -281,8 +273,14 @@ function computeShipName(slot, squadron)
     return squadron.squadronName .. " " .. (squadron.shipCount - slot + 1)
 end
 
-function addSquadronMate(ship, slot, squad)
+function addSquadronMate(ship, squad)
+    local slot = (#squad.ships % squad.shipCount) + 1
+    table.insert(squad.ships, ship)
+
     local seq = Sequence:new(true)
+
+    printToAll("Adding ship to squadron: " .. ship.getName() .. " in slot " .. slot, Color.Orange)
+    table.print(squad.ships, "squadron")
 
     seq:addTask(positionShipInSquadron, ship, slot)
     seq:waitFrames(function()
@@ -322,9 +320,6 @@ end
 
 function toggleSquadronPopup()
     local isActive = self.UI.getAttribute("squadronPopup", "active")
-    if isActive == "false" then
-        nextSlot = 0
-    end
     self.UI.setAttribute("squadronPopup", "active", isActive == "false" and "true" or "false")
 end
 
