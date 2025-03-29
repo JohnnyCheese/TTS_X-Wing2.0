@@ -12,22 +12,22 @@ local offset = Dim.Convert_mm_igu(8.3)
 
 local squadronFormations = {
     [1] = {
-        { x = 0.0,           y = 0.0, z = -offset },
-        { x = -2.0 * offset, y = 0.0, z = -offset },
-        { x = 2.0 * offset,  y = 0.0, z = -offset },
-        { x = 0.0,           y = 0.0, z = offset },
-        { x = -2.0 * offset, y = 0.0, z = offset },
-        { x = 2.0 * offset,  y = 0.0, z = offset }
+        Vector(0.0, 0.0, -offset),
+        Vector(-2.0 * offset, 0.0, -offset),
+        Vector(2.0 * offset, 0.0, -offset),
+        Vector(0.0, 0.0, offset),
+        Vector(-2.0 * offset, 0.0, offset),
+        Vector(2.0 * offset, 0.0, offset)
     },
     [2] = {
-        { x = 0.0, y = 0.0, z = -offset },
-        { x = 0.0, y = 0.0, z = offset }
+        Vector(0.0, 0.0, -offset),
+        Vector(0.0, 0.0, offset)
     },
     [3] = {
-        { x = offset,  y = 0.0, z = -offset },
-        { x = -offset, y = 0.0, z = -offset },
-        { x = offset,  y = 0.0, z = offset },
-        { x = -offset, y = 0.0, z = offset },
+        Vector(offset, 0.0, -offset),
+        Vector(-offset, 0.0, -offset),
+        Vector(offset, 0.0, offset),
+        Vector(-offset, 0.0, offset),
     }
 }
 
@@ -164,7 +164,6 @@ function onFactionChange(player, selectedFaction, dropdownId)
 
     local seq = Sequence:new(true)
     local index = table.index_of(factions, selectedFaction) or 1
-    printToAll("Faction: " .. selectedFaction .. " (" .. index .. ")")
 
     seq:waitCondition(function()
         -- This should be unnecessary, but TTS calls the handler function before updating the UI table/XML.
@@ -276,30 +275,29 @@ function overrideAITint(ship, newTint)
 end
 
 function computeShipName(slot, squadron)
-    printToAll("shipCount: " .. squadron.shipCount, Color.Orange)
     if squadron.shipCount == 1 then
         return squadron.squadronName
     end
     return squadron.squadronName .. " " .. (squadron.shipCount - slot + 1)
 end
 
-function addSquadronMate(ship, slot, mate)
+function addSquadronMate(ship, slot, squad)
     local seq = Sequence:new(true)
 
     seq:addTask(positionShipInSquadron, ship, slot)
     seq:waitFrames(function()
-        overrideAITint(ship, mate.squadronColor)
+        overrideAITint(ship, squad.squadronColor)
     end, 1)
     seq:waitCondition(function()
-            ship.setDescription("name " .. computeShipName(slot, mate))
+            ship.setDescription("name " .. computeShipName(slot, squad))
         end,
         function() return Global.call("API_XWcmd_isReady", { ship = ship }) end)
     seq:waitCondition(function()
-            ship.setDescription(mate.ai)
+            ship.setDescription(squad.ai)
         end,
         function() return Global.call("API_XWcmd_isReady", { ship = ship }) end)
     seq:waitCondition(function()
-        ship.setVar('owningPlayer', mate.ownerColor)
+        ship.setVar('owningPlayer', squad.ownerColor)
         ship.setVar("finished_setup", true)
         ship.call("initContextMenu")
         ship.setLock(false)
