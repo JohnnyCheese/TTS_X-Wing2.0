@@ -4,9 +4,6 @@ XmlDropdown = require("TTS_lib.XmlGui.XmlDropdown")
 local Dim = require("Dim")
 local Sequence = require("TTS_lib.Sequence.Sequence")
 
---- TODO:
---- rename WingTool to FormationTool
-
 local offset = Dim.Convert_mm_igu(8.3)
 
 local squadronFormations = {
