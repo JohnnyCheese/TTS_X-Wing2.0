@@ -712,7 +712,7 @@ extraAssets = {
         label = "HotAC/FGA",
         items = {
             { label = "Transport Freighter", tag = "transportfreighter" },
-            { label = "AI Squadron Tool",    tag = "squadrontool" },
+            { label = "AI Squad Wing Tool",  tag = "formationtool" },
         }
     },
 }
@@ -782,7 +782,7 @@ function spawnAssetItem(args)
         for _, containedObject in ipairs(asset_bag.getObjects()) do
             if containedObject.gm_notes == args.tag then
                 local addRot = Vector(180, 180, 0)
-                if containedObject.gm_notes == 'transportfreighter' or containedObject.gm_notes == 'squadrontool' then
+                if containedObject.gm_notes == 'transportfreighter' or containedObject.gm_notes == 'formationtool' then
                     addRot = Vector(0, 0, 0)
                 end
                 asset = asset_bag.takeObject({
