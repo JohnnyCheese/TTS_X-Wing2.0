@@ -3836,29 +3836,16 @@ TokenModule.onObjectDestroyed = function(destroyed_object)
 end
 
 TokenModule.onObjectDropped = function(player_color, object)
-    if ObjType.IsOfType(object, 'token') then
-        if object.getVar('__XW_TokenType') ~= 'targetLock' then
-            -- Target lock has special onDrop handling on its own
-            local nearest = Global.call("API_FindNearestShip", { object = object, max_distance = 100 })
-            TokenModule.AssignToken(object, nearest)
-        end
+    if not isAssignable(object) then
+        return
     end
-    if isAssignable(object) then
-        local spos = object.getPosition()
-        local nearest = nil
-        local minDist = Dim.Convert_mm_igu(100)
-        for k, ship in pairs(getObjects()) do
-            if MoveModule.SelectShips(ship) then
-                local pos = ship.getPosition()
-                local dist = spos:distance(pos)
-                if dist < minDist then
-                    nearest = ship
-                    minDist = dist
-                end
-            end
-        end
-        TokenModule.AssignToken(object, nearest)
+
+    if object.getVar('__XW_TokenType') == 'targetLock' then
+        return
     end
+
+    local nearest = FindNearestShip(object, 100)
+    TokenModule.AssignToken(object, nearest)
 end
 
 function isAssignable(object)
@@ -4389,7 +4376,8 @@ TokenModule.AssignToken = function(token, ship)
                 else
                     token.setDescription("Unassigned")
                 end
-            end,
+            end
+            ,
             function()
                 return (not token.spawning)
             end)
