@@ -344,7 +344,7 @@ XW_cmd.Process = function(obj, cmd)
         DialModule.FixedArc(obj, cmd)
     elseif type == 'renameShip' then
         if obj.getVar('SetName') then
-            obj.call('SetName', { name = cmd:sub(5, -1) })
+            obj.call('SetName', { name = cmd:match("name%s*(.*)") })
         end
     elseif type == 'changeInitiative' then
         if obj.getVar('SetInitiative') then
