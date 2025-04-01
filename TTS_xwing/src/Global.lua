@@ -489,7 +489,7 @@ AIModule.EnableStrikeAI = function(ship, cmd)
             ship.setTable('StrikeTargets', nil)
         end
     else
-        print("Invalid format or no targets specified.")
+        printToAll("Invalid format or no targets specified.", Color.Orange)
         ship.setTable('StrikeTargets', nil)
     end
 end
