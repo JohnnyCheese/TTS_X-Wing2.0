@@ -6,7 +6,7 @@ Homepage: https://github.com/bluebird75/luaunit
 Development by Philippe Fremy <phil@freehackers.org>
 Based on initial work of Ryu, Gwang (http://www.gpgstudy.com/gpgiki/LuaUnit)
 License: BSD License, see LICENSE.txt
-]]--
+]] --
 
 require("Test.luaunit_tts_stubs")
 local M = {}
@@ -14,20 +14,20 @@ local M = {}
 -- private exported functions (for testing)
 M.private = {}
 
-M.VERSION='3.4'
-M._VERSION=M.VERSION -- For LuaUnit v2 compatibility
+M.VERSION = '3.4'
+M._VERSION = M.VERSION -- For LuaUnit v2 compatibility
 
 -- a version which distinguish between regular Lua and LuaJit
 M._LUAVERSION = (jit and jit.version) or _VERSION
 
 --[[ Some people like assertEquals( actual, expected ) and some people prefer
 assertEquals( expected, actual ).
-]]--
-M.ORDER_ACTUAL_EXPECTED = false
-M.PRINT_TABLE_REF_IN_ERROR_MSG = false
-M.LINE_LENGTH = 80
-M.TABLE_DIFF_ANALYSIS_THRESHOLD = 10    -- display deep analysis for more than 10 items
-M.LIST_DIFF_ANALYSIS_THRESHOLD  = 10    -- display deep analysis for more than 10 items
+]] --
+M.ORDER_ACTUAL_EXPECTED              = false
+M.PRINT_TABLE_REF_IN_ERROR_MSG       = false
+M.LINE_LENGTH                        = 80
+M.TABLE_DIFF_ANALYSIS_THRESHOLD      = 10 -- display deep analysis for more than 10 items
+M.LIST_DIFF_ANALYSIS_THRESHOLD       = 10 -- display deep analysis for more than 10 items
 
 -- this setting allow to remove entries from the stack-trace, for
 -- example to hide a call to a framework which would be calling luaunit
@@ -45,36 +45,36 @@ is not acceptable, it can be changed by the user to better suit specific needs.
 
 See also: https://en.wikipedia.org/wiki/Machine_epsilon
 ]]
-M.EPS = 2^-52 -- = machine epsilon for "double", ~2.22E-16
+M.EPS = 2 ^ -52 -- = machine epsilon for "double", ~2.22E-16
 if math.abs(1.1 - 1 - 0.1) > M.EPS then
     -- rounding error is above EPS, assume single precision
-    M.EPS = 2^-23 -- = machine epsilon for "float", ~1.19E-07
+    M.EPS = 2 ^ -23 -- = machine epsilon for "float", ~1.19E-07
 end
 
 -- set this to false to debug luaunit
 local STRIP_LUAUNIT_FROM_STACKTRACE = true
 
-M.VERBOSITY_DEFAULT = 10
-M.VERBOSITY_LOW     = 1
-M.VERBOSITY_QUIET   = 0
-M.VERBOSITY_VERBOSE = 20
-M.DEFAULT_DEEP_ANALYSIS = nil
-M.FORCE_DEEP_ANALYSIS   = true
-M.DISABLE_DEEP_ANALYSIS = false
+M.VERBOSITY_DEFAULT                 = 10
+M.VERBOSITY_LOW                     = 1
+M.VERBOSITY_QUIET                   = 0
+M.VERBOSITY_VERBOSE                 = 20
+M.DEFAULT_DEEP_ANALYSIS             = nil
+M.FORCE_DEEP_ANALYSIS               = true
+M.DISABLE_DEEP_ANALYSIS             = false
 
 -- set EXPORT_ASSERT_TO_GLOBALS to have all asserts visible as global values
 -- EXPORT_ASSERT_TO_GLOBALS = true
 
 -- we need to keep a copy of the script args before it is overriden
-local cmdline_argv = rawget(_G, "arg")
+local cmdline_argv                  = rawget(_G, "arg")
 
-M.FAILURE_PREFIX = 'LuaUnit test FAILURE: ' -- prefix string for failed tests
-M.SUCCESS_PREFIX = 'LuaUnit test SUCCESS: ' -- prefix string for successful tests finished early
-M.SKIP_PREFIX    = 'LuaUnit test SKIP:    ' -- prefix string for skipped tests
+M.FAILURE_PREFIX                    = 'LuaUnit test FAILURE: ' -- prefix string for failed tests
+M.SUCCESS_PREFIX                    = 'LuaUnit test SUCCESS: ' -- prefix string for successful tests finished early
+M.SKIP_PREFIX                       = 'LuaUnit test SKIP:    ' -- prefix string for skipped tests
 
 
 
-M.USAGE=[[Usage: lua <your_test_suite.lua> [options] [testname1 [testname2] ... ]
+M.USAGE = [[Usage: lua <your_test_suite.lua> [options] [testname1 [testname2] ... ]
 Options:
   -h, --help:             Print this help
   --version:              Print version information
@@ -135,7 +135,7 @@ end
 local function pcall_or_abort(func, ...)
     -- unpack is a global function for Lua 5.1, otherwise use table.unpack
     local unpack = rawget(_G, "unpack") or table.unpack
-    local result = {pcall(func, ...)}
+    local result = { pcall(func, ...) }
     if not result[1] then
         -- an error occurred
         print(result[2]) -- error message
@@ -166,11 +166,11 @@ local function crossTypeSort(a, b)
     return type_a < type_b
 end
 
-local function __genSortedIndex( t )
+local function __genSortedIndex(t)
     -- Returns a sequence consisting of t's keys, sorted.
     local sortedIndex = {}
 
-    for key,_ in pairs(t) do
+    for key, _ in pairs(t) do
         table.insert(sortedIndex, key)
     end
 
@@ -215,7 +215,7 @@ local function sortedNext(state, control)
                 upper = state.lastIdx - 1
             end
         until lower > upper
-        if lower > upper then -- only true if the key wasn't found, ...
+        if lower > upper then           -- only true if the key wasn't found, ...
             state.lastIdx = state.count -- ... so ensure no match in code below
         end
     end
@@ -235,14 +235,14 @@ local function sortedPairs(tbl)
     -- sorted order. As required by "generic for" loops, this will return the
     -- iterator (function), an "invariant state", and the initial control value.
     -- (see http://www.lua.org/pil/7.2.html)
-    return sortedNext, {t = tbl, sortedIdx = __genSortedIndex(tbl)}, nil
+    return sortedNext, { t = tbl, sortedIdx = __genSortedIndex(tbl) }, nil
 end
 M.private.sortedPairs = sortedPairs
 
 -- seed the random with a strongly varying seed
-math.randomseed(math.floor(os.clock()*1E11))
+math.randomseed(math.floor(os.clock() * 1E11))
 
-local function randomizeTable( t )
+local function randomizeTable(t)
     -- randomize the item orders of the table t
     for i = #t, 2, -1 do
         local j = math.random(i)
@@ -254,9 +254,9 @@ end
 M.private.randomizeTable = randomizeTable
 
 local function strsplit(delimiter, text)
--- Split text into a list consisting of the strings in text, separated
--- by strings matching delimiter (which may _NOT_ be a pattern).
--- Example: strsplit(", ", "Anna, Bob, Charlie, Dolores")
+    -- Split text into a list consisting of the strings in text, separated
+    -- by strings matching delimiter (which may _NOT_ be a pattern).
+    -- Example: strsplit(", ", "Anna, Bob, Charlie, Dolores")
     if delimiter == "" or delimiter == nil then -- this would result in endless loops
         error("delimiter is nil or empty string!")
     end
@@ -279,19 +279,19 @@ local function strsplit(delimiter, text)
 end
 M.private.strsplit = strsplit
 
-local function hasNewLine( s )
+local function hasNewLine(s)
     -- return true if s has a newline
     return (string.find(s, '\n', 1, true) ~= nil)
 end
 M.private.hasNewLine = hasNewLine
 
-local function prefixString( prefix, s )
+local function prefixString(prefix, s)
     -- Prefix all the lines of s with prefix
     return prefix .. string.gsub(s, '\n', '\n' .. prefix)
 end
 M.private.prefixString = prefixString
 
-local function strMatch(s, pattern, start, final )
+local function strMatch(s, pattern, start, final)
     -- return true if s matches completely the pattern from index start to index end
     -- return false in every other cases
     -- if start is nil, matches from the beginning of the string
@@ -316,7 +316,7 @@ local function patternFilter(patterns, expr)
 
     if patterns ~= nil then
         for _, pattern in ipairs(patterns) do
-            local exclude = pattern:sub(1,1) == '!'
+            local exclude = pattern:sub(1, 1) == '!'
             if exclude then
                 pattern = pattern:sub(2)
             else
@@ -341,7 +341,7 @@ local function patternFilter(patterns, expr)
 end
 M.private.patternFilter = patternFilter
 
-local function xmlEscape( s )
+local function xmlEscape(s)
     -- Return s escaped for XML attributes
     -- escapes table:
     -- "   &quot;
@@ -350,29 +350,29 @@ local function xmlEscape( s )
     -- >   &gt;
     -- &   &amp;
 
-    return string.gsub( s, '.', {
+    return string.gsub(s, '.', {
         ['&'] = "&amp;",
         ['"'] = "&quot;",
         ["'"] = "&apos;",
         ['<'] = "&lt;",
         ['>'] = "&gt;",
-    } )
+    })
 end
 M.private.xmlEscape = xmlEscape
 
-local function xmlCDataEscape( s )
+local function xmlCDataEscape(s)
     -- Return s escaped for CData section, escapes: "]]>"
-    return string.gsub( s, ']]>', ']]&gt;' )
+    return string.gsub(s, ']]>', ']]&gt;')
 end
 M.private.xmlCDataEscape = xmlCDataEscape
 
 
-local function lstrip( s )
+local function lstrip(s)
     --[[Return s with all leading white spaces and tabs removed]]
     local idx = 0
     while idx < s:len() do
         idx = idx + 1
-        local c = s:sub(idx,idx)
+        local c = s:sub(idx, idx)
         if c ~= ' ' and c ~= '\t' then
             break
         end
@@ -381,7 +381,7 @@ local function lstrip( s )
 end
 M.private.lstrip = lstrip
 
-local function extractFileLineInfo( s )
+local function extractFileLineInfo(s)
     --[[ From a string in the form "(leading spaces) dir1/dir2\dir3\file.lua:linenb: msg"
 
     Return the "file.lua:linenb" information
@@ -392,18 +392,18 @@ local function extractFileLineInfo( s )
         -- string is not in the format file:line:
         return s
     end
-    local secondColon = s2:find(':', firstColon+1, true)
+    local secondColon = s2:find(':', firstColon + 1, true)
     if secondColon == nil then
         -- string is not in the format file:line:
         return s
     end
 
-    return s2:sub(1, secondColon-1)
+    return s2:sub(1, secondColon - 1)
 end
 M.private.extractFileLineInfo = extractFileLineInfo
 
 
-local function stripLuaunitTrace2( stackTrace, errMsg )
+local function stripLuaunitTrace2(stackTrace, errMsg)
     --[[
     -- Example of  a traceback:
     <<stack traceback:
@@ -471,14 +471,14 @@ local function stripLuaunitTrace2( stackTrace, errMsg )
         * anything starting again with luaunit.lua is part of the test launcher and should be stripped out
     ]]
 
-    local function isLuaunitInternalLine( s )
+    local function isLuaunitInternalLine(s)
         -- return true if line of stack trace comes from inside luaunit
         return s:find('[/\\]luaunit%.lua:%d+: ') ~= nil
     end
 
     -- print( '<<'..stackTrace..'>>' )
 
-    local t = strsplit( '\n', stackTrace )
+    local t = strsplit('\n', stackTrace)
     -- print( prettystr(t) )
 
     local idx = 2
@@ -505,15 +505,14 @@ local function stripLuaunitTrace2( stackTrace, errMsg )
     end
 
     -- print( prettystr(t) )
-    return table.concat( t, '\n')
-
+    return table.concat(t, '\n')
 end
 M.private.stripLuaunitTrace2 = stripLuaunitTrace2
 
 
-local function prettystr_sub(v, indentLevel, printTableRefs, cycleDetectTable )
+local function prettystr_sub(v, indentLevel, printTableRefs, cycleDetectTable)
     local type_v = type(v)
-    if "string" == type_v  then
+    if "string" == type_v then
         -- use clever delimiters according to content:
         -- enclose with single quotes if string contains ", but no '
         if v:find('"', 1, true) and not v:find("'", 1, true) then
@@ -521,13 +520,11 @@ local function prettystr_sub(v, indentLevel, printTableRefs, cycleDetectTable )
         end
         -- use double quotes otherwise, escape embedded "
         return '"' .. v:gsub('"', '\\"') .. '"'
-
     elseif "table" == type_v then
         --if v.__class__ then
         --    return string.gsub( tostring(v), 'table', v.__class__ )
         --end
         return M.private._table_tostring(v, indentLevel, printTableRefs, cycleDetectTable)
-
     elseif "number" == type_v then
         -- eliminate differences in formatting between various Lua versions
         if v ~= v then
@@ -550,12 +547,12 @@ local function prettystr_sub(v, indentLevel, printTableRefs, cycleDetectTable )
     return tostring(v)
 end
 
-local function prettystr( v )
+local function prettystr(v)
     --[[ Pretty string conversion, to display the full content of a variable of any type.
 
     * string are enclosed with " by default, or with ' if string contains a "
     * tables are expanded to show their full content, with indentation in case of nested tables
-    ]]--
+    ]] --
     local cycleDetectTable = {}
     local s = prettystr_sub(v, 1, M.PRINT_TABLE_REF_IN_ERROR_MSG, cycleDetectTable)
     if cycleDetectTable.detected and not M.PRINT_TABLE_REF_IN_ERROR_MSG then
@@ -570,37 +567,45 @@ end
 M.prettystr = prettystr
 
 function M.adjust_err_msg_with_iter(err, iter_msg)
+    -- Prepend a comma and space to iter_msg if it exists
     if iter_msg then
         iter_msg = iter_msg .. ', '
     else
         iter_msg = ''
     end
 
-    -- Always stringify
+    -- Ensure err.msg is a string
     if type(err.msg) ~= 'string' then
         err.msg = prettystr(err.msg)
     end
 
     local msg = err.msg
 
-    -- Use simple `string.find()` instead of regex
+    -- Check for prefixes using plain text matching with string.find
     if msg:find(M.SUCCESS_PREFIX, 1, true) then
         return nil, M.NodeStatus.SUCCESS
     elseif msg:find(M.SKIP_PREFIX, 1, true) then
-        msg = msg:gsub(".*" .. M.SKIP_PREFIX, iter_msg, 1)
+        local pos = msg:find(M.SKIP_PREFIX, 1, true)
+        if pos then
+            -- Extract the part after the prefix and prepend iter_msg
+            msg = iter_msg .. msg:sub(pos + #M.SKIP_PREFIX)
+        else
+            msg = iter_msg .. msg
+        end
         return msg, M.NodeStatus.SKIP
     elseif msg:find(M.FAILURE_PREFIX, 1, true) then
-        msg = msg:gsub(".*" .. M.FAILURE_PREFIX, iter_msg, 1)
+        local pos = msg:find(M.FAILURE_PREFIX, 1, true)
+        if pos then
+            -- Extract the part after the prefix and prepend iter_msg
+            msg = iter_msg .. msg:sub(pos + #M.FAILURE_PREFIX)
+        else
+            msg = iter_msg .. msg
+        end
         return msg, M.NodeStatus.FAIL
     else
-        -- Regular error
+        -- Regular error: simply prepend iter_msg
         if iter_msg then
-            local match = msg:match('(.-:%d+: )')
-            if match then
-                msg = msg:gsub(match, match .. iter_msg)
-            else
-                msg = iter_msg .. msg
-            end
+            msg = iter_msg .. msg
         end
         return msg, M.NodeStatus.ERROR
     end
@@ -661,7 +666,7 @@ local function tryMismatchFormatting(table_a, table_b, doDeepAnalysis, margin)
     end
 
     if isPureList then
-        return M.private.mismatchFormattingPureList( table_a, table_b, margin )
+        return M.private.mismatchFormattingPureList(table_a, table_b, margin)
     else
         -- only work on mapping for the moment
         -- return M.private.mismatchFormattingMapping( table_a, table_b, doDeepAnalysis )
@@ -677,11 +682,11 @@ local function getTaTbDescr()
     return 'actual', 'expected'
 end
 
-local function extendWithStrFmt( res, ... )
-    table.insert( res, string.format( ... ) )
+local function extendWithStrFmt(res, ...)
+    table.insert(res, string.format(...))
 end
 
-local function mismatchFormattingMapping( table_a, table_b, doDeepAnalysis )
+local function mismatchFormattingMapping(table_a, table_b, doDeepAnalysis)
     --[[
     Prepares a nice error message when comparing tables which are not pure lists, performing a deeper
     analysis.
@@ -799,7 +804,7 @@ local function mismatchFormattingMapping( table_a, table_b, doDeepAnalysis )
 end
 M.private.mismatchFormattingMapping = mismatchFormattingMapping
 
-local function mismatchFormattingPureList( table_a, table_b, margin )
+local function mismatchFormattingPureList(table_a, table_b, margin)
     --[[
     Prepares a nice error message when comparing tables which are lists, performing a deeper
     analysis.
@@ -815,12 +820,13 @@ local function mismatchFormattingPureList( table_a, table_b, margin )
 
     local len_a, len_b, refa, refb = #table_a, #table_b, '', ''
     if M.PRINT_TABLE_REF_IN_ERROR_MSG then
-        refa, refb = string.format( '<%s> ', M.private.table_ref(table_a)), string.format('<%s> ', M.private.table_ref(table_b) )
+        refa, refb = string.format('<%s> ', M.private.table_ref(table_a)),
+            string.format('<%s> ', M.private.table_ref(table_b))
     end
     local longest, shortest = math.max(len_a, len_b), math.min(len_a, len_b)
-    local deltalv  = longest - shortest
+    local deltalv           = longest - shortest
 
-    local commonUntil = shortest
+    local commonUntil       = shortest
     for i = 1, shortest do
         if not M.private.is_table_equals(table_a[i], table_b[i], margin) then
             commonUntil = i - 1
@@ -830,22 +836,23 @@ local function mismatchFormattingPureList( table_a, table_b, margin )
 
     local commonBackTo = shortest - 1
     for i = 0, shortest - 1 do
-        if not M.private.is_table_equals(table_a[len_a-i], table_b[len_b-i], margin) then
+        if not M.private.is_table_equals(table_a[len_a - i], table_b[len_b - i], margin) then
             commonBackTo = i - 1
             break
         end
     end
 
 
-    table.insert( result, 'List difference analysis:' )
+    table.insert(result, 'List difference analysis:')
     if len_a == len_b then
         -- TODO: handle expected/actual naming
-        extendWithStrFmt( result, '* lists %sA (%s) and %sB (%s) have the same size', refa, descrTa, refb, descrTb )
+        extendWithStrFmt(result, '* lists %sA (%s) and %sB (%s) have the same size', refa, descrTa, refb, descrTb)
     else
-        extendWithStrFmt( result, '* list sizes differ: list %sA (%s) has %d items, list %sB (%s) has %d items', refa, descrTa, len_a, refb, descrTb, len_b )
+        extendWithStrFmt(result, '* list sizes differ: list %sA (%s) has %d items, list %sB (%s) has %d items', refa,
+            descrTa, len_a, refb, descrTb, len_b)
     end
 
-    extendWithStrFmt( result, '* lists A and B start differing at index %d', commonUntil+1 )
+    extendWithStrFmt(result, '* lists A and B start differing at index %d', commonUntil + 1)
     if commonBackTo >= 0 then
         if deltalv > 0 then
             extendWithStrFmt(result, '* lists A and B are equal again from index %d for A, %d for B', len_a -
