@@ -4,19 +4,32 @@
 -- TTS provides os.clock, os.difftime, os.date, and os.time via OS_Time
 -- We only need to stub os.getenv and os.exit
 os = os or {}
-os.getenv = function(var)
+-- os.getenv = function(var)
+--     -- Useful defaults for LuaUnit in TTS
+--     local defaults = {
+--         ["LUAUNIT_OUTPUT"] = "text",                     -- Default to text output for chat
+--         ["LUAUNIT_JUNIT_FNAME"] = "tts_junit_output.xml" -- Unused but included for compatibility
+--     }
+--     return defaults[var] or nil
+-- end
+function os.getenv(key)
+    -- Custom environment variables for use by LuaUnit or other sandboxed code
     -- Useful defaults for LuaUnit in TTS
-    local defaults = {
-        ["LUAUNIT_OUTPUT"] = "text",                     -- Default to text output for chat
-        ["LUAUNIT_JUNIT_FNAME"] = "tts_junit_output.xml" -- Unused but included for compatibility
+    local fake_env = {
+        LUAUNIT_OUTPUT = "text",           -- "TAP", "text", "NIL", "JUNIT"
+        LUAUNIT_SORT = "NATURAL",          -- or "ASC", "DESC"
+        LUAUNIT_VERBOSITY = "2",           -- 1 = minimal, 2 = normal, 3 = verbose
+        LUAUNIT_JUNIT_FNAME = "junit.xml", -- output filename if using junit
+        LUAUNIT_DATEFMT = "%Y-%m-%d %H:%M:%S"
     }
-    return defaults[var] or nil
+
+    return fake_env[key] or nil
 end
 
 os.exit = function(code)
     -- Simulate exit by logging and stopping execution
     print("os.exit called with code: " .. tostring(code or 0))
-    error("Simulated os.exit in TTS")
+    --error("Simulated os.exit in TTS")
 end
 
 -- Stub out io library (TTS doesn’t support it)
