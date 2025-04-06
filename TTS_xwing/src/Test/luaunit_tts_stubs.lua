@@ -4,14 +4,6 @@
 -- TTS provides os.clock, os.difftime, os.date, and os.time via OS_Time
 -- We only need to stub os.getenv and os.exit
 os = os or {}
--- os.getenv = function(var)
---     -- Useful defaults for LuaUnit in TTS
---     local defaults = {
---         ["LUAUNIT_OUTPUT"] = "text",                     -- Default to text output for chat
---         ["LUAUNIT_JUNIT_FNAME"] = "tts_junit_output.xml" -- Unused but included for compatibility
---     }
---     return defaults[var] or nil
--- end
 function os.getenv(key)
     -- Custom environment variables for use by LuaUnit or other sandboxed code
     -- Useful defaults for LuaUnit in TTS

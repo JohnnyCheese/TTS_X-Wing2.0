@@ -2833,7 +2833,10 @@ function M.LuaUnit:startSuite(selectedCount, nonSelectedCount)
         skippedCount = 0,
     }
 
-    self.outputType = self.outputType or TextOutput
+    -- self.outputType = self.outputType or TextOutput
+    -- self.outputType = ProgressOutput
+    -- self.outputType = TTSOutput
+    self.outputType = nil
     self.output = self.outputType.new(self)
     self.output:startSuite()
 end
