@@ -2834,8 +2834,6 @@ function M.LuaUnit:startSuite(selectedCount, nonSelectedCount)
     }
 
     -- self.outputType = self.outputType or TextOutput
-    -- self.outputType = ProgressOutput
-    -- self.outputType = TTSOutput
     self.outputType = nil
     self.output = self.outputType.new(self)
     self.output:startSuite()
