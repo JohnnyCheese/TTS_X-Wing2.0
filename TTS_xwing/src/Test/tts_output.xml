@@ -1,11 +1,30 @@
-<Panel id="TestStatus" width="300" height="300" position="0 150 -50" color="#333333" active="true">
+<Defaults>
+    <Text class="title" fontStyle="Bold" color="White" alignment="MiddleCenter"
+        resizeTextForBestFit="true" />
+</Defaults>
+
+<Panel id="TestStatus" width="600" height="600"
+    position="0 350 -50"
+    color="#666666"
+    active="true">
     <VerticalLayout>
-        <Panel>
-            <Text fontSize="16" color="#FFFFFF" flexibleWidth="1">Test Progress</Text>
-        </Panel>
-        <GridLayout id="TestGrid" cellSize="50 50" spacing="2 2" padding="5 5" color="#000000"
-            constraint="FixedColumnCount" constraintCount="10"
+        <Text class="title"
+            preferredHeight="80"
+            text="Test Progress"
+        />
+        <Panel preferredWidth="600" preferredHeight="500"
+            padding="10 10 0 10"
+            alignment="MiddleCenter"
         >
-        </GridLayout>
+            <GridLayout id="TestGrid"
+                cellSize="50 50"
+                spacing="7 7"
+                padding="8 0 10 0"
+                color="#333333"
+                constraint="FixedColumnCount"
+                constraintCount="10"
+                alignment="MiddleCenter"
+            />
+        </Panel>
     </VerticalLayout>
 </Panel>

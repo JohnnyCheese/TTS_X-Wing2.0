@@ -13,21 +13,35 @@ function TTSOutput.new(runner)
         squareIds = {},
         hostObject = runner.hostObject
     }
-    printToAll("TTSOutput: Creating with " .. t.totalTests .. " tests, hostObject: " .. tostring(t.hostObject),
-        { 1, 1, 0 })
     return setmetatable(t, { __index = TTSOutput })
+end
+
+-- Utility function to recursively find an element by its ID
+local function findElementById(elements, id)
+    for _, element in ipairs(elements or {}) do
+        if element.attributes and element.attributes.id == id then
+            return element
+        end
+        if element.children then
+            local found = findElementById(element.children, id)
+            if found then
+                return found
+            end
+        end
+    end
+    return nil
 end
 
 function TTSOutput:startSuite()
     if not self.hostObject then
-        printToAll("TTO: No host object in startSuite", { 1, 0, 0 })
+        printToAll("No host object in startSuite", { 1, 0, 0 })
         return
     end
 
     -- Get the current UI structure
     local uiTable = self.hostObject.UI.getXmlTable()
     if not uiTable or #uiTable == 0 then
-        printToAll("TTO: Failed to get UI table", { 1, 0, 0 })
+        printToAll("Failed to get UI table", { 1, 0, 0 })
         return
     end
 
@@ -54,82 +68,73 @@ function TTSOutput:startSuite()
         })
     end
 
-    printToAll("TTO: Created " .. #panels .. " panels", { .2, .2, 1 })
-
-    -- Update the TestGrid within the full UI structure
-    for _, element in ipairs(uiTable) do
-        if element.attributes and element.attributes.id == "TestStatus" then
-            for _, child in ipairs(element.children or {}) do
-                if child.tag == "VerticalLayout" then
-                    for i, subChild in ipairs(child.children or {}) do
-                        if subChild.attributes and subChild.attributes.id == "TestGrid" then
-                            child.children[i].children = panels -- Replace TestGrid's children
-                            break
-                        end
-                    end
-                end
-            end
-        end
+    -- Find the TestGrid element dynamically
+    local testGrid = findElementById(uiTable, "TestGrid")
+    if not testGrid then
+        printToAll("TestGrid not found!", { 1, 0, 0 })
+        return
     end
+
+    -- Replace TestGrid's children with the new panels
+    testGrid.children = panels
 
     -- Set the updated UI
     self.hostObject.UI.setXmlTable(uiTable)
-    printToAll("TTO: Starting suite with " .. self.totalTests .. " tests", { 0, 1, 0 })
+    printToAll("Starting suite with " .. self.totalTests .. " tests", { 0, 1, 0 })
 end
 
 function TTSOutput:startClass(className)
     if self.verbosity > M.VERBOSITY_LOW then
-        printToAll("TTO: Starting class: " .. className, { 1, 1, 0 })
+        printToAll("Starting class: " .. className, { 1, 1, 0 })
     end
 end
 
 function TTSOutput:startTest(testName)
     if self.verbosity > M.VERBOSITY_DEFAULT then
-        printToAll("TTO: Starting test: " .. testName, { 1, 1, 0 })
+        printToAll("Starting test: " .. testName, { 1, 1, 0 })
     end
 end
 
 function TTSOutput:updateStatus(node)
-    local index = self.completedTests + 1
-    if not self.hostObject then
-        printToAll("TTO: No host object in updateStatus", { 1, 0, 0 })
-        return
-    end
-    if node:isSkipped() then
-        self.hostObject.UI.setAttribute(self.squareIds[index], "color", "#FFFF00")
-    elseif node:isFailure() then
-        self.hostObject.UI.setAttribute(self.squareIds[index], "color", "#FF0000")
-    elseif node:isError() then
-        self.hostObject.UI.setAttribute(self.squareIds[index], "color", "#FF0000")
-    else
-        self.hostObject.UI.setAttribute(self.squareIds[index], "color", "#00FF00")
-    end
+    -- No-op: updates handled in endTest()
 end
 
 function TTSOutput:endTest(node)
     self.completedTests = self.completedTests + 1
     local index = self.completedTests
     if not self.hostObject then
-        printToAll("TTO: No host object in endTest", { 1, 0, 0 })
+        printToAll("No host object in endTest", { 1, 0, 0 })
         return
     end
-    local testName = node.testName .. ": " .. node.status:lower()
+
+    local squareId = self.squareIds[index]
+    local tooltip = node.testName .. " (" .. node.status:lower() .. ")"
+    local color = "#FF00FF" -- magenta: unknown
+
     if node:isSuccess() then
-        self.hostObject.UI.setAttribute(self.squareIds[index], "color", "#00FF00")
-    elseif not (node:isFailure() or node:isError() or node:isSkipped()) then
-        self.hostObject.UI.setAttribute(self.squareIds[index], "color", "#FF0000")
+        color = "#00FF00" -- green
+    elseif node:isFailure() then
+        color = "#FF0000" -- red
+    elseif node:isError() then
+        color = "#FF0000" -- red
+    elseif node:isSkipped() then
+        color = "#FFFF00" -- yellow
     end
-    self.hostObject.UI.setAttribute(self.squareIds[index], "tooltip", testName)
+
+    -- Update square panel
+    Wait.frames(function()
+        self.hostObject.UI.setAttribute(squareId, "color", color)
+        self.hostObject.UI.setAttribute(squareId, "tooltip", tooltip)
+    end, 2)
 end
 
 function TTSOutput:endClass()
     if self.verbosity > M.VERBOSITY_LOW then
-        printToAll("TTO: Ending class", { 1, 1, 0 })
+        printToAll("Ending class", { 1, 1, 0 })
     end
 end
 
 function TTSOutput:endSuite()
-    printToAll("TTO: Test suite completed", { 0, 0, 1 })
     printToAll(M.LuaUnit.statusLine(self.result), { 1, 1, 0 })
 end
 
