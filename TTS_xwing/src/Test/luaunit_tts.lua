@@ -1,7 +1,8 @@
 -- luaunit_tts.lua
--- Provides LuaUnit configured for Tabletop Simulator compatibility (headless)
+-- One-stop TTS-compatible LuaUnit setup with unified output
 
-require("Test.luaunit_tts_env")      -- Install TTS-safe os/io/etc
-local lu = require("Test.luaunit")   -- Load close to base LuaUnit
+require("Test.luaunit_tts_env")
+local lu = require("Test.luaunit")
+lu.LuaUnit.outputType = require("Test.luaunit_tts_output").TTSOutput
 
 return lu
