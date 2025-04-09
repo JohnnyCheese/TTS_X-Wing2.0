@@ -1,5 +1,5 @@
--- luaunit_tts_stubs.lua
--- Simplified stubs for running LuaUnit in Tabletop Simulator
+-- luaunit_tts_env.lua
+-- Fake system and environment stubs for running LuaUnit inside Tabletop Simulator
 
 -- TTS provides os.clock, os.difftime, os.date, and os.time via OS_Time
 -- We only need to stub os.getenv and os.exit
@@ -24,7 +24,7 @@ os.exit = function(code)
     --error("Simulated os.exit in TTS")
 end
 
--- Stub out io library (TTS doesn’t support it)
+-- Stub out io library (TTS doesn’t support file I/O)
 io = io or {}
 io.stdout = {
     write = function(self, ...)

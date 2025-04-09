@@ -1,5 +1,7 @@
 -- luaunit_tts.lua
-require('Test.luaunit_tts_stubs') -- Load stubs first
-local M = require('Test.tts_output') -- Load TTSOutput
+-- Provides LuaUnit configured for Tabletop Simulator compatibility (headless)
 
-return M
+require("Test.luaunit_tts_env")      -- Install TTS-safe os/io/etc
+local lu = require("Test.luaunit")   -- Load close to base LuaUnit
+
+return lu

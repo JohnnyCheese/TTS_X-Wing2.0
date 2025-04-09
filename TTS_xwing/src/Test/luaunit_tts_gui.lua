@@ -1,13 +1,14 @@
--- tts_output.lua
-local M = require('Test.luaunit')
+-- luaunit_tts_gui.lua
+-- TTS LuaUnit with visual test output grid
+local lu = require("Test.luaunit_tts")
 
-TTSOutput = { __class__ = 'TTSOutput' }
+TTSOutput = { __class__ = "TTSOutput" }
 
 function TTSOutput.new(runner)
     local t = {
         runner = runner,
         result = runner.result,
-        verbosity = runner.verbosity or M.VERBOSITY_DEFAULT,
+        verbosity = runner.verbosity or lu.VERBOSITY_DEFAULT,
         totalTests = runner.result.selectedCount,
         completedTests = 0,
         squareIds = {},
@@ -68,14 +69,12 @@ function TTSOutput:startSuite()
         })
     end
 
-    -- Find the TestGrid element dynamically
     local testGrid = findElementById(uiTable, "TestGrid")
     if not testGrid then
         printToAll("TestGrid not found!", { 1, 0, 0 })
         return
     end
 
-    -- Replace TestGrid's children with the new panels
     testGrid.children = panels
 
     -- Set the updated UI
@@ -84,44 +83,29 @@ function TTSOutput:startSuite()
 end
 
 function TTSOutput:startClass(className)
-    if self.verbosity > M.VERBOSITY_LOW then
+    if self.verbosity > lu.VERBOSITY_LOW then
         printToAll("Starting class: " .. className, { 1, 1, 0 })
     end
 end
 
 function TTSOutput:startTest(testName)
-    if self.verbosity > M.VERBOSITY_DEFAULT then
+    if self.verbosity > lu.VERBOSITY_DEFAULT then
         printToAll("Starting test: " .. testName, { 1, 1, 0 })
     end
 end
 
-function TTSOutput:updateStatus(node)
-    -- No-op: updates handled in endTest()
-end
+function TTSOutput:updateStatus(node) end -- No-op
 
 function TTSOutput:endTest(node)
     self.completedTests = self.completedTests + 1
-    local index = self.completedTests
-    if not self.hostObject then
-        printToAll("No host object in endTest", { 1, 0, 0 })
-        return
-    end
-
-    local squareId = self.squareIds[index]
+    local squareId = self.squareIds[self.completedTests]
     local tooltip = node.testName .. " (" .. node.status:lower() .. ")"
-    local color = "#FF00FF" -- magenta: unknown
+    local color = "#FF00FF"
 
-    if node:isSuccess() then
-        color = "#00FF00" -- green
-    elseif node:isFailure() then
-        color = "#FF0000" -- red
-    elseif node:isError() then
-        color = "#FF0000" -- red
-    elseif node:isSkipped() then
-        color = "#FFFF00" -- yellow
-    end
+    if node:isSuccess() then color = "#00FF00"
+    elseif node:isFailure() or node:isError() then color = "#FF0000"
+    elseif node:isSkipped() then color = "#FFFF00" end
 
-    -- Update square panel
     Wait.frames(function()
         self.hostObject.UI.setAttribute(squareId, "color", color)
         self.hostObject.UI.setAttribute(squareId, "tooltip", tooltip)
@@ -129,15 +113,20 @@ function TTSOutput:endTest(node)
 end
 
 function TTSOutput:endClass()
-    if self.verbosity > M.VERBOSITY_LOW then
+    if self.verbosity > lu.VERBOSITY_LOW then
         printToAll("Ending class", { 1, 1, 0 })
     end
 end
 
 function TTSOutput:endSuite()
-    printToAll(M.LuaUnit.statusLine(self.result), { 1, 1, 0 })
+    printToAll(lu.LuaUnit.statusLine(self.result), { 1, 1, 0 })
 end
 
-M.LuaUnit.outputType = TTSOutput
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Attach output plugin
+lu.LuaUnit.outputType = TTSOutput
 
-return M
+-- Optionally expose plugin class for customization
+return setmetatable(lu, {
+    __index = { TTSOutput = TTSOutput }
+})
