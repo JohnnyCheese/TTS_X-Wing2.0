@@ -89,7 +89,9 @@ function TTSOutput:startSuite()
     end
 
     testGrid.children = panels
+
     self.hostObject.UI.setXmlTable(uiTable)
+    coroutine.yield(0)
 end
 
 function TTSOutput:endTest(node)
@@ -101,15 +103,15 @@ function TTSOutput:endTest(node)
 
     if self.hostObject then
         local squareId = self.squareIds[self.completedTests]
-        Wait.frames(function()
-            self.hostObject.UI.setAttribute(squareId, "color", colorHex)
-            self.hostObject.UI.setAttribute(squareId, "tooltip", tooltip)
-        end, 2)
+        self.hostObject.UI.setAttribute(squareId, "color", colorHex)
+        self.hostObject.UI.setAttribute(squareId, "tooltip", tooltip)
     end
 
     if self.printText then
         printToAll(tooltip, Color.fromHex(colorHex))
     end
+
+    coroutine.yield(0)
 end
 
 function TTSOutput:startClass(name)
