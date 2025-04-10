@@ -1,77 +1,53 @@
-| `luaunit_tts_output.xml`   | ✅ XML UI layout for grid            |# LuaUnit for Tabletop Simulator (TTS)
+# LuaUnit for Tabletop Simulator (TTS)
 
-This is a custom port of [LuaUnit](https://github.com/bluebird75/luaunit) adapted for use inside **Tabletop Simulator** (TTS), which runs Lua scripts using the **MoonSharp** interpreter.
+This is a custom port of [LuaUnit](https://github.com/bluebird75/luaunit) adapted for use inside **Tabletop Simulator**
+(TTS), which runs Lua scripts using the **MoonSharp** interpreter.
 
-The port is minimal and unobtrusive, preserving upstream compatibility where possible while enabling a powerful developer testing experience inside TTS.
+The port tried to be minimal and unobtrusive, preserving original scripting where possible, but enabling a powerful
+developer testing experience inside TTS.
 
 ## Features
 
 - ✅ **1-line require()** for easy drop-in
-- 🎨 Optional **visual test runner** with color-coded grid UI
+- 🎨 Optional **visual test runner** with customizable color-coded grid UI
 - 📦 Compatible with [LuaBundler](https://github.com/Spellcaster/lua-bundler)
 - 🔁 Supports `assert`, `assertEquals`, and all standard LuaUnit assertions
 - ⚠️ Skip tests with `luaunit.skip("reason")`
-- 🎨 Centralized symbolic color palette
 
 ---
 
 ## Installation & File Overview
 
-Include the following Lua files in your `Test/` directory inside your mod or bundler config:
+These examples assume the following Lua files are in a `Test/` directory inside your mod or bundler config:
 
-| File                    | Purpose                              |
-|-------------------------|--------------------------------------|
-| `luaunit.lua`           | ✅ Unmodified LuaUnit v3.4           |
-| `luaunit_tts.lua`       | ✅ TTS-safe test runner + color logic|
-| `luaunit_tts_env.lua`   | ✅ `os`, `io`, and `print` polyfills |
-| `luaunit_tts_output.lua`| ✅ Unified grid/chat output handler  |
-| `luaunit_tts_gui.xml`   | ✅ XML UI layout for grid            |
+| File                     | Purpose                                                                            |
+|--------------------------|------------------------------------------------------------------------------------|
+| `luaunit.lua`            | ✅ minimally modified LuaUnit v3.4                                                  |
+| **`luaunit_tts.lua`**    | ✅ TTS test runner this is the file to `require()` in your test files |
+| `luaunit_tts_env.lua`    | ✅ `os`, `io`, and `print` stubs                                                    |
+| `luaunit_tts_output.lua` | ✅ Unified grid/chat output handler + color configuration                            |
+| `luaunit_tts_output.xml` | ✅ XML GUI layout for grid                                                          |
 
 ---
 
 ## Usage
 
 ```lua
-local luaunit = require("Test.luaunit_tts")
+local lu = require("Test.luaunit_tts")
 
-luaunit.LuaUnit.hostObject = self                      -- enables GUI
-luaunit.LuaUnit.outputType.printText = true            -- optional: also use chat
-
-return luaunit.LuaUnit:run()
+lu.LuaUnit:run()
 ```
 
----
-
-## How Output Mode is Selected
-
-| Condition            | UI Grid | Chat Output |
-|----------------------|---------|-------------|
-| `hostObject = nil`   | ❌ No   | ✅ Yes       |
-| `hostObject = self`  | ✅ Yes  | ✅ Optional  |
-
----
-
-## Symbolic Color Table
-
-All visual output uses `TTSOutput.namedColors`, which you can override:
+It's convenient to encapsulate and control running the tests with a
+function. e.g. `runTests()` is a popular choice
 
 ```lua
-TTSOutput.namedColors = {
-    PASS    = "#00FF00",
-    FAIL    = "#FF0000",
-    ERROR   = "#FF0000",
-    SKIP    = "#FFFF00",
-    UNKNOWN = "#FF00FF",
-    INFO    = "#9999FF",
-    START   = "#FFFF99",
-    NEUTRAL = "#FFFFFF"
-}
-```
+local lu = require("Test.luaunit_tts")
 
-In the UI or chat, you’ll only see symbolic names:
-
-```lua
-Color.fromHex(TTSOutput.namedColors.FAIL)
+function runTests()
+    lu.LuaUnit.hostObject = self           -- enables GUI
+    lu.LuaUnit:run()
+end
 ```
 
 ---
@@ -84,11 +60,11 @@ Create test tables with function names beginning with `test_`:
 TestExample = {}
 
 function TestExample:test_addition()
-    assertEquals(2 + 2, 4)
+    lu.assertEquals(2 + 2, 4)
 end
 
 function TestExample:test_skip()
-    require("Test.luaunit").skip("This is not yet implemented")
+    lu.skip("This is not yet implemented")
 end
 ```
 
@@ -96,36 +72,44 @@ Tests are detected and run automatically if their table names start with `Test`.
 
 ---
 
-## main.lua Example (Bundler-Friendly)
+## How Output Mode is Selected
 
-```lua
-local luaunit = require("Test.luaunit_tts")
-luaunit.LuaUnit.hostObject = self
-luaunit.LuaUnit.outputType.printText = true
-return luaunit.LuaUnit:run()
-```
-
-When bundling:
-
-```sh
-luabundler bundle main.lua -o bundled_output.lua
-```
+| Condition           | UI Grid | Chat Output |
+| ------------------- | ------- | ----------- |
+| `hostObject = nil`  | ❌ No    | ✅ Yes       |
+| `hostObject = self` | ✅ Yes   | ✅ Optional  |
 
 ---
 
-## Advanced Usage
+## Symbolic Color Table
 
-### Override Output
+All visual output, chat or grid, uses `TTSOutput.colors`, which you can override:
 
 ```lua
-luaunit.LuaUnit.outputType.printText = false -- silence chat output
-luaunit.LuaUnit.outputType.colors.FAIL = "#FFA500" -- override red with orange
+TTSOutput.colors = {
+    SUCCESS = "#00FF00", -- green
+    FAIL    = "#FF0000", -- bright red
+    ERROR   = "#CC0000", -- red (distinct from FAIL, can override)
+    SKIP    = "#FFFF00", -- yellow
+    INFO    = "#9999FF", -- soft blue
+    START   = "#FFFF99", -- light yellow
+    FINISH  = "#FFFF99", -- matches START by default, intended for final summary line
+    NEUTRAL = "#FFFFFF", -- white
+    UNKNOWN = "#FF00FF", -- magenta
+}
+```
+
+### Customizing Color Output
+You can override the color for particular results as follows:
+
+```lua
+lu.LuaUnit.outputType.colors.FAIL = "#FFA500" -- override red with orange
 ```
 
 ### Manual Class Runner
 
 ```lua
-local runner = luaunit.LuaUnit.new()
+local runner = lu.LuaUnit.new()
 runner.hostObject = self
 runner.testClasses = { TestExample }
 return runner:runSuite()
@@ -133,31 +117,26 @@ return runner:runSuite()
 
 ---
 
-## UI Layout: luaunit_tts_gui.xml
+## XML GUI Layout: luaunit_tts_output.xml
 
 Load this layout to enable grid UI:
 
+```xml
+<Include src="Test/luaunit_tts_output.xml"/>
+```
+And set the `hostObject` appropriately.
 ```lua
-self.UI.setXmlTable(XML.fromString(xmlContent))
+lu.LuaUnit.hostObject = self                      -- enables GUI
 ```
 
-TTSOutput will auto-update color squares based on test result.
-
----
-
-## Tips for Mod Developers
-
-- `os.clock()` simulates long-running tests
-- `printToAll()` supports color via `Color.fromHex()`
-- Use symbolic color names for all visual output
-- Override `TTSOutput.namedColors` to theme your mod
+TTSOutput will auto-update color squares based on test results.
 
 ---
 
 ## Credits
 
 - Original LuaUnit: [Philippe Fremy](https://github.com/bluebird75/luaunit)
-- TTS port by [Your Name / Mod Team]
+- TTS port by BeardedGamer
 
 ---
 
