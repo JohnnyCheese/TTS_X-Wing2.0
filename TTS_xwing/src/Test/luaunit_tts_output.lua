@@ -6,10 +6,10 @@ local M = require("Test.luaunit")
 TTSOutput = {
     __class__ = "TTSOutput",
     printText = false,       -- default: chat logging off
-    namedColors = {
+    colors = {
         SUCCESS = "#00FF00", -- green
-        FAIL    = "#FF0000", -- red
-        ERROR   = "#FF0000", -- red (distinct from FAIL, can override)
+        FAIL    = "#FF0000", -- bright red
+        ERROR   = "#CC0000", -- red (distinct from FAIL, can override)
         SKIP    = "#FFFF00", -- yellow
         UNKNOWN = "#FF00FF", -- magenta
         START   = "#FFFF99", -- light yellow
@@ -29,7 +29,7 @@ function TTSOutput.new(runner)
         squareIds = {},
         hostObject = runner.hostObject,
         printText = TTSOutput.printText,
-        namedColors = TTSOutput.namedColors,
+        colors = TTSOutput.colors,
     }
     return setmetatable(t, { __index = TTSOutput })
 end
@@ -56,7 +56,7 @@ function TTSOutput:startSuite()
     -- Get the current UI structure
     local uiTable = self.hostObject.UI.getXmlTable()
     if not uiTable or #uiTable == 0 then
-        printToAll("TTSOutput: Failed to get UI table", Color.fromHex(self.namedColors.FAIL))
+        printToAll("TTSOutput: Failed to get UI table", Color.fromHex(self.colors.FAIL))
         return
     end
 
@@ -76,7 +76,7 @@ function TTSOutput:startSuite()
             attributes = {
                 id = id,
                 tooltip = "",
-                color = self.namedColors.NEUTRAL,
+                color = self.colors.NEUTRAL,
                 onClick = "onClick",
             }
         })
@@ -84,7 +84,7 @@ function TTSOutput:startSuite()
 
     local testGrid = findElementById(uiTable, "TestGrid")
     if not testGrid then
-        printToAll("TTSOutput: TestGrid not found", Color.fromHex(self.namedColors.FAIL))
+        printToAll("TTSOutput: TestGrid not found", Color.fromHex(self.colors.FAIL))
         return
     end
 
@@ -96,7 +96,7 @@ function TTSOutput:endTest(node)
     self.completedTests = self.completedTests + 1
 
     local status = node.status or "UNKNOWN"
-    local colorHex = self.namedColors[status] or self.namedColors.UNKNOWN
+    local colorHex = self.colors[status] or self.colors.UNKNOWN
     local tooltip = node.testName .. " (" .. status:lower() .. ")"
 
     if self.hostObject then
@@ -114,26 +114,26 @@ end
 
 function TTSOutput:startClass(name)
     if self.verbosity > M.VERBOSITY_LOW and self.printText then
-        printToAll("Start class: " .. name, Color.fromHex(self.namedColors.START))
+        printToAll("Start class: " .. name, Color.fromHex(self.colors.START))
     end
 end
 
 function TTSOutput:startTest(name)
     if self.verbosity > M.VERBOSITY_DEFAULT and self.printText then
-        printToAll("Start test: " .. name, Color.fromHex(self.namedColors.INFO))
+        printToAll("Start test: " .. name, Color.fromHex(self.colors.INFO))
     end
 end
 
 function TTSOutput:endClass()
     if self.verbosity > M.VERBOSITY_LOW and self.printText then
-        printToAll("End class", Color.fromHex(self.namedColors.INFO))
+        printToAll("End class", Color.fromHex(self.colors.INFO))
     end
 end
 
 function TTSOutput:endSuite()
-    printToAll(M.LuaUnit.statusLine(self.result), Color.fromHex(self.namedColors.FINISH))
+    printToAll(M.LuaUnit.statusLine(self.result), Color.fromHex(self.colors.FINISH))
 end
 
-function TTSOutput:updateStatus(node) end
+function TTSOutput:updateStatus() end
 
 return { TTSOutput = TTSOutput }
