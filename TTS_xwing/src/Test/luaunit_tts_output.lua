@@ -101,23 +101,23 @@ function TTSOutput:endTest(node)
     local colorHex = self.colors[status] or self.colors.UNKNOWN
     local tooltip = node.testName .. " (" .. status:lower() .. ")"
 
-    if self.hostObject then
-        local squareId = self.squareIds[self.completedTests]
-        self.hostObject.UI.setAttribute(squareId, "color", colorHex)
-        self.hostObject.UI.setAttribute(squareId, "tooltip", tooltip)
-    end
-
     if self.printText then
         printToAll(tooltip, Color.fromHex(colorHex))
     end
 
-    coroutine.yield(0)
+    if self.hostObject then
+        local squareId = self.squareIds[self.completedTests]
+        self.hostObject.UI.setAttribute(squareId, "color", colorHex)
+        self.hostObject.UI.setAttribute(squareId, "tooltip", tooltip)
+        coroutine.yield(0)
+    end
 end
 
 function TTSOutput:startClass(name)
     if self.verbosity > M.VERBOSITY_LOW and self.printText then
         printToAll("Start class: " .. name, Color.fromHex(self.colors.START))
     end
+    self.lastClassName = name
 end
 
 function TTSOutput:startTest(name)
@@ -128,12 +128,39 @@ end
 
 function TTSOutput:endClass()
     if self.verbosity > M.VERBOSITY_LOW and self.printText then
-        printToAll("End class", Color.fromHex(self.colors.INFO))
+        printToAll("End class: " .. self.lastClassName, Color.fromHex(self.colors.FINISH))
     end
 end
 
+-- function TTSOutput:endSuite()
+--     printToAll(M.LuaUnit.statusLine(self.result), Color.fromHex(self.colors.FINISH))
+-- end
+
 function TTSOutput:endSuite()
-    printToAll(M.LuaUnit.statusLine(self.result), Color.fromHex(self.colors.FINISH))
+    local r = self.result
+    local color
+
+    if r.failureCount == 0 and r.errorCount == 0 and r.successCount > 0 then
+        color = self.colors.SUCCESS
+    else
+        -- Pick the most frequent non-success status
+        local counts = {
+            FAIL  = r.failureCount or 0,
+            ERROR = r.errorCount or 0,
+            SKIP  = r.skipCount or 0
+        }
+
+        local maxKey, maxValue = "FAIL", -1
+        for key, value in pairs(counts) do
+            if value > maxValue then
+                maxKey, maxValue = key, value
+            end
+        end
+
+        color = self.colors[maxKey] or self.colors.FINISH
+    end
+
+    printToAll(M.LuaUnit.statusLine(r), Color.fromHex(color))
 end
 
 function TTSOutput:updateStatus() end
