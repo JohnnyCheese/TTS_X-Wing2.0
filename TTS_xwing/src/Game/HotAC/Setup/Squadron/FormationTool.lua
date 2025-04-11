@@ -32,7 +32,7 @@ local factions = { "Rebel", "Empire", "Scum" }
 -- Faction-specific squadron name lists
 local factionNames = {
     ["Rebel"] = { "Blue", "Green", "Grey", "Red", "Rogue", "Skull", "Vassal" },
-    ["Empire"] = { "Alpha", "Beta", "Delta", "Gamma", "Epsilon", "Elite", "Inquisitor" },
+    ["Empire"] = { "Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Elite", "Inquisitor" },
     ["Scum"] = { "Adam", "Baker", "Bandit", "Black Sun", "Cartel", "Charlie", "Syndicate" }
 }
 
