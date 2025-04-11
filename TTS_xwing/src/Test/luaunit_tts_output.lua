@@ -109,7 +109,9 @@ function TTSOutput:endTest(node)
         local squareId = self.squareIds[self.completedTests]
         self.hostObject.UI.setAttribute(squareId, "color", colorHex)
         self.hostObject.UI.setAttribute(squareId, "tooltip", tooltip)
-        coroutine.yield(0)
+        if self.completedTests % 10 == 0 then
+            coroutine.yield(0)
+        end
     end
 end
 
