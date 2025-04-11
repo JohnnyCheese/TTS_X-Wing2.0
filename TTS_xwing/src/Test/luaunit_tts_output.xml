@@ -3,28 +3,36 @@
         resizeTextForBestFit="true" />
 </Defaults>
 
-<Panel id="TestStatus" width="600" height="600"
+<Panel id="TestStatus" width="650" height="600"
     position="0 350 -50"
     color="#666666"
     active="true">
-    <VerticalLayout>
+
+    <VerticalLayout spacing="10" padding="10 10 10 10">
         <Text class="title"
             preferredHeight="80"
             text="Test Progress"
         />
-        <Panel preferredWidth="600" preferredHeight="500"
+
+        <Panel preferredWidth="580" preferredHeight="520"
             padding="10 10 0 10"
             alignment="MiddleCenter"
         >
-            <GridLayout id="TestGrid"
-                cellSize="50 50"
-                spacing="7 7"
-                padding="8 0 10 0"
-                color="#333333"
-                constraint="FixedColumnCount"
-                constraintCount="10"
-                alignment="MiddleCenter"
-            />
+            <VerticalScrollView
+                id="TestScroll"
+                scrollSensitivity="30"
+                color="#444444"
+            >
+                <GridLayout id="TestGrid"
+                    cellSize="50 50"
+                    spacing="6 6"
+                    padding="10 10 10 10"
+                    constraint="FixedColumnCount"
+                    constraintCount="10"
+                    color="#222222"
+                    alignment="UpperCenter"
+                />
+            </VerticalScrollView>
         </Panel>
     </VerticalLayout>
 </Panel>
