@@ -56,7 +56,7 @@ function TTSOutput:startSuite()
     -- Get the current UI structure
     local uiTable = self.hostObject.UI.getXmlTable()
     if not uiTable or #uiTable == 0 then
-        printToAll("TTSOutput: Failed to get UI table", Color.fromHex(self.colors.FAIL))
+        printToAll("TTSOutput: Failed to get UI table", Color.fromHex(self.colors.ERROR))
         return
     end
 
@@ -84,7 +84,7 @@ function TTSOutput:startSuite()
 
     local testGrid = findElementById(uiTable, "TestGrid")
     if not testGrid then
-        printToAll("TTSOutput: TestGrid not found", Color.fromHex(self.colors.FAIL))
+        printToAll("TTSOutput: TestGrid not found", Color.fromHex(self.colors.ERROR))
         return
     end
 
@@ -105,38 +105,34 @@ function TTSOutput:endTest(node)
         printToAll(tooltip, Color.fromHex(colorHex))
     end
 
-    if self.hostObject then
-        local squareId = self.squareIds[self.completedTests]
-        self.hostObject.UI.setAttribute(squareId, "color", colorHex)
-        self.hostObject.UI.setAttribute(squareId, "tooltip", tooltip)
-        if self.completedTests % 10 == 0 then
-            coroutine.yield(0)
-        end
+    if not self.hostObject then
+        return
+    end
+
+    local squareId = self.squareIds[self.completedTests]
+    self.hostObject.UI.setAttribute(squareId, "color", colorHex)
+    self.hostObject.UI.setAttribute(squareId, "tooltip", tooltip)
+    if self.totalTests > 100 then
+        local percent = 1 - (self.completedTests / self.totalTests)
+        self.hostObject.UI.setAttribute("TestScroll", "verticalNormalizedPosition", tostring(percent))
+    end
+    if self.completedTests % 10 == 0 then
+        coroutine.yield(0)
     end
 end
 
 function TTSOutput:startClass(name)
-    if self.verbosity > M.VERBOSITY_LOW and self.printText then
-        printToAll("Start class: " .. name, Color.fromHex(self.colors.START))
-    end
+    self:printAtLevel(M.VERBOSITY_DEFAULT, "Start class: " .. name, self.colors.START)
     self.lastClassName = name
 end
 
 function TTSOutput:startTest(name)
-    if self.verbosity > M.VERBOSITY_DEFAULT and self.printText then
-        printToAll("Start test: " .. name, Color.fromHex(self.colors.INFO))
-    end
+    self:printAtLevel(M.VERBOSITY_VERBOSE, "Start test: " .. name, self.colors.INFO)
 end
 
 function TTSOutput:endClass()
-    if self.verbosity > M.VERBOSITY_LOW and self.printText then
-        printToAll("End class: " .. self.lastClassName, Color.fromHex(self.colors.FINISH))
-    end
+    self:printAtLevel(M.VERBOSITY_LOW, "End class: " .. self.lastClassName, self.colors.FINISH)
 end
-
--- function TTSOutput:endSuite()
---     printToAll(M.LuaUnit.statusLine(self.result), Color.fromHex(self.colors.FINISH))
--- end
 
 function TTSOutput:endSuite()
     local r = self.result
@@ -145,7 +141,6 @@ function TTSOutput:endSuite()
     if r.failureCount == 0 and r.errorCount == 0 and r.successCount > 0 then
         color = self.colors.SUCCESS
     else
-        -- Pick the most frequent non-success status
         local counts = {
             FAIL  = r.failureCount or 0,
             ERROR = r.errorCount or 0,
@@ -162,7 +157,17 @@ function TTSOutput:endSuite()
         color = self.colors[maxKey] or self.colors.FINISH
     end
 
-    printToAll(M.LuaUnit.statusLine(r), Color.fromHex(color))
+    self:printAtLevel(M.VERBOSITY_LOW, M.LuaUnit.statusLine(r), color)
+    if color == self.colors.SUCCESS then
+        self:printAtLevel(M.VERBOSITY_LOW, "Ok", self.colors.SUCCESS)
+    end
+end
+
+function TTSOutput:printAtLevel(level, msg, color)
+    if not self.printText then return end
+    if self.verbosity >= level then
+        printToAll(msg, Color.fromHex(color))
+    end
 end
 
 function TTSOutput:updateStatus() end
