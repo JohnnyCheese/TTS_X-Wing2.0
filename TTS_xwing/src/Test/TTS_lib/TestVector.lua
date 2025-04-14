@@ -1,4 +1,4 @@
-local lu = require("Test.luaunit_tts")
+local lu = require("Test.luaunit")
 local Vector = require("TTS_lib.Vector.Vector")
 
 local TestMath = {}

@@ -1,4 +1,4 @@
-local lu = require("Test.luaunit_tts")
+local lu = require("Test.luaunit")
 local String = require("TTS_lib.Util.String")
 
 local TestString = {}

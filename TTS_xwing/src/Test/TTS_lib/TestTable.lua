@@ -1,4 +1,4 @@
-local lu = require("Test.luaunit_tts")
+local lu = require("Test.luaunit")
 local Table = require("TTS_lib.Util.Table")
 
 local TestTable = {}
