@@ -18,6 +18,7 @@ TTSOutput = {
         NEUTRAL = "#FFFFFF", -- white
     }
 }
+setmetatable(TTSOutput, { __index = M.genericOutput })
 
 function TTSOutput.new(runner)
     local t = {
@@ -169,7 +170,5 @@ function TTSOutput:printAtLevel(level, msg, color)
         printToAll(msg, Color.fromHex(color))
     end
 end
-
-function TTSOutput:updateStatus() end
 
 return { TTSOutput = TTSOutput }
