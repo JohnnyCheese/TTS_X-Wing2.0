@@ -3706,7 +3706,6 @@ masterPilotDB[397] = {
     cost = 35,
     slot = { 21, 1, 19, 14 },
     Shield = 1,
-    card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/c7994885b38757f92bdf3a98c37b3c96.png',
     init = 6,
     texture = 'standard',
     actSet = { 'F', 'TL', 'E', 'BR' }
