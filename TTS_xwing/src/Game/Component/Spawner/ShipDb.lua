@@ -1788,8 +1788,10 @@ masterShipDB['nabooroyaln1starfighter'] = {
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nabooroyaln1starfighter/Textures/red.jpg',
         blue =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nabooroyaln1starfighter/Textures/blue.jpg',
+        mandalorian =
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nabooroyaln1starfighter/Textures/mandalorian.jpg',
     },
-    Fac = { [6] = true },
+    Fac = { [3] = true, [6] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'wbl1', 'ws1', 'wbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'wtl3', 'bbl3', 'bs3', 'bbr3', 'wtr3', 'rtl3t', 'rtr3t', 'ws4', 'ws5' },
     mesh =
