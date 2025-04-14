@@ -9,8 +9,6 @@ function os.getenv(key)
     -- Useful defaults for LuaUnit in TTS
     local fake_env = {
         LUAUNIT_OUTPUT = "text",           -- "TAP", "text", "NIL", "JUNIT"
-        LUAUNIT_SORT = "NATURAL",          -- or "ASC", "DESC"
-        LUAUNIT_VERBOSITY = "2",           -- 1 = minimal, 2 = normal, 3 = verbose
         LUAUNIT_JUNIT_FNAME = "junit.xml", -- output filename if using junit
         LUAUNIT_DATEFMT = "%Y-%m-%d %H:%M:%S"
     }
@@ -42,9 +40,7 @@ io.open = function(filename, mode)
     return nil, "File I/O not available in TTS"
 end
 
-io.close = function(file)
-    -- No-op since no files are opened
-end
+io.close = function(file) end -- No-op since no files are opened
 
 -- Ensure print is available
 print = print or function(msg) end
