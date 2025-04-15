@@ -5,7 +5,7 @@ local M = require("Test.luaunit")
 
 TTSOutput = {
     __class__ = "TTSOutput",
-    printText = false,       -- default: chat logging off
+    chat = false,       -- default: chat logging off
     colors = {
         SUCCESS = "#00FF00", -- green
         FAIL    = "#FF0000", -- bright red
@@ -29,7 +29,7 @@ function TTSOutput.new(runner)
         completedTests = 0,
         squareIds = {},
         hostObject = runner.hostObject,
-        printText = TTSOutput.printText,
+        chat = TTSOutput.chat,
         colors = TTSOutput.colors,
     }
     return setmetatable(t, { __index = TTSOutput })
@@ -102,7 +102,7 @@ function TTSOutput:endTest(node)
     local colorHex = self.colors[status] or self.colors.UNKNOWN
     local tooltip = node.testName .. " (" .. status:lower() .. ")"
 
-    if self.printText then
+    if self.chat then
         printToAll(tooltip, Color.fromHex(colorHex))
     end
 
@@ -165,7 +165,7 @@ function TTSOutput:endSuite()
 end
 
 function TTSOutput:printAtLevel(level, msg, color)
-    if not self.printText then return end
+    if not self.chat then return end
     if self.verbosity >= level then
         printToAll(msg, Color.fromHex(color))
     end
