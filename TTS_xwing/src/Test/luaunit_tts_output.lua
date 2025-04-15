@@ -171,10 +171,10 @@ function TTSOutput:printAtLevel(level, msg, color)
 end
 
 ----- ChatOutput: subclass of TextOoutput for TTS chat output
-ChatOutput = M.TextOutput.new()
--- ChatOutput = setmetatable({}, { __index = M.TextOutput })
+ChatOutput = {
+    __class__ = "ChatOutput"
+}
 setmetatable(ChatOutput, { __index = M.TextOutput })
-ChatOutput.__class__ = "ChatOutput"
 
 function ChatOutput.new(runner)
     printToAll("ChatOutput new: " .. M.prettystr(TTSOutput), Color.Blue)
