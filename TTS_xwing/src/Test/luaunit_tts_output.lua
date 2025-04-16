@@ -6,6 +6,7 @@ local M = require("Test.luaunit")
 TTSOutput = {
     __class__ = "TTSOutput",
     chat = false,            -- default: chat logging off
+    log = false,             -- default: console log logging off
     colors = {
         SUCCESS = "#00FF00", -- green
         FAIL    = "#FF0000", -- bright red
@@ -23,13 +24,15 @@ setmetatable(TTSOutput, { __index = M.genericOutput })
 function TTSOutput.new(runner)
     local t = M.genericOutput.new(runner)
     t.hostObject = runner.hostObject
-    t.chat = TTSOutput.chat
     t.colors = TTSOutput.colors
     t.subOutputters = {}
-    if t.chat then
+    if TTSOutput.chat then
         table.insert(t.subOutputters, ChatOutput.new(runner))
     end
-    table.insert(t.subOutputters, GridOutput.new(runner))
+    if runner.hostObject ~= nil then
+        table.insert(t.subOutputters, GridOutput.new(runner))
+    end
+
     return setmetatable(t, { __index = TTSOutput })
 end
 
@@ -46,50 +49,13 @@ for _, method in ipairs({
     end
 end
 
-function TTSOutput:endSuite()
-    local r = self.result
-    local color
-
-    if r.failureCount == 0 and r.errorCount == 0 and r.successCount > 0 then
-        color = self.colors.SUCCESS
-    else
-        local counts = {
-            FAIL  = r.failureCount or 0,
-            ERROR = r.errorCount or 0,
-            SKIP  = r.skipCount or 0
-        }
-
-        local maxKey, maxValue = "FAIL", -1
-        for key, value in pairs(counts) do
-            if value > maxValue then
-                maxKey, maxValue = key, value
-            end
-        end
-
-        color = self.colors[maxKey] or self.colors.FINISH
-    end
-
-    self:printAtLevel(M.VERBOSITY_LOW, M.LuaUnit.statusLine(r), color)
-    if color == self.colors.SUCCESS then
-        self:printAtLevel(M.VERBOSITY_LOW, "Ok", self.colors.SUCCESS)
-    end
-end
-
-function TTSOutput:printAtLevel(level, msg, color)
-    if not self.chat then return end
-    if self.verbosity >= level then
-        printToAll(msg, Color.fromHex(color))
-    end
-end
-
------ ChatOutput: subclass of TextOoutput for TTS chat output
+----- ChatOutput: subclass of TextOutput for TTS chat window output
 ChatOutput = {
     __class__ = "ChatOutput"
 }
 setmetatable(ChatOutput, { __index = M.TextOutput })
 
 function ChatOutput.new(runner)
-    printToAll("ChatOutput new: " .. M.prettystr(TTSOutput), Color.Blue)
     local t = M.TextOutput.new(runner)
     t.colors = TTSOutput.colors
     t.buffer = "" -- Initialize buffer for partial outputs
@@ -113,15 +79,14 @@ function ChatOutput:emit(...)
 end
 
 function ChatOutput:emitLine(line)
-    if self.buffer ~= "" then
-        printToAll(self.buffer, self:color())
-        self.buffer = ""
-    end
-    printToAll(line, self:color())
+    line = line or ""
+    self.buffer = self.buffer or ""
+    printToAll(self.buffer .. line, self:color())
+    self.buffer = ""
 end
 
 function ChatOutput:color()
-    local status = self.result.currentNode and self.result.currentNode.status or "UNKNOWN"
+    local status = self.result.currentNode and self.result.currentNode.status or "INFO"
     return Color.fromHex(self.colors[status] or self.colors.NEUTRAL)
 end
 
@@ -153,14 +118,12 @@ function GridOutput.new(runner)
     local t = M.genericOutput.new(runner)
     t.hostObject = runner.hostObject
     t.colors = TTSOutput.colors
-    t.squareIds = {}  -- Map index to squareId
-    t.testOutputs = {}  -- Map testName to tooltip
+    t.squareIds = {}
+    t.testOutputs = {}
     return setmetatable(t, { __index = GridOutput })
 end
 
 function GridOutput:startSuite()
-    if not self.hostObject then return end
-
     local uiTable = self.hostObject.UI.getXmlTable()
     if not uiTable or #uiTable == 0 then
         printToAll(self.__class__ .. ": Failed to get UI table", Color.fromHex(self.colors.ERROR))
@@ -168,9 +131,9 @@ function GridOutput:startSuite()
     end
 
     function onClick(player, value, id)
-        local tooltip = self.hostObject.UI.getAttribute(id, "tooltip")
+        local testResult = M.prettystr(self.testOutputs[id])
         local colorHex = self.hostObject.UI.getAttribute(id, "color")
-        printToAll(tooltip, Color.fromHex(colorHex))
+        printToAll(testResult, Color.fromHex(colorHex))
     end
 
     local panels = {}
@@ -182,7 +145,6 @@ function GridOutput:startSuite()
             tag = "Panel",
             attributes = {
                 id = id,
-                tooltip = "",
                 color = self.colors.NEUTRAL,
                 onClick = "onClick"
             }
@@ -203,15 +165,12 @@ function GridOutput:endTest(node)
     local completedTests = node.number
     local status = node.status or "UNKNOWN"
     local colorHex = self.colors[status] or self.colors.UNKNOWN
-    local tooltip = node.testName .. " (" .. status:lower() .. ")"
 
-    -- Store tooltip for potential future use
-    self.testOutputs[node.testName] = tooltip
+    local id = "TestSquare" .. node.number
+    self.testOutputs[id] = node
 
-    if not self.hostObject then return end
     local squareId = self.squareIds[completedTests]
     self.hostObject.UI.setAttribute(squareId, "color", colorHex)
-    self.hostObject.UI.setAttribute(squareId, "tooltip", tooltip)
     if self.runner.result.selectedCount > 100 then
         local percent = 1 - (completedTests / self.runner.result.selectedCount)
         self.hostObject.UI.setAttribute("TestScroll", "verticalNormalizedPosition", tostring(percent))
@@ -219,6 +178,10 @@ function GridOutput:endTest(node)
     if completedTests % 10 == 0 then
         coroutine.yield(0)
     end
+end
+
+function GridOutput:endSuite()
+    self.hostObject.UI.setAttribute("TestStatus", "active", "true")
 end
 
 function GridOutput:totalTests()
