@@ -7,7 +7,6 @@ Development by Philippe Fremy <phil@freehackers.org>
 Based on initial work of Ryu, Gwang (http://www.gpgstudy.com/gpgiki/LuaUnit)
 License: BSD License, see LICENSE.txt
 ]] --
-
 pcall(require, "math")
 local M = {}
 
@@ -2358,6 +2357,7 @@ then OK or FAILED (failures=1, error=1)
 local TextOutput = genericOutput.new()         -- derived class
 local TextOutput_MT = { __index = TextOutput } -- metatable
 TextOutput.__class__ = 'TextOutput'
+M.TextOutput = TextOutput                      -- publish, so that custom classes may derive from it
 
 function TextOutput.new(runner)
     local t = genericOutput.new(runner, M.VERBOSITY_DEFAULT)
@@ -2365,30 +2365,38 @@ function TextOutput.new(runner)
     return setmetatable(t, TextOutput_MT)
 end
 
+function TextOutput:emit(...)
+    io.stdout:write(...)
+end
+
+function TextOutput:emitLine(...)
+    print(...)
+end
+
 function TextOutput:startSuite()
     if self.verbosity > M.VERBOSITY_DEFAULT then
-        print('Started on ' .. self.result.startDate)
+        self:emitLine('Started on ' .. self.result.startDate)
     end
 end
 
 function TextOutput:startTest(testName)
     if self.verbosity > M.VERBOSITY_DEFAULT then
-        io.stdout:write("    ", self.result.currentNode.testName, " ... ")
+        self:emit("    ", self.result.currentNode.testName, " ... ")
     end
 end
 
 function TextOutput:endTest(node)
     if node:isSuccess() then
         if self.verbosity > M.VERBOSITY_DEFAULT then
-            io.stdout:write("Ok\n")
+            self:emitLine("Ok")
         else
-            io.stdout:write(".")
+            self:emit(".")
             io.stdout:flush()
         end
     else
         if self.verbosity > M.VERBOSITY_DEFAULT then
-            print(node.status)
-            print(node.msg)
+            self:emitLine(node.status)
+            self:emitLine(node.msg)
             --[[
                 -- find out when to do this:
                 if self.verbosity > M.VERBOSITY_DEFAULT then
@@ -2397,23 +2405,23 @@ function TextOutput:endTest(node)
                 ]]
         else
             -- write only the first character of status E, F or S
-            io.stdout:write(string.sub(node.status, 1, 1))
+            self:emit(string.sub(node.status, 1, 1))
             io.stdout:flush()
         end
     end
 end
 
 function TextOutput:displayOneFailedTest(index, fail)
-    print(index .. ") " .. fail.testName)
-    print(fail.msg)
-    print(fail.stackTrace)
-    print()
+    self:emitLine(index .. ") " .. fail.testName)
+    self:emitLine(fail.msg)
+    self:emitLine(fail.stackTrace)
+    self:emitLine()
 end
 
 function TextOutput:displayErroredTests()
     if #self.result.errorTests ~= 0 then
-        print("Tests with errors:")
-        print("------------------")
+        self:emitLine("Tests with errors:")
+        self:emitLine("------------------")
         for i, v in ipairs(self.result.errorTests) do
             self:displayOneFailedTest(i, v)
         end
@@ -2422,8 +2430,8 @@ end
 
 function TextOutput:displayFailedTests()
     if #self.result.failedTests ~= 0 then
-        print("Failed tests:")
-        print("-------------")
+        self:emitLine("Failed tests:")
+        self:emitLine("-------------")
         for i, v in ipairs(self.result.failedTests) do
             self:displayOneFailedTest(i, v)
         end
@@ -2432,15 +2440,15 @@ end
 
 function TextOutput:endSuite()
     if self.verbosity > M.VERBOSITY_DEFAULT then
-        print("=========================================================")
+        self:emitLine("=========================================================")
     else
-        print()
+        self:emitLine()
     end
     self:displayErroredTests()
     self:displayFailedTests()
-    print(M.LuaUnit.statusLine(self.result))
+    self:emitLine(M.LuaUnit.statusLine(self.result))
     if self.result.notSuccessCount == 0 then
-        print('OK')
+        self:emitLine('OK')
     end
 end
 
@@ -2976,6 +2984,10 @@ function M.LuaUnit:setOutputType(outputType, fname)
     end
     if outputType:upper() == "TEXT" then
         self.outputType = TextOutput
+        return
+    end
+    if outputType:upper() == "CUSTOM" then
+        self.outputType = fname
         return
     end
     error('No such format: ' .. outputType, 2)
