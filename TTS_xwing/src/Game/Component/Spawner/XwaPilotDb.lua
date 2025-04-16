@@ -280,6 +280,7 @@ xwaPilotDb[10015] = {
     init = 5,
     texture = 'boba',
     actSet = { 'F', 'R', 'TL', 'B' },
+    Bomb = true,
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Homing Beacon', charge = 2 },
@@ -300,6 +301,12 @@ xwaPilotDb[10016] = {
     init = 4,
     texture = 'bokatan',
     actSet = { 'F', 'TL', 'R', 'Piv' },
+    executeOptions = {
+        wtl2 = { [1] = 'wtl2', [2] = 'rtl2t'},
+        wtr2 = { [1] = 'wtr2', [2] = 'rtr2t'},
+        rtl3 = { [1] = 'rtl3', [2] = 'rtl3t'},
+        rtr3 = { [1] = 'rtr3', [2] = 'rtr3t'}
+    },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Mandalorian Tactics', charge = 0 },
@@ -354,7 +361,7 @@ xwaPilotDb[10019] = {
     ship_type = 't70xwing',
     init = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B', 'E' },
+    actSet = { 'F', 'TL', 'B', 'E', 'BR', 'VR'},
     movethrough = true,
     standardized_loadout = true,
     standardized_upgrades = {
@@ -412,7 +419,8 @@ xwaPilotDb[10022] = {
     ship_type = 'mg100starfortress',
     init = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'Rot' },
+    actSet = { 'F', 'TL', 'Rot', 'Piv', 'R'},
+    Bomb = true,
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Nix Jerd', limited = 1, charge = 2 },
@@ -452,7 +460,7 @@ xwaPilotDb[10024] = {
     ship_type = 't70xwing',
     init = 1,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B' },
+    actSet = { 'F', 'TL', 'B', 'BR' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'For The Cause', charge = 0 },
@@ -544,6 +552,7 @@ xwaPilotDb[10029] = {
     init = 3,
     texture = 'standard',
     actSet = { 'F', 'TL', 'E', 'BR' },
+    addSqdAction = { 'C' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Determination', charge = 0 },
@@ -560,7 +569,8 @@ xwaPilotDb[10030] = {
     ship_type = 'resistancetransport',
     init = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL' },
+    actSet = { 'F', 'TL', 'C'},
+    addSqdAction = { 'B'},
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'For The Cause', charge = 0 },
@@ -598,7 +608,7 @@ xwaPilotDb[10032] = {
     Charge = 1,
     init = 6,
     texture = 'blackone',
-    actSet = { 'F', 'TL', 'B' },
+    actSet = { 'F', 'TL', 'B', 'BR', '2B', '2BR' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Heroic', charge = 0 },
@@ -615,10 +625,11 @@ xwaPilotDb[10033] = {
     Faction = 3,
     limited = 1,
     Shield = 2,
+    Charge = 3,
     ship_type = 'starviperclassattackplatform',
     init = 4,
     texture = 'white',
-    actSet = { 'F', 'TL', 'B', 'VR' },
+    actSet = { 'F', 'TL', 'B', 'VR', 'BR'},
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Crime Lord', limited = 1, charge = 2 },
@@ -674,14 +685,14 @@ xwaPilotDb[10036] = {
     Charge = 1,
     init = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B' },
+    actSet = { 'F', 'TL', 'B', 'BR' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'For The Cause', charge = 0 },
         { name = 'Accelerated Sensor Array', charge = 0 },
         { name = 'R5-X3', limited = 1, charge = 2 }
-    }
-    --TODO: Add a-wing dial
+    },
+    moveSet = { 'wtl1', 'wtr1', 'btl2', 'bbl2', 'bs2', 'bbr2', 'btr2', 'rbl3s', 'wtl3', 'bbl3', 'bs3', 'bbr3', 'wtr3', 'rbr3s', 'bs4', 'bs5', 'rk5' }
 }
 
 xwaPilotDb[10037] = {
@@ -736,7 +747,7 @@ xwaPilotDb[10039] = {
     Charge = 2,
     init = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'BR', 'Rot' },
+    actSet = { 'F', 'TL', 'E', 'BR', 'Rot', 'C'},
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Passive Sensors', charge = 1 },
@@ -774,7 +785,8 @@ xwaPilotDb[10041] = {
     ship_type = 'mg100starfortress',
     init = 2,
     texture = 'vennie',
-    actSet = { 'F', 'TL', 'Rot' },
+    actSet = { 'F', 'TL', 'Rot', 'Piv' },
+    Bomb = true,
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Perceptive Copilot', charge = 0 },
@@ -793,6 +805,7 @@ xwaPilotDb[10042] = {
     init = 2,
     texture = 'standard',
     actSet = { 'F', 'TL', 'E', 'BR' },
+    Bomb = true,
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Determination', charge = 0 },
@@ -830,13 +843,13 @@ xwaPilotDb[10044] = {
     ship_type = 'g1astarfighter',
     init = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL' },
+    actSet = { 'F', 'TL', 'BR', 'C'},
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Persistent Tracker', charge = 3 },
         { name = 'Tractor Beam', charge = 0 },
-        { name = 'Seismic Charges', charge = 2 },
-        { name = 'Slave I', limited = 1, charge = 0}
+        { name = '4-Lom', limited = 1, charge = 0 },
+        { name = 'Misthunter', limited = 1, charge = 0}
     }
 }
 

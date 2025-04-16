@@ -1081,7 +1081,7 @@ function idSpawner(idTable)
         fList.Pilots[k].Data.limited = masterPilotDB[v].limited
         fList.Pilots[k].Data.shipId = Ship
         fList.Pilots[k].Data.initiative = masterPilotDB[v].init
-        fList.Pilots[k].Data.moveSet = masterShipDB[Ship].moveSet
+        fList.Pilots[k].Data.moveSet = masterPilotDB[v].moveSet or masterShipDB[Ship].moveSet
         fList.Pilots[k].Data.Config = masterShipDB[Ship].Config
         fList.Pilots[k].Data.customization_parts = masterShipDB[Ship].customization_parts
         fList.Pilots[k].Data.mountingPoints = masterShipDB[Ship].mountingPoints or { main = { 0, 0 } }
@@ -1114,6 +1114,8 @@ function idSpawner(idTable)
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r'
         elseif v == 1047 then              -- SL Deathfire
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':be3:br3:s3:s3r'
+        elseif v == 10022 then
+            fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':be1:br1:s2:be2:br2'
         end
 
         if Ship == 'tiesabomber' then -- TIE Bomber special drops
