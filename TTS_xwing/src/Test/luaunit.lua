@@ -2075,6 +2075,14 @@ function genericOutput.new(runner, default_verbosity)
     return setmetatable(t, genericOutput_MT)
 end
 
+function genericOutput:emit(...)
+    io.stdout:write(...)
+end
+
+function genericOutput:emitLine(...)
+    print(...)
+end
+
 -- abstract ("empty") methods
 function genericOutput:startSuite()
     -- Called once, when the suite is started
@@ -2365,14 +2373,6 @@ function TextOutput.new(runner)
     return setmetatable(t, TextOutput_MT)
 end
 
-function TextOutput:emit(...)
-    io.stdout:write(...)
-end
-
-function TextOutput:emitLine(...)
-    print(...)
-end
-
 function TextOutput:startSuite()
     if self.verbosity > M.VERBOSITY_DEFAULT then
         self:emitLine('Started on ' .. self.result.startDate)
@@ -2598,7 +2598,8 @@ function M.LuaUnit.parseCmdLine(cmdLine)
             result['quitOnFailure'] = true
             return
         elseif option == '--shuffle' or option == '-s' then
-            result['shuffle'] = true
+            -- result['shuffle'] = true
+            result['shuffle'] = false
             return
         elseif option == '--output' or option == '-o' then
             state = SET_OUTPUT
