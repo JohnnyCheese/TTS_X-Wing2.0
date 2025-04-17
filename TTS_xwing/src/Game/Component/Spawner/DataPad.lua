@@ -15,21 +15,21 @@ require("TTS_Lib.Util.Math")
 require("TTS_Lib.Util.Table")
 require("TTS_Lib.Util.String")
 local Vect = require("TTS_lib.Vector.Vector")
-local Sequence = require("Test.Sequence")
+local Sequence = require("TTS_lib.Sequence.Sequence")
 local PlayerArea = require("Player.PlayerArea")
 
 self.interactable = false
 
 tintColors = {}
-tintColors[0] = color(0, 0, 0, 0.0)
-tintColors[1] = color(1, 0, 0, 1.0)
-tintColors[2] = color(1, 1, 0, 1.0)
-tintColors[3] = color(0, 0.5, 0, 2.0)
-tintColors[4] = color(0, 0, 1, 1.0)
-tintColors[5] = color(1, 0, 0.8, 1.0)
-tintColors[6] = color(0.5, 0.25, 0.1, 1.0)
-tintColors[7] = color(1, 1, 1, 1.0)
-tintColors[8] = color(0.5, 0.5, 0.5, 1.0)
+tintColors[0] = Color(0, 0, 0, 0.0)        -- Transparent/Invisible
+tintColors[1] = Color(1, 0, 0, 1.0)        -- Red
+tintColors[2] = Color(1, 1, 0, 1.0)        -- Yellow
+tintColors[3] = Color(0, 0.5, 0, 2.0)      -- Green
+tintColors[4] = Color(0, 0, 1, 1.0)        -- Blue
+tintColors[5] = Color(1, 0, 0.8, 1.0)      -- Pink/Purple
+tintColors[6] = Color(0.5, 0.25, 0.1, 1.0) -- Brown
+tintColors[7] = Color(1, 1, 1, 1.0)        -- White
+tintColors[8] = Color(0.5, 0.5, 0.5, 1.0)  -- Gray
 
 -- FFG uses full name on factions, so a conversion is needed
 ffgFaction = {}
@@ -711,7 +711,8 @@ extraAssets = {
     coop_assets = {
         label = "HotAC/FGA",
         items = {
-            hotac = { label = "Transport Freighter", tag = "transportfreighter" },
+            { label = "Transport Freighter", tag = "transportfreighter" },
+            { label = "AI Squad Wing Tool",  tag = "formationtool" },
         }
     },
 }
@@ -781,7 +782,7 @@ function spawnAssetItem(args)
         for _, containedObject in ipairs(asset_bag.getObjects()) do
             if containedObject.gm_notes == args.tag then
                 local addRot = Vector(180, 180, 0)
-                if containedObject.gm_notes == 'transportfreighter' then
+                if containedObject.gm_notes == 'transportfreighter' or containedObject.gm_notes == 'formationtool' then
                     addRot = Vector(0, 0, 0)
                 end
                 asset = asset_bag.takeObject({

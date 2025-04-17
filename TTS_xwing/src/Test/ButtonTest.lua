@@ -1,4 +1,4 @@
-local Sequence = require("Test.Sequence")
+local Sequence = require("TTS_lib.Sequence.Sequence")
 
 TestButton = {}
 

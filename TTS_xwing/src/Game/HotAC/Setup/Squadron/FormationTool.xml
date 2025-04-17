@@ -1,0 +1,140 @@
+<Defaults>
+    <Color name="Rebel" color="#862016" />
+    <Color name="Empire" color="#0b4267" />
+    <Color name="Scum" color="#4d5634" />
+    <Color name="Background" color="#2a2d2f" />
+    <Color id="faction" name="Faction" color="Rebel" />
+
+    <Button fontSize="16" color="#11100F" textColor="White"
+        preferredHeight="30" preferredWidth="50" />
+    <Dropdown fontSize="16" itemTextColor="Black" textColor="White"
+        color="Faction" preferredHeight="20" preferredWidth="60" flexibleWidth="1" />
+    <InputField fontSize="16" color="#E1E1E1" textColor="Black"
+        textAlignment="MiddleLeft" />
+    <Text class="title" fontStyle="Bold" color="White" alignment="MiddleCenter"
+        resizeTextForBestFit="true" />
+    <Text class="label" fontSize="14" fontStyle="Bold" color="White" alignment="MiddleRight"
+        preferredWidth="20" resizeTextForBestFit="false" />
+    <Panel color="Clear" />
+</Defaults>
+
+<Panel id="squadronPopup" active="false" width="400" height="350" position="0 180 -20"
+    image="2BG" color="White" padding="29 30 34 17"
+    tooltip="Setup Enemy AI Squadron"
+>
+    <Panel>
+        <TableLayout
+            cellSpacing="5" cellPadding="0 0 5 5" childAlignment="MiddleLeft"
+            columnWidths="60 120 0"
+            cellBackgroundColor="Clear"
+            color="Clear"
+        >
+            <!-- Title Row -->
+            <Row>
+                <Cell columnSpan="3">
+                    <Text text="AI Squadron" class="title" />
+                </Cell>
+            </Row>
+
+            <!-- Faction and # of Ships -->
+            <Row>
+                <Cell>
+                    <Text text="Faction:" class="label" />
+                </Cell>
+                <Cell>
+                    <Dropdown id="Faction" onValueChanged="onFactionChange"
+                        tooltip="Select preset squadron names and colors to use"
+                    >
+                        <Option>Rebel</Option>
+                        <Option selected="true">Empire</Option>
+                        <Option>Scum</Option>
+                    </Dropdown>
+                </Cell>
+                <Cell>
+                    <HorizontalLayout spacing="5">
+                        <Text text="# of ships:" class="label" flexibleWidth="1" />
+                        <Dropdown id="shipCount" onValueChanged="onShipCountChange"
+                            preferredWidth="1"
+                            tooltip="Set how many ships are in the squadron"
+                        >
+                            <Option selected="true">4</Option>
+                            <Option>3</Option>
+                            <Option>2</Option>
+                            <Option>1</Option>
+                        </Dropdown>
+                    </HorizontalLayout>
+                </Cell>
+            </Row>
+
+            <!-- AI and Strike Targets -->
+            <Row>
+                <Cell>
+                    <Text text="AI:" class="label" />
+                </Cell>
+                <Cell>
+                    <Dropdown id="aiDropdown" onValueChanged="onAiDropdownChange"
+                        tooltip="Set which AI logic the squadron should use"
+                    >
+                        <Option selected="true">Attack</Option>
+                        <Option>Strike</Option>
+                    </Dropdown>
+                </Cell>
+                <Cell>
+                    <InputField id="aiStrikeTargets" onEndEdit="onAiStrikeTargetsChange"
+                        active="false" placeholder="Strike Targets comma separated"
+                        tooltip="Comma separated list of target names or guids for Strike AI"
+                    />
+                </Cell>
+            </Row>
+
+            <!-- Name -->
+            <Row>
+                <Cell>
+                    <Text text="Name:" class="label" />
+                </Cell>
+                <Cell>
+                    <Dropdown id="squadronNameDropdown"
+                        onValueChanged="onSquadronNameDropdownChange"
+                        tooltip="Select a name preset for the squadron"
+                    />
+                </Cell>
+                <Cell>
+                    <InputField id="squadronNameInput" onEndEdit="onSquadronNameChange"
+                        tooltip="Edit or adjust the squadron's name"
+                    />
+                </Cell>
+            </Row>
+
+            <!-- Color -->
+            <Row>
+                <Cell>
+                    <Text text="Color:" class="label" />
+                </Cell>
+                <Cell>
+                    <Dropdown id="squadronColorDropdown" onValueChanged="onSquadronColorChange"
+                        tooltip="Use a color preset for the squadron"
+                    />
+                </Cell>
+                <Cell>
+                    <Panel id="colorPreview" onClick="colorPreviewClicked"
+                        tooltip="Click to customize the color of the squadron"
+                    />
+                </Cell>
+            </Row>
+
+            <!-- Set Button -->
+            <Row>
+                <Cell columnSpan="3">
+                    <HorizontalLayout>
+                        <Panel flexibleWidth="1" color="Clear" />
+                        <Button id="applySquadronSettings" onClick="applySquadronSettings"
+                            text="Set"
+                            tooltip="Keep settings and close the popup"
+                        />
+                        <Panel flexibleWidth="1" color="Clear" />
+                    </HorizontalLayout>
+                </Cell>
+            </Row>
+        </TableLayout>
+    </Panel>
+</Panel>

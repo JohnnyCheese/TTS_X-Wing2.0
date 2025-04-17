@@ -235,4 +235,15 @@ if not table.shuffle then
     end
 end
 
+if not table.index_of then
+    table.index_of = function(tab, el)
+        for i, v in ipairs(tab) do
+            if v == el then
+                return i
+            end
+        end
+        return nil
+    end
+end
+
 return table

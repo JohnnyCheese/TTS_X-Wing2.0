@@ -62,7 +62,8 @@ function surface(object)
     return originalPos
 end
 
-function showMe(guid)
+function showMe(arg)
+    local guid = type(arg) == "table" and arg[1] or arg
     local object = getObjectFromGUID(guid)
     if object == nil then
         print("Object not found.")
@@ -77,11 +78,13 @@ function showMe(guid)
     -- Adjusting the parameters might be necessary based on your specific use case
     local position = object.getPosition()
     position.y = position.y + 5 -- Raise the camera slightly above the object
-    Player["White"].lookAt({
-        position = position,
-        pitch = 60,   -- Angle of the camera looking down at the object
-        distance = 10 -- Distance from the object (adjust as needed)
-    })
+    for _, player in ipairs(Player.getPlayers()) do
+        player.lookAt({
+            position = position,
+            pitch = 60,   -- Angle of the camera looking down at the object
+            distance = 10 -- Distance from the object (adjust as needed)
+        })
+    end
 
     -- Optionally, reset the color after a delay
     Wait.time(function()
@@ -341,7 +344,7 @@ XW_cmd.Process = function(obj, cmd)
         DialModule.FixedArc(obj, cmd)
     elseif type == 'renameShip' then
         if obj.getVar('SetName') then
-            obj.call('SetName', { name = cmd:sub(5, -1) })
+            obj.call('SetName', { name = cmd:match("name%s*(.*)") })
         end
     elseif type == 'changeInitiative' then
         if obj.getVar('SetInitiative') then
@@ -486,7 +489,7 @@ AIModule.EnableStrikeAI = function(ship, cmd)
             ship.setTable('StrikeTargets', nil)
         end
     else
-        print("Invalid format or no targets specified.")
+        printToAll("Invalid format or no targets specified.", Color.Orange)
         ship.setTable('StrikeTargets', nil)
     end
 end
@@ -3833,29 +3836,16 @@ TokenModule.onObjectDestroyed = function(destroyed_object)
 end
 
 TokenModule.onObjectDropped = function(player_color, object)
-    if ObjType.IsOfType(object, 'token') then
-        if object.getVar('__XW_TokenType') ~= 'targetLock' then
-            -- Target lock has special onDrop handling on its own
-            local nearest = Global.call("API_FindNearestShip", { object = object, max_distance = 100 })
-            TokenModule.AssignToken(object, nearest)
-        end
+    if not isAssignable(object) then
+        return
     end
-    if isAssignable(object) then
-        local spos = object.getPosition()
-        local nearest = nil
-        local minDist = Dim.Convert_mm_igu(100)
-        for k, ship in pairs(getObjects()) do
-            if MoveModule.SelectShips(ship) then
-                local pos = ship.getPosition()
-                local dist = spos:distance(pos)
-                if dist < minDist then
-                    nearest = ship
-                    minDist = dist
-                end
-            end
-        end
-        TokenModule.AssignToken(object, nearest)
+
+    if object.getVar('__XW_TokenType') == 'targetLock' then
+        return
     end
+
+    local nearest = FindNearestShip(object, 100)
+    TokenModule.AssignToken(object, nearest)
 end
 
 function isAssignable(object)
@@ -4386,7 +4376,8 @@ TokenModule.AssignToken = function(token, ship)
                 else
                     token.setDescription("Unassigned")
                 end
-            end,
+            end
+            ,
             function()
                 return (not token.spawning)
             end)
@@ -7287,7 +7278,7 @@ function ezTemplates.IsEasyTemplate(object)
 end
 
 function ezTemplates.SnapToShip(player_color, template)
-    local ship = FindNearestShip(template, 150, IsInFrontOfShip)
+    local ship = FindNearestShip(template, 40, IsInFrontOfShip)
     if ship == nil then
         return
     end
@@ -7374,14 +7365,12 @@ function FindNearestShip(object, max_distance, filter_function)
     filter_function = filter_function or function(obj, ship) return true end
 
     local min_dist = Dim.Convert_mm_igu(max_distance or 100) -- default 100 mm
-    local objPos = object.getPosition()
-    objPos.y = 0
+    local objPos = object.getPosition():setAt('y', 0)
     local nearest = nil
 
     for _, ship in pairs(getObjects()) do
         if MoveModule.SelectShips(ship) then
-            local shipPos = ship.getPosition()
-            shipPos.y = 0
+            local shipPos = ship.getPosition():setAt('y', 0)
             local dist = shipPos:distance(objPos)
             if dist < min_dist and filter_function(object, ship) then
                 nearest = ship

@@ -69,7 +69,7 @@ end
 -- Event triggered when a ship collides with the tool
 function onCollisionEnter(collision_info)
     local obj = collision_info.collision_object
-    
+
     if debounce == obj then
         return
     end

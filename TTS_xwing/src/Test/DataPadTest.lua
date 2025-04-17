@@ -1,5 +1,5 @@
 require("TTS_lib.Util.Table")
-local Sequence = require("Test.Sequence")
+local Sequence = require("TTS_lib.Sequence.Sequence")
 local PlayerArea = require("Player.PlayerArea")
 
 local DataPadTest = {}

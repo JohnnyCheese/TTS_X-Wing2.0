@@ -43,9 +43,6 @@ function createTransportFreighterBag()
     self.setCustomObject(info)
     self.removeTag("Ship")
     self.reload()
-
-    -- Add action buttons to the bag
-    createFreighterButtons(self)
 end
 
 -- Adds action buttons for packing and unpacking
@@ -210,7 +207,7 @@ function onLoad(saved_data)
 
         Wait.condition(
             function() createFreighterButtons(self) end,
-            function() return self.resting and not self.spawning end
+            function() return self.resting and not self.spawning and not self.loading_custom end
         )
     else
         self.addContextMenuItem("Convert To Freighter", createTransportFreighterBag, false)
