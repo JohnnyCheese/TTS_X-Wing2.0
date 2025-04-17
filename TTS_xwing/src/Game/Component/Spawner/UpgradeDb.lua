@@ -1686,7 +1686,6 @@ masterUpgradesDB['r4p44'] = {
     slot = 10,
     limited = 1,
     addAction = { 'C' },
-    Charge = 2,
     restriction = { Faction = { [6] = true } }
 }
 

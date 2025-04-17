@@ -14,6 +14,9 @@ __XW_TokenType = 'cloak'
 -- Ref to assigned ship if there is one
 assignedShip = nil
 
+-- The current decload direction
+decloakCode = nil
+
 -- Save self state
 function onSave()
     if assignedShip ~= nil then
@@ -28,27 +31,26 @@ function onLoad(save_state)
         local assignedShipGUID = JSON.decode(save_state).assignedShipGUID
         if assignedShipGUID ~= nil and getObjectFromGUID(assignedShipGUID) ~= nil then
             assignedShip = getObjectFromGUID(assignedShipGUID)
-            SpawnFirstButtons()
+            spawnFirstButtons()
         end
     end
 end
 
 -- Spawn initial decloak/delete buttons
-function SpawnFirstButtons()
+function spawnFirstButtons()
     __XW_TokenIdle = true
     self.clearButtons()
-    local decloakButton = {
+    self.createButton({
         ['function_owner'] = self,
-        ['click_function'] = 'SpawnDecloakButtons',
+        ['click_function'] = 'spawnDecloakButtons',
         ['label'] = 'Decloak',
         ['position'] = { 0, 0.25, -1.5 },
         ['rotation'] = { 0, 0, 0 },
         ['width'] = 1000,
         ['height'] = 500,
         ['font_size'] = 250
-    }
-    self.createButton(decloakButton)
-    local deleteButton = {
+    })
+    self.createButton({
         ['function_owner'] = self,
         ['click_function'] = 'selfDestruct',
         ['label'] = 'Delete',
@@ -57,8 +59,7 @@ function SpawnFirstButtons()
         ['width'] = 1000,
         ['height'] = 500,
         ['font_size'] = 250
-    }
-    self.createButton(deleteButton)
+    })
 end
 
 -- Assign on drop near a small base ship
@@ -68,17 +69,17 @@ function onDropped()
         if nearest ~= nil then
             printToAll('Cloak token assigned to ' .. nearest.getName(), { 0.2, 0.2, 1 })
             self.setRotation(nearest.getRotation())
-            SpawnFirstButtons()
+            spawnFirstButtons()
             assignedShip = nearest
         end
     end
 end
 
 -- Spawn undo/delete/slide buttons (after a move)
-function SpawnFinalButtons()
+function spawnFinalButtons()
     undoToBackCount = 1
     self.clearButtons()
-    local undoButton = {
+    self.createButton({
         ['function_owner'] = self,
         ['click_function'] = 'performUndo',
         ['label'] = 'Undo',
@@ -87,9 +88,8 @@ function SpawnFinalButtons()
         ['width'] = 1000,
         ['height'] = 500,
         ['font_size'] = 250
-    }
-    self.createButton(undoButton)
-    local deleteButton = {
+    })
+    self.createButton({
         ['function_owner'] = self,
         ['click_function'] = 'selfDestruct',
         ['label'] = 'Delete',
@@ -98,47 +98,43 @@ function SpawnFinalButtons()
         ['width'] = 1000,
         ['height'] = 500,
         ['font_size'] = 250
-    }
-    self.createButton(deleteButton)
+    })
 end
 
-function SpawnDecloakSetRF()
+function spawnDecloakAllignmentSet()
     __XW_TokenIdle = false
     self.clearButtons()
-    local decloakRF1_Button = {
+    self.createButton({
         ['function_owner'] = self,
-        ['click_function'] = 'dechocloakRF1',
+        ['click_function'] = 'decloakForwardAligned',
         ['label'] = 'Forward',
         ['position'] = { 0, 0.25, -1.1 },
         ['rotation'] = { 0, 0, 0 },
         ['width'] = 1200,
         ['height'] = 520,
         ['font_size'] = 250
-    }
-    self.createButton(decloakRF1_Button)
-    local decloakRF2_Button = {
+    })
+    self.createButton({
         ['function_owner'] = self,
-        ['click_function'] = 'dechocloakRF2',
+        ['click_function'] = 'decloakMiddleAligned',
         ['label'] = 'Middle',
         ['position'] = { 0, 0.25, 0 },
         ['rotation'] = { 0, 0, 0 },
         ['width'] = 1200,
         ['height'] = 520,
         ['font_size'] = 250
-    }
-    self.createButton(decloakRF2_Button)
-    local decloakRF3_Button = {
+    })
+    self.createButton({
         ['function_owner'] = self,
-        ['click_function'] = 'dechocloakRF3',
+        ['click_function'] = 'decloakBackAligned',
         ['label'] = 'Backward',
         ['position'] = { 0, 0.25, 1.1 },
         ['rotation'] = { 0, 0, 0 },
         ['width'] = 1200,
         ['height'] = 520,
         ['font_size'] = 250
-    }
-    self.createButton(decloakRF3_Button)
-    local backButton = {
+    })
+    self.createButton({
         ['function_owner'] = self,
         ['click_function'] = 'resetToFirst',
         ['label'] = 'Back',
@@ -147,310 +143,121 @@ function SpawnDecloakSetRF()
         ['width'] = 1200,
         ['height'] = 500,
         ['font_size'] = 250
-    }
-    self.createButton(backButton)
+    })
 end
 
-function SpawnDecloakSetRB()
-    __XW_TokenIdle = false
-    self.clearButtons()
-    local decloakRB1_Button = {
+
+function spawnNormalDecloakOptions()
+    self.createButton({
         ['function_owner'] = self,
-        ['click_function'] = 'dechocloakRB1',
-        ['label'] = 'Forward',
-        ['position'] = { 0, 0.25, -1.1 },
+        ['click_function'] = 'decloakF',
+        ['label'] = 'F',
+        ['position'] = { 0, 0.25, -2 },
         ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
+        ['width'] = 365,
         ['height'] = 520,
         ['font_size'] = 250
-    }
-    self.createButton(decloakRB1_Button)
-    local decloakRB2_Button = {
+    })
+    self.createButton({
         ['function_owner'] = self,
-        ['click_function'] = 'dechocloakRB2',
-        ['label'] = 'Middle',
-        ['position'] = { 0, 0.25, 0 },
+        ['click_function'] = 'decloakL',
+        ['label'] = 'L',
+        ['position'] = { -1.5, 0.25, 0 },
         ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
+        ['width'] = 365,
         ['height'] = 520,
         ['font_size'] = 250
-    }
-    self.createButton(decloakRB2_Button)
-    local decloakRB3_Button = {
+    })
+    self.createButton({
         ['function_owner'] = self,
-        ['click_function'] = 'dechocloakRB3',
-        ['label'] = 'Backward',
-        ['position'] = { 0, 0.25, 1.1 },
+        ['click_function'] = 'decloakR',
+        ['label'] = 'R',
+        ['position'] = { 1.5, 0.25, 0 },
         ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
+        ['width'] = 365,
         ['height'] = 520,
         ['font_size'] = 250
-    }
-    self.createButton(decloakRB3_Button)
-    local backButton = {
-        ['function_owner'] = self,
-        ['click_function'] = 'resetToFirst',
-        ['label'] = 'Back',
-        ['position'] = { 0, 0.25, 2.5 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 500,
-        ['font_size'] = 250
-    }
-    self.createButton(backButton)
+    })
 end
 
-function SpawnDecloakSetLF()
-    __XW_TokenIdle = false
-    self.clearButtons()
-    local decloakLF1_Button = {
+
+function spawnEchoDecloakOptions()
+    self.createButton({
         ['function_owner'] = self,
-        ['click_function'] = 'dechocloakLF1',
-        ['label'] = 'Forward',
-        ['position'] = { 0, 0.25, -1.1 },
+        ['click_function'] = 'decloakFL',
+        ['label'] =
+        'FL',
+        ['position'] = { -0.75, 0.25, -2 },
         ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
+        ['width'] = 365,
         ['height'] = 520,
         ['font_size'] = 250
-    }
-    self.createButton(decloakLF1_Button)
-    local decloakLF2_Button = {
+    })
+    self.createButton({
         ['function_owner'] = self,
-        ['click_function'] = 'dechocloakLF2',
-        ['label'] = 'Middle',
-        ['position'] = { 0, 0.25, 0 },
+        ['click_function'] = 'decloakFR',
+        ['label'] =
+        'FR',
+        ['position'] = { 0.75, 0.25, -2 },
         ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
+        ['width'] = 365,
         ['height'] = 520,
         ['font_size'] = 250
-    }
-    self.createButton(decloakLF2_Button)
-    local decloakLF3_Button = {
+    })
+    self.createButton({
         ['function_owner'] = self,
-        ['click_function'] = 'dechocloakLF3',
-        ['label'] = 'Backward',
-        ['position'] = { 0, 0.25, 1.1 },
+        ['click_function'] = 'decloakLF',
+        ['label'] = 'LF',
+        ['position'] = { -1.5, 0.25, -1.1 },
         ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
+        ['width'] = 365,
         ['height'] = 520,
         ['font_size'] = 250
-    }
-    self.createButton(decloakLF3_Button)
-    local backButton = {
+    })
+    self.createButton({
         ['function_owner'] = self,
-        ['click_function'] = 'resetToFirst',
-        ['label'] = 'Back',
-        ['position'] = { 0, 0.25, 2.5 },
+        ['click_function'] = 'decloakLB',
+        ['label'] = 'LB',
+        ['position'] = { -1.5, 0.25, 1.1 },
         ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 500,
+        ['width'] = 365,
+        ['height'] = 520,
         ['font_size'] = 250
-    }
-    self.createButton(backButton)
+    })
+    self.createButton({
+        ['function_owner'] = self,
+        ['click_function'] = 'decloakRF',
+        ['label'] = 'RF',
+        ['position'] = { 1.5, 0.25, -1.1 },
+        ['rotation'] = { 0, 0, 0 },
+        ['width'] = 365,
+        ['height'] = 520,
+        ['font_size'] = 250
+    })
+    self.createButton({
+        ['function_owner'] = self,
+        ['click_function'] = 'decloakRB',
+        ['label'] = 'RB',
+        ['position'] = { 1.5, 0.25, 1.1 },
+        ['rotation'] = { 0, 0, 0 },
+        ['width'] = 365,
+        ['height'] = 520,
+        ['font_size'] = 250
+    })
 end
 
-function SpawnDecloakSetLB()
-    __XW_TokenIdle = false
-    self.clearButtons()
-    local decloakLB1_Button = {
-        ['function_owner'] = self,
-        ['click_function'] = 'dechocloakLB1',
-        ['label'] = 'Forward',
-        ['position'] = { 0, 0.25, -1.1 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    }
-    self.createButton(decloakLB1_Button)
-    local decloakLB2_Button = {
-        ['function_owner'] = self,
-        ['click_function'] = 'dechocloakLB2',
-        ['label'] = 'Middle',
-        ['position'] = { 0, 0.25, 0 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    }
-    self.createButton(decloakLB2_Button)
-    local decloakLB3_Button = {
-        ['function_owner'] = self,
-        ['click_function'] = 'dechocloakLB3',
-        ['label'] = 'Backward',
-        ['position'] = { 0, 0.25, 1.1 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    }
-    self.createButton(decloakLB3_Button)
-    local backButton = {
-        ['function_owner'] = self,
-        ['click_function'] = 'resetToFirst',
-        ['label'] = 'Back',
-        ['position'] = { 0, 0.25, 2.5 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 500,
-        ['font_size'] = 250
-    }
-    self.createButton(backButton)
-end
 
 -- Spawn back/delete/moves buttons (regular or Echo)
-function SpawnDecloakButtons()
+function spawnDecloakButtons()
     __XW_TokenIdle = false
     self.clearButtons()
-    if assignedShip.getName():find('Echo') == nil then
-        local decloakStr_Button = {
-            ['function_owner'] = self,
-            ['click_function'] = 'decloakStraight',
-            ['label'] = 'CS',
-            ['position'] = { 0, 0.25, -2 },
-            ['rotation'] = { 0, 0, 0 },
-            ['width'] = 365,
-            ['height'] = 520,
-            ['font_size'] = 250
-        }
-        self.createButton(decloakStr_Button)
-        local decloakLF_Button = {
-            ['function_owner'] = self,
-            ['click_function'] = 'decloakLF',
-            ['label'] = 'CF',
-            ['position'] = { -1.5, 0.25, -1 },
-            ['rotation'] = { 0, 0, 0 },
-            ['width'] = 365,
-            ['height'] = 520,
-            ['font_size'] = 250
-        }
-        self.createButton(decloakLF_Button)
-        local decloakL_Button = {
-            ['function_owner'] = self,
-            ['click_function'] = 'decloakL',
-            ['label'] = 'CL',
-            ['position'] = { -1.5, 0.25, 0 },
-            ['rotation'] = { 0, 0, 0 },
-            ['width'] = 365,
-            ['height'] = 520,
-            ['font_size'] = 250
-        }
-        self.createButton(decloakL_Button)
-        local decloakLB_Button = {
-            ['function_owner'] = self,
-            ['click_function'] = 'decloakLB',
-            ['label'] = 'CB',
-            ['position'] = { -1.5, 0.25, 1 },
-            ['rotation'] = { 0, 0, 0 },
-            ['width'] = 365,
-            ['height'] = 520,
-            ['font_size'] = 250
-        }
-        self.createButton(decloakLB_Button)
-        local decloakRF_Button = {
-            ['function_owner'] = self,
-            ['click_function'] = 'decloakRF',
-            ['label'] = 'CF',
-            ['position'] = { 1.5, 0.25, -1 },
-            ['rotation'] = { 0, 0, 0 },
-            ['width'] = 365,
-            ['height'] = 520,
-            ['font_size'] = 250
-        }
-        self.createButton(decloakRF_Button)
-        local decloakR_Button = {
-            ['function_owner'] = self,
-            ['click_function'] = 'decloakR',
-            ['label'] = 'CR',
-            ['position'] = { 1.5, 0.25, 0 },
-            ['rotation'] = { 0, 0, 0 },
-            ['width'] = 365,
-            ['height'] = 520,
-            ['font_size'] = 250
-        }
-        self.createButton(decloakR_Button)
-        local decloakRB_Button = {
-            ['function_owner'] = self,
-            ['click_function'] = 'decloakRB',
-            ['label'] = 'CB',
-            ['position'] = { 1.5, 0.25, 1 },
-            ['rotation'] = { 0, 0, 0 },
-            ['width'] = 365,
-            ['height'] = 520,
-            ['font_size'] = 250
-        }
-        self.createButton(decloakRB_Button)
-    else
-        local decloakStrR_Button = {
-            ['function_owner'] = self,
-            ['click_function'] = 'dechocloakStraightR',
-            ['label'] =
-            'CR',
-            ['position'] = { 0.5, 0.25, -2 },
-            ['rotation'] = { 0, 0, 0 },
-            ['width'] = 365,
-            ['height'] = 520,
-            ['font_size'] = 250
-        }
-        self.createButton(decloakStrR_Button)
-        local decloakStrL_Button = {
-            ['function_owner'] = self,
-            ['click_function'] = 'dechocloakStraightL',
-            ['label'] =
-            'CL',
-            ['position'] = { -0.5, 0.25, -2 },
-            ['rotation'] = { 0, 0, 0 },
-            ['width'] = 365,
-            ['height'] = 520,
-            ['font_size'] = 250
-        }
-        self.createButton(decloakStrL_Button)
-        local decloakLF_Button = {
-            ['function_owner'] = self,
-            ['click_function'] = 'SpawnDecloakSetLF',
-            ['label'] = 'LF',
-            ['position'] = { -1.5, 0.25, -0.6 },
-            ['rotation'] = { 0, 0, 0 },
-            ['width'] = 365,
-            ['height'] = 520,
-            ['font_size'] = 250
-        }
-        self.createButton(decloakLF_Button)
-        local decloakLB_Button = {
-            ['function_owner'] = self,
-            ['click_function'] = 'SpawnDecloakSetLB',
-            ['label'] = 'LB',
-            ['position'] = { -1.5, 0.25, 0.6 },
-            ['rotation'] = { 0, 0, 0 },
-            ['width'] = 365,
-            ['height'] = 520,
-            ['font_size'] = 250
-        }
-        self.createButton(decloakLB_Button)
-        local decloakRF_Button = {
-            ['function_owner'] = self,
-            ['click_function'] = 'SpawnDecloakSetRF',
-            ['label'] = 'RF',
-            ['position'] = { 1.5, 0.25, -0.6 },
-            ['rotation'] = { 0, 0, 0 },
-            ['width'] = 365,
-            ['height'] = 520,
-            ['font_size'] = 250
-        }
-        self.createButton(decloakRF_Button)
-        local decloakRB_Button = {
-            ['function_owner'] = self,
-            ['click_function'] = 'SpawnDecloakSetRB',
-            ['label'] = 'RB',
-            ['position'] = { 1.5, 0.25, 0.6 },
-            ['rotation'] = { 0, 0, 0 },
-            ['width'] = 365,
-            ['height'] = 520,
-            ['font_size'] = 250
-        }
-        self.createButton(decloakRB_Button)
+    if assignedShip.getTable('Data').xws ~= "echo" then
+        spawnNormalDecloakOptions()
     end
-    local deleteButton = {
+    if assignedShip.getName():find('Echo') ~= nil then
+        spawnEchoDecloakOptions()
+    end
+    self.createButton({
         ['function_owner'] = self,
         ['click_function'] = 'selfDestruct',
         ['label'] = 'Delete',
@@ -459,9 +266,8 @@ function SpawnDecloakButtons()
         ['width'] = 750,
         ['height'] = 500,
         ['font_size'] = 250
-    }
-    self.createButton(deleteButton)
-    local backButton = {
+    })
+    self.createButton({
         ['function_owner'] = self,
         ['click_function'] = 'resetToFirst',
         ['label'] = 'Back',
@@ -470,135 +276,76 @@ function SpawnDecloakButtons()
         ['width'] = 750,
         ['height'] = 500,
         ['font_size'] = 250
-    }
-    self.createButton(backButton)
+    })
 end
 
---------
--- DECLOAK MOVES
-function decloakStraight()
-    if Global.call('API_PerformMove', { code = 'cs', ship = assignedShip }) then
-        SpawnFinalButtons()
-    end
-end
 
-function decloakRF()
-    if Global.call('API_PerformMove', { code = 'cr1', ship = assignedShip }) then
-        SpawnFinalButtons()
-    end
+function decloakL()
+    decloakCode = "cl"
+    spawnDecloakAllignmentSet()
 end
 
 function decloakR()
-    if Global.call('API_PerformMove', { code = 'cr2', ship = assignedShip }) then
-        SpawnFinalButtons()
-    end
-end
-
-function decloakRB()
-    if Global.call('API_PerformMove', { code = 'cr3', ship = assignedShip }) then
-        SpawnFinalButtons()
-    end
+    decloakCode = "cr"
+    spawnDecloakAllignmentSet()
 end
 
 function decloakLF()
-    if Global.call('API_PerformMove', { code = 'ce1', ship = assignedShip }) then
-        SpawnFinalButtons()
-    end
-end
-
-function decloakL()
-    if Global.call('API_PerformMove', { code = 'ce2', ship = assignedShip }) then
-        SpawnFinalButtons()
-    end
+    decloakCode = "elf"
+    spawnDecloakAllignmentSet()
 end
 
 function decloakLB()
-    if Global.call('API_PerformMove', { code = 'ce3', ship = assignedShip }) then
-        SpawnFinalButtons()
+    decloakCode = "elb"
+    spawnDecloakAllignmentSet()
+end
+
+function decloakRF()
+    decloakCode = "erf"
+    spawnDecloakAllignmentSet()
+end
+
+function decloakRB()
+    decloakCode = "erb"
+    spawnDecloakAllignmentSet()
+end
+
+
+--------
+-- DECLOAK MOVES
+function decloakF()
+    if Global.call('API_PerformMove', { code = 'cs', ship = assignedShip }) then
+        spawnFinalButtons()
     end
 end
 
-function dechocloakStraightR()
+function decloakFR()
     if Global.call('API_PerformMove', { code = 'esr', ship = assignedShip }) then
-        SpawnFinalButtons()
+        spawnFinalButtons()
     end
 end
 
-function dechocloakStraightL()
+function decloakFL()
     if Global.call('API_PerformMove', { code = 'ese', ship = assignedShip }) then
-        SpawnFinalButtons()
+        spawnFinalButtons()
     end
 end
 
-function dechocloakRF1()
-    if Global.call('API_PerformMove', { code = 'erf1', ship = assignedShip }) then
-        SpawnFinalButtons()
+function decloakForwardAligned()
+    if Global.call('API_PerformMove', { code = decloakCode .. '1', ship = assignedShip }) then
+        spawnFinalButtons()
     end
 end
 
-function dechocloakRF2()
-    if Global.call('API_PerformMove', { code = 'erf2', ship = assignedShip }) then
-        SpawnFinalButtons()
+function decloakMiddleAligned()
+    if Global.call('API_PerformMove', { code = decloakCode .. '2', ship = assignedShip }) then
+        spawnFinalButtons()
     end
 end
 
-function dechocloakRF3()
-    if Global.call('API_PerformMove', { code = 'erf3', ship = assignedShip }) then
-        SpawnFinalButtons()
-    end
-end
-
-function dechocloakRB1()
-    if Global.call('API_PerformMove', { code = 'erb1', ship = assignedShip }) then
-        SpawnFinalButtons()
-    end
-end
-
-function dechocloakRB2()
-    if Global.call('API_PerformMove', { code = 'erb2', ship = assignedShip }) then
-        SpawnFinalButtons()
-    end
-end
-
-function dechocloakRB3()
-    if Global.call('API_PerformMove', { code = 'erb3', ship = assignedShip }) then
-        SpawnFinalButtons()
-    end
-end
-
-function dechocloakLF1()
-    if Global.call('API_PerformMove', { code = 'eef1', ship = assignedShip }) then
-        SpawnFinalButtons()
-    end
-end
-
-function dechocloakLF2()
-    if Global.call('API_PerformMove', { code = 'eef2', ship = assignedShip }) then
-        SpawnFinalButtons()
-    end
-end
-
-function dechocloakLF3()
-    if Global.call('API_PerformMove', { code = 'eef3', ship = assignedShip }) then
-        SpawnFinalButtons()
-    end
-end
-
-function dechocloakLB1()
-    if Global.call('API_PerformMove', { code = 'eeb1', ship = assignedShip }) then
-        SpawnFinalButtons()
-    end
-end
-
-function dechocloakLB2()
-    if Global.call('API_PerformMove', { code = 'eeb2', ship = assignedShip }) then
-        SpawnFinalButtons()
-    end
-end
-
-function dechocloakLB3()
-    if Global.call('API_PerformMove', { code = 'eeb3', ship = assignedShip }) then
-        SpawnFinalButtons()
+function decloakBackAligned()
+    if Global.call('API_PerformMove', { code = decloakCode .. '3', ship = assignedShip }) then
+        spawnFinalButtons()
     end
 end
 
@@ -612,7 +359,7 @@ end
 
 -- Back to first buttons
 function resetToFirst()
-    SpawnFirstButtons()
+    spawnFirstButtons()
 end
 
 -- Undo move, if undid all back to decloak buttons
@@ -620,14 +367,6 @@ function performUndo()
     assignedShip.setDescription('q')
     undoToBackCount = undoToBackCount - 1
     if undoToBackCount <= 0 then
-        SpawnDecloakButtons()
-    end
-end
-
--- Start slide
-function callSlide(obj, playerColor)
-    local started = Global.call('API_StartSlide', { obj = obj, playerColor = playerColor })
-    if started then
-        undoToBackCount = undoToBackCount + 1
+        spawnDecloakButtons()
     end
 end
