@@ -805,7 +805,6 @@ xwaPilotDb[10042] = {
     init = 2,
     texture = 'standard',
     actSet = { 'F', 'TL', 'E', 'BR' },
-    Bomb = true,
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Determination', charge = 0 },
