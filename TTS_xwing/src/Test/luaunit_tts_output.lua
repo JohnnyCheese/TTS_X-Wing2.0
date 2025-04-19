@@ -180,10 +180,6 @@ function GridOutput:endTest(node)
     end
 end
 
-function GridOutput:endSuite()
-    self.hostObject.UI.setAttribute("TestStatus", "active", "true")
-end
-
 function GridOutput:totalTests()
     return self.runner.result.selectedCount
 end
