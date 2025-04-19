@@ -1,49 +1,73 @@
 -- luaunit_tts_env.lua
--- Fake system and environment stubs for running LuaUnit inside Tabletop Simulator
+-- TTS-safe stdout redirection for LuaUnit with safe buffering and minimal assumptions
 
--- TTS provides os.clock, os.difftime, os.date, and os.time via OS_Time
--- We only need to stub os.getenv and os.exit
-os = os or {}
+-- Shared buffer for all output
+local stdoutBuffer = ""
+
+-- Flushes complete lines using Moonsharp-safe logic
+local function flushBufferedLines()
+    local start = 1
+    while true do
+        local stop = stdoutBuffer:find("\n", start, true)
+        if not stop then break end
+
+        local line = stdoutBuffer:sub(start, stop - 1)
+        printToAll(tostring(line):gsub("\t", "    "), {1, 1, 1})
+        start = stop + 1
+    end
+    stdoutBuffer = stdoutBuffer:sub(start)
+end
+
+-- Flushes all content, even unterminated lines
+local function forceFlushAll()
+    flushBufferedLines()
+    if stdoutBuffer ~= "" then
+        printToAll(tostring(stdoutBuffer):gsub("\t", "    "), {1, 1, 1})
+        stdoutBuffer = ""
+    end
+end
+
+-- Replaces built-in print with tab-joined buffered version
+_G.print = function(...)
+    for i, arg in ipairs({ ... }) do
+        if i > 1 then stdoutBuffer = stdoutBuffer .. "\t" end
+        stdoutBuffer = stdoutBuffer .. tostring(arg)
+    end
+    stdoutBuffer = stdoutBuffer .. "\n"
+    forceFlushAll()
+end
+
+-- Safe stdout.write/flush (avoids implicit self from colon calls)
+io = io or {}
+io.stdout = {}
+
+function io.stdout.write(_, ...)
+    for _, arg in ipairs({ ... }) do
+        stdoutBuffer = stdoutBuffer .. tostring(arg)
+    end
+    flushBufferedLines()
+end
+
+function io.stdout.flush()
+    flushBufferedLines()
+end
+
+-- Environment variable fallback for LuaUnit
 function os.getenv(key)
-    -- Custom environment variables for use by LuaUnit or other sandboxed code
-    -- Useful defaults for LuaUnit in TTS
     local fake_env = {
-        LUAUNIT_OUTPUT = "text",           -- "TAP", "text", "NIL", "JUNIT"
-        LUAUNIT_JUNIT_FNAME = "junit.xml", -- output filename if using junit
+        LUAUNIT_OUTPUT = "text",
+        LUAUNIT_JUNIT_FNAME = "junit.xml",
         LUAUNIT_DATEFMT = "%Y-%m-%d %H:%M:%S"
     }
-
     return fake_env[key] or nil
 end
 
-os.exit = function(code)
-    -- Simulate exit by logging and stopping execution
-    print("os.exit called with code: " .. tostring(code or 0))
-    --error("Simulated os.exit in TTS")
+-- Prevent LuaUnit from exiting the script
+os.exit = function()
+    error("os.exit() is disabled in TTS")
 end
 
--- Stub out io library (TTS doesn’t support file I/O)
-io = io or {}
-io.stdout = {
-    write = function(self, ...)
-        -- Redirect to TTS print
-        local args = { ... }
-        local output = table.concat(args, "")
-        print(output)
-    end,
-    flush = function() end -- No-op in TTS
-}
-
-io.open = function(filename, mode)
-    -- Log file access attempts
-    print("io.open attempted on " .. filename .. " with mode " .. (mode or "r") .. " - not supported in TTS")
-    return nil, "File I/O not available in TTS"
+-- Optional fallback for JUnit output (disabled in TTS)
+io.open = function(fname, mode)
+    return nil, "io.open is disabled in TTS"
 end
-
-io.close = function(file) end -- No-op since no files are opened
-
--- Ensure print is available
-print = print or function(msg) end
-
--- Return marker to confirm stubs are loaded
-return { loaded = true }

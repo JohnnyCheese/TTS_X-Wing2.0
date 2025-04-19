@@ -7,6 +7,7 @@ Development by Philippe Fremy <phil@freehackers.org>
 Based on initial work of Ryu, Gwang (http://www.gpgstudy.com/gpgiki/LuaUnit)
 License: BSD License, see LICENSE.txt
 ]] --
+
 pcall(require, "math")
 local M = {}
 
@@ -565,8 +566,20 @@ local function prettystr(v)
 end
 M.prettystr = prettystr
 
+-- Prepend a comma and space to iter_msg if it exists
 function M.adjust_err_msg_with_iter(err, iter_msg)
-    -- Prepend a comma and space to iter_msg if it exists
+    --[[ Adjust the error message err_msg: trim the FAILURE_PREFIX or SUCCESS_PREFIX information if needed,
+    add the iteration message if any and return the result.
+
+    err_msg:  string, error message captured with pcall
+    iter_msg: a string describing the current iteration ("iteration N") or nil
+              if there is no iteration in this test.
+
+    Returns: (new_err_msg, test_status)
+        new_err_msg: string, adjusted error message, or nil in case of success
+        test_status: M.NodeStatus.FAIL, SUCCESS or ERROR according to the information
+                     contained in the error message.
+    ]]
     if iter_msg then
         iter_msg = iter_msg .. ', '
     else
@@ -2075,14 +2088,6 @@ function genericOutput.new(runner, default_verbosity)
     return setmetatable(t, genericOutput_MT)
 end
 
-function genericOutput:emit(...)
-    io.stdout:write(...)
-end
-
-function genericOutput:emitLine(...)
-    print(...)
-end
-
 -- abstract ("empty") methods
 function genericOutput:startSuite()
     -- Called once, when the suite is started
@@ -2375,28 +2380,28 @@ end
 
 function TextOutput:startSuite()
     if self.verbosity > M.VERBOSITY_DEFAULT then
-        self:emitLine('Started on ' .. self.result.startDate)
+        print('Started on ' .. self.result.startDate)
     end
 end
 
 function TextOutput:startTest(testName)
     if self.verbosity > M.VERBOSITY_DEFAULT then
-        self:emit("    ", self.result.currentNode.testName, " ... ")
+        io.stdout:write("    ", self.result.currentNode.testName, " ... ")
     end
 end
 
 function TextOutput:endTest(node)
     if node:isSuccess() then
         if self.verbosity > M.VERBOSITY_DEFAULT then
-            self:emitLine("Ok")
+            io.stdout:write("Ok\n")
         else
-            self:emit(".")
+            io.stdout:write(".")
             io.stdout:flush()
         end
     else
         if self.verbosity > M.VERBOSITY_DEFAULT then
-            self:emitLine(node.status)
-            self:emitLine(node.msg)
+            print(node.status)
+            print(node.msg)
             --[[
                 -- find out when to do this:
                 if self.verbosity > M.VERBOSITY_DEFAULT then
@@ -2405,23 +2410,23 @@ function TextOutput:endTest(node)
                 ]]
         else
             -- write only the first character of status E, F or S
-            self:emit(string.sub(node.status, 1, 1))
+                io.stdout:write(string.sub(node.status, 1, 1))
             io.stdout:flush()
         end
     end
 end
 
 function TextOutput:displayOneFailedTest(index, fail)
-    self:emitLine(index .. ") " .. fail.testName)
-    self:emitLine(fail.msg)
-    self:emitLine(fail.stackTrace)
-    self:emitLine()
+    print(index .. ") " .. fail.testName)
+    print(fail.msg)
+    print(fail.stackTrace)
+    print()
 end
 
 function TextOutput:displayErroredTests()
     if #self.result.errorTests ~= 0 then
-        self:emitLine("Tests with errors:")
-        self:emitLine("------------------")
+        print("Tests with errors:")
+        print("------------------")
         for i, v in ipairs(self.result.errorTests) do
             self:displayOneFailedTest(i, v)
         end
@@ -2430,8 +2435,8 @@ end
 
 function TextOutput:displayFailedTests()
     if #self.result.failedTests ~= 0 then
-        self:emitLine("Failed tests:")
-        self:emitLine("-------------")
+        print("Failed tests:")
+        print("-------------")
         for i, v in ipairs(self.result.failedTests) do
             self:displayOneFailedTest(i, v)
         end
@@ -2440,15 +2445,15 @@ end
 
 function TextOutput:endSuite()
     if self.verbosity > M.VERBOSITY_DEFAULT then
-        self:emitLine("=========================================================")
+        print("=========================================================")
     else
-        self:emitLine()
+        print()
     end
     self:displayErroredTests()
     self:displayFailedTests()
-    self:emitLine(M.LuaUnit.statusLine(self.result))
+    print(M.LuaUnit.statusLine(self.result))
     if self.result.notSuccessCount == 0 then
-        self:emitLine('OK')
+        print('OK')
     end
 end
 
@@ -2598,8 +2603,7 @@ function M.LuaUnit.parseCmdLine(cmdLine)
             result['quitOnFailure'] = true
             return
         elseif option == '--shuffle' or option == '-s' then
-            -- result['shuffle'] = true
-            result['shuffle'] = false
+            result['shuffle'] = true
             return
         elseif option == '--output' or option == '-o' then
             state = SET_OUTPUT
@@ -3027,7 +3031,6 @@ function M.LuaUnit:protectedCall(classInstance, methodInstance, prettyFuncName)
     local iter_msg
     iter_msg = self.exeRepeat and 'iteration ' .. self.currentCount
 
-    -- err.msg, err.status = M.adjust_err_msg_with_iter(err.msg, iter_msg)
     err.msg, err.status = M.adjust_err_msg_with_iter(err, iter_msg)
 
     if err.status == NodeStatus.SUCCESS or err.status == NodeStatus.SKIP then
