@@ -1,36 +1,16 @@
 -- luaunit_tts_output.lua
 -- TTSOutput: dual-mode output plugin (UI grid + chat) with symbolic colors
 
-local M = require("Test.luaunit")
-
-TTSOutput = {
-    __class__ = "TTSOutput",
-    chat = false,            -- default: chat logging off
-    log = false,             -- default: console log logging off
-    colors = {
-        SUCCESS = "#00FF00", -- green
-        FAIL    = "#FF0000", -- bright red
-        ERROR   = "#CC0000", -- red (distinct from FAIL, can override)
-        SKIP    = "#FFFF00", -- yellow
-        UNKNOWN = "#FF00FF", -- magenta
-        START   = "#FFFF99", -- light yellow
-        INFO    = "#9999FF", -- soft blue
-        FINISH  = "#FFFF99", -- matches START by default, intended for final summary line
-        NEUTRAL = "#FFFFFF", -- white
-    }
-}
-setmetatable(TTSOutput, { __index = M.genericOutput })
-
 function TTSOutput.new(runner)
-    local t = M.genericOutput.new(runner)
-    t.hostObject = runner.hostObject
+    printToAll("TTSOutput.new()", Color.Orange)
+    local t = lu.genericOutput.new(runner)
     t.colors = TTSOutput.colors
     t.subOutputters = {}
     if TTSOutput.chat then
         table.insert(t.subOutputters, ChatOutput.new(runner))
     end
     if runner.hostObject ~= nil then
-        table.insert(t.subOutputters, GridOutput.new(runner))
+        table.insert(t.subOutputters, GridOutput.new(runner, runner.hostObject))
     end
 
     return setmetatable(t, { __index = TTSOutput })
@@ -53,10 +33,10 @@ end
 ChatOutput = {
     __class__ = "ChatOutput"
 }
-setmetatable(ChatOutput, { __index = M.TextOutput })
+setmetatable(ChatOutput, { __index = lu.TextOutput })
 
 function ChatOutput.new(runner)
-    local t = M.TextOutput.new(runner)
+    local t = lu.TextOutput.new(runner)
     t.colors = TTSOutput.colors
     t.buffer = "" -- Initialize buffer for partial outputs
     return setmetatable(t, { __index = ChatOutput })
@@ -112,11 +92,12 @@ end
 GridOutput = {
     __class__ = "GridOutput"
 }
-setmetatable(GridOutput, { __index = M.genericOutput })
+setmetatable(GridOutput, { __index = lu.genericOutput })
 
-function GridOutput.new(runner)
-    local t = M.genericOutput.new(runner)
-    t.hostObject = runner.hostObject
+function GridOutput.new(runner, hostObject)
+    printToAll("GridOutput.new()", Color.Orange)
+    local t = lu.genericOutput.new(runner)
+    t.hostObject = hostObject
     t.colors = TTSOutput.colors
     t.squareIds = {}
     t.testOutputs = {}
@@ -131,7 +112,7 @@ function GridOutput:startSuite()
     end
 
     function onClick(player, value, id)
-        local testResult = M.prettystr(self.testOutputs[id])
+        local testResult = lu.prettystr(self.testOutputs[id])
         local colorHex = self.hostObject.UI.getAttribute(id, "color")
         printToAll(testResult, Color.fromHex(colorHex))
     end

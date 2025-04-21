@@ -1,33 +1,64 @@
 -- luaunit_tts_env.lua
--- TTS-safe stdout redirection for LuaUnit with safe buffering and minimal assumptions
+-- TTS-safe LuaUnit output handling with buffered print and dynamic color
 
--- Shared buffer for all output
+TTSOutput = {
+    __class__ = "TTSOutput",
+    chat = true,      -- default: chat logging off
+    log = false,      -- default: console log logging off
+    hostObject = nil, -- default: no host object (TTS)
+    colors = {
+        SUCCESS = "#00FF00",
+        FAIL    = "#FF0000",
+        ERROR   = "#FFA500",
+        SKIP    = "#FFFF00",
+        START   = "#FFFF97", -- light yellow
+        FINISH  = "#FFFF97", -- matches START by default, intended for final summary line
+        INFO    = "#9997FF", -- soft blue
+        NEUTRAL = "#FFFFFF", -- white
+    }
+}
+setmetatable(TTSOutput, { __index = lu.genericOutput })
+
 local stdoutBuffer = ""
+local originalGenericNew = lu.genericOutput.new
 
--- Flushes complete lines using Moonsharp-safe logic
+function lu.genericOutput.new(runner, default_verbosity, ...)
+    _G.luaunit_runner = runner
+    return originalGenericNew(runner, default_verbosity, ...)
+end
+
+-- Resolve color based on current test node status in active runner
+local function currentOutputColor()
+    local runner = _G.luaunit_runner
+    if runner and runner.result and runner.result.currentNode then
+        local status = tostring(runner.result.currentNode.status or ""):upper()
+        return Color.fromHex(TTSOutput.colors[status] or TTSOutput.colors.NEUTRAL)
+    end
+    return Color.fromHex(TTSOutput.colors.NEUTRAL)
+end
+
 local function flushBufferedLines()
     local start = 1
     while true do
         local stop = stdoutBuffer:find("\n", start, true)
         if not stop then break end
 
-        local line = stdoutBuffer:sub(start, stop - 1)
-        printToAll(tostring(line):gsub("\t", "    "), {1, 1, 1})
+        local line = stdoutBuffer:sub(start, stop - 1):gsub("\t", "    ")
+        printToAll(line, currentOutputColor())
+
         start = stop + 1
     end
     stdoutBuffer = stdoutBuffer:sub(start)
 end
 
--- Flushes all content, even unterminated lines
 local function forceFlushAll()
     flushBufferedLines()
     if stdoutBuffer ~= "" then
-        printToAll(tostring(stdoutBuffer):gsub("\t", "    "), {1, 1, 1})
+        printToAll(stdoutBuffer:gsub("\t", "    "), currentOutputColor())
         stdoutBuffer = ""
     end
 end
 
--- Replaces built-in print with tab-joined buffered version
 _G.print = function(...)
     for i, arg in ipairs({ ... }) do
         if i > 1 then stdoutBuffer = stdoutBuffer .. "\t" end
@@ -37,7 +68,6 @@ _G.print = function(...)
     forceFlushAll()
 end
 
--- Safe stdout.write/flush (avoids implicit self from colon calls)
 io = io or {}
 io.stdout = {}
 
@@ -52,7 +82,6 @@ function io.stdout.flush()
     flushBufferedLines()
 end
 
--- Environment variable fallback for LuaUnit
 function os.getenv(key)
     local fake_env = {
         LUAUNIT_OUTPUT = "text",
@@ -62,12 +91,10 @@ function os.getenv(key)
     return fake_env[key] or nil
 end
 
--- Prevent LuaUnit from exiting the script
 os.exit = function()
     error("os.exit() is disabled in TTS")
 end
 
--- Optional fallback for JUnit output (disabled in TTS)
 io.open = function(fname, mode)
     return nil, "io.open is disabled in TTS"
 end

@@ -1,14 +1,15 @@
 -- TestMain.lua
 -- Entry point for all registered test files
 
---[[TODO:   Correct the color for ChatOutput, especially for Summary information
+--[[TODO:   Provide color Summary information, especially the last line "Ok" to be in green.
             Create the LogOutput class to log to the TTS console
-            Create the mechanism for spawning a Tech "Checker"
+            Create the mechanism for spawning a Test "Checker"
             Create an OS script which will generate a `testSuites` table for all test files
             Flush text output on endClass()
             Possibly put an endSuite() in TTSOutput (or inject into genericOuput) to handle the
             self:emit() "\t" tabs don't print, they get removed
             BTW `/clear` will clear the chat window, but not the console
+            move hostObject from runner (LuaUnit) to TTSOutput 
 ]]
 
 local lu = require("Test.luaunit_tts")
@@ -39,11 +40,11 @@ local testSuites = {
 }
 
 TestBulk = {}
--- for i = 1, 200 do
---     TestBulk["test_pass_" .. i] = function()
---         lu.assertEquals(i, i)
---     end
--- end
+for i = 1, 200 do
+    TestBulk["test_pass_" .. i] = function()
+        lu.assertEquals(i, i)
+    end
+end
 
 for name, suite in pairs(testSuites) do
     _G[name] = suite
@@ -64,20 +65,22 @@ end
 function TestChat:testThird()
     printToAll("Running THIRD test...", { 1, 0, 1 })
     local val = ""
-    -- for i = 1, 60000, 1 do
-    --     val = val .. i
-    -- end
+    for i = 1, 30000, 1 do
+        val = val .. i
+    end
     lu.assertEquals(3, 3)
 end
 
 function runTests()
-    -- lu.LuaUnit.outputType.chat = true -- Enable chat output
-    -- lu.LuaUnit.hostObject = self      -- Attach to object for grid UI
+    lu.LuaUnit.outputType.chat = true -- Enable chat output
+    -- lu.LuaUnit.outputType.hostObject = self
+    lu.LuaUnit.hostObject = self      -- Attach to object for grid UI
     -- lu:setVerbosity(lu.VERBOSITY_QUIET)
     -- lu:setVerbosity(lu.VERBOSITY_LOW)
     -- lu:setVerbosity(lu.VERBOSITY_DEFAULT)
-    lu.LuaUnit:setOutputType("TAP")
     lu:setVerbosity(lu.VERBOSITY_VERBOSE)
+    -- lu.LuaUnit:setOutputType("TAP")
+    -- lu.LuaUnit:setOutputType("TEXT")
     lu.LuaUnit:run()
 end
 

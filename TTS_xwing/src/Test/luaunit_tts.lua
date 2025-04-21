@@ -1,8 +1,7 @@
 -- luaunit_tts.lua
--- One-stop TTS-compatible LuaUnit setup with unified output
-
-require("Test.luaunit_tts_env")
-local lu = require("Test.luaunit")
+-- Entry point for running LuaUnit in TTS with environment and output support
+lu = require("Test.luaunit") -- main LuaUnit distribution
+require("Test.luaunit_tts_env")    -- installs buffered print/write + tab handling + color
 lu.LuaUnit.outputType = require("Test.luaunit_tts_output").TTSOutput
 
 -- Automatically run all test entrypoints in a coroutine if hostObject is set
