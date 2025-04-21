@@ -733,7 +733,7 @@ xwaPilotDb[10038] = {
         { name = 'Kineso-Switch', charge = 2 },
         { name = 'Calibrated Laser Targeting', charge = 0 }
     },
-    Customization = { model = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nabooroyaln1starfighter/MandoN1.obj" }
+    mesh = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nabooroyaln1starfighter/MandoN1.obj"
 }
 
 xwaPilotDb[10039] = {

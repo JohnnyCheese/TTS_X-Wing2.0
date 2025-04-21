@@ -6094,7 +6094,7 @@ masterPilotDB[785] = {
     texture = 'yoda',
     actSet = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' },
-    Customization = { model = "{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/Small/eta2actis/ETA2%20Jedi%20Starfighter%20Yoda.obj" }
+    mesh = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/eta2actis/eta2actis-Yoda.obj"
 }
 
 masterPilotDB[786] = {
