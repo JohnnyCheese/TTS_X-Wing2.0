@@ -1,15 +1,63 @@
 -- TestMain.lua
 -- Entry point for all registered test files
 
---[[TODO:   Provide color Summary information, especially the last line "Ok" to be in green.
-            Create the LogOutput class to log to the TTS console with appropriate TTS logStyle()
-            Flush text output on endClass()
-            Possibly put an endSuite() in TTSOutput (or inject into genericOuput) to handle the
-            self:emit() "\t" tabs don't print, they get removed
-            BTW `/clear` will clear the chat window, but not the console
-            move hostObject from runner (LuaUnit) to TTSOutput
-            Create the mechanism for spawning a Test "Checker"
-            Create an OS script which will generate a `testSuites` table for all test files
+--[[TODO:   
+    1. Code Organization & Structure
+        - Consolidate output handlers into single file (luaunit_tts_output.lua)
+        - Move Emitter to luaunit_tts_env.lua since it's fundamental
+        - Clean up commented-out code in LogOutput/ChatOutput
+        - Use consistent header comment style across files
+
+    2. Inheritance & Method Resolution
+        - Fix LogOutput inheritance (currently using ChatOutput's methods)
+        - Simplify metatable chains for outputs
+        - Make base class relationships explicit and documented
+        - Consider extracting common output functionality
+
+    3. Output Handling
+        - Fix tab character handling in Emitter
+        - Add proper flush handling for partial lines
+        - Make LogOutput use TTS's native log styles
+        - Add color summary information (especially "Ok" in green)
+        - Flush text output on endClass()
+
+    4. Grid UI
+        - Keep working grid implementation but simplify panel creation
+        - Move onClick handler registration to object load
+        - Consider separating UI XML manipulation from test logic
+        - Add proper error handling for missing UI elements
+
+    5. Configuration & Defaults
+        - Move configuration defaults to a single location
+        - Make palette configuration consistent across outputs
+        - Add validation for configuration options
+        - Document all configuration options
+
+    6. Documentation
+        - Update README to reflect current architecture
+        - Add inline documentation for key functions
+        - Document the output handler lifecycle
+        - Add examples for common customization scenarios
+
+    7. Error Handling
+        - Add proper error handling for UI operations
+        - Add validation for hostObject references
+        - Improve error messages for common setup issues
+        - Add debug logging option for troubleshooting
+
+    8. Testing
+        - Add self-tests for output handlers
+        - Add validation for configuration
+        - Test error conditions and recovery
+        - Test with large test suites
+
+    9. Infrastructure
+        - Create the mechanism for spawning a Test "Checker"
+        - Create an OS script to generate testSuites table
+        - Move hostObject from runner to TTSOutput
+
+    Notes:
+        - BTW `/clear` will clear the chat window, but not the console
 ]]
 
 local lu = require("Test.luaunit_tts")

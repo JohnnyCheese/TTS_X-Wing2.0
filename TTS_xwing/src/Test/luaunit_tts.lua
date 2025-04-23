@@ -1,3 +1,9 @@
+--[[────────────────────────────────────────────────────────────────────────────
+    LuaUnit Bootstrap for TTS
+    Thin bootstrap that loads upstream LuaUnit, installs the TTS‑specific
+    environment stubs and wires in our multi‑destination output module.
+────────────────────────────────────────────────────────────────────────────]]--
+
 -- luaunit_tts.lua
 -- Thin bootstrap that loads upstream LuaUnit, installs the TTS‑specific
 -- environment stubs and wires in our multi‑destination output module.

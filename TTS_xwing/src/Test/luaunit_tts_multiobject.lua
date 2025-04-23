@@ -1,14 +1,16 @@
--- luaunit_tts_multiobject.lua
--- Drop‑in replacement that routes LuaUnit output to multiple destinations
--- (TTS chat, system log, etc.) while *re‑using* upstream formatters.
+--[[────────────────────────────────────────────────────────────────────────────
+    LuaUnit Multi-Output Handler for TTS
+    Drop-in replacement that routes LuaUnit output to multiple destinations
+    (chat, system log, grid UI) while reusing upstream formatters.
+────────────────────────────────────────────────────────────────────────────]]--
 
 ---------------------------------------------------------------
--- 1  Dependencies
+-- 1. Dependencies
 ---------------------------------------------------------------
 local M = require("Test.luaunit") -- upstream LuaUnit 3.x
 
 ---------------------------------------------------------------
--- 2  Colour palette (user‑overridable)
+-- 2. Default Color Palette
 ---------------------------------------------------------------
 local defaultPalette = {
     SUCCESS = "#00FF00", -- green
@@ -22,13 +24,12 @@ local defaultPalette = {
     NEUTRAL = "#FFFFFF", -- white (grid squares before status)
 }
 
----------------------------------------------------------------
--- 3  BufferedEmitter mix‑in  (tab expansion + line buffering)
----------------------------------------------------------------
+--[[────────────────────────────────────────────────────────────────────────────
+    BufferedEmitter: Mixin for buffered output with tab expansion
+────────────────────────────────────────────────────────────────────────────]]--
 local Emitter = {}
 
 function Emitter:init()
-    printToAll("Emitter:init ", Color.Brown)
     self.buffer = ""
 end
 
@@ -57,9 +58,9 @@ function Emitter:emitLine(line)
     self:emit(line or "", "\n")
 end
 
----------------------------------------------------------------
--- 4  Composite root – TTSMultiOutput
----------------------------------------------------------------
+--[[────────────────────────────────────────────────────────────────────────────
+    TTSMultiOutput: Composite root that delegates to child outputs
+────────────────────────────────────────────────────────────────────────────]]--
 local TTSMultiOutput = {}
 TTSMultiOutput.__index = TTSMultiOutput                     -- Ensure methods are accessible in TTSMultiOutput
 setmetatable(TTSMultiOutput, { __index = M.genericOutput }) -- Inherit from genericOutput
@@ -92,46 +93,58 @@ setmetatable(TTSMultiOutput, {
     end
 })
 
----------------------------------------------------------------
--- 5  ChatOutput  (inherits TextOutput formatting)
----------------------------------------------------------------
 --[[────────────────────────────────────────────────────────────────────────────
-    ChatOutput: Subclasses LuaUnit outputters (TextOutput or TapOutput)
-    Dynamically switches based on the desired format.
-────────────────────────────────────────────────────────────────────────────]] --
+    Output Class Hierarchy:
 
+    M.genericOutput (LuaUnit base)
+        |
+        +-- TTSMultiOutput (composite root)
+        |
+        +-- M.TextOutput or M.TapOutput (format providers)
+            |
+            +-- ChatOutput (decorates either format with colored chat output)
+            +-- LogOutput (decorates either format with system console output)
+────────────────────────────────────────────────────────────────────────────]]--
+
+-- Modify createOutput to be format-agnostic
+local function createOutput(runner, palette, format, flushFunc)
+    local baseFormatter = (format == "TAP") and M.TapOutput or M.TextOutput
+    local t = baseFormatter.new(runner)
+    
+    -- Add Emitter methods
+    for k, v in pairs(Emitter) do
+        t[k] = v
+    end
+    t:init()
+    
+    t.colors = palette or defaultPalette
+    t.flushFunc = flushFunc
+    -- Don't set metatable here, let decorator do it
+    return t
+end
+
+--[[────────────────────────────────────────────────────────────────────────────
+    ChatOutput: Colored chat window output using TextOutput/TapOutput formatting
+────────────────────────────────────────────────────────────────────────────]]--
 local ChatOutput = {}
 ChatOutput.__index = ChatOutput
 ChatOutput.__class__ = "ChatOutput"
 
-local function createOutput(runner, palette, format, flushFunc)
-    local baseClass = (format == "TAP") and M.TapOutput or M.TextOutput
-    local t = baseClass.new(runner)
-
-    -- Add Emitter methods directly to the instance
-    for k, v in pairs(Emitter) do
-        t[k] = v
-    end
-    t:init() -- Initialize buffer
-
-    t.colors = palette or defaultPalette
-    t.flushFunc = flushFunc
-    return t
-end
-
+-- Make ChatOutput format-agnostic
 function ChatOutput.new(runner, palette, format)
     local flushFunc = function(line, color)
         printToAll(line, color)
     end
-    local t = createOutput(runner, palette, format or "TEXT", flushFunc)
-
-    -- Create a metatable that checks ChatOutput first, then falls back to base formatter
+    local t = createOutput(runner, palette, format or "TAP", flushFunc)  -- Default to TAP for newbies
+    
+    -- Create metatable that checks ChatOutput first, then base formatter
     return setmetatable(t, {
         __index = function(instance, key)
             local v = ChatOutput[key]
             if v ~= nil then return v end
             -- Get from base formatter
-            return ((format or "TEXT") == "TAP" and M.TapOutput or M.TextOutput)[key]
+            local baseClass = (format or "TAP") == "TAP" and M.TapOutput or M.TextOutput
+            return baseClass[key]
         end
     })
 end
@@ -143,37 +156,30 @@ function ChatOutput:flush(line)
     self.flushFunc(line, Color.fromHex(clrHex))
 end
 
----------------------------------------------------------------
--- 6  LogOutput  (inherits TapOutput formatting)
----------------------------------------------------------------
 --[[────────────────────────────────────────────────────────────────────────────
-    LogOutput: Subclasses LuaUnit outputters (TextOutput or TapOutput)
-    Dynamically switches based on the desired format.
-────────────────────────────────────────────────────────────────────────────]] --
-
+    LogOutput: System console output using TapOutput formatting
+────────────────────────────────────────────────────────────────────────────]]--
 local LogOutput = {}
 LogOutput.__index = LogOutput
 LogOutput.__class__ = "LogOutput"
 
+-- Make LogOutput format-agnostic
 function LogOutput.new(runner, palette, format)
     local flushFunc = function(line)
         log(line)
     end
-    local t = createOutput(runner, palette, format or "TAP", flushFunc)
+    local t = createOutput(runner, palette, format or "TEXT", flushFunc)  -- Default to TEXT for experts
+    
+    -- Create metatable that checks LogOutput first, then base formatter
     return setmetatable(t, {
         __index = function(instance, key)
-            local v = ChatOutput[key]
+            local v = LogOutput[key]
             if v ~= nil then return v end
             -- Get from base formatter
-            return ((format or "TEXT") == "TAP" and M.TapOutput or M.TextOutput)[key]
+            local baseClass = (format or "TEXT") == "TAP" and M.TapOutput or M.TextOutput
+            return baseClass[key]
         end
     })
-
-    -- First ensure LogOutput inherits from proper formatter
-    -- setmetatable(LogOutput, { __index = (format == "TAP" and M.TapOutput or M.TextOutput) })
-
-    -- Then set instance metatable to LogOutput
-    -- return setmetatable(t, { __index = LogOutput })
 end
 
 function LogOutput:flush(line)
@@ -278,27 +284,26 @@ end
 ---------------------------------------------------------------
 -- 8  Factory to build a complete output graph
 ---------------------------------------------------------------
+-- Update buildTTSOutput with new defaults
 local function buildTTSOutput(runner, cfg)
     cfg = cfg or {}
-
-    -- Create the composite root
     local root = TTSMultiOutput.new(runner)
 
-    -- Add ChatOutput if enabled
-    if cfg.chat and cfg.chat.enabled then
-        local chat = ChatOutput.new(runner, cfg.chat.palette or defaultPalette, cfg.chat.format or "TEXT")
-        chat.verbosity = cfg.chat.verbosity or M.VERBOSITY_DEFAULT
+    -- Add ChatOutput by default for newbies (TAP format, verbose)
+    if cfg.chat ~= false then  -- enabled by default
+        local chat = ChatOutput.new(runner, cfg.chat and cfg.chat.palette, "TAP")
+        chat.verbosity = cfg.chat and cfg.chat.verbosity or M.VERBOSITY_VERBOSE
         root:add(chat)
     end
 
-    -- Add LogOutput if enabled
+    -- Add LogOutput if explicitly enabled (TEXT format, low verbosity)
     if cfg.log and cfg.log.enabled then
-        local log = LogOutput.new(runner, cfg.log.palette or defaultPalette, cfg.log.format or "TAP")
-        log.verbosity = cfg.log.verbosity or M.VERBOSITY_DEFAULT
+        local log = LogOutput.new(runner, cfg.log.palette, "TEXT")
+        log.verbosity = cfg.log.verbosity or M.VERBOSITY_LOW
         root:add(log)
     end
 
-    -- Add GridOutput if enabled and hostObject exists
+    -- Add GridOutput by default if hostObject exists
     if cfg.grid ~= false and runner.hostObject then
         local grid = GridOutput.new(runner, cfg.grid and cfg.grid.palette or defaultPalette)
         root:add(grid)

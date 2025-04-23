@@ -1,3 +1,9 @@
+--[[────────────────────────────────────────────────────────────────────────────
+    LuaUnit Environment Shim for TTS
+    Provides TTS-compatible implementations of standard Lua I/O functions
+    needed by LuaUnit (print, io.stdout, os.getenv, etc.)
+────────────────────────────────────────────────────────────────────────────]]--
+
 -- luaunit_tts_env.lua
 -- TTS-safe LuaUnit output handling with buffered print and dynamic color
 
