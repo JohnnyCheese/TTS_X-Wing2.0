@@ -33,9 +33,18 @@ function Emitter:init()
 end
 
 function Emitter:emit(...)
+    -- Convert each argument to string and expand tabs
+    local tabWidth = 8  -- Standard console tab width
     for _, arg in ipairs({ ... }) do
-        self.buffer = self.buffer .. tostring(arg)
+        local str = tostring(arg)
+        -- Replace tabs with spaces, preserving alignment
+        str = str:gsub("\t", function()
+            local pos = #self.buffer % tabWidth
+            return string.rep(" ", tabWidth - pos)
+        end)
+        self.buffer = self.buffer .. str
     end
+    
     if self.buffer:find("\n") then
         for line in self.buffer:gmatch("([^\n]*)\n") do
             self:flush(line)
