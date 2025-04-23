@@ -75,6 +75,7 @@ function runTests()
     lu.configureOutput {
         chat = { enabled = true, format = "TAP", verbosity = lu.VERBOSITY_VERBOSE },
         log  = { enabled = true, format = "TEXT", verbosity = lu.VERBOSITY_LOW },
+        grid = { enabled = true },
     }
 
     lu.LuaUnit.hostObject = self -- Attach to object for grid UI

@@ -180,40 +180,99 @@ function LogOutput:flush(line)
     self.flushFunc(line)
 end
 
----------------------------------------------------------------
--- 7  DiagnosticOutput  (logs lifecycle method calls)
----------------------------------------------------------------
 --[[────────────────────────────────────────────────────────────────────────────
-    DiagnosticOutput: Logs lifecycle method calls for debugging
+    GridOutput: Grid-based UI output for TTS
 ────────────────────────────────────────────────────────────────────────────]] --
-
-local DiagnosticOutput = {}
-DiagnosticOutput.__index = DiagnosticOutput
-DiagnosticOutput.__class__ = "DiagnosticOutput"
-
-function DiagnosticOutput.new(runner)
-    local t = M.genericOutput.new(runner)
-    return setmetatable(t, DiagnosticOutput)
+-- Utility function to recursively find an element by its ID
+local function findElementById(elements, id)
+    for _, element in ipairs(elements or {}) do
+        if element.attributes and element.attributes.id == id then
+            return element
+        end
+        if element.children then
+            local found = findElementById(element.children, id)
+            if found then
+                return found
+            end
+        end
+    end
+    return nil
 end
 
--- Log all lifecycle method calls
-for _, method in ipairs({
-    "startSuite", "startClass", "startTest", "updateStatus", "endTest", "endClass", "endSuite"
-}) do
-    DiagnosticOutput[method] = function(self, ...)
-        local args = { ... }
-        local argStr = table.concat(
-            (function()
-                local mapped = {}
-                for i, arg in ipairs(args) do
-                    mapped[i] = tostring(arg)
-                end
-                return mapped
-            end)(),
-            ", "
-        )
-        printToAll(string.format("DiagnosticOutput:%s(%s)", method, argStr), Color.Orange)
+GridOutput = {
+    __class__ = "GridOutput"
+}
+setmetatable(GridOutput, { __index = M.genericOutput })
+
+function GridOutput.new(runner, colors)
+    printToAll("GridOutput.new()", Color.Orange)
+    local t = M.genericOutput.new(runner)
+    t.hostObject = runner.hostObject
+    t.colors = colors
+    t.squareIds = {}
+    t.testOutputs = {}
+    return setmetatable(t, { __index = GridOutput })
+end
+
+function GridOutput:startSuite()
+    local uiTable = self.hostObject.UI.getXmlTable()
+    if not uiTable or #uiTable == 0 then
+        printToAll(self.__class__ .. ": Failed to get UI table", Color.fromHex(self.colors.ERROR))
+        return
     end
+
+    function onClick(player, value, id)
+        local testResult = M.prettystr(self.testOutputs[id])
+        local colorHex = self.hostObject.UI.getAttribute(id, "color")
+        printToAll(testResult, Color.fromHex(colorHex))
+    end
+
+    local panels = {}
+    local totalTests = self.runner.result.selectedCount
+    for i = 1, totalTests do
+        local id = "TestSquare" .. i
+        self.squareIds[i] = id
+        table.insert(panels, {
+            tag = "Panel",
+            attributes = {
+                id = id,
+                color = self.colors.NEUTRAL,
+                onClick = "onClick"
+            }
+        })
+    end
+
+    local testGrid = findElementById(uiTable, "TestGrid")
+    if not testGrid then
+        printToAll(self.__class__ .. ": TestGrid not found", Color.fromHex(self.colors.ERROR))
+        return
+    end
+    testGrid.children = panels
+    self.hostObject.UI.setXmlTable(uiTable)
+    coroutine.yield(0)
+end
+
+function GridOutput:endTest(node)
+    local completedTests = node.number
+    local status = node.status or "UNKNOWN"
+    local colorHex = self.colors[status] or self.colors.UNKNOWN
+
+    local id = "TestSquare" .. node.number
+    self.testOutputs[id] = node
+
+    local squareId = self.squareIds[completedTests]
+    self.hostObject.UI.setAttribute(squareId, "color", colorHex)
+    if self.runner.result.selectedCount > 100 then
+        local percent = 1 - (completedTests / self.runner.result.selectedCount)
+        self.hostObject.UI.setAttribute("TestScroll", "verticalNormalizedPosition", tostring(percent))
+    end
+    if completedTests % 10 == 0 then
+        coroutine.yield(0)
+    end
+end
+
+function GridOutput:totalTests()
+    return self.runner.result.selectedCount
 end
 
 ---------------------------------------------------------------
@@ -237,6 +296,12 @@ local function buildTTSOutput(runner, cfg)
         local log = LogOutput.new(runner, cfg.log.palette or defaultPalette, cfg.log.format or "TAP")
         log.verbosity = cfg.log.verbosity or M.VERBOSITY_DEFAULT
         root:add(log)
+    end
+
+    -- Add GridOutput if enabled and hostObject exists
+    if cfg.grid ~= false and runner.hostObject then
+        local grid = GridOutput.new(runner, cfg.grid and cfg.grid.palette or defaultPalette)
+        root:add(grid)
     end
 
     return root
