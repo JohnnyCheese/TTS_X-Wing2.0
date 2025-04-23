@@ -1,6 +1,24 @@
 -- luaunit_tts_output.lua
 -- TTSOutput: dual-mode output plugin (UI grid + chat) with symbolic colors
 
+TTSOutput = {
+    __class__ = "TTSOutput",
+    chat = false,            -- default: chat logging off
+    log = false,             -- default: console log logging off
+    colors = {
+        SUCCESS = "#00FF00", -- green
+        FAIL    = "#FF0000", -- bright red
+        ERROR   = "#CC0000", -- red (distinct from FAIL, can override)
+        SKIP    = "#FFFF00", -- yellow
+        UNKNOWN = "#FF00FF", -- magenta
+        START   = "#FFFF99", -- light yellow
+        INFO    = "#9999FF", -- soft blue
+        FINISH  = "#FFFF99", -- matches START by default, intended for final summary line
+        NEUTRAL = "#FFFFFF", -- white
+    }
+}
+setmetatable(TTSOutput, { __index = lu.genericOutput })
+
 function TTSOutput.new(runner)
     printToAll("TTSOutput.new()", Color.Orange)
     local t = lu.genericOutput.new(runner)
@@ -33,10 +51,10 @@ end
 ChatOutput = {
     __class__ = "ChatOutput"
 }
-setmetatable(ChatOutput, { __index = lu.TextOutput })
+setmetatable(ChatOutput, { __index = lu.TapOutput })
 
 function ChatOutput.new(runner)
-    local t = lu.TextOutput.new(runner)
+    local t = lu.TapOutput.new(runner)
     t.colors = TTSOutput.colors
     t.buffer = "" -- Initialize buffer for partial outputs
     return setmetatable(t, { __index = ChatOutput })
@@ -63,6 +81,10 @@ function ChatOutput:emitLine(line)
     self.buffer = self.buffer or ""
     printToAll(self.buffer .. line, self:color())
     self.buffer = ""
+end
+
+function ChatOutput:endClass()
+    self:emitLine()
 end
 
 function ChatOutput:color()

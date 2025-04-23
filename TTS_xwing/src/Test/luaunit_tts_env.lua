@@ -1,41 +1,7 @@
 -- luaunit_tts_env.lua
 -- TTS-safe LuaUnit output handling with buffered print and dynamic color
 
-TTSOutput = {
-    __class__ = "TTSOutput",
-    chat = true,      -- default: chat logging off
-    log = false,      -- default: console log logging off
-    hostObject = nil, -- default: no host object (TTS)
-    colors = {
-        SUCCESS = "#00FF00",
-        FAIL    = "#FF0000",
-        ERROR   = "#FFA500",
-        SKIP    = "#FFFF00",
-        START   = "#FFFF97", -- light yellow
-        FINISH  = "#FFFF97", -- matches START by default, intended for final summary line
-        INFO    = "#9997FF", -- soft blue
-        NEUTRAL = "#FFFFFF", -- white
-    }
-}
-setmetatable(TTSOutput, { __index = lu.genericOutput })
-
 local stdoutBuffer = ""
-local originalGenericNew = lu.genericOutput.new
-
-function lu.genericOutput.new(runner, default_verbosity, ...)
-    _G.luaunit_runner = runner
-    return originalGenericNew(runner, default_verbosity, ...)
-end
-
--- Resolve color based on current test node status in active runner
-local function currentOutputColor()
-    local runner = _G.luaunit_runner
-    if runner and runner.result and runner.result.currentNode then
-        local status = tostring(runner.result.currentNode.status or ""):upper()
-        return Color.fromHex(TTSOutput.colors[status] or TTSOutput.colors.NEUTRAL)
-    end
-    return Color.fromHex(TTSOutput.colors.NEUTRAL)
-end
 
 local function flushBufferedLines()
     local start = 1
@@ -44,7 +10,7 @@ local function flushBufferedLines()
         if not stop then break end
 
         local line = stdoutBuffer:sub(start, stop - 1):gsub("\t", "    ")
-        printToAll(line, currentOutputColor())
+        printToAll(line)
 
         start = stop + 1
     end

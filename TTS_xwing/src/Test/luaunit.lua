@@ -2088,6 +2088,14 @@ function genericOutput.new(runner, default_verbosity)
     return setmetatable(t, genericOutput_MT)
 end
 
+function genericOutput:emit(...)
+    io.stdout:write(...)
+end
+
+function genericOutput:emitLine(...)
+    print(...)
+end
+
 -- abstract ("empty") methods
 function genericOutput:startSuite()
     -- Called once, when the suite is started
@@ -2127,6 +2135,7 @@ end
 local TapOutput = genericOutput.new()        -- derived class
 local TapOutput_MT = { __index = TapOutput } -- metatable
 TapOutput.__class__ = 'TapOutput'
+M.TapOutput = TapOutput
 
 -- For a good reference for TAP format, check: http://testanything.org/tap-specification.html
 
@@ -2136,39 +2145,39 @@ function TapOutput.new(runner)
 end
 
 function TapOutput:startSuite()
-    print("1.." .. self.result.selectedCount)
-    print('# Started on ' .. self.result.startDate)
+    self:emitLine("1.." .. self.result.selectedCount)
+    self:emitLine('# Started on ' .. self.result.startDate)
 end
 
 function TapOutput:startClass(className)
     if className ~= '[TestFunctions]' then
-        print('# Starting class: ' .. className)
+        self:emitLine('# Starting class: ' .. className)
     end
 end
 
 function TapOutput:updateStatus(node)
     if node:isSkipped() then
-        io.stdout:write("ok ", self.result.currentTestNumber, "\t# SKIP ", node.msg, "\n")
+        self:emit("ok ", self.result.currentTestNumber, "\t# SKIP ", node.msg, "\n")
         return
     end
 
-    io.stdout:write("not ok ", self.result.currentTestNumber, "\t", node.testName, "\n")
+    self:emit("not ok ", self.result.currentTestNumber, "\t", node.testName, "\n")
     if self.verbosity > M.VERBOSITY_LOW then
-        print(prefixString('#   ', node.msg))
+        self:emitLine(prefixString('#   ', node.msg))
     end
     if (node:isFailure() or node:isError()) and self.verbosity > M.VERBOSITY_DEFAULT then
-        print(prefixString('#   ', node.stackTrace))
+        self:emitLine(prefixString('#   ', node.stackTrace))
     end
 end
 
 function TapOutput:endTest(node)
     if node:isSuccess() then
-        io.stdout:write("ok     ", self.result.currentTestNumber, "\t", node.testName, "\n")
+        self:emit("ok     ", self.result.currentTestNumber, "\t", node.testName, "\n")
     end
 end
 
 function TapOutput:endSuite()
-    print('# ' .. M.LuaUnit.statusLine(self.result))
+    self:emitLine('# ' .. M.LuaUnit.statusLine(self.result))
     return self.result.notSuccessCount
 end
 
@@ -2202,32 +2211,32 @@ function JUnitOutput:startSuite()
         error("Could not open file for writing: " .. self.fname)
     end
 
-    print('# XML output to ' .. self.fname)
-    print('# Started on ' .. self.result.startDate)
+    self:emitLine('# XML output to ' .. self.fname)
+    self:emitLine('# Started on ' .. self.result.startDate)
 end
 
 function JUnitOutput:startClass(className)
     if className ~= '[TestFunctions]' then
-        print('# Starting class: ' .. className)
+        self:emitLine('# Starting class: ' .. className)
     end
 end
 
 function JUnitOutput:startTest(testName)
-    print('# Starting test: ' .. testName)
+    self:emitLine('# Starting test: ' .. testName)
 end
 
 function JUnitOutput:updateStatus(node)
     if node:isFailure() then
-        print('#   Failure: ' .. prefixString('#   ', node.msg):sub(4, nil))
-        -- print('# ' .. node.stackTrace)
+        self:emitLine('#   Failure: ' .. prefixString('#   ', node.msg):sub(4, nil))
+        -- self:emitLine('# ' .. node.stackTrace)
     elseif node:isError() then
-        print('#   Error: ' .. prefixString('#   ', node.msg):sub(4, nil))
-        -- print('# ' .. node.stackTrace)
+        self:emitLine('#   Error: ' .. prefixString('#   ', node.msg):sub(4, nil))
+        -- self:emitLine('# ' .. node.stackTrace)
     end
 end
 
 function JUnitOutput:endSuite()
-    print('# ' .. M.LuaUnit.statusLine(self.result))
+    self:emitLine('# ' .. M.LuaUnit.statusLine(self.result))
 
     -- XML file writing
     self.fd:write('<?xml version="1.0" encoding="UTF-8" ?>\n')
@@ -2380,53 +2389,53 @@ end
 
 function TextOutput:startSuite()
     if self.verbosity > M.VERBOSITY_DEFAULT then
-        print('Started on ' .. self.result.startDate)
+        self:emitLine('Started on ' .. self.result.startDate)
     end
 end
 
 function TextOutput:startTest(testName)
     if self.verbosity > M.VERBOSITY_DEFAULT then
-        io.stdout:write("    ", self.result.currentNode.testName, " ... ")
+        self:emit("    ", self.result.currentNode.testName, " ... ")
     end
 end
 
 function TextOutput:endTest(node)
     if node:isSuccess() then
         if self.verbosity > M.VERBOSITY_DEFAULT then
-            io.stdout:write("Ok\n")
+            self:emitLine("Ok")
         else
-            io.stdout:write(".")
+            self:emit(".")
             io.stdout:flush()
         end
     else
         if self.verbosity > M.VERBOSITY_DEFAULT then
-            print(node.status)
-            print(node.msg)
+            self:emitLine(node.status)
+            self:emitLine(node.msg)
             --[[
                 -- find out when to do this:
                 if self.verbosity > M.VERBOSITY_DEFAULT then
-                    print( node.stackTrace )
+                    self:emitLine( node.stackTrace )
                 end
                 ]]
         else
             -- write only the first character of status E, F or S
-                io.stdout:write(string.sub(node.status, 1, 1))
+            self:emit(string.sub(node.status, 1, 1))
             io.stdout:flush()
         end
     end
 end
 
 function TextOutput:displayOneFailedTest(index, fail)
-    print(index .. ") " .. fail.testName)
-    print(fail.msg)
-    print(fail.stackTrace)
-    print()
+    self:emitLine(index .. ") " .. fail.testName)
+    self:emitLine(fail.msg)
+    self:emitLine(fail.stackTrace)
+    self:emitLine()
 end
 
 function TextOutput:displayErroredTests()
     if #self.result.errorTests ~= 0 then
-        print("Tests with errors:")
-        print("------------------")
+        self:emitLine("Tests with errors:")
+        self:emitLine("------------------")
         for i, v in ipairs(self.result.errorTests) do
             self:displayOneFailedTest(i, v)
         end
@@ -2435,8 +2444,8 @@ end
 
 function TextOutput:displayFailedTests()
     if #self.result.failedTests ~= 0 then
-        print("Failed tests:")
-        print("-------------")
+        self:emitLine("Failed tests:")
+        self:emitLine("-------------")
         for i, v in ipairs(self.result.failedTests) do
             self:displayOneFailedTest(i, v)
         end
@@ -2445,15 +2454,15 @@ end
 
 function TextOutput:endSuite()
     if self.verbosity > M.VERBOSITY_DEFAULT then
-        print("=========================================================")
+        self:emitLine("=========================================================")
     else
-        print()
+        self:emitLine()
     end
     self:displayErroredTests()
     self:displayFailedTests()
-    print(M.LuaUnit.statusLine(self.result))
+    self:emitLine(M.LuaUnit.statusLine(self.result))
     if self.result.notSuccessCount == 0 then
-        print('OK')
+        self:emitLine('OK')
     end
 end
 
