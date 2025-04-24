@@ -62,7 +62,7 @@ lu.LuaUnit.runSuiteByInstances = wrapInCoroutine(lu.LuaUnit.runSuiteByInstances)
 ---------------------------------------------------------------
 -- 2  Install composite‑output for TTS (chat + log)
 ---------------------------------------------------------------
-local ttsOut = require("Test.luaunit_tts_multiobject")
+local ttsOut = require("Test.luaunit_tts_output")
 
 -- helper so user can (re)configure sinks at runtime
 function lu.configureOutput(opts)
