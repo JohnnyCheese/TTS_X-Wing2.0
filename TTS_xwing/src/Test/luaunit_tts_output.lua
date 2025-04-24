@@ -97,16 +97,21 @@ setmetatable(TTSMultiOutput, {
     Output Class Hierarchy:
 
     M.genericOutput (LuaUnit base)
-        |
-        +-- TTSMultiOutput (composite root)
-        |
-        +-- M.TextOutput or M.TapOutput (format providers)
-            |
-            +-- ChatOutput (decorates either format with colored chat output)
-            +-- LogOutput (decorates either format with system console output)
+    ├── TTSMultiOutput (composite root, delegates to children)
+    │   
+    ├── OUTPUT FORMATTERS (what to output)
+    │   ├── M.TextOutput (human readable format)
+    │   └── M.TapOutput (human/machine readable format)
+    │   
+    ├── OUTPUT DECORATORS (where to output)
+    │   ├── ChatOutput (decorates any formatter with colored output to chat window)
+    │   └── LogOutput (decorates any formatter with output to system console)
+    │
+    └── DIRECT OUTPUTS (special destinations)
+        └── GridOutput (visual UI grid, subclasses genericOutput directly)
 ────────────────────────────────────────────────────────────────────────────]]--
 
--- Modify createOutput to be format-agnostic
+-- createOutput for the text-based formatters (TextOutput/TapOutput)
 local function createOutput(runner, palette, format, flushFunc)
     local baseFormatter = (format == "TAP") and M.TapOutput or M.TextOutput
     local t = baseFormatter.new(runner)
@@ -130,14 +135,26 @@ local ChatOutput = {}
 ChatOutput.__index = ChatOutput
 ChatOutput.__class__ = "ChatOutput"
 
--- Make ChatOutput format-agnostic
-function ChatOutput.new(runner, palette, format)
-    local flushFunc = function(line, color)
-        printToAll(line, color)
+-- Add ColoredOutput mixin
+local ColoredOutput = {
+    getColorForNode = function(self, node)
+        local status = node and node.status or "INFO"
+        return self.colors[status] or self.colors.NEUTRAL
     end
-    local t = createOutput(runner, palette, format or "TAP", flushFunc)  -- Default to TAP for newbies
+}
 
-    -- Create metatable that checks ChatOutput first, then base formatter
+-- Simplify ChatOutput.new()
+function ChatOutput.new(runner, palette, format)
+    local t = createOutput(runner, nil, format or "TAP", function(line, color)
+        printToAll(line, color)
+    end)
+    
+    -- Add color handling
+    t.colors = palette or defaultPalette
+    for k, v in pairs(ColoredOutput) do
+        t[k] = v
+    end
+    
     return setmetatable(t, {
         __index = function(instance, key)
             local v = ChatOutput[key]
@@ -149,11 +166,9 @@ function ChatOutput.new(runner, palette, format)
     })
 end
 
+-- Simplify ChatOutput:flush()
 function ChatOutput:flush(line)
-    local node = self.result.currentNode
-    local status = node and node.status or "INFO"
-    local clrHex = self.colors[status] or self.colors.NEUTRAL
-    self.flushFunc(line, Color.fromHex(clrHex))
+    self.flushFunc(line, Color.fromHex(self:getColorForNode(self.result.currentNode)))
 end
 
 --[[────────────────────────────────────────────────────────────────────────────
@@ -214,9 +229,15 @@ function GridOutput.new(runner, colors)
     printToAll("GridOutput.new()", Color.Orange)
     local t = M.genericOutput.new(runner)
     t.hostObject = runner.hostObject
-    t.colors = colors
+    t.colors = colors or defaultPalette
     t.squareIds = {}
     t.testOutputs = {}
+    
+    -- Add color handling
+    for k, v in pairs(ColoredOutput) do
+        t[k] = v
+    end
+    
     return setmetatable(t, { __index = GridOutput })
 end
 
@@ -260,8 +281,7 @@ end
 
 function GridOutput:endTest(node)
     local completedTests = node.number
-    local status = node.status or "UNKNOWN"
-    local colorHex = self.colors[status] or self.colors.UNKNOWN
+    local colorHex = self:getColorForNode(node)  -- Use the mixin's method
 
     local id = "TestSquare" .. node.number
     self.testOutputs[id] = node

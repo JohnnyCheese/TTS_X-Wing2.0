@@ -3,15 +3,9 @@
 
 --[[TODO:   
     1. Code Organization & Structure
-        - Consolidate output handlers into single file (luaunit_tts_output.lua)
         - Move Emitter to luaunit_tts_env.lua since it's fundamental
-        - Clean up commented-out code in LogOutput/ChatOutput
-        - Use consistent header comment style across files
 
     2. Inheritance & Method Resolution
-        - Fix LogOutput inheritance (currently using ChatOutput's methods)
-        - Simplify metatable chains for outputs
-        - Make base class relationships explicit and documented
         - Consider extracting common output functionality
 
     3. Output Handling
