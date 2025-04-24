@@ -48,51 +48,33 @@ end
 -- Export Emitter globally so other modules can use it
 _G.Emitter = Emitter
 
-local stdoutBuffer = ""
-
-local function flushBufferedLines()
-    local start = 1
-    while true do
-        local stop = stdoutBuffer:find("\n", start, true)
-        if not stop then break end
-
-        local line = stdoutBuffer:sub(start, stop - 1):gsub("\t", "    ")
-        printToAll(line)
-
-        start = stop + 1
-    end
-    stdoutBuffer = stdoutBuffer:sub(start)
+-- Create a global output emitter for print/io
+local stdoutEmitter = setmetatable({}, { __index = Emitter })
+stdoutEmitter:init()
+stdoutEmitter.flush = function(self, line)
+    printToAll(line)
 end
 
-local function forceFlushAll()
-    flushBufferedLines()
-    if stdoutBuffer ~= "" then
-        printToAll(stdoutBuffer:gsub("\t", "    "), currentOutputColor())
-        stdoutBuffer = ""
-    end
-end
-
+-- Replace global print with Emitter-based version
 _G.print = function(...)
     for i, arg in ipairs({ ... }) do
-        if i > 1 then stdoutBuffer = stdoutBuffer .. "\t" end
-        stdoutBuffer = stdoutBuffer .. tostring(arg)
+        if i > 1 then stdoutEmitter:emit("\t") end
+        stdoutEmitter:emit(tostring(arg))
     end
-    stdoutBuffer = stdoutBuffer .. "\n"
-    forceFlushAll()
+    stdoutEmitter:emit("\n")
 end
 
+-- Replace io.stdout with Emitter-based version
 io = io or {}
 io.stdout = {}
-
-function io.stdout.write(_, ...)
+io.stdout.write = function(_, ...)
     for _, arg in ipairs({ ... }) do
-        stdoutBuffer = stdoutBuffer .. tostring(arg)
+        stdoutEmitter:emit(tostring(arg))
     end
-    flushBufferedLines()
 end
 
-function io.stdout.flush()
-    flushBufferedLines()
+io.stdout.flush = function()
+    -- Already handled by Emitter
 end
 
 function os.getenv(key)

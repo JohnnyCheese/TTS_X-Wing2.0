@@ -2,14 +2,10 @@
 -- Entry point for all registered test files
 
 --[[TODO:   
-    1. Code Organization & Structure
-        - Move Emitter to luaunit_tts_env.lua since it's fundamental
-
     2. Inheritance & Method Resolution
         - Consider extracting common output functionality
 
     3. Output Handling
-        - Fix tab character handling in Emitter
         - Add proper flush handling for partial lines
         - Make LogOutput use TTS's native log styles
         - Add color summary information (especially "Ok" in green)
@@ -55,6 +51,8 @@
 ]]
 
 local lu = require("Test.luaunit_tts")
+-- local lu = require("Test.luaunit")
+-- require("Test.luaunit_tts_env")
 
 TestFailures = {}
 
