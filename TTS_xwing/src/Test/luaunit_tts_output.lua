@@ -15,7 +15,7 @@ local M = require("Test.luaunit") -- upstream LuaUnit 3.x
 local defaultPalette = {
     SUCCESS = "#00FF00", -- green
     FAIL    = "#FF0000", -- bright red (assert fail)
-    ERROR   = "#CC0000", -- darker red (runtime error)
+    ERROR   = "#FF6600", -- darker red (runtime error)
     SKIP    = "#FFFF00", -- yellow
     UNKNOWN = "#FF00FF", -- magenta
     START   = "#FFFF99", -- light yellow (suite start)
@@ -23,40 +23,6 @@ local defaultPalette = {
     FINISH  = "#FFFF99", -- light yellow (suite end)
     NEUTRAL = "#FFFFFF", -- white (grid squares before status)
 }
-
---[[────────────────────────────────────────────────────────────────────────────
-    BufferedEmitter: Mixin for buffered output with tab expansion
-────────────────────────────────────────────────────────────────────────────]]--
-local Emitter = {}
-
-function Emitter:init()
-    self.buffer = ""
-end
-
-function Emitter:emit(...)
-    -- Convert each argument to string and expand tabs
-    local tabWidth = 8  -- Standard console tab width
-    for _, arg in ipairs({ ... }) do
-        local str = tostring(arg)
-        -- Replace tabs with spaces, preserving alignment
-        str = str:gsub("\t", function()
-            local pos = #self.buffer % tabWidth
-            return string.rep(" ", tabWidth - pos)
-        end)
-        self.buffer = self.buffer .. str
-    end
-
-    if self.buffer:find("\n") then
-        for line in self.buffer:gmatch("([^\n]*)\n") do
-            self:flush(line)
-        end
-        self.buffer = self.buffer:match("\n(.*)$") or ""
-    end
-end
-
-function Emitter:emitLine(line)
-    self:emit(line or "", "\n")
-end
 
 --[[────────────────────────────────────────────────────────────────────────────
     TTSMultiOutput: Composite root that delegates to child outputs
@@ -115,16 +81,14 @@ setmetatable(TTSMultiOutput, {
 local function createOutput(runner, palette, format, flushFunc)
     local baseFormatter = (format == "TAP") and M.TapOutput or M.TextOutput
     local t = baseFormatter.new(runner)
-
-    -- Add Emitter methods
-    for k, v in pairs(Emitter) do
+    
+    for k, v in pairs(_G.Emitter) do
         t[k] = v
     end
     t:init()
-
+    
     t.colors = palette or defaultPalette
     t.flushFunc = flushFunc
-    -- Don't set metatable here, let decorator do it
     return t
 end
 

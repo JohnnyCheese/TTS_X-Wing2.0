@@ -7,6 +7,47 @@
 -- luaunit_tts_env.lua
 -- TTS-safe LuaUnit output handling with buffered print and dynamic color
 
+--[[────────────────────────────────────────────────────────────────────────────
+    Emitter: Buffered output with tab expansion
+    Core functionality used by both direct output and formatters
+────────────────────────────────────────────────────────────────────────────]]--
+local Emitter = {}
+
+function Emitter:init()
+    self.buffer = ""
+end
+
+function Emitter:emit(...)
+    -- Convert each argument to string and expand tabs
+    local tabWidth = 8  -- Standard console tab width
+    for _, arg in ipairs({ ... }) do
+        local str = tostring(arg)
+        -- Replace tabs with spaces, preserving alignment
+        str = str:gsub("\t", function()
+            local pos = #self.buffer % tabWidth
+            return string.rep(" ", tabWidth - pos)
+        end)
+        self.buffer = self.buffer .. str
+    end
+    
+    if self.buffer:find("\n") then
+        for line in self.buffer:gmatch("([^\n]*)\n") do
+            self:flush(line)
+        end
+        self.buffer = self.buffer:match("\n(.*)$") or ""
+    end
+end
+
+function Emitter:emitLine(line)
+    if line then
+        self:emit(line)
+    end
+    self:emit("\n")
+end
+
+-- Export Emitter globally so other modules can use it
+_G.Emitter = Emitter
+
 local stdoutBuffer = ""
 
 local function flushBufferedLines()
