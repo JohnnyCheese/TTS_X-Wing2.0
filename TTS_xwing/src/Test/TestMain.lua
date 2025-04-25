@@ -1,7 +1,7 @@
 -- TestMain.lua
 -- Entry point for all registered test files
 
---[[TODO:   
+--[[TODO:
     2. Inheritance & Method Resolution
         - Consider extracting common output functionality
 
@@ -9,7 +9,6 @@
         - Add proper flush handling for partial lines
         - Make LogOutput use TTS's native log styles
         - Add color summary information (especially "Ok" in green)
-        - Flush text output on endClass()
 
     4. Grid UI
         - Keep working grid implementation but simplify panel creation
@@ -112,13 +111,7 @@ function TestChat:testThird()
 end
 
 function runTests()
-    lu.configureOutput {
-        chat = { enabled = true, format = "TAP", verbosity = lu.VERBOSITY_VERBOSE },
-        log  = { enabled = true, format = "TEXT", verbosity = lu.VERBOSITY_LOW },
-        grid = { enabled = true },
-    }
-
-    lu.LuaUnit.hostObject = self -- Attach to object for grid UI
+    lu.LuaUnit.hostObject = self
     lu.LuaUnit:run()
 end
 

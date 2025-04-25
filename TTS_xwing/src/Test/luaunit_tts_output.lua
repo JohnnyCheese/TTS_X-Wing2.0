@@ -2,7 +2,7 @@
     LuaUnit Multi-Output Handler for TTS
     Drop-in replacement that routes LuaUnit output to multiple destinations
     (chat, system log, grid UI) while reusing upstream formatters.
-────────────────────────────────────────────────────────────────────────────]]--
+────────────────────────────────────────────────────────────────────────────]] --
 
 ---------------------------------------------------------------
 -- 1. Dependencies
@@ -13,22 +13,23 @@ local M = require("Test.luaunit") -- upstream LuaUnit 3.x
 -- 2. Default Color Palette
 ---------------------------------------------------------------
 local defaultPalette = {
-    SUCCESS = "#00FF00", -- green
-    FAIL    = "#FF0000", -- bright red (assert fail)
-    ERROR   = "#FF6600", -- darker red (runtime error)
-    SKIP    = "#FFFF00", -- yellow
-    UNKNOWN = "#FF00FF", -- magenta
-    START   = "#FFFF99", -- light yellow (suite start)
-    INFO    = "#FFFDD0", -- cream (generic info)
-    FINISH  = "#FFFF99", -- light yellow (suite end)
-    NEUTRAL = "#FFFFFF", -- white (grid squares before status)
+    [M.NodeStatus.SUCCESS] = "#00FF00", -- green
+    [M.NodeStatus.FAIL]    = "#FF0000", -- bright red (assert fail)
+    [M.NodeStatus.ERROR]   = "#FF6600", -- darker red (runtime error)
+    [M.NodeStatus.SKIP]    = "#FFFF00", -- yellow
+    -- Non-status colors
+    INFO                   = "#FFFDD0", -- cream (generic info)
+    START                  = "#FFFF99", -- light yellow (suite start)
+    FINISH                 = "#FFFF99", -- light yellow (suite end)
+    NEUTRAL                = "#FFFFFF", -- white (grid squares before status)
+    UNKNOWN                = "#FF00FF", -- magenta
 }
 
 --[[────────────────────────────────────────────────────────────────────────────
     TTSMultiOutput: Composite root that delegates to child outputs
-────────────────────────────────────────────────────────────────────────────]]--
+────────────────────────────────────────────────────────────────────────────]] --
 local TTSMultiOutput = {}
-TTSMultiOutput.__index = TTSMultiOutput                     -- Ensure methods are accessible in TTSMultiOutput
+TTSMultiOutput.__index = TTSMultiOutput -- Ensure methods are accessible in TTSMultiOutput
 setmetatable(TTSMultiOutput, { __index = M.genericOutput }) -- Inherit from genericOutput
 TTSMultiOutput.__class__ = "TTSMultiOutput"
 
@@ -64,29 +65,29 @@ setmetatable(TTSMultiOutput, {
 
     M.genericOutput (LuaUnit base)
     ├── TTSMultiOutput (composite root, delegates to children)
-    │   
+    │
     ├── OUTPUT FORMATTERS (what to output)
     │   ├── M.TextOutput (human readable format)
     │   └── M.TapOutput (human/machine readable format)
-    │   
+    │
     ├── OUTPUT DECORATORS (where to output)
     │   ├── ChatOutput (decorates any formatter with colored output to chat window)
     │   └── LogOutput (decorates any formatter with output to system console)
     │
     └── DIRECT OUTPUTS (special destinations)
         └── GridOutput (visual UI grid, subclasses genericOutput directly)
-────────────────────────────────────────────────────────────────────────────]]--
+────────────────────────────────────────────────────────────────────────────]] --
 
 -- createOutput for the text-based formatters (TextOutput/TapOutput)
 local function createOutput(runner, palette, format, flushFunc)
     local baseFormatter = (format == "TAP") and M.TapOutput or M.TextOutput
     local t = baseFormatter.new(runner)
-    
+
     for k, v in pairs(_G.Emitter) do
         t[k] = v
     end
     t:init()
-    
+
     t.colors = palette or defaultPalette
     t.flushFunc = flushFunc
     return t
@@ -94,7 +95,7 @@ end
 
 --[[────────────────────────────────────────────────────────────────────────────
     ChatOutput: Colored chat window output using TextOutput/TapOutput formatting
-────────────────────────────────────────────────────────────────────────────]]--
+────────────────────────────────────────────────────────────────────────────]] --
 local ChatOutput = {}
 ChatOutput.__index = ChatOutput
 ChatOutput.__class__ = "ChatOutput"
@@ -112,13 +113,13 @@ function ChatOutput.new(runner, palette, format)
     local t = createOutput(runner, nil, format or "TAP", function(line, color)
         printToAll(line, color)
     end)
-    
+
     -- Add color handling
     t.colors = palette or defaultPalette
     for k, v in pairs(ColoredOutput) do
         t[k] = v
     end
-    
+
     return setmetatable(t, {
         __index = function(instance, key)
             local v = ChatOutput[key]
@@ -137,7 +138,7 @@ end
 
 --[[────────────────────────────────────────────────────────────────────────────
     LogOutput: System console output using TapOutput formatting
-────────────────────────────────────────────────────────────────────────────]]--
+────────────────────────────────────────────────────────────────────────────]] --
 local LogOutput = {}
 LogOutput.__index = LogOutput
 LogOutput.__class__ = "LogOutput"
@@ -147,7 +148,7 @@ function LogOutput.new(runner, palette, format)
     local flushFunc = function(line)
         log(line)
     end
-    local t = createOutput(runner, palette, format or "TEXT", flushFunc)  -- Default to TEXT for experts
+    local t = createOutput(runner, palette, format or "TEXT", flushFunc) -- Default to TEXT for experts
 
     -- Create metatable that checks LogOutput first, then base formatter
     return setmetatable(t, {
@@ -196,12 +197,12 @@ function GridOutput.new(runner, colors)
     t.colors = colors or defaultPalette
     t.squareIds = {}
     t.testOutputs = {}
-    
+
     -- Add color handling
     for k, v in pairs(ColoredOutput) do
         t[k] = v
     end
-    
+
     return setmetatable(t, { __index = GridOutput })
 end
 
@@ -245,7 +246,7 @@ end
 
 function GridOutput:endTest(node)
     local completedTests = node.number
-    local colorHex = self:getColorForNode(node)  -- Use the mixin's method
+    local colorHex = self:getColorForNode(node) -- Use the mixin's method
 
     local id = "TestSquare" .. node.number
     self.testOutputs[id] = node
@@ -268,28 +269,36 @@ end
 ---------------------------------------------------------------
 -- 8  Factory to build a complete output graph
 ---------------------------------------------------------------
--- Update buildTTSOutput with new defaults
+-- Fix buildTTSOutput to properly handle all configuration options
 local function buildTTSOutput(runner, cfg)
     cfg = cfg or {}
     local root = TTSMultiOutput.new(runner)
 
-    -- Add ChatOutput by default for newbies (TAP format, verbose)
-    if cfg.chat ~= false then  -- enabled by default
-        local chat = ChatOutput.new(runner, cfg.chat and cfg.chat.palette, "TAP")
+    -- ChatOutput (enabled if config present)
+    if cfg.chat ~= false then
+        local chat = ChatOutput.new(
+            runner,
+            cfg.chat and cfg.chat.palette,
+            cfg.chat and cfg.chat.format or "TAP"
+        )
         chat.verbosity = cfg.chat and cfg.chat.verbosity or M.VERBOSITY_VERBOSE
         root:add(chat)
     end
 
-    -- Add LogOutput if explicitly enabled (TEXT format, low verbosity)
-    if cfg.log and cfg.log.enabled then
-        local log = LogOutput.new(runner, cfg.log.palette, "TEXT")
-        log.verbosity = cfg.log.verbosity or M.VERBOSITY_LOW
+    -- LogOutput (enabled if config present)
+    if cfg.log ~= false then
+        local log = LogOutput.new(
+            runner,
+            cfg.log and cfg.log.palette,
+            cfg.log and cfg.log.format or "TEXT"
+        )
+        log.verbosity = cfg.log and cfg.log.verbosity or M.VERBOSITY_LOW
         root:add(log)
     end
 
-    -- Add GridOutput by default if hostObject exists
+    -- GridOutput (enabled by default if hostObject exists)
     if cfg.grid ~= false and runner.hostObject then
-        local grid = GridOutput.new(runner, cfg.grid and cfg.grid.palette or defaultPalette)
+        local grid = GridOutput.new(runner, defaultPalette)
         root:add(grid)
     end
 

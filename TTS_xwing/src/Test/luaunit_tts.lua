@@ -2,7 +2,7 @@
     LuaUnit Bootstrap for TTS
     Thin bootstrap that loads upstream LuaUnit, installs the TTS‑specific
     environment stubs and wires in our multi‑destination output module.
-────────────────────────────────────────────────────────────────────────────]]--
+────────────────────────────────────────────────────────────────────────────]] --
 
 -- luaunit_tts.lua
 -- Thin bootstrap that loads upstream LuaUnit, installs the TTS‑specific
@@ -24,8 +24,8 @@
 ---------------------------------------------------------------
 -- 1  Upstream LuaUnit + TTS environment shim
 ---------------------------------------------------------------
-local lu = require("Test.luaunit")      -- upstream distribution (cached once)
-require("Test.luaunit_tts_env")         -- os/print/io stubs for MoonSharp / TTS
+local lu = require("Test.luaunit") -- upstream distribution (cached once)
+require("Test.luaunit_tts_env")    -- os/print/io stubs for MoonSharp / TTS
 
 -- Automatically run all test entrypoints in a coroutine if hostObject is set
 _G.__luaunit_runner_instance = nil
@@ -60,17 +60,29 @@ lu.LuaUnit.runSuiteByNames = wrapInCoroutine(lu.LuaUnit.runSuiteByNames)
 lu.LuaUnit.runSuiteByInstances = wrapInCoroutine(lu.LuaUnit.runSuiteByInstances)
 
 ---------------------------------------------------------------
--- 2  Install composite‑output for TTS (chat + log)
+-- 2  Install composite‑output for TTS
 ---------------------------------------------------------------
 local ttsOut = require("Test.luaunit_tts_output")
 
--- helper so user can (re)configure sinks at runtime
-function lu.configureOutput(opts)
-    ttsOut.configure(lu, opts or {})
-end
+-- Set initial outputType before any tests run
+lu.LuaUnit.outputType = {
+    chat = { format = "TAP", verbosity = lu.VERBOSITY_VERBOSE },
+    log = { format = "TEXT", verbosity = lu.VERBOSITY_LOW },
+    grid = true,
+    -- Factory function called by LuaUnit to create output handler
+    new = function(runner)
+        return ttsOut.build(runner, lu.LuaUnit.outputType)
+    end
+}
 
--- set a **sane default**: chat sink ON, log sink OFF
-lu.configureOutput{ chat={enabled=true},  log={enabled=false} }
+-- Ensure our outputType is used
+-- local originalStartSuite = lu.LuaUnit.startSuite
+-- function lu.LuaUnit:startSuite(...)
+--     -- Skip the outputType reset
+--     self.output = self.outputType.new(self)
+--     self.output:startSuite()
+--     -- ...rest of original implementation
+-- end
 
 ---------------------------------------------------------------
 -- 3  Expose for require() callers
