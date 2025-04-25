@@ -12,17 +12,30 @@ local M = require("Test.luaunit") -- upstream LuaUnit 3.x
 ---------------------------------------------------------------
 -- 2. Default Color Palette
 ---------------------------------------------------------------
-local defaultPalette = {
-    [M.NodeStatus.SUCCESS] = "#00FF00", -- green
-    [M.NodeStatus.FAIL]    = "#FF0000", -- bright red (assert fail)
-    [M.NodeStatus.ERROR]   = "#FF6600", -- darker red (runtime error)
-    [M.NodeStatus.SKIP]    = "#FFFF00", -- yellow
-    -- Non-status colors
-    INFO                   = "#FFFDD0", -- cream (generic info)
-    START                  = "#FFFF99", -- light yellow (suite start)
-    FINISH                 = "#FFFF99", -- light yellow (suite end)
-    NEUTRAL                = "#FFFFFF", -- white (grid squares before status)
-    UNKNOWN                = "#FF00FF", -- magenta
+
+Config = {
+    -- Initial configuration that can be directly modified
+    chat = { format = "TAP", verbosity = M.VERBOSITY_VERBOSE },
+    log = { format = "TEXT", verbosity = M.VERBOSITY_LOW },
+    grid = true,
+    
+    -- Colors used by all outputs
+    colors = {
+        [M.NodeStatus.SUCCESS] = "#00FF00",
+        [M.NodeStatus.FAIL]    = "#FF0000",
+        [M.NodeStatus.ERROR]   = "#FF6600",
+        [M.NodeStatus.SKIP]    = "#FFFF00",
+        INFO    = "#FFFDD0",
+        START   = "#FFFF99",
+        FINISH  = "#FFFF99",
+        NEUTRAL = "#FFFFFF",
+        UNKNOWN = "#FF00FF",
+    },
+
+    -- Factory method
+    new = function(runner)
+        return buildTTSOutput(runner, Config)
+    end
 }
 
 --[[────────────────────────────────────────────────────────────────────────────
@@ -267,61 +280,27 @@ function GridOutput:totalTests()
 end
 
 ---------------------------------------------------------------
--- 8  Factory to build a complete output graph
+-- 8  Factory to build a complete output graph
 ---------------------------------------------------------------
--- Fix buildTTSOutput to properly handle all configuration options
-local function buildTTSOutput(runner, cfg)
-    cfg = cfg or {}
+function buildTTSOutput(runner, cfg)
     local root = TTSMultiOutput.new(runner)
 
-    -- ChatOutput (enabled if config present)
+    -- ChatOutput (enabled unless explicitly disabled)
     if cfg.chat ~= false then
-        local chat = ChatOutput.new(
-            runner,
-            cfg.chat and cfg.chat.palette,
-            cfg.chat and cfg.chat.format or "TAP"
-        )
-        chat.verbosity = cfg.chat and cfg.chat.verbosity or M.VERBOSITY_VERBOSE
-        root:add(chat)
+        root:add(ChatOutput.new(runner, cfg.colors, cfg.chat.format))
     end
 
-    -- LogOutput (enabled if config present)
+    -- LogOutput (enabled unless explicitly disabled)
     if cfg.log ~= false then
-        local log = LogOutput.new(
-            runner,
-            cfg.log and cfg.log.palette,
-            cfg.log and cfg.log.format or "TEXT"
-        )
-        log.verbosity = cfg.log and cfg.log.verbosity or M.VERBOSITY_LOW
-        root:add(log)
+        root:add(LogOutput.new(runner, cfg.colors, cfg.log.format))
     end
 
     -- GridOutput (enabled by default if hostObject exists)
     if cfg.grid ~= false and runner.hostObject then
-        local grid = GridOutput.new(runner, defaultPalette)
-        root:add(grid)
+        root:add(GridOutput.new(runner, cfg.colors))
     end
 
     return root
 end
 
----------------------------------------------------------------
--- 9  Public helper to simplify user setup
----------------------------------------------------------------
-local function configureLuaUnit(lu, opts)
-    opts = opts or {}
-    lu.LuaUnit.outputType = {
-        new = function(runner, verbosity)
-            opts.chat = opts.chat or { verbosity = verbosity }
-            opts.log = opts.log or { verbosity = verbosity }
-            return buildTTSOutput(runner, opts)
-        end
-    }
-end
-
--- optional one‑liner convenience when this file is required directly
-return {
-    build = buildTTSOutput, -- advanced users
-    configure = configureLuaUnit,
-    palette = defaultPalette,
-}
+return Config

@@ -111,6 +111,8 @@ function TestChat:testThird()
 end
 
 function runTests()
+    -- lu.LuaUnit.outputType.chat.format = "TEXT"
+    -- lu.LuaUnit.outputType.log.format = "TAP"
     lu.LuaUnit.hostObject = self
     lu.LuaUnit:run()
 end

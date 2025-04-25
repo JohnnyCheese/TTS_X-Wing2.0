@@ -62,27 +62,7 @@ lu.LuaUnit.runSuiteByInstances = wrapInCoroutine(lu.LuaUnit.runSuiteByInstances)
 ---------------------------------------------------------------
 -- 2  Install composite‑output for TTS
 ---------------------------------------------------------------
-local ttsOut = require("Test.luaunit_tts_output")
-
--- Set initial outputType before any tests run
-lu.LuaUnit.outputType = {
-    chat = { format = "TAP", verbosity = lu.VERBOSITY_VERBOSE },
-    log = { format = "TEXT", verbosity = lu.VERBOSITY_LOW },
-    grid = true,
-    -- Factory function called by LuaUnit to create output handler
-    new = function(runner)
-        return ttsOut.build(runner, lu.LuaUnit.outputType)
-    end
-}
-
--- Ensure our outputType is used
--- local originalStartSuite = lu.LuaUnit.startSuite
--- function lu.LuaUnit:startSuite(...)
---     -- Skip the outputType reset
---     self.output = self.outputType.new(self)
---     self.output:startSuite()
---     -- ...rest of original implementation
--- end
+lu.LuaUnit.outputType = require("Test.luaunit_tts_output")
 
 ---------------------------------------------------------------
 -- 3  Expose for require() callers
