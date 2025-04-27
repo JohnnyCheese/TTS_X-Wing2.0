@@ -61,10 +61,6 @@ setmetatable(TTSMultiOutput, {
                     child[method](child, ...)
                 end
             end
-            -- Call the superclass implementation if it exists
-            if M.genericOutput[method] then
-                M.genericOutput[method](self, ...)
-            end
         end
     end
 })
@@ -100,15 +96,8 @@ local function createOutput(runner, colors, cfg, flushFunc)
     end
     t:init()
 
-    return t
+    return t, baseFormatter
 end
-
---[[────────────────────────────────────────────────────────────────────────────
-    ChatOutput: Colored chat window output using TextOutput/TapOutput formatting
-────────────────────────────────────────────────────────────────────────────]] --
-local ChatOutput = {}
-ChatOutput.__index = ChatOutput
-ChatOutput.__class__ = "ChatOutput"
 
 -- Add ColoredOutput mixin
 local ColoredOutput = {
@@ -118,8 +107,15 @@ local ColoredOutput = {
     end
 }
 
+--[[────────────────────────────────────────────────────────────────────────────
+    ChatOutput: Colored chat window output using TextOutput/TapOutput formatting
+────────────────────────────────────────────────────────────────────────────]] --
+local ChatOutput = {}
+ChatOutput.__index = ChatOutput
+ChatOutput.__class__ = "ChatOutput"
+
 function ChatOutput.new(runner, colors, cfg)
-    local t = createOutput(runner, colors, cfg, function(line, color)
+    local t, baseClass = createOutput(runner, colors, cfg, function(line, color)
         printToAll(line, color)
     end)
     for k, v in pairs(ColoredOutput) do
@@ -128,11 +124,7 @@ function ChatOutput.new(runner, colors, cfg)
 
     return setmetatable(t, {
         __index = function(instance, key)
-            local v = ChatOutput[key]
-            if v ~= nil then return v end
-            -- Get from base formatter
-            local baseClass = (cfg.format or "TAP") == "TAP" and M.TapOutput or M.TextOutput
-            return baseClass[key]
+            return ChatOutput[key] or baseClass[key]
         end
     })
 end
@@ -152,15 +144,11 @@ function LogOutput.new(runner, colors, cfg)
     local flushFunc = function(line)
         log(line)
     end
-    local t = createOutput(runner, colors, cfg, flushFunc) -- Default to TEXT for experts
+    local t, baseClass = createOutput(runner, colors, cfg, flushFunc) -- Default to TEXT for experts
 
     return setmetatable(t, {
         __index = function(instance, key)
-            local v = LogOutput[key]
-            if v ~= nil then return v end
-            -- Get from base formatter
-            local baseClass = (cfg.format or "TEXT") == "TAP" and M.TapOutput or M.TextOutput
-            return baseClass[key]
+            return LogOutput[key] or baseClass[key]
         end
     })
 end
@@ -194,7 +182,6 @@ GridOutput = {
 setmetatable(GridOutput, { __index = M.genericOutput })
 
 function GridOutput.new(runner, colors)
-    printToAll("GridOutput.new()", Color.Orange)
     local t = M.genericOutput.new(runner)
     t.hostObject = runner.hostObject
     t.colors = colors or TTSOutput.colors
