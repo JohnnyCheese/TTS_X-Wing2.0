@@ -66,7 +66,7 @@ function assignShip(ship)
     local cardImage = backImage
     for key,pilot in pairs(pilotDB) do
         if pilot.ship_type == shipData.shipId and pilot.Faction == shipData['Faction'] then
-            cardImage = "https://raw.githubusercontent.com/CrazyVulcan/x-wing2.0-project-goldenrod/main/src/images/En/pilots/" .. pilot.XWS .. ".png"
+            cardImage = "https://raw.githubusercontent.com/eirikmun/x-wing2.0-project-goldenrod/2.5/src/images/En/pilots/" .. pilot.XWS .. ".png"
             break
         end
     end
