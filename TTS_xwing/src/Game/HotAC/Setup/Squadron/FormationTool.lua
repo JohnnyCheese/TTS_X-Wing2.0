@@ -45,36 +45,36 @@ local factionColors = {
 
 -- Color values mapped by name (brightened and thematic for each faction)
 local colorValues = {
-    Amber = Color(0.70, 0.50, 0.30),          -- Scummy Yellow/Gold, slightly muted but bright
-    Blue = Color(0.30, 0.40, 0.60),           -- Standard bright blue for Rebels/Empire
-    Bone = Color(0.95, 0.90, 0.85),           -- Creamy off-white for Rebel Skull, bone-like
-    Dust = Color(0.48, 0.41, 0.32),           -- (Unused)
-    Frost = Color(0.65, 0.70, 0.75),          -- Light bluish-grey for Empire, icy and cold
-    Gold = Color(0.90, 0.70, 0.20),           -- Bright gold for Rebel valor
-    Green = Color(0.40, 0.50, 0.35),          -- Earthy green for Rebels, muted green for Empire
-    Grey = Color(0.50, 0.55, 0.57),           -- Neutral grey for Rebels, practical
-    Imperial = Color(0.29, 0.41, 0.50),       -- Bright bluish-grey for Empire, TIE Fighter theme
-    Indigo = Color(0.45, 0.35, 0.50),         -- Deep purple-blue for Scum, mysterious
-    Inquisitor = Color(0.40, 0.30, 0.50),     -- Purple for Empire, elite and dark
-    Murk = Color(0.40, 0.42, 0.25),           --
-    Onyx = Color(0.25, 0.30, 0.30),           -- Dark black for Empire, Stormtroopers
-    Plum = Color(0.70, 0.50, 0.70),           -- Deeper purple for Rebel Vassal, masculine and loyal
-    ["Rebel Red"] = Color(0.65, 0.12, 0.14),  -- Rebel Red faction color
-    Red = Color(1.0, 0.11, 0.11),             -- Bright red for Luke Skywalker’s Red Squadron, Rebels
-    ["Royal Red"] = Color(0.80, 0.20, 0.20),  -- Bright, regal red for Imperial Guard
-    Rust = Color(0.725, 0.30, 0.10),          -- Scummy red, gritty but bright
-    Sand = Color(0.90, 0.80, 0.60),           -- Light sandy beige for Rebels/Scum, earthy
-    Scum = Color(0.33, 0.36, 0.20),           -- Muted olive-green for Scum, gritty
-    Sewer = Color(0.44, 0.23, 0.09),          -- Darker brownish, muddy color for Scum, scummy
-    ["Smog Blue"] = Color(0.30, 0.40, 0.45),  -- Dull, polluted blue for Scum, scummy
-    Slate = Color(0.50, 0.55, 0.57),          -- Greyish-blue for Empire, industrial
-    Steel = Color(0.55, 0.58, 0.60),          -- (Unused, replaced with Slate for consistency)
-    Sun = Color(0.95, 0.92, 0.41),
-    ["Solar Yellow"] = Color(1.0, 0.71, 0.0), -- Bright yellow-orange for Empire, fiery
-    Sunset = Color(0.90, 0.50, 0.30),         -- Bright orange-yellow for Empire, fiery
-    Teal = Color(0.30, 0.50, 0.50),           -- (Removed, not needed in new scheme)
-    Venom = Color(0.35, 0.50, 0.25),          -- Bright green for Scum, toxic and vibrant
-    ["White"] = Color(1.0, 1.0, 1.0),         -- Bright white for Empire, Snowtroopers/Stormtroopers
+    Amber            = "#B2804C", -- Scummy Yellow/Gold, slightly muted but bright
+    Blue             = "#4C6699", -- Standard bright blue for Rebels/Empire
+    Bone             = "#F2E6D9", -- Creamy off-white for Rebel Skull, bone-like
+    Dust             = "#7A6952", -- (Unused)
+    Frost            = "#A6B2BF", -- Light bluish-grey for Empire, icy and cold
+    Gold             = "#E6B233", -- Bright gold for Rebel valor
+    Green            = "#668059", -- Earthy green for Rebels, muted green for Empire
+    Grey             = "#808C91", -- Neutral grey for Rebels, practical
+    Imperial         = "#4A6980", -- Bright bluish-grey for Empire, TIE Fighter theme
+    Indigo           = "#735980", -- Deep purple-blue for Scum, mysterious
+    Inquisitor       = "#664C80", -- Purple for Empire, elite and dark
+    Murk             = "#666B40",
+    Onyx             = "#404C4C", -- Dark black for Empire, Stormtroopers
+    Plum             = "#B280B2", -- Deeper purple for Rebel Vassal, masculine and loyal
+    ["Rebel Red"]    = "#A61F24", -- Rebel Red faction color
+    Red              = "#FF1C1C", -- Bright red for Luke’s Red Squadron, Rebels
+    ["Royal Red"]    = "#CC3333", -- Bright, regal red for Imperial Guard
+    Rust             = "#B94C1A", -- Scummy red, gritty but bright
+    Sand             = "#E6CC99", -- Light sandy beige for Rebels/Scum, earthy
+    Scum             = "#545C33", -- Muted olive-green for Scum, gritty
+    Sewer            = "#703B17", -- Darker brownish, muddy color for Scum, scummy
+    ["Smog Blue"]    = "#4C6673", -- Dull, polluted blue for Scum, scummy
+    Slate            = "#808C91", -- Greyish-blue for Empire, industrial
+    Steel            = "#8C9499", -- (Unused, replaced with Slate for consistency)
+    Sun              = "#F2EB69",
+    ["Solar Yellow"] = "#FFB500", -- Bright yellow-orange for Empire, fiery
+    Sunset           = "#E6804C", -- Bright orange-yellow for Empire, fiery
+    Teal             = "#4C8080", -- (Removed, not needed in new scheme)
+    Venom            = "#598040", -- Bright green for Scum, toxic and vibrant
+    ["White"]        = "#FFFFFF", -- Bright white for Empire, Snowtroopers/Stormtroopers
 }
 
 -- Current settings stored in squadron
@@ -189,7 +189,7 @@ function onFactionChange(player, selectedFaction, dropdownId)
     end, function() return not self.UI.loading end)
 
     seq:waitCondition(function()
-        self.UI.setAttribute("colorPreview", "color", "#" .. squadron.squadronColor:toHex(true))
+        self.UI.setAttribute("colorPreview", "color", squadron.squadronColor)
     end, function() return not self.UI.loading end)
 
     seq:start()
@@ -228,7 +228,7 @@ end
 function onSquadronColorChange(player, selectedColorName, dropdownId)
     local color = getColorByName(selectedColorName)
     if color then
-        self.UI.setAttribute("colorPreview", "color", "#" .. color:toHex(true))
+        self.UI.setAttribute("colorPreview", "color", color)
         squadron.squadronColor = color
     end
 end
@@ -257,7 +257,7 @@ function overrideAITint(ship, newTint)
     for _, attachment in ipairs(ship.getAttachments()) do
         local id = ship.removeAttachment(attachment.index)
         if id.getName() == "ColorId" then
-            id.setColorTint(newTint)
+            id.setColorTint(Color.fromHex(newTint))
         end
         ship.addAttachment(id)
     end
@@ -320,7 +320,7 @@ end
 function onLoad(savedData)
     self.createButton({
         click_function = "toggleSquadronPopup",
-        color = { 0.80, 0.80, 0.80, 1.0 },
+        color = Color.fromHex("#CCCCCC"),
         function_owner = self,
         label = "▲",
         position = { 0, 0.0749, 0 },
@@ -329,7 +329,7 @@ function onLoad(savedData)
         width = 50,
         height = 50,
         font_size = 50,
-        font_color = { 23 / 255, 22 / 255, 21 / 255 }
+        font_color = Color.fromHex("#171615")
     })
 
     onFactionChange(nil, squadron.faction, "Faction")

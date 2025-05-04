@@ -7,6 +7,7 @@ Development by Philippe Fremy <phil@freehackers.org>
 Based on initial work of Ryu, Gwang (http://www.gpgstudy.com/gpgiki/LuaUnit)
 License: BSD License, see LICENSE.txt
 ]] --
+
 pcall(require, "math")
 local M = {}
 
@@ -565,8 +566,20 @@ local function prettystr(v)
 end
 M.prettystr = prettystr
 
+-- Prepend a comma and space to iter_msg if it exists
 function M.adjust_err_msg_with_iter(err, iter_msg)
-    -- Prepend a comma and space to iter_msg if it exists
+    --[[ Adjust the error message err_msg: trim the FAILURE_PREFIX or SUCCESS_PREFIX information if needed,
+    add the iteration message if any and return the result.
+
+    err_msg:  string, error message captured with pcall
+    iter_msg: a string describing the current iteration ("iteration N") or nil
+              if there is no iteration in this test.
+
+    Returns: (new_err_msg, test_status)
+        new_err_msg: string, adjusted error message, or nil in case of success
+        test_status: M.NodeStatus.FAIL, SUCCESS or ERROR according to the information
+                     contained in the error message.
+    ]]
     if iter_msg then
         iter_msg = iter_msg .. ', '
     else
@@ -2075,6 +2088,14 @@ function genericOutput.new(runner, default_verbosity)
     return setmetatable(t, genericOutput_MT)
 end
 
+function genericOutput:emit(...)
+    io.stdout:write(...)
+end
+
+function genericOutput:emitLine(...)
+    print(...)
+end
+
 -- abstract ("empty") methods
 function genericOutput:startSuite()
     -- Called once, when the suite is started
@@ -2114,6 +2135,7 @@ end
 local TapOutput = genericOutput.new()        -- derived class
 local TapOutput_MT = { __index = TapOutput } -- metatable
 TapOutput.__class__ = 'TapOutput'
+M.TapOutput = TapOutput
 
 -- For a good reference for TAP format, check: http://testanything.org/tap-specification.html
 
@@ -2123,39 +2145,39 @@ function TapOutput.new(runner)
 end
 
 function TapOutput:startSuite()
-    print("1.." .. self.result.selectedCount)
-    print('# Started on ' .. self.result.startDate)
+    self:emitLine("1.." .. self.result.selectedCount)
+    self:emitLine('# Started on ' .. self.result.startDate)
 end
 
 function TapOutput:startClass(className)
     if className ~= '[TestFunctions]' then
-        print('# Starting class: ' .. className)
+        self:emitLine('# Starting class: ' .. className)
     end
 end
 
 function TapOutput:updateStatus(node)
     if node:isSkipped() then
-        io.stdout:write("ok ", self.result.currentTestNumber, "\t# SKIP ", node.msg, "\n")
+        self:emit("ok ", self.result.currentTestNumber, "\t# SKIP ", node.msg, "\n")
         return
     end
 
-    io.stdout:write("not ok ", self.result.currentTestNumber, "\t", node.testName, "\n")
+    self:emit("not ok ", self.result.currentTestNumber, "\t", node.testName, "\n")
     if self.verbosity > M.VERBOSITY_LOW then
-        print(prefixString('#   ', node.msg))
+        self:emitLine(prefixString('#   ', node.msg))
     end
     if (node:isFailure() or node:isError()) and self.verbosity > M.VERBOSITY_DEFAULT then
-        print(prefixString('#   ', node.stackTrace))
+        self:emitLine(prefixString('#   ', node.stackTrace))
     end
 end
 
 function TapOutput:endTest(node)
     if node:isSuccess() then
-        io.stdout:write("ok     ", self.result.currentTestNumber, "\t", node.testName, "\n")
+        self:emit("ok     ", self.result.currentTestNumber, "\t", node.testName, "\n")
     end
 end
 
 function TapOutput:endSuite()
-    print('# ' .. M.LuaUnit.statusLine(self.result))
+    self:emitLine('# ' .. M.LuaUnit.statusLine(self.result))
     return self.result.notSuccessCount
 end
 
@@ -2189,32 +2211,32 @@ function JUnitOutput:startSuite()
         error("Could not open file for writing: " .. self.fname)
     end
 
-    print('# XML output to ' .. self.fname)
-    print('# Started on ' .. self.result.startDate)
+    self:emitLine('# XML output to ' .. self.fname)
+    self:emitLine('# Started on ' .. self.result.startDate)
 end
 
 function JUnitOutput:startClass(className)
     if className ~= '[TestFunctions]' then
-        print('# Starting class: ' .. className)
+        self:emitLine('# Starting class: ' .. className)
     end
 end
 
 function JUnitOutput:startTest(testName)
-    print('# Starting test: ' .. testName)
+    self:emitLine('# Starting test: ' .. testName)
 end
 
 function JUnitOutput:updateStatus(node)
     if node:isFailure() then
-        print('#   Failure: ' .. prefixString('#   ', node.msg):sub(4, nil))
-        -- print('# ' .. node.stackTrace)
+        self:emitLine('#   Failure: ' .. prefixString('#   ', node.msg):sub(4, nil))
+        -- self:emitLine('# ' .. node.stackTrace)
     elseif node:isError() then
-        print('#   Error: ' .. prefixString('#   ', node.msg):sub(4, nil))
-        -- print('# ' .. node.stackTrace)
+        self:emitLine('#   Error: ' .. prefixString('#   ', node.msg):sub(4, nil))
+        -- self:emitLine('# ' .. node.stackTrace)
     end
 end
 
 function JUnitOutput:endSuite()
-    print('# ' .. M.LuaUnit.statusLine(self.result))
+    self:emitLine('# ' .. M.LuaUnit.statusLine(self.result))
 
     -- XML file writing
     self.fd:write('<?xml version="1.0" encoding="UTF-8" ?>\n')
@@ -2365,14 +2387,6 @@ function TextOutput.new(runner)
     return setmetatable(t, TextOutput_MT)
 end
 
-function TextOutput:emit(...)
-    io.stdout:write(...)
-end
-
-function TextOutput:emitLine(...)
-    print(...)
-end
-
 function TextOutput:startSuite()
     if self.verbosity > M.VERBOSITY_DEFAULT then
         self:emitLine('Started on ' .. self.result.startDate)
@@ -2400,7 +2414,7 @@ function TextOutput:endTest(node)
             --[[
                 -- find out when to do this:
                 if self.verbosity > M.VERBOSITY_DEFAULT then
-                    print( node.stackTrace )
+                    self:emitLine( node.stackTrace )
                 end
                 ]]
         else
@@ -3026,7 +3040,6 @@ function M.LuaUnit:protectedCall(classInstance, methodInstance, prettyFuncName)
     local iter_msg
     iter_msg = self.exeRepeat and 'iteration ' .. self.currentCount
 
-    -- err.msg, err.status = M.adjust_err_msg_with_iter(err.msg, iter_msg)
     err.msg, err.status = M.adjust_err_msg_with_iter(err, iter_msg)
 
     if err.status == NodeStatus.SUCCESS or err.status == NodeStatus.SKIP then

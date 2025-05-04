@@ -1,95 +1,165 @@
--- luaunit_tts_output.lua
--- TTSOutput: dual-mode output plugin (UI grid + chat) with symbolic colors
+--[[────────────────────────────────────────────────────────────────────────────
+    LuaUnit Multi-Output Handler for TTS
+    Drop-in replacement to route LuaUnit output to multiple destinations
+    (chat, system log, grid GUI) while reusing LuaUnit formatters.
+────────────────────────────────────────────────────────────────────────────]] --
 
 local M = require("Test.luaunit")
 
+---------------------------------------------------------------
+-- Defaults: color scheme, chat, system log, gui
+---------------------------------------------------------------
+
 TTSOutput = {
-    __class__ = "TTSOutput",
-    chat = false,            -- default: chat logging off
-    log = false,             -- default: console log logging off
+    chat = { format = "TAP", verbosity = M.VERBOSITY_VERBOSE },
+    log = { format = "TEXT", verbosity = M.VERBOSITY_LOW },
+    grid = true,
+
+    -- Colors used by all outputs
     colors = {
-        SUCCESS = "#00FF00", -- green
-        FAIL    = "#FF0000", -- bright red
-        ERROR   = "#CC0000", -- red (distinct from FAIL, can override)
-        SKIP    = "#FFFF00", -- yellow
-        UNKNOWN = "#FF00FF", -- magenta
-        START   = "#FFFF99", -- light yellow
-        INFO    = "#9999FF", -- soft blue
-        FINISH  = "#FFFF99", -- matches START by default, intended for final summary line
-        NEUTRAL = "#FFFFFF", -- white
-    }
+        [M.NodeStatus.SUCCESS] = "#00FF00", -- bright green (test passed)
+        [M.NodeStatus.FAIL]    = "#FF0000", -- bright red (test failed)
+        [M.NodeStatus.ERROR]   = "#FF6600", -- dark orange (test had runtime error)
+        [M.NodeStatus.SKIP]    = "#FFFF00", -- yellow (test skipped)
+        INFO                   = "#FFFDD0", -- cream (generic info)
+        START                  = "#FFFF99", -- light yellow (suite start)
+        FINISH                 = "#FFFF99", -- light yellow (suite end)
+        NEUTRAL                = "#FFFFFF", -- white (grid squares before status)
+        UNKNOWN                = "#FF00FF", -- magenta
+    },
+
+    -- Factory method for LuaUnit's outputType.new() call
+    new = function(runner)
+        return buildTTSOutput(runner, TTSOutput)
+    end
 }
-setmetatable(TTSOutput, { __index = M.genericOutput })
 
-function TTSOutput.new(runner)
+--[[────────────────────────────────────────────────────────────────────────────
+    TTSMultiOutput: Composite root that delegates to child outputs
+────────────────────────────────────────────────────────────────────────────]] --
+local TTSMultiOutput = {}
+TTSMultiOutput.__index = TTSMultiOutput -- Ensure methods are accessible in TTSMultiOutput
+setmetatable(TTSMultiOutput, { __index = M.genericOutput }) -- Inherit from genericOutput
+TTSMultiOutput.__class__ = "TTSMultiOutput"
+
+function TTSMultiOutput.new(runner)
     local t = M.genericOutput.new(runner)
-    t.hostObject = runner.hostObject
-    t.colors = TTSOutput.colors
-    t.subOutputters = {}
-    if TTSOutput.chat then
-        table.insert(t.subOutputters, ChatOutput.new(runner))
-    end
-    if runner.hostObject ~= nil then
-        table.insert(t.subOutputters, GridOutput.new(runner))
-    end
-
-    return setmetatable(t, { __index = TTSOutput })
+    t.children = {} -- Initialize an empty list of children
+    return setmetatable(t, TTSMultiOutput)
 end
 
--- Delegate LuaUnit methods to sub-outputters
-for _, method in ipairs({
-    "startSuite", "startClass", "startTest", "updateStatus", "endTest", "endClass", "endSuite"
-}) do
-    TTSOutput[method] = function(self, ...)
-        for _, outputter in ipairs(self.subOutputters) do
-            if outputter[method] then
-                outputter[method](outputter, ...)
+function TTSMultiOutput:add(child)
+    table.insert(self.children, child)
+end
+
+-- Delegate all lifecycle methods to child outputs
+setmetatable(TTSMultiOutput, {
+    __index = function(_, method)
+        return function(self, ...)
+            for _, child in ipairs(self.children) do
+                if child[method] then
+                    child[method](child, ...)
+                end
             end
         end
     end
+})
+
+--[[────────────────────────────────────────────────────────────────────────────
+    Output Class Hierarchy:
+
+    M.genericOutput (LuaUnit base)
+    ├── TTSMultiOutput (composite root, delegates to children)
+    │
+    ├── OUTPUT FORMATTERS (what to output)
+    │   ├── M.TextOutput (human readable format)
+    │   └── M.TapOutput (human/machine readable format)
+    │
+    ├── OUTPUT DECORATORS (where to output)
+    │   ├── ChatOutput (decorates any formatter with colored output to chat window)
+    │   └── LogOutput (decorates any formatter with output to system console)
+    │
+    └── DIRECT OUTPUTS (special destinations)
+        └── GridOutput (visual GUI grid, subclasses genericOutput directly)
+────────────────────────────────────────────────────────────────────────────]] --
+
+-- createOutput for the text-based formatters (TextOutput/TapOutput)
+local function createOutput(runner, colors, cfg, flushFunc)
+    local baseFormatter = (cfg.format == "TAP") and M.TapOutput or M.TextOutput
+    local t = baseFormatter.new(runner)
+    t.colors = colors or TTSOutput.colors
+    t.verbosity = cfg.verbosity or M.VERBOSITY_DEFAULT
+    t.flushFunc = flushFunc
+
+    for k, v in pairs(_G.Emitter) do
+        t[k] = v
+    end
+    t:init()
+
+    return t, baseFormatter
 end
 
------ ChatOutput: subclass of TextOutput for TTS chat window output
-ChatOutput = {
-    __class__ = "ChatOutput"
+-- Add ColoredOutput mixin
+local ColoredOutput = {
+    getColorForNode = function(self, node)
+        local status = node and node.status or "INFO"
+        return self.colors[status] or self.colors.NEUTRAL
+    end
 }
-setmetatable(ChatOutput, { __index = M.TextOutput })
 
-function ChatOutput.new(runner)
-    local t = M.TextOutput.new(runner)
-    t.colors = TTSOutput.colors
-    t.buffer = "" -- Initialize buffer for partial outputs
-    return setmetatable(t, { __index = ChatOutput })
-end
+--[[────────────────────────────────────────────────────────────────────────────
+    ChatOutput: Colored chat window output using TextOutput/TapOutput formatting
+────────────────────────────────────────────────────────────────────────────]] --
+local ChatOutput = {}
+ChatOutput.__index = ChatOutput
+ChatOutput.__class__ = "ChatOutput"
 
-function ChatOutput:emit(...)
-    for _, arg in ipairs({ ... }) do
-        self.buffer = self.buffer .. tostring(arg)
+function ChatOutput.new(runner, colors, cfg)
+    local t, baseClass = createOutput(runner, colors, cfg, function(line, color)
+        printToAll(line, color)
+    end)
+    for k, v in pairs(ColoredOutput) do
+        t[k] = v
     end
-    if self.buffer:find("\n") then
-        local lines = {}
-        for line in self.buffer:gmatch("[^\n]+") do
-            table.insert(lines, line)
+
+    return setmetatable(t, {
+        __index = function(instance, key)
+            return ChatOutput[key] or baseClass[key]
         end
-        self.buffer = self.buffer:match("\n(.*)$") or ""
-        for _, line in ipairs(lines) do
-            printToAll(line, self:color())
-        end
+    })
+end
+
+function ChatOutput:flush(line)
+    self.flushFunc(line, Color.fromHex(self:getColorForNode(self.result.currentNode)))
+end
+
+--[[────────────────────────────────────────────────────────────────────────────
+    LogOutput: System console output using TapOutput formatting
+────────────────────────────────────────────────────────────────────────────]] --
+local LogOutput = {}
+LogOutput.__index = LogOutput
+LogOutput.__class__ = "LogOutput"
+
+function LogOutput.new(runner, colors, cfg)
+    local flushFunc = function(line)
+        log(line)
     end
+    local t, baseClass = createOutput(runner, colors, cfg, flushFunc) -- Default to TEXT for experts
+
+    return setmetatable(t, {
+        __index = function(instance, key)
+            return LogOutput[key] or baseClass[key]
+        end
+    })
 end
 
-function ChatOutput:emitLine(line)
-    line = line or ""
-    self.buffer = self.buffer or ""
-    printToAll(self.buffer .. line, self:color())
-    self.buffer = ""
+function LogOutput:flush(line)
+    self.flushFunc(line)
 end
 
-function ChatOutput:color()
-    local status = self.result.currentNode and self.result.currentNode.status or "INFO"
-    return Color.fromHex(self.colors[status] or self.colors.NEUTRAL)
-end
-
+--[[────────────────────────────────────────────────────────────────────────────
+    GridOutput: Grid-based UI output for TTS
+────────────────────────────────────────────────────────────────────────────]] --
 -- Utility function to recursively find an element by its ID
 local function findElementById(elements, id)
     for _, element in ipairs(elements or {}) do
@@ -106,20 +176,23 @@ local function findElementById(elements, id)
     return nil
 end
 
--------------------------------------------
--- GridOutput: Grid-based UI output for TTS
--------------------------------------------
 GridOutput = {
     __class__ = "GridOutput"
 }
 setmetatable(GridOutput, { __index = M.genericOutput })
 
-function GridOutput.new(runner)
+function GridOutput.new(runner, colors)
     local t = M.genericOutput.new(runner)
     t.hostObject = runner.hostObject
-    t.colors = TTSOutput.colors
+    t.colors = colors or TTSOutput.colors
     t.squareIds = {}
     t.testOutputs = {}
+
+    -- Add color handling
+    for k, v in pairs(ColoredOutput) do
+        t[k] = v
+    end
+
     return setmetatable(t, { __index = GridOutput })
 end
 
@@ -163,8 +236,7 @@ end
 
 function GridOutput:endTest(node)
     local completedTests = node.number
-    local status = node.status or "UNKNOWN"
-    local colorHex = self.colors[status] or self.colors.UNKNOWN
+    local colorHex = self:getColorForNode(node) -- Use the mixin's method
 
     local id = "TestSquare" .. node.number
     self.testOutputs[id] = node
@@ -180,12 +252,32 @@ function GridOutput:endTest(node)
     end
 end
 
-function GridOutput:endSuite()
-    self.hostObject.UI.setAttribute("TestStatus", "active", "true")
-end
-
 function GridOutput:totalTests()
     return self.runner.result.selectedCount
 end
 
-return { TTSOutput = TTSOutput }
+---------------------------------------------------------------
+-- Factory method to build a complete output graph
+---------------------------------------------------------------
+function buildTTSOutput(runner, config)
+    local root = TTSMultiOutput.new(runner)
+
+    -- ChatOutput (enabled unless explicitly disabled)
+    if config.chat ~= false then
+        root:add(ChatOutput.new(runner, config.colors, config.chat))
+    end
+
+    -- LogOutput (enabled unless explicitly disabled)
+    if config.log ~= false then
+        root:add(LogOutput.new(runner, config.colors, config.log))
+    end
+
+    -- GridOutput (enabled by default if hostObject exists)
+    if config.grid ~= false and runner.hostObject then
+        root:add(GridOutput.new(runner, config.colors))
+    end
+
+    return root
+end
+
+return TTSOutput
