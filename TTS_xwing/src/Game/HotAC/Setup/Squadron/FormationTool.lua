@@ -289,6 +289,10 @@ function addSquadronMate(ship, squad)
         end,
         function() return Global.call("API_XWcmd_isReady", { ship = ship }) end)
     seq:waitCondition(function()
+            ship.setDescription("init 1")
+        end,
+        function() return Global.call("API_XWcmd_isReady", { ship = ship }) end)
+    seq:waitCondition(function()
         ship.setVar('owningPlayer', squad.ownerColor)
         ship.setVar("finished_setup", true)
         ship.call("initContextMenu")
