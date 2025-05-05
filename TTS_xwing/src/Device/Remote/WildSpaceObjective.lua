@@ -1,10 +1,14 @@
+ObjectiveTokenData = require("Marker.Scenario.ObjectiveTokenData")
 Maneuver = require("Game.Mechanic.Movement.Maneuver")
 Dim = require("Dim")
 
 Data = {
-    Size = Dim.mm_baseSize["objective"], -- size in mm of the Objective
-    forwardAdjustment = 90               -- Adjust the forward vector to point towards the front of the objective
+    Size = "objective",
+    forwardAdjustment = 90 -- Adjust the forward vector to point towards the front of the objective
 }
+
+rulers = {}
+rulerstype = nil
 
 relocator = Maneuver:new()
 
@@ -19,52 +23,52 @@ function setupAssets()
         {
             name = "1str",
             url =
-            "https://steamusercontent-a.akamaihd.net/ugc/16165383809089729786/91158470F9F6595B9CAFE8BEC5B6ABC6F296805E/",
+            "https://i.imgur.com/rfeMqjQ.png",
         },
         {
             name = "2lbank",
             url =
-            "https://steamusercontent-a.akamaihd.net/ugc/11835582287334705483/AF214D2D983BE579B49B613618D00ACC309BBDBE/",
+            "https://i.imgur.com/ZtmNw9W.png",
         },
         {
             name = "2rbank",
             url =
-            "https://steamusercontent-a.akamaihd.net/ugc/15921586568094763089/ADFDF12B39E39B0F010E6562A8D0AAE29D235FAF/"
+            "https://i.imgur.com/78NqNAv.png"
         },
         {
             name = "2str",
             url =
-            "https://steamusercontent-a.akamaihd.net/ugc/17674308348775822287/098DE4D5B1C3B9BEA935A0F853A9A3487D134ED7/",
+            "https://i.imgur.com/TRFRPiO.png",
         },
         {
             name = "3lbank",
             url =
-            "https://steamusercontent-a.akamaihd.net/ugc/10169599065932991240/A102AD078F7D79CD499E9E5B7BB47EC98977C339/",
+            "https://i.imgur.com/TRpVkDC.png",
         },
         {
             name = "3lturn",
             url =
-            "https://steamusercontent-a.akamaihd.net/ugc/13027851640763692630/9D8F1D773602C1B36E510502AE9DA785992948FF/",
+            "https://i.imgur.com/JqcjtHM.png",
         },
         {
             name = "3rbank",
             url =
-            "https://steamusercontent-a.akamaihd.net/ugc/15936576224159661294/C3B41163694B334CE8FA444310B1C5CFA2492D72/",
+            "https://i.imgur.com/c2wIKIC.png",
         },
         {
             name = "3rturn",
             url =
-            "https://steamusercontent-a.akamaihd.net/ugc/14656121321639792830/02490F087A0602F79FA1CB15C49BA5F46785406E/",
+            "https://i.imgur.com/jNagAyf.png",
         },
         {
             name = "3str",
             url =
-            "https://steamusercontent-a.akamaihd.net/ugc/15181445424374346036/817AFFC7556575484CC2DC4C3BF632E41C7057A0/",
+            "https://i.imgur.com/U2G7yp0.png",
         },
         {
             name = "4str",
             url =
-            "https://steamusercontent-a.akamaihd.net/ugc/16534616205232610856/78D5C4711B117F5B5B94EE5278650F31039A14E7/",
+            "https://i.imgur.com/BlBpwFq.png",
         }
     }
     -- helper to find an asset by name in a list
@@ -109,32 +113,6 @@ function setupAssets()
     end
 end
 
--- Move your panel out 'offsetDist' meters from whatever your object considers "forward"
-local function repositionPanel(offsetDist)
-    -- 1) World-space forward vector (unit length)
-    local fwd = self.getTransformForward() -- :contentReference[oaicite:0]{index=0}
-    -- 2) World-space target point = object center + fwd * offsetDist
-    local worldTarget = {
-        x = self.getPosition().x + fwd.x * offsetDist,
-        y = self.getPosition().y + fwd.y * offsetDist,
-        -- z = self.getPosition().z + fwd.z * offsetDist,
-        z = 10
-    }
-    -- 3) Convert that back into local UI coords
-    local localPos = self.positionToLocal(worldTarget) -- :contentReference[oaicite:1]{index=1}
-
-    -- 4) Write it into your panel’s XML
-    local posStr = string.format("%.3f %.3f %.3f", localPos.x, localPos.y, localPos.z)
-    self.UI.setAttribute("btnPanelB", "position", posStr) -- :contentReference[oaicite:2]{index=2}
-end
-
-function onLoad()
-    if self.is_face_down then self.flip() end
-    -- repositionPanel(52)
-    setupAssets()
-    Global.call("showMe", { self.getGUID() })
-end
-
 function showPanel(player, value, id)
     self.UI.setAttribute(id, "active", "true")
 end
@@ -149,8 +127,78 @@ function onObjectHover(player_color, hovered)
     end
 end
 
--- function onObjectLeave(player_color, left)
---     if left == self then
---         self.UI.setAttribute("btnPanelA", "active", "false")
---     end
--- end
+function SetupContextMenu()
+    self.clearContextMenu()
+	self.addContextMenuItem("Check 0-3 Bubble", check360, false)
+end
+
+function onLoad(save_state)
+    local state = JSON.decode(save_state)
+    self.setVar("owningPlayer", "Black")
+    if state then
+        linedrawing = state.linedrawing or true
+        -- self.setVar("owningPlayer", state.owningPlayer)
+        -- self.setVar("dropped", state.dropped or false)
+    end
+
+    SetupContextMenu()
+end
+
+function onSave()
+    return JSON.encode({ linedrawing = linedrawing })
+end
+
+function check360()
+    checkArc("full", 3, true)
+end
+
+function checkArc(type, range, friendly)
+    self.clearButtons()
+    for _, ruler in pairs(rulers) do
+        destroyObject(ruler)
+    end
+    rulers = {}
+    if rulerstype == type .. range then
+        rulerstype = nil
+    else
+        if type == "full" then
+            printToAll("Checking for ships at range " .. tostring(range) .. " from " .. self.getName(),
+                color(1.0, 1.0, 0.2, 0.9))
+        end
+        rulers = Global.call("CheckArc", { ship = self, arctype = type, range = range, include_friendly_ships = friendly })
+    end
+    if rulers and #rulers > 0 then
+        rulerstype = type .. range
+        arcsopen = true
+        local rotation = vector(0, -90, 0)
+        local up = vector(0, 1, 0)
+        if self.is_face_down then
+            up = -1 * up
+            rotation = rotation + vector(0, 0, 180)
+        end
+        local raise = 0.03 * up
+        self.createButton({
+            click_function = "removeArcs",
+            function_owner = self,
+            label          = "Remove",
+            position       = raise,
+            rotation       = rotation,
+            width          = 170,
+            height         = 150,
+            font_size      = 40
+        })
+    else
+        rulerstype = nil
+        arcsopen = false
+    end
+end
+
+function removeArcs()
+    self.clearButtons()
+    for _, ruler in pairs(rulers) do
+        destroyObject(ruler)
+        rulers = {}
+    end
+    rulerstype = nil
+    arcsopen = false
+end

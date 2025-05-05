@@ -1,38 +1,41 @@
 <Defaults>
     <!-- hit area and fallback color -->
     <Button class="ManButton"
-        width="18" height="18"
-        color="#BBBBBB" />
+        width="10" height="10"
+        color="#00000000" />
 </Defaults>
 
 <Panel id="btnPanelB"
     active="false"
-    position="0 50 -6"
-    rotation="0 0 0"
-    width="150" height="100"
-    color="#00000000">
-    <GridLayout id="gridB"
+    position="-30 0 -10"
+    rotation="0 0 -90"
+    width="40" height="25"
+    color="#6c160f">
+  <GridLayout id="gridB"
         childAlignment="MiddleCenter"
-        cellSize="20 20"
+        cellSize="10 10"
         constraint="FixedColumnCount"
         constraintCount="3"
-        spacing="4 4">
-        <!-- Row 1: inner-ring straight (2-straight) -->
+        spacing="5 5">
+
+        <!-- Row 1: bl2, s2, br2 -->
         <Button id="bl2" onClick="relocate">
-            <Image image="2lbank" preserveAspect="true" />
+            <Image image="2lbank" preserveAspect="true" color="#204e78" />
         </Button>
         <Button id="s2" onClick="relocate">
-            <Image image="2str" preserveAspect="true" />
+            <Image image="2str" preserveAspect="true" color="#ffffff" />
         </Button>
         <Button id="br2" onClick="relocate">
-            <Image image="2rbank" preserveAspect="true" />
+            <Image image="2rbank" preserveAspect="true" color="#204e78" />
         </Button>
-        <!-- Row 2: outer-ring banks + inner-ring straight (1-straight) -->
+
+        <!-- Row 2: empty, s1, empty -->
         <Image color="#00000000" />
         <Button id="s1" onClick="relocate">
-            <Image image="1str" preserveAspect="true" />
+            <Image image="1str" preserveAspect="true" color="#41bef0" />
         </Button>
         <Image color="#00000000" />
+
     </GridLayout>
 </Panel>
 
@@ -44,25 +47,32 @@
     hideAnimation="Shrink"
     hideAnimationDelay="6"
     active="true"
-    position="0 50 -10"
-    rotation="0 0 0"
-    width="180" height="120"
+    position="-30 0 -10"
+    rotation="0 0 -90"
+    width="70" height="25"
     color="#00000000">
     <GridLayout id="gridA"
         childAlignment="MiddleCenter"
-        cellSize="20 20"
+        cellSize="10 10"
         constraint="FixedColumnCount"
-        constraintCount="3"
+        constraintCount="5"
         spacing="5 5">
 
-        <Image color="#00000000" />
+        <!-- First row (5 cells, s4 centered) -->
+		        <Image color="#00000000" />
+				<Image color="#00000000" />
         <Button id="s4" onClick="relocate">
-            <Image image="4str" preserveAspect="true" />
+			<Image image="4str" preserveAspect="true" outline="true" outlineColor="#ffffff" outlineSize="2 2" color="#ffffff" />
         </Button>
-        <Image color="#00000000" />
+		        <Image color="#00000000" />
+				<Image color="#00000000" />
 
+        <!-- Second row: tl3, bl3, s3, br3, tr3 -->
+        <Button id="tl3" onClick="relocate">
+            <Image image="3lturn" preserveAspect="true"/>
+        </Button>
         <Button id="bl3" onClick="relocate">
-            <Image image="3lbank" preserveAspect="true" />
+            <Image image="3lbank" preserveAspect="true"/>
         </Button>
         <Button id="s3" onClick="relocate">
             <Image image="3str" preserveAspect="true" />
@@ -70,13 +80,9 @@
         <Button id="br3" onClick="relocate">
             <Image image="3rbank" preserveAspect="true" />
         </Button>
-
-        <Button id="tl3" onClick="relocate">
-            <Image image="3lturn" preserveAspect="true" />
-        </Button>
-        <Image color="#00000000" />
         <Button id="tr3" onClick="relocate">
             <Image image="3rturn" preserveAspect="true" />
         </Button>
+
     </GridLayout>
 </Panel>
