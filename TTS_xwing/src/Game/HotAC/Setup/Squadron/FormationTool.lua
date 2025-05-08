@@ -102,7 +102,7 @@ local function getFactionColors(faction)
     local names = factionColors[faction] or {}
     local result = {}
     for _, name in ipairs(names) do
-        local colorValue = colorValues[name]
+        local colorValue = getColorByName(name)
         if colorValue then
             table.insert(result, { option = name, value = colorValue })
         end
@@ -257,7 +257,7 @@ function overrideAITint(ship, newTint)
     for _, attachment in ipairs(ship.getAttachments()) do
         local id = ship.removeAttachment(attachment.index)
         if id.getName() == "ColorId" then
-            id.setColorTint(Color.fromHex(newTint))
+            id.setColorTint(newTint)
         end
         ship.addAttachment(id)
     end
@@ -278,7 +278,7 @@ function addSquadronMate(ship, squad)
 
     seq:addTask(positionShipInSquadron, ship, slot)
     seq:waitFrames(function()
-        overrideAITint(ship, squad.squadronColor)
+        overrideAITint(ship, Color.fromHex(squad.squadronColor))
     end, 1)
     seq:waitCondition(function()
             ship.setDescription("name " .. computeShipName(slot, squad))
@@ -286,6 +286,10 @@ function addSquadronMate(ship, squad)
         function() return Global.call("API_XWcmd_isReady", { ship = ship }) end)
     seq:waitCondition(function()
             ship.setDescription(squad.ai)
+        end,
+        function() return Global.call("API_XWcmd_isReady", { ship = ship }) end)
+    seq:waitCondition(function()
+            ship.setDescription("init 1")
         end,
         function() return Global.call("API_XWcmd_isReady", { ship = ship }) end)
     seq:waitCondition(function()
