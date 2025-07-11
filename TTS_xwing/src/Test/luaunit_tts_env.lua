@@ -1,16 +1,8 @@
 --[[────────────────────────────────────────────────────────────────────────────
-    LuaUnit Environment Shim for TTS
-    Provides TTS-compatible implementations of standard Lua I/O functions
-    needed by LuaUnit (print, io.stdout, os.getenv, etc.)
-────────────────────────────────────────────────────────────────────────────]]--
-
--- luaunit_tts_env.lua
--- TTS-safe LuaUnit output handling with buffered print and dynamic color
-
---[[────────────────────────────────────────────────────────────────────────────
-    Emitter: Buffered output with tab expansion
-    Core functionality used by both direct output and formatters
-────────────────────────────────────────────────────────────────────────────]]--
+    LuaUnit Bootstrap for TTS
+    Thin bootstrap that loads upstream LuaUnit, installs the TTS‑specific
+    environment stubs, and handles tab expansion for output.
+────────────────────────────────────────────────────────────────────────────]] --
 local Emitter = {}
 
 function Emitter:init()
@@ -19,7 +11,7 @@ end
 
 function Emitter:emit(...)
     -- Convert each argument to string and expand tabs
-    local tabWidth = 8  -- Standard console tab width
+    local tabWidth = 8 -- Standard console tab width
     for _, arg in ipairs({ ... }) do
         local str = tostring(arg)
         -- Replace tabs with spaces, preserving alignment
@@ -29,7 +21,7 @@ function Emitter:emit(...)
         end)
         self.buffer = self.buffer .. str
     end
-    
+
     if self.buffer:find("\n") then
         for line in self.buffer:gmatch("([^\n]*)\n") do
             self:flush(line)
@@ -51,7 +43,7 @@ _G.Emitter = Emitter
 -- Create a global output emitter for print/io
 local stdoutEmitter = setmetatable({}, { __index = Emitter })
 stdoutEmitter:init()
-stdoutEmitter.flush = function(self, line)
+stdoutEmitter.flush = function(_, line)
     printToAll(line)
 end
 
@@ -73,9 +65,7 @@ io.stdout.write = function(_, ...)
     end
 end
 
-io.stdout.flush = function()
-    -- Already handled by Emitter
-end
+io.stdout.flush = function() end
 
 function os.getenv(key)
     local fake_env = {
@@ -87,9 +77,9 @@ function os.getenv(key)
 end
 
 os.exit = function()
-    error("os.exit() is disabled in TTS")
+    error("For Tabletop Simulator features related to the command line arguments are disabled.")
 end
 
-io.open = function(fname, mode)
+io.open = function(_, _)
     return nil, "io.open is disabled in TTS"
 end

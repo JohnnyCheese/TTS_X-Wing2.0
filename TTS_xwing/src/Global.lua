@@ -411,7 +411,7 @@ XW_cmd.AddCommand('name[ *]*[-a-zA-Z" %d]*', 'renameShip')
 XW_cmd.AddCommand('init[ ]?[01234567]', 'changeInitiative')
 
 -- AI Module:
-test_AI = false
+debug_AI = false
 AIModule = {}
 
 -- 2000mm is the length between opposite corners of an epic table.

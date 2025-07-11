@@ -46,7 +46,7 @@ function initContextMenu()
 
             self.addContextMenuItem("Mark ship", function(argument) Global.call("MarkShip", { ship = self }) end, false)
 
-            if Global.getVar('test_AI') or self.getVar('isAi') then
+            if Global.getVar('debug_AI') or self.getVar('isAi') then
                 self.addContextMenuItem("AI move and action",
                     function(argument) Global.call("PerformAIManeuver", { ['ship'] = self, ['take_action'] = true }) end,
                     false)
