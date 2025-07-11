@@ -243,8 +243,8 @@ function colorPreviewClicked(player, value, id)
     local color = self.UI.getAttribute("colorPreview", "color")
     player.showColorDialog(color, function(newColor)
         if newColor then
-            squadron.squadronColor = newColor
-            self.UI.setAttribute("colorPreview", "color", "#" .. newColor:toHex(true))
+            squadron.squadronColor = newColor:toHex(true)
+            self.UI.setAttribute("colorPreview", "color", "#" .. squadron.squadronColor)
         end
     end)
 end
