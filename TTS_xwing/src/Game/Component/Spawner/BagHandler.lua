@@ -37,6 +37,13 @@ function BagHandler:takeItemByGUID(item_guid, parameters)
     )
 end
 
+-- Take an item by GM Note
+function BagHandler:takeItemByGMNote(item_gm_note, parameters)
+    return self:_findAndTakeItem(
+        function(objData) return objData.gm_notes == item_gm_note end, parameters
+    )
+end
+
 -- Take an item by name
 function BagHandler:takeItemByName(item_name, parameters)
     return self:_findAndTakeItem(
