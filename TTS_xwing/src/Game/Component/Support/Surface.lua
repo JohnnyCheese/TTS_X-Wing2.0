@@ -40,11 +40,11 @@ function surface()
 end
 
 function setupContextMenu()
-    self.addContextMenuItem("Dump Scripted Items", emptyBag)
+    self.addContextMenuItem("Dump Scripted Items", dumpBag)
     self.addContextMenuItem("Submerge", submerge)
 end
 
-function emptyBag()
+function dumpBag()
     local items = self.getObjects()
     local position = self.getPosition()
 
