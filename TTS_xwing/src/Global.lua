@@ -7381,3 +7381,7 @@ function FindNearestShip(object, max_distance, filter_function)
 
     return nearest
 end
+
+-- require("Test.TestGlobal")
+
+

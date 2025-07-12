@@ -1,15 +1,15 @@
 local lu = require("Test.luaunit_tts")
 
-local testClasses = {
+local testSuite = {
 }
 
-for name, class in pairs(testClasses) do
-    _G[name] = class
+for name, testCase in pairs(testSuite) do
+    _G[name] = testCase
 end
 
 function runTests()
-    lu.LuaUnit:run() -- runs the tests configured here.
-    -- Global.call("runTests", { self.getGUID() }) -- runs the tests configured in the global script.
+    -- lu.LuaUnit:run() -- runs the tests configured here.
+    Global.call("runTests", { self.getGUID() }) -- runs the tests configured in the global script.
 end
 
 function onDrop()
