@@ -8,14 +8,14 @@
 local Dim = {}
 
 -- adjusted length = 40mm = 1.4536igu
--- 1mm = 0.03634igu
+-- 1mm = 0.03612igu
 Dim.mm_igu_ratio = 0.03637
 
 -- 40mm = 1.445igu
 -- (s1 length / small base size)
 
 -- 1mm = 0.036125igu
---mm_igu_ratio = 0.036125
+-- mm_igu_ratio = 0.036125
 
 -- Millimeter dimensions of ship bases
 Dim.mm_smallBase = 40
