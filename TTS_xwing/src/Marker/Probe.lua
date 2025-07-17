@@ -7,6 +7,7 @@ function onLoad()
     self.setScale({ 0.5, 0.5, 0.5 })
     -- Add a context menu item to manually check the object
     self.addContextMenuItem("Toggle Interactive", toggleInteractive)
+    self.addContextMenuItem("Show Bounds", showBounds)
 end
 
 function onCollisionEnter(info)
@@ -17,6 +18,11 @@ function onCollisionEnter(info)
     else
         printToAll("Object Position: " .. vectorToString(self.getPosition()), { 0, 1, 0 })
     end
+end
+
+function showBounds()
+    printToAll("Object Bounds: ", { 0, 1, 0 })
+    printToAll(JSON.encode_pretty(subject.getBoundsNormalized()), Color.Yellow)
 end
 
 function toggleInteractive()
