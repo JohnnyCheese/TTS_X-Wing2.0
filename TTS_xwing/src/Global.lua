@@ -714,7 +714,9 @@ AIModule.TargetForStrikeAI = function(ship)
 
     -- Return the closest Strike Target, if any
     if #strike_targets > 0 then
-        return strike_targets[1].ship
+        local strike_target = strike_targets[1].ship
+        printToAll(tostring(ship.getName()) .. " found Strike AI target: '" .. tostring(strike_target) .. "'", Color.Orange )
+        return strike_target
     end
     return nil
 end
