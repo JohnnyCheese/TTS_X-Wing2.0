@@ -9,25 +9,27 @@
 -- Just add their links to the table below in the same fashion
 
 -- Table of all images to be cycled through with NextImage()
-imageSet = { 'http://i.imgur.com/6IkNucB.jpg',
-    'http://cloud-3.steamusercontent.com/ugc/1483326815456337025/EB436BA5C3D1B0BAF4ED3325456E7211A669E3BF/',
-    'http://cloud-3.steamusercontent.com/ugc/1483326815456320038/68F5C582DBCBDC1070ACD4CE12091BFA73AE93F4/',
+imageSet = {
+    'https://i.imgur.com/6IkNucB.jpg',
+    'https://cloud-3.steamusercontent.com/ugc/1483326815456337025/EB436BA5C3D1B0BAF4ED3325456E7211A669E3BF/',
+    'https://cloud-3.steamusercontent.com/ugc/1483326815456320038/68F5C582DBCBDC1070ACD4CE12091BFA73AE93F4/',
     'https://i.imgur.com/siDMVxH.mp4',
     'https://i.imgur.com/HXUBMXE.mp4',
-    'http://i.imgur.com/dczrasC.jpg',
-    'http://i.imgur.com/dKYBJMX.png',
+    'https://i.imgur.com/dczrasC.jpg',
+    'https://i.imgur.com/dKYBJMX.png',
     'https://i.imgur.com/1veiNk9.jpg',
-    'http://i.imgur.com/8tDK0x8.png',
-    'http://i.imgur.com/sb2AJOz.png',
+    'https://i.imgur.com/8tDK0x8.png',
+    'https://i.imgur.com/sb2AJOz.png',
     'https://i.imgur.com/KPtozCm.png',
-    'http://i.imgur.com/V7pWVak.png',
-    'http://i.imgur.com/spWTWy7.png',
-    'http://i.imgur.com/YdIAcvP.png',
-    'http://i.imgur.com/5CcjDzM.jpg',
-    'http://i.imgur.com/4WMSCSV.jpg',
-    'http://i.imgur.com/0FWrq21.jpg',
-    'http://i.imgur.com/x4LEk1A.jpg',
-    'http://i.imgur.com/fy6kooO.png', }
+    'https://i.imgur.com/V7pWVak.png',
+    'https://i.imgur.com/spWTWy7.png',
+    'https://i.imgur.com/YdIAcvP.png',
+    'https://i.imgur.com/5CcjDzM.jpg',
+    'https://i.imgur.com/4WMSCSV.jpg',
+    'https://i.imgur.com/0FWrq21.jpg',
+    'https://i.imgur.com/x4LEk1A.jpg',
+    'https://i.imgur.com/fy6kooO.png',
+}
 
 -- Mat flag for layouts
 __XW_Mat = true
@@ -56,7 +58,7 @@ function NextImage()
     if nextImage > #imageSet then
         nextImage = 1
     end
-
+    
     -- Reload self with the new image and save the index
     local custom = self.getCustomObject()
     custom.diffuse = imageSet[nextImage]
@@ -72,7 +74,7 @@ function PrevImage()
     if nextImage == 0 then
         nextImage = #imageSet
     end
-
+    
     -- Reload self with the new image and save the index
     local custom = self.getCustomObject()
     custom.diffuse = imageSet[nextImage]
@@ -127,7 +129,9 @@ function spawnSet(posTable, rotTable)
 end
 
 function deleteAll()
-    for ruler in pairs(rulers) do ruler.destruct() end
+    for ruler in pairs(rulers) do
+        ruler.destruct()
+    end
     rulers = {}
 end
 
@@ -144,8 +148,7 @@ rulers = {}
 rulersState = 0
 rulerData = {}
 rulerData.mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/rulers/range13.obj'
-rulerData.collider =
-'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/rulers/range13.obj'
+rulerData.collider = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/rulers/range13.obj'
 rulerData.diffuse = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/rulers/range.jpg'
 rulerData.material = 1
 scenario_objects = {}
@@ -157,23 +160,23 @@ roidRot = {
     { 0, 180, 180 },
     { 0, 270, 180 },
     { 0, 270, 180 },
-    { 0, 0,   180 },
-    { 0, 0,   180 },
-    { 0, 90,  180 },
-    { 0, 90,  180 },
+    { 0, 0, 180 },
+    { 0, 0, 180 },
+    { 0, 90, 180 },
+    { 0, 90, 180 },
     { 0, 180, 180 },
     { 0, 180, 180 }
 }
 
 setupRot = {
     { 0, 270, 0 },
-    { 0, 0,   0 },
+    { 0, 0, 0 },
     { 0, 270, 0 },
-    { 0, 0,   0 },
-    { 0, 0,   0 },
-    { 0, 90,  0 },
+    { 0, 0, 0 },
+    { 0, 0, 0 },
+    { 0, 90, 0 },
     { 0, 180, 0 },
-    { 0, 90,  0 },
+    { 0, 90, 0 },
     { 0, 180, 0 },
     { 0, 180, 0 }
 }
@@ -181,27 +184,27 @@ setupRot = {
 roidPos = {
     { 30.13, 1.0, -11.12 }, -- pio
     { 30.13, 1.0, 0 },
-    { 31.64, 1.0, -9.6 },   -- poz
-    { 20.5,  1.0, -9.6 },
-    { 10.9,  1.0, -11.12 },
-    { 10.9,  1.0, 0 },
-    { 9.38,  1.0, -9.6 },
-    { 9.38,  1.0, 9.6 },
-    { 10.9,  1.0, 11.12 },
+    { 31.64, 1.0, -9.6 }, -- poz
+    { 20.5, 1.0, -9.6 },
+    { 10.9, 1.0, -11.12 },
+    { 10.9, 1.0, 0 },
+    { 9.38, 1.0, -9.6 },
+    { 9.38, 1.0, 9.6 },
+    { 10.9, 1.0, 11.12 },
     { 30.13, 1.0, 11.12 }, -- pio
-    { 31.64, 1.0, 9.6 },   -- poz
-    { 20.5,  1.0, 9.6 }
+    { 31.64, 1.0, 9.6 }, -- poz
+    { 20.5, 1.0, 9.6 }
 }
 
 setupPos = {
-    { 3.68,  1.00, -11.11 }, --pio
-    { 9.51,  1.00, -12.63 },
+    { 3.68, 1.00, -11.11 }, --pio
+    { 9.51, 1.00, -12.63 },
     { 37.35, 1.00, -11.11 }, --pio
     { 20.53, 1.00, -12.63 },
     { 31.53, 1.00, -12.63 },
-
-    { 3.68,  1.00, 11.11 }, --pio
-    { 9.51,  1.00, 12.63 },
+    
+    { 3.68, 1.00, 11.11 }, --pio
+    { 9.51, 1.00, 12.63 },
     { 37.35, 1.00, 11.11 }, --pio
     { 20.53, 1.00, 12.63 },
     { 31.53, 1.00, 12.63 },
@@ -210,14 +213,14 @@ setupPos = {
 AH_setupPos = {
     { 29.94, 1.05, -12.59 },
     { 11.79, 1.05, -12.59 },
-    { 7.90,  1.05, -9.24 },
-    { 7.82,  1.05, 8.64 },
+    { 7.90, 1.05, -9.24 },
+    { 7.82, 1.05, 8.64 },
     { 11.15, 1.05, 12.53 },
     { 29.29, 1.05, 12.53 },
     { 33.18, 1.05, 9.18 },
     { 33.27, 1.05, -8.69 },
     { 20.88, 1.05, -12.59 },
-    { 7.84,  1.05, -0.39 },
+    { 7.84, 1.05, -0.39 },
     { 20.21, 1.05, 12.55 },
     { 33.20, 1.05, 0.25 }
 }
@@ -226,19 +229,19 @@ AH_setupRot = {
     { 0.00, 180.00, 0.00 },
     { 0.00, 180.00, 0.00 },
     { 0.00, 270.00, 0.00 },
-    { 0.00, 90.00,  0.00 },
-    { 0.00, 0.00,   0.00 },
-    { 0.00, 0.00,   0.00 },
-    { 0.00, 90.00,  0.00 },
+    { 0.00, 90.00, 0.00 },
+    { 0.00, 0.00, 0.00 },
+    { 0.00, 0.00, 0.00 },
+    { 0.00, 90.00, 0.00 },
     { 0.00, 270.00, 0.00 },
-    { 0.00, 0.00,   0.00 },
+    { 0.00, 0.00, 0.00 },
     { 0.00, 270.00, 0.00 },
-    { 0.00, 0.00,   0.00 },
-    { 0.00, 90.00,  0.00 }
+    { 0.00, 0.00, 0.00 },
+    { 0.00, 90.00, 0.00 }
 }
 
 roidSoCPos = {
-
+    
     { 15.00, 1.05, -9.59 },
     { 30.04, 1.10, -5.47 },
     { 30.02, 1.05, 5.52 },
@@ -247,16 +250,16 @@ roidSoCPos = {
     { 23.44, 1.05, 6.36 },
     { 26.74, 1.05, 9.63 },
     { 25.94, 1.05, -9.57 }
-
+    
 }
 
 roidSoCRot = {
-    { 0.00, 0.00,   180.00 },
+    { 0.00, 0.00, 180.00 },
     { 0.00, 270.00, 180.00 },
     { 0.00, 270.00, 180.00 },
-    { 0.00, 270,    180.00 },
+    { 0.00, 270, 180.00 },
     { 0.00, 180.00, 180.00 },
-    { 0.00, 90.00,  180.00 },
+    { 0.00, 90.00, 180.00 },
     { 0.00, 180.00, 180.00 },
     { 0.00, 180.00, 180.00 },
 }
@@ -282,20 +285,19 @@ function SelectSoC()
             scenario_objects[obj] = true
         end
     })
-
+    
     SoC_InvisableHand.setCustomObject({
         type = 0,
         mesh = 'http://cloud-3.steamusercontent.com/ugc/1758114025984799581/CAEAD252E027EAEDEBD055BA364416266FDFD9E1/',
         diffuse = 'http://cloud-3.steamusercontent.com/ugc/1758114025984800067/A117F05C4595183126DBE59EFF6BEBEDB12BBBAC/',
-        collider =
-        'http://cloud-3.steamusercontent.com/ugc/1758114025984799581/CAEAD252E027EAEDEBD055BA364416266FDFD9E1/',
+        collider = 'http://cloud-3.steamusercontent.com/ugc/1758114025984799581/CAEAD252E027EAEDEBD055BA364416266FDFD9E1/',
         material = 3,
     })
-
+    
     SoC_InvisableHand.lock()
     SoC_InvisableHand.interactable = false
     SoC_InvisableHand.addTag("TempLayoutElement")
-
+    
     spawnSet(roidSoCPos, roidSoCRot)
     rulersState = 2
 end
@@ -315,7 +317,7 @@ function SelectAH()
         end
     })
     redCounter.setColorTint("Red")
-
+    
     local yellowCounter = spawnObject({
         type = "Counter",
         position = { -24.42, 0.98, -17.83 },
@@ -327,7 +329,7 @@ function SelectAH()
         end
     })
     yellowCounter.setColorTint("Yellow")
-
+    
     local orangeCounter = spawnObject({
         type = "Counter",
         position = { -15.66, 0.98, -17.76 },
@@ -339,7 +341,7 @@ function SelectAH()
         end
     })
     orangeCounter.setColorTint("Orange")
-
+    
     local greenCounter = spawnObject({
         type = "Counter",
         position = { -6.65, 0.98, -17.85 },
@@ -351,7 +353,7 @@ function SelectAH()
         end
     })
     greenCounter.setColorTint("Green")
-
+    
     local blueCounter = spawnObject({
         type = "Counter",
         position = { -34.60, 0.98, 17.92 },
@@ -363,7 +365,7 @@ function SelectAH()
         end
     })
     blueCounter.setColorTint("Blue")
-
+    
     local purpleCounter = spawnObject({
         type = "Counter",
         position = { -24.72, 0.98, 17.92 },
@@ -375,7 +377,7 @@ function SelectAH()
         end
     })
     purpleCounter.setColorTint("Purple")
-
+    
     local pinkCounter = spawnObject({
         type = "Counter",
         position = { -15.93, 0.98, 17.93 },
@@ -387,7 +389,7 @@ function SelectAH()
         end
     })
     pinkCounter.setColorTint("Pink")
-
+    
     local brownCounter = spawnObject({
         type = "Counter",
         position = { -6.92, 0.98, 17.81 },
@@ -399,7 +401,7 @@ function SelectAH()
         end
     })
     brownCounter.setColorTint("Brown")
-
+    
     spawnSet(AH_setupPos, AH_setupRot)
     rulersState = 3
 end
@@ -420,8 +422,7 @@ function SelectBoY()
         type = 0,
         mesh = 'http://cloud-3.steamusercontent.com/ugc/1863954854624696677/453911740C854F3296724274C630FA211E509E0C/',
         diffuse = 'http://cloud-3.steamusercontent.com/ugc/1863954854624743591/746B48A74003822AEAF94B7C0895E2AAD7D7AE2C/',
-        collider =
-        'http://cloud-3.steamusercontent.com/ugc/1863954854624696677/453911740C854F3296724274C630FA211E509E0C/',
+        collider = 'http://cloud-3.steamusercontent.com/ugc/1863954854624696677/453911740C854F3296724274C630FA211E509E0C/',
         material = 3,
     })
     local BoY_YahooCard = spawnObject({
@@ -456,13 +457,13 @@ function SelectBoY()
         back = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/scenarios/back.png",
         sideways = false
     })
-
+    
     BoY_DeathStarTrench.lock()
     BoY_DeathStarTrench.interactable = false
     BoY_DeathStarTrench.addTag("TempLayoutElement")
     ruler1.takeObject({
-        position          = { -37.31, 1.09, 14.72 },
-        rotation          = { 0.00, 90.00, 0.00 },
+        position = { -37.31, 1.09, 14.72 },
+        rotation = { 0.00, 90.00, 0.00 },
         callback_function = function(obj)
             obj.addTag("TempLayoutElement")
             rulers[obj] = true
@@ -470,8 +471,8 @@ function SelectBoY()
         end
     })
     ruler1.takeObject({
-        position          = { -18.73, 1.09, 14.72 },
-        rotation          = { 0.00, 90.00, 0.00 },
+        position = { -18.73, 1.09, 14.72 },
+        rotation = { 0.00, 90.00, 0.00 },
         callback_function = function(obj)
             obj.addTag("TempLayoutElement")
             rulers[obj] = true
@@ -479,18 +480,18 @@ function SelectBoY()
         end
     })
     ruler5.takeObject({
-        position          = { -28.30, 1.09, 12.62 },
-        rotation          = { 0.00, 90.00, 180.00 },
+        position = { -28.30, 1.09, 12.62 },
+        rotation = { 0.00, 90.00, 180.00 },
         callback_function = function(obj)
             obj.addTag("TempLayoutElement")
             rulers[obj] = true
             obj.setLock(true)
         end
     })
-
+    
     ruler1.takeObject({
-        position          = { -22.30, 1.08, -14.72 },
-        rotation          = { 0.00, 270.00, 0.00 },
+        position = { -22.30, 1.08, -14.72 },
+        rotation = { 0.00, 270.00, 0.00 },
         callback_function = function(obj)
             obj.addTag("TempLayoutElement")
             rulers[obj] = true
@@ -498,8 +499,8 @@ function SelectBoY()
         end
     })
     ruler1.takeObject({
-        position          = { -3.68, 1.09, -14.67 },
-        rotation          = { 0.00, 270.00, 0.00 },
+        position = { -3.68, 1.09, -14.67 },
+        rotation = { 0.00, 270.00, 0.00 },
         callback_function = function(obj)
             obj.addTag("TempLayoutElement")
             rulers[obj] = true
@@ -507,15 +508,15 @@ function SelectBoY()
         end
     })
     ruler5.takeObject({
-        position          = { -12.74, 1.09, -12.62 },
-        rotation          = { 0.00, 270.00, 180.00 },
+        position = { -12.74, 1.09, -12.62 },
+        rotation = { 0.00, 270.00, 180.00 },
         callback_function = function(obj)
             obj.addTag("TempLayoutElement")
             rulers[obj] = true
             obj.setLock(true)
         end
     })
-
+    
     rulersState = 2
 end
 
@@ -523,10 +524,10 @@ function SelectEngagment()
     clearScenario()
     self.call('ToggleRulers')
     BagOP.takeObject({
-        position          = { -20.51, 1.1, 0.00 },
-        rotation          = { 180.00, 0.0, 0.00 },
-        flip              = true,
-        smooth            = true,
+        position = { -20.51, 1.1, 0.00 },
+        rotation = { 180.00, 0.0, 0.00 },
+        flip = true,
+        smooth = true,
         callback_function = function(obj)
             obj.addTag("CenterObjective")
             obj.setLock(true)
@@ -538,10 +539,10 @@ end
 function SelectScramble()
     clearScenario()
     BagOP.takeObject({
-        position          = { -20.51, 1.1, 0.00 },
-        rotation          = { 180.00, 0.0, 0.00 },
-        flip              = false,
-        smooth            = true,
+        position = { -20.51, 1.1, 0.00 },
+        rotation = { 180.00, 0.0, 0.00 },
+        flip = false,
+        smooth = true,
         callback_function = function(obj)
             obj.addTag("CenterObjective")
             obj.setLock(true)
@@ -549,20 +550,20 @@ function SelectScramble()
         end
     })
     BagOP.takeObject({
-        position          = { -18.37, 1.10, -2.22 },
-        rotation          = { 180.00, 0.0, 0.00 },
-        flip              = false,
-        smooth            = true,
+        position = { -18.37, 1.10, -2.22 },
+        rotation = { 180.00, 0.0, 0.00 },
+        flip = false,
+        smooth = true,
         callback_function = function(obj)
             obj.addTag("Objective")
             scenario_objects[obj] = true
         end
     })
     BagOP.takeObject({
-        position          = { -18.91, 1.10, 1.95 },
-        rotation          = { 180.00, 0.0, 0.00 },
-        flip              = false,
-        smooth            = true,
+        position = { -18.91, 1.10, 1.95 },
+        rotation = { 180.00, 0.0, 0.00 },
+        flip = false,
+        smooth = true,
         callback_function = function(obj)
             obj.addTag("Objective")
             scenario_objects[obj] = true
@@ -573,10 +574,10 @@ end
 function SelectAssault()
     clearScenario()
     BagOP.takeObject({
-        position          = { -20.51, 1.1, 0.00 },
-        rotation          = { 180.00, 0.0, 0.00 },
-        flip              = false,
-        smooth            = true,
+        position = { -20.51, 1.1, 0.00 },
+        rotation = { 180.00, 0.0, 0.00 },
+        flip = false,
+        smooth = true,
         callback_function = function(obj)
             obj.addTag("CenterObjective")
             obj.setLock(true)
@@ -584,40 +585,40 @@ function SelectAssault()
         end
     })
     BagOP.takeObject({
-        position          = { -18.37, 1.10, -2.22 },
-        rotation          = { 180.00, 0.0, 0.00 },
-        flip              = false,
-        smooth            = true,
+        position = { -18.37, 1.10, -2.22 },
+        rotation = { 180.00, 0.0, 0.00 },
+        flip = false,
+        smooth = true,
         callback_function = function(obj)
             obj.addTag("Objective")
             scenario_objects[obj] = true
         end
     })
     BagOP.takeObject({
-        position          = { -18.91, 1.10, 1.95 },
-        rotation          = { 180.00, 0.0, 0.00 },
-        flip              = false,
-        smooth            = true,
+        position = { -18.91, 1.10, 1.95 },
+        rotation = { 180.00, 0.0, 0.00 },
+        flip = false,
+        smooth = true,
         callback_function = function(obj)
             obj.addTag("Objective")
             scenario_objects[obj] = true
         end
     })
     BagOP.takeObject({
-        position          = { -22.12, 1.10, 1.91 },
-        rotation          = { 180.00, 0.0, 0.00 },
-        flip              = false,
-        smooth            = true,
+        position = { -22.12, 1.10, 1.91 },
+        rotation = { 180.00, 0.0, 0.00 },
+        flip = false,
+        smooth = true,
         callback_function = function(obj)
             obj.addTag("Objective")
             scenario_objects[obj] = true
         end
     })
     BagOP.takeObject({
-        position          = { -22.04, 1.10, -2.23 },
-        rotation          = { 180.00, 0.0, 0.00 },
-        flip              = true,
-        smooth            = true,
+        position = { -22.04, 1.10, -2.23 },
+        rotation = { 180.00, 0.0, 0.00 },
+        flip = true,
+        smooth = true,
         callback_function = function(obj)
             obj.addTag("Objective")
             scenario_objects[obj] = true
@@ -628,10 +629,10 @@ end
 function SelectSalvage()
     clearScenario()
     BagOP.takeObject({
-        position          = { -20.51, 1.1, 0.00 },
-        rotation          = { 0.00, 180.00, 0.00 },
-        flip              = false,
-        smooth            = true,
+        position = { -20.51, 1.1, 0.00 },
+        rotation = { 0.00, 180.00, 0.00 },
+        flip = false,
+        smooth = true,
         callback_function = function(obj)
             obj.addTag("CenterObjective")
             obj.setLock(true)
@@ -639,40 +640,40 @@ function SelectSalvage()
         end
     })
     BagOP.takeObject({
-        position          = { -18.37, 1.10, -2.22 },
-        rotation          = { 0.00, 180.00, 0.00 },
-        flip              = false,
-        smooth            = true,
+        position = { -18.37, 1.10, -2.22 },
+        rotation = { 0.00, 180.00, 0.00 },
+        flip = false,
+        smooth = true,
         callback_function = function(obj)
             obj.addTag("Objective")
             scenario_objects[obj] = true
         end
     })
     BagOP.takeObject({
-        position          = { -18.91, 1.10, 1.95 },
-        rotation          = { 0.00, 180.00, 0.00 },
-        flip              = false,
-        smooth            = true,
+        position = { -18.91, 1.10, 1.95 },
+        rotation = { 0.00, 180.00, 0.00 },
+        flip = false,
+        smooth = true,
         callback_function = function(obj)
             obj.addTag("Objective")
             scenario_objects[obj] = true
         end
     })
     BagOP.takeObject({
-        position          = { -22.12, 1.10, 1.91 },
-        rotation          = { 0.00, 180.00, 0.00 },
-        flip              = false,
-        smooth            = true,
+        position = { -22.12, 1.10, 1.91 },
+        rotation = { 0.00, 180.00, 0.00 },
+        flip = false,
+        smooth = true,
         callback_function = function(obj)
             obj.addTag("Objective")
             scenario_objects[obj] = true
         end
     })
     BagOP.takeObject({
-        position          = { -22.04, 1.10, -2.23 },
-        rotation          = { 0.00, 180.00, 0.00 },
-        flip              = true,
-        smooth            = true,
+        position = { -22.04, 1.10, -2.23 },
+        rotation = { 0.00, 180.00, 0.00 },
+        flip = true,
+        smooth = true,
         callback_function = function(obj)
             obj.addTag("Objective")
             scenario_objects[obj] = true
