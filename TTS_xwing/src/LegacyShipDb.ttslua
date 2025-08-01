@@ -1,0 +1,35 @@
+-- Attempt on Unified Data Base, based on XWS (dropped after w1, too much hassle) and FFG conversion table
+masterShipDB = {}
+masterShipDB[0] = {
+    ['name'] = '',
+    ['Hull'] = 0,
+    ['Shield'] = 0,
+    ['size'] = 'small',
+    ['agi'] = 1,
+    ['Energy'] = 0,
+    ['XWS'] = '',
+    ['Fac'] = { [0] = true },
+    ['arcs'] = { fixed = { range = 3, type = { 'front' } } }
+}
+
+masterShipDB['yt2400lightfreighter2023'] = {
+    name = 'YT-2400',
+    Hull = 6,
+    Shield = 4,
+    size = 'large',
+    ProximityHider = true,
+    agi = 2,
+    XWS = 'yt2400lightfreighter2023',
+    textures = {
+        standard =
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/yt2400lightfreighter/Textures/standard.jpg',
+    },
+    Fac = { [1] = true, [3] = true },
+    arcs = { turret = { main = { name = 'primary', type = { 'doubleturret' } } } },
+    mesh =
+    'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/yt2400lightfreighter/yt2400.obj',
+    moveSet = { 'wtl1', 'bbl1', 'bs1', 'bbr1', 'wtr1', 'wtl2', 'wbl2', 'bs2', 'wbr2', 'wtr2', 'wtl3', 'wbl3', 'ws3', 'wbr3', 'wtr3', 'ws4', 'rk4' },
+    keywords = { 'Freighter' }
+}
+
+return masterShipDB
