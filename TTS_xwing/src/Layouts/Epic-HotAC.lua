@@ -1,10 +1,11 @@
 local Vect = require("TTS_Lib.Vector.Vector")
 
-local hotac = {}
+local epic_hotac = {}
 do
-    hotac.name         = 'HotAC'
-    hotac.tableImage   = 'https://github.com/JohnnyCheese/TTS_X-Wing2.0/blob/master/assets/HotAC/Table/table.jpg?raw=true'
-    hotac.elements     = {
+    epic_hotac.name       = 'Epic'
+    epic_hotac.tableImage =
+    'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/tableEpic.jpg'
+    epic_hotac.elements   = {
         ['Damage Decks']           = { pos = { 1.89 + 38, 1.06, -0.06 }, rot = { 0.00, 45.01, 0.00 }, scale = { 1.00, 0.95, 1.00 } },
         ['Huge Ship Damage Decks'] = { pos = { 2.49 + 38, 1.00, -1.95 }, rot = { 0.00, 45.01, 0.00 }, scale = { 0.44, 0.42, 0.44 } },
         ['Tractor Beam']           = { pos = { -1.36 + 38, 1.06, -12.2 }, rot = { 0.00, 180.00, 0.00 }, scale = { 0.95, 0.95, 0.95 } },
@@ -73,10 +74,10 @@ do
         ['Imp AI Sheet Bag']       = { pos = { 42.00, 0.78, 35.00 }, rot = { 0.00, 0.00, 0.00 }, scale = { 1.0, 1.0, 1.0 } },
         ['Rebel AI Sheet Bag']     = { pos = { 42.00, 0.78, 27.00 }, rot = { 0.00, 0.00, 0.00 }, scale = { 1.0, 1.0, 1.0 } },
         ['Scum AI Sheet Bag']      = { pos = { 42.00, 0.78, 19.00 }, rot = { 0.00, 0.00, 0.00 }, scale = { 1.0, 1.0, 1.0 } },
-        ['Board Edge L']           = { pos = { -19.55, 0.8, 0.00 }, rot = { 0.00, 0.00, 0.00 }, scale = { 0.5, 0.5, 16.75 }, int = false },
-        ['Board Edge R']           = { pos = { 13.55, 0.8, 0.00 }, rot = { 0.00, 0.00, 0.00 }, scale = { 0.5, 0.5, 16.75 }, int = false },
-        ['Board Edge T']           = { pos = { -3.00, 0.8, 16.55 }, rot = { 0.00, 90.00, 0.00 }, scale = { 0.5, 0.5, 16.50 }, int = false },
-        ['Board Edge B']           = { pos = { -3.00, 0.8, -16.55 }, rot = { 0.00, 90.00, 0.00 }, scale = { 0.5, 0.5, 16.50 }, int = false },
+        ['Board Edge L']           = { pos = { -37.07, 0.8, 0.00 }, rot = { 0.00, 0.00, 0.00 }, scale = { 0.5, 0.5, 16.75 }, int = false },
+        ['Board Edge R']           = { pos = { 31.06, 0.80, 0.00 }, rot = { 0.00, 0.00, 0.00 }, scale = { 0.5, 0.5, 16.75 }, int = false },
+        ['Board Edge T']           = { pos = { -3, 0.8, 16.55 }, rot = { 0.00, 90.00, 0.00 }, scale = { 0.5, 0.5, 34.00 }, int = false },
+        ['Board Edge B']           = { pos = { -3, 0.8, -16.55 }, rot = { 0.00, 90.00, 0.00 }, scale = { 0.5, 0.5, 34.00 }, int = false },
         ['IN 1']                   = { pos = { 42.50, 1.0, -15.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { 0.95, 0.95, 0.95 } },
         ['IN 2']                   = { pos = { 42.50, 1.0, -13.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { 0.95, 0.95, 0.95 } },
         ['IN 3']                   = { pos = { 42.50, 1.0, -11.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { 0.95, 0.95, 0.95 } },
@@ -91,18 +92,18 @@ do
         ['Player 5 Seat']          = { pos = { 25.50, 0.97, -39.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { 3.00, 1.00, 5.00 } },
         ['Player 6 Seat']          = { pos = { 42.50, 0.97, -39.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { 3.00, 1.00, 5.00 } },
     }
-    local zonePos      = { 5, 2.5, 32 }
-    local zoneScale    = { 100, 4, 12 }
-    local assignOffset = { -5, 1, 2 }
-    local stuffCenter  = { 0, 0, 18.5 }
-    local stuffSize    = { 108, 1, 37 }
+    local zonePos         = { 5, 2.5, 32 }
+    local zoneScale       = { 100, 4, 12 }
+    local assignOffset    = { -5, 1, 2 }
+    local stuffCenter     = { 0, 0, 18.5 }
+    local stuffSize       = { 108, 1, 37 }
     local function opposite(data)
         return Vect.ScaleEach(data, { 1, 1, -1 })
     end
     local function left(data)
         return Vect.ScaleEach(data, { -1, 1, 1 })
     end
-    hotac.hands = {
+    epic_hotac.hands = {
         ['Purple'] = { pos = { 42.50, 5.00, -50.00 }, rot = { 0.00, 0.00, 0.00 }, scale = { 5.00, 5.00, 1.00 } },
         ['Green']  = { pos = { 8.50, 5.00, -50.00 }, rot = { 0.00, 0.00, 0.00 }, scale = { 5.00, 5.00, 1.00 } },
         ['Orange'] = { pos = { -25.50, 5.00, -50.00 }, rot = { 0.00, 0.00, 0.00 }, scale = { 5.00, 5.00, 1.00 } },
@@ -114,26 +115,30 @@ do
         ['Pink']   = { pos = { 80.00, 5.00, 5.00 }, rot = { 0.00, 270.00, 0.00 }, scale = { 5.00, 5.00, 1.00 } },
         ['White']  = { pos = { 80.00, 5.00, -5.00 }, rot = { 0.00, 270.00, 0.00 }, scale = { 5.00, 5.00, 1.00 } },
     }
-    hotac.mats = {
-        ['Main'] = { pos = { -3.00, 1, 0.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { 1.63, 1.20, 1.63 }, int = false },
+    epic_hotac.mats = {
+        ['Main'] = { pos = { -3.00, 1, 0.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { 3.38, 1.20, 1.63 }, int = false },
     }
-    function HotacChangeMat()
-        local mat = Layout.GetMats()[hotac.name].Main
+    function EpicChangeMat()
+        local mat = Layout.GetMats()[epic_hotac.name].Main
         mat.call('NextImage')
     end
 
-    function HotacChangeMatPrev()
-        local mat = Layout.GetMats()[hotac.name].Main
+    function EpicChangeMatPrev()
+        local mat = Layout.GetMats()[epic_hotac.name].Main
         mat.call('PrevImage')
     end
 
-    function HotacToggleRulers()
-        local mat = Layout.GetMats()[hotac.name].Main
+    function EpicToggleRulers()
+        local mat = Layout.GetMats()[epic_hotac.name].Main
         mat.call('ToggleRulers')
     end
 
     function StandardLayout()
         Layout.Switch(1)
+    end
+
+    function HotacLayout()
+        Layout.Switch(3)
     end
 
     function EpicHotacLayout()
@@ -143,23 +148,23 @@ do
     local bWidth = 2200
     local bHeight = 500
     local bFontSize = 230
-    hotac.controls = {
+    epic_hotac.controls = {
         {
             position = { 50.5, 1, 2.5 },
             rotation = { 0, 90, 0 },
-            click_function = 'HotacChangeMat',
+            click_function = 'EpicChangeMat',
             label = 'NEXT PLAYMAT'
         },
         {
             position = { 50.5, 1, -2.5 },
             rotation = { 0, 90, 0 },
-            click_function = 'HotacChangeMatPrev',
+            click_function = 'EpicChangeMatPrev',
             label = 'PREV PLAYMAT'
         },
         {
             position = { 49, 1, 0 },
             rotation = { 0, 90, 0 },
-            click_function = 'HotacToggleRulers',
+            click_function = 'EpicToggleRulers',
             label = 'TOGGLE RULERS'
         },
         {
@@ -171,13 +176,12 @@ do
         {
             position = { 52, 1, 0 },
             rotation = { 0, 90, 0 },
-            click_function = 'EpicHotacLayout',
-            label = 'EPIC HOTAC LAYOUT'
+            click_function = 'HotacLayout',
+            label = 'HotAC LAYOUT'
         },
     }
 
-
-    for _, button in ipairs(hotac.controls) do
+    for _, button in ipairs(epic_hotac.controls) do
         button.width = bWidth
         button.height = bHeight
         button.font_size = bFontSize
@@ -185,4 +189,4 @@ do
     end
 end
 
-return hotac
+return epic_hotac

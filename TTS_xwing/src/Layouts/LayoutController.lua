@@ -17,6 +17,7 @@ end
 Layout.AddLayout(require("Layouts.Standard"))
 Layout.AddLayout(require("Layouts.Epic"))
 Layout.AddLayout(require("Layouts.HotAC"))
+Layout.AddLayout(require("Layouts.Epic-HotAC"))
 
 self.setPosition({ 0, 3, 0 })
 
