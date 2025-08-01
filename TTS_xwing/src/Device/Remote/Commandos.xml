@@ -1,0 +1,30 @@
+<Defaults>
+  <Button class="ManButton" color="#BBBBBB"  width="18" height="18" active="true" rotation="0 0 90"/>
+</Defaults>
+
+<Panel id="btnPanel"
+    active="false"
+    width="100"
+    height="100"
+    position="0 0 -3"
+    rotation="180 180 90"
+    color="#aaffaa00"
+    onMouseExit="hideBtn"
+    showAnimation="Grow"
+    hideAnimation="Shrink">
+
+    <Button id="Left" class="ManButton" offsetXY="-20 -20"  onClick="relocate">
+        <Image id="LeftIcon" image="Left" preserveAspect="true"></Image>
+    </Button>
+    <Button id="Straight" class="ManButton" offsetXY="-20 0"  onClick="relocate">
+        <Image id="StraightIcon" image="Straight" preserveAspect="true"></Image>
+    </Button>
+    <Button id="Right" class="ManButton" offsetXY="-20 20" onClick="relocate">
+        <Image id="RightIcon" image="Right" preserveAspect="true"></Image>
+    </Button>
+    <Button id="Arc" class="ManButton" offsetXY="0 0" onClick="arc">
+        <Image id="ArcIcon" image="FrontArc" preserveAspect="true"></Image>
+    </Button>
+
+
+</Panel>
