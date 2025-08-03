@@ -116,7 +116,7 @@ do
         ['White']  = { pos = { 80.00, 5.00, -5.00 }, rot = { 0.00, 270.00, 0.00 }, scale = { 5.00, 5.00, 1.00 } },
     }
     epic_hotac.mats = {
-        ['Main'] = { pos = { -3.00, 1, 0.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { 3.38, 1.20, 1.63 }, int = false },
+        ['Main'] = { pos = { -3.00, 1, 0.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { 3.26, 1.20, 1.63 }, int = false },
     }
     function EpicChangeMat()
         local mat = Layout.GetMats()[epic_hotac.name].Main
