@@ -14,6 +14,7 @@ imageSet = {
     'https://i.imgur.com/X3luGQr.jpg',
     'https://i.imgur.com/hGzGwY3.jpg',
     'https://i.imgur.com/W5AuCVd.jpg',
+    'https://steamusercontent-a.akamaihd.net/ugc/16526075817900791097/B15B809BEA393E68315A24444C5061CD87139050/',
 }
 
 -- Mat flag for layouts
