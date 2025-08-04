@@ -89,10 +89,12 @@ function ToggleRulers()
   deleteAll()
   rulersState = rulersState + 1
   if rulersState == 1 then
-    spawnSet(roidPos, roidRot)
+    spawnSet(gridPos, gridRot)
   elseif rulersState == 2 then
-    spawnSet(setupPos, setupRot)
+    spawnSet(roidPos, roidRot)
   elseif rulersState == 3 then
+    spawnSet(setupPos, setupRot)
+  elseif rulersState == 4 then
     rulersState = 0
   end
 end
@@ -200,4 +202,81 @@ setupPos = {
   { 19.55,  1.00172400474548, 10.8700817108154 }, --pio
   { 3,      1.0017237663269,  12.4035499572754 },
   { 13.84,  1.00172340869904, 12.4002779006958 },
+}
+
+-- Ruler Size
+local r_sz = {
+  height = 10.83691788, thickness = 0.08344745636, width = 0.5535750389
+}
+
+-- Board Size
+local b_sz = {
+  height = 32.6000022888184, thickness = 0.0240046977996826, width = 32.6000022888184
+}
+
+local BR = { x = -b_sz.width / 2 + 3, y = 1.00, z = -b_sz.height / 2 }
+
+local halfHeight = r_sz.height / 2
+local halfWidth = r_sz.width / 2
+
+gridPos = {
+  -- Horizontal
+  { BR.x + halfHeight,                  BR.y, BR.z - halfWidth },
+  { BR.x + halfHeight,                  BR.y, BR.z + r_sz.height },
+  { BR.x + halfHeight,                  BR.y, BR.z + 2 * r_sz.height },
+  { BR.x + halfHeight,                  BR.y, BR.z + 3 * r_sz.height + halfWidth },
+
+  { BR.x + 3 * halfHeight,              BR.y, BR.z - halfWidth },
+  { BR.x + 3 * halfHeight,              BR.y, BR.z + r_sz.height },
+  { BR.x + 3 * halfHeight,              BR.y, BR.z + 2 * r_sz.height },
+  { BR.x + 3 * halfHeight,              BR.y, BR.z + 3 * r_sz.height + halfWidth },
+
+  { BR.x + 5 * halfHeight,              BR.y, BR.z - halfWidth },
+  { BR.x + 5 * halfHeight,              BR.y, BR.z + r_sz.height },
+  { BR.x + 5 * halfHeight,              BR.y, BR.z + 2 * r_sz.height },
+  { BR.x + 5 * halfHeight,              BR.y, BR.z + 3 * r_sz.height + halfWidth },
+
+  -- Vertical
+  { BR.x + 3 * r_sz.height + halfWidth, BR.y, BR.z + halfHeight },
+  { BR.x + 3 * r_sz.height + halfWidth, BR.y, BR.z + 3 * halfHeight },
+  { BR.x + 3 * r_sz.height + halfWidth, BR.y, BR.z + 5 * halfHeight },
+
+  { BR.x + 2 * r_sz.height,             BR.y, BR.z + halfHeight },
+  { BR.x + 2 * r_sz.height,             BR.y, BR.z + 3 * halfHeight },
+  { BR.x + 2 * r_sz.height,             BR.y, BR.z + 5 * halfHeight },
+
+  { BR.x + r_sz.height,                 BR.y, BR.z + halfHeight },
+  { BR.x + r_sz.height,                 BR.y, BR.z + 3 * halfHeight },
+  { BR.x + r_sz.height,                 BR.y, BR.z + 5 * halfHeight },
+
+  { BR.x - halfWidth,                   BR.y, BR.z + halfHeight },
+  { BR.x - halfWidth,                   BR.y, BR.z + 3 * halfHeight },
+  { BR.x - halfWidth,                   BR.y, BR.z + 5 * halfHeight },
+}
+
+gridRot = {
+  { 0, 0,   0 },
+  { 0, 0,   0 },
+  { 0, 0,   0 },
+  { 0, 0,   0 },
+  { 0, 0,   0 },
+  { 0, 0,   0 },
+  { 0, 0,   0 },
+  { 0, 0,   0 },
+  { 0, 0,   0 },
+  { 0, 0,   0 },
+  { 0, 0,   0 },
+  { 0, 0,   0 },
+  { 0, 270, 0 },
+  { 0, 270, 0 },
+  { 0, 270, 0 },
+  { 0, 270, 0 },
+  { 0, 270, 0 },
+  { 0, 270, 0 },
+  { 0, 270, 0 },
+  { 0, 270, 0 },
+  { 0, 270, 0 },
+  { 0, 270, 0 },
+  { 0, 270, 0 },
+  { 0, 270, 0 },
 }
