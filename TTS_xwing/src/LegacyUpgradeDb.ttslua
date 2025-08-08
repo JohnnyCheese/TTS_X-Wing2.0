@@ -1,0 +1,119 @@
+masterUpgradesDB = {}
+
+masterUpgradesDB['outrider2023'] = {
+    name = 'Outrider (2023)',
+    XWS = 'outrider2023',
+    slot = 15,
+    cost = 7,
+    restriction = { ship = { ['yt2400lightfreighter2023'] = true } }
+}
+
+masterUpgradesDB['tiedefenderelite'] = {
+    name = "TIE Defender Elite",
+    XWS = 'tiedefenderelite',
+    slot = 18,
+    cost = -8,
+    restriction = {
+        Faction = { [2] = true },
+        ship = { ['tiededefender'] = true }
+    }
+}
+
+-- RSL Salvage pack
+
+masterUpgradesDB['leebo_rsl'] = {
+    name = 'Leebo',
+    XWS = 'leebo-rsl',
+    slot = 8,
+    cost = 1,
+    limited = 1,
+    restriction = {
+        Faction = { [3] = true, [1] = true }
+    }
+}
+
+masterUpgradesDB['roilinganger_rsl'] = {
+    name = 'Roiling Anger',
+    XWS = 'roilinganger-rsl',
+    slot = 17,
+    cost = 3,
+    restriction = {
+        keywords = { 'Dark Side' }
+    }
+}
+
+masterUpgradesDB['chaffparticles_rsl'] = {
+    name = 'Chaff Particles',
+    XWS = 'chaffparticles-rsl',
+    slot = 13,
+    cost = 3,
+    Charge = 1,
+    restriction = { Size = { small = true } }
+}
+
+masterUpgradesDB['fuelinjectionoverride_rsl'] = {
+    name = 'Fuel Injection Override',
+    XWS = 'fuelinjectionoverride-rsl',
+    slot = 13,
+    cost = 2,
+    Charge = 1,
+}
+
+masterUpgradesDB['seekermissiles_rsl'] = {
+    name = 'Seeker Missiles',
+    XWS = 'seekermissiles-rsl',
+    slot = 6,
+    cost = 5,
+    limited = 2,
+    Charge = 2
+}
+
+masterUpgradesDB['contingencyprotocol_rsl'] = {
+    name = 'Contingency Protocol',
+    XWS = 'contingencyprotocol-rsl',
+    slot = 14,
+    cost = 's',
+    restriction = {
+        Faction = { [7] = true },
+        keywords = { 'Droid' },
+        equipped = { 'Tactical Relay' }
+    }
+}
+
+masterUpgradesDB['noescape_rsl'] = {
+    name = 'No Escape',
+    XWS = 'noescape-rsl',
+    slot = 1,
+    cost = 1,
+    restriction = {
+        Faction = { [2] = true },
+        ship = { ['tielnfighter'] = true }
+    }
+}
+
+masterUpgradesDB['silenthunter_rsl'] = {
+    name = 'Silent Hunter',
+    XWS = 'silenthunter-rsl',
+    slot = 1,
+    cost = 2
+}
+
+masterUpgradesDB['partinggift_rsl'] = {
+    name = 'Parting Gift',
+    XWS = 'partinggift-rsl',
+    slot = 1,
+    cost = 1
+}
+
+masterUpgradesDB['formedup_rsl'] = {
+    name = 'Formed Up',
+    XWS = 'formedup-rsl',
+    slot = 1,
+    cost = 1,
+    limited = 3,
+    restriction = {
+        ship = { ['tielnfighter'] = true }
+    }
+}
+
+return masterUpgradesDB

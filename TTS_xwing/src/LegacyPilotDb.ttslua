@@ -1,0 +1,1132 @@
+
+masterPilotDB = {}
+masterPilotDB[0] = {
+    ['name'] = '',
+    ['XWS'] = '',
+    ['Faction'] = 0,
+    ['ship_type'] = 0,
+    ['cost'] = 0,
+    ['slot'] = {},
+    ['Shield'] = 0,
+    ['card'] = '',
+    ['cardB'] = '',
+    ['init'] = 0,
+    ['actSet'] = {}
+}
+
+-- Battle of Yavin
+masterPilotDB[5000] = {
+    name = 'Darth Vader',
+    title = 'Battle of Yavin',
+    XWS = 'darthvader-battleofyavin-lsl',
+    Faction = 2,
+    ship_type = 'tieadvancedx1',
+    cost = 73,
+    slot = { 2, 6, 17 },
+    Shield = 3,
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/darthvader-battleofyavin-lsl.png',
+    init = 6,
+    Force = 3,
+    actSet = { 'F', 'TL', 'BR' },
+    keywords = { 'Dark Side', 'Sith', 'TIE' }
+}
+
+masterPilotDB[5001] = {
+    name = 'Iden Versio',
+    title = 'Battle of Yavin',
+    XWS = 'idenversio-battleofyavin-lsl',
+    Faction = 2,
+    ship_type = 'tieininterceptor',
+    cost = 64,
+    slot = { 1, 14 },
+    Shield = 1,
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/idenversio-battleofyavin-lsl.png',
+    init = 4,
+    Charge = 2,
+    actSet = { 'F', 'E', 'BR', 'B' },
+    keywords = { 'TIE' }
+}
+
+masterPilotDB[5002] = {
+    name = 'Sigma 4',
+    title = 'Battle of Yavin',
+    XWS = 'sigma4-battleofyavin-lsl',
+    Faction = 2,
+    ship_type = 'tieininterceptor',
+    cost = 40,
+    slot = { 1, 14 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/sigma4-battleofyavin-lsl.png',
+    init = 4,
+    Charge = 2,
+    actSet = { 'F', 'E', 'BR', 'B' },
+    keywords = { 'TIE' }
+}
+
+masterPilotDB[5003] = {
+    name = 'Sigma 5',
+    title = 'Battle of Yavin',
+    XWS = 'sigma5-battleofyavin-lsl',
+    Faction = 2,
+    ship_type = 'tieininterceptor',
+    cost = 41,
+    slot = { 1, 14 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/sigma5-battleofyavin-lsl.png',
+    init = 4,
+    Charge = 2,
+    actSet = { 'F', 'E', 'BR', 'B' },
+    keywords = { 'TIE' }
+}
+
+masterPilotDB[5004] = {
+    name = 'Sigma 6',
+    title = 'Battle of Yavin',
+    XWS = 'sigma6-battleofyavin-lsl',
+    Faction = 2,
+    ship_type = 'tieininterceptor',
+    cost = 41,
+    slot = { 1, 14 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/sigma6-battleofyavin-lsl.png',
+    init = 4,
+    Charge = 2,
+    actSet = { 'F', 'E', 'BR', 'B' },
+    keywords = { 'TIE' }
+}
+
+masterPilotDB[5005] = {
+    name = 'Sigma 7',
+    title = 'Battle of Yavin',
+    XWS = 'sigma7-battleofyavin-lsl',
+    Faction = 2,
+    ship_type = 'tieininterceptor',
+    cost = 43,
+    slot = { 1 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/sigma7-battleofyavin-lsl.png',
+    init = 4,
+    Charge = 2,
+    actSet = { 'F', 'E', 'BR', 'B', 'TL' },
+    keywords = { 'TIE' }
+}
+
+masterPilotDB[5006] = {
+    name = '“Backstabber”',
+    title = 'Battle of Yavin',
+    XWS = 'backstabber-battleofyavin-lsl',
+    Faction = 2,
+    ship_type = 'tielnfighter',
+    cost = 36,
+    slot = { 1 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/backstabber-battleofyavin-lsl.png',
+    init = 5,
+    actSet = { 'F', 'E', 'BR' },
+    keywords = { 'TIE' }
+}
+
+masterPilotDB[5007] = {
+    name = '“Dark Curse”',
+    title = 'Battle of Yavin',
+    XWS = 'darkcurse-battleofyavin-lsl',
+    Faction = 2,
+    ship_type = 'tielnfighter',
+    cost = 34,
+    slot = { 1 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/darkcurse-battleofyavin-lsl.png',
+    init = 6,
+    actSet = { 'F', 'E', 'BR' },
+    keywords = { 'TIE' }
+}
+
+masterPilotDB[5008] = {
+    name = '“Mauler” Mithel',
+    title = 'Battle of Yavin',
+    XWS = 'maulermithel-battleofyavin-lsl',
+    Faction = 2,
+    ship_type = 'tielnfighter',
+    cost = 36,
+    slot = { 1 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/maulermithel-battleofyavin-lsl.png',
+    init = 5,
+    actSet = { 'F', 'E', 'BR' },
+    keywords = { 'TIE' }
+}
+
+masterPilotDB[5009] = {
+    name = '“Wampa”',
+    title = 'Battle of Yavin',
+    XWS = 'wampa-battleofyavin-lsl',
+    Faction = 2,
+    ship_type = 'tielnfighter',
+    cost = 31,
+    slot = {},
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/wampa-battleofyavin-lsl.png',
+    init = 1,
+    Charge = 1,
+    actSet = { 'F', 'E', 'BR' },
+    keywords = { 'TIE' }
+}
+
+masterPilotDB[5010] = {
+    name = 'Dex Tiree',
+    title = 'Battle of Yavin',
+    XWS = 'dextiree-battleofyavin-lsl',
+    Faction = 1,
+    ship_type = 'btla4ywing',
+    cost = 31,
+    slot = { 4, 5, 10, 12, 14, 6 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/dextiree-battleofyavin-lsl.png',
+    init = 2,
+    actSet = { 'F', 'TL', 'BR' },
+    keywords = { 'Y-wing' }
+}
+
+masterPilotDB[5011] = {
+    name = '“Dutch” Vander',
+    title = 'Battle of Yavin',
+    XWS = 'dutchvander-battleofyavin-lsl',
+    Faction = 1,
+    ship_type = 'btla4ywing',
+    cost = 44,
+    slot = { 4, 5, 10, 12, 14, 6 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/dutchvander-battleofyavin-lsl.png',
+    init = 4,
+    actSet = { 'F', 'TL', 'BR' },
+    keywords = { 'Y-wing' }
+}
+
+masterPilotDB[5012] = {
+    name = 'Hol Okand',
+    title = 'Battle of Yavin',
+    XWS = 'holokand-battleofyavin-lsl',
+    Faction = 1,
+    ship_type = 'btla4ywing',
+    cost = 34,
+    slot = { 4, 5, 10, 12, 14, 6 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/holokand-battleofyavin-lsl.png',
+    init = 4,
+    actSet = { 'F', 'TL', 'BR' },
+    keywords = { 'Y-wing' }
+}
+
+masterPilotDB[5013] = {
+    name = '“Pops” Krail',
+    title = 'Battle of Yavin',
+    XWS = 'popskrail-battleofyavin-lsl',
+    Faction = 1,
+    ship_type = 'btla4ywing',
+    cost = 35,
+    slot = { 4, 5, 10, 12, 14, 6 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/popskrail-battleofyavin-lsl.png',
+    init = 4,
+    actSet = { 'F', 'TL', 'BR' },
+    keywords = { 'Y-wing' }
+}
+
+masterPilotDB[5014] = {
+    name = 'Han Solo',
+    title = 'Battle of Yavin',
+    XWS = 'hansolo-battleofyavin-lsl',
+    Faction = 1,
+    ship_type = 'modifiedyt1300lightfreighter',
+    cost = 84,
+    slot = { 1, 6, 8, 8, 14, 14, 15, 16 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/hansolo-battleofyavin-lsl.png',
+    init = 6,
+    Charge = 4,
+    actSet = { 'F', 'TL', 'B' },
+    keywords = { 'Freighter', 'YT-1300' }
+}
+
+masterPilotDB[5015] = {
+    name = 'Biggs Darklighter',
+    title = 'Battle of Yavin',
+    XWS = 'biggsdarklighter-battleofyavin-lsl',
+    Faction = 1,
+    ship_type = 't65xwing',
+    cost = 44,
+    slot = { 5, 10, 14, 18 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/biggsdarklighter-battleofyavin-lsl.png',
+    init = 3,
+    actSet = { 'F', 'TL', 'BR' },
+    keywords = { 'X-wing' }
+}
+
+masterPilotDB[5016] = {
+    name = 'Garven Dreis',
+    title = 'Battle of Yavin',
+    XWS = 'garvendreis-battleofyavin-lsl',
+    Faction = 1,
+    ship_type = 't65xwing',
+    cost = 47,
+    slot = { 5, 10, 14, 18 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/garvendreis-battleofyavin-lsl.png',
+    init = 4,
+    actSet = { 'F', 'TL', 'BR' },
+    keywords = { 'X-wing' }
+}
+
+masterPilotDB[5017] = {
+    name = 'Jek Porkins',
+    title = 'Battle of Yavin',
+    XWS = 'jekporkins-battleofyavin-lsl',
+    Faction = 1,
+    ship_type = 't65xwing',
+    cost = 42,
+    slot = { 5, 10, 14, 18 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/jekporkins-battleofyavin-lsl.png',
+    init = 4,
+    actSet = { 'F', 'TL', 'BR' },
+    keywords = { 'X-wing' }
+}
+
+masterPilotDB[5018] = {
+    name = 'Luke Skywalker',
+    title = 'Battle of Yavin',
+    XWS = 'lukeskywalker-battleofyavin-lsl',
+    Faction = 1,
+    ship_type = 't65xwing',
+    cost = 60,
+    slot = { 17, 5, 10, 14, 18 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/lukeskywalker-battleofyavin-lsl.png',
+    init = 5,
+    Force = 2,
+    actSet = { 'F', 'TL', 'BR' },
+    keywords = { 'X-wing' }
+}
+
+masterPilotDB[5019] = {
+    name = 'Wedge Antilles',
+    title = 'Battle of Yavin',
+    XWS = 'wedgeantilles-battleofyavin-lsl',
+    Faction = 1,
+    ship_type = 't65xwing',
+    cost = 49,
+    slot = { 5, 10, 14, 18 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/wedgeantilles-battleofyavin-lsl.png',
+    init = 5,
+    actSet = { 'F', 'TL', 'BR' },
+    keywords = { 'X-wing' }
+}
+
+-- Battle Over Endor
+masterPilotDB[5020] = {
+    name = 'Captain Yorr',
+    title = 'Battle Over Endor',
+    XWS = 'captainyorr-battleoverendor-lsl',
+    Faction = 2,
+    ship_type = 'tiededefender',
+    cost = 72,
+    slot = { 1, 2, 3, 6 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/captainyorr-battleoverendor-lsl.png',
+    init = 4,
+    Charge = 2,
+    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+}
+
+masterPilotDB[5021] = {
+    name = 'Colonel Jendon',
+    title = 'Battle Over Endor',
+    XWS = 'coloneljendon-battleoverendor-lsl',
+    Faction = 2,
+    ship_type = 'tiededefender',
+    cost = 80,
+    slot = { 1, 2, 3, 6 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/coloneljendon-battleoverendor-lsl.png',
+    init = 6,
+    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+}
+
+masterPilotDB[5022] = {
+    name = 'Sapphire 2',
+    title = 'Battle Over Endor',
+    XWS = 'sapphire2-battleoverendor-lsl',
+    Faction = 2,
+    ship_type = 'tieininterceptor',
+    cost = 38,
+    slot = { 14, 14 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/sapphire2-battleoverendor-lsl.png',
+    init = 1,
+    actSet = { 'F', 'E', 'BR', 'B' },
+    keywords = { 'TIE' }
+}
+
+masterPilotDB[5023] = {
+    name = 'Soontir Fel',
+    title = 'Battle Over Endor',
+    XWS = 'soontirfel-battleoverendor-lsl',
+    Faction = 2,
+    ship_type = 'tieininterceptor',
+    cost = 49,
+    slot = { 1, 14, 14 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/soontirfel-battleoverendor-lsl.png',
+    init = 6,
+    Charge = 2,
+    actSet = { 'F', 'E', 'BR', 'B' },
+    keywords = { 'TIE' }
+}
+
+masterPilotDB[5024] = {
+    name = 'Maus Monare',
+    title = 'Battle Over Endor',
+    XWS = 'mausmonare-battleoverendor-lsl',
+    Faction = 2,
+    ship_type = 'tieininterceptor',
+    cost = 42,
+    slot = { 1, 14, 14 },
+    Shield = 1,
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/mausmonare-battleoverendor-lsl.png',
+    init = 3,
+    actSet = { 'F', 'E', 'BR', 'B' },
+    keywords = { 'TIE' }
+}
+
+masterPilotDB[5025] = {
+    name = 'Lieutenant Hebsly',
+    title = 'Battle Over Endor',
+    XWS = 'lieutenanthebsly-battleoverendor-lsl',
+    Faction = 2,
+    ship_type = 'tielnfighter',
+    cost = 38,
+    slot = { 1 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/lieutenanthebsly-battleoverendor-lsl.png',
+    init = 3,
+    actSet = { 'F', 'E', 'BR', 'B' },
+    keywords = { 'TIE' }
+}
+
+masterPilotDB[5026] = {
+    name = 'Scythe 6',
+    title = 'Battle Over Endor',
+    XWS = 'scythe6-battleoverendor-lsl',
+    Faction = 2,
+    ship_type = 'tielnfighter',
+    cost = 42,
+    slot = {},
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/scythe6-battleoverendor-lsl.png',
+    init = 2,
+    actSet = { 'F', 'E', 'BR' },
+    keywords = { 'TIE' }
+}
+
+masterPilotDB[5027] = {
+    name = 'Major Mianda',
+    title = 'Battle Over Endor',
+    XWS = 'majormianda-battleoverendor-lsl',
+    Faction = 2,
+    ship_type = 'tielnfighter',
+    cost = 41,
+    slot = { 1 },
+    Shield = 1,
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/majormianda-battleoverendor-lsl.png',
+    init = 5,
+    actSet = { 'F', 'E', 'BR' },
+    keywords = { 'TIE' }
+}
+
+masterPilotDB[5028] = {
+    name = 'Scimitar 1',
+    title = 'Battle Over Endor',
+    XWS = 'scimitar1-battleoverendor-lsl',
+    Faction = 2,
+    ship_type = 'tiesabomber',
+    cost = 36,
+    slot = { 1, 5, 6, 6, 12, 12, 14, 16 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/scimitar1-battleoverendor-lsl.png',
+    init = 3,
+    Charge = 2,
+    actSet = { 'F', 'TL', 'BR' },
+    keywords = { 'TIE' }
+}
+
+masterPilotDB[5029] = {
+    name = 'Scimitar 3',
+    title = 'Battle Over Endor',
+    XWS = 'scimitar3-battleoverendor-lsl',
+    Faction = 2,
+    ship_type = 'tiesabomber',
+    cost = 34,
+    slot = { 1, 5, 6, 6, 12, 12, 14, 16 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/scimitar3-battleoverendor-lsl.png',
+    init = 4,
+    Charge = 2,
+    actSet = { 'F', 'TL', 'BR' },
+    keywords = { 'TIE' }
+}
+
+masterPilotDB[5030] = {
+    name = 'Adon Fox',
+    title = 'Battle Over Endor',
+    XWS = 'adonfox-battleoverendor-lsl',
+    Faction = 1,
+    ship_type = 'asf01bwing',
+    cost = 46,
+    slot = { 2, 3, 3, 5, 14, 15, 18 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/adonfox-battleoverendor-lsl.png',
+    init = 1,
+    Charge = 2,
+    actSet = { 'F', 'TL', 'BR' },
+    keywords = { 'B-wing' }
+}
+
+masterPilotDB[5031] = {
+    name = 'Gina Moonsong',
+    title = 'Battle Over Endor',
+    XWS = 'ginamoonsong-battleoverendor-lsl',
+    Faction = 1,
+    ship_type = 'asf01bwing',
+    cost = 55,
+    slot = { 1, 2, 3, 3, 5, 15, 18 },
+    Shield = 5,
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/ginamoonsong-battleoverendor-lsl.png',
+    init = 5,
+    Charge = 2,
+    actSet = { 'F', 'TL', 'BR' },
+    keywords = { 'B-wing' }
+}
+
+masterPilotDB[5032] = {
+    name = 'Braylen Stramm',
+    title = 'Battle Over Endor',
+    XWS = 'braylenstramm-battleoverendor-lsl',
+    Faction = 1,
+    ship_type = 'asf01bwing',
+    cost = 53,
+    slot = { 1, 2, 3, 3, 5, 15, 18 },
+    Shield = 5,
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/braylenstramm-battleoverendor-lsl.png',
+    init = 4,
+    Charge = 2,
+    actSet = { 'F', 'TL', 'BR' },
+    keywords = { 'B-wing' }
+}
+
+masterPilotDB[5033] = {
+    name = 'Lando Calrissian',
+    title = 'Battle Over Endor',
+    XWS = 'landocalrissian-battleoverendor-lsl',
+    Faction = 1,
+    ship_type = 'modifiedyt1300lightfreighter',
+    cost = 75,
+    slot = { 1, 6, 8, 8, 14, 14, 15, 16 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/landocalrissian-battleoverendor-lsl.png',
+    init = 5,
+    Charge = 2,
+    actSet = { 'F', 'TL', 'E', 'B', 'Rot' },
+    keywords = { 'Freighter', 'YT-1300' }
+}
+
+masterPilotDB[5034] = {
+    name = 'Arvel Crynyd',
+    title = 'Battle Over Endor',
+    XWS = 'arvelcrynyd-battleoverendor-lsl',
+    Faction = 1,
+    ship_type = 'rz1awing',
+    cost = 38,
+    slot = { 1, 1, 6 },
+    Shield = 3,
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/arvelcrynyd-battleoverendor-lsl.png',
+    init = 3,
+    actSet = { 'F', 'TL', 'E', 'BR', 'B' },
+    keywords = { 'A-wing' }
+}
+
+masterPilotDB[5035] = {
+    name = 'Tycho Celchu',
+    title = 'Battle Over Endor',
+    XWS = 'tychocelchu-battleoverendor-lsl',
+    Faction = 1,
+    ship_type = 'rz1awing',
+    cost = 41,
+    slot = { 1, 1, 6 },
+    Shield = 3,
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/tychocelchu-battleoverendor-lsl.png',
+    init = 5,
+    actSet = { 'F', 'TL', 'E', 'BR', 'B' },
+    keywords = { 'A-wing' }
+}
+
+masterPilotDB[5036] = {
+    name = 'Gemmer Sojan',
+    title = 'Battle Over Endor',
+    XWS = 'gemmersojan-battleoverendor-lsl',
+    Faction = 1,
+    ship_type = 'rz1awing',
+    cost = 33,
+    slot = { 1, 6 },
+    Shield = 2,
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/gemmersojan-battleoverendor-lsl.png',
+    init = 2,
+    actSet = { 'F', 'TL', 'E', 'BR', 'B' },
+    keywords = { 'A-wing' }
+}
+
+masterPilotDB[5037] = {
+    name = 'Wedge Antilles',
+    title = 'Battle Over Endor',
+    XWS = 'wedgeantilles-battleoverendor-lsl',
+    Faction = 1,
+    ship_type = 't70xwing',
+    cost = 55,
+    slot = { 1, 5, 10 },
+    Shield = 3,
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/wedgeantilles-battleoverendor-lsl.png',
+    init = 6,
+    actSet = { 'F', 'TL', 'BR', 'B' },
+    keywords = { 'X-wing' }
+}
+
+masterPilotDB[5038] = {
+    name = 'Yendor',
+    title = 'Battle Over Endor',
+    XWS = 'yendor-battleoverendor-lsl',
+    Faction = 1,
+    ship_type = 't70xwing',
+    cost = 50,
+    slot = { 1, 5, 10, 14 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/yendor-battleoverendor-lsl.png',
+    init = 5,
+    actSet = { 'F', 'TL', 'BR', 'B' },
+    keywords = { 'X-wing' }
+}
+
+masterPilotDB[5039] = {
+    name = 'Kendy Idele',
+    title = 'Battle Over Endor',
+    XWS = 'kendyidele-battleoverendor-lsl',
+    Faction = 1,
+    ship_type = 't70xwing',
+    cost = 48,
+    slot = { 1, 5, 10, 14 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/kendyidele-battleoverendor-lsl.png',
+    init = 4,
+    actSet = { 'F', 'TL', 'BR', 'B' },
+    keywords = { 'X-wing' }
+}
+
+-- TIE/sa expansion pack
+masterPilotDB[5040] = {
+    name = '“Deathfire”',
+    title = 'Obstinate Bombardier',
+    XWS = 'deathfire-swz98-lsl',
+    Faction = 2,
+    ship_type = 'tiesabomber',
+    cost = 33,
+    slot = { 5, 6, 6, 12, 12, 14, 16 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/deathfire-swz98-lsl.png',
+    init = 2,
+    Charge = 2,
+    actSet = { 'F', 'TL', 'BR' },
+    keywords = { 'TIE' }
+}
+
+masterPilotDB[5041] = {
+    name = 'Captain Jonus',
+    title = 'Top Cover',
+    XWS = 'captainjonus-swz98-lsl',
+    Faction = 2,
+    ship_type = 'tiesabomber',
+    cost = 36,
+    slot = { 1, 5, 6, 6, 12, 12, 14, 16 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/captainjonus-swz98-lsl.png',
+    init = 4,
+    actSet = { 'F', 'TL', 'BR' },
+    keywords = { 'TIE' }
+}
+
+masterPilotDB[5042] = {
+    name = 'Tomax Bren',
+    title = 'Scimitar Veteran',
+    XWS = 'tomaxbren-swz98-lsl',
+    Faction = 2,
+    ship_type = 'tiesabomber',
+    cost = 38,
+    slot = { 1, 5, 6, 6, 12, 12, 14, 16 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/tomaxbren-swz98-lsl.png',
+    init = 5,
+    Charge = 2,
+    actSet = { 'F', 'TL', 'BR' },
+    keywords = { 'TIE' }
+}
+
+masterPilotDB[5043] = {
+    name = 'Major Rhymer',
+    title = 'Precision Destruction',
+    XWS = 'majorrhymer-swz98-lsl',
+    Faction = 2,
+    ship_type = 'tiesabomber',
+    cost = 33,
+    slot = { 1, 5, 6, 6, 12, 12, 14, 16 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/majorrhymer-swz98-lsl.png',
+    init = 4,
+    actSet = { 'F', 'TL', 'BR' },
+    keywords = { 'TIE' }
+}
+
+-- Siege of Coruscant
+masterPilotDB[5044] = {
+    name = '“Odd Ball”',
+    title = 'Siege of Coruscant',
+    XWS = 'oddball-siegeofcoruscant-lsl',
+    Faction = 6,
+    ship_type = 'arc170starfighter',
+    cost = 50,
+    slot = { 1, 5, 8, 10, 16 },
+    Shield = 4,
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/oddball-siegeofcoruscant-lsl.png',
+    init = 5,
+    actSet = { 'F', 'TL', 'BR' },
+    keywords = { 'Clone' }
+}
+
+masterPilotDB[5045] = {
+    name = '“Wolffe”',
+    title = 'Siege of Coruscant',
+    XWS = 'wolffe-siegeofcoruscant-lsl',
+    Faction = 6,
+    ship_type = 'arc170starfighter',
+    cost = 50,
+    slot = { 1, 5, 8, 10, 14, 16 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/wolffe-siegeofcoruscant-lsl.png',
+    init = 4,
+    Charge = 1,
+    actSet = { 'F', 'TL', 'BR' },
+    keywords = { 'Clone' }
+}
+
+masterPilotDB[5046] = {
+    name = '“Jag”',
+    title = 'Siege of Coruscant',
+    XWS = 'jag-siegeofcoruscant-lsl',
+    Faction = 6,
+    ship_type = 'arc170starfighter',
+    cost = 47,
+    slot = { 5, 8, 10, 14, 16 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/jag-siegeofcoruscant-lsl.png',
+    init = 3,
+    actSet = { 'F', 'TL', 'BR' },
+    keywords = { 'Clone' }
+}
+
+masterPilotDB[5047] = {
+    name = 'Anakin Skywalker',
+    title = 'Siege of Coruscant',
+    XWS = 'anakinskywalker-siegeofcoruscant-lsl',
+    Faction = 6,
+    ship_type = 'delta7aethersprite',
+    cost = 51,
+    slot = { 1, 17, 10, 14 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/anakinskywalker-siegeofcoruscant-lsl.png',
+    init = 6,
+    Force = 3,
+    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    keywords = { 'Dark Side', 'Jedi', 'Light Side' }
+}
+
+masterPilotDB[5048] = {
+    name = 'Obi-Wan Kenobi',
+    title = 'Siege of Coruscant',
+    XWS = 'obiwankenobi-siegeofcoruscant-lsl',
+    Faction = 6,
+    ship_type = 'delta7aethersprite',
+    cost = 47,
+    slot = { 1, 17, 10, 14 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/obiwankenobi-siegeofcoruscant-lsl.png',
+    init = 5,
+    Force = 3,
+    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    keywords = { 'Jedi', 'Light Side' }
+}
+
+masterPilotDB[5049] = {
+    name = 'Shaak Ti',
+    title = 'Siege of Coruscant',
+    XWS = 'shaakti-siegeofcoruscant-lsl',
+    Faction = 6,
+    ship_type = 'delta7aethersprite',
+    cost = 42,
+    slot = { 1, 17, 10, 14 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/shaakti-siegeofcoruscant-lsl.png',
+    init = 4,
+    Force = 2,
+    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    keywords = { 'Jedi', 'Light Side' }
+}
+
+masterPilotDB[5050] = {
+    name = '“Klick”',
+    title = 'Siege of Coruscant',
+    XWS = 'klick-siegeofcoruscant-lsl',
+    Faction = 6,
+    ship_type = 'nimbusclassvwing',
+    cost = 36,
+    slot = { 1, 10, 14, 18 },
+    Shield = 3,
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/klick-siegeofcoruscant-lsl.png',
+    init = 4,
+    Charge = 1,
+    actSet = { 'F', 'TL', 'BR', 'B' },
+    keywords = { 'Clone', 'TIE' }
+}
+
+masterPilotDB[5051] = {
+    name = '“Contrail”',
+    title = 'Siege of Coruscant',
+    XWS = 'contrail-siegeofcoruscant-lsl',
+    Faction = 6,
+    ship_type = 'nimbusclassvwing',
+    cost = 32,
+    slot = { 1, 10, 14, 18 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/contrail-siegeofcoruscant-lsl.png',
+    init = 5,
+    actSet = { 'F', 'TL', 'BR', 'B' },
+    keywords = { 'Clone', 'TIE' }
+}
+
+masterPilotDB[5052] = {
+    name = '“Kickback”',
+    title = 'Siege of Coruscant',
+    XWS = 'kickback-siegeofcoruscant-lsl',
+    Faction = 6,
+    ship_type = 'v19torrentstarfighter',
+    cost = 32,
+    slot = { 1, 6 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/kickback-siegeofcoruscant-lsl.png',
+    init = 5,
+    actSet = { 'F', 'E', 'TL', 'BR' },
+    keywords = { 'Clone' }
+}
+
+masterPilotDB[5053] = {
+    name = '“Axe”',
+    title = 'Siege of Coruscant',
+    XWS = 'axe-siegeofcoruscant-lsl',
+    Faction = 6,
+    ship_type = 'v19torrentstarfighter',
+    cost = 30,
+    slot = { 1, 6 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/axe-siegeofcoruscant-lsl.png',
+    init = 3,
+    actSet = { 'F', 'E', 'TL', 'BR' },
+    keywords = { 'Clone' }
+}
+
+masterPilotDB[5054] = {
+    name = 'DIS-347',
+    title = 'Siege of Coruscant',
+    XWS = 'dis347-siegeofcoruscant-lsl',
+    Faction = 7,
+    ship_type = 'droidtrifighter',
+    cost = 36,
+    slot = { 1, 2, 6, 14, 18 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/dis347-siegeofcoruscant-lsl.png',
+    init = 3,
+    actSet = { 'C', 'E', 'TL', 'BR', 'B' },
+    keywords = { 'Droid' }
+}
+
+masterPilotDB[5055] = {
+    name = 'DIS-T81',
+    title = 'Siege of Coruscant',
+    XWS = 'dist81-siegeofcoruscant-lsl',
+    Faction = 7,
+    ship_type = 'droidtrifighter',
+    cost = 38,
+    slot = { 1, 2, 6, 14, 18 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/dist81-siegeofcoruscant-lsl.png',
+    init = 4,
+    actSet = { 'C', 'E', 'TL', 'BR', 'B' },
+    keywords = { 'Droid' }
+}
+
+masterPilotDB[5056] = {
+    name = 'Phlac-Arphocc Prototype',
+    title = 'Siege of Coruscant',
+    XWS = 'phlacarphoccprototype-siegeofcoruscant-lsl',
+    Faction = 7,
+    ship_type = 'droidtrifighter',
+    cost = 41,
+    slot = { 1, 2, 6, 14, 18 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/phlacarphoccprototype-siegeofcoruscant-lsl.png',
+    init = 5,
+    actSet = { 'C', 'E', 'TL', 'BR', 'B' },
+    keywords = { 'Droid' }
+}
+
+masterPilotDB[5057] = {
+    name = 'DBS-32C',
+    title = 'Siege of Coruscant',
+    XWS = 'dbs32c-siegeofcoruscant-lsl',
+    Faction = 7,
+    ship_type = 'hyenaclassdroidbomber',
+    cost = 30,
+    slot = { 2, 20, 14, 18 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/dbs32c-siegeofcoruscant-lsl.png',
+    init = 3,
+    Charge = 2,
+    actSet = { 'C', 'TL', 'BR' },
+    keywords = { 'Droid' }
+}
+
+masterPilotDB[5058] = {
+    name = 'DBS-404',
+    title = 'Siege of Coruscant',
+    XWS = 'dbs404-siegeofcoruscant-lsl',
+    Faction = 7,
+    ship_type = 'hyenaclassdroidbomber',
+    cost = 30,
+    slot = { 5, 6, 12, 14, 18 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/dbs404-siegeofcoruscant-lsl.png',
+    init = 4,
+    actSet = { 'C', 'TL', 'BR' },
+    keywords = { 'Droid' }
+}
+
+masterPilotDB[5059] = {
+    name = 'Baktoid Prototype',
+    title = 'Siege of Coruscant',
+    XWS = 'baktoidprototype-siegeofcoruscant-lsl',
+    Faction = 7,
+    ship_type = 'hyenaclassdroidbomber',
+    cost = 25,
+    slot = { 2, 6, 6, 14, 18 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/baktoidprototype-siegeofcoruscant-lsl.png',
+    init = 1,
+    actSet = { 'C', 'TL', 'BR' },
+    keywords = { 'Droid' }
+}
+
+masterPilotDB[5060] = {
+    name = 'Count Dooku',
+    title = 'Siege of Coruscant',
+    XWS = 'countdooku-siegeofcoruscant-lsl',
+    Faction = 7,
+    ship_type = 'sithinfiltrator',
+    cost = 64,
+    slot = { 3, 5, 8, 8, 12, 14, 15, 17, 20 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/countdooku-siegeofcoruscant-lsl.png',
+    init = 5,
+    Force = 3,
+    actSet = { 'F', 'TL', 'BR', 'CL' },
+    keywords = { 'Dark Side', 'Sith' }
+}
+
+masterPilotDB[5061] = {
+    name = 'DFS-081',
+    title = 'Siege of Coruscant',
+    XWS = 'dfs081-siegeofcoruscant-lsl',
+    Faction = 7,
+    ship_type = 'vultureclassdroidfighter',
+    cost = 23,
+    slot = { 6, 14, 18 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/dfs081-siegeofcoruscant-lsl.png',
+    init = 3,
+    Charge = 2,
+    actSet = { 'C', 'BR', 'TL' },
+    keywords = { 'Droid' }
+}
+
+masterPilotDB[5062] = {
+    name = 'DFS-311',
+    title = 'Siege of Coruscant',
+    XWS = 'dfs311-siegeofcoruscant-lsl',
+    Faction = 7,
+    ship_type = 'vultureclassdroidfighter',
+    cost = 23,
+    slot = { 6, 14, 18 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/dfs311-siegeofcoruscant-lsl.png',
+    init = 1,
+    actSet = { 'C', 'BR', 'TL' },
+    keywords = { 'Droid' }
+}
+
+masterPilotDB[5063] = {
+    name = 'Haor Chall Prototype',
+    title = 'Siege of Coruscant',
+    XWS = 'haorchallprototype-siegeofcoruscant-lsl',
+    Faction = 7,
+    ship_type = 'vultureclassdroidfighter',
+    cost = 22,
+    slot = { 6, 14, 18 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/haorchallprototype-siegeofcoruscant-lsl.png',
+    init = 1,
+    actSet = { 'C', 'BR', 'TL' },
+    keywords = { 'Droid' }
+}
+
+-- YT-2400 (2018)
+masterPilotDB[5064] = {
+    name = '“Leebo”',
+    title = 'Dry-Witted Droid',
+    XWS = 'leebo',
+    Faction = 1,
+    ship_type = 'yt2400lightfreighter',
+    cost = 75,
+    slot = { 1, 6, 13, 13, 14, 15 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/leebo.png',
+    init = 3,
+    actSet = { 'C', 'TL', 'BR', 'Rot' },
+    keywords = { 'Droid', 'Freighter' }
+}
+
+masterPilotDB[5065] = {
+    name = 'Dash Rendar',
+    title = 'Hotshot Mercenary',
+    XWS = 'dashrendar',
+    Faction = 1,
+    ship_type = 'yt2400lightfreighter',
+    cost = 83,
+    slot = { 1, 6, 8, 8, 13, 14, 15 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/dashrendar.png',
+    init = 5,
+    actSet = { 'F', 'TL', 'BR', 'Rot' },
+    keywords = { 'Freighter' }
+}
+
+masterPilotDB[5066] = {
+    name = 'Wild Space Fringer',
+    XWS = 'wildspacefringer',
+    Faction = 1,
+    ship_type = 'yt2400lightfreighter',
+    cost = 69,
+    slot = { 6, 8, 8, 13, 14, 15 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/wildspacefringer.png',
+    init = 1,
+    actSet = { 'F', 'TL', 'BR', 'Rot' },
+    keywords = { 'Freighter' }
+}
+
+-- YT-2400 (2023)
+masterPilotDB[5067] = {
+    name = 'Dash Rendar',
+    title = 'Freighter for Hire',
+    XWS = 'dashrendar-swz103-rebelalliance',
+    Faction = 1,
+    ship_type = 'yt2400lightfreighter2023',
+    cost = 77,
+    slot = { 1, 6, 8, 8, 13, 14, 15 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/dashrendar-swz103-rebelalliance.png',
+    init = 5,
+    actSet = { 'F', 'TL', 'BR', 'Rot' },
+    keywords = { 'Freighter' }
+}
+
+masterPilotDB[5068] = {
+    name = 'Dash Rendar',
+    title = 'In it for Himself',
+    XWS = 'dashrendar-swz103-lsl-rebelalliance',
+    Faction = 1,
+    ship_type = 'yt2400lightfreighter2023',
+    cost = 74,
+    slot = { 1, 6, 8, 8, 13, 14, 15 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/dashrendar-swz103-lsl-rebelalliance.png',
+    init = 5,
+    actSet = { 'F', 'TL', 'BR', 'Rot' },
+    keywords = { 'Droid', 'Freighter' }
+}
+
+masterPilotDB[5069] = {
+    name = '“Leebo”',
+    title = 'Wisdom of Ages',
+    XWS = 'leebo-swz103-rebelalliance',
+    Faction = 1,
+    ship_type = 'yt2400lightfreighter2023',
+    cost = 71,
+    slot = { 1, 6, 13, 13, 14, 15 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/leebo-swz103-rebelalliance.png',
+    init = 3,
+    actSet = { 'C', 'TL', 'BR', 'Rot' },
+    keywords = { 'Droid', 'Freighter' }
+}
+
+masterPilotDB[5070] = {
+    name = '“Leebo”',
+    title = 'He Thinks He\'s Funny',
+    XWS = 'leebo-swz103-lsl-rebelalliance',
+    Faction = 1,
+    ship_type = 'yt2400lightfreighter2023',
+    cost = 69,
+    slot = { 1, 8, 6, 13, 14, 15 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/leebo-swz103-lsl-rebelalliance.png',
+    init = 3,
+    actSet = { 'C', 'TL', 'BR', 'Rot' },
+    keywords = { 'Droid', 'Freighter' }
+}
+
+masterPilotDB[5071] = {
+    name = 'Dash Rendar',
+    title = 'In it for Himself',
+    XWS = 'dashrendar-swz103-lsl-scumandvillainy',
+    Faction = 3,
+    ship_type = 'yt2400lightfreighter2023',
+    cost = 74,
+    slot = { 1, 6, 8, 8, 13, 14, 15 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/dashrendar-swz103-lsl-scumandvillainy.png',
+    init = 5,
+    actSet = { 'F', 'TL', 'BR', 'Rot' },
+    keywords = { 'Droid', 'Freighter' }
+}
+
+masterPilotDB[5072] = {
+    name = '“Leebo”',
+    title = 'He Thinks He\'s Funny',
+    XWS = 'leebo-swz103-lsl-scumandvillainy',
+    Faction = 3,
+    ship_type = 'yt2400lightfreighter2023',
+    cost = 69,
+    slot = { 1, 8, 6, 13, 14, 15 },
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/leebo-swz103-lsl-scumandvillainy.png',
+    init = 3,
+    actSet = { 'C', 'TL', 'BR', 'Rot' },
+    keywords = { 'Droid', 'Freighter' }
+}
+
+-- Standard Loadout Pilots from YT-2400 (2023)
+masterPilotDB[5073] = {
+    name = 'Dash Rendar',
+    XWS = 'dashrendar-swz103-sl-rebelalliance',
+    Faction = 1,
+    ship_type = 'yt2400lightfreighter2023',
+    cost = 90,
+    init = 5,
+    standardized_loadout = true,
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/dashrendar-swz103-sl-rebelalliance.png',
+    actSet = {'F', 'TL', 'BR', 'Rot'},
+    keywords = {'Droid', 'Freighter'}
+}
+
+masterPilotDB[5074] = {
+    name = '“Leebo”',
+    XWS = 'leebo-swz103-sl-rebelalliance',
+    Faction = 1,
+    ship_type = 'yt2400lightfreighter2023',
+    cost = 83,
+    init = 3,
+    standardized_loadout = true,
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/leebo-swz103-sl-rebelalliance.png',
+    actSet = {'C', 'TL', 'BR', 'Rot'},
+    keywords = {'Droid', 'Freighter'}
+}
+
+masterPilotDB[5075] = {
+    name = 'Dash Rendar',
+    XWS = 'dashrendar-swz103-sl-scumandvillainy',
+    Faction = 3,
+    ship_type = 'yt2400lightfreighter2023',
+    cost = 88,
+    init = 5,
+    standardized_loadout = true,
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/dashrendar-swz103-sl-scumandvillainy.png',
+    actSet = {'F', 'TL', 'BR', 'Rot'},
+    keywords = {'Droid', 'Freighter'}
+}
+
+masterPilotDB[5076] = {
+    name = '“Leebo”',
+    XWS = 'leebo-swz103-sl-scumandvillainy',
+    Faction = 3,
+    ship_type = 'yt2400lightfreighter2023',
+    cost = 83,
+    init = 3,
+    standardized_loadout = true,
+    card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/leebo-swz103-sl-scumandvillainy.png',
+    actSet = {'C', 'TL', 'BR', 'Rot'},
+    keywords = {'Droid', 'Freighter'}
+}
