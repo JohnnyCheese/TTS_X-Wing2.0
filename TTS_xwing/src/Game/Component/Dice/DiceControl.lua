@@ -113,7 +113,7 @@ DiceControlModule.dice_types = {
     },
     Scenario = {
         color = "[7777FF]",
-        result_order = { "Scramble the transmissions", "Assault at the satelite array", "Chance engagement", "Salvage mission" }
+        result_order = { "Scramble the transmissions", "Assault at the satellite array", "Chance engagement", "Salvage mission", "Ancient knowledge" }
     },
     Default = {
         color = "[777777]"
