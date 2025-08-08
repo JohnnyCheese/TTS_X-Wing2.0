@@ -1,70 +1,56 @@
---[[────────────────────────────────────────────────────────────────────────────
-    LuaUnit Bootstrap for TTS
-    Thin bootstrap that loads upstream LuaUnit, installs the TTS‑specific
-    environment stubs and wires in our multi‑destination output module.
-────────────────────────────────────────────────────────────────────────────]] --
+--- @module luaunit_tts
+-- Bootstrap for the TTS LuaUnit port: loads core runner, env shim, multi-output,
+-- auto-inits on require, and wraps all entry points in coroutines by name.
 
--- luaunit_tts.lua
--- Thin bootstrap that loads upstream LuaUnit, installs the TTS‑specific
--- environment stubs and wires in our multi‑destination output module.
---
---  Usage inside an object script:
---    local lu = require("Test.luaunit_tts")
---    lu.LuaUnit.hostObject = self                 -- optional (for ChatOutput colour grid)
---    -- optionally tweak sinks / verbosity:
---    lu.configureOutput{
---        chat = { enabled=true,  verbosity=lu.VERBOSITY_VERBOSE },
---        log  = { enabled=false, verbosity=lu.VERBOSITY_LOW     }
---    }
---    lu.LuaUnit:run()
---
---  The returned value *is* the upstream LuaUnit table so all standard
---  API calls remain unchanged.
+local lu = require("Test.luaunit")
+require("Test.luaunit_tts_env")
+local TTSOutput = require("Test.luaunit_tts_output")
+TTSOutput.currentRunner = nil
 
----------------------------------------------------------------
--- 1  Upstream LuaUnit + TTS environment shim
----------------------------------------------------------------
-local lu = require("Test.luaunit") -- upstream distribution (cached once)
-require("Test.luaunit_tts_env")    -- os/print/io stubs for MoonSharp / TTS
-
--- Automatically run all test entrypoints in a coroutine if hostObject is set
-_G.__luaunit_runner_instance = nil
-_G.__luaunit_runner_method = nil
-_G.__luaunit_runner_args = nil
-
-function __runLuaUnitCoroutine()
-    local instance = _G.__luaunit_runner_instance
-    local method = _G.__luaunit_runner_method
-    local args = _G.__luaunit_runner_args or {}
-    method(instance, table.unpack(args))
-    return 1
+--- Initialize the TTS LuaUnit port.
+--- @param scriptOwner :LuaGameObjectScript  drives coroutines & chat/log output
+--- @param gridOwner   :LuaGameObjectScript? where the Grid UI attaches
+function lu.init(scriptOwner, gridOwner)
+    assert(scriptOwner, "luaunit_tts.init: scriptOwner is required")
+    lu.LuaUnit.scriptOwner = scriptOwner
+    TTSOutput.gridOwner = gridOwner or scriptOwner
+    lu.LuaUnit.outputType = TTSOutput
 end
 
-local function wrapInCoroutine(method)
-    return function(self, ...)
-        if self.hostObject then
-            _G.__luaunit_runner_instance = self
-            _G.__luaunit_runner_method = method
-            _G.__luaunit_runner_args = { ... }
-            startLuaCoroutine(self.hostObject, "__runLuaUnitCoroutine")
-            return
+-- Auto‐initialize when required inside a TTS object script
+local _self = rawget(_G, "self")
+if _self then
+    lu.init(_self)
+end
+
+-- Wrap all core runner methods so they execute inside a named TTS coroutine.
+local function wrapWithCoroutine(methodName)
+    local orig = lu.LuaUnit[methodName]
+    lu.LuaUnit[methodName] = function(self, ...)
+        assert(self.scriptOwner,
+                "luaunit_tts: call luaunit_tts.init(self[, gridOwner]) in onLoad")
+        local args = { ... }
+        local coroName = "__luaunit_" .. methodName .. "_coro"
+        TTSOutput.currentRunner = self
+        
+        _G[coroName] = function()
+            orig(self, table.unpack(args))
+            return 1
         end
-        return method(self, ...)
+        
+        startLuaCoroutine(self.scriptOwner, coroName)
     end
 end
 
--- Wrap all runner methods that might update the UI
-lu.LuaUnit.run = wrapInCoroutine(lu.LuaUnit.run)
-lu.LuaUnit.runSuite = wrapInCoroutine(lu.LuaUnit.runSuite)
-lu.LuaUnit.runSuiteByNames = wrapInCoroutine(lu.LuaUnit.runSuiteByNames)
-lu.LuaUnit.runSuiteByInstances = wrapInCoroutine(lu.LuaUnit.runSuiteByInstances)
+local methods = { "run", "runSuite", "runSuiteByNames", "runSuiteByInstances" }
+for _, method in ipairs(methods) do
+    wrapWithCoroutine(method)
+end
 
----------------------------------------------------------------
--- 2  Install composite‑output for TTS
----------------------------------------------------------------
-lu.LuaUnit.outputType = require("Test.luaunit_tts_output")
+--- Yield the test coroutine until a condition is met
+--- @param conditionFunc function():boolean
+function lu.await(conditionFunc)
+    return coroutine.yield(conditionFunc)
+end
 
----------------------------------------------------------------
--- 3  Expose for require() callers
----------------------------------------------------------------
 return lu

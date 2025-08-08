@@ -566,61 +566,48 @@ local function prettystr(v)
 end
 M.prettystr = prettystr
 
--- Prepend a comma and space to iter_msg if it exists
-function M.adjust_err_msg_with_iter(err, iter_msg)
-    --[[ Adjust the error message err_msg: trim the FAILURE_PREFIX or SUCCESS_PREFIX information if needed,
-    add the iteration message if any and return the result.
+function M.adjust_err_msg_with_iter(err_or_obj, iter_msg)
+    local msg = (type(err_or_obj) == 'table' and err_or_obj.msg) or err_or_obj
+    iter_msg  = iter_msg and (iter_msg .. ', ') or ''
+    if type(msg) ~= 'string' then msg = prettystr(msg) end
 
-    err_msg:  string, error message captured with pcall
-    iter_msg: a string describing the current iteration ("iteration N") or nil
-              if there is no iteration in this test.
-
-    Returns: (new_err_msg, test_status)
-        new_err_msg: string, adjusted error message, or nil in case of success
-        test_status: M.NodeStatus.FAIL, SUCCESS or ERROR according to the information
-                     contained in the error message.
-    ]]
-    if iter_msg then
-        iter_msg = iter_msg .. ', '
-    else
-        iter_msg = ''
+    local function isTTSHeader(s)                 -- Global:(…)  or  Name - guid:(…)
+        return s:match(':%(%d+,%d+%-%d+%):') ~= nil
+    end
+    local function spliceFail(keepHeader)
+        if keepHeader then
+            local p = msg:find(M.FAILURE_PREFIX, 1, true)
+            local head = msg:sub(1, p - 1)
+            return head .. iter_msg .. msg:sub(p + #M.FAILURE_PREFIX)
+        else
+            return iter_msg .. msg:sub(msg:find(M.FAILURE_PREFIX, 1, true) + #M.FAILURE_PREFIX)
+        end
     end
 
-    -- Ensure err.msg is a string
-    if type(err.msg) ~= 'string' then
-        err.msg = prettystr(err.msg)
-    end
-
-    local msg = err.msg
-
-    -- Check for prefixes using plain text matching with string.find
     if msg:find(M.SUCCESS_PREFIX, 1, true) then
         return nil, M.NodeStatus.SUCCESS
-    elseif msg:find(M.SKIP_PREFIX, 1, true) then
-        local pos = msg:find(M.SKIP_PREFIX, 1, true)
-        if pos then
-            -- Extract the part after the prefix and prepend iter_msg
-            msg = iter_msg .. msg:sub(pos + #M.SKIP_PREFIX)
-        else
-            msg = iter_msg .. msg
-        end
-        return msg, M.NodeStatus.SKIP
-    elseif msg:find(M.FAILURE_PREFIX, 1, true) then
-        local pos = msg:find(M.FAILURE_PREFIX, 1, true)
-        if pos then
-            -- Extract the part after the prefix and prepend iter_msg
-            msg = iter_msg .. msg:sub(pos + #M.FAILURE_PREFIX)
-        else
-            msg = iter_msg .. msg
-        end
-        return msg, M.NodeStatus.FAIL
-    else
-        -- Regular error: simply prepend iter_msg
-        if iter_msg then
-            msg = iter_msg .. msg
-        end
-        return msg, M.NodeStatus.ERROR
     end
+
+    if msg:find(M.SKIP_PREFIX, 1, true) then
+        -- Upstream reference outputs expect no file/line before the skip reason.
+        msg = msg:gsub('.*' .. M.SKIP_PREFIX, iter_msg, 1)
+        return msg, M.NodeStatus.SKIP
+    end
+
+    if msg:find(M.FAILURE_PREFIX, 1, true) then
+        msg = spliceFail(not isTTSHeader(msg))
+        return msg, M.NodeStatus.FAIL
+    end
+
+    if iter_msg ~= '' then
+        local head = msg:match('^(.-:%d+:%s?)')
+        if head then
+            msg = msg:gsub(head, head .. iter_msg, 1)
+        else
+            msg = iter_msg .. msg
+        end
+    end
+    return msg, M.NodeStatus.ERROR
 end
 
 local function tryMismatchFormatting(table_a, table_b, doDeepAnalysis, margin)
@@ -3020,7 +3007,6 @@ function M.LuaUnit:protectedCall(classInstance, methodInstance, prettyFuncName)
             status = NodeStatus.ERROR,
             msg = e,
             trace = string.sub(debug.traceback("", 1), 2)
-            -- trace = ""
         }
         return err
     end

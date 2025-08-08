@@ -74,10 +74,10 @@ local StarForge = {
 }
 
 local bagGuids = {
-    'a3690e', -- Extra Assets 15 items
-    '203cb8', -- ObstacleBag 31 items
-    'f0e7b9', -- Dice Bag 10 items
-    '53ad3d', -- Accessories 81 items
+    ['ExtraAssets'] = 'a3690e', -- Extra Assets 15 items
+    ['Obstacles']   = '203cb8', -- ObstacleBag 31 items
+    ['DiceBag']     = 'f0e7b9', -- Dice Bag 10 items
+    ['Accessories'] = '53ad3d', -- Accessories 81 items
 }
 
 local layoutController_GUID = "b3992e"
@@ -388,7 +388,7 @@ function whatsInTheBag(mixedBag)
     return names
 end
 
-function emptyBag()
+function dumpBag()
     local items = self.getObjects()
     local position = self.getPosition()
 
@@ -416,12 +416,17 @@ function emptyBag()
 end
 
 LaunchProbe = function()
-    local myBagHandler = BagHandler:new('53ad3d')
+    local myBagHandler = BagHandler:new(bagGuids['Accessories'])
     myBagHandler:takeItemByName("Probe", { position = { -30, 2, -20 } })
 end
 
+SpawnChecker = function()
+    local myBagHandler = BagHandler:new(bagGuids['ExtraAssets'])
+    myBagHandler:takeItemByGMNote("TestChecker", { position = { -30, 2, -20 } })
+end
+
 function HiddenBags(operation)
-    for _, guid in ipairs(bagGuids) do
+    for _, guid in pairs(bagGuids) do
         local bag = getObjectFromGUID(guid)
         if bag ~= nil then
             bag.call(operation)
@@ -497,6 +502,7 @@ menus = {
         { "Back to Main >",      showMainMenu },
     },
     testing = {
+        { "Spawn Checker",        SpawnChecker },
         { "DataPad Spawn Test",   SFTester.runSmokeTest },
         { "Approach Vector Test", SFVector.runSmokeTest },
         { "Back to Main >",       showMainMenu },

@@ -34,9 +34,9 @@
     * 'DialPickedUp'
 1. Review my old repo directories for refactoring attempts. Delete em or try again.
 1. Consider a `PrototypesBag` for storing objects to contain scripts for use when spawning objects.
-1. Learn the XML UI:
-    1. rotate the Imperial Deck Holder in HotAC mode
-    1. externalize all the XML files to the repo, use `<include>` to bring em into the game.
+1. ~~Learn the XML UI:~~
+    1. ~~rotate the Imperial Deck Holder in HotAC mode~~
+    1. ~~externalize all the XML files to the repo, use `<include>` to bring em into the game.~~
 1. Re-fix the StarForge's Layout issue. Remove the layout value.
 1. Remove all the extra turrets and see what breaks.
 1. Try using an external unit testing framework, the IDE and `require` to attempt to run tests within TTS.
@@ -67,6 +67,7 @@
 ## Requires an updated Beta Save
 
 1. Add damage tokens to HotAC mode.
+1. ~~Rotate Imperial (blue) damage deck holder 180-degress in HotAC mode.~~
 1. Remove the base on the Star Forge.
 1. Finish externalizing the scripts for the following objects: 
     DataPad
@@ -122,3 +123,4 @@
 3. Check AI control of Medium or Large base ships.
 4. Does the game support ground assault and movement of the AT-AT.
 5. AI Squadron Formation Tool may not be precisely correct. A tr2 from an (15-degree?) angle caused a collision.
+6. AI Squadron Formation Tool should update the Pilot Card Frame to the correct colors

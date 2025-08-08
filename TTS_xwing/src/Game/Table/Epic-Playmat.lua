@@ -9,10 +9,13 @@
 -- Just add their links to the table below in the same fashion
 
 -- Table of all images to be cycled through with NextImage()
-imageSet = {    'https://i.imgur.com/aCxRouI.jpg',
-                'https://i.imgur.com/X3luGQr.jpg',
-                'https://i.imgur.com/hGzGwY3.jpg',
-                'https://i.imgur.com/W5AuCVd.jpg',  }
+imageSet = {
+    'https://i.imgur.com/aCxRouI.jpg',
+    'https://i.imgur.com/X3luGQr.jpg',
+    'https://i.imgur.com/hGzGwY3.jpg',
+    'https://i.imgur.com/W5AuCVd.jpg',
+    'https://steamusercontent-a.akamaihd.net/ugc/16526075817900791097/B15B809BEA393E68315A24444C5061CD87139050/',
+}
 
 -- Mat flag for layouts
 __XW_Mat = true
@@ -38,7 +41,7 @@ function NextImage()
     if nextImage > #imageSet then
         nextImage = 1
     end
-
+    
     -- Reload self with the new image and save the index
     local custom = self.getCustomObject()
     custom.diffuse = imageSet[nextImage]
@@ -54,7 +57,7 @@ function PrevImage()
     if nextImage == 0 then
         nextImage = #imageSet
     end
-
+    
     -- Reload self with the new image and save the index
     local custom = self.getCustomObject()
     custom.diffuse = imageSet[nextImage]
@@ -66,15 +69,15 @@ end
 -- Please update me
 
 
-corrScale = {0.625, 0.625, 0.625}
+corrScale = { 0.625, 0.625, 0.625 }
 
 function ToggleRulers()
     deleteAll()
     rulersState = rulersState + 1
     if rulersState == 1 then
-      spawnSet(setupPos, setupRot)
+        spawnSet(setupPos, setupRot)
     elseif rulersState == 2 then
-      rulersState = 0
+        rulersState = 0
     end
 end
 
@@ -82,14 +85,14 @@ function spawnSet(posTable, rotTable)
     -- please kill me
     local function sPos(tab)
         if self.getPosition()[1] < 0 then
-            return {-1*tab[1], tab[2], tab[3]}
+            return { -1 * tab[1], tab[2], tab[3] }
         else
             return tab
         end
     end
     local initPos = self.getPosition()
     initPos.y = initPos.y - 3
-    for k,pos in pairs(posTable) do
+    for k, pos in pairs(posTable) do
         local params = {} -- 50
         params.type = 'Custom_Model'
         params.position = initPos
@@ -107,7 +110,9 @@ function spawnSet(posTable, rotTable)
 end
 
 function deleteAll()
-    for ruler in pairs(rulers) do ruler.destruct() end
+    for ruler in pairs(rulers) do
+        ruler.destruct()
+    end
     rulers = {}
 end
 
@@ -126,28 +131,28 @@ rulerData.diffuse = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.
 rulerData.material = 1
 
 setupRot = {
-    {0, 270, 0},
-    {0, 0, 0},
-    {0, 270, 0},
-    {0, 0, 0},
-    {0, 0, 0},
-    {0, 90, 0},
-    {0, 180, 0},
-    {0, 90, 0},
-    {0, 180, 0},
-    {0, 180, 0}
+    { 0, 270, 0 },
+    { 0, 0, 0 },
+    { 0, 270, 0 },
+    { 0, 0, 0 },
+    { 0, 0, 0 },
+    { 0, 90, 0 },
+    { 0, 180, 0 },
+    { 0, 90, 0 },
+    { 0, 180, 0 },
+    { 0, 180, 0 }
 }
 
 setupPos = {
-    { 3.97240991592407, 1.00172388553619, -10.8451750564575}, --pio
-    { 9.67806907653809, 1.00172448158264, -12.4075313186646},
-    { 37.0594985961914, 1.00172400474548, -10.8700817108154}, --pio
-    { 20.5256023406982, 1.0017237663269, -12.4035499572754},
-    { 31.3721223449707, 1.00172340869904, -12.4002779006958},
-
-    { 3.97240991592407, 1.00172388553619, 10.8451750564575}, --pio
-    { 9.67806907653809, 1.00172448158264, 12.4075313186646},
-    { 37.0594985961914, 1.00172400474548, 10.8700817108154}, --pio
-    { 20.5256023406982, 1.0017237663269, 12.4035499572754},
-    { 31.3721223449707, 1.00172340869904, 12.4002779006958},
+    { 3.97240991592407, 1.00172388553619, -10.8451750564575 }, --pio
+    { 9.67806907653809, 1.00172448158264, -12.4075313186646 },
+    { 37.0594985961914, 1.00172400474548, -10.8700817108154 }, --pio
+    { 20.5256023406982, 1.0017237663269, -12.4035499572754 },
+    { 31.3721223449707, 1.00172340869904, -12.4002779006958 },
+    
+    { 3.97240991592407, 1.00172388553619, 10.8451750564575 }, --pio
+    { 9.67806907653809, 1.00172448158264, 12.4075313186646 },
+    { 37.0594985961914, 1.00172400474548, 10.8700817108154 }, --pio
+    { 20.5256023406982, 1.0017237663269, 12.4035499572754 },
+    { 31.3721223449707, 1.00172340869904, 12.4002779006958 },
 }

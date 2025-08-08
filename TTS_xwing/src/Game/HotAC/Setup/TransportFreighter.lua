@@ -12,6 +12,7 @@ them to a new release of the Unified Mod.
     6. Deploy the transported game objects
 ]]
 require("TTS_lib.Util.Table")
+local Sequence = require("TTS_lib.Sequence.Sequence")
 
 local name = "Transport Freighter"
 local desc = [[
@@ -84,60 +85,80 @@ end
 
 -- Pack up objects from the table, excluding those in the base mod (exclude list)
 function packObjects()
-    transportCargo = {} -- Reset transported data
+    transportCargo = {} -- Reset storage
 
-    -- Loop through all objects on the table
-    for _, obj in ipairs(getObjects()) do
-        -- Check if object should be excluded
+    local toPack = {}
+    for _, obj in ipairs(getAllObjects()) do
         if not isExcluded(obj) then
-            local pos = obj.getPosition()
-            local rot = obj.getRotation()
-
-            local item = {
-                guid = obj.getGUID(),
-                name = obj.getName(),
-                pos = { x = round(pos.x, 4), y = round(pos.y, 4), z = round(pos.z, 4) },
-                rot = { x = round(rot.x, 4), y = round(rot.y, 4), z = round(rot.z, 4) },
-                state = obj.script_state or "", -- Save object state if any
-                locked = obj.getLock(),
-            }
-
-            -- Store object data in transportedCargo
-            table.insert(transportCargo, item)
-            obj.setPositionSmooth(self.getPosition())
-            Wait.condition(
-                function() self.putObject(obj) end,
-                function() return obj.resting end
-            )
+            table.insert(toPack, obj)
         end
     end
 
-    -- Sort cargo by y-position during packing
-    table.sort(transportCargo, function(a, b)
-        return a.pos.y < b.pos.y
+    table.sort(toPack, function(a, b)
+        return a.getPosition().y > b.getPosition().y
     end)
-    printToAll("Objects packed into " .. name, Color.Yellow)
+
+    -- 3) Build sequence
+    local seq = Sequence:new()
+    for _, obj in ipairs(toPack) do
+        seq:addTask(packOneObject, obj)
+        seq:waitFrames(1)
+    end
+
+    seq:addTask(function()
+        printToAll("Packing complete. " .. #transportCargo .. " objects packed into " .. name, Color.Yellow)
+    end)
+
+    seq:start()
 end
 
--- Check if an object GUID is in the exclude list
+function packOneObject(obj)
+    -- we already filtered excluded objects, but double‐check if you like
+    if isExcluded(obj) then
+        printToAll("Skipping “" .. obj.getName() .. "”", Color.Red)
+        return
+    end
+
+    -- record its final data
+    local pos = obj.getPosition()
+    local rot = obj.getRotation()
+    table.insert(transportCargo, {
+        guid   = obj.getGUID(),
+        name   = obj.getName(),
+        pos    = { x = round(pos.x, 4), y = round(pos.y, 4), z = round(pos.z, 4) },
+        rot    = { x = round(rot.x, 4), y = round(rot.y, 4), z = round(rot.z, 4) },
+        state  = obj.script_state or "",
+        locked = obj.getLock(),
+    })
+
+    -- move it into the bag
+    obj.setPositionSmooth(self.getPosition())
+    self.putObject(obj)
+end
+
 function isExcluded(obj)
     local guid = obj.getGUID()
-    if guid == self.getGUID() or obj.hasTag("TempLayoutElement") then
+    if guid == self.getGUID()
+        or obj.hasTag("TempLayoutElement")
+        or obj.tag == "Hand"
+    then
         return true
     end
 
-    for _, excludedGUID in ipairs(excludeList) do
-        if guid == excludedGUID then
-            return true
-        end
+    for _, ex in ipairs(excludeList) do
+        if guid == ex then return true end
     end
-
     return false
 end
 
 -- Deploy stored objects from the Transport Freighter back to the table
 function deployObjects()
     printToAll('[b]Redeploying objects...[/b] wait for message: "All objects deployed."', Color.Yellow)
+
+    table.sort(transportCargo, function(a, b)
+        return a.pos.y < b.pos.y
+    end)
+
     -- Deploy each object sequentially
     local function deployNext(index)
         if index > #transportCargo then
@@ -146,7 +167,7 @@ function deployObjects()
         end
 
         local item = transportCargo[index]
-        local obj = self.takeObject({
+        self.takeObject({
             guid = item.guid,
             position = item.pos,
             rotation = item.rot,
@@ -171,7 +192,7 @@ function deployObjects()
             deployNext(index + 1)
         end, function()
             placedObj = getObjectFromGUID(item.guid)
-            return placedObj ~= nil and placedObj.resting
+            return placedObj ~= nil and placedObj.resting and not placedObj.spawning and not placedObj.loading_custom
         end)
     end
 

@@ -7,6 +7,7 @@ function onLoad()
     self.setScale({ 0.5, 0.5, 0.5 })
     -- Add a context menu item to manually check the object
     self.addContextMenuItem("Toggle Interactive", toggleInteractive)
+    self.addContextMenuItem("Show Bounds", showBounds)
 end
 
 function onCollisionEnter(info)
@@ -19,12 +20,17 @@ function onCollisionEnter(info)
     end
 end
 
+function showBounds()
+    printToAll("Object Bounds: ", { 0, 1, 0 })
+    printToAll(JSON.encode_pretty(subject.getBoundsNormalized()), Color.Yellow)
+end
+
 function toggleInteractive()
     subject.interactable = not subject.interactable
 end
 
-local function color(text, color)
-    return "[" .. color:toHex() .. "]" .. tostring(text) .. "[-]"
+local function color(text, colorValue)
+    return "[" .. colorValue:toHex() .. "]" .. tostring(text) .. "[-]"
 end
 
 function Probe.printObjectInfo(object)
@@ -51,6 +57,20 @@ function Probe.printObjectInfo(object)
     table.print(object.getTags(), "tags")
     -- printToAll("Object Lua Script: " .. object.getLuaScript(), { 0, 1, 0 })
     -- printToAll("Object JSON State: " .. object.getJSON(), { 0, 1, 0 })
+end
+
+function Probe.printBagItem(item)
+    printToAll("Bag Item: ", { 0, 1, 0 })
+    printToAll("item.description: " .. item.description, Color.Pink)
+    printToAll("item.gm_notes: " .. item.gm_notes, Color.Pink)
+    printToAll("item.guid: " .. item.guid, Color.Pink)
+    printToAll("item.index: " .. item.index, Color.Pink)
+    printToAll("item.lua_script: " .. item.lua_script, Color.Pink)
+    printToAll("item.lua_script_state: " .. item.lua_script_state, Color.Pink)
+    printToAll("item.memo: " .. item.memo, Color.Pink)
+    printToAll("item.name: " .. item.name, Color.Pink)
+    printToAll("item.nickname: " .. item.nickname, Color.Pink)
+    printToAll("item.tags: " .. item.tags, Color.Pink)
 end
 
 function vectorToString(vector)
