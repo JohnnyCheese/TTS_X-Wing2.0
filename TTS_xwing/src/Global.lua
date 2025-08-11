@@ -471,7 +471,7 @@ AIModule.EnableStrikeAI = function(ship, cmd)
         local targets = {}
         for arg in targetsString:gmatch("([^,]+)") do
             -- Split by comma
-            local target = arg:match("^%s*(.-)%s*$") -- Trim spaces from each target
+            local target = arg:trim()
             if target ~= "" then
                 -- Ensure no empty strings are added
                 table.insert(targets, target)
@@ -647,8 +647,8 @@ AIModule.IsStrikeTarget = function(ship, target_ship)
     -- Only Strike AI ships have Strike Targets defined
     local strikeTargets = ship.getTable('StrikeTargets') or {}
 
-    local targetName = target_ship.getName()
-    local targetGUID = target_ship.getGUID()
+    local targetName = target_ship.getName():trim()
+    local targetGUID = target_ship.getGUID():trim()
 
     -- Check if the target is in the list of strike targets by name or GUID
     for _, nameOrGUID in ipairs(strikeTargets) do
@@ -715,7 +715,8 @@ AIModule.TargetForStrikeAI = function(ship)
     -- Return the closest Strike Target, if any
     if #strike_targets > 0 then
         local strike_target = strike_targets[1].ship
-        printToAll(tostring(ship.getName()) .. " found Strike AI target: '" .. tostring(strike_target) .. "'", Color.Orange )
+        printToAll(tostring(ship.getName()) .. " found Strike AI target: '" .. tostring(strike_target.getName()) .. "'",
+            Color.Yellow)
         return strike_target
     end
     return nil
