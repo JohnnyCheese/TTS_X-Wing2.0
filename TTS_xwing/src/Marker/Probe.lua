@@ -35,7 +35,7 @@ end
 
 function Probe.printObjectInfo(object)
     if object == nil then
-        printToAll("pringObjectInfo(object) is nil.", Color.Red)
+        printToAll("printObjectInfo(object) is nil.", Color.Red)
         return
     end
     printToAll("Object.type: " .. color(object.type, Color.Yellow), { 0, 1, 0 })
