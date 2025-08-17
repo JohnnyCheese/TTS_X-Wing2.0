@@ -20,8 +20,10 @@ if not string.contains then
     end
 end
 
-function string.trim(s)
-    return s:match("^%s*(.-)%s*$")
+if not string.trim then
+    function string:trim()
+        return self:match("^%s*(.-)%s*$")
+    end
 end
 
 return string
