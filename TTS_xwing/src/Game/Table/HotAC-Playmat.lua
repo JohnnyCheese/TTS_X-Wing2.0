@@ -70,11 +70,6 @@ function PrevImage()
   deleteAll(); currImage = ((currImage - 2) % #imageSet) + 1; changeImage(currImage)
 end
 
--- Tunable correction in RANGE units (your report: +1.5R too far right)
-local SHIFT_X_R = -1.5 -- shift left by 1.5R
-local SHIFT_Z_R = 0.0
-
--- fresh geometry per toggle (no cross-mat bleed)
 local function geom()
   local b = self.getBoundsNormalized()
   local C = Vector(b.center.x, 1.0, b.center.z)
@@ -89,29 +84,18 @@ local function geom()
   local xa, za = Vector(R, 0, 0), Vector(0, 0, R)
   local xhw, zhw = Vector(halfWidth, 0, 0), Vector(0, 0, halfWidth)
 
-  local range_1 = R / 3
-  local tl_row = TL + (Vector(0, 0, -range_1)) - zhw
-  local tr_row = TR + (Vector(0, 0, -range_1)) - zhw
-  local bl_row = BL + (Vector(0, 0, range_1)) + zhw
-  local br_row = BR + (Vector(0, 0, range_1)) + zhw
-
-  local O = BL + (xa * SHIFT_X_R) + (za * SHIFT_Z_R)
+  local O = BL:copy()
   return {
     TL = TL,
     TR = TR,
     BL = BL,
     BR = BR,
-    R = R,
     halfHeight = halfHeight,
     halfWidth = halfWidth,
     xa = xa,
     za = za,
     xhw = xhw,
     zhw = zhw,
-    tl_row = tl_row,
-    tr_row = tr_row,
-    bl_row = bl_row,
-    br_row = br_row,
     O = O
   }
 end
@@ -140,12 +124,10 @@ local function roidRot()
   }
 end
 
--- positions (human readable)
 local function buildGridPos(g)
   local O, xa, za, xhw, zhw = g.O, g.xa, g.za, g.xhw, g.zhw
-  O = g.BL:copy()
   return {
-    -- horizontals (bottom hug, +1R, +2R, top hug)
+    -- horizontals
     O + (xa * 0.5) - zhw,
     O + (xa * 1.5) - zhw,
     O + (xa * 2.5) - zhw,
@@ -162,7 +144,7 @@ local function buildGridPos(g)
     O + (xa * 1.5) + (za * 3) + zhw,
     O + (xa * 2.5) + (za * 3) + zhw,
 
-    -- verticals (right hug, inner, inner, left hug)
+    -- verticals
     O + (za * 0.5) - xhw,
     O + (za * 1.5) - xhw,
     O + (za * 2.5) - xhw,
@@ -182,15 +164,15 @@ local function buildGridPos(g)
 end
 
 local function buildSetupPos(g)
+  local function top(xr)
+    return g.TL + (g.za * (-1 / 3)) - g.zhw + (g.xa * xr)
+  end
+  local function bottom(xr)
+    return g.BL + (g.za * (1 / 3)) + g.zhw + (g.xa * xr)
+  end
   return {
-    g.tl_row + (g.xa * 0.5),
-    g.tl_row + (g.xa * 1.5),
-    g.tr_row - (g.xa * 0.5),
-
-    g.bl_row + (g.xa * 0.5),
-    g.bl_row + (g.xa * 1.5),
-    g.br_row - (g.xa * 0.5),
-
+    top(0.5), top(1.5), top(2.5),
+    bottom(0.5), bottom(1.5), bottom(2.5),
     Vector(g.TL.x - g.halfWidth, g.TL.y, g.TL.z - g.halfHeight),
     Vector(g.TR.x + g.halfWidth, g.TR.y, g.TR.z - g.halfHeight),
     Vector(g.BL.x - g.halfWidth, g.BL.y, g.BL.z + g.halfHeight),

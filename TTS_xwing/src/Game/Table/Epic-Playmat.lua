@@ -9,7 +9,7 @@
 -- Just add their links to the table below in the same fashion
 
 -- Table of all images to be cycled through with NextImage()
-imageSet = {
+imageSet        = {
     'https://i.imgur.com/aCxRouI.jpg',
     'https://i.imgur.com/X3luGQr.jpg',
     'https://i.imgur.com/hGzGwY3.jpg',
@@ -24,7 +24,7 @@ __XW_MatLayout  = 'Epic'
 -- This mat identifier
 __XW_MatID      = 'Main'
 
--- Image switching (restored)
+-- Image switching
 local currImage = 1
 function onLoad()
     -- Restore current image index
@@ -46,7 +46,9 @@ function PrevImage()
     deleteAllEpic(); currImage = ((currImage - 2) % #imageSet) + 1; changeImage(currImage)
 end
 
-local r_sz_E = { height = 10.83691788, thickness = 0.08344745636, width = 0.5535750389 }
+local r_sz = { height = 10.83691788, thickness = 0.08344745636, width = 0.5535750389 }
+local R = r_sz.height
+local range_1 = R / 3
 local corrScale_E = { 0.625, 0.625, 0.625 }
 local rulers_E, rulersState_E = {}, 0
 local rulerData_E = {
@@ -56,7 +58,7 @@ local rulerData_E = {
     material = 1,
 }
 
--- Geometry per spawn (no bleed)
+-- Geometry
 local function geomEpic()
     local b = self.getBoundsNormalized()
     local C = Vector(b.center.x, 1.0, b.center.z)
@@ -66,17 +68,8 @@ local function geomEpic()
     local BL = Vector(C.x - halfx, C.y, C.z - halfz)
     local BR = Vector(C.x + halfx, C.y, C.z - halfz)
 
-    local R = r_sz_E.height
-    local halfHeight, halfWidth = R / 2, r_sz_E.width / 2
+    local halfHeight, halfWidth = R / 2, r_sz.width / 2
     local row = Vector(halfHeight, 0, 0)
-    local range_1 = R / 3
-
-    local tl_row = TL + (Vector(0, 0, -range_1)) - Vector(0, 0, halfWidth)
-    local tr_row = TR + (Vector(0, 0, -range_1)) - Vector(0, 0, halfWidth)
-    local bl_row = BL + (Vector(0, 0, range_1)) + Vector(0, 0, halfWidth)
-    local br_row = BR + (Vector(0, 0, range_1)) + Vector(0, 0, halfWidth)
-
-    local z_offset = (5 * R / 6) + r_sz_E.width
 
     return {
         TL = TL,
@@ -86,17 +79,12 @@ local function geomEpic()
         halfHeight = halfHeight,
         halfWidth = halfWidth,
         row = row,
-        zoff = z_offset,
-        tl_row = tl_row,
-        tr_row = tr_row,
-        bl_row = bl_row,
-        br_row = br_row,
     }
 end
 
 local function setupRotEpic()
     return {
-        { 0, 0,   180 }, { 0, 0, 0 }, { 0, 0, 0 },
+        { 0, 0,   0 }, { 0, 0, 0 }, { 0, 0, 0 },
         { 0, 180, 0 }, { 0, 180, 0 }, { 0, 180, 0 },
         { 0, 0,   0 }, { 0, 0, 0 }, { 0, 0, 0 },
         { 0, 180, 0 }, { 0, 180, 0 }, { 0, 180, 0 },
@@ -106,34 +94,26 @@ local function setupRotEpic()
 end
 
 local function buildSetupPosEpic(g)
-    local R = {
-        g.tl_row + (g.row * 1.0),
-        g.tl_row + (g.row * 3.0),
-        g.tl_row + (g.row * 5.0),
-
-        g.tr_row - (g.row * 5.0),
-        g.tr_row - (g.row * 3.0),
-        g.tr_row - (g.row * 1.0),
-
-        g.bl_row + (g.row * 1.0),
-        g.bl_row + (g.row * 3.0),
-        g.bl_row + (g.row * 5.0),
-
-        g.br_row - (g.row * 1.0),
-        g.br_row - (g.row * 3.0),
-        g.br_row - (g.row * 5.0),
-
+    local zTop = Vector(0, 0, -(range_1)) - Vector(0, 0, g.halfWidth)
+    local zBot = Vector(0, 0, (range_1)) + Vector(0, 0, g.halfWidth)
+    local function topLeft(n) return g.TL + zTop + (g.row * n) end
+    local function topRight(n) return g.TR + zTop - (g.row * n) end
+    local function botLeft(n) return g.BL + zBot + (g.row * n) end
+    local function botRight(n) return g.BR + zBot - (g.row * n) end
+    return {
+        topLeft(1.0), topLeft(3.0), topLeft(5.0),
+        topRight(5.0), topRight(3.0), topRight(1.0),
+        botLeft(1.0), botLeft(3.0), botLeft(5.0),
+        botRight(1.0), botRight(3.0), botRight(5.0),
         Vector(g.TL.x - g.halfWidth, g.TL.y, g.TL.z - g.halfHeight),
         Vector(g.TR.x + g.halfWidth, g.TR.y, g.TR.z - g.halfHeight),
         Vector(g.BL.x - g.halfWidth, g.BL.y, g.BL.z + g.halfHeight),
         Vector(g.BR.x + g.halfWidth, g.BR.y, g.BR.z + g.halfHeight),
-
-        Vector(g.TL.x + (r_sz_E.height / 3) + g.halfWidth, g.TL.y, g.TL.z - g.zoff),
-        Vector(g.TR.x - (r_sz_E.height / 3) - g.halfWidth, g.TR.y, g.TR.z - g.zoff),
-        Vector(g.BL.x + (r_sz_E.height / 3) + g.halfWidth, g.BL.y, g.BL.z + g.zoff),
-        Vector(g.BR.x - (r_sz_E.height / 3) - g.halfWidth, g.BR.y, g.BR.z + g.zoff),
+        Vector(g.TL.x + range_1 + g.halfWidth, g.TL.y, g.TL.z - ((5 * r_sz.height / 6) + r_sz.width)),
+        Vector(g.TR.x - range_1 - g.halfWidth, g.TR.y, g.TR.z - ((5 * r_sz.height / 6) + r_sz.width)),
+        Vector(g.BL.x + range_1 + g.halfWidth, g.BL.y, g.BL.z + ((5 * r_sz.height / 6) + r_sz.width)),
+        Vector(g.BR.x - range_1 - g.halfWidth, g.BR.y, g.BR.z + ((5 * r_sz.height / 6) + r_sz.width)),
     }
-    return R
 end
 
 local function spawnSetEpic(posTable, rotTable)
@@ -147,12 +127,13 @@ local function spawnSetEpic(posTable, rotTable)
     end
 end
 
-function deleteAllEpic() for o in pairs(rulers_E) do
+function deleteAllEpic()
+    for o in pairs(rulers_E) do
         if o and o.destruct then o:destruct() end
         rulers_E[o] = nil
-    end end
+    end
+end
 
--- IMPORTANT: define the name TTS expects on the object
 function ToggleRulers()
     deleteAllEpic(); rulersState_E = (rulersState_E + 1) % 3
     if rulersState_E == 1 then
