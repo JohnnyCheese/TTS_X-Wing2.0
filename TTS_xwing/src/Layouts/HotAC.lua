@@ -115,7 +115,7 @@ do
         ['White']  = { pos = { 80.00, 5.00, -5.00 }, rot = { 0.00, 270.00, 0.00 }, scale = { 5.00, 5.00, 1.00 } },
     }
     hotac.mats = {
-        ['Main'] = { pos = { -3.00, 1, 0.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { 1.63, 1.20, 1.63 }, int = false },
+        ['Main'] = { pos = { -3.00, 1, 0.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { 1.625, 1.20, 1.625 }, int = false },
     }
     function HotacChangeMat()
         local mat = Layout.GetMats()[hotac.name].Main
