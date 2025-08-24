@@ -9,7 +9,9 @@
 -- Just add their links to the table below in the same fashion
 
 -- Table of all images to be cycled through with NextImage()
-imageSet        = {
+require("TTS_lib.Util.Table")
+
+imageSet = {
     'https://i.imgur.com/aCxRouI.jpg',
     'https://i.imgur.com/X3luGQr.jpg',
     'https://i.imgur.com/hGzGwY3.jpg',
@@ -18,47 +20,146 @@ imageSet        = {
 }
 
 -- Mat flag for layouts
-__XW_Mat        = true
+__XW_Mat = true
 -- Parent layout name
-__XW_MatLayout  = 'Epic'
+__XW_MatLayout = 'Epic'
 -- This mat identifier
-__XW_MatID      = 'Main'
+__XW_MatID = 'Main'
 
--- Image switching
+local r_sz = { height = 10.83691788, thickness = 0.08344745636, width = 0.5535750389 }
+local corrScale = { 0.625, 0.625, 0.625 }
+--local corrScale = { -2.625, 0.625, 0.625 }
+local rulers, rulersState = {}, 0
+local rulerData = {
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/rulers/range13.obj',
+    collider = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/rulers/range13.obj',
+    diffuse = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/rulers/range.jpg',
+    material = 1,
+}
+local R = r_sz.height
+local range_1 = R / 3
+
+-- image switching
 local currImage = 1
-function onLoad()
-    -- Restore current image index
-    currImage = tonumber(self.script_state) or 1
-    self.lock(); self.interactable = false; self.tooltip = false
+
+local function trim(s)
+    return (s:gsub('^%s+', ''):gsub('%s+$', ''))
+end
+
+local function persist()
+    self.script_state = JSON.encode({ curr = currImage, images = imageSet })
+end
+
+function onSave()
+    return self.script_state or JSON.encode({ curr = currImage, images = imageSet })
+end
+
+function onLoad(saved)
+    local s = (type(saved) == "string" and saved ~= "") and saved or self.script_state
+    
+    if type(s) == "string" and s:sub(1, 1) == "{" then
+        local t = JSON.decode(s)
+        if type(t.images) == "table" and #t.images > 0 then
+            imageSet = t.images
+        end
+        currImage = tonumber(t.curr) or 1
+    else
+        -- legacy numeric state (pre-JSON), or nothing
+        currImage = tonumber(s) or 1
+    end
+    
+    if currImage < 1 then
+        currImage = 1
+    end
+    if currImage > #imageSet then
+        currImage = #imageSet
+    end
+    
+    self.lock()
+    self.interactable = false
+    self.tooltip = false
 end
 
 local function changeImage(idx)
-    local custom = self.getCustomObject(); custom.diffuse = imageSet[idx]
+    local custom = self.getCustomObject()
+    custom.diffuse = imageSet[idx]
     self.setCustomObject(custom)
-    local newSelf = self.reload(); newSelf.script_state = idx
+    currImage = idx
+    persist()
+    self.reload()
 end
 
 function NextImage()
-    deleteAllEpic(); currImage = (currImage % #imageSet) + 1; changeImage(currImage)
+    deleteAllEpic()
+    currImage = (currImage % #imageSet) + 1
+    changeImage(currImage)
 end
 
 function PrevImage()
-    deleteAllEpic(); currImage = ((currImage - 2) % #imageSet) + 1; changeImage(currImage)
+    deleteAllEpic()
+    currImage = ((currImage - 2) % #imageSet) + 1
+    changeImage(currImage)
 end
 
-local r_sz = { height = 10.83691788, thickness = 0.08344745636, width = 0.5535750389 }
-local R = r_sz.height
-local range_1 = R / 3
-local corrScale_E = { 0.625, 0.625, 0.625 }
-local rulers_E, rulersState_E = {}, 0
-local rulerData_E = {
-    mesh     = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/rulers/range13.obj',
-    collider = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/rulers/range13.obj',
-    diffuse  = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/rulers/range.jpg',
-    material = 1,
-}
+function addImage(arg)
+    local url = (type(arg) == 'table') and (arg.url or arg[1]) or arg
+    if type(url) ~= 'string' then
+        return false, 'addImage: missing url'
+    end
+    url = trim(url)
+    
+    local idx = table.index_of(imageSet, url) -- from Table.lua
+    if not idx then
+        table.insert(imageSet, url)
+        
+        idx = #imageSet
+    end
+    
+    if type(deleteAll) == 'function' then
+        deleteAll()
+    end
+    currImage = idx
+    changeImage(currImage)
+    return true, currImage
+end
 
--- Geometry
+function removeImage(arg)
+    local idx
+    local url
+    if type(arg) == 'number' then
+        idx = math.floor(arg)
+    else
+        url = (type(arg) == 'table') and (arg.idx and nil or (arg.url or arg[1])) or arg
+        if type(url) == 'string' then
+            idx = table.index_of(imageSet, trim(url))
+        end
+    end
+    
+    if not idx or idx < 1 or idx > #imageSet then
+        printToAll('removeImage: url not found: ' .. tostring(url), Color.Red)
+    end
+    
+    if not idx or idx < 1 or idx > #imageSet then
+        return false, 'removeImage: not found'
+    end
+    if #imageSet == 1 then
+        return false, 'removeImage: cannot remove the last image'
+    end
+    
+    table.remove(imageSet, idx)
+    if idx < currImage then
+        currImage = currImage - 1
+    elseif idx == currImage then
+        currImage = ((currImage - 2) % #imageSet) + 1
+    end
+    
+    if type(deleteAll) == 'function' then
+        deleteAll()
+    end
+    changeImage(currImage)
+    return true, currImage
+end
+
 local function geomEpic()
     local b = self.getBoundsNormalized()
     local C = Vector(b.center.x, 1.0, b.center.z)
@@ -67,11 +168,12 @@ local function geomEpic()
     local TR = Vector(C.x + halfx, C.y, C.z + halfz)
     local BL = Vector(C.x - halfx, C.y, C.z - halfz)
     local BR = Vector(C.x + halfx, C.y, C.z - halfz)
-
+    
     local halfHeight, halfWidth = R / 2, r_sz.width / 2
     local row = Vector(halfHeight, 0, 0)
-
+    
     return {
+        C = C,
         TL = TL,
         TR = TR,
         BL = BL,
@@ -84,9 +186,9 @@ end
 
 local function setupRotEpic()
     return {
-        { 0, 0,   0 }, { 0, 0, 0 }, { 0, 0, 0 },
+        { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 },
         { 0, 180, 0 }, { 0, 180, 0 }, { 0, 180, 0 },
-        { 0, 0,   0 }, { 0, 0, 0 }, { 0, 0, 0 },
+        { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 },
         { 0, 180, 0 }, { 0, 180, 0 }, { 0, 180, 0 },
         { 0, 90, 0 }, { 0, 90, 0 }, { 0, 270, 0 }, { 0, 270, 0 },
         { 0, 90, 0 }, { 0, 90, 0 }, { 0, 270, 0 }, { 0, 270, 0 },
@@ -96,10 +198,18 @@ end
 local function buildSetupPosEpic(g)
     local zTop = Vector(0, 0, -(range_1)) - Vector(0, 0, g.halfWidth)
     local zBot = Vector(0, 0, (range_1)) + Vector(0, 0, g.halfWidth)
-    local function topLeft(n) return g.TL + zTop + (g.row * n) end
-    local function topRight(n) return g.TR + zTop - (g.row * n) end
-    local function botLeft(n) return g.BL + zBot + (g.row * n) end
-    local function botRight(n) return g.BR + zBot - (g.row * n) end
+    local function topLeft(n)
+        return g.TL + zTop + (g.row * n)
+    end
+    local function topRight(n)
+        return g.TR + zTop - (g.row * n)
+    end
+    local function botLeft(n)
+        return g.BL + zBot + (g.row * n)
+    end
+    local function botRight(n)
+        return g.BR + zBot - (g.row * n)
+    end
     return {
         topLeft(1.0), topLeft(3.0), topLeft(5.0),
         topRight(5.0), topRight(3.0), topRight(1.0),
@@ -120,23 +230,30 @@ local function spawnSetEpic(posTable, rotTable)
     local initPos = self.getPosition()
     for i = 1, #posTable do
         local obj = spawnObject({ type = 'Custom_Model', position = initPos })
-        obj.setCustomObject(rulerData_E); obj.setScale(corrScale_E); obj.lock()
+        obj.setCustomObject(rulerData)
+        obj.setScale(corrScale)
+        obj.lock()
         obj.setPositionSmooth(posTable[i], false, true)
         obj.setRotationSmooth(rotTable[i], false, true)
-        obj.addTag('TempLayoutElement'); rulers_E[obj] = true
+        obj.addTag('TempLayoutElement')
+        rulers[obj] = true
     end
 end
 
 function deleteAllEpic()
-    for o in pairs(rulers_E) do
-        if o and o.destruct then o:destruct() end
-        rulers_E[o] = nil
+    for o in pairs(rulers) do
+        if o and o.destruct then
+            o:destruct()
+        end
+        rulers[o] = nil
     end
 end
 
 function ToggleRulers()
-    deleteAllEpic(); rulersState_E = (rulersState_E + 1) % 3
-    if rulersState_E == 1 then
-        local g = geomEpic(); spawnSetEpic(buildSetupPosEpic(g), setupRotEpic())
+    deleteAllEpic()
+    rulersState = (rulersState + 1) % 3
+    if rulersState == 1 then
+        local g = geomEpic()
+        spawnSetEpic(buildSetupPosEpic(g), setupRotEpic())
     end
 end
