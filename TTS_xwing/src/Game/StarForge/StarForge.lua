@@ -423,7 +423,7 @@ end
 function HiddenBags(operation)
     for _, guid in pairs(bagGuids) do
         local bag = getObjectFromGUID(guid)
-        if bag ~= nil then
+        if bag ~= nil and bag.getVar(operation) then
             bag.call(operation)
         end
     end
