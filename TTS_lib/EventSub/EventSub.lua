@@ -6,11 +6,10 @@
 -- Description and usage in README.md in this lib folder in repository
 -- ~~~~~~
 
+-- Table mapping event names to table of handler functions
 local EventSub = {
     subs = {}
 }
-
--- Table mapping event names to table of handler functions
 
 -- Initialize subscriber table for given event function, save current one if exists
 EventSub.AddEvent = function(eventName)
