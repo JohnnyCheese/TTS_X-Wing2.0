@@ -46,7 +46,6 @@ end
 
 function onDrop()
     Wait.condition(function()
-        printToAll("Tile landed - checking for playmat", { 0, 1, 0 })
         handleDrop()
     end, function() return self.resting end)
 end
