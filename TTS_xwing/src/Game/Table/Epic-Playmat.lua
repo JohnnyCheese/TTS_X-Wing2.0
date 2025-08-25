@@ -56,7 +56,7 @@ end
 
 function onLoad(saved)
     local s = (type(saved) == "string" and saved ~= "") and saved or self.script_state
-    
+
     if type(s) == "string" and s:sub(1, 1) == "{" then
         local t = JSON.decode(s)
         if type(t.images) == "table" and #t.images > 0 then
@@ -67,14 +67,14 @@ function onLoad(saved)
         -- legacy numeric state (pre-JSON), or nothing
         currImage = tonumber(s) or 1
     end
-    
+
     if currImage < 1 then
         currImage = 1
     end
     if currImage > #imageSet then
         currImage = #imageSet
     end
-    
+
     self.lock()
     self.interactable = false
     self.tooltip = false
@@ -107,14 +107,14 @@ function addImage(arg)
         return false, 'addImage: missing url'
     end
     url = trim(url)
-    
+
     local idx = table.index_of(imageSet, url) -- from Table.lua
     if not idx then
         table.insert(imageSet, url)
-        
+
         idx = #imageSet
     end
-    
+
     if type(deleteAll) == 'function' then
         deleteAll()
     end
@@ -134,25 +134,25 @@ function removeImage(arg)
             idx = table.index_of(imageSet, trim(url))
         end
     end
-    
+
     if not idx or idx < 1 or idx > #imageSet then
         printToAll('removeImage: url not found: ' .. tostring(url), Color.Red)
     end
-    
+
     if not idx or idx < 1 or idx > #imageSet then
         return false, 'removeImage: not found'
     end
     if #imageSet == 1 then
         return false, 'removeImage: cannot remove the last image'
     end
-    
+
     table.remove(imageSet, idx)
     if idx < currImage then
         currImage = currImage - 1
     elseif idx == currImage then
         currImage = ((currImage - 2) % #imageSet) + 1
     end
-    
+
     if type(deleteAll) == 'function' then
         deleteAll()
     end
@@ -168,10 +168,10 @@ local function geomEpic()
     local TR = Vector(C.x + halfx, C.y, C.z + halfz)
     local BL = Vector(C.x - halfx, C.y, C.z - halfz)
     local BR = Vector(C.x + halfx, C.y, C.z - halfz)
-    
+
     local halfHeight, halfWidth = R / 2, r_sz.width / 2
     local row = Vector(halfHeight, 0, 0)
-    
+
     return {
         C = C,
         TL = TL,
@@ -186,9 +186,9 @@ end
 
 local function setupRotEpic()
     return {
-        { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 },
+        { 0, 0,   0 }, { 0, 0, 0 }, { 0, 0, 0 },
         { 0, 180, 0 }, { 0, 180, 0 }, { 0, 180, 0 },
-        { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 },
+        { 0, 0,   0 }, { 0, 0, 0 }, { 0, 0, 0 },
         { 0, 180, 0 }, { 0, 180, 0 }, { 0, 180, 0 },
         { 0, 90, 0 }, { 0, 90, 0 }, { 0, 270, 0 }, { 0, 270, 0 },
         { 0, 90, 0 }, { 0, 90, 0 }, { 0, 270, 0 }, { 0, 270, 0 },

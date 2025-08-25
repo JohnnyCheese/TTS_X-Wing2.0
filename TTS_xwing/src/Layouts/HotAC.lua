@@ -35,8 +35,8 @@ do
         ['All bomb tokens']        = { pos = { -1.35 + 38, 0.96, 12.53 }, rot = { 0.00, 90.00, 0.00 }, scale = { 0.57, 0.83, 0.57 } },
         ['Remotes']                = { pos = { -2.39 + 38, 1.06, 15.55 }, rot = { 0.00, 270.00, 0.00 }, scale = { 0.95, 1.71, 0.95 } },
         ['Spare parts']            = { pos = { 2.35 + 38, 1.03, 15.59 }, rot = { 0.00, 180.00, 0.00 }, scale = { 0.80, 1.42, 0.80 } },
-        ['1 Straight Templates']   = { pos = { -38.00, 0.96, -2.25 }, rot = { 0.00, 180.00, 0.00 }, scale = { 3.63, 3.63, 3.63 } },
-        ['2 Straight Templates']   = { pos = { -40.00, 0.96, -3.00 }, rot = { 0.00, 0.00, 0.00 }, scale = { 3.63, 3.63, 3.63 } },
+        ['1 Straight Templates']   = { pos = { -38.00, 0.96, -2.45 }, rot = { 0.00, 180.00, 0.00 }, scale = { 3.63, 3.63, 3.63 } },
+        ['2 Straight Templates']   = { pos = { -40.00, 0.96, -3.20 }, rot = { 0.00, 0.00, 0.00 }, scale = { 3.63, 3.63, 3.63 } },
         ['3 Straight Templates']   = { pos = { -38.00, 0.96, 0.80 }, rot = { 0.00, 0.00, 0.00 }, scale = { 3.63, 3.63, 3.63 } },
         ['4 Straight Templates']   = { pos = { -40.00, 0.96, 1.50 }, rot = { 0.00, 0.00, 0.00 }, scale = { 3.63, 3.63, 3.63 } },
         ['5 Straight Templates']   = { pos = { -39.00, 0.96, 0.00 }, rot = { 0.00, 0.00, 0.00 }, scale = { 3.63, 3.63, 3.63 } },
@@ -52,9 +52,9 @@ do
         ['Gas Clouds']             = { pos = { -46.23, 0.96, 4.25 }, rot = { 0.00, 0.00, 0.00 }, scale = { 0.64, 1.14, 0.64 } },
         ['POM Set Obstacles']      = { pos = { -46.21, 0.97, 8.74 }, rot = { 0.00, 0.00, 0.00 }, scale = { 2.42, 1.14, 2.42 } },
         ['Range 1 Rulers']         = { pos = { -42.00, 1.00, -4.10 }, rot = { 0.00, 269.99, 0.00 }, scale = { 0.63, 0.63, 0.63 } },
-        ['Range 1-2 Rulers']       = { pos = { -42.00, 1.00, 2.40 }, rot = { 0.00, 270.00, 180.00 }, scale = { 0.63, 0.63, 0.63 } },
-        ['Range 1-3 Rulers']       = { pos = { -41.00, 1.00, 0.00 }, rot = { 0.00, 90.00, 0.00 }, scale = { 0.63, 0.63, 0.63 } },
-        ['Range 1-5 Rulers']       = { pos = { -43.00, 1.00, 0.80 }, rot = { 0.00, 0.00, 180.00 }, scale = { 0.63, 0.63, 0.63 } },
+        ['Range 1-2 Rulers']       = { pos = { -42.00, 1.00, 2.40 }, rot = { 0.00, 90.00, 180.00 }, scale = { 0.63, 0.63, 0.63 } },
+        ['Range 1-3 Rulers']       = { pos = { -41.00, 1.00, 0.00 }, rot = { 0.00, 270.00, 0.00 }, scale = { 0.63, 0.63, 0.63 } },
+        ['Range 1-5 Rulers']       = { pos = { -43.00, 1.00, 1.80 }, rot = { 0.00, 180.00, 180.00 }, scale = { 0.63, 0.63, 0.63 } },
         ['Deck Holder 1']          = { pos = { -38.50, 0.90, -14.50 }, rot = { 0.00, 0.00, 0.00 }, scale = { 0.65, 0.65, 0.65 } },
         ['Deck Holder 2']          = { pos = { -38.50, 0.90, 14.50 }, rot = { 0.00, 0.00, 0.00 }, scale = { 0.65, 0.65, 0.65 } },
         ['Mine Rules']             = { pos = { 50.00, 1.00, 34.50 }, rot = { 0.00, 180.00, 0.00 }, scale = { 3.58, 1.00, 3.58 } },
@@ -145,13 +145,19 @@ do
     local bFontSize = 230
     hotac.controls = {
         {
-            position = { 50.5, 1, 2.5 },
+            position = { 50.5, 1, 5.1 },
             rotation = { 0, 90, 0 },
             click_function = 'HotacChangeMat',
             label = 'NEXT PLAYMAT'
         },
         {
-            position = { 50.5, 1, -2.5 },
+            position = { 50.5, 1, 0 },
+            rotation = { 0, 90, 0 },
+            click_function = 'SpawnHotacPlaymatTile',
+            label = 'PLAYMAT TILE'
+        },
+        {
+            position = { 50.5, 1, -5.1 },
             rotation = { 0, 90, 0 },
             click_function = 'HotacChangeMatPrev',
             label = 'PREV PLAYMAT'

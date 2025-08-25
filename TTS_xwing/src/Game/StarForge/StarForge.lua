@@ -9,11 +9,12 @@ if not self.hasTag("Star Forge") then
 end
 
 require("TTS_lib.Util.Table")
-local SFScript   = require("Game.StarForge.StarForgeScriptManager")
-local SFDeduper  = require("Game.StarForge.StarForgeDeduper")
-local SFTester   = require("Test.DataPadTest")
-local SFVector   = require("Test.HotAC.ApproachVectorTest")
-local BagHandler = require("Game.Component.Spawner.BagHandler")
+local SFScript    = require("Game.StarForge.StarForgeScriptManager")
+local SFDeduper   = require("Game.StarForge.StarForgeDeduper")
+local SFTester    = require("Test.DataPadTest")
+local SFVector    = require("Test.HotAC.ApproachVectorTest")
+local BagHandler  = require("Game.Component.Spawner.BagHandler")
+local PlaymatTile = require("Game.Table.PlaymatTile")
 
 --[[
 ## Star Forge
@@ -73,13 +74,7 @@ local StarForge = {
     lastLayout = 1
 }
 
-local bagGuids = {
-    ['ExtraAssets'] = 'a3690e', -- Extra Assets 15 items
-    ['Obstacles']   = '203cb8', -- ObstacleBag 31 items
-    ['DiceBag']     = 'f0e7b9', -- Dice Bag 10 items
-    ['Accessories'] = '53ad3d', -- Accessories 81 items
-}
-
+local bagGuids = Global.getTable('bagGuids') or {}
 local layoutController_GUID = "b3992e"
 
 function onSave()
@@ -480,14 +475,26 @@ function showScriptingMenu()
     showMenu("scripting")
 end
 
+function spawnStandardPlaymatTileHere(color)
+    local p = Player[color].getPointerPosition()
+    PlaymatTile.spawnStandard({ pos = { p.x, p.y + 1.5, p.z }, rot = { 0, 180, 0 } })
+end
+
+function spawnEpicPlaymatTileHere(color)
+    local p = Player[color].getPointerPosition()
+    PlaymatTile.spawnEpic({ pos = { p.x, p.y + 1.5, p.z }, rot = { 0, 180, 0 } })
+end
+
 menus = {
     main = {
-        { "Script Manager >", showScriptingMenu },
-        { "Game Tester >",    function() showMenu("testing") end },
-        { "Deduplicator >",   function() showMenu("deduper") end },
-        { "Hidden Bags >",    function() showMenu("bags") end },
-        { "Launch Probe",     LaunchProbe },
-        { "List Factories",   ListFactories },
+        { "Script Manager >",  showScriptingMenu },
+        { "Game Tester >",     function() showMenu("testing") end },
+        { "Deduplicator >",    function() showMenu("deduper") end },
+        { "Hidden Bags >",     function() showMenu("bags") end },
+        { "Launch Probe",      LaunchProbe },
+        { "Playmat Card",      spawnStandardPlaymatTileHere },
+        { "Epic Playmat Card", spawnEpicPlaymatTileHere },
+        { "List Factories",    ListFactories },
     },
     bags = {
         { "Surface Bags",   function() HiddenBags("surface") end },

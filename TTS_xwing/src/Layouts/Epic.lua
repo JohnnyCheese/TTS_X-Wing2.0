@@ -116,13 +116,19 @@ do
     local bFontSize = 230
     epic.controls = {
         {
-            position = { 50.5, 1, 2.5 },
+            position = { 50.5, 1, 5.1 },
             rotation = { 0, 90, 0 },
             click_function = 'EpicChangeMat',
             label = 'NEXT PLAYMAT'
         },
         {
-            position = { 50.5, 1, -2.5 },
+            position = { 50.5, 1, 0 },
+            rotation = { 0, 90, 0 },
+            click_function = 'SpawnEpicPlaymatTile',
+            label = 'PLAYMAT TILE'
+        },
+        {
+            position = { 50.5, 1, -5.1 },
             rotation = { 0, 90, 0 },
             click_function = 'EpicChangeMatPrev',
             label = 'PREV PLAYMAT'
