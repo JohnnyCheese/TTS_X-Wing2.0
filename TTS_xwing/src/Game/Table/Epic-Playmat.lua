@@ -195,6 +195,18 @@ local function setupRotEpic()
     }
 end
 
+local function roidsRotEpic()
+    return {
+        { 0, 0,   180 }, { 0, 0, 180 }, { 0, 0, 180 },
+        { 0, 180, 180 }, { 0, 180, 180 }, { 0, 180, 180 },
+        { 0, 0,   180 }, { 0, 0, 180 }, { 0, 0, 180 },
+        { 0, 180, 180 }, { 0, 180, 180 }, { 0, 180, 180 },
+        { 0, 90, 180 }, { 0, 90, 180 }, { 0, 270, 180 }, { 0, 270, 180 },
+        { 0, 90, 180 }, { 0, 90, 180 }, { 0, 270, 180 },
+        { 0, 270, 180 },
+    }
+end
+
 local function buildSetupPosEpic(g)
     local zTop = Vector(0, 0, -(range_1)) - Vector(0, 0, g.halfWidth)
     local zBot = Vector(0, 0, (range_1)) + Vector(0, 0, g.halfWidth)
@@ -219,10 +231,44 @@ local function buildSetupPosEpic(g)
         Vector(g.TR.x + g.halfWidth, g.TR.y, g.TR.z - g.halfHeight),
         Vector(g.BL.x - g.halfWidth, g.BL.y, g.BL.z + g.halfHeight),
         Vector(g.BR.x + g.halfWidth, g.BR.y, g.BR.z + g.halfHeight),
-        Vector(g.TL.x + range_1 + g.halfWidth, g.TL.y, g.TL.z - ((5 * r_sz.height / 6) + r_sz.width)),
-        Vector(g.TR.x - range_1 - g.halfWidth, g.TR.y, g.TR.z - ((5 * r_sz.height / 6) + r_sz.width)),
-        Vector(g.BL.x + range_1 + g.halfWidth, g.BL.y, g.BL.z + ((5 * r_sz.height / 6) + r_sz.width)),
-        Vector(g.BR.x - range_1 - g.halfWidth, g.BR.y, g.BR.z + ((5 * r_sz.height / 6) + r_sz.width)),
+        Vector(g.TL.x + range_1 + g.halfWidth, g.TL.y, g.TL.z - 2.5 * range_1 - r_sz.width),
+        Vector(g.TR.x - range_1 - g.halfWidth, g.TR.y, g.TR.z - 2.5 * range_1 - r_sz.width),
+        Vector(g.BL.x + range_1 + g.halfWidth, g.BL.y, g.BL.z + 2.5 * range_1 + r_sz.width),
+        Vector(g.BR.x - range_1 - g.halfWidth, g.BR.y, g.BR.z + 2.5 * range_1 + r_sz.width),
+    }
+end
+
+local function buildRoidsPosEpic(g)
+    local zTop = Vector(0, 0, -2 * range_1) + Vector(0, 0, g.halfWidth)
+    local zBot = Vector(0, 0, 2 * range_1) - Vector(0, 0, g.halfWidth)
+    local function topLeft(n)
+        return g.TL + zTop + (g.row * n)
+    end
+    local function topRight(n)
+        return g.TR + zTop - (g.row * n)
+    end
+    local function botLeft(n)
+        return g.BL + zBot + (g.row * n)
+    end
+    local function botRight(n)
+        return g.BR + zBot - (g.row * n)
+    end
+    return {
+        -- Horizontal top & bottom rulers
+        topLeft(1.0), topLeft(3.0), topLeft(5.0),
+        topRight(5.0), topRight(3.0), topRight(1.0),
+        botLeft(1.0), botLeft(3.0), botLeft(5.0),
+        botRight(1.0), botRight(3.0), botRight(5.0),
+        -- Edge rulers
+        Vector(g.TL.x - g.halfWidth, g.TL.y, g.TL.z - g.halfHeight),
+        Vector(g.TR.x + g.halfWidth, g.TR.y, g.TR.z - g.halfHeight),
+        Vector(g.BL.x - g.halfWidth, g.BL.y, g.BL.z + g.halfHeight),
+        Vector(g.BR.x + g.halfWidth, g.BR.y, g.BR.z + g.halfHeight),
+        -- Range 1 side rulers
+        Vector(g.TL.x + 2 * range_1 - g.halfWidth, g.TL.y, g.TL.z - 3.5 * range_1),
+        Vector(g.TR.x - 2 * range_1 + g.halfWidth, g.TR.y, g.TR.z - 3.5 * range_1),
+        Vector(g.BL.x + 2 * range_1 - g.halfWidth, g.BL.y, g.BL.z + 3.5 * range_1),
+        Vector(g.BR.x - 2 * range_1 + g.halfWidth, g.BR.y, g.BR.z + 3.5 * range_1),
     }
 end
 
@@ -252,8 +298,11 @@ end
 function ToggleRulers()
     deleteAllEpic()
     rulersState = (rulersState + 1) % 3
+    local g = geomEpic()
     if rulersState == 1 then
-        local g = geomEpic()
+        spawnSetEpic(buildRoidsPosEpic(g), roidsRotEpic())
+    end
+    if rulersState == 2 then
         spawnSetEpic(buildSetupPosEpic(g), setupRotEpic())
     end
 end
