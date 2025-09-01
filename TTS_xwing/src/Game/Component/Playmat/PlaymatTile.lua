@@ -38,7 +38,6 @@ local function spawnTile(name, topURL, bottomURL, pos, rot)
     })
     o = o.reload() -- ensure images show for all clients
     o.setName(name)
-    o.addTag("Playmat")
     o.setLock(false)
     o.interactable = true
     o.setScale(cfg.Scale)

@@ -25,7 +25,7 @@ local function isPlaymat(o)
 end
 
 local function handleDrop()
-    local hits = castRayBelow({ origin_offset = 0.5, max_distance = 1, debug = true })({ source = self })
+    local hits = castRayBelow({ origin_offset = 0.5, max_distance = 1, debug = false })({ source = self })
     for _, h in ipairs(hits) do
         if isPlaymat(h.hit_object) then
             local playmat = h.hit_object

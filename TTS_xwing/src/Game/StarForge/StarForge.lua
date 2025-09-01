@@ -14,7 +14,7 @@ local SFDeduper   = require("Game.StarForge.StarForgeDeduper")
 local SFTester    = require("Test.DataPadTest")
 local SFVector    = require("Test.HotAC.ApproachVectorTest")
 local BagHandler  = require("Game.Component.Spawner.BagHandler")
-local PlaymatTile = require("Game.Table.PlaymatTile")
+local PlaymatTile = require("Game.Component.Playmat.PlaymatTile")
 
 --[[
 ## Star Forge
