@@ -22,7 +22,7 @@ end
 
 if not string.trim then
     function string:trim()
-        return self:match("^%s*(.-)%s*$")
+        return (self:gsub("^%s+", ""):gsub("%s+$", ""))
     end
 end
 
