@@ -1,4 +1,4 @@
-local Vect = require("TTS_Lib.Vector.Vector")
+local Dim = require("Dim")
 
 local standard = {}
 do
@@ -83,30 +83,18 @@ do
         ['Range 1-2 Rulers 2']     = { pos = { 42.00, 1.00, -2.40 }, rot = { 0.00, 270.01, 0.00 }, scale = { 0.63, 0.63, 0.63 } },
         ['Range 1-3 Rulers 2']     = { pos = { 41.00, 1.00, 0.00 }, rot = { 0.00, 270.00, 180.00 }, scale = { 0.63, 0.63, 0.63 } },
         ['First player coin 2']    = { pos = { 2.52, 0.96, -15.59 }, rot = { 0.00, 270.00, 180.00 }, scale = { 0.40, 0.86, 0.40 }, lock = false },
-        ['Board Edge L 2']         = { pos = { 37.07, 0.8, 0.00 }, rot = { 0.00, 0.00, 0.00 }, scale = { 0.5, 0.5, 16.75 }, int = false },
-        ['Board Edge R 2']         = { pos = { 3.96, 0.8, 0.00 }, rot = { 0.00, 0.00, 0.00 }, scale = { 0.5, 0.5, 16.75 }, int = false },
-        ['Board Edge T 2']         = { pos = { 20.50, 0.8, 16.55 }, rot = { 0.00, 90.00, 0.00 }, scale = { 0.5, 0.5, 16.50 }, int = false },
-        ['Board Edge B 2']         = { pos = { 20.50, 0.8, -16.55 }, rot = { 0.00, 90.00, 0.00 }, scale = { 0.5, 0.5, 16.50 }, int = false },
+        ['Board Edge L 2']         = { pos = { 7.56, 0.8, 0.00 }, rot = { 0.00, 0.00, 0.00 }, scale = { 0.5, 0.5, 16.75 }, int = false },
+        ['Board Edge R 2']         = { pos = { 33.56, 0.8, 0.00 }, rot = { 0.00, 0.00, 0.00 }, scale = { 0.5, 0.5, 16.75 }, int = false },
+        ['Board Edge T 2']         = { pos = { 20.51, 0.8, 13.00 }, rot = { 0.00, 90.00, 0.00 }, scale = { 0.5, 0.5, 16.50 }, int = false },
+        ['Board Edge B 2']         = { pos = { 20.51, 0.8, -12.96 }, rot = { 0.00, 90.00, 0.00 }, scale = { 0.5, 0.5, 16.50 }, int = false },
 
         ['Deck Holder 1']          = { pos = { -40.00, 0.90, -15.00 }, rot = { 0.00, 0.00, 0.00 }, scale = { 0.65, 0.65, 0.65 } },
         ['Deck Holder 2']          = { pos = { -40.00, 0.90, 15.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { 0.65, 0.65, 0.65 } },
         ['Deck Holder 3']          = { pos = { 40.00, 0.90, 15.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { 0.65, 0.65, 0.65 } },
         ['Deck Holder 4']          = { pos = { 40.00, 0.90, -15.00 }, rot = { 0.00, 0.00, 0.00 }, scale = { 0.65, 0.65, 0.65 } },
-
-
     }
-    local assignOffset  = { -5, 1, 2 }
-    local zonePos       = { 22.5, 2.5, -32 }
-    local zoneScale     = { 44.9, 4, 12 }
-    local stuffCenter   = { 27, 0, -18.5 }
-    local stuffSize     = { 54, 1, 37 }
-    local function left(data)
-        return Vect.ScaleEach(data, { -1, 1, 1 })
-    end
-    local function opposite(data)
-        return Vect.ScaleEach(data, { 1, 1, -1 })
-    end
-    standard.hands = {
+
+    standard.hands      = {
         ['Red']    = { pos = { -22.50, 5.00, -40.00 }, rot = { 0.00, 0.00, 0.00 }, scale = { 5.00, 5.00, 1.00 } },
         ['Blue']   = { pos = { -22.50, 5.00, 40.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { 5.00, 5.00, 1.00 } },
         ['Orange'] = { pos = { 22.50, 5.00, 40.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { 5.00, 5.00, 1.00 } },
@@ -118,8 +106,10 @@ do
         ['Pink']   = { pos = { 52.00, 5.00, 0.00 }, rot = { 0.00, 270.00, 0.00 }, scale = { 5.01, 5.00, 1.00 } },
         ['White']  = { pos = { 50.00, 5.00, -15.00 }, rot = { 0.00, 270.00, 0.00 }, scale = { 5.01, 5.00, 1.00 } },
     }
-    standard.mats = {
+    local xz_scale      = Dim.Convert_mm_igu(3 * 12 * 25.4) / 2 / 10
+    standard.mats       = {
         ['Red-Blue'] = { pos = { -20.5142, 1, 0.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { 1.655, 1.2, 1.655 }, int = false },
+        -- ['Red-Blue'] = { pos = { -20.5142, 1, 0.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { xz_scale, 1.2, xz_scale }, int = false },
         ['Purple-Orange'] = { pos = { 20.5142, 1, 0.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { 1.27, 1.2, 1.27 }, int = false },
     }
     function StandardCallMat(matName, callFcn)
