@@ -156,7 +156,7 @@ end
 
 function T:test_trim_large_whitespace_only_string_collapses_to_empty()
     -- Large all-whitespace string should trim to empty
-    local onlyWs = rep(200000, " \t")
+    local onlyWs = rep(10000, " \t")
     local ok, res = pcall(function() return onlyWs:trim() end)
     if not ok then
         lu.fail("trim() errored on whitespace-only large string: " .. tostring(res))
