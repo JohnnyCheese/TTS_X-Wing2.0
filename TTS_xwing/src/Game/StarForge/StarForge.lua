@@ -15,6 +15,7 @@ local SFTester    = require("Test.DataPadTest")
 local SFVector    = require("Test.HotAC.ApproachVectorTest")
 local BagHandler  = require("Game.Component.Spawner.BagHandler")
 local PlaymatTile = require("Game.Component.Playmat.PlaymatTile")
+local MenuTree    = require("TTS_lib.ContextMenuTree.ContextMenuTree")
 
 --[[
 ## Star Forge
@@ -103,7 +104,8 @@ function onLoad(saveData)
     else
         show()
     end
-    showMainMenu()
+    StarForge._menu = buildContextMenus()
+    StarForge._menu:showRoot()
 end
 
 function setToLayout(layoutNumber)
@@ -260,7 +262,7 @@ end
 
 -- Method to get an object from a factory (Bag or InfiniteBag)
 function StarForge.getObjectFromFactory(factoryName, objectName, position, callback)
-    local factory = self.getFactory(factoryName)
+    local factory = getFactory(factoryName)
     if not factory then
         print("Factory not found: " .. factoryName)
         return
@@ -457,24 +459,6 @@ function HiddenBags(operation)
     end
 end
 
--- Function to show a menu based on the menu name
-function showMenu(menu)
-    self.clearContextMenu()
-    for _, item in ipairs(menus[menu]) do
-        self.addContextMenuItem(item[1], item[2], false)
-    end
-end
-
-function showMainMenu()
-    setToLayout(StarForge.lastLayout)
-    showMenu("main")
-end
-
-function showScriptingMenu()
-    setToLayout(2) -- Epic Layout
-    showMenu("scripting")
-end
-
 function spawnStandardPlaymatTileHere(color)
     local p = Player[color].getPointerPosition()
     PlaymatTile.spawnStandard({ pos = { p.x, p.y + 1.5, p.z }, rot = { 0, 180, 0 } })
@@ -485,38 +469,38 @@ function spawnEpicPlaymatTileHere(color)
     PlaymatTile.spawnEpic({ pos = { p.x, p.y + 1.5, p.z }, rot = { 0, 180, 0 } })
 end
 
-menus = {
-    main = {
-        { "Script Manager >",  showScriptingMenu },
-        { "Game Tester >",     function() showMenu("testing") end },
-        { "Deduplicator >",    function() showMenu("deduper") end },
-        { "Hidden Bags >",     function() showMenu("bags") end },
-        { "Launch Probe",      LaunchProbe },
-        { "Playmat Card",      spawnStandardPlaymatTileHere },
-        { "Epic Playmat Card", spawnEpicPlaymatTileHere },
-        { "List Factories",    ListFactories },
-    },
-    bags = {
-        { "Surface Bags",   function() HiddenBags("surface") end },
-        { "Submerge Bags",  function() HiddenBags("submerge") end },
-        { "Back to Main >", showMainMenu },
-    },
-    scripting = {
-        { "Multi-State Object",  MultiStateExp },
-        { "Take Everything Out", SFScript.TakeEveryThingOut },
-        { "Put Everything Away", SFScript.PutEverythingAway },
-        { "Dump Products",       SFScript.dumpProducts },
-        { "Back to Main >",      showMainMenu },
-    },
-    testing = {
-        { "Spawn Checker",        SpawnChecker },
-        { "DataPad Spawn Test",   SFTester.runSmokeTest },
-        { "Approach Vector Test", SFVector.runSmokeTest },
-        { "Back to Main >",       showMainMenu },
-    },
-    deduper = {
-        { "Scan For Duplicates", SFDeduper.ScanAllBags },
-        { "Layout Duplicates",   SFDeduper.LayoutDuplicates },
-        { "Back to Main >",      showMainMenu },
-    },
-}
+function buildContextMenus()
+    -- ... Top Menu ...
+    local root = MenuTree.Menu.menu("StarForge")
+
+    -- Script Manager
+    local script = root:submenu("Script Manager")
+    script:choice("Multi-State Object", function() MultiStateExp() end)
+    script:choice("Take Everything Out", function() SFScript.TakeEveryThingOut() end)
+    script:choice("Put Everything Away", function() SFScript.PutEverythingAway() end)
+    script:choice("Dump Products", function() SFScript.dumpProducts() end)
+
+    -- Game Tester
+    local tester = root:submenu("Game Tester")
+    tester:choice("Spawn Checker", SpawnChecker)
+    tester:choice("DataPad Spawn Test", SFTester.runSmokeTest)
+    tester:choice("Approach Vector Test", SFVector.runSmokeTest)
+
+    -- Deduplicator
+    local deduper = root:submenu("Deduplicator")
+    deduper:choice("Scan For Duplicates", SFDeduper.ScanAllBags)
+    deduper:choice("Layout Duplicates", SFDeduper.LayoutDuplicates)
+
+    -- Hidden Bags
+    local bags = root:submenu("Hidden Bags")
+    bags:choice("Surface Bags", function() HiddenBags("surface") end)
+    bags:choice("Submerge Bags", function() HiddenBags("submerge") end)
+
+    -- Singles on Main Menu
+    root:choice("Launch Probe", LaunchProbe)
+    root:choice("Playmat Card", function(color) spawnStandardPlaymatTileHere(color) end)
+    root:choice("Epic Playmat Card", function(color) spawnEpicPlaymatTileHere(color) end)
+    root:choice("List Factories", ListFactories)
+
+    return MenuTree.Cursor.new(self, root)
+end
