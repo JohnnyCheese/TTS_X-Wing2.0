@@ -18,10 +18,6 @@ Dim.mm_igu_ratio = 0.03637
 -- mm_igu_ratio = 0.036125
 
 -- Millimeter dimensions of ship bases
-Dim.mm_smallBase = 40
-Dim.mm_mediumBase = 60
-Dim.mm_largeBase = 80
-
 Dim.mm_baseSize = {
     small = 40,
     medium = 60,
@@ -33,6 +29,10 @@ Dim.mm_baseSize = {
     hugeBase = 80,
     objective = 36,
 }
+
+Dim.mm_smallBase = Dim.mm_baseSize.small
+Dim.mm_mediumBase = Dim.mm_baseSize.medium
+Dim.mm_largeBase = Dim.mm_baseSize.large
 
 ----------------------------------------
 -- Standard X-Wing Maneuver Templates --
