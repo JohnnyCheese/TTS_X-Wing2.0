@@ -35,46 +35,110 @@ local factionNames = {
     ["Empire"] = { "Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Elite", "Inquisitor" },
     ["Scum"] = { "Adam", "Baker", "Bandit", "Black Sun", "Cartel", "Charlie", "Syndicate" }
 }
+local orderedHues = { "Faction", "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Grey", "White", "Black" }
 
--- Faction-specific color names (faction color first, then alphabetical order)
+-- Each value is a *color name* that already exists in colorValues
 local factionColors = {
-    ["Rebel"] = { "Rebel Red", "Blue", "Bone", "Gold", "Green", "Grey", "Plum", "Red", "Sand", },
-    ["Empire"] = { "Imperial", "Frost", "Green", "Inquisitor", "Onyx", "Royal Red", "Slate", "Solar Yellow", "Sunset", "White", },
-    ["Scum"] = { "Scum", "Amber", "Indigo", "Murk", "Rust", "Sand", "Sewer", "Smog Blue", "Sun", "Teal", "Venom" }
+    Rebel = {
+        Faction = "Rebel Red",
+        Red     = "Red",
+        Orange  = "Alliance",
+        Yellow  = "C3PO",
+        Green   = "RotJ Green",
+        Blue    = "R2D2",
+        Purple  = "Zeb",
+        Grey    = "Grey",
+        White   = "White",
+        Black   = "Shadow Flight",
+    },
+
+    Empire = {
+        Faction = "Imperial",
+        Red     = "Royal Red",
+        Orange  = "Sunset",
+        Yellow  = "Solar Yellow",
+        Green   = "Royal Green", -- bright; avoids Endor≈Vader problem
+        Blue    = "Royal Blue",
+        Purple  = "Inquisitor",
+        Grey    = "Slate",
+        White   = "Storm Trooper",
+        Black   = "Vader",
+    },
+
+    Scum = {
+        Faction = "Scum",
+        Red     = "Maul",
+        Orange  = "Amber",
+        Yellow  = "Sun",
+        Green   = "Venom",
+        Blue    = "Cad Bane",
+        Purple  = "Syndicate Violet",
+        Grey    = "The Mandalorian",
+        White   = "Bone",
+        Black   = "Onyx",
+    },
 }
 
 -- Color values mapped by name (brightened and thematic for each faction)
 local colorValues = {
-    Amber            = "#B2804C", -- Scummy Yellow/Gold, slightly muted but bright
-    Blue             = "#4C6699", -- Standard bright blue for Rebels/Empire
-    Bone             = "#F2E6D9", -- Creamy off-white for Rebel Skull, bone-like
-    Dust             = "#7A6952", -- (Unused)
-    Frost            = "#A6B2BF", -- Light bluish-grey for Empire, icy and cold
-    Gold             = "#E6B233", -- Bright gold for Rebel valor
-    Green            = "#668059", -- Earthy green for Rebels, muted green for Empire
-    Grey             = "#808C91", -- Neutral grey for Rebels, practical
-    Imperial         = "#4A6980", -- Bright bluish-grey for Empire, TIE Fighter theme
-    Indigo           = "#735980", -- Deep purple-blue for Scum, mysterious
-    Inquisitor       = "#664C80", -- Purple for Empire, elite and dark
-    Murk             = "#666B40",
-    Onyx             = "#404C4C", -- Dark black for Empire, Stormtroopers
-    Plum             = "#B280B2", -- Deeper purple for Rebel Vassal, masculine and loyal
-    ["Rebel Red"]    = "#A61F24", -- Rebel Red faction color
-    Red              = "#FF1C1C", -- Bright red for Luke’s Red Squadron, Rebels
-    ["Royal Red"]    = "#CC3333", -- Bright, regal red for Imperial Guard
-    Rust             = "#B94C1A", -- Scummy red, gritty but bright
-    Sand             = "#E6CC99", -- Light sandy beige for Rebels/Scum, earthy
-    Scum             = "#545C33", -- Muted olive-green for Scum, gritty
-    Sewer            = "#703B17", -- Darker brownish, muddy color for Scum, scummy
-    ["Smog Blue"]    = "#4C6673", -- Dull, polluted blue for Scum, scummy
-    Slate            = "#808C91", -- Greyish-blue for Empire, industrial
-    Steel            = "#8C9499", -- (Unused, replaced with Slate for consistency)
-    Sun              = "#F2EB69",
-    ["Solar Yellow"] = "#FFB500", -- Bright yellow-orange for Empire, fiery
-    Sunset           = "#E6804C", -- Bright orange-yellow for Empire, fiery
-    Teal             = "#4C8080", -- (Removed, not needed in new scheme)
-    Venom            = "#598040", -- Bright green for Scum, toxic and vibrant
-    ["White"]        = "#FFFFFF", -- Bright white for Empire, Snowtroopers/Stormtroopers
+    ["Alliance"]          = "#E77A2F", -- Scummy Yellow/Gold, slightly muted but bright
+    ["Amber"]             = "#B2804C", -- Scummy Yellow/Gold, slightly muted but bright
+    ["Blue"]              = "#4C6699", -- Standard bright blue for Rebels/Empire
+    ["Bone"]              = "#F2E6D9", -- Creamy off-white for Rebel Skull, bone-like
+    ["C3PO"]              = "#faedcd",
+    ["Caboose Red D&H"]   = "#691B25", -- Rebel Red faction color
+    ["Caboose Red"]       = "#AB0000", -- Original 1975 Red Five color
+    ["Cad Bane"]          = "#3f5a84",
+    ["Cold Blue"]         = "#241fa6",
+    ["Dust"]              = "#7A6952", -- (Unused)
+    ["Endor"]             = "#233918",
+    ["Firebrick Red"]     = "#B22222",
+    ["Frost"]             = "#A6B2BF", -- Light bluish-grey for Empire, icy and cold
+    ["Gold"]              = "#E6B233", -- Bright gold for Rebel valor
+    ["Greedo"]            = "#39756c",
+    ["Green"]             = "#668059", -- Earthy green for Rebels, muted green for Empire
+    ["Grey"]              = "#808C91", -- Neutral grey for Rebels, practical
+    ["Imperial"]          = "#4A6980", -- Bright bluish-grey for Empire, TIE Fighter theme
+    ["Indigo"]            = "#735980", -- Deep purple-blue for Scum, mysterious
+    ["Inquisitor"]        = "#5522AA", -- Purple for Empire, elite and dark
+    ["Jabba"]             = "#867a60",
+    ["Leia"]              = "#f8f4ef",
+    ["Lighting Blue"]     = "#aae3f1",
+    ["Maul"]              = "#e21b2f",
+    ["Murk"]              = "#666B40",
+    ["Onyx"]              = "#404C4C", -- Dark black for Empire, Stormtroopers
+    ["Plum"]              = "#B280B2", -- Deeper purple for Rebel Vassal, masculine and loyal
+    ["R2D2"]              = "#0f178a",
+    ["Rebel Red"]         = "#862016", -- Rebel Red faction color
+    ["Red Five"]          = "#7a3230",
+    ["Red"]               = "#FF1C1C", -- Bright red for Luke’s Red Squadron, Rebels
+    ["RotJ Green"]        = "#12ee1a",
+    ["Royal Blue"]        = "#1e1f98",
+    ["Royal Green"]       = "#1e981f",
+    ["Royal Guard"]       = "#981e1f",
+    ["Royal Red"]         = "#CC3333", -- Bright, regal red for Imperial Guard
+    ["Rust"]              = "#B94C1A",
+    ["Sand"]              = "#E6CC99", -- Light sandy beige for Rebels/Scum, earthy
+    ["Scum"]              = "#545C33", -- Muted olive-green for Scum, gritty
+    ["Sewer"]             = "#703B17", -- Darker brownish, muddy color for Scum, scummy
+    ["Shadow Flight"]     = "#1c1c1c",
+    ["Shadows of Empire"] = "#736b2b",
+    ["Slate"]             = "#808C91", -- Greyish-blue for Empire, industrial
+    ["Smog Blue"]         = "#4C6673", -- Dull, polluted blue for Scum, scummy
+    ["Solar Yellow"]      = "#FFB500", -- Bright yellow-orange for Empire, fiery
+    ["Steel"]             = "#8C9499", -- (Unused, replaced with Slate for consistency)
+    ["Storm Trooper"]     = "#f9fafa",
+    ["Sun"]               = "#F2EB69",
+    ["Sunset"]            = "#E6804C", -- Bright orange-yellow for Empire, fiery
+    ["Syndicate Violet"]  = "#735980",
+    ["Tatooine"]          = "#efac51",
+    ["Teal"]              = "#4C8080", -- (Removed, not needed in new scheme)
+    ["The Mandalorian"]   = "#8a949d",
+    ["Vader"]             = "#221d19",
+    ["Venom"]             = "#598040", -- Bright green for Scum, toxic and vibrant
+    ["White"]             = "#F9F9F9", -- Bright white for Empire, Snowtroopers/Stormtroopers
+    ["Zann Consortium"]   = "#39756c",
+    ["Zeb"]               = "#8d6f8e",
 }
 
 -- Current settings stored in squadron
@@ -88,26 +152,29 @@ local squadron = {
     faction = "Empire"
 }
 
-function clearSquadron()
+local PilotCardByShip = {}
+
+local function buildPilotCardIndex()
+    PilotCardByShip = {}, {}
+    for _, o in ipairs(getAllObjects()) do
+        -- the card will have a live 'ship' var set now:
+        local s = o.getVar("ship")
+        if s and s.guid then
+            PilotCardByShip[s.guid] = o
+        end
+    end
+end
+
+function resetSquadron()
     squadron.ships = {}
+    buildPilotCardIndex()
 end
 
 -- ### Helper Functions
-
-local function getColorByName(name)
-    return colorValues[name]
-end
-
-local function getFactionColors(faction)
-    local names = factionColors[faction] or {}
-    local result = {}
-    for _, name in ipairs(names) do
-        local colorValue = getColorByName(name)
-        if colorValue then
-            table.insert(result, { option = name, value = colorValue })
-        end
-    end
-    return result
+function getColorByName(labelOrName, faction)
+    local map = factionColors[faction]
+    local key = (map and map[labelOrName]) or labelOrName -- label→name, else treat as name
+    return colorValues[key]                               -- returns "#RRGGBB" or nil
 end
 
 function getSquadronFormation()
@@ -127,6 +194,9 @@ end
 function onObjectDrop(player_color, ship)
     if not isNearByShip(ship) then return end
     addSquadronMate(ship, squadron)
+    if table.empty(PilotCardByShip) then
+        buildPilotCardIndex()
+    end
 end
 
 -- UI Handling
@@ -139,14 +209,28 @@ function updateNameDropdown(names)
     return names[1] or ""
 end
 
-function updateColorDropdown(factionColorsList)
+function updateColorDropdown(labels)
+    local opts = {}
+    for _, label in ipairs(labels) do
+        opts[#opts + 1] = { option = label }
+    end
+
+    local dd = XmlDropdown.new(self, "squadronColorDropdown")
+    dd:clearOptions()
+    dd:setOptions(opts, "Faction") -- default selection = first label
+    dd:apply()
+
+    return getColorByName("Faction", squadron.faction) or "#FFFFFF"
+end
+
+function updateColorDropdownOld(factionColorsList)
     local colorDropdown = XmlDropdown.new(self, "squadronColorDropdown")
 
     colorDropdown:clearOptions()
     colorDropdown:setOptions(factionColorsList, factionColorsList[1].option or "")
     colorDropdown:apply()
 
-    return factionColorsList[1].value or Color(1, 1, 1)
+    return factionColorsList[1].value or "#FFFFFF"
 end
 
 function onFactionChange(player, selectedFaction, dropdownId)
@@ -183,9 +267,10 @@ function onFactionChange(player, selectedFaction, dropdownId)
     end, function() return not self.UI.loading end)
 
     seq:waitCondition(function()
-        local factionColorsList = getFactionColors(selectedFaction)
-        squadron.squadronColor = updateColorDropdown(factionColorsList)
-        onSquadronColorChange(player, squadron.squadronColor, "squadronColorDropdown")
+        -- local factionColorsList = getFactionColors(selectedFaction)
+        -- squadron.squadronColor = updateColorDropdown(factionColorsList)
+        squadron.squadronColor = updateColorDropdown(orderedHues)
+        onSquadronColorChange(player, "Faction", "squadronColorDropdown")
     end, function() return not self.UI.loading end)
 
     seq:waitCondition(function()
@@ -226,7 +311,7 @@ function onSquadronNameChange(player, value, id)
 end
 
 function onSquadronColorChange(player, selectedColorName, dropdownId)
-    local color = getColorByName(selectedColorName)
+    local color = getColorByName(selectedColorName, squadron.faction)
     if color then
         self.UI.setAttribute("colorPreview", "color", color)
         squadron.squadronColor = color
@@ -235,7 +320,7 @@ end
 
 function applySquadronSettings()
     self.UI.setAttribute("squadronPopup", "active", "false")
-    clearSquadron()
+    resetSquadron()
 end
 
 function colorPreviewClicked(player, value, id)
@@ -263,6 +348,20 @@ function overrideAITint(ship, newTint)
     end
 end
 
+function findPilotCardByShipGUID(shipGUID)
+    return PilotCardByShip[shipGUID]
+end
+
+function findPilotCardByShipGUIDOld(shipGUID)
+    local allObjects = getObjects()
+    local card = table.find(allObjects, shipGUID, function(card, guid)
+        local ship = card.getVar("ship")
+        if ship ~= nil and ship.guid == guid then return true end
+        return false
+    end)
+    return card and allObjects[card] or nil
+end
+
 function computeShipName(slot, squadron)
     if squadron.shipCount == 1 then
         return squadron.squadronName
@@ -273,15 +372,23 @@ end
 function addSquadronMate(ship, squad)
     local slot = (#squad.ships % squad.shipCount) + 1
     table.insert(squad.ships, ship)
+    local name = computeShipName(slot, squad)
 
     local seq = Sequence:new(true)
 
     seq:addTask(positionShipInSquadron, ship, slot)
     seq:waitFrames(function()
-        overrideAITint(ship, Color.fromHex(squad.squadronColor))
+        local card = findPilotCardByShipGUID(ship.guid)
+        if card ~= nil then
+            card.setName(name)
+            card.setColorTint(Color.fromHex(squad.squadronColor))
+            card.call("tint_check")
+        else
+            overrideAITint(ship, Color.fromHex(squad.squadronColor))
+        end
     end, 1)
     seq:waitCondition(function()
-            ship.setDescription("name " .. computeShipName(slot, squad))
+            ship.setDescription("name " .. name)
         end,
         function() return Global.call("API_XWcmd_isReady", { ship = ship }) end)
     seq:waitCondition(function()
