@@ -1,36 +1,40 @@
 require("TTS_lib.Util.Math")
 local Dim = require("Dim")
 
-local offset = Dim.Convert_mm_igu(8.3)
-
--- Define the positions for each Wing Formation
-local wingFormations = {
-    [1] = {                                          -- Configuration for 6 ships
-        { x = 0.0,           y = 0.0, z = -offset }, -- Lead
-        { x = -2.0 * offset, y = 0.0, z = -offset }, -- Right Wing
-        { x = 2.0 * offset,  y = 0.0, z = -offset }, -- Left Wing
-        { x = 0.0,           y = 0.0, z = offset },  -- Slot
-        { x = -2.0 * offset, y = 0.0, z = offset },  -- Right Outer Wing
-        { x = 2.0 * offset,  y = 0.0, z = offset }   -- Left Outer Wing
-    },
-    [2] = {                                          -- Configuration for 2 ships
-        { x = 0.0, y = 0.0, z = -offset },           -- lead
-        { x = 0.0, y = 0.0, z = offset }             -- Slot
-    },
-    [3] = {                                          -- Configuration for 4 ships
-        { x = offset,  y = 0.0, z = -offset },       -- Lead
-        { x = -offset, y = 0.0, z = -offset },       -- Right Wing
-        { x = offset,  y = 0.0, z = offset },        -- Slot
-        { x = -offset, y = 0.0, z = offset }         -- Right Rear Wing
-    }
-}
-
 local nextSlot = 1
 local prevShip = nil
 local debounce = nil
 
+function calcOffset()
+    local sz_base = Dim.Convert_mm_igu(Dim.mm_smallBase)
+    local sz_tmpl = Dim.Convert_mm_igu(20)
+    return (sz_base + sz_tmpl) / 2
+end
 
-function getWingFormation(stateId)
+function getWingFormation()
+    local stateId = self.getStateId()
+    local offset = calcOffset()
+    -- Define the positions for each Wing Formation
+    local wingFormations = {
+        [1] = {                                          -- Configuration for 6 ships
+            { x = 0.0,           y = 0.0, z = -offset }, -- Lead
+            { x = -2.0 * offset, y = 0.0, z = -offset }, -- Right Wing
+            { x = 2.0 * offset,  y = 0.0, z = -offset }, -- Left Wing
+            { x = 0.0,           y = 0.0, z = offset },  -- Slot
+            { x = -2.0 * offset, y = 0.0, z = offset },  -- Right Outer Wing
+            { x = 2.0 * offset,  y = 0.0, z = offset }   -- Left Outer Wing
+        },
+        [2] = {                                          -- Configuration for 2 ships
+            { x = 0.0, y = 0.0, z = -offset },           -- lead
+            { x = 0.0, y = 0.0, z = offset }             -- Slot
+        },
+        [3] = {                                          -- Configuration for 4 ships
+            { x = offset,  y = 0.0, z = -offset },       -- Lead
+            { x = -offset, y = 0.0, z = -offset },       -- Right Wing
+            { x = offset,  y = 0.0, z = offset },        -- Slot
+            { x = -offset, y = 0.0, z = offset }         -- Right Rear Wing
+        }
+    }
     return wingFormations[stateId] or wingFormations[3] -- Default to 4 positions if the state is unknown
 end
 
@@ -41,22 +45,23 @@ function positionShip(ship)
     end
     prevShip = ship
 
-    local stateId = self.getStateId()
-    local currentFormation = getWingFormation(stateId)
+    local currentFormation = getWingFormation()
 
     local slot = nextSlot
     if slot > #currentFormation then
         slot = 1
     end
 
-    local rotation = self.getRotation()
-    ship.setRotationSmooth(rotation, false, true)
-
+    local scale = self.getScale()
     local pos = currentFormation[slot]
-    pos.x = math.round(pos.x, 2)
-    pos.y = math.round(pos.y, 2)
-    pos.z = math.round(pos.z, 2)
+    pos.x = pos.x / scale.x
+    pos.y = pos.y / scale.y
+    pos.z = pos.z / scale.z
     local newPos = self.positionToWorld(pos)
+
+    local rotation = self.getRotation()
+
+    ship.setRotationSmooth(rotation, false, true)
     ship.setPositionSmooth(newPos, false, true)
     nextSlot = (slot % #currentFormation) + 1
 end
