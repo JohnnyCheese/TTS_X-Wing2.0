@@ -71,16 +71,16 @@ end
 --- Adds a step that waits for a condition to be met before progressing.
 --- @param runFunc function | nil: A function to execute once the condition is met. (nilable)
 --- @param conditionFunc function: The condition function to evaluate.
---- @param timeout number?: The maximum time to wait for the condition (optional).
+--- @param timeoutSecs number?: The maximum time to wait for the condition (optional).
 --- @param timeoutFunc function?: A function to execute if the condition times out (optional).
-function Sequence:waitCondition(runFunc, conditionFunc, timeout, timeoutFunc)
+function Sequence:waitCondition(runFunc, conditionFunc, timeoutSecs, timeoutFunc)
     self:addStep(function(seq)
         Wait.condition(function()
             if runFunc then
                 runFunc() -- Executes a function once the condition is met.
             end
             seq:next()    -- Advances the sequence.
-        end, conditionFunc, timeout, timeoutFunc)
+        end, conditionFunc, timeoutSecs, timeoutFunc)
     end)
 end
 
