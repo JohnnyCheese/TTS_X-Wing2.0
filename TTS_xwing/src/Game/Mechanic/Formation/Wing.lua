@@ -4,6 +4,8 @@ local Sequence = require("TTS_lib.Sequence.Sequence")
 local Dim = require("Dim")
 
 local nextSlot = 1
+local collidingWith = {}
+local suppressCollision = false
 
 -- formation = Wing.new()
 
@@ -52,30 +54,37 @@ end
 
 -- Function to position a ship in the first available position
 function positionShip(ship)
-    collidingWith[ship.guid] = { ship = ship, lock = ship.getLock() }
-    ship.setLock(true)
     local currentFormation = getWingFormation()
-
     local slot = nextSlot
     if slot > #currentFormation then
-        slot = 1
+        printToAll("No available slots in formation for " .. ship.getName(), Color.Pink)
+        -- slot = 1
+        return
     end
+    nextSlot = (slot % #currentFormation) + 1
+    collidingWith[self.guid] = { ship = self, lock = self.getLock() }
+    if collidingWith[ship.guid] == nil then
+        collidingWith[ship.guid] = { ship = ship, lock = ship.getLock(), slot = slot, active = true }
+    else
+        nextSlot = collidingWith[ship.guid].slot
+        collidingWith[ship.guid].slot = slot
+    end
+    ship.setLock(true)
 
-    local slotPos = currentFormation[slot]
+    local slotPos = currentFormation[collidingWith[ship.guid].slot]
     local newPos = offsetFrom(self, slotPos)
-
     local rotation = self.getRotation()
 
     local seq = Sequence.new(true)
 
-    seq:waitCondition(function()
-        ship.setRotationSmooth(rotation, false, true)
-        ship.setPositionSmooth(newPos, false, true)
-    end, function() return ship.resting and self.resting end)
+    -- seq:waitCondition(function()
+    ship.setRotationSmooth(rotation, false, true)
+    ship.setPositionSmooth(newPos, false, true)
+    -- end, function() return ship.resting and self.resting end)
 
     seq:waitCondition(function()
+        self.setLock(collidingWith[self.guid].lock)
         ship.setLock(collidingWith[ship.guid].lock)
-        nextSlot = (slot % #currentFormation) + 1
     end, function() return ship.resting and self.resting end)
 
     seq:start()
@@ -86,17 +95,47 @@ function isShip(obj)
     return Global.call("API_IsShipType", { ship = obj })
 end
 
+function swapSlots(ship)
+    local key = collidingWith:find(nextSlot, function(v, slot) return v.slot == slot end)
+    if key == nil then
+        printToAll("No other ship to swap with!", Color.Red)
+        collidingWith[ship.guid].slot = nextSlot
+        return
+    end
+    local temp = collidingWith[key]
+    local slot1 = collidingWith[ship.guid].slot
+    local slot2 = collidingWith[temp.ship.guid].slot
+
+    collidingWith[ship.guid].slot = slot2
+    collidingWith[temp.ship.guid].slot = slot1
+    temp.slot = slot1
+
+    positionShip(ship)
+    positionShip(temp.ship)
+end
+
 -- Event triggered when a ship collides with the tool
 function onCollisionEnter(collision_info)
+    printToAll("suppressCollision: " .. tostring(suppressCollision), Color.Orange)
+    self.setLock(true)
     if suppressCollision then return end
     local ship = collision_info.collision_object
-    if collidingWith[ship.guid] ~= nil then return end
+    if collidingWith[ship.guid] ~= nil then
+        -- if collidingWith[ship.guid].active then return end
+        -- swapSlots(ship)
+        return
+    end
     if not isShip(ship) then return end
+    printToAll("Wing Formation Tool collided with " .. ship.getName(), Color.Orange)
     positionShip(ship)
 end
 
 function onCollisionExit(collision_info)
-    self.setLock(false)
+    local ship = collision_info.collision_object
+    if not isShip(ship) then return end
+    if collidingWith[ship.guid] == nil then return end
+    printToAll("Wing Formation Tool no longer colliding with " .. ship.getName(), Color.Orange)
+    collidingWith[ship.guid].active = false
 end
 
 function clearWing()
@@ -121,24 +160,28 @@ end
 
 function positionTemplate(ship)
     suppressCollision = true
-    collidingWith[ship.guid] = { ship = ship, lock = ship.getLock() }
+    nextSlot = 1
+    collidingWith[ship.guid] = { ship = ship, lock = ship.getLock(), slot = nextSlot }
     ship.setLock(true)
-    slot = 1
+    self.setLock(true)
     local currentFormation = getWingFormation()
+    nextSlot = (nextSlot % #currentFormation) + 1
     local rot = ship.getRotation()
-    local newPos = offsetFrom(ship, -1 * Vector(currentFormation[slot]))
+
+    local newPos = offsetFrom(ship, -1 * Vector(currentFormation[collidingWith[ship.guid].slot]))
+    newPos.y = self.getPosition().y
 
     local seq = Sequence.new(true)
 
-    seq:waitCondition(function()
-        self.setRotationSmooth(rot, false, true)
-        self.setPositionSmooth(newPos, false, true)
-    end, function() return ship.resting and self.resting end)
-    seq:waitCondition(function()
+    self.setRotationSmooth(rot, false, true)
+    self.setPositionSmooth(newPos, false, true)
+    self.setLock(false)
+    function release()
         ship.setLock(collidingWith[ship.guid].lock)
         suppressCollision = false
-        nextSlot = (slot % #currentFormation) + 1
-    end, function() return ship.resting and self.resting end)
+    end
+
+    seq:waitCondition(release, function() return ship.resting and self.resting end, 2, release)
 
     seq:start()
 end
