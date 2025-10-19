@@ -8,6 +8,7 @@ function onLoad()
     -- Add a context menu item to manually check the object
     self.addContextMenuItem("Toggle Interactive", toggleInteractive)
     self.addContextMenuItem("Show Bounds", showBounds)
+    self.addContextMenuItem("Move to Obj Center", centerOfObject)
 end
 
 function onCollisionEnter(info)
@@ -27,6 +28,10 @@ end
 
 function toggleInteractive()
     subject.interactable = not subject.interactable
+end
+
+function centerOfObject()
+    self.setPositionSmooth(subject.getPosition(), false, true)
 end
 
 local function color(text, colorValue)
