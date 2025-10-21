@@ -3856,7 +3856,6 @@ end
 function isAssignable(object)
     -- Target lock has special onDrop handling on its own
     return object.getVar('__XW_TokenType') ~= 'targetLock'
-        and ObjType.IsOfType(object, 'token')
         or object.hasTag('Assignable')
 end
 
