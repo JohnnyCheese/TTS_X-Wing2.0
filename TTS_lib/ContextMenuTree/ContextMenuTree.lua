@@ -29,15 +29,13 @@ local Cursor = {}
 Cursor.__index = Cursor
 
 function Cursor.new(object, root)
-    FWD = { "[b]▸[/b]", "›", "▶", "»", "→" }
-    BCK = { "[b]◂[/b]", "‹", "◀", "«", "←" }
+    FWD = { "[b]▸[/b]", "[b]>[/b]", "›", "▶", "»", "→" }
+    BCK = { "[b]◂[/b]", "[b]<[/b]", "‹", "◀", "«", "←" }
     return setmetatable({
         object   = object,
         current  = root,
-        submenu  = FWD[1],
-        -- submenu  = "▶", -- alternatives: "▸", "›", "▶", "»", "→"
-        -- backMark = "◀", -- mirror of indicator: "◂", "‹", "◀", "«", "←"
-        backMark = BCK[1],
+        submenu  = FWD[2],
+        backMark = BCK[2],
         backText = "[i]Back[/i]" -- or "Go Back"
     }, Cursor)
 end
