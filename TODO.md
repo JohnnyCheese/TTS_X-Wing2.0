@@ -62,6 +62,8 @@
    2. Verify that `git` sees it as a `rename` to preserve history.
 8. ~~Make sure assigned tokens move with the ship they're assigned to.~~
 9. ~~Make targetable objects show up in target Arcs.~~
+10. Add LuaUnit tests for the TTS_Lib util modules
+    1.  ~~the String:trim() supplied there breaks on large string inputs (Moonsharp bug)~~
 
 
 ## Requires an updated Beta Save

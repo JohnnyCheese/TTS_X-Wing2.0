@@ -41,50 +41,20 @@ __XW_MatLayout = 'Standard'
 -- This mat identifier
 __XW_MatID = 'Purple-Orange'
 
-function onLoad()
-  -- Restore current image index
-  currImage = tonumber(self.script_state) or 1
-  self.lock()
-  self.interactable = false
-  self.tooltip = false
+local ImageManager = require("Game.Component.Playmat.ImageManager")
+local mgr
+
+function onLoad(saved)
+    mgr = ImageManager.install(self, { images = imageSet })
+    mgr:onLoad(saved)
+    self.lock()
+    self.interactable = false
+    self.tooltip = false
 end
 
--- Change image to the next from the list, wrap around to 1
--- Reloads self to actually reflect the change
-function NextImage()
-  deleteAll()
-  -- Increment image index
-  local nextImage = currImage + 1
-  if nextImage > #imageSet then
-    nextImage = 1
-  end
-
-  -- Reload self with the new image and save the index
-  local custom = self.getCustomObject()
-  custom.diffuse = imageSet[nextImage]
-  self.setCustomObject(custom)
-  local newSelf = self.reload()
-  newSelf.script_state = nextImage
+function onSave()
+    return mgr:onSave()
 end
-
-function PrevImage()
-  deleteAll()
-  -- Increment image index
-  local nextImage = currImage - 1
-  if nextImage == 0 then
-    nextImage = #imageSet
-  end
-
-  -- Reload self with the new image and save the index
-  local custom = self.getCustomObject()
-  custom.diffuse = imageSet[nextImage]
-  self.setCustomObject(custom)
-  local newSelf = self.reload()
-  newSelf.script_state = nextImage
-end
-
--- Please update me
-
 
 corrScale = { 0.625, 0.625, 0.625 }
 

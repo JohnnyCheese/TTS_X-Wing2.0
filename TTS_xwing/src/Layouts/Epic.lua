@@ -1,10 +1,10 @@
-local Vect = require("TTS_Lib.Vector.Vector")
+local Dim = require("Dim")
 
 local epic = {}
 do
-    epic.name          = 'Epic'
-    epic.tableImage    = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/tableEpic.jpg'
-    epic.elements      = {
+    epic.name       = 'Epic'
+    epic.tableImage = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/tableEpic.jpg'
+    epic.elements   = {
         ['Damage Decks']           = { pos = { 1.89 + 38, 1.06, -0.06 }, rot = { 0.00, 45.01, 0.00 }, scale = { 1.00, 0.95, 1.00 } },
         ['Huge Ship Damage Decks'] = { pos = { 2.49 + 38, 1.00, -1.95 }, rot = { 0.00, 45.01, 0.00 }, scale = { 0.44, 0.42, 0.44 } },
         ['Tractor Beam']           = { pos = { -1.36 + 38, 1.06, -12.2 }, rot = { 0.00, 180.00, 0.00 }, scale = { 0.95, 0.95, 0.95 } },
@@ -57,23 +57,12 @@ do
         ['Range 1-5 Rulers']       = { pos = { -43.00, 1.00, 0.80 }, rot = { 0.00, 0.00, 180.00 }, scale = { 0.63, 0.63, 0.63 } },
         ['Deck Holder 1']          = { pos = { -38.50, 0.90, -14.50 }, rot = { 0.00, 0.00, 0.00 }, scale = { 0.65, 0.65, 0.65 } },
         ['Deck Holder 2']          = { pos = { -38.50, 0.90, 14.50 }, rot = { 0.00, 180.00, 0.00 }, scale = { 0.65, 0.65, 0.65 } },
-        ['Board Edge L']           = { pos = { -37.07, 0.8, 0.00 }, rot = { 0.00, 0.00, 0.00 }, scale = { 0.5, 0.5, 16.75 }, int = false },
-        ['Board Edge R']           = { pos = { 31.06, 0.80, 0.00 }, rot = { 0.00, 0.00, 0.00 }, scale = { 0.5, 0.5, 16.75 }, int = false },
-        ['Board Edge T']           = { pos = { -3, 0.8, 16.55 }, rot = { 0.00, 90.00, 0.00 }, scale = { 0.5, 0.5, 34.00 }, int = false },
-        ['Board Edge B']           = { pos = { -3, 0.8, -16.55 }, rot = { 0.00, 90.00, 0.00 }, scale = { 0.5, 0.5, 34.00 }, int = false },
+        ['Board Edge L']           = { pos = { -36.51, 0.8, 0.00 }, rot = { 0.00, 0.00, 0.00 }, scale = { 0.5, 0.5, 16.75 }, int = false },
+        ['Board Edge R']           = { pos = { 30.51, 0.80, 0.00 }, rot = { 0.00, 0.00, 0.00 }, scale = { 0.5, 0.5, 16.75 }, int = false },
+        ['Board Edge T']           = { pos = { -3, 0.8, 16.88 }, rot = { 0.00, 90.00, 0.00 }, scale = { 0.5, 0.5, 34.00 }, int = false },
+        ['Board Edge B']           = { pos = { -3, 0.8, -16.88 }, rot = { 0.00, 90.00, 0.00 }, scale = { 0.5, 0.5, 34.00 }, int = false },
     }
-    local zonePos      = { 5, 2.5, 32 }
-    local zoneScale    = { 100, 4, 12 }
-    local assignOffset = { -5, 1, 2 }
-    local stuffCenter  = { 0, 0, 18.5 }
-    local stuffSize    = { 108, 1, 37 }
-    local function opposite(data)
-        return Vect.ScaleEach(data, { 1, 1, -1 })
-    end
-    local function left(data)
-        return Vect.ScaleEach(data, { -1, 1, 1 })
-    end
-    epic.hands = {
+    epic.hands      = {
         ['Purple'] = { pos = { -48.00, 5.00, -15.00 }, rot = { 0.00, 90.00, 0.00 }, scale = { 5.00, 5.00, 1.00 } },
         ['Green']  = { pos = { -52.00, 5.00, -5.00 }, rot = { 0.00, 90.00, 0.00 }, scale = { 5.00, 5.00, 1.00 } },
         ['Orange'] = { pos = { -48.00, 5.00, 5.00 }, rot = { 0.00, 90.00, 0.00 }, scale = { 5.00, 5.00, 1.00 } },
@@ -85,8 +74,10 @@ do
         ['Pink']   = { pos = { 52.00, 5.00, 5.00 }, rot = { 0.00, 270.00, 0.00 }, scale = { 5.00, 5.00, 1.00 } },
         ['White']  = { pos = { 48.00, 5.00, -5.00 }, rot = { 0.00, 270.00, 0.00 }, scale = { 5.00, 5.00, 1.00 } },
     }
-    epic.mats = {
-        ['Main'] = { pos = { -3.00, 1, 0.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { 3.38, 1.20, 1.63 }, int = false },
+    local x_scale   = Dim.Convert_mm_igu(6 * 12 * 25.4) / 2 / 10
+    local z_scale   = Dim.Convert_mm_igu(3 * 12 * 25.4) / 2 / 10
+    epic.mats       = {
+        ['Main'] = { pos = { -3.00, 1, 0.00 }, rot = { 0.00, 180.00, 0.00 }, scale = { x_scale, 1.20, z_scale }, int = false },
     }
     function EpicChangeMat()
         local mat = Layout.GetMats()[epic.name].Main
@@ -116,13 +107,19 @@ do
     local bFontSize = 230
     epic.controls = {
         {
-            position = { 50.5, 1, 2.5 },
+            position = { 50.5, 1, 5.1 },
             rotation = { 0, 90, 0 },
             click_function = 'EpicChangeMat',
             label = 'NEXT PLAYMAT'
         },
         {
-            position = { 50.5, 1, -2.5 },
+            position = { 50.5, 1, 0 },
+            rotation = { 0, 90, 0 },
+            click_function = 'SpawnEpicPlaymatTile',
+            label = 'PLAYMAT TILE'
+        },
+        {
+            position = { 50.5, 1, -5.1 },
             rotation = { 0, 90, 0 },
             click_function = 'EpicChangeMatPrev',
             label = 'PREV PLAYMAT'
@@ -146,7 +143,6 @@ do
             label = 'HOTAC MODE'
         },
     }
-
 
     for _, button in ipairs(epic.controls) do
         button.width = bWidth

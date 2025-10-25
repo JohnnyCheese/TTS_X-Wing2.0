@@ -7,20 +7,10 @@ end
 
 -- Utility function to check if a table contains an object based on a comparison function
 if not table.contains then
-    table.contains = function(tbl, object, compareFunc)
-        compareFunc = compareFunc or function(obj1, obj2)
-            return obj1.guid == obj2.guid
-        end
-
-        for _, obj in ipairs(tbl) do
-            if compareFunc(obj, object) then
-                return true
-            end
-        end
-        return false
+    table.contains = function(tbl, needle, compareFunc)
+        return table.find(tbl, needle, compareFunc) ~= nil
     end
 end
-
 
 -- Mash together two tables
 if not table.join then
@@ -105,7 +95,9 @@ end
 -- Only iterates through numeric keys part
 if not table.min then
     table.min = function(tab, eval)
-        if not tab[1] then return end
+        if not tab[1] then
+            return
+        end
         local min = { el = tab[1], val = eval(tab[1]) }
         for k = 2, #tab do
             local val = eval(tab[k])
@@ -154,13 +146,18 @@ if not table.sieve then
 end
 
 -- Try to find en element in the table, return key if found, nil otherwise
+-- added compareFunc which can expect up to 4 parameters: (value, needle, key, table)
 if not table.find then
-    table.find = function(tab, el)
-        for k, v in pairs(tab) do
-            if v == el then
+    table.find = function(tbl, needle, compareFunc)
+        local cmp = compareFunc or function(a, b)
+            return a == b
+        end
+        for k, v in pairs(tbl) do
+            if cmp(v, needle, k, tbl) then
                 return k
             end
         end
+        return nil
     end
 end
 

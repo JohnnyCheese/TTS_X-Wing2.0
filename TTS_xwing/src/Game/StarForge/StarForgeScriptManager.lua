@@ -103,6 +103,7 @@ Scan all game objects
 - if the Objects are Multi-state, consider registering each state with a "<key>.#".
 ]]
 StarForgeScriptManager.TakeEveryThingOut = function()
+    setToLayout(2) -- Epic Layout
     StarForgeScriptManager:reset()
     printToAll("Extract All Products")
     local everything = getObjects()

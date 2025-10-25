@@ -16,10 +16,15 @@
 print_debug = false
 cast_debug = false
 
-Accessories_Bag_GUID = '53ad3d'
+bagGuids = {
+    ['Accessories'] = '53ad3d', -- Accessories 81 items
+    ['DiceBag']     = 'f0e7b9', -- Dice Bag 10 items
+    ['ExtraAssets'] = 'a3690e', -- Extra Assets 19 items
+    ['Fuse'] = '568727',        -- Fuse Bag Infinite
+    ['Obstacles']   = '203cb8', -- ObstacleBag 31 items
+}
+
 CompositeBase_GUID = '8c3322'
-Fuse_Bag_GUID = '568727'
-Obstacle_Bag_GUID = '203cb8'
 Straight_1_Bag_GUID = '637ad7'
 
 TTS_print = print
@@ -471,25 +476,22 @@ AIModule.EnableStrikeAI = function(ship, cmd)
         local targets = {}
         for arg in targetsString:gmatch("([^,]+)") do
             -- Split by comma
-            local target = arg:match("^%s*(.-)%s*$") -- Trim spaces from each target
+            local target = arg:trim()
             if target ~= "" then
-                -- Ensure no empty strings are added
                 table.insert(targets, target)
             end
         end
 
-        print("target list: " .. table.concat(targets, ", ")) -- Output for verification
-
         -- Check if any valid targets were added
         if #targets > 0 then
             ship.setTable('StrikeTargets', targets)
-            print("Strike Targets set for " .. ship.getName() .. ": " .. table.concat(targets, ", "))
+            printToAll(tostring(ship.getName()) .. " has Strike Target list: " .. table.concat(targets, ", "), Color.Yellow)
         else
-            print("No valid targets specified for " .. ship.getName())
+            printToAll(tostring(ship.getName()) .. " has no Strike Targets, reverting to Attack AI.", Color.Yellow)
             ship.setTable('StrikeTargets', nil)
         end
     else
-        printToAll("Invalid format or no targets specified.", Color.Orange)
+        printToAll("Invalid format or no targets specified.", Color.Yellow)
         ship.setTable('StrikeTargets', nil)
     end
 end
@@ -647,8 +649,8 @@ AIModule.IsStrikeTarget = function(ship, target_ship)
     -- Only Strike AI ships have Strike Targets defined
     local strikeTargets = ship.getTable('StrikeTargets') or {}
 
-    local targetName = target_ship.getName()
-    local targetGUID = target_ship.getGUID()
+    local targetName = target_ship.getName():trim()
+    local targetGUID = target_ship.getGUID():trim()
 
     -- Check if the target is in the list of strike targets by name or GUID
     for _, nameOrGUID in ipairs(strikeTargets) do
@@ -695,7 +697,7 @@ AIModule.TargetForStrikeAI = function(ship)
     end
 
     -- Get potential_targets as a table with: distance, arc, and ship.
-    local potential_targets = ArcCheck.GetTargetsInRelationToArc(ship, "all", nil, 9, false)
+    local potential_targets = ArcCheck.GetTargetsInRelationToArc(ship, "all", nil, 9, true)
 
     -- Extract from potential targets only those listed as Strike Targets
     local strike_targets = {}
@@ -715,7 +717,8 @@ AIModule.TargetForStrikeAI = function(ship)
     -- Return the closest Strike Target, if any
     if #strike_targets > 0 then
         local strike_target = strike_targets[1].ship
-        printToAll(tostring(ship.getName()) .. " found Strike AI target: '" .. tostring(strike_target) .. "'", Color.Orange )
+        printToAll(tostring(ship.getName()) .. " found Strike AI target: '" .. tostring(strike_target.getName()) .. "'",
+            Color.Yellow)
         return strike_target
     end
     return nil
@@ -3853,7 +3856,6 @@ end
 function isAssignable(object)
     -- Target lock has special onDrop handling on its own
     return object.getVar('__XW_TokenType') ~= 'targetLock'
-        and ObjType.IsOfType(object, 'token')
         or object.hasTag('Assignable')
 end
 
@@ -5413,7 +5415,7 @@ BombModule.OnTokenDrop = function(token)
         end
 
         if token.getName() == 'Electro-Chaff Cloud' then
-            fuseBag = getObjectFromGUID(Fuse_Bag_GUID)
+            fuseBag = getObjectFromGUID(bagGuids['Fuse'])
             fuseBag.takeObject({
                 position = vector(destPos[1], destPos[2], destPos[3]) + vector(0, 1, 0),
                 smooth = true,
@@ -5613,7 +5615,7 @@ BombModule.SpawnBlaze = function(center)
     t1.addTag('Obstacle')
     t1.setLuaScript(clusterScript)
     BombModule.CheckMineDroppedOverlapping(t1)
-    fuseBag = getObjectFromGUID(Fuse_Bag_GUID)
+    fuseBag = getObjectFromGUID(bagGuids['Fuse'])
     fuseBag.takeObject({
         position = Vect.Sum(Vect.Sum(center.pos, destOffset1), { 0, 1, 0 }),
         smooth = true,
@@ -6000,7 +6002,7 @@ function newSpawner(listTable)
     PosBag3 = { 15, 15, 0 }
     PosBag4 = { 20, 20, 0 }
     PoaBag5 = { 25, 25, 0 }
-    tempBagAcc = getObjectFromGUID(Accessories_Bag_GUID).clone({ position = PosBag3 }) -- Accessories bag
+    tempBagAcc = getObjectFromGUID(bagGuids['Accessories']).clone({ position = PosBag3 })
 
     --Stablishes lists of available upgrades, pilots, accessories, ships and mobile upgrades
     listaAcc = tempBagAcc.getObjects()
@@ -6747,7 +6749,7 @@ function newSpawner(listTable)
     end
 
     if listTable.Obstacles ~= nil then
-        tempObstacleBag = getObjectFromGUID(Obstacle_Bag_GUID).clone({ position = PosBag3 }) -- Obstacles bag
+        tempObstacleBag = getObjectFromGUID(bagGuids['Obstacles']).clone({ position = PosBag3 }) -- Obstacles bag
         obstacleAcc = tempObstacleBag.getObjects()
         for i, obstacleName in ipairs(listTable.Obstacles) do
             local found = false
@@ -7372,7 +7374,7 @@ function FindNearestShip(object, max_distance, filter_function)
 
     for _, ship in pairs(getObjects()) do
         if MoveModule.SelectShips(ship) then
-            local shipPos = ship.getPosition():setAt('y', 0)
+            local shipPos = ship.getPosition():copy():setAt('y', 0)
             local dist = shipPos:distance(objPos)
             if dist < min_dist and filter_function(object, ship) then
                 nearest = ship
