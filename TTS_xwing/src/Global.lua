@@ -20,7 +20,7 @@ bagGuids = {
     ['Accessories'] = '53ad3d', -- Accessories 81 items
     ['DiceBag']     = 'f0e7b9', -- Dice Bag 10 items
     ['ExtraAssets'] = 'a3690e', -- Extra Assets 19 items
-    ['Fuse'] = '568727',        -- Fuse Bag Infinite
+    ['Fuse']        = '568727', -- Fuse Bag Infinite
     ['Obstacles']   = '203cb8', -- ObstacleBag 31 items
 }
 
@@ -176,6 +176,9 @@ ObjType.AddType('ship', function(obj)
 end)
 ObjType.AddType('token', function(obj)
     return (obj.tag == 'Chip' or obj.tag == 'Coin' or (obj.getVar('__XW_Token') and obj.getVar('__XW_TokenIdle')))
+end)
+ObjType.AddType('assignable_token', function(obj)
+    return (obj.getVar('__XW_Token') and obj.getVar('__XW_TokenIdle')) or obj.hasTag('Assignable')
 end)
 ObjType.AddType('dial', function(obj)
     return (obj.tag == 'Card' and XW_cmd.CheckCommand(obj.getDescription()) == 'move')
@@ -485,7 +488,8 @@ AIModule.EnableStrikeAI = function(ship, cmd)
         -- Check if any valid targets were added
         if #targets > 0 then
             ship.setTable('StrikeTargets', targets)
-            printToAll(tostring(ship.getName()) .. " has Strike Target list: " .. table.concat(targets, ", "), Color.Yellow)
+            printToAll(tostring(ship.getName()) .. " has Strike Target list: " .. table.concat(targets, ", "),
+                Color.Yellow)
         else
             printToAll(tostring(ship.getName()) .. " has no Strike Targets, reverting to Attack AI.", Color.Yellow)
             ship.setTable('StrikeTargets', nil)
@@ -3856,7 +3860,7 @@ end
 function isAssignable(object)
     -- Target lock has special onDrop handling on its own
     return object.getVar('__XW_TokenType') ~= 'targetLock'
-        or object.hasTag('Assignable')
+        and ObjType.IsOfType(object, 'assignable_token')
 end
 
 EventSub.Register('onObjectDropped', TokenModule.onObjectDropped)
