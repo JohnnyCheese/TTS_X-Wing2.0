@@ -9722,4 +9722,115 @@ masterPilotDB[1082] = {
     }
 }
 
+
+masterPilotDB[1083] = {
+    name = 'New Republic Patrol',
+    XWS = 'newrepublicpatrol-wartime',
+    Faction = 4,
+    ship_type = 'btanr2ywing-wartime',
+    init = 3,
+    texture = 'blue',
+    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+}
+
+masterPilotDB[1084] = {
+    name = 'Kijimi Spice Runner',
+    XWS = 'kijimispicerunner-wartime',
+    Faction = 4,
+    ship_type = 'btanr2ywing-wartime',
+    init = 2,
+    texture = 'plain',
+    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+}
+
+masterPilotDB[1085] = {
+    name = 'Teza Nasz',
+    XWS = 'tezanasz-wartime',
+    Faction = 4,
+    limited = 1,
+    ship_type = 'btanr2ywing-wartime',
+    init = 4,
+    texture = 'teza',
+    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+}
+
+masterPilotDB[1086] = {
+    name = 'Shasa Zaro',
+    XWS = 'shasazaro-wartime',
+    Faction = 4,
+    limited = 1,
+    ship_type = 'btanr2ywing-wartime',
+    init = 3,
+    texture = 'red',
+    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+}
+
+masterPilotDB[1087] = {
+    name = 'Corus Kapellim',
+    XWS = 'coruskapellim-wartime',
+    Faction = 4,
+    limited = 1,
+    ship_type = 'btanr2ywing-wartime',
+    init = 1,
+    texture = 'corus',
+    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+}
+
+masterPilotDB[1088] = {
+    name = "C'ai Threnalli",
+    XWS = 'caithrenalli-wartime',
+    Faction = 4,
+    limited = 1,
+    ship_type = 'btanr2ywing-wartime',
+    init = 2,
+    texture = 'cai',
+    actSet = { 'F', 'TL', 'BR', 'B', 'C', 'E' },
+    movethrough = true
+}
+
+masterPilotDB[1089] = {
+    name = 'Wilsa Teshlo',
+    XWS = 'wilsateshlo-wartime',
+    Faction = 4,
+    limited = 1,
+    ship_type = 'btanr2ywing-wartime',
+    init = 4,
+    texture = 'wilsa',
+    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+}
+
+masterPilotDB[1090] = {
+    name = 'Zorii Bliss',
+    XWS = 'zoriibliss-wartime',
+    Charge = 1,
+    Faction = 4,
+    limited = 1,
+    ship_type = 'btanr2ywing-wartime',
+    init = 5,
+    texture = 'red',
+    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+}
+
+masterPilotDB[1091] = {
+    name = 'Aftab Ackbar',
+    XWS = 'aftabackbar-wartime',
+    Faction = 4,
+    limited = 1,
+    ship_type = 'btanr2ywing-wartime',
+    init = 2,
+    texture = 'cai',
+    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+}
+
+masterPilotDB[1092] = {
+    name = 'Lega Fossang',
+    XWS = 'legafossang-wartime',
+    Faction = 4,
+    limited = 1,
+    ship_type = 'btanr2ywing-wartime',
+    init = 3,
+    texture = 'lega',
+    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+}
+
 return masterPilotDB
