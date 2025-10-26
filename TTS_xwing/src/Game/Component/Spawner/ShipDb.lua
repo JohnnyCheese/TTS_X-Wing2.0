@@ -122,6 +122,8 @@ masterShipDB['auzituckgunship'] = {
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/auzituckgunship/Textures/orange.jpg',
         cream =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/auzituckgunship/Textures/cream.jpg',
+        tarfful =
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/auzituckgunship/Textures/tarfful.png',
     },
     Fac = { [1] = true },
     arcs = { fixed = { range = 3, type = { 'fullfront' } } },
@@ -148,6 +150,8 @@ masterShipDB['kihraxzfighter'] = {
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/kihraxzfighter/Textures/blacksun.jpg',
         talonbane =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/kihraxzfighter/Textures/talonbane.jpg',
+        vaksai =
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/kihraxzfighter/Textures/vaksai.png',
     },
     Fac = { [3] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
@@ -453,6 +457,8 @@ masterShipDB['asf01bwing'] = {
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/asf01bwing/textures/tennumb.png',
         plain =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/asf01bwing/textures/plain.png',
+        nera =
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/asf01bwing/textures/nera.png',
     },
     Config = {
         States = {
@@ -834,6 +840,8 @@ masterShipDB['t65xwing'] = {
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/Textures/2/wedge.jpg',
         wes =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/Textures/2/wes.jpg',
+        merrick =
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/Textures/2/merrick.png',
     },
     Fac = { [1] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
@@ -883,6 +891,8 @@ masterShipDB['hwk290lightfreighter'] = {
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/hwk290lightfreighter/Textures/1/white.jpg',
         mytho =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/hwk290lightfreighter/Textures/1/mytho.jpg',
+        kasmir =
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/hwk290lightfreighter/Textures/1/kasmir.png',
     },
     Fac = { [1] = true, [3] = true },
     arcs = { turret = { main = { name = 'primary', type = { 'singleturret' } } } },
@@ -1230,6 +1240,8 @@ masterShipDB['tiefofighter'] = {
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiefofighter/Textures/2/standard.jpg',
+        fn2187 =
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiefofighter/Textures/2/fn2187.png',
     },
     Fac = { [5] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
@@ -1249,6 +1261,8 @@ masterShipDB['tiesffighter'] = {
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiesffighter/Textures/1/standard.jpg',
+        strife =
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiesffighter/Textures/1/strife.jpg',
     },
     Fac = { [5] = true },
     arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'primary', type = { 'front', 'back' } } } },
@@ -1477,6 +1491,8 @@ masterShipDB['delta7aethersprite'] = {
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/delta7aethersprite/Textures/PloKoon.jpg',
         saesee =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/delta7aethersprite/Textures/SaeseeTiin.jpg',
+        depa =
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/delta7aethersprite/Textures/depa.png',
     },
     Fac = { [6] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
@@ -1533,6 +1549,8 @@ masterShipDB['delta7baethersprite'] = {
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/delta7aethersprite/Textures/plain.jpg',
         black =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/delta7aethersprite/Textures/plain.jpg',
+        depa =
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/delta7aethersprite/Textures/depa.png',
     },
     Fac = { [6] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
@@ -1604,6 +1622,10 @@ masterShipDB['vultureclassdroidfighter'] = {
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/vultureclassdroidfighter/Textures/DFS-311.png',
         dfs081 =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/vultureclassdroidfighter/Textures/DFS-081.png',
+        dfs420 =
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/vultureclassdroidfighter/Textures/dfs420.png',
+        00m =
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/vultureclassdroidfighter/Textures/00m.png',
     },
     Fac = { [7] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
@@ -1646,6 +1668,8 @@ masterShipDB['belbulab22starfighter'] = {
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/belbulab22starfighter/Textures/HotRod.jpg',
         white =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/belbulab22starfighter/Textures/white.jpg',
+        bas =
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/belbulab22starfighter/Textures/bas.png',
     },
     Fac = { [7] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
@@ -1692,6 +1716,8 @@ masterShipDB['resistancetransport'] = {
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/resistancetransport/Textures/red.jpg',
         plain =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/resistancetransport/Textures/plain.jpg',
+        jannah =
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/resistancetransport/Textures/jannah.png',
     },
     Fac = { [4] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
@@ -1714,6 +1740,8 @@ masterShipDB['resistancetransportpod'] = {
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/resistancetransportpod/Textures/plain2.jpg',
         red =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/resistancetransportpod/Textures/red2.jpg',
+        dj =
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/resistancetransportpod/Textures/dj.png',
     },
     Fac = { [4] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
@@ -1859,6 +1887,8 @@ masterShipDB['fireball'] = {
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/fireball/Textures/standard.jpg',
+        doza =
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/fireball/Textures/doza.png',
     },
     Fac = { [4] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
