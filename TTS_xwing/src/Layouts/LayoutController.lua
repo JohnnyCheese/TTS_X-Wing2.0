@@ -2,8 +2,9 @@ require("TTS_Lib.Util.Math")
 require("TTS_Lib.Util.Table")
 require("TTS_Lib.Util.String")
 
-local Vect = require("TTS_Lib.Vector.Vector")
-local ObjType = require("TTS_Lib.ObjType.ObjType")
+local Vect       = require("TTS_Lib.Vector.Vector")
+local ObjType    = require("TTS_Lib.ObjType.ObjType")
+local BagHandler = require("Game.Component.Spawner.BagHandler")
 
 ObjType.AddType('dialBag', function(obj) return (obj.tag == 'Infinite') end)
 
@@ -214,6 +215,37 @@ Layout.CreateControls = function(index)
     for _, button in pairs(lay.controls) do
         self.createButton(button)
     end
+end
+
+Layout.SpawnPlaymatTile = function(type, position, rotation)
+    local state = ((type or ""):lower() == "epic") and 2 or 1
+    local bagGuids = Global.getTable('bagGuids') or {}
+    local myBagHandler = BagHandler:new(bagGuids['ExtraAssets'])
+    local tile = myBagHandler:takeItemByGMNote("playmattile", { position = position, rotation = rotation })
+    if tile.getStateId() == state then
+        return tile
+    end
+
+    tile = tile.setState(state)
+
+    Wait.condition(function()
+        tile.setPosition(position, false, true)
+        tile.setRotation(rotation, false, true)
+    end, function()
+        return not tile.spawning
+    end)
+end
+
+function SpawnEpicPlaymatTile()
+    Layout.SpawnPlaymatTile("epic", Vector(-3, 3, 0), Vector(0, 180, 0))
+end
+
+function SpawnStandardPlaymatTile()
+    Layout.SpawnPlaymatTile("standard", Vector(-20, 3, 0), Vector(0, 180, 0))
+end
+
+function SpawnHotacPlaymatTile()
+    Layout.SpawnPlaymatTile("standard", Vector(-3, 3, 0), Vector(0, 180, 0))
 end
 
 function onChat(message, player)

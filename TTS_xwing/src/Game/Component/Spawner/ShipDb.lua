@@ -2226,6 +2226,39 @@ masterShipDB['btanr2ywing'] = {
     keywords = { 'Y-Wing' }
 }
 
+masterShipDB['btanr2ywing-wartime'] = {
+    name = 'BTA-NR2-W Y-Wing',
+    Hull = 4,
+    Shield = 5,
+    size = 'small',
+    agi = 1,
+    XWS = 'btanr2ywing-wartime',
+    textures = {
+        plain =
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/btanr2ywing/Textures/plain.png',
+        red =
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/btanr2ywing/Textures/red.png',
+        blue =
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/btanr2ywing/Textures/blue.png',
+        cai =
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/btanr2ywing/Textures/caithrenalli.png',
+        corus =
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/btanr2ywing/Textures/coruskapellim.png',
+        lega =
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/btanr2ywing/Textures/legafossang.png',
+        teza =
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/btanr2ywing/Textures/tezanasz.png',
+        wilsa =
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/btanr2ywing/Textures/wilsateshlo.png',
+    },
+    Fac = { [4] = true },
+    arcs = { fixed = { range = 3, type = { 'front' } } },
+    mesh =
+    'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/btanr2ywing/RIS_Y-Wing.obj',
+    moveSet = { 'bbl1', 'bs1', 'bbr1', 'wtl2', 'wbl2', 'bs2', 'wbr2', 'wtr2', 'rtl3', 'wbl3', 'bs3', 'wbr3', 'rtr3', 'rs4', 'rk5' },
+    keywords = { 'Y-Wing' }
+}
+
 masterShipDB['gauntletfighter'] = {
     name = 'Gauntlet Fighter',
     Hull = 9,

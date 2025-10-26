@@ -8,6 +8,7 @@ function onLoad()
     -- Add a context menu item to manually check the object
     self.addContextMenuItem("Toggle Interactive", toggleInteractive)
     self.addContextMenuItem("Show Bounds", showBounds)
+    self.addContextMenuItem("Move to Obj Center", centerOfObject)
 end
 
 function onCollisionEnter(info)
@@ -29,13 +30,17 @@ function toggleInteractive()
     subject.interactable = not subject.interactable
 end
 
+function centerOfObject()
+    self.setPositionSmooth(subject.getPosition(), false, true)
+end
+
 local function color(text, colorValue)
     return "[" .. colorValue:toHex() .. "]" .. tostring(text) .. "[-]"
 end
 
 function Probe.printObjectInfo(object)
     if object == nil then
-        printToAll("pringObjectInfo(object) is nil.", Color.Red)
+        printToAll("printObjectInfo(object) is nil.", Color.Red)
         return
     end
     printToAll("Object.type: " .. color(object.type, Color.Yellow), { 0, 1, 0 })

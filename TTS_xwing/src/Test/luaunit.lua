@@ -3001,12 +3001,13 @@ function M.LuaUnit:protectedCall(classInstance, methodInstance, prettyFuncName)
     -- else, it's method of a class being called.
 
     local err = {}
+    local safeTraceback = (debug and debug.traceback) or function() return '' end
     local function err_handler(e)
         -- transform error into a table, adding the traceback information
         err = {
             status = NodeStatus.ERROR,
-            msg = e,
-            trace = string.sub(debug.traceback("", 1), 2)
+            msg = (type(e) == 'string') and e or tostring(e),
+            trace = string.sub(safeTraceback("", 1), 2)
         }
         return err
     end

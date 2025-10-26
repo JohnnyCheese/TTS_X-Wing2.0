@@ -10,25 +10,25 @@
 
 -- Table of all images to be cycled through with NextImage()
 imageSet = {
-  'https://i.imgur.com/6IkNucB.jpg',
-  'https://steamusercontent-a.akamaihd.net/ugc/1483326815456337025/EB436BA5C3D1B0BAF4ED3325456E7211A669E3BF/',
-  'https://steamusercontent-a.akamaihd.net/ugc/1483326815456320038/68F5C582DBCBDC1070ACD4CE12091BFA73AE93F4/',
-  'https://i.imgur.com/siDMVxH.mp4',
-  'https://i.imgur.com/HXUBMXE.mp4',
-  'https://i.imgur.com/dczrasC.jpg',
-  'https://i.imgur.com/dKYBJMX.png',
-  'https://i.imgur.com/1veiNk9.jpg',
-  'https://i.imgur.com/8tDK0x8.png',
-  'https://i.imgur.com/sb2AJOz.png',
-  'https://i.imgur.com/KPtozCm.png',
-  'https://i.imgur.com/V7pWVak.png',
-  'https://i.imgur.com/spWTWy7.png',
-  'https://i.imgur.com/YdIAcvP.png',
-  'https://i.imgur.com/5CcjDzM.jpg',
-  'https://i.imgur.com/4WMSCSV.jpg',
-  'https://i.imgur.com/0FWrq21.jpg',
-  'https://i.imgur.com/x4LEk1A.jpg',
-  'https://i.imgur.com/fy6kooO.png',
+    'https://i.imgur.com/6IkNucB.jpg',
+    'https://steamusercontent-a.akamaihd.net/ugc/1483326815456337025/EB436BA5C3D1B0BAF4ED3325456E7211A669E3BF/',
+    'https://steamusercontent-a.akamaihd.net/ugc/1483326815456320038/68F5C582DBCBDC1070ACD4CE12091BFA73AE93F4/',
+    'https://i.imgur.com/siDMVxH.mp4',
+    'https://i.imgur.com/HXUBMXE.mp4',
+    'https://i.imgur.com/dczrasC.jpg',
+    'https://i.imgur.com/dKYBJMX.png',
+    'https://i.imgur.com/1veiNk9.jpg',
+    'https://i.imgur.com/8tDK0x8.png',
+    'https://i.imgur.com/sb2AJOz.png',
+    'https://i.imgur.com/KPtozCm.png',
+    'https://i.imgur.com/V7pWVak.png',
+    'https://i.imgur.com/spWTWy7.png',
+    'https://i.imgur.com/YdIAcvP.png',
+    'https://i.imgur.com/5CcjDzM.jpg',
+    'https://i.imgur.com/4WMSCSV.jpg',
+    'https://i.imgur.com/0FWrq21.jpg',
+    'https://i.imgur.com/x4LEk1A.jpg',
+    'https://i.imgur.com/fy6kooO.png',
 }
 
 -- Mat flag for layouts
@@ -38,245 +38,207 @@ __XW_MatLayout = 'HotAC'
 -- This mat identifier
 __XW_MatID = 'Main'
 
-function onLoad()
-  -- Restore current image index
-  currImage = tonumber(self.script_state) or 1
-  self.lock()
-  self.interactable = false
-  self.tooltip = false
+local ImageManager = require("Game.Component.Playmat.ImageManager")
+local mgr
+
+function onLoad(saved)
+    mgr = ImageManager.install(self, { images = imageSet })
+    mgr:onLoad(saved)
+    self.lock()
+    self.interactable = false
+    self.tooltip = false
 end
 
--- Change image to the next from the list, wrap around to 1
--- Reloads self to actually reflect the change
-function NextImage()
-  deleteAll()
-  -- Increment image index
-  local nextImage = currImage + 1
-  if nextImage > #imageSet then
-    nextImage = 1
-  end
-
-  -- Reload self with the new image and save the index
-  local custom = self.getCustomObject()
-  custom.diffuse = imageSet[nextImage]
-  self.setCustomObject(custom)
-  local newSelf = self.reload()
-  newSelf.script_state = nextImage
+function onSave()
+    return mgr:onSave()
 end
 
-function PrevImage()
-  deleteAll()
-  -- Increment image index
-  local nextImage = currImage - 1
-  if nextImage == 0 then
-    nextImage = #imageSet
-  end
+local r_sz = { height = 10.83691788, thickness = 0.08344745636, width = 0.5535750389 }
+local corrScale = { 0.625, 0.625, 0.625 }
+local rulers, rulersState = {}, 0
+local rulerData = {
+    mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/rulers/range13.obj',
+    collider = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/rulers/range13.obj',
+    diffuse = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/rulers/range.jpg',
+    material = 1,
+}
+local R = r_sz.height
+local range_1 = R / 3
 
-  -- Reload self with the new image and save the index
-  local custom = self.getCustomObject()
-  custom.diffuse = imageSet[nextImage]
-  self.setCustomObject(custom)
-  local newSelf = self.reload()
-  newSelf.script_state = nextImage
+local function geom()
+    local b = self.getBoundsNormalized()
+    local C = Vector(b.center.x, 1.0, b.center.z)
+    local halfx, halfz = b.size.x / 2, b.size.z / 2
+    local TL = Vector(C.x - halfx, C.y, C.z + halfz)
+    local TR = Vector(C.x + halfx, C.y, C.z + halfz)
+    local BL = Vector(C.x - halfx, C.y, C.z - halfz)
+    local BR = Vector(C.x + halfx, C.y, C.z - halfz)
+
+    local halfHeight, halfWidth = R / 2, r_sz.width / 2
+    local xa, za = Vector(R, 0, 0), Vector(0, 0, R)
+    local xhw, zhw = Vector(halfWidth, 0, 0), Vector(0, 0, halfWidth)
+
+    local O = BL:copy()
+    return {
+        C = C,
+        TL = TL,
+        TR = TR,
+        BL = BL,
+        BR = BR,
+        halfHeight = halfHeight,
+        halfWidth = halfWidth,
+        xa = xa,
+        za = za,
+        xhw = xhw,
+        zhw = zhw,
+        O = O
+    }
 end
 
--- Please update me
-
-
-corrScale = { 0.625, 0.625, 0.625 }
-
-function ToggleRulers()
-  deleteAll()
-  rulersState = rulersState + 1
-  if rulersState == 1 then
-    spawnSet(gridPos, gridRot)
-  elseif rulersState == 2 then
-    spawnSet(roidPos, roidRot)
-  elseif rulersState == 3 then
-    spawnSet(setupPos, setupRot)
-  elseif rulersState == 4 then
-    rulersState = 0
-  end
-end
-
-function spawnSet(posTable, rotTable)
-  -- please kill me
-  local function sPos(tab)
-    if self.getPosition()[1] < 0 then
-      return { -1 * tab[1], tab[2], tab[3] }
-    else
-      return tab
+local function gridRot()
+    local r = {}
+    for i = 1, 12 do
+        r[i] = { 0, 0, 0 }
     end
-  end
-  local initPos = self.getPosition()
-  initPos.y = initPos.y - 3
-  for k, pos in pairs(posTable) do
-    local params = {} -- 50
-    params.type = 'Custom_Model'
-    params.position = initPos
-    --params.position = sPos(posTable[k])
-    --params.rotation = rotTable[k]
-    obj = spawnObject(params)
-    obj.setCustomObject(rulerData)
-    obj.setScale(corrScale)
-    obj.lock()
-    obj.setPositionSmooth(sPos(posTable[k]), false, true)
-    obj.setRotationSmooth(rotTable[k], false, true)
-    obj.addTag('TempLayoutElement')
-    rulers[obj] = true
-  end
+    for i = 13, 24 do
+        r[i] = { 0, 270, 0 }
+    end
+    return r
+end
+
+local function setupRot()
+    return {
+        { 0, 0, 0 }, { 0, 0, 0 }, { 0, 180, 0 },
+        { 0, 0, 0 }, { 0, 0, 0 }, { 0, 180, 0 },
+        { 0, 90, 0 }, { 0, 90, 0 }, { 0, 270, 0 }, { 0, 270, 0 },
+    }
+end
+
+local function roidRot()
+    return {
+        { 0, 270, 180 }, { 0, 270, 180 }, { 0, 90, 180 },
+        { 0, 270, 180 }, { 0, 270, 180 }, { 0, 90, 180 },
+        { 0, 0, 180 }, { 0, 0, 180 }, { 0, 180, 180 },
+        { 0, 0, 180 }, { 0, 0, 180 }, { 0, 180, 180 },
+    }
+end
+
+local function buildGridPos(g)
+    local O, xa, za, xhw, zhw = g.O, g.xa, g.za, g.xhw, g.zhw
+    return {
+        -- horizontals
+        O + (xa * 0.5) - zhw,
+        O + (xa * 1.5) - zhw,
+        O + (xa * 2.5) - zhw,
+
+        O + (xa * 0.5) + (za * 1),
+        O + (xa * 1.5) + (za * 1),
+        O + (xa * 2.5) + (za * 1),
+
+        O + (xa * 0.5) + (za * 2),
+        O + (xa * 1.5) + (za * 2),
+        O + (xa * 2.5) + (za * 2),
+
+        O + (xa * 0.5) + (za * 3) + zhw,
+        O + (xa * 1.5) + (za * 3) + zhw,
+        O + (xa * 2.5) + (za * 3) + zhw,
+
+        -- verticals
+        O + (za * 0.5) - xhw,
+        O + (za * 1.5) - xhw,
+        O + (za * 2.5) - xhw,
+
+        O + (xa * 1) + (za * 0.5),
+        O + (xa * 1) + (za * 1.5),
+        O + (xa * 1) + (za * 2.5),
+
+        O + (xa * 2) + (za * 0.5),
+        O + (xa * 2) + (za * 1.5),
+        O + (xa * 2) + (za * 2.5),
+
+        O + (xa * 3) + (za * 0.5) + xhw,
+        O + (xa * 3) + (za * 1.5) + xhw,
+        O + (xa * 3) + (za * 2.5) + xhw,
+    }
+end
+
+local function buildSetupPos(g)
+    local function top(xr)
+        return g.TL + (g.za * (-1 / 3)) - g.zhw + (g.xa * xr)
+    end
+    local function bottom(xr)
+        return g.BL + (g.za * (1 / 3)) + g.zhw + (g.xa * xr)
+    end
+    return {
+        top(0.5), top(1.5), top(2.5),
+        bottom(0.5), bottom(1.5), bottom(2.5),
+        Vector(g.TL.x - g.halfWidth, g.TL.y, g.TL.z - g.halfHeight),
+        Vector(g.TR.x + g.halfWidth, g.TR.y, g.TR.z - g.halfHeight),
+        Vector(g.BL.x - g.halfWidth, g.BL.y, g.BL.z + g.halfHeight),
+        Vector(g.BR.x + g.halfWidth, g.BR.y, g.BR.z + g.halfHeight),
+    }
+end
+
+local function buildRoidPos(g)
+    local xa, za, xhw, zhw = g.xa, g.za, g.xhw, g.zhw
+    return {
+        g.BL + (xa * (2 / 3)) + (za * 0.5) - xhw,
+        g.BL + (xa * (2 / 3)) + (za * 1.5) - xhw,
+        g.TL + (xa * (2 / 3)) - (za * 0.5) - xhw,
+
+        g.BR - (xa * (2 / 3)) + (za * 0.5) + xhw,
+        g.BR - (xa * (2 / 3)) + (za * 1.5) + xhw,
+        g.TR - (xa * (2 / 3)) - (za * 0.5) + xhw,
+
+        g.BL + (xa * 0.5) + (za * (2 / 3)) - zhw,
+        g.BL + (xa * 1.5) + (za * (2 / 3)) - zhw,
+        g.BR - (xa * 0.5) + (za * (2 / 3)) - zhw,
+
+        g.TL + (xa * 0.5) - (za * (2 / 3)) + zhw,
+        g.TL + (xa * 1.5) - (za * (2 / 3)) + zhw,
+        g.TR - (xa * 0.5) - (za * (2 / 3)) + zhw,
+    }
+end
+
+local function spawnSet(posTable, rotTable)
+    local initPos = self.getPosition()
+    initPos.y = initPos.y - 3
+    for i = 1, #posTable do
+        local obj = spawnObject({ type = 'Custom_Model', position = initPos })
+        obj.setCustomObject(rulerData)
+        obj.setScale(corrScale)
+        obj.lock()
+        obj.setPositionSmooth(posTable[i], false, true)
+        obj.setRotationSmooth(rotTable[i], false, true)
+        obj.addTag('TempLayoutElement')
+        rulers[obj] = true
+    end
 end
 
 function deleteAll()
-  for ruler in pairs(rulers) do ruler.destruct() end
-  rulers = {}
+    for o in pairs(rulers) do
+        if o and o.destruct then
+            o:destruct()
+        end
+        rulers[o] = nil
+    end
 end
 
-function onObjectDestroyed(obj)
-  if rulers[obj] then
-    rulers[obj] = nil
-  end
+function onObjectDestroyed(o)
+    if rulers[o] then
+        rulers[o] = nil
+    end
 end
 
-rulers = {}
-rulersState = 0
-rulerData = {}
-rulerData.mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/rulers/range13.obj'
-rulerData.collider =
-'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/rulers/range13.obj'
-rulerData.diffuse = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/rulers/range.jpg'
-rulerData.material = 1
-
-roidRot = {
-  { 0, 270, 180 },
-  { 0, 270, 180 },
-  { 0, 180, 180 },
-  { 0, 180, 180 },
-  { 0, 270, 180 },
-  { 0, 270, 180 },
-  { 0, 0,   180 },
-  { 0, 0,   180 },
-  { 0, 90,  180 },
-  { 0, 90,  180 },
-  { 0, 180, 180 },
-  { 0, 180, 180 }
-}
-
-setupRot = {
-  { 0, 270, 0 },
-  { 0, 0,   0 },
-  { 0, 270, 0 },
-  { 0, 0,   0 },
-  { 0, 0,   0 },
-  { 0, 90,  0 },
-  { 0, 180, 0 },
-  { 0, 90,  0 },
-  { 0, 180, 0 },
-  { 0, 180, 0 }
-}
-
-roidPos = {
-  { 12.37, 0.99871951341629,  -10.8846182632446 }, -- pio
-  { 12.37, 0.99871951341629,  0 },
-  { 13.87, 0.998719453811646, -9.37833354949951 }, -- poz
-  { 3,     0.998719453811646, -9.37833354949951 },
-  { -6.34, 0.998719573020935, -10.8876889038086 },
-  { -6.34, 0.998719573020935, 0 },
-  { -7.85, 0.998719453811646, -9.37820747375488 },
-  { -7.85, 0.99871951341629,  9.37365325927734 },
-  { -6.34, 0.998719453811646, 10.8807905578613 },
-  { 12.37, 0.998719394207001, 10.8395362091064 }, -- pio
-  { 13.87, 0.998719453811646, 9.32834770202637 }, -- poz
-  { 3,     0.998719453811646, 9.32834770202637 }
-}
-
-setupPos = {
-  { -13.55, 1.00172388553619, -10.8451750564575 }, --pio
-  { -7.85,  1.00172448158264, -12.4075313186646 },
-  { 19.55,  1.00172400474548, -10.8700817108154 }, --pio
-  { 3,      1.0017237663269,  -12.4035499572754 },
-  { 13.84,  1.00172340869904, -12.4002779006958 },
-
-  { -13.55, 1.00172388553619, 10.8451750564575 }, --pio
-  { -7.85,  1.00172448158264, 12.4075313186646 },
-  { 19.55,  1.00172400474548, 10.8700817108154 }, --pio
-  { 3,      1.0017237663269,  12.4035499572754 },
-  { 13.84,  1.00172340869904, 12.4002779006958 },
-}
-
--- Ruler Size
-local r_sz = {
-  height = 10.83691788, thickness = 0.08344745636, width = 0.5535750389
-}
-
--- Board Size
-local b_sz = {
-  height = 32.6000022888184, thickness = 0.0240046977996826, width = 32.6000022888184
-}
-
-local BR = { x = -b_sz.width / 2 + 3, y = 1.00, z = -b_sz.height / 2 }
-
-local halfHeight = r_sz.height / 2
-local halfWidth = r_sz.width / 2
-
-gridPos = {
-  -- Horizontal
-  { BR.x + halfHeight,                  BR.y, BR.z - halfWidth },
-  { BR.x + halfHeight,                  BR.y, BR.z + r_sz.height },
-  { BR.x + halfHeight,                  BR.y, BR.z + 2 * r_sz.height },
-  { BR.x + halfHeight,                  BR.y, BR.z + 3 * r_sz.height + halfWidth },
-
-  { BR.x + 3 * halfHeight,              BR.y, BR.z - halfWidth },
-  { BR.x + 3 * halfHeight,              BR.y, BR.z + r_sz.height },
-  { BR.x + 3 * halfHeight,              BR.y, BR.z + 2 * r_sz.height },
-  { BR.x + 3 * halfHeight,              BR.y, BR.z + 3 * r_sz.height + halfWidth },
-
-  { BR.x + 5 * halfHeight,              BR.y, BR.z - halfWidth },
-  { BR.x + 5 * halfHeight,              BR.y, BR.z + r_sz.height },
-  { BR.x + 5 * halfHeight,              BR.y, BR.z + 2 * r_sz.height },
-  { BR.x + 5 * halfHeight,              BR.y, BR.z + 3 * r_sz.height + halfWidth },
-
-  -- Vertical
-  { BR.x + 3 * r_sz.height + halfWidth, BR.y, BR.z + halfHeight },
-  { BR.x + 3 * r_sz.height + halfWidth, BR.y, BR.z + 3 * halfHeight },
-  { BR.x + 3 * r_sz.height + halfWidth, BR.y, BR.z + 5 * halfHeight },
-
-  { BR.x + 2 * r_sz.height,             BR.y, BR.z + halfHeight },
-  { BR.x + 2 * r_sz.height,             BR.y, BR.z + 3 * halfHeight },
-  { BR.x + 2 * r_sz.height,             BR.y, BR.z + 5 * halfHeight },
-
-  { BR.x + r_sz.height,                 BR.y, BR.z + halfHeight },
-  { BR.x + r_sz.height,                 BR.y, BR.z + 3 * halfHeight },
-  { BR.x + r_sz.height,                 BR.y, BR.z + 5 * halfHeight },
-
-  { BR.x - halfWidth,                   BR.y, BR.z + halfHeight },
-  { BR.x - halfWidth,                   BR.y, BR.z + 3 * halfHeight },
-  { BR.x - halfWidth,                   BR.y, BR.z + 5 * halfHeight },
-}
-
-gridRot = {
-  { 0, 0,   0 },
-  { 0, 0,   0 },
-  { 0, 0,   0 },
-  { 0, 0,   0 },
-  { 0, 0,   0 },
-  { 0, 0,   0 },
-  { 0, 0,   0 },
-  { 0, 0,   0 },
-  { 0, 0,   0 },
-  { 0, 0,   0 },
-  { 0, 0,   0 },
-  { 0, 0,   0 },
-  { 0, 270, 0 },
-  { 0, 270, 0 },
-  { 0, 270, 0 },
-  { 0, 270, 0 },
-  { 0, 270, 0 },
-  { 0, 270, 0 },
-  { 0, 270, 0 },
-  { 0, 270, 0 },
-  { 0, 270, 0 },
-  { 0, 270, 0 },
-  { 0, 270, 0 },
-  { 0, 270, 0 },
-}
+function ToggleRulers()
+    deleteAll()
+    rulersState = (rulersState + 1) % 4
+    local g = geom()
+    if rulersState == 1 then
+        spawnSet(buildGridPos(g), gridRot())
+    elseif rulersState == 2 then
+        spawnSet(buildRoidPos(g), roidRot())
+    elseif rulersState == 3 then
+        spawnSet(buildSetupPos(g), setupRot())
+    end
+end
