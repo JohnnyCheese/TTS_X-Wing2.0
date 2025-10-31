@@ -114,6 +114,10 @@ function GetAllArcs()
   return _ARCS_CACHE
 end
 
+function GetTokens()
+  return {}
+end
+
 -- Optional, but helps some AI heuristics; also must never be nil.
 function GetAttackRanges()
   if _RANGE_CACHE then return _RANGE_CACHE end
