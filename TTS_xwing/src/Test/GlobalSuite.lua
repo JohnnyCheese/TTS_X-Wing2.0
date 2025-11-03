@@ -4,6 +4,7 @@ local testSuite = {
     -- TestFreighter = require("Test.HotAC.Setup.TestTransportFreighter"),
     -- TestRulerSet = require("Test.Game.Table.TestRulerSet"),
     TestGlobalXWCmdBarrelRoll = require("Test.Game.Mechanic.Global_XW_cmd_BarrelRoll_Test"),
+    TestGlobalXWCmdCoreMove = require("Test.Game.Mechanic.Global_XW_cmd_CoreMove_Test"),
 }
 
 for name, testCase in pairs(testSuite) do
