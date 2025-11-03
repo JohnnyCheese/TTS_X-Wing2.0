@@ -122,6 +122,19 @@ function TestGlobalXWCmdBarrelRoll:test_process_vt_vtef1_calls_PerformMove_once(
     lu.assertEquals("vtef1", __XW_TEST_calls_BR[1].cmd)
 end
 
+function TestGlobalXWCmdBarrelRoll:test_check_roll_prefixed_speed_is_actionMove()
+    lu.assertEquals("actionMove", self.XW_cmd.CheckCommand("r2l3"))
+end
+
+function TestGlobalXWCmdBarrelRoll:test_process_r2l3_dispatches()
+    __XW_TEST_calls_BR = {}
+    self.ship.setDescription("r2l3")
+    local ok = self.XW_cmd.Process(self.ship, "r2l3")
+    lu.assertTrue(ok)
+    lu.assertEquals(1, #__XW_TEST_calls_BR)
+    lu.assertEquals("r2l3", __XW_TEST_calls_BR[1].cmd)
+end
+
 -- --- Process postconditions / unknown handling -------------------------
 
 function TestGlobalXWCmdBarrelRoll:test_process_clears_description_on_recognized()
@@ -161,7 +174,7 @@ end
 -- --- Boost style (actionMove only) ------------------------------------
 
 function TestGlobalXWCmdBarrelRoll:test_check_boosts_are_action_moves1()
-    lu.assertEquals("actionMove", self.XW_cmd.CheckCommand("s2b"))  -- straight boost
+    lu.assertEquals("actionMove", self.XW_cmd.CheckCommand("s2b")) -- straight boost
 end
 
 function TestGlobalXWCmdBarrelRoll:test_check_boosts_are_action_moves2()

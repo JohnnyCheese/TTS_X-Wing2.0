@@ -5,7 +5,8 @@ local testSuite = {
     TestString = require("Test.TTS_lib.TestString"),
     TestTable = require("Test.TTS_lib.TestTable"),
     TestVector = require("Test.TTS_lib.TestVector"),
-    TestMoveData = require("Test.Game.Mechanic.MoveData_RollDecode_Test"),
+    TestMoveDataRollDecode = require("Test.Game.Mechanic.MoveData_RollDecode_Test"),
+    TestMoveDataRollScale = require("Test.Game.Mechanic.MoveData_RollScale_Test"),
 }
 
 for name, testCase in pairs(testSuite) do
@@ -13,8 +14,8 @@ for name, testCase in pairs(testSuite) do
 end
 
 function runTests()
-    lu.LuaUnit:run() -- runs the tests configured here.
-    -- Global.call("runTests", { self.getGUID() }) -- runs the tests configured in the global script.
+    lu.LuaUnit:run()        -- runs the tests configured here.
+    Global.call("runTests") -- runs the tests configured in the global script.
 end
 
 function onDrop()

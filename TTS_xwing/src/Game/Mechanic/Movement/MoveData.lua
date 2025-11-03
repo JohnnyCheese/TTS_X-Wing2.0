@@ -60,6 +60,26 @@ MoveData.LUT.ConstructData = function(moveInfo, part)
     local outRot = (LUTtable.rotY[math.floor(LUTindex)] * bProp) + (LUTtable.rotY[math.ceil(LUTindex)] * aProp)
 
     local outData = { outPos[1], 0, outPos[2], outRot }
+
+    -- Barrel Roll: longer template increases lateral only.
+    -- Forward/back alignment (offset 1/2/3) remains as per LUT.
+    if moveInfo.type == 'roll' and moveInfo.rollSpeed and moveInfo.rollSpeed > 1 then
+        -- Measure baseline lateral for a center roll at speed-1 (same base size).
+        local baseInfo = {
+            type      = 'roll',
+            dir       = 'right', -- positive lateral
+            size      = moveInfo.size,
+            speed     = 2,       -- center offset
+            traits    = { full = true, part = false },
+            rollSpeed = 1        -- canonical baseline
+        }
+        local baseData = MoveData.LUT.ConstructData(baseInfo, MoveData.partMax)
+        local baselineLateral = math.abs(baseData[1])
+        local perTemplate = 0.5 * baselineLateral
+
+        outData[1] = outData[1] + (moveInfo.rollSpeed - 1) * perTemplate
+    end
+
     return outData
 end
 
@@ -309,28 +329,46 @@ MoveData.DecodeInfo = function(move_code, ship)
             info.note = 'Pivoted ' .. info.dir
             info.collNote = 'tried pivoting ' .. info.dir
         end
-
-
-        -- New Barrel Roll
     elseif move_code:sub(1, 1) == 'r' then
+        --   r[123]?[rle][123]?   -> optional template speed, direction, optional end offset
+        -- Defaults: template speed=1; end offset=2 (center/straight).
         info.type = 'roll'
-        info.dir = 'right'
-        if move_code:sub(2, 2) == 'l' or move_code:sub(2, 2) == 'e' then
-            info.dir = 'left'
-        end
-        info.collNote = 'tried barrel rolling ' .. info.dir
-        info.speed = tonumber(move_code:sub(3, 3))
         info.traits.full = true
         info.traits.part = false
-        if tonumber(move_code:sub(3, 3)) == 1 then
-            info.note = 'barrel rolled ' .. info.dir .. ' forward'
-            info.collNote = 'tried barrel rolling ' .. info.dir .. ' forward'
-        elseif tonumber(move_code:sub(3, 3)) == 2 then
-            info.note = 'barrel rolled ' .. info.dir .. ' straight'
-            info.collNote = 'tried barrel rolling ' .. info.dir .. ' straight'
-        elseif tonumber(move_code:sub(3, 3)) == 3 then
-            info.note = 'barrel rolled ' .. info.dir .. ' backward'
-            info.collNote = 'tried barrel rolling ' .. info.dir .. ' backward'
+
+        local c2 = move_code:sub(2, 2)
+        local hasPrefixSpeed = c2:match('%d') ~= nil
+
+        local tmplSpeed, dirChar, offChar
+        if hasPrefixSpeed then
+            tmplSpeed = tonumber(c2) or 1
+            dirChar   = move_code:sub(3, 3)
+            offChar   = move_code:sub(4, 4)
+        else
+            tmplSpeed = 1
+            dirChar   = c2
+            offChar   = move_code:sub(3, 3)
+        end
+
+        info.rollSpeed = tmplSpeed
+        info.dir = (dirChar == 'l' or dirChar == 'e') and 'left' or 'right'
+
+        local off = tonumber(offChar) or 2 -- 1=fwd, 2=center, 3=back
+        info.speed = off                   -- keep LUT index semantics (offset, not “speed”)
+
+        -- optional human notes (not used by movement math)
+        if off == 1 then
+            info.extra, info.note, info.collNote = 'forward',
+                ('barrel rolled %s forward'):format(info.dir),
+                ('tried barrel rolling %s forward'):format(info.dir)
+        elseif off == 2 then
+            info.extra, info.note, info.collNote = 'straight',
+                ('barrel rolled %s straight'):format(info.dir),
+                ('tried barrel rolling %s straight'):format(info.dir)
+        else -- 3
+            info.extra, info.note, info.collNote = 'backward',
+                ('barrel rolled %s backward'):format(info.dir),
+                ('tried barrel rolling %s backward'):format(info.dir)
         end
     elseif move_code:sub(1, 2) == 'vt' then
         info.type = 'viperTurn'

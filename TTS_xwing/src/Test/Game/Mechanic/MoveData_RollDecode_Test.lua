@@ -44,4 +44,24 @@ function TestMoveDataRollDecode:test_viper_turn_vteb3()
     lu.assertFalse(info.traits.part)
 end
 
+function TestMoveDataRollDecode:test_roll_r2l3_decodes_prefix_speed_and_offset()
+    local ship = { getTable = function() return { Size = "small" } end }
+    local info = MoveData.DecodeInfo("r2l3", ship)
+    lu.assertEquals("roll", info.type)
+    lu.assertEquals("left", info.dir)
+    lu.assertEquals(3, info.speed)     -- end offset
+    lu.assertEquals(2, info.rollSpeed) -- template speed
+    lu.assertTrue(info.traits.full)
+    lu.assertFalse(info.traits.part)
+end
+
+function TestMoveDataRollDecode:test_roll_rl_defaults_center_and_speed1()
+    local ship = { getTable = function() return { Size = "small" } end }
+    local info = MoveData.DecodeInfo("rl", ship)
+    lu.assertEquals("roll", info.type)
+    lu.assertEquals("left", info.dir)
+    lu.assertEquals(2, info.speed)     -- center default
+    lu.assertEquals(1, info.rollSpeed) -- legacy default
+end
+
 return TestMoveDataRollDecode
