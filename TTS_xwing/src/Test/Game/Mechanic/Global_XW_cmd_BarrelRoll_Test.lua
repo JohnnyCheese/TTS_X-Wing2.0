@@ -91,6 +91,11 @@ function TestGlobalXWCmdBarrelRoll:test_check_unknown_is_nil()
     lu.assertIsNil(self.XW_cmd.CheckCommand("not-a-command"))
 end
 
+function TestGlobalXWCmdBarrelRoll:test_check_decloak_is_actionMove()
+    -- examples: "cr1" (right), "cl1" (left), variants exist in the table
+    lu.assertEquals("actionMove", self.XW_cmd.CheckCommand("cr1"))
+end
+
 -- ---- Process dispatch → PerformMove (captured) ------------------------
 
 local function process(self, cmd)
@@ -115,6 +120,56 @@ function TestGlobalXWCmdBarrelRoll:test_process_vt_vtef1_calls_PerformMove_once(
     process(self, "vtef1")
     lu.assertEquals(1, #__XW_TEST_calls_BR)
     lu.assertEquals("vtef1", __XW_TEST_calls_BR[1].cmd)
+end
+
+-- --- Process postconditions / unknown handling -------------------------
+
+function TestGlobalXWCmdBarrelRoll:test_process_clears_description_on_recognized()
+    self.ship:setDescription("rr")
+    local ok = self.XW_cmd.Process(self.ship, "rr")
+    lu.assertTrue(ok)
+    lu.assertEquals("", self.ship:getDescription()) -- cleared
+end
+
+function TestGlobalXWCmdBarrelRoll:test_process_unknown_returns_false_no_clear_no_move()
+    __XW_TEST_calls_BR = {}
+    self.ship.setDescription("not-a-command")
+    local before = self.ship.getDescription()
+    local ok = self.XW_cmd.Process(self.ship, "not-a-command")
+    local after = self.ship.getDescription()
+
+    lu.assertFalse(ok)
+    lu.assertEquals("not-a-command", before)
+    lu.assertEquals("not-a-command", after) -- unchanged
+    lu.assertEquals(0, #__XW_TEST_calls_BR) -- not dispatched
+end
+
+-- --- Core move recognition (no PerformMove here) ----------------------
+
+function TestGlobalXWCmdBarrelRoll:test_check_core_move_bank_is_move()
+    lu.assertEquals("move", self.XW_cmd.CheckCommand("bl2"))
+end
+
+function TestGlobalXWCmdBarrelRoll:test_check_core_move_turn_is_move()
+    lu.assertEquals("move", self.XW_cmd.CheckCommand("tr1"))
+end
+
+function TestGlobalXWCmdBarrelRoll:test_check_core_move_straight_is_move()
+    lu.assertEquals("move", self.XW_cmd.CheckCommand("s3"))
+end
+
+-- --- Boost style (actionMove only) ------------------------------------
+
+function TestGlobalXWCmdBarrelRoll:test_check_boosts_are_action_moves1()
+    lu.assertEquals("actionMove", self.XW_cmd.CheckCommand("s2b"))  -- straight boost
+end
+
+function TestGlobalXWCmdBarrelRoll:test_check_boosts_are_action_moves2()
+    lu.assertEquals("actionMove", self.XW_cmd.CheckCommand("br1b")) -- bank boost
+end
+
+function TestGlobalXWCmdBarrelRoll:test_check_boosts_are_action_moves3()
+    lu.assertEquals("move", self.XW_cmd.CheckCommand("tr1b")) -- turn boost
 end
 
 return TestGlobalXWCmdBarrelRoll
