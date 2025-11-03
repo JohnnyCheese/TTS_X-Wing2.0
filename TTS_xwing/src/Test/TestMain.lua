@@ -5,6 +5,7 @@ local testSuite = {
     TestString = require("Test.TTS_lib.TestString"),
     TestTable = require("Test.TTS_lib.TestTable"),
     TestVector = require("Test.TTS_lib.TestVector"),
+    TestMoveData = require("Test.Game.Mechanic.MoveData_RollDecode_Test"),
 }
 
 for name, testCase in pairs(testSuite) do
