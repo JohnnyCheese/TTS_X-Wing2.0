@@ -330,45 +330,52 @@ MoveData.DecodeInfo = function(move_code, ship)
             info.collNote = 'tried pivoting ' .. info.dir
         end
     elseif move_code:sub(1, 1) == 'r' then
-        --   r[123]?[rle][123]?   -> optional template speed, direction, optional end offset
-        -- Defaults: template speed=1; end offset=2 (center/straight).
-        info.type = 'roll'
-        info.traits.full = true
-        info.traits.part = false
-
-        local c2 = move_code:sub(2, 2)
-        local hasPrefixSpeed = c2:match('%d') ~= nil
-
-        local tmplSpeed, dirChar, offChar
-        if hasPrefixSpeed then
-            tmplSpeed = tonumber(c2) or 1
-            dirChar   = move_code:sub(3, 3)
-            offChar   = move_code:sub(4, 4)
-        else
-            tmplSpeed = 1
-            dirChar   = c2
-            offChar   = move_code:sub(3, 3)
+        -- Unified barrel-roll grammar:
+        --   r[123]?[rle][123]?
+        --   - optional prefix digit = template length (1..3) → roll | roll2 | roll3
+        --   - [r|l|e]             = direction (right|left|left-edge≡left)
+        --   - optional suffix     = end-offset (1=fwd, 2=center [default], 3=back)
+        --
+        -- Backward-compatible examples:
+        --   rl      → roll , dir=left,  offset=center(2)
+        --   rr2     → roll , dir=right, offset=2
+        --   r2l3    → roll2, dir=left,  offset=3
+        --   r3r1    → roll3, dir=right, offset=1
+        local pre, dirChar, off = move_code:match("^r(%d?)([rle])(%d?)$")
+        if not dirChar then
+            -- Not our pattern; let caller treat it as unknown.
+            return nil
         end
 
-        info.rollSpeed = tmplSpeed
-        info.dir = (dirChar == 'l' or dirChar == 'e') and 'left' or 'right'
+        local tmpl = tonumber(pre) or 1
+        if tmpl == 1 then
+            info.type = 'roll'
+        elseif tmpl == 2 then
+            info.type = 'roll2'
+        else
+            info.type = 'roll3' -- clamp 3+
+        end
 
-        local off = tonumber(offChar) or 2 -- 1=fwd, 2=center, 3=back
-        info.speed = off                   -- keep LUT index semantics (offset, not “speed”)
+        -- 'e' historically used as “edge” and treated as left for direction flip
+        if dirChar == 'r' then
+            info.dir = 'right'
+        else
+            info.dir = 'left'
+        end
 
-        -- optional human notes (not used by movement math)
-        if off == 1 then
-            info.extra, info.note, info.collNote = 'forward',
-                ('barrel rolled %s forward'):format(info.dir),
-                ('tried barrel rolling %s forward'):format(info.dir)
-        elseif off == 2 then
-            info.extra, info.note, info.collNote = 'straight',
-                ('barrel rolled %s straight'):format(info.dir),
-                ('tried barrel rolling %s straight'):format(info.dir)
-        else -- 3
-            info.extra, info.note, info.collNote = 'backward',
-                ('barrel rolled %s backward'):format(info.dir),
-                ('tried barrel rolling %s backward'):format(info.dir)
+        info.speed = tonumber(off) or 2 -- end-offset default: center
+        info.traits.full, info.traits.part = true, false
+
+        -- User-facing notes (unchanged semantics)
+        if info.speed == 1 then
+            info.note     = 'barrel rolled ' .. info.dir .. ' forward'
+            info.collNote = 'tried barrel rolling ' .. info.dir .. ' forward'
+        elseif info.speed == 2 then
+            info.note     = 'barrel rolled ' .. info.dir .. ' straight'
+            info.collNote = 'tried barrel rolling ' .. info.dir .. ' straight'
+        else
+            info.note     = 'barrel rolled ' .. info.dir .. ' backward'
+            info.collNote = 'tried barrel rolling ' .. info.dir .. ' backward'
         end
     elseif move_code:sub(1, 2) == 'vt' then
         info.type = 'viperTurn'

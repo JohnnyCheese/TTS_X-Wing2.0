@@ -47,10 +47,9 @@ end
 function TestMoveDataRollDecode:test_roll_r2l3_decodes_prefix_speed_and_offset()
     local ship = { getTable = function() return { Size = "small" } end }
     local info = MoveData.DecodeInfo("r2l3", ship)
-    lu.assertEquals("roll", info.type)
+    lu.assertEquals("roll2", info.type)
     lu.assertEquals("left", info.dir)
-    lu.assertEquals(3, info.speed)     -- end offset
-    lu.assertEquals(2, info.rollSpeed) -- template speed
+    lu.assertEquals(3, info.speed)
     lu.assertTrue(info.traits.full)
     lu.assertFalse(info.traits.part)
 end
@@ -60,8 +59,31 @@ function TestMoveDataRollDecode:test_roll_rl_defaults_center_and_speed1()
     local info = MoveData.DecodeInfo("rl", ship)
     lu.assertEquals("roll", info.type)
     lu.assertEquals("left", info.dir)
-    lu.assertEquals(2, info.speed)     -- center default
-    lu.assertEquals(1, info.rollSpeed) -- legacy default
+    lu.assertEquals(2, info.speed)
+end
+
+function TestMoveDataRollDecode:test_roll_prefix_family_and_suffix_offset()
+    local ship = { getTable = function() return { Size = "small" } end }
+
+    local i1 = MoveData.DecodeInfo("rl", ship) -- legacy default
+    lu.assertEquals("roll", i1.type)
+    lu.assertEquals("left", i1.dir)
+    lu.assertEquals(2, i1.speed) -- center default
+
+    local i2 = MoveData.DecodeInfo("rr3", ship)
+    lu.assertEquals("roll", i2.type)
+    lu.assertEquals("right", i2.dir)
+    lu.assertEquals(3, i2.speed)
+
+    local i3 = MoveData.DecodeInfo("r2l1", ship)
+    lu.assertEquals("roll2", i3.type)
+    lu.assertEquals("left", i3.dir)
+    lu.assertEquals(1, i3.speed)
+
+    local i4 = MoveData.DecodeInfo("r3r2", ship)
+    lu.assertEquals("roll3", i4.type)
+    lu.assertEquals("right", i4.dir)
+    lu.assertEquals(2, i4.speed)
 end
 
 return TestMoveDataRollDecode
