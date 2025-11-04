@@ -343,7 +343,6 @@ MoveData.DecodeInfo = function(move_code, ship)
         --   r3r1    → roll3, dir=right, offset=1
         local pre, dirChar, off = move_code:match("^r(%d?)([rle])(%d?)$")
         if not dirChar then
-            -- Not our pattern; let caller treat it as unknown.
             return nil
         end
 
@@ -356,7 +355,6 @@ MoveData.DecodeInfo = function(move_code, ship)
             info.type = 'roll3' -- clamp 3+
         end
 
-        -- 'e' historically used as “edge” and treated as left for direction flip
         if dirChar == 'r' then
             info.dir = 'right'
         else
@@ -366,7 +364,6 @@ MoveData.DecodeInfo = function(move_code, ship)
         info.speed = tonumber(off) or 2 -- end-offset default: center
         info.traits.full, info.traits.part = true, false
 
-        -- User-facing notes (unchanged semantics)
         if info.speed == 1 then
             info.note     = 'barrel rolled ' .. info.dir .. ' forward'
             info.collNote = 'tried barrel rolling ' .. info.dir .. ' forward'
