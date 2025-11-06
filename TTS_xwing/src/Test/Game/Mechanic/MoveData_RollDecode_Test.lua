@@ -84,6 +84,19 @@ function TestMoveDataRollDecode:test_roll_prefix_family_and_suffix_offset()
     lu.assertEquals("roll3", i4.type)
     lu.assertEquals("right", i4.dir)
     lu.assertEquals(2, i4.speed)
+    -- v1… should be identical to legacy v… (no prefix)
+    local iA = MoveData.DecodeInfo("vrf2", ship) -- legacy
+    local iB = MoveData.DecodeInfo("v1rf2", ship) -- with explicit 1
+    lu.assertEquals(iA.type, iB.type)         -- "viperF"
+    lu.assertEquals(iA.dir, iB.dir)           -- "right"
+    lu.assertEquals(iA.speed, iB.speed)       -- 2
+
+    -- vt1… same idea
+    local iC = MoveData.DecodeInfo("vtlb3", ship) -- legacy
+    local iD = MoveData.DecodeInfo("vt1lb3", ship) -- with explicit 1
+    lu.assertEquals(iC.type, iD.type)          -- "viperTurnB"
+    lu.assertEquals(iC.dir, iD.dir)            -- "left"
+    lu.assertEquals(iC.speed, iD.speed)        -- 3
 end
 
 return TestMoveDataRollDecode

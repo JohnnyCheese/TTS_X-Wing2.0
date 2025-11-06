@@ -397,8 +397,8 @@ XW_cmd.AddCommand('b[rle][0123][strz]?', 'move') -- Banks + segnor and reverse v
 XW_cmd.AddCommand('t[rle][01234][srfbtz]?[t]?', 'move')
 
 XW_cmd.AddCommand('r[123]?[rle][123]?', 'actionMove')   --New Roll Done
-XW_cmd.AddCommand('v[rle][fb][123]?', 'actionMove')     --New ViperRoll
-XW_cmd.AddCommand('vt[rle][fb][123]?', 'actionMove')    -- New viper roll using turn template
+XW_cmd.AddCommand('v[123]?[rle][fb][123]?',  'actionMove')
+XW_cmd.AddCommand('vt[123]?[rle][fb][123]?', 'actionMove')
 XW_cmd.AddCommand('c[srle][123]?', 'actionMove')        --New Cloak side
 XW_cmd.AddCommand('e[srle][fbrle][123]?', 'actionMove') --New Echo Cloack
 
