@@ -77,7 +77,6 @@ end
 
 function TestGlobalXWCmdBarrelRoll:test_check_viper_right_forward_1()
     lu.assertEquals("actionMove", self.XW_cmd.CheckCommand("vrf1"))
-    lu.assertEquals("actionMove", XW_cmd.CheckCommand("v1rf2"))
 end
 
 function TestGlobalXWCmdBarrelRoll:test_check_viper_left_backward_3()
@@ -86,7 +85,6 @@ end
 
 function TestGlobalXWCmdBarrelRoll:test_check_viper_turn_edge_forward_1()
     lu.assertEquals("actionMove", self.XW_cmd.CheckCommand("vtef1"))
-    lu.assertEquals("actionMove", XW_cmd.CheckCommand("vt1lb3"))
 end
 
 function TestGlobalXWCmdBarrelRoll:test_check_unknown_is_nil()

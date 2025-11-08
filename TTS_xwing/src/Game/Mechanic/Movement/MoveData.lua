@@ -25,110 +25,37 @@ MoveData.onLoad = function()
 end
 EventSub.Register('onLoad', MoveData.onLoad)
 
--- Build derived sideways barrel-roll paths from existing bank/turn curves.
--- === Begin: Sideways (bank/turn) barrel-roll augmentation with endpoint offsets ===
--- === Begin: Sideways (bank/turn) barrel-roll augmentation with heading-aligned offsets ===
-
+-- Small-base 'StarViper' banked barrel rolls (speeds 2/3) derived from bank LUT
 local function augmentSidewaysLUT(Data)
-    if not Data or Data.__sideways_done then return end
+    local sb = Data and Data.smallBase
+    if not (sb and sb.bank) then return end
 
-    local bases = { "smallBase", "mediumBase", "largeBase", "hugeBase" }
+    local d = 10 * math.sqrt(0.5) -- 7.071...
 
-    local function ensureFamily(tbl, name)
-        tbl[name] = tbl[name] or {}
-        return tbl[name]
+    local function copyAndTranspose(len)
+        local s = sb.bank[len]
+        if not s then return end
+        local i = s.dataNum
+        local bx, bz, br = s.posXZ[i][1], s.posXZ[i][2], s.rotY[i]
+
+        -- transpose bank endpoint to sideways families
+        local Fx, Fz, Fry = bz, bx, -br -- forward
+        local Bx, Bz, Bry = bz, -bx, br -- backward
+
+        sb['viperF' .. len] = {
+            [1] = { dataNum = 3, length = s.length, posXZ = { { 0, 0 }, { Fx - d, Fz + d }, { Fx - d, Fz + d } }, rotY = { 0, 0, Fry } },
+            [2] = { dataNum = 3, length = s.length, posXZ = { { 0, 0 }, { Fx, Fz }, { Fx, Fz } }, rotY = { 0, 0, Fry } },
+            [3] = { dataNum = 3, length = s.length, posXZ = { { 0, 0 }, { Fx + d, Fz - d }, { Fx + d, Fz - d } }, rotY = { 0, 0, Fry } },
+        }
+        sb['viperB' .. len] = {
+            [1] = { dataNum = 3, length = s.length, posXZ = { { 0, 0 }, { Bx + d, Bz + d }, { Bx + d, Bz + d } }, rotY = { 0, 0, Bry } },
+            [2] = { dataNum = 3, length = s.length, posXZ = { { 0, 0 }, { Bx, Bz }, { Bx, Bz } }, rotY = { 0, 0, Bry } },
+            [3] = { dataNum = 3, length = s.length, posXZ = { { 0, 0 }, { Bx - d, Bz - d }, { Bx - d, Bz - d } }, rotY = { 0, 0, Bry } },
+        }
     end
 
-    local function cloneCurve(src)
-        local out = { dataNum = src.dataNum, length = src.length, posXZ = {}, rotY = {} }
-        for i = 1, src.dataNum do
-            local p      = src.posXZ[i]
-            out.posXZ[i] = { p[1], p[2] }
-            out.rotY[i]  = src.rotY[i]
-        end
-        return out
-    end
-
-    -- Ramped offset along the curve's instantaneous heading (rotY[i]).
-    -- Most of the shift happens near the end so the mid-path "feel" stays correct.
-    local function offsetCurve_forwardBackward_ramped(curve, dz)
-        if dz == 0 then return cloneCurve(curve) end
-        local out = cloneCurve(curve)
-        local n = out.dataNum
-        local rampPow = 3               -- ease-in; increase to 4 if you want the shift even later
-        for i = 1, n do
-            local w = (i / n) ^ rampPow -- 0 -> 1 ramp
-            local theta = math.rad(out.rotY[i])
-            local d = dz * w
-            out.posXZ[i][1] = out.posXZ[i][1] + math.sin(theta) * d -- X
-            out.posXZ[i][2] = out.posXZ[i][2] + math.cos(theta) * d -- Z
-        end
-        return out
-    end
-
-    local function transposeForward(src) -- (x,z) -> (z,+x), rot -> -rot
-        local out = { dataNum = src.dataNum, length = src.length, posXZ = {}, rotY = {} }
-        for i = 1, src.dataNum do
-            local x, z   = src.posXZ[i][1], src.posXZ[i][2]
-            out.posXZ[i] = { z, x }
-            out.rotY[i]  = -src.rotY[i]
-        end
-        return out
-    end
-
-    local function transposeBackward(src) -- (x,z) -> (z,-x), rot -> +rot
-        local out = { dataNum = src.dataNum, length = src.length, posXZ = {}, rotY = {} }
-        for i = 1, src.dataNum do
-            local x, z   = src.posXZ[i][1], src.posXZ[i][2]
-            out.posXZ[i] = { z, -x }
-            out.rotY[i]  = src.rotY[i]
-        end
-        return out
-    end
-
-    local function dzFromAdjust(baseTbl)
-        -- Use the LUT's own adjust[1] endpoint Z as per-base offset magnitude.
-        local adj = baseTbl.adjust and baseTbl.adjust[1]
-        if adj and adj.posXZ and adj.posXZ[adj.dataNum] then
-            return adj.posXZ[adj.dataNum][2]
-        end
-        return 10 -- conservative fallback
-    end
-
-    local function writeFamilyWithOffsets(baseTbl, famName, baseCurve, dz)
-        local fam = ensureFamily(baseTbl, famName)
-        -- Only create missing indices; do not overwrite curated curves.
-        fam[1] = fam[1] or offsetCurve_forwardBackward_ramped(baseCurve, dz)  -- forward
-        fam[2] = fam[2] or offsetCurve_forwardBackward_ramped(baseCurve, 0)   -- straight
-        fam[3] = fam[3] or offsetCurve_forwardBackward_ramped(baseCurve, -dz) -- backward
-    end
-
-    for _, baseKey in ipairs(bases) do
-        local t = Data[baseKey]
-        if t then
-            local dz = dzFromAdjust(t)
-
-            for _, len in ipairs({ 2, 3 }) do
-                local bank = t.bank and t.bank[len]
-                if bank then
-                    local fwd = transposeForward(bank)
-                    local bak = transposeBackward(bank)
-                    writeFamilyWithOffsets(t, "viperF" .. len, fwd, dz)
-                    writeFamilyWithOffsets(t, "viperB" .. len, bak, dz)
-                end
-
-                local turn = t.turn and t.turn[len]
-                if turn then
-                    local fwd = transposeForward(turn)
-                    local bak = transposeBackward(turn)
-                    writeFamilyWithOffsets(t, "viperTurnF" .. len, fwd, dz)
-                    writeFamilyWithOffsets(t, "viperTurnB" .. len, bak, dz)
-                end
-            end
-        end
-    end
-
-    Data.__sideways_done = true
+    copyAndTranspose(2)
+    copyAndTranspose(3)
 end
 
 MoveData.LUT.Parse = function(object)
@@ -442,7 +369,7 @@ MoveData.DecodeInfo = function(move_code, ship)
         end
 
         local tmpl = tonumber(pre) or 1
-        if tmpl == 1 then
+        if tmpl == 1 or info.size ~= 'small' then
             info.type = 'roll'
         elseif tmpl == 2 then
             info.type = 'roll2'
@@ -470,32 +397,32 @@ MoveData.DecodeInfo = function(move_code, ship)
             info.collNote = 'tried barrel rolling ' .. info.dir .. ' backward'
         end
     elseif move_code:sub(1, 2) == 'vt' then
-        local pref    = move_code:sub(3, 3)
-        local hasPref = (pref:match('[1-3]') ~= nil)
-
-        local dirCh   = move_code:sub(hasPref and 4 or 3, hasPref and 4 or 3)
-        local fbCh    = move_code:sub(hasPref and 5 or 4, hasPref and 5 or 4)
-        local offCh   = move_code:sub(hasPref and 6 or 5, hasPref and 6 or 5)
-
-        local dir     = (dirCh == 'l' or dirCh == 'e') and 'left' or 'right'
-        local fb      = (fbCh == 'f') and 'F' or 'B'
-        local fam     = (fb == 'F') and 'viperTurnF' or 'viperTurnB'
-        if pref == '2' then
-            fam = fam .. '2'
-        elseif pref == '3' then
-            fam = fam .. '3'
+        info.type = 'viperTurn'
+        info.dir = 'right'
+        if move_code:sub(3, 3) == 'l' or move_code:sub(3, 3) == 'e' then
+            info.dir = 'left'
         end
-
-        info.type = fam
-        info.dir = dir
-        info.speed = tonumber(offCh) or 2
-        info.extra = _extraFromOffset(info.speed)
-        info.traits.full, info.traits.part = true, false
-        info.note = ('barrel rolled using turn template %s %s %s')
-            :format(dir, (fb == 'F' and 'forward' or 'backward'),
-                (info.speed == 1 and 'adjusting forward'
-                    or info.speed == 3 and 'adjusting backward' or 'adjusting straight'))
-        info.collNote = 'tried barrel rolling using turn template ' .. dir
+        info.speed = tonumber(move_code:sub(-1, -1))
+        info.traits.full = true
+        info.traits.part = false
+        if move_code:sub(4, 4) == 'f' then
+            info.type = 'viperTurnF'
+            info.extra = 'forward'
+        else
+            info.type = 'viperTurnB'
+            info.extra = 'backward'
+        end
+        if tonumber(move_code:sub(-1, -1)) == 1 then
+            info.note = 'barrel rolled using turn template ' .. info.dir .. ' ' .. info.extra .. ' adjusting forward'
+            info.collNote = 'tried barrel rolling using turn template ' .. info.dir .. ' ' .. info.extra
+        elseif tonumber(move_code:sub(-1, -1)) == 2 then
+            info.note = 'barrel rolled using turn template ' .. info.dir .. ' ' .. info.extra .. ' adjusting straight'
+            info.collNote = 'tried barrel rolling using turn template ' .. info.dir .. ' ' .. info.extra
+        elseif tonumber(move_code:sub(-1, -1)) == 3 then
+            info.note = 'barrel rolled using turn template ' .. info.dir .. ' ' .. info.extra .. ' adjusting backward'
+            info.collNote = 'tried barrel rolling using turn template ' .. info.dir .. ' ' .. info.extra
+        end
+        -- New Viper roll
     elseif move_code:sub(1, 1) == 'v' then
         local pref    = move_code:sub(2, 2)
         local hasPref = (pref:match('[1-3]') ~= nil)
