@@ -7666,6 +7666,7 @@ masterPilotDB[971] = {
     limited = 1,
     Shield = 1,
     ship_type = 'tieininterceptor',
+    Charge = 2,
     cost = 20,
     init = 4,
     texture = 'the181',
