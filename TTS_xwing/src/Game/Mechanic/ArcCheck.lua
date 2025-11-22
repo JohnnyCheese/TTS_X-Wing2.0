@@ -158,7 +158,7 @@ function ArcCheck.CheckArc(args)
         if target.in_arc == false then
             printToAll(' - ' .. ship.getName() .. ' not in arc')
         elseif target.closest.range > range then
-            printToAll(' - ' .. ship.getName() .. ' not in range (' .. range .. ')')
+            printToAll(' - ' .. ship.getName() .. ' not within range (' .. range .. ')')
         else
             found = true
             ship.setLock(true)
