@@ -683,7 +683,6 @@ masterPilotDB[31] = {
     slot = { 21, 1, 8, 8, 14 },
     init = 4,
     texture = 'cream',
-    keywords = { 'Wookiee' },
     actSet = { 'F', 'R', 'BR' }
 }
 
@@ -697,7 +696,6 @@ masterPilotDB[32] = {
     slot = { 21, 1, 8, 8, 14 },
     init = 3,
     texture = 'orange',
-    keywords = { 'Wookiee' },
     actSet = { 'F', 'R', 'BR' }
 }
 
@@ -710,7 +708,6 @@ masterPilotDB[33] = {
     slot = { 21, 8, 8, 14 },
     init = 1,
     texture = 'cream',
-    keywords = { 'Wookiee' },
     actSet = { 'F', 'R', 'BR' }
 }
 
@@ -1246,7 +1243,6 @@ masterPilotDB[71] = {
     Charge = 1,
     init = 4,
     texture = 'standard',
-    keywords = { 'Wookiee' },
     actSet = { 'F', 'TL', 'B' }
 }
 
