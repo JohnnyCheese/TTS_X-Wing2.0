@@ -24,8 +24,44 @@ MoveData.onLoad = function()
     end
 end
 EventSub.Register('onLoad', MoveData.onLoad)
+
+-- Small-base 'StarViper' banked barrel rolls (speeds 2/3) derived from bank LUT
+local function augmentSidewaysLUT(Data)
+    local sb = Data and Data.smallBase
+    if not (sb and sb.bank) then return end
+
+    local d = 10 * math.sqrt(0.5) -- 7.071...
+
+    local function copyAndTranspose(len)
+        local s = sb.bank[len]
+        if not s then return end
+        local i = s.dataNum
+        local bx, bz, br = s.posXZ[i][1], s.posXZ[i][2], s.rotY[i]
+
+        -- transpose bank endpoint to sideways families
+        local Fx, Fz, Fry = bz, bx, -br -- forward
+        local Bx, Bz, Bry = bz, -bx, br -- backward
+
+        sb['viperF' .. len] = {
+            [1] = { dataNum = 3, length = s.length, posXZ = { { 0, 0 }, { Fx - d, Fz + d }, { Fx - d, Fz + d } }, rotY = { 0, 0, Fry } },
+            [2] = { dataNum = 3, length = s.length, posXZ = { { 0, 0 }, { Fx, Fz }, { Fx, Fz } }, rotY = { 0, 0, Fry } },
+            [3] = { dataNum = 3, length = s.length, posXZ = { { 0, 0 }, { Fx + d, Fz - d }, { Fx + d, Fz - d } }, rotY = { 0, 0, Fry } },
+        }
+        sb['viperB' .. len] = {
+            [1] = { dataNum = 3, length = s.length, posXZ = { { 0, 0 }, { Bx + d, Bz + d }, { Bx + d, Bz + d } }, rotY = { 0, 0, Bry } },
+            [2] = { dataNum = 3, length = s.length, posXZ = { { 0, 0 }, { Bx, Bz }, { Bx, Bz } }, rotY = { 0, 0, Bry } },
+            [3] = { dataNum = 3, length = s.length, posXZ = { { 0, 0 }, { Bx - d, Bz - d }, { Bx - d, Bz - d } }, rotY = { 0, 0, Bry } },
+        }
+    end
+
+    copyAndTranspose(2)
+    copyAndTranspose(3)
+end
+
 MoveData.LUT.Parse = function(object)
     MoveData.LUT.Data = object.call('ParseLUT', {})
+    augmentSidewaysLUT(MoveData.LUT.Data)
+    return MoveData.LUT.Data
 end
 
 -- Max part value for partial moves
@@ -52,16 +88,19 @@ MoveData.LUT.ConstructData = function(moveInfo, part)
     local LUTtable = MoveData.LUT.Data[moveInfo.size .. 'Base'][moveInfo.type][moveInfo.speed]
     local LUTindex = (part / MoveData.partMax) * LUTtable.dataNum
     if LUTindex < 1 then LUTindex = 1 end
+
     -- Interpolation between two nearest indexes
     local aProp = LUTindex - math.floor(LUTindex)
     local bProp = 1 - aProp
-    local outPos = Vect.Sum(Vect.Scale(LUTtable.posXZ[math.floor(LUTindex)], bProp),
-        Vect.Scale(LUTtable.posXZ[math.ceil(LUTindex)], aProp))
+    local outPos = Vect.Sum(
+        Vect.Scale(LUTtable.posXZ[math.floor(LUTindex)], bProp),
+        Vect.Scale(LUTtable.posXZ[math.ceil(LUTindex)], aProp)
+    )
     local outRot = (LUTtable.rotY[math.floor(LUTindex)] * bProp) + (LUTtable.rotY[math.ceil(LUTindex)] * aProp)
 
-    local outData = { outPos[1], 0, outPos[2], outRot }
-    return outData
+    return { outPos[1], 0, outPos[2], outRot }
 end
+
 
 -- Get true move length from LUT data *IN MILLIMETERS*
 -- True as in trajectory length, not distance between start and end
@@ -141,6 +180,9 @@ MoveData.ApplyFinalModifiers = function(entry, info)
     return out
 end
 
+local function _extraFromOffset(n)
+    return (n == 1 and 'forward') or (n == 3 and 'backward') or 'straight'
+end
 
 -- Decode a move command into table with type, direction, speed etc info
 -- TODO make a lookup table?
@@ -309,27 +351,49 @@ MoveData.DecodeInfo = function(move_code, ship)
             info.note = 'Pivoted ' .. info.dir
             info.collNote = 'tried pivoting ' .. info.dir
         end
-
-
-        -- New Barrel Roll
     elseif move_code:sub(1, 1) == 'r' then
-        info.type = 'roll'
-        info.dir = 'right'
-        if move_code:sub(2, 2) == 'l' or move_code:sub(2, 2) == 'e' then
+        -- Unified barrel-roll grammar:
+        --   r[123]?[rle][123]?
+        --   - optional prefix digit = template length (1..3) → roll | roll2 | roll3
+        --   - [r|l|e]             = direction (right|left|left-edge≡left)
+        --   - optional suffix     = end-offset (1=fwd, 2=center [default], 3=back)
+        --
+        -- Backward-compatible examples:
+        --   rl      → roll , dir=left,  offset=center(2)
+        --   rr2     → roll , dir=right, offset=2
+        --   r2l3    → roll2, dir=left,  offset=3
+        --   r3r1    → roll3, dir=right, offset=1
+        local pre, dirChar, off = move_code:match("^r(%d?)([rle])(%d?)$")
+        if not dirChar then
+            return nil
+        end
+
+        local tmpl = tonumber(pre) or 1
+        if tmpl == 1 or info.size ~= 'small' then
+            info.type = 'roll'
+        elseif tmpl == 2 then
+            info.type = 'roll2'
+        else
+            info.type = 'roll3' -- clamp 3+
+        end
+
+        if dirChar == 'r' then
+            info.dir = 'right'
+        else
             info.dir = 'left'
         end
-        info.collNote = 'tried barrel rolling ' .. info.dir
-        info.speed = tonumber(move_code:sub(3, 3))
-        info.traits.full = true
-        info.traits.part = false
-        if tonumber(move_code:sub(3, 3)) == 1 then
-            info.note = 'barrel rolled ' .. info.dir .. ' forward'
+
+        info.speed = tonumber(off) or 2 -- end-offset default: center
+        info.traits.full, info.traits.part = true, false
+
+        if info.speed == 1 then
+            info.note     = 'barrel rolled ' .. info.dir .. ' forward'
             info.collNote = 'tried barrel rolling ' .. info.dir .. ' forward'
-        elseif tonumber(move_code:sub(3, 3)) == 2 then
-            info.note = 'barrel rolled ' .. info.dir .. ' straight'
+        elseif info.speed == 2 then
+            info.note     = 'barrel rolled ' .. info.dir .. ' straight'
             info.collNote = 'tried barrel rolling ' .. info.dir .. ' straight'
-        elseif tonumber(move_code:sub(3, 3)) == 3 then
-            info.note = 'barrel rolled ' .. info.dir .. ' backward'
+        else
+            info.note     = 'barrel rolled ' .. info.dir .. ' backward'
             info.collNote = 'tried barrel rolling ' .. info.dir .. ' backward'
         end
     elseif move_code:sub(1, 2) == 'vt' then
@@ -360,32 +424,34 @@ MoveData.DecodeInfo = function(move_code, ship)
         end
         -- New Viper roll
     elseif move_code:sub(1, 1) == 'v' then
-        info.type = 'viper'
-        info.dir = 'right'
-        if move_code:sub(2, 2) == 'l' or move_code:sub(2, 2) == 'e' then
-            info.dir = 'left'
+        local pref    = move_code:sub(2, 2)
+        local hasPref = (pref:match('[1-3]') ~= nil)
+
+
+        local dirCh = move_code:sub(hasPref and 3 or 2, hasPref and 3 or 2)
+        local fbCh  = move_code:sub(hasPref and 4 or 3, hasPref and 4 or 3)
+        local offCh = move_code:sub(hasPref and 5 or 4, hasPref and 5 or 4)
+
+        local dir   = (dirCh == 'l' or dirCh == 'e') and 'left' or 'right'
+        local fb    = (fbCh == 'f') and 'F' or 'B'
+        local fam   = (fb == 'F') and 'viperF' or 'viperB'
+        -- Prefix '1' is a no-op (same as no prefix); '2' → …2, '3' → …3
+        if pref == '2' then
+            fam = fam .. '2'
+        elseif pref == '3' then
+            fam = fam .. '3'
         end
-        info.speed = tonumber(move_code:sub(-1, -1))
-        info.traits.full = true
-        info.traits.part = false
-        if move_code:sub(3, 3) == 'f' then
-            info.type = 'viperF'
-            info.extra = 'forward'
-        else
-            info.type = 'viperB'
-            info.extra = 'backward'
-        end
-        if tonumber(move_code:sub(-1, -1)) == 1 then
-            info.note = 'barrel rolled using bank template ' .. info.dir .. ' ' .. info.extra .. ' adjusting forward'
-            info.collNote = 'tried barrel rolling using bank template ' .. info.dir .. ' ' .. info.extra
-        elseif tonumber(move_code:sub(-1, -1)) == 2 then
-            info.note = 'barrel rolled using bank template ' .. info.dir .. ' ' .. info.extra .. ' adjusting straight'
-            info.collNote = 'tried barrel rolling using bank template ' .. info.dir .. ' ' .. info.extra
-        elseif tonumber(move_code:sub(-1, -1)) == 3 then
-            info.note = 'barrel rolled using bank template ' .. info.dir .. ' ' .. info.extra .. ' adjusting backward'
-            info.collNote = 'tried barrel rolling using bank template ' .. info.dir .. ' ' .. info.extra
-        end
-        -- New Decloak
+
+        info.type = fam
+        info.dir = dir
+        info.speed = tonumber(offCh) or 2 -- keep existing “offset” default
+        info.extra = _extraFromOffset(info.speed)
+        info.traits.full, info.traits.part = true, false
+        info.note = ('barrel rolled using bank template %s %s %s')
+            :format(dir, (fb == 'F' and 'forward' or 'backward'),
+                (info.speed == 1 and 'adjusting forward'
+                    or info.speed == 3 and 'adjusting backward' or 'adjusting straight'))
+        info.collNote = 'tried barrel rolling using bank template ' .. dir
     elseif move_code:sub(1, 1) == 'c' then
         info.type = 'deCloak'
         info.dir = 'right'

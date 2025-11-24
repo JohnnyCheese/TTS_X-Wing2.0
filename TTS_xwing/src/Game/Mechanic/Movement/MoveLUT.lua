@@ -129,6 +129,15 @@ MoveLUT.largeBase.roll[3].length = 140.000
 MoveLUT.largeBase.roll[3].posXZ = { { 0.000, 0.000 }, { 100.000, -20.000 }, { 100.000, -20.000 } }
 MoveLUT.largeBase.roll[3].rotY = { 0.000, 0.000, 0.000 }
 
+MoveLUT.smallBase.roll2 = {}
+MoveLUT.smallBase.roll2[1] = { dataNum = 3, length = 160.000, posXZ = { { 40.000, 0.000 }, { 120.000, 10.000 }, { 120.000, 10.000 }, }, rotY = { 0.000, 0.000, 0.000 } }
+MoveLUT.smallBase.roll2[2] = { dataNum = 3, length = 160.000, posXZ = { { 40.000, 0.000 }, { 120.000, 0.000 }, { 120.000, 0.000 }, }, rotY = { 0.000, 0.000, 0.000 } }
+MoveLUT.smallBase.roll2[3] = { dataNum = 3, length = 160.000, posXZ = { { 40.000, 0.000 }, { 120.000, -10.000 }, { 120.000, -10.000 }, }, rotY = { 0.000, 0.000, 0.000 } }
+
+MoveLUT.smallBase.roll3 = {}
+MoveLUT.smallBase.roll3[1] = { dataNum = 3, length = 200.000, posXZ = { { 80.000, 0.000 }, { 160.000, 10.000 }, { 160.000, 10.000 }, }, rotY = { 0.000, 0.000, 0.000 } }
+MoveLUT.smallBase.roll3[2] = { dataNum = 3, length = 200.000, posXZ = { { 80.000, 0.000 }, { 160.000, 0.000 }, { 160.000, 0.000 }, }, rotY = { 0.000, 0.000, 0.000 } }
+MoveLUT.smallBase.roll3[3] = { dataNum = 3, length = 200.000, posXZ = { { 80.000, 0.000 }, { 160.000, -10.000 }, { 160.000, -10.000 }, }, rotY = { 0.000, 0.000, 0.000 } }
 
 MoveLUT.smallBase.viperF = {}
 
