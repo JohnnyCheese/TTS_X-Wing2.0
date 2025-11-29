@@ -5,94 +5,113 @@ local Dim = require("Dim")
 local nextSlot = 1
 local collidingWith = {}
 local suppressCollision = false
+local currentFormation
 
-function getWingFormation()
-    function calcOffset()
+local function buildWingFormation()
+    local function calcOffset()
         local sz_base = Dim.Convert_mm_igu(Dim.mm_smallBase)
-        local sz_tmpl = Dim.Convert_mm_igu(20)
+        local sz_tmpl_default = Dim.Convert_mm_igu(20)
+        local sz_tmpl = sz_tmpl_default
+        local bounds = self.getBoundsNormalized and self.getBoundsNormalized()
+        local scale = self.getScale and self.getScale()
+        if bounds and bounds.size and scale then
+            sz_tmpl = bounds.size.z * scale.z
+        end
+        sz_tmpl = math.min(sz_tmpl, sz_tmpl_default)
         return (sz_base + sz_tmpl) / 2
     end
 
     local stateId = self.getStateId()
+    local buffer = Dim.Convert_mm_igu(1.1)
     local offset = calcOffset()
-    -- Define the positions for each Wing Formation
+    local offsetX = offset
+    local offsetZ = offset + buffer
+
     local wingFormations = {
-        [1] = {                                  -- Configuration for 6 ships
-            Vector(0.0, 0.0, -offset),           -- Wing Leader
-            Vector(-2.0 * offset, 0.0, -offset), -- Right Flank
-            Vector(2.0 * offset, 0.0, -offset),  -- Left Flank
-            Vector(0.0, 0.0, offset),            -- Rear Support
-            Vector(-2.0 * offset, 0.0, offset),  -- Right Support
-            Vector(2.0 * offset, 0.0, offset)    -- Left  Support
+        [1] = {
+            Vector(0.0, 0.0, -offsetZ),
+            Vector(-2.0 * offsetX, 0.0, -offsetZ),
+            Vector(2.0 * offsetX, 0.0, -offsetZ),
+            Vector(0.0, 0.0, offsetZ),
+            Vector(-2.0 * offsetX, 0.0, offsetZ),
+            Vector(2.0 * offsetX, 0.0, offsetZ)
         },
-        [2] = {                                  -- Configuration for 2 ships
-            Vector(0.0, 0.0, -offset),           -- Wing Leader
-            Vector(0.0, 0.0, offset)             -- Rear Support
+        [2] = {
+            Vector(0.0, 0.0, -offsetZ),
+            Vector(0.0, 0.0, offsetZ)
         },
-        [3] = {                                  -- Configuration for 4 ships
-            Vector(offset, 0.0, -offset),        -- Wing Leader
-            Vector(-offset, 0.0, -offset),       -- Right Flank
-            Vector(offset, 0.0, offset),         -- Rear Support
-            Vector(-offset, 0.0, offset)         -- Right Support
+        [3] = {
+            Vector(offsetX, 0.0, -offsetZ),
+            Vector(-offsetX, 0.0, -offsetZ),
+            Vector(offsetX, 0.0, offsetZ),
+            Vector(-offsetX, 0.0, offsetZ)
         }
     }
-    return wingFormations[stateId] or wingFormations[3] -- Default to 4 positions if the state is unknown
+
+    return wingFormations[stateId] or wingFormations[3]
 end
 
-function clearWing()
+function GetWingFormation()
+    if not currentFormation then
+        currentFormation = buildWingFormation()
+    end
+    return currentFormation
+end
+
+function ClearWing()
     nextSlot = 1
     collidingWith = {}
     suppressCollision = false
 end
 
-function offsetFrom(root, amt)
-    function elementWiseDiv(a, b)
-        return Vector(a.x / b.x, a.y / b.y, a.z / b.z)
-    end
+local function elementWiseDiv(a, b)
+    return Vector(a.x / b.x, a.y / b.y, a.z / b.z)
+end
 
+function OffsetFrom(root, amt)
     local scaleVec = root.getScale()
     amt = elementWiseDiv(amt, scaleVec)
     return root.positionToWorld(amt)
 end
 
-function isShip(obj)
+function IsShip(obj)
     return Global.call("API_IsShipType", { ship = obj })
 end
 
 function onCollisionEnter(collision_info)
     if suppressCollision then return end
     local ship = collision_info.collision_object
-    if not isShip(ship) then return end
+    if not IsShip(ship) then return end
     if collidingWith[ship.guid] ~= nil then
         return
     end
-    positionShip(ship)
+    PositionShip(ship)
 end
 
 function onCollisionExit(collision_info)
     local ship = collision_info.collision_object
-    if not isShip(ship) then return end
+    if not IsShip(ship) then return end
     if collidingWith[ship.guid] == nil then return end
     collidingWith[ship.guid].active = false
 end
 
-function onLoad()
+function onLoad(save_data)
     self.bounciness = 0
-    self.addContextMenuItem("Clear Template", clearWing)
-    clearWing()
+    self.addContextMenuItem("Clear Template", ClearWing)
+    ClearWing()
 end
 
 function onDrop(player_color)
-    clearWing()
+    ClearWing()
     local ship = Global.call("API_FindNearestShip", { object = self, max_distance = 30 })
     if ship ~= nil then
-        positionTemplate(ship)
+        PositionTemplate(ship)
     end
 end
 
 -- Function to position a ship in the first available position
-function positionShip(ship)
-    local currentFormation = getWingFormation()
+function PositionShip(ship)
+    local currentFormation = GetWingFormation()
     local slot = nextSlot
     nextSlot = (slot % #currentFormation) + 1
     if collidingWith[ship.guid] == nil then
@@ -105,7 +124,7 @@ function positionShip(ship)
     ship.setLock(true)
 
     local slotPos = currentFormation[collidingWith[ship.guid].slot]
-    local newPos = offsetFrom(self, slotPos)
+    local newPos = OffsetFrom(self, slotPos)
     local rotation = self.getRotation()
 
     local seq = Sequence.new(true)
@@ -121,17 +140,18 @@ function positionShip(ship)
     seq:start()
 end
 
-function positionTemplate(ship)
+-- Function to position the template behind the lead ship
+function PositionTemplate(ship)
     suppressCollision = true
     nextSlot = 1
     collidingWith[ship.guid] = { ship = ship, lock = ship.getLock(), slot = nextSlot }
     ship.setLock(true)
     self.setLock(true)
-    local currentFormation = getWingFormation()
+    local currentFormation = GetWingFormation()
     nextSlot = (nextSlot % #currentFormation) + 1
     local rot = ship.getRotation()
 
-    local newPos = offsetFrom(ship, -1 * Vector(currentFormation[collidingWith[ship.guid].slot]))
+    local newPos = OffsetFrom(ship, -1 * Vector(currentFormation[collidingWith[ship.guid].slot]))
     newPos.y = self.getPosition().y
 
     local seq = Sequence.new(true)
