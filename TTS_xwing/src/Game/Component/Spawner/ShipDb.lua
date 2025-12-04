@@ -1624,7 +1624,7 @@ masterShipDB['vultureclassdroidfighter'] = {
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/vultureclassdroidfighter/Textures/DFS-081.png',
         dfs420 =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/vultureclassdroidfighter/Textures/dfs420.png',
-        00m =
+        p00m =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/vultureclassdroidfighter/Textures/00m.png',
     },
     Fac = { [7] = true },

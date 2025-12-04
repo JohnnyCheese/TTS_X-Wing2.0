@@ -122,8 +122,11 @@ cardBackDB.mc =
 masterShipDB = require("Game.Component.Spawner.ShipDb")
 amgPilotDB = require("Game.Component.Spawner.PilotDb")
 xwaPilotDB = require("Game.Component.Spawner.XwaPilotDb")
-masterPilotDB = table.join_sparse(amgPilotDB, xwaPilotDB)
+legacyPilotDB = require("Game.Component.Spawner.LegacyPilotDb")
+xwaMasterPilotDB = table.join_sparse(amgPilotDB, xwaPilotDB)
+legacyMasterPilotDB = table.join_sparse(amgPilotDB, legacyPilotDB)
 masterUpgradesDB = require("Game.Component.Spawner.UpgradeDb")
+masterPilotDB = amgPilotDB
 
 ffgSpecial = {}
 ffgSpecial[315] = 'Crew'         --r2d2crew
@@ -209,16 +212,19 @@ function addResetButton()
 end
 
 function amgPoints()
+    masterPilotDB = amgPilotDB
     loadPoints("AMG")
     spawnOptions("AMG")
 end
 
 function xwaPoints()
+    masterPilotDB = xwaMasterPilotDB
     loadPoints("XWA")
     spawnOptions("XWA")
 end
 
 function x2poPoints()
+    masterPilotDB = legacyMasterPilotDB
     loadPoints("X2PO")
     spawnOptions("X2PO")
 end
@@ -227,7 +233,7 @@ function spawnOptions(versionversion)
     self.clearButtons()
     self.createButton({ click_function = 'xwsStart', function_owner = self, label = 'XWS Spawner', position = { 0.0, 0.45, -0.1 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'spawnerStart', function_owner = self, label = 'TTS Spawner', position = { 0.0, 0.45, 0.2 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
-    if version ~= "X2PO" then
+    if v ~= "X2PO" then
         self.createButton({ click_function = 'builderStart', function_owner = self, label = 'Builder', position = { 0.0, 0.45, 0.5 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
     end
     addResetButton()
@@ -1941,6 +1947,9 @@ function builderSpawn()
     finalList.spawnCard = partList.spawnCard
 
     finalList.Format = "2.5"
+    if VERSION_DATA.ruleset == "X2PO" then
+        finalList.Format = "2.0-legacy"
+    end
     idSpawner(finalList)
 end
 
