@@ -1274,6 +1274,7 @@ masterPilotDB[5086] = {
     init = 3,
     texture = 'nera',
     actSet = { 'F', 'TL', 'BR' },
+    arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'primary', type = { 'singleturret' } } } },
     keywords = { 'B-wing' },
     card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/neradantels-wat1.png'
 }
@@ -1318,7 +1319,7 @@ masterPilotDB[5089] = {
     cost = 45,
     slot = { 21, 1, 2, 5, 10, 13 },
     init = 6,
-    texture = 'standard',
+    texture = 'yellow',
     actSet = { 'F', 'TL', 'B', 'BR', 'E' },
     card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/rhysdallows-wat1.png'
 }
@@ -1332,7 +1333,7 @@ masterPilotDB[5090] = {
     cost = 37,
     slot = { 21, 1, 1, 2, 5, 10 },
     init = 4,
-    texture = 'standard',
+    texture = 'yellow',
     actSet = { 'F', 'TL', 'B', 'BR', 'E' },
     card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/essaratill-wat1.png'
 }
