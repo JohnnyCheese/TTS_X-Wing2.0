@@ -1,18 +1,5 @@
 
 masterPilotDB = {}
-masterPilotDB[0] = {
-    ['name'] = '',
-    ['XWS'] = '',
-    ['Faction'] = 0,
-    ['ship_type'] = 0,
-    ['cost'] = 0,
-    ['slot'] = {},
-    ['Shield'] = 0,
-    ['card'] = '',
-    ['cardB'] = '',
-    ['init'] = 0,
-    ['actSet'] = {}
-}
 
 -- Battle of Yavin
 masterPilotDB[5000] = {
@@ -1140,7 +1127,7 @@ masterPilotDB[5077] = {
     cost = 23,
     slot = { 21, 6, 14, 18 },
     init = 1,
-    texture = '00m',
+    texture = 'p00m',
     actSet = { 'C', 'BR', 'TL' },
     keywords = { 'Droid' },
     card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/00muplinkprototype-wat1.png'
@@ -1166,7 +1153,7 @@ masterPilotDB[5079] = {
     XWS = 'halliobas-wat1',
     Faction = 7,
     limited = 1,
-    ship_type = 'belbullab22starfighter',
+    ship_type = 'belbulab22starfighter',
     cost = 39,
     slot = { 21, 1, 14, 15, 20 },
     Charge = 2,
@@ -1359,11 +1346,12 @@ masterPilotDB[5092] = {
     Faction = 2,
     limited = 1,
     ship_type = 'tiephphantom',
+    Condition = 'Saxton Cloak',
     cost = 43,
     slot = { 21, 1, 2, 16, 14 },
     Charge = 2,
     init = 4,
-    texture = 'standard',
+    texture = 'blue',
     actSet = { 'F', 'E', 'BR', 'CL' },
     keywords = { 'TIE' },
     card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/captainsaxton-wat1.png'
@@ -1433,7 +1421,7 @@ masterPilotDB[5097] = {
     XWS = 'fn2187-wat1',
     Faction = 5,
     limited = 1,
-    ship_type = 'fn2187',
+    ship_type = 'tiefofighter',
     cost = 30,
     slot = { 21, 19, 14 },
     init = 1,
@@ -1442,3 +1430,5 @@ masterPilotDB[5097] = {
     keywords = { 'TIE' },
     card = 'https://raw.githubusercontent.com/SogeMoge/x-wing2.0-project-goldenrod/2.0-legacy/src/images/En/pilots/fn2187-wat1.png'
 }
+
+return masterPilotDB
