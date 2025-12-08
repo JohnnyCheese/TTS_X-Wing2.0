@@ -121,12 +121,18 @@ cardBackDB.mc =
 
 masterShipDB = require("Game.Component.Spawner.ShipDb")
 amgPilotDB = require("Game.Component.Spawner.PilotDb")
+amgUpgradesDB = require("Game.Component.Spawner.UpgradeDb")
 xwaPilotDB = require("Game.Component.Spawner.XwaPilotDb")
 legacyPilotDB = require("Game.Component.Spawner.LegacyPilotDb")
+legacyUpgradesDB = require("Game.Component.Spawner.LegacyUpgradeDb")
+
 xwaMasterPilotDB = table.join_sparse(amgPilotDB, xwaPilotDB)
+xwaMasterUpgradesDB = amgUpgradesDB
 legacyMasterPilotDB = table.join_sparse(amgPilotDB, legacyPilotDB)
-masterUpgradesDB = require("Game.Component.Spawner.UpgradeDb")
+legacyMasterUpgradesDB = table.join_sparse(amgUpgradesDB, legacyUpgradesDB)
+
 masterPilotDB = amgPilotDB
+masterUpgradesDB = amgUpgradesDB
 
 ffgSpecial = {}
 ffgSpecial[315] = 'Crew'         --r2d2crew
@@ -213,18 +219,21 @@ end
 
 function amgPoints()
     masterPilotDB = amgPilotDB
+    upgradeDB = amgUpgradesDB
     loadPoints("AMG")
     spawnOptions("AMG")
 end
 
 function xwaPoints()
     masterPilotDB = xwaMasterPilotDB
+    masterUpgradesDB = xwaMasterUpgradesDB
     loadPoints("XWA")
     spawnOptions("XWA")
 end
 
 function x2poPoints()
     masterPilotDB = legacyMasterPilotDB
+    masterUpgradesDB = legacyMasterUpgradesDB
     loadPoints("X2PO")
     spawnOptions("X2PO")
 end
@@ -233,7 +242,7 @@ function spawnOptions(versionversion)
     self.clearButtons()
     self.createButton({ click_function = 'xwsStart', function_owner = self, label = 'XWS Spawner', position = { 0.0, 0.45, -0.1 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'spawnerStart', function_owner = self, label = 'TTS Spawner', position = { 0.0, 0.45, 0.2 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
-    if v ~= "X2PO" then
+    if versionversion ~= "X2PO" then
         self.createButton({ click_function = 'builderStart', function_owner = self, label = 'Builder', position = { 0.0, 0.45, 0.5 }, width = 1600, height = 380, font_size = 250, scale = { 0.25, 0.25, 0.25 } })
     end
     addResetButton()
@@ -952,9 +961,11 @@ function singlePilotSpawn(Id)
     partList.Pilots[1] = Id
     partList.Upgrades = {}
     partList.Upgrades[1] = {}
-    partList.Faction = masterPilotDB[Id].Faction
+    partList.Faction = masterPilotDB[Id].Faction 
     partList.Format = "2.5"
-
+    if VERSION_DATA.ruleset == "X2PO" then
+        partList.Format = "2.0-legacy"
+    end
     idSpawner(partList)
     singleSpawner()
 end
@@ -969,6 +980,9 @@ function singleUpSpawn(upId)
     partList.Upgrades[1][1] = upId
     partList.Faction = ffgFaction[0]
     partList.Format = "2.5"
+    if VERSION_DATA.ruleset == "X2PO" then
+        partList.Format = "2.0-legacy"
+    end
     idSpawner(partList)
     singleSpawner()
 end
