@@ -188,6 +188,7 @@ function autoStartButton()
     if timerStats.auto_start then
         self.UI.setAttribute("AutoStartButton", "text", "Auto")
     else
+
         self.UI.setAttribute("AutoStartButton", "text", "Manual")
     end
 end
@@ -248,13 +249,14 @@ function updateTime()
 end
 
 guiIdToSide = {
-    RegisterLeft = "Left",
-    RegisterRight = "Right",
-    RightPointPlus = "Right",
-    LeftPointPlus = "Left",
-    RightPointMinus = "Right",
-    LeftPointMinus = "Left"
+  RegisterLeft="Left", RegisterRight="Right",
+  LeftPointPlus="Left", LeftPointMinus="Left",
+  RightPointPlus="Right", RightPointMinus="Right",
+  LeftPointPlus2="Left", LeftPointPlus4="Left",
+  RightPointPlus2="Right", RightPointPlus4="Right",
 }
+
+
 
 function registerPlayerFromGui(player, option, id)
     local side = guiIdToSide[id]
@@ -281,20 +283,37 @@ function registerPlayerFromGui(player, option, id)
 end
 
 function addPoint(player, option, id)
-    self.AssetBundle.playTriggerEffect(0)
-    if state == "active" and round > 0 then
-        local side = guiIdToSide[id]
-        if id:find('Plus') then
-            sided_players[side].points = sided_players[side].points + 1
-            sided_players[side].round_points[round] = (sided_players[side].round_points[round] or 0) + 1
-        elseif sided_players[side].points > 0 then
-            sided_players[side].points = sided_players[side].points - 1
-            sided_players[side].round_points[round] = (sided_players[side].round_points[round] or 0) - 1
-        end
-        self.UI.setAttribute(side .. "PointText", "text", tostring(sided_players[side].points))
-        updateRoundPoints(round, side)
-    end
+  self.AssetBundle.playTriggerEffect(0)
+
+  -- Must be in an active game and after round has started
+  if state ~= "active" or round <= 0 then
+    printToColor("Scoring is enabled after Round 0 begins.", player.color, {1,0.6,0})
+    return
+  end
+
+  local side = guiIdToSide[id]
+  if not side or not sided_players[side] then return end
+
+  -- Detect amount: Plus = +1, Plus2 = +2, Plus4 = +4, Minus = -1
+  local amt = -1
+  local plus = id:match("Plus(%d*)")
+  if plus ~= nil then
+    amt = tonumber(plus) or 1
+  end
+
+  -- Update total points (no negatives)
+  local newTotal = math.max(0, (sided_players[side].points or 0) + amt)
+  sided_players[side].points = newTotal
+
+  -- Update per-round points (no negatives)
+  local rp = (sided_players[side].round_points[round] or 0) + amt
+  if rp < 0 then rp = 0 end
+  sided_players[side].round_points[round] = rp
+
+  self.UI.setAttribute(side .. "PointText", "text", tostring(newTotal))
+  updateRoundPoints(round, side)
 end
+
 
 function updateRoundPoints(round, side)
     if sided_players[side].round_points == 0 then

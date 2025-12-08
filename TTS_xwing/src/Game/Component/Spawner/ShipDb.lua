@@ -1262,7 +1262,7 @@ masterShipDB['tiesffighter'] = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiesffighter/Textures/1/standard.jpg',
         strife =
-        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiesffighter/Textures/1/strife.jpg',
+        'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiesffighter/Textures/1/strife.png',
     },
     Fac = { [5] = true },
     arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'primary', type = { 'front', 'back' } } } },
