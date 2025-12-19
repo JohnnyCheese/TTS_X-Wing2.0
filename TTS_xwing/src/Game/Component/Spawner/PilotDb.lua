@@ -2057,8 +2057,6 @@ masterPilotDB[633] = {
     ship_type = 'tieskstriker',
     cost = 32,
     slot = { 21, 1, 16, 12, 14 },
-    card =
-    'http://images-cdn.fantasyflightgames.com/filer_public/98/a8/98a8c9cc-53b2-4b57-ac0b-96da7c064740/swz66_vagabond.png',
     init = 2,
     texture = 'blue',
     actSet = { 'F', 'E', 'BR', 'Ail', 'B' }
@@ -4035,7 +4033,6 @@ masterPilotDB[418] = {
     cost = 61,
     slot = { 21, 1, 19, 14, 18, 15, 10, 99 },
     Charge = 1,
-    card = 'http://sb-cdn.fantasyflightgames.com/card_images/en/14c504c0815213a66010c4013d9296ee.png',
     init = 6,
     texture = 'blackone',
     actSet = { 'F', 'TL', 'B' }

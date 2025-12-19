@@ -1137,6 +1137,8 @@ function idSpawner(idTable)
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':be3:br3:s3:s3r'
         elseif v == 10022 then
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':be1:br1:s2:be2:br2'
+        elseif v == 1048 then 
+            fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s3r:be3r:br3r'
         end
 
         if Ship == 'tiesabomber' then -- TIE Bomber special drops

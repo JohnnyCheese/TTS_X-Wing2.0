@@ -5518,7 +5518,9 @@ function removeCheckRange()
 end
 
 function onLoad(save_state)
+    print("Test")
     self.addContextMenuItem("Check Range 1", function() checkRange(1) end, false)
+    print("Test2")
 end
 
 function checkRange(range)
@@ -5564,7 +5566,7 @@ end
 BombModule.ExpandCluster = function(center)
     local offset = { Dim.Convert_mm_igu(43.5), 0, Dim.Convert_mm_igu(-1.5) }
     local tParams = { type = 'Custom_Token' }
-    local tCustom = { image = '{verifycache}https://i.imgur.com/MqlYZzR.png', thickness = 0.1, merge_distance = 5 }
+    local tCustom = { image = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/bombs/clustermine-side.png', thickness = 0.1, merge_distance = 5 }
 
     local t1 = spawnObject(tParams)
     t1.setCustomObject(tCustom)
