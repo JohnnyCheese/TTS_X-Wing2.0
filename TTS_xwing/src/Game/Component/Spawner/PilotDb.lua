@@ -7485,7 +7485,7 @@ masterPilotDB[962] = {
     init = 2,
     texture = 'gold',
     actSet = { 'F', 'TL', 'BR', 'B' },
-    arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'ion cannon turret', range = 2, type = { 'singleturret' } } } },
+    arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'dorsal turret', range = 2, type = { 'singleturret' } } } },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Dorsal Turret',         charge = 0 },
@@ -7505,7 +7505,7 @@ masterPilotDB[963] = {
     init = 4,
     texture = 'gold',
     actSet = { 'F', 'TL', 'BR', 'B' },
-    arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'ion cannon turret', range = 2, type = { 'singleturret' } } } },
+    arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'dorsal turret', range = 2, type = { 'singleturret' } } } },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Dorsal Turret',         charge = 0 },
@@ -8796,6 +8796,7 @@ masterPilotDB[1036] = {
     init = 4,
     texture = 'horton',
     actSet = { 'F', 'TL', 'BR' },
+    arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'ion cannon turret', range = 2, type = { 'singleturret' } } } },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Ion Cannon Turret', charge = 0 },
