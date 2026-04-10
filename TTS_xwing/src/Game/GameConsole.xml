@@ -2,6 +2,25 @@
     <Button class="TimerButtons" height="75" audioVolume="0" width="150" color="#ccccccff" fontSize="25" textColor="#000000FF" fontStyle="Bold" active="true"/>
 </Defaults>
 
+<!-- NEW: Scoring Mode framed box, next to the Clock (Classic/Split toggle only) -->
+<Panel id="ScoringFrame"
+    active="true"
+    width="200"
+    height="110"
+    position="125 -475 -155"
+    rotation="0 55 -90"
+    color="#00000080"
+    image="Knob"
+    raycastTarget="true">
+    <HorizontalLayout childForceExpandWidth="false" childForceExpandHeight="true"
+                      childAlignment="MiddleCenter" spacing="10" padding="10 10 10 10">
+        <Button id="ScoringModeBtn" class="TimerButtons"
+                minWidth="120" preferredWidth="120" maxWidth="120"
+                minHeight="75" preferredHeight="75" maxHeight="75"
+                onClick="toggleScoringMode">Classic</Button>
+    </HorizontalLayout>
+</Panel>
+
 <Panel id="Clock"
     active="true"
     width="750"
@@ -41,7 +60,7 @@
     </HorizontalLayout>
 </Panel>
 
-<!-- LEFT PLAYER (buttons on LEFT, score right-aligned) -->
+<!-- LEFT PLAYER (DEFAULT layout - buttons on LEFT, score right-aligned) -->
 <Panel id="LeftPlayer"
     active="true"
     width="300"
@@ -54,51 +73,72 @@
             width="200" height="130" fontSize="40"
             onClick="registerPlayerFromGui">Register</Button>
 
-    <HorizontalLayout id="LeftPointPanel" color="#222222FF"
-      childForceExpandWidth="false" childForceExpandHeight="true"
-      childAlignment="MiddleCenter" spacing="0" padding="5 5 5 5"
-      active="false">
+    <Panel id="LeftPointPanel" color="#222222FF" active="false">
 
-      <!-- BUTTONS COLUMN (moved to the LEFT) -->
-      <Panel width="110" color="#00000000"
-             childForceExpandWidth="false" childForceExpandHeight="false">
-        <VerticalLayout childForceExpandWidth="false"
-                        childForceExpandHeight="true"
-                        childAlignment="MiddleCenter" spacing="4" active="true">
-          <Button id="LeftPointPlus"   class="TimerButtons"
-                  minWidth="80" preferredWidth="80" maxWidth="80"
-                  minHeight="40"  preferredHeight="40"  maxHeight="40"
-                  fontSize="24" onClick="addPoint">+1</Button>
-          <Button id="LeftPointMinus"  class="TimerButtons"
-                  minWidth="80" preferredWidth="80" maxWidth="80"
-                  minHeight="40"  preferredHeight="40"  maxHeight="40"
-                  fontSize="24" onClick="addPoint">-1</Button>
-          <Button id="LeftPointPlus2"  class="TimerButtons"
-                  minWidth="80" preferredWidth="80" maxWidth="80"
-                  minHeight="40"  preferredHeight="40"  maxHeight="40"
-                  fontSize="24" onClick="addPoint">+2</Button>
-          <Button id="LeftPointPlus4"  class="TimerButtons"
-                  minWidth="80" preferredWidth="80" maxWidth="80"
-                  minHeight="40"  preferredHeight="40"  maxHeight="40"
-                  fontSize="24" onClick="addPoint">+4</Button>
-        </VerticalLayout>
-      </Panel>
+      <!-- ORIGINAL CONTENT - exactly as default -->
+      <HorizontalLayout
+        childForceExpandWidth="false" childForceExpandHeight="true"
+        childAlignment="MiddleCenter" spacing="0" padding="5 5 5 5">
 
-      <!-- SCORE COLUMN (right-aligned text) -->
-      <Text id="LeftPointText"
-            height="75"
-            minWidth="40"
-            preferredWidth="220"
-            maxWidth="500"
-            color="#000000ff"
-            fontSize="130"
-            fontStyle="Bold"
-            alignment="MiddleRight">0</Text>
-    </HorizontalLayout>
+        <!-- BUTTONS COLUMN (moved to the LEFT) -->
+        <Panel width="110" color="#00000000"
+               childForceExpandWidth="false" childForceExpandHeight="false">
+          <VerticalLayout childForceExpandWidth="false"
+                          childForceExpandHeight="true"
+                          childAlignment="MiddleCenter" spacing="4" active="true">
+            <Button id="LeftPointPlus"   class="TimerButtons"
+                    minWidth="80" preferredWidth="80" maxWidth="80"
+                    minHeight="40"  preferredHeight="40"  maxHeight="40"
+                    fontSize="24" onClick="addPoint">+1</Button>
+            <Button id="LeftPointMinus"  class="TimerButtons"
+                    minWidth="80" preferredWidth="80" maxWidth="80"
+                    minHeight="40"  preferredHeight="40"  maxHeight="40"
+                    fontSize="24" onClick="addPoint">-1</Button>
+            <Button id="LeftPointPlus2"  class="TimerButtons"
+                    minWidth="80" preferredWidth="80" maxWidth="80"
+                    minHeight="40"  preferredHeight="40"  maxHeight="40"
+                    fontSize="24" onClick="addPoint">+2</Button>
+            <Button id="LeftPointPlus4"  class="TimerButtons"
+                    minWidth="80" preferredWidth="80" maxWidth="80"
+                    minHeight="40"  preferredHeight="40"  maxHeight="40"
+                    fontSize="24" onClick="addPoint">+4</Button>
+          </VerticalLayout>
+        </Panel>
+
+        <!-- SCORE COLUMN (right-aligned text) -->
+        <Text id="LeftPointText"
+              height="75"
+              minWidth="40"
+              preferredWidth="220"
+              maxWidth="500"
+              color="#000000ff"
+              fontSize="130"
+              fontStyle="Bold"
+              alignment="MiddleRight">0</Text>
+      </HorizontalLayout>
+
+      <!-- Toggle floating at top -->
+      <Button id="LeftModeToggle" class="TimerButtons"
+              rectAlignment="UpperCenter" offsetXY="0 -2"
+              width="120" height="28"
+              fontSize="16" onClick="togglePointMode" active="false">Ship</Button>
+
+      <!-- Breakdown floating at bottom (S: next to O:, both centered) -->
+      <Text id="LeftShipPointsText"
+            rectAlignment="LowerCenter" offsetXY="-32 2"
+            width="60" height="26"
+            color="#000000ff" fontSize="20" fontStyle="Bold"
+            alignment="MiddleCenter" active="false">S:0</Text>
+      <Text id="LeftScenPointsText"
+            rectAlignment="LowerCenter" offsetXY="32 2"
+            width="60" height="26"
+            color="#000000ff" fontSize="20" fontStyle="Bold"
+            alignment="MiddleCenter" active="false">O:0</Text>
+    </Panel>
 </Panel>
 
 
-<!-- RIGHT PLAYER -->
+<!-- RIGHT PLAYER (DEFAULT layout) -->
 <Panel id="RightPlayer"
     active="true"
     width="300"
@@ -110,45 +150,66 @@
     <Button id="RegisterRight" class="TimerButtons" width="200" height="130"
             fontSize="40" onClick="registerPlayerFromGui">Register</Button>
 
-    <HorizontalLayout id="RightPointPanel" color="#222222FF"
-      childForceExpandWidth="false" childForceExpandHeight="true"
-      childAlignment="MiddleCenter" spacing="0" padding="5 5 5 5"
-      active="false">
+    <Panel id="RightPointPanel" color="#222222FF" active="false">
 
-      <!-- Score column -->
-      <Text id="RightPointText"
-            height="75"
-            minWidth="40"
-            preferredWidth="220"
-            maxWidth="500"
-            color="#000000ff"
-            fontSize="130"
-            fontStyle="Bold"
-            alignment="MiddleLeft">0</Text>
+      <!-- ORIGINAL CONTENT - exactly as default -->
+      <HorizontalLayout
+        childForceExpandWidth="false" childForceExpandHeight="true"
+        childAlignment="MiddleCenter" spacing="0" padding="5 5 5 5">
 
-      <!-- Buttons column -->
-      <Panel width="110" color="#00000000" childForceExpandWidth="false"
-             childForceExpandHeight="false">
-        <VerticalLayout childForceExpandWidth="false"
-                        childForceExpandHeight="true"
-                        childAlignment="MiddleCenter" spacing="4" active="true">
-          <Button id="RightPointPlus"   class="TimerButtons"
-                  minWidth="80" preferredWidth="80" maxWidth="80"
-                  minHeight="40"  preferredHeight="40"  maxHeight="40"
-                  fontSize="24" onClick="addPoint">+1</Button>
-          <Button id="RightPointMinus"  class="TimerButtons"
-                  minWidth="80" preferredWidth="80" maxWidth="80"
-                  minHeight="40"  preferredHeight="40"  maxHeight="40"
-                  fontSize="24" onClick="addPoint">-1</Button>
-          <Button id="RightPointPlus2"  class="TimerButtons"
-                  minWidth="80" preferredWidth="80" maxWidth="80"
-                  minHeight="40"  preferredHeight="40"  maxHeight="40"
-                  fontSize="24" onClick="addPoint">+2</Button>
-          <Button id="RightPointPlus4"  class="TimerButtons"
-                  minWidth="80" preferredWidth="80" maxWidth="80"
-                  minHeight="40"  preferredHeight="40"  maxHeight="40"
-                  fontSize="24" onClick="addPoint">+4</Button>
-        </VerticalLayout>
-      </Panel>
-    </HorizontalLayout>
+        <!-- Score column -->
+        <Text id="RightPointText"
+              height="75"
+              minWidth="40"
+              preferredWidth="220"
+              maxWidth="500"
+              color="#000000ff"
+              fontSize="130"
+              fontStyle="Bold"
+              alignment="MiddleLeft">0</Text>
+
+        <!-- Buttons column -->
+        <Panel width="110" color="#00000000" childForceExpandWidth="false"
+               childForceExpandHeight="false">
+          <VerticalLayout childForceExpandWidth="false"
+                          childForceExpandHeight="true"
+                          childAlignment="MiddleCenter" spacing="4" active="true">
+            <Button id="RightPointPlus"   class="TimerButtons"
+                    minWidth="80" preferredWidth="80" maxWidth="80"
+                    minHeight="40"  preferredHeight="40"  maxHeight="40"
+                    fontSize="24" onClick="addPoint">+1</Button>
+            <Button id="RightPointMinus"  class="TimerButtons"
+                    minWidth="80" preferredWidth="80" maxWidth="80"
+                    minHeight="40"  preferredHeight="40"  maxHeight="40"
+                    fontSize="24" onClick="addPoint">-1</Button>
+            <Button id="RightPointPlus2"  class="TimerButtons"
+                    minWidth="80" preferredWidth="80" maxWidth="80"
+                    minHeight="40"  preferredHeight="40"  maxHeight="40"
+                    fontSize="24" onClick="addPoint">+2</Button>
+            <Button id="RightPointPlus4"  class="TimerButtons"
+                    minWidth="80" preferredWidth="80" maxWidth="80"
+                    minHeight="40"  preferredHeight="40"  maxHeight="40"
+                    fontSize="24" onClick="addPoint">+4</Button>
+          </VerticalLayout>
+        </Panel>
+      </HorizontalLayout>
+
+      <!-- Toggle floating at top -->
+      <Button id="RightModeToggle" class="TimerButtons"
+              rectAlignment="UpperCenter" offsetXY="0 -2"
+              width="120" height="28"
+              fontSize="16" onClick="togglePointMode" active="false">Ship</Button>
+
+      <!-- Breakdown floating at bottom (S: next to O:, both centered) -->
+      <Text id="RightShipPointsText"
+            rectAlignment="LowerCenter" offsetXY="-32 2"
+            width="60" height="26"
+            color="#000000ff" fontSize="20" fontStyle="Bold"
+            alignment="MiddleCenter" active="false">S:0</Text>
+      <Text id="RightScenPointsText"
+            rectAlignment="LowerCenter" offsetXY="32 2"
+            width="60" height="26"
+            color="#000000ff" fontSize="20" fontStyle="Bold"
+            alignment="MiddleCenter" active="false">O:0</Text>
+    </Panel>
 </Panel>
