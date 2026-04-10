@@ -397,6 +397,24 @@ function toggleScoringMode(player, option, id)
   printToAll("Scoring mode: " .. scoring_mode, {1, 0.4, 0})
 end
 
+function setScoringModeClassic(player, option, id)
+  if scoring_mode == "classic" then return end
+  self.AssetBundle.playTriggerEffect(0)
+  scoring_mode = "classic"
+  applyScoringModeUI()
+  recreateIndicators()
+  printToAll("Scoring mode: classic", {1, 0.4, 0})
+end
+
+function setScoringModeSplit(player, option, id)
+  if scoring_mode == "split" then return end
+  self.AssetBundle.playTriggerEffect(0)
+  scoring_mode = "split"
+  applyScoringModeUI()
+  recreateIndicators()
+  printToAll("Scoring mode: split", {1, 0.4, 0})
+end
+
 function applyScoringModeUI()
   local split = (scoring_mode == "split")
   for _, side in ipairs({"Left", "Right"}) do
@@ -408,10 +426,15 @@ function applyScoringModeUI()
       updateModeToggleUI(side)
     end
   end
+  -- Two-button toggle: selected is bright grey, unselected is much darker
+  local brightGrey = "#ccccccff"
+  local darkGrey = "#555555ff"
   if split then
-    self.UI.setAttribute("ScoringModeBtn", "text", "Split")
+    self.UI.setAttribute("ScoringModeClassicBtn", "color", darkGrey)
+    self.UI.setAttribute("ScoringModeSplitBtn", "color", brightGrey)
   else
-    self.UI.setAttribute("ScoringModeBtn", "text", "Classic")
+    self.UI.setAttribute("ScoringModeClassicBtn", "color", brightGrey)
+    self.UI.setAttribute("ScoringModeSplitBtn", "color", darkGrey)
   end
 end
 
