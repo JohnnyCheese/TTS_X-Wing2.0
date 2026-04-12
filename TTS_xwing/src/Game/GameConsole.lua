@@ -21,7 +21,7 @@ indicators = {}
 dice_roll_scores = {}
 round = 0
 point_mode = { Left = "ship", Right = "ship" }
-scoring_mode = "classic"  -- "classic" or "split"
+scoring_mode = "split"  -- "classic" or "split"
 even_distribution = false
 after_dials_mode = true
 dice_roll_mode = true
@@ -49,6 +49,7 @@ function onLoad(save_state)
                     self.UI.setAttribute("Register" .. player.side, "active", "false")
                     self.UI.setAttribute(player.side .. "PointPanel", "color", color)
                     self.UI.setAttribute(player.side .. "PointPanel", "active", "true")
+                    self.UI.setAttribute(player.side .. "ControlsInner", "active", "true")
                     self.UI.setAttribute(player.side .. "PointText", "text", tostring(player.points))
                     -- Backfill split scoring fields for older saves
                     if not player.ship_points then player.ship_points = 0 end
@@ -266,7 +267,7 @@ function updateTime()
 end
 
 guiIdToSide = {
-  RegisterLeft="Left", RegisterRight="Right",
+  RegisterLeft="Left", RegisterRight="Right", LeftModeShipBtn="Left", LeftModeObjBtn="Left", RightModeShipBtn="Right", RightModeObjBtn="Right",
   LeftPointPlus="Left", LeftPointMinus="Left",
   RightPointPlus="Right", RightPointMinus="Right",
   LeftPointPlus2="Left", LeftPointPlus4="Left",
@@ -297,6 +298,7 @@ function registerPlayerFromGui(player, option, id)
         self.UI.setAttribute(id, "active", "false")
         self.UI.setAttribute(side .. "PointPanel", "color", player.color)
         self.UI.setAttribute(side .. "PointPanel", "active", "true")
+        self.UI.setAttribute(side .. "ControlsInner", "active", "true")
         updateModeToggleUI(side)
         applyScoringModeUI()
         for _, player in pairs(players) do
@@ -353,6 +355,22 @@ function addPoint(player, option, id)
   updateRoundPoints(round, side)
 end
 
+function setPointModeShip(player, option, id)
+  self.AssetBundle.playTriggerEffect(0)
+  local side = guiIdToSide[id]
+  if not side then return end
+  point_mode[side] = "ship"
+  updateModeToggleUI(side)
+end
+
+function setPointModeObj(player, option, id)
+  self.AssetBundle.playTriggerEffect(0)
+  local side = guiIdToSide[id]
+  if not side then return end
+  point_mode[side] = "scenario"
+  updateModeToggleUI(side)
+end
+
 function togglePointMode(player, option, id)
   self.AssetBundle.playTriggerEffect(0)
   local side = guiIdToSide[id]
@@ -368,13 +386,26 @@ end
 
 function updateModeToggleUI(side)
   local mode = point_mode[side]
-  if mode == "ship" then
-    self.UI.setAttribute(side .. "ModeToggle", "text", "Ship")
+  local brightGrey = "#ccccccff"
+  local darkGrey = "#555555ff"
+  local disabledGrey = "#444444ff"
+  if scoring_mode == "classic" then
+    -- Grey out both buttons, not selectable
+    self.UI.setAttribute(side .. "ModeShipBtn", "color", disabledGrey)
+    self.UI.setAttribute(side .. "ModeObjBtn", "color", disabledGrey)
+    self.UI.setAttribute(side .. "ModeShipBtn", "interactable", "false")
+    self.UI.setAttribute(side .. "ModeObjBtn", "interactable", "false")
   else
-    self.UI.setAttribute(side .. "ModeToggle", "text", "Obj")
+    self.UI.setAttribute(side .. "ModeShipBtn", "interactable", "true")
+    self.UI.setAttribute(side .. "ModeObjBtn", "interactable", "true")
+    if mode == "ship" then
+      self.UI.setAttribute(side .. "ModeShipBtn", "color", brightGrey)
+      self.UI.setAttribute(side .. "ModeObjBtn", "color", darkGrey)
+    else
+      self.UI.setAttribute(side .. "ModeShipBtn", "color", darkGrey)
+      self.UI.setAttribute(side .. "ModeObjBtn", "color", brightGrey)
+    end
   end
-  self.UI.setAttribute(side .. "ModeToggle", "color", "#ccccccff")
-  self.UI.setAttribute(side .. "ModeToggle", "textColor", "#000000FF")
 end
 
 function updateScoreDisplay(side)
@@ -418,10 +449,9 @@ end
 function applyScoringModeUI()
   local split = (scoring_mode == "split")
   for _, side in ipairs({"Left", "Right"}) do
-    self.UI.setAttribute(side .. "ModeToggle", "active", tostring(split))
     self.UI.setAttribute(side .. "ShipPointsText", "active", tostring(split))
     self.UI.setAttribute(side .. "ScenPointsText", "active", tostring(split))
-    if split and sided_players[side] then
+    if sided_players[side] then
       updateScoreDisplay(side)
       updateModeToggleUI(side)
     end
@@ -526,8 +556,10 @@ function reset()
     self.UI.setAttribute("StartedClockPanel", "active", false)
     self.UI.setAttribute("RegisterLeft", "active", true)
     self.UI.setAttribute("LeftPointPanel", "active", false)
+    self.UI.setAttribute("LeftControlsInner", "active", false)
     self.UI.setAttribute("RegisterRight", "active", true)
     self.UI.setAttribute("RightPointPanel", "active", false)
+    self.UI.setAttribute("RightControlsInner", "active", false)
     self.UI.setAttribute("LengthButton", "text", tostring(timerStats.length) .. " Min")
     self.UI.setAttribute("HiddenButton", "text", "Visible")
     self.UI.setAttribute("RandomButton", "text", "Fixed")
