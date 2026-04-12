@@ -15,12 +15,13 @@ Data = { Size = "objective" }
 
 function claim(player)
     local color = Color.fromString(player)
+    color[4] = 0.6
     self.setColorTint(color)
     printToAll(player .. " claimed an objective", Color(1.0, 1.0, 0))
 end
 
 function unclaim(player)
-    self.setColorTint(Color(1, 1, 1, 0.00))
+    self.setColorTint(Color(1, 1, 1, 0.05))
     printToAll(player .. " removed claim of an objective", Color(1.0, 1.0, 0))
 end
 
