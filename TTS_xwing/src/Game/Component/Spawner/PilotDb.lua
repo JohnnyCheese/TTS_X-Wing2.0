@@ -360,7 +360,8 @@ masterPilotDB[15] = {
     slot = { 21, 1, 4, 5, 6, 10, 12, 14 },
     init = 4,
     texture = 'horton',
-    actSet = { 'F', 'TL', 'BR' }
+    actSet = { 'F', 'TL', 'BR' },
+    arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'ion cannon turret', range = 2, type = { 'singleturret' } } } }
 }
 
 masterPilotDB[16] = {
