@@ -1130,7 +1130,7 @@ function idSpawner(idTable)
         elseif v == 1068 then              -- Parting Gift upgrade special drop
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r:br1r:bl1r'
         elseif v == 1075 then              -- Adon Fox BoE (Parting Gift + sideways)
-            fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r:br1r:bl1r:ss1:ps1'
+            fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r:br1r:bl1r:be1:br1:ss1:ps1'
         elseif v == 161 then               -- Constable Zuvio
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r'
         elseif v == 565 then               -- Bombardment Drone
