@@ -1253,7 +1253,7 @@ function idSpawner(idTable)
 
             fList.Upgrades[k][key].Condition = masterUpgradesDB[value].Condition or nil
             for i, r in pairs(masterUpgradesDB[value].remotes or {}) do
-                table.insert(fList.Remotes, r)
+                table.insert(fList.Remotes, { name = r, Charge = masterUpgradesDB[value].remoteCharge or 0 })
             end
 
             if masterUpgradesDB[value].Bomb then
