@@ -4692,6 +4692,31 @@ DialModule.PlaceTemplate = function(ship, speed, type, position, dir, extra)
     return newTemplate
 end
 
+-- Spawn a template rotated sideways for port/starboard bomb drops
+-- rotAngle: -90 for starboard (right), 90 for port (left)
+DialModule.SpawnSideTemplate = function(ship, speed, rotAngle)
+    if speed == 0 then return nil end
+    local baseSize = ship.getTable("Data").Size or 'small'
+    local sideOffset = DialModule.TemplateData.baseOffset[baseSize][3]
+    local templateLen = DialModule.TemplateData.straight[speed][3]
+    local xOffset = sideOffset + templateLen
+    local yOffset = DialModule.TemplateData.straight[speed][2]
+    local entry
+    if rotAngle < 0 then
+        entry = { xOffset, yOffset, 0, rotAngle }
+    else
+        entry = { -xOffset, yOffset, 0, rotAngle }
+    end
+    local finPos = MoveModule.EntryToPos(entry, ship)
+    local src = TokenModule.tokenSources['s' .. speed]
+    local newTemplate = src.takeObject({ position = finPos.pos, rotation = finPos.rot })
+    newTemplate.lock()
+    newTemplate.setPosition(finPos.pos)
+    newTemplate.setRotation(finPos.rot)
+    table.insert(DialModule.SpawnedTemplates, { template = newTemplate, ship = ship })
+    return newTemplate
+end
+
 -- Delete template spawned for a ship, return true if deleted, false if there was none
 DialModule.DeleteTemplate = function(ship)
     for k, info in pairs(DialModule.SpawnedTemplates) do
@@ -5291,6 +5316,7 @@ BombModule.dropTable = {}
 XW_cmd.AddCommand('b:s[1-5][r]?', 'bombDrop')
 XW_cmd.AddCommand('b:b[rle][1-3][r]?', 'bombDrop')
 XW_cmd.AddCommand('b:t[rle][1-3][r]?', 'bombDrop')
+XW_cmd.AddCommand('b:[ps]s[1-3]', 'bombDrop')
 
 -- Spawn a bomb drop, delete old ones
 -- If that exact one existed, just delete
@@ -5307,7 +5333,27 @@ BombModule.SpawnDrop = function(ship, dropCode)
     DialModule.DeleteTemplate(ship)
     local dropPos = nil
     local temp = nil
-    if dropCode:sub(-1, -1) == 'r' then
+    -- PORT/STARBOARD sideways drops (ps1, ss1, etc.)
+    local sideDir = templateCode:sub(1, 2)
+    if sideDir == 'ss' or sideDir == 'ps' then
+        local speed = tonumber(templateCode:sub(3, 3))
+        local rotAngle = (sideDir == 'ss') and -90 or 90
+        temp = DialModule.SpawnSideTemplate(ship, speed, rotAngle)
+        if temp ~= nil then
+            temp.createButton(BombModule.deleteButton)
+            -- Get template position and offset to the far end (away from ship)
+            local tempPos = temp.getPosition()
+            local tempRot = temp.getRotation()
+            local templateLen = Dim.Convert_mm_igu(35)
+            local rad = math.rad(tempRot[2])
+            local farEnd = {
+                tempPos[1] + templateLen * math.sin(rad),
+                tempPos[2],
+                tempPos[3] + templateLen * math.cos(rad)
+            }
+            dropPos = { finPos = { pos = farEnd, rot = { tempRot[1], tempRot[2], tempRot[3] } } }
+        end
+    elseif dropCode:sub(-1, -1) == 'r' then
         -- FRONT drops
         temp = DialModule.SpawnTemplate(ship, templateCode:sub(1, -2) .. '_B')
         temp.createButton(BombModule.deleteButton)
@@ -5398,13 +5444,19 @@ BombModule.OnTokenDrop = function(token)
     if closest.pointKey ~= nil then
         -- Move the token to the snap points
         local drop = BombModule.dropTable[closest.pointKey]
-        local destPos = Vect.Sum(drop.dest.pos, Vect.RotateDeg(offset.pos, drop.dest.rot[2]))
-
-        local size = drop.ship.getTable("Data").Size or 'small'
-        if size == 'large' then
-            destPos = Vect.Sum(destPos, Vect.RotateDeg({ 0, 0, Dim.Convert_mm_igu(-20) }, drop.dest.rot[2]))
-        elseif size == 'medium' then
-            destPos = Vect.Sum(destPos, Vect.RotateDeg({ 0, 0, Dim.Convert_mm_igu(-10) }, drop.dest.rot[2]))
+        local isSideDrop = drop.code and (drop.code:find(':ss') or drop.code:find(':ps'))
+        local destPos
+        if isSideDrop then
+            -- Sideways drops: place bomb directly at the drop point
+            destPos = { drop.dest.pos[1], drop.dest.pos[2], drop.dest.pos[3] }
+        else
+            destPos = Vect.Sum(drop.dest.pos, Vect.RotateDeg(offset.pos, drop.dest.rot[2]))
+            local size = drop.ship.getTable("Data").Size or 'small'
+            if size == 'large' then
+                destPos = Vect.Sum(destPos, Vect.RotateDeg({ 0, 0, Dim.Convert_mm_igu(-20) }, drop.dest.rot[2]))
+            elseif size == 'medium' then
+                destPos = Vect.Sum(destPos, Vect.RotateDeg({ 0, 0, Dim.Convert_mm_igu(-10) }, drop.dest.rot[2]))
+            end
         end
         local destRot = Vect.Sum(drop.dest.rot, offset.rot)
         destPos[2] = drop.ship.getPosition()[2] + offset.pos[2]
