@@ -6298,7 +6298,7 @@ masterPilotDB[801] = {
 
 masterPilotDB[802] = {
     name = 'Boba Fett',
-    XWS = 'bobafett-separatistalliance',
+    XWS = 'bobafett-firesprayclasspatrolcraft',
     title = 'Survivor',
     limited = 1,
     Faction = 7,
