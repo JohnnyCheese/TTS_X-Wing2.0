@@ -8698,6 +8698,7 @@ masterPilotDB[1031] = {
     texture = 'red',
     actSet = { 'F', 'TL', 'BR', 'B' },
     keywords = { 'Clone' },
+    Shield = 3,
     standardized_loadout = true,
     executeOptions = {
         rk2 = { [1] = 'rk2', [2] = 'rbl2s', [3] = 'rbr2s' },
