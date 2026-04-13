@@ -109,42 +109,37 @@
 <!-- LEFT PLAYER - Controls (above score) -->
 <Panel id="LeftControls"
     active="true"
-    width="225"
+    width="270"
     height="120"
-    position="125 1140 -155"
+    position="125 1141 -155"
     rotation="0 55 -90"
     color="#333333ff">
 
     <Panel id="LeftControlsInner" color="#333333FF" active="false">
-      <VerticalLayout childForceExpandWidth="true" childForceExpandHeight="true"
-                       childAlignment="MiddleCenter" spacing="2" padding="10 10 10 10">
-        <HorizontalLayout childForceExpandWidth="true" childForceExpandHeight="false"
-                          childAlignment="MiddleCenter" spacing="2" active="true" id="LeftModeToggleRow">
+      <HorizontalLayout childForceExpandWidth="true" childForceExpandHeight="true"
+                         childAlignment="MiddleCenter" spacing="4" padding="16 10 8 8">
+        <VerticalLayout childForceExpandWidth="true" childForceExpandHeight="true"
+                        childAlignment="MiddleCenter" spacing="2">
           <Button id="LeftModeShipBtn" class="TimerButtons"
-                  minHeight="25" maxHeight="30"
-                  fontSize="18" color="#ccccccff" onClick="setPointModeShip">Ship</Button>
+                  minHeight="30" fontSize="20" onClick="setPointModeShip">Ship</Button>
           <Button id="LeftModeObjBtn" class="TimerButtons"
-                  minHeight="25" maxHeight="30"
-                  fontSize="18" color="#555555ff" onClick="setPointModeObj">Obj</Button>
-        </HorizontalLayout>
-        <HorizontalLayout childForceExpandWidth="true" childForceExpandHeight="true"
-                           childAlignment="MiddleCenter" spacing="2">
-          <VerticalLayout childForceExpandWidth="true" childForceExpandHeight="true"
-                          childAlignment="MiddleCenter" spacing="2">
-            <Button id="LeftPointPlus" class="TimerButtons"
-                    minHeight="30" fontSize="20" onClick="addPoint">+1</Button>
-            <Button id="LeftPointMinus" class="TimerButtons"
-                    minHeight="30" fontSize="20" onClick="addPoint">-1</Button>
-          </VerticalLayout>
-          <VerticalLayout childForceExpandWidth="true" childForceExpandHeight="true"
-                          childAlignment="MiddleCenter" spacing="2">
-            <Button id="LeftPointPlus2" class="TimerButtons"
-                    minHeight="30" fontSize="20" onClick="addPoint">+2</Button>
-            <Button id="LeftPointPlus4" class="TimerButtons"
-                    minHeight="30" fontSize="20" onClick="addPoint">+4</Button>
-          </VerticalLayout>
-        </HorizontalLayout>
-      </VerticalLayout>
+                  minHeight="30" fontSize="20" onClick="setPointModeObj">Obj</Button>
+        </VerticalLayout>
+        <VerticalLayout childForceExpandWidth="true" childForceExpandHeight="true"
+                        childAlignment="MiddleCenter" spacing="2">
+          <Button id="LeftPointPlus" class="TimerButtons"
+                  minHeight="30" fontSize="20" onClick="addPoint">+1</Button>
+          <Button id="LeftPointMinus" class="TimerButtons"
+                  minHeight="30" fontSize="20" onClick="addPoint">-1</Button>
+        </VerticalLayout>
+        <VerticalLayout childForceExpandWidth="true" childForceExpandHeight="true"
+                        childAlignment="MiddleCenter" spacing="2">
+          <Button id="LeftPointPlus2" class="TimerButtons"
+                  minHeight="30" fontSize="20" onClick="addPoint">+2</Button>
+          <Button id="LeftPointPlus4" class="TimerButtons"
+                  minHeight="30" fontSize="20" onClick="addPoint">+4</Button>
+        </VerticalLayout>
+      </HorizontalLayout>
     </Panel>
 </Panel>
 
@@ -199,41 +194,36 @@
 <!-- RIGHT PLAYER - Controls (above score) -->
 <Panel id="RightControls"
     active="true"
-    width="225"
+    width="270"
     height="120"
-    position="125 -1140 -155"
+    position="125 -1141 -155"
     rotation="0 55 -90"
     color="#333333ff">
 
     <Panel id="RightControlsInner" color="#333333FF" active="false">
-      <VerticalLayout childForceExpandWidth="true" childForceExpandHeight="true"
-                       childAlignment="MiddleCenter" spacing="2" padding="10 10 10 10">
-        <HorizontalLayout childForceExpandWidth="true" childForceExpandHeight="false"
-                          childAlignment="MiddleCenter" spacing="2" active="true" id="RightModeToggleRow">
+      <HorizontalLayout childForceExpandWidth="true" childForceExpandHeight="true"
+                         childAlignment="MiddleCenter" spacing="4" padding="10 16 8 8">
+        <VerticalLayout childForceExpandWidth="true" childForceExpandHeight="true"
+                        childAlignment="MiddleCenter" spacing="2">
           <Button id="RightModeShipBtn" class="TimerButtons"
-                  minHeight="25" maxHeight="30"
-                  fontSize="18" color="#ccccccff" onClick="setPointModeShip">Ship</Button>
+                  minHeight="30" fontSize="20" onClick="setPointModeShip">Ship</Button>
           <Button id="RightModeObjBtn" class="TimerButtons"
-                  minHeight="25" maxHeight="30"
-                  fontSize="18" color="#555555ff" onClick="setPointModeObj">Obj</Button>
-        </HorizontalLayout>
-        <HorizontalLayout childForceExpandWidth="true" childForceExpandHeight="true"
-                           childAlignment="MiddleCenter" spacing="2">
-          <VerticalLayout childForceExpandWidth="true" childForceExpandHeight="true"
-                          childAlignment="MiddleCenter" spacing="2">
-            <Button id="RightPointPlus" class="TimerButtons"
-                    minHeight="30" fontSize="20" onClick="addPoint">+1</Button>
-            <Button id="RightPointMinus" class="TimerButtons"
-                    minHeight="30" fontSize="20" onClick="addPoint">-1</Button>
-          </VerticalLayout>
-          <VerticalLayout childForceExpandWidth="true" childForceExpandHeight="true"
-                          childAlignment="MiddleCenter" spacing="2">
-            <Button id="RightPointPlus2" class="TimerButtons"
-                    minHeight="30" fontSize="20" onClick="addPoint">+2</Button>
-            <Button id="RightPointPlus4" class="TimerButtons"
-                    minHeight="30" fontSize="20" onClick="addPoint">+4</Button>
-          </VerticalLayout>
-        </HorizontalLayout>
-      </VerticalLayout>
+                  minHeight="30" fontSize="20" onClick="setPointModeObj">Obj</Button>
+        </VerticalLayout>
+        <VerticalLayout childForceExpandWidth="true" childForceExpandHeight="true"
+                        childAlignment="MiddleCenter" spacing="2">
+          <Button id="RightPointPlus" class="TimerButtons"
+                  minHeight="30" fontSize="20" onClick="addPoint">+1</Button>
+          <Button id="RightPointMinus" class="TimerButtons"
+                  minHeight="30" fontSize="20" onClick="addPoint">-1</Button>
+        </VerticalLayout>
+        <VerticalLayout childForceExpandWidth="true" childForceExpandHeight="true"
+                        childAlignment="MiddleCenter" spacing="2">
+          <Button id="RightPointPlus2" class="TimerButtons"
+                  minHeight="30" fontSize="20" onClick="addPoint">+2</Button>
+          <Button id="RightPointPlus4" class="TimerButtons"
+                  minHeight="30" fontSize="20" onClick="addPoint">+4</Button>
+        </VerticalLayout>
+      </HorizontalLayout>
     </Panel>
 </Panel>
