@@ -9012,7 +9012,7 @@ masterPilotDB[1047] = {
     Charge = 2,
     init = 2,
     texture = 'grey',
-    actSet = { 'F', 'TL', 'BR' },
+    actSet = { 'F', 'TL', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Swift Approach', charge = 0 },
