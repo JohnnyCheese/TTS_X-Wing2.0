@@ -6117,6 +6117,7 @@ function newSpawner(listTable)
                             newAsset = tempBagAcc.takeObject({ position = pos, rotation = rot, guid = acc.guid, smooth = false })
                             assetClone = newAsset.clone()
                             assetClone.setPosition(pos)
+                            assetClone.addTag("Assignable")
                             tempBagAcc.putObject(newAsset)
                         end
                     end
@@ -6245,6 +6246,7 @@ function newSpawner(listTable)
                         newAsset = tempBagAcc.takeObject({ position = pos, rotation = rot, guid = acc.guid })
                         assetClone = newAsset.clone()
                         assetClone.setPosition(pos)
+                        assetClone.addTag("Assignable")
                         tempBagAcc.putObject(newAsset)
                     end
                 end
