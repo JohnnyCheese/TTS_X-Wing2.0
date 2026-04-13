@@ -6298,12 +6298,13 @@ masterPilotDB[801] = {
 
 masterPilotDB[802] = {
     name = 'Boba Fett',
-    XWS = 'bobafett-separatistalliance',
+    XWS = 'bobafett-firesprayclasspatrolcraft',
+    imageXWS = 'bobafett-separatistalliance',
     title = 'Survivor',
     limited = 1,
     Faction = 7,
     ship_type = 'firesprayclasspatrolcraft',
-    cost = 70,
+    cost = 64,
     slot = { 21, 3, 6, 8, 12, 13, 14, 15 },
     init = 3,
     texture = 'jango',

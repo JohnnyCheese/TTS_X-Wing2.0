@@ -1079,7 +1079,7 @@ function idSpawner(idTable)
         --fList.Pilots[k].card = masterPilotDB[v].card
         fList.Pilots[k].card = "{verifycache}https://raw.githubusercontent.com/" ..
             repo .. "/x-wing2.0-project-goldenrod/" ..
-            Format .. "/src/images/En/pilots/" .. masterPilotDB[v].XWS .. ".png"
+            Format .. "/src/images/En/pilots/" .. (masterPilotDB[v].imageXWS or masterPilotDB[v].XWS) .. ".png"
         fList.Pilots[k].cardB = cardBackDB[ffgFaction[fList.Faction]]
         fList.Pilots[k].standardized_loadout = masterPilotDB[v].standardized_loadout
         fList.Pilots[k].standardized_upgrades = masterPilotDB[v].standardized_upgrades
