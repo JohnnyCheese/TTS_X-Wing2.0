@@ -386,24 +386,31 @@ end
 
 function updateModeToggleUI(side)
   local mode = point_mode[side]
-  local brightGrey = "#ccccccff"
-  local darkGrey = "#555555ff"
+  local activeColor = "#ccccccff"
+  local activeText = "#2aa855ff"
+  local inactiveColor = "#333333ff"
+  local inactiveText = "#000000ff"
   local disabledGrey = "#444444ff"
   if scoring_mode == "classic" then
-    -- Grey out both buttons, not selectable
     self.UI.setAttribute(side .. "ModeShipBtn", "color", disabledGrey)
     self.UI.setAttribute(side .. "ModeObjBtn", "color", disabledGrey)
+    self.UI.setAttribute(side .. "ModeShipBtn", "textColor", inactiveText)
+    self.UI.setAttribute(side .. "ModeObjBtn", "textColor", inactiveText)
     self.UI.setAttribute(side .. "ModeShipBtn", "interactable", "false")
     self.UI.setAttribute(side .. "ModeObjBtn", "interactable", "false")
   else
     self.UI.setAttribute(side .. "ModeShipBtn", "interactable", "true")
     self.UI.setAttribute(side .. "ModeObjBtn", "interactable", "true")
     if mode == "ship" then
-      self.UI.setAttribute(side .. "ModeShipBtn", "color", brightGrey)
-      self.UI.setAttribute(side .. "ModeObjBtn", "color", darkGrey)
+      self.UI.setAttribute(side .. "ModeShipBtn", "color", activeColor)
+      self.UI.setAttribute(side .. "ModeShipBtn", "textColor", activeText)
+      self.UI.setAttribute(side .. "ModeObjBtn", "color", inactiveColor)
+      self.UI.setAttribute(side .. "ModeObjBtn", "textColor", inactiveText)
     else
-      self.UI.setAttribute(side .. "ModeShipBtn", "color", darkGrey)
-      self.UI.setAttribute(side .. "ModeObjBtn", "color", brightGrey)
+      self.UI.setAttribute(side .. "ModeShipBtn", "color", inactiveColor)
+      self.UI.setAttribute(side .. "ModeShipBtn", "textColor", inactiveText)
+      self.UI.setAttribute(side .. "ModeObjBtn", "color", activeColor)
+      self.UI.setAttribute(side .. "ModeObjBtn", "textColor", activeText)
     end
   end
 end
@@ -456,15 +463,15 @@ function applyScoringModeUI()
       updateModeToggleUI(side)
     end
   end
-  -- Two-button toggle: selected is bright grey, unselected is much darker
-  local brightGrey = "#ccccccff"
-  local darkGrey = "#555555ff"
+  -- Two-button toggle: selected is bright, unselected is dark
+  local activeBtn = "#ccccccff"
+  local inactiveBtn = "#333333ff"
   if split then
-    self.UI.setAttribute("ScoringModeClassicBtn", "color", darkGrey)
-    self.UI.setAttribute("ScoringModeSplitBtn", "color", brightGrey)
+    self.UI.setAttribute("ScoringModeClassicBtn", "color", inactiveBtn)
+    self.UI.setAttribute("ScoringModeSplitBtn", "color", activeBtn)
   else
-    self.UI.setAttribute("ScoringModeClassicBtn", "color", brightGrey)
-    self.UI.setAttribute("ScoringModeSplitBtn", "color", darkGrey)
+    self.UI.setAttribute("ScoringModeClassicBtn", "color", activeBtn)
+    self.UI.setAttribute("ScoringModeSplitBtn", "color", inactiveBtn)
   end
 end
 
@@ -516,6 +523,7 @@ function setContextMenu()
         end
     end
     self.addContextMenuItem("Reset", reset, false)
+    self.addContextMenuItem("Toggle Fog of War", function() Global.call("API_ToggleFogOfWar") end, false)
 end
 
 function setFairness(enabled)
