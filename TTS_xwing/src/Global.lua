@@ -6731,9 +6731,11 @@ function newSpawner(listTable)
     spawnCard.setPosition(finalPos)
 
     for i, remote in pairs(listTable.Remotes or {}) do
-        print("Spawning remote:" .. remote)
+        local remoteName = type(remote) == 'table' and remote.name or remote
+        local remoteCharge = type(remote) == 'table' and (remote.Charge or 0) or 0
+        print("Spawning remote:" .. remoteName)
         for k, acc in ipairs(listaAcc) do
-            if acc.name == remote then
+            if acc.name == remoteName then
                 pos = LocalPos(spawnCard, { 1, 1, 0 })
                 print("Found remote, spawning pos: " .. tostring(pos[1]) .. "," ..
                     tostring(pos[2]) .. "," .. tostring(pos[3]))
@@ -6741,6 +6743,23 @@ function newSpawner(listTable)
                 remoteClone = remObj.clone()
                 remoteClone.setPosition(pos)
                 tempBagAcc.putObject(remObj)
+                -- Spawn charge tokens for remotes that have charges
+                if remoteCharge > 0 then
+                    local ch = remoteCharge
+                    while ch > 0 do
+                        local chargePos
+                        if ch == 2 then
+                            chargePos = LocalPos(spawnCard, { 1.45, 1, -2.2 })
+                        elseif ch == 1 then
+                            chargePos = LocalPos(spawnCard, { 0.55, 1, -2.2 })
+                        end
+                        ch = ch - 1
+                        chargeClone = tokens.Charge.clone()
+                        chargeClone.setPosition(chargePos)
+                        chargeClone.setVar("charge_owner", remoteName)
+                        chargeClone.setVar("charge_name", remoteName)
+                    end
+                end
                 finalpos = LocalPos(spawnCard, { -3, 0, 0 })
                 spawnCard.setPosition(finalpos)
                 break
