@@ -7,15 +7,19 @@ waitDuration = 0.1
 
 boardLength = nil
 
+claimedBy = nil
+
 function claim(player)
     local color = Color.fromString(player)
     color[4] = 0.6
     self.setColorTint(color)
+    claimedBy = player
     printToAll(player .. " claimed an objective", Color(1.0, 1.0, 0))
 end
 
 function unclaim(player)
     self.setColorTint(Color(1, 1, 1, 0.05))
+    claimedBy = nil
     printToAll(player .. " removed claim of an objective", Color(1.0, 1.0, 0))
 end
 
@@ -23,12 +27,18 @@ function onLoad(save_state)
     local state = JSON.decode(save_state)
     if state then
         lineDrawing = state.linedrawing or true
+        claimedBy = state.claimedBy
+        if claimedBy then
+            local c = Color.fromString(claimedBy)
+            c[4] = 0.6
+            self.setColorTint(c)
+        end
     end
     SetupContextMenu()
 end
 
 function onSave()
-    return JSON.encode({ linedrawing = lineDrawing })
+    return JSON.encode({ linedrawing = lineDrawing, claimedBy = claimedBy })
 end
 
 function SetupContextMenu()
