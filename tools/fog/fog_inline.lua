@@ -13,6 +13,17 @@ FogOfWar.playAreaMinX = -85
 FogOfWar.playAreaMaxX = 80
 FogOfWar.playAreaMinZ = -45
 FogOfWar.playAreaMaxZ = 40
+
+-- Helper: is this position inside the playmat bounds?
+local function fow_posInPlayArea(p)
+    if not p then return false end
+    return p.x >= FogOfWar.playAreaMinX and p.x <= FogOfWar.playAreaMaxX
+       and p.z >= FogOfWar.playAreaMinZ and p.z <= FogOfWar.playAreaMaxZ
+end
+local function fow_objInPlayArea(obj)
+    local ok, p = pcall(function() return obj.getPosition() end)
+    return ok and fow_posInPlayArea(p)
+end
 FogOfWar.proximityRevealMm = 60
 FogOfWar.nearbyHideIgu = 14.55 -- R4 in IGU: radius around a ship whose nearby tokens/peg/ColorId/dial/flying tokens also get hidden
 FogOfWar.visionPartner = {
@@ -690,7 +701,15 @@ local function fog_check_impl()
             end
 
             ship_hide[shipGuid] = hide_from
-            ship.setInvisibleTo(hide_from)
+            -- Only apply fog hide to ships actually on the playmat
+            local sp = ship.getPosition()
+            local onMat = sp.x >= FogOfWar.playAreaMinX and sp.x <= FogOfWar.playAreaMaxX
+                      and sp.z >= FogOfWar.playAreaMinZ and sp.z <= FogOfWar.playAreaMaxZ
+            if onMat then
+                ship.setInvisibleTo(hide_from)
+            else
+                ship.setInvisibleTo({})
+            end
 
             if ship.UI then
                 pcall(function()
@@ -858,8 +877,19 @@ local function fog_check_impl()
         end
     end
 
-    -- Clear hiding on objects that were managed last tick but aren't this tick
+    -- Ensure off-mat objects that were previously managed are unhidden
+    -- (they left the playmat and we stopped processing them).
     local prev = FogOfWar._managedTokens or {}
+    for guid, _ in pairs(prev) do
+        if not new_managed[guid] then
+            local o = getObjectFromGUID(guid)
+            if o and not fow_objInPlayArea(o) then
+                pcall(function() o.setInvisibleTo({}) end)
+            end
+        end
+    end
+
+    -- Clear hiding on objects that were managed last tick but aren't this tick
     for guid, _ in pairs(prev) do
         if not new_managed[guid] then
             local o = getObjectFromGUID(guid)
@@ -961,6 +991,7 @@ end
 -- Aggressive spawn handler: hide hideable/cloak tokens immediately on spawn
 local function fow_onSpawned(obj)
     if not obj or not FogOfWar.enabled then return end
+    if not fow_objInPlayArea(obj) then return end
     local ok, name = pcall(function() return obj.getName() or "" end)
     if not ok then return end
     local lower = name:lower()
