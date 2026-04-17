@@ -9,10 +9,10 @@ FogOfWar.largeRangeMm = 400
 FogOfWar.claimRangeMm = 100
 -- Play area bounds (X, Z). Objects outside these are never hidden — saves lots of CPU
 -- and prevents UI/fixtures from being affected.
-FogOfWar.playAreaMinX = -85
-FogOfWar.playAreaMaxX = 80
-FogOfWar.playAreaMinZ = -45
-FogOfWar.playAreaMaxZ = 40
+FogOfWar.playAreaMinX = -37.3
+FogOfWar.playAreaMaxX = -3.7
+FogOfWar.playAreaMinZ = -16.8
+FogOfWar.playAreaMaxZ = 16.8
 
 -- Helper: is this position inside the playmat bounds?
 local function fow_posInPlayArea(p)
