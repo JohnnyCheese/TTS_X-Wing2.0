@@ -817,6 +817,16 @@ local function fog_check_impl()
                     skip = true
                 end
             end
+            -- Persistent ship stats (shield, charge, hull) — never hide
+            if not skip then
+                local okT, tt = pcall(function() return obj.getVar('__XW_TokenType') end)
+                if okT and type(tt) == 'string' then
+                    local low = tt:lower()
+                    if low == 'shield' or low == 'charge' or low == 'hull' or low == 'force' then
+                        skip = true
+                    end
+                end
+            end
             -- Exclude objects that aren't on a ship or in active play — by tag
             if not skip then
                 for _, tag in ipairs({'Layout', 'UI', 'Config', 'Controller',
