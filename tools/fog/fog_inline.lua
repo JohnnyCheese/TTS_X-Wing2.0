@@ -307,10 +307,10 @@ function fow_losStatus(fromShip, toShip)
         local hits = Physics.cast({
             origin = closest.midpoint,
             orientation = { 0, closest.angle, 0 },
-            direction = { 0, -0.3, 0 },
+            direction = { 0, -1, 0 },
             type = 3,
             size = { 0, 0, closest.length },
-            max_distance = 3,
+            max_distance = 10,
             debug = false,
         })
         for _, h in ipairs(hits or {}) do
@@ -973,6 +973,11 @@ local function fow_onDropped(player_color, obj)
         return
     end
     if obj.hasTag('Objective') or obj.hasTag('CenterObjective') then
+        FogOfWar.scheduleCheck()
+        return
+    end
+    if obj.hasTag('Obstacle') or fow_isLosBlocker(obj) then
+        FogOfWar._losCache = {}  -- flush stale LOS results
         FogOfWar.scheduleCheck()
         return
     end
