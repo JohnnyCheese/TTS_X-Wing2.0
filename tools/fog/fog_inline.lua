@@ -848,49 +848,12 @@ local function fog_check_impl()
         printToAll("[Fog] P2: " .. phase2Count .. " hidden (R3-team, " .. #player_colors .. " colors)", {0.6,0.8,1})
     end
 
-    -- Ensure every assigned dial is visible to its owner (and hidden from enemies).
-    -- Dials are Cards and are skipped by the R3 sweep above; this pass applies
-    -- a team-based hide list derived from the dial's assigned player.
+    -- Dials are never hidden by fog — they're already private (face-down)
+    -- and auto-hiding them breaks player view when pilot color ≠ seat color.
     if DialManagerModule and type(DialManagerModule.assignedDials) == "table" then
-        for dialGuid, entry in pairs(DialManagerModule.assignedDials) do
-            if entry and entry.dial and entry.player then
-                -- Only apply dial hiding when the dial is on the playmat.
-                -- Dials in a player's hand / side area are private to that player
-                -- already; our hide pass would just make them invisible to the owner too
-                -- if the dial sits off-mat (TTS hand zones).
-                local okP, dpos = pcall(function() return entry.dial.getPosition() end)
-                if not okP or not dpos
-                   or dpos.x < FogOfWar.playAreaMinX or dpos.x > FogOfWar.playAreaMaxX
-                   or dpos.z < FogOfWar.playAreaMinZ or dpos.z > FogOfWar.playAreaMaxZ then
-                    -- Off the playmat: clear any previous fog hide and skip
-                    pcall(function() entry.dial.setInvisibleTo({}) end)
-                    -- Ensure we don't re-apply stale hide list next tick
-                    new_managed[dialGuid] = nil
-                else
-                local ownerColor = entry.player
-                local hide_dial = {}
-                for _, pc in ipairs(player_colors) do
-                    if not fow_areAllies(ownerColor, pc) then
-                        table.insert(hide_dial, pc)
-                    end
-                end
-                -- Apply vision partner: if a hidden color's partner is the owner
-                -- (or an ally), show the dial to them too.
-                if FogOfWar.visionPartner then
-                    local keep = {}
-                    for _, c in ipairs(hide_dial) do
-                        local partner = FogOfWar.visionPartner[c]
-                        if partner and fow_areAllies(partner, ownerColor) then
-                            -- partner sees owner's stuff; don't hide from c
-                        else
-                            table.insert(keep, c)
-                        end
-                    end
-                    hide_dial = keep
-                end
-                pcall(function() entry.dial.setInvisibleTo(hide_dial) end)
-                new_managed[dialGuid] = true
-                end
+        for _, entry in pairs(DialManagerModule.assignedDials) do
+            if entry and entry.dial then
+                pcall(function() entry.dial.setInvisibleTo({}) end)
             end
         end
     end
