@@ -307,21 +307,24 @@ function fow_losStatus(fromShip, toShip)
         local hits = Physics.cast({
             origin = closest.midpoint,
             orientation = { 0, closest.angle, 0 },
-            direction = { 0, -1, 0 },
+            direction = { 0, -0.3, 0 },
             type = 3,
             size = { 0, 0, closest.length },
-            max_distance = 10,
+            max_distance = 3,
             debug = false,
         })
         for _, h in ipairs(hits or {}) do
             local obj = h.hit_object
             if obj and obj ~= fromShip and obj ~= toShip then
                 if fow_isLosBlocker(obj) then
-                        -- Strut droids (Vulture/Hyena) ignore obstacles they're on
-                        local skip = false
-                        if fow_isStrutShip(fromShip) and fow_shipOnObstacle(fromShip, obj) then skip = true end
-                        if fow_isStrutShip(toShip) and fow_shipOnObstacle(toShip, obj) then skip = true end
-                        if not skip then return 'blocked' end
+                        -- Strut droids (Vulture/Hyena) see through obstacles they're on
+                        -- — one-way only. Enemies looking AT a strut ship on an
+                        -- asteroid still have LOS blocked.
+                        if fow_isStrutShip(fromShip) and fow_shipOnObstacle(fromShip, obj) then
+                            -- viewer is a strut on the obstacle — ignore this blocker
+                        else
+                            return 'blocked'
+                        end
                     end
             end
         end
