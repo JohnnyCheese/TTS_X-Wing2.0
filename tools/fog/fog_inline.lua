@@ -251,14 +251,6 @@ local function fow_isStrutShip(ship)
         if cm and cm.mesh then table.insert(candidates, cm.mesh) end
         if cm and cm.diffuse then table.insert(candidates, cm.diffuse) end
     end)
-    -- One-time debug dump so we can see what ship_type values exist
-    if FogOfWar._strutDumpRemaining and FogOfWar._strutDumpRemaining > 0 then
-        FogOfWar._strutDumpRemaining = FogOfWar._strutDumpRemaining - 1
-        printToAll("[Strut] " .. (ship.getName() or "?"), {1,0.7,0.2})
-        for i, s in ipairs(candidates) do
-            printToAll("  [" .. i .. "]=" .. tostring(s), {1,0.7,0.2})
-        end
-    end
     for _, s in ipairs(candidates) do
         if type(s) == 'string' then
             local lower = s:lower()
@@ -710,7 +702,7 @@ local function fog_check_impl()
                 end)
             end
 
-            do
+            if dbg then
                 local hs = ""
                 for _, c in ipairs(hide_from) do hs = hs .. c .. "," end
                 printToAll("[Fog] " .. ship.getName() .. " owner=" .. tostring(owner)
@@ -852,7 +844,7 @@ local function fog_check_impl()
         end
     end
 
-    if phase2Count > 0 or (FogOfWar._runCount or 0) <= 5 then
+    if dbg then
         printToAll("[Fog] P2: " .. phase2Count .. " hidden (R3-team, " .. #player_colors .. " colors)", {0.6,0.8,1})
     end
 
@@ -878,9 +870,6 @@ FogOfWar._pendingCheck   = false
 local function fow_run_now()
     FogOfWar._lastRunTime = Time.time
     FogOfWar._runCount = (FogOfWar._runCount or 0) + 1
-    if FogOfWar._runCount <= 10 or FogOfWar._runCount % 20 == 0 then
-        printToAll("[Fog] check #" .. FogOfWar._runCount, {0.5, 0.5, 0.5})
-    end
     local ok, err = pcall(fog_check_impl)
     if not ok then
         printToAll("[Fog] error: " .. tostring(err), { 1, 0.2, 0.2 })
@@ -905,8 +894,7 @@ FogOfWar.scheduleCheck = function()
     Wait.frames(function()
         FogOfWar._pendingCheck = false
         if FogOfWar.enabled then
-            FogOfWar._forceNext = true
-        FogOfWar._strutDumpRemaining = 10 -- bypass idle short-circuit
+            FogOfWar._forceNext = true -- bypass idle short-circuit
             fow_run_now()
         end
     end, 10)
@@ -1136,8 +1124,6 @@ FogOfWar.toggle = function()
     FogOfWar._shipPosCache = {}
     if FogOfWar.enabled then
         FogOfWar.debug = true
-        FogOfWar._allyDbg = true
-        FogOfWar._strutDumpRemaining = 10
         FogOfWar._lastRunTime = 0
         FogOfWar._forceNext = true
         FogOfWar.startActivityPoller()
