@@ -3,9 +3,16 @@ FogOfWar = {}
 FogOfWar.BUILD = "fog-0.26-directpoll"
 FogOfWar.enabled = false
 FogOfWar.debug = false
-FogOfWar.rangeMm      = 400
-FogOfWar.cloakRangeMm = 300
+FogOfWar.rangeMm      = 300
+FogOfWar.cloakRangeMm = 200
+FogOfWar.largeRangeMm = 400
 FogOfWar.claimRangeMm = 100
+-- Play area bounds (X, Z). Objects outside these are never hidden — saves lots of CPU
+-- and prevents UI/fixtures from being affected.
+FogOfWar.playAreaMinX = -85
+FogOfWar.playAreaMaxX = 80
+FogOfWar.playAreaMinZ = -45
+FogOfWar.playAreaMaxZ = 40
 FogOfWar.proximityRevealMm = 60
 FogOfWar.nearbyHideIgu = 14.55 -- R4 in IGU: radius around a ship whose nearby tokens/peg/ColorId/dial/flying tokens also get hidden
 FogOfWar.visionPartner = {
@@ -20,12 +27,14 @@ end
 
 local function fow_areAllies(a, b)
     if a == b then return true end
-    local p1, p2 = nil, nil
-    for _, pl in ipairs(Player.getPlayers()) do
-        if pl.color == a then p1 = pl end
-        if pl.color == b then p2 = pl end
-    end
-    if p1 and p2 then return p1.team == p2.team end
+    -- X-Wing team mapping: Blue vs Red. Spectator seats are neutral.
+    local FOW_TEAM = {
+        Blue = 1, Green = 1, Orange = 1,
+        Red = 2, Yellow = 2, Purple = 2,
+    }
+    local ta, tb = FOW_TEAM[a], FOW_TEAM[b]
+    if ta and tb then return ta == tb end
+    -- Unknown seat colors are not allies with anyone
     return false
 end
 
@@ -66,8 +75,28 @@ end
 local function fow_collectCloaked(cloakTokens)
     local cloaked = {}
     for _, obj in ipairs(cloakTokens or {}) do
-        local ok, ship = pcall(function() return obj.getVar("assignedShip") end)
-        if ok and ship then
+        local ship = nil
+        -- 1. TokenModule authoritative assignment
+        if type(TokenModule) == "table" and type(TokenModule.tokenAssignments) == "table" then
+            local a = TokenModule.tokenAssignments[obj.getGUID()]
+            if a then ship = a end
+        end
+        -- 2. assignedShip var (older-style)
+        if not ship then
+            local ok, s = pcall(function() return obj.getVar("assignedShip") end)
+            if ok and s then ship = s end
+        end
+        -- 3. Proximity fallback: closest ship within nearbyHideIgu
+        if not ship then
+            local opos = obj.getPosition()
+            local best, bestD = nil, FogOfWar.nearbyHideIgu
+            for _, s2 in pairs(getObjectsWithTag('Ship')) do
+                local d = s2.getPosition():distance(opos)
+                if d < bestD then bestD = d; best = s2 end
+            end
+            ship = best
+        end
+        if ship then
             local ok2, g = pcall(function() return ship.getGUID() end)
             if ok2 and g then cloaked[g] = true end
         end
@@ -117,7 +146,7 @@ local function fow_collectLockReveals(all_ships)
                 if owner then
                     local oc = owner.getVar("owningPlayer")
                     local tc = target.getVar("owningPlayer")
-                    if oc and tc and not fow_sameTeam(oc, tc) then
+                    if oc and tc and not fow_areAllies(oc, tc) then
                         local tg = target.getGUID()
                         local set = reveals[tg] or {}
                         set[oc] = true
@@ -199,7 +228,73 @@ end
 -- LOS check using the same box-cast pattern the in-game arc checker uses
 -- (ArcCheck.CheckObstruction). We compute the closest-point line segment
 -- between the two ships and box-cast along it at table height.
-local function fow_losStatus(fromShip, toShip)
+-- Vulture/Hyena droids can see through obstacles they're sitting on
+local FOW_STRUT_SHIPS = { vulture = true, hyena = true, vultureclassdroidfighter = true, hyenaclassdroidbomber = true }
+local function fow_isStrutShip(ship)
+    local candidates = {}
+    -- Real ship identifier lives in the ship's LuaScriptState.shipData.shipId
+    pcall(function()
+        local state = ship.script_state
+        if state and state ~= "" then
+            local id1 = state:match('"shipId"%s*:%s*"([^"]+)"')
+            local id2 = state:match('"ship_type"%s*:%s*"([^"]+)"')
+            if id1 then table.insert(candidates, id1) end
+            if id2 then table.insert(candidates, id2) end
+        end
+    end)
+    pcall(function() table.insert(candidates, ship.getVar('ship_type')) end)
+    pcall(function() table.insert(candidates, ship.getName()) end)
+    pcall(function() table.insert(candidates, ship.getDescription()) end)
+    pcall(function() table.insert(candidates, ship.getGMNotes()) end)
+    pcall(function()
+        local cm = ship.getCustomObject()
+        if cm and cm.mesh then table.insert(candidates, cm.mesh) end
+        if cm and cm.diffuse then table.insert(candidates, cm.diffuse) end
+    end)
+    -- One-time debug dump so we can see what ship_type values exist
+    if FogOfWar._strutDumpRemaining and FogOfWar._strutDumpRemaining > 0 then
+        FogOfWar._strutDumpRemaining = FogOfWar._strutDumpRemaining - 1
+        printToAll("[Strut] " .. (ship.getName() or "?"), {1,0.7,0.2})
+        for i, s in ipairs(candidates) do
+            printToAll("  [" .. i .. "]=" .. tostring(s), {1,0.7,0.2})
+        end
+    end
+    for _, s in ipairs(candidates) do
+        if type(s) == 'string' then
+            local lower = s:lower()
+            for key in pairs(FOW_STRUT_SHIPS) do
+                if lower:find(key) then return true end
+            end
+        end
+    end
+    return false
+end
+
+local function fow_shipOnObstacle(ship, obstacle)
+    -- "Touching" = ship base and obstacle bounds overlap.
+    -- Use physical bounds when available for an accurate test.
+    local ok, overlap = pcall(function()
+        local sb = ship.getBounds()
+        local ob = obstacle.getBounds()
+        if not sb or not ob then return false end
+        local sHx = (sb.size.x or 0) * 0.5
+        local sHz = (sb.size.z or 0) * 0.5
+        local oHx = (ob.size.x or 0) * 0.5
+        local oHz = (ob.size.z or 0) * 0.5
+        local dx = math.abs(sb.center.x - ob.center.x)
+        local dz = math.abs(sb.center.z - ob.center.z)
+        return (dx <= sHx + oHx) and (dz <= sHz + oHz)
+    end)
+    if ok and overlap then return true end
+    -- Fallback: center-to-center distance with generous radius
+    local sp = ship.getPosition()
+    local op = obstacle.getPosition()
+    local dx = sp.x - op.x
+    local dz = sp.z - op.z
+    return (dx*dx + dz*dz) < 16  -- ~4 IGU
+end
+
+function fow_losStatus(fromShip, toShip)
     local ok, result = pcall(function()
         local my_pos = fromShip.getNearestPointFromObject(toShip)
         local closest = API_GetClosestPointToShip({ ship = toShip, point = my_pos })
@@ -218,7 +313,13 @@ local function fow_losStatus(fromShip, toShip)
         for _, h in ipairs(hits or {}) do
             local obj = h.hit_object
             if obj and obj ~= fromShip and obj ~= toShip then
-                if fow_isLosBlocker(obj) then return 'blocked' end
+                if fow_isLosBlocker(obj) then
+                        -- Strut droids (Vulture/Hyena) ignore obstacles they're on
+                        local skip = false
+                        if fow_isStrutShip(fromShip) and fow_shipOnObstacle(fromShip, obj) then skip = true end
+                        if fow_isStrutShip(toShip) and fow_shipOnObstacle(toShip, obj) then skip = true end
+                        if not skip then return 'blocked' end
+                    end
             end
         end
         return 'clean'
@@ -362,9 +463,17 @@ local function fow_scan()
                             table.insert(s.revealNamed, obj)
                         end
                     end
-                    -- Cloak token
+                    -- Cloak token: check __XW_TokenType (case-insensitive) OR name match
                     local okV, tt = pcall(function() return obj.getVar('__XW_TokenType') end)
-                    if okV and tt == 'cloak' then
+                    local isCloak = false
+                    if okV and tt and type(tt) == 'string' and tt:lower() == 'cloak' then
+                        isCloak = true
+                    end
+                    -- Fallback: match by name prefix
+                    if not isCloak and lower and lower:sub(1,5) == 'cloak' then
+                        isCloak = true
+                    end
+                    if isCloak then
                         table.insert(s.cloakTokens, obj)
                     end
                 end
@@ -383,12 +492,13 @@ end
 
 local function fog_check_impl()
     local all_ships = getObjectsWithTag('Ship')
-    local player_colors = {}
-    for _, p in ipairs(Player.getPlayers()) do
-        if not fow_isSpectator(p.color) then
-            table.insert(player_colors, p.color)
-        end
-    end
+    -- Hide from ALL non-spectator colors, not just currently-seated players.
+    -- Player.getPlayers() can miss the host depending on seat state, and we want
+    -- hide lists stable across who's connected.
+    local player_colors = {
+        "Red", "Blue", "Green", "Yellow",
+        "Orange", "Purple", "Pink", "Brown", "Teal",
+    }
 
     -- === IDLE SHORT-CIRCUIT ===
     -- If no ship has moved since last tick AND the classification scan is
@@ -502,7 +612,7 @@ local function fog_check_impl()
                 local lockSet = lockReveals[shipGuid] or {}
                 local gasHidden = gasConcealedMap[shipGuid]
                 for _, pc in ipairs(player_colors) do
-                    if not fow_sameTeam(owner, pc) then
+                    if not fow_areAllies(owner, pc) then
                         local visible = false
 
                         -- Target lock overrides everything
@@ -510,11 +620,17 @@ local function fog_check_impl()
 
                         -- Range + LOS check via friendlies
                         if not visible then
-                            local spotMm = cloakedShips[shipGuid] and FogOfWar.cloakRangeMm or FogOfWar.rangeMm
+                            local isLarge = false
+                            pcall(function()
+                                local sz = ship.getTable("Data").Size
+                                if sz == "large" or sz == "huge" then isLarge = true end
+                            end)
+                            local spotMm = cloakedShips[shipGuid] and FogOfWar.cloakRangeMm
+                                or (isLarge and FogOfWar.largeRangeMm or FogOfWar.rangeMm)
                             for _, friendly in pairs(all_ships) do
                                 if friendly.getGUID() ~= shipGuid then
                                     local fo = friendly.getVar('owningPlayer')
-                                    if fo and fow_sameTeam(fo, pc) then
+                                    if fo and fow_areAllies(fo, pc) then
                                         if cached_dist(ship, friendly) < spotMm then
                                             if cached_los(friendly, ship) == 'clean' then
                                                 visible = true
@@ -533,7 +649,7 @@ local function fog_check_impl()
                             for _, friendly in pairs(all_ships) do
                                 if friendly.getGUID() ~= shipGuid then
                                     local fo = friendly.getVar('owningPlayer')
-                                    if fo and fow_sameTeam(fo, pc) then
+                                    if fo and fow_areAllies(fo, pc) then
                                         if cached_dist(ship, friendly) < FogOfWar.claimRangeMm then
                                             viewerNear = true
                                             break
@@ -550,7 +666,7 @@ local function fog_check_impl()
                         -- Claim R1 vision from a claimed objective
                         if not visible then
                             for _, entry in ipairs(claimedObjectives) do
-                                if fow_sameTeam(entry.by, pc) then
+                                if fow_areAllies(entry.by, pc) then
                                     if cached_dist(ship, entry.obj) < FogOfWar.claimRangeMm then
                                         visible = true
                                         break
@@ -562,6 +678,23 @@ local function fog_check_impl()
                         if not visible then table.insert(hide_from, pc) end
                     end
                 end
+            end
+
+            -- Vision partner sharing: if ship visible to partner, also visible to color
+            -- Only applies when the partner is actually a seated player.
+            local vp = FogOfWar.visionPartner
+            local hideSet = {}
+            local seatedSet = {}
+            for _, c in ipairs(player_colors) do seatedSet[c] = true end
+            for _, c in ipairs(hide_from) do hideSet[c] = true end
+            for color, partner in pairs(vp) do
+                if seatedSet[partner] and not hideSet[partner] then
+                    hideSet[color] = nil
+                end
+            end
+            hide_from = {}
+            for _, pc2 in ipairs(player_colors) do
+                if hideSet[pc2] then table.insert(hide_from, pc2) end
             end
 
             ship_hide[shipGuid] = hide_from
@@ -577,7 +710,7 @@ local function fog_check_impl()
                 end)
             end
 
-            if dbg then
+            do
                 local hs = ""
                 for _, c in ipairs(hide_from) do hs = hs .. c .. "," end
                 printToAll("[Fog] " .. ship.getName() .. " owner=" .. tostring(owner)
@@ -608,42 +741,119 @@ local function fog_check_impl()
         end
     end
     FogOfWar._shipHide = ship_hide
-    if not anyChanged then return end
+    -- Always run Phase 2 — new tokens can spawn without changing ship hide lists
 
-    -- Phase 2: only whitelisted token types follow their parent ship's hide.
-    -- Uses the pre-filtered hideableTokens bucket from the classification
-    -- scan — no per-object getName() calls here.
+    -- Phase 2: PER-OBJECT TEAM-VISIBILITY RULE
+    -- For every non-excluded object on the table:
+    --   An object is visible to color C if any ship on C's team is within R3 of it.
+    --   Otherwise hide it from C.
+    -- Assignment is irrelevant — pure proximity to friendly ships determines vision.
     local new_managed = {}
-    for _, obj in ipairs(scan.hideableTokens) do
-        local parent = nil
-        -- 1. TokenModule assignment (authoritative)
-        if type(TokenModule) == "table" and type(TokenModule.tokenAssignments) == "table" then
-            local a = TokenModule.tokenAssignments[obj.getGUID()]
-            if a then parent = a end
-        end
-        -- 2. Cloak-style: assignedShip var
-        if not parent then
-            local ok, s = pcall(function() return obj.getVar('assignedShip') end)
-            if ok and s then parent = s end
-        end
-        -- 3. Proximity fallback — nearest ship within nearbyHideIgu
-        if not parent then
-            local opos = obj.getPosition()
-            local best, bestD = nil, FogOfWar.nearbyHideIgu
-            for _, s in pairs(all_ships) do
-                local d = s.getPosition():distance(opos)
-                if d < bestD then bestD = d; best = s end
-            end
-            parent = best
-        end
+    local R3_IGU = 10.9  -- R3 = 300mm; use IGU to match getPosition():distance()
 
-        if parent then
-            local ok, pg = pcall(function() return parent.getGUID() end)
-            if ok and pg and ship_hide[pg] then
-                obj.setInvisibleTo(ship_hide[pg])
-                new_managed[obj.getGUID()] = true
+    -- Bucket ship positions by each color they're "friendly to"
+    local friendlyShipPosByColor = {}
+    for _, pc in ipairs(player_colors) do friendlyShipPosByColor[pc] = {} end
+    for _, ship in pairs(all_ships) do
+        local owner = ship.getVar('owningPlayer')
+        if owner then
+            local pos = ship.getPosition()
+            for _, pc in ipairs(player_colors) do
+                if fow_areAllies(owner, pc) then
+                    table.insert(friendlyShipPosByColor[pc], pos)
+                end
             end
         end
+    end
+
+    -- Apply vision-partner sharing (Purple sees what Red sees, etc.)
+    for color, partner in pairs(FogOfWar.visionPartner or {}) do
+        local pShips = friendlyShipPosByColor[partner]
+        if pShips and #pShips > 0 then
+            friendlyShipPosByColor[color] = friendlyShipPosByColor[color] or {}
+            for _, p in ipairs(pShips) do
+                table.insert(friendlyShipPosByColor[color], p)
+            end
+        end
+    end
+
+    local phase2Count = 0
+    for _, obj in ipairs(getAllObjects()) do
+        if obj and not obj.hasTag('Ship') then
+            local skip = false
+            -- Playmat bounds: only hide objects inside the play area
+            local pos = obj.getPosition()
+            if pos.x < FogOfWar.playAreaMinX or pos.x > FogOfWar.playAreaMaxX
+               or pos.z < FogOfWar.playAreaMinZ or pos.z > FogOfWar.playAreaMaxZ then
+                skip = true
+            end
+            if not skip and (obj.hasTag('Objective') or obj.hasTag('CenterObjective') or obj.hasTag('Obstacle')) then
+                skip = true
+            end
+            if not skip then
+                local t = obj.tag
+                -- Structural / container types — never hide
+                if t == 'Board' or t == 'Deck' or t == 'Dice' or t == 'Bag'
+                   or t == 'Infinite' or t == 'Stack' or t == 'Card'
+                   or t == 'Tablet' or t == 'Notecard' or t == '3DText'
+                   or t == 'Tile' or t == 'Scripting' or t == 'Calculator' then
+                    skip = true
+                end
+            end
+            if not skip then
+                local okN, n = pcall(function() return obj.getName() or "" end)
+                if okN and n ~= "" and fow_nameMatchesReveal(n) then
+                    skip = true
+                end
+            end
+            -- Exclude objects that aren't on a ship or in active play — by tag
+            if not skip then
+                for _, tag in ipairs({'Layout', 'UI', 'Config', 'Controller',
+                                      'TempLayoutElement', 'ConfigCard', 'FogPlacard',
+                                      'DataPad', 'ScenarioCard', 'TokenBag',
+                                      'Saved', 'SavedObject', 'Spawner',
+                                      'DoNotHide', 'Global', 'Button'}) do
+                    if obj.hasTag(tag) then skip = true; break end
+                end
+            end
+            -- Locked objects are typically fixtures (buttons, placards, layouts)
+            if not skip then
+                local okL, locked = pcall(function() return obj.getLock() end)
+                if okL and locked then skip = true end
+            end
+            if not skip then
+                local opos = obj.getPosition()
+                local hide_from = {}
+                for _, pc in ipairs(player_colors) do
+                    local canSee = false
+                    local fships = friendlyShipPosByColor[pc]
+                    if fships then
+                        for _, sp in ipairs(fships) do
+                            if sp:distance(opos) < R3_IGU then
+                                canSee = true
+                                break
+                            end
+                        end
+                    end
+                    if not canSee then table.insert(hide_from, pc) end
+                end
+                if #hide_from > 0 then
+                    pcall(function() obj.setInvisibleTo(hide_from) end)
+                    new_managed[obj.getGUID()] = true
+                    phase2Count = phase2Count + 1
+                else
+                    -- Clear any old hide (e.g., a ship just entered R3)
+                    local wasManaged = FogOfWar._managedTokens and FogOfWar._managedTokens[obj.getGUID()]
+                    if wasManaged then
+                        pcall(function() obj.setInvisibleTo({}) end)
+                    end
+                end
+            end
+        end
+    end
+
+    if phase2Count > 0 or (FogOfWar._runCount or 0) <= 5 then
+        printToAll("[Fog] P2: " .. phase2Count .. " hidden (R3-team, " .. #player_colors .. " colors)", {0.6,0.8,1})
     end
 
     -- Clear hiding on objects that were managed last tick but aren't this tick
@@ -667,6 +877,10 @@ FogOfWar._pendingCheck   = false
 
 local function fow_run_now()
     FogOfWar._lastRunTime = Time.time
+    FogOfWar._runCount = (FogOfWar._runCount or 0) + 1
+    if FogOfWar._runCount <= 10 or FogOfWar._runCount % 20 == 0 then
+        printToAll("[Fog] check #" .. FogOfWar._runCount, {0.5, 0.5, 0.5})
+    end
     local ok, err = pcall(fog_check_impl)
     if not ok then
         printToAll("[Fog] error: " .. tostring(err), { 1, 0.2, 0.2 })
@@ -691,7 +905,8 @@ FogOfWar.scheduleCheck = function()
     Wait.frames(function()
         FogOfWar._pendingCheck = false
         if FogOfWar.enabled then
-            FogOfWar._forceNext = true -- bypass idle short-circuit
+            FogOfWar._forceNext = true
+        FogOfWar._strutDumpRemaining = 10 -- bypass idle short-circuit
             fow_run_now()
         end
     end, 10)
@@ -717,6 +932,98 @@ local function fow_onDropped(player_color, obj)
 end
 if EventSub and EventSub.Register then
     EventSub.Register('onObjectDropped', fow_onDropped)
+end
+
+-- Fog check on object destroyed (e.g. cloak token removed)
+local function fow_onDestroyed(obj)
+    if not obj or not FogOfWar.enabled then return end
+    -- Cloak destruction invalidates the classification scan (affects R2 range)
+    local ok, tt = pcall(function() return obj.getVar('__XW_TokenType') end)
+    if ok and tt == 'cloak' then
+        FogOfWar._scan = nil
+        FogOfWar.scheduleCheck()
+        return
+    end
+    -- Any hideable/reveal-named token deletion triggers a recheck
+    if fow_isHideableToken(obj) or fow_nameMatchesReveal(obj.getName() or "") then
+        FogOfWar._scan = nil
+        FogOfWar.scheduleCheck()
+        return
+    end
+    -- Ship deletion also triggers (always invalidate)
+    if obj.hasTag and pcall(function() return obj.hasTag('Ship') end) then
+        FogOfWar._scan = nil
+        FogOfWar.scheduleCheck()
+    end
+end
+if EventSub and EventSub.Register then
+    EventSub.Register('onObjectDestroyed', fow_onDestroyed)
+end
+
+-- Aggressive spawn handler: hide hideable/cloak tokens immediately on spawn
+local function fow_onSpawned(obj)
+    if not obj or not FogOfWar.enabled then return end
+    local ok, name = pcall(function() return obj.getName() or "" end)
+    if not ok then return end
+    local lower = name:lower()
+
+    -- Is this a hideable token?
+    local isHideable = false
+    for k in pairs(FOW_HIDEABLE_TOKENS) do
+        if lower:sub(1, #k) == k then isHideable = true; break end
+    end
+    local isCloak = (lower:sub(1,5) == 'cloak')
+    if not (isHideable or isCloak) then return end
+
+    -- Invalidate classification scan (token isn't in it yet)
+    FogOfWar._scan = nil
+
+    -- Try to resolve parent ship right now
+    local parent = nil
+    if type(TokenModule) == "table" and type(TokenModule.tokenAssignments) == "table" then
+        local ok2, a = pcall(function() return TokenModule.tokenAssignments[obj.getGUID()] end)
+        if ok2 and a then parent = a end
+    end
+    if not parent then
+        local ok3, s = pcall(function() return obj.getVar('assignedShip') end)
+        if ok3 and s then parent = s end
+    end
+    -- Proximity fallback (lenient — 14.55 IGU = R4)
+    if not parent then
+        local opos = obj.getPosition()
+        local best, bestD = nil, FogOfWar.nearbyHideIgu
+        for _, s2 in pairs(getObjectsWithTag('Ship')) do
+            local d = s2.getPosition():distance(opos)
+            if d < bestD then bestD = d; best = s2 end
+        end
+        parent = best
+    end
+
+    if parent then
+        local ok4, pg = pcall(function() return parent.getGUID() end)
+        if ok4 and pg then
+            local hides = FogOfWar._shipHide and FogOfWar._shipHide[pg]
+            if hides and #hides > 0 then
+                pcall(function() obj.setInvisibleTo(hides) end)
+                FogOfWar._managedTokens = FogOfWar._managedTokens or {}
+                FogOfWar._managedTokens[obj.getGUID()] = true
+            end
+        end
+    end
+
+    -- Retry after a short delay — assignment often lands async, and re-check
+    -- resolves edge cases where the token arrived before the ship's hide list was ready.
+    Wait.time(function()
+        if FogOfWar.enabled then
+            FogOfWar._scan = nil
+            FogOfWar.scheduleCheck()
+        end
+    end, 0.3)
+
+    FogOfWar.scheduleCheck()
+end
+if EventSub and EventSub.Register then
+    EventSub.Register('onObjectSpawned', fow_onSpawned)
 end
 
 -- Lightweight ship-movement poller. Scripted moves (dial/template) don't
@@ -750,6 +1057,28 @@ FogOfWar.activityPoll = function()
     end
     for g in pairs(shipCache) do
         if not seen[g] then shipCache[g] = nil; dirty = true end
+    end
+
+    -- Also poll positions of managed tokens (tokens currently hidden by fog).
+    -- If any moved, re-run. This catches "token dragged to new ship" cases.
+    FogOfWar._tokenPosCache = FogOfWar._tokenPosCache or {}
+    local tpc = FogOfWar._tokenPosCache
+    local mg = FogOfWar._managedTokens or {}
+    local tseen = {}
+    for guid in pairs(mg) do
+        local obj = getObjectFromGUID(guid)
+        if obj then
+            tseen[guid] = true
+            local cur = obj.getPosition()
+            local prev = tpc[guid]
+            if not prev or not _pos_unchanged(prev, cur) then
+                tpc[guid] = _copyPos(cur)
+                dirty = true
+            end
+        end
+    end
+    for g in pairs(tpc) do
+        if not tseen[g] then tpc[g] = nil; dirty = true end
     end
 
     local tintCache = FogOfWar._tintPollCache
@@ -792,8 +1121,11 @@ FogOfWar.startActivityPoller()
 
 FogOfWar.toggle = function()
     FogOfWar.enabled = not FogOfWar.enabled
-    for _, ship in pairs(getObjectsWithTag('Ship')) do
-        ship.setInvisibleTo({})
+    -- Only unhide on toggle-OFF. Toggle-ON runs fog_check_impl synchronously below.
+    if not FogOfWar.enabled then
+        for _, ship in pairs(getObjectsWithTag('Ship')) do
+            ship.setInvisibleTo({})
+        end
     end
     -- Wipe caches on every toggle so state is clean.
     FogOfWar._distCache = {}
@@ -804,10 +1136,13 @@ FogOfWar.toggle = function()
     FogOfWar._shipPosCache = {}
     if FogOfWar.enabled then
         FogOfWar.debug = true
+        FogOfWar._allyDbg = true
+        FogOfWar._strutDumpRemaining = 10
         FogOfWar._lastRunTime = 0
         FogOfWar._forceNext = true
         FogOfWar.startActivityPoller()
-        FogOfWar.scheduleCheck()
+        -- Run fog check IMMEDIATELY (synchronous) before any ship is visible
+        fow_run_now()
     end
     printToAll("Fog of War [" .. FogOfWar.BUILD .. "]: " .. (FogOfWar.enabled and "ON" or "OFF"), {1, 0.4, 0})
 end
