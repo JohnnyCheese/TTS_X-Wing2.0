@@ -11,7 +11,7 @@ from pathlib import Path
 
 SAVE = Path.home() / "Library" / "Tabletop Simulator" / "Saves" / "TS_Save_19.json"
 BACKUP = SAVE.with_suffix(".json.placard_bak")
-IMAGE = "https://files.catbox.moe/86ty70.png"
+IMAGE = "https://files.catbox.moe/nlobe4.png"
 MARKER = "FogPlacardAuto"
 
 # Image is 2816x1536 (aspect ~1.833). Natural rectangular tile in TTS has a
