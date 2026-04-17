@@ -848,6 +848,39 @@ local function fog_check_impl()
         printToAll("[Fog] P2: " .. phase2Count .. " hidden (R3-team, " .. #player_colors .. " colors)", {0.6,0.8,1})
     end
 
+    -- Ensure every assigned dial is visible to its owner (and hidden from enemies).
+    -- Dials are Cards and are skipped by the R3 sweep above; this pass applies
+    -- a team-based hide list derived from the dial's assigned player.
+    if DialManagerModule and type(DialManagerModule.assignedDials) == "table" then
+        for dialGuid, entry in pairs(DialManagerModule.assignedDials) do
+            if entry and entry.dial and entry.player then
+                local ownerColor = entry.player
+                local hide_dial = {}
+                for _, pc in ipairs(player_colors) do
+                    if not fow_areAllies(ownerColor, pc) then
+                        table.insert(hide_dial, pc)
+                    end
+                end
+                -- Apply vision partner: if a hidden color's partner is the owner
+                -- (or an ally), show the dial to them too.
+                if FogOfWar.visionPartner then
+                    local keep = {}
+                    for _, c in ipairs(hide_dial) do
+                        local partner = FogOfWar.visionPartner[c]
+                        if partner and fow_areAllies(partner, ownerColor) then
+                            -- partner sees owner's stuff; don't hide from c
+                        else
+                            table.insert(keep, c)
+                        end
+                    end
+                    hide_dial = keep
+                end
+                pcall(function() entry.dial.setInvisibleTo(hide_dial) end)
+                new_managed[dialGuid] = true
+            end
+        end
+    end
+
     -- Clear hiding on objects that were managed last tick but aren't this tick
     local prev = FogOfWar._managedTokens or {}
     for guid, _ in pairs(prev) do
