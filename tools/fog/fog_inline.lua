@@ -578,12 +578,25 @@ local function fog_check_impl()
     local claimedObjectives = fow_collectClaims()
     local gasClouds        = scan.gasClouds
 
-    -- Precompute per-ship gas concealment
+    -- Precompute per-ship large-base status (large+huge ignore LOS/gas concealment)
+    local largeBaseMap = {}
+    for _, s in pairs(all_ships) do
+        local big = false
+        pcall(function()
+            local sz = s.getTable("Data").Size
+            if sz == "large" or sz == "huge" then big = true end
+        end)
+        largeBaseMap[s.getGUID()] = big
+    end
+
+    -- Precompute per-ship gas concealment (large bases never concealed)
     local gasConcealedMap = {}
     for _, s in pairs(all_ships) do
         local concealed = false
-        for _, c in ipairs(gasClouds) do
-            if cached_dist(s, c) < FogOfWar.claimRangeMm then concealed = true; break end
+        if not largeBaseMap[s.getGUID()] then
+            for _, c in ipairs(gasClouds) do
+                if cached_dist(s, c) < FogOfWar.claimRangeMm then concealed = true; break end
+            end
         end
         gasConcealedMap[s.getGUID()] = concealed
     end
@@ -635,7 +648,8 @@ local function fog_check_impl()
                                     local fo = friendly.getVar('owningPlayer')
                                     if fo and fow_areAllies(fo, pc) then
                                         if cached_dist(ship, friendly) < spotMm then
-                                            if cached_los(friendly, ship) == 'clean' then
+                                            -- Large base ships are seen through any obstacle
+                                            if largeBaseMap[shipGuid] or cached_los(friendly, ship) == 'clean' then
                                                 visible = true
                                                 break
                                             end
