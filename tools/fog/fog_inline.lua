@@ -854,6 +854,19 @@ local function fog_check_impl()
     if DialManagerModule and type(DialManagerModule.assignedDials) == "table" then
         for dialGuid, entry in pairs(DialManagerModule.assignedDials) do
             if entry and entry.dial and entry.player then
+                -- Only apply dial hiding when the dial is on the playmat.
+                -- Dials in a player's hand / side area are private to that player
+                -- already; our hide pass would just make them invisible to the owner too
+                -- if the dial sits off-mat (TTS hand zones).
+                local okP, dpos = pcall(function() return entry.dial.getPosition() end)
+                if not okP or not dpos
+                   or dpos.x < FogOfWar.playAreaMinX or dpos.x > FogOfWar.playAreaMaxX
+                   or dpos.z < FogOfWar.playAreaMinZ or dpos.z > FogOfWar.playAreaMaxZ then
+                    -- Off the playmat: clear any previous fog hide and skip
+                    pcall(function() entry.dial.setInvisibleTo({}) end)
+                    -- Ensure we don't re-apply stale hide list next tick
+                    new_managed[dialGuid] = nil
+                else
                 local ownerColor = entry.player
                 local hide_dial = {}
                 for _, pc in ipairs(player_colors) do
@@ -877,6 +890,7 @@ local function fog_check_impl()
                 end
                 pcall(function() entry.dial.setInvisibleTo(hide_dial) end)
                 new_managed[dialGuid] = true
+                end
             end
         end
     end
