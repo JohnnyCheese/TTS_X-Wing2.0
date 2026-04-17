@@ -731,7 +731,14 @@ local function fog_check_impl()
             if ship.UI then
                 pcall(function()
                     if #hide_from > 0 then
-                        ship.UI.setAttribute('Plate', 'visibility', owner)
+                        -- Plate visibility = all seat colors except the hide_from list
+                        local hideSet = {}
+                        for _, c in ipairs(hide_from) do hideSet[c] = true end
+                        local allowed = {}
+                        for _, pc in ipairs(player_colors) do
+                            if not hideSet[pc] then table.insert(allowed, pc) end
+                        end
+                        ship.UI.setAttribute('Plate', 'visibility', table.concat(allowed, "|"))
                     else
                         ship.UI.setAttribute('Plate', 'visibility', '')
                     end
