@@ -1127,8 +1127,10 @@ function idSpawner(idTable)
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s3:tr3:te3'
         elseif v == 205 then               -- Sol Sixxa special drops
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':te1:be1:br1:tr1'
-        elseif v == 1068 or v == 1075 then -- Partin gift upgrade special drop
+        elseif v == 1068 then              -- Parting Gift upgrade special drop
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r:br1r:bl1r'
+        elseif v == 1075 then              -- Adon Fox BoE (Parting Gift + sideways)
+            fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r:br1r:bl1r:be1:br1:ss1:ps1'
         elseif v == 161 then               -- Constable Zuvio
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r'
         elseif v == 565 then               -- Bombardment Drone
@@ -1137,8 +1139,10 @@ function idSpawner(idTable)
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':be3:br3:s3:s3r'
         elseif v == 10022 then
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':be1:br1:s2:be2:br2'
-        elseif v == 1048 then 
+        elseif v == 1048 then
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s3r:be3r:br3r'
+        elseif v == 1074 or v == 1076 then -- BoE B-Wings sideways drops
+            fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':ss1:ps1'
         end
 
         if Ship == 'tiesabomber' then -- TIE Bomber special drops
