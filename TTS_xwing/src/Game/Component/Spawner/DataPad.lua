@@ -487,9 +487,7 @@ function loadPoints(ruleset)
         upgrades = {},
         ruleset = ruleset
     }
-    if ruleset ~= "X2PO" then
-        loadVersion(ruleset)
-    end
+    loadVersion(ruleset)
 end
 
 function loadVersion(ruleset)
@@ -544,27 +542,38 @@ function loadVersionRevision(ruleset, version_revision)
                     print("Failed to " .. file .. " points data for " .. ruleset .. " points version")
                 elseif request.is_done then
                     if file == "upgrades" then
-                        loadUpgrades(json.parse(request.text))
+                        loadUpgrades(ruleset, json.parse(request.text))
                     else
-                        loadPilots(json.parse(request.text))
+                        loadPilots(ruleset, json.parse(request.text))
                     end
                 end
             end)
     end
 end
 
-function loadUpgrades(upgrades)
+function normalizePointsValue(cost)
+    if type(cost) == "table" then
+        return tonumber(cost.value)
+    end
+    return tonumber(cost)
+end
+
+function loadUpgrades(ruleset, upgrades)
     for xws, upgrade in pairs(upgrades) do
-        if upgrade.cost ~= nil then
+        local cost = normalizePointsValue(upgrade.cost)
+        if cost ~= nil then
+            upgrade.cost = cost
             VERSION_DATA.upgrades[xws] = upgrade
         end
     end
 end
 
-function loadPilots(ships)
+function loadPilots(ruleset, ships)
     for ship_xws, ship in pairs(ships) do
         for pilot_xws, pilot in pairs(ship) do
-            if pilot.cost ~= nil then
+            local cost = normalizePointsValue(pilot.cost)
+            if cost ~= nil then
+                pilot.cost = cost
                 VERSION_DATA.pilots[pilot_xws] = pilot
             end
         end
@@ -1176,8 +1185,9 @@ function idSpawner(idTable)
             fList.Upgrades[k][key].name = name
             local cost = 50
             local xws_data = VERSION_DATA.upgrades[masterUpgradesDB[value].XWS]
-            if xws_data and xws_data.cost and tonumber(VERSION_DATA.upgrades[masterUpgradesDB[value].XWS].cost) then
-                cost = VERSION_DATA.upgrades[masterUpgradesDB[value].XWS].cost
+            local resolved_cost = xws_data and normalizePointsValue(xws_data.cost)
+            if resolved_cost ~= nil then
+                cost = resolved_cost
             end
             fList.Pilots[k].list = fList.Pilots[k].list .. '   ' .. name .. ' (' .. tostring(cost) .. ')\n'
             loadout = loadout + cost
@@ -1314,13 +1324,15 @@ function idSpawner(idTable)
             end
             fList.Pilots[k].bombD = bombD
         end
-        local loadout_string = ''
-        if VERSION_DATA.pilots[masterPilotDB[v].XWS] then
-            loadout_string = '\nLoadout: ' ..
+        local list_summary = ''
+        if Format == "2.0-legacy" then
+            cost = cost + loadout
+        elseif VERSION_DATA.pilots[masterPilotDB[v].XWS] then
+            list_summary = '\nLoadout: ' ..
                 tostring(loadout) .. '/' .. tostring(VERSION_DATA.pilots[masterPilotDB[v].XWS].loadout)
         end
         fList.Pilots[k].list = fList.Pilots[k].list ..
-            loadout_string ..
+            list_summary ..
             '\nShip Points: ' ..
             cost ..
             ' (' ..
@@ -2199,8 +2211,8 @@ function selectSlotGeneric(slotIndex)
     for id, up in pairs(masterUpgradesDB) do
         if up.slot == slotId then
             local up_cost = up.cost or 50
-            if VERSION_DATA.upgrades[up.XWS] and VERSION_DATA.upgrades[up.XWS].cost then
-                up_cost = tonumber(VERSION_DATA.upgrades[up.XWS].cost) or up_cost
+            if VERSION_DATA.upgrades[up.XWS] then
+                up_cost = normalizePointsValue(VERSION_DATA.upgrades[up.XWS].cost) or up_cost
             end
             local validUp = true
             if up_cost > loadout_remaining then
