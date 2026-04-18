@@ -20,6 +20,8 @@ runningCounts = {}
 indicators = {}
 dice_roll_scores = {}
 round = 0
+point_mode = { Left = "ship", Right = "ship" }
+scoring_mode = "split"  -- "classic" or "split"
 even_distribution = false
 after_dials_mode = true
 dice_roll_mode = true
@@ -47,8 +49,21 @@ function onLoad(save_state)
                     self.UI.setAttribute("Register" .. player.side, "active", "false")
                     self.UI.setAttribute(player.side .. "PointPanel", "color", color)
                     self.UI.setAttribute(player.side .. "PointPanel", "active", "true")
+                    self.UI.setAttribute(player.side .. "ControlsInner", "active", "true")
                     self.UI.setAttribute(player.side .. "PointText", "text", tostring(player.points))
+                    -- Backfill split scoring fields for older saves
+                    if not player.ship_points then player.ship_points = 0 end
+                    if not player.scenario_points then player.scenario_points = 0 end
+                    if not player.round_ship_points then player.round_ship_points = {} end
+                    if not player.round_scenario_points then player.round_scenario_points = {} end
+                    updateScoreDisplay(player.side)
                 end
+            end
+            if loadState.point_mode then
+                point_mode = loadState.point_mode
+            end
+            if loadState.scoring_mode then
+                scoring_mode = loadState.scoring_mode
             end
 
 
@@ -67,6 +82,7 @@ function onLoad(save_state)
     setContextMenu()
     self.tooltip = false
     Wait.time(updateTime, 0.2, -1)
+    Wait.frames(applyScoringModeUI, 2)
 end
 
 function onSave()
@@ -80,6 +96,8 @@ function onSave()
     sState.even_distribution = even_distribution
     sState.after_dials_mode = after_dials_mode
     sState.dice_roll_mode = dice_roll_mode
+    sState.point_mode = point_mode
+    sState.scoring_mode = scoring_mode
     sState.timer_state = {
         length = timerStats.length,
         random = timerStats.random,
@@ -249,11 +267,12 @@ function updateTime()
 end
 
 guiIdToSide = {
-  RegisterLeft="Left", RegisterRight="Right",
+  RegisterLeft="Left", RegisterRight="Right", LeftModeShipBtn="Left", LeftModeObjBtn="Left", RightModeShipBtn="Right", RightModeObjBtn="Right",
   LeftPointPlus="Left", LeftPointMinus="Left",
   RightPointPlus="Right", RightPointMinus="Right",
   LeftPointPlus2="Left", LeftPointPlus4="Left",
   RightPointPlus2="Right", RightPointPlus4="Right",
+  LeftModeToggle="Left", RightModeToggle="Right",
 }
 
 
@@ -269,11 +288,19 @@ function registerPlayerFromGui(player, option, id)
             return
         end
         printToAll(player.steam_name .. " registered with the game console", { 1, 0.4, 0 })
-        players[player.color] = { color = player.color, set = false, side = side, points = 0, round_points = {} }
+        players[player.color] = {
+            color = player.color, set = false, side = side,
+            points = 0, ship_points = 0, scenario_points = 0,
+            round_points = {}, round_ship_points = {}, round_scenario_points = {}
+        }
         sided_players[side] = players[player.color]
+        point_mode[side] = "ship"
         self.UI.setAttribute(id, "active", "false")
         self.UI.setAttribute(side .. "PointPanel", "color", player.color)
         self.UI.setAttribute(side .. "PointPanel", "active", "true")
+        self.UI.setAttribute(side .. "ControlsInner", "active", "true")
+        updateModeToggleUI(side)
+        applyScoringModeUI()
         for _, player in pairs(players) do
             if player.side and player.side ~= side then
                 start()
@@ -301,27 +328,170 @@ function addPoint(player, option, id)
     amt = tonumber(plus) or 1
   end
 
-  -- Update total points (no negatives)
-  local newTotal = math.max(0, (sided_players[side].points or 0) + amt)
-  sided_players[side].points = newTotal
+  local p = sided_players[side]
 
-  -- Update per-round points (no negatives)
-  local rp = (sided_players[side].round_points[round] or 0) + amt
-  if rp < 0 then rp = 0 end
-  sided_players[side].round_points[round] = rp
+  if scoring_mode == "split" then
+    local mode = point_mode[side]
+    if mode == "ship" then
+      p.ship_points = math.max(0, (p.ship_points or 0) + amt)
+      local rp = (p.round_ship_points[round] or 0) + amt
+      p.round_ship_points[round] = math.max(0, rp)
+    else
+      p.scenario_points = math.max(0, (p.scenario_points or 0) + amt)
+      local rp = (p.round_scenario_points[round] or 0) + amt
+      p.round_scenario_points[round] = math.max(0, rp)
+    end
+    -- Recalculate combined totals
+    p.points = (p.ship_points or 0) + (p.scenario_points or 0)
+    p.round_points[round] = (p.round_ship_points[round] or 0) + (p.round_scenario_points[round] or 0)
+  else
+    -- Classic mode: single combined total
+    p.points = math.max(0, (p.points or 0) + amt)
+    local rp = (p.round_points[round] or 0) + amt
+    p.round_points[round] = math.max(0, rp)
+  end
 
-  self.UI.setAttribute(side .. "PointText", "text", tostring(newTotal))
+  updateScoreDisplay(side)
   updateRoundPoints(round, side)
+end
+
+function setPointModeShip(player, option, id)
+  self.AssetBundle.playTriggerEffect(0)
+  local side = guiIdToSide[id]
+  if not side then return end
+  point_mode[side] = "ship"
+  updateModeToggleUI(side)
+end
+
+function setPointModeObj(player, option, id)
+  self.AssetBundle.playTriggerEffect(0)
+  local side = guiIdToSide[id]
+  if not side then return end
+  point_mode[side] = "scenario"
+  updateModeToggleUI(side)
+end
+
+function togglePointMode(player, option, id)
+  self.AssetBundle.playTriggerEffect(0)
+  local side = guiIdToSide[id]
+  if not side then return end
+
+  if point_mode[side] == "ship" then
+    point_mode[side] = "scenario"
+  else
+    point_mode[side] = "ship"
+  end
+  updateModeToggleUI(side)
+end
+
+function updateModeToggleUI(side)
+  local mode = point_mode[side]
+  local activeColor = "#ccccccff"
+  local activeText = "#2aa855ff"
+  local inactiveColor = "#333333ff"
+  local inactiveText = "#000000ff"
+  local disabledGrey = "#444444ff"
+  if scoring_mode == "classic" then
+    self.UI.setAttribute(side .. "ModeShipBtn", "color", disabledGrey)
+    self.UI.setAttribute(side .. "ModeObjBtn", "color", disabledGrey)
+    self.UI.setAttribute(side .. "ModeShipBtn", "textColor", inactiveText)
+    self.UI.setAttribute(side .. "ModeObjBtn", "textColor", inactiveText)
+    self.UI.setAttribute(side .. "ModeShipBtn", "interactable", "false")
+    self.UI.setAttribute(side .. "ModeObjBtn", "interactable", "false")
+  else
+    self.UI.setAttribute(side .. "ModeShipBtn", "interactable", "true")
+    self.UI.setAttribute(side .. "ModeObjBtn", "interactable", "true")
+    if mode == "ship" then
+      self.UI.setAttribute(side .. "ModeShipBtn", "color", activeColor)
+      self.UI.setAttribute(side .. "ModeShipBtn", "textColor", activeText)
+      self.UI.setAttribute(side .. "ModeObjBtn", "color", inactiveColor)
+      self.UI.setAttribute(side .. "ModeObjBtn", "textColor", inactiveText)
+    else
+      self.UI.setAttribute(side .. "ModeShipBtn", "color", inactiveColor)
+      self.UI.setAttribute(side .. "ModeShipBtn", "textColor", inactiveText)
+      self.UI.setAttribute(side .. "ModeObjBtn", "color", activeColor)
+      self.UI.setAttribute(side .. "ModeObjBtn", "textColor", activeText)
+    end
+  end
+end
+
+function updateScoreDisplay(side)
+  local p = sided_players[side]
+  if not p then return end
+  self.UI.setAttribute(side .. "PointText", "text", tostring(p.points))
+  self.UI.setAttribute(side .. "ShipPointsText", "text", "S:" .. tostring(p.ship_points or 0))
+  self.UI.setAttribute(side .. "ScenPointsText", "text", "O:" .. tostring(p.scenario_points or 0))
+end
+
+function toggleScoringMode(player, option, id)
+  self.AssetBundle.playTriggerEffect(0)
+  if scoring_mode == "classic" then
+    scoring_mode = "split"
+  else
+    scoring_mode = "classic"
+  end
+  applyScoringModeUI()
+  recreateIndicators()
+  printToAll("Scoring mode: " .. scoring_mode, {1, 0.4, 0})
+end
+
+function setScoringModeClassic(player, option, id)
+  if scoring_mode == "classic" then return end
+  self.AssetBundle.playTriggerEffect(0)
+  scoring_mode = "classic"
+  applyScoringModeUI()
+  recreateIndicators()
+  printToAll("Scoring mode: classic", {1, 0.4, 0})
+end
+
+function setScoringModeSplit(player, option, id)
+  if scoring_mode == "split" then return end
+  self.AssetBundle.playTriggerEffect(0)
+  scoring_mode = "split"
+  applyScoringModeUI()
+  recreateIndicators()
+  printToAll("Scoring mode: split", {1, 0.4, 0})
+end
+
+function applyScoringModeUI()
+  local split = (scoring_mode == "split")
+  for _, side in ipairs({"Left", "Right"}) do
+    self.UI.setAttribute(side .. "ShipPointsText", "active", tostring(split))
+    self.UI.setAttribute(side .. "ScenPointsText", "active", tostring(split))
+    if sided_players[side] then
+      updateScoreDisplay(side)
+      updateModeToggleUI(side)
+    end
+  end
+  -- Two-button toggle: selected is bright, unselected is dark
+  local activeBtn = "#ccccccff"
+  local inactiveBtn = "#333333ff"
+  if split then
+    self.UI.setAttribute("ScoringModeClassicBtn", "color", inactiveBtn)
+    self.UI.setAttribute("ScoringModeSplitBtn", "color", activeBtn)
+  else
+    self.UI.setAttribute("ScoringModeClassicBtn", "color", activeBtn)
+    self.UI.setAttribute("ScoringModeSplitBtn", "color", inactiveBtn)
+  end
 end
 
 
 function updateRoundPoints(round, side)
-    if sided_players[side].round_points == 0 then
+    local p = sided_players[side]
+    if not p or not p.round_points[round] or p.round_points[round] == 0 then
         indicators[round].UI.setAttribute(side .. "PointsPanel", "active", "false")
     else
         indicators[round].UI.setAttribute(side .. "PointsPanel", "active", "true")
-        indicators[round].UI.setAttribute(side .. "PointsPanel", "color", sided_players[side].color)
-        indicators[round].UI.setAttribute(side .. "PointsText", "text", tostring(sided_players[side].round_points[round]))
+        indicators[round].UI.setAttribute(side .. "PointsPanel", "color", p.color)
+        local text
+        if scoring_mode == "split" then
+            local ship = p.round_ship_points[round] or 0
+            local scen = p.round_scenario_points[round] or 0
+            text = "S:" .. tostring(ship) .. " O:" .. tostring(scen)
+        else
+            text = tostring(p.round_points[round])
+        end
+        indicators[round].UI.setAttribute(side .. "PointsText", "text", text)
     end
 end
 
@@ -353,6 +523,7 @@ function setContextMenu()
         end
     end
     self.addContextMenuItem("Reset", reset, false)
+    self.addContextMenuItem("Toggle Fog of War", function() Global.call("API_ToggleFogOfWar") end, false)
 end
 
 function setFairness(enabled)
@@ -393,8 +564,10 @@ function reset()
     self.UI.setAttribute("StartedClockPanel", "active", false)
     self.UI.setAttribute("RegisterLeft", "active", true)
     self.UI.setAttribute("LeftPointPanel", "active", false)
+    self.UI.setAttribute("LeftControlsInner", "active", false)
     self.UI.setAttribute("RegisterRight", "active", true)
     self.UI.setAttribute("RightPointPanel", "active", false)
+    self.UI.setAttribute("RightControlsInner", "active", false)
     self.UI.setAttribute("LengthButton", "text", tostring(timerStats.length) .. " Min")
     self.UI.setAttribute("HiddenButton", "text", "Visible")
     self.UI.setAttribute("RandomButton", "text", "Fixed")
@@ -405,9 +578,11 @@ function reset()
     players = {}
     sided_players = {}
     required_dice_roll_players = {}
+    point_mode = { Left = "ship", Right = "ship" }
     max_rounds = 13
     recreateIndicators()
     setContextMenu()
+    applyScoringModeUI()
 end
 
 function start()
@@ -434,7 +609,11 @@ function registerPlayer(new_player)
         return
     end
     printToAll(new_player .. " player registered with the game console", { 1, 0.4, 0 })
-    players[new_player] = { color = new_player, set = false, side = nil, points = 0, round_points = {} }
+    players[new_player] = {
+        color = new_player, set = false, side = nil,
+        points = 0, ship_points = 0, scenario_points = 0,
+        round_points = {}, round_ship_points = {}, round_scenario_points = {}
+    }
 end
 
 function deleteIndicators()
@@ -485,34 +664,49 @@ function recreateIndicators()
 
         local leftActive = "false"
         local rightActive = "false"
-        local leftPoints = 0
-        local rightPoints = 0
+        local leftPoints = "0"
+        local rightPoints = "0"
         local leftColor = "White"
         local rightColor = "White"
         if table.size(sided_players) > 1 then
             leftColor = sided_players["Left"].color
             rightColor = sided_players["Right"].color
-            if sided_players["Left"].round_points[i] and sided_players["Left"].round_points[i] ~= 0 then
+            local lp = sided_players["Left"]
+            local rp = sided_players["Right"]
+            if lp.round_points[i] and lp.round_points[i] ~= 0 then
                 leftActive = "true"
-                leftPoints = sided_players["Left"].round_points[i]
+                if scoring_mode == "split" then
+                    leftPoints = "S:" .. tostring(lp.round_ship_points[i] or 0) .. " O:" .. tostring(lp.round_scenario_points[i] or 0)
+                else
+                    leftPoints = tostring(lp.round_points[i])
+                end
             end
-            if sided_players["Right"].round_points[i] and sided_players["Right"].round_points[i] ~= 0 then
+            if rp.round_points[i] and rp.round_points[i] ~= 0 then
                 rightActive = "true"
-                rightPoints = sided_players["Right"].round_points[i]
+                if scoring_mode == "split" then
+                    rightPoints = "S:" .. tostring(rp.round_ship_points[i] or 0) .. " O:" .. tostring(rp.round_scenario_points[i] or 0)
+                else
+                    rightPoints = tostring(rp.round_points[i])
+                end
             end
         end
 
+        local panelWidth = (scoring_mode == "split") and "80" or "50"
+        local panelFontSize = (scoring_mode == "split") and "14" or "22"
+        -- Split mode has y=20 (dialed in); classic stays at y=32
+        local leftPos = (scoring_mode == "split") and "82 20 -5" or "82 32 -5"
+        local rightPos = (scoring_mode == "split") and "-82 -20 -5" or "-82 -32 -5"
         indicator.UI.setXml('<Panel id="LeftPointsPanel" color="' ..
             leftColor ..
-            '" rotation="180 180 90" width="50" height="31" position="82 32 -5" active="' ..
+            '" rotation="180 180 90" width="' .. panelWidth .. '" height="31" position="' .. leftPos .. '" active="' ..
             leftActive ..
-            '"><Text id="LeftPointsText" color="#111111" fontSize="22" fontStyle="Bold">' ..
+            '"><Text id="LeftPointsText" resizeTextForBestFit="true" resizeTextMinSize="10" resizeTextMaxSize="' .. panelFontSize .. '" color="#111111" fontSize="' .. panelFontSize .. '" fontStyle="Bold">' ..
             tostring(leftPoints) ..
             '</Text></Panel><Panel id="RightPointsPanel" color="' ..
             rightColor ..
-            '" rotation="180 180 90" width="50" height="31" position="-82 -32 -5" active="' ..
+            '" rotation="180 180 90" width="' .. panelWidth .. '" height="31" position="' .. rightPos .. '" active="' ..
             rightActive ..
-            '"><Text id="RightPointsText" color="#111111" fontSize="22" fontStyle="Bold">' ..
+            '"><Text id="RightPointsText" resizeTextForBestFit="true" resizeTextMinSize="10" resizeTextMaxSize="' .. panelFontSize .. '" color="#111111" fontSize="' .. panelFontSize .. '" fontStyle="Bold">' ..
             tostring(rightPoints) ..
             '</Text></Panel><Text id="IdLabel" resizeTextForBestFit="true" resizeTextMinSize="30" resizeTextMaxSize="70" color="#111111" rotation="180 180 90" position="0 0 -5" height="100" fontSize="50" fontStyle="Bold">' ..
             tostring(i - 1) .. '</Text>')
@@ -646,12 +840,17 @@ function goBack()
         printToAll("The result for round " .. tostring(round - 1) .. " is canceled", { 1, 0.4, 0 })
 
         if table.size(sided_players) > 1 then
-            sided_players["Left"].round_points[round - 1] = (sided_players["Left"].round_points[round - 1] or 0) +
-                (sided_players["Left"].round_points[round] or 0)
-            sided_players["Left"].round_points[round] = 0
-            sided_players["Right"].round_points[round - 1] = (sided_players["Right"].round_points[round - 1] or 0) +
-                (sided_players["Right"].round_points[round] or 0)
-            sided_players["Right"].round_points[round] = 0
+            for _, s in ipairs({"Left", "Right"}) do
+                local p = sided_players[s]
+                p.round_points[round - 1] = (p.round_points[round - 1] or 0) + (p.round_points[round] or 0)
+                p.round_points[round] = 0
+                if scoring_mode == "split" then
+                    p.round_ship_points[round - 1] = (p.round_ship_points[round - 1] or 0) + (p.round_ship_points[round] or 0)
+                    p.round_ship_points[round] = 0
+                    p.round_scenario_points[round - 1] = (p.round_scenario_points[round - 1] or 0) + (p.round_scenario_points[round] or 0)
+                    p.round_scenario_points[round] = 0
+                end
+            end
         end
 
         round = round - 1
