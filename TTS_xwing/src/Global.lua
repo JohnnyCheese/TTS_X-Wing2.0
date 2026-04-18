@@ -3853,16 +3853,6 @@ TokenModule.onObjectDropped = function(player_color, object)
         return
     end
 
-    -- Check if a charge/shield token was dropped on an objective
-    local tokenType = object.getVar('__XW_TokenType')
-    if tokenType == 'Charge' or tokenType == 'Shield' then
-        local nearestObj = FindNearestObjective(object, 50)
-        if nearestObj ~= nil then
-            TokenModule.AssignTokenToObjective(object, nearestObj)
-            return
-        end
-    end
-
     local nearest = FindNearestShip(object, 100)
     TokenModule.AssignToken(object, nearest)
 end
@@ -7454,67 +7444,55 @@ function IsInFrontOfShip(object, ship)
     return dotProduct > 0.01 -- Adjust the threshold for precision if needed
 end
 
--- Find nearest objective marker within max_distance (in mm)
-function FindNearestObjective(object, max_distance)
-    local min_dist = Dim.Convert_mm_igu(max_distance or 50)
-    local objPos = object.getPosition():setAt('y', 0)
-    local nearest = nil
-    for _, obj in pairs(getObjects()) do
-        if obj.hasTag('Objective') then
-            local oPos = obj.getPosition():copy():setAt('y', 0)
-            local dist = oPos:distance(objPos)
-            if dist < min_dist then
-                nearest = obj
-                min_dist = dist
-            end
-        end
-    end
-    return nearest
-end
+-- GUID of the infinite Charge token bag.
+CHARGE_BAG_GUID = '224816'
 
--- Assign a charge/shield token to an objective: snap to center, lock, add click-to-spend button
-TokenModule.AssignTokenToObjective = function(token, objective)
+-- Map of charge-token GUID -> objective-marker GUID. Populated when a charge
+-- is enabled on an objective; read by the onObjectDropped handler below to
+-- snap the token back if the player moves it (so the token is flippable but
+-- effectively pinned to its objective).
+ObjectiveChargeTokens = ObjectiveChargeTokens or {}
+
+-- Spawn a charge token on an objective marker (context-menu opt-in).
+function ObjectiveSpawnCharge(params)
+    local objective = params.objective
+    if objective == nil then return nil end
+
+    local chargeBag = getObjectFromGUID(CHARGE_BAG_GUID)
+    if chargeBag == nil then return nil end
+
     local objPos = objective.getPosition()
     local objRot = objective.getRotation()
-    local destPos = { objPos[1], objPos[2] + 0.3, objPos[3] }
-    token.setPositionSmooth(destPos, false, true)
-    token.setRotationSmooth({ 0, objRot[2], 0 }, false, true)
-    Wait.time(function()
-        token.lock()
-        token.clearButtons()
-        token.createButton({
-            click_function = 'ObjectiveChargeToggle',
-            function_owner = Global,
-            label = '',
-            position = { 0, 0.2, 0 },
-            width = 600,
-            height = 600,
-            font_size = 1,
-            color = { 1, 1, 1, 0 },
-            tooltip = 'Click to spend/recover'
-        })
-    end, 0.5)
-    TokenModule.tokenAssignments[token.getGUID()] = objective
-    token.setDescription("Assigned to objective")
-    token.setVar("charge_owner", "Objective")
-    TokenModule.objectiveTokens = TokenModule.objectiveTokens or {}
-    TokenModule.objectiveTokens[token.getGUID()] = { token = token, objective = objective, spent = false }
+    local token = chargeBag.takeObject({
+        position = { objPos.x, objPos.y + 0.3, objPos.z },
+        rotation = { 0, objRot.y, 0 },
+        smooth = false
+    })
+
+    ObjectiveChargeTokens[token.getGUID()] = objective.getGUID()
+    return token.getGUID()
 end
 
-function ObjectiveChargeToggle(obj, player_color)
-    if TokenModule.objectiveTokens == nil then return end
-    local entry = TokenModule.objectiveTokens[obj.getGUID()]
-    if entry then
-        entry.spent = not entry.spent
-        if entry.spent then
-            obj.setColorTint({ 0.3, 0.3, 0.3 })
-            printToAll(Player[player_color].steam_name .. " spent an objective charge", { 1, 1, 0 })
-        else
-            obj.setColorTint({ 1, 1, 1 })
-            printToAll(Player[player_color].steam_name .. " recovered an objective charge", { 1, 1, 0 })
-        end
-    end
+-- Re-register on save/load so the snap-back map survives reloads.
+function ObjectiveRegisterCharge(params)
+    ObjectiveChargeTokens[params.tokenGuid] = params.objectiveGuid
 end
+
+function ObjectiveUnregisterCharge(params)
+    ObjectiveChargeTokens[params.tokenGuid] = nil
+end
+
+-- If the player drops a charge that belongs to an objective, snap it back.
+TokenModule.onObjectiveChargeDropped = function(player_color, object)
+    local objectiveGuid = ObjectiveChargeTokens[object.getGUID()]
+    if objectiveGuid == nil then return end
+    local objective = getObjectFromGUID(objectiveGuid)
+    if objective == nil then return end
+    local objPos = objective.getPosition()
+    object.setPositionSmooth({ objPos.x, objPos.y + 0.3, objPos.z }, false, true)
+end
+
+EventSub.Register('onObjectDropped', TokenModule.onObjectiveChargeDropped)
 
 function FindNearestShip(object, max_distance, filter_function)
     filter_function = filter_function or function(obj, ship) return true end

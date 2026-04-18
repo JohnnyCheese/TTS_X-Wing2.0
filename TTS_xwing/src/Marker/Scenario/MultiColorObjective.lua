@@ -7,6 +7,8 @@ waitDuration = 0.1
 
 boardLength = nil
 
+chargeTokenGuid = nil
+
 function claim(player)
     local color = Color.fromString(player)
     color[4] = 0.6
@@ -23,12 +25,17 @@ function onLoad(save_state)
     local state = JSON.decode(save_state)
     if state then
         lineDrawing = state.linedrawing or true
+        chargeTokenGuid = state.chargeTokenGuid
+    end
+    if chargeTokenGuid then
+        Global.call("ObjectiveRegisterCharge",
+            { tokenGuid = chargeTokenGuid, objectiveGuid = self.getGUID() })
     end
     SetupContextMenu()
 end
 
 function onSave()
-    return JSON.encode({ linedrawing = lineDrawing })
+    return JSON.encode({ linedrawing = lineDrawing, chargeTokenGuid = chargeTokenGuid })
 end
 
 function SetupContextMenu()
@@ -50,6 +57,29 @@ function SetupContextMenu()
             SetupContextMenu()
         end, false)
     end
+    if chargeTokenGuid and getObjectFromGUID(chargeTokenGuid) then
+        self.addContextMenuItem("Remove Charge", removeCharge, false)
+    else
+        self.addContextMenuItem("Enable Charge", enableCharge, false)
+    end
+end
+
+function enableCharge()
+    if chargeTokenGuid and getObjectFromGUID(chargeTokenGuid) then return end
+    chargeTokenGuid = Global.call("ObjectiveSpawnCharge", { objective = self })
+    SetupContextMenu()
+end
+
+function removeCharge()
+    if chargeTokenGuid then
+        Global.call("ObjectiveUnregisterCharge", { tokenGuid = chargeTokenGuid })
+        local token = getObjectFromGUID(chargeTokenGuid)
+        if token then
+            destroyObject(token)
+        end
+    end
+    chargeTokenGuid = nil
+    SetupContextMenu()
 end
 
 scale = 1 / self.getScale().x
