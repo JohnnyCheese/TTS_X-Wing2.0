@@ -4342,7 +4342,10 @@ TokenModule.ClearPosition = function(pos, dist, ignoreShip)
     local clearDist = dist + Dim.Convert_mm_igu(20)
     local posTokenInfo = TokenModule.GetNearTokensInfo(pos, clearDist)
     for k, tokenInfo in pairs(posTokenInfo) do
-        if tokenInfo.token.getButtons() == nil then
+        -- Leave objective charges alone; they're pinned to their objective.
+        if ObjectiveChargeTokens[tokenInfo.token.getGUID()] ~= nil then
+            -- skip
+        elseif tokenInfo.token.getButtons() == nil then
             if tokenInfo.owner ~= nil and tokenInfo.owner ~= ignoreShip then
                 local visPos = TokenModule.VisiblePosition(tokenInfo.token.getName(), tokenInfo.owner)
                 if Vect.Distance(visPos, pos) <= clearDist then
