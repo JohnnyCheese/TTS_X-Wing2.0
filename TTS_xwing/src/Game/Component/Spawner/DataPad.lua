@@ -555,7 +555,7 @@ end
 
 function loadUpgrades(upgrades)
     for xws, upgrade in pairs(upgrades) do
-        if upgrade.cost then
+        if upgrade.cost ~= nil then
             VERSION_DATA.upgrades[xws] = upgrade
         end
     end
@@ -564,7 +564,7 @@ end
 function loadPilots(ships)
     for ship_xws, ship in pairs(ships) do
         for pilot_xws, pilot in pairs(ship) do
-            if pilot.cost then
+            if pilot.cost ~= nil then
                 VERSION_DATA.pilots[pilot_xws] = pilot
             end
         end
@@ -1063,7 +1063,7 @@ function idSpawner(idTable)
         fList.Pilots[k] = {}
         fList.Pilots[k].id = v
         fList.Pilots[k].name = pilotName
-        local cost = 20
+        local cost = 50
         if VERSION_DATA.pilots[masterPilotDB[v].XWS] then
             cost = VERSION_DATA.pilots[masterPilotDB[v].XWS].cost
         end
@@ -1174,7 +1174,7 @@ function idSpawner(idTable)
             local upSlot = masterUpgradesDB[value].slot
             fList.Upgrades[k][key] = {}
             fList.Upgrades[k][key].name = name
-            local cost = 0
+            local cost = 50
             local xws_data = VERSION_DATA.upgrades[masterUpgradesDB[value].XWS]
             if xws_data and xws_data.cost and tonumber(VERSION_DATA.upgrades[masterUpgradesDB[value].XWS].cost) then
                 cost = VERSION_DATA.upgrades[masterUpgradesDB[value].XWS].cost
@@ -1624,7 +1624,7 @@ function selectModelGeneric(arg)
                 end
             end
             if validOption and v.Faction == partList.Faction then
-                local cost = v.cost or 0
+                local cost = v.cost or 50
                 local loadout = 0
                 if VERSION_DATA.pilots[v.XWS] then
                     cost = VERSION_DATA.pilots[v.XWS].cost
@@ -1981,7 +1981,7 @@ function selectShipGeneric(arg)
     local pilot = masterPilotDB[partList.Pilots[shipIndex].id]
     local free_slots = {}
     local loadout_value = 0
-    local cost = 0
+    local cost = 50
     -- print("Slots for " .. pilot.name)
     free_slots['Command'] = 1
     if VERSION_DATA.pilots[pilot.XWS] then
@@ -2198,7 +2198,7 @@ function selectSlotGeneric(slotIndex)
     self.createButton({ click_function = 'selectUpNone', label = 'None (0)', function_owner = self, position = { -0.45, 0.45, -0.2 }, width = 1500, height = 220, font_size = 120, scale = { 0.25, 0.25, 0.25 } })
     for id, up in pairs(masterUpgradesDB) do
         if up.slot == slotId then
-            local up_cost = up.cost or 0
+            local up_cost = up.cost or 50
             if VERSION_DATA.upgrades[up.XWS] and VERSION_DATA.upgrades[up.XWS].cost then
                 up_cost = tonumber(VERSION_DATA.upgrades[up.XWS].cost) or up_cost
             end
