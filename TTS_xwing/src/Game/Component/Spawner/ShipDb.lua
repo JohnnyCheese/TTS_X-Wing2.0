@@ -1986,6 +1986,7 @@ masterShipDB['tierbheavy'] = {
     },
     Fac = { [2] = true },
     arcs = { turret = { main = { name = 'primary', type = { 'front', 'back' } } } },
+    cannon_follow_turret = 'main',
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/tierbheavy/tieheavy.obj',
     moveSet = { 'rtl1', 'wbl1', 'bs1', 'wbr1', 'rtr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'rtl3t', 'rtl3', 'wbl3', 'ws3', 'wbr3', 'rtr3', 'rtr3t', 'ws4' },

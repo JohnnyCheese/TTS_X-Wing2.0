@@ -1220,6 +1220,10 @@ function idSpawner(idTable)
             if masterUpgradesDB[value].arcs then
                 if masterUpgradesDB[value].arcs.fixed then
                     fList.Pilots[k].Data.arcs.fixed = fList.Pilots[k].Data.arcs.fixed or { name = 'primary', type = {} }
+                    if masterUpgradesDB[value].arcs.fixed.ion ~= nil then
+                        fList.Pilots[k].Data.arcs.fixed.ion = fList.Pilots[k].Data.arcs.fixed.ion or
+                            masterUpgradesDB[value].arcs.fixed.ion
+                    end
                     for new_arc_idx, new_arc in pairs(masterUpgradesDB[value].arcs.fixed.type) do
                         local found = false
                         for arc_idx, arc in pairs(fList.Pilots[k].Data.arcs.fixed.type) do
@@ -1250,6 +1254,14 @@ function idSpawner(idTable)
                         -- Add the turret to the available mounting point
                         fList.Pilots[k].Data.arcs.turret[mounting_point] = masterUpgradesDB[value].arcs.turret
                     end
+                end
+                if masterUpgradesDB[value].arcs.weapon then
+                    fList.Pilots[k].Data.arcs.weapon = fList.Pilots[k].Data.arcs.weapon or {}
+                    local weapon_arc = table.deepcopy(masterUpgradesDB[value].arcs.weapon)
+                    if weapon_arc.follow_turret == nil and masterShipDB[Ship].cannon_follow_turret then
+                        weapon_arc.follow_turret = masterShipDB[Ship].cannon_follow_turret
+                    end
+                    table.insert(fList.Pilots[k].Data.arcs.weapon, weapon_arc)
                 end
             end
             if masterUpgradesDB[value].Force ~= nil then
