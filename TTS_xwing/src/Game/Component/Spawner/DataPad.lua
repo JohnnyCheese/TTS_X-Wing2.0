@@ -825,6 +825,12 @@ end
 
 -- Single Spawner: Receives a string, then goes across all card names and spawns that card with its appropriate components.
 function singleSpawner()
+    if VERSION_DATA.ruleset == "none" then
+        masterPilotDB = xwaMasterPilotDB
+        masterUpgradesDB = xwaMasterUpgradesDB
+        loadPoints("XWA")
+    end
+
     self.clearInputs()
     self.clearButtons()
     self.createButton({ click_function = 'DummyFFG', function_owner = self, label = 'Type a card name', position = { 0, 0.45, -0.37 }, width = 1800, height = 280, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
@@ -1343,6 +1349,8 @@ function idSpawner(idTable)
             list_summary = '\nLoadout: ' ..
                 tostring(loadout) .. '/' .. tostring(VERSION_DATA.pilots[masterPilotDB[v].XWS].loadout)
         end
+        fList.Pilots[k].Data.points = cost
+        fList.Pilots[k].Data.half_points = math.floor(cost / 2)
         fList.Pilots[k].list = fList.Pilots[k].list ..
             list_summary ..
             '\nShip Points: ' ..
