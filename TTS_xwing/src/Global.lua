@@ -6192,21 +6192,99 @@ local function schedulePointsUIRefreshes()
   end
 end
 
-local function setPointsState(new_state)
+local function getPlayerLabel(playerColor)
+  if playerColor ~= nil and Player[playerColor] ~= nil then
+    return Player[playerColor].steam_name or playerColor
+  end
+  return "A player"
+end
+
+local function getShipLabel()
+  resolveLinkedObjects()
+  if ship ~= nil then
+    local data = ship.getTable("Data") or {}
+    return data.name or ship.getName() or self.getName()
+  end
+  return self.getName()
+end
+
+local function getConcededPointsForState(state)
+  local points, half_points = getShipPointData()
+  if points == nil then
+    return 0
+  end
+
+  if state == STATE_HEALTHY then
+    return 0
+  elseif state == STATE_DAMAGED then
+    return half_points
+  elseif state == STATE_DESTROYED then
+    return points
+  end
+
+  return 0
+end
+
+local function announcePointsStateChange(from_state, new_state, playerColor)
+  local state_labels = {
+    healthy = "Healthy",
+    damaged = "Damaged",
+    destroyed = "Destroyed",
+  }
+  local actor = getPlayerLabel(playerColor)
+  local ship_name = getShipLabel()
+  local from_label = state_labels[from_state] or from_state
+  local state_label = state_labels[new_state] or new_state
+  local delta = getConcededPointsForState(new_state) - getConcededPointsForState(from_state)
+  local delta_label = string.format("%+d", delta)
+  printToAll(actor .. " changed " .. ship_name .. " points from " .. from_label .. " to " .. state_label ..
+    " (" .. delta_label .. " points)", color(1, 1, 1, 1))
+end
+
+local function setPointsState(new_state, playerColor)
+  if current_state == new_state then
+    return
+  end
+
+  local previous_state = current_state
   current_state = new_state
   refreshPointsUI()
+  announcePointsStateChange(previous_state, new_state, playerColor)
 end
 
-function MarkHealthy()
-  setPointsState(STATE_HEALTHY)
+function HandlePointsNumberTyped(params)
+  local number = params
+  local playerColor = nil
+  if type(params) == "table" then
+    number = params.number
+    playerColor = params.playerColor
+  end
+
+  log({
+    card = self.getName(),
+    playerColor = playerColor,
+    number = number,
+  }, "Pilot card HandlePointsNumberTyped")
+
+  if number == 1 then
+    MarkHealthy(playerColor)
+  elseif number == 2 then
+    MarkDamaged(playerColor)
+  elseif number == 3 then
+    MarkDestroyed(playerColor)
+  end
 end
 
-function MarkDamaged()
-  setPointsState(STATE_DAMAGED)
+function MarkHealthy(playerColor)
+  setPointsState(STATE_HEALTHY, playerColor)
 end
 
-function MarkDestroyed()
-  setPointsState(STATE_DESTROYED)
+function MarkDamaged(playerColor)
+  setPointsState(STATE_DAMAGED, playerColor)
+end
+
+function MarkDestroyed(playerColor)
+  setPointsState(STATE_DESTROYED, playerColor)
 end
 
 function ShowPointsTracker()
@@ -6298,6 +6376,7 @@ function onLoad(savestate)
   local tracker_config = self.getTable("PointsTrackerConfig") or {}
   points_tracker_landscape = tracker_config.landscape == true
   resolveLinkedObjects()
+  self.max_typed_number = 3
   loaded = true
   self.addContextMenuItem("Points: Healthy", MarkHealthy, false)
   self.addContextMenuItem("Points: Damaged", MarkDamaged, false)
@@ -6324,13 +6403,12 @@ function onLoad(savestate)
 end
 
 function onNumberTyped(playerColor, number)
-  if number == 1 then
-    MarkHealthy()
-  elseif number == 2 then
-    MarkDamaged()
-  elseif number == 3 then
-    MarkDestroyed()
-  end
+  log({
+    card = self.getName(),
+    playerColor = playerColor,
+    number = number,
+  }, "Pilot card onNumberTyped")
+  HandlePointsNumberTyped({ number = number, playerColor = playerColor })
 end
 
 function onSave()
