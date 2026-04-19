@@ -6969,7 +6969,7 @@ masterPilotDB[964] = {
     init = 4,
     texture = 'gold',
     actSet = { 'F', 'TL', 'BR', 'B' },
-    arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'ion cannon turret', range = 2, type = { 'singleturret' } } } },
+    arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'ion cannon turret', range = 2, type = { 'singleturret' }, ion = true } } },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Ion Cannon Turret',     charge = 0 },
@@ -7195,7 +7195,7 @@ masterPilotDB[976] = {
     texture = 'gold',
     actSet = { 'F', 'TL', 'BR', 'B' },
     addSqdAction = { 'TL' },
-    arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'ion cannon turret', range = 2, type = { 'singleturret' } } } },
+    arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'ion cannon turret', range = 2, type = { 'singleturret' }, ion = true } } },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Ion Cannon Turret',     charge = 0 },
@@ -8151,7 +8151,7 @@ masterPilotDB[1035] = {
     texture = 'gold',
     actSet = { 'F', 'TL', 'BR', 'B' },
     addSqdAction = { 'TL' },
-    arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'ion cannon turret', range = 2, type = { 'singleturret' } } } },
+    arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'ion cannon turret', range = 2, type = { 'singleturret' }, ion = true } } },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Ion Cannon Turret', charge = 0 },
@@ -8169,7 +8169,7 @@ masterPilotDB[1036] = {
     init = 4,
     texture = 'horton',
     actSet = { 'F', 'TL', 'BR' },
-    arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'ion cannon turret', range = 2, type = { 'singleturret' } } } },
+    arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'ion cannon turret', range = 2, type = { 'singleturret' }, ion = true } } },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Ion Cannon Turret', charge = 0 },

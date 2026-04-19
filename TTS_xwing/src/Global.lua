@@ -348,6 +348,8 @@ XW_cmd.Process = function(obj, cmd)
         DialModule.RotateArc(obj, cmd)
     elseif type == 'turretarc' then
         DialModule.TurretArc(obj, cmd)
+    elseif type == 'weaponarc' then
+        DialModule.WeaponArc(obj, cmd)
     elseif type == 'fixedarc' then
         DialModule.FixedArc(obj, cmd)
     elseif type == 'renameShip' then
@@ -4547,12 +4549,13 @@ DialModule.TurretArcCmd = {
 DialModule.TurretArc = function(ship, cmd)
     local arc = ship.call("GetTurretArc", DialModule.TurretArcCmd[cmd])
     local range = ship.call("GetTurretRange", DialModule.TurretArcCmd[cmd])
+    local turret_data = ship.getTable('Data').arcs.turret[DialModule.TurretArcCmd[cmd].mount]
     if arc then
         command = string.upper(arcToCmnd[arc])
         if range then
             command = command .. tostring(range)
         end
-        RulerModule.ToggleRuler(ship, command)
+        RulerModule.ToggleRuler(ship, command, false, turret_data and turret_data.ion)
     end
 end
 
@@ -4563,7 +4566,25 @@ DialModule.FixedArc = function(ship, cmd)
         if arc.range then
             command = command .. tostring(arc.range)
         end
-        RulerModule.ToggleRuler(ship, command)
+        RulerModule.ToggleRuler(ship, command, false, arc.ion)
+    end
+end
+
+DialModule.WeaponArc = function(ship, cmd)
+    local idx = tonumber(cmd:match("weapon(%d+)"))
+    if idx == nil then
+        return
+    end
+
+    local weapon = ship.call("GetWeaponData", { idx = idx })
+    local arc = ship.call("GetWeaponArc", { idx = idx })
+    local range = ship.call("GetWeaponRange", { idx = idx })
+    if weapon and arc then
+        command = string.upper(arcToCmnd[arc])
+        if range then
+            command = command .. tostring(range)
+        end
+        RulerModule.ToggleRuler(ship, command, false, weapon.ion)
     end
 end
 
@@ -5122,6 +5143,15 @@ RulerModule.typeToArc.LEFTRIGHT = 'leftright'
 RulerModule.typeToArc.BULL = 'bullseye'
 
 RulerModule.CachedRulers = {}
+RulerModule.defaultTint = color(1.0, 0.0, 0.0, 0.5)
+RulerModule.ionTint = color(0.2, 0.45, 1.0, 0.5)
+
+RulerModule.GetVisualizerTint = function(isIon)
+    if isIon then
+        return RulerModule.ionTint
+    end
+    return RulerModule.defaultTint
+end
 
 
 -- Get ruler spawn tables for some ship and some ruler code
@@ -5203,7 +5233,7 @@ end
 
 -- Spawn a ruler for a ship
 -- Returns new ruler reference
-RulerModule.SpawnRuler = function(ship, rulerType, beQuiet, include_friendly_ships, range)
+RulerModule.SpawnRuler = function(ship, rulerType, beQuiet, include_friendly_ships, range, isIon)
     local rulerData = RulerModule.CreateCustomTables(ship, rulerType, range)
     if rulerData.custom.mesh == nil then
         return nil
@@ -5220,11 +5250,12 @@ RulerModule.SpawnRuler = function(ship, rulerType, beQuiet, include_friendly_shi
         RulerModule.CachedRulers[rulerId].addTag('TempLayoutElement')
         RulerModule.CachedRulers[rulerId].interactable = false
         RulerModule.CachedRulers[rulerId].setLock(true)
-        RulerModule.CachedRulers[rulerId].setColorTint(color(1.0, 0.0, 0.0, 0.5))
+        RulerModule.CachedRulers[rulerId].setColorTint(RulerModule.defaultTint)
     end
     local newRuler = RulerModule.CachedRulers[rulerId].clone()
     newRuler.setPosition(ship.getPosition())
     newRuler.setRotation(rulerData.params.rotation)
+    newRuler.setColorTint(RulerModule.GetVisualizerTint(isIon))
 
     local arclines = {}
     if RulerModule.typeToArc[rulerType] then
@@ -5265,7 +5296,7 @@ end
 -- Toggle ruler for a ship
 -- If a ruler of queried type exists, just delete it and return nil
 -- If any other ruler exists, delete it (and spawn queried one), return new ruler ref
-RulerModule.ToggleRuler = function(ship, rulerType, beQuiet)
+RulerModule.ToggleRuler = function(ship, rulerType, beQuiet, isIon)
     local destType = RulerModule.DeleteRuler(ship)
 
     if destType ~= rulerType then
@@ -5293,7 +5324,7 @@ RulerModule.ToggleRuler = function(ship, rulerType, beQuiet)
         end
         ship.setLock(true)
         Wait.frames(function()
-            RulerModule.SpawnRuler(ship, spawnType, beQuiet, includeFriendlies, range)
+            RulerModule.SpawnRuler(ship, spawnType, beQuiet, includeFriendlies, range, isIon)
         end, 1)
     end
 end
@@ -5895,6 +5926,7 @@ end
 
 XW_cmd.AddCommand('rot[lr]?[12]?', 'rotate')
 XW_cmd.AddCommand('turret[12]?', 'turretarc')
+XW_cmd.AddCommand('weapon%d+', 'weaponarc')
 XW_cmd.AddCommand('a', 'fixedarc')
 
 mountRotations = {

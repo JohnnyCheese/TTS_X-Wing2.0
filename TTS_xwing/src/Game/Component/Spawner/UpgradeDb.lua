@@ -178,24 +178,53 @@ masterUpgradesDB['heavylasercannon'] = {
     name = 'Heavy Laser Cannon',
     XWS = 'heavylasercannon',
     slot = 3,
+    arcs = {
+        weapon = {
+            name = 'Heavy Laser Cannon',
+            range = 3,
+            type = { 'front' }
+        }
+    }
 }
 
 masterUpgradesDB['ioncannon'] = {
     name = 'Ion Cannon',
     XWS = 'ioncannon',
     slot = 3,
+    arcs = {
+        weapon = {
+            name = 'Ion Cannon',
+            range = 3,
+            type = { 'front' },
+            ion = true
+        }
+    }
 }
 
 masterUpgradesDB['jammingbeam'] = {
     name = 'Jamming Beam',
     XWS = 'jammingbeam',
     slot = 3,
+    arcs = {
+        weapon = {
+            name = 'Jamming Beam',
+            range = 3,
+            type = { 'front' }
+        }
+    }
 }
 
 masterUpgradesDB['tractorbeam'] = {
     name = 'Tractor Beam',
     XWS = 'tractorbeam',
     slot = 3,
+    arcs = {
+        weapon = {
+            name = 'Tractor Beam',
+            range = 3,
+            type = { 'front' }
+        }
+    }
 }
 
 
@@ -210,7 +239,7 @@ masterUpgradesDB['ioncannonturret'] = {
     name = 'Ion Cannon Turret',
     XWS = 'ioncannonturret',
     slot = 4,
-    arcs = { turret = { name = 'ion cannon turret', range = 2, type = { 'singleturret' } } }
+    arcs = { turret = { name = 'ion cannon turret', range = 2, type = { 'singleturret' }, ion = true } }
 }
 
 masterUpgradesDB['advprotontorpedoes'] = {
@@ -1766,6 +1795,13 @@ masterUpgradesDB['autoblasters'] = {
     name = "Autoblasters",
     XWS = 'autoblasters',
     slot = 3,
+    arcs = {
+        weapon = {
+            name = 'Autoblasters',
+            range = 1,
+            type = { 'front' }
+        }
+    }
 }
 
 masterUpgradesDB['plasmatorpedoes'] = {
@@ -2171,7 +2207,14 @@ masterUpgradesDB['syncedlasercannons'] = {
     slot = 3,
     remSlot = { 3 },
     cardB = cardBackDB['3b'],
-    restriction = {}
+    restriction = {},
+    arcs = {
+        weapon = {
+            name = 'Synced Laser Cannons',
+            range = 3,
+            type = { 'front' }
+        }
+    }
 }
 
 masterUpgradesDB['aaylasecura'] = {
@@ -2803,7 +2846,7 @@ masterUpgradesDB['ioncannonbattery'] = {
     cardB =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/EpicCards/IonCannonBattery(Offline).png',
     restriction = {},
-    arcs = { turret = { name = 'ion cannon', range = 4, type = { 'singleturret' } } }
+    arcs = { turret = { name = 'ion cannon', range = 4, type = { 'singleturret' }, ion = true } }
 }
 
 masterUpgradesDB['targetingbattery'] = {
@@ -4340,7 +4383,14 @@ masterUpgradesDB['protoncannons'] = {
     slot = 3,
     remSlot = { 3 },
     cardB = cardBackDB['3b'],
-    Charge = 2
+    Charge = 2,
+    arcs = {
+        weapon = {
+            name = 'Proton Cannons',
+            range = 2,
+            type = { 'front' }
+        }
+    }
 }
 
 masterUpgradesDB['combatboardingtube'] = {
