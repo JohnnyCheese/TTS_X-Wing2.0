@@ -1255,7 +1255,7 @@ function idSpawner(idTable)
                         fList.Pilots[k].Data.arcs.turret[mounting_point] = masterUpgradesDB[value].arcs.turret
                     end
                 end
-                if masterUpgradesDB[value].arcs.weapon then
+                if masterUpgradesDB[value].arcs.weapon and not fList.Pilots[k].standardized_loadout then
                     fList.Pilots[k].Data.arcs.weapon = fList.Pilots[k].Data.arcs.weapon or {}
                     local weapon_arc = table.deepcopy(masterUpgradesDB[value].arcs.weapon)
                     if weapon_arc.follow_turret == nil and masterShipDB[Ship].cannon_follow_turret then

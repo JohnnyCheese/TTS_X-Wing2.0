@@ -344,6 +344,7 @@ xwaPilotDb[10018] = {
     init = 4,
     texture = 'green',
     actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    arcs = { fixed = { range = 3, type = { 'front' } }, weapon = { { name = 'Flechette Cannons', range = 3, type = { 'front' } } } },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Flechette Cannons', charge = 0 },
@@ -843,6 +844,7 @@ xwaPilotDb[10044] = {
     init = 3,
     texture = 'standard',
     actSet = { 'F', 'TL', 'BR', 'C'},
+    arcs = { fixed = { range = 3, type = { 'front' } }, weapon = { { name = 'Tractor Beam', range = 3, type = { 'front' } } } },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Persistent Tracker', charge = 3 },

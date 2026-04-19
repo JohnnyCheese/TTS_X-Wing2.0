@@ -8584,6 +8584,7 @@ masterPilotDB[1059] = {
     init = 4,
     texture = 'grey',
     actSet = { 'F', 'E', 'BR', 'TL', 'B' },
+    arcs = { fixed = { range = 3, type = { 'front' } }, weapon = { { name = 'Ion Cannon', range = 3, type = { 'front' }, ion = true } } },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'No Escape',                  charge = 0 },
@@ -8603,6 +8604,7 @@ masterPilotDB[1060] = {
     init = 6,
     texture = 'grey',
     actSet = { 'F', 'E', 'BR', 'TL', 'B' },
+    arcs = { fixed = { range = 3, type = { 'front' } }, weapon = { { name = 'Proton Cannons', range = 2, type = { 'front' } } } },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'No Escape',                  charge = 0 },
@@ -8853,7 +8855,10 @@ masterPilotDB[1073] = {
     Faction = 1,
     limited = 1,
     ship_type = 'rz1awing',
-    arcs = { turret = { main = { name = 'primary', type = { 'front', 'back' } } } },
+    arcs = {
+        turret = { main = { name = 'primary', type = { 'front', 'back' } } },
+        weapon = { { name = 'Precision-Tuned Cannons', range = 3, type = { 'front' } } }
+    },
     init = 2,
     texture = 'arvel',
     actSet = { 'F', 'TL', 'E', 'BR', 'B', 'C' },
@@ -9022,6 +9027,7 @@ masterPilotDB[1081] = {
     init = 4,
     texture = 'standard',
     actSet = { 'F', 'TL' },
+    arcs = { fixed = { range = 3, type = { 'front' } }, weapon = { { name = 'Ion Cannon', range = 3, type = { 'front' }, ion = true } } },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Long-Range Scanners',     charge = 2 },
