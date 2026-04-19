@@ -6001,12 +6001,237 @@ pilotCardScript =
 [[
 dial = nil
 ship = nil
+dial_guid = nil
+ship_guid = nil
+current_state = "healthy"
+points_tracker_visible = true
+points_tracker_landscape = false
+loaded = false
+ui_initialized = false
+ui_face_down = false
+
+local STATE_HEALTHY = "healthy"
+local STATE_DAMAGED = "damaged"
+local STATE_DESTROYED = "destroyed"
+
+local panel_colors = {
+  total = {
+    healthy = "#FFFFFFFF",
+    damaged = "#FFB6C1FF",
+    destroyed = "#FF0000FF",
+  },
+  half = {
+    healthy = "#FFFFFFFF",
+    damaged = "#FF0000FF",
+    destroyed = "#FF0000FF",
+  },
+  remaining = {
+    healthy = "#FFFFFFFF",
+    damaged = "#FFFFFFFF",
+    destroyed = "#FF0000FF",
+  }
+}
+
+local points_tracker_xml = [=[
+<Defaults>
+    <Button class="PointsTile" colors="#FFFFFFFF|#FFFFFFFF|#FFFFFFFF|#FFFFFFFF" color="#FFFFFFFF" outline="#00000055" outlineSize="2 2" textColor="#00000000" fontStyle="Bold" />
+    <Text class="PointsValue" color="#111111FF" fontStyle="Bold" alignment="MiddleCenter" raycastTarget="false" />
+</Defaults>
+
+<Panel id="PointsRoot" width="320" height="190" position="0 250 0" rotation="0 0 180" color="#00000000" allowDragging="false" raycastTarget="false">
+    <Button id="TotalPanel" class="PointsTile" width="154" height="78" offsetXY="0 46" color="#FFFFFFFF" text="0" fontSize="66" textColor="#111111FF" alignment="MiddleCenter" interactable="false" raycastTarget="false" />
+
+    <Panel id="BottomRow" width="260" height="78" offsetXY="0 -38" color="#00000000" raycastTarget="false">
+        <Button id="HalfPanel" class="PointsTile" width="108" height="78" offsetXY="-58 0" color="#FFFFFFFF" interactable="false" raycastTarget="false">
+            <Text id="HalfPoints" class="PointsValue" text="0" width="108" height="78" offsetXY="0 0" fontSize="64" color="#111111FF" alignment="MiddleCenter" raycastTarget="false" />
+        </Button>
+
+        <Button id="RemainingPanel" class="PointsTile" width="108" height="78" offsetXY="58 0" color="#FFFFFFFF" interactable="false" raycastTarget="false">
+            <Text id="RemainingPoints" class="PointsValue" text="0" width="108" height="78" offsetXY="0 0" fontSize="64" color="#111111FF" alignment="MiddleCenter" raycastTarget="false" />
+        </Button>
+    </Panel>
+</Panel>
+]=]
+
+local function getPointsTrackerAspectScale()
+  local aspect_scale = 1
+  if points_tracker_landscape then
+    aspect_scale = 2.1
+  end
+  if aspect_scale < 0.8 then
+    aspect_scale = 0.8
+  elseif aspect_scale > 2.0 then
+    aspect_scale = 2.0
+  end
+  return aspect_scale
+end
+
+local function applyPointsTrackerScale()
+  if not loaded or not ui_initialized then
+    return
+  end
+
+  local aspect_scale = getPointsTrackerAspectScale()
+  pcall(function()
+    self.UI.setAttribute("PointsRoot", "scale", string.format("%.3f 1.000", 1 / aspect_scale))
+  end)
+end
+
+local function updatePointsLayout()
+  if not loaded or not ui_initialized then
+    return
+  end
+
+  local face_down = self.is_face_down == true
+  if ui_face_down == face_down then
+    return
+  end
+
+  ui_face_down = face_down
+  if face_down then
+    self.UI.setAttribute("PointsRoot", "rotation", "0 180 180")
+  else
+    self.UI.setAttribute("PointsRoot", "rotation", "0 0 180")
+  end
+end
+
+local function resolveLinkedObjects()
+  if dial == nil and dial_guid ~= nil then
+    dial = getObjectFromGUID(dial_guid)
+  end
+  if ship == nil and ship_guid ~= nil then
+    ship = getObjectFromGUID(ship_guid)
+  end
+end
+
+local function getShipPointData()
+  resolveLinkedObjects()
+  if ship == nil then
+    log("Pilot card points: no linked ship", self.getName())
+    return nil
+  end
+
+  local data = ship.getTable("Data") or {}
+  local points = data.points or 0
+  local half_points = data.half_points or math.floor(points / 2)
+  local remaining_points = math.max(points - half_points, 0)
+
+  log({
+    card = self.getName(),
+    ship = ship.getName(),
+    ship_guid = ship.getGUID(),
+    data_name = data.name,
+    data_points = data.points,
+    data_half_points = data.half_points,
+    resolved_points = points,
+    resolved_half_points = half_points,
+    resolved_remaining_points = remaining_points,
+  }, "Pilot card points")
+
+  return points, half_points, remaining_points
+end
+
+local function refreshPointsUI()
+  if not loaded or not ui_initialized then
+    return
+  end
+
+  applyPointsTrackerScale()
+  updatePointsLayout()
+  self.UI.setAttribute("PointsRoot", "active", points_tracker_visible and "true" or "false")
+  if not points_tracker_visible then
+    return
+  end
+
+  local points, half_points, remaining_points = getShipPointData()
+  if points == nil then
+    return
+  end
+  self.UI.setAttribute("TotalPanel", "text", tostring(points))
+  self.UI.setAttribute("HalfPoints", "text", tostring(half_points))
+  self.UI.setAttribute("RemainingPoints", "text", tostring(remaining_points))
+  self.UI.setAttribute("TotalPanel", "color", panel_colors.total[current_state] or panel_colors.total[STATE_HEALTHY])
+  self.UI.setAttribute("HalfPanel", "color", panel_colors.half[current_state] or panel_colors.half[STATE_HEALTHY])
+  self.UI.setAttribute("RemainingPanel", "color",
+    panel_colors.remaining[current_state] or panel_colors.remaining[STATE_HEALTHY])
+end
+
+local function refreshPointsUIWhenReady(attempts_left)
+  if attempts_left == nil then
+    attempts_left = 10
+  end
+
+  if not loaded or not ui_initialized then
+    if attempts_left > 0 then
+      Wait.frames(function()
+        refreshPointsUIWhenReady(attempts_left - 1)
+      end, 1)
+    end
+    return
+  end
+
+  resolveLinkedObjects()
+  if ship == nil then
+    if attempts_left > 0 then
+      Wait.frames(function()
+        refreshPointsUIWhenReady(attempts_left - 1)
+      end, 1)
+    end
+    return
+  end
+
+  refreshPointsUI()
+end
+
+local function schedulePointsUIRefreshes()
+  local refresh_frames = { 1, 5, 15, 30 }
+  for _, frame_count in ipairs(refresh_frames) do
+    Wait.frames(function()
+      refreshPointsUIWhenReady()
+    end, frame_count)
+  end
+end
+
+local function setPointsState(new_state)
+  current_state = new_state
+  refreshPointsUI()
+end
+
+function MarkHealthy()
+  setPointsState(STATE_HEALTHY)
+end
+
+function MarkDamaged()
+  setPointsState(STATE_DAMAGED)
+end
+
+function MarkDestroyed()
+  setPointsState(STATE_DESTROYED)
+end
+
+function ShowPointsTracker()
+  points_tracker_visible = true
+  refreshPointsUI()
+end
+
+function HidePointsTracker()
+  points_tracker_visible = false
+  refreshPointsUI()
+end
+
 function addTintObject(params)
     if params[1] == "ship" then
       ship = params[2]
+      ship_guid = ship and ship.getGUID() or nil
+      schedulePointsUIRefreshes()
     elseif params[1] == "dial" then
       dial = params[2]
+      dial_guid = dial and dial.getGUID() or nil
     end
+end
+
+function configurePointsTracker(params)
+  refreshPointsUIWhenReady()
 end
 
 function DisableAttachedColliders()
@@ -6019,7 +6244,9 @@ function DisableAttachedColliders()
   end
 end
 
-function tint_check()
+function pilotCardUpdate()
+    resolveLinkedObjects()
+    updatePointsLayout()
     local tint = self.getColorTint()
     if tint ~= color(1,1,1,1) then
       self.setColorTint(color(1,1,1,1))
@@ -6055,11 +6282,64 @@ function tint_check()
     end
 end
 
-loaded = false
-
 function onLoad(savestate)
+  if savestate ~= nil and savestate ~= "" then
+    local decoded = JSON.decode(savestate)
+    if decoded then
+      current_state = decoded.current_state or STATE_HEALTHY
+      ship_guid = decoded.ship_guid
+      dial_guid = decoded.dial_guid
+      if decoded.points_tracker_visible ~= nil then
+        points_tracker_visible = decoded.points_tracker_visible
+      end
+    end
+  end
+
+  local tracker_config = self.getTable("PointsTrackerConfig") or {}
+  points_tracker_landscape = tracker_config.landscape == true
+  resolveLinkedObjects()
   loaded = true
-  Wait.time(tint_check, 0.5, -1)
+  self.addContextMenuItem("Points: Healthy", MarkHealthy, false)
+  self.addContextMenuItem("Points: Damaged", MarkDamaged, false)
+  self.addContextMenuItem("Points: Destroyed", MarkDestroyed, false)
+  self.addContextMenuItem("Points: Show tracker", ShowPointsTracker, false)
+  self.addContextMenuItem("Points: Hide tracker", HidePointsTracker, false)
+  Wait.frames(function()
+    if self == nil then
+      return
+    end
+    local ok = pcall(function()
+      self.UI.setXml(points_tracker_xml)
+    end)
+    if ok then
+      ui_initialized = true
+      ui_face_down = not (self.is_face_down == true)
+      Wait.frames(function()
+        applyPointsTrackerScale()
+      end, 1)
+      schedulePointsUIRefreshes()
+    end
+  end, 1)
+  Wait.time(pilotCardUpdate, 0.5, -1)
+end
+
+function onNumberTyped(playerColor, number)
+  if number == 1 then
+    MarkHealthy()
+  elseif number == 2 then
+    MarkDamaged()
+  elseif number == 3 then
+    MarkDestroyed()
+  end
+end
+
+function onSave()
+  return JSON.encode({
+    current_state = current_state,
+    ship_guid = ship_guid,
+    dial_guid = dial_guid,
+    points_tracker_visible = points_tracker_visible,
+  })
 end
 
 function isLoadedAndStill()
@@ -6262,6 +6542,9 @@ function newSpawner(listTable)
                     newPil.setName(pilotName)
                     newPil.setDescription(Pilots[shipIndex].list)
                     newPil.setLuaScript(pilotCardScript)
+                    newPil.setTable("PointsTrackerConfig", {
+                        landscape = Pilots[shipIndex].standardized_loadout == true
+                    })
                     newPil.setLock(true)
 
                     -- Spawn Pilot Identifier
@@ -6298,7 +6581,7 @@ function newSpawner(listTable)
                 for k, acc in pairs(listaAcc) do
                     local card = newPil
                     if acc.name == 'Unassigned Dial' then
-                        local dialpos = LocalPos(spawnCard, { 0, 1, 12 })
+                        local dialpos = LocalPos(spawnCard, { 0, 1, 13.2 })
                         local dialrot = rot
                         local dial = tempBagAcc.takeObject(
                             {
@@ -6365,9 +6648,9 @@ function newSpawner(listTable)
                 fixedarc = arcs.fixed.type[1] or "none"
             end
             if size == "huge" then
-                pos = LocalPos(spawnCard, { 0, 0, 12 })
+                pos = LocalPos(spawnCard, { 0, 0, 13.2 })
             else
-                pos = LocalPos(spawnCard, { 0, 0, 9 })
+                pos = LocalPos(spawnCard, { 0, 0, 10.2 })
             end
             rot = spawnCard.getRotation()
             local base_prototype = getObjectFromGUID(CompositeBase_GUID)

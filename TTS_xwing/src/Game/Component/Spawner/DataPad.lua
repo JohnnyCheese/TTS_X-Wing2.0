@@ -1343,6 +1343,8 @@ function idSpawner(idTable)
             list_summary = '\nLoadout: ' ..
                 tostring(loadout) .. '/' .. tostring(VERSION_DATA.pilots[masterPilotDB[v].XWS].loadout)
         end
+        fList.Pilots[k].Data.points = cost
+        fList.Pilots[k].Data.half_points = math.floor(cost / 2)
         fList.Pilots[k].list = fList.Pilots[k].list ..
             list_summary ..
             '\nShip Points: ' ..
