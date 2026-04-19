@@ -6013,6 +6013,7 @@ ui_face_down = false
 local STATE_HEALTHY = "healthy"
 local STATE_DAMAGED = "damaged"
 local STATE_DESTROYED = "destroyed"
+local GAME_CONSOLE_GUID = "c9a2a0"
 
 local panel_colors = {
   total = {
@@ -6305,6 +6306,33 @@ local function announcePointsStateChange(from_state, new_state, playerColor)
     " (" .. delta_label .. " points)", color(1, 1, 1, 1))
 end
 
+local function updateGameConsoleConcededPoints(from_state, new_state, playerColor)
+  local delta = getConcededPointsForState(new_state) - getConcededPointsForState(from_state)
+  if delta == 0 then
+    return
+  end
+
+  local owning_player = getOwningPlayerColor() or playerColor
+  if owning_player == nil then
+    return
+  end
+
+  local game_console = getObjectFromGUID(GAME_CONSOLE_GUID)
+  if game_console == nil then
+    return
+  end
+
+  pcall(function()
+    game_console.call("AddConcededShipPoints", {
+      playerColor = owning_player,
+      delta = delta,
+      ship = getShipLabel(),
+      from_state = from_state,
+      to_state = new_state,
+    })
+  end)
+end
+
 local function setPointsState(new_state, playerColor)
   if current_state == new_state then
     return
@@ -6319,6 +6347,7 @@ local function setPointsState(new_state, playerColor)
   current_state = new_state
   refreshPointsUI()
   rebuildPointsContextMenu()
+  updateGameConsoleConcededPoints(previous_state, new_state, playerColor)
   announcePointsStateChange(previous_state, new_state, playerColor)
 end
 

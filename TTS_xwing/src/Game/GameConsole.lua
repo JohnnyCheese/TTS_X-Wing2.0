@@ -20,7 +20,7 @@ runningCounts = {}
 indicators = {}
 dice_roll_scores = {}
 round = 0
-point_mode = { Left = "ship", Right = "ship" }
+point_mode = { Left = "scenario", Right = "scenario" }
 scoring_mode = "split"  -- "classic" or "split"
 even_distribution = false
 after_dials_mode = true
@@ -275,6 +275,41 @@ guiIdToSide = {
   LeftModeToggle="Left", RightModeToggle="Right",
 }
 
+local function getConsolePlayerName(player)
+    if not player then
+        return "Unknown"
+    end
+    local seated = Player[player.color]
+    if seated and seated.steam_name then
+        return seated.steam_name
+    end
+    return player.color or "Unknown"
+end
+
+local function getScoreCategoryLabel(side)
+    if scoring_mode == "split" then
+        return point_mode[side]
+    end
+    return "score"
+end
+
+local function announceScoreChange(args)
+    if not args or not args.side or args.delta == nil then
+        return
+    end
+    local player = sided_players[args.side]
+    if not player then
+        return
+    end
+
+    local delta = tonumber(args.delta) or 0
+    local delta_label = string.format("%+d", delta)
+    local player_name = getConsolePlayerName(player)
+    local category = args.category or getScoreCategoryLabel(args.side)
+    local reason = args.reason and (" (" .. args.reason .. ")") or ""
+    printToAll(player_name .. " " .. delta_label .. " " .. category .. " points" .. reason, { 1, 0.4, 0 })
+end
+
 
 
 function registerPlayerFromGui(player, option, id)
@@ -294,7 +329,7 @@ function registerPlayerFromGui(player, option, id)
             round_points = {}, round_ship_points = {}, round_scenario_points = {}
         }
         sided_players[side] = players[player.color]
-        point_mode[side] = "ship"
+        point_mode[side] = "scenario"
         self.UI.setAttribute(id, "active", "false")
         self.UI.setAttribute(side .. "PointPanel", "color", player.color)
         self.UI.setAttribute(side .. "PointPanel", "active", "true")
@@ -353,6 +388,12 @@ function addPoint(player, option, id)
 
   updateScoreDisplay(side)
   updateRoundPoints(round, side)
+  announceScoreChange({
+    side = side,
+    delta = amt,
+    category = getScoreCategoryLabel(side),
+    reason = "game console",
+  })
 end
 
 function setPointModeShip(player, option, id)
@@ -421,6 +462,50 @@ function updateScoreDisplay(side)
   self.UI.setAttribute(side .. "PointText", "text", tostring(p.points))
   self.UI.setAttribute(side .. "ShipPointsText", "text", "S:" .. tostring(p.ship_points or 0))
   self.UI.setAttribute(side .. "ScenPointsText", "text", "O:" .. tostring(p.scenario_points or 0))
+end
+
+function AddConcededShipPoints(args)
+  if not args or not args.playerColor or args.delta == nil then
+    return false
+  end
+  if state ~= "active" then
+    return false
+  end
+
+  local conceding_player = players[args.playerColor]
+  if not conceding_player or not conceding_player.side then
+    return false
+  end
+
+  local opponent_side = conceding_player.side == "Left" and "Right" or "Left"
+  local opponent = sided_players[opponent_side]
+  if not opponent then
+    return false
+  end
+
+  local delta = tonumber(args.delta) or 0
+  if delta == 0 then
+    return true
+  end
+
+  opponent.ship_points = math.max(0, (opponent.ship_points or 0) + delta)
+  opponent.points = math.max(0, (opponent.points or 0) + delta)
+
+  if round > 0 then
+    local round_ship = (opponent.round_ship_points[round] or 0) + delta
+    opponent.round_ship_points[round] = math.max(0, round_ship)
+    opponent.round_points[round] = (opponent.round_ship_points[round] or 0) + (opponent.round_scenario_points[round] or 0)
+    updateRoundPoints(round, opponent_side)
+  end
+
+  updateScoreDisplay(opponent_side)
+  announceScoreChange({
+    side = opponent_side,
+    delta = delta,
+    category = "ship",
+    reason = args.ship or "conceded",
+  })
+  return true
 end
 
 function toggleScoringMode(player, option, id)
