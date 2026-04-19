@@ -6192,14 +6192,78 @@ local function schedulePointsUIRefreshes()
   end
 end
 
-local function getPlayerLabel(playerColor)
+local getPlayerLabel
+local getShipLabel
+
+local function getOwningPlayerColor()
+  resolveLinkedObjects()
+  if ship ~= nil then
+    return ship.getVar("owningPlayer")
+  end
+  return nil
+end
+
+local function canModifyPointsState(playerColor)
+  local owning_player = getOwningPlayerColor()
+  if owning_player == nil or owning_player == "" or owning_player == "Black" then
+    return true
+  end
+  return playerColor == owning_player
+end
+
+local function notifyUnauthorizedPointsChange(playerColor)
+  local owning_player = getOwningPlayerColor() or "the controlling player"
+  local actor = getPlayerLabel(playerColor)
+  local ship_name = getShipLabel()
+  local message = actor .. " cannot change " .. ship_name .. " points. Controlled by " .. owning_player .. "."
+  if playerColor ~= nil and Player[playerColor] ~= nil then
+    printToColor(message, playerColor, color(1, 0.2, 0.2, 1))
+  else
+    printToAll(message, color(1, 0.2, 0.2, 1))
+  end
+end
+
+local function rebuildPointsContextMenu()
+  if not loaded then
+    return
+  end
+
+  self.clearContextMenu()
+
+  if points_tracker_visible then
+    if current_state ~= STATE_HEALTHY then
+      self.addContextMenuItem("Set to Healthy", function(playerColor)
+        MarkHealthy(playerColor)
+      end, false)
+    end
+    if current_state ~= STATE_DAMAGED then
+      self.addContextMenuItem("Set to Damaged", function(playerColor)
+        MarkDamaged(playerColor)
+      end, false)
+    end
+    if current_state ~= STATE_DESTROYED then
+      self.addContextMenuItem("Set to Destroyed", function(playerColor)
+        MarkDestroyed(playerColor)
+      end, false)
+    end
+    self.addContextMenuItem("Disable Points", function()
+      HidePointsTracker()
+    end, false)
+  else
+    self.addContextMenuItem("Enable Points", function()
+      ShowPointsTracker()
+    end, false)
+  end
+end
+
+getPlayerLabel = function(playerColor)
   if playerColor ~= nil and Player[playerColor] ~= nil then
     return Player[playerColor].steam_name or playerColor
   end
   return "A player"
 end
 
-local function getShipLabel()
+getShipLabel = function()
   resolveLinkedObjects()
   if ship ~= nil then
     local data = ship.getTable("Data") or {}
@@ -6246,13 +6310,23 @@ local function setPointsState(new_state, playerColor)
     return
   end
 
+  if playerColor ~= nil and not canModifyPointsState(playerColor) then
+    notifyUnauthorizedPointsChange(playerColor)
+    return
+  end
+
   local previous_state = current_state
   current_state = new_state
   refreshPointsUI()
+  rebuildPointsContextMenu()
   announcePointsStateChange(previous_state, new_state, playerColor)
 end
 
 function HandlePointsNumberTyped(params)
+  if not points_tracker_visible then
+    return
+  end
+
   local number = params
   local playerColor = nil
   if type(params) == "table" then
@@ -6290,11 +6364,13 @@ end
 function ShowPointsTracker()
   points_tracker_visible = true
   refreshPointsUI()
+  rebuildPointsContextMenu()
 end
 
 function HidePointsTracker()
   points_tracker_visible = false
   refreshPointsUI()
+  rebuildPointsContextMenu()
 end
 
 function addTintObject(params)
@@ -6378,11 +6454,7 @@ function onLoad(savestate)
   resolveLinkedObjects()
   self.max_typed_number = 3
   loaded = true
-  self.addContextMenuItem("Points: Healthy", MarkHealthy, false)
-  self.addContextMenuItem("Points: Damaged", MarkDamaged, false)
-  self.addContextMenuItem("Points: Destroyed", MarkDestroyed, false)
-  self.addContextMenuItem("Points: Show tracker", ShowPointsTracker, false)
-  self.addContextMenuItem("Points: Hide tracker", HidePointsTracker, false)
+  rebuildPointsContextMenu()
   Wait.frames(function()
     if self == nil then
       return
