@@ -66,28 +66,93 @@ function onDropped()
 end
 
 stat = false
+proxyMode = false
+
+local function updatePanelFacing()
+    if self.is_face_down then
+        self.UI.setAttribute("BtnPanel", "rotation", "180 0 0")
+        self.UI.setAttribute("BtnPanel", "position", "0 0 30")
+        self.UI.setAttribute("ProxyPanel", "rotation", "180 0 0")
+        self.UI.setAttribute("ProxyPanel", "position", "0 0 30")
+    else
+        self.UI.setAttribute("BtnPanel", "rotation", "0 0 180")
+        self.UI.setAttribute("BtnPanel", "position", "0 0 -30")
+        self.UI.setAttribute("ProxyPanel", "rotation", "0 0 180")
+        self.UI.setAttribute("ProxyPanel", "position", "0 0 -30")
+    end
+end
+
+local function showProxyPanel()
+    updatePanelFacing()
+    self.UI.show("ProxyPanel")
+end
+
+local function hideProxyPanel()
+    self.UI.hide("ProxyPanel")
+end
+
+local function clearTractorProxies()
+    if ship ~= nil then
+        Global.call("DeleteShipProxies", { ship_guid = ship.getGUID() })
+    end
+    proxyMode = false
+    hideProxyPanel()
+end
+
+function onProxyMoveSelected(args)
+    proxyMode = false
+    hideProxyPanel()
+end
+
+local function startTractorProxySelection(direction)
+    if ship == nil then
+        return
+    end
+
+    local move_codes = nil
+    if direction == "left" then
+        move_codes = {
+            front = "rl1",
+            center = "rl2",
+            back = "rl3",
+        }
+    elseif direction == "right" then
+        move_codes = {
+            front = "rr1",
+            center = "rr2",
+            back = "rr3",
+        }
+    else
+        return
+    end
+
+    clearTractorProxies()
+    proxyMode = true
+    Global.call("SpawnProxyOptions", {
+        ship_guid = ship.getGUID(),
+        move_codes = move_codes,
+        callback_guid = self.getGUID(),
+        callback_function = "onProxyMoveSelected",
+    })
+    hideBtn()
+    showProxyPanel()
+end
 
 function onContextOpen(player_color)
     showBtn()
 end
 
 function showBtn()
-    if stat == false and ship ~= nil then
-        if self.is_face_down then
-            self.UI.setAttribute("btnPanel", "rotation", "180 0 0")
-            self.UI.setAttribute("btnPanel", "position", "0 0 30")
-        else
-            self.UI.setAttribute("btnPanel", "rotation", "0 0 180")
-            self.UI.setAttribute("btnPanel", "position", "0 0 -30")
-        end
-        self.UI.show("btnPanel")
+    if stat == false and ship ~= nil and proxyMode == false then
+        updatePanelFacing()
+        self.UI.show("BtnPanel")
         stat = true
     end
 end
 
 function hideBtn()
     if stat == true then
-        self.UI.hide("btnPanel")
+        self.UI.hide("BtnPanel")
         stat = false
     end
 end
@@ -96,28 +161,12 @@ function BstS()
     ship.setDescription('s1b')
 end
 
-function BlF()
-    ship.setDescription('rl1')
-end
-
 function Bl()
-    ship.setDescription('rl2')
-end
-
-function BlB()
-    ship.setDescription('rl3')
-end
-
-function BrF()
-    ship.setDescription('rr1')
+    startTractorProxySelection("left")
 end
 
 function Br()
-    ship.setDescription('rr2')
-end
-
-function BrB()
-    ship.setDescription('rr3')
+    startTractorProxySelection("right")
 end
 
 function RotL()
@@ -129,5 +178,10 @@ function RotR()
 end
 
 function Delete()
+    clearTractorProxies()
     self.destruct()
+end
+
+function Cancel()
+    clearTractorProxies()
 end
