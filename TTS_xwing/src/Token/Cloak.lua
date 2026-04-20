@@ -17,6 +17,60 @@ assignedShip = nil
 -- The current decload direction
 decloakCode = nil
 
+local function clearDecloakProxies()
+    if assignedShip ~= nil then
+        Global.call("DeleteShipProxies", { ship_guid = assignedShip.getGUID() })
+    end
+end
+
+local function startDecloakProxySelection(move_code_prefix)
+    if assignedShip == nil then
+        return false
+    end
+
+    __XW_TokenIdle = false
+    clearDecloakProxies()
+    self.clearButtons()
+    self.createButton({
+        ['function_owner'] = self,
+        ['click_function'] = 'selfDestruct',
+        ['label'] = 'Delete',
+        ['position'] = { 0, 0.25, 2 },
+        ['rotation'] = { 0, 0, 0 },
+        ['width'] = 750,
+        ['height'] = 500,
+        ['font_size'] = 250
+    })
+    self.createButton({
+        ['function_owner'] = self,
+        ['click_function'] = 'spawnDecloakButtons',
+        ['label'] = 'Back',
+        ['position'] = { 0, 0.25, 1 },
+        ['rotation'] = { 0, 0, 0 },
+        ['width'] = 750,
+        ['height'] = 500,
+        ['font_size'] = 250
+    })
+
+    local _, success = Global.call("SpawnProxyOptions", {
+        ship_guid = assignedShip.getGUID(),
+        move_codes = {
+            front = move_code_prefix .. '1',
+            center = move_code_prefix .. '2',
+            back = move_code_prefix .. '3',
+        },
+        callback_guid = self.getGUID(),
+        callback_function = "spawnFinalButtons",
+    })
+
+    if not success then
+        spawnDecloakButtons()
+        return false
+    end
+
+    return true
+end
+
 -- Save self state
 function onSave()
     if assignedShip ~= nil then
@@ -39,6 +93,7 @@ end
 -- Spawn initial decloak/delete buttons
 function spawnFirstButtons()
     __XW_TokenIdle = true
+    clearDecloakProxies()
     self.clearButtons()
     self.createButton({
         ['function_owner'] = self,
@@ -78,6 +133,7 @@ end
 -- Spawn undo/delete/slide buttons (after a move)
 function spawnFinalButtons()
     undoToBackCount = 1
+    clearDecloakProxies()
     self.clearButtons()
     self.createButton({
         ['function_owner'] = self,
@@ -250,6 +306,7 @@ end
 -- Spawn back/delete/moves buttons (regular or Echo)
 function spawnDecloakButtons()
     __XW_TokenIdle = false
+    clearDecloakProxies()
     self.clearButtons()
     if assignedShip.getTable('Data').xws ~= "echo" then
         spawnNormalDecloakOptions()
@@ -281,33 +338,27 @@ end
 
 
 function decloakL()
-    decloakCode = "cl"
-    spawnDecloakAllignmentSet()
+    startDecloakProxySelection("cl")
 end
 
 function decloakR()
-    decloakCode = "cr"
-    spawnDecloakAllignmentSet()
+    startDecloakProxySelection("cr")
 end
 
 function decloakLF()
-    decloakCode = "elf"
-    spawnDecloakAllignmentSet()
+    startDecloakProxySelection("elf")
 end
 
 function decloakLB()
-    decloakCode = "elb"
-    spawnDecloakAllignmentSet()
+    startDecloakProxySelection("elb")
 end
 
 function decloakRF()
-    decloakCode = "erf"
-    spawnDecloakAllignmentSet()
+    startDecloakProxySelection("erf")
 end
 
 function decloakRB()
-    decloakCode = "erb"
-    spawnDecloakAllignmentSet()
+    startDecloakProxySelection("erb")
 end
 
 
@@ -354,11 +405,13 @@ end
 
 -- Destroy self
 function selfDestruct()
+    clearDecloakProxies()
     self.destruct()
 end
 
 -- Back to first buttons
 function resetToFirst()
+    clearDecloakProxies()
     spawnFirstButtons()
 end
 

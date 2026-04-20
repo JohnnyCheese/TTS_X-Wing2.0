@@ -15,7 +15,7 @@ local ShipProxyInstance = {
 }
 
 function ShipProxyInstance:new()
-    o = {}
+    local o = {}
     setmetatable(o, self)
     self.__index = self
 
@@ -232,12 +232,17 @@ function SpawnProxyOptions(args)
     local ship          = getObjectFromGUID(args.ship_guid)
     local move_codes    = args.move_codes or {}
     local base_position = args.base_position or 'center'
+    local callback_guid = args.callback_guid
+    local callback_function = args.callback_function
 
     local ok = nil
     local finType = nil
     local ship_proxies  = ShipProxyInstance:new()
     for position, move_code in pairs(move_codes) do
-        local proxy, finPos = ShipProxyModule.CreateMoveProxy(move_code, ship)
+        local proxy, finPos = ShipProxyModule.CreateMoveProxy(move_code, ship, {
+            callback_guid = callback_guid,
+            callback_function = callback_function,
+        })
         if finPos.finType == 'move' and finPos.finPart == 'max' then
             ok = true
         else
@@ -260,7 +265,7 @@ function SpawnProxyOptions(args)
     return ship_proxies, true
 end
 
-ShipProxyModule.CreateMoveProxy = function(move_code, ship)
+ShipProxyModule.CreateMoveProxy = function(move_code, ship, proxy_args)
     local info = MoveData.DecodeInfo(move_code, ship)
     local finalPos = MoveModule.GetFinalPosData(move_code, ship)
 
@@ -288,16 +293,30 @@ ShipProxyModule.CreateMoveProxy = function(move_code, ship)
         didCollide = true
     end
 
-    local proxy = ShipProxyModule.spawnProxy(ship, false, finalPos.finPos, didCollide, "finalPos", move_code)
+    local proxy = ShipProxyModule.spawnProxy(ship, false, finalPos.finPos, didCollide, "finalPos", move_code,
+        proxy_args)
     return proxy, finalPos
 end
 
 function SelectFinalPos(args)
     local ship = getObjectFromGUID(args.shipGUID)
     local move_code = args.move_code
+    local proxy = args.proxy
+    local callback_guid = nil
+    local callback_function = nil
+    if proxy then
+        callback_guid = proxy.getVar("callback_guid")
+        callback_function = proxy.getVar("callback_function")
+    end
+
     MoveModule.PerformMove(move_code, ship)
 
     DeleteShipProxies({ ship_guid = args.shipGUID })
+
+    local callback_object = callback_guid and getObjectFromGUID(callback_guid)
+    if callback_object ~= nil and callback_function ~= nil then
+        callback_object.call(callback_function, { ship = ship, move_code = move_code })
+    end
 end
 
 ShipProxyModule.StartFinalPositionSelection = function(ship, positionOffset)
@@ -310,15 +329,22 @@ end
 
 function DeleteShipProxies(args)
     local ship_guid = args.ship_guid
+    local proxies = ShipProxyModule.proxyTable[ship_guid]
 
-    for _ = 1, table.size(ShipProxyModule.proxyTable[ship_guid]) do
-        local proxy = table.remove(ShipProxyModule.proxyTable[ship_guid])
+    if proxies == nil then
+        return
+    end
+
+    for _ = 1, table.size(proxies) do
+        local proxy = table.remove(proxies)
         if proxy.destroy then
             proxy:destroy()
         else
             proxy.destruct()
         end
     end
+
+    ShipProxyModule.proxyTable[ship_guid] = nil
 end
 
 ShipProxyModule.proxyModels = {
@@ -340,7 +366,7 @@ ShipProxyModule.proxyModels = {
     },
 }
 
-ShipProxyModule.spawnProxy = function(ship, hide, finpos, didCollide, script, move_code)
+ShipProxyModule.spawnProxy = function(ship, hide, finpos, didCollide, script, move_code, proxy_args)
     if hide and ShipProxyModule.hiddenShips[ship.getGUID()] ~= nil then
         return
     end
@@ -381,6 +407,10 @@ ShipProxyModule.spawnProxy = function(ship, hide, finpos, didCollide, script, mo
     proxy.setVar("shipGUID", ship.getGUID())
     proxy.setVar("size", size)
     proxy.setVar("move_code", move_code)
+    if proxy_args ~= nil then
+        proxy.setVar("callback_guid", proxy_args.callback_guid)
+        proxy.setVar("callback_function", proxy_args.callback_function)
+    end
 
     if hide then
         ShipProxyModule.hiddenShips[ship.getGUID()] = ship.getPosition()
