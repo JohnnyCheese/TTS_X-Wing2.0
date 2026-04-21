@@ -1,4 +1,4 @@
-current_version = 118      -- mod version (workshop update count)
+current_version = 119      -- mod version (workshop update count)
 workshop_id = '2486128992' -- mod workshop ID
 
 -- To read above numbers, open your mod workshop page

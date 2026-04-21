@@ -6006,6 +6006,10 @@ ship_guid = nil
 current_state = "healthy"
 points_tracker_visible = true
 points_tracker_landscape = false
+cached_ship_name = nil
+cached_ship_points = 0
+cached_ship_half_points = 0
+cached_owning_player = nil
 loaded = false
 ui_initialized = false
 ui_face_down = false
@@ -6040,14 +6044,14 @@ local points_tracker_xml = [=[
 </Defaults>
 
 <Panel id="PointsRoot" width="320" height="190" position="0 250 0" rotation="0 0 180" color="#00000000" allowDragging="false" raycastTarget="false">
-    <Button id="TotalPanel" class="PointsTile" width="154" height="78" offsetXY="0 46" color="#FFFFFFFF" text="0" fontSize="66" textColor="#111111FF" alignment="MiddleCenter" interactable="false" raycastTarget="false" />
+    <Button id="TotalPanel" class="PointsTile" width="154" height="78" offsetXY="0 46" color="#FFFFFFFF" text="0" fontSize="66" textColor="#111111FF" alignment="MiddleCenter" onClick="CyclePointsState" />
 
     <Panel id="BottomRow" width="260" height="78" offsetXY="0 -38" color="#00000000" raycastTarget="false">
-        <Button id="HalfPanel" class="PointsTile" width="108" height="78" offsetXY="-58 0" color="#FFFFFFFF" interactable="false" raycastTarget="false">
+        <Button id="HalfPanel" class="PointsTile" width="108" height="78" offsetXY="-58 0" color="#FFFFFFFF" onClick="CyclePointsState">
             <Text id="HalfPoints" class="PointsValue" text="0" width="108" height="78" offsetXY="0 0" fontSize="64" color="#111111FF" alignment="MiddleCenter" raycastTarget="false" />
         </Button>
 
-        <Button id="RemainingPanel" class="PointsTile" width="108" height="78" offsetXY="58 0" color="#FFFFFFFF" interactable="false" raycastTarget="false">
+        <Button id="RemainingPanel" class="PointsTile" width="108" height="78" offsetXY="58 0" color="#FFFFFFFF" onClick="CyclePointsState">
             <Text id="RemainingPoints" class="PointsValue" text="0" width="108" height="78" offsetXY="0 0" fontSize="64" color="#111111FF" alignment="MiddleCenter" raycastTarget="false" />
         </Button>
     </Panel>
@@ -6105,31 +6109,44 @@ local function resolveLinkedObjects()
   end
 end
 
-local function getShipPointData()
+local function initializeShipTrackerData()
+  if cached_ship_name ~= nil then
+    return true
+  end
+
   resolveLinkedObjects()
   if ship == nil then
-    log("Pilot card points: no linked ship", self.getName())
-    return nil
+    return false
   end
 
   local data = ship.getTable("Data") or {}
   local points = data.points or 0
-  local half_points = data.half_points or math.floor(points / 2)
-  local remaining_points = math.max(points - half_points, 0)
+  cached_ship_name = data.name or ship.getName() or self.getName()
+  cached_ship_points = points
+  cached_ship_half_points = data.half_points or math.floor(points / 2)
+  cached_owning_player = ship.getVar("owningPlayer")
+  return true
+end
 
-  log({
-    card = self.getName(),
-    ship = ship.getName(),
-    ship_guid = ship.getGUID(),
-    data_name = data.name,
-    data_points = data.points,
-    data_half_points = data.half_points,
-    resolved_points = points,
-    resolved_half_points = half_points,
-    resolved_remaining_points = remaining_points,
-  }, "Pilot card points")
+local function getShipPointData()
+  if initializeShipTrackerData() then
+    local remaining_points = math.max((cached_ship_points or 0) - (cached_ship_half_points or 0), 0)
+    log({
+      card = self.getName(),
+      ship_guid = ship_guid,
+      data_name = cached_ship_name,
+      data_points = cached_ship_points,
+      data_half_points = cached_ship_half_points,
+      resolved_points = cached_ship_points,
+      resolved_half_points = cached_ship_half_points,
+      resolved_remaining_points = remaining_points,
+      using_cached_data = true,
+    }, "Pilot card points")
+    return cached_ship_points or 0, cached_ship_half_points or 0, remaining_points
+  end
 
-  return points, half_points, remaining_points
+  log("Pilot card points: no linked ship or cached data", self.getName())
+  return nil
 end
 
 local function refreshPointsUI()
@@ -6171,16 +6188,6 @@ local function refreshPointsUIWhenReady(attempts_left)
     return
   end
 
-  resolveLinkedObjects()
-  if ship == nil then
-    if attempts_left > 0 then
-      Wait.frames(function()
-        refreshPointsUIWhenReady(attempts_left - 1)
-      end, 1)
-    end
-    return
-  end
-
   refreshPointsUI()
 end
 
@@ -6196,12 +6203,27 @@ end
 local getPlayerLabel
 local getShipLabel
 
-local function getOwningPlayerColor()
-  resolveLinkedObjects()
-  if ship ~= nil then
-    return ship.getVar("owningPlayer")
+local function normalizePlayerColor(playerRef)
+  if playerRef == nil then
+    return nil
   end
+  if type(playerRef) == "string" then
+    return playerRef
+  end
+
+  local ok, color_value = pcall(function()
+    return playerRef.color
+  end)
+  if ok then
+    return color_value
+  end
+
   return nil
+end
+
+local function getOwningPlayerColor()
+  initializeShipTrackerData()
+  return cached_owning_player
 end
 
 local function canModifyPointsState(playerColor)
@@ -6218,9 +6240,9 @@ local function notifyUnauthorizedPointsChange(playerColor)
   local ship_name = getShipLabel()
   local message = actor .. " cannot change " .. ship_name .. " points. Controlled by " .. owning_player .. "."
   if playerColor ~= nil and Player[playerColor] ~= nil then
-    printToColor(message, playerColor, color(1, 0.2, 0.2, 1))
+    printToColor(message, playerColor, { 1, 0.2, 0.2 })
   else
-    printToAll(message, color(1, 0.2, 0.2, 1))
+    printToAll(message, { 1, 0.2, 0.2 })
   end
 end
 
@@ -6258,6 +6280,7 @@ local function rebuildPointsContextMenu()
 end
 
 getPlayerLabel = function(playerColor)
+  playerColor = normalizePlayerColor(playerColor)
   if playerColor ~= nil and Player[playerColor] ~= nil then
     return Player[playerColor].steam_name or playerColor
   end
@@ -6265,10 +6288,8 @@ getPlayerLabel = function(playerColor)
 end
 
 getShipLabel = function()
-  resolveLinkedObjects()
-  if ship ~= nil then
-    local data = ship.getTable("Data") or {}
-    return data.name or ship.getName() or self.getName()
+  if initializeShipTrackerData() then
+    return cached_ship_name
   end
   return self.getName()
 end
@@ -6303,7 +6324,7 @@ local function announcePointsStateChange(from_state, new_state, playerColor)
   local delta = getConcededPointsForState(new_state) - getConcededPointsForState(from_state)
   local delta_label = string.format("%+d", delta)
   printToAll(actor .. " changed " .. ship_name .. " points from " .. from_label .. " to " .. state_label ..
-    " (" .. delta_label .. " points)", color(1, 1, 1, 1))
+    " (" .. delta_label .. " points)", { 1, 1, 1 })
 end
 
 local function updateGameConsoleConcededPoints(from_state, new_state, playerColor)
@@ -6334,6 +6355,7 @@ local function updateGameConsoleConcededPoints(from_state, new_state, playerColo
 end
 
 local function setPointsState(new_state, playerColor)
+  playerColor = normalizePlayerColor(playerColor)
   if current_state == new_state then
     return
   end
@@ -6360,7 +6382,7 @@ function HandlePointsNumberTyped(params)
   local playerColor = nil
   if type(params) == "table" then
     number = params.number
-    playerColor = params.playerColor
+    playerColor = normalizePlayerColor(params.playerColor)
   end
 
   log({
@@ -6390,6 +6412,22 @@ function MarkDestroyed(playerColor)
   setPointsState(STATE_DESTROYED, playerColor)
 end
 
+function CyclePointsState(player, value, id)
+  if not points_tracker_visible then
+    return
+  end
+
+  local playerColor = normalizePlayerColor(player)
+
+  if current_state == STATE_HEALTHY then
+    MarkDamaged(playerColor)
+  elseif current_state == STATE_DAMAGED then
+    MarkDestroyed(playerColor)
+  else
+    MarkHealthy(playerColor)
+  end
+end
+
 function ShowPointsTracker()
   points_tracker_visible = true
   refreshPointsUI()
@@ -6406,6 +6444,7 @@ function addTintObject(params)
     if params[1] == "ship" then
       ship = params[2]
       ship_guid = ship and ship.getGUID() or nil
+      initializeShipTrackerData()
       schedulePointsUIRefreshes()
     elseif params[1] == "dial" then
       dial = params[2]
@@ -6472,6 +6511,10 @@ function onLoad(savestate)
       current_state = decoded.current_state or STATE_HEALTHY
       ship_guid = decoded.ship_guid
       dial_guid = decoded.dial_guid
+      cached_ship_name = decoded.cached_ship_name
+      cached_ship_points = decoded.cached_ship_points or 0
+      cached_ship_half_points = decoded.cached_ship_half_points or math.floor((cached_ship_points or 0) / 2)
+      cached_owning_player = decoded.cached_owning_player
       if decoded.points_tracker_visible ~= nil then
         points_tracker_visible = decoded.points_tracker_visible
       end
@@ -6481,6 +6524,7 @@ function onLoad(savestate)
   local tracker_config = self.getTable("PointsTrackerConfig") or {}
   points_tracker_landscape = tracker_config.landscape == true
   resolveLinkedObjects()
+  initializeShipTrackerData()
   self.max_typed_number = 3
   loaded = true
   rebuildPointsContextMenu()
@@ -6513,11 +6557,16 @@ function onNumberTyped(playerColor, number)
 end
 
 function onSave()
+  initializeShipTrackerData()
   return JSON.encode({
     current_state = current_state,
     ship_guid = ship_guid,
     dial_guid = dial_guid,
     points_tracker_visible = points_tracker_visible,
+    cached_ship_name = cached_ship_name,
+    cached_ship_points = cached_ship_points,
+    cached_ship_half_points = cached_ship_half_points,
+    cached_owning_player = cached_owning_player,
   })
 end
 
