@@ -310,12 +310,16 @@ local function announceScoreChange(args)
     printToAll(player_name .. " " .. delta_label .. " " .. category .. " points" .. reason, { 1, 0.4, 0 })
 end
 
+local function isUnplayableRegistrationColor(color_name)
+    return table.find({ 'White', 'Grey', 'Black' }, color_name) ~= nil
+end
+
 
 
 function registerPlayerFromGui(player, option, id)
     local side = guiIdToSide[id]
     self.AssetBundle.playTriggerEffect(0)
-    if table.find({ 'White', 'Gray', 'Black' }, player.color) then
+    if isUnplayableRegistrationColor(player.color) then
         printToAll("Please select a player color before registering", { 1, 0.4, 0 })
     else
         if players[player.color] and players[player.color].side then
@@ -402,6 +406,7 @@ function setPointModeShip(player, option, id)
   if not side then return end
   point_mode[side] = "ship"
   updateModeToggleUI(side)
+  refreshDisplayedPoints()
 end
 
 function setPointModeObj(player, option, id)
@@ -410,6 +415,7 @@ function setPointModeObj(player, option, id)
   if not side then return end
   point_mode[side] = "scenario"
   updateModeToggleUI(side)
+  refreshDisplayedPoints()
 end
 
 function togglePointMode(player, option, id)
@@ -423,6 +429,7 @@ function togglePointMode(player, option, id)
     point_mode[side] = "ship"
   end
   updateModeToggleUI(side)
+  refreshDisplayedPoints()
 end
 
 function updateModeToggleUI(side)
@@ -515,8 +522,9 @@ function toggleScoringMode(player, option, id)
   else
     scoring_mode = "classic"
   end
-  applyScoringModeUI()
   recreateIndicators()
+  applyScoringModeUI()
+  scheduleRoundIndicatorRefresh()
   printToAll("Scoring mode: " .. scoring_mode, {1, 0.4, 0})
 end
 
@@ -524,8 +532,9 @@ function setScoringModeClassic(player, option, id)
   if scoring_mode == "classic" then return end
   self.AssetBundle.playTriggerEffect(0)
   scoring_mode = "classic"
-  applyScoringModeUI()
   recreateIndicators()
+  applyScoringModeUI()
+  scheduleRoundIndicatorRefresh()
   printToAll("Scoring mode: classic", {1, 0.4, 0})
 end
 
@@ -533,8 +542,9 @@ function setScoringModeSplit(player, option, id)
   if scoring_mode == "split" then return end
   self.AssetBundle.playTriggerEffect(0)
   scoring_mode = "split"
-  applyScoringModeUI()
   recreateIndicators()
+  applyScoringModeUI()
+  scheduleRoundIndicatorRefresh()
   printToAll("Scoring mode: split", {1, 0.4, 0})
 end
 
@@ -560,22 +570,55 @@ function applyScoringModeUI()
   end
 end
 
+function refreshDisplayedPoints()
+  for _, side in ipairs({"Left", "Right"}) do
+    if sided_players[side] then
+      updateScoreDisplay(side)
+    end
+  end
+
+  if not indicators or #indicators == 0 then
+    return
+  end
+
+  for round_index = 1, #indicators do
+    for _, side in ipairs({"Left", "Right"}) do
+      if sided_players[side] then
+        updateRoundPoints(round_index, side)
+      end
+    end
+  end
+end
+
+function scheduleRoundIndicatorRefresh()
+  Wait.frames(function()
+    refreshDisplayedPoints()
+  end, 5)
+end
+
+local function getRoundIndicatorText(player_data, round_index)
+    if scoring_mode == "split" then
+        local ship = player_data.round_ship_points[round_index] or 0
+        local scen = player_data.round_scenario_points[round_index] or 0
+        if ship ~= 0 or scen ~= 0 then
+            return "S:" .. tostring(ship) .. " O:" .. tostring(scen)
+        end
+    end
+    return tostring(player_data.round_points[round_index] or 0)
+end
+
 
 function updateRoundPoints(round, side)
     local p = sided_players[side]
+    if not indicators or not indicators[round] then
+        return
+    end
     if not p or not p.round_points[round] or p.round_points[round] == 0 then
         indicators[round].UI.setAttribute(side .. "PointsPanel", "active", "false")
     else
         indicators[round].UI.setAttribute(side .. "PointsPanel", "active", "true")
-        indicators[round].UI.setAttribute(side .. "PointsPanel", "color", p.color)
-        local text
-        if scoring_mode == "split" then
-            local ship = p.round_ship_points[round] or 0
-            local scen = p.round_scenario_points[round] or 0
-            text = "S:" .. tostring(ship) .. " O:" .. tostring(scen)
-        else
-            text = tostring(p.round_points[round])
-        end
+        indicators[round].UI.setAttribute(side .. "PointsPanel", "color", "#" .. Color.fromString(p.color):toHex(true))
+        local text = getRoundIndicatorText(p, round)
         indicators[round].UI.setAttribute(side .. "PointsText", "text", text)
     end
 end
@@ -689,6 +732,10 @@ function start()
 end
 
 function registerPlayer(new_player)
+    if isUnplayableRegistrationColor(new_player) then
+        printToAll("Please select a player color before registering", { 1, 0.4, 0 })
+        return
+    end
     if players[new_player] then
         printToAll(new_player .. " player already registered with the game console", { 1, 0.4, 0 })
         return
@@ -717,6 +764,8 @@ function recreateIndicators()
     self.destroyAttachments()
     local adjusted_max_offset = max_offset
     local scaleFactor = 0
+    local base_tile_scale = vector(0.65, 0.65, 0.65)
+    local tile_scale_delta = vector(0.05, 0, 0.1)
     if max_rounds > 12 then
         adjusted_max_offset = adjusted_max_offset + 0.02 * (max_rounds - 12)
         scaleFactor = 0.02
@@ -735,7 +784,7 @@ function recreateIndicators()
             type         = "Custom_Model",
             position     = self.positionToWorld(vector(-0.1, 0.05, offset)),
             rotation     = self.getRotation() + vector(0, 0, 45),
-            scale        = vector(0.65, 0.65, 0.65) - vector(0.05, 0, 0.1) * scaleFactor,
+            scale        = base_tile_scale - tile_scale_delta * scaleFactor,
             sound        = false,
             snap_to_grid = false,
         })
@@ -760,40 +809,27 @@ function recreateIndicators()
             local rp = sided_players["Right"]
             if lp.round_points[i] and lp.round_points[i] ~= 0 then
                 leftActive = "true"
-                if scoring_mode == "split" then
-                    leftPoints = "S:" .. tostring(lp.round_ship_points[i] or 0) .. " O:" .. tostring(lp.round_scenario_points[i] or 0)
-                else
-                    leftPoints = tostring(lp.round_points[i])
-                end
+                leftPoints = getRoundIndicatorText(lp, i)
             end
             if rp.round_points[i] and rp.round_points[i] ~= 0 then
                 rightActive = "true"
-                if scoring_mode == "split" then
-                    rightPoints = "S:" .. tostring(rp.round_ship_points[i] or 0) .. " O:" .. tostring(rp.round_scenario_points[i] or 0)
-                else
-                    rightPoints = tostring(rp.round_points[i])
-                end
+                rightPoints = getRoundIndicatorText(rp, i)
             end
         end
 
-        local panelWidth = (scoring_mode == "split") and "80" or "50"
-        local panelFontSize = (scoring_mode == "split") and "14" or "22"
-        -- Split mode has y=20 (dialed in); classic stays at y=32
-        local leftPos = (scoring_mode == "split") and "82 20 -5" or "82 32 -5"
-        local rightPos = (scoring_mode == "split") and "-82 -20 -5" or "-82 -32 -5"
-        indicator.UI.setXml('<Panel id="LeftPointsPanel" color="' ..
+        indicator.UI.setXml('<Button id="LeftPointsPanel" colors="#FFFFFFFF|#FFFFFFFF|#FFFFFFFF|#FFFFFFFF" color="' ..
             leftColor ..
-            '" rotation="180 180 90" width="' .. panelWidth .. '" height="31" position="' .. leftPos .. '" active="' ..
+            '" rotation="180 180 90" width="120" height="54" position="70 20 -5" active="' ..
             leftActive ..
-            '"><Text id="LeftPointsText" resizeTextForBestFit="true" resizeTextMinSize="10" resizeTextMaxSize="' .. panelFontSize .. '" color="#111111" fontSize="' .. panelFontSize .. '" fontStyle="Bold">' ..
+            '" text="" interactable="false" raycastTarget="false"><Text id="LeftPointsText" resizeTextForBestFit="true" resizeTextMinSize="18" resizeTextMaxSize="24" color="#101010" fontSize="24" fontStyle="Bold" alignment="MiddleCenter" width="120" height="54" raycastTarget="false">' ..
             tostring(leftPoints) ..
-            '</Text></Panel><Panel id="RightPointsPanel" color="' ..
+            '</Text></Button><Button id="RightPointsPanel" colors="#FFFFFFFF|#FFFFFFFF|#FFFFFFFF|#FFFFFFFF" color="' ..
             rightColor ..
-            '" rotation="180 180 90" width="' .. panelWidth .. '" height="31" position="' .. rightPos .. '" active="' ..
+            '" rotation="180 180 90" width="120" height="54" position="-70 -20 -5" active="' ..
             rightActive ..
-            '"><Text id="RightPointsText" resizeTextForBestFit="true" resizeTextMinSize="10" resizeTextMaxSize="' .. panelFontSize .. '" color="#111111" fontSize="' .. panelFontSize .. '" fontStyle="Bold">' ..
+            '" text="" interactable="false" raycastTarget="false"><Text id="RightPointsText" resizeTextForBestFit="true" resizeTextMinSize="18" resizeTextMaxSize="24" color="#101010" fontSize="24" fontStyle="Bold" alignment="MiddleCenter" width="120" height="54" raycastTarget="false">' ..
             tostring(rightPoints) ..
-            '</Text></Panel><Text id="IdLabel" resizeTextForBestFit="true" resizeTextMinSize="30" resizeTextMaxSize="70" color="#111111" rotation="180 180 90" position="0 0 -5" height="100" fontSize="50" fontStyle="Bold">' ..
+            '</Text></Button><Text id="IdLabel" resizeTextForBestFit="true" resizeTextMinSize="32" resizeTextMaxSize="74" color="#111111" rotation="180 180 90" position="0 0 -5" height="116" fontSize="54" fontStyle="Bold">' ..
             tostring(i - 1) .. '</Text>')
         indicator.setName("indicator")
         indicator.setDescription(i - 1)
