@@ -5924,6 +5924,67 @@ function onObjectSpawned(obj)
     obj.hide_when_face_down = false
 end
 
+local LAYOUT_CONTROLLER_GUID = "b3992e"
+local HOTAC_LAYOUT_INDEXES = {
+    [3] = true,
+    [4] = true,
+}
+
+function IsHotACLayout(layout)
+    if type(layout) == "table" then
+        layout = layout.index or layout.layout or layout.name
+    end
+
+    if type(layout) == "number" then
+        return HOTAC_LAYOUT_INDEXES[layout] == true
+    end
+
+    if type(layout) == "string" then
+        local layoutIndex = tonumber(layout)
+        if layoutIndex ~= nil then
+            return HOTAC_LAYOUT_INDEXES[layoutIndex] == true
+        end
+        return layout:lower():find("hotac", 1, true) ~= nil
+    end
+
+    local layoutController = getObjectFromGUID(LAYOUT_CONTROLLER_GUID)
+    if layoutController ~= nil then
+        local currentLayout = layoutController.call("getLayoutState")
+        return HOTAC_LAYOUT_INDEXES[currentLayout] == true
+    end
+
+    return false
+end
+
+function ShouldShowShipPointsTrackerForCurrentLayout()
+    return not IsHotACLayout()
+end
+
+function SetShipPointsTrackersVisible(params)
+    local visible = true
+    if type(params) == "table" and params.visible ~= nil then
+        visible = params.visible == true
+    elseif params == false then
+        visible = false
+    end
+
+    local functionName = visible and "ShowPointsTracker" or "HidePointsTracker"
+    for _, obj in ipairs(getAllObjects()) do
+        local ok, hasPointsTracker = pcall(function()
+            return obj.getVar("points_tracker_visible") ~= nil and obj.getVar("current_state") ~= nil
+        end)
+        if ok and hasPointsTracker then
+            pcall(function()
+                obj.call(functionName)
+            end)
+        end
+    end
+end
+
+function SetShipPointsTrackersForLayout(params)
+    SetShipPointsTrackersVisible({ visible = not IsHotACLayout(params) })
+end
+
 XW_cmd.AddCommand('rot[lr]?[12]?', 'rotate')
 XW_cmd.AddCommand('turret[12]?', 'turretarc')
 XW_cmd.AddCommand('weapon%d+', 'weaponarc')
@@ -6522,6 +6583,15 @@ function onLoad(savestate)
   end
 
   local tracker_config = self.getTable("PointsTrackerConfig") or {}
+  if tracker_config.visible ~= nil then
+    points_tracker_visible = tracker_config.visible == true
+  end
+  local ok, layout_visible = pcall(function()
+    return Global.call("ShouldShowShipPointsTrackerForCurrentLayout")
+  end)
+  if ok and layout_visible ~= nil then
+    points_tracker_visible = layout_visible == true
+  end
   points_tracker_landscape = tracker_config.landscape == true
   resolveLinkedObjects()
   initializeShipTrackerData()
@@ -6771,7 +6841,8 @@ function newSpawner(listTable)
                     newPil.setDescription(Pilots[shipIndex].list)
                     newPil.setLuaScript(pilotCardScript)
                     newPil.setTable("PointsTrackerConfig", {
-                        landscape = Pilots[shipIndex].standardized_loadout == true
+                        landscape = Pilots[shipIndex].standardized_loadout == true,
+                        visible = ShouldShowShipPointsTrackerForCurrentLayout()
                     })
                     newPil.setLock(true)
 

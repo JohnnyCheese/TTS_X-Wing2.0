@@ -207,6 +207,7 @@ function Layout.Switch(newIndex)
     self.setTable("elements", Layout.elements)
     startLuaCoroutine(self, 'setHandsDelayed')
     state.index = newIndex
+    Global.call("SetShipPointsTrackersForLayout", { index = newIndex, layout = lay.name })
     SaveState()
 end
 
