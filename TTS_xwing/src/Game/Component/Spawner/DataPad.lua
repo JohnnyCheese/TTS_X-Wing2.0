@@ -2025,6 +2025,11 @@ function selectShipGeneric(arg)
         end
     end
 
+    for _, slot_id in pairs(pilot.addSlot or {}) do
+        local slot = slotName[slot_id]
+        free_slots[slot] = (free_slots[slot] or 0) + 1
+    end
+
     local loadout_cost = 0
 
     slot_buttons = {}
