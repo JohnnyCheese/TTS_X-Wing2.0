@@ -854,6 +854,111 @@ xwaPilotDb[10044] = {
     }
 }
 
+xwaPilotDb[10045] = {
+    name = 'Carnor Jax',
+    title = 'Royal Guard',
+    XWS = 'carnorjax-legendsandrelics',
+    Faction = 2,
+    limited = 1,
+    Force = 1,
+    ship_type = 'tieininterceptor',
+    init = 5,
+    texture = 'red',
+    actSet = { 'F', 'E', 'BR', 'B' },
+}
+
+xwaPilotDb[10046] = {
+    name = 'DIS-L9B2',
+    title = 'Calculated Risk',
+    XWS = 'disl9b2-legendsandrelics',
+    Faction = 7,
+    limited = 1,
+    Charge = 1,
+    ship_type = 'droidtrifighter',
+    init = 6,
+    texture = 'standard',
+    actSet = { 'C', 'E', 'TL', 'BR', 'B' },
+}
+
+xwaPilotDb[10047] = {
+    name = 'Hera Syndulla',
+    title = 'New Republic General',
+    XWS = 'herasyndulla-legendsandrelics',
+    Faction = 1,
+    limited = 1,
+    Shield = 4,
+    ship_type = 'vcx100lightfreighter',
+    init = 6,
+    texture = 'standard',
+    actSet = { 'F', 'TL', 'R' },
+}
+
+xwaPilotDb[10048] = {
+    name = 'Kazuda Xiono',
+    title = 'Resistance Spy',
+    XWS = 'kazudaxiono-legendsandrelics',
+    Faction = 4,
+    limited = 1,
+    Shield = 3,
+    ship_type = 't70xwing',
+    addSlot = { 99 },
+    init = 4,
+    texture = 'standard',
+    actSet = { 'F', 'TL', 'B' },
+}
+
+xwaPilotDb[10049] = {
+    name = 'Quinlan Vos',
+    title = 'Darkness Within',
+    XWS = 'quinlanvos-legendsandrelics',
+    Faction = 6,
+    limited = 1,
+    Force = 2,
+    ship_type = 'eta2actis',
+    init = 4,
+    texture = 'standard',
+    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+}
+
+xwaPilotDb[10050] = {
+    name = 'Tamara Ryvora',
+    title = 'DT-533',
+    XWS = 'tamararyvora-legendsandrelics',
+    Faction = 5,
+    limited = 1,
+    Shield = 1,
+    ship_type = 'tiefofighter',
+    init = 4,
+    texture = 'standard',
+    actSet = { 'F', 'E', 'TL', 'BR' },
+}
+
+xwaPilotDb[10051] = {
+    name = 'Thweek',
+    title = 'Versatile Spy',
+    XWS = 'thweek-legendsandrelics',
+    Faction = 3,
+    limited = 1,
+    Shield = 1,
+    ship_type = 'starviperclassattackplatform',
+    init = 4,
+    texture = 'standard',
+    actSet = { 'F', 'TL', 'BR', 'B' },
+}
+
+xwaPilotDb[10052] = {
+    name = 'Ursa Wren',
+    title = 'Countess of Clan Wren',
+    XWS = 'ursawren-legendsandrelics',
+    Faction = 6,
+    limited = 1,
+    Shield = 2,
+    ship_type = 'gauntletfighter',
+    init = 3,
+    texture = 'bokatan',
+    actSet = { 'F', 'TL', 'R', 'Piv' },
+}
+
 
 
 

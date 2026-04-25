@@ -123,11 +123,12 @@ masterShipDB = require("Game.Component.Spawner.ShipDb")
 amgPilotDB = require("Game.Component.Spawner.PilotDb")
 amgUpgradesDB = require("Game.Component.Spawner.UpgradeDb")
 xwaPilotDB = require("Game.Component.Spawner.XwaPilotDb")
+xwaUpgradesDB = require("Game.Component.Spawner.XwaUpgradeDb")
 legacyPilotDB = require("Game.Component.Spawner.LegacyPilotDb")
 legacyUpgradesDB = require("Game.Component.Spawner.LegacyUpgradeDb")
 
 xwaMasterPilotDB = table.join_sparse(amgPilotDB, xwaPilotDB)
-xwaMasterUpgradesDB = amgUpgradesDB
+xwaMasterUpgradesDB = table.join_sparse(amgUpgradesDB, xwaUpgradesDB)
 legacyMasterPilotDB = table.join_sparse(amgPilotDB, legacyPilotDB)
 legacyMasterUpgradesDB = table.join_sparse(amgUpgradesDB, legacyUpgradesDB)
 
@@ -2024,7 +2025,6 @@ function selectShipGeneric(arg)
             --   print(i .. ":" .. slot  )
         end
     end
-
     for _, slot_id in pairs(pilot.addSlot or {}) do
         local slot = slotName[slot_id]
         free_slots[slot] = (free_slots[slot] or 0) + 1
