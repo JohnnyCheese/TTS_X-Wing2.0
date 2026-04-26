@@ -1,7 +1,7 @@
 xwaPilotDb = {}
 
 
-xwaPilotDb[10001] = {
+xwaPilotDb['raymusantilles-epicsl-rebelalliance'] = {
     name = 'Raymus Antilles',
     XWS = 'raymusantilles-epicsl-rebelalliance',
     Faction = 1,
@@ -21,7 +21,7 @@ xwaPilotDb[10001] = {
     }
 }
 
-xwaPilotDb[10002] = {
+xwaPilotDb['treborzednem-epicsl'] = {
     name = 'Trebor Zednem',
     XWS = 'treborzednem-epicsl',
     Faction = 1,
@@ -38,7 +38,7 @@ xwaPilotDb[10002] = {
     }
 }
 
-xwaPilotDb[10003] = {
+xwaPilotDb['idenversio-epicsl'] = {
     name = 'Iden Versio',
     title = 'Corvus',
     XWS = 'idenversio-epicsl',
@@ -59,7 +59,7 @@ xwaPilotDb[10003] = {
     }
 }
 
-xwaPilotDb[10004] = {
+xwaPilotDb['rikvirgilio-epicsl'] = {
     name = 'Rik Virgilio',
     XWS = 'rikvirgilio-epicsl',
     Docking = true,
@@ -78,7 +78,7 @@ xwaPilotDb[10004] = {
     }
 }
 
-xwaPilotDb[10005] = {
+xwaPilotDb['sorctormo-epicsl'] = {
     name = 'Sorc Tormo',
     XWS = 'sorctormo-epicsl',
     Faction = 3,
@@ -96,7 +96,7 @@ xwaPilotDb[10005] = {
     }
 }
 
-xwaPilotDb[10006] = {
+xwaPilotDb['cikatrovizago-epicsl'] = {
     name = 'Cikatro Vizago',
     XWS = 'cikatrovizago-epicsl',
     Faction = 3,
@@ -115,7 +115,7 @@ xwaPilotDb[10006] = {
     }
 }
 
-xwaPilotDb[10007] = {
+xwaPilotDb['leiaorgana-epicsl'] = {
     name = 'Leia Organa',
     title = 'Tantive IV',
     XWS = 'leiaorgana-epicsl',
@@ -136,7 +136,7 @@ xwaPilotDb[10007] = {
     }
 }
 
-xwaPilotDb[10008] = {
+xwaPilotDb['orafdesyk-epicsl'] = {
     name = 'Oraf Desyk',
     XWS = 'orafdesyk-epicsl',
     Faction = 4,
@@ -153,7 +153,7 @@ xwaPilotDb[10008] = {
     }
 }
 
-xwaPilotDb[10009] = {
+xwaPilotDb['gideonhask-epicsl'] = {
     name = 'Gideon Hask',
     title = 'Precursor',
     XWS = 'gideonhask-epicsl',
@@ -174,7 +174,7 @@ xwaPilotDb[10009] = {
     }
 }
 
-xwaPilotDb[10010] = {
+xwaPilotDb['cerrafellian-epicsl'] = {
     name = 'Cerra Fellian',
     XWS = 'cerrafellian-epicsl',
     Docking = true,
@@ -193,7 +193,7 @@ xwaPilotDb[10010] = {
     }
 }
 
-xwaPilotDb[10011] = {
+xwaPilotDb['raymusantilles-epicsl-galacticrepublic'] = {
     name = 'Raymus Antilles',
     title = 'Tantive IV',
     XWS = 'raymusantilles-epicsl-galacticrepublic',
@@ -214,7 +214,7 @@ xwaPilotDb[10011] = {
     }
 }
 
-xwaPilotDb[10012] = {
+xwaPilotDb['wezsynat-epicsl'] = {
     name = 'Wez Synat',
     XWS = 'wezsynat-epicsl',
     Faction = 6,
@@ -232,7 +232,7 @@ xwaPilotDb[10012] = {
     }
 }
 
-xwaPilotDb[10013] = {
+xwaPilotDb['asajjventress-epicsl'] = {
     name = 'Asajj Ventress',
     title = 'Trident',
     XWS = 'asajjventress-epicsl',
@@ -252,7 +252,7 @@ xwaPilotDb[10013] = {
     }
 }
 
-xwaPilotDb[10014] = {
+xwaPilotDb['aut0-epicsl'] = {
     name = 'Aut-0',
     XWS = 'aut0-epicsl',
     Faction = 7,
@@ -270,7 +270,7 @@ xwaPilotDb[10014] = {
 }
 
 
-xwaPilotDb[10015] = {
+xwaPilotDb['bobafett-armedanddangerous'] = {
     name = 'Boba Fett',
     title = 'Armed and Dangerous',
     XWS = 'bobafett-armedanddangerous',
@@ -290,7 +290,7 @@ xwaPilotDb[10015] = {
     }
 }
 
-xwaPilotDb[10016] = {
+xwaPilotDb['bokatankryze-armedanddangerous'] = {
     name = 'Bo-Katan Kryze',
     title = 'Armed and Dangerous',
     XWS = 'bokatankryze-armedanddangerous',
@@ -315,7 +315,7 @@ xwaPilotDb[10016] = {
     }
 }
 
-xwaPilotDb[10017] = {
+xwaPilotDb['bossk-armedanddangerous'] = {
     name = 'Bossk',
     title = 'Armed and Dangerous',
     XWS = 'bossk-armedanddangerous',
@@ -333,7 +333,7 @@ xwaPilotDb[10017] = {
     }
 }
 
-xwaPilotDb[10018] = {
+xwaPilotDb['cadbane-armedanddangerous'] = {
     name = 'Cad Bane',
     title = 'Armed and Dangerous',
     XWS = 'cadbane-armedanddangerous',
@@ -353,7 +353,7 @@ xwaPilotDb[10018] = {
     }
 }
 
-xwaPilotDb[10019] = {
+xwaPilotDb['caithrenalli-evacuationofdqar'] = {
     name = "C'ai Threnalli",
     title = "Evacuation of D'Qar",
     XWS = 'caithrenalli-evacuationofdqar',
@@ -373,7 +373,7 @@ xwaPilotDb[10019] = {
     }
 }
 
-xwaPilotDb[10020] = {
+xwaPilotDb['dengar-armedanddangerous'] = {
     name = 'Dengar',
     title = 'Armed and Dangerous',
     XWS = 'dengar-armedanddangerous',
@@ -393,7 +393,7 @@ xwaPilotDb[10020] = {
     }
 }
 
-xwaPilotDb[10021] = {
+xwaPilotDb['fennrau-armedanddangerous'] = {
     name = 'Fenn Rau',
     title = 'Armed and Dangerous',
     XWS = 'fennrau-armedanddangerous',
@@ -411,7 +411,7 @@ xwaPilotDb[10021] = {
     }
 }
 
-xwaPilotDb[10022] = {
+xwaPilotDb['finchdallow-evacuationofdqar'] = {
     name = "Finch Dallow",
     title = "Evacuation of D'Qar",
     XWS = 'finchdallow-evacuationofdqar',
@@ -431,7 +431,7 @@ xwaPilotDb[10022] = {
     }
 }
 
-xwaPilotDb[10023] = {
+xwaPilotDb['hansolo-armedanddangerous'] = {
     name = 'Han Solo',
     title = 'Armed and Dangerous',
     XWS = 'hansolo-armedanddangerous',
@@ -452,7 +452,7 @@ xwaPilotDb[10023] = {
     }
 }
 
-xwaPilotDb[10024] = {
+xwaPilotDb['jaycristubbs-evacuationofdqar'] = {
     name = 'Jaycris Tubbs',
     title = "Evacuation of D'Qar",
     XWS = 'jaycristubbs-evacuationofdqar',
@@ -469,7 +469,7 @@ xwaPilotDb[10024] = {
     }
 }
 
-xwaPilotDb[10025] = {
+xwaPilotDb['kyloren-evacuationofdqar'] = {
     name = 'Kylo Ren',
     title = "Evacuation of D'Qar",
     XWS = 'kyloren-evacuationofdqar',
@@ -489,7 +489,7 @@ xwaPilotDb[10025] = {
     }
 }
 
-xwaPilotDb[10026] = {
+xwaPilotDb['lieutenantlehuse-evacuationofdqar'] = {
     name = 'Lieutenant LeHuse',
     title = "Evacuation of D'Qar",
     XWS = 'lieutenantlehuse-evacuationofdqar',
@@ -507,7 +507,7 @@ xwaPilotDb[10026] = {
     }
 }
 
-xwaPilotDb[10027] = {
+xwaPilotDb['longshot-evacuationofdqar'] = {
     name = '"Longshot"',
     title = "Evacuation of D'Qar",
     XWS = 'longshot-evacuationofdqar',
@@ -525,7 +525,7 @@ xwaPilotDb[10027] = {
     }
 }
 
-xwaPilotDb[10028] = {
+xwaPilotDb['midnight-evacuationofdqar'] = {
     name = '"Midnight"',
     title = "Evacuation of D'Qar",
     XWS = 'midnight-evacuationofdqar',
@@ -543,7 +543,7 @@ xwaPilotDb[10028] = {
     }
 }
 
-xwaPilotDb[10029] = {
+xwaPilotDb['omega2-evacuationofdqar'] = {
     name = 'Omega 2',
     title = "Evacuation of D'Qar",
     XWS = 'omega2-evacuationofdqar',
@@ -561,7 +561,7 @@ xwaPilotDb[10029] = {
     }
 }
 
-xwaPilotDb[10030] = {
+xwaPilotDb['pammichnerrogoode-evacuationofdqar'] = {
     name = 'Pammich Nerro Goode',
     title = "Evacuation of D'Qar",
     XWS = 'pammichnerrogoode-evacuationofdqar',
@@ -580,7 +580,7 @@ xwaPilotDb[10030] = {
     }
 }
 
-xwaPilotDb[10031] = {
+xwaPilotDb['pettyofficerthanisson-evacuationofdqar'] = {
     name = 'Petty Officer Thanisson',
     title = "Evacuation of D'Qar",
     XWS = 'pettyofficerthanisson-evacuationofdqar',
@@ -599,7 +599,7 @@ xwaPilotDb[10031] = {
     }
 }
 
-xwaPilotDb[10032] = {
+xwaPilotDb['poedameron-evacuationofdqar'] = {
     name = 'Poe Dameron',
     title = "Evacuation of D'Qar",
     XWS = 'poedameron-evacuationofdqar',
@@ -619,7 +619,7 @@ xwaPilotDb[10032] = {
     }
 }
 
-xwaPilotDb[10033] = {
+xwaPilotDb['princexizor-armedanddangerous'] = {
     name = 'Prince Xizor',
     title = 'Armed and Dangerous',
     XWS = 'princexizor-armedanddangerous',
@@ -639,7 +639,7 @@ xwaPilotDb[10033] = {
     }
 }
 
-xwaPilotDb[10034] = {
+xwaPilotDb['ronithblario-evacuationofdqar'] = {
     name = "Ronith Blario",
     title = "Evacuation of D'Qar",
     XWS = 'ronithblario-evacuationofdqar',
@@ -658,7 +658,7 @@ xwaPilotDb[10034] = {
     }
 }
 
-xwaPilotDb[10035] = {
+xwaPilotDb['scorch-evacuationofdqar'] = {
     name = '"Scorch"',
     title = "Evacuation of D'Qar",
     XWS = 'scorch-evacuationofdqar',
@@ -676,7 +676,7 @@ xwaPilotDb[10035] = {
     }
 }
 
-xwaPilotDb[10036] = {
+xwaPilotDb['stomeronistarck-evacuationofdqar'] = {
     name = 'Stomeroni Starck',
     title = "Evacuation of D'Qar",
     XWS = 'stomeronistarck-evacuationofdqar',
@@ -696,7 +696,7 @@ xwaPilotDb[10036] = {
     moveSet = { 'wtl1', 'wtr1', 'btl2', 'bbl2', 'bs2', 'bbr2', 'btr2', 'rbl3s', 'wtl3', 'bbl3', 'bs3', 'bbr3', 'wtr3', 'rbr3s', 'bs4', 'bs5', 'rk5' }
 }
 
-xwaPilotDb[10037] = {
+xwaPilotDb['tallissanlintra-evacuationofdqar'] = {
     name = "Tallissan Lintra",
     title = "Evacuation of D'Qar",
     XWS = 'tallissanlintra-evacuationofdqar',
@@ -716,7 +716,7 @@ xwaPilotDb[10037] = {
     }
 }
 
-xwaPilotDb[10038] = {
+xwaPilotDb['themandalorian-armedanddangerous'] = {
     name = 'The Mandalorian',
     title = 'Armed and Dangerous',
     XWS = 'themandalorian-armedanddangerous',
@@ -737,7 +737,7 @@ xwaPilotDb[10038] = {
     mesh = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nabooroyaln1starfighter/MandoN1.obj"
 }
 
-xwaPilotDb[10039] = {
+xwaPilotDb['theta3-evacuationofdqar'] = {
     name = 'Theta 3',
     title = "Evacuation of D'Qar",
     XWS = 'theta3-evacuationofdqar',
@@ -757,7 +757,7 @@ xwaPilotDb[10039] = {
     },
 }
 
-xwaPilotDb[10040] = {
+xwaPilotDb['theta4-evacuationofdqar'] = {
     name = 'Theta 4',
     title = "Evacuation of D'Qar",
     XWS = 'theta4-evacuationofdqar',
@@ -777,7 +777,7 @@ xwaPilotDb[10040] = {
     },
 }
 
-xwaPilotDb[10041] = {
+xwaPilotDb['vennie-evacuationofdqar'] = {
     name = "Vennie",
     title = "Evacuation of D'Qar",
     XWS = 'vennie-evacuationofdqar',
@@ -796,7 +796,7 @@ xwaPilotDb[10041] = {
     },
 }
 
-xwaPilotDb[10042] = {
+xwaPilotDb['zeta5-evacuationofdqar'] = {
     name = 'Zeta 5',
     title = "Evacuation of D'Qar",
     XWS = 'zeta5-evacuationofdqar',
@@ -814,7 +814,7 @@ xwaPilotDb[10042] = {
     },
 }
 
-masterPilotDB[10043] = {
+xwaPilotDb['zizitlo-evacuationofdqar'] = {
     name = "Zizi Tlo",
     title = "Evacuation of D'Qar",
     XWS = 'zizitlo-evacuationofdqar',
@@ -833,7 +833,7 @@ masterPilotDB[10043] = {
     },
 }
 
-xwaPilotDb[10044] = {
+xwaPilotDb['zuckuss-armedanddangerous'] = {
     name = 'Zuckuss',
     title = 'Armed and Dangerous',
     XWS = 'zuckuss-armedanddangerous',
@@ -854,7 +854,7 @@ xwaPilotDb[10044] = {
     }
 }
 
-xwaPilotDb[10045] = {
+xwaPilotDb['carnorjax-legendsandrelics'] = {
     name = 'Carnor Jax',
     title = 'Royal Guard',
     XWS = 'carnorjax-legendsandrelics',
@@ -867,7 +867,7 @@ xwaPilotDb[10045] = {
     actSet = { 'F', 'E', 'BR', 'B' },
 }
 
-xwaPilotDb[10046] = {
+xwaPilotDb['disl9b2-legendsandrelics'] = {
     name = 'DIS-L9B2',
     title = 'Calculated Risk',
     XWS = 'disl9b2-legendsandrelics',
@@ -880,7 +880,7 @@ xwaPilotDb[10046] = {
     actSet = { 'C', 'E', 'TL', 'BR', 'B' },
 }
 
-xwaPilotDb[10047] = {
+xwaPilotDb['herasyndulla-legendsandrelics'] = {
     name = 'Hera Syndulla',
     title = 'New Republic General',
     XWS = 'herasyndulla-legendsandrelics',
@@ -893,7 +893,7 @@ xwaPilotDb[10047] = {
     actSet = { 'F', 'TL', 'R' },
 }
 
-xwaPilotDb[10048] = {
+xwaPilotDb['kazudaxiono-legendsandrelics'] = {
     name = 'Kazuda Xiono',
     title = 'Resistance Spy',
     XWS = 'kazudaxiono-legendsandrelics',
@@ -907,7 +907,7 @@ xwaPilotDb[10048] = {
     actSet = { 'F', 'TL', 'B' },
 }
 
-xwaPilotDb[10049] = {
+xwaPilotDb['quinlanvos-legendsandrelics'] = {
     name = 'Quinlan Vos',
     title = 'Darkness Within',
     XWS = 'quinlanvos-legendsandrelics',
@@ -920,7 +920,7 @@ xwaPilotDb[10049] = {
     actSet = { 'F', 'E', 'TL', 'BR', 'B' },
 }
 
-xwaPilotDb[10050] = {
+xwaPilotDb['tamararyvora-legendsandrelics'] = {
     name = 'Tamara Ryvora',
     title = 'DT-533',
     XWS = 'tamararyvora-legendsandrelics',
@@ -933,7 +933,7 @@ xwaPilotDb[10050] = {
     actSet = { 'F', 'E', 'TL', 'BR' },
 }
 
-xwaPilotDb[10051] = {
+xwaPilotDb['thweek-legendsandrelics'] = {
     name = 'Thweek',
     title = 'Versatile Spy',
     XWS = 'thweek-legendsandrelics',
@@ -946,7 +946,7 @@ xwaPilotDb[10051] = {
     actSet = { 'F', 'TL', 'VR', 'B' },
 }
 
-xwaPilotDb[10052] = {
+xwaPilotDb['ursawren-legendsandrelics'] = {
     name = 'Ursa Wren',
     title = 'Countess of Clan Wren',
     XWS = 'ursawren-legendsandrelics',

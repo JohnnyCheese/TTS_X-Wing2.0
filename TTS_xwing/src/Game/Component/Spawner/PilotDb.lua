@@ -1,5 +1,5 @@
 masterPilotDB = {}
-masterPilotDB[0] = {
+masterPilotDB[''] = {
     ['name'] = '',
     ['XWS'] = '',
     ['Faction'] = 0,
@@ -15,7 +15,7 @@ masterPilotDB[0] = {
 
 
 -- Huge ships
-masterPilotDB[2000] = {
+masterPilotDB['alderaanianguard'] = {
     name = 'Alderaanian Guard',
     XWS = 'alderaanianguard',
     Faction = 1,
@@ -25,7 +25,7 @@ masterPilotDB[2000] = {
     texture = 'red'
 }
 
-masterPilotDB[2001] = {
+masterPilotDB['republicjudiciary'] = {
     name = 'Republic Judiciary',
     XWS = 'republicjudiciary',
     Faction = 6,
@@ -35,7 +35,7 @@ masterPilotDB[2001] = {
     texture = 'blue'
 }
 
-masterPilotDB[2002] = {
+masterPilotDB['separatistprivateers'] = {
     name = 'Separatist Privateers',
     XWS = 'separatistprivateers',
     Faction = 7,
@@ -45,7 +45,7 @@ masterPilotDB[2002] = {
     texture = 'standard'
 }
 
-masterPilotDB[2003] = {
+masterPilotDB['syndicatesmugglers'] = {
     name = 'Syndicate Smugglers',
     XWS = 'syndicatesmugglers',
     Faction = 3,
@@ -55,7 +55,7 @@ masterPilotDB[2003] = {
     texture = 'standard'
 }
 
-masterPilotDB[2004] = {
+masterPilotDB['firstordersympathizers'] = {
     name = 'First Order Sympathizers',
     XWS = 'firstordersympathizers',
     Docking = true,
@@ -66,7 +66,7 @@ masterPilotDB[2004] = {
     texture = 'standard'
 }
 
-masterPilotDB[2005] = {
+masterPilotDB['outerrimgarrison'] = {
     name = 'Outer Rim Garrison',
     XWS = 'outerrimgarrison',
     Docking = true,
@@ -77,7 +77,7 @@ masterPilotDB[2005] = {
     texture = 'standard'
 }
 
-masterPilotDB[2006] = {
+masterPilotDB['echobaseevacuees'] = {
     name = 'Echo Base Evacuees',
     XWS = 'echobaseevacuees',
     Faction = 1,
@@ -87,7 +87,7 @@ masterPilotDB[2006] = {
     texture = 'standard'
 }
 
-masterPilotDB[2007] = {
+masterPilotDB['newrepublicvolunteers'] = {
     name = 'New Republic Volunteers',
     XWS = 'newrepublicvolunteers',
     Faction = 4,
@@ -97,7 +97,7 @@ masterPilotDB[2007] = {
     texture = 'standard'
 }
 
-masterPilotDB[2008] = {
+masterPilotDB['firstordercollaborators'] = {
     name = 'First Order Collaborators',
     XWS = 'firstordercollaborators',
     Faction = 5,
@@ -107,7 +107,7 @@ masterPilotDB[2008] = {
     texture = 'standard'
 }
 
-masterPilotDB[2009] = {
+masterPilotDB['outerrimpatrol'] = {
     name = 'Outer Rim Patrol',
     XWS = 'outerrimpatrol',
     Faction = 2,
@@ -117,7 +117,7 @@ masterPilotDB[2009] = {
     texture = 'standard'
 }
 
-masterPilotDB[2010] = {
+masterPilotDB['lawlesspirates'] = {
     name = 'Lawless Pirates',
     XWS = 'lawlesspirates',
     Faction = 3,
@@ -127,7 +127,7 @@ masterPilotDB[2010] = {
     texture = 'standard'
 }
 
-masterPilotDB[2011] = {
+masterPilotDB['colicoiddestroyer'] = {
     name = 'Colicoid Destroyer',
     XWS = 'colicoiddestroyer',
     Faction = 7,
@@ -138,7 +138,7 @@ masterPilotDB[2011] = {
 }
 
 
-masterPilotDB[1] = {
+masterPilotDB['wedgeantilles'] = {
     name = 'Wedge Antilles',
     XWS = 'wedgeantilles',
     Faction = 1,
@@ -149,7 +149,7 @@ masterPilotDB[1] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[2] = {
+masterPilotDB['lukeskywalker'] = {
     name = 'Luke Skywalker',
     XWS = 'lukeskywalker',
     title = 'Red Five',
@@ -163,7 +163,7 @@ masterPilotDB[2] = {
     keywords = { 'Light Side' }
 }
 
-masterPilotDB[3] = {
+masterPilotDB['thanekyrell'] = {
     name = 'Thane Kyrell',
     XWS = 'thanekyrell',
     Faction = 1,
@@ -174,7 +174,7 @@ masterPilotDB[3] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[4] = {
+masterPilotDB['garvendreis-t65xwing'] = {
     name = 'Garven Dreis',
     XWS = 'garvendreis-t65xwing',
     Faction = 1,
@@ -185,7 +185,7 @@ masterPilotDB[4] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[5] = {
+masterPilotDB['jekporkins'] = {
     name = 'Jek Porkins',
     XWS = 'jekporkins',
     Faction = 1,
@@ -196,7 +196,7 @@ masterPilotDB[5] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[6] = {
+masterPilotDB['kullbeesperado'] = {
     name = 'Kullbee Sperado',
     XWS = 'kullbeesperado',
     Faction = 1,
@@ -208,7 +208,7 @@ masterPilotDB[6] = {
     keywords = { 'Partisan' }
 }
 
-masterPilotDB[7] = {
+masterPilotDB['biggsdarklighter'] = {
     name = 'Biggs Darklighter',
     XWS = 'biggsdarklighter',
     Faction = 1,
@@ -219,7 +219,7 @@ masterPilotDB[7] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[8] = {
+masterPilotDB['leevantenza'] = {
     name = 'Leevan Tenza',
     XWS = 'leevantenza',
     Faction = 1,
@@ -231,7 +231,7 @@ masterPilotDB[8] = {
     keywords = { 'Partisan' }
 }
 
-masterPilotDB[9] = {
+masterPilotDB['edriotwotubes'] = {
     name = 'Edrio Two Tubes',
     XWS = 'edriotwotubes',
     Faction = 1,
@@ -243,7 +243,7 @@ masterPilotDB[9] = {
     keywords = { 'Partisan' }
 }
 
-masterPilotDB[10] = {
+masterPilotDB['redsquadronveteran'] = {
     name = 'Red Squadron Veteran',
     XWS = 'redsquadronveteran',
     Faction = 1,
@@ -253,7 +253,7 @@ masterPilotDB[10] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[11] = {
+masterPilotDB['bluesquadronescort'] = {
     name = 'Blue Squadron Escort',
     XWS = 'bluesquadronescort',
     Faction = 1,
@@ -263,7 +263,7 @@ masterPilotDB[11] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[12] = {
+masterPilotDB['cavernangelszealot'] = {
     name = 'Cavern Angels Zealot',
     XWS = 'cavernangelszealot',
     Faction = 1,
@@ -274,7 +274,7 @@ masterPilotDB[12] = {
     keywords = { 'Partisan' }
 }
 
-masterPilotDB[13] = {
+masterPilotDB['norrawexley-btla4ywing'] = {
     name = 'Norra Wexley',
     XWS = 'norrawexley-btla4ywing',
     Faction = 1,
@@ -285,7 +285,7 @@ masterPilotDB[13] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[14] = {
+masterPilotDB['dutchvander'] = {
     name = '"Dutch" Vander',
     XWS = 'dutchvander',
     Faction = 1,
@@ -297,7 +297,7 @@ masterPilotDB[14] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[15] = {
+masterPilotDB['hortonsalm'] = {
     name = 'Horton Salm',
     XWS = 'hortonsalm',
     Faction = 1,
@@ -308,7 +308,7 @@ masterPilotDB[15] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[16] = {
+masterPilotDB['evaanverlaine'] = {
     name = 'Evaan Verlaine',
     XWS = 'evaanverlaine',
     Faction = 1,
@@ -319,7 +319,7 @@ masterPilotDB[16] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[17] = {
+masterPilotDB['goldsquadronveteran'] = {
     name = 'Gold Squadron Veteran',
     XWS = 'goldsquadronveteran',
     Faction = 1,
@@ -329,7 +329,7 @@ masterPilotDB[17] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[18] = {
+masterPilotDB['graysquadronbomber'] = {
     name = 'Gray Squadron Bomber',
     XWS = 'graysquadronbomber',
     Faction = 1,
@@ -339,7 +339,7 @@ masterPilotDB[18] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[19] = {
+masterPilotDB['jakefarrell'] = {
     name = 'Jake Farrell',
     XWS = 'jakefarrell',
     Faction = 1,
@@ -350,7 +350,7 @@ masterPilotDB[19] = {
     actSet = { 'F', 'TL', 'E', 'BR', 'B' }
 }
 
-masterPilotDB[20] = {
+masterPilotDB['arvelcrynyd'] = {
     name = 'Arvel Crynyd',
     XWS = 'arvelcrynyd',
     Faction = 1,
@@ -361,7 +361,7 @@ masterPilotDB[20] = {
     actSet = { 'F', 'TL', 'E', 'Ail', 'BR' }
 }
 
-masterPilotDB[21] = {
+masterPilotDB['greensquadronpilot'] = {
     name = 'Green Squadron Pilot',
     XWS = 'greensquadronpilot',
     Faction = 1,
@@ -371,7 +371,7 @@ masterPilotDB[21] = {
     actSet = { 'F', 'TL', 'E', 'B', 'BR' }
 }
 
-masterPilotDB[22] = {
+masterPilotDB['phoenixsquadronpilot'] = {
     name = 'Phoenix Squadron Pilot',
     XWS = 'phoenixsquadronpilot',
     Faction = 1,
@@ -382,7 +382,7 @@ masterPilotDB[22] = {
 }
 
 
-masterPilotDB[804] = {
+masterPilotDB['herasyndulla-rz1awing'] = {
     name = 'Hera Syndulla',
     XWS = 'herasyndulla-rz1awing',
     Faction = 1,
@@ -394,7 +394,7 @@ masterPilotDB[804] = {
     keywords = { 'Spectre' }
 }
 
-masterPilotDB[805] = {
+masterPilotDB['wedgeantilles-rz1awing'] = {
     name = 'Wedge Antilles',
     XWS = 'wedgeantilles-rz1awing',
     Faction = 1,
@@ -405,7 +405,7 @@ masterPilotDB[805] = {
     actSet = { 'F', 'TL', 'E', 'BR', 'B' }
 }
 
-masterPilotDB[806] = {
+masterPilotDB['derekklivian'] = {
     name = 'Derek Klivian',
     XWS = 'derekklivian',
     Faction = 1,
@@ -416,7 +416,7 @@ masterPilotDB[806] = {
     actSet = { 'F', 'TL', 'E', 'BR', 'B' }
 }
 
-masterPilotDB[807] = {
+masterPilotDB['sharabey-rz1awing'] = {
     name = 'Shara Bey',
     XWS = 'sharabey-rz1awing',
     Faction = 1,
@@ -427,7 +427,7 @@ masterPilotDB[807] = {
     actSet = { 'F', 'TL', 'E', 'BR', 'B' }
 }
 
-masterPilotDB[808] = {
+masterPilotDB['ahsokatano-rz1awing'] = {
     name = 'Ahsoka Tano',
     XWS = 'ahsokatano-rz1awing',
     Faction = 1,
@@ -440,7 +440,7 @@ masterPilotDB[808] = {
     keywords = { 'Light Side' }
 }
 
-masterPilotDB[809] = {
+masterPilotDB['sabinewren-rz1awing'] = {
     name = 'Sabine Wren',
     XWS = 'sabinewren-rz1awing',
     Faction = 1,
@@ -452,7 +452,7 @@ masterPilotDB[809] = {
     keywords = { 'Mandalorian' }
 }
 
-masterPilotDB[23] = {
+masterPilotDB['braylenstramm'] = {
     name = 'Braylen Stramm',
     XWS = 'braylenstramm',
     Faction = 1,
@@ -463,7 +463,7 @@ masterPilotDB[23] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[24] = {
+masterPilotDB['tennumb'] = {
     name = 'Ten Numb',
     XWS = 'tennumb',
     Faction = 1,
@@ -474,7 +474,7 @@ masterPilotDB[24] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[25] = {
+masterPilotDB['bladesquadronveteran'] = {
     name = 'Blade Squadron Veteran',
     XWS = 'bladesquadronveteran',
     Faction = 1,
@@ -484,7 +484,7 @@ masterPilotDB[25] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[26] = {
+masterPilotDB['bluesquadronpilot'] = {
     name = 'Blue Squadron Pilot',
     XWS = 'bluesquadronpilot',
     Faction = 1,
@@ -494,7 +494,7 @@ masterPilotDB[26] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[628] = {
+masterPilotDB['ginamoonsong'] = {
     name = 'Gina Moonsong',
     XWS = 'ginamoonsong',
     Faction = 1,
@@ -505,7 +505,7 @@ masterPilotDB[628] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[810] = {
+masterPilotDB['herasyndulla-asf01bwing'] = {
     name = 'Hera Syndulla',
     XWS = 'herasyndulla-asf01bwing',
     Faction = 1,
@@ -517,7 +517,7 @@ masterPilotDB[810] = {
     keywords = { 'Spectre' }
 }
 
-masterPilotDB[811] = {
+masterPilotDB['netrempollard'] = {
     name = 'Netrem Pollard',
     XWS = 'netrempollard',
     Faction = 1,
@@ -528,7 +528,7 @@ masterPilotDB[811] = {
     actSet = { 'F', 'TL', 'BR', 'Piv' }
 }
 
-masterPilotDB[27] = {
+masterPilotDB['airencracken'] = {
     name = 'Airen Cracken',
     XWS = 'airencracken',
     Faction = 1,
@@ -539,7 +539,7 @@ masterPilotDB[27] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[28] = {
+masterPilotDB['lieutenantblount'] = {
     name = 'Lieutenant Blount',
     XWS = 'lieutenantblount',
     Faction = 1,
@@ -550,7 +550,7 @@ masterPilotDB[28] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[29] = {
+masterPilotDB['talasquadronpilot'] = {
     name = 'Tala Squadron Pilot',
     XWS = 'talasquadronpilot',
     Faction = 1,
@@ -560,7 +560,7 @@ masterPilotDB[29] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[30] = {
+masterPilotDB['banditsquadronpilot'] = {
     name = 'Bandit Squadron Pilot',
     XWS = 'banditsquadronpilot',
     Faction = 1,
@@ -570,7 +570,7 @@ masterPilotDB[30] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[31] = {
+masterPilotDB['wullffwarro'] = {
     name = 'Wullffwarro',
     XWS = 'wullffwarro',
     Faction = 1,
@@ -581,7 +581,7 @@ masterPilotDB[31] = {
     actSet = { 'F', 'R', 'BR' }
 }
 
-masterPilotDB[32] = {
+masterPilotDB['lowhhrick'] = {
     name = 'Lowhhrick',
     XWS = 'lowhhrick',
     Faction = 1,
@@ -592,7 +592,7 @@ masterPilotDB[32] = {
     actSet = { 'F', 'R', 'BR' }
 }
 
-masterPilotDB[33] = {
+masterPilotDB['kashyyykdefender'] = {
     name = 'Kashyyyk Defender',
     XWS = 'kashyyykdefender',
     Faction = 1,
@@ -602,7 +602,7 @@ masterPilotDB[33] = {
     actSet = { 'F', 'R', 'BR' }
 }
 
-masterPilotDB[34] = {
+masterPilotDB['herasyndulla'] = {
     name = 'Hera Syndulla',
     XWS = 'herasyndulla',
     Faction = 1,
@@ -625,7 +625,7 @@ masterPilotDB[34] = {
     keywords = { 'Spectre' }
 }
 
-masterPilotDB[35] = {
+masterPilotDB['sabinewren'] = {
     name = 'Sabine Wren',
     XWS = 'sabinewren',
     Faction = 1,
@@ -637,7 +637,7 @@ masterPilotDB[35] = {
     keywords = { 'Spectre', 'Mandalorian' }
 }
 
-masterPilotDB[36] = {
+masterPilotDB['ezrabridger'] = {
     name = 'Ezra Bridger',
     XWS = 'ezrabridger',
     Faction = 1,
@@ -650,7 +650,7 @@ masterPilotDB[36] = {
     keywords = { 'Spectre', 'Light Side' }
 }
 
-masterPilotDB[37] = {
+masterPilotDB['zeborrelios'] = {
     name = '"Zeb" Orrelios',
     XWS = 'zeborrelios',
     Faction = 1,
@@ -662,7 +662,7 @@ masterPilotDB[37] = {
     keywords = { 'Spectre' }
 }
 
-masterPilotDB[38] = {
+masterPilotDB['fennrau-sheathipedeclassshuttle'] = {
     name = 'Fenn Rau',
     XWS = 'fennrau-sheathipedeclassshuttle',
     Faction = 1,
@@ -674,7 +674,7 @@ masterPilotDB[38] = {
     keywords = { 'Spectre', 'Mandalorian' }
 }
 
-masterPilotDB[39] = {
+masterPilotDB['ezrabridger-sheathipedeclassshuttle'] = {
     name = 'Ezra Bridger',
     XWS = 'ezrabridger-sheathipedeclassshuttle',
     Faction = 1,
@@ -687,7 +687,7 @@ masterPilotDB[39] = {
     keywords = { 'Spectre', 'Light Side' }
 }
 
-masterPilotDB[40] = {
+masterPilotDB['zeborrelios-sheathipedeclassshuttle'] = {
     name = '"Zeb" Orrelios',
     XWS = 'zeborrelios-sheathipedeclassshuttle',
     Faction = 1,
@@ -699,7 +699,7 @@ masterPilotDB[40] = {
     keywords = { 'Spectre' }
 }
 
-masterPilotDB[41] = {
+masterPilotDB['ap5'] = {
     name = 'AP-5',
     XWS = 'ap5',
     Faction = 1,
@@ -711,7 +711,7 @@ masterPilotDB[41] = {
     keywords = { 'Spectre', 'Droid' }
 }
 
-masterPilotDB[42] = {
+masterPilotDB['janors'] = {
     name = 'Jan Ors',
     XWS = 'janors',
     Faction = 1,
@@ -722,7 +722,7 @@ masterPilotDB[42] = {
     actSet = { 'F', 'TL', 'B', 'Rot' }
 }
 
-masterPilotDB[43] = {
+masterPilotDB['kylekatarn'] = {
     name = 'Kyle Katarn',
     XWS = 'kylekatarn',
     Faction = 1,
@@ -733,7 +733,7 @@ masterPilotDB[43] = {
     actSet = { 'F', 'TL', 'B', 'Rot' }
 }
 
-masterPilotDB[44] = {
+masterPilotDB['roarkgarnet'] = {
     name = 'Roark Garnet',
     XWS = 'roarkgarnet',
     Faction = 1,
@@ -744,7 +744,7 @@ masterPilotDB[44] = {
     actSet = { 'F', 'TL', 'B', 'Rot' }
 }
 
-masterPilotDB[45] = {
+masterPilotDB['rebelscout'] = {
     name = 'Rebel Scout',
     XWS = 'rebelscout',
     Faction = 1,
@@ -754,7 +754,7 @@ masterPilotDB[45] = {
     actSet = { 'F', 'TL', 'B', 'Rot' }
 }
 
-masterPilotDB[46] = {
+masterPilotDB['ezrabridger-tielnfighter'] = {
     name = 'Ezra Bridger',
     XWS = 'ezrabridger-tielnfighter',
     Faction = 1,
@@ -767,7 +767,7 @@ masterPilotDB[46] = {
     keywords = { 'Light Side', 'Spectre' }
 }
 
-masterPilotDB[47] = {
+masterPilotDB['sabinewren-tielnfighter'] = {
     name = 'Sabine Wren',
     XWS = 'sabinewren-tielnfighter',
     Faction = 1,
@@ -779,7 +779,7 @@ masterPilotDB[47] = {
     keywords = { 'Spectre', 'Mandalorian' }
 }
 
-masterPilotDB[48] = {
+masterPilotDB['captainrex'] = {
     name = 'Captain Rex',
     XWS = 'captainrex',
     Condition = 'Suppressive Fire',
@@ -792,7 +792,7 @@ masterPilotDB[48] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[49] = {
+masterPilotDB['zeborrelios-tielnfighter'] = {
     name = '"Zeb" Orrelios',
     XWS = 'zeborrelios-tielnfighter',
     Faction = 1,
@@ -804,7 +804,7 @@ masterPilotDB[49] = {
     keywords = { 'Spectre' }
 }
 
-masterPilotDB[50] = {
+masterPilotDB['corranhorn'] = {
     name = 'Corran Horn',
     XWS = 'corranhorn',
     Faction = 1,
@@ -815,7 +815,7 @@ masterPilotDB[50] = {
     actSet = { 'F', 'E', 'BR', 'B', 'TL' }
 }
 
-masterPilotDB[51] = {
+masterPilotDB['gavindarklighter'] = {
     name = 'Gavin Darklighter',
     XWS = 'gavindarklighter',
     Faction = 1,
@@ -826,7 +826,7 @@ masterPilotDB[51] = {
     actSet = { 'F', 'E', 'BR', 'B', 'TL' }
 }
 
-masterPilotDB[52] = {
+masterPilotDB['roguesquadronescort'] = {
     name = 'Rogue Squadron Escort',
     XWS = 'roguesquadronescort',
     Faction = 1,
@@ -836,7 +836,7 @@ masterPilotDB[52] = {
     actSet = { 'F', 'E', 'BR', 'B', 'TL' }
 }
 
-masterPilotDB[53] = {
+masterPilotDB['knavesquadronescort'] = {
     name = 'Knave Squadron Escort',
     XWS = 'knavesquadronescort',
     Faction = 1,
@@ -846,7 +846,7 @@ masterPilotDB[53] = {
     actSet = { 'F', 'E', 'BR', 'B', 'TL' }
 }
 
-masterPilotDB[54] = {
+masterPilotDB['bodhirook'] = {
     name = 'Bodhi Rook',
     XWS = 'bodhirook',
     Faction = 1,
@@ -857,7 +857,7 @@ masterPilotDB[54] = {
     actSet = { 'F', 'TL' }
 }
 
-masterPilotDB[55] = {
+masterPilotDB['sawgerrera'] = {
     name = 'Saw Gerrera',
     XWS = 'sawgerrera',
     Faction = 1,
@@ -869,7 +869,7 @@ masterPilotDB[55] = {
     keywords = { 'Partisan' }
 }
 
-masterPilotDB[56] = {
+masterPilotDB['cassianandor'] = {
     name = 'Cassian Andor',
     XWS = 'cassianandor',
     Faction = 1,
@@ -880,7 +880,7 @@ masterPilotDB[56] = {
     actSet = { 'F', 'TL' }
 }
 
-masterPilotDB[57] = {
+masterPilotDB['magvayarro'] = {
     name = 'Magva Yarro',
     XWS = 'magvayarro',
     Faction = 1,
@@ -892,7 +892,7 @@ masterPilotDB[57] = {
     keywords = { 'Partisan' }
 }
 
-masterPilotDB[58] = {
+masterPilotDB['benthictwotubes'] = {
     name = 'Benthic Two Tubes',
     XWS = 'benthictwotubes',
     Faction = 1,
@@ -904,7 +904,7 @@ masterPilotDB[58] = {
     keywords = { 'Partisan' }
 }
 
-masterPilotDB[59] = {
+masterPilotDB['hefftobber'] = {
     name = 'Heff Tobber',
     XWS = 'hefftobber',
     Faction = 1,
@@ -915,7 +915,7 @@ masterPilotDB[59] = {
     actSet = { 'F', 'TL' }
 }
 
-masterPilotDB[60] = {
+masterPilotDB['bluesquadronscout'] = {
     name = 'Blue Squadron Scout',
     XWS = 'bluesquadronscout',
     Faction = 1,
@@ -925,7 +925,7 @@ masterPilotDB[60] = {
     actSet = { 'F', 'TL' }
 }
 
-masterPilotDB[61] = {
+masterPilotDB['partisanrenegade'] = {
     name = 'Partisan Renegade',
     XWS = 'partisanrenegade',
     Faction = 1,
@@ -936,7 +936,7 @@ masterPilotDB[61] = {
     keywords = { 'Partisan' }
 }
 
-masterPilotDB[629] = {
+masterPilotDB['k2so'] = {
     name = 'K-2SO',
     XWS = 'k2so',
     Faction = 1,
@@ -949,7 +949,7 @@ masterPilotDB[629] = {
 }
 
 
-masterPilotDB[62] = {
+masterPilotDB['mirandadoni'] = {
     name = 'Miranda Doni',
     XWS = 'mirandadoni',
     Faction = 1,
@@ -960,7 +960,7 @@ masterPilotDB[62] = {
     actSet = { 'F', 'TL', 'Rot' }
 }
 
-masterPilotDB[63] = {
+masterPilotDB['esegetuketu'] = {
     name = 'Esege Tuketu',
     XWS = 'esegetuketu',
     Faction = 1,
@@ -971,7 +971,7 @@ masterPilotDB[63] = {
     actSet = { 'F', 'TL', 'Rot' }
 }
 
-masterPilotDB[64] = {
+masterPilotDB['wardensquadronpilot'] = {
     name = 'Warden Squadron Pilot',
     XWS = 'wardensquadronpilot',
     Faction = 1,
@@ -981,7 +981,7 @@ masterPilotDB[64] = {
     actSet = { 'F', 'TL', 'Rot' }
 }
 
-masterPilotDB[65] = {
+masterPilotDB['norrawexley'] = {
     name = 'Norra Wexley',
     XWS = 'norrawexley',
     Faction = 1,
@@ -992,7 +992,7 @@ masterPilotDB[65] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[66] = {
+masterPilotDB['garvendreis'] = {
     name = 'Garven Dreis',
     XWS = 'garvendreis',
     Faction = 1,
@@ -1003,7 +1003,7 @@ masterPilotDB[66] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[67] = {
+masterPilotDB['sharabey'] = {
     name = 'Shara Bey',
     XWS = 'sharabey',
     Faction = 1,
@@ -1014,7 +1014,7 @@ masterPilotDB[67] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[68] = {
+masterPilotDB['ibtisam'] = {
     name = 'Ibtisam',
     XWS = 'ibtisam',
     Faction = 1,
@@ -1025,7 +1025,7 @@ masterPilotDB[68] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[69] = {
+masterPilotDB['hansolo-modifiedyt1300lightfreighter'] = {
     name = 'Han Solo',
     XWS = 'hansolo-modifiedyt1300lightfreighter',
     Faction = 1,
@@ -1036,7 +1036,7 @@ masterPilotDB[69] = {
     actSet = { 'F', 'TL', 'B' }
 }
 
-masterPilotDB[70] = {
+masterPilotDB['landocalrissian-modifiedyt1300lightfreighter'] = {
     name = 'Lando Calrissian',
     XWS = 'landocalrissian-modifiedyt1300lightfreighter',
     Faction = 1,
@@ -1047,7 +1047,7 @@ masterPilotDB[70] = {
     actSet = { 'F', 'TL', 'B' }
 }
 
-masterPilotDB[71] = {
+masterPilotDB['chewbacca'] = {
     name = 'Chewbacca',
     XWS = 'chewbacca',
     Faction = 1,
@@ -1059,7 +1059,7 @@ masterPilotDB[71] = {
     actSet = { 'F', 'TL', 'B' }
 }
 
-masterPilotDB[72] = {
+masterPilotDB['outerrimsmuggler'] = {
     name = 'Outer Rim Smuggler',
     XWS = 'outerrimsmuggler',
     Faction = 1,
@@ -1069,7 +1069,7 @@ masterPilotDB[72] = {
     actSet = { 'F', 'TL', 'B' }
 }
 
-masterPilotDB[630] = {
+masterPilotDB['leiaorgana'] = {
     name = 'Leia Organa',
     XWS = 'leiaorgana',
     Force = 1,
@@ -1082,7 +1082,7 @@ masterPilotDB[630] = {
     keywords = { 'Light Side' }
 }
 
-masterPilotDB[73] = {
+masterPilotDB['herasyndulla-vcx100lightfreighter'] = {
     name = 'Hera Syndulla',
     XWS = 'herasyndulla-vcx100lightfreighter',
     Faction = 1,
@@ -1105,7 +1105,7 @@ masterPilotDB[73] = {
     keywords = { 'Spectre' }
 }
 
-masterPilotDB[74] = {
+masterPilotDB['kananjarrus'] = {
     name = 'Kanan Jarrus',
     XWS = 'kananjarrus',
     Faction = 1,
@@ -1118,7 +1118,7 @@ masterPilotDB[74] = {
     keywords = { 'Jedi', 'Light Side', 'Spectre' }
 }
 
-masterPilotDB[75] = {
+masterPilotDB['chopper'] = {
     name = '"Chopper"',
     XWS = 'chopper',
     Faction = 1,
@@ -1130,7 +1130,7 @@ masterPilotDB[75] = {
     keywords = { 'Droid', 'Spectre' }
 }
 
-masterPilotDB[76] = {
+masterPilotDB['lothalrebel'] = {
     name = 'Lothal Rebel',
     XWS = 'lothalrebel',
     Faction = 1,
@@ -1140,7 +1140,7 @@ masterPilotDB[76] = {
     actSet = { 'F', 'TL', 'R' }
 }
 
-masterPilotDB[631] = {
+masterPilotDB['alexsandrkallus'] = {
     name = 'Alexsandr Kallus',
     XWS = 'alexsandrkallus',
     Faction = 1,
@@ -1152,7 +1152,7 @@ masterPilotDB[631] = {
     keywords = { 'Spectre' }
 }
 
-masterPilotDB[77] = {
+masterPilotDB['dashrendar'] = {
     name = 'Dash Rendar',
     XWS = 'dashrendar',
     Faction = 1,
@@ -1163,7 +1163,7 @@ masterPilotDB[77] = {
     actSet = { 'F', 'TL', 'BR', 'Rot' }
 }
 
-masterPilotDB[78] = {
+masterPilotDB['leebo'] = {
     name = '"Leebo"',
     XWS = 'leebo',
     Faction = 1,
@@ -1175,7 +1175,7 @@ masterPilotDB[78] = {
     keywords = { 'Droid' }
 }
 
-masterPilotDB[79] = {
+masterPilotDB['wildspacefringer'] = {
     name = 'Wild Space Fringer',
     XWS = 'wildspacefringer',
     Faction = 1,
@@ -1185,7 +1185,7 @@ masterPilotDB[79] = {
     actSet = { 'F', 'TL', 'BR', 'Rot' }
 }
 
-masterPilotDB[80] = {
+masterPilotDB['maulermithel'] = {
     name = '"Mauler" Mithel',
     XWS = 'maulermithel',
     Faction = 2,
@@ -1196,7 +1196,7 @@ masterPilotDB[80] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[81] = {
+masterPilotDB['howlrunner'] = {
     name = '"Howlrunner"',
     XWS = 'howlrunner',
     Faction = 2,
@@ -1207,7 +1207,7 @@ masterPilotDB[81] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[82] = {
+masterPilotDB['scourgeskutu'] = {
     name = '"Scourge" Skutu',
     XWS = 'scourgeskutu',
     Faction = 2,
@@ -1218,7 +1218,7 @@ masterPilotDB[82] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[83] = {
+masterPilotDB['idenversio'] = {
     name = 'Iden Versio',
     XWS = 'idenversio',
     Faction = 2,
@@ -1231,7 +1231,7 @@ masterPilotDB[83] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[84] = {
+masterPilotDB['gideonhask'] = {
     name = 'Gideon Hask',
     XWS = 'gideonhask',
     Faction = 2,
@@ -1242,7 +1242,7 @@ masterPilotDB[84] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[85] = {
+masterPilotDB['delmeeko'] = {
     name = 'Del Meeko',
     XWS = 'delmeeko',
     Faction = 2,
@@ -1253,7 +1253,7 @@ masterPilotDB[85] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[86] = {
+masterPilotDB['seynmarana'] = {
     name = 'Seyn Marana',
     XWS = 'seynmarana',
     Faction = 2,
@@ -1264,7 +1264,7 @@ masterPilotDB[86] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[87] = {
+masterPilotDB['valenrudor'] = {
     name = 'Valen Rudor',
     XWS = 'valenrudor',
     Faction = 2,
@@ -1276,7 +1276,7 @@ masterPilotDB[87] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[88] = {
+masterPilotDB['nightbeast'] = {
     name = '"Night Beast"',
     XWS = 'nightbeast',
     Faction = 2,
@@ -1287,7 +1287,7 @@ masterPilotDB[88] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[89] = {
+masterPilotDB['wampa'] = {
     name = '"Wampa"',
     XWS = 'wampa',
     Faction = 2,
@@ -1299,7 +1299,7 @@ masterPilotDB[89] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[90] = {
+masterPilotDB['blacksquadronace'] = {
     name = 'Black Squadron Ace',
     XWS = 'blacksquadronace',
     Faction = 2,
@@ -1309,7 +1309,7 @@ masterPilotDB[90] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[91] = {
+masterPilotDB['obsidiansquadronpilot'] = {
     name = 'Obsidian Squadron Pilot',
     XWS = 'obsidiansquadronpilot',
     Faction = 2,
@@ -1319,7 +1319,7 @@ masterPilotDB[91] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[92] = {
+masterPilotDB['academypilot'] = {
     name = 'Academy Pilot',
     XWS = 'academypilot',
     Faction = 2,
@@ -1329,7 +1329,7 @@ masterPilotDB[92] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[93] = {
+masterPilotDB['darthvader'] = {
     name = 'Darth Vader',
     XWS = 'darthvader',
     Faction = 2,
@@ -1342,7 +1342,7 @@ masterPilotDB[93] = {
     keywords = { 'Dark Side', 'Sith' }
 }
 
-masterPilotDB[94] = {
+masterPilotDB['maarekstele'] = {
     name = 'Maarek Stele',
     XWS = 'maarekstele',
     Faction = 2,
@@ -1353,7 +1353,7 @@ masterPilotDB[94] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[95] = {
+masterPilotDB['vedfoslo'] = {
     name = 'Ved Foslo',
     XWS = 'vedfoslo',
     Faction = 2,
@@ -1384,7 +1384,7 @@ masterPilotDB[95] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[96] = {
+masterPilotDB['zertikstrom'] = {
     name = 'Zertik Strom',
     XWS = 'zertikstrom',
     Faction = 2,
@@ -1395,7 +1395,7 @@ masterPilotDB[96] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[97] = {
+masterPilotDB['stormsquadronace'] = {
     name = 'Storm Squadron Ace',
     XWS = 'stormsquadronace',
     Faction = 2,
@@ -1405,7 +1405,7 @@ masterPilotDB[97] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[98] = {
+masterPilotDB['tempestsquadronpilot'] = {
     name = 'Tempest Squadron Pilot',
     XWS = 'tempestsquadronpilot',
     Faction = 2,
@@ -1415,7 +1415,7 @@ masterPilotDB[98] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[99] = {
+masterPilotDB['grandinquisitor'] = {
     name = 'Grand Inquisitor',
     XWS = 'grandinquisitor',
     Faction = 2,
@@ -1428,7 +1428,7 @@ masterPilotDB[99] = {
     keywords = { 'Dark Side' }
 }
 
-masterPilotDB[100] = {
+masterPilotDB['seventhsister'] = {
     name = 'Seventh Sister',
     XWS = 'seventhsister',
     Faction = 2,
@@ -1440,7 +1440,7 @@ masterPilotDB[100] = {
     actSet = { 'F', 'E', 'TL', 'BR', 'B' }
 }
 
-masterPilotDB[101] = {
+masterPilotDB['baronoftheempire'] = {
     name = 'Baron of the Empire',
     XWS = 'baronoftheempire',
     Faction = 2,
@@ -1450,7 +1450,7 @@ masterPilotDB[101] = {
     actSet = { 'F', 'E', 'TL', 'BR', 'B' }
 }
 
-masterPilotDB[102] = {
+masterPilotDB['inquisitor'] = {
     name = 'Inquisitor',
     XWS = 'inquisitor',
     Faction = 2,
@@ -1461,7 +1461,7 @@ masterPilotDB[102] = {
     actSet = { 'F', 'E', 'TL', 'BR', 'B' }
 }
 
-masterPilotDB[632] = {
+masterPilotDB['fifthbrother'] = {
     name = 'Fifth Brother',
     XWS = 'fifthbrother',
     Faction = 2,
@@ -1474,7 +1474,7 @@ masterPilotDB[632] = {
 }
 
 
-masterPilotDB[103] = {
+masterPilotDB['soontirfel'] = {
     name = 'Soontir Fel',
     XWS = 'soontirfel',
     Faction = 2,
@@ -1485,7 +1485,7 @@ masterPilotDB[103] = {
     actSet = { 'F', 'E', 'BR', 'B' }
 }
 
-masterPilotDB[104] = {
+masterPilotDB['turrphennir'] = {
     name = 'Turr Phennir',
     XWS = 'turrphennir',
     Faction = 2,
@@ -1496,7 +1496,7 @@ masterPilotDB[104] = {
     actSet = { 'F', 'E', 'BR', 'B' }
 }
 
-masterPilotDB[105] = {
+masterPilotDB['sabersquadronace'] = {
     name = 'Saber Squadron Ace',
     XWS = 'sabersquadronace',
     Faction = 2,
@@ -1506,7 +1506,7 @@ masterPilotDB[105] = {
     actSet = { 'F', 'E', 'BR', 'B' }
 }
 
-masterPilotDB[106] = {
+masterPilotDB['alphasquadronpilot'] = {
     name = 'Alpha Squadron Pilot',
     XWS = 'alphasquadronpilot',
     Faction = 2,
@@ -1516,7 +1516,7 @@ masterPilotDB[106] = {
     actSet = { 'F', 'E', 'BR', 'B' }
 }
 
-masterPilotDB[830] = {
+masterPilotDB['cienaree'] = {
     name = 'Ciena Ree',
     XWS = 'cienaree',
     Faction = 2,
@@ -1527,7 +1527,7 @@ masterPilotDB[830] = {
     actSet = { 'F', 'E', 'BR', 'B' }
 }
 
-masterPilotDB[831] = {
+masterPilotDB['vultskerris-tieininterceptor'] = {
     name = 'Vult Skerris',
     XWS = 'vultskerris-tieininterceptor',
     Faction = 2,
@@ -1539,7 +1539,7 @@ masterPilotDB[831] = {
     actSet = { 'F', 'E', 'BR', 'B' }
 }
 
-masterPilotDB[832] = {
+masterPilotDB['commandantgoran'] = {
     name = 'Commandant Goran',
     XWS = 'commandantgoran',
     Faction = 2,
@@ -1550,7 +1550,7 @@ masterPilotDB[832] = {
     actSet = { 'F', 'E', 'BR', 'B' }
 }
 
-masterPilotDB[833] = {
+masterPilotDB['gideonhask-tieininterceptor'] = {
     name = 'Gideon Hask',
     XWS = 'gideonhask-tieininterceptor',
     Faction = 2,
@@ -1561,7 +1561,7 @@ masterPilotDB[833] = {
     actSet = { 'F', 'E', 'BR', 'B' }
 }
 
-masterPilotDB[834] = {
+masterPilotDB['nashwindrider'] = {
     name = 'Nash Windrider',
     XWS = 'nashwindrider',
     Faction = 2,
@@ -1573,7 +1573,7 @@ masterPilotDB[834] = {
     actSet = { 'F', 'E', 'BR', 'B' }
 }
 
-masterPilotDB[835] = {
+masterPilotDB['lieutenantlorrir'] = {
     name = 'Lieutenant Lorrir',
     XWS = 'lieutenantlorrir',
     Faction = 2,
@@ -1584,7 +1584,7 @@ masterPilotDB[835] = {
     actSet = { 'F', 'E', 'VR', 'B' }
 }
 
-masterPilotDB[107] = {
+masterPilotDB['tomaxbren'] = {
     name = 'Tomax Bren',
     XWS = 'tomaxbren',
     Faction = 2,
@@ -1595,7 +1595,7 @@ masterPilotDB[107] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[108] = {
+masterPilotDB['captainjonus'] = {
     name = 'Captain Jonus',
     XWS = 'captainjonus',
     Faction = 2,
@@ -1606,7 +1606,7 @@ masterPilotDB[108] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[109] = {
+masterPilotDB['majorrhymer'] = {
     name = 'Major Rhymer',
     XWS = 'majorrhymer',
     Faction = 2,
@@ -1617,7 +1617,7 @@ masterPilotDB[109] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[110] = {
+masterPilotDB['deathfire'] = {
     name = '"Deathfire"',
     XWS = 'deathfire',
     Faction = 2,
@@ -1628,7 +1628,7 @@ masterPilotDB[110] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[111] = {
+masterPilotDB['gammasquadronace'] = {
     name = 'Gamma Squadron Ace',
     XWS = 'gammasquadronace',
     Faction = 2,
@@ -1638,7 +1638,7 @@ masterPilotDB[111] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[112] = {
+masterPilotDB['scimitarsquadronpilot'] = {
     name = 'Scimitar Squadron Pilot',
     XWS = 'scimitarsquadronpilot',
     Faction = 2,
@@ -1648,7 +1648,7 @@ masterPilotDB[112] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[113] = {
+masterPilotDB['majorvermeil'] = {
     name = 'Major Vermeil',
     XWS = 'majorvermeil',
     Faction = 2,
@@ -1659,7 +1659,7 @@ masterPilotDB[113] = {
     actSet = { 'F', 'E', 'Ail', 'B' }
 }
 
-masterPilotDB[114] = {
+masterPilotDB['captainferoph'] = {
     name = 'Captain Feroph',
     XWS = 'captainferoph',
     Faction = 2,
@@ -1670,7 +1670,7 @@ masterPilotDB[114] = {
     actSet = { 'F', 'E', 'Ail', 'B' }
 }
 
-masterPilotDB[115] = {
+masterPilotDB['vizier'] = {
     name = '"Vizier"',
     XWS = 'vizier',
     Faction = 2,
@@ -1681,7 +1681,7 @@ masterPilotDB[115] = {
     actSet = { 'F', 'E', 'Ail', 'B' }
 }
 
-masterPilotDB[116] = {
+masterPilotDB['scarifbasepilot'] = {
     name = 'Scarif Base Pilot',
     XWS = 'scarifbasepilot',
     Faction = 2,
@@ -1691,7 +1691,7 @@ masterPilotDB[116] = {
     actSet = { 'F', 'E', 'Ail', 'B' }
 }
 
-masterPilotDB[117] = {
+masterPilotDB['duchess'] = {
     name = '"Duchess"',
     XWS = 'duchess',
     Faction = 2,
@@ -1702,7 +1702,7 @@ masterPilotDB[117] = {
     actSet = { 'F', 'E', 'BR', 'Ail', 'B' }
 }
 
-masterPilotDB[118] = {
+masterPilotDB['countdown'] = {
     name = '"Countdown"',
     XWS = 'countdown',
     Faction = 2,
@@ -1713,7 +1713,7 @@ masterPilotDB[118] = {
     actSet = { 'F', 'E', 'BR', 'Ail', 'B' }
 }
 
-masterPilotDB[119] = {
+masterPilotDB['puresabacc'] = {
     name = '"Pure Sabacc"',
     XWS = 'puresabacc',
     Faction = 2,
@@ -1724,7 +1724,7 @@ masterPilotDB[119] = {
     actSet = { 'F', 'E', 'BR', 'Ail', 'B' }
 }
 
-masterPilotDB[120] = {
+masterPilotDB['blacksquadronscout'] = {
     name = 'Black Squadron Scout',
     XWS = 'blacksquadronscout',
     Faction = 2,
@@ -1734,7 +1734,7 @@ masterPilotDB[120] = {
     actSet = { 'F', 'E', 'BR', 'Ail', 'B' }
 }
 
-masterPilotDB[121] = {
+masterPilotDB['planetarysentinel'] = {
     name = 'Planetary Sentinel',
     XWS = 'planetarysentinel',
     Faction = 2,
@@ -1744,7 +1744,7 @@ masterPilotDB[121] = {
     actSet = { 'F', 'E', 'BR', 'Ail', 'B' }
 }
 
-masterPilotDB[633] = {
+masterPilotDB['vagabond'] = {
     name = '"Vagabond"',
     XWS = 'vagabond',
     Faction = 2,
@@ -1755,7 +1755,7 @@ masterPilotDB[633] = {
     actSet = { 'F', 'E', 'BR', 'Ail', 'B' }
 }
 
-masterPilotDB[122] = {
+masterPilotDB['rexlerbrath'] = {
     name = 'Rexler Brath',
     XWS = 'rexlerbrath',
     Faction = 2,
@@ -1766,7 +1766,7 @@ masterPilotDB[122] = {
     actSet = { 'F', 'E', 'BR', 'TL', 'B' }
 }
 
-masterPilotDB[123] = {
+masterPilotDB['colonelvessery'] = {
     name = 'Colonel Vessery',
     XWS = 'colonelvessery',
     Faction = 2,
@@ -1777,7 +1777,7 @@ masterPilotDB[123] = {
     actSet = { 'F', 'E', 'BR', 'TL', 'B' }
 }
 
-masterPilotDB[124] = {
+masterPilotDB['countessryad'] = {
     name = 'Countess Ryad',
     XWS = 'countessryad',
     Faction = 2,
@@ -1794,7 +1794,7 @@ masterPilotDB[124] = {
     actSet = { 'F', 'E', 'BR', 'TL', 'B' }
 }
 
-masterPilotDB[125] = {
+masterPilotDB['onyxsquadronace'] = {
     name = 'Onyx Squadron Ace',
     XWS = 'onyxsquadronace',
     Faction = 2,
@@ -1804,7 +1804,7 @@ masterPilotDB[125] = {
     actSet = { 'F', 'E', 'BR', 'TL', 'B' }
 }
 
-masterPilotDB[126] = {
+masterPilotDB['deltasquadronpilot'] = {
     name = 'Delta Squadron Pilot',
     XWS = 'deltasquadronpilot',
     Faction = 2,
@@ -1815,7 +1815,7 @@ masterPilotDB[126] = {
 }
 
 
-masterPilotDB[815] = {
+masterPilotDB['darthvader-tieddefender'] = {
     name = 'Darth Vader',
     XWS = 'darthvader-tieddefender',
     Faction = 2,
@@ -1827,7 +1827,7 @@ masterPilotDB[815] = {
     keywords = { 'Dark Side', 'Sith' }
 }
 
-masterPilotDB[816] = {
+masterPilotDB['vultskerris'] = {
     name = 'Vult Skerris',
     XWS = 'vultskerris',
     Faction = 2,
@@ -1838,7 +1838,7 @@ masterPilotDB[816] = {
     actSet = { 'F', 'E', 'BR', 'TL', 'B' }
 }
 
-masterPilotDB[817] = {
+masterPilotDB['captaindobbs'] = {
     name = 'Captain Dobbs',
     XWS = 'captaindobbs',
     Faction = 2,
@@ -1848,7 +1848,7 @@ masterPilotDB[817] = {
     actSet = { 'F', 'E', 'BR', 'TL', 'B' }
 }
 
-masterPilotDB[127] = {
+masterPilotDB['lieutenantkestal'] = {
     name = 'Lieutenant Kestal',
     XWS = 'lieutenantkestal',
     Faction = 2,
@@ -1859,7 +1859,7 @@ masterPilotDB[127] = {
     actSet = { 'F', 'E', 'BR', 'TL' }
 }
 
-masterPilotDB[128] = {
+masterPilotDB['doubleedge'] = {
     name = '"Double Edge"',
     XWS = 'doubleedge',
     Faction = 2,
@@ -1870,7 +1870,7 @@ masterPilotDB[128] = {
     actSet = { 'F', 'E', 'BR', 'TL' }
 }
 
-masterPilotDB[129] = {
+masterPilotDB['onyxsquadronscout'] = {
     name = 'Onyx Squadron Scout',
     XWS = 'onyxsquadronscout',
     Faction = 2,
@@ -1880,7 +1880,7 @@ masterPilotDB[129] = {
     actSet = { 'F', 'E', 'BR', 'TL' }
 }
 
-masterPilotDB[130] = {
+masterPilotDB['sienarspecialist'] = {
     name = 'Sienar Specialist',
     XWS = 'sienarspecialist',
     Faction = 2,
@@ -1890,7 +1890,7 @@ masterPilotDB[130] = {
     actSet = { 'F', 'E', 'BR', 'TL' }
 }
 
-masterPilotDB[131] = {
+masterPilotDB['whisper'] = {
     name = '"Whisper"',
     title = 'Soft-Spoken Slayer',
     XWS = 'whisper',
@@ -1902,7 +1902,7 @@ masterPilotDB[131] = {
     actSet = { 'F', 'E', 'BR', 'CL' }
 }
 
-masterPilotDB[132] = {
+masterPilotDB['echo'] = {
     name = '"Echo"',
     title = 'Slippery Trickster',
     XWS = 'echo',
@@ -1914,7 +1914,7 @@ masterPilotDB[132] = {
     actSet = { 'F', 'E', 'BR', 'CL' }
 }
 
-masterPilotDB[133] = {
+masterPilotDB['sigmasquadronace'] = {
     name = 'Sigma Squadron Ace',
     XWS = 'sigmasquadronace',
     Faction = 2,
@@ -1924,7 +1924,7 @@ masterPilotDB[133] = {
     actSet = { 'F', 'E', 'BR', 'CL' }
 }
 
-masterPilotDB[134] = {
+masterPilotDB['imdaartestpilot'] = {
     name = 'Imdaar Test Pilot',
     XWS = 'imdaartestpilot',
     Faction = 2,
@@ -1934,7 +1934,7 @@ masterPilotDB[134] = {
     actSet = { 'F', 'E', 'BR', 'CL' }
 }
 
-masterPilotDB[135] = {
+masterPilotDB['majorvynder'] = {
     name = 'Major Vynder',
     title = 'Pragmatic Survivor',
     XWS = 'majorvynder',
@@ -1946,7 +1946,7 @@ masterPilotDB[135] = {
     actSet = { 'F', 'TL' }
 }
 
-masterPilotDB[136] = {
+masterPilotDB['lieutenantkarsabi'] = {
     name = 'Lieutenant Karsabi',
     title = 'Brash Noble',
     XWS = 'lieutenantkarsabi',
@@ -1958,7 +1958,7 @@ masterPilotDB[136] = {
     actSet = { 'F', 'TL' }
 }
 
-masterPilotDB[137] = {
+masterPilotDB['rhosquadronpilot'] = {
     name = 'Rho Squadron Pilot',
     XWS = 'rhosquadronpilot',
     Faction = 2,
@@ -1968,7 +1968,7 @@ masterPilotDB[137] = {
     actSet = { 'F', 'TL' }
 }
 
-masterPilotDB[138] = {
+masterPilotDB['nusquadronpilot'] = {
     name = 'Nu Squadron Pilot',
     XWS = 'nusquadronpilot',
     Faction = 2,
@@ -1978,7 +1978,7 @@ masterPilotDB[138] = {
     actSet = { 'F', 'TL' }
 }
 
-masterPilotDB[139] = {
+masterPilotDB['redline'] = {
     name = '"Redline"',
     XWS = 'redline',
     Faction = 2,
@@ -1988,7 +1988,7 @@ masterPilotDB[139] = {
     texture = 'grey',
     actSet = { 'F', 'TL', 'BR', "B" }
 }
-masterPilotDB[140] = {
+masterPilotDB['deathrain'] = {
     name = '"Deathrain"',
     XWS = 'deathrain',
     Faction = 2,
@@ -1999,7 +1999,7 @@ masterPilotDB[140] = {
     actSet = { 'F', 'TL', 'BR', "B" }
 }
 
-masterPilotDB[141] = {
+masterPilotDB['cutlasssquadronpilot'] = {
     name = 'Cutlass Squadron Pilot',
     XWS = 'cutlasssquadronpilot',
     Faction = 2,
@@ -2009,7 +2009,7 @@ masterPilotDB[141] = {
     actSet = { 'F', 'TL', 'BR', "B" }
 }
 
-masterPilotDB[142] = {
+masterPilotDB['captainkagi'] = {
     name = 'Captain Kagi',
     XWS = 'captainkagi',
     Faction = 2,
@@ -2020,7 +2020,7 @@ masterPilotDB[142] = {
     actSet = { 'F', 'R' }
 }
 
-masterPilotDB[143] = {
+masterPilotDB['coloneljendon'] = {
     name = 'Colonel Jendon',
     XWS = 'coloneljendon',
     Faction = 2,
@@ -2032,7 +2032,7 @@ masterPilotDB[143] = {
     actSet = { 'F', 'R' }
 }
 
-masterPilotDB[144] = {
+masterPilotDB['lieutenantsai'] = {
     name = 'Lieutenant Sai',
     XWS = 'lieutenantsai',
     Faction = 2,
@@ -2043,7 +2043,7 @@ masterPilotDB[144] = {
     actSet = { 'F', 'R' }
 }
 
-masterPilotDB[145] = {
+masterPilotDB['omicrongrouppilot'] = {
     name = 'Omicron Group Pilot',
     XWS = 'omicrongrouppilot',
     Faction = 2,
@@ -2053,7 +2053,7 @@ masterPilotDB[145] = {
     actSet = { 'F', 'R' }
 }
 
-masterPilotDB[146] = {
+masterPilotDB['captainoicunn'] = {
     name = 'Captain Oicunn',
     XWS = 'captainoicunn',
     Faction = 2,
@@ -2064,7 +2064,7 @@ masterPilotDB[146] = {
     actSet = { 'F', 'R', 'TL', 'Rot' }
 }
 
-masterPilotDB[147] = {
+masterPilotDB['rearadmiralchiraneau'] = {
     name = 'Rear Admiral Chiraneau',
     XWS = 'rearadmiralchiraneau',
     Faction = 2,
@@ -2075,7 +2075,7 @@ masterPilotDB[147] = {
     actSet = { 'F', 'R', 'TL', 'Rot' }
 }
 
-masterPilotDB[148] = {
+masterPilotDB['patrolleader'] = {
     name = 'Patrol Leader',
     XWS = 'patrolleader',
     Faction = 2,
@@ -2085,7 +2085,7 @@ masterPilotDB[148] = {
     actSet = { 'F', 'R', 'TL', 'Rot' }
 }
 
-masterPilotDB[634] = {
+masterPilotDB['mornakee'] = {
     name = 'Morna Kee',
     XWS = 'mornakee',
     Faction = 2,
@@ -2097,7 +2097,7 @@ masterPilotDB[634] = {
     actSet = { 'F', 'R', 'TL', 'Rot' }
 }
 
-masterPilotDB[149] = {
+masterPilotDB['bobafett'] = {
     name = 'Boba Fett',
     XWS = 'bobafett',
     title = 'Notorious Bounty Hunter',
@@ -2110,7 +2110,7 @@ masterPilotDB[149] = {
     keywords = { 'Bounty Hunter' }
 }
 
-masterPilotDB[150] = {
+masterPilotDB['emonazzameen'] = {
     name = 'Emon Azzameen',
     XWS = 'emonazzameen',
     Faction = 3,
@@ -2121,7 +2121,7 @@ masterPilotDB[150] = {
     actSet = { 'F', 'R', 'TL', 'B' }
 }
 
-masterPilotDB[151] = {
+masterPilotDB['kathscarlet'] = {
     name = 'Kath Scarlet',
     XWS = 'kathscarlet',
     Faction = 3,
@@ -2132,7 +2132,7 @@ masterPilotDB[151] = {
     actSet = { 'F', 'R', 'TL', 'B' }
 }
 
-masterPilotDB[152] = {
+masterPilotDB['koshkafrost'] = {
     name = 'Koshka Frost',
     XWS = 'koshkafrost',
     Faction = 3,
@@ -2144,7 +2144,7 @@ masterPilotDB[152] = {
     keywords = { 'Bounty Hunter' }
 }
 
-masterPilotDB[153] = {
+masterPilotDB['krassistrelix'] = {
     name = 'Krassis Trelix',
     XWS = 'krassistrelix',
     Faction = 3,
@@ -2155,7 +2155,7 @@ masterPilotDB[153] = {
     actSet = { 'F', 'R', 'TL', 'B' }
 }
 
-masterPilotDB[154] = {
+masterPilotDB['bountyhunter'] = {
     name = 'Bounty Hunter',
     XWS = 'bountyhunter',
     Faction = 3,
@@ -2166,7 +2166,7 @@ masterPilotDB[154] = {
     keywords = { 'Bounty Hunter' }
 }
 
-masterPilotDB[155] = {
+masterPilotDB['fennrau'] = {
     name = 'Fenn Rau',
     XWS = 'fennrau',
     Faction = 3,
@@ -2178,7 +2178,7 @@ masterPilotDB[155] = {
     keywords = { 'Mandalorian' }
 }
 
-masterPilotDB[156] = {
+masterPilotDB['oldteroch'] = {
     name = 'Old Teroch',
     XWS = 'oldteroch',
     Faction = 3,
@@ -2190,7 +2190,7 @@ masterPilotDB[156] = {
     keywords = { 'Mandalorian' }
 }
 
-masterPilotDB[157] = {
+masterPilotDB['joyrekkoff'] = {
     name = 'Joy Rekkoff',
     XWS = 'joyrekkoff',
     Faction = 3,
@@ -2202,7 +2202,7 @@ masterPilotDB[157] = {
     keywords = { 'Mandalorian' }
 }
 
-masterPilotDB[158] = {
+masterPilotDB['kadsolus'] = {
     name = 'Kad Solus',
     XWS = 'kadsolus',
     Faction = 3,
@@ -2214,7 +2214,7 @@ masterPilotDB[158] = {
     keywords = { 'Mandalorian' }
 }
 
-masterPilotDB[159] = {
+masterPilotDB['skullsquadronpilot'] = {
     name = 'Skull Squadron Pilot',
     XWS = 'skullsquadronpilot',
     Faction = 3,
@@ -2225,7 +2225,7 @@ masterPilotDB[159] = {
     keywords = { 'Mandalorian' }
 }
 
-masterPilotDB[160] = {
+masterPilotDB['zealousrecruit'] = {
     name = 'Zealous Recruit',
     XWS = 'zealousrecruit',
     Faction = 3,
@@ -2236,7 +2236,7 @@ masterPilotDB[160] = {
     keywords = { 'Mandalorian' }
 }
 
-masterPilotDB[161] = {
+masterPilotDB['constablezuvio'] = {
     name = 'Constable Zuvio',
     XWS = 'constablezuvio',
     limited = 1,
@@ -2247,7 +2247,7 @@ masterPilotDB[161] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[162] = {
+masterPilotDB['sarcoplank'] = {
     name = 'Sarco Plank',
     XWS = 'sarcoplank',
     Faction = 3,
@@ -2259,7 +2259,7 @@ masterPilotDB[162] = {
     keywords = { 'Bounty Hunter' }
 }
 
-masterPilotDB[163] = {
+masterPilotDB['unkarplutt'] = {
     name = 'Unkar Plutt',
     XWS = 'unkarplutt',
     Faction = 3,
@@ -2270,7 +2270,7 @@ masterPilotDB[163] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[164] = {
+masterPilotDB['jakkugunrunner'] = {
     name = 'Jakku Gunrunner',
     XWS = 'jakkugunrunner',
     Faction = 3,
@@ -2280,7 +2280,7 @@ masterPilotDB[164] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[165] = {
+masterPilotDB['kavil'] = {
     name = 'Kavil',
     XWS = 'kavil',
     Faction = 3,
@@ -2291,7 +2291,7 @@ masterPilotDB[165] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[166] = {
+masterPilotDB['drearenthal'] = {
     name = 'Drea Renthal',
     XWS = 'drearenthal',
     Faction = 3,
@@ -2302,7 +2302,7 @@ masterPilotDB[166] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[167] = {
+masterPilotDB['hiredgun'] = {
     name = 'Hired Gun',
     XWS = 'hiredgun',
     Faction = 3,
@@ -2312,7 +2312,7 @@ masterPilotDB[167] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[168] = {
+masterPilotDB['crymorahgoon'] = {
     name = 'Crymorah Goon',
     XWS = 'crymorahgoon',
     Faction = 3,
@@ -2323,7 +2323,7 @@ masterPilotDB[168] = {
 }
 
 
-masterPilotDB[820] = {
+masterPilotDB['arlizhadrassian'] = {
     name = 'Arliz Hadrassian',
     XWS = 'arlizhadrassian',
     Faction = 3,
@@ -2334,7 +2334,7 @@ masterPilotDB[820] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[821] = {
+masterPilotDB['leemakai'] = {
     name = 'Leema Kai',
     XWS = 'leemakai',
     Faction = 3,
@@ -2345,7 +2345,7 @@ masterPilotDB[821] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[822] = {
+masterPilotDB['padric'] = {
     name = 'Padric',
     XWS = 'padric',
     Faction = 3,
@@ -2355,7 +2355,7 @@ masterPilotDB[822] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[823] = {
+masterPilotDB['amaxinewarrior'] = {
     name = 'Amaxine Warrior',
     XWS = 'amaxinewarrior',
     Faction = 3,
@@ -2365,7 +2365,7 @@ masterPilotDB[823] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[824] = {
+masterPilotDB['jinatasecurityofficer'] = {
     name = 'Jinata Security Officer',
     XWS = 'jinatasecurityofficer',
     Faction = 3,
@@ -2375,7 +2375,7 @@ masterPilotDB[824] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[169] = {
+masterPilotDB['ndrusuhlak'] = {
     name = "N'dru Suhlak",
     XWS = 'ndrusuhlak',
     Faction = 3,
@@ -2386,7 +2386,7 @@ masterPilotDB[169] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[170] = {
+masterPilotDB['kaatoleeachos'] = {
     name = "Kaa'to Leeachos",
     XWS = 'kaatoleeachos',
     Faction = 3,
@@ -2398,7 +2398,7 @@ masterPilotDB[170] = {
     keywords = { 'Bounty Hunter' }
 }
 
-masterPilotDB[171] = {
+masterPilotDB['nashtahpup'] = {
     name = 'Nashtah Pup',
     XWS = 'nashtahpup',
     Faction = 3,
@@ -2409,7 +2409,7 @@ masterPilotDB[171] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[172] = {
+masterPilotDB['blacksunsoldier'] = {
     name = 'Black Sun Soldier',
     XWS = 'blacksunsoldier',
     Faction = 3,
@@ -2419,7 +2419,7 @@ masterPilotDB[172] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[173] = {
+masterPilotDB['binayrepirate'] = {
     name = 'Binayre Pirate',
     XWS = 'binayrepirate',
     Faction = 3,
@@ -2429,7 +2429,7 @@ masterPilotDB[173] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[635] = {
+masterPilotDB['bossk-z95af4headhunter'] = {
     name = 'Bossk',
     XWS = 'bossk-z95af4headhunter',
     Faction = 3,
@@ -2441,7 +2441,7 @@ masterPilotDB[635] = {
     keywords = { 'Bounty Hunter' }
 }
 
-masterPilotDB[174] = {
+masterPilotDB['dacebonearm'] = {
     name = 'Dace Bonearm',
     XWS = 'dacebonearm',
     Faction = 3,
@@ -2453,7 +2453,7 @@ masterPilotDB[174] = {
     actSet = { 'F', 'TL', 'B', 'Rot' }
 }
 
-masterPilotDB[175] = {
+masterPilotDB['palobgodalhi'] = {
     name = 'Palob Godalhi',
     XWS = 'palobgodalhi',
     Faction = 3,
@@ -2464,7 +2464,7 @@ masterPilotDB[175] = {
     actSet = { 'F', 'TL', 'B', 'Rot' }
 }
 
-masterPilotDB[176] = {
+masterPilotDB['torkilmux'] = {
     name = 'Torkil Mux',
     XWS = 'torkilmux',
     Faction = 3,
@@ -2475,7 +2475,7 @@ masterPilotDB[176] = {
     actSet = { 'F', 'TL', 'B', 'Rot' }
 }
 
-masterPilotDB[177] = {
+masterPilotDB['spicerunner'] = {
     name = 'Spice Runner',
     XWS = 'spicerunner',
     Faction = 3,
@@ -2486,7 +2486,7 @@ masterPilotDB[177] = {
 }
 
 
-masterPilotDB[825] = {
+masterPilotDB['kananjarrus-hwk290lightfreighter'] = {
     name = 'Kanan Jarrus',
     XWS = 'kananjarrus-hwk290lightfreighter',
     Faction = 3,
@@ -2499,7 +2499,7 @@ masterPilotDB[825] = {
     keywords = { 'Jedi', 'Light Side' }
 }
 
-masterPilotDB[826] = {
+masterPilotDB['gamutkey'] = {
     name = 'Gamut Key',
     XWS = 'gamutkey',
     Faction = 3,
@@ -2511,8 +2511,8 @@ masterPilotDB[826] = {
     actSet = { 'F', 'TL', 'B', 'Rot' }
 }
 
-masterPilotDB[827] = {
-    name = 'Tápusk',
+masterPilotDB['tapusk'] = {
+    name = 'TÃ¡pusk',
     XWS = 'tapusk',
     Faction = 3,
     limited = 1,
@@ -2523,7 +2523,7 @@ masterPilotDB[827] = {
     actSet = { 'F', 'TL', 'B', 'Rot' }
 }
 
-masterPilotDB[178] = {
+masterPilotDB['guri'] = {
     name = 'Guri',
     XWS = 'guri',
     Faction = 3,
@@ -2535,7 +2535,7 @@ masterPilotDB[178] = {
     keywords = { 'Droid' }
 }
 
-masterPilotDB[179] = {
+masterPilotDB['dalanoberos-starviperclassattackplatform'] = {
     name = 'Dalan Oberos',
     XWS = 'dalanoberos-starviperclassattackplatform',
     Faction = 3,
@@ -2547,7 +2547,7 @@ masterPilotDB[179] = {
     keywords = { 'Bounty Hunter' }
 }
 
-masterPilotDB[180] = {
+masterPilotDB['princexizor'] = {
     name = 'Prince Xizor',
     XWS = 'princexizor',
     Faction = 3,
@@ -2558,7 +2558,7 @@ masterPilotDB[180] = {
     actSet = { 'F', 'TL', 'B', 'VR' }
 }
 
-masterPilotDB[181] = {
+masterPilotDB['blacksunassassin'] = {
     name = 'Black Sun Assassin',
     XWS = 'blacksunassassin',
     Faction = 3,
@@ -2568,7 +2568,7 @@ masterPilotDB[181] = {
     actSet = { 'F', 'TL', 'B', 'VR' }
 }
 
-masterPilotDB[182] = {
+masterPilotDB['blacksunenforcer'] = {
     name = 'Black Sun Enforcer',
     XWS = 'blacksunenforcer',
     Faction = 3,
@@ -2578,7 +2578,7 @@ masterPilotDB[182] = {
     actSet = { 'F', 'TL', 'B', 'VR' }
 }
 
-masterPilotDB[183] = {
+masterPilotDB['serissu'] = {
     name = 'Serissu',
     XWS = 'serissu',
     Faction = 3,
@@ -2590,7 +2590,7 @@ masterPilotDB[183] = {
     actSet = { 'F', 'E', 'TL', 'BR' }
 }
 
-masterPilotDB[184] = {
+masterPilotDB['genesisred'] = {
     name = 'Genesis Red',
     XWS = 'genesisred',
     Faction = 3,
@@ -2602,7 +2602,7 @@ masterPilotDB[184] = {
     actSet = { 'F', 'E', 'TL', 'BR' }
 }
 
-masterPilotDB[185] = {
+masterPilotDB['laetinashera'] = {
     name = "Laetin A'shera",
     XWS = 'laetinashera',
     Faction = 3,
@@ -2614,7 +2614,7 @@ masterPilotDB[185] = {
     actSet = { 'F', 'E', 'TL', 'BR' }
 }
 
-masterPilotDB[186] = {
+masterPilotDB['quinnjast'] = {
     name = 'Quinn Jast',
     XWS = 'quinnjast',
     Faction = 3,
@@ -2627,7 +2627,7 @@ masterPilotDB[186] = {
     keywords = { 'Bounty Hunter' }
 }
 
-masterPilotDB[187] = {
+masterPilotDB['inaldra'] = {
     name = 'Inaldra',
     XWS = 'inaldra',
     Faction = 3,
@@ -2639,7 +2639,7 @@ masterPilotDB[187] = {
     actSet = { 'F', 'E', 'TL', 'BR' }
 }
 
-masterPilotDB[188] = {
+masterPilotDB['sunnybounder'] = {
     name = 'Sunny Bounder',
     XWS = 'sunnybounder',
     Faction = 3,
@@ -2651,7 +2651,7 @@ masterPilotDB[188] = {
     actSet = { 'F', 'E', 'TL', 'BR' }
 }
 
-masterPilotDB[189] = {
+masterPilotDB['tansariipointveteran'] = {
     name = 'Tansarii Point Veteran',
     XWS = 'tansariipointveteran',
     Faction = 3,
@@ -2662,7 +2662,7 @@ masterPilotDB[189] = {
     actSet = { 'F', 'E', 'TL', 'BR' }
 }
 
-masterPilotDB[190] = {
+masterPilotDB['cartelspacer'] = {
     name = 'Cartel Spacer',
     XWS = 'cartelspacer',
     Faction = 3,
@@ -2673,7 +2673,7 @@ masterPilotDB[190] = {
     actSet = { 'F', 'E', 'TL', 'BR' }
 }
 
-masterPilotDB[636] = {
+masterPilotDB['g4rgorvm'] = {
     name = 'G4R-G0R V/M',
     XWS = 'g4rgorvm',
     Faction = 3,
@@ -2686,7 +2686,7 @@ masterPilotDB[636] = {
     keywords = { 'Droid' }
 }
 
-masterPilotDB[191] = {
+masterPilotDB['talonbanecobra'] = {
     name = 'Talonbane Cobra',
     XWS = 'talonbanecobra',
     Faction = 3,
@@ -2697,7 +2697,7 @@ masterPilotDB[191] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[192] = {
+masterPilotDB['graz'] = {
     name = 'Graz',
     XWS = 'graz',
     Faction = 3,
@@ -2709,7 +2709,7 @@ masterPilotDB[192] = {
     keywords = { 'Bounty Hunter' }
 }
 
-masterPilotDB[193] = {
+masterPilotDB['viktorhel'] = {
     name = 'Viktor Hel',
     XWS = 'viktorhel',
     Faction = 3,
@@ -2721,7 +2721,7 @@ masterPilotDB[193] = {
     keywords = { 'Bounty Hunter' }
 }
 
-masterPilotDB[194] = {
+masterPilotDB['captainjostero'] = {
     name = 'Captain Jostero',
     XWS = 'captainjostero',
     Faction = 3,
@@ -2732,7 +2732,7 @@ masterPilotDB[194] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[195] = {
+masterPilotDB['blacksunace'] = {
     name = 'Black Sun Ace',
     XWS = 'blacksunace',
     Faction = 3,
@@ -2742,7 +2742,7 @@ masterPilotDB[195] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[196] = {
+masterPilotDB['cartelmarauder'] = {
     name = 'Cartel Marauder',
     XWS = 'cartelmarauder',
     Faction = 3,
@@ -2752,7 +2752,7 @@ masterPilotDB[196] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[197] = {
+masterPilotDB['ig88a'] = {
     name = 'IG-88A',
     XWS = 'ig88a',
     Faction = 3,
@@ -2764,7 +2764,7 @@ masterPilotDB[197] = {
     keywords = { 'Droid', 'Bounty Hunter' }
 }
 
-masterPilotDB[198] = {
+masterPilotDB['ig88b'] = {
     name = 'IG-88B',
     XWS = 'ig88b',
     Faction = 3,
@@ -2776,7 +2776,7 @@ masterPilotDB[198] = {
     keywords = { 'Droid', 'Bounty Hunter' }
 }
 
-masterPilotDB[199] = {
+masterPilotDB['ig88c'] = {
     name = 'IG-88C',
     XWS = 'ig88c',
     Faction = 3,
@@ -2788,7 +2788,7 @@ masterPilotDB[199] = {
     keywords = { 'Droid', 'Bounty Hunter' }
 }
 
-masterPilotDB[200] = {
+masterPilotDB['ig88d'] = {
     name = 'IG-88D',
     XWS = 'ig88d',
     Faction = 3,
@@ -2804,7 +2804,7 @@ masterPilotDB[200] = {
     keywords = { 'Droid', 'Bounty Hunter' }
 }
 
-masterPilotDB[201] = {
+masterPilotDB['4lom'] = {
     name = '4-LOM',
     XWS = '4lom',
     Faction = 3,
@@ -2816,7 +2816,7 @@ masterPilotDB[201] = {
     keywords = { 'Droid', 'Bounty Hunter' }
 }
 
-masterPilotDB[202] = {
+masterPilotDB['zuckuss'] = {
     name = 'Zuckuss',
     XWS = 'zuckuss',
     Faction = 3,
@@ -2828,7 +2828,7 @@ masterPilotDB[202] = {
     keywords = { 'Bounty Hunter' }
 }
 
-masterPilotDB[203] = {
+masterPilotDB['gandfindsman'] = {
     name = 'Gand Findsman',
     XWS = 'gandfindsman',
     Faction = 3,
@@ -2839,7 +2839,7 @@ masterPilotDB[203] = {
     keywords = { 'Bounty Hunter' }
 }
 
-masterPilotDB[204] = {
+masterPilotDB['captainnym'] = {
     name = 'Captain Nym',
     XWS = 'captainnym',
     Faction = 3,
@@ -2851,7 +2851,7 @@ masterPilotDB[204] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[205] = {
+masterPilotDB['solsixxa'] = {
     name = 'Sol Sixxa',
     XWS = 'solsixxa',
     Faction = 3,
@@ -2862,7 +2862,7 @@ masterPilotDB[205] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[206] = {
+masterPilotDB['lokrevenant'] = {
     name = 'Lok Revenant',
     XWS = 'lokrevenant',
     Faction = 3,
@@ -2872,7 +2872,7 @@ masterPilotDB[206] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[207] = {
+masterPilotDB['toranikulda'] = {
     name = 'Torani Kulda',
     XWS = 'toranikulda',
     Faction = 3,
@@ -2884,7 +2884,7 @@ masterPilotDB[207] = {
     keywords = { 'Bounty Hunter' }
 }
 
-masterPilotDB[208] = {
+masterPilotDB['dalanoberos'] = {
     name = 'Dalan Oberos',
     XWS = 'dalanoberos',
     Faction = 3,
@@ -2897,7 +2897,7 @@ masterPilotDB[208] = {
     keywords = { 'Bounty Hunter' }
 }
 
-masterPilotDB[209] = {
+masterPilotDB['cartelexecutioner'] = {
     name = 'Cartel Executioner',
     XWS = 'cartelexecutioner',
     Faction = 3,
@@ -2907,7 +2907,7 @@ masterPilotDB[209] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[210] = {
+masterPilotDB['bossk'] = {
     name = 'Bossk',
     XWS = 'bossk',
     Faction = 3,
@@ -2919,7 +2919,7 @@ masterPilotDB[210] = {
     keywords = { 'Bounty Hunter' }
 }
 
-masterPilotDB[211] = {
+masterPilotDB['moraloeval'] = {
     name = 'Moralo Eval',
     XWS = 'moraloeval',
     Faction = 3,
@@ -2931,7 +2931,7 @@ masterPilotDB[211] = {
     actSet = { 'F', 'TL', 'R' }
 }
 
-masterPilotDB[212] = {
+masterPilotDB['lattsrazzi'] = {
     name = 'Latts Razzi',
     XWS = 'lattsrazzi',
     Faction = 3,
@@ -2943,7 +2943,7 @@ masterPilotDB[212] = {
     keywords = { 'Bounty Hunter' }
 }
 
-masterPilotDB[213] = {
+masterPilotDB['trandoshanslaver'] = {
     name = 'Trandoshan Slaver',
     XWS = 'trandoshanslaver',
     Faction = 3,
@@ -2953,7 +2953,7 @@ masterPilotDB[213] = {
     actSet = { 'F', 'TL', 'R' }
 }
 
-masterPilotDB[214] = {
+masterPilotDB['dengar'] = {
     name = 'Dengar',
     XWS = 'dengar',
     Faction = 3,
@@ -2966,7 +2966,7 @@ masterPilotDB[214] = {
     keywords = { 'Bounty Hunter' }
 }
 
-masterPilotDB[215] = {
+masterPilotDB['manaroo'] = {
     name = 'Manaroo',
     XWS = 'manaroo',
     Faction = 3,
@@ -2978,7 +2978,7 @@ masterPilotDB[215] = {
     keywords = { 'Bounty Hunter' }
 }
 
-masterPilotDB[216] = {
+masterPilotDB['teltrevura'] = {
     name = 'Tel Trevura',
     XWS = 'teltrevura',
     Faction = 3,
@@ -2990,7 +2990,7 @@ masterPilotDB[216] = {
     actSet = { 'F', 'TL', 'BR', 'Rot' }
 }
 
-masterPilotDB[217] = {
+masterPilotDB['contractedscout'] = {
     name = 'Contracted Scout',
     XWS = 'contractedscout',
     Faction = 3,
@@ -3000,7 +3000,7 @@ masterPilotDB[217] = {
     actSet = { 'F', 'TL', 'BR', 'Rot' }
 }
 
-masterPilotDB[637] = {
+masterPilotDB['nomlumb'] = {
     name = 'Nom Lumb',
     XWS = 'nomlumb',
     Faction = 3,
@@ -3012,7 +3012,7 @@ masterPilotDB[637] = {
     keywords = { 'Bounty Hunter' }
 }
 
-masterPilotDB[218] = {
+masterPilotDB['ketsuonyo'] = {
     name = 'Ketsu Onyo',
     XWS = 'ketsuonyo',
     Faction = 3,
@@ -3024,7 +3024,7 @@ masterPilotDB[218] = {
     keywords = { 'Bounty Hunter' }
 }
 
-masterPilotDB[219] = {
+masterPilotDB['asajjventress'] = {
     name = 'Asajj Ventress',
     XWS = 'asajjventress',
     Faction = 3,
@@ -3037,7 +3037,7 @@ masterPilotDB[219] = {
     keywords = { 'Bounty Hunter', 'Dark Side' }
 }
 
-masterPilotDB[220] = {
+masterPilotDB['sabinewren-lancerclasspursuitcraft'] = {
     name = 'Sabine Wren',
     XWS = 'sabinewren-lancerclasspursuitcraft',
     Faction = 3,
@@ -3049,7 +3049,7 @@ masterPilotDB[220] = {
     keywords = { 'Mandalorian' }
 }
 
-masterPilotDB[221] = {
+masterPilotDB['shadowporthunter'] = {
     name = 'Shadowport Hunter',
     XWS = 'shadowporthunter',
     Faction = 3,
@@ -3060,7 +3060,7 @@ masterPilotDB[221] = {
     keywords = { 'Bounty Hunter' }
 }
 
-masterPilotDB[222] = {
+masterPilotDB['hansolo'] = {
     name = 'Han Solo',
     XWS = 'hansolo',
     Faction = 3,
@@ -3071,7 +3071,7 @@ masterPilotDB[222] = {
     actSet = { 'F', 'TL', 'B', 'Rot' }
 }
 
-masterPilotDB[223] = {
+masterPilotDB['landocalrissian'] = {
     name = 'Lando Calrissian',
     XWS = 'landocalrissian',
     Faction = 3,
@@ -3082,7 +3082,7 @@ masterPilotDB[223] = {
     actSet = { 'F', 'TL', 'B', 'Rot' }
 }
 
-masterPilotDB[224] = {
+masterPilotDB['l337'] = {
     name = 'L3-37',
     XWS = 'l337',
     Faction = 3,
@@ -3094,7 +3094,7 @@ masterPilotDB[224] = {
     keywords = { 'Droid' }
 }
 
-masterPilotDB[225] = {
+masterPilotDB['freightercaptain'] = {
     name = 'Freighter Captain',
     XWS = 'freightercaptain',
     Faction = 3,
@@ -3104,7 +3104,7 @@ masterPilotDB[225] = {
     actSet = { 'F', 'TL', 'B', 'Rot' }
 }
 
-masterPilotDB[226] = {
+masterPilotDB['landocalrissian-escapecraft'] = {
     name = 'Lando Calrissian',
     XWS = 'landocalrissian-escapecraft',
     Faction = 3,
@@ -3115,7 +3115,7 @@ masterPilotDB[226] = {
     actSet = { 'F', 'BR' }
 }
 
-masterPilotDB[227] = {
+masterPilotDB['outerrimpioneer'] = {
     name = 'Outer Rim Pioneer',
     XWS = 'outerrimpioneer',
     Faction = 3,
@@ -3126,7 +3126,7 @@ masterPilotDB[227] = {
     actSet = { 'F', 'BR' }
 }
 
-masterPilotDB[228] = {
+masterPilotDB['l337-escapecraft'] = {
     name = 'L3-37',
     XWS = 'l337-escapecraft',
     Faction = 3,
@@ -3138,7 +3138,7 @@ masterPilotDB[228] = {
     keywords = { 'Droid' }
 }
 
-masterPilotDB[229] = {
+masterPilotDB['autopilotdrone'] = {
     name = 'Autopilot Drone',
     XWS = 'autopilotdrone',
     Faction = 3,
@@ -3151,7 +3151,7 @@ masterPilotDB[229] = {
     keywords = { 'Droid' }
 }
 
-masterPilotDB[397] = {
+masterPilotDB['midnight'] = {
     name = '"Midnight"',
     XWS = 'midnight',
     limited = 1,
@@ -3163,7 +3163,7 @@ masterPilotDB[397] = {
     actSet = { 'F', 'TL', 'E', 'BR' }
 }
 
-masterPilotDB[398] = {
+masterPilotDB['scorch'] = {
     name = '"Scorch"',
     XWS = 'scorch',
     limited = 1,
@@ -3174,7 +3174,7 @@ masterPilotDB[398] = {
     actSet = { 'F', 'TL', 'E', 'BR' }
 }
 
-masterPilotDB[399] = {
+masterPilotDB['static'] = {
     name = '"Static"',
     XWS = 'static',
     Faction = 5,
@@ -3186,7 +3186,7 @@ masterPilotDB[399] = {
     actSet = { 'F', 'TL', 'E', 'BR' }
 }
 
-masterPilotDB[400] = {
+masterPilotDB['longshot'] = {
     name = '"Longshot"',
     XWS = 'longshot',
     limited = 1,
@@ -3198,7 +3198,7 @@ masterPilotDB[400] = {
     actSet = { 'F', 'TL', 'E', 'BR' }
 }
 
-masterPilotDB[401] = {
+masterPilotDB['muse'] = {
     limited = 1,
     name = '"Muse"',
     XWS = 'muse',
@@ -3210,7 +3210,7 @@ masterPilotDB[401] = {
     actSet = { 'F', 'TL', 'E', 'BR' }
 }
 
-masterPilotDB[402] = {
+masterPilotDB['null'] = {
     limited = 1,
     name = '"Null"',
     XWS = 'null',
@@ -3222,7 +3222,7 @@ masterPilotDB[402] = {
     actSet = { 'F', 'TL', 'E', 'BR' }
 }
 
-masterPilotDB[403] = {
+masterPilotDB['omegasquadronace'] = {
     name = 'Omega Squadron Ace',
     XWS = 'omegasquadronace',
     Faction = 5,
@@ -3233,7 +3233,7 @@ masterPilotDB[403] = {
     actSet = { 'F', 'TL', 'E', 'BR' }
 }
 
-masterPilotDB[404] = {
+masterPilotDB['zetasquadronpilot'] = {
     name = 'Zeta Squadron Pilot',
     XWS = 'zetasquadronpilot',
     Faction = 5,
@@ -3244,7 +3244,7 @@ masterPilotDB[404] = {
     actSet = { 'F', 'TL', 'E', 'BR' }
 }
 
-masterPilotDB[405] = {
+masterPilotDB['epsilonsquadroncadet'] = {
     name = 'Epsilon Squadron Cadet',
     XWS = 'epsilonsquadroncadet',
     Faction = 5,
@@ -3255,7 +3255,7 @@ masterPilotDB[405] = {
     actSet = { 'F', 'TL', 'E', 'BR' }
 }
 
-masterPilotDB[406] = {
+masterPilotDB['quickdraw'] = {
     limited = 1,
     name = '"Quickdraw"',
     XWS = 'quickdraw',
@@ -3267,7 +3267,7 @@ masterPilotDB[406] = {
     actSet = { 'F', 'TL', 'E', 'BR', 'Rot' }
 }
 
-masterPilotDB[407] = {
+masterPilotDB['backdraft'] = {
     limited = 1,
     name = '"Backdraft"',
     XWS = 'backdraft',
@@ -3279,7 +3279,7 @@ masterPilotDB[407] = {
     actSet = { 'F', 'TL', 'E', 'BR', 'Rot' }
 }
 
-masterPilotDB[408] = {
+masterPilotDB['omegasquadronexpert'] = {
     name = 'Omega Squadron Expert',
     XWS = 'omegasquadronexpert',
     Faction = 5,
@@ -3290,7 +3290,7 @@ masterPilotDB[408] = {
     actSet = { 'F', 'TL', 'E', 'BR', 'Rot' }
 }
 
-masterPilotDB[409] = {
+masterPilotDB['zetasquadronsurvivor'] = {
     name = 'Zeta Squadron Survivor',
     XWS = 'zetasquadronsurvivor',
     Faction = 5,
@@ -3301,7 +3301,7 @@ masterPilotDB[409] = {
     actSet = { 'F', 'TL', 'E', 'BR', 'Rot' }
 }
 
-masterPilotDB[641] = {
+masterPilotDB['lieutenantlehuse'] = {
     name = 'Lieutenant LeHuse',
     XWS = 'lieutenantlehuse',
     Faction = 5,
@@ -3312,7 +3312,7 @@ masterPilotDB[641] = {
     actSet = { 'F', 'TL', 'E', 'BR', 'Rot' }
 }
 
-masterPilotDB[642] = {
+masterPilotDB['captainphasma'] = {
     name = 'Captain Phasma',
     XWS = 'captainphasma',
     Faction = 5,
@@ -3323,7 +3323,7 @@ masterPilotDB[642] = {
     actSet = { 'F', 'TL', 'E', 'BR', 'Rot' }
 }
 
-masterPilotDB[410] = {
+masterPilotDB['majorstridan'] = {
     name = 'Major Stridan',
     XWS = 'majorstridan',
     limited = 1,
@@ -3335,7 +3335,7 @@ masterPilotDB[410] = {
     actSet = { 'F', 'TL', 'R' }
 }
 
-masterPilotDB[411] = {
+masterPilotDB['lieutenanttavson'] = {
     name = 'Lieutenant Tavson',
     XWS = 'lieutenanttavson',
     Faction = 5,
@@ -3348,7 +3348,7 @@ masterPilotDB[411] = {
     actSet = { 'F', 'TL', 'R' }
 }
 
-masterPilotDB[412] = {
+masterPilotDB['lieutenantdormitz'] = {
     name = 'Lieutenant Dormitz',
     XWS = 'lieutenantdormitz',
     Faction = 5,
@@ -3360,7 +3360,7 @@ masterPilotDB[412] = {
     actSet = { 'F', 'TL', 'R' }
 }
 
-masterPilotDB[413] = {
+masterPilotDB['starkillerbasepilot'] = {
     name = 'Starkiller Base Pilot',
     XWS = 'starkillerbasepilot',
     Faction = 5,
@@ -3371,7 +3371,7 @@ masterPilotDB[413] = {
     actSet = { 'F', 'TL', 'R' }
 }
 
-masterPilotDB[414] = {
+masterPilotDB['kyloren'] = {
     name = 'Kylo Ren',
     XWS = 'kyloren',
     Condition = "I'll Show You the Dark Side",
@@ -3386,7 +3386,7 @@ masterPilotDB[414] = {
     keywords = { 'Dark Side' }
 }
 
-masterPilotDB[415] = {
+masterPilotDB['blackout'] = {
     name = '"Blackout"',
     XWS = 'blackout',
     Faction = 5,
@@ -3398,7 +3398,7 @@ masterPilotDB[415] = {
     actSet = { 'F', 'TL', 'BR', 'B' }
 }
 
-masterPilotDB[416] = {
+masterPilotDB['firstordertestpilot'] = {
     name = 'First Order Test Pilot',
     XWS = 'firstordertestpilot',
     Faction = 5,
@@ -3409,7 +3409,7 @@ masterPilotDB[416] = {
     actSet = { 'F', 'TL', 'BR', 'B' }
 }
 
-masterPilotDB[417] = {
+masterPilotDB['sienarjaemusengineer'] = {
     name = 'Sienar-Jaemus Engineer',
     XWS = 'sienarjaemusengineer',
     Faction = 5,
@@ -3420,7 +3420,7 @@ masterPilotDB[417] = {
     actSet = { 'F', 'TL', 'BR', 'B' }
 }
 
-masterPilotDB[643] = {
+masterPilotDB['rush'] = {
     name = '"Rush"',
     XWS = 'rush',
     Faction = 5,
@@ -3431,7 +3431,7 @@ masterPilotDB[643] = {
     actSet = { 'F', 'B', 'TL', 'BR' }
 }
 
-masterPilotDB[418] = {
+masterPilotDB['poedameron'] = {
     name = 'Poe Dameron',
     XWS = 'poedameron',
     title = 'Trigger-Happy Flyboy',
@@ -3445,7 +3445,7 @@ masterPilotDB[418] = {
     actSet = { 'F', 'TL', 'B' }
 }
 
-masterPilotDB[419] = {
+masterPilotDB['elloasty'] = {
     name = 'Ello Asty',
     XWS = 'elloasty',
     limited = 1,
@@ -3457,7 +3457,7 @@ masterPilotDB[419] = {
     actSet = { 'F', 'TL', 'B' }
 }
 
-masterPilotDB[420] = {
+masterPilotDB['niennunb'] = {
     name = 'Nien Nunb',
     XWS = 'niennunb',
     limited = 1,
@@ -3469,7 +3469,7 @@ masterPilotDB[420] = {
     actSet = { 'F', 'TL', 'B' }
 }
 
-masterPilotDB[421] = {
+masterPilotDB['karekun'] = {
     name = 'Kare Kun',
     XWS = 'karekun',
     limited = 1,
@@ -3481,7 +3481,7 @@ masterPilotDB[421] = {
     actSet = { 'F', 'TL', 'B', 'Dare' }
 }
 
-masterPilotDB[422] = {
+masterPilotDB['temminwexley'] = {
     name = 'Temmin Wexley',
     XWS = 'temminwexley',
     title = 'Snap',
@@ -3494,7 +3494,7 @@ masterPilotDB[422] = {
     actSet = { 'F', 'TL', 'B' }
 }
 
-masterPilotDB[423] = {
+masterPilotDB['jessikapava'] = {
     name = 'Jessika Pava',
     XWS = 'jessikapava',
     limited = 1,
@@ -3507,7 +3507,7 @@ masterPilotDB[423] = {
     actSet = { 'F', 'TL', 'B' }
 }
 
-masterPilotDB[424] = {
+masterPilotDB['jophseastriker'] = {
     name = 'Joph Seastriker',
     XWS = 'jophseastriker',
     limited = 1,
@@ -3519,7 +3519,7 @@ masterPilotDB[424] = {
     actSet = { 'F', 'TL', 'B' }
 }
 
-masterPilotDB[425] = {
+masterPilotDB['redsquadronexpert'] = {
     name = 'Red Squadron Expert',
     XWS = 'redsquadronexpert',
     Faction = 4,
@@ -3530,7 +3530,7 @@ masterPilotDB[425] = {
     actSet = { 'F', 'TL', 'B' }
 }
 
-masterPilotDB[426] = {
+masterPilotDB['bluesquadronrookie'] = {
     name = 'Blue Squadron Rookie',
     XWS = 'bluesquadronrookie',
     Faction = 4,
@@ -3542,7 +3542,7 @@ masterPilotDB[426] = {
 }
 
 
-masterPilotDB[700] = {
+masterPilotDB['nimichireen'] = {
     name = 'Nimi Chireen',
     XWS = 'nimichireen',
     limited = 1,
@@ -3554,7 +3554,7 @@ masterPilotDB[700] = {
     actSet = { 'F', 'TL', 'B' },
 }
 
-masterPilotDB[699] = {
+masterPilotDB['caithrenalli'] = {
     name = "C'ai Threnalli",
     XWS = 'caithrenalli',
     limited = 1,
@@ -3568,7 +3568,7 @@ masterPilotDB[699] = {
 }
 
 
-masterPilotDB[698] = {
+masterPilotDB['temminwexley-swz68'] = {
     name = "Temmin Wexley",
     XWS = 'temminwexley-swz68',
     title = "Black Two",
@@ -3582,7 +3582,7 @@ masterPilotDB[698] = {
     addSqdAction = { 'C' }
 }
 
-masterPilotDB[697] = {
+masterPilotDB['poedameron-swz68'] = {
     name = "Poe Dameron",
     XWS = 'poedameron-swz68',
     title = "Resistance Commander",
@@ -3596,7 +3596,7 @@ masterPilotDB[697] = {
     actSet = { 'F', 'TL', 'B' },
 }
 
-masterPilotDB[427] = {
+masterPilotDB['hansolo-scavengedyt1300'] = {
     name = "Han Solo",
     XWS = 'hansolo-scavengedyt1300',
     Faction = 4,
@@ -3607,7 +3607,7 @@ masterPilotDB[427] = {
     actSet = { 'F', 'TL', 'B', 'Rot' }
 }
 
-masterPilotDB[428] = {
+masterPilotDB['rey'] = {
     name = "Rey",
     XWS = 'rey',
     Faction = 4,
@@ -3620,7 +3620,7 @@ masterPilotDB[428] = {
     keywords = { 'Light Side' }
 }
 
-masterPilotDB[429] = {
+masterPilotDB['chewbacca-scavengedyt1300'] = {
     name = "Chewbacca",
     XWS = 'chewbacca-scavengedyt1300',
     Faction = 4,
@@ -3631,7 +3631,7 @@ masterPilotDB[429] = {
     actSet = { 'F', 'TL', 'B', 'Rot' }
 }
 
-masterPilotDB[430] = {
+masterPilotDB['resistancesympathizer'] = {
     name = "Resistance Sympathizer",
     XWS = 'resistancesympathizer',
     Faction = 4,
@@ -3641,7 +3641,7 @@ masterPilotDB[430] = {
     actSet = { 'F', 'TL', 'B', 'Rot' }
 }
 
-masterPilotDB[431] = {
+masterPilotDB['finchdallow'] = {
     name = "Finch Dallow",
     XWS = 'finchdallow',
     Faction = 4,
@@ -3652,7 +3652,7 @@ masterPilotDB[431] = {
     actSet = { 'F', 'TL', 'Rot' }
 }
 
-masterPilotDB[432] = {
+masterPilotDB['benteene'] = {
     name = "Ben Teene",
     XWS = 'benteene',
     Condition = "Rattled",
@@ -3664,7 +3664,7 @@ masterPilotDB[432] = {
     actSet = { 'F', 'TL', 'Rot' }
 }
 
-masterPilotDB[433] = {
+masterPilotDB['cat'] = {
     name = "Cat",
     XWS = 'cat',
     Faction = 4,
@@ -3675,7 +3675,7 @@ masterPilotDB[433] = {
     actSet = { 'F', 'TL', 'Rot' }
 }
 
-masterPilotDB[434] = {
+masterPilotDB['cobaltsquadronbomber'] = {
     name = "Cobalt Squadron Bomber",
     XWS = 'cobaltsquadronbomber',
     Faction = 4,
@@ -3685,7 +3685,7 @@ masterPilotDB[434] = {
     actSet = { 'F', 'TL', 'Rot' }
 }
 
-masterPilotDB[435] = {
+masterPilotDB['lulolampar'] = {
     name = "L'ulo L'ampar",
     XWS = 'lulolampar',
     Faction = 4,
@@ -3696,7 +3696,7 @@ masterPilotDB[435] = {
     actSet = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
 }
 
-masterPilotDB[436] = {
+masterPilotDB['tallissanlintra'] = {
     name = "Tallissan Lintra",
     XWS = 'tallissanlintra',
     Faction = 4,
@@ -3708,7 +3708,7 @@ masterPilotDB[436] = {
     actSet = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
 }
 
-masterPilotDB[437] = {
+masterPilotDB['greersonnel'] = {
     name = "Greer Sonnel",
     XWS = 'greersonnel',
     Faction = 4,
@@ -3719,7 +3719,7 @@ masterPilotDB[437] = {
     actSet = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
 }
 
-masterPilotDB[438] = {
+masterPilotDB['zaribangel'] = {
     name = "Zari Bangel",
     XWS = 'zaribangel',
     Faction = 4,
@@ -3730,7 +3730,7 @@ masterPilotDB[438] = {
     actSet = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
 }
 
-masterPilotDB[439] = {
+masterPilotDB['greensquadronexpert'] = {
     name = "Green Squadron Expert",
     XWS = 'greensquadronexpert',
     Faction = 4,
@@ -3740,7 +3740,7 @@ masterPilotDB[439] = {
     actSet = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
 }
 
-masterPilotDB[440] = {
+masterPilotDB['bluesquadronrecruit'] = {
     name = "Blue Squadron Recruit",
     XWS = 'bluesquadronrecruit',
     Faction = 4,
@@ -3750,7 +3750,7 @@ masterPilotDB[440] = {
     actSet = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
 }
 
-masterPilotDB[638] = {
+masterPilotDB['zizitlo'] = {
     name = "Zizi Tlo",
     XWS = 'zizitlo',
     Faction = 4,
@@ -3762,7 +3762,7 @@ masterPilotDB[638] = {
     actSet = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
 }
 
-masterPilotDB[639] = {
+masterPilotDB['ronithblario'] = {
     name = "Ronith Blario",
     XWS = 'ronithblario',
     Faction = 4,
@@ -3774,7 +3774,7 @@ masterPilotDB[639] = {
 }
 
 
-masterPilotDB[701] = {
+masterPilotDB['seftinvanik'] = {
     name = "Seftin Vanik",
     XWS = 'seftinvanik',
     limited = 1,
@@ -3785,7 +3785,7 @@ masterPilotDB[701] = {
     actSet = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
 }
 
-masterPilotDB[704] = {
+masterPilotDB['merlcobben'] = {
     name = "Merl Cobben",
     XWS = 'merlcobben',
     limited = 1,
@@ -3796,7 +3796,7 @@ masterPilotDB[704] = {
     actSet = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
 }
 
-masterPilotDB[703] = {
+masterPilotDB['suralindajavos'] = {
     name = "Suralinda Javos",
     XWS = 'suralindajavos',
     limited = 1,
@@ -3807,7 +3807,7 @@ masterPilotDB[703] = {
     actSet = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR', 'Piv' }
 }
 
-masterPilotDB[702] = {
+masterPilotDB['wrobietyce'] = {
     name = "Wrobie Tyce",
     XWS = 'wrobietyce',
     limited = 1,
@@ -3819,7 +3819,7 @@ masterPilotDB[702] = {
 }
 
 
-masterPilotDB[441] = {
+masterPilotDB['foremanproach'] = {
     name = 'Foreman Proach',
     XWS = 'foremanproach',
     Faction = 3,
@@ -3830,7 +3830,7 @@ masterPilotDB[441] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[442] = {
+masterPilotDB['ahhav'] = {
     name = 'Ahhav',
     XWS = 'ahhav',
     Faction = 3,
@@ -3841,7 +3841,7 @@ masterPilotDB[442] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[443] = {
+masterPilotDB['captainseevor'] = {
     name = 'Captain Seevor',
     XWS = 'captainseevor',
     Faction = 3,
@@ -3853,7 +3853,7 @@ masterPilotDB[443] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[444] = {
+masterPilotDB['overseeryushyn'] = {
     name = 'Overseer Yushyn',
     XWS = 'overseeryushyn',
     Faction = 3,
@@ -3865,7 +3865,7 @@ masterPilotDB[444] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[445] = {
+masterPilotDB['miningguildsurveyor'] = {
     name = 'Mining Guild Surveyor',
     XWS = 'miningguildsurveyor',
     Faction = 3,
@@ -3875,7 +3875,7 @@ masterPilotDB[445] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[446] = {
+masterPilotDB['miningguildsentry'] = {
     name = 'Mining Guild Sentry',
     XWS = 'miningguildsentry',
     Faction = 3,
@@ -3885,7 +3885,7 @@ masterPilotDB[446] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[447] = {
+masterPilotDB['edonkappehl'] = {
     name = "Edon Kappehl",
     XWS = 'edonkappehl',
     Faction = 4,
@@ -3896,7 +3896,7 @@ masterPilotDB[447] = {
     actSet = { 'F', 'TL', 'Rot' }
 }
 
-masterPilotDB[448] = {
+masterPilotDB['vennie'] = {
     name = "Vennie",
     XWS = 'vennie',
     Faction = 4,
@@ -3907,7 +3907,7 @@ masterPilotDB[448] = {
     actSet = { 'F', 'TL', 'Rot' }
 }
 
-masterPilotDB[640] = {
+masterPilotDB['paigetico'] = {
     name = "Paige Tico",
     XWS = 'paigetico',
     Faction = 4,
@@ -3919,7 +3919,7 @@ masterPilotDB[640] = {
     actSet = { 'F', 'TL', 'Rot' }
 }
 
-masterPilotDB[449] = {
+masterPilotDB['lieutenantbastian'] = {
     name = 'Lieutenant Bastian',
     XWS = 'lieutenantbastian',
     limited = 1,
@@ -3930,7 +3930,7 @@ masterPilotDB[449] = {
     actSet = { 'F', 'TL', 'B' }
 }
 
-masterPilotDB[450] = {
+masterPilotDB['jaycristubbs'] = {
     name = 'Jaycris Tubbs',
     XWS = 'jaycristubbs',
     limited = 1,
@@ -3941,7 +3941,7 @@ masterPilotDB[450] = {
     actSet = { 'F', 'TL', 'B' }
 }
 
-masterPilotDB[451] = {
+masterPilotDB['blacksquadronace-t70xwing'] = {
     name = 'Black Squadron Ace',
     XWS = 'blacksquadronace-t70xwing',
     Faction = 4,
@@ -3951,7 +3951,7 @@ masterPilotDB[451] = {
     actSet = { 'F', 'TL', 'B' }
 }
 
-masterPilotDB[452] = {
+masterPilotDB['commandermalarus'] = {
     name = 'Commander Malarus',
     XWS = 'commandermalarus',
     Faction = 5,
@@ -3963,7 +3963,7 @@ masterPilotDB[452] = {
     actSet = { 'F', 'E', 'TL', 'BR' }
 }
 
-masterPilotDB[453] = {
+masterPilotDB['tn3465'] = {
     name = 'TN-3465',
     XWS = 'tn3465',
     Faction = 5,
@@ -3974,7 +3974,7 @@ masterPilotDB[453] = {
     actSet = { 'F', 'E', 'TL', 'BR' }
 }
 
-masterPilotDB[454] = {
+masterPilotDB['lieutenantrivas'] = {
     name = 'Lieutenant Rivas',
     XWS = 'lieutenantrivas',
     Faction = 5,
@@ -3985,7 +3985,7 @@ masterPilotDB[454] = {
     actSet = { 'F', 'E', 'TL', 'BR' }
 }
 
-masterPilotDB[455] = {
+masterPilotDB['recoil'] = {
     name = '"Recoil"',
     XWS = 'recoil',
     Faction = 5,
@@ -3996,7 +3996,7 @@ masterPilotDB[455] = {
     actSet = { 'F', 'B', 'TL', 'BR' }
 }
 
-masterPilotDB[456] = {
+masterPilotDB['avenger'] = {
     name = '"Avenger"',
     XWS = 'avenger',
     Faction = 5,
@@ -4007,7 +4007,7 @@ masterPilotDB[456] = {
     actSet = { 'F', 'B', 'TL', 'BR' }
 }
 
-masterPilotDB[457] = {
+masterPilotDB['captaincardinal'] = {
     name = 'Captain Cardinal',
     XWS = 'captaincardinal',
     Faction = 5,
@@ -4019,7 +4019,7 @@ masterPilotDB[457] = {
     actSet = { 'F', 'TL', 'R' }
 }
 
-masterPilotDB[458] = {
+masterPilotDB['pettyofficerthanisson'] = {
     name = 'Petty Officer Thanisson',
     XWS = 'pettyofficerthanisson',
     Faction = 5,
@@ -4033,7 +4033,7 @@ masterPilotDB[458] = {
 
 --w3pilot
 
-masterPilotDB[492] = {
+masterPilotDB['generalgrievous'] = {
     name = 'General Grievous',
     XWS = 'generalgrievous',
     Faction = 7,
@@ -4044,7 +4044,7 @@ masterPilotDB[492] = {
     actSet = { 'F', 'TL', 'B', 'BR' }
 }
 
-masterPilotDB[493] = {
+masterPilotDB['wattambor'] = {
     name = 'Wat Tambor',
     XWS = 'wattambor',
     Faction = 7,
@@ -4055,7 +4055,7 @@ masterPilotDB[493] = {
     texture = 'wat',
 }
 
-masterPilotDB[494] = {
+masterPilotDB['captainsear'] = {
     name = 'Captain Sear',
     XWS = 'captainsear',
     Faction = 7,
@@ -4065,7 +4065,7 @@ masterPilotDB[494] = {
     actSet = { 'F', 'TL', 'B', 'BR' },
     texture = 'standard',
 }
-masterPilotDB[495] = {
+masterPilotDB['skakoanace'] = {
     name = 'Skakoan Ace',
     XWS = 'skakoanace',
     Faction = 7,
@@ -4075,7 +4075,7 @@ masterPilotDB[495] = {
     texture = 'standard',
 }
 
-masterPilotDB[496] = {
+masterPilotDB['feethanottrawautopilot'] = {
     name = 'Feethan Ottraw Autopilot',
     XWS = 'feethanottrawautopilot',
     Faction = 7,
@@ -4086,7 +4086,7 @@ masterPilotDB[496] = {
     keywords = { 'Droid' }
 }
 
-masterPilotDB[497] = {
+masterPilotDB['separatistdrone'] = {
     name = 'Separatist Drone',
     XWS = 'separatistdrone',
     Faction = 7,
@@ -4096,7 +4096,7 @@ masterPilotDB[497] = {
     texture = 'drone',
 }
 
-masterPilotDB[498] = {
+masterPilotDB['tradefederationdrone'] = {
     name = 'Trade Federation Drone',
     XWS = 'tradefederationdrone',
     Faction = 7,
@@ -4106,7 +4106,7 @@ masterPilotDB[498] = {
     texture = 'drone',
 }
 
-masterPilotDB[499] = {
+masterPilotDB['dfs081'] = {
     name = 'DFS-081',
     XWS = 'dfs081',
     Faction = 7,
@@ -4117,7 +4117,7 @@ masterPilotDB[499] = {
     texture = 'dfs081',
 }
 
-masterPilotDB[500] = {
+masterPilotDB['precisehunter'] = {
     name = 'Precise Hunter',
     XWS = 'precisehunter',
     Faction = 7,
@@ -4128,7 +4128,7 @@ masterPilotDB[500] = {
     texture = 'hunter',
 }
 
-masterPilotDB[501] = {
+masterPilotDB['dfs311'] = {
     name = 'DFS-311',
     XWS = 'dfs311',
     Faction = 7,
@@ -4139,7 +4139,7 @@ masterPilotDB[501] = {
     texture = 'dfs311',
 }
 
-masterPilotDB[502] = {
+masterPilotDB['haorchallprototype'] = {
     name = 'Haor Chall Prototype',
     XWS = 'haorchallprototype',
     Faction = 7,
@@ -4150,7 +4150,7 @@ masterPilotDB[502] = {
     texture = 'proto',
 }
 
-masterPilotDB[503] = {
+masterPilotDB['darthmaul'] = {
     name = 'Darth Maul',
     XWS = 'darthmaul',
     Faction = 7,
@@ -4163,7 +4163,7 @@ masterPilotDB[503] = {
     keywords = { 'Dark Side', 'Sith' }
 }
 
-masterPilotDB[504] = {
+masterPilotDB['countdooku'] = {
     name = 'Count Dooku',
     XWS = 'countdooku',
     Faction = 7,
@@ -4176,7 +4176,7 @@ masterPilotDB[504] = {
     keywords = { 'Dark Side', 'Sith' }
 }
 
-masterPilotDB[505] = {
+masterPilotDB['066'] = {
     name = 'O-66',
     XWS = '066',
     Faction = 7,
@@ -4188,7 +4188,7 @@ masterPilotDB[505] = {
     keywords = { 'Droid' }
 }
 
-masterPilotDB[506] = {
+masterPilotDB['darkcourier'] = {
     name = 'Dark Courier',
     XWS = 'darkcourier',
     Faction = 7,
@@ -4198,7 +4198,7 @@ masterPilotDB[506] = {
     texture = 'standard',
 }
 
-masterPilotDB[507] = {
+masterPilotDB['anakinskywalker'] = {
     name = 'Anakin Skywalker',
     XWS = 'anakinskywalker',
     Faction = 6,
@@ -4211,7 +4211,7 @@ masterPilotDB[507] = {
     keywords = { 'Light Side', 'Jedi' }
 }
 
-masterPilotDB[508] = {
+masterPilotDB['luminaraunduli'] = {
     name = 'Luminara Unduli',
     XWS = 'luminaraunduli',
     Faction = 6,
@@ -4224,7 +4224,7 @@ masterPilotDB[508] = {
     keywords = { 'Light Side', 'Jedi' }
 }
 
-masterPilotDB[509] = {
+masterPilotDB['barrissoffee'] = {
     name = 'Barriss Offee',
     XWS = 'barrissoffee',
     Faction = 6,
@@ -4237,7 +4237,7 @@ masterPilotDB[509] = {
     keywords = { 'Light Side', 'Jedi' }
 }
 
-masterPilotDB[510] = {
+masterPilotDB['ahsokatano'] = {
     name = 'Ahsoka Tano',
     XWS = 'ahsokatano',
     Faction = 6,
@@ -4250,7 +4250,7 @@ masterPilotDB[510] = {
     keywords = { 'Light Side', 'Jedi' }
 }
 
-masterPilotDB[511] = {
+masterPilotDB['obiwankenobi'] = {
     name = 'Obi-Wan Kenobi',
     XWS = 'obiwankenobi',
     Faction = 6,
@@ -4263,7 +4263,7 @@ masterPilotDB[511] = {
     keywords = { 'Light Side', 'Jedi' }
 }
 
-masterPilotDB[512] = {
+masterPilotDB['macewindu'] = {
     name = 'Mace Windu',
     XWS = 'macewindu',
     Faction = 6,
@@ -4276,7 +4276,7 @@ masterPilotDB[512] = {
     keywords = { 'Light Side', 'Jedi' }
 }
 
-masterPilotDB[513] = {
+masterPilotDB['plokoon'] = {
     name = 'Plo Koon',
     XWS = 'plokoon',
     Faction = 6,
@@ -4289,7 +4289,7 @@ masterPilotDB[513] = {
     keywords = { 'Light Side', 'Jedi' }
 }
 
-masterPilotDB[514] = {
+masterPilotDB['saeseetiin'] = {
     name = 'Saesee Tiin',
     XWS = 'saeseetiin',
     Faction = 6,
@@ -4302,7 +4302,7 @@ masterPilotDB[514] = {
     keywords = { 'Light Side', 'Jedi' }
 }
 
-masterPilotDB[515] = {
+masterPilotDB['jediknight'] = {
     name = 'Jedi Knight',
     XWS = 'jediknight',
     Faction = 6,
@@ -4316,7 +4316,7 @@ masterPilotDB[515] = {
     --                texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/JediKnight-tint.png',}
 }
 
-masterPilotDB[516] = {
+masterPilotDB['oddball'] = {
     name = '"Odd Ball"',
     XWS = 'oddball',
     Faction = 6,
@@ -4328,7 +4328,7 @@ masterPilotDB[516] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[517] = {
+masterPilotDB['kickback'] = {
     name = '"Kickback"',
     XWS = 'kickback',
     Faction = 6,
@@ -4340,7 +4340,7 @@ masterPilotDB[517] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[518] = {
+masterPilotDB['axe'] = {
     name = '"Axe"',
     XWS = 'axe',
     Faction = 6,
@@ -4352,7 +4352,7 @@ masterPilotDB[518] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[519] = {
+masterPilotDB['swoop'] = {
     name = '"Swoop"',
     XWS = 'swoop',
     Faction = 6,
@@ -4364,7 +4364,7 @@ masterPilotDB[519] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[520] = {
+masterPilotDB['tucker'] = {
     name = '"Tucker"',
     XWS = 'tucker',
     Faction = 6,
@@ -4376,7 +4376,7 @@ masterPilotDB[520] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[521] = {
+masterPilotDB['bluesquadronprotector'] = {
     name = 'Blue Squadron Protector',
     XWS = 'bluesquadronprotector',
     Faction = 6,
@@ -4387,7 +4387,7 @@ masterPilotDB[521] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[522] = {
+masterPilotDB['goldsquadrontrooper'] = {
     name = 'Gold Squadron Trooper',
     XWS = 'goldsquadrontrooper',
     Faction = 6,
@@ -4398,7 +4398,7 @@ masterPilotDB[522] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[523] = {
+masterPilotDB['oddball-arc170starfighter'] = {
     name = '"Odd Ball"',
     XWS = 'oddball-arc170starfighter',
     Faction = 6,
@@ -4410,7 +4410,7 @@ masterPilotDB[523] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[524] = {
+masterPilotDB['wolffe'] = {
     name = '"Wolffe"',
     XWS = 'wolffe',
     Faction = 6,
@@ -4423,7 +4423,7 @@ masterPilotDB[524] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[525] = {
+masterPilotDB['jag'] = {
     name = '"Jag"',
     XWS = 'jag',
     Faction = 6,
@@ -4435,7 +4435,7 @@ masterPilotDB[525] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[526] = {
+masterPilotDB['sinker'] = {
     name = '"Sinker"',
     XWS = 'sinker',
     Faction = 6,
@@ -4447,7 +4447,7 @@ masterPilotDB[526] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[527] = {
+masterPilotDB['squadsevenveteran'] = {
     name = 'Squad Seven Veteran',
     XWS = 'squadsevenveteran',
     Faction = 6,
@@ -4458,7 +4458,7 @@ masterPilotDB[527] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[528] = {
+masterPilotDB['104thbattalionpilot'] = {
     name = '104th Battalion Pilot',
     XWS = '104thbattalionpilot',
     Faction = 6,
@@ -4471,8 +4471,8 @@ masterPilotDB[528] = {
 
 --w4 Pilots
 --N-1
-masterPilotDB[557] = {
-    name = 'Ric Olié',
+masterPilotDB['ricolie'] = {
+    name = 'Ric OliÃ©',
     XWS = 'ricolie',
     Faction = 6,
     limited = 1,
@@ -4482,7 +4482,7 @@ masterPilotDB[557] = {
     actSet = { 'F', 'TL', 'B', 'BR', 'E' }
 }
 
-masterPilotDB[558] = {
+masterPilotDB['anakinskywalker-nabooroyaln1starfighter'] = {
     name = 'Anakin Skywalker',
     XWS = 'anakinskywalker-nabooroyaln1starfighter',
     Faction = 6,
@@ -4495,8 +4495,8 @@ masterPilotDB[558] = {
     keywords = { 'Light Side' }
 }
 
-masterPilotDB[559] = {
-    name = 'Padmé Amidala',
+masterPilotDB['padmeamidala'] = {
+    name = 'PadmÃ© Amidala',
     XWS = 'padmeamidala',
     Faction = 6,
     limited = 1,
@@ -4506,8 +4506,8 @@ masterPilotDB[559] = {
     actSet = { 'F', 'TL', 'B', 'BR', 'E' }
 }
 
-masterPilotDB[560] = {
-    name = 'Dineé Ellberger',
+masterPilotDB['dineeellberger'] = {
+    name = 'DineÃ© Ellberger',
     XWS = 'dineeellberger',
     Faction = 6,
     limited = 1,
@@ -4517,7 +4517,7 @@ masterPilotDB[560] = {
     actSet = { 'F', 'TL', 'B', 'BR', 'E' }
 }
 
-masterPilotDB[561] = {
+masterPilotDB['naboohandmaiden'] = {
     name = 'Naboo Handmaiden',
     XWS = 'naboohandmaiden',
     Faction = 6,
@@ -4529,7 +4529,7 @@ masterPilotDB[561] = {
     actSet = { 'F', 'TL', 'B', 'BR', 'E' }
 }
 
-masterPilotDB[562] = {
+masterPilotDB['bravoflightofficer'] = {
     name = 'Bravo Flight Officer',
     XWS = 'bravoflightofficer',
     Faction = 6,
@@ -4540,7 +4540,7 @@ masterPilotDB[562] = {
 }
 
 --Resistance Transport
-masterPilotDB[569] = {
+masterPilotDB['covanell'] = {
     name = 'Cova Nell',
     XWS = 'covanell',
     Faction = 4,
@@ -4551,7 +4551,7 @@ masterPilotDB[569] = {
     actSet = { 'F', 'TL' }
 }
 
-masterPilotDB[570] = {
+masterPilotDB['pammichnerrogoode'] = {
     name = 'Pammich Nerro Goode',
     XWS = 'pammichnerrogoode',
     Faction = 4,
@@ -4562,7 +4562,7 @@ masterPilotDB[570] = {
     actSet = { 'F', 'TL' }
 }
 
-masterPilotDB[571] = {
+masterPilotDB['nodinchavdri'] = {
     name = 'Nodin Chavdri',
     XWS = 'nodinchavdri',
     Faction = 4,
@@ -4573,7 +4573,7 @@ masterPilotDB[571] = {
     actSet = { 'F', 'TL' }
 }
 
-masterPilotDB[572] = {
+masterPilotDB['logisticsdivisionpilot'] = {
     name = 'Logistics Division Pilot',
     XWS = 'logisticsdivisionpilot',
     Faction = 4,
@@ -4583,7 +4583,7 @@ masterPilotDB[572] = {
     actSet = { 'F', 'TL' }
 }
 
-masterPilotDB[574] = {
+masterPilotDB['rosetico'] = {
     name = 'Rose Tico',
     XWS = 'rosetico',
     Faction = 4,
@@ -4594,7 +4594,7 @@ masterPilotDB[574] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[573] = {
+masterPilotDB['bb8'] = {
     name = 'BB-8',
     XWS = 'bb8',
     Faction = 4,
@@ -4606,7 +4606,7 @@ masterPilotDB[573] = {
     keywords = { 'Droid' }
 }
 
-masterPilotDB[575] = {
+masterPilotDB['finn'] = {
     name = 'Finn',
     XWS = 'finn',
     Faction = 4,
@@ -4617,7 +4617,7 @@ masterPilotDB[575] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[576] = {
+masterPilotDB['vimoradi'] = {
     name = 'Vi Moradi',
     XWS = 'vimoradi',
     Faction = 4,
@@ -4629,7 +4629,7 @@ masterPilotDB[576] = {
     actSet = { 'F', 'TL', 'BR' }
 }
 
-masterPilotDB[563] = {
+masterPilotDB['dbs404'] = {
     name = 'DBS-404',
     XWS = 'dbs404',
     Faction = 7,
@@ -4640,7 +4640,7 @@ masterPilotDB[563] = {
     texture = 'fourohfour',
 }
 
-masterPilotDB[564] = {
+masterPilotDB['dbs32c'] = {
     name = 'DBS-32C',
     XWS = 'dbs32c',
     Faction = 7,
@@ -4651,7 +4651,7 @@ masterPilotDB[564] = {
     texture = 'standard',
 }
 
-masterPilotDB[565] = {
+masterPilotDB['bombardmentdrone'] = {
     name = 'Bombardment Drone',
     XWS = 'bombardmentdrone',
     Faction = 7,
@@ -4662,7 +4662,7 @@ masterPilotDB[565] = {
     texture = 'standard',
 }
 
-masterPilotDB[566] = {
+masterPilotDB['baktoidprototype'] = {
     name = 'Baktoid Prototype',
     XWS = 'baktoidprototype',
     Faction = 7,
@@ -4673,7 +4673,7 @@ masterPilotDB[566] = {
     texture = 'baktoid',
 }
 
-masterPilotDB[567] = {
+masterPilotDB['separatistbomber'] = {
     name = 'Separatist Bomber',
     XWS = 'separatistbomber',
     Faction = 7,
@@ -4683,7 +4683,7 @@ masterPilotDB[567] = {
     texture = 'standard',
 }
 
-masterPilotDB[568] = {
+masterPilotDB['technounionbomber'] = {
     name = 'Techno Union Bomber',
     XWS = 'technounionbomber',
     Faction = 7,
@@ -4694,7 +4694,7 @@ masterPilotDB[568] = {
 }
 
 --Republic Y-Wing
-masterPilotDB[596] = {
+masterPilotDB['anakinskywalker-btlbywing'] = {
     name = 'Anakin Skywalker',
     XWS = 'anakinskywalker-btlbywing',
     Faction = 6,
@@ -4707,7 +4707,7 @@ masterPilotDB[596] = {
     keywords = { 'Light Side', 'Jedi' }
 }
 
-masterPilotDB[597] = {
+masterPilotDB['oddball-btlbywing'] = {
     name = '"Odd Ball"',
     XWS = 'oddball-btlbywing',
     Faction = 6,
@@ -4719,7 +4719,7 @@ masterPilotDB[597] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[598] = {
+masterPilotDB['matchstick'] = {
     name = '"Matchstick"',
     XWS = 'matchstick',
     Faction = 6,
@@ -4731,7 +4731,7 @@ masterPilotDB[598] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[599] = {
+masterPilotDB['broadside'] = {
     name = '"Broadside"',
     XWS = 'broadside',
     Faction = 6,
@@ -4743,7 +4743,7 @@ masterPilotDB[599] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[600] = {
+masterPilotDB['r2d2'] = {
     name = 'R2-D2',
     XWS = 'r2d2',
     Faction = 6,
@@ -4755,7 +4755,7 @@ masterPilotDB[600] = {
     keywords = { 'Droid' }
 }
 
-masterPilotDB[601] = {
+masterPilotDB['goji'] = {
     name = '"Goji"',
     XWS = 'goji',
     Faction = 6,
@@ -4767,7 +4767,7 @@ masterPilotDB[601] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[602] = {
+masterPilotDB['shadowsquadronveteran'] = {
     name = 'Shadow Squadron Veteran',
     XWS = 'shadowsquadronveteran',
     Faction = 6,
@@ -4778,7 +4778,7 @@ masterPilotDB[602] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[603] = {
+masterPilotDB['redsquadronbomber'] = {
     name = 'Red Squadron Bomber',
     XWS = 'redsquadronbomber',
     Faction = 6,
@@ -4790,7 +4790,7 @@ masterPilotDB[603] = {
 }
 
 --Nantex
-masterPilotDB[604] = {
+masterPilotDB['sunfac'] = {
     name = 'Sun Fac',
     XWS = 'sunfac',
     Faction = 7,
@@ -4801,7 +4801,7 @@ masterPilotDB[604] = {
     texture = 'standard',
 }
 
-masterPilotDB[605] = {
+masterPilotDB['berwerkret'] = {
     name = 'Berwer Kret',
     XWS = 'berwerkret',
     Faction = 7,
@@ -4812,7 +4812,7 @@ masterPilotDB[605] = {
     texture = 'standard',
 }
 
-masterPilotDB[606] = {
+masterPilotDB['chertek'] = {
     name = 'Chertek',
     XWS = 'chertek',
     Faction = 7,
@@ -4823,7 +4823,7 @@ masterPilotDB[606] = {
     texture = 'standard',
 }
 
-masterPilotDB[607] = {
+masterPilotDB['gorgol'] = {
     name = 'Gorgol',
     XWS = 'gorgol',
     Faction = 7,
@@ -4834,7 +4834,7 @@ masterPilotDB[607] = {
     texture = 'standard',
 }
 
-masterPilotDB[608] = {
+masterPilotDB['petranakiarenaace'] = {
     name = 'Petranaki Arena Ace',
     XWS = 'petranakiarenaace',
     Faction = 7,
@@ -4844,7 +4844,7 @@ masterPilotDB[608] = {
     texture = 'standard',
 }
 
-masterPilotDB[609] = {
+masterPilotDB['stalgasinhiveguard'] = {
     name = 'Stalgasin Hive Guard',
     XWS = 'stalgasinhiveguard',
     Faction = 7,
@@ -4856,7 +4856,7 @@ masterPilotDB[609] = {
 
 --w7
 --TIE/ba
-masterPilotDB[627] = {
+masterPilotDB['firstorderprovocateur'] = {
     name = 'First Order Provocateur',
     XWS = 'firstorderprovocateur',
     Faction = 5,
@@ -4866,7 +4866,7 @@ masterPilotDB[627] = {
     actSet = { 'F', 'TL', 'E', 'BR', 'B' }
 }
 
-masterPilotDB[626] = {
+masterPilotDB['ember'] = {
     name = '"Ember"',
     XWS = 'ember',
     Faction = 5,
@@ -4877,7 +4877,7 @@ masterPilotDB[626] = {
     actSet = { 'F', 'TL', 'E', 'BR', 'B' }
 }
 
-masterPilotDB[625] = {
+masterPilotDB['holo'] = {
     name = '"Holo"',
     XWS = 'holo',
     Faction = 5,
@@ -4888,7 +4888,7 @@ masterPilotDB[625] = {
     actSet = { 'F', 'TL', 'E', 'BR', 'B' }
 }
 
-masterPilotDB[624] = {
+masterPilotDB['majorvonreg'] = {
     name = 'Major Vonreg',
     XWS = 'majorvonreg',
     Faction = 5,
@@ -4900,7 +4900,7 @@ masterPilotDB[624] = {
 }
 
 --FireBall
-masterPilotDB[620] = {
+masterPilotDB['jarekyeager'] = {
     name = 'Jarek Yeager',
     XWS = 'jarekyeager',
     Faction = 4,
@@ -4911,7 +4911,7 @@ masterPilotDB[620] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[621] = {
+masterPilotDB['kazudaxiono'] = {
     name = 'Kazuda Xiono',
     XWS = 'kazudaxiono',
     Faction = 4,
@@ -4922,7 +4922,7 @@ masterPilotDB[621] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[622] = {
+masterPilotDB['r1j5'] = {
     name = 'R1-J5',
     XWS = 'r1j5',
     Faction = 4,
@@ -4934,7 +4934,7 @@ masterPilotDB[622] = {
     keywords = { 'Droid' }
 }
 
-masterPilotDB[623] = {
+masterPilotDB['colossusstationmechanic'] = {
     name = 'Colossus Station Mechanic',
     XWS = 'colossusstationmechanic',
     Faction = 4,
@@ -4944,7 +4944,7 @@ masterPilotDB[623] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[656] = {
+masterPilotDB['commandermalarus-xiclasslightshuttle'] = {
     name = 'Commander Malarus',
     XWS = 'commandermalarus-xiclasslightshuttle',
     Faction = 5,
@@ -4955,7 +4955,7 @@ masterPilotDB[656] = {
     actSet = { 'F', 'TL' }
 }
 
-masterPilotDB[657] = {
+masterPilotDB['gideonhask-xiclasslightshuttle'] = {
     name = 'Gideon Hask',
     XWS = 'gideonhask-xiclasslightshuttle',
     Faction = 5,
@@ -4966,7 +4966,7 @@ masterPilotDB[657] = {
     actSet = { 'F', 'TL' }
 }
 
-masterPilotDB[658] = {
+masterPilotDB['agentterex'] = {
     name = 'Agent Terex',
     XWS = 'agentterex',
     Faction = 5,
@@ -4977,7 +4977,7 @@ masterPilotDB[658] = {
     actSet = { 'F', 'TL' }
 }
 
-masterPilotDB[659] = {
+masterPilotDB['firstordercourier'] = {
     name = 'First Order Courier',
     XWS = 'firstordercourier',
     Faction = 5,
@@ -4987,7 +4987,7 @@ masterPilotDB[659] = {
     actSet = { 'F', 'TL' }
 }
 
-masterPilotDB[660] = {
+masterPilotDB['hawk'] = {
     name = '"Hawk"',
     XWS = 'hawk',
     limited = 1,
@@ -5000,7 +5000,7 @@ masterPilotDB[660] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[661] = {
+masterPilotDB['warthog'] = {
     name = '"Warthog"',
     XWS = 'warthog',
     limited = 1,
@@ -5012,7 +5012,7 @@ masterPilotDB[661] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[662] = {
+masterPilotDB['hound'] = {
     name = '"Hound"',
     XWS = 'hound',
     limited = 1,
@@ -5024,7 +5024,7 @@ masterPilotDB[662] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[663] = {
+masterPilotDB['212thbattalionpilot'] = {
     name = '212th Battalion Pilot',
     XWS = '212thbattalionpilot',
     Faction = 6,
@@ -5035,7 +5035,7 @@ masterPilotDB[663] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[665] = {
+masterPilotDB['onderonoppressor'] = {
     name = 'Onderon Oppressor',
     XWS = 'onderonoppressor',
     limited = 2,
@@ -5046,7 +5046,7 @@ masterPilotDB[665] = {
     actSet = { 'C', 'TL', 'BR' },
 }
 
-masterPilotDB[668] = {
+masterPilotDB['geonosianprototype'] = {
     name = 'Geonosian Prototype',
     XWS = 'geonosianprototype',
     limited = 2,
@@ -5057,7 +5057,7 @@ masterPilotDB[668] = {
     actSet = { 'C', 'TL', 'BR' },
 }
 
-masterPilotDB[666] = {
+masterPilotDB['dgs047'] = {
     name = 'DGS-047',
     XWS = 'dgs047',
     limited = 1,
@@ -5068,7 +5068,7 @@ masterPilotDB[666] = {
     actSet = { 'C', 'TL', 'BR' },
 }
 
-masterPilotDB[664] = {
+masterPilotDB['dgs286'] = {
     name = 'DGS-286',
     XWS = 'dgs286',
     limited = 1,
@@ -5079,7 +5079,7 @@ masterPilotDB[664] = {
     actSet = { 'C', 'TL', 'BR' },
 }
 
-masterPilotDB[667] = {
+masterPilotDB['separatistpredator'] = {
     name = 'Separatist Predator',
     XWS = 'separatistpredator',
     Faction = 7,
@@ -5089,7 +5089,7 @@ masterPilotDB[667] = {
     actSet = { 'C', 'TL', 'BR' },
 }
 
-masterPilotDB[669] = {
+masterPilotDB['baktoiddrone'] = {
     name = 'Baktoid Drone',
     XWS = 'baktoiddrone',
     Faction = 7,
@@ -5099,7 +5099,7 @@ masterPilotDB[669] = {
     actSet = { 'C', 'TL', 'BR' },
 }
 
-masterPilotDB[693] = {
+masterPilotDB['rampage'] = {
     name = '"Rampage"',
     XWS = 'rampage',
     limited = 1,
@@ -5110,7 +5110,7 @@ masterPilotDB[693] = {
     actSet = { 'F', 'C', 'TL', 'BR', 'R', 'Rot' },
 }
 
-masterPilotDB[694] = {
+masterPilotDB['lyttandree'] = {
     name = 'Lyttan Dree',
     XWS = 'lyttandree',
     limited = 1,
@@ -5121,7 +5121,7 @@ masterPilotDB[694] = {
     actSet = { 'F', 'C', 'TL', 'BR', 'R', 'Rot' },
 }
 
-masterPilotDB[695] = {
+masterPilotDB['onyxsquadronsentry'] = {
     name = 'Onyx Squadron Sentry',
     XWS = 'onyxsquadronsentry',
     Faction = 2,
@@ -5131,7 +5131,7 @@ masterPilotDB[695] = {
     actSet = { 'F', 'C', 'TL', 'BR', 'R', 'Rot' },
 }
 
-masterPilotDB[696] = {
+masterPilotDB['caridaacademycadet'] = {
     name = 'Carida Academy Cadet',
     XWS = 'caridaacademycadet',
     Faction = 2,
@@ -5141,7 +5141,7 @@ masterPilotDB[696] = {
     actSet = { 'F', 'C', 'TL', 'BR', 'R', 'Rot' },
 }
 
-masterPilotDB[781] = {
+masterPilotDB['anakinskywalker-eta2actis'] = {
     name = 'Anakin Skywalker',
     XWS = 'anakinskywalker-eta2actis',
     limited = 1,
@@ -5154,7 +5154,7 @@ masterPilotDB[781] = {
     keywords = { 'Dark Side', 'Light Side', 'Jedi' }
 }
 
-masterPilotDB[782] = {
+masterPilotDB['obiwankenobi-eta2actis'] = {
     name = 'Obi-Wan Kenobi',
     XWS = 'obiwankenobi-eta2actis',
     limited = 1,
@@ -5167,7 +5167,7 @@ masterPilotDB[782] = {
     keywords = { 'Light Side', 'Jedi' }
 }
 
-masterPilotDB[783] = {
+masterPilotDB['aaylasecura'] = {
     name = 'Aayla Secura',
     XWS = 'aaylasecura',
     limited = 1,
@@ -5180,7 +5180,7 @@ masterPilotDB[783] = {
     keywords = { 'Light Side', 'Jedi' }
 }
 
-masterPilotDB[784] = {
+masterPilotDB['shaakti'] = {
     name = 'Shaak Ti',
     XWS = 'shaakti',
     limited = 1,
@@ -5193,7 +5193,7 @@ masterPilotDB[784] = {
     keywords = { 'Light Side', 'Jedi' }
 }
 
-masterPilotDB[785] = {
+masterPilotDB['yoda'] = {
     name = 'Yoda',
     XWS = 'yoda',
     limited = 1,
@@ -5207,7 +5207,7 @@ masterPilotDB[785] = {
     mesh = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/eta2actis/eta2actis-Yoda.obj"
 }
 
-masterPilotDB[786] = {
+masterPilotDB['jedigeneral'] = {
     name = 'Jedi General',
     XWS = 'jedigeneral',
     Faction = 6,
@@ -5219,7 +5219,7 @@ masterPilotDB[786] = {
     keywords = { 'Light Side', 'Jedi' }
 }
 
-masterPilotDB[788] = {
+masterPilotDB['oddball-nimbusclassvwing'] = {
     name = '"Odd Ball"',
     XWS = 'oddball-nimbusclassvwing',
     limited = 1,
@@ -5231,7 +5231,7 @@ masterPilotDB[788] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[789] = {
+masterPilotDB['contrail'] = {
     name = '"Contrail"',
     XWS = 'contrail',
     limited = 1,
@@ -5243,7 +5243,7 @@ masterPilotDB[789] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[790] = {
+masterPilotDB['klick'] = {
     name = '"Klick"',
     XWS = 'klick',
     limited = 1,
@@ -5256,7 +5256,7 @@ masterPilotDB[790] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[791] = {
+masterPilotDB['wilhufftarkin'] = {
     name = 'Wilhuff Tarkin',
     XWS = 'wilhufftarkin',
     limited = 1,
@@ -5267,7 +5267,7 @@ masterPilotDB[791] = {
     actSet = { 'F', 'TL', 'BR', 'B' },
 }
 
-masterPilotDB[792] = {
+masterPilotDB['shadowsquadronescort'] = {
     name = 'Shadow Squadron Escort',
     XWS = 'shadowsquadronescort',
     Faction = 6,
@@ -5278,7 +5278,7 @@ masterPilotDB[792] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[793] = {
+masterPilotDB['loyalistvolunteer'] = {
     name = 'Loyalist Volunteer',
     XWS = 'loyalistvolunteer',
     Faction = 6,
@@ -5288,7 +5288,7 @@ masterPilotDB[793] = {
     actSet = { 'F', 'TL', 'BR', 'B' },
 }
 
-masterPilotDB[796] = {
+masterPilotDB['phlacarphoccprototype'] = {
     name = "Phlac-Arphocc Prototype",
     XWS = 'phlacarphoccprototype',
     limited = 2,
@@ -5299,7 +5299,7 @@ masterPilotDB[796] = {
     actSet = { 'C', 'E', 'TL', 'BR', 'B' }
 }
 
-masterPilotDB[794] = {
+masterPilotDB['dist81'] = {
     name = "DIS-T81",
     XWS = 'dist81',
     limited = 1,
@@ -5310,7 +5310,7 @@ masterPilotDB[794] = {
     actSet = { 'C', 'E', 'TL', 'BR', 'B' }
 }
 
-masterPilotDB[795] = {
+masterPilotDB['dis347'] = {
     name = "DIS-347",
     XWS = 'dis347',
     limited = 1,
@@ -5321,7 +5321,7 @@ masterPilotDB[795] = {
     actSet = { 'C', 'E', 'TL', 'BR', 'B' }
 }
 
-masterPilotDB[797] = {
+masterPilotDB['fearsomepredator'] = {
     name = "Fearsome Predator",
     XWS = 'fearsomepredator',
     limited = 3,
@@ -5333,7 +5333,7 @@ masterPilotDB[797] = {
     actSet = { 'C', 'E', 'TL', 'BR', 'B' }
 }
 
-masterPilotDB[798] = {
+masterPilotDB['separatistinterceptor'] = {
     name = "Separatist Interceptor",
     XWS = 'separatistinterceptor',
     Faction = 7,
@@ -5343,7 +5343,7 @@ masterPilotDB[798] = {
     actSet = { 'C', 'E', 'TL', 'BR', 'B' }
 }
 
-masterPilotDB[799] = {
+masterPilotDB['colicoidinterceptor'] = {
     name = "Colicoid Interceptor",
     XWS = 'colicoidinterceptor',
     Faction = 7,
@@ -5353,7 +5353,7 @@ masterPilotDB[799] = {
     actSet = { 'C', 'E', 'TL', 'BR', 'B' }
 }
 
-masterPilotDB[800] = {
+masterPilotDB['jangofett'] = {
     name = 'Jango Fett',
     XWS = 'jangofett',
     limited = 1,
@@ -5365,7 +5365,7 @@ masterPilotDB[800] = {
     keywords = { 'Bounty Hunter' }
 }
 
-masterPilotDB[801] = {
+masterPilotDB['zamwesell'] = {
     name = 'Zam Wesell',
     XWS = 'zamwesell',
     limited = 1,
@@ -5379,7 +5379,7 @@ masterPilotDB[801] = {
     keywords = { 'Bounty Hunter' }
 }
 
-masterPilotDB[802] = {
+masterPilotDB['bobafett-firesprayclasspatrolcraft'] = {
     name = 'Boba Fett',
     XWS = 'bobafett-firesprayclasspatrolcraft',
     title = 'Survivor',
@@ -5392,7 +5392,7 @@ masterPilotDB[802] = {
     keywords = { 'Bounty Hunter' }
 }
 
-masterPilotDB[803] = {
+masterPilotDB['separatistracketeer'] = {
     name = 'Separatist Racketeer',
     XWS = 'separatistracketeer',
     Faction = 7,
@@ -5404,7 +5404,7 @@ masterPilotDB[803] = {
 
 -- Tie Whisper
 
-masterPilotDB[836] = {
+masterPilotDB['709thlegionace'] = {
     name = '709th Legion Ace',
     XWS = '709thlegionace',
     Faction = 5,
@@ -5414,7 +5414,7 @@ masterPilotDB[836] = {
     actSet = { 'F', 'Rot', 'E', 'TL', 'BR', 'B' }
 }
 
-masterPilotDB[837] = {
+masterPilotDB['wrath'] = {
     name = '"Wrath"',
     XWS = 'wrath',
     Faction = 5,
@@ -5425,7 +5425,7 @@ masterPilotDB[837] = {
     actSet = { 'F', 'Rot', 'E', 'TL', 'BR', 'B' }
 }
 
-masterPilotDB[838] = {
+masterPilotDB['whirlwind'] = {
     name = '"Whirlwind"',
     XWS = 'whirlwind',
     Faction = 5,
@@ -5436,7 +5436,7 @@ masterPilotDB[838] = {
     actSet = { 'F', 'Rot', 'E', 'TL', 'BR', 'B' }
 }
 
-masterPilotDB[839] = {
+masterPilotDB['nightfall'] = {
     name = '"Nightfall"',
     XWS = 'nightfall',
     Faction = 5,
@@ -5448,7 +5448,7 @@ masterPilotDB[839] = {
     movethrough = true
 }
 
-masterPilotDB[840] = {
+masterPilotDB['kyloren-tiewiwhispermodifiedinterceptor'] = {
     name = 'Kylo Ren',
     XWS = 'kyloren-tiewiwhispermodifiedinterceptor',
     Faction = 5,
@@ -5460,7 +5460,7 @@ masterPilotDB[840] = {
     actSet = { 'F', 'Rot', 'E', 'TL', 'BR', 'B' }
 }
 
-masterPilotDB[841] = {
+masterPilotDB['redfuryzealot'] = {
     name = 'Red Fury Zealot',
     XWS = 'redfuryzealot',
     Faction = 5,
@@ -5472,7 +5472,7 @@ masterPilotDB[841] = {
 
 -- First Order Bomber
 
-masterPilotDB[842] = {
+masterPilotDB['firstordercadet'] = {
     name = 'First Order Cadet',
     XWS = 'firstordercadet',
     Faction = 5,
@@ -5482,7 +5482,7 @@ masterPilotDB[842] = {
     actSet = { 'F', 'TL', 'BR', 'B', 'E' }
 }
 
-masterPilotDB[843] = {
+masterPilotDB['sienarjaemustestpilot'] = {
     name = 'Sienar-Jaemus Test Pilot',
     XWS = 'sienarjaemustestpilot',
     Faction = 5,
@@ -5492,7 +5492,7 @@ masterPilotDB[843] = {
     actSet = { 'F', 'TL', 'BR', 'B', 'E' }
 }
 
-masterPilotDB[844] = {
+masterPilotDB['grudge'] = {
     name = '"Grudge"',
     XWS = 'grudge',
     Faction = 5,
@@ -5503,7 +5503,7 @@ masterPilotDB[844] = {
     actSet = { 'F', 'TL', 'BR', 'B', 'E' }
 }
 
-masterPilotDB[845] = {
+masterPilotDB['scorch-tiesebomber'] = {
     name = '"Scorch"',
     XWS = 'scorch-tiesebomber',
     Faction = 5,
@@ -5514,7 +5514,7 @@ masterPilotDB[845] = {
     actSet = { 'F', 'TL', 'BR', 'B', 'E' }
 }
 
-masterPilotDB[846] = {
+masterPilotDB['breach'] = {
     name = '"Breach"',
     XWS = 'breach',
     Faction = 5,
@@ -5525,7 +5525,7 @@ masterPilotDB[846] = {
     actSet = { 'F', 'TL', 'BR', 'B', 'E' }
 }
 
-masterPilotDB[847] = {
+masterPilotDB['dread'] = {
     name = '"Dread"',
     XWS = 'dread',
     Faction = 5,
@@ -5538,7 +5538,7 @@ masterPilotDB[847] = {
 
 -- Resistance Y-Wing
 
-masterPilotDB[848] = {
+masterPilotDB['newrepublicpatrol'] = {
     name = 'New Republic Patrol',
     XWS = 'newrepublicpatrol',
     Faction = 4,
@@ -5548,7 +5548,7 @@ masterPilotDB[848] = {
     actSet = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
-masterPilotDB[849] = {
+masterPilotDB['kijimispicerunner'] = {
     name = 'Kijimi Spice Runner',
     XWS = 'kijimispicerunner',
     Faction = 4,
@@ -5558,7 +5558,7 @@ masterPilotDB[849] = {
     actSet = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
-masterPilotDB[850] = {
+masterPilotDB['tezanasz'] = {
     name = 'Teza Nasz',
     XWS = 'tezanasz',
     Faction = 4,
@@ -5569,7 +5569,7 @@ masterPilotDB[850] = {
     actSet = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
-masterPilotDB[851] = {
+masterPilotDB['shasazaro'] = {
     name = 'Shasa Zaro',
     XWS = 'shasazaro',
     Faction = 4,
@@ -5580,7 +5580,7 @@ masterPilotDB[851] = {
     actSet = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
-masterPilotDB[852] = {
+masterPilotDB['coruskapellim'] = {
     name = 'Corus Kapellim',
     XWS = 'coruskapellim',
     Faction = 4,
@@ -5591,7 +5591,7 @@ masterPilotDB[852] = {
     actSet = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
-masterPilotDB[853] = {
+masterPilotDB['caithrenalli-btanr2ywing'] = {
     name = "C'ai Threnalli",
     XWS = 'caithrenalli-btanr2ywing',
     Faction = 4,
@@ -5603,7 +5603,7 @@ masterPilotDB[853] = {
     movethrough = true
 }
 
-masterPilotDB[854] = {
+masterPilotDB['wilsateshlo'] = {
     name = 'Wilsa Teshlo',
     XWS = 'wilsateshlo',
     Faction = 4,
@@ -5614,7 +5614,7 @@ masterPilotDB[854] = {
     actSet = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
-masterPilotDB[855] = {
+masterPilotDB['zoriibliss'] = {
     name = 'Zorii Bliss',
     XWS = 'zoriibliss',
     Charge = 1,
@@ -5626,7 +5626,7 @@ masterPilotDB[855] = {
     actSet = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
-masterPilotDB[856] = {
+masterPilotDB['aftabackbar'] = {
     name = 'Aftab Ackbar',
     XWS = 'aftabackbar',
     Faction = 4,
@@ -5637,7 +5637,7 @@ masterPilotDB[856] = {
     actSet = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
-masterPilotDB[857] = {
+masterPilotDB['legafossang'] = {
     name = 'Lega Fossang',
     XWS = 'legafossang',
     Faction = 4,
@@ -5650,7 +5650,7 @@ masterPilotDB[857] = {
 
 
 --- NEW SHIT:
-masterPilotDB[900] = {
+masterPilotDB['fennrau-fangfighter'] = {
     name = 'Fenn Rau',
     XWS = 'fennrau-fangfighter',
     Faction = 1,
@@ -5662,7 +5662,7 @@ masterPilotDB[900] = {
     keywords = { 'Mandalorian' }
 }
 
-masterPilotDB[901] = {
+masterPilotDB['bodicavenj'] = {
     name = 'Bodica Venj',
     XWS = 'bodicavenj',
     Faction = 1,
@@ -5674,7 +5674,7 @@ masterPilotDB[901] = {
     keywords = { 'Mandalorian' }
 }
 
-masterPilotDB[902] = {
+masterPilotDB['dirkullodin'] = {
     name = 'Dirk Ullodin',
     XWS = 'dirkullodin',
     Faction = 1,
@@ -5687,7 +5687,7 @@ masterPilotDB[902] = {
     keywords = { 'Mandalorian' }
 }
 
-masterPilotDB[903] = {
+masterPilotDB['clanwrenvolunteer'] = {
     name = 'Clan Wren Volunteer',
     XWS = 'clanwrenvolunteer',
     Faction = 1,
@@ -5699,7 +5699,7 @@ masterPilotDB[903] = {
     keywords = { 'Mandalorian' }
 }
 
-masterPilotDB[904] = {
+masterPilotDB['mandalorianroyalguard'] = {
     name = 'Mandalorian Royal Guard',
     XWS = 'mandalorianroyalguard',
     Faction = 3,
@@ -5713,7 +5713,7 @@ masterPilotDB[904] = {
 
 -- New TIE Ln
 
-masterPilotDB[905] = {
+masterPilotDB['moffgideon'] = {
     name = 'Moff Gideon',
     XWS = 'moffgideon',
     Faction = 2,
@@ -5725,7 +5725,7 @@ masterPilotDB[905] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[906] = {
+masterPilotDB['isbjingoist'] = {
     name = 'ISB Jingoist',
     XWS = 'isbjingoist',
     Faction = 2,
@@ -5738,7 +5738,7 @@ masterPilotDB[906] = {
 
 
 -- Gauntlet fighter:
-masterPilotDB[910] = {
+masterPilotDB['maul'] = {
     name = 'Maul',
     XWS = 'maul',
     Faction = 3,
@@ -5750,7 +5750,7 @@ masterPilotDB[910] = {
     actSet = { 'F', 'TL', 'R', 'Piv' },
 }
 
-masterPilotDB[911] = {
+masterPilotDB['bokatankryze'] = {
     name = 'Bo-Katan Kryze',
     title = 'Nite Owl Commander',
     XWS = 'bokatankryze',
@@ -5762,7 +5762,7 @@ masterPilotDB[911] = {
     actSet = { 'F', 'TL', 'R', 'Piv' },
 }
 
-masterPilotDB[912] = {
+masterPilotDB['bokatankryze-separatistalliance'] = {
     name = 'Bo-Katan Kryze',
     title = "Vizsla's Lieutenant",
     XWS = 'bokatankryze-separatistalliance',
@@ -5775,7 +5775,7 @@ masterPilotDB[912] = {
     actSet = { 'F', 'TL', 'R', 'Piv' },
 }
 
-masterPilotDB[913] = {
+masterPilotDB['previzsla'] = {
     name = 'Pre Vizsla',
     XWS = 'previzsla',
     Faction = 7,
@@ -5787,7 +5787,7 @@ masterPilotDB[913] = {
     actSet = { 'F', 'TL', 'R', 'Piv' },
 }
 
-masterPilotDB[914] = {
+masterPilotDB['rookkast'] = {
     name = 'Rook Kast',
     XWS = 'rookkast',
     Faction = 3,
@@ -5798,7 +5798,7 @@ masterPilotDB[914] = {
     actSet = { 'F', 'TL', 'R', 'Piv' },
 }
 
-masterPilotDB[915] = {
+masterPilotDB['deathwatchwarrior'] = {
     name = 'Death Watch Warrior',
     XWS = 'deathwatchwarrior',
     Faction = 7,
@@ -5809,7 +5809,7 @@ masterPilotDB[915] = {
     actSet = { 'F', 'TL', 'R', 'Piv' },
 }
 
-masterPilotDB[916] = {
+masterPilotDB['niteowlliberator'] = {
     name = 'Nite Owl Liberator',
     XWS = 'niteowlliberator',
     Faction = 6,
@@ -5820,7 +5820,7 @@ masterPilotDB[916] = {
     actSet = { 'F', 'TL', 'R', 'Piv' },
 }
 
-masterPilotDB[917] = {
+masterPilotDB['shadowcollectiveoperator'] = {
     name = 'Shadow Collective Operator',
     XWS = 'shadowcollectiveoperator',
     Faction = 3,
@@ -5830,7 +5830,7 @@ masterPilotDB[917] = {
     actSet = { 'F', 'TL', 'R', 'Piv' },
 }
 
-masterPilotDB[918] = {
+masterPilotDB['ezrabridger-gauntletfighter'] = {
     name = 'Ezra Bridger',
     XWS = 'ezrabridger-gauntletfighter',
     Faction = 1,
@@ -5842,7 +5842,7 @@ masterPilotDB[918] = {
     actSet = { 'F', 'TL', 'R', 'Piv' },
 }
 
-masterPilotDB[919] = {
+masterPilotDB['chopper-gauntletfighter'] = {
     name = '"Chopper"',
     XWS = 'chopper-gauntletfighter',
     Faction = 1,
@@ -5853,7 +5853,7 @@ masterPilotDB[919] = {
     actSet = { 'C', 'TL', 'R', 'Piv' },
 }
 
-masterPilotDB[920] = {
+masterPilotDB['mandalorianresistancepilot'] = {
     name = 'Mandalorian Resistance Pilot',
     XWS = 'mandalorianresistancepilot',
     Faction = 1,
@@ -5864,7 +5864,7 @@ masterPilotDB[920] = {
     actSet = { 'F', 'TL', 'R', 'Piv' },
 }
 
-masterPilotDB[921] = {
+masterPilotDB['captainhark'] = {
     name = 'Captain Hark',
     XWS = 'captainhark',
     Faction = 2,
@@ -5878,7 +5878,7 @@ masterPilotDB[921] = {
     },
 }
 
-masterPilotDB[922] = {
+masterPilotDB['garsaxon'] = {
     name = 'Gar Saxon',
     XWS = 'garsaxon',
     Charge = 2,
@@ -5893,7 +5893,7 @@ masterPilotDB[922] = {
 
 -- razorcrest pilots
 
-masterPilotDB[923] = {
+masterPilotDB['themandalorian'] = {
     name = 'The Mandalorian',
     XWS = 'themandalorian',
     Faction = 3,
@@ -5904,7 +5904,7 @@ masterPilotDB[923] = {
     actSet = { 'F', 'TL', 'E', 'BR' },
 }
 
-masterPilotDB[924] = {
+masterPilotDB['q90'] = {
     name = 'Q9-0',
     XWS = 'q90',
     Faction = 3,
@@ -5915,7 +5915,7 @@ masterPilotDB[924] = {
     actSet = { 'C', 'TL', 'E', 'BR' },
 }
 
-masterPilotDB[925] = {
+masterPilotDB['guildbountyhunter'] = {
     name = 'Guild Bounty Hunter',
     XWS = 'guildbountyhunter',
     Faction = 3,
@@ -5928,7 +5928,7 @@ masterPilotDB[925] = {
 
 
 
-masterPilotDB[926] = {
+masterPilotDB['anakinskywalker-delta7baethersprite'] = {
     name = 'Anakin Skywalker',
     XWS = 'anakinskywalker-delta7baethersprite',
     Faction = 6,
@@ -5941,7 +5941,7 @@ masterPilotDB[926] = {
     keywords = { 'Light Side', 'Jedi' }
 }
 
-masterPilotDB[927] = {
+masterPilotDB['luminaraunduli-delta7baethersprite'] = {
     name = 'Luminara Unduli',
     XWS = 'luminaraunduli-delta7baethersprite',
     Faction = 6,
@@ -5954,7 +5954,7 @@ masterPilotDB[927] = {
     keywords = { 'Light Side', 'Jedi' }
 }
 
-masterPilotDB[928] = {
+masterPilotDB['barrissoffee-delta7baethersprite'] = {
     name = 'Barriss Offee',
     XWS = 'barrissoffee-delta7baethersprite',
     Faction = 6,
@@ -5967,7 +5967,7 @@ masterPilotDB[928] = {
     keywords = { 'Light Side', 'Jedi' }
 }
 
-masterPilotDB[929] = {
+masterPilotDB['ahsokatano-delta7baethersprite'] = {
     name = 'Ahsoka Tano',
     XWS = 'ahsokatano-delta7baethersprite',
     Faction = 6,
@@ -5980,7 +5980,7 @@ masterPilotDB[929] = {
     keywords = { 'Light Side', 'Jedi' }
 }
 
-masterPilotDB[930] = {
+masterPilotDB['obiwankenobi-delta7baethersprite'] = {
     name = 'Obi-Wan Kenobi',
     XWS = 'obiwankenobi-delta7baethersprite',
     Faction = 6,
@@ -5993,7 +5993,7 @@ masterPilotDB[930] = {
     keywords = { 'Light Side', 'Jedi' }
 }
 
-masterPilotDB[931] = {
+masterPilotDB['macewindu-delta7baethersprite'] = {
     name = 'Mace Windu',
     XWS = 'macewindu-delta7baethersprite',
     Faction = 6,
@@ -6006,7 +6006,7 @@ masterPilotDB[931] = {
     keywords = { 'Light Side', 'Jedi' }
 }
 
-masterPilotDB[932] = {
+masterPilotDB['plokoon-delta7baethersprite'] = {
     name = 'Plo Koon',
     XWS = 'plokoon-delta7baethersprite',
     Faction = 6,
@@ -6019,7 +6019,7 @@ masterPilotDB[932] = {
     keywords = { 'Light Side', 'Jedi' }
 }
 
-masterPilotDB[933] = {
+masterPilotDB['saeseetiin-delta7baethersprite'] = {
     name = 'Saesee Tiin',
     XWS = 'saeseetiin-delta7baethersprite',
     Faction = 6,
@@ -6032,7 +6032,7 @@ masterPilotDB[933] = {
     keywords = { 'Light Side', 'Jedi' }
 }
 
-masterPilotDB[934] = {
+masterPilotDB['jediknight-delta7baethersprite'] = {
     name = 'Jedi Knight',
     XWS = 'jediknight-delta7baethersprite',
     Faction = 6,
@@ -6048,7 +6048,7 @@ masterPilotDB[934] = {
 
 -- Rogue class starfighter
 
-masterPilotDB[935] = {
+masterPilotDB['cadbane-separatistalliance'] = {
     name = 'Cad Bane',
     XWS = 'cadbane-separatistalliance',
     Faction = 7,
@@ -6060,7 +6060,7 @@ masterPilotDB[935] = {
     actSet = { 'F', 'E', 'TL', 'BR', 'B' },
 }
 
-masterPilotDB[936] = {
+masterPilotDB['ig101'] = {
     name = 'IG-101',
     XWS = 'ig101',
     Faction = 7,
@@ -6071,7 +6071,7 @@ masterPilotDB[936] = {
     actSet = { 'C', 'E', 'TL', 'BR', 'B' },
 }
 
-masterPilotDB[937] = {
+masterPilotDB['ig102'] = {
     name = 'IG-102',
     XWS = 'ig102',
     Faction = 7,
@@ -6082,7 +6082,7 @@ masterPilotDB[937] = {
     actSet = { 'C', 'E', 'TL', 'BR', 'B' },
 }
 
-masterPilotDB[938] = {
+masterPilotDB['ig111'] = {
     name = 'IG-111',
     XWS = 'ig111',
     Faction = 7,
@@ -6093,7 +6093,7 @@ masterPilotDB[938] = {
     actSet = { 'C', 'E', 'TL', 'BR', 'B' },
 }
 
-masterPilotDB[939] = {
+masterPilotDB['magnaguardprotector'] = {
     name = 'MagnaGuard Protector',
     XWS = 'magnaguardprotector',
     Faction = 7,
@@ -6105,7 +6105,7 @@ masterPilotDB[939] = {
     actSet = { 'C', 'E', 'TL', 'BR', 'B' },
 }
 
-masterPilotDB[940] = {
+masterPilotDB['magnaguardexecutioner'] = {
     name = 'MagnaGuard Executioner',
     XWS = 'magnaguardexecutioner',
     Faction = 7,
@@ -6115,7 +6115,7 @@ masterPilotDB[940] = {
     actSet = { 'C', 'E', 'TL', 'BR', 'B' },
 }
 
-masterPilotDB[941] = {
+masterPilotDB['cadbane'] = {
     name = 'Cad Bane',
     XWS = 'cadbane',
     Faction = 3,
@@ -6127,7 +6127,7 @@ masterPilotDB[941] = {
     actSet = { 'F', 'E', 'TL', 'BR', 'B' },
 }
 
-masterPilotDB[942] = {
+masterPilotDB['viktorhel-rogueclassstarfighter'] = {
     name = 'Viktor Hel',
     XWS = 'viktorhel-rogueclassstarfighter',
     Faction = 3,
@@ -6138,7 +6138,7 @@ masterPilotDB[942] = {
     actSet = { 'F', 'E', 'TL', 'BR', 'B' },
 }
 
-masterPilotDB[943] = {
+masterPilotDB['nomlumb-rogueclassstarfighter'] = {
     name = 'Nom Lumb',
     XWS = 'nomlumb-rogueclassstarfighter',
     Faction = 3,
@@ -6149,7 +6149,7 @@ masterPilotDB[943] = {
     actSet = { 'F', 'E', 'TL', 'BR', 'B' },
 }
 
-masterPilotDB[944] = {
+masterPilotDB['outerrimhunter'] = {
     name = 'Outer Rim Hunter',
     XWS = 'outerrimhunter',
     Faction = 3,
@@ -6161,7 +6161,7 @@ masterPilotDB[944] = {
 
 -- Clone Z-95
 
-masterPilotDB[945] = {
+masterPilotDB['hawk-clonez95headhunter'] = {
     name = '"Hawk"',
     XWS = 'hawk-clonez95headhunter',
     Faction = 6,
@@ -6173,7 +6173,7 @@ masterPilotDB[945] = {
     actSet = { 'F', 'BR', 'TL', 'B' },
 }
 
-masterPilotDB[946] = {
+masterPilotDB['slider'] = {
     name = '"Slider"',
     XWS = 'slider',
     Faction = 6,
@@ -6189,7 +6189,7 @@ masterPilotDB[946] = {
     },
 }
 
-masterPilotDB[947] = {
+masterPilotDB['boost'] = {
     name = '"Boost"',
     XWS = 'boost',
     Faction = 6,
@@ -6200,7 +6200,7 @@ masterPilotDB[947] = {
     actSet = { 'F', 'BR', 'B', 'TL' },
 }
 
-masterPilotDB[948] = {
+masterPilotDB['drift'] = {
     name = '"Drift"',
     XWS = 'drift',
     Faction = 6,
@@ -6211,7 +6211,7 @@ masterPilotDB[948] = {
     actSet = { 'F', 'BR', 'TL', 'B' },
 }
 
-masterPilotDB[949] = {
+masterPilotDB['stub'] = {
     name = '"Stub"',
     XWS = 'stub',
     Faction = 6,
@@ -6222,7 +6222,7 @@ masterPilotDB[949] = {
     actSet = { 'F', 'BR', 'TL', 'B' },
 }
 
-masterPilotDB[950] = {
+masterPilotDB['warthog-clonez95headhunter'] = {
     name = '"Warthog"',
     XWS = 'warthog-clonez95headhunter',
     Faction = 6,
@@ -6233,7 +6233,7 @@ masterPilotDB[950] = {
     actSet = { 'F', 'BR', 'TL', 'B' },
 }
 
-masterPilotDB[951] = {
+masterPilotDB['killer'] = {
     name = '"Killer"',
     XWS = 'killer',
     Faction = 6,
@@ -6244,7 +6244,7 @@ masterPilotDB[951] = {
     actSet = { 'F', 'BR', 'TL', 'B' },
 }
 
-masterPilotDB[952] = {
+masterPilotDB['knack'] = {
     name = '"Knack"',
     XWS = 'knack',
     Faction = 6,
@@ -6255,7 +6255,7 @@ masterPilotDB[952] = {
     actSet = { 'F', 'BR', 'TL', 'B' },
 }
 
-masterPilotDB[953] = {
+masterPilotDB['reapersquadronscout'] = {
     name = 'Reaper Squadron Scout',
     XWS = 'reapersquadronscout',
     Faction = 6,
@@ -6265,7 +6265,7 @@ masterPilotDB[953] = {
     actSet = { 'F', 'BR', 'TL', 'B' },
 }
 
-masterPilotDB[954] = {
+masterPilotDB['7thskycorpspilot'] = {
     name = '7th Sky Corps Pilot',
     XWS = '7thskycorpspilot',
     Faction = 6,
@@ -6276,7 +6276,7 @@ masterPilotDB[954] = {
 }
 
 -- Missing ships
-masterPilotDB[955] = {
+masterPilotDB['imperialsupercommando'] = {
     name = 'Imperial Super Commando',
     XWS = 'imperialsupercommando',
     Faction = 2,
@@ -6286,7 +6286,7 @@ masterPilotDB[955] = {
     actSet = { 'F', 'TL', 'R', 'Piv' },
 }
 
-masterPilotDB[956] = {
+masterPilotDB['outerrimenforcer'] = {
     name = 'Outer Rim Enforcer',
     XWS = 'outerrimenforcer',
     Faction = 3,
@@ -6298,7 +6298,7 @@ masterPilotDB[956] = {
 
 -- Battle of Yavin standardized pilots
 
-masterPilotDB[957] = {
+masterPilotDB['lukeskywalker-battleofyavin'] = {
     name = 'Luke Skywalker',
     XWS = 'lukeskywalker-battleofyavin',
     title = 'Battle of Yavin',
@@ -6319,7 +6319,7 @@ masterPilotDB[957] = {
     }
 }
 
-masterPilotDB[958] = {
+masterPilotDB['wedgeantilles-battleofyavin'] = {
     name = 'Wedge Antilles',
     XWS = 'wedgeantilles-battleofyavin',
     title = 'Battle of Yavin',
@@ -6339,7 +6339,7 @@ masterPilotDB[958] = {
     }
 }
 
-masterPilotDB[959] = {
+masterPilotDB['jekporkins-battleofyavin'] = {
     name = 'Jek Porkins',
     XWS = 'jekporkins-battleofyavin',
     title = 'Battle of Yavin',
@@ -6358,7 +6358,7 @@ masterPilotDB[959] = {
     }
 }
 
-masterPilotDB[960] = {
+masterPilotDB['garvendreis-battleofyavin'] = {
     name = 'Garven Dreis',
     XWS = 'garvendreis-battleofyavin',
     title = 'Battle of Yavin',
@@ -6376,7 +6376,7 @@ masterPilotDB[960] = {
     }
 }
 
-masterPilotDB[961] = {
+masterPilotDB['biggsdarklighter-battleofyavin'] = {
     name = 'Biggs Darklighter',
     XWS = 'biggsdarklighter-battleofyavin',
     title = 'Battle of Yavin',
@@ -6396,7 +6396,7 @@ masterPilotDB[961] = {
     }
 }
 
-masterPilotDB[962] = {
+masterPilotDB['dextiree-battleofyavin'] = {
     name = 'Dex Tiree',
     XWS = 'dextiree-battleofyavin',
     title = 'Battle of Yavin',
@@ -6415,7 +6415,7 @@ masterPilotDB[962] = {
     }
 }
 
-masterPilotDB[963] = {
+masterPilotDB['holokand-battleofyavin'] = {
     name = 'Hol Okand',
     XWS = 'holokand-battleofyavin',
     title = 'Battle of Yavin',
@@ -6434,7 +6434,7 @@ masterPilotDB[963] = {
     }
 }
 
-masterPilotDB[964] = {
+masterPilotDB['popskrail-battleofyavin'] = {
     name = '"Pops" Krail',
     XWS = 'popskrail-battleofyavin',
     title = 'Battle of Yavin',
@@ -6453,7 +6453,7 @@ masterPilotDB[964] = {
     }
 }
 
-masterPilotDB[965] = {
+masterPilotDB['hansolo-battleofyavin'] = {
     name = 'Han Solo',
     XWS = 'hansolo-battleofyavin',
     title = 'Battle of Yavin',
@@ -6474,7 +6474,7 @@ masterPilotDB[965] = {
 }
 
 
-masterPilotDB[966] = {
+masterPilotDB['darthvader-battleofyavin'] = {
     name = 'Darth Vader',
     XWS = 'darthvader-battleofyavin',
     title = 'Battle of Yavin',
@@ -6495,7 +6495,7 @@ masterPilotDB[966] = {
     }
 }
 
-masterPilotDB[967] = {
+masterPilotDB['maulermithel-battleofyavin'] = {
     name = '"Mauler" Mithel',
     XWS = 'maulermithel-battleofyavin',
     title = 'Battle of Yavin',
@@ -6512,7 +6512,7 @@ masterPilotDB[967] = {
     }
 }
 
-masterPilotDB[968] = {
+masterPilotDB['wampa-battleofyavin'] = {
     name = '"Wampa"',
     XWS = 'wampa-battleofyavin',
     title = 'Battle of Yavin',
@@ -6530,7 +6530,7 @@ masterPilotDB[968] = {
     }
 }
 
-masterPilotDB[969] = {
+masterPilotDB['darkcurse-battleofyavin'] = {
     name = '"Dark Curse"',
     XWS = 'darkcurse-battleofyavin',
     title = 'Battle of Yavin',
@@ -6550,7 +6550,7 @@ masterPilotDB[969] = {
     }
 }
 
-masterPilotDB[970] = {
+masterPilotDB['backstabber-battleofyavin'] = {
     name = '"Backstabber"',
     XWS = 'backstabber-battleofyavin',
     title = 'Battle of Yavin',
@@ -6568,7 +6568,7 @@ masterPilotDB[970] = {
     }
 }
 
-masterPilotDB[971] = {
+masterPilotDB['idenversio-battleofyavin'] = {
     name = 'Iden Versio',
     XWS = 'idenversio-battleofyavin',
     title = 'Battle of Yavin',
@@ -6587,7 +6587,7 @@ masterPilotDB[971] = {
     }
 }
 
-masterPilotDB[972] = {
+masterPilotDB['sigma4-battleofyavin'] = {
     name = 'Sigma 4',
     XWS = 'sigma4-battleofyavin',
     title = 'Battle of Yavin',
@@ -6605,7 +6605,7 @@ masterPilotDB[972] = {
     }
 }
 
-masterPilotDB[973] = {
+masterPilotDB['sigma5-battleofyavin'] = {
     name = 'Sigma 5',
     XWS = 'sigma5-battleofyavin',
     title = 'Battle of Yavin',
@@ -6623,7 +6623,7 @@ masterPilotDB[973] = {
     }
 }
 
-masterPilotDB[974] = {
+masterPilotDB['sigma6-battleofyavin'] = {
     name = 'Sigma 6',
     XWS = 'sigma6-battleofyavin',
     title = 'Battle of Yavin',
@@ -6641,7 +6641,7 @@ masterPilotDB[974] = {
     }
 }
 
-masterPilotDB[975] = {
+masterPilotDB['sigma7-battleofyavin'] = {
     name = 'Sigma 7',
     XWS = 'sigma7-battleofyavin',
     title = 'Battle of Yavin',
@@ -6659,7 +6659,7 @@ masterPilotDB[975] = {
     }
 }
 
-masterPilotDB[976] = {
+masterPilotDB['dutchvander-battleofyavin'] = {
     name = '"Dutch" Vander',
     XWS = 'dutchvander-battleofyavin',
     title = 'Battle of Yavin',
@@ -6680,7 +6680,7 @@ masterPilotDB[976] = {
 }
 -- Siege of corruscant
 
-masterPilotDB[977] = {
+masterPilotDB['anakinskywalker-siegeofcoruscant'] = {
     name = 'Anakin Skywalker',
     XWS = 'anakinskywalker-siegeofcoruscant',
     title = 'Siege of Coruscant',
@@ -6700,7 +6700,7 @@ masterPilotDB[977] = {
     }
 }
 
-masterPilotDB[978] = {
+masterPilotDB['obiwankenobi-siegeofcoruscant'] = {
     name = 'Obi-Wan Kenobi',
     XWS = 'obiwankenobi-siegeofcoruscant',
     title = 'Siege of Coruscant',
@@ -6720,7 +6720,7 @@ masterPilotDB[978] = {
     }
 }
 
-masterPilotDB[979] = {
+masterPilotDB['shaakti-siegeofcoruscant'] = {
     name = 'Shaak Ti',
     XWS = 'shaakti-siegeofcoruscant',
     title = 'Siege of Coruscant',
@@ -6741,7 +6741,7 @@ masterPilotDB[979] = {
     }
 }
 
-masterPilotDB[980] = {
+masterPilotDB['axe-siegeofcoruscant'] = {
     name = '"Axe"',
     XWS = 'axe-siegeofcoruscant',
     Faction = 6,
@@ -6760,7 +6760,7 @@ masterPilotDB[980] = {
     }
 }
 
-masterPilotDB[981] = {
+masterPilotDB['kickback-siegeofcoruscant'] = {
     name = '"Kickback"',
     XWS = 'kickback-siegeofcoruscant',
     title = 'Siege of Coruscant',
@@ -6778,7 +6778,7 @@ masterPilotDB[981] = {
     }
 }
 
-masterPilotDB[982] = {
+masterPilotDB['contrail-siegeofcoruscant'] = {
     name = '"Contrail"',
     XWS = 'contrail-siegeofcoruscant',
     title = 'Siege of Coruscant',
@@ -6798,7 +6798,7 @@ masterPilotDB[982] = {
     }
 }
 
-masterPilotDB[983] = {
+masterPilotDB['jag-siegeofcoruscant'] = {
     name = '"Jag"',
     XWS = 'jag-siegeofcoruscant',
     title = 'Siege of Coruscant',
@@ -6818,7 +6818,7 @@ masterPilotDB[983] = {
     }
 }
 
-masterPilotDB[984] = {
+masterPilotDB['wolffe-siegeofcoruscant'] = {
     name = '"Wolffe"',
     XWS = 'wolffe-siegeofcoruscant',
     title = 'Siege of Coruscant',
@@ -6838,7 +6838,7 @@ masterPilotDB[984] = {
     }
 }
 
-masterPilotDB[985] = {
+masterPilotDB['oddball-siegeofcoruscant'] = {
     name = '"Odd Ball"',
     XWS = 'oddball-siegeofcoruscant',
     title = 'Siege of Coruscant',
@@ -6859,7 +6859,7 @@ masterPilotDB[985] = {
     }
 }
 
-masterPilotDB[986] = {
+masterPilotDB['countdooku-siegeofcoruscant'] = {
     name = 'Count Dooku',
     XWS = 'countdooku-siegeofcoruscant',
     title = 'Siege of Coruscant',
@@ -6879,7 +6879,7 @@ masterPilotDB[986] = {
     }
 }
 
-masterPilotDB[987] = {
+masterPilotDB['dfs081-siegeofcoruscant'] = {
     name = 'DFS-081',
     XWS = 'dfs081-siegeofcoruscant',
     title = 'Siege of Coruscant',
@@ -6899,7 +6899,7 @@ masterPilotDB[987] = {
 }
 
 
-masterPilotDB[988] = {
+masterPilotDB['dfs311-siegeofcoruscant'] = {
     name = 'DFS-311',
     XWS = 'dfs311-siegeofcoruscant',
     title = 'Siege of Coruscant',
@@ -6917,7 +6917,7 @@ masterPilotDB[988] = {
     }
 }
 
-masterPilotDB[989] = {
+masterPilotDB['haorchallprototype-siegeofcoruscant'] = {
     name = 'Haor Chall Prototype',
     XWS = 'haorchallprototype-siegeofcoruscant',
     title = 'Siege of Coruscant',
@@ -6938,7 +6938,7 @@ masterPilotDB[989] = {
 
 -- Hotshot and aces II
 
-masterPilotDB[990] = {
+masterPilotDB['adigallia'] = {
     name = 'Adi Gallia',
     XWS = 'adigallia',
     Faction = 6,
@@ -6950,7 +6950,7 @@ masterPilotDB[990] = {
     keywords = { 'Light Side', 'Jedi' },
 }
 
-masterPilotDB[991] = {
+masterPilotDB['adigallia-delta7baethersprite'] = {
     name = 'Adi Gallia',
     XWS = 'adigallia-delta7baethersprite',
     Faction = 6,
@@ -6963,7 +6963,7 @@ masterPilotDB[991] = {
     keywords = { 'Light Side', 'Jedi' },
 }
 
-masterPilotDB[992] = {
+masterPilotDB['corranhorn-t65xwing'] = {
     name = 'Corran Horn',
     XWS = 'corranhorn-t65xwing',
     Faction = 1,
@@ -6975,7 +6975,7 @@ masterPilotDB[992] = {
     addSqdAction = { 'TL' }
 }
 
-masterPilotDB[993] = {
+masterPilotDB['doctoraphra'] = {
     name = 'Doctor Aphra',
     XWS = 'doctoraphra',
     Faction = 3,
@@ -6987,7 +6987,7 @@ masterPilotDB[993] = {
     actSet = { 'F', 'TL', 'R' },
 }
 
-masterPilotDB[994] = {
+masterPilotDB['durge'] = {
     name = 'Durge',
     XWS = 'durge',
     Faction = 3,
@@ -6998,7 +6998,7 @@ masterPilotDB[994] = {
     actSet = { 'F', 'E', 'TL', 'BR', 'B' },
 }
 
-masterPilotDB[995] = {
+masterPilotDB['flightleaderubbel'] = {
     name = 'Flight Leader Ubbel',
     XWS = 'flightleaderubbel',
     limited = 1,
@@ -7009,7 +7009,7 @@ masterPilotDB[995] = {
     actSet = { 'F', 'C', 'TL', 'BR', 'R', 'Rot' },
 }
 
-masterPilotDB[996] = {
+masterPilotDB['gavynsykes'] = {
     name = 'Gavyn Sykes',
     XWS = 'gavynsykes',
     Faction = 6,
@@ -7020,7 +7020,7 @@ masterPilotDB[996] = {
     actSet = { 'F', 'TL', 'B', 'BR', 'E' }
 }
 
-masterPilotDB[997] = {
+masterPilotDB['hondoohnaka'] = {
     name = 'Hondo Ohnaka',
     XWS = 'hondoohnaka',
     Faction = 3,
@@ -7032,7 +7032,7 @@ masterPilotDB[997] = {
     addSqdAction = { 'F', 'R', 'TL', 'B' },
 }
 
-masterPilotDB[998] = {
+masterPilotDB['junoeclipse'] = {
     name = 'Juno Eclipse',
     XWS = 'junoeclipse',
     Faction = 2,
@@ -7043,7 +7043,7 @@ masterPilotDB[998] = {
     actSet = { 'F', 'TL', 'BR', 'B' }
 }
 
-masterPilotDB[999] = {
+masterPilotDB['keovenzee'] = {
     name = 'Keo Venzee',
     XWS = 'keovenzee',
     Faction = 1,
@@ -7067,7 +7067,7 @@ masterPilotDB[999] = {
     },
 }
 
-masterPilotDB[1000] = {
+masterPilotDB['kitfisto'] = {
     name = 'Kit Fisto',
     XWS = 'kitfisto',
     limited = 1,
@@ -7080,7 +7080,7 @@ masterPilotDB[1000] = {
     keywords = { 'Light Side', 'Jedi' }
 }
 
-masterPilotDB[1001] = {
+masterPilotDB['lapin'] = {
     name = 'Lapin',
     XWS = 'lapin',
     Faction = 3,
@@ -7091,7 +7091,7 @@ masterPilotDB[1001] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[1002] = {
+masterPilotDB['magnatolvan'] = {
     name = 'Magna Tolvan',
     XWS = 'magnatolvan',
     Faction = 2,
@@ -7102,7 +7102,7 @@ masterPilotDB[1002] = {
     actSet = { 'F', 'E', 'BR' }
 }
 
-masterPilotDB[1003] = {
+masterPilotDB['popskrail'] = {
     name = '"Pops" Krail',
     XWS = 'popskrail',
     Faction = 1,
@@ -7113,7 +7113,7 @@ masterPilotDB[1003] = {
     actSet = { 'F', 'TL', 'BR' },
 }
 
-masterPilotDB[1004] = {
+masterPilotDB['secondsister'] = {
     name = 'Second Sister',
     XWS = 'secondsister',
     Faction = 2,
@@ -7125,7 +7125,7 @@ masterPilotDB[1004] = {
     actSet = { 'F', 'E', 'BR', 'B' }
 }
 
-masterPilotDB[1005] = {
+masterPilotDB['sicko'] = {
     name = '"Sicko"',
     XWS = 'sicko',
     limited = 1,
@@ -7154,7 +7154,7 @@ masterPilotDB[1005] = {
     },
 }
 
-masterPilotDB[1006] = {
+masterPilotDB['slammer'] = {
     name = '"Slammer"',
     XWS = 'slammer',
     Faction = 6,
@@ -7167,7 +7167,7 @@ masterPilotDB[1006] = {
     keywords = { 'Clone' }
 }
 
-masterPilotDB[1007] = {
+masterPilotDB['torphun'] = {
     name = 'Tor Phun',
     XWS = 'torphun',
     Faction = 3,
@@ -7179,7 +7179,7 @@ masterPilotDB[1007] = {
     keywords = { 'Mandalorian' }
 }
 
-masterPilotDB[1008] = {
+masterPilotDB['tychocelchu'] = {
     name = 'Tycho Celchu',
     XWS = 'tychocelchu',
     Faction = 1,
@@ -7190,7 +7190,7 @@ masterPilotDB[1008] = {
     actSet = { 'F', 'TL', 'E', 'BR', 'B' }
 }
 
-masterPilotDB[1009] = {
+masterPilotDB['wesjanson'] = {
     name = 'Wes Janson',
     XWS = 'wesjanson',
     Faction = 1,
@@ -7202,7 +7202,7 @@ masterPilotDB[1009] = {
     actSet = { 'F', 'TL', 'BR' },
 }
 
-masterPilotDB[1010] = {
+masterPilotDB['yricaquell'] = {
     name = 'Yrica Quell',
     XWS = 'yricaquell',
     Faction = 2,
@@ -7213,7 +7213,7 @@ masterPilotDB[1010] = {
     actSet = { 'F', 'E', 'BR', 'TL' }
 }
 
-masterPilotDB[1011] = {
+masterPilotDB['takajamoreesa'] = {
     name = 'Taka Jamoreesa',
     XWS = 'takajamoreesa',
     Faction = 4,
@@ -7224,7 +7224,7 @@ masterPilotDB[1011] = {
     actSet = { 'F', 'TL' }
 }
 
-masterPilotDB[1012] = {
+masterPilotDB['zayversio'] = {
     name = 'Zay Versio',
     XWS = 'zayversio',
     limited = 1,
@@ -7236,7 +7236,7 @@ masterPilotDB[1012] = {
     actSet = { 'F', 'TL', 'B' }
 }
 
-masterPilotDB[1013] = {
+masterPilotDB['venisadoza'] = {
     name = 'Venisa Doza',
     XWS = 'venisadoza',
     limited = 1,
@@ -7249,7 +7249,7 @@ masterPilotDB[1013] = {
     arcs = { fixed = { range = 3, type = { 'front', 'back' } } },
 }
 
-masterPilotDB[1014] = {
+masterPilotDB['landocalrissian-scavengedyt1300'] = {
     name = "Lando Calrissian",
     XWS = 'landocalrissian-scavengedyt1300',
     Faction = 4,
@@ -7261,7 +7261,7 @@ masterPilotDB[1014] = {
     actSet = { 'F', 'TL', 'B', 'Rot' }
 }
 
-masterPilotDB[1015] = {
+masterPilotDB['poedameron-scavengedyt1300'] = {
     name = "Poe Dameron",
     XWS = 'poedameron-scavengedyt1300',
     Faction = 4,
@@ -7273,7 +7273,7 @@ masterPilotDB[1015] = {
     actSet = { 'F', 'TL', 'B', 'BR', 'Rot' }
 }
 
-masterPilotDB[1016] = {
+masterPilotDB['theironassembler'] = {
     name = 'The Iron Assembler',
     XWS = 'theironassembler',
     Faction = 7,
@@ -7285,7 +7285,7 @@ masterPilotDB[1016] = {
     texture = 'proto',
 }
 
-masterPilotDB[1017] = {
+masterPilotDB['kelrodoaiholdout'] = {
     name = 'Kelrodo-Ai Holdout',
     XWS = 'kelrodoaiholdout',
     Faction = 7,
@@ -7296,7 +7296,7 @@ masterPilotDB[1017] = {
     texture = 'proto',
 }
 
-masterPilotDB[1018] = {
+masterPilotDB['aurrasing'] = {
     name = 'Aurra Sing',
     XWS = 'aurrasing',
     limited = 1,
@@ -7308,7 +7308,7 @@ masterPilotDB[1018] = {
     actSet = { 'F', 'R', 'TL', 'B' },
 }
 
-masterPilotDB[1019] = {
+masterPilotDB['agenttierny'] = {
     name = 'Agent Tierny',
     XWS = 'agenttierny',
     Faction = 5,
@@ -7320,7 +7320,7 @@ masterPilotDB[1019] = {
     actSet = { 'F', 'TL' }
 }
 
-masterPilotDB[1020] = {
+masterPilotDB['lingaava'] = {
     name = 'Lin Gaava',
     XWS = 'lingaava',
     limited = 1,
@@ -7332,7 +7332,7 @@ masterPilotDB[1020] = {
     actSet = { 'F', 'TL', 'E', 'BR' }
 }
 
-masterPilotDB[1021] = {
+masterPilotDB['lieutenantgalek'] = {
     name = 'Lieutenant Galek',
     XWS = 'lieutenantgalek',
     limited = 1,
@@ -7343,7 +7343,7 @@ masterPilotDB[1021] = {
     actSet = { 'F', 'TL', 'E', 'BR' }
 }
 
-masterPilotDB[1022] = {
+masterPilotDB['dt798'] = {
     name = 'DT-798',
     XWS = 'dt798',
     limited = 1,
@@ -7354,7 +7354,7 @@ masterPilotDB[1022] = {
     actSet = { 'F', 'TL', 'E', 'BR' }
 }
 
-masterPilotDB[1023] = {
+masterPilotDB['phlacarphoccprototype-siegeofcoruscant'] = {
     name = "Phlac-Arphocc Prototype",
     XWS = 'phlacarphoccprototype-siegeofcoruscant',
     title = "Siege of Coruscant",
@@ -7372,7 +7372,7 @@ masterPilotDB[1023] = {
     }
 }
 
-masterPilotDB[1024] = {
+masterPilotDB['dist81-siegeofcoruscant'] = {
     name = "DIS-T81",
     XWS = 'dist81-siegeofcoruscant',
     title = "Siege of Coruscant",
@@ -7390,7 +7390,7 @@ masterPilotDB[1024] = {
     }
 }
 
-masterPilotDB[1025] = {
+masterPilotDB['dis347-siegeofcoruscant'] = {
     name = "DIS-347",
     XWS = 'dis347-siegeofcoruscant',
     title = "Siege of Coruscant",
@@ -7408,7 +7408,7 @@ masterPilotDB[1025] = {
     }
 }
 
-masterPilotDB[1026] = {
+masterPilotDB['baktoidprototype-siegeofcoruscant'] = {
     name = 'Baktoid Prototype',
     XWS = 'baktoidprototype-siegeofcoruscant',
     title = "Siege of Coruscant",
@@ -7426,7 +7426,7 @@ masterPilotDB[1026] = {
     }
 }
 
-masterPilotDB[1027] = {
+masterPilotDB['dbs404-siegeofcoruscant'] = {
     name = 'DBS-404',
     XWS = 'dbs404-siegeofcoruscant',
     title = "Siege of Coruscant",
@@ -7444,7 +7444,7 @@ masterPilotDB[1027] = {
     }
 }
 
-masterPilotDB[1028] = {
+masterPilotDB['dbs32c-siegeofcoruscant'] = {
     name = 'DBS-32C',
     XWS = 'dbs32c-siegeofcoruscant',
     title = "Siege of Coruscant",
@@ -7463,7 +7463,7 @@ masterPilotDB[1028] = {
     }
 }
 
-masterPilotDB[1029] = {
+masterPilotDB['volandas'] = {
     name = "Volan Das",
     XWS = 'volandas',
     limited = 1,
@@ -7474,7 +7474,7 @@ masterPilotDB[1029] = {
     actSet = { 'F', 'E', 'TL', 'BR', 'B' }
 }
 
-masterPilotDB[1030] = {
+masterPilotDB['durge-separatistalliance'] = {
     name = 'Durge',
     XWS = 'durge-separatistalliance',
     Faction = 7,
@@ -7486,7 +7486,7 @@ masterPilotDB[1030] = {
     actSet = { 'F', 'E', 'TL', 'BR', 'B' },
 }
 
-masterPilotDB[1031] = {
+masterPilotDB['klick-siegeofcoruscant'] = {
     name = '"Klick"',
     XWS = 'klick-siegeofcoruscant',
     title = "Siege of Coruscant",
@@ -7511,7 +7511,7 @@ masterPilotDB[1031] = {
 }
 
 
-masterPilotDB[1032] = {
+masterPilotDB['juljerjerrod'] = {
     name = 'Jul Jerjerrod',
     XWS = 'juljerjerrod',
     Faction = 5,
@@ -7523,7 +7523,7 @@ masterPilotDB[1032] = {
     actSet = { 'F', 'TL', 'BR', 'B', 'E' }
 }
 
-masterPilotDB[1033] = {
+masterPilotDB['lukeskywalker-swz106'] = {
     name = 'Luke Skywalker',
     XWS = 'lukeskywalker-swz106',
     title = 'Squadron Starter Pack',
@@ -7543,7 +7543,7 @@ masterPilotDB[1033] = {
     }
 }
 
-masterPilotDB[1034] = {
+masterPilotDB['jekporkins-swz106'] = {
     name = 'Jek Porkins',
     XWS = 'jekporkins-swz106',
     title = 'Squadron Starter Pack',
@@ -7562,7 +7562,7 @@ masterPilotDB[1034] = {
     }
 }
 
-masterPilotDB[1035] = {
+masterPilotDB['dutchvander-swz106'] = {
     name = '"Dutch" Vander',
     XWS = 'dutchvander-swz106',
     title = 'Squadron Starter Pack',
@@ -7581,7 +7581,7 @@ masterPilotDB[1035] = {
     }
 }
 
-masterPilotDB[1036] = {
+masterPilotDB['hortonsalm-swz106'] = {
     name = 'Horton Salm',
     XWS = 'hortonsalm-swz106',
     title = 'Squadron Starter Pack',
@@ -7599,7 +7599,7 @@ masterPilotDB[1036] = {
     }
 }
 
-masterPilotDB[1037] = {
+masterPilotDB['arvelcrynyd-swz106'] = {
     name = 'Arvel Crynyd',
     XWS = 'arvelcrynyd-swz106',
     title = 'Squadron Starter Pack',
@@ -7616,7 +7616,7 @@ masterPilotDB[1037] = {
     }
 }
 
-masterPilotDB[1038] = {
+masterPilotDB['jakefarrell-swz106'] = {
     name = 'Jake Farrell',
     XWS = 'jakefarrell-swz106',
     title = 'Squadron Starter Pack',
@@ -7634,7 +7634,7 @@ masterPilotDB[1038] = {
     }
 }
 
-masterPilotDB[1039] = {
+masterPilotDB['sharabey-swz106'] = {
     name = 'Shara Bey',
     XWS = 'sharabey-swz106',
     title = 'Squadron Starter Pack',
@@ -7651,7 +7651,7 @@ masterPilotDB[1039] = {
     }
 }
 
-masterPilotDB[1040] = {
+masterPilotDB['darthvader-swz105'] = {
     name = 'Darth Vader',
     XWS = 'darthvader-swz105',
     title = 'Squadron Starter Pack',
@@ -7672,7 +7672,7 @@ masterPilotDB[1040] = {
     }
 }
 
-masterPilotDB[1041] = {
+masterPilotDB['maarekstele-swz105'] = {
     name = 'Maarek Stele',
     XWS = 'maarekstele-swz105',
     title = 'Squadron Starter Pack',
@@ -7692,7 +7692,7 @@ masterPilotDB[1041] = {
     }
 }
 
-masterPilotDB[1042] = {
+masterPilotDB['captainjonus-swz105'] = {
     name = 'Captain Jonus',
     XWS = 'captainjonus-swz105',
     title = 'Squadron Starter Pack',
@@ -7711,7 +7711,7 @@ masterPilotDB[1042] = {
     }
 }
 
-masterPilotDB[1043] = {
+masterPilotDB['tomaxbren-swz105'] = {
     name = 'Tomax Bren',
     XWS = 'tomaxbren-swz105',
     title = 'Squadron Starter Pack',
@@ -7730,7 +7730,7 @@ masterPilotDB[1043] = {
     }
 }
 
-masterPilotDB[1044] = {
+masterPilotDB['nightbeast-swz105'] = {
     name = '"Night Beast"',
     XWS = 'nightbeast-swz105',
     title = 'Squadron Starter Pack',
@@ -7747,7 +7747,7 @@ masterPilotDB[1044] = {
     }
 }
 
-masterPilotDB[1045] = {
+masterPilotDB['valenrudor-swz105'] = {
     name = 'Valen Rudor',
     XWS = 'valenrudor-swz105',
     title = 'Squadron Starter Pack',
@@ -7764,7 +7764,7 @@ masterPilotDB[1045] = {
     }
 }
 
-masterPilotDB[1046] = {
+masterPilotDB['idenversio-swz105'] = {
     name = 'Iden Versio',
     XWS = 'idenversio-swz105',
     title = 'Squadron Starter Pack',
@@ -7783,7 +7783,7 @@ masterPilotDB[1046] = {
     }
 }
 
-masterPilotDB[1047] = {
+masterPilotDB['deathfire-swz98'] = {
     name = '"Deathfire"',
     title = 'SL',
     XWS = 'deathfire-swz98',
@@ -7803,7 +7803,7 @@ masterPilotDB[1047] = {
     }
 }
 
-masterPilotDB[1048] = {
+masterPilotDB['captainjonus-swz98'] = {
     name = 'Captain Jonus',
     title = 'SL',
     XWS = 'captainjonus-swz98',
@@ -7822,7 +7822,7 @@ masterPilotDB[1048] = {
     }
 }
 
-masterPilotDB[1049] = {
+masterPilotDB['tomaxbren-swz98'] = {
     name = 'Tomax Bren',
     title = 'SL',
     XWS = 'tomaxbren-swz98',
@@ -7843,7 +7843,7 @@ masterPilotDB[1049] = {
 }
 
 
-masterPilotDB[1050] = {
+masterPilotDB['majorrhymer-swz98'] = {
     name = 'Major Rhymer',
     title = 'SL',
     XWS = 'majorrhymer-swz98',
@@ -7861,7 +7861,7 @@ masterPilotDB[1050] = {
     }
 }
 
-masterPilotDB[1051] = {
+masterPilotDB['dashrendar-swz103-sl-rebelalliance'] = {
     name = 'Dash Rendar',
     title = 'Rebel (SL)',
     XWS = 'dashrendar-swz103-sl-rebelalliance',
@@ -7880,7 +7880,7 @@ masterPilotDB[1051] = {
     }
 }
 
-masterPilotDB[1052] = {
+masterPilotDB['dashrendar-swz103-sl-scumandvillainy'] = {
     name = 'Dash Rendar',
     title = 'Scum (SL)',
     XWS = 'dashrendar-swz103-sl-scumandvillainy',
@@ -7899,7 +7899,7 @@ masterPilotDB[1052] = {
     }
 }
 
-masterPilotDB[1053] = {
+masterPilotDB['leebo-swz103-sl-scumandvillainy'] = {
     name = '"Leebo"',
     title = 'Scum (SL)',
     XWS = 'leebo-swz103-sl-scumandvillainy',
@@ -7918,7 +7918,7 @@ masterPilotDB[1053] = {
     }
 }
 
-masterPilotDB[1054] = {
+masterPilotDB['leebo-swz103-sl-rebelalliance'] = {
     name = '"Leebo"',
     title = 'Rebel (SL)',
     XWS = 'leebo-swz103-sl-rebelalliance',
@@ -7937,7 +7937,7 @@ masterPilotDB[1054] = {
     }
 }
 
-masterPilotDB[1055] = {
+masterPilotDB['dashrendar-swz103-rebelalliance'] = {
     name = 'Dash Rendar',
     title = 'Rebel',
     XWS = 'dashrendar-swz103-rebelalliance',
@@ -7949,7 +7949,7 @@ masterPilotDB[1055] = {
     actSet = { 'F', 'TL', 'BR', 'Rot' }
 }
 
-masterPilotDB[1056] = {
+masterPilotDB['dashrendar-swz103-scumandvillainy'] = {
     name = 'Dash Rendar',
     title = 'Scum',
     XWS = 'dashrendar-swz103-scumandvillainy',
@@ -7961,7 +7961,7 @@ masterPilotDB[1056] = {
     actSet = { 'F', 'TL', 'BR', 'Rot' }
 }
 
-masterPilotDB[1057] = {
+masterPilotDB['leebo-swz103-rebelalliance'] = {
     name = '"Leebo"',
     XWS = 'leebo-swz103-rebelalliance',
     title = 'Rebel',
@@ -7974,7 +7974,7 @@ masterPilotDB[1057] = {
     keywords = { 'Droid' }
 }
 
-masterPilotDB[1058] = {
+masterPilotDB['leebo-swz103-scumandvillainy'] = {
     name = '"Leebo"',
     title = 'Scum',
     XWS = 'leebo-swz103-scumandvillainy',
@@ -7989,7 +7989,7 @@ masterPilotDB[1058] = {
 
 --Battle over Endor Standardized Pilots
 
-masterPilotDB[1059] = {
+masterPilotDB['captainyorr-battleoverendor'] = {
     name = 'Captain Yorr',
     XWS = 'captainyorr-battleoverendor',
     title = 'Battle over Endor',
@@ -8010,7 +8010,7 @@ masterPilotDB[1059] = {
     }
 }
 
-masterPilotDB[1060] = {
+masterPilotDB['coloneljendon-battleoverendor'] = {
     name = 'Colonel Jendon',
     XWS = 'coloneljendon-battleoverendor',
     title = 'Battle over Endor',
@@ -8030,7 +8030,7 @@ masterPilotDB[1060] = {
     }
 }
 
-masterPilotDB[1061] = {
+masterPilotDB['lieutenanthebsly-battleoverendor'] = {
     name = 'Lieutenant Hebsly',
     XWS = 'lieutenanthebsly-battleoverendor',
     title = 'Battle over Endor',
@@ -8048,7 +8048,7 @@ masterPilotDB[1061] = {
     }
 }
 
-masterPilotDB[1062] = {
+masterPilotDB['majormianda-battleoverendor'] = {
     name = 'Major Mianda',
     XWS = 'majormianda-battleoverendor',
     title = 'Battle over Endor',
@@ -8068,7 +8068,7 @@ masterPilotDB[1062] = {
     }
 }
 
-masterPilotDB[1063] = {
+masterPilotDB['scythe6-battleoverendor'] = {
     name = 'Scythe 6',
     XWS = 'scythe6-battleoverendor',
     title = 'Battle over Endor',
@@ -8087,7 +8087,7 @@ masterPilotDB[1063] = {
     }
 }
 
-masterPilotDB[1064] = {
+masterPilotDB['mausmonare-battleoverendor'] = {
     name = 'Maus Monare',
     XWS = 'mausmonare-battleoverendor',
     title = 'Battle over Endor',
@@ -8106,7 +8106,7 @@ masterPilotDB[1064] = {
     }
 }
 
-masterPilotDB[1065] = {
+masterPilotDB['sapphire2-battleoverendor'] = {
     name = 'Sapphire 2',
     XWS = 'sapphire2-battleoverendor',
     title = 'Battle over Endor',
@@ -8125,7 +8125,7 @@ masterPilotDB[1065] = {
     }
 }
 
-masterPilotDB[1066] = {
+masterPilotDB['soontirfel-battleoverendor'] = {
     name = 'Soontir Fel',
     XWS = 'soontirfel-battleoverendor',
     title = 'Battle over Endor',
@@ -8145,7 +8145,7 @@ masterPilotDB[1066] = {
     }
 }
 
-masterPilotDB[1067] = {
+masterPilotDB['scimitar1-battleoverendor'] = {
     name = 'Scimitar 1',
     XWS = 'scimitar1-battleoverendor',
     title = 'Battle over Endor',
@@ -8166,7 +8166,7 @@ masterPilotDB[1067] = {
     }
 }
 
-masterPilotDB[1068] = {
+masterPilotDB['scimitar3-battleoverendor'] = {
     name = 'Scimitar 3',
     XWS = 'scimitar3-battleoverendor',
     title = 'Battle over Endor',
@@ -8187,7 +8187,7 @@ masterPilotDB[1068] = {
     }
 }
 
-masterPilotDB[1069] = {
+masterPilotDB['kendyidele-battleoverendor'] = {
     name = 'Kendy Idele',
     XWS = 'kendyidele-battleoverendor',
     title = 'Battle over Endor',
@@ -8206,7 +8206,7 @@ masterPilotDB[1069] = {
     }
 }
 
-masterPilotDB[1070] = {
+masterPilotDB['wedgeantilles-battleoverendor'] = {
     name = 'Wedge Antilles',
     XWS = 'wedgeantilles-battleoverendor',
     Faction = 1,
@@ -8226,7 +8226,7 @@ masterPilotDB[1070] = {
     }
 }
 
-masterPilotDB[1071] = {
+masterPilotDB['yendor-battleoverendor'] = {
     name = 'Yendor',
     XWS = 'yendor-battleoverendor',
     title = 'Battle over Endor',
@@ -8244,7 +8244,7 @@ masterPilotDB[1071] = {
     }
 }
 
-masterPilotDB[1072] = {
+masterPilotDB['arvelcrynyd-battleoverendor'] = {
     name = 'Arvel Crynyd',
     XWS = 'arvelcrynyd-battleoverendor',
     title = 'Battle over Endor',
@@ -8264,7 +8264,7 @@ masterPilotDB[1072] = {
     }
 }
 
-masterPilotDB[1073] = {
+masterPilotDB['gemmersojan-battleoverendor'] = {
     name = 'Gemmer Sojan',
     XWS = 'gemmersojan-battleoverendor',
     title = 'Battle over Endor',
@@ -8287,7 +8287,7 @@ masterPilotDB[1073] = {
     }
 }
 
-masterPilotDB[1074] = {
+masterPilotDB['braylenstramm-battleoverendor'] = {
     name = 'Braylen Stramm',
     XWS = 'braylenstramm-battleoverendor',
     title = 'Battle over Endor',
@@ -8309,7 +8309,7 @@ masterPilotDB[1074] = {
     }
 }
 
-masterPilotDB[1075] = {
+masterPilotDB['adonfox-battleoverendor'] = {
     name = 'Adon Fox',
     XWS = 'adonfox-battleoverendor',
     title = 'Battle over Endor',
@@ -8331,7 +8331,7 @@ masterPilotDB[1075] = {
 }
 
 
-masterPilotDB[1076] = {
+masterPilotDB['ginamoonsong-battleoverendor'] = {
     name = 'Gina Moonsong',
     XWS = 'ginamoonsong-battleoverendor',
     Faction = 1,
@@ -8353,7 +8353,7 @@ masterPilotDB[1076] = {
     }
 }
 
-masterPilotDB[1077] = {
+masterPilotDB['tychocelchu-battleoverendor'] = {
     name = 'Tycho Celchu',
     XWS = 'tychocelchu-battleoverendor',
     Faction = 1,
@@ -8374,7 +8374,7 @@ masterPilotDB[1077] = {
     }
 }
 
-masterPilotDB[1078] = {
+masterPilotDB['landocalrissian-battleoverendor'] = {
     name = 'Lando Calrissian',
     XWS = 'landocalrissian-battleoverendor',
     title = 'Battle over Endor',
@@ -8395,7 +8395,7 @@ masterPilotDB[1078] = {
     }
 }
 
-masterPilotDB[1079] = {
+masterPilotDB['echo-ssl'] = {
     name = '"Echo"',
     title = 'Copycat',
     XWS = 'echo-ssl',
@@ -8414,7 +8414,7 @@ masterPilotDB[1079] = {
     }
 }
 
-masterPilotDB[1080] = {
+masterPilotDB['whisper-ssl'] = {
     name = '"Whisper"',
     title = 'Unseen Assailant',
     XWS = 'whisper-ssl',
@@ -8433,7 +8433,7 @@ masterPilotDB[1080] = {
     }
 }
 
-masterPilotDB[1081] = {
+masterPilotDB['majorvynder-ssl'] = {
     name = 'Major Vynder',
     title = 'Helping Hand',
     XWS = 'majorvynder-ssl',
@@ -8452,7 +8452,7 @@ masterPilotDB[1081] = {
     }
 }
 
-masterPilotDB[1082] = {
+masterPilotDB['lieutenantkarsabi-ssl'] = {
     name = 'Lieutenant Karsabi',
     title = 'Payload Courier',
     XWS = 'lieutenantkarsabi-ssl',
@@ -8471,7 +8471,7 @@ masterPilotDB[1082] = {
 }
 
 
-masterPilotDB[1083] = {
+masterPilotDB['newrepublicpatrol-wartime'] = {
     name = 'New Republic Patrol',
     XWS = 'newrepublicpatrol-wartime',
     Faction = 4,
@@ -8481,7 +8481,7 @@ masterPilotDB[1083] = {
     actSet = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
-masterPilotDB[1084] = {
+masterPilotDB['kijimispicerunner-wartime'] = {
     name = 'Kijimi Spice Runner',
     XWS = 'kijimispicerunner-wartime',
     Faction = 4,
@@ -8491,7 +8491,7 @@ masterPilotDB[1084] = {
     actSet = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
-masterPilotDB[1085] = {
+masterPilotDB['tezanasz-wartime'] = {
     name = 'Teza Nasz',
     XWS = 'tezanasz-wartime',
     Faction = 4,
@@ -8502,7 +8502,7 @@ masterPilotDB[1085] = {
     actSet = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
-masterPilotDB[1086] = {
+masterPilotDB['shasazaro-wartime'] = {
     name = 'Shasa Zaro',
     XWS = 'shasazaro-wartime',
     Faction = 4,
@@ -8513,7 +8513,7 @@ masterPilotDB[1086] = {
     actSet = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
-masterPilotDB[1087] = {
+masterPilotDB['coruskapellim-wartime'] = {
     name = 'Corus Kapellim',
     XWS = 'coruskapellim-wartime',
     Faction = 4,
@@ -8524,7 +8524,7 @@ masterPilotDB[1087] = {
     actSet = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
-masterPilotDB[1088] = {
+masterPilotDB['caithrenalli-wartime'] = {
     name = "C'ai Threnalli",
     XWS = 'caithrenalli-wartime',
     Faction = 4,
@@ -8536,7 +8536,7 @@ masterPilotDB[1088] = {
     movethrough = true
 }
 
-masterPilotDB[1089] = {
+masterPilotDB['wilsateshlo-wartime'] = {
     name = 'Wilsa Teshlo',
     XWS = 'wilsateshlo-wartime',
     Faction = 4,
@@ -8547,7 +8547,7 @@ masterPilotDB[1089] = {
     actSet = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
-masterPilotDB[1090] = {
+masterPilotDB['zoriibliss-wartime'] = {
     name = 'Zorii Bliss',
     XWS = 'zoriibliss-wartime',
     Charge = 1,
@@ -8559,7 +8559,7 @@ masterPilotDB[1090] = {
     actSet = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
-masterPilotDB[1091] = {
+masterPilotDB['aftabackbar-wartime'] = {
     name = 'Aftab Ackbar',
     XWS = 'aftabackbar-wartime',
     Faction = 4,
@@ -8570,7 +8570,7 @@ masterPilotDB[1091] = {
     actSet = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
-masterPilotDB[1092] = {
+masterPilotDB['legafossang-wartime'] = {
     name = 'Lega Fossang',
     XWS = 'legafossang-wartime',
     Faction = 4,

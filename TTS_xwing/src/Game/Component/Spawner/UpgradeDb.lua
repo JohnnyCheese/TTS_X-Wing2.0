@@ -348,7 +348,7 @@ masterUpgradesDB['seasonednavigator'] = {
     executeOptions = function(list, pilotid)
         exopts = {}
         nextdiff = { b = "w", w = "r" }
-        if pilotid == 0 then
+        if pilotid == 0 or pilotid == '' then
             return {}
         end
         for _, man in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
@@ -1853,7 +1853,7 @@ masterUpgradesDB['kaydelconnix'] = {
             [4] = { "s5" },
             [5] = {}
         }
-        if pilotid == 0 then
+        if pilotid == 0 or pilotid == '' then
             return {}
         end
         for _, man in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
@@ -1919,7 +1919,7 @@ masterUpgradesDB['r2a6'] = {
     slot = 10,
     executeOptions = function(list, pilotid)
         exopts = {}
-        if pilotid ~= 0 then
+        if pilotid ~= 0 and pilotid ~= '' then
             for _, man in pairs(masterShipDB[masterPilotDB[pilotid].ship_type].moveSet) do
                 local Char = man:find("%d")
                 local speed = tonumber(man:sub(Char, Char))

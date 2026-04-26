@@ -582,6 +582,9 @@ function loadPilots(ruleset, ships)
 end
 
 function findByXws(table, xws_id)
+    if table[xws_id] ~= nil then
+        return xws_id
+    end
     for i, record in pairs(table) do
         if record.XWS and record.XWS == xws_id then
             return i
@@ -632,7 +635,7 @@ function xwsSpawn(list, playerColor)
                 printToAll("Unable to find pilot with xws value: " .. v.id, { 1, 0, 0 })
                 break;
             end
-            parts.Pilots[k] = tonumber(pilotId)
+            parts.Pilots[k] = pilotId
             parts.Upgrades[k] = {}
 
             if v.upgrades then
@@ -990,7 +993,7 @@ function singleUpSpawn(upId)
     partList = {}
     partList.spawnCard = self
     partList.Pilots = {}
-    partList.Pilots[1] = 0
+    partList.Pilots[1] = ''
     partList.Upgrades = {}
     partList.Upgrades[1] = {}
     partList.Upgrades[1][1] = upId
@@ -1139,25 +1142,25 @@ function idSpawner(idTable)
 
         fList.Pilots[k].Data.Faction = fList.Faction
         fList.Pilots[k].Data.Size = fList.Pilots[k].Size
-        if v == 150 then                   -- Emon Azzameen special drops
+        if v == 'emonazzameen' then        -- Emon Azzameen special drops
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s3:tr3:te3'
-        elseif v == 205 then               -- Sol Sixxa special drops
+        elseif v == 'solsixxa' then        -- Sol Sixxa special drops
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':te1:be1:br1:tr1'
-        elseif v == 1068 then              -- Parting Gift upgrade special drop
+        elseif v == 'scimitar3-battleoverendor' then -- Parting Gift upgrade special drop
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r:br1r:bl1r'
-        elseif v == 1075 then              -- Adon Fox BoE (Parting Gift + sideways)
+        elseif v == 'adonfox-battleoverendor' then   -- Adon Fox BoE (Parting Gift + sideways)
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r:br1r:bl1r:be1:br1:ss1:ps1'
-        elseif v == 161 then               -- Constable Zuvio
+        elseif v == 'constablezuvio' then  -- Constable Zuvio
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r'
-        elseif v == 565 then               -- Bombardment Drone
+        elseif v == 'bombardmentdrone' then -- Bombardment Drone
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r'
-        elseif v == 1047 then              -- SL Deathfire
+        elseif v == 'deathfire-swz98' then -- SL Deathfire
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':be3:br3:s3:s3r'
-        elseif v == 10022 then
+        elseif v == 'finchdallow-evacuationofdqar' then
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':be1:br1:s2:be2:br2'
-        elseif v == 1048 then
+        elseif v == 'captainjonus-swz98' then
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s3r:be3r:br3r'
-        elseif v == 1074 or v == 1076 then -- BoE B-Wings sideways drops
+        elseif v == 'braylenstramm-battleoverendor' or v == 'ginamoonsong-battleoverendor' then -- BoE B-Wings sideways drops
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':ss1:ps1'
         end
 
