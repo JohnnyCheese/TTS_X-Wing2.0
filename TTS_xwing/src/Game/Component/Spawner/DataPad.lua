@@ -57,61 +57,59 @@ cardBackDB.Rep =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/REPback.jpg'
 cardBackDB.Cis =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/CISback.jpg'
-cardBackDB['1'] =
+cardBackDB['Talent'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Eptupgrade.png'  -- EPT
-cardBackDB['2'] =
+cardBackDB['Sensor'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/systemupg.png'   -- Sensor
-cardBackDB['3'] =
+cardBackDB['Cannon'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Cannonup.png'    -- Cannon
-cardBackDB['3b'] =
+cardBackDB['Cannon Dual'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Cannonup.png'    -- Dule Cannon NEEDS ART
-cardBackDB['4'] =
+cardBackDB['Turret'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/turrups.png'     -- Turret
-cardBackDB['5'] =
+cardBackDB['Torpedo'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/torpups.png'     -- Torpedo
-cardBackDB['6'] =
+cardBackDB['Missile'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/missileupg.png'  -- Missile
-cardBackDB['6b'] =
+cardBackDB['Missile Dual'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/DualMissile.png' -- Dual Missile
-cardBackDB['7'] =
+cardBackDB[''] =
 ''                                                                                                            --
-cardBackDB['8'] =
+cardBackDB['Crew'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Crew.png'        -- Crew
-cardBackDB['8b'] =
+cardBackDB['Crew Dual'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/DualCrew.png'    -- Dual Crew
-cardBackDB['9'] = ''
-cardBackDB['10'] =
+cardBackDB['Astromech'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Astro.png' --Astromech
-cardBackDB['11'] = ''
-cardBackDB['12'] =
+cardBackDB['Payload'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Device.png'       -- Device
-cardBackDB['12b'] =
+cardBackDB['Payload Dual'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/DualDevice.png'   -- DualDevice
-cardBackDB['13'] =
+cardBackDB['Illicit'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Illicit.png'      -- Ilicit
-cardBackDB['14'] =
+cardBackDB['Modification'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Modification.png' -- Modification
-cardBackDB['15'] =
+cardBackDB['Title'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Title.png'        -- Title
-cardBackDB['16'] =
+cardBackDB['Gunner'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Gunner.png'       -- Gunner
-cardBackDB['17'] =
+cardBackDB['Force Power'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Force.png'        -- Force Power
-cardBackDB['18'] =
+cardBackDB['Configuration'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Config.png'       -- Configuration
-cardBackDB['19'] =
+cardBackDB['Tech'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Tech.jpg'         -- Tech
-cardBackDB['20'] =
+cardBackDB['Relay'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Relay.jpg'        -- Droid (PLACEHOLDER - TO DO)
-cardBackDB['21'] =
+cardBackDB['Command'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Epic.png'    -- Command
-cardBackDB['22'] =
+cardBackDB['Cargo'] =
 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Cargo.png'  -- Cargo
-cardBackDB['23'] =
+cardBackDB['Team'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Staff.png'   -- Team
-cardBackDB['24'] =
+cardBackDB['Hardpoint'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Staff.png'   -- Hardpoint (PlACEHOLDER - TODO)
-cardBackDB['25'] =
+cardBackDB['Hyperdrive'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Staff.png'   -- Hyperspace ring (PlACEHOLDER - TODO)
 
 
@@ -593,6 +591,28 @@ function findByXws(table, xws_id)
     return nil
 end
 
+function validatePilotId(pilotId)
+    local valid = (type(pilotId) == 'string') and (masterPilotDB[pilotId] ~= nil)
+    if not valid then
+        local message = 'Invalid pilot id key: ' .. tostring(pilotId)
+        if printToAll ~= nil then
+            printToAll(message, { 1, 0, 0 })
+        else
+            print(message)
+        end
+    end
+    return valid
+end
+
+function validatePilotIds(idTable)
+    for _, pilotId in pairs(idTable.Pilots or {}) do
+        if not validatePilotId(pilotId) then
+            return false
+        end
+    end
+    return true
+end
+
 function listToFormat(ruleset, version, vendor)
     if version and string.find(version, '2.0.') then
         return "2.0-legacy"
@@ -974,6 +994,9 @@ function singleUp7()
 end
 
 function singlePilotSpawn(Id)
+    if not validatePilotId(Id) then
+        return
+    end
     partList = {}
     partList.spawnCard = self
     partList.Pilots = {}
@@ -1025,6 +1048,9 @@ dialSkin = {
 }
 
 function calculateShipIndicators(idTable)
+    if not validatePilotIds(idTable) then
+        return {}
+    end
     shipTable = {}
     for k, v in pairs(idTable.Pilots) do
         local ship = masterPilotDB[v].ship_type
@@ -1050,6 +1076,9 @@ function calculateShipIndicators(idTable)
 end
 
 function idSpawner(idTable)
+    if not validatePilotIds(idTable) then
+        return
+    end
     spawnedPilotList = {}
     fList = {}
     fList.SqdExecOptions = {}
@@ -1211,7 +1240,7 @@ function idSpawner(idTable)
                     repo .. "/x-wing2.0-project-goldenrod/" ..
                     Format .. "/src/images/En/upgrades/" .. masterUpgradesDB[value].XWS .. "-sideb.png"
             elseif masterUpgradesDB[value].cardB == nil then
-                fList.Upgrades[k][key].cardB = cardBackDB[tostring(upSlot)]
+                fList.Upgrades[k][key].cardB = cardBackDB[verifySlotName(upSlot)]
             else
                 fList.Upgrades[k][key].cardB = masterUpgradesDB[value].cardB
             end
@@ -1294,7 +1323,7 @@ function idSpawner(idTable)
 
             if masterUpgradesDB[value].Bomb then
                 fList.Pilots[k].Bomb = true
-            elseif upSlot == 18 then
+            elseif verifySlotName(upSlot) == 'Configuration' then
                 fList.Upgrades[k][key].Config = true
             end
             if masterUpgradesDB[value].Docking ~= nil then
@@ -2026,12 +2055,13 @@ function selectShipGeneric(arg)
         loadout_value = VERSION_DATA.pilots[pilot.XWS].loadout
         cost = VERSION_DATA.pilots[pilot.XWS].cost
         for _, slot in pairs(VERSION_DATA.pilots[pilot.XWS].slots) do
+            slot = verifySlotName(slot)
             free_slots[slot] = (free_slots[slot] or 0) + 1
             --   print(i .. ":" .. slot  )
         end
     end
     for _, slot_id in pairs(pilot.addSlot or {}) do
-        local slot = slotName[slot_id]
+        local slot = verifySlotName(slot_id)
         free_slots[slot] = (free_slots[slot] or 0) + 1
     end
 
@@ -2042,19 +2072,19 @@ function selectShipGeneric(arg)
     for i, upgrade in pairs(partList.Pilots[shipIndex].upgrades) do
         --print("Upgrade " .. tostring(upgrade.name))
         local upgrade_entry = masterUpgradesDB[upgrade.id]
-        table.insert(slot_buttons, { slot_name = slotName[upgrade_entry.slot], upgrade = upgrade })
+        table.insert(slot_buttons, { slot_name = verifySlotName(upgrade_entry.slot), upgrade = upgrade })
         loadout_cost = loadout_cost + upgrade.cost
         loadout_value = loadout_value + upgrade.loadout_modifier
         cost = cost + upgrade.point_modifier
         for _, slot_id in pairs(upgrade_entry.addSlot or {}) do
-            local slot = slotName[slot_id]
+            local slot = verifySlotName(slot_id)
             free_slots[slot] = (free_slots[slot] or 0) + 1
         end
         for _, slot_id in pairs(upgrade_entry.remSlot or {}) do
-            local slot = slotName[slot_id]
+            local slot = verifySlotName(slot_id)
             free_slots[slot] = (free_slots[slot] or 0) - 1
         end
-        local slot = slotName[upgrade_entry.slot]
+        local slot = verifySlotName(upgrade_entry.slot)
         free_slots[slot] = (free_slots[slot] or 0) - 1
     end
 
@@ -2231,7 +2261,7 @@ function selectSlotGeneric(slotIndex)
     end
     local loadout_remaining = loadout_value - loadout_cost
 
-    slotId = slot_to_id[slot_buttons[slotIndex].slot_name]
+    slotId = verifySlotName(slot_buttons[slotIndex].slot_name)
     --slotId = partList.Upgrades[shipIndex][slotIndex].slot             -- Value tied for this function!
     currSlotInd = slotIndex
     local index = 1
@@ -2239,11 +2269,11 @@ function selectSlotGeneric(slotIndex)
     local column = 0
     self.createButton({ click_function = 'selectUpNone', label = 'None (0)', function_owner = self, position = { -0.45, 0.45, -0.2 }, width = 1500, height = 220, font_size = 120, scale = { 0.25, 0.25, 0.25 } })
     for id, up in pairs(masterUpgradesDB) do
-        if up.slot == slotId then
-            local up_cost = up.cost or 50
-            if VERSION_DATA.upgrades[up.XWS] then
-                up_cost = normalizePointsValue(VERSION_DATA.upgrades[up.XWS].cost) or up_cost
-            end
+        local up_cost = up.cost or 50
+        if VERSION_DATA.upgrades[up.XWS] then
+            up_cost = normalizePointsValue(VERSION_DATA.upgrades[up.XWS].cost) or up_cost
+        end
+        if verifySlotName(up.slot) == slotId then
             local validUp = true
             if up_cost > loadout_remaining then
                 validUp = false
@@ -2331,9 +2361,9 @@ function selectSlotGeneric(slotIndex)
                     column = column + 1
                 end
             end
-        elseif slotId == 99 then
-            local hpCheck = { [3] = true, [5] = true, [6] = true }
-            if hpCheck[up.slot] == true then
+        elseif slotId == 'Weapon Hardpoint' then
+            local hpCheck = { Cannon = true, Torpedo = true, Missile = true }
+            if hpCheck[verifySlotName(up.slot)] == true then
                 availableUps[index] = {
                     id = id,
                     name = up.name,
@@ -3060,58 +3090,43 @@ function setShip8()
     pChecker()
 end
 
-slotName = {}
-slotName[1] = 'Talent'         -- EPT
-slotName[2] = 'Sensors'        -- Sensor
-slotName[3] = 'Cannon'         -- Cannon
-slotName[4] = 'Turret'         -- Turret
-slotName[5] = 'Torpedo'        -- Torpedo
-slotName[6] = 'Missile'        -- Missile
-slotName[7] = ''               --
-slotName[8] = 'Crew'           -- Crew
-slotName[9] = ''
-slotName[10] = 'Astromech'     --Astromech
-slotName[11] = ''
-slotName[12] = 'Payload'       -- Payload
-slotName[13] = 'Illicit'       -- Ilicit
-slotName[14] = 'Modification'  -- Modification
-slotName[15] = 'Title'         -- Title
-slotName[16] = 'Gunner'        -- Gunner
-slotName[17] = 'Force Power'   -- Force Power
-slotName[18] = 'Configuration' -- Configuration
-slotName[19] = 'Tech'          -- Tech
-slotName[20] = 'Relay'         -- Relay
-slotName[21] = 'Command'       -- Command
-slotName[22] = 'Cargo'         -- Cargo
-slotName[23] = 'Team'          -- Team
-slotName[24] = 'Hardpoint'
-slotName[25] = 'Hyperdrive'
-slotName[99] = 'Weapon HardPoint' -- Hardpoint
+validSlotNames = {
+    Talent = true,
+    Sensor = true,
+    Cannon = true,
+    Turret = true,
+    Torpedo = true,
+    Missile = true,
+    Crew = true,
+    Astromech = true,
+    Payload = true,
+    Illicit = true,
+    Modification = true,
+    Title = true,
+    Gunner = true,
+    ['Force Power'] = true,
+    Configuration = true,
+    Tech = true,
+    Relay = true,
+    Command = true,
+    Cargo = true,
+    Team = true,
+    Hardpoint = true,
+    Hyperdrive = true,
+    ['Weapon Hardpoint'] = true
+}
 
-slot_to_id = {}
-slot_to_id['Talent'] = 1
-slot_to_id['Sensors'] = 2
-slot_to_id['Cannon'] = 3
-slot_to_id['Turret'] = 4
-slot_to_id['Torpedo'] = 5
-slot_to_id['Missile'] = 6
-slot_to_id['Crew'] = 8
-slot_to_id['Astromech'] = 10
-slot_to_id['Payload'] = 12
-slot_to_id['Illicit'] = 13
-slot_to_id['Modification'] = 14
-slot_to_id['Title'] = 15
-slot_to_id['Gunner'] = 16
-slot_to_id['Force Power'] = 17
-slot_to_id['Configuration'] = 18
-slot_to_id['Tech'] = 19
-slot_to_id['Relay'] = 20
-slot_to_id['Command'] = 21
-slot_to_id['Cargo'] = 22
-slot_to_id['Team'] = 23
-slot_to_id['Hardpoint'] = 24
-slot_to_id['Hyperdrive'] = 25
-slot_to_id['Weapon HardPoint'] = 99
+function verifySlotName(slot)
+    if validSlotNames[slot] ~= true then
+        local message = 'Invalid upgrade slot key: ' .. tostring(slot)
+        if printToAll ~= nil then
+            printToAll(message, { 1, 0, 0 })
+        else
+            print(message)
+        end
+    end
+    return slot
+end
 
 
 
@@ -3123,12 +3138,12 @@ function upChoice(options)
     if masterUpgradesDB[options[currIndex][currSlot][1]].title then
         title1 = masterUpgradesDB[options[currIndex][currSlot][1]].title .. " - "
     end
-    local Up1 = title1 .. slotName[masterUpgradesDB[options[currIndex][currSlot][1]].slot]
+    local Up1 = title1 .. verifySlotName(masterUpgradesDB[options[currIndex][currSlot][1]].slot)
     local title2 = ''
     if masterUpgradesDB[options[currIndex][currSlot][2]].title then
         title2 = masterUpgradesDB[options[currIndex][currSlot][2]].title .. " - "
     end
-    local Up2 = title2 .. slotName[masterUpgradesDB[options[currIndex][currSlot][2]].slot]
+    local Up2 = title2 .. verifySlotName(masterUpgradesDB[options[currIndex][currSlot][2]].slot)
     self.clearButtons()
     self.createButton({
         click_function = 'Dummy4',
@@ -3145,7 +3160,7 @@ function upChoice(options)
     self.createButton({ click_function = 'setUp1', function_owner = self, label = Up1, position = { 0, 0.45, 0.1 }, width = 1800, height = 380, font_size = 180, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'setUp2', function_owner = self, label = Up2, position = { 0, 0.45, 0.3 }, width = 1800, height = 380, font_size = 180, scale = { 0.25, 0.25, 0.25 } })
     if options == 3 then
-        local Up3 = slotName[masterUpgradesDB[options[currIndex][currSlot][3]].slot]
+        local Up3 = verifySlotName(masterUpgradesDB[options[currIndex][currSlot][3]].slot)
         self.createButton({ click_function = 'setUp3', function_owner = self, label = Up3, position = { 0, 0.45, 0.8 }, width = 1200, height = 380, font_size = 180, scale = { 0.25, 0.25, 0.25 } })
     end
 end
