@@ -22,6 +22,7 @@ xwaUpgradeDb['flightassistastromech-legendsandrelics'] = {
     XWS = 'flightassistastromech-legendsandrelics',
     slot = 10,
     Charge = 2,
+    addAction = { '2B', '2BR' },
     restriction = { Size = { small = true } }
 }
 
@@ -55,6 +56,28 @@ xwaUpgradeDb['wingedreversal-legendsandrelics'] = {
     XWS = 'wingedreversal-legendsandrelics',
     slot = 18,
     Charge = 2,
+    executeOptions = function(moves)
+        return {
+            btl1   = { [1] = 'btl1', [2] = 'wtl1t' },
+            btl2   = { [1] = 'btl2', [2] = 'wtl2t' },
+            btl3   = { [1] = 'btl3', [2] = 'wtl3t' },
+            btr1   = { [1] = 'btr1', [2] = 'wtr1t' },
+            btr2   = { [1] = 'btr2', [2] = 'wtr2t' },
+            btr3   = { [1] = 'btr3', [2] = 'wtr3t' },
+            wtl1   = { [1] = 'wtl1', [2] = 'rtl1t' },
+            wtl2   = { [1] = 'wtl2', [2] = 'rtl2t' },
+            wtl3   = { [1] = 'wtl3', [2] = 'rtl3t' },
+            wtr1   = { [1] = 'wtr1', [2] = 'rtr1t' },
+            wtr2   = { [1] = 'wtr2', [2] = 'rtr2t' },
+            wtr3   = { [1] = 'wtr3', [2] = 'rtr3t' },
+            rtl1   = { [1] = 'rtl1', [2] = 'rtl1t' },
+            rtl2   = { [1] = 'rtl2', [2] = 'rtl2t' },
+            rtl3   = { [1] = 'rtl3', [2] = 'rtl3t' },
+            rtr1   = { [1] = 'rtr1', [2] = 'rtr1t' },
+            rtr2   = { [1] = 'rtr2', [2] = 'rtr2t' },
+            rtr3   = { [1] = 'rtr3', [2] = 'rtr3t' },
+        }
+    end,
     restriction = { ship = { ['gauntletfighter'] = true, ['ut60duwing'] = true } }
 }
 
@@ -114,6 +137,7 @@ xwaUpgradeDb['retrofittedautothrusters-legendsandrelics'] = {
     XWS = 'retrofittedautothrusters-legendsandrelics',
     slot = 14,
     Charge = 2,
+    addAction = { 'BR' },
     restriction = { Size = { small = true } }
 }
 

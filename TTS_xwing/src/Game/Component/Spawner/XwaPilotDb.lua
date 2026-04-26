@@ -916,7 +916,7 @@ xwaPilotDb[10049] = {
     Force = 2,
     ship_type = 'eta2actis',
     init = 4,
-    texture = 'standard',
+    texture = 'kit',
     actSet = { 'F', 'E', 'TL', 'BR', 'B' },
 }
 
@@ -942,8 +942,8 @@ xwaPilotDb[10051] = {
     Shield = 1,
     ship_type = 'starviperclassattackplatform',
     init = 4,
-    texture = 'standard',
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    texture = 'red',
+    actSet = { 'F', 'TL', 'VR', 'B' },
 }
 
 xwaPilotDb[10052] = {

@@ -1320,6 +1320,8 @@ function idSpawner(idTable)
                 fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s5r'
             elseif value == 'electrochaffmissiles' then -- Electro-Chaff Missiles
                 fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s4r:be3r:br3r'
+            elseif value == 'partinggift-legendsandrelics' then -- Parting Gift (Legends and Relics)
+                fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1:br1:be1:be1r:s1r:br1r'
             elseif value == 'thermaldetonators' then    -- Thermal Detinators
                 if Ship == 'tiesabomber' then           -- TIE Bomber special drops
                     fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':be2:s2:br2'
@@ -3067,7 +3069,7 @@ slotName[8] = 'Crew'           -- Crew
 slotName[9] = ''
 slotName[10] = 'Astromech'     --Astromech
 slotName[11] = ''
-slotName[12] = 'Device'        -- Device
+slotName[12] = 'Payload'       -- Payload
 slotName[13] = 'Illicit'       -- Ilicit
 slotName[14] = 'Modification'  -- Modification
 slotName[15] = 'Title'         -- Title
@@ -3092,7 +3094,7 @@ slot_to_id['Torpedo'] = 5
 slot_to_id['Missile'] = 6
 slot_to_id['Crew'] = 8
 slot_to_id['Astromech'] = 10
-slot_to_id['Device'] = 12
+slot_to_id['Payload'] = 12
 slot_to_id['Illicit'] = 13
 slot_to_id['Modification'] = 14
 slot_to_id['Title'] = 15
