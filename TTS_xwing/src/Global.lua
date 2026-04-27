@@ -6872,7 +6872,7 @@ function newSpawner(listTable)
                         card.setLock(false)
                     end
                     Wait.condition(pilotIdSpawnFunc, function()
-                        return (not card.spawning)
+                        return card ~= nil and (not card.spawning)
                     end)
                 end
             end
@@ -6892,7 +6892,7 @@ function newSpawner(listTable)
                         newDial.setPosition(pos)
                         tempBagAcc.putObject(dial)
                         local conditionFunc = function()
-                            return (not card.spawning) and (not newDial.spawning)
+                            return card ~= nil and (not card.spawning) and (not newDial.spawning)
                         end
                         local executeFunc = function()
                             newDial.setCustomObject({ ['diffuse'] = dialSkin })
@@ -6900,7 +6900,9 @@ function newSpawner(listTable)
                             newDial.setColorTint(tint)
                             newDial.setPosition(dialpos)
                             newDial.setRotation(dialrot)
-                            card.call('addTintObject', { 'dial', newDial })
+                            if card ~= nil then
+                                card.call('addTintObject', { 'dial', newDial })
+                            end
                         end
                         Wait.condition(executeFunc, conditionFunc)
                     end
@@ -6923,11 +6925,6 @@ function newSpawner(listTable)
 
             local newShip = nil
             local texture = nil
-            if Customization[pilotName].texture ~= nil then
-                texture = Customization[pilotName].texture
-            elseif Pilots[shipIndex].Data.texture ~= nil then
-                texture = '{verifycache}' .. Pilots[shipIndex].Data.texture
-            end
             local shipoffset = vector(0, 0, 0)
             Pilots[shipIndex].Data.ColorId = tint
             if Pilots[shipIndex].Data.Config then
@@ -6936,8 +6933,18 @@ function newSpawner(listTable)
 
             if Customization[pilotName].texture ~= nil then
                 texture = Customization[pilotName].texture
-            elseif Pilots[shipIndex].Data.texture ~= nil then
-                texture = '{verifycache}' .. Pilots[shipIndex].Data.textures[Pilots[shipIndex].Data.texture]
+            else
+                local textureKey = Pilots[shipIndex].Data.texture
+                local textureUrl = nil
+                if textureKey ~= nil and Pilots[shipIndex].Data.textures ~= nil then
+                    textureUrl = Pilots[shipIndex].Data.textures[textureKey]
+                end
+                if textureUrl ~= nil then
+                    texture = '{verifycache}' .. textureUrl
+                elseif textureKey ~= nil then
+                    print("Missing ship texture '" .. tostring(textureKey) .. "' for " .. tostring(pilotName) ..
+                        " (" .. tostring(Pilots[shipIndex].Data.shipId) .. ")")
+                end
             end
             shipoffset = vector(0, 2.2, 0)
             local size = Pilots[shipIndex].Size
@@ -6953,6 +6960,12 @@ function newSpawner(listTable)
             end
             rot = spawnCard.getRotation()
             local base_prototype = getObjectFromGUID(CompositeBase_GUID)
+            local factionName = factionnames[Faction]
+            if factionName == nil then
+                print("Missing faction base texture for faction " .. tostring(Faction) .. " on " .. tostring(pilotName))
+                factionName = factionnames[1]
+            end
+            local baseDiffuse = spawnPrefix .. "bases/" .. size .. "/" .. fixedarc .. "/" .. factionName .. ".png"
             newShip = base_prototype.clone()
             newShip.setPositionSmooth(pos, false, true)
             newShip.setRotationSmooth(rot, false, true)
@@ -6961,8 +6974,7 @@ function newSpawner(listTable)
             newShip.setCustomObject({
                 mesh = spawnPrefix .. "bases/" .. size .. "/base.obj?1",
                 collider = ShipVerification.colliders[size],
-                diffuse = spawnPrefix ..
-                    "bases/" .. size .. "/" .. fixedarc .. "/" .. factionnames[Faction] .. ".png",
+                diffuse = baseDiffuse,
                 convex = true,
                 material = 1,
                 type = 1
@@ -6986,7 +6998,7 @@ function newSpawner(listTable)
             local pegtype = Pilots[shipIndex].peg or size
             local pegCustomObject = {
                 mesh = spawnPrefix .. "bases/pegs/" .. pegtype .. ".obj",
-                diffuse = spawnPrefix .. "bases/" .. size .. "/" .. fixedarc .. "/" .. factionnames[Faction] .. ".png",
+                diffuse = baseDiffuse,
                 collider =
                 '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/minisculebox.obj',
                 convex = true,
@@ -7081,7 +7093,9 @@ function newSpawner(listTable)
                     ship.drag_selectable = true
                     ship.interactable = true
 
-                    card.call('addTintObject', { 'ship', ship })
+                    if card ~= nil then
+                        card.call('addTintObject', { 'ship', ship })
+                    end
                     ship.call('initContextMenu')
                 end
                 if Pilots[shipIndex].Data.ProximityHider then
@@ -7089,7 +7103,7 @@ function newSpawner(listTable)
                 end
                 Wait.condition(shipIdSpawnFunc,
                     function()
-                        return (not ship.spawning) and (not ship.isSmoothMoving()) and (not card.spawning)
+                        return (not ship.spawning) and (not ship.isSmoothMoving()) and (card == nil or not card.spawning)
                     end)
 
                 if Pilots[shipIndex].Data.Config and Pilots[shipIndex].Data.Config.States then

@@ -112,6 +112,8 @@ cardBackDB['Hardpoint'] =
 cardBackDB['Hyperdrive'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Staff.png'   -- Hyperspace ring (PlACEHOLDER - TODO)
 
+cardBackDB['Weapon Hardpoint'] = cardBackDB['Hardpoint']
+
 
 cardBackDB.mc =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/ModConfig.jpg' -- mod and config
@@ -1232,11 +1234,11 @@ function idSpawner(idTable)
             loadout = loadout + cost
 
             --fList.Upgrades[k][key].card = masterUpgradesDB[value].card
-            fList.Upgrades[k][key].card = "https://raw.githubusercontent.com/" ..
+            fList.Upgrades[k][key].card = "{verifycache}https://raw.githubusercontent.com/" ..
                 repo .. "/x-wing2.0-project-goldenrod/" ..
                 Format .. "/src/images/En/upgrades/" .. masterUpgradesDB[value].XWS .. ".png"
             if masterUpgradesDB[value].dual == true then
-                fList.Upgrades[k][key].cardB = "https://raw.githubusercontent.com/" ..
+                fList.Upgrades[k][key].cardB = "{verifycache}https://raw.githubusercontent.com/" ..
                     repo .. "/x-wing2.0-project-goldenrod/" ..
                     Format .. "/src/images/En/upgrades/" .. masterUpgradesDB[value].XWS .. "-sideb.png"
             elseif masterUpgradesDB[value].cardB == nil then
