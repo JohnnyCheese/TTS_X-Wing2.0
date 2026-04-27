@@ -1,7 +1,6 @@
 masterPilotDB = {}
 masterPilotDB[''] = {
     ['name'] = '',
-    ['xws'] = '',
     ['faction'] = 'dummy',
     ['ship_type'] = 0,
     ['slots'] = {},
@@ -17,7 +16,6 @@ masterPilotDB[''] = {
 -- Huge ships
 masterPilotDB['alderaanianguard'] = {
     name = 'Alderaanian Guard',
-    xws = 'alderaanianguard',
     faction = 'rebelalliance',
     ship_type = 'cr90corvette',
     initiative = 8,
@@ -27,7 +25,6 @@ masterPilotDB['alderaanianguard'] = {
 
 masterPilotDB['republicjudiciary'] = {
     name = 'Republic Judiciary',
-    xws = 'republicjudiciary',
     faction = 'galacticrepublic',
     ship_type = 'cr90corvette',
     initiative = 8,
@@ -37,7 +34,6 @@ masterPilotDB['republicjudiciary'] = {
 
 masterPilotDB['separatistprivateers'] = {
     name = 'Separatist Privateers',
-    xws = 'separatistprivateers',
     faction = 'separatistalliance',
     ship_type = 'croccruiser',
     initiative = 7,
@@ -47,7 +43,6 @@ masterPilotDB['separatistprivateers'] = {
 
 masterPilotDB['syndicatesmugglers'] = {
     name = 'Syndicate Smugglers',
-    xws = 'syndicatesmugglers',
     faction = 'scumandvillainy',
     ship_type = 'croccruiser',
     initiative = 7,
@@ -57,7 +52,6 @@ masterPilotDB['syndicatesmugglers'] = {
 
 masterPilotDB['firstordersympathizers'] = {
     name = 'First Order Sympathizers',
-    xws = 'firstordersympathizers',
     docking = true,
     faction = 'firstorder',
     ship_type = 'gozanticlasscruiser',
@@ -68,7 +62,6 @@ masterPilotDB['firstordersympathizers'] = {
 
 masterPilotDB['outerrimgarrison'] = {
     name = 'Outer Rim Garrison',
-    xws = 'outerrimgarrison',
     docking = true,
     faction = 'galacticempire',
     ship_type = 'gozanticlasscruiser',
@@ -79,7 +72,6 @@ masterPilotDB['outerrimgarrison'] = {
 
 masterPilotDB['echobaseevacuees'] = {
     name = 'Echo Base Evacuees',
-    xws = 'echobaseevacuees',
     faction = 'rebelalliance',
     ship_type = 'gr75mediumtransport',
     initiative = 7,
@@ -89,7 +81,6 @@ masterPilotDB['echobaseevacuees'] = {
 
 masterPilotDB['newrepublicvolunteers'] = {
     name = 'New Republic Volunteers',
-    xws = 'newrepublicvolunteers',
     faction = 'resistance',
     ship_type = 'gr75mediumtransport',
     initiative = 7,
@@ -99,7 +90,6 @@ masterPilotDB['newrepublicvolunteers'] = {
 
 masterPilotDB['firstordercollaborators'] = {
     name = 'First Order Collaborators',
-    xws = 'firstordercollaborators',
     faction = 'firstorder',
     ship_type = 'raiderclasscorvette',
     initiative = 8,
@@ -109,7 +99,6 @@ masterPilotDB['firstordercollaborators'] = {
 
 masterPilotDB['outerrimpatrol'] = {
     name = 'Outer Rim Patrol',
-    xws = 'outerrimpatrol',
     faction = 'galacticempire',
     ship_type = 'raiderclasscorvette',
     initiative = 8,
@@ -119,7 +108,6 @@ masterPilotDB['outerrimpatrol'] = {
 
 masterPilotDB['lawlesspirates'] = {
     name = 'Lawless Pirates',
-    xws = 'lawlesspirates',
     faction = 'scumandvillainy',
     ship_type = 'tridentclassassaultship',
     initiative = 8,
@@ -129,7 +117,6 @@ masterPilotDB['lawlesspirates'] = {
 
 masterPilotDB['colicoiddestroyer'] = {
     name = 'Colicoid Destroyer',
-    xws = 'colicoiddestroyer',
     faction = 'separatistalliance',
     ship_type = 'tridentclassassaultship',
     initiative = 8,
@@ -140,7 +127,6 @@ masterPilotDB['colicoiddestroyer'] = {
 
 masterPilotDB['wedgeantilles'] = {
     name = 'Wedge Antilles',
-    xws = 'wedgeantilles',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
@@ -151,7 +137,6 @@ masterPilotDB['wedgeantilles'] = {
 
 masterPilotDB['lukeskywalker'] = {
     name = 'Luke Skywalker',
-    xws = 'lukeskywalker',
     title = 'Red Five',
     faction = 'rebelalliance',
     limited = 1,
@@ -165,7 +150,6 @@ masterPilotDB['lukeskywalker'] = {
 
 masterPilotDB['thanekyrell'] = {
     name = 'Thane Kyrell',
-    xws = 'thanekyrell',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
@@ -176,7 +160,6 @@ masterPilotDB['thanekyrell'] = {
 
 masterPilotDB['garvendreis-t65xwing'] = {
     name = 'Garven Dreis',
-    xws = 'garvendreis-t65xwing',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
@@ -187,7 +170,6 @@ masterPilotDB['garvendreis-t65xwing'] = {
 
 masterPilotDB['jekporkins'] = {
     name = 'Jek Porkins',
-    xws = 'jekporkins',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
@@ -198,7 +180,6 @@ masterPilotDB['jekporkins'] = {
 
 masterPilotDB['kullbeesperado'] = {
     name = 'Kullbee Sperado',
-    xws = 'kullbeesperado',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
@@ -210,7 +191,6 @@ masterPilotDB['kullbeesperado'] = {
 
 masterPilotDB['biggsdarklighter'] = {
     name = 'Biggs Darklighter',
-    xws = 'biggsdarklighter',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
@@ -221,7 +201,6 @@ masterPilotDB['biggsdarklighter'] = {
 
 masterPilotDB['leevantenza'] = {
     name = 'Leevan Tenza',
-    xws = 'leevantenza',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
@@ -233,7 +212,6 @@ masterPilotDB['leevantenza'] = {
 
 masterPilotDB['edriotwotubes'] = {
     name = 'Edrio Two Tubes',
-    xws = 'edriotwotubes',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
@@ -245,7 +223,6 @@ masterPilotDB['edriotwotubes'] = {
 
 masterPilotDB['redsquadronveteran'] = {
     name = 'Red Squadron Veteran',
-    xws = 'redsquadronveteran',
     faction = 'rebelalliance',
     ship_type = 't65xwing',
     initiative = 3,
@@ -255,7 +232,6 @@ masterPilotDB['redsquadronveteran'] = {
 
 masterPilotDB['bluesquadronescort'] = {
     name = 'Blue Squadron Escort',
-    xws = 'bluesquadronescort',
     faction = 'rebelalliance',
     ship_type = 't65xwing',
     initiative = 2,
@@ -265,7 +241,6 @@ masterPilotDB['bluesquadronescort'] = {
 
 masterPilotDB['cavernangelszealot'] = {
     name = 'Cavern Angels Zealot',
-    xws = 'cavernangelszealot',
     faction = 'rebelalliance',
     ship_type = 't65xwing',
     initiative = 1,
@@ -276,7 +251,6 @@ masterPilotDB['cavernangelszealot'] = {
 
 masterPilotDB['norrawexley-btla4ywing'] = {
     name = 'Norra Wexley',
-    xws = 'norrawexley-btla4ywing',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'btla4ywing',
@@ -287,7 +261,6 @@ masterPilotDB['norrawexley-btla4ywing'] = {
 
 masterPilotDB['dutchvander'] = {
     name = '"Dutch" Vander',
-    xws = 'dutchvander',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'btla4ywing',
@@ -299,7 +272,6 @@ masterPilotDB['dutchvander'] = {
 
 masterPilotDB['hortonsalm'] = {
     name = 'Horton Salm',
-    xws = 'hortonsalm',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'btla4ywing',
@@ -310,7 +282,6 @@ masterPilotDB['hortonsalm'] = {
 
 masterPilotDB['evaanverlaine'] = {
     name = 'Evaan Verlaine',
-    xws = 'evaanverlaine',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'btla4ywing',
@@ -321,7 +292,6 @@ masterPilotDB['evaanverlaine'] = {
 
 masterPilotDB['goldsquadronveteran'] = {
     name = 'Gold Squadron Veteran',
-    xws = 'goldsquadronveteran',
     faction = 'rebelalliance',
     ship_type = 'btla4ywing',
     initiative = 3,
@@ -331,7 +301,6 @@ masterPilotDB['goldsquadronveteran'] = {
 
 masterPilotDB['graysquadronbomber'] = {
     name = 'Gray Squadron Bomber',
-    xws = 'graysquadronbomber',
     faction = 'rebelalliance',
     ship_type = 'btla4ywing',
     initiative = 2,
@@ -341,7 +310,6 @@ masterPilotDB['graysquadronbomber'] = {
 
 masterPilotDB['jakefarrell'] = {
     name = 'Jake Farrell',
-    xws = 'jakefarrell',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'rz1awing',
@@ -352,7 +320,6 @@ masterPilotDB['jakefarrell'] = {
 
 masterPilotDB['arvelcrynyd'] = {
     name = 'Arvel Crynyd',
-    xws = 'arvelcrynyd',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'rz1awing',
@@ -363,7 +330,6 @@ masterPilotDB['arvelcrynyd'] = {
 
 masterPilotDB['greensquadronpilot'] = {
     name = 'Green Squadron Pilot',
-    xws = 'greensquadronpilot',
     faction = 'rebelalliance',
     ship_type = 'rz1awing',
     initiative = 3,
@@ -373,7 +339,6 @@ masterPilotDB['greensquadronpilot'] = {
 
 masterPilotDB['phoenixsquadronpilot'] = {
     name = 'Phoenix Squadron Pilot',
-    xws = 'phoenixsquadronpilot',
     faction = 'rebelalliance',
     ship_type = 'rz1awing',
     initiative = 1,
@@ -384,7 +349,6 @@ masterPilotDB['phoenixsquadronpilot'] = {
 
 masterPilotDB['herasyndulla-rz1awing'] = {
     name = 'Hera Syndulla',
-    xws = 'herasyndulla-rz1awing',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'rz1awing',
@@ -396,7 +360,6 @@ masterPilotDB['herasyndulla-rz1awing'] = {
 
 masterPilotDB['wedgeantilles-rz1awing'] = {
     name = 'Wedge Antilles',
-    xws = 'wedgeantilles-rz1awing',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'rz1awing',
@@ -407,7 +370,6 @@ masterPilotDB['wedgeantilles-rz1awing'] = {
 
 masterPilotDB['derekklivian'] = {
     name = 'Derek Klivian',
-    xws = 'derekklivian',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'rz1awing',
@@ -418,7 +380,6 @@ masterPilotDB['derekklivian'] = {
 
 masterPilotDB['sharabey-rz1awing'] = {
     name = 'Shara Bey',
-    xws = 'sharabey-rz1awing',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'rz1awing',
@@ -429,7 +390,6 @@ masterPilotDB['sharabey-rz1awing'] = {
 
 masterPilotDB['ahsokatano-rz1awing'] = {
     name = 'Ahsoka Tano',
-    xws = 'ahsokatano-rz1awing',
     faction = 'rebelalliance',
     limited = 1,
     force = 3,
@@ -442,7 +402,6 @@ masterPilotDB['ahsokatano-rz1awing'] = {
 
 masterPilotDB['sabinewren-rz1awing'] = {
     name = 'Sabine Wren',
-    xws = 'sabinewren-rz1awing',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'rz1awing',
@@ -454,7 +413,6 @@ masterPilotDB['sabinewren-rz1awing'] = {
 
 masterPilotDB['braylenstramm'] = {
     name = 'Braylen Stramm',
-    xws = 'braylenstramm',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'asf01bwing',
@@ -465,7 +423,6 @@ masterPilotDB['braylenstramm'] = {
 
 masterPilotDB['tennumb'] = {
     name = 'Ten Numb',
-    xws = 'tennumb',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'asf01bwing',
@@ -476,7 +433,6 @@ masterPilotDB['tennumb'] = {
 
 masterPilotDB['bladesquadronveteran'] = {
     name = 'Blade Squadron Veteran',
-    xws = 'bladesquadronveteran',
     faction = 'rebelalliance',
     ship_type = 'asf01bwing',
     initiative = 3,
@@ -486,7 +442,6 @@ masterPilotDB['bladesquadronveteran'] = {
 
 masterPilotDB['bluesquadronpilot'] = {
     name = 'Blue Squadron Pilot',
-    xws = 'bluesquadronpilot',
     faction = 'rebelalliance',
     ship_type = 'asf01bwing',
     initiative = 2,
@@ -496,7 +451,6 @@ masterPilotDB['bluesquadronpilot'] = {
 
 masterPilotDB['ginamoonsong'] = {
     name = 'Gina Moonsong',
-    xws = 'ginamoonsong',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'asf01bwing',
@@ -507,7 +461,6 @@ masterPilotDB['ginamoonsong'] = {
 
 masterPilotDB['herasyndulla-asf01bwing'] = {
     name = 'Hera Syndulla',
-    xws = 'herasyndulla-asf01bwing',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'asf01bwing',
@@ -519,7 +472,6 @@ masterPilotDB['herasyndulla-asf01bwing'] = {
 
 masterPilotDB['netrempollard'] = {
     name = 'Netrem Pollard',
-    xws = 'netrempollard',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'asf01bwing',
@@ -530,7 +482,6 @@ masterPilotDB['netrempollard'] = {
 
 masterPilotDB['airencracken'] = {
     name = 'Airen Cracken',
-    xws = 'airencracken',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'z95af4headhunter',
@@ -541,7 +492,6 @@ masterPilotDB['airencracken'] = {
 
 masterPilotDB['lieutenantblount'] = {
     name = 'Lieutenant Blount',
-    xws = 'lieutenantblount',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'z95af4headhunter',
@@ -552,7 +502,6 @@ masterPilotDB['lieutenantblount'] = {
 
 masterPilotDB['talasquadronpilot'] = {
     name = 'Tala Squadron Pilot',
-    xws = 'talasquadronpilot',
     faction = 'rebelalliance',
     ship_type = 'z95af4headhunter',
     initiative = 2,
@@ -562,7 +511,6 @@ masterPilotDB['talasquadronpilot'] = {
 
 masterPilotDB['banditsquadronpilot'] = {
     name = 'Bandit Squadron Pilot',
-    xws = 'banditsquadronpilot',
     faction = 'rebelalliance',
     ship_type = 'z95af4headhunter',
     initiative = 1,
@@ -572,7 +520,6 @@ masterPilotDB['banditsquadronpilot'] = {
 
 masterPilotDB['wullffwarro'] = {
     name = 'Wullffwarro',
-    xws = 'wullffwarro',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'auzituckgunship',
@@ -583,7 +530,6 @@ masterPilotDB['wullffwarro'] = {
 
 masterPilotDB['lowhhrick'] = {
     name = 'Lowhhrick',
-    xws = 'lowhhrick',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'auzituckgunship',
@@ -594,7 +540,6 @@ masterPilotDB['lowhhrick'] = {
 
 masterPilotDB['kashyyykdefender'] = {
     name = 'Kashyyyk Defender',
-    xws = 'kashyyykdefender',
     faction = 'rebelalliance',
     ship_type = 'auzituckgunship',
     initiative = 1,
@@ -604,7 +549,6 @@ masterPilotDB['kashyyykdefender'] = {
 
 masterPilotDB['herasyndulla'] = {
     name = 'Hera Syndulla',
-    xws = 'herasyndulla',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'attackshuttle',
@@ -627,7 +571,6 @@ masterPilotDB['herasyndulla'] = {
 
 masterPilotDB['sabinewren'] = {
     name = 'Sabine Wren',
-    xws = 'sabinewren',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'attackshuttle',
@@ -639,7 +582,6 @@ masterPilotDB['sabinewren'] = {
 
 masterPilotDB['ezrabridger'] = {
     name = 'Ezra Bridger',
-    xws = 'ezrabridger',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'attackshuttle',
@@ -652,7 +594,6 @@ masterPilotDB['ezrabridger'] = {
 
 masterPilotDB['zeborrelios'] = {
     name = '"Zeb" Orrelios',
-    xws = 'zeborrelios',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'attackshuttle',
@@ -664,7 +605,6 @@ masterPilotDB['zeborrelios'] = {
 
 masterPilotDB['fennrau-sheathipedeclassshuttle'] = {
     name = 'Fenn Rau',
-    xws = 'fennrau-sheathipedeclassshuttle',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'sheathipedeclassshuttle',
@@ -676,7 +616,6 @@ masterPilotDB['fennrau-sheathipedeclassshuttle'] = {
 
 masterPilotDB['ezrabridger-sheathipedeclassshuttle'] = {
     name = 'Ezra Bridger',
-    xws = 'ezrabridger-sheathipedeclassshuttle',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'sheathipedeclassshuttle',
@@ -689,7 +628,6 @@ masterPilotDB['ezrabridger-sheathipedeclassshuttle'] = {
 
 masterPilotDB['zeborrelios-sheathipedeclassshuttle'] = {
     name = '"Zeb" Orrelios',
-    xws = 'zeborrelios-sheathipedeclassshuttle',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'sheathipedeclassshuttle',
@@ -701,7 +639,6 @@ masterPilotDB['zeborrelios-sheathipedeclassshuttle'] = {
 
 masterPilotDB['ap5'] = {
     name = 'AP-5',
-    xws = 'ap5',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'sheathipedeclassshuttle',
@@ -713,7 +650,6 @@ masterPilotDB['ap5'] = {
 
 masterPilotDB['janors'] = {
     name = 'Jan Ors',
-    xws = 'janors',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'hwk290lightfreighter',
@@ -724,7 +660,6 @@ masterPilotDB['janors'] = {
 
 masterPilotDB['kylekatarn'] = {
     name = 'Kyle Katarn',
-    xws = 'kylekatarn',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'hwk290lightfreighter',
@@ -735,7 +670,6 @@ masterPilotDB['kylekatarn'] = {
 
 masterPilotDB['roarkgarnet'] = {
     name = 'Roark Garnet',
-    xws = 'roarkgarnet',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'hwk290lightfreighter',
@@ -746,7 +680,6 @@ masterPilotDB['roarkgarnet'] = {
 
 masterPilotDB['rebelscout'] = {
     name = 'Rebel Scout',
-    xws = 'rebelscout',
     faction = 'rebelalliance',
     ship_type = 'hwk290lightfreighter',
     initiative = 2,
@@ -756,7 +689,6 @@ masterPilotDB['rebelscout'] = {
 
 masterPilotDB['ezrabridger-tielnfighter'] = {
     name = 'Ezra Bridger',
-    xws = 'ezrabridger-tielnfighter',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'tielnfighter',
@@ -769,7 +701,6 @@ masterPilotDB['ezrabridger-tielnfighter'] = {
 
 masterPilotDB['sabinewren-tielnfighter'] = {
     name = 'Sabine Wren',
-    xws = 'sabinewren-tielnfighter',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'tielnfighter',
@@ -781,7 +712,6 @@ masterPilotDB['sabinewren-tielnfighter'] = {
 
 masterPilotDB['captainrex'] = {
     name = 'Captain Rex',
-    xws = 'captainrex',
     condition = 'Suppressive Fire',
     faction = 'rebelalliance',
     limited = 1,
@@ -794,7 +724,6 @@ masterPilotDB['captainrex'] = {
 
 masterPilotDB['zeborrelios-tielnfighter'] = {
     name = '"Zeb" Orrelios',
-    xws = 'zeborrelios-tielnfighter',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'tielnfighter',
@@ -806,7 +735,6 @@ masterPilotDB['zeborrelios-tielnfighter'] = {
 
 masterPilotDB['corranhorn'] = {
     name = 'Corran Horn',
-    xws = 'corranhorn',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'ewing',
@@ -817,7 +745,6 @@ masterPilotDB['corranhorn'] = {
 
 masterPilotDB['gavindarklighter'] = {
     name = 'Gavin Darklighter',
-    xws = 'gavindarklighter',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'ewing',
@@ -828,7 +755,6 @@ masterPilotDB['gavindarklighter'] = {
 
 masterPilotDB['roguesquadronescort'] = {
     name = 'Rogue Squadron Escort',
-    xws = 'roguesquadronescort',
     faction = 'rebelalliance',
     ship_type = 'ewing',
     initiative = 4,
@@ -838,7 +764,6 @@ masterPilotDB['roguesquadronescort'] = {
 
 masterPilotDB['knavesquadronescort'] = {
     name = 'Knave Squadron Escort',
-    xws = 'knavesquadronescort',
     faction = 'rebelalliance',
     ship_type = 'ewing',
     initiative = 2,
@@ -848,7 +773,6 @@ masterPilotDB['knavesquadronescort'] = {
 
 masterPilotDB['bodhirook'] = {
     name = 'Bodhi Rook',
-    xws = 'bodhirook',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'ut60duwing',
@@ -859,7 +783,6 @@ masterPilotDB['bodhirook'] = {
 
 masterPilotDB['sawgerrera'] = {
     name = 'Saw Gerrera',
-    xws = 'sawgerrera',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'ut60duwing',
@@ -871,7 +794,6 @@ masterPilotDB['sawgerrera'] = {
 
 masterPilotDB['cassianandor'] = {
     name = 'Cassian Andor',
-    xws = 'cassianandor',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'ut60duwing',
@@ -882,7 +804,6 @@ masterPilotDB['cassianandor'] = {
 
 masterPilotDB['magvayarro'] = {
     name = 'Magva Yarro',
-    xws = 'magvayarro',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'ut60duwing',
@@ -894,7 +815,6 @@ masterPilotDB['magvayarro'] = {
 
 masterPilotDB['benthictwotubes'] = {
     name = 'Benthic Two Tubes',
-    xws = 'benthictwotubes',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'ut60duwing',
@@ -906,7 +826,6 @@ masterPilotDB['benthictwotubes'] = {
 
 masterPilotDB['hefftobber'] = {
     name = 'Heff Tobber',
-    xws = 'hefftobber',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'ut60duwing',
@@ -917,7 +836,6 @@ masterPilotDB['hefftobber'] = {
 
 masterPilotDB['bluesquadronscout'] = {
     name = 'Blue Squadron Scout',
-    xws = 'bluesquadronscout',
     faction = 'rebelalliance',
     ship_type = 'ut60duwing',
     initiative = 2,
@@ -927,7 +845,6 @@ masterPilotDB['bluesquadronscout'] = {
 
 masterPilotDB['partisanrenegade'] = {
     name = 'Partisan Renegade',
-    xws = 'partisanrenegade',
     faction = 'rebelalliance',
     ship_type = 'ut60duwing',
     initiative = 1,
@@ -938,7 +855,6 @@ masterPilotDB['partisanrenegade'] = {
 
 masterPilotDB['k2so'] = {
     name = 'K-2SO',
-    xws = 'k2so',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'ut60duwing',
@@ -951,7 +867,6 @@ masterPilotDB['k2so'] = {
 
 masterPilotDB['mirandadoni'] = {
     name = 'Miranda Doni',
-    xws = 'mirandadoni',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'btls8kwing',
@@ -962,7 +877,6 @@ masterPilotDB['mirandadoni'] = {
 
 masterPilotDB['esegetuketu'] = {
     name = 'Esege Tuketu',
-    xws = 'esegetuketu',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'btls8kwing',
@@ -973,7 +887,6 @@ masterPilotDB['esegetuketu'] = {
 
 masterPilotDB['wardensquadronpilot'] = {
     name = 'Warden Squadron Pilot',
-    xws = 'wardensquadronpilot',
     faction = 'rebelalliance',
     ship_type = 'btls8kwing',
     initiative = 2,
@@ -983,7 +896,6 @@ masterPilotDB['wardensquadronpilot'] = {
 
 masterPilotDB['norrawexley'] = {
     name = 'Norra Wexley',
-    xws = 'norrawexley',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'arc170starfighter',
@@ -994,7 +906,6 @@ masterPilotDB['norrawexley'] = {
 
 masterPilotDB['garvendreis'] = {
     name = 'Garven Dreis',
-    xws = 'garvendreis',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'arc170starfighter',
@@ -1005,7 +916,6 @@ masterPilotDB['garvendreis'] = {
 
 masterPilotDB['sharabey'] = {
     name = 'Shara Bey',
-    xws = 'sharabey',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'arc170starfighter',
@@ -1016,7 +926,6 @@ masterPilotDB['sharabey'] = {
 
 masterPilotDB['ibtisam'] = {
     name = 'Ibtisam',
-    xws = 'ibtisam',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'arc170starfighter',
@@ -1027,7 +936,6 @@ masterPilotDB['ibtisam'] = {
 
 masterPilotDB['hansolo-modifiedyt1300lightfreighter'] = {
     name = 'Han Solo',
-    xws = 'hansolo-modifiedyt1300lightfreighter',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'modifiedyt1300lightfreighter',
@@ -1038,7 +946,6 @@ masterPilotDB['hansolo-modifiedyt1300lightfreighter'] = {
 
 masterPilotDB['landocalrissian-modifiedyt1300lightfreighter'] = {
     name = 'Lando Calrissian',
-    xws = 'landocalrissian-modifiedyt1300lightfreighter',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'modifiedyt1300lightfreighter',
@@ -1049,7 +956,6 @@ masterPilotDB['landocalrissian-modifiedyt1300lightfreighter'] = {
 
 masterPilotDB['chewbacca'] = {
     name = 'Chewbacca',
-    xws = 'chewbacca',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'modifiedyt1300lightfreighter',
@@ -1061,7 +967,6 @@ masterPilotDB['chewbacca'] = {
 
 masterPilotDB['outerrimsmuggler'] = {
     name = 'Outer Rim Smuggler',
-    xws = 'outerrimsmuggler',
     faction = 'rebelalliance',
     ship_type = 'modifiedyt1300lightfreighter',
     initiative = 1,
@@ -1071,7 +976,6 @@ masterPilotDB['outerrimsmuggler'] = {
 
 masterPilotDB['leiaorgana'] = {
     name = 'Leia Organa',
-    xws = 'leiaorgana',
     force = 1,
     faction = 'rebelalliance',
     limited = 1,
@@ -1084,7 +988,6 @@ masterPilotDB['leiaorgana'] = {
 
 masterPilotDB['herasyndulla-vcx100lightfreighter'] = {
     name = 'Hera Syndulla',
-    xws = 'herasyndulla-vcx100lightfreighter',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'vcx100lightfreighter',
@@ -1107,7 +1010,6 @@ masterPilotDB['herasyndulla-vcx100lightfreighter'] = {
 
 masterPilotDB['kananjarrus'] = {
     name = 'Kanan Jarrus',
-    xws = 'kananjarrus',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'vcx100lightfreighter',
@@ -1120,7 +1022,6 @@ masterPilotDB['kananjarrus'] = {
 
 masterPilotDB['chopper'] = {
     name = '"Chopper"',
-    xws = 'chopper',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'vcx100lightfreighter',
@@ -1132,7 +1033,6 @@ masterPilotDB['chopper'] = {
 
 masterPilotDB['lothalrebel'] = {
     name = 'Lothal Rebel',
-    xws = 'lothalrebel',
     faction = 'rebelalliance',
     ship_type = 'vcx100lightfreighter',
     initiative = 2,
@@ -1142,7 +1042,6 @@ masterPilotDB['lothalrebel'] = {
 
 masterPilotDB['alexsandrkallus'] = {
     name = 'Alexsandr Kallus',
-    xws = 'alexsandrkallus',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'vcx100lightfreighter',
@@ -1154,7 +1053,6 @@ masterPilotDB['alexsandrkallus'] = {
 
 masterPilotDB['dashrendar'] = {
     name = 'Dash Rendar',
-    xws = 'dashrendar',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'yt2400lightfreighter',
@@ -1165,7 +1063,6 @@ masterPilotDB['dashrendar'] = {
 
 masterPilotDB['leebo'] = {
     name = '"Leebo"',
-    xws = 'leebo',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'yt2400lightfreighter',
@@ -1177,7 +1074,6 @@ masterPilotDB['leebo'] = {
 
 masterPilotDB['wildspacefringer'] = {
     name = 'Wild Space Fringer',
-    xws = 'wildspacefringer',
     faction = 'rebelalliance',
     ship_type = 'yt2400lightfreighter',
     initiative = 1,
@@ -1187,7 +1083,6 @@ masterPilotDB['wildspacefringer'] = {
 
 masterPilotDB['maulermithel'] = {
     name = '"Mauler" Mithel',
-    xws = 'maulermithel',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
@@ -1198,7 +1093,6 @@ masterPilotDB['maulermithel'] = {
 
 masterPilotDB['howlrunner'] = {
     name = '"Howlrunner"',
-    xws = 'howlrunner',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
@@ -1209,7 +1103,6 @@ masterPilotDB['howlrunner'] = {
 
 masterPilotDB['scourgeskutu'] = {
     name = '"Scourge" Skutu',
-    xws = 'scourgeskutu',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
@@ -1220,7 +1113,6 @@ masterPilotDB['scourgeskutu'] = {
 
 masterPilotDB['idenversio'] = {
     name = 'Iden Versio',
-    xws = 'idenversio',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
@@ -1233,7 +1125,6 @@ masterPilotDB['idenversio'] = {
 
 masterPilotDB['gideonhask'] = {
     name = 'Gideon Hask',
-    xws = 'gideonhask',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
@@ -1244,7 +1135,6 @@ masterPilotDB['gideonhask'] = {
 
 masterPilotDB['delmeeko'] = {
     name = 'Del Meeko',
-    xws = 'delmeeko',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
@@ -1255,7 +1145,6 @@ masterPilotDB['delmeeko'] = {
 
 masterPilotDB['seynmarana'] = {
     name = 'Seyn Marana',
-    xws = 'seynmarana',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
@@ -1266,7 +1155,6 @@ masterPilotDB['seynmarana'] = {
 
 masterPilotDB['valenrudor'] = {
     name = 'Valen Rudor',
-    xws = 'valenrudor',
     faction = 'galacticempire',
     limited = 1,
     limited = 1,
@@ -1278,7 +1166,6 @@ masterPilotDB['valenrudor'] = {
 
 masterPilotDB['nightbeast'] = {
     name = '"Night Beast"',
-    xws = 'nightbeast',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
@@ -1289,7 +1176,6 @@ masterPilotDB['nightbeast'] = {
 
 masterPilotDB['wampa'] = {
     name = '"Wampa"',
-    xws = 'wampa',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
@@ -1301,7 +1187,6 @@ masterPilotDB['wampa'] = {
 
 masterPilotDB['blacksquadronace'] = {
     name = 'Black Squadron Ace',
-    xws = 'blacksquadronace',
     faction = 'galacticempire',
     ship_type = 'tielnfighter',
     initiative = 3,
@@ -1311,7 +1196,6 @@ masterPilotDB['blacksquadronace'] = {
 
 masterPilotDB['obsidiansquadronpilot'] = {
     name = 'Obsidian Squadron Pilot',
-    xws = 'obsidiansquadronpilot',
     faction = 'galacticempire',
     ship_type = 'tielnfighter',
     initiative = 2,
@@ -1321,7 +1205,6 @@ masterPilotDB['obsidiansquadronpilot'] = {
 
 masterPilotDB['academypilot'] = {
     name = 'Academy Pilot',
-    xws = 'academypilot',
     faction = 'galacticempire',
     ship_type = 'tielnfighter',
     initiative = 1,
@@ -1331,7 +1214,6 @@ masterPilotDB['academypilot'] = {
 
 masterPilotDB['darthvader'] = {
     name = 'Darth Vader',
-    xws = 'darthvader',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieadvancedx1',
@@ -1344,7 +1226,6 @@ masterPilotDB['darthvader'] = {
 
 masterPilotDB['maarekstele'] = {
     name = 'Maarek Stele',
-    xws = 'maarekstele',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieadvancedx1',
@@ -1355,7 +1236,6 @@ masterPilotDB['maarekstele'] = {
 
 masterPilotDB['vedfoslo'] = {
     name = 'Ved Foslo',
-    xws = 'vedfoslo',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieadvancedx1',
@@ -1386,7 +1266,6 @@ masterPilotDB['vedfoslo'] = {
 
 masterPilotDB['zertikstrom'] = {
     name = 'Zertik Strom',
-    xws = 'zertikstrom',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieadvancedx1',
@@ -1397,7 +1276,6 @@ masterPilotDB['zertikstrom'] = {
 
 masterPilotDB['stormsquadronace'] = {
     name = 'Storm Squadron Ace',
-    xws = 'stormsquadronace',
     faction = 'galacticempire',
     ship_type = 'tieadvancedx1',
     initiative = 3,
@@ -1407,7 +1285,6 @@ masterPilotDB['stormsquadronace'] = {
 
 masterPilotDB['tempestsquadronpilot'] = {
     name = 'Tempest Squadron Pilot',
-    xws = 'tempestsquadronpilot',
     faction = 'galacticempire',
     ship_type = 'tieadvancedx1',
     initiative = 2,
@@ -1417,7 +1294,6 @@ masterPilotDB['tempestsquadronpilot'] = {
 
 masterPilotDB['grandinquisitor'] = {
     name = 'Grand Inquisitor',
-    xws = 'grandinquisitor',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieadvancedv1',
@@ -1430,7 +1306,6 @@ masterPilotDB['grandinquisitor'] = {
 
 masterPilotDB['seventhsister'] = {
     name = 'Seventh Sister',
-    xws = 'seventhsister',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieadvancedv1',
@@ -1442,7 +1317,6 @@ masterPilotDB['seventhsister'] = {
 
 masterPilotDB['baronoftheempire'] = {
     name = 'Baron of the Empire',
-    xws = 'baronoftheempire',
     faction = 'galacticempire',
     ship_type = 'tieadvancedv1',
     initiative = 3,
@@ -1452,7 +1326,6 @@ masterPilotDB['baronoftheempire'] = {
 
 masterPilotDB['inquisitor'] = {
     name = 'Inquisitor',
-    xws = 'inquisitor',
     faction = 'galacticempire',
     ship_type = 'tieadvancedv1',
     force = 1,
@@ -1463,7 +1336,6 @@ masterPilotDB['inquisitor'] = {
 
 masterPilotDB['fifthbrother'] = {
     name = 'Fifth Brother',
-    xws = 'fifthbrother',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieadvancedv1',
@@ -1476,7 +1348,6 @@ masterPilotDB['fifthbrother'] = {
 
 masterPilotDB['soontirfel'] = {
     name = 'Soontir Fel',
-    xws = 'soontirfel',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieininterceptor',
@@ -1487,7 +1358,6 @@ masterPilotDB['soontirfel'] = {
 
 masterPilotDB['turrphennir'] = {
     name = 'Turr Phennir',
-    xws = 'turrphennir',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieininterceptor',
@@ -1498,7 +1368,6 @@ masterPilotDB['turrphennir'] = {
 
 masterPilotDB['sabersquadronace'] = {
     name = 'Saber Squadron Ace',
-    xws = 'sabersquadronace',
     faction = 'galacticempire',
     ship_type = 'tieininterceptor',
     initiative = 4,
@@ -1508,7 +1377,6 @@ masterPilotDB['sabersquadronace'] = {
 
 masterPilotDB['alphasquadronpilot'] = {
     name = 'Alpha Squadron Pilot',
-    xws = 'alphasquadronpilot',
     faction = 'galacticempire',
     ship_type = 'tieininterceptor',
     initiative = 1,
@@ -1518,7 +1386,6 @@ masterPilotDB['alphasquadronpilot'] = {
 
 masterPilotDB['cienaree'] = {
     name = 'Ciena Ree',
-    xws = 'cienaree',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieininterceptor',
@@ -1529,7 +1396,6 @@ masterPilotDB['cienaree'] = {
 
 masterPilotDB['vultskerris-tieininterceptor'] = {
     name = 'Vult Skerris',
-    xws = 'vultskerris-tieininterceptor',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieininterceptor',
@@ -1541,7 +1407,6 @@ masterPilotDB['vultskerris-tieininterceptor'] = {
 
 masterPilotDB['commandantgoran'] = {
     name = 'Commandant Goran',
-    xws = 'commandantgoran',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieininterceptor',
@@ -1552,7 +1417,6 @@ masterPilotDB['commandantgoran'] = {
 
 masterPilotDB['gideonhask-tieininterceptor'] = {
     name = 'Gideon Hask',
-    xws = 'gideonhask-tieininterceptor',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieininterceptor',
@@ -1563,7 +1427,6 @@ masterPilotDB['gideonhask-tieininterceptor'] = {
 
 masterPilotDB['nashwindrider'] = {
     name = 'Nash Windrider',
-    xws = 'nashwindrider',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieininterceptor',
@@ -1575,7 +1438,6 @@ masterPilotDB['nashwindrider'] = {
 
 masterPilotDB['lieutenantlorrir'] = {
     name = 'Lieutenant Lorrir',
-    xws = 'lieutenantlorrir',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieininterceptor',
@@ -1586,7 +1448,6 @@ masterPilotDB['lieutenantlorrir'] = {
 
 masterPilotDB['tomaxbren'] = {
     name = 'Tomax Bren',
-    xws = 'tomaxbren',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiesabomber',
@@ -1597,7 +1458,6 @@ masterPilotDB['tomaxbren'] = {
 
 masterPilotDB['captainjonus'] = {
     name = 'Captain Jonus',
-    xws = 'captainjonus',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiesabomber',
@@ -1608,7 +1468,6 @@ masterPilotDB['captainjonus'] = {
 
 masterPilotDB['majorrhymer'] = {
     name = 'Major Rhymer',
-    xws = 'majorrhymer',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiesabomber',
@@ -1619,7 +1478,6 @@ masterPilotDB['majorrhymer'] = {
 
 masterPilotDB['deathfire'] = {
     name = '"Deathfire"',
-    xws = 'deathfire',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiesabomber',
@@ -1630,7 +1488,6 @@ masterPilotDB['deathfire'] = {
 
 masterPilotDB['gammasquadronace'] = {
     name = 'Gamma Squadron Ace',
-    xws = 'gammasquadronace',
     faction = 'galacticempire',
     ship_type = 'tiesabomber',
     initiative = 3,
@@ -1640,7 +1497,6 @@ masterPilotDB['gammasquadronace'] = {
 
 masterPilotDB['scimitarsquadronpilot'] = {
     name = 'Scimitar Squadron Pilot',
-    xws = 'scimitarsquadronpilot',
     faction = 'galacticempire',
     ship_type = 'tiesabomber',
     initiative = 2,
@@ -1650,7 +1506,6 @@ masterPilotDB['scimitarsquadronpilot'] = {
 
 masterPilotDB['majorvermeil'] = {
     name = 'Major Vermeil',
-    xws = 'majorvermeil',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tierereaper',
@@ -1661,7 +1516,6 @@ masterPilotDB['majorvermeil'] = {
 
 masterPilotDB['captainferoph'] = {
     name = 'Captain Feroph',
-    xws = 'captainferoph',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tierereaper',
@@ -1672,7 +1526,6 @@ masterPilotDB['captainferoph'] = {
 
 masterPilotDB['vizier'] = {
     name = '"Vizier"',
-    xws = 'vizier',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tierereaper',
@@ -1683,7 +1536,6 @@ masterPilotDB['vizier'] = {
 
 masterPilotDB['scarifbasepilot'] = {
     name = 'Scarif Base Pilot',
-    xws = 'scarifbasepilot',
     faction = 'galacticempire',
     ship_type = 'tierereaper',
     initiative = 1,
@@ -1693,7 +1545,6 @@ masterPilotDB['scarifbasepilot'] = {
 
 masterPilotDB['duchess'] = {
     name = '"Duchess"',
-    xws = 'duchess',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieskstriker',
@@ -1704,7 +1555,6 @@ masterPilotDB['duchess'] = {
 
 masterPilotDB['countdown'] = {
     name = '"Countdown"',
-    xws = 'countdown',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieskstriker',
@@ -1715,7 +1565,6 @@ masterPilotDB['countdown'] = {
 
 masterPilotDB['puresabacc'] = {
     name = '"Pure Sabacc"',
-    xws = 'puresabacc',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieskstriker',
@@ -1726,7 +1575,6 @@ masterPilotDB['puresabacc'] = {
 
 masterPilotDB['blacksquadronscout'] = {
     name = 'Black Squadron Scout',
-    xws = 'blacksquadronscout',
     faction = 'galacticempire',
     ship_type = 'tieskstriker',
     initiative = 3,
@@ -1736,7 +1584,6 @@ masterPilotDB['blacksquadronscout'] = {
 
 masterPilotDB['planetarysentinel'] = {
     name = 'Planetary Sentinel',
-    xws = 'planetarysentinel',
     faction = 'galacticempire',
     ship_type = 'tieskstriker',
     initiative = 1,
@@ -1746,7 +1593,6 @@ masterPilotDB['planetarysentinel'] = {
 
 masterPilotDB['vagabond'] = {
     name = '"Vagabond"',
-    xws = 'vagabond',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieskstriker',
@@ -1757,7 +1603,6 @@ masterPilotDB['vagabond'] = {
 
 masterPilotDB['rexlerbrath'] = {
     name = 'Rexler Brath',
-    xws = 'rexlerbrath',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiededefender',
@@ -1768,7 +1613,6 @@ masterPilotDB['rexlerbrath'] = {
 
 masterPilotDB['colonelvessery'] = {
     name = 'Colonel Vessery',
-    xws = 'colonelvessery',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiededefender',
@@ -1779,7 +1623,6 @@ masterPilotDB['colonelvessery'] = {
 
 masterPilotDB['countessryad'] = {
     name = 'Countess Ryad',
-    xws = 'countessryad',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiededefender',
@@ -1796,7 +1639,6 @@ masterPilotDB['countessryad'] = {
 
 masterPilotDB['onyxsquadronace'] = {
     name = 'Onyx Squadron Ace',
-    xws = 'onyxsquadronace',
     faction = 'galacticempire',
     ship_type = 'tiededefender',
     initiative = 4,
@@ -1806,7 +1648,6 @@ masterPilotDB['onyxsquadronace'] = {
 
 masterPilotDB['deltasquadronpilot'] = {
     name = 'Delta Squadron Pilot',
-    xws = 'deltasquadronpilot',
     faction = 'galacticempire',
     ship_type = 'tiededefender',
     initiative = 1,
@@ -1817,7 +1658,6 @@ masterPilotDB['deltasquadronpilot'] = {
 
 masterPilotDB['darthvader-tieddefender'] = {
     name = 'Darth Vader',
-    xws = 'darthvader-tieddefender',
     faction = 'galacticempire',
     ship_type = 'tiededefender',
     force = 3,
@@ -1829,7 +1669,6 @@ masterPilotDB['darthvader-tieddefender'] = {
 
 masterPilotDB['vultskerris'] = {
     name = 'Vult Skerris',
-    xws = 'vultskerris',
     faction = 'galacticempire',
     ship_type = 'tiededefender',
     charge = 1,
@@ -1840,7 +1679,6 @@ masterPilotDB['vultskerris'] = {
 
 masterPilotDB['captaindobbs'] = {
     name = 'Captain Dobbs',
-    xws = 'captaindobbs',
     faction = 'galacticempire',
     ship_type = 'tiededefender',
     initiative = 3,
@@ -1850,7 +1688,6 @@ masterPilotDB['captaindobbs'] = {
 
 masterPilotDB['lieutenantkestal'] = {
     name = 'Lieutenant Kestal',
-    xws = 'lieutenantkestal',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieagaggressor',
@@ -1861,7 +1698,6 @@ masterPilotDB['lieutenantkestal'] = {
 
 masterPilotDB['doubleedge'] = {
     name = '"Double Edge"',
-    xws = 'doubleedge',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieagaggressor',
@@ -1872,7 +1708,6 @@ masterPilotDB['doubleedge'] = {
 
 masterPilotDB['onyxsquadronscout'] = {
     name = 'Onyx Squadron Scout',
-    xws = 'onyxsquadronscout',
     faction = 'galacticempire',
     ship_type = 'tieagaggressor',
     initiative = 3,
@@ -1882,7 +1717,6 @@ masterPilotDB['onyxsquadronscout'] = {
 
 masterPilotDB['sienarspecialist'] = {
     name = 'Sienar Specialist',
-    xws = 'sienarspecialist',
     faction = 'galacticempire',
     ship_type = 'tieagaggressor',
     initiative = 2,
@@ -1893,7 +1727,6 @@ masterPilotDB['sienarspecialist'] = {
 masterPilotDB['whisper'] = {
     name = '"Whisper"',
     title = 'Soft-Spoken Slayer',
-    xws = 'whisper',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiephphantom',
@@ -1905,7 +1738,6 @@ masterPilotDB['whisper'] = {
 masterPilotDB['echo'] = {
     name = '"Echo"',
     title = 'Slippery Trickster',
-    xws = 'echo',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiephphantom',
@@ -1916,7 +1748,6 @@ masterPilotDB['echo'] = {
 
 masterPilotDB['sigmasquadronace'] = {
     name = 'Sigma Squadron Ace',
-    xws = 'sigmasquadronace',
     faction = 'galacticempire',
     ship_type = 'tiephphantom',
     initiative = 4,
@@ -1926,7 +1757,6 @@ masterPilotDB['sigmasquadronace'] = {
 
 masterPilotDB['imdaartestpilot'] = {
     name = 'Imdaar Test Pilot',
-    xws = 'imdaartestpilot',
     faction = 'galacticempire',
     ship_type = 'tiephphantom',
     initiative = 3,
@@ -1937,7 +1767,6 @@ masterPilotDB['imdaartestpilot'] = {
 masterPilotDB['majorvynder'] = {
     name = 'Major Vynder',
     title = 'Pragmatic Survivor',
-    xws = 'majorvynder',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'alphaclassstarwing',
@@ -1949,7 +1778,6 @@ masterPilotDB['majorvynder'] = {
 masterPilotDB['lieutenantkarsabi'] = {
     name = 'Lieutenant Karsabi',
     title = 'Brash Noble',
-    xws = 'lieutenantkarsabi',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'alphaclassstarwing',
@@ -1960,7 +1788,6 @@ masterPilotDB['lieutenantkarsabi'] = {
 
 masterPilotDB['rhosquadronpilot'] = {
     name = 'Rho Squadron Pilot',
-    xws = 'rhosquadronpilot',
     faction = 'galacticempire',
     ship_type = 'alphaclassstarwing',
     initiative = 3,
@@ -1970,7 +1797,6 @@ masterPilotDB['rhosquadronpilot'] = {
 
 masterPilotDB['nusquadronpilot'] = {
     name = 'Nu Squadron Pilot',
-    xws = 'nusquadronpilot',
     faction = 'galacticempire',
     ship_type = 'alphaclassstarwing',
     initiative = 2,
@@ -1980,7 +1806,6 @@ masterPilotDB['nusquadronpilot'] = {
 
 masterPilotDB['redline'] = {
     name = '"Redline"',
-    xws = 'redline',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiecapunisher',
@@ -1990,7 +1815,6 @@ masterPilotDB['redline'] = {
 }
 masterPilotDB['deathrain'] = {
     name = '"Deathrain"',
-    xws = 'deathrain',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiecapunisher',
@@ -2001,7 +1825,6 @@ masterPilotDB['deathrain'] = {
 
 masterPilotDB['cutlasssquadronpilot'] = {
     name = 'Cutlass Squadron Pilot',
-    xws = 'cutlasssquadronpilot',
     faction = 'galacticempire',
     ship_type = 'tiecapunisher',
     initiative = 2,
@@ -2011,7 +1834,6 @@ masterPilotDB['cutlasssquadronpilot'] = {
 
 masterPilotDB['captainkagi'] = {
     name = 'Captain Kagi',
-    xws = 'captainkagi',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'lambdaclasst4ashuttle',
@@ -2022,7 +1844,6 @@ masterPilotDB['captainkagi'] = {
 
 masterPilotDB['coloneljendon'] = {
     name = 'Colonel Jendon',
-    xws = 'coloneljendon',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'lambdaclasst4ashuttle',
@@ -2034,7 +1855,6 @@ masterPilotDB['coloneljendon'] = {
 
 masterPilotDB['lieutenantsai'] = {
     name = 'Lieutenant Sai',
-    xws = 'lieutenantsai',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'lambdaclasst4ashuttle',
@@ -2045,7 +1865,6 @@ masterPilotDB['lieutenantsai'] = {
 
 masterPilotDB['omicrongrouppilot'] = {
     name = 'Omicron Group Pilot',
-    xws = 'omicrongrouppilot',
     faction = 'galacticempire',
     ship_type = 'lambdaclasst4ashuttle',
     initiative = 1,
@@ -2055,7 +1874,6 @@ masterPilotDB['omicrongrouppilot'] = {
 
 masterPilotDB['captainoicunn'] = {
     name = 'Captain Oicunn',
-    xws = 'captainoicunn',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'vt49decimator',
@@ -2066,7 +1884,6 @@ masterPilotDB['captainoicunn'] = {
 
 masterPilotDB['rearadmiralchiraneau'] = {
     name = 'Rear Admiral Chiraneau',
-    xws = 'rearadmiralchiraneau',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'vt49decimator',
@@ -2077,7 +1894,6 @@ masterPilotDB['rearadmiralchiraneau'] = {
 
 masterPilotDB['patrolleader'] = {
     name = 'Patrol Leader',
-    xws = 'patrolleader',
     faction = 'galacticempire',
     ship_type = 'vt49decimator',
     initiative = 2,
@@ -2087,7 +1903,6 @@ masterPilotDB['patrolleader'] = {
 
 masterPilotDB['mornakee'] = {
     name = 'Morna Kee',
-    xws = 'mornakee',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'vt49decimator',
@@ -2099,7 +1914,6 @@ masterPilotDB['mornakee'] = {
 
 masterPilotDB['bobafett'] = {
     name = 'Boba Fett',
-    xws = 'bobafett',
     title = 'Notorious Bounty Hunter',
     faction = 'scumandvillainy',
     limited = 1,
@@ -2112,7 +1926,6 @@ masterPilotDB['bobafett'] = {
 
 masterPilotDB['emonazzameen'] = {
     name = 'Emon Azzameen',
-    xws = 'emonazzameen',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'firesprayclasspatrolcraft',
@@ -2123,7 +1936,6 @@ masterPilotDB['emonazzameen'] = {
 
 masterPilotDB['kathscarlet'] = {
     name = 'Kath Scarlet',
-    xws = 'kathscarlet',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'firesprayclasspatrolcraft',
@@ -2134,7 +1946,6 @@ masterPilotDB['kathscarlet'] = {
 
 masterPilotDB['koshkafrost'] = {
     name = 'Koshka Frost',
-    xws = 'koshkafrost',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'firesprayclasspatrolcraft',
@@ -2146,7 +1957,6 @@ masterPilotDB['koshkafrost'] = {
 
 masterPilotDB['krassistrelix'] = {
     name = 'Krassis Trelix',
-    xws = 'krassistrelix',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'firesprayclasspatrolcraft',
@@ -2157,7 +1967,6 @@ masterPilotDB['krassistrelix'] = {
 
 masterPilotDB['bountyhunter'] = {
     name = 'Bounty Hunter',
-    xws = 'bountyhunter',
     faction = 'scumandvillainy',
     ship_type = 'firesprayclasspatrolcraft',
     initiative = 2,
@@ -2168,7 +1977,6 @@ masterPilotDB['bountyhunter'] = {
 
 masterPilotDB['fennrau'] = {
     name = 'Fenn Rau',
-    xws = 'fennrau',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'fangfighter',
@@ -2180,7 +1988,6 @@ masterPilotDB['fennrau'] = {
 
 masterPilotDB['oldteroch'] = {
     name = 'Old Teroch',
-    xws = 'oldteroch',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'fangfighter',
@@ -2192,7 +1999,6 @@ masterPilotDB['oldteroch'] = {
 
 masterPilotDB['joyrekkoff'] = {
     name = 'Joy Rekkoff',
-    xws = 'joyrekkoff',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'fangfighter',
@@ -2204,7 +2010,6 @@ masterPilotDB['joyrekkoff'] = {
 
 masterPilotDB['kadsolus'] = {
     name = 'Kad Solus',
-    xws = 'kadsolus',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'fangfighter',
@@ -2216,7 +2021,6 @@ masterPilotDB['kadsolus'] = {
 
 masterPilotDB['skullsquadronpilot'] = {
     name = 'Skull Squadron Pilot',
-    xws = 'skullsquadronpilot',
     faction = 'scumandvillainy',
     ship_type = 'fangfighter',
     initiative = 4,
@@ -2227,7 +2031,6 @@ masterPilotDB['skullsquadronpilot'] = {
 
 masterPilotDB['zealousrecruit'] = {
     name = 'Zealous Recruit',
-    xws = 'zealousrecruit',
     faction = 'scumandvillainy',
     ship_type = 'fangfighter',
     initiative = 1,
@@ -2238,7 +2041,6 @@ masterPilotDB['zealousrecruit'] = {
 
 masterPilotDB['constablezuvio'] = {
     name = 'Constable Zuvio',
-    xws = 'constablezuvio',
     limited = 1,
     faction = 'scumandvillainy',
     ship_type = 'quadrijettransferspacetug',
@@ -2249,7 +2051,6 @@ masterPilotDB['constablezuvio'] = {
 
 masterPilotDB['sarcoplank'] = {
     name = 'Sarco Plank',
-    xws = 'sarcoplank',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'quadrijettransferspacetug',
@@ -2261,7 +2062,6 @@ masterPilotDB['sarcoplank'] = {
 
 masterPilotDB['unkarplutt'] = {
     name = 'Unkar Plutt',
-    xws = 'unkarplutt',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'quadrijettransferspacetug',
@@ -2272,7 +2072,6 @@ masterPilotDB['unkarplutt'] = {
 
 masterPilotDB['jakkugunrunner'] = {
     name = 'Jakku Gunrunner',
-    xws = 'jakkugunrunner',
     faction = 'scumandvillainy',
     ship_type = 'quadrijettransferspacetug',
     initiative = 1,
@@ -2282,7 +2081,6 @@ masterPilotDB['jakkugunrunner'] = {
 
 masterPilotDB['kavil'] = {
     name = 'Kavil',
-    xws = 'kavil',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'btla4ywing',
@@ -2293,7 +2091,6 @@ masterPilotDB['kavil'] = {
 
 masterPilotDB['drearenthal'] = {
     name = 'Drea Renthal',
-    xws = 'drearenthal',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'btla4ywing',
@@ -2304,7 +2101,6 @@ masterPilotDB['drearenthal'] = {
 
 masterPilotDB['hiredgun'] = {
     name = 'Hired Gun',
-    xws = 'hiredgun',
     faction = 'scumandvillainy',
     ship_type = 'btla4ywing',
     initiative = 2,
@@ -2314,7 +2110,6 @@ masterPilotDB['hiredgun'] = {
 
 masterPilotDB['crymorahgoon'] = {
     name = 'Crymorah Goon',
-    xws = 'crymorahgoon',
     faction = 'scumandvillainy',
     ship_type = 'btla4ywing',
     initiative = 1,
@@ -2325,7 +2120,6 @@ masterPilotDB['crymorahgoon'] = {
 
 masterPilotDB['arlizhadrassian'] = {
     name = 'Arliz Hadrassian',
-    xws = 'arlizhadrassian',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'btla4ywing',
@@ -2336,7 +2130,6 @@ masterPilotDB['arlizhadrassian'] = {
 
 masterPilotDB['leemakai'] = {
     name = 'Leema Kai',
-    xws = 'leemakai',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'btla4ywing',
@@ -2347,7 +2140,6 @@ masterPilotDB['leemakai'] = {
 
 masterPilotDB['padric'] = {
     name = 'Padric',
-    xws = 'padric',
     faction = 'scumandvillainy',
     ship_type = 'btla4ywing',
     initiative = 3,
@@ -2357,7 +2149,6 @@ masterPilotDB['padric'] = {
 
 masterPilotDB['amaxinewarrior'] = {
     name = 'Amaxine Warrior',
-    xws = 'amaxinewarrior',
     faction = 'scumandvillainy',
     ship_type = 'btla4ywing',
     initiative = 3,
@@ -2367,7 +2158,6 @@ masterPilotDB['amaxinewarrior'] = {
 
 masterPilotDB['jinatasecurityofficer'] = {
     name = 'Jinata Security Officer',
-    xws = 'jinatasecurityofficer',
     faction = 'scumandvillainy',
     ship_type = 'btla4ywing',
     initiative = 2,
@@ -2377,7 +2167,6 @@ masterPilotDB['jinatasecurityofficer'] = {
 
 masterPilotDB['ndrusuhlak'] = {
     name = "N'dru Suhlak",
-    xws = 'ndrusuhlak',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'z95af4headhunter',
@@ -2388,7 +2177,6 @@ masterPilotDB['ndrusuhlak'] = {
 
 masterPilotDB['kaatoleeachos'] = {
     name = "Kaa'to Leeachos",
-    xws = 'kaatoleeachos',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'z95af4headhunter',
@@ -2400,7 +2188,6 @@ masterPilotDB['kaatoleeachos'] = {
 
 masterPilotDB['nashtahpup'] = {
     name = 'Nashtah Pup',
-    xws = 'nashtahpup',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'z95af4headhunter',
@@ -2411,7 +2198,6 @@ masterPilotDB['nashtahpup'] = {
 
 masterPilotDB['blacksunsoldier'] = {
     name = 'Black Sun Soldier',
-    xws = 'blacksunsoldier',
     faction = 'scumandvillainy',
     ship_type = 'z95af4headhunter',
     initiative = 3,
@@ -2421,7 +2207,6 @@ masterPilotDB['blacksunsoldier'] = {
 
 masterPilotDB['binayrepirate'] = {
     name = 'Binayre Pirate',
-    xws = 'binayrepirate',
     faction = 'scumandvillainy',
     ship_type = 'z95af4headhunter',
     initiative = 1,
@@ -2431,7 +2216,6 @@ masterPilotDB['binayrepirate'] = {
 
 masterPilotDB['bossk-z95af4headhunter'] = {
     name = 'Bossk',
-    xws = 'bossk-z95af4headhunter',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'z95af4headhunter',
@@ -2443,7 +2227,6 @@ masterPilotDB['bossk-z95af4headhunter'] = {
 
 masterPilotDB['dacebonearm'] = {
     name = 'Dace Bonearm',
-    xws = 'dacebonearm',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'hwk290lightfreighter',
@@ -2455,7 +2238,6 @@ masterPilotDB['dacebonearm'] = {
 
 masterPilotDB['palobgodalhi'] = {
     name = 'Palob Godalhi',
-    xws = 'palobgodalhi',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'hwk290lightfreighter',
@@ -2466,7 +2248,6 @@ masterPilotDB['palobgodalhi'] = {
 
 masterPilotDB['torkilmux'] = {
     name = 'Torkil Mux',
-    xws = 'torkilmux',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'hwk290lightfreighter',
@@ -2477,7 +2258,6 @@ masterPilotDB['torkilmux'] = {
 
 masterPilotDB['spicerunner'] = {
     name = 'Spice Runner',
-    xws = 'spicerunner',
     faction = 'scumandvillainy',
     ship_type = 'hwk290lightfreighter',
     initiative = 1,
@@ -2488,7 +2268,6 @@ masterPilotDB['spicerunner'] = {
 
 masterPilotDB['kananjarrus-hwk290lightfreighter'] = {
     name = 'Kanan Jarrus',
-    xws = 'kananjarrus-hwk290lightfreighter',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'hwk290lightfreighter',
@@ -2501,7 +2280,6 @@ masterPilotDB['kananjarrus-hwk290lightfreighter'] = {
 
 masterPilotDB['gamutkey'] = {
     name = 'Gamut Key',
-    xws = 'gamutkey',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'hwk290lightfreighter',
@@ -2513,7 +2291,6 @@ masterPilotDB['gamutkey'] = {
 
 masterPilotDB['tapusk'] = {
     name = 'TÃ¡pusk',
-    xws = 'tapusk',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'hwk290lightfreighter',
@@ -2525,7 +2302,6 @@ masterPilotDB['tapusk'] = {
 
 masterPilotDB['guri'] = {
     name = 'Guri',
-    xws = 'guri',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'starviperclassattackplatform',
@@ -2537,7 +2313,6 @@ masterPilotDB['guri'] = {
 
 masterPilotDB['dalanoberos-starviperclassattackplatform'] = {
     name = 'Dalan Oberos',
-    xws = 'dalanoberos-starviperclassattackplatform',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'starviperclassattackplatform',
@@ -2549,7 +2324,6 @@ masterPilotDB['dalanoberos-starviperclassattackplatform'] = {
 
 masterPilotDB['princexizor'] = {
     name = 'Prince Xizor',
-    xws = 'princexizor',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'starviperclassattackplatform',
@@ -2560,7 +2334,6 @@ masterPilotDB['princexizor'] = {
 
 masterPilotDB['blacksunassassin'] = {
     name = 'Black Sun Assassin',
-    xws = 'blacksunassassin',
     faction = 'scumandvillainy',
     ship_type = 'starviperclassattackplatform',
     initiative = 3,
@@ -2570,7 +2343,6 @@ masterPilotDB['blacksunassassin'] = {
 
 masterPilotDB['blacksunenforcer'] = {
     name = 'Black Sun Enforcer',
-    xws = 'blacksunenforcer',
     faction = 'scumandvillainy',
     ship_type = 'starviperclassattackplatform',
     initiative = 2,
@@ -2580,7 +2352,6 @@ masterPilotDB['blacksunenforcer'] = {
 
 masterPilotDB['serissu'] = {
     name = 'Serissu',
-    xws = 'serissu',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'm3ainterceptor',
@@ -2592,7 +2363,6 @@ masterPilotDB['serissu'] = {
 
 masterPilotDB['genesisred'] = {
     name = 'Genesis Red',
-    xws = 'genesisred',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'm3ainterceptor',
@@ -2604,7 +2374,6 @@ masterPilotDB['genesisred'] = {
 
 masterPilotDB['laetinashera'] = {
     name = "Laetin A'shera",
-    xws = 'laetinashera',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'm3ainterceptor',
@@ -2616,7 +2385,6 @@ masterPilotDB['laetinashera'] = {
 
 masterPilotDB['quinnjast'] = {
     name = 'Quinn Jast',
-    xws = 'quinnjast',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'm3ainterceptor',
@@ -2629,7 +2397,6 @@ masterPilotDB['quinnjast'] = {
 
 masterPilotDB['inaldra'] = {
     name = 'Inaldra',
-    xws = 'inaldra',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'm3ainterceptor',
@@ -2641,7 +2408,6 @@ masterPilotDB['inaldra'] = {
 
 masterPilotDB['sunnybounder'] = {
     name = 'Sunny Bounder',
-    xws = 'sunnybounder',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'm3ainterceptor',
@@ -2653,7 +2419,6 @@ masterPilotDB['sunnybounder'] = {
 
 masterPilotDB['tansariipointveteran'] = {
     name = 'Tansarii Point Veteran',
-    xws = 'tansariipointveteran',
     faction = 'scumandvillainy',
     ship_type = 'm3ainterceptor',
     add_slots = { 'Weapon Hardpoint' },
@@ -2664,7 +2429,6 @@ masterPilotDB['tansariipointveteran'] = {
 
 masterPilotDB['cartelspacer'] = {
     name = 'Cartel Spacer',
-    xws = 'cartelspacer',
     faction = 'scumandvillainy',
     ship_type = 'm3ainterceptor',
     add_slots = { 'Weapon Hardpoint' },
@@ -2675,7 +2439,6 @@ masterPilotDB['cartelspacer'] = {
 
 masterPilotDB['g4rgorvm'] = {
     name = 'G4R-G0R V/M',
-    xws = 'g4rgorvm',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'm3ainterceptor',
@@ -2688,7 +2451,6 @@ masterPilotDB['g4rgorvm'] = {
 
 masterPilotDB['talonbanecobra'] = {
     name = 'Talonbane Cobra',
-    xws = 'talonbanecobra',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'kihraxzfighter',
@@ -2699,7 +2461,6 @@ masterPilotDB['talonbanecobra'] = {
 
 masterPilotDB['graz'] = {
     name = 'Graz',
-    xws = 'graz',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'kihraxzfighter',
@@ -2711,7 +2472,6 @@ masterPilotDB['graz'] = {
 
 masterPilotDB['viktorhel'] = {
     name = 'Viktor Hel',
-    xws = 'viktorhel',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'kihraxzfighter',
@@ -2723,7 +2483,6 @@ masterPilotDB['viktorhel'] = {
 
 masterPilotDB['captainjostero'] = {
     name = 'Captain Jostero',
-    xws = 'captainjostero',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'kihraxzfighter',
@@ -2734,7 +2493,6 @@ masterPilotDB['captainjostero'] = {
 
 masterPilotDB['blacksunace'] = {
     name = 'Black Sun Ace',
-    xws = 'blacksunace',
     faction = 'scumandvillainy',
     ship_type = 'kihraxzfighter',
     initiative = 3,
@@ -2744,7 +2502,6 @@ masterPilotDB['blacksunace'] = {
 
 masterPilotDB['cartelmarauder'] = {
     name = 'Cartel Marauder',
-    xws = 'cartelmarauder',
     faction = 'scumandvillainy',
     ship_type = 'kihraxzfighter',
     initiative = 2,
@@ -2754,7 +2511,6 @@ masterPilotDB['cartelmarauder'] = {
 
 masterPilotDB['ig88a'] = {
     name = 'IG-88A',
-    xws = 'ig88a',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'aggressorassaultfighter',
@@ -2766,7 +2522,6 @@ masterPilotDB['ig88a'] = {
 
 masterPilotDB['ig88b'] = {
     name = 'IG-88B',
-    xws = 'ig88b',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'aggressorassaultfighter',
@@ -2778,7 +2533,6 @@ masterPilotDB['ig88b'] = {
 
 masterPilotDB['ig88c'] = {
     name = 'IG-88C',
-    xws = 'ig88c',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'aggressorassaultfighter',
@@ -2790,7 +2544,6 @@ masterPilotDB['ig88c'] = {
 
 masterPilotDB['ig88d'] = {
     name = 'IG-88D',
-    xws = 'ig88d',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'aggressorassaultfighter',
@@ -2806,7 +2559,6 @@ masterPilotDB['ig88d'] = {
 
 masterPilotDB['4lom'] = {
     name = '4-LOM',
-    xws = '4lom',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'g1astarfighter',
@@ -2818,7 +2570,6 @@ masterPilotDB['4lom'] = {
 
 masterPilotDB['zuckuss'] = {
     name = 'Zuckuss',
-    xws = 'zuckuss',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'g1astarfighter',
@@ -2830,7 +2581,6 @@ masterPilotDB['zuckuss'] = {
 
 masterPilotDB['gandfindsman'] = {
     name = 'Gand Findsman',
-    xws = 'gandfindsman',
     faction = 'scumandvillainy',
     ship_type = 'g1astarfighter',
     initiative = 1,
@@ -2841,7 +2591,6 @@ masterPilotDB['gandfindsman'] = {
 
 masterPilotDB['captainnym'] = {
     name = 'Captain Nym',
-    xws = 'captainnym',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'scurrgh6bomber',
@@ -2853,7 +2602,6 @@ masterPilotDB['captainnym'] = {
 
 masterPilotDB['solsixxa'] = {
     name = 'Sol Sixxa',
-    xws = 'solsixxa',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'scurrgh6bomber',
@@ -2864,7 +2612,6 @@ masterPilotDB['solsixxa'] = {
 
 masterPilotDB['lokrevenant'] = {
     name = 'Lok Revenant',
-    xws = 'lokrevenant',
     faction = 'scumandvillainy',
     ship_type = 'scurrgh6bomber',
     initiative = 2,
@@ -2874,7 +2621,6 @@ masterPilotDB['lokrevenant'] = {
 
 masterPilotDB['toranikulda'] = {
     name = 'Torani Kulda',
-    xws = 'toranikulda',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'm12lkimogilafighter',
@@ -2886,7 +2632,6 @@ masterPilotDB['toranikulda'] = {
 
 masterPilotDB['dalanoberos'] = {
     name = 'Dalan Oberos',
-    xws = 'dalanoberos',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'm12lkimogilafighter',
@@ -2899,7 +2644,6 @@ masterPilotDB['dalanoberos'] = {
 
 masterPilotDB['cartelexecutioner'] = {
     name = 'Cartel Executioner',
-    xws = 'cartelexecutioner',
     faction = 'scumandvillainy',
     ship_type = 'm12lkimogilafighter',
     initiative = 3,
@@ -2909,7 +2653,6 @@ masterPilotDB['cartelexecutioner'] = {
 
 masterPilotDB['bossk'] = {
     name = 'Bossk',
-    xws = 'bossk',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'yv666lightfreighter',
@@ -2921,7 +2664,6 @@ masterPilotDB['bossk'] = {
 
 masterPilotDB['moraloeval'] = {
     name = 'Moralo Eval',
-    xws = 'moraloeval',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'yv666lightfreighter',
@@ -2933,7 +2675,6 @@ masterPilotDB['moraloeval'] = {
 
 masterPilotDB['lattsrazzi'] = {
     name = 'Latts Razzi',
-    xws = 'lattsrazzi',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'yv666lightfreighter',
@@ -2945,7 +2686,6 @@ masterPilotDB['lattsrazzi'] = {
 
 masterPilotDB['trandoshanslaver'] = {
     name = 'Trandoshan Slaver',
-    xws = 'trandoshanslaver',
     faction = 'scumandvillainy',
     ship_type = 'yv666lightfreighter',
     initiative = 2,
@@ -2955,7 +2695,6 @@ masterPilotDB['trandoshanslaver'] = {
 
 masterPilotDB['dengar'] = {
     name = 'Dengar',
-    xws = 'dengar',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'jumpmaster5000',
@@ -2968,7 +2707,6 @@ masterPilotDB['dengar'] = {
 
 masterPilotDB['manaroo'] = {
     name = 'Manaroo',
-    xws = 'manaroo',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'jumpmaster5000',
@@ -2980,7 +2718,6 @@ masterPilotDB['manaroo'] = {
 
 masterPilotDB['teltrevura'] = {
     name = 'Tel Trevura',
-    xws = 'teltrevura',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'jumpmaster5000',
@@ -2992,7 +2729,6 @@ masterPilotDB['teltrevura'] = {
 
 masterPilotDB['contractedscout'] = {
     name = 'Contracted Scout',
-    xws = 'contractedscout',
     faction = 'scumandvillainy',
     ship_type = 'jumpmaster5000',
     initiative = 2,
@@ -3002,7 +2738,6 @@ masterPilotDB['contractedscout'] = {
 
 masterPilotDB['nomlumb'] = {
     name = 'Nom Lumb',
-    xws = 'nomlumb',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'jumpmaster5000',
@@ -3014,7 +2749,6 @@ masterPilotDB['nomlumb'] = {
 
 masterPilotDB['ketsuonyo'] = {
     name = 'Ketsu Onyo',
-    xws = 'ketsuonyo',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'lancerclasspursuitcraft',
@@ -3026,7 +2760,6 @@ masterPilotDB['ketsuonyo'] = {
 
 masterPilotDB['asajjventress'] = {
     name = 'Asajj Ventress',
-    xws = 'asajjventress',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'lancerclasspursuitcraft',
@@ -3039,7 +2772,6 @@ masterPilotDB['asajjventress'] = {
 
 masterPilotDB['sabinewren-lancerclasspursuitcraft'] = {
     name = 'Sabine Wren',
-    xws = 'sabinewren-lancerclasspursuitcraft',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'lancerclasspursuitcraft',
@@ -3051,7 +2783,6 @@ masterPilotDB['sabinewren-lancerclasspursuitcraft'] = {
 
 masterPilotDB['shadowporthunter'] = {
     name = 'Shadowport Hunter',
-    xws = 'shadowporthunter',
     faction = 'scumandvillainy',
     ship_type = 'lancerclasspursuitcraft',
     initiative = 2,
@@ -3062,7 +2793,6 @@ masterPilotDB['shadowporthunter'] = {
 
 masterPilotDB['hansolo'] = {
     name = 'Han Solo',
-    xws = 'hansolo',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'customizedyt1300lightfreighter',
@@ -3073,7 +2803,6 @@ masterPilotDB['hansolo'] = {
 
 masterPilotDB['landocalrissian'] = {
     name = 'Lando Calrissian',
-    xws = 'landocalrissian',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'customizedyt1300lightfreighter',
@@ -3084,7 +2813,6 @@ masterPilotDB['landocalrissian'] = {
 
 masterPilotDB['l337'] = {
     name = 'L3-37',
-    xws = 'l337',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'customizedyt1300lightfreighter',
@@ -3096,7 +2824,6 @@ masterPilotDB['l337'] = {
 
 masterPilotDB['freightercaptain'] = {
     name = 'Freighter Captain',
-    xws = 'freightercaptain',
     faction = 'scumandvillainy',
     ship_type = 'customizedyt1300lightfreighter',
     initiative = 1,
@@ -3106,7 +2833,6 @@ masterPilotDB['freightercaptain'] = {
 
 masterPilotDB['landocalrissian-escapecraft'] = {
     name = 'Lando Calrissian',
-    xws = 'landocalrissian-escapecraft',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'escapecraft',
@@ -3117,7 +2843,6 @@ masterPilotDB['landocalrissian-escapecraft'] = {
 
 masterPilotDB['outerrimpioneer'] = {
     name = 'Outer Rim Pioneer',
-    xws = 'outerrimpioneer',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'escapecraft',
@@ -3128,7 +2853,6 @@ masterPilotDB['outerrimpioneer'] = {
 
 masterPilotDB['l337-escapecraft'] = {
     name = 'L3-37',
-    xws = 'l337-escapecraft',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'escapecraft',
@@ -3140,7 +2864,6 @@ masterPilotDB['l337-escapecraft'] = {
 
 masterPilotDB['autopilotdrone'] = {
     name = 'Autopilot Drone',
-    xws = 'autopilotdrone',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'escapecraft',
@@ -3153,7 +2876,6 @@ masterPilotDB['autopilotdrone'] = {
 
 masterPilotDB['midnight'] = {
     name = '"Midnight"',
-    xws = 'midnight',
     limited = 1,
     faction = 'firstorder',
     ship_type = 'tiefofighter',
@@ -3165,7 +2887,6 @@ masterPilotDB['midnight'] = {
 
 masterPilotDB['scorch'] = {
     name = '"Scorch"',
-    xws = 'scorch',
     limited = 1,
     faction = 'firstorder',
     ship_type = 'tiefofighter',
@@ -3176,7 +2897,6 @@ masterPilotDB['scorch'] = {
 
 masterPilotDB['static'] = {
     name = '"Static"',
-    xws = 'static',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'tiefofighter',
@@ -3188,7 +2908,6 @@ masterPilotDB['static'] = {
 
 masterPilotDB['longshot'] = {
     name = '"Longshot"',
-    xws = 'longshot',
     limited = 1,
     faction = 'firstorder',
     ship_type = 'tiefofighter',
@@ -3201,7 +2920,6 @@ masterPilotDB['longshot'] = {
 masterPilotDB['muse'] = {
     limited = 1,
     name = '"Muse"',
-    xws = 'muse',
     faction = 'firstorder',
     ship_type = 'tiefofighter',
     shield = 1,
@@ -3213,7 +2931,6 @@ masterPilotDB['muse'] = {
 masterPilotDB['null'] = {
     limited = 1,
     name = '"Null"',
-    xws = 'null',
     faction = 'firstorder',
     ship_type = 'tiefofighter',
     shield = 1,
@@ -3224,7 +2941,6 @@ masterPilotDB['null'] = {
 
 masterPilotDB['omegasquadronace'] = {
     name = 'Omega Squadron Ace',
-    xws = 'omegasquadronace',
     faction = 'firstorder',
     ship_type = 'tiefofighter',
     shield = 1,
@@ -3235,7 +2951,6 @@ masterPilotDB['omegasquadronace'] = {
 
 masterPilotDB['zetasquadronpilot'] = {
     name = 'Zeta Squadron Pilot',
-    xws = 'zetasquadronpilot',
     faction = 'firstorder',
     ship_type = 'tiefofighter',
     shield = 1,
@@ -3246,7 +2961,6 @@ masterPilotDB['zetasquadronpilot'] = {
 
 masterPilotDB['epsilonsquadroncadet'] = {
     name = 'Epsilon Squadron Cadet',
-    xws = 'epsilonsquadroncadet',
     faction = 'firstorder',
     ship_type = 'tiefofighter',
     shield = 1,
@@ -3258,7 +2972,6 @@ masterPilotDB['epsilonsquadroncadet'] = {
 masterPilotDB['quickdraw'] = {
     limited = 1,
     name = '"Quickdraw"',
-    xws = 'quickdraw',
     faction = 'firstorder',
     ship_type = 'tiesffighter',
     charge = 1,
@@ -3270,7 +2983,6 @@ masterPilotDB['quickdraw'] = {
 masterPilotDB['backdraft'] = {
     limited = 1,
     name = '"Backdraft"',
-    xws = 'backdraft',
     faction = 'firstorder',
     ship_type = 'tiesffighter',
     shield = 3,
@@ -3281,7 +2993,6 @@ masterPilotDB['backdraft'] = {
 
 masterPilotDB['omegasquadronexpert'] = {
     name = 'Omega Squadron Expert',
-    xws = 'omegasquadronexpert',
     faction = 'firstorder',
     ship_type = 'tiesffighter',
     shield = 3,
@@ -3292,7 +3003,6 @@ masterPilotDB['omegasquadronexpert'] = {
 
 masterPilotDB['zetasquadronsurvivor'] = {
     name = 'Zeta Squadron Survivor',
-    xws = 'zetasquadronsurvivor',
     faction = 'firstorder',
     ship_type = 'tiesffighter',
     shield = 3,
@@ -3303,7 +3013,6 @@ masterPilotDB['zetasquadronsurvivor'] = {
 
 masterPilotDB['lieutenantlehuse'] = {
     name = 'Lieutenant LeHuse',
-    xws = 'lieutenantlehuse',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'tiesffighter',
@@ -3314,7 +3023,6 @@ masterPilotDB['lieutenantlehuse'] = {
 
 masterPilotDB['captainphasma'] = {
     name = 'Captain Phasma',
-    xws = 'captainphasma',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'tiesffighter',
@@ -3325,7 +3033,6 @@ masterPilotDB['captainphasma'] = {
 
 masterPilotDB['majorstridan'] = {
     name = 'Major Stridan',
-    xws = 'majorstridan',
     limited = 1,
     faction = 'firstorder',
     ship_type = 'upsilonclasscommandshuttle',
@@ -3337,7 +3044,6 @@ masterPilotDB['majorstridan'] = {
 
 masterPilotDB['lieutenanttavson'] = {
     name = 'Lieutenant Tavson',
-    xws = 'lieutenanttavson',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'upsilonclasscommandshuttle',
@@ -3350,7 +3056,6 @@ masterPilotDB['lieutenanttavson'] = {
 
 masterPilotDB['lieutenantdormitz'] = {
     name = 'Lieutenant Dormitz',
-    xws = 'lieutenantdormitz',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'upsilonclasscommandshuttle',
@@ -3362,7 +3067,6 @@ masterPilotDB['lieutenantdormitz'] = {
 
 masterPilotDB['starkillerbasepilot'] = {
     name = 'Starkiller Base Pilot',
-    xws = 'starkillerbasepilot',
     faction = 'firstorder',
     ship_type = 'upsilonclasscommandshuttle',
     shield = 6,
@@ -3373,7 +3077,6 @@ masterPilotDB['starkillerbasepilot'] = {
 
 masterPilotDB['kyloren'] = {
     name = 'Kylo Ren',
-    xws = 'kyloren',
     condition = "I'll Show You the Dark Side",
     faction = 'firstorder',
     limited = 1,
@@ -3388,7 +3091,6 @@ masterPilotDB['kyloren'] = {
 
 masterPilotDB['blackout'] = {
     name = '"Blackout"',
-    xws = 'blackout',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'tievnsilencer',
@@ -3400,7 +3102,6 @@ masterPilotDB['blackout'] = {
 
 masterPilotDB['firstordertestpilot'] = {
     name = 'First Order Test Pilot',
-    xws = 'firstordertestpilot',
     faction = 'firstorder',
     ship_type = 'tievnsilencer',
     shield = 2,
@@ -3411,7 +3112,6 @@ masterPilotDB['firstordertestpilot'] = {
 
 masterPilotDB['sienarjaemusengineer'] = {
     name = 'Sienar-Jaemus Engineer',
-    xws = 'sienarjaemusengineer',
     faction = 'firstorder',
     ship_type = 'tievnsilencer',
     shield = 2,
@@ -3422,7 +3122,6 @@ masterPilotDB['sienarjaemusengineer'] = {
 
 masterPilotDB['rush'] = {
     name = '"Rush"',
-    xws = 'rush',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'tievnsilencer',
@@ -3433,7 +3132,6 @@ masterPilotDB['rush'] = {
 
 masterPilotDB['poedameron'] = {
     name = 'Poe Dameron',
-    xws = 'poedameron',
     title = 'Trigger-Happy Flyboy',
     limited = 1,
     faction = 'resistance',
@@ -3447,7 +3145,6 @@ masterPilotDB['poedameron'] = {
 
 masterPilotDB['elloasty'] = {
     name = 'Ello Asty',
-    xws = 'elloasty',
     limited = 1,
     faction = 'resistance',
     ship_type = 't70xwing',
@@ -3459,7 +3156,6 @@ masterPilotDB['elloasty'] = {
 
 masterPilotDB['niennunb'] = {
     name = 'Nien Nunb',
-    xws = 'niennunb',
     limited = 1,
     faction = 'resistance',
     ship_type = 't70xwing',
@@ -3471,7 +3167,6 @@ masterPilotDB['niennunb'] = {
 
 masterPilotDB['karekun'] = {
     name = 'Kare Kun',
-    xws = 'karekun',
     limited = 1,
     faction = 'resistance',
     ship_type = 't70xwing',
@@ -3483,7 +3178,6 @@ masterPilotDB['karekun'] = {
 
 masterPilotDB['temminwexley'] = {
     name = 'Temmin Wexley',
-    xws = 'temminwexley',
     title = 'Snap',
     limited = 1,
     faction = 'resistance',
@@ -3496,7 +3190,6 @@ masterPilotDB['temminwexley'] = {
 
 masterPilotDB['jessikapava'] = {
     name = 'Jessika Pava',
-    xws = 'jessikapava',
     limited = 1,
     faction = 'resistance',
     ship_type = 't70xwing',
@@ -3509,7 +3202,6 @@ masterPilotDB['jessikapava'] = {
 
 masterPilotDB['jophseastriker'] = {
     name = 'Joph Seastriker',
-    xws = 'jophseastriker',
     limited = 1,
     faction = 'resistance',
     ship_type = 't70xwing',
@@ -3521,7 +3213,6 @@ masterPilotDB['jophseastriker'] = {
 
 masterPilotDB['redsquadronexpert'] = {
     name = 'Red Squadron Expert',
-    xws = 'redsquadronexpert',
     faction = 'resistance',
     ship_type = 't70xwing',
     add_slots = { 'Weapon Hardpoint' },
@@ -3532,7 +3223,6 @@ masterPilotDB['redsquadronexpert'] = {
 
 masterPilotDB['bluesquadronrookie'] = {
     name = 'Blue Squadron Rookie',
-    xws = 'bluesquadronrookie',
     faction = 'resistance',
     ship_type = 't70xwing',
     add_slots = { 'Weapon Hardpoint' },
@@ -3544,7 +3234,6 @@ masterPilotDB['bluesquadronrookie'] = {
 
 masterPilotDB['nimichireen'] = {
     name = 'Nimi Chireen',
-    xws = 'nimichireen',
     limited = 1,
     faction = 'resistance',
     ship_type = 't70xwing',
@@ -3556,7 +3245,6 @@ masterPilotDB['nimichireen'] = {
 
 masterPilotDB['caithrenalli'] = {
     name = "C'ai Threnalli",
-    xws = 'caithrenalli',
     limited = 1,
     faction = 'resistance',
     ship_type = 't70xwing',
@@ -3570,7 +3258,6 @@ masterPilotDB['caithrenalli'] = {
 
 masterPilotDB['temminwexley-swz68'] = {
     name = "Temmin Wexley",
-    xws = 'temminwexley-swz68',
     title = "Black Two",
     limited = 1,
     faction = 'resistance',
@@ -3584,7 +3271,6 @@ masterPilotDB['temminwexley-swz68'] = {
 
 masterPilotDB['poedameron-swz68'] = {
     name = "Poe Dameron",
-    xws = 'poedameron-swz68',
     title = "Resistance Commander",
     limited = 1,
     faction = 'resistance',
@@ -3598,7 +3284,6 @@ masterPilotDB['poedameron-swz68'] = {
 
 masterPilotDB['hansolo-scavengedyt1300'] = {
     name = "Han Solo",
-    xws = 'hansolo-scavengedyt1300',
     faction = 'resistance',
     limited = 1,
     ship_type = 'scavengedyt1300lightfreighter',
@@ -3609,7 +3294,6 @@ masterPilotDB['hansolo-scavengedyt1300'] = {
 
 masterPilotDB['rey'] = {
     name = "Rey",
-    xws = 'rey',
     faction = 'resistance',
     limited = 1,
     ship_type = 'scavengedyt1300lightfreighter',
@@ -3622,7 +3306,6 @@ masterPilotDB['rey'] = {
 
 masterPilotDB['chewbacca-scavengedyt1300'] = {
     name = "Chewbacca",
-    xws = 'chewbacca-scavengedyt1300',
     faction = 'resistance',
     limited = 1,
     ship_type = 'scavengedyt1300lightfreighter',
@@ -3633,7 +3316,6 @@ masterPilotDB['chewbacca-scavengedyt1300'] = {
 
 masterPilotDB['resistancesympathizer'] = {
     name = "Resistance Sympathizer",
-    xws = 'resistancesympathizer',
     faction = 'resistance',
     ship_type = 'scavengedyt1300lightfreighter',
     initiative = 2,
@@ -3643,7 +3325,6 @@ masterPilotDB['resistancesympathizer'] = {
 
 masterPilotDB['finchdallow'] = {
     name = "Finch Dallow",
-    xws = 'finchdallow',
     faction = 'resistance',
     limited = 1,
     ship_type = 'mg100starfortress',
@@ -3654,7 +3335,6 @@ masterPilotDB['finchdallow'] = {
 
 masterPilotDB['benteene'] = {
     name = "Ben Teene",
-    xws = 'benteene',
     condition = "Rattled",
     faction = 'resistance',
     limited = 1,
@@ -3666,7 +3346,6 @@ masterPilotDB['benteene'] = {
 
 masterPilotDB['cat'] = {
     name = "Cat",
-    xws = 'cat',
     faction = 'resistance',
     limited = 1,
     ship_type = 'mg100starfortress',
@@ -3677,7 +3356,6 @@ masterPilotDB['cat'] = {
 
 masterPilotDB['cobaltsquadronbomber'] = {
     name = "Cobalt Squadron Bomber",
-    xws = 'cobaltsquadronbomber',
     faction = 'resistance',
     ship_type = 'mg100starfortress',
     initiative = 1,
@@ -3687,7 +3365,6 @@ masterPilotDB['cobaltsquadronbomber'] = {
 
 masterPilotDB['lulolampar'] = {
     name = "L'ulo L'ampar",
-    xws = 'lulolampar',
     faction = 'resistance',
     limited = 1,
     ship_type = 'rz2awing',
@@ -3698,7 +3375,6 @@ masterPilotDB['lulolampar'] = {
 
 masterPilotDB['tallissanlintra'] = {
     name = "Tallissan Lintra",
-    xws = 'tallissanlintra',
     faction = 'resistance',
     limited = 1,
     ship_type = 'rz2awing',
@@ -3710,7 +3386,6 @@ masterPilotDB['tallissanlintra'] = {
 
 masterPilotDB['greersonnel'] = {
     name = "Greer Sonnel",
-    xws = 'greersonnel',
     faction = 'resistance',
     limited = 1,
     ship_type = 'rz2awing',
@@ -3721,7 +3396,6 @@ masterPilotDB['greersonnel'] = {
 
 masterPilotDB['zaribangel'] = {
     name = "Zari Bangel",
-    xws = 'zaribangel',
     faction = 'resistance',
     limited = 1,
     ship_type = 'rz2awing',
@@ -3732,7 +3406,6 @@ masterPilotDB['zaribangel'] = {
 
 masterPilotDB['greensquadronexpert'] = {
     name = "Green Squadron Expert",
-    xws = 'greensquadronexpert',
     faction = 'resistance',
     ship_type = 'rz2awing',
     initiative = 3,
@@ -3742,7 +3415,6 @@ masterPilotDB['greensquadronexpert'] = {
 
 masterPilotDB['bluesquadronrecruit'] = {
     name = "Blue Squadron Recruit",
-    xws = 'bluesquadronrecruit',
     faction = 'resistance',
     ship_type = 'rz2awing',
     initiative = 1,
@@ -3752,7 +3424,6 @@ masterPilotDB['bluesquadronrecruit'] = {
 
 masterPilotDB['zizitlo'] = {
     name = "Zizi Tlo",
-    xws = 'zizitlo',
     faction = 'resistance',
     limited = 1,
     ship_type = 'rz2awing',
@@ -3764,7 +3435,6 @@ masterPilotDB['zizitlo'] = {
 
 masterPilotDB['ronithblario'] = {
     name = "Ronith Blario",
-    xws = 'ronithblario',
     faction = 'resistance',
     limited = 1,
     ship_type = 'rz2awing',
@@ -3776,7 +3446,6 @@ masterPilotDB['ronithblario'] = {
 
 masterPilotDB['seftinvanik'] = {
     name = "Seftin Vanik",
-    xws = 'seftinvanik',
     limited = 1,
     faction = 'resistance',
     ship_type = 'rz2awing',
@@ -3787,7 +3456,6 @@ masterPilotDB['seftinvanik'] = {
 
 masterPilotDB['merlcobben'] = {
     name = "Merl Cobben",
-    xws = 'merlcobben',
     limited = 1,
     faction = 'resistance',
     ship_type = 'rz2awing',
@@ -3798,7 +3466,6 @@ masterPilotDB['merlcobben'] = {
 
 masterPilotDB['suralindajavos'] = {
     name = "Suralinda Javos",
-    xws = 'suralindajavos',
     limited = 1,
     faction = 'resistance',
     ship_type = 'rz2awing',
@@ -3809,7 +3476,6 @@ masterPilotDB['suralindajavos'] = {
 
 masterPilotDB['wrobietyce'] = {
     name = "Wrobie Tyce",
-    xws = 'wrobietyce',
     limited = 1,
     faction = 'resistance',
     ship_type = 'rz2awing',
@@ -3821,7 +3487,6 @@ masterPilotDB['wrobietyce'] = {
 
 masterPilotDB['foremanproach'] = {
     name = 'Foreman Proach',
-    xws = 'foremanproach',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'modifiedtielnfighter',
@@ -3832,7 +3497,6 @@ masterPilotDB['foremanproach'] = {
 
 masterPilotDB['ahhav'] = {
     name = 'Ahhav',
-    xws = 'ahhav',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'modifiedtielnfighter',
@@ -3843,7 +3507,6 @@ masterPilotDB['ahhav'] = {
 
 masterPilotDB['captainseevor'] = {
     name = 'Captain Seevor',
-    xws = 'captainseevor',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'modifiedtielnfighter',
@@ -3855,7 +3518,6 @@ masterPilotDB['captainseevor'] = {
 
 masterPilotDB['overseeryushyn'] = {
     name = 'Overseer Yushyn',
-    xws = 'overseeryushyn',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'modifiedtielnfighter',
@@ -3867,7 +3529,6 @@ masterPilotDB['overseeryushyn'] = {
 
 masterPilotDB['miningguildsurveyor'] = {
     name = 'Mining Guild Surveyor',
-    xws = 'miningguildsurveyor',
     faction = 'scumandvillainy',
     ship_type = 'modifiedtielnfighter',
     initiative = 2,
@@ -3877,7 +3538,6 @@ masterPilotDB['miningguildsurveyor'] = {
 
 masterPilotDB['miningguildsentry'] = {
     name = 'Mining Guild Sentry',
-    xws = 'miningguildsentry',
     faction = 'scumandvillainy',
     ship_type = 'modifiedtielnfighter',
     initiative = 1,
@@ -3887,7 +3547,6 @@ masterPilotDB['miningguildsentry'] = {
 
 masterPilotDB['edonkappehl'] = {
     name = "Edon Kappehl",
-    xws = 'edonkappehl',
     faction = 'resistance',
     limited = 1,
     ship_type = 'mg100starfortress',
@@ -3898,7 +3557,6 @@ masterPilotDB['edonkappehl'] = {
 
 masterPilotDB['vennie'] = {
     name = "Vennie",
-    xws = 'vennie',
     faction = 'resistance',
     limited = 1,
     ship_type = 'mg100starfortress',
@@ -3909,7 +3567,6 @@ masterPilotDB['vennie'] = {
 
 masterPilotDB['paigetico'] = {
     name = "Paige Tico",
-    xws = 'paigetico',
     faction = 'resistance',
     limited = 1,
     ship_type = 'mg100starfortress',
@@ -3921,7 +3578,6 @@ masterPilotDB['paigetico'] = {
 
 masterPilotDB['lieutenantbastian'] = {
     name = 'Lieutenant Bastian',
-    xws = 'lieutenantbastian',
     limited = 1,
     faction = 'resistance',
     ship_type = 't70xwing',
@@ -3932,7 +3588,6 @@ masterPilotDB['lieutenantbastian'] = {
 
 masterPilotDB['jaycristubbs'] = {
     name = 'Jaycris Tubbs',
-    xws = 'jaycristubbs',
     limited = 1,
     faction = 'resistance',
     ship_type = 't70xwing',
@@ -3943,7 +3598,6 @@ masterPilotDB['jaycristubbs'] = {
 
 masterPilotDB['blacksquadronace-t70xwing'] = {
     name = 'Black Squadron Ace',
-    xws = 'blacksquadronace-t70xwing',
     faction = 'resistance',
     ship_type = 't70xwing',
     initiative = 4,
@@ -3953,7 +3607,6 @@ masterPilotDB['blacksquadronace-t70xwing'] = {
 
 masterPilotDB['commandermalarus'] = {
     name = 'Commander Malarus',
-    xws = 'commandermalarus',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'tiefofighter',
@@ -3965,7 +3618,6 @@ masterPilotDB['commandermalarus'] = {
 
 masterPilotDB['tn3465'] = {
     name = 'TN-3465',
-    xws = 'tn3465',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'tiefofighter',
@@ -3976,7 +3628,6 @@ masterPilotDB['tn3465'] = {
 
 masterPilotDB['lieutenantrivas'] = {
     name = 'Lieutenant Rivas',
-    xws = 'lieutenantrivas',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'tiefofighter',
@@ -3987,7 +3638,6 @@ masterPilotDB['lieutenantrivas'] = {
 
 masterPilotDB['recoil'] = {
     name = '"Recoil"',
-    xws = 'recoil',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'tievnsilencer',
@@ -3998,7 +3648,6 @@ masterPilotDB['recoil'] = {
 
 masterPilotDB['avenger'] = {
     name = '"Avenger"',
-    xws = 'avenger',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'tievnsilencer',
@@ -4009,7 +3658,6 @@ masterPilotDB['avenger'] = {
 
 masterPilotDB['captaincardinal'] = {
     name = 'Captain Cardinal',
-    xws = 'captaincardinal',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'upsilonclasscommandshuttle',
@@ -4021,7 +3669,6 @@ masterPilotDB['captaincardinal'] = {
 
 masterPilotDB['pettyofficerthanisson'] = {
     name = 'Petty Officer Thanisson',
-    xws = 'pettyofficerthanisson',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'upsilonclasscommandshuttle',
@@ -4035,7 +3682,6 @@ masterPilotDB['pettyofficerthanisson'] = {
 
 masterPilotDB['generalgrievous'] = {
     name = 'General Grievous',
-    xws = 'generalgrievous',
     faction = 'separatistalliance',
     limited = 1,
     ship_type = 'belbulab22starfighter',
@@ -4046,7 +3692,6 @@ masterPilotDB['generalgrievous'] = {
 
 masterPilotDB['wattambor'] = {
     name = 'Wat Tambor',
-    xws = 'wattambor',
     faction = 'separatistalliance',
     limited = 1,
     ship_type = 'belbulab22starfighter',
@@ -4057,7 +3702,6 @@ masterPilotDB['wattambor'] = {
 
 masterPilotDB['captainsear'] = {
     name = 'Captain Sear',
-    xws = 'captainsear',
     faction = 'separatistalliance',
     limited = 1,
     ship_type = 'belbulab22starfighter',
@@ -4067,7 +3711,6 @@ masterPilotDB['captainsear'] = {
 }
 masterPilotDB['skakoanace'] = {
     name = 'Skakoan Ace',
-    xws = 'skakoanace',
     faction = 'separatistalliance',
     ship_type = 'belbulab22starfighter',
     initiative = 3,
@@ -4077,7 +3720,6 @@ masterPilotDB['skakoanace'] = {
 
 masterPilotDB['feethanottrawautopilot'] = {
     name = 'Feethan Ottraw Autopilot',
-    xws = 'feethanottrawautopilot',
     faction = 'separatistalliance',
     ship_type = 'belbulab22starfighter',
     initiative = 1,
@@ -4088,7 +3730,6 @@ masterPilotDB['feethanottrawautopilot'] = {
 
 masterPilotDB['separatistdrone'] = {
     name = 'Separatist Drone',
-    xws = 'separatistdrone',
     faction = 'separatistalliance',
     ship_type = 'vultureclassdroidfighter',
     initiative = 3,
@@ -4098,7 +3739,6 @@ masterPilotDB['separatistdrone'] = {
 
 masterPilotDB['tradefederationdrone'] = {
     name = 'Trade Federation Drone',
-    xws = 'tradefederationdrone',
     faction = 'separatistalliance',
     ship_type = 'vultureclassdroidfighter',
     initiative = 1,
@@ -4108,7 +3748,6 @@ masterPilotDB['tradefederationdrone'] = {
 
 masterPilotDB['dfs081'] = {
     name = 'DFS-081',
-    xws = 'dfs081',
     faction = 'separatistalliance',
     limited = 1,
     ship_type = 'vultureclassdroidfighter',
@@ -4119,7 +3758,6 @@ masterPilotDB['dfs081'] = {
 
 masterPilotDB['precisehunter'] = {
     name = 'Precise Hunter',
-    xws = 'precisehunter',
     faction = 'separatistalliance',
     limited = 3,
     ship_type = 'vultureclassdroidfighter',
@@ -4130,7 +3768,6 @@ masterPilotDB['precisehunter'] = {
 
 masterPilotDB['dfs311'] = {
     name = 'DFS-311',
-    xws = 'dfs311',
     faction = 'separatistalliance',
     limited = 1,
     ship_type = 'vultureclassdroidfighter',
@@ -4141,7 +3778,6 @@ masterPilotDB['dfs311'] = {
 
 masterPilotDB['haorchallprototype'] = {
     name = 'Haor Chall Prototype',
-    xws = 'haorchallprototype',
     faction = 'separatistalliance',
     limited = 2,
     ship_type = 'vultureclassdroidfighter',
@@ -4152,7 +3788,6 @@ masterPilotDB['haorchallprototype'] = {
 
 masterPilotDB['darthmaul'] = {
     name = 'Darth Maul',
-    xws = 'darthmaul',
     faction = 'separatistalliance',
     limited = 1,
     ship_type = 'sithinfiltrator',
@@ -4165,7 +3800,6 @@ masterPilotDB['darthmaul'] = {
 
 masterPilotDB['countdooku'] = {
     name = 'Count Dooku',
-    xws = 'countdooku',
     faction = 'separatistalliance',
     limited = 1,
     ship_type = 'sithinfiltrator',
@@ -4178,7 +3812,6 @@ masterPilotDB['countdooku'] = {
 
 masterPilotDB['066'] = {
     name = 'O-66',
-    xws = '066',
     faction = 'separatistalliance',
     limited = 1,
     ship_type = 'sithinfiltrator',
@@ -4190,7 +3823,6 @@ masterPilotDB['066'] = {
 
 masterPilotDB['darkcourier'] = {
     name = 'Dark Courier',
-    xws = 'darkcourier',
     faction = 'separatistalliance',
     ship_type = 'sithinfiltrator',
     initiative = 2,
@@ -4200,7 +3832,6 @@ masterPilotDB['darkcourier'] = {
 
 masterPilotDB['anakinskywalker'] = {
     name = 'Anakin Skywalker',
-    xws = 'anakinskywalker',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7aethersprite',
@@ -4213,7 +3844,6 @@ masterPilotDB['anakinskywalker'] = {
 
 masterPilotDB['luminaraunduli'] = {
     name = 'Luminara Unduli',
-    xws = 'luminaraunduli',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7aethersprite',
@@ -4226,7 +3856,6 @@ masterPilotDB['luminaraunduli'] = {
 
 masterPilotDB['barrissoffee'] = {
     name = 'Barriss Offee',
-    xws = 'barrissoffee',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7aethersprite',
@@ -4239,7 +3868,6 @@ masterPilotDB['barrissoffee'] = {
 
 masterPilotDB['ahsokatano'] = {
     name = 'Ahsoka Tano',
-    xws = 'ahsokatano',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7aethersprite',
@@ -4252,7 +3880,6 @@ masterPilotDB['ahsokatano'] = {
 
 masterPilotDB['obiwankenobi'] = {
     name = 'Obi-Wan Kenobi',
-    xws = 'obiwankenobi',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7aethersprite',
@@ -4265,7 +3892,6 @@ masterPilotDB['obiwankenobi'] = {
 
 masterPilotDB['macewindu'] = {
     name = 'Mace Windu',
-    xws = 'macewindu',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7aethersprite',
@@ -4278,7 +3904,6 @@ masterPilotDB['macewindu'] = {
 
 masterPilotDB['plokoon'] = {
     name = 'Plo Koon',
-    xws = 'plokoon',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7aethersprite',
@@ -4291,7 +3916,6 @@ masterPilotDB['plokoon'] = {
 
 masterPilotDB['saeseetiin'] = {
     name = 'Saesee Tiin',
-    xws = 'saeseetiin',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7aethersprite',
@@ -4304,7 +3928,6 @@ masterPilotDB['saeseetiin'] = {
 
 masterPilotDB['jediknight'] = {
     name = 'Jedi Knight',
-    xws = 'jediknight',
     faction = 'galacticrepublic',
     ship_type = 'delta7aethersprite',
     force = 1,
@@ -4318,7 +3941,6 @@ masterPilotDB['jediknight'] = {
 
 masterPilotDB['oddball'] = {
     name = '"Odd Ball"',
-    xws = 'oddball',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'v19torrentstarfighter',
@@ -4330,7 +3952,6 @@ masterPilotDB['oddball'] = {
 
 masterPilotDB['kickback'] = {
     name = '"Kickback"',
-    xws = 'kickback',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'v19torrentstarfighter',
@@ -4342,7 +3963,6 @@ masterPilotDB['kickback'] = {
 
 masterPilotDB['axe'] = {
     name = '"Axe"',
-    xws = 'axe',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'v19torrentstarfighter',
@@ -4354,7 +3974,6 @@ masterPilotDB['axe'] = {
 
 masterPilotDB['swoop'] = {
     name = '"Swoop"',
-    xws = 'swoop',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'v19torrentstarfighter',
@@ -4366,7 +3985,6 @@ masterPilotDB['swoop'] = {
 
 masterPilotDB['tucker'] = {
     name = '"Tucker"',
-    xws = 'tucker',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'v19torrentstarfighter',
@@ -4378,7 +3996,6 @@ masterPilotDB['tucker'] = {
 
 masterPilotDB['bluesquadronprotector'] = {
     name = 'Blue Squadron Protector',
-    xws = 'bluesquadronprotector',
     faction = 'galacticrepublic',
     ship_type = 'v19torrentstarfighter',
     initiative = 3,
@@ -4389,7 +4006,6 @@ masterPilotDB['bluesquadronprotector'] = {
 
 masterPilotDB['goldsquadrontrooper'] = {
     name = 'Gold Squadron Trooper',
-    xws = 'goldsquadrontrooper',
     faction = 'galacticrepublic',
     ship_type = 'v19torrentstarfighter',
     initiative = 2,
@@ -4400,7 +4016,6 @@ masterPilotDB['goldsquadrontrooper'] = {
 
 masterPilotDB['oddball-arc170starfighter'] = {
     name = '"Odd Ball"',
-    xws = 'oddball-arc170starfighter',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'arc170starfighter',
@@ -4412,7 +4027,6 @@ masterPilotDB['oddball-arc170starfighter'] = {
 
 masterPilotDB['wolffe'] = {
     name = '"Wolffe"',
-    xws = 'wolffe',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'arc170starfighter',
@@ -4425,7 +4039,6 @@ masterPilotDB['wolffe'] = {
 
 masterPilotDB['jag'] = {
     name = '"Jag"',
-    xws = 'jag',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'arc170starfighter',
@@ -4437,7 +4050,6 @@ masterPilotDB['jag'] = {
 
 masterPilotDB['sinker'] = {
     name = '"Sinker"',
-    xws = 'sinker',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'arc170starfighter',
@@ -4449,7 +4061,6 @@ masterPilotDB['sinker'] = {
 
 masterPilotDB['squadsevenveteran'] = {
     name = 'Squad Seven Veteran',
-    xws = 'squadsevenveteran',
     faction = 'galacticrepublic',
     ship_type = 'arc170starfighter',
     initiative = 3,
@@ -4460,7 +4071,6 @@ masterPilotDB['squadsevenveteran'] = {
 
 masterPilotDB['104thbattalionpilot'] = {
     name = '104th Battalion Pilot',
-    xws = '104thbattalionpilot',
     faction = 'galacticrepublic',
     ship_type = 'arc170starfighter',
     initiative = 2,
@@ -4473,7 +4083,6 @@ masterPilotDB['104thbattalionpilot'] = {
 --N-1
 masterPilotDB['ricolie'] = {
     name = 'Ric OliÃ©',
-    xws = 'ricolie',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'nabooroyaln1starfighter',
@@ -4484,7 +4093,6 @@ masterPilotDB['ricolie'] = {
 
 masterPilotDB['anakinskywalker-nabooroyaln1starfighter'] = {
     name = 'Anakin Skywalker',
-    xws = 'anakinskywalker-nabooroyaln1starfighter',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'nabooroyaln1starfighter',
@@ -4497,7 +4105,6 @@ masterPilotDB['anakinskywalker-nabooroyaln1starfighter'] = {
 
 masterPilotDB['padmeamidala'] = {
     name = 'PadmÃ© Amidala',
-    xws = 'padmeamidala',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'nabooroyaln1starfighter',
@@ -4508,7 +4115,6 @@ masterPilotDB['padmeamidala'] = {
 
 masterPilotDB['dineeellberger'] = {
     name = 'DineÃ© Ellberger',
-    xws = 'dineeellberger',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'nabooroyaln1starfighter',
@@ -4519,7 +4125,6 @@ masterPilotDB['dineeellberger'] = {
 
 masterPilotDB['naboohandmaiden'] = {
     name = 'Naboo Handmaiden',
-    xws = 'naboohandmaiden',
     faction = 'galacticrepublic',
     limited = 2,
     ship_type = 'nabooroyaln1starfighter',
@@ -4531,7 +4136,6 @@ masterPilotDB['naboohandmaiden'] = {
 
 masterPilotDB['bravoflightofficer'] = {
     name = 'Bravo Flight Officer',
-    xws = 'bravoflightofficer',
     faction = 'galacticrepublic',
     ship_type = 'nabooroyaln1starfighter',
     initiative = 2,
@@ -4542,7 +4146,6 @@ masterPilotDB['bravoflightofficer'] = {
 --Resistance Transport
 masterPilotDB['covanell'] = {
     name = 'Cova Nell',
-    xws = 'covanell',
     faction = 'resistance',
     limited = 1,
     ship_type = 'resistancetransport',
@@ -4553,7 +4156,6 @@ masterPilotDB['covanell'] = {
 
 masterPilotDB['pammichnerrogoode'] = {
     name = 'Pammich Nerro Goode',
-    xws = 'pammichnerrogoode',
     faction = 'resistance',
     limited = 1,
     ship_type = 'resistancetransport',
@@ -4564,7 +4166,6 @@ masterPilotDB['pammichnerrogoode'] = {
 
 masterPilotDB['nodinchavdri'] = {
     name = 'Nodin Chavdri',
-    xws = 'nodinchavdri',
     faction = 'resistance',
     limited = 1,
     ship_type = 'resistancetransport',
@@ -4575,7 +4176,6 @@ masterPilotDB['nodinchavdri'] = {
 
 masterPilotDB['logisticsdivisionpilot'] = {
     name = 'Logistics Division Pilot',
-    xws = 'logisticsdivisionpilot',
     faction = 'resistance',
     ship_type = 'resistancetransport',
     initiative = 1,
@@ -4585,7 +4185,6 @@ masterPilotDB['logisticsdivisionpilot'] = {
 
 masterPilotDB['rosetico'] = {
     name = 'Rose Tico',
-    xws = 'rosetico',
     faction = 'resistance',
     limited = 1,
     ship_type = 'resistancetransportpod',
@@ -4596,7 +4195,6 @@ masterPilotDB['rosetico'] = {
 
 masterPilotDB['bb8'] = {
     name = 'BB-8',
-    xws = 'bb8',
     faction = 'resistance',
     limited = 1,
     ship_type = 'resistancetransportpod',
@@ -4608,7 +4206,6 @@ masterPilotDB['bb8'] = {
 
 masterPilotDB['finn'] = {
     name = 'Finn',
-    xws = 'finn',
     faction = 'resistance',
     limited = 1,
     ship_type = 'resistancetransportpod',
@@ -4619,7 +4216,6 @@ masterPilotDB['finn'] = {
 
 masterPilotDB['vimoradi'] = {
     name = 'Vi Moradi',
-    xws = 'vimoradi',
     faction = 'resistance',
     limited = 1,
     ship_type = 'resistancetransportpod',
@@ -4631,7 +4227,6 @@ masterPilotDB['vimoradi'] = {
 
 masterPilotDB['dbs404'] = {
     name = 'DBS-404',
-    xws = 'dbs404',
     faction = 'separatistalliance',
     limited = 1,
     ship_type = 'hyenaclassdroidbomber',
@@ -4642,7 +4237,6 @@ masterPilotDB['dbs404'] = {
 
 masterPilotDB['dbs32c'] = {
     name = 'DBS-32C',
-    xws = 'dbs32c',
     faction = 'separatistalliance',
     limited = 1,
     ship_type = 'hyenaclassdroidbomber',
@@ -4653,7 +4247,6 @@ masterPilotDB['dbs32c'] = {
 
 masterPilotDB['bombardmentdrone'] = {
     name = 'Bombardment Drone',
-    xws = 'bombardmentdrone',
     faction = 'separatistalliance',
     limited = 3,
     ship_type = 'hyenaclassdroidbomber',
@@ -4664,7 +4257,6 @@ masterPilotDB['bombardmentdrone'] = {
 
 masterPilotDB['baktoidprototype'] = {
     name = 'Baktoid Prototype',
-    xws = 'baktoidprototype',
     faction = 'separatistalliance',
     limited = 2,
     ship_type = 'hyenaclassdroidbomber',
@@ -4675,7 +4267,6 @@ masterPilotDB['baktoidprototype'] = {
 
 masterPilotDB['separatistbomber'] = {
     name = 'Separatist Bomber',
-    xws = 'separatistbomber',
     faction = 'separatistalliance',
     ship_type = 'hyenaclassdroidbomber',
     initiative = 3,
@@ -4685,7 +4276,6 @@ masterPilotDB['separatistbomber'] = {
 
 masterPilotDB['technounionbomber'] = {
     name = 'Techno Union Bomber',
-    xws = 'technounionbomber',
     faction = 'separatistalliance',
     ship_type = 'hyenaclassdroidbomber',
     initiative = 1,
@@ -4696,7 +4286,6 @@ masterPilotDB['technounionbomber'] = {
 --Republic Y-Wing
 masterPilotDB['anakinskywalker-btlbywing'] = {
     name = 'Anakin Skywalker',
-    xws = 'anakinskywalker-btlbywing',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'btlbywing',
@@ -4709,7 +4298,6 @@ masterPilotDB['anakinskywalker-btlbywing'] = {
 
 masterPilotDB['oddball-btlbywing'] = {
     name = '"Odd Ball"',
-    xws = 'oddball-btlbywing',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'btlbywing',
@@ -4721,7 +4309,6 @@ masterPilotDB['oddball-btlbywing'] = {
 
 masterPilotDB['matchstick'] = {
     name = '"Matchstick"',
-    xws = 'matchstick',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'btlbywing',
@@ -4733,7 +4320,6 @@ masterPilotDB['matchstick'] = {
 
 masterPilotDB['broadside'] = {
     name = '"Broadside"',
-    xws = 'broadside',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'btlbywing',
@@ -4745,7 +4331,6 @@ masterPilotDB['broadside'] = {
 
 masterPilotDB['r2d2'] = {
     name = 'R2-D2',
-    xws = 'r2d2',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'btlbywing',
@@ -4757,7 +4342,6 @@ masterPilotDB['r2d2'] = {
 
 masterPilotDB['goji'] = {
     name = '"Goji"',
-    xws = 'goji',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'btlbywing',
@@ -4769,7 +4353,6 @@ masterPilotDB['goji'] = {
 
 masterPilotDB['shadowsquadronveteran'] = {
     name = 'Shadow Squadron Veteran',
-    xws = 'shadowsquadronveteran',
     faction = 'galacticrepublic',
     ship_type = 'btlbywing',
     initiative = 3,
@@ -4780,7 +4363,6 @@ masterPilotDB['shadowsquadronveteran'] = {
 
 masterPilotDB['redsquadronbomber'] = {
     name = 'Red Squadron Bomber',
-    xws = 'redsquadronbomber',
     faction = 'galacticrepublic',
     ship_type = 'btlbywing',
     initiative = 2,
@@ -4792,7 +4374,6 @@ masterPilotDB['redsquadronbomber'] = {
 --Nantex
 masterPilotDB['sunfac'] = {
     name = 'Sun Fac',
-    xws = 'sunfac',
     faction = 'separatistalliance',
     limited = 1,
     ship_type = 'nantexclassstarfighter',
@@ -4803,7 +4384,6 @@ masterPilotDB['sunfac'] = {
 
 masterPilotDB['berwerkret'] = {
     name = 'Berwer Kret',
-    xws = 'berwerkret',
     faction = 'separatistalliance',
     limited = 1,
     ship_type = 'nantexclassstarfighter',
@@ -4814,7 +4394,6 @@ masterPilotDB['berwerkret'] = {
 
 masterPilotDB['chertek'] = {
     name = 'Chertek',
-    xws = 'chertek',
     faction = 'separatistalliance',
     limited = 1,
     ship_type = 'nantexclassstarfighter',
@@ -4825,7 +4404,6 @@ masterPilotDB['chertek'] = {
 
 masterPilotDB['gorgol'] = {
     name = 'Gorgol',
-    xws = 'gorgol',
     faction = 'separatistalliance',
     limited = 1,
     ship_type = 'nantexclassstarfighter',
@@ -4836,7 +4414,6 @@ masterPilotDB['gorgol'] = {
 
 masterPilotDB['petranakiarenaace'] = {
     name = 'Petranaki Arena Ace',
-    xws = 'petranakiarenaace',
     faction = 'separatistalliance',
     ship_type = 'nantexclassstarfighter',
     initiative = 4,
@@ -4846,7 +4423,6 @@ masterPilotDB['petranakiarenaace'] = {
 
 masterPilotDB['stalgasinhiveguard'] = {
     name = 'Stalgasin Hive Guard',
-    xws = 'stalgasinhiveguard',
     faction = 'separatistalliance',
     ship_type = 'nantexclassstarfighter',
     initiative = 3,
@@ -4858,7 +4434,6 @@ masterPilotDB['stalgasinhiveguard'] = {
 --TIE/ba
 masterPilotDB['firstorderprovocateur'] = {
     name = 'First Order Provocateur',
-    xws = 'firstorderprovocateur',
     faction = 'firstorder',
     ship_type = 'tiebainterceptor',
     initiative = 3,
@@ -4868,7 +4443,6 @@ masterPilotDB['firstorderprovocateur'] = {
 
 masterPilotDB['ember'] = {
     name = '"Ember"',
-    xws = 'ember',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'tiebainterceptor',
@@ -4879,7 +4453,6 @@ masterPilotDB['ember'] = {
 
 masterPilotDB['holo'] = {
     name = '"Holo"',
-    xws = 'holo',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'tiebainterceptor',
@@ -4890,7 +4463,6 @@ masterPilotDB['holo'] = {
 
 masterPilotDB['majorvonreg'] = {
     name = 'Major Vonreg',
-    xws = 'majorvonreg',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'tiebainterceptor',
@@ -4902,7 +4474,6 @@ masterPilotDB['majorvonreg'] = {
 --FireBall
 masterPilotDB['jarekyeager'] = {
     name = 'Jarek Yeager',
-    xws = 'jarekyeager',
     faction = 'resistance',
     limited = 1,
     ship_type = 'fireball',
@@ -4913,7 +4484,6 @@ masterPilotDB['jarekyeager'] = {
 
 masterPilotDB['kazudaxiono'] = {
     name = 'Kazuda Xiono',
-    xws = 'kazudaxiono',
     faction = 'resistance',
     limited = 1,
     ship_type = 'fireball',
@@ -4924,7 +4494,6 @@ masterPilotDB['kazudaxiono'] = {
 
 masterPilotDB['r1j5'] = {
     name = 'R1-J5',
-    xws = 'r1j5',
     faction = 'resistance',
     limited = 1,
     ship_type = 'fireball',
@@ -4936,7 +4505,6 @@ masterPilotDB['r1j5'] = {
 
 masterPilotDB['colossusstationmechanic'] = {
     name = 'Colossus Station Mechanic',
-    xws = 'colossusstationmechanic',
     faction = 'resistance',
     ship_type = 'fireball',
     initiative = 2,
@@ -4946,7 +4514,6 @@ masterPilotDB['colossusstationmechanic'] = {
 
 masterPilotDB['commandermalarus-xiclasslightshuttle'] = {
     name = 'Commander Malarus',
-    xws = 'commandermalarus-xiclasslightshuttle',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'xiclasslightshuttle',
@@ -4957,7 +4524,6 @@ masterPilotDB['commandermalarus-xiclasslightshuttle'] = {
 
 masterPilotDB['gideonhask-xiclasslightshuttle'] = {
     name = 'Gideon Hask',
-    xws = 'gideonhask-xiclasslightshuttle',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'xiclasslightshuttle',
@@ -4968,7 +4534,6 @@ masterPilotDB['gideonhask-xiclasslightshuttle'] = {
 
 masterPilotDB['agentterex'] = {
     name = 'Agent Terex',
-    xws = 'agentterex',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'xiclasslightshuttle',
@@ -4979,7 +4544,6 @@ masterPilotDB['agentterex'] = {
 
 masterPilotDB['firstordercourier'] = {
     name = 'First Order Courier',
-    xws = 'firstordercourier',
     faction = 'firstorder',
     ship_type = 'xiclasslightshuttle',
     initiative = 2,
@@ -4989,7 +4553,6 @@ masterPilotDB['firstordercourier'] = {
 
 masterPilotDB['hawk'] = {
     name = '"Hawk"',
-    xws = 'hawk',
     limited = 1,
     faction = 'galacticrepublic',
     ship_type = 'laatigunship',
@@ -5002,7 +4565,6 @@ masterPilotDB['hawk'] = {
 
 masterPilotDB['warthog'] = {
     name = '"Warthog"',
-    xws = 'warthog',
     limited = 1,
     faction = 'galacticrepublic',
     ship_type = 'laatigunship',
@@ -5014,7 +4576,6 @@ masterPilotDB['warthog'] = {
 
 masterPilotDB['hound'] = {
     name = '"Hound"',
-    xws = 'hound',
     limited = 1,
     faction = 'galacticrepublic',
     ship_type = 'laatigunship',
@@ -5026,7 +4587,6 @@ masterPilotDB['hound'] = {
 
 masterPilotDB['212thbattalionpilot'] = {
     name = '212th Battalion Pilot',
-    xws = '212thbattalionpilot',
     faction = 'galacticrepublic',
     ship_type = 'laatigunship',
     initiative = 2,
@@ -5037,7 +4597,6 @@ masterPilotDB['212thbattalionpilot'] = {
 
 masterPilotDB['onderonoppressor'] = {
     name = 'Onderon Oppressor',
-    xws = 'onderonoppressor',
     limited = 2,
     faction = 'separatistalliance',
     ship_type = 'hmpdroidgunship',
@@ -5048,7 +4607,6 @@ masterPilotDB['onderonoppressor'] = {
 
 masterPilotDB['geonosianprototype'] = {
     name = 'Geonosian Prototype',
-    xws = 'geonosianprototype',
     limited = 2,
     faction = 'separatistalliance',
     ship_type = 'hmpdroidgunship',
@@ -5059,7 +4617,6 @@ masterPilotDB['geonosianprototype'] = {
 
 masterPilotDB['dgs047'] = {
     name = 'DGS-047',
-    xws = 'dgs047',
     limited = 1,
     faction = 'separatistalliance',
     ship_type = 'hmpdroidgunship',
@@ -5070,7 +4627,6 @@ masterPilotDB['dgs047'] = {
 
 masterPilotDB['dgs286'] = {
     name = 'DGS-286',
-    xws = 'dgs286',
     limited = 1,
     faction = 'separatistalliance',
     ship_type = 'hmpdroidgunship',
@@ -5081,7 +4637,6 @@ masterPilotDB['dgs286'] = {
 
 masterPilotDB['separatistpredator'] = {
     name = 'Separatist Predator',
-    xws = 'separatistpredator',
     faction = 'separatistalliance',
     ship_type = 'hmpdroidgunship',
     initiative = 3,
@@ -5091,7 +4646,6 @@ masterPilotDB['separatistpredator'] = {
 
 masterPilotDB['baktoiddrone'] = {
     name = 'Baktoid Drone',
-    xws = 'baktoiddrone',
     faction = 'separatistalliance',
     ship_type = 'hmpdroidgunship',
     initiative = 1,
@@ -5101,7 +4655,6 @@ masterPilotDB['baktoiddrone'] = {
 
 masterPilotDB['rampage'] = {
     name = '"Rampage"',
-    xws = 'rampage',
     limited = 1,
     faction = 'galacticempire',
     ship_type = 'tierbheavy',
@@ -5112,7 +4665,6 @@ masterPilotDB['rampage'] = {
 
 masterPilotDB['lyttandree'] = {
     name = 'Lyttan Dree',
-    xws = 'lyttandree',
     limited = 1,
     faction = 'galacticempire',
     ship_type = 'tierbheavy',
@@ -5123,7 +4675,6 @@ masterPilotDB['lyttandree'] = {
 
 masterPilotDB['onyxsquadronsentry'] = {
     name = 'Onyx Squadron Sentry',
-    xws = 'onyxsquadronsentry',
     faction = 'galacticempire',
     ship_type = 'tierbheavy',
     initiative = 3,
@@ -5133,7 +4684,6 @@ masterPilotDB['onyxsquadronsentry'] = {
 
 masterPilotDB['caridaacademycadet'] = {
     name = 'Carida Academy Cadet',
-    xws = 'caridaacademycadet',
     faction = 'galacticempire',
     ship_type = 'tierbheavy',
     initiative = 1,
@@ -5143,7 +4693,6 @@ masterPilotDB['caridaacademycadet'] = {
 
 masterPilotDB['anakinskywalker-eta2actis'] = {
     name = 'Anakin Skywalker',
-    xws = 'anakinskywalker-eta2actis',
     limited = 1,
     faction = 'galacticrepublic',
     force = 3,
@@ -5156,7 +4705,6 @@ masterPilotDB['anakinskywalker-eta2actis'] = {
 
 masterPilotDB['obiwankenobi-eta2actis'] = {
     name = 'Obi-Wan Kenobi',
-    xws = 'obiwankenobi-eta2actis',
     limited = 1,
     faction = 'galacticrepublic',
     force = 3,
@@ -5169,7 +4717,6 @@ masterPilotDB['obiwankenobi-eta2actis'] = {
 
 masterPilotDB['aaylasecura'] = {
     name = 'Aayla Secura',
-    xws = 'aaylasecura',
     limited = 1,
     faction = 'galacticrepublic',
     force = 2,
@@ -5182,7 +4729,6 @@ masterPilotDB['aaylasecura'] = {
 
 masterPilotDB['shaakti'] = {
     name = 'Shaak Ti',
-    xws = 'shaakti',
     limited = 1,
     faction = 'galacticrepublic',
     force = 2,
@@ -5195,7 +4741,6 @@ masterPilotDB['shaakti'] = {
 
 masterPilotDB['yoda'] = {
     name = 'Yoda',
-    xws = 'yoda',
     limited = 1,
     faction = 'galacticrepublic',
     force = 3,
@@ -5209,7 +4754,6 @@ masterPilotDB['yoda'] = {
 
 masterPilotDB['jedigeneral'] = {
     name = 'Jedi General',
-    xws = 'jedigeneral',
     faction = 'galacticrepublic',
     force = 2,
     ship_type = 'eta2actis',
@@ -5221,7 +4765,6 @@ masterPilotDB['jedigeneral'] = {
 
 masterPilotDB['oddball-nimbusclassvwing'] = {
     name = '"Odd Ball"',
-    xws = 'oddball-nimbusclassvwing',
     limited = 1,
     faction = 'galacticrepublic',
     ship_type = 'nimbusclassvwing',
@@ -5233,7 +4776,6 @@ masterPilotDB['oddball-nimbusclassvwing'] = {
 
 masterPilotDB['contrail'] = {
     name = '"Contrail"',
-    xws = 'contrail',
     limited = 1,
     faction = 'galacticrepublic',
     ship_type = 'nimbusclassvwing',
@@ -5245,7 +4787,6 @@ masterPilotDB['contrail'] = {
 
 masterPilotDB['klick'] = {
     name = '"Klick"',
-    xws = 'klick',
     limited = 1,
     faction = 'galacticrepublic',
     ship_type = 'nimbusclassvwing',
@@ -5258,7 +4799,6 @@ masterPilotDB['klick'] = {
 
 masterPilotDB['wilhufftarkin'] = {
     name = 'Wilhuff Tarkin',
-    xws = 'wilhufftarkin',
     limited = 1,
     faction = 'galacticrepublic',
     ship_type = 'nimbusclassvwing',
@@ -5269,7 +4809,6 @@ masterPilotDB['wilhufftarkin'] = {
 
 masterPilotDB['shadowsquadronescort'] = {
     name = 'Shadow Squadron Escort',
-    xws = 'shadowsquadronescort',
     faction = 'galacticrepublic',
     ship_type = 'nimbusclassvwing',
     initiative = 3,
@@ -5280,7 +4819,6 @@ masterPilotDB['shadowsquadronescort'] = {
 
 masterPilotDB['loyalistvolunteer'] = {
     name = 'Loyalist Volunteer',
-    xws = 'loyalistvolunteer',
     faction = 'galacticrepublic',
     ship_type = 'nimbusclassvwing',
     initiative = 2,
@@ -5290,7 +4828,6 @@ masterPilotDB['loyalistvolunteer'] = {
 
 masterPilotDB['phlacarphoccprototype'] = {
     name = "Phlac-Arphocc Prototype",
-    xws = 'phlacarphoccprototype',
     limited = 2,
     faction = 'separatistalliance',
     ship_type = 'droidtrifighter',
@@ -5301,7 +4838,6 @@ masterPilotDB['phlacarphoccprototype'] = {
 
 masterPilotDB['dist81'] = {
     name = "DIS-T81",
-    xws = 'dist81',
     limited = 1,
     faction = 'separatistalliance',
     ship_type = 'droidtrifighter',
@@ -5312,7 +4848,6 @@ masterPilotDB['dist81'] = {
 
 masterPilotDB['dis347'] = {
     name = "DIS-347",
-    xws = 'dis347',
     limited = 1,
     faction = 'separatistalliance',
     ship_type = 'droidtrifighter',
@@ -5323,7 +4858,6 @@ masterPilotDB['dis347'] = {
 
 masterPilotDB['fearsomepredator'] = {
     name = "Fearsome Predator",
-    xws = 'fearsomepredator',
     limited = 3,
     faction = 'separatistalliance',
     ship_type = 'droidtrifighter',
@@ -5335,7 +4869,6 @@ masterPilotDB['fearsomepredator'] = {
 
 masterPilotDB['separatistinterceptor'] = {
     name = "Separatist Interceptor",
-    xws = 'separatistinterceptor',
     faction = 'separatistalliance',
     ship_type = 'droidtrifighter',
     initiative = 3,
@@ -5345,7 +4878,6 @@ masterPilotDB['separatistinterceptor'] = {
 
 masterPilotDB['colicoidinterceptor'] = {
     name = "Colicoid Interceptor",
-    xws = 'colicoidinterceptor',
     faction = 'separatistalliance',
     ship_type = 'droidtrifighter',
     initiative = 1,
@@ -5355,7 +4887,6 @@ masterPilotDB['colicoidinterceptor'] = {
 
 masterPilotDB['jangofett'] = {
     name = 'Jango Fett',
-    xws = 'jangofett',
     limited = 1,
     faction = 'separatistalliance',
     ship_type = 'firesprayclasspatrolcraft',
@@ -5367,7 +4898,6 @@ masterPilotDB['jangofett'] = {
 
 masterPilotDB['zamwesell'] = {
     name = 'Zam Wesell',
-    xws = 'zamwesell',
     limited = 1,
     faction = 'separatistalliance',
     condition = 'Zam Wesell',
@@ -5381,7 +4911,6 @@ masterPilotDB['zamwesell'] = {
 
 masterPilotDB['bobafett-firesprayclasspatrolcraft'] = {
     name = 'Boba Fett',
-    xws = 'bobafett-firesprayclasspatrolcraft',
     title = 'Survivor',
     limited = 1,
     faction = 'separatistalliance',
@@ -5394,7 +4923,6 @@ masterPilotDB['bobafett-firesprayclasspatrolcraft'] = {
 
 masterPilotDB['separatistracketeer'] = {
     name = 'Separatist Racketeer',
-    xws = 'separatistracketeer',
     faction = 'separatistalliance',
     ship_type = 'firesprayclasspatrolcraft',
     initiative = 2,
@@ -5406,7 +4934,6 @@ masterPilotDB['separatistracketeer'] = {
 
 masterPilotDB['709thlegionace'] = {
     name = '709th Legion Ace',
-    xws = '709thlegionace',
     faction = 'firstorder',
     ship_type = 'tiewiwhispermodifiedinterceptor',
     initiative = 4,
@@ -5416,7 +4943,6 @@ masterPilotDB['709thlegionace'] = {
 
 masterPilotDB['wrath'] = {
     name = '"Wrath"',
-    xws = 'wrath',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'tiewiwhispermodifiedinterceptor',
@@ -5427,7 +4953,6 @@ masterPilotDB['wrath'] = {
 
 masterPilotDB['whirlwind'] = {
     name = '"Whirlwind"',
-    xws = 'whirlwind',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'tiewiwhispermodifiedinterceptor',
@@ -5438,7 +4963,6 @@ masterPilotDB['whirlwind'] = {
 
 masterPilotDB['nightfall'] = {
     name = '"Nightfall"',
-    xws = 'nightfall',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'tiewiwhispermodifiedinterceptor',
@@ -5450,7 +4974,6 @@ masterPilotDB['nightfall'] = {
 
 masterPilotDB['kyloren-tiewiwhispermodifiedinterceptor'] = {
     name = 'Kylo Ren',
-    xws = 'kyloren-tiewiwhispermodifiedinterceptor',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'tiewiwhispermodifiedinterceptor',
@@ -5462,7 +4985,6 @@ masterPilotDB['kyloren-tiewiwhispermodifiedinterceptor'] = {
 
 masterPilotDB['redfuryzealot'] = {
     name = 'Red Fury Zealot',
-    xws = 'redfuryzealot',
     faction = 'firstorder',
     ship_type = 'tiewiwhispermodifiedinterceptor',
     initiative = 2,
@@ -5474,7 +4996,6 @@ masterPilotDB['redfuryzealot'] = {
 
 masterPilotDB['firstordercadet'] = {
     name = 'First Order Cadet',
-    xws = 'firstordercadet',
     faction = 'firstorder',
     ship_type = 'tiesebomber',
     initiative = 3,
@@ -5484,7 +5005,6 @@ masterPilotDB['firstordercadet'] = {
 
 masterPilotDB['sienarjaemustestpilot'] = {
     name = 'Sienar-Jaemus Test Pilot',
-    xws = 'sienarjaemustestpilot',
     faction = 'firstorder',
     ship_type = 'tiesebomber',
     initiative = 2,
@@ -5494,7 +5014,6 @@ masterPilotDB['sienarjaemustestpilot'] = {
 
 masterPilotDB['grudge'] = {
     name = '"Grudge"',
-    xws = 'grudge',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'tiesebomber',
@@ -5505,7 +5024,6 @@ masterPilotDB['grudge'] = {
 
 masterPilotDB['scorch-tiesebomber'] = {
     name = '"Scorch"',
-    xws = 'scorch-tiesebomber',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'tiesebomber',
@@ -5516,7 +5034,6 @@ masterPilotDB['scorch-tiesebomber'] = {
 
 masterPilotDB['breach'] = {
     name = '"Breach"',
-    xws = 'breach',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'tiesebomber',
@@ -5527,7 +5044,6 @@ masterPilotDB['breach'] = {
 
 masterPilotDB['dread'] = {
     name = '"Dread"',
-    xws = 'dread',
     faction = 'firstorder',
     limited = 1,
     ship_type = 'tiesebomber',
@@ -5540,7 +5056,6 @@ masterPilotDB['dread'] = {
 
 masterPilotDB['newrepublicpatrol'] = {
     name = 'New Republic Patrol',
-    xws = 'newrepublicpatrol',
     faction = 'resistance',
     ship_type = 'btanr2ywing',
     initiative = 3,
@@ -5550,7 +5065,6 @@ masterPilotDB['newrepublicpatrol'] = {
 
 masterPilotDB['kijimispicerunner'] = {
     name = 'Kijimi Spice Runner',
-    xws = 'kijimispicerunner',
     faction = 'resistance',
     ship_type = 'btanr2ywing',
     initiative = 2,
@@ -5560,7 +5074,6 @@ masterPilotDB['kijimispicerunner'] = {
 
 masterPilotDB['tezanasz'] = {
     name = 'Teza Nasz',
-    xws = 'tezanasz',
     faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing',
@@ -5571,7 +5084,6 @@ masterPilotDB['tezanasz'] = {
 
 masterPilotDB['shasazaro'] = {
     name = 'Shasa Zaro',
-    xws = 'shasazaro',
     faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing',
@@ -5582,7 +5094,6 @@ masterPilotDB['shasazaro'] = {
 
 masterPilotDB['coruskapellim'] = {
     name = 'Corus Kapellim',
-    xws = 'coruskapellim',
     faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing',
@@ -5593,7 +5104,6 @@ masterPilotDB['coruskapellim'] = {
 
 masterPilotDB['caithrenalli-btanr2ywing'] = {
     name = "C'ai Threnalli",
-    xws = 'caithrenalli-btanr2ywing',
     faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing',
@@ -5605,7 +5115,6 @@ masterPilotDB['caithrenalli-btanr2ywing'] = {
 
 masterPilotDB['wilsateshlo'] = {
     name = 'Wilsa Teshlo',
-    xws = 'wilsateshlo',
     faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing',
@@ -5616,7 +5125,6 @@ masterPilotDB['wilsateshlo'] = {
 
 masterPilotDB['zoriibliss'] = {
     name = 'Zorii Bliss',
-    xws = 'zoriibliss',
     charge = 1,
     faction = 'resistance',
     limited = 1,
@@ -5628,7 +5136,6 @@ masterPilotDB['zoriibliss'] = {
 
 masterPilotDB['aftabackbar'] = {
     name = 'Aftab Ackbar',
-    xws = 'aftabackbar',
     faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing',
@@ -5639,7 +5146,6 @@ masterPilotDB['aftabackbar'] = {
 
 masterPilotDB['legafossang'] = {
     name = 'Lega Fossang',
-    xws = 'legafossang',
     faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing',
@@ -5652,7 +5158,6 @@ masterPilotDB['legafossang'] = {
 --- NEW SHIT:
 masterPilotDB['fennrau-fangfighter'] = {
     name = 'Fenn Rau',
-    xws = 'fennrau-fangfighter',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'fangfighter',
@@ -5664,7 +5169,6 @@ masterPilotDB['fennrau-fangfighter'] = {
 
 masterPilotDB['bodicavenj'] = {
     name = 'Bodica Venj',
-    xws = 'bodicavenj',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'fangfighter',
@@ -5676,7 +5180,6 @@ masterPilotDB['bodicavenj'] = {
 
 masterPilotDB['dirkullodin'] = {
     name = 'Dirk Ullodin',
-    xws = 'dirkullodin',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'fangfighter',
@@ -5689,7 +5192,6 @@ masterPilotDB['dirkullodin'] = {
 
 masterPilotDB['clanwrenvolunteer'] = {
     name = 'Clan Wren Volunteer',
-    xws = 'clanwrenvolunteer',
     faction = 'rebelalliance',
     limited = 2,
     ship_type = 'fangfighter',
@@ -5701,7 +5203,6 @@ masterPilotDB['clanwrenvolunteer'] = {
 
 masterPilotDB['mandalorianroyalguard'] = {
     name = 'Mandalorian Royal Guard',
-    xws = 'mandalorianroyalguard',
     faction = 'scumandvillainy',
     limited = 2,
     ship_type = 'fangfighter',
@@ -5715,7 +5216,6 @@ masterPilotDB['mandalorianroyalguard'] = {
 
 masterPilotDB['moffgideon'] = {
     name = 'Moff Gideon',
-    xws = 'moffgideon',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
@@ -5727,7 +5227,6 @@ masterPilotDB['moffgideon'] = {
 
 masterPilotDB['isbjingoist'] = {
     name = 'ISB Jingoist',
-    xws = 'isbjingoist',
     faction = 'galacticempire',
     limited = 2,
     ship_type = 'tielnfighter',
@@ -5740,7 +5239,6 @@ masterPilotDB['isbjingoist'] = {
 -- Gauntlet fighter:
 masterPilotDB['maul'] = {
     name = 'Maul',
-    xws = 'maul',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'gauntletfighter',
@@ -5753,7 +5251,6 @@ masterPilotDB['maul'] = {
 masterPilotDB['bokatankryze'] = {
     name = 'Bo-Katan Kryze',
     title = 'Nite Owl Commander',
-    xws = 'bokatankryze',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'gauntletfighter',
@@ -5765,7 +5262,6 @@ masterPilotDB['bokatankryze'] = {
 masterPilotDB['bokatankryze-separatistalliance'] = {
     name = 'Bo-Katan Kryze',
     title = "Vizsla's Lieutenant",
-    xws = 'bokatankryze-separatistalliance',
     faction = 'separatistalliance',
     limited = 1,
     charge = 1,
@@ -5777,7 +5273,6 @@ masterPilotDB['bokatankryze-separatistalliance'] = {
 
 masterPilotDB['previzsla'] = {
     name = 'Pre Vizsla',
-    xws = 'previzsla',
     faction = 'separatistalliance',
     limited = 1,
     charge = 2,
@@ -5789,7 +5284,6 @@ masterPilotDB['previzsla'] = {
 
 masterPilotDB['rookkast'] = {
     name = 'Rook Kast',
-    xws = 'rookkast',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'gauntletfighter',
@@ -5800,7 +5294,6 @@ masterPilotDB['rookkast'] = {
 
 masterPilotDB['deathwatchwarrior'] = {
     name = 'Death Watch Warrior',
-    xws = 'deathwatchwarrior',
     faction = 'separatistalliance',
     limited = 1,
     ship_type = 'gauntletfighter',
@@ -5811,7 +5304,6 @@ masterPilotDB['deathwatchwarrior'] = {
 
 masterPilotDB['niteowlliberator'] = {
     name = 'Nite Owl Liberator',
-    xws = 'niteowlliberator',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'gauntletfighter',
@@ -5822,7 +5314,6 @@ masterPilotDB['niteowlliberator'] = {
 
 masterPilotDB['shadowcollectiveoperator'] = {
     name = 'Shadow Collective Operator',
-    xws = 'shadowcollectiveoperator',
     faction = 'scumandvillainy',
     ship_type = 'gauntletfighter',
     initiative = 1,
@@ -5832,7 +5323,6 @@ masterPilotDB['shadowcollectiveoperator'] = {
 
 masterPilotDB['ezrabridger-gauntletfighter'] = {
     name = 'Ezra Bridger',
-    xws = 'ezrabridger-gauntletfighter',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'gauntletfighter',
@@ -5844,7 +5334,6 @@ masterPilotDB['ezrabridger-gauntletfighter'] = {
 
 masterPilotDB['chopper-gauntletfighter'] = {
     name = '"Chopper"',
-    xws = 'chopper-gauntletfighter',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'gauntletfighter',
@@ -5855,7 +5344,6 @@ masterPilotDB['chopper-gauntletfighter'] = {
 
 masterPilotDB['mandalorianresistancepilot'] = {
     name = 'Mandalorian Resistance Pilot',
-    xws = 'mandalorianresistancepilot',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'gauntletfighter',
@@ -5866,7 +5354,6 @@ masterPilotDB['mandalorianresistancepilot'] = {
 
 masterPilotDB['captainhark'] = {
     name = 'Captain Hark',
-    xws = 'captainhark',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'gauntletfighter',
@@ -5880,7 +5367,6 @@ masterPilotDB['captainhark'] = {
 
 masterPilotDB['garsaxon'] = {
     name = 'Gar Saxon',
-    xws = 'garsaxon',
     charge = 2,
     faction = 'galacticempire',
     limited = 1,
@@ -5895,7 +5381,6 @@ masterPilotDB['garsaxon'] = {
 
 masterPilotDB['themandalorian'] = {
     name = 'The Mandalorian',
-    xws = 'themandalorian',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'st70assaultship',
@@ -5906,7 +5391,6 @@ masterPilotDB['themandalorian'] = {
 
 masterPilotDB['q90'] = {
     name = 'Q9-0',
-    xws = 'q90',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'st70assaultship',
@@ -5917,7 +5401,6 @@ masterPilotDB['q90'] = {
 
 masterPilotDB['guildbountyhunter'] = {
     name = 'Guild Bounty Hunter',
-    xws = 'guildbountyhunter',
     faction = 'scumandvillainy',
     limited = 2,
     ship_type = 'st70assaultship',
@@ -5930,7 +5413,6 @@ masterPilotDB['guildbountyhunter'] = {
 
 masterPilotDB['anakinskywalker-delta7baethersprite'] = {
     name = 'Anakin Skywalker',
-    xws = 'anakinskywalker-delta7baethersprite',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7baethersprite',
@@ -5943,7 +5425,6 @@ masterPilotDB['anakinskywalker-delta7baethersprite'] = {
 
 masterPilotDB['luminaraunduli-delta7baethersprite'] = {
     name = 'Luminara Unduli',
-    xws = 'luminaraunduli-delta7baethersprite',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7baethersprite',
@@ -5956,7 +5437,6 @@ masterPilotDB['luminaraunduli-delta7baethersprite'] = {
 
 masterPilotDB['barrissoffee-delta7baethersprite'] = {
     name = 'Barriss Offee',
-    xws = 'barrissoffee-delta7baethersprite',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7baethersprite',
@@ -5969,7 +5449,6 @@ masterPilotDB['barrissoffee-delta7baethersprite'] = {
 
 masterPilotDB['ahsokatano-delta7baethersprite'] = {
     name = 'Ahsoka Tano',
-    xws = 'ahsokatano-delta7baethersprite',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7baethersprite',
@@ -5982,7 +5461,6 @@ masterPilotDB['ahsokatano-delta7baethersprite'] = {
 
 masterPilotDB['obiwankenobi-delta7baethersprite'] = {
     name = 'Obi-Wan Kenobi',
-    xws = 'obiwankenobi-delta7baethersprite',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7baethersprite',
@@ -5995,7 +5473,6 @@ masterPilotDB['obiwankenobi-delta7baethersprite'] = {
 
 masterPilotDB['macewindu-delta7baethersprite'] = {
     name = 'Mace Windu',
-    xws = 'macewindu-delta7baethersprite',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7baethersprite',
@@ -6008,7 +5485,6 @@ masterPilotDB['macewindu-delta7baethersprite'] = {
 
 masterPilotDB['plokoon-delta7baethersprite'] = {
     name = 'Plo Koon',
-    xws = 'plokoon-delta7baethersprite',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7baethersprite',
@@ -6021,7 +5497,6 @@ masterPilotDB['plokoon-delta7baethersprite'] = {
 
 masterPilotDB['saeseetiin-delta7baethersprite'] = {
     name = 'Saesee Tiin',
-    xws = 'saeseetiin-delta7baethersprite',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7baethersprite',
@@ -6034,7 +5509,6 @@ masterPilotDB['saeseetiin-delta7baethersprite'] = {
 
 masterPilotDB['jediknight-delta7baethersprite'] = {
     name = 'Jedi Knight',
-    xws = 'jediknight-delta7baethersprite',
     faction = 'galacticrepublic',
     ship_type = 'delta7baethersprite',
     force = 1,
@@ -6050,7 +5524,6 @@ masterPilotDB['jediknight-delta7baethersprite'] = {
 
 masterPilotDB['cadbane-separatistalliance'] = {
     name = 'Cad Bane',
-    xws = 'cadbane-separatistalliance',
     faction = 'separatistalliance',
     charge = 1,
     limited = 1,
@@ -6062,7 +5535,6 @@ masterPilotDB['cadbane-separatistalliance'] = {
 
 masterPilotDB['ig101'] = {
     name = 'IG-101',
-    xws = 'ig101',
     faction = 'separatistalliance',
     limited = 1,
     ship_type = 'rogueclassstarfighter',
@@ -6073,7 +5545,6 @@ masterPilotDB['ig101'] = {
 
 masterPilotDB['ig102'] = {
     name = 'IG-102',
-    xws = 'ig102',
     faction = 'separatistalliance',
     limited = 1,
     ship_type = 'rogueclassstarfighter',
@@ -6084,7 +5555,6 @@ masterPilotDB['ig102'] = {
 
 masterPilotDB['ig111'] = {
     name = 'IG-111',
-    xws = 'ig111',
     faction = 'separatistalliance',
     limited = 1,
     ship_type = 'rogueclassstarfighter',
@@ -6095,7 +5565,6 @@ masterPilotDB['ig111'] = {
 
 masterPilotDB['magnaguardprotector'] = {
     name = 'MagnaGuard Protector',
-    xws = 'magnaguardprotector',
     faction = 'separatistalliance',
     limited = 2,
     ship_type = 'rogueclassstarfighter',
@@ -6107,7 +5576,6 @@ masterPilotDB['magnaguardprotector'] = {
 
 masterPilotDB['magnaguardexecutioner'] = {
     name = 'MagnaGuard Executioner',
-    xws = 'magnaguardexecutioner',
     faction = 'separatistalliance',
     ship_type = 'rogueclassstarfighter',
     initiative = 3,
@@ -6117,7 +5585,6 @@ masterPilotDB['magnaguardexecutioner'] = {
 
 masterPilotDB['cadbane'] = {
     name = 'Cad Bane',
-    xws = 'cadbane',
     faction = 'scumandvillainy',
     charge = 2,
     limited = 1,
@@ -6129,7 +5596,6 @@ masterPilotDB['cadbane'] = {
 
 masterPilotDB['viktorhel-rogueclassstarfighter'] = {
     name = 'Viktor Hel',
-    xws = 'viktorhel-rogueclassstarfighter',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'rogueclassstarfighter',
@@ -6140,7 +5606,6 @@ masterPilotDB['viktorhel-rogueclassstarfighter'] = {
 
 masterPilotDB['nomlumb-rogueclassstarfighter'] = {
     name = 'Nom Lumb',
-    xws = 'nomlumb-rogueclassstarfighter',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'rogueclassstarfighter',
@@ -6151,7 +5616,6 @@ masterPilotDB['nomlumb-rogueclassstarfighter'] = {
 
 masterPilotDB['outerrimhunter'] = {
     name = 'Outer Rim Hunter',
-    xws = 'outerrimhunter',
     faction = 'scumandvillainy',
     ship_type = 'rogueclassstarfighter',
     initiative = 3,
@@ -6163,7 +5627,6 @@ masterPilotDB['outerrimhunter'] = {
 
 masterPilotDB['hawk-clonez95headhunter'] = {
     name = '"Hawk"',
-    xws = 'hawk-clonez95headhunter',
     faction = 'galacticrepublic',
     ship_type = 'clonez95headhunter',
     initiative = 4,
@@ -6175,7 +5638,6 @@ masterPilotDB['hawk-clonez95headhunter'] = {
 
 masterPilotDB['slider'] = {
     name = '"Slider"',
-    xws = 'slider',
     faction = 'galacticrepublic',
     ship_type = 'clonez95headhunter',
     charge = 2,
@@ -6191,7 +5653,6 @@ masterPilotDB['slider'] = {
 
 masterPilotDB['boost'] = {
     name = '"Boost"',
-    xws = 'boost',
     faction = 'galacticrepublic',
     ship_type = 'clonez95headhunter',
     initiative = 3,
@@ -6202,7 +5663,6 @@ masterPilotDB['boost'] = {
 
 masterPilotDB['drift'] = {
     name = '"Drift"',
-    xws = 'drift',
     faction = 'galacticrepublic',
     ship_type = 'clonez95headhunter',
     initiative = 3,
@@ -6213,7 +5673,6 @@ masterPilotDB['drift'] = {
 
 masterPilotDB['stub'] = {
     name = '"Stub"',
-    xws = 'stub',
     faction = 'galacticrepublic',
     ship_type = 'clonez95headhunter',
     initiative = 3,
@@ -6224,7 +5683,6 @@ masterPilotDB['stub'] = {
 
 masterPilotDB['warthog-clonez95headhunter'] = {
     name = '"Warthog"',
-    xws = 'warthog-clonez95headhunter',
     faction = 'galacticrepublic',
     ship_type = 'clonez95headhunter',
     initiative = 3,
@@ -6235,7 +5693,6 @@ masterPilotDB['warthog-clonez95headhunter'] = {
 
 masterPilotDB['killer'] = {
     name = '"Killer"',
-    xws = 'killer',
     faction = 'galacticrepublic',
     ship_type = 'clonez95headhunter',
     initiative = 2,
@@ -6246,7 +5703,6 @@ masterPilotDB['killer'] = {
 
 masterPilotDB['knack'] = {
     name = '"Knack"',
-    xws = 'knack',
     faction = 'galacticrepublic',
     ship_type = 'clonez95headhunter',
     initiative = 5,
@@ -6257,7 +5713,6 @@ masterPilotDB['knack'] = {
 
 masterPilotDB['reapersquadronscout'] = {
     name = 'Reaper Squadron Scout',
-    xws = 'reapersquadronscout',
     faction = 'galacticrepublic',
     ship_type = 'clonez95headhunter',
     initiative = 3,
@@ -6267,7 +5722,6 @@ masterPilotDB['reapersquadronscout'] = {
 
 masterPilotDB['7thskycorpspilot'] = {
     name = '7th Sky Corps Pilot',
-    xws = '7thskycorpspilot',
     faction = 'galacticrepublic',
     ship_type = 'clonez95headhunter',
     initiative = 2,
@@ -6278,7 +5732,6 @@ masterPilotDB['7thskycorpspilot'] = {
 -- Missing ships
 masterPilotDB['imperialsupercommando'] = {
     name = 'Imperial Super Commando',
-    xws = 'imperialsupercommando',
     faction = 'galacticempire',
     ship_type = 'gauntletfighter',
     initiative = 2,
@@ -6288,7 +5741,6 @@ masterPilotDB['imperialsupercommando'] = {
 
 masterPilotDB['outerrimenforcer'] = {
     name = 'Outer Rim Enforcer',
-    xws = 'outerrimenforcer',
     faction = 'scumandvillainy',
     ship_type = 'st70assaultship',
     initiative = 2,
@@ -6300,7 +5752,6 @@ masterPilotDB['outerrimenforcer'] = {
 
 masterPilotDB['lukeskywalker-battleofyavin'] = {
     name = 'Luke Skywalker',
-    xws = 'lukeskywalker-battleofyavin',
     title = 'Battle of Yavin',
     faction = 'rebelalliance',
     limited = 1,
@@ -6321,7 +5772,6 @@ masterPilotDB['lukeskywalker-battleofyavin'] = {
 
 masterPilotDB['wedgeantilles-battleofyavin'] = {
     name = 'Wedge Antilles',
-    xws = 'wedgeantilles-battleofyavin',
     title = 'Battle of Yavin',
     faction = 'rebelalliance',
     limited = 1,
@@ -6341,7 +5791,6 @@ masterPilotDB['wedgeantilles-battleofyavin'] = {
 
 masterPilotDB['jekporkins-battleofyavin'] = {
     name = 'Jek Porkins',
-    xws = 'jekporkins-battleofyavin',
     title = 'Battle of Yavin',
     faction = 'rebelalliance',
     limited = 1,
@@ -6360,7 +5809,6 @@ masterPilotDB['jekporkins-battleofyavin'] = {
 
 masterPilotDB['garvendreis-battleofyavin'] = {
     name = 'Garven Dreis',
-    xws = 'garvendreis-battleofyavin',
     title = 'Battle of Yavin',
     faction = 'rebelalliance',
     limited = 1,
@@ -6378,7 +5826,6 @@ masterPilotDB['garvendreis-battleofyavin'] = {
 
 masterPilotDB['biggsdarklighter-battleofyavin'] = {
     name = 'Biggs Darklighter',
-    xws = 'biggsdarklighter-battleofyavin',
     title = 'Battle of Yavin',
     faction = 'rebelalliance',
     limited = 1,
@@ -6398,7 +5845,6 @@ masterPilotDB['biggsdarklighter-battleofyavin'] = {
 
 masterPilotDB['dextiree-battleofyavin'] = {
     name = 'Dex Tiree',
-    xws = 'dextiree-battleofyavin',
     title = 'Battle of Yavin',
     faction = 'rebelalliance',
     limited = 1,
@@ -6417,7 +5863,6 @@ masterPilotDB['dextiree-battleofyavin'] = {
 
 masterPilotDB['holokand-battleofyavin'] = {
     name = 'Hol Okand',
-    xws = 'holokand-battleofyavin',
     title = 'Battle of Yavin',
     faction = 'rebelalliance',
     limited = 1,
@@ -6436,7 +5881,6 @@ masterPilotDB['holokand-battleofyavin'] = {
 
 masterPilotDB['popskrail-battleofyavin'] = {
     name = '"Pops" Krail',
-    xws = 'popskrail-battleofyavin',
     title = 'Battle of Yavin',
     faction = 'rebelalliance',
     limited = 1,
@@ -6455,7 +5899,6 @@ masterPilotDB['popskrail-battleofyavin'] = {
 
 masterPilotDB['hansolo-battleofyavin'] = {
     name = 'Han Solo',
-    xws = 'hansolo-battleofyavin',
     title = 'Battle of Yavin',
     faction = 'rebelalliance',
     limited = 1,
@@ -6476,7 +5919,6 @@ masterPilotDB['hansolo-battleofyavin'] = {
 
 masterPilotDB['darthvader-battleofyavin'] = {
     name = 'Darth Vader',
-    xws = 'darthvader-battleofyavin',
     title = 'Battle of Yavin',
     faction = 'galacticempire',
     limited = 1,
@@ -6497,7 +5939,6 @@ masterPilotDB['darthvader-battleofyavin'] = {
 
 masterPilotDB['maulermithel-battleofyavin'] = {
     name = '"Mauler" Mithel',
-    xws = 'maulermithel-battleofyavin',
     title = 'Battle of Yavin',
     faction = 'galacticempire',
     limited = 1,
@@ -6514,7 +5955,6 @@ masterPilotDB['maulermithel-battleofyavin'] = {
 
 masterPilotDB['wampa-battleofyavin'] = {
     name = '"Wampa"',
-    xws = 'wampa-battleofyavin',
     title = 'Battle of Yavin',
     faction = 'galacticempire',
     limited = 1,
@@ -6532,7 +5972,6 @@ masterPilotDB['wampa-battleofyavin'] = {
 
 masterPilotDB['darkcurse-battleofyavin'] = {
     name = '"Dark Curse"',
-    xws = 'darkcurse-battleofyavin',
     title = 'Battle of Yavin',
     faction = 'galacticempire',
     limited = 1,
@@ -6552,7 +5991,6 @@ masterPilotDB['darkcurse-battleofyavin'] = {
 
 masterPilotDB['backstabber-battleofyavin'] = {
     name = '"Backstabber"',
-    xws = 'backstabber-battleofyavin',
     title = 'Battle of Yavin',
     faction = 'galacticempire',
     limited = 1,
@@ -6570,7 +6008,6 @@ masterPilotDB['backstabber-battleofyavin'] = {
 
 masterPilotDB['idenversio-battleofyavin'] = {
     name = 'Iden Versio',
-    xws = 'idenversio-battleofyavin',
     title = 'Battle of Yavin',
     faction = 'galacticempire',
     limited = 1,
@@ -6589,7 +6026,6 @@ masterPilotDB['idenversio-battleofyavin'] = {
 
 masterPilotDB['sigma4-battleofyavin'] = {
     name = 'Sigma 4',
-    xws = 'sigma4-battleofyavin',
     title = 'Battle of Yavin',
     faction = 'galacticempire',
     limited = 1,
@@ -6607,7 +6043,6 @@ masterPilotDB['sigma4-battleofyavin'] = {
 
 masterPilotDB['sigma5-battleofyavin'] = {
     name = 'Sigma 5',
-    xws = 'sigma5-battleofyavin',
     title = 'Battle of Yavin',
     faction = 'galacticempire',
     limited = 1,
@@ -6625,7 +6060,6 @@ masterPilotDB['sigma5-battleofyavin'] = {
 
 masterPilotDB['sigma6-battleofyavin'] = {
     name = 'Sigma 6',
-    xws = 'sigma6-battleofyavin',
     title = 'Battle of Yavin',
     faction = 'galacticempire',
     limited = 1,
@@ -6643,7 +6077,6 @@ masterPilotDB['sigma6-battleofyavin'] = {
 
 masterPilotDB['sigma7-battleofyavin'] = {
     name = 'Sigma 7',
-    xws = 'sigma7-battleofyavin',
     title = 'Battle of Yavin',
     faction = 'galacticempire',
     limited = 1,
@@ -6661,7 +6094,6 @@ masterPilotDB['sigma7-battleofyavin'] = {
 
 masterPilotDB['dutchvander-battleofyavin'] = {
     name = '"Dutch" Vander',
-    xws = 'dutchvander-battleofyavin',
     title = 'Battle of Yavin',
     faction = 'rebelalliance',
     limited = 1,
@@ -6682,7 +6114,6 @@ masterPilotDB['dutchvander-battleofyavin'] = {
 
 masterPilotDB['anakinskywalker-siegeofcoruscant'] = {
     name = 'Anakin Skywalker',
-    xws = 'anakinskywalker-siegeofcoruscant',
     title = 'Siege of Coruscant',
     limited = 1,
     faction = 'galacticrepublic',
@@ -6702,7 +6133,6 @@ masterPilotDB['anakinskywalker-siegeofcoruscant'] = {
 
 masterPilotDB['obiwankenobi-siegeofcoruscant'] = {
     name = 'Obi-Wan Kenobi',
-    xws = 'obiwankenobi-siegeofcoruscant',
     title = 'Siege of Coruscant',
     limited = 1,
     faction = 'galacticrepublic',
@@ -6722,7 +6152,6 @@ masterPilotDB['obiwankenobi-siegeofcoruscant'] = {
 
 masterPilotDB['shaakti-siegeofcoruscant'] = {
     name = 'Shaak Ti',
-    xws = 'shaakti-siegeofcoruscant',
     title = 'Siege of Coruscant',
     limited = 1,
     faction = 'galacticrepublic',
@@ -6743,7 +6172,6 @@ masterPilotDB['shaakti-siegeofcoruscant'] = {
 
 masterPilotDB['axe-siegeofcoruscant'] = {
     name = '"Axe"',
-    xws = 'axe-siegeofcoruscant',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'v19torrentstarfighter',
@@ -6762,7 +6190,6 @@ masterPilotDB['axe-siegeofcoruscant'] = {
 
 masterPilotDB['kickback-siegeofcoruscant'] = {
     name = '"Kickback"',
-    xws = 'kickback-siegeofcoruscant',
     title = 'Siege of Coruscant',
     faction = 'galacticrepublic',
     limited = 1,
@@ -6780,7 +6207,6 @@ masterPilotDB['kickback-siegeofcoruscant'] = {
 
 masterPilotDB['contrail-siegeofcoruscant'] = {
     name = '"Contrail"',
-    xws = 'contrail-siegeofcoruscant',
     title = 'Siege of Coruscant',
     limited = 1,
     faction = 'galacticrepublic',
@@ -6800,7 +6226,6 @@ masterPilotDB['contrail-siegeofcoruscant'] = {
 
 masterPilotDB['jag-siegeofcoruscant'] = {
     name = '"Jag"',
-    xws = 'jag-siegeofcoruscant',
     title = 'Siege of Coruscant',
     faction = 'galacticrepublic',
     limited = 1,
@@ -6820,7 +6245,6 @@ masterPilotDB['jag-siegeofcoruscant'] = {
 
 masterPilotDB['wolffe-siegeofcoruscant'] = {
     name = '"Wolffe"',
-    xws = 'wolffe-siegeofcoruscant',
     title = 'Siege of Coruscant',
     faction = 'galacticrepublic',
     limited = 1,
@@ -6840,7 +6264,6 @@ masterPilotDB['wolffe-siegeofcoruscant'] = {
 
 masterPilotDB['oddball-siegeofcoruscant'] = {
     name = '"Odd Ball"',
-    xws = 'oddball-siegeofcoruscant',
     title = 'Siege of Coruscant',
     faction = 'galacticrepublic',
     limited = 1,
@@ -6861,7 +6284,6 @@ masterPilotDB['oddball-siegeofcoruscant'] = {
 
 masterPilotDB['countdooku-siegeofcoruscant'] = {
     name = 'Count Dooku',
-    xws = 'countdooku-siegeofcoruscant',
     title = 'Siege of Coruscant',
     faction = 'separatistalliance',
     limited = 1,
@@ -6881,7 +6303,6 @@ masterPilotDB['countdooku-siegeofcoruscant'] = {
 
 masterPilotDB['dfs081-siegeofcoruscant'] = {
     name = 'DFS-081',
-    xws = 'dfs081-siegeofcoruscant',
     title = 'Siege of Coruscant',
     faction = 'separatistalliance',
     charge = 2,
@@ -6901,7 +6322,6 @@ masterPilotDB['dfs081-siegeofcoruscant'] = {
 
 masterPilotDB['dfs311-siegeofcoruscant'] = {
     name = 'DFS-311',
-    xws = 'dfs311-siegeofcoruscant',
     title = 'Siege of Coruscant',
     faction = 'separatistalliance',
     limited = 1,
@@ -6919,7 +6339,6 @@ masterPilotDB['dfs311-siegeofcoruscant'] = {
 
 masterPilotDB['haorchallprototype-siegeofcoruscant'] = {
     name = 'Haor Chall Prototype',
-    xws = 'haorchallprototype-siegeofcoruscant',
     title = 'Siege of Coruscant',
     faction = 'separatistalliance',
     limited = 2,
@@ -6940,7 +6359,6 @@ masterPilotDB['haorchallprototype-siegeofcoruscant'] = {
 
 masterPilotDB['adigallia'] = {
     name = 'Adi Gallia',
-    xws = 'adigallia',
     faction = 'galacticrepublic',
     ship_type = 'delta7aethersprite',
     force = 2,
@@ -6952,7 +6370,6 @@ masterPilotDB['adigallia'] = {
 
 masterPilotDB['adigallia-delta7baethersprite'] = {
     name = 'Adi Gallia',
-    xws = 'adigallia-delta7baethersprite',
     faction = 'galacticrepublic',
     ship_type = 'delta7baethersprite',
     limited = 1,
@@ -6965,7 +6382,6 @@ masterPilotDB['adigallia-delta7baethersprite'] = {
 
 masterPilotDB['corranhorn-t65xwing'] = {
     name = 'Corran Horn',
-    xws = 'corranhorn-t65xwing',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
@@ -6977,7 +6393,6 @@ masterPilotDB['corranhorn-t65xwing'] = {
 
 masterPilotDB['doctoraphra'] = {
     name = 'Doctor Aphra',
-    xws = 'doctoraphra',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'yv666lightfreighter',
@@ -6989,7 +6404,6 @@ masterPilotDB['doctoraphra'] = {
 
 masterPilotDB['durge'] = {
     name = 'Durge',
-    xws = 'durge',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'rogueclassstarfighter',
@@ -7000,7 +6414,6 @@ masterPilotDB['durge'] = {
 
 masterPilotDB['flightleaderubbel'] = {
     name = 'Flight Leader Ubbel',
-    xws = 'flightleaderubbel',
     limited = 1,
     faction = 'galacticempire',
     ship_type = 'tierbheavy',
@@ -7011,7 +6424,6 @@ masterPilotDB['flightleaderubbel'] = {
 
 masterPilotDB['gavynsykes'] = {
     name = 'Gavyn Sykes',
-    xws = 'gavynsykes',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'nabooroyaln1starfighter',
@@ -7022,7 +6434,6 @@ masterPilotDB['gavynsykes'] = {
 
 masterPilotDB['hondoohnaka'] = {
     name = 'Hondo Ohnaka',
-    xws = 'hondoohnaka',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'firesprayclasspatrolcraft',
@@ -7034,7 +6445,6 @@ masterPilotDB['hondoohnaka'] = {
 
 masterPilotDB['junoeclipse'] = {
     name = 'Juno Eclipse',
-    xws = 'junoeclipse',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieadvancedx1',
@@ -7045,7 +6455,6 @@ masterPilotDB['junoeclipse'] = {
 
 masterPilotDB['keovenzee'] = {
     name = 'Keo Venzee',
-    xws = 'keovenzee',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'rz1awing',
@@ -7069,7 +6478,6 @@ masterPilotDB['keovenzee'] = {
 
 masterPilotDB['kitfisto'] = {
     name = 'Kit Fisto',
-    xws = 'kitfisto',
     limited = 1,
     faction = 'galacticrepublic',
     force = 2,
@@ -7082,7 +6490,6 @@ masterPilotDB['kitfisto'] = {
 
 masterPilotDB['lapin'] = {
     name = 'Lapin',
-    xws = 'lapin',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'modifiedtielnfighter',
@@ -7093,7 +6500,6 @@ masterPilotDB['lapin'] = {
 
 masterPilotDB['magnatolvan'] = {
     name = 'Magna Tolvan',
-    xws = 'magnatolvan',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
@@ -7104,7 +6510,6 @@ masterPilotDB['magnatolvan'] = {
 
 masterPilotDB['popskrail'] = {
     name = '"Pops" Krail',
-    xws = 'popskrail',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'btla4ywing',
@@ -7115,7 +6520,6 @@ masterPilotDB['popskrail'] = {
 
 masterPilotDB['secondsister'] = {
     name = 'Second Sister',
-    xws = 'secondsister',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieininterceptor',
@@ -7127,7 +6531,6 @@ masterPilotDB['secondsister'] = {
 
 masterPilotDB['sicko'] = {
     name = '"Sicko"',
-    xws = 'sicko',
     limited = 1,
     faction = 'galacticrepublic',
     ship_type = 'laatigunship',
@@ -7156,7 +6559,6 @@ masterPilotDB['sicko'] = {
 
 masterPilotDB['slammer'] = {
     name = '"Slammer"',
-    xws = 'slammer',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'v19torrentstarfighter',
@@ -7169,7 +6571,6 @@ masterPilotDB['slammer'] = {
 
 masterPilotDB['torphun'] = {
     name = 'Tor Phun',
-    xws = 'torphun',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'fangfighter',
@@ -7181,7 +6582,6 @@ masterPilotDB['torphun'] = {
 
 masterPilotDB['tychocelchu'] = {
     name = 'Tycho Celchu',
-    xws = 'tychocelchu',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'rz1awing',
@@ -7192,7 +6592,6 @@ masterPilotDB['tychocelchu'] = {
 
 masterPilotDB['wesjanson'] = {
     name = 'Wes Janson',
-    xws = 'wesjanson',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
@@ -7204,7 +6603,6 @@ masterPilotDB['wesjanson'] = {
 
 masterPilotDB['yricaquell'] = {
     name = 'Yrica Quell',
-    xws = 'yricaquell',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
@@ -7215,7 +6613,6 @@ masterPilotDB['yricaquell'] = {
 
 masterPilotDB['takajamoreesa'] = {
     name = 'Taka Jamoreesa',
-    xws = 'takajamoreesa',
     faction = 'resistance',
     limited = 1,
     ship_type = 'resistancetransport',
@@ -7226,7 +6623,6 @@ masterPilotDB['takajamoreesa'] = {
 
 masterPilotDB['zayversio'] = {
     name = 'Zay Versio',
-    xws = 'zayversio',
     limited = 1,
     faction = 'resistance',
     ship_type = 't70xwing',
@@ -7238,7 +6634,6 @@ masterPilotDB['zayversio'] = {
 
 masterPilotDB['venisadoza'] = {
     name = 'Venisa Doza',
-    xws = 'venisadoza',
     limited = 1,
     faction = 'resistance',
     ship_type = 't70xwing',
@@ -7251,7 +6646,6 @@ masterPilotDB['venisadoza'] = {
 
 masterPilotDB['landocalrissian-scavengedyt1300'] = {
     name = "Lando Calrissian",
-    xws = 'landocalrissian-scavengedyt1300',
     faction = 'resistance',
     limited = 1,
     ship_type = 'scavengedyt1300lightfreighter',
@@ -7263,7 +6657,6 @@ masterPilotDB['landocalrissian-scavengedyt1300'] = {
 
 masterPilotDB['poedameron-scavengedyt1300'] = {
     name = "Poe Dameron",
-    xws = 'poedameron-scavengedyt1300',
     faction = 'resistance',
     limited = 1,
     ship_type = 'scavengedyt1300lightfreighter',
@@ -7275,7 +6668,6 @@ masterPilotDB['poedameron-scavengedyt1300'] = {
 
 masterPilotDB['theironassembler'] = {
     name = 'The Iron Assembler',
-    xws = 'theironassembler',
     faction = 'separatistalliance',
     limited = 1,
     ship_type = 'vultureclassdroidfighter',
@@ -7287,7 +6679,6 @@ masterPilotDB['theironassembler'] = {
 
 masterPilotDB['kelrodoaiholdout'] = {
     name = 'Kelrodo-Ai Holdout',
-    xws = 'kelrodoaiholdout',
     faction = 'separatistalliance',
     limited = 3,
     ship_type = 'vultureclassdroidfighter',
@@ -7298,7 +6689,6 @@ masterPilotDB['kelrodoaiholdout'] = {
 
 masterPilotDB['aurrasing'] = {
     name = 'Aurra Sing',
-    xws = 'aurrasing',
     limited = 1,
     faction = 'separatistalliance',
     force = 1,
@@ -7310,7 +6700,6 @@ masterPilotDB['aurrasing'] = {
 
 masterPilotDB['agenttierny'] = {
     name = 'Agent Tierny',
-    xws = 'agenttierny',
     faction = 'firstorder',
     limited = 1,
     condition = 'Broken Trust',
@@ -7322,7 +6711,6 @@ masterPilotDB['agenttierny'] = {
 
 masterPilotDB['lingaava'] = {
     name = 'Lin Gaava',
-    xws = 'lingaava',
     limited = 1,
     faction = 'firstorder',
     ship_type = 'tiefofighter',
@@ -7334,7 +6722,6 @@ masterPilotDB['lingaava'] = {
 
 masterPilotDB['lieutenantgalek'] = {
     name = 'Lieutenant Galek',
-    xws = 'lieutenantgalek',
     limited = 1,
     faction = 'firstorder',
     ship_type = 'tiefofighter',
@@ -7345,7 +6732,6 @@ masterPilotDB['lieutenantgalek'] = {
 
 masterPilotDB['dt798'] = {
     name = 'DT-798',
-    xws = 'dt798',
     limited = 1,
     faction = 'firstorder',
     ship_type = 'tiefofighter',
@@ -7356,7 +6742,6 @@ masterPilotDB['dt798'] = {
 
 masterPilotDB['phlacarphoccprototype-siegeofcoruscant'] = {
     name = "Phlac-Arphocc Prototype",
-    xws = 'phlacarphoccprototype-siegeofcoruscant',
     title = "Siege of Coruscant",
     limited = 2,
     faction = 'separatistalliance',
@@ -7374,7 +6759,6 @@ masterPilotDB['phlacarphoccprototype-siegeofcoruscant'] = {
 
 masterPilotDB['dist81-siegeofcoruscant'] = {
     name = "DIS-T81",
-    xws = 'dist81-siegeofcoruscant',
     title = "Siege of Coruscant",
     limited = 1,
     faction = 'separatistalliance',
@@ -7392,7 +6776,6 @@ masterPilotDB['dist81-siegeofcoruscant'] = {
 
 masterPilotDB['dis347-siegeofcoruscant'] = {
     name = "DIS-347",
-    xws = 'dis347-siegeofcoruscant',
     title = "Siege of Coruscant",
     limited = 1,
     faction = 'separatistalliance',
@@ -7410,7 +6793,6 @@ masterPilotDB['dis347-siegeofcoruscant'] = {
 
 masterPilotDB['baktoidprototype-siegeofcoruscant'] = {
     name = 'Baktoid Prototype',
-    xws = 'baktoidprototype-siegeofcoruscant',
     title = "Siege of Coruscant",
     faction = 'separatistalliance',
     limited = 2,
@@ -7428,7 +6810,6 @@ masterPilotDB['baktoidprototype-siegeofcoruscant'] = {
 
 masterPilotDB['dbs404-siegeofcoruscant'] = {
     name = 'DBS-404',
-    xws = 'dbs404-siegeofcoruscant',
     title = "Siege of Coruscant",
     faction = 'separatistalliance',
     limited = 1,
@@ -7446,7 +6827,6 @@ masterPilotDB['dbs404-siegeofcoruscant'] = {
 
 masterPilotDB['dbs32c-siegeofcoruscant'] = {
     name = 'DBS-32C',
-    xws = 'dbs32c-siegeofcoruscant',
     title = "Siege of Coruscant",
     faction = 'separatistalliance',
     limited = 1,
@@ -7465,7 +6845,6 @@ masterPilotDB['dbs32c-siegeofcoruscant'] = {
 
 masterPilotDB['volandas'] = {
     name = "Volan Das",
-    xws = 'volandas',
     limited = 1,
     faction = 'separatistalliance',
     ship_type = 'droidtrifighter',
@@ -7476,7 +6855,6 @@ masterPilotDB['volandas'] = {
 
 masterPilotDB['durge-separatistalliance'] = {
     name = 'Durge',
-    xws = 'durge-separatistalliance',
     faction = 'separatistalliance',
     limited = 1,
     ship_type = 'rogueclassstarfighter',
@@ -7488,7 +6866,6 @@ masterPilotDB['durge-separatistalliance'] = {
 
 masterPilotDB['klick-siegeofcoruscant'] = {
     name = '"Klick"',
-    xws = 'klick-siegeofcoruscant',
     title = "Siege of Coruscant",
     limited = 1,
     faction = 'galacticrepublic',
@@ -7513,7 +6890,6 @@ masterPilotDB['klick-siegeofcoruscant'] = {
 
 masterPilotDB['juljerjerrod'] = {
     name = 'Jul Jerjerrod',
-    xws = 'juljerjerrod',
     faction = 'firstorder',
     limited = 1,
     charge = 3,
@@ -7525,7 +6901,6 @@ masterPilotDB['juljerjerrod'] = {
 
 masterPilotDB['lukeskywalker-swz106'] = {
     name = 'Luke Skywalker',
-    xws = 'lukeskywalker-swz106',
     title = 'Squadron Starter Pack',
     faction = 'rebelalliance',
     limited = 1,
@@ -7545,7 +6920,6 @@ masterPilotDB['lukeskywalker-swz106'] = {
 
 masterPilotDB['jekporkins-swz106'] = {
     name = 'Jek Porkins',
-    xws = 'jekporkins-swz106',
     title = 'Squadron Starter Pack',
     faction = 'rebelalliance',
     limited = 1,
@@ -7564,7 +6938,6 @@ masterPilotDB['jekporkins-swz106'] = {
 
 masterPilotDB['dutchvander-swz106'] = {
     name = '"Dutch" Vander',
-    xws = 'dutchvander-swz106',
     title = 'Squadron Starter Pack',
     faction = 'rebelalliance',
     limited = 1,
@@ -7583,7 +6956,6 @@ masterPilotDB['dutchvander-swz106'] = {
 
 masterPilotDB['hortonsalm-swz106'] = {
     name = 'Horton Salm',
-    xws = 'hortonsalm-swz106',
     title = 'Squadron Starter Pack',
     faction = 'rebelalliance',
     limited = 1,
@@ -7601,7 +6973,6 @@ masterPilotDB['hortonsalm-swz106'] = {
 
 masterPilotDB['arvelcrynyd-swz106'] = {
     name = 'Arvel Crynyd',
-    xws = 'arvelcrynyd-swz106',
     title = 'Squadron Starter Pack',
     faction = 'rebelalliance',
     limited = 1,
@@ -7618,7 +6989,6 @@ masterPilotDB['arvelcrynyd-swz106'] = {
 
 masterPilotDB['jakefarrell-swz106'] = {
     name = 'Jake Farrell',
-    xws = 'jakefarrell-swz106',
     title = 'Squadron Starter Pack',
     faction = 'rebelalliance',
     limited = 1,
@@ -7636,7 +7006,6 @@ masterPilotDB['jakefarrell-swz106'] = {
 
 masterPilotDB['sharabey-swz106'] = {
     name = 'Shara Bey',
-    xws = 'sharabey-swz106',
     title = 'Squadron Starter Pack',
     faction = 'rebelalliance',
     limited = 1,
@@ -7653,7 +7022,6 @@ masterPilotDB['sharabey-swz106'] = {
 
 masterPilotDB['darthvader-swz105'] = {
     name = 'Darth Vader',
-    xws = 'darthvader-swz105',
     title = 'Squadron Starter Pack',
     faction = 'galacticempire',
     limited = 1,
@@ -7674,7 +7042,6 @@ masterPilotDB['darthvader-swz105'] = {
 
 masterPilotDB['maarekstele-swz105'] = {
     name = 'Maarek Stele',
-    xws = 'maarekstele-swz105',
     title = 'Squadron Starter Pack',
     faction = 'galacticempire',
     limited = 1,
@@ -7694,7 +7061,6 @@ masterPilotDB['maarekstele-swz105'] = {
 
 masterPilotDB['captainjonus-swz105'] = {
     name = 'Captain Jonus',
-    xws = 'captainjonus-swz105',
     title = 'Squadron Starter Pack',
     faction = 'galacticempire',
     limited = 1,
@@ -7713,7 +7079,6 @@ masterPilotDB['captainjonus-swz105'] = {
 
 masterPilotDB['tomaxbren-swz105'] = {
     name = 'Tomax Bren',
-    xws = 'tomaxbren-swz105',
     title = 'Squadron Starter Pack',
     faction = 'galacticempire',
     limited = 1,
@@ -7732,7 +7097,6 @@ masterPilotDB['tomaxbren-swz105'] = {
 
 masterPilotDB['nightbeast-swz105'] = {
     name = '"Night Beast"',
-    xws = 'nightbeast-swz105',
     title = 'Squadron Starter Pack',
     faction = 'galacticempire',
     limited = 1,
@@ -7749,7 +7113,6 @@ masterPilotDB['nightbeast-swz105'] = {
 
 masterPilotDB['valenrudor-swz105'] = {
     name = 'Valen Rudor',
-    xws = 'valenrudor-swz105',
     title = 'Squadron Starter Pack',
     faction = 'galacticempire',
     limited = 1,
@@ -7766,7 +7129,6 @@ masterPilotDB['valenrudor-swz105'] = {
 
 masterPilotDB['idenversio-swz105'] = {
     name = 'Iden Versio',
-    xws = 'idenversio-swz105',
     title = 'Squadron Starter Pack',
     faction = 'galacticempire',
     limited = 1,
@@ -7786,7 +7148,6 @@ masterPilotDB['idenversio-swz105'] = {
 masterPilotDB['deathfire-swz98'] = {
     name = '"Deathfire"',
     title = 'SL',
-    xws = 'deathfire-swz98',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiesabomber',
@@ -7806,7 +7167,6 @@ masterPilotDB['deathfire-swz98'] = {
 masterPilotDB['captainjonus-swz98'] = {
     name = 'Captain Jonus',
     title = 'SL',
-    xws = 'captainjonus-swz98',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiesabomber',
@@ -7825,7 +7185,6 @@ masterPilotDB['captainjonus-swz98'] = {
 masterPilotDB['tomaxbren-swz98'] = {
     name = 'Tomax Bren',
     title = 'SL',
-    xws = 'tomaxbren-swz98',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiesabomber',
@@ -7846,7 +7205,6 @@ masterPilotDB['tomaxbren-swz98'] = {
 masterPilotDB['majorrhymer-swz98'] = {
     name = 'Major Rhymer',
     title = 'SL',
-    xws = 'majorrhymer-swz98',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiesabomber',
@@ -7864,7 +7222,6 @@ masterPilotDB['majorrhymer-swz98'] = {
 masterPilotDB['dashrendar-swz103-sl-rebelalliance'] = {
     name = 'Dash Rendar',
     title = 'Rebel (SL)',
-    xws = 'dashrendar-swz103-sl-rebelalliance',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'yt2400lightfreighter',
@@ -7883,7 +7240,6 @@ masterPilotDB['dashrendar-swz103-sl-rebelalliance'] = {
 masterPilotDB['dashrendar-swz103-sl-scumandvillainy'] = {
     name = 'Dash Rendar',
     title = 'Scum (SL)',
-    xws = 'dashrendar-swz103-sl-scumandvillainy',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'yt2400lightfreighter',
@@ -7902,7 +7258,6 @@ masterPilotDB['dashrendar-swz103-sl-scumandvillainy'] = {
 masterPilotDB['leebo-swz103-sl-scumandvillainy'] = {
     name = '"Leebo"',
     title = 'Scum (SL)',
-    xws = 'leebo-swz103-sl-scumandvillainy',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'yt2400lightfreighter',
@@ -7921,7 +7276,6 @@ masterPilotDB['leebo-swz103-sl-scumandvillainy'] = {
 masterPilotDB['leebo-swz103-sl-rebelalliance'] = {
     name = '"Leebo"',
     title = 'Rebel (SL)',
-    xws = 'leebo-swz103-sl-rebelalliance',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'yt2400lightfreighter',
@@ -7940,7 +7294,6 @@ masterPilotDB['leebo-swz103-sl-rebelalliance'] = {
 masterPilotDB['dashrendar-swz103-rebelalliance'] = {
     name = 'Dash Rendar',
     title = 'Rebel',
-    xws = 'dashrendar-swz103-rebelalliance',
     faction = 'rebelalliance',
     limited = 1,
     ship_type = 'yt2400lightfreighter',
@@ -7952,7 +7305,6 @@ masterPilotDB['dashrendar-swz103-rebelalliance'] = {
 masterPilotDB['dashrendar-swz103-scumandvillainy'] = {
     name = 'Dash Rendar',
     title = 'Scum',
-    xws = 'dashrendar-swz103-scumandvillainy',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'yt2400lightfreighter',
@@ -7963,7 +7315,6 @@ masterPilotDB['dashrendar-swz103-scumandvillainy'] = {
 
 masterPilotDB['leebo-swz103-rebelalliance'] = {
     name = '"Leebo"',
-    xws = 'leebo-swz103-rebelalliance',
     title = 'Rebel',
     faction = 'rebelalliance',
     limited = 1,
@@ -7977,7 +7328,6 @@ masterPilotDB['leebo-swz103-rebelalliance'] = {
 masterPilotDB['leebo-swz103-scumandvillainy'] = {
     name = '"Leebo"',
     title = 'Scum',
-    xws = 'leebo-swz103-scumandvillainy',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'yt2400lightfreighter',
@@ -7991,7 +7341,6 @@ masterPilotDB['leebo-swz103-scumandvillainy'] = {
 
 masterPilotDB['captainyorr-battleoverendor'] = {
     name = 'Captain Yorr',
-    xws = 'captainyorr-battleoverendor',
     title = 'Battle over Endor',
     faction = 'galacticempire',
     limited = 1,
@@ -8012,7 +7361,6 @@ masterPilotDB['captainyorr-battleoverendor'] = {
 
 masterPilotDB['coloneljendon-battleoverendor'] = {
     name = 'Colonel Jendon',
-    xws = 'coloneljendon-battleoverendor',
     title = 'Battle over Endor',
     faction = 'galacticempire',
     limited = 1,
@@ -8032,7 +7380,6 @@ masterPilotDB['coloneljendon-battleoverendor'] = {
 
 masterPilotDB['lieutenanthebsly-battleoverendor'] = {
     name = 'Lieutenant Hebsly',
-    xws = 'lieutenanthebsly-battleoverendor',
     title = 'Battle over Endor',
     faction = 'galacticempire',
     limited = 1,
@@ -8050,7 +7397,6 @@ masterPilotDB['lieutenanthebsly-battleoverendor'] = {
 
 masterPilotDB['majormianda-battleoverendor'] = {
     name = 'Major Mianda',
-    xws = 'majormianda-battleoverendor',
     title = 'Battle over Endor',
     faction = 'galacticempire',
     limited = 1,
@@ -8070,7 +7416,6 @@ masterPilotDB['majormianda-battleoverendor'] = {
 
 masterPilotDB['scythe6-battleoverendor'] = {
     name = 'Scythe 6',
-    xws = 'scythe6-battleoverendor',
     title = 'Battle over Endor',
     faction = 'galacticempire',
     limited = 1,
@@ -8089,7 +7434,6 @@ masterPilotDB['scythe6-battleoverendor'] = {
 
 masterPilotDB['mausmonare-battleoverendor'] = {
     name = 'Maus Monare',
-    xws = 'mausmonare-battleoverendor',
     title = 'Battle over Endor',
     faction = 'galacticempire',
     limited = 1,
@@ -8108,7 +7452,6 @@ masterPilotDB['mausmonare-battleoverendor'] = {
 
 masterPilotDB['sapphire2-battleoverendor'] = {
     name = 'Sapphire 2',
-    xws = 'sapphire2-battleoverendor',
     title = 'Battle over Endor',
     faction = 'galacticempire',
     limited = 1,
@@ -8127,7 +7470,6 @@ masterPilotDB['sapphire2-battleoverendor'] = {
 
 masterPilotDB['soontirfel-battleoverendor'] = {
     name = 'Soontir Fel',
-    xws = 'soontirfel-battleoverendor',
     title = 'Battle over Endor',
     faction = 'galacticempire',
     limited = 1,
@@ -8147,7 +7489,6 @@ masterPilotDB['soontirfel-battleoverendor'] = {
 
 masterPilotDB['scimitar1-battleoverendor'] = {
     name = 'Scimitar 1',
-    xws = 'scimitar1-battleoverendor',
     title = 'Battle over Endor',
     faction = 'galacticempire',
     limited = 1,
@@ -8168,7 +7509,6 @@ masterPilotDB['scimitar1-battleoverendor'] = {
 
 masterPilotDB['scimitar3-battleoverendor'] = {
     name = 'Scimitar 3',
-    xws = 'scimitar3-battleoverendor',
     title = 'Battle over Endor',
     faction = 'galacticempire',
     limited = 1,
@@ -8189,7 +7529,6 @@ masterPilotDB['scimitar3-battleoverendor'] = {
 
 masterPilotDB['kendyidele-battleoverendor'] = {
     name = 'Kendy Idele',
-    xws = 'kendyidele-battleoverendor',
     title = 'Battle over Endor',
     faction = 'rebelalliance',
     limited = 1,
@@ -8208,7 +7547,6 @@ masterPilotDB['kendyidele-battleoverendor'] = {
 
 masterPilotDB['wedgeantilles-battleoverendor'] = {
     name = 'Wedge Antilles',
-    xws = 'wedgeantilles-battleoverendor',
     faction = 'rebelalliance',
     limited = 1,
     title = 'Battle over Endor',
@@ -8228,7 +7566,6 @@ masterPilotDB['wedgeantilles-battleoverendor'] = {
 
 masterPilotDB['yendor-battleoverendor'] = {
     name = 'Yendor',
-    xws = 'yendor-battleoverendor',
     title = 'Battle over Endor',
     faction = 'rebelalliance',
     limited = 1,
@@ -8246,7 +7583,6 @@ masterPilotDB['yendor-battleoverendor'] = {
 
 masterPilotDB['arvelcrynyd-battleoverendor'] = {
     name = 'Arvel Crynyd',
-    xws = 'arvelcrynyd-battleoverendor',
     title = 'Battle over Endor',
     faction = 'rebelalliance',
     limited = 1,
@@ -8266,7 +7602,6 @@ masterPilotDB['arvelcrynyd-battleoverendor'] = {
 
 masterPilotDB['gemmersojan-battleoverendor'] = {
     name = 'Gemmer Sojan',
-    xws = 'gemmersojan-battleoverendor',
     title = 'Battle over Endor',
     faction = 'rebelalliance',
     limited = 1,
@@ -8289,7 +7624,6 @@ masterPilotDB['gemmersojan-battleoverendor'] = {
 
 masterPilotDB['braylenstramm-battleoverendor'] = {
     name = 'Braylen Stramm',
-    xws = 'braylenstramm-battleoverendor',
     title = 'Battle over Endor',
     faction = 'rebelalliance',
     limited = 1,
@@ -8311,7 +7645,6 @@ masterPilotDB['braylenstramm-battleoverendor'] = {
 
 masterPilotDB['adonfox-battleoverendor'] = {
     name = 'Adon Fox',
-    xws = 'adonfox-battleoverendor',
     title = 'Battle over Endor',
     faction = 'rebelalliance',
     limited = 1,
@@ -8333,7 +7666,6 @@ masterPilotDB['adonfox-battleoverendor'] = {
 
 masterPilotDB['ginamoonsong-battleoverendor'] = {
     name = 'Gina Moonsong',
-    xws = 'ginamoonsong-battleoverendor',
     faction = 'rebelalliance',
     limited = 1,
     title = 'Battle over Endor',
@@ -8355,7 +7687,6 @@ masterPilotDB['ginamoonsong-battleoverendor'] = {
 
 masterPilotDB['tychocelchu-battleoverendor'] = {
     name = 'Tycho Celchu',
-    xws = 'tychocelchu-battleoverendor',
     faction = 'rebelalliance',
     limited = 1,
     title = 'Battle over Endor',
@@ -8376,7 +7707,6 @@ masterPilotDB['tychocelchu-battleoverendor'] = {
 
 masterPilotDB['landocalrissian-battleoverendor'] = {
     name = 'Lando Calrissian',
-    xws = 'landocalrissian-battleoverendor',
     title = 'Battle over Endor',
     faction = 'rebelalliance',
     limited = 1,
@@ -8398,7 +7728,6 @@ masterPilotDB['landocalrissian-battleoverendor'] = {
 masterPilotDB['echo-ssl'] = {
     name = '"Echo"',
     title = 'Copycat',
-    xws = 'echo-ssl',
     faction = 'galacticempire',
     limited = 1,
     charge = 1,
@@ -8417,7 +7746,6 @@ masterPilotDB['echo-ssl'] = {
 masterPilotDB['whisper-ssl'] = {
     name = '"Whisper"',
     title = 'Unseen Assailant',
-    xws = 'whisper-ssl',
     faction = 'galacticempire',
     limited = 1,
     charge = 2,
@@ -8436,7 +7764,6 @@ masterPilotDB['whisper-ssl'] = {
 masterPilotDB['majorvynder-ssl'] = {
     name = 'Major Vynder',
     title = 'Helping Hand',
-    xws = 'majorvynder-ssl',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'alphaclassstarwing',
@@ -8455,7 +7782,6 @@ masterPilotDB['majorvynder-ssl'] = {
 masterPilotDB['lieutenantkarsabi-ssl'] = {
     name = 'Lieutenant Karsabi',
     title = 'Payload Courier',
-    xws = 'lieutenantkarsabi-ssl',
     faction = 'galacticempire',
     limited = 1,
     ship_type = 'alphaclassstarwing',
@@ -8473,7 +7799,6 @@ masterPilotDB['lieutenantkarsabi-ssl'] = {
 
 masterPilotDB['newrepublicpatrol-wartime'] = {
     name = 'New Republic Patrol',
-    xws = 'newrepublicpatrol-wartime',
     faction = 'resistance',
     ship_type = 'btanr2ywing-wartime',
     initiative = 3,
@@ -8483,7 +7808,6 @@ masterPilotDB['newrepublicpatrol-wartime'] = {
 
 masterPilotDB['kijimispicerunner-wartime'] = {
     name = 'Kijimi Spice Runner',
-    xws = 'kijimispicerunner-wartime',
     faction = 'resistance',
     ship_type = 'btanr2ywing-wartime',
     initiative = 2,
@@ -8493,7 +7817,6 @@ masterPilotDB['kijimispicerunner-wartime'] = {
 
 masterPilotDB['tezanasz-wartime'] = {
     name = 'Teza Nasz',
-    xws = 'tezanasz-wartime',
     faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing-wartime',
@@ -8504,7 +7827,6 @@ masterPilotDB['tezanasz-wartime'] = {
 
 masterPilotDB['shasazaro-wartime'] = {
     name = 'Shasa Zaro',
-    xws = 'shasazaro-wartime',
     faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing-wartime',
@@ -8515,7 +7837,6 @@ masterPilotDB['shasazaro-wartime'] = {
 
 masterPilotDB['coruskapellim-wartime'] = {
     name = 'Corus Kapellim',
-    xws = 'coruskapellim-wartime',
     faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing-wartime',
@@ -8526,7 +7847,6 @@ masterPilotDB['coruskapellim-wartime'] = {
 
 masterPilotDB['caithrenalli-wartime'] = {
     name = "C'ai Threnalli",
-    xws = 'caithrenalli-wartime',
     faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing-wartime',
@@ -8538,7 +7858,6 @@ masterPilotDB['caithrenalli-wartime'] = {
 
 masterPilotDB['wilsateshlo-wartime'] = {
     name = 'Wilsa Teshlo',
-    xws = 'wilsateshlo-wartime',
     faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing-wartime',
@@ -8549,7 +7868,6 @@ masterPilotDB['wilsateshlo-wartime'] = {
 
 masterPilotDB['zoriibliss-wartime'] = {
     name = 'Zorii Bliss',
-    xws = 'zoriibliss-wartime',
     charge = 1,
     faction = 'resistance',
     limited = 1,
@@ -8561,7 +7879,6 @@ masterPilotDB['zoriibliss-wartime'] = {
 
 masterPilotDB['aftabackbar-wartime'] = {
     name = 'Aftab Ackbar',
-    xws = 'aftabackbar-wartime',
     faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing-wartime',
@@ -8572,7 +7889,6 @@ masterPilotDB['aftabackbar-wartime'] = {
 
 masterPilotDB['legafossang-wartime'] = {
     name = 'Lega Fossang',
-    xws = 'legafossang-wartime',
     faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing-wartime',

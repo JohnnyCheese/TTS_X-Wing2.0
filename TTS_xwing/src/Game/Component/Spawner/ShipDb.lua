@@ -7,7 +7,6 @@ masterShipDB[0] = {
     ['size'] = 'small',
     ['agility'] = 1,
     ['energy'] = 0,
-    ['xws'] = '',
     ['factions'] = { ['dummy'] = true },
     ['arcs'] = { fixed = { range = 3, type = { 'front' } } }
 }
@@ -19,7 +18,6 @@ masterShipDB['modifiedyt1300lightfreighter'] = {
     size = 'large',
     proximity_hider = true,
     agility = 1,
-    xws = 'modifiedyt1300lightfreighter',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/modifiedyt1300lightfreighter/Textures/1/standard.jpg',
@@ -56,7 +54,6 @@ masterShipDB['starviperclassattackplatform'] = {
     shield = 1,
     size = 'small',
     agility = 3,
-    xws = 'starviperclassattackplatform',
     textures = {
         red =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/starviperclassattackplatform/Textures/blacksunassassin.jpg',
@@ -76,7 +73,6 @@ masterShipDB['scurrgh6bomber'] = {
     shield = 4,
     size = 'medium',
     agility = 1,
-    xws = 'scurrgh6bomber',
     textures = {
         orange =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/scurrgh6bomber/Textures/orange.png',
@@ -97,7 +93,6 @@ masterShipDB['yt2400lightfreighter'] = {
     size = 'large',
     proximity_hider = true,
     agility = 2,
-    xws = 'yt2400lightfreighter',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/yt2400lightfreighter/Textures/standard.jpg',
@@ -116,7 +111,6 @@ masterShipDB['auzituckgunship'] = {
     shield = 2,
     size = 'small',
     agility = 1,
-    xws = 'auzituckgunship',
     textures = {
         orange =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/auzituckgunship/Textures/orange.jpg',
@@ -138,7 +132,6 @@ masterShipDB['kihraxzfighter'] = {
     shield = 1,
     size = 'small',
     agility = 2,
-    xws = 'kihraxzfighter',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/kihraxzfighter/Textures/standard.jpg',
@@ -166,7 +159,6 @@ masterShipDB['sheathipedeclassshuttle'] = {
     shield = 1,
     size = 'small',
     agility = 2,
-    xws = 'sheathipedeclassshuttle',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/sheathipedeclassshuttle/Textures/standard.jpg',
@@ -184,7 +176,6 @@ masterShipDB['quadrijettransferspacetug'] = {
     shield = 0,
     size = 'small',
     agility = 2,
-    xws = 'quadrijettransferspacetug',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/quadrijettransferspacetug/Textures/standard.jpg',
@@ -204,7 +195,6 @@ masterShipDB['firesprayclasspatrolcraft'] = {
     shield = 4,
     size = 'medium',
     agility = 2,
-    xws = 'firesprayclasspatrolcraft',
     textures = {
         bountyhunter =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/firesprayclasspatrolcraft/Textures/1/bountyhunter.jpg',
@@ -257,7 +247,6 @@ masterShipDB['tielnfighter'] = {
     shield = 0,
     size = 'small',
     agility = 3,
-    xws = 'tielnfighter',
     textures = {
         blue =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tielnfighter/textures/Tie-Fighter-Blue2.jpg',
@@ -282,7 +271,6 @@ masterShipDB['btla4ywing'] = {
     shield = 2,
     size = 'small',
     agility = 1,
-    xws = 'btla4ywing',
     textures = {
         gold =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/btla4ywing/Textures/gold.png',
@@ -323,7 +311,6 @@ masterShipDB['tieadvancedx1'] = {
     shield = 2,
     size = 'small',
     agility = 3,
-    xws = 'tieadvancedx1',
     textures = {
         blue =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tieadvancedx1/textures/1/tieadvancedx1blue.jpg',
@@ -344,7 +331,6 @@ masterShipDB['alphaclassstarwing'] = {
     shield = 3,
     size = 'small',
     agility = 2,
-    xws = 'alphaclassstarwing',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/alphaclassstarwing/textures/standard.png',
@@ -362,7 +348,6 @@ masterShipDB['ut60duwing'] = {
     shield = 3,
     size = 'medium',
     agility = 2,
-    xws = 'ut60duwing',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/ut60duwing/Textures/standard.jpg',
@@ -409,7 +394,6 @@ masterShipDB['tieskstriker'] = {
     shield = 0,
     size = 'small',
     agility = 2,
-    xws = 'tieskstriker',
     textures = {
         blue =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tieskstriker/textures/tieskstrikerblue.jpg',
@@ -430,7 +414,6 @@ masterShipDB['asf01bwing'] = {
     shield = 4,
     size = 'small',
     agility = 1,
-    xws = 'asf01bwing',
     factions = { ['rebelalliance'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     move_set = { 'rtl1t', 'rtl1', 'bbl1', 'bs1', 'bbr1', 'rtr1', 'rtr1t', 'wtl2', 'wbl2', 'bs2', 'wbr2', 'wtr2', 'rk2', 'rbl3', 'bs3', 'rbr3', 'rs4' },
@@ -488,7 +471,6 @@ masterShipDB['tiededefender'] = {
     shield = 4,
     size = 'small',
     agility = 3,
-    xws = 'tiededefender',
     textures = {
         blue =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiededefender/textures/tiededefenderblue.jpg',
@@ -517,7 +499,6 @@ masterShipDB['tiesabomber'] = {
     shield = 0,
     size = 'small',
     agility = 2,
-    xws = 'tiesabomber',
     textures = {
         blue =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiesabomber/textures/tiesabomberblue.jpg',
@@ -538,7 +519,6 @@ masterShipDB['tiecapunisher'] = {
     shield = 3,
     size = 'medium',
     agility = 1,
-    xws = 'tiecapunisher',
     textures = {
         blue =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/tiecapunisher/textures/tiecapunisherblue.jpg',
@@ -559,7 +539,6 @@ masterShipDB['aggressorassaultfighter'] = {
     shield = 3,
     size = 'medium',
     agility = 3,
-    xws = 'aggressorassaultfighter',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/aggressorassaultfighter/Textures/standard.jpg',
@@ -577,7 +556,6 @@ masterShipDB['g1astarfighter'] = {
     shield = 4,
     size = 'medium',
     agility = 1,
-    xws = 'g1astarfighter',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/g1astarfighter/Textures/standard.png',
@@ -596,7 +574,6 @@ masterShipDB['vcx100lightfreighter'] = {
     size = 'large',
     proximity_hider = true,
     agility = 0,
-    xws = 'vcx100lightfreighter',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/vcx100lightfreighter/Textures/standard.jpg',
@@ -617,7 +594,6 @@ masterShipDB['yv666lightfreighter'] = {
     size = 'large',
     proximity_hider = true,
     agility = 1,
-    xws = 'yv666lightfreighter',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/yv666lightfreighter/Textures/1/standard.jpg',
@@ -646,7 +622,6 @@ masterShipDB['tieadvancedv1'] = {
     shield = 2,
     size = 'small',
     agility = 3,
-    xws = 'tieadvancedv1',
     textures = {
         blue =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tieadvancedv1/textures/1/tieadvancedv1blue.jpg',
@@ -667,7 +642,6 @@ masterShipDB['lambdaclasst4ashuttle'] = {
     shield = 4,
     size = 'large',
     agility = 1,
-    xws = 'lambdaclasst4ashuttle',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/lambdaclasst4ashuttle/textures/standard.png',
@@ -685,7 +659,6 @@ masterShipDB['tiephphantom'] = {
     shield = 2,
     size = 'small',
     agility = 2,
-    xws = 'tiephphantom',
     textures = {
         blue =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiephphantom/textures/tiephphantomblue.jpg',
@@ -711,7 +684,6 @@ masterShipDB['vt49decimator'] = {
     size = 'large',
     proximity_hider = true,
     agility = 0,
-    xws = 'vt49decimator',
     textures = {
         grey =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/vt49decimator/textures/grey.jpg',
@@ -731,7 +703,6 @@ masterShipDB['tieagaggressor'] = {
     shield = 1,
     size = 'small',
     agility = 2,
-    xws = 'tieagaggressor',
     textures = {
         blue =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tieagaggressor/textures/tieagaggressorblue.jpg',
@@ -752,7 +723,6 @@ masterShipDB['btls8kwing'] = {
     shield = 3,
     size = 'medium',
     agility = 1,
-    xws = 'btls8kwing',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/btls8kwing/Textures/standard.png',
@@ -774,7 +744,6 @@ masterShipDB['arc170starfighter'] = {
     shield = 3,
     size = 'medium',
     agility = 1,
-    xws = 'arc170starfighter',
     textures = {
         rebel =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/arc170starfighter/Textures/rebel.jpg',
@@ -798,7 +767,6 @@ masterShipDB['attackshuttle'] = {
     shield = 1,
     size = 'small',
     agility = 2,
-    xws = 'attackshuttle',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/attackshuttle/Textures/standard.jpg',
@@ -816,7 +784,6 @@ masterShipDB['t65xwing'] = {
     shield = 2,
     size = 'small',
     agility = 2,
-    xws = 't65xwing',
     textures = {
         red =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/Textures/2/red.jpg',
@@ -877,7 +844,6 @@ masterShipDB['hwk290lightfreighter'] = {
     shield = 2,
     size = 'small',
     agility = 2,
-    xws = 'hwk290lightfreighter',
     textures = {
         brown =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/hwk290lightfreighter/Textures/1/brown.jpg',
@@ -908,7 +874,6 @@ masterShipDB['rz1awing'] = {
     shield = 2,
     size = 'small',
     agility = 3,
-    xws = 'rz1awing',
     textures = {
         arvel =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/rz1awing/Textures/arvel.jpg',
@@ -963,7 +928,6 @@ masterShipDB['fangfighter'] = {
     shield = 0,
     size = 'small',
     agility = 3,
-    xws = 'fangfighter',
     factions = { ['scumandvillainy'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     move_set = { 'wtl1', 'wtr1', 'rtl2t', 'btl2', 'bbl2', 'bs2', 'bbr2', 'btr2', 'rtr2t', 'wtl3', 'wbl3', 'bs3', 'wbr3', 'wtr3', 'ws4', 'rk4', 'ws5' },
@@ -977,7 +941,6 @@ masterShipDB['z95af4headhunter'] = {
     shield = 2,
     size = 'small',
     agility = 2,
-    xws = 'z95af4headhunter',
     textures = {
         bandit =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/z95af4headhunter/Textures/1/bandit.jpg',
@@ -1015,7 +978,6 @@ masterShipDB['m12lkimogilafighter'] = {
     shield = 2,
     size = 'medium',
     agility = 2,
-    xws = 'm12lkimogilafighter',
     textures = {
         cartel =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/m12lkimogilafighter/Textures/CartelExecutioner.png',
@@ -1037,7 +999,6 @@ masterShipDB['ewing'] = {
     shield = 3,
     size = 'small',
     agility = 3,
-    xws = 'ewing',
     textures = {
         rogue =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/ewing/Textures/RogueSquadronEscort.jpg',
@@ -1060,7 +1021,6 @@ masterShipDB['tieininterceptor'] = {
     shield = 0,
     size = 'small',
     agility = 3,
-    xws = 'tieininterceptor',
     textures = {
         blue =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tieininterceptor/textures/tieininterceptorblue.jpg',
@@ -1088,7 +1048,6 @@ masterShipDB['lancerclasspursuitcraft'] = {
     size = 'large',
     proximity_hider = true,
     agility = 2,
-    xws = 'lancerclasspursuitcraft',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/lancerclasspursuitcraft/Textures/Standard.jpg',
@@ -1106,7 +1065,6 @@ masterShipDB['tierereaper'] = {
     shield = 2,
     size = 'medium',
     agility = 1,
-    xws = 'tierereaper',
     textures = {
         blue =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/tierereaper/textures/tierereaperblue.jpg',
@@ -1127,7 +1085,6 @@ masterShipDB['m3ainterceptor'] = {
     shield = 1,
     size = 'small',
     agility = 3,
-    xws = 'm3ainterceptor',
     textures = {
         cartel =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/m3ainterceptor/Textures/CartelSpacer.jpg',
@@ -1153,7 +1110,6 @@ masterShipDB['jumpmaster5000'] = {
     shield = 3,
     size = 'large',
     agility = 1,
-    xws = 'jumpmaster5000',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/jumpmaster5000/Textures/standard.jpg',
@@ -1180,7 +1136,6 @@ masterShipDB['customizedyt1300lightfreighter'] = {
     size = 'large',
     proximity_hider = true,
     agility = 1,
-    xws = 'customizedyt1300lightfreighter',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/customizedyt1300lightfreighter/Textures/1/standard.jpg',
@@ -1218,7 +1173,6 @@ masterShipDB['escapecraft'] = {
     shield = 2,
     size = 'small',
     agility = 2,
-    xws = 'escapecraft',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/escapecraft/Textures/standard.jpg',
@@ -1236,7 +1190,6 @@ masterShipDB['tiefofighter'] = {
     shield = 1,
     size = 'small',
     agility = 3,
-    xws = 'tiefofighter',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiefofighter/Textures/2/standard.jpg',
@@ -1257,7 +1210,6 @@ masterShipDB['tiesffighter'] = {
     shield = 3,
     size = 'small',
     agility = 2,
-    xws = 'tiesffighter',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiesffighter/Textures/1/standard.jpg',
@@ -1279,7 +1231,6 @@ masterShipDB['upsilonclasscommandshuttle'] = {
     size = 'large',
     proximity_hider = true,
     agility = 1,
-    xws = 'upsilonclasscommandshuttle',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/upsilonclasscommandshuttle/Textures/standard.jpg',
@@ -1298,7 +1249,6 @@ masterShipDB['tievnsilencer'] = {
     shield = 2,
     size = 'small',
     agility = 3,
-    xws = 'tievnsilencer',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tievnsilencer/Textures/1/standard.jpg',
@@ -1317,7 +1267,6 @@ masterShipDB['t70xwing'] = {
     shield = 3,
     size = 'small',
     agility = 2,
-    xws = 't70xwing',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t70xwing/Textures/1/blue.jpg',
@@ -1360,7 +1309,6 @@ masterShipDB['t70xwing'] = {
 
 masterShipDB['rz2awing'] = {
     name = 'A-Wing RZ-2',
-    xws = 'rz2awing',
     hull = 2,
     shield = 2,
     size = 'small',
@@ -1389,7 +1337,6 @@ masterShipDB['mg100starfortress'] = {
     shield = 3,
     size = 'large',
     agility = 1,
-    xws = 'mg100starfortress',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/mg100starfortress/Textures/Standard.jpg',
@@ -1411,7 +1358,6 @@ masterShipDB['modifiedtielnfighter'] = {
     shield = 0,
     size = 'small',
     agility = 3,
-    xws = 'modifiedtielnfighter',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/modifiedtielnfighter/Textures/standard.png',
@@ -1431,7 +1377,6 @@ masterShipDB['scavengedyt1300lightfreighter'] = {
     size = 'large',
     proximity_hider = true,
     agility = 1,
-    xws = 'scavengedyt1300lightfreighter',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/scavengedyt1300lightfreighter/Textures/1/standard.jpg',
@@ -1471,7 +1416,6 @@ masterShipDB['delta7aethersprite'] = {
     shield = 1,
     size = 'small',
     agility = 3,
-    xws = 'delta7aethersprite',
     textures = {
         ahsoka =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/delta7aethersprite/Textures/AhsokaTano.jpg',
@@ -1525,7 +1469,6 @@ masterShipDB['delta7baethersprite'] = {
     shield = 3,
     size = 'small',
     agility = 2,
-    xws = 'delta7baethersprite ',
     textures = {
         ahsoka =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/delta7aethersprite/Textures/AhsokaTano.jpg',
@@ -1583,7 +1526,6 @@ masterShipDB['v19torrentstarfighter'] = {
     shield = 0,
     size = 'small',
     agility = 2,
-    xws = 'v19torrentstarfighter',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/v19torrentstarfighter/Textures/1/red.jpg',
@@ -1610,7 +1552,6 @@ masterShipDB['vultureclassdroidfighter'] = {
     shield = 0,
     size = 'small',
     agility = 2,
-    xws = 'vultureclassdroidfighter',
     textures = {
         drone =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/vultureclassdroidfighter/Textures/SeperatistDrone.png',
@@ -1658,7 +1599,6 @@ masterShipDB['belbulab22starfighter'] = {
     shield = 2,
     size = 'small',
     agility = 2,
-    xws = 'belbulab22starfighter',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/belbulab22starfighter/Textures/standard.jpg',
@@ -1684,7 +1624,6 @@ masterShipDB['sithinfiltrator'] = {
     shield = 4,
     size = 'large',
     agility = 1,
-    xws = 'sithinfiltrator',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/sithinfiltrator/Textures/standard.jpg',
@@ -1704,7 +1643,6 @@ masterShipDB['sithinfiltrator'] = {
 
 masterShipDB['resistancetransport'] = {
     name = 'Resistance Transport',
-    xws = 'resistancetransport',
     hull = 5,
     shield = 3,
     size = 'small',
@@ -1728,7 +1666,6 @@ masterShipDB['resistancetransport'] = {
 
 masterShipDB['resistancetransportpod'] = {
     name = 'Resistance Transport Pod',
-    xws = 'resistancetransportpod',
     shield = 1,
     hull = 3,
     size = 'small',
@@ -1756,7 +1693,6 @@ masterShipDB['hyenaclassdroidbomber'] = {
     shield = 0,
     size = 'small',
     agility = 2,
-    xws = 'hyenaclassdroidbomber',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/hyenaclassdroidbomber/Textures/1/standard.jpg',
@@ -1802,7 +1738,6 @@ masterShipDB['nabooroyaln1starfighter'] = {
     shield = 2,
     size = 'small',
     agility = 2,
-    xws = 'nabooroyaln1starfighter',
     textures = {
         yellow =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nabooroyaln1starfighter/Textures/yellow.jpg',
@@ -1832,7 +1767,6 @@ masterShipDB['nantexclassstarfighter'] = {
     shield = 0,
     size = 'small',
     agility = 3,
-    xws = 'nantexclassstarfighter',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nantexclassstarfighter/Textures/newstandard.jpg',
@@ -1854,7 +1788,6 @@ masterShipDB['btlbywing'] = {
     shield = 3,
     size = 'small',
     agility = 1,
-    xws = 'btlbywing',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/btlbywing/Textures/1/standard.jpg',
@@ -1883,7 +1816,6 @@ masterShipDB['fireball'] = {
     shield = 0,
     size = 'small',
     agility = 2,
-    xws = 'fireball',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/fireball/Textures/standard.jpg',
@@ -1904,7 +1836,6 @@ masterShipDB['tiebainterceptor'] = {
     shield = 2,
     size = 'small',
     agility = 3,
-    xws = 'tiebainterceptor',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiebainterceptor/Textures/standard.jpg',
@@ -1929,7 +1860,6 @@ masterShipDB['nimbusclassvwing'] = {
     shield = 2,
     size = 'small',
     agility = 3,
-    xws = 'nimbusclassvwing',
     textures = {
         red =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nimbusclassvwing/Textures/red.jpg',
@@ -1977,7 +1907,6 @@ masterShipDB['tierbheavy'] = {
     shield = 0,
     size = 'medium',
     agility = 1,
-    xws = 'tierbheavy',
     textures = {
         blue =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/tierbheavy/textures/tierbheavyblue.jpg',
@@ -1999,7 +1928,6 @@ masterShipDB['xiclasslightshuttle'] = {
     shield = 2,
     size = 'medium',
     agility = 2,
-    xws = 'xiclasslightshuttle',
     textures = {
         light =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/xiclasslightshuttle/Textures/Light.jpg',
@@ -2020,7 +1948,6 @@ masterShipDB['laatigunship'] = {
     charge = 2,
     size = 'medium',
     agility = 1,
-    xws = 'laatigunship',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/laatigunship/Textures/1/standard.jpg',
@@ -2058,7 +1985,6 @@ masterShipDB['hmpdroidgunship'] = {
     shield = 3,
     size = 'small',
     agility = 1,
-    xws = 'hmpdroidgunship',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/hmpdroidgunship/Textures/standard.png',
@@ -2095,7 +2021,6 @@ masterShipDB['eta2actis'] = {
     shield = 0,
     size = 'small',
     agility = 3,
-    xws = 'eta2actis',
     textures = {
         jedi =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/eta2actis/Textures/JediGeneral.jpg',
@@ -2143,7 +2068,6 @@ masterShipDB['droidtrifighter'] = {
     shield = 0,
     size = 'small',
     agility = 3,
-    xws = 'droidtrifighter',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/droidtrifighter/Textures/standard.png',
@@ -2162,7 +2086,6 @@ masterShipDB['tiewiwhispermodifiedinterceptor'] = {
     shield = 2,
     size = 'small',
     agility = 2,
-    xws = 'tiewiwhispermodifiedinterceptor',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiewiwhispermodifiedinterceptor/Textures/1/standard.jpg',
@@ -2181,7 +2104,6 @@ masterShipDB['tiesebomber'] = {
     shield = 2,
     size = 'small',
     agility = 2,
-    xws = 'tiesebomber',
     textures = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiesebomber/Textures/1/standard.jpg',
@@ -2200,7 +2122,6 @@ masterShipDB['btanr2ywing'] = {
     shield = 3,
     size = 'small',
     agility = 1,
-    xws = 'btanr2ywing',
     textures = {
         plain =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/btanr2ywing/Textures/plain.png',
@@ -2233,7 +2154,6 @@ masterShipDB['btanr2ywing-wartime'] = {
     shield = 5,
     size = 'small',
     agility = 1,
-    xws = 'btanr2ywing-wartime',
     textures = {
         plain =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/btanr2ywing/Textures/plain.png',
@@ -2266,7 +2186,6 @@ masterShipDB['gauntletfighter'] = {
     shield = 2,
     size = 'large',
     agility = 2,
-    xws = 'gauntletfighter',
     proximity_hider = true,
     factions = { ['rebelalliance'] = true, ['galacticempire'] = true, ['scumandvillainy'] = true, ['galacticrepublic'] = true, ['separatistalliance'] = true },
     arcs = { fixed = { range = 3, type = { 'frontback' } } },
@@ -2333,7 +2252,6 @@ masterShipDB['st70assaultship'] = {
     shield = 2,
     size = 'medium',
     agility = 2,
-    xws = 'st70assaultship',
     factions = { ['scumandvillainy'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     move_set = { 'rtl1', 'wbl1', 'bs1', 'wbr1', 'rtr1', 'rtl2t', 'wtl2', 'wbl2', 'bs2', 'wbr2', 'wtr2', 'rtr2t', 'rtl3', 'wbl3', 'bs3', 'wbr3', 'rtr3', 'bs4', 'rk5', 'rs0' },
@@ -2361,7 +2279,6 @@ masterShipDB['rogueclassstarfighter'] = {
     shield = 2,
     size = 'small',
     agility = 2,
-    xws = 'rogueclassstarfighter',
     factions = { ['scumandvillainy'] = true, ['separatistalliance'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     move_set = { 'wtl1', 'bbl1', 'bbr1', 'wtr1', 'rtl2t', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'rtr2t', 'rtl3', 'wbl3', 'bs3', 'wbr3', 'rtr3', 'bs4', 'ws5', 'rk5' },
@@ -2375,7 +2292,6 @@ masterShipDB['clonez95headhunter'] = {
     shield = 2,
     size = 'small',
     agility = 2,
-    xws = 'clonez95headhunter',
     textures = {
         plain =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/clonez95headhunter/textures/plain.jpg',
@@ -2396,7 +2312,6 @@ masterShipDB['clonez95headhunter'] = {
 -- Huge ships
 masterShipDB['cr90corvette'] = {
     name = 'CR-90 Corvette',
-    xws = 'cr90corvette',
     hull = 18,
     shield = 7,
     energy = 7,
@@ -2419,7 +2334,6 @@ masterShipDB['cr90corvette'] = {
 
 masterShipDB['croccruiser'] = {
     name = 'C-ROC Cruiser',
-    xws = 'croccruiser',
     hull = 12,
     shield = 4,
     energy = 4,
@@ -2440,7 +2354,6 @@ masterShipDB['croccruiser'] = {
 
 masterShipDB['gozanticlasscruiser'] = {
     name = 'Gozanti-class Cruiser',
-    xws = 'gozanticlasscruiser',
     hull = 11,
     shield = 5,
     energy = 3,
@@ -2459,7 +2372,6 @@ masterShipDB['gozanticlasscruiser'] = {
 
 masterShipDB['gr75mediumtransport'] = {
     name = 'GR-75 Medium Transport',
-    xws = 'gr75mediumtransport',
     hull = 12,
     shield = 3,
     energy = 4,
@@ -2478,7 +2390,6 @@ masterShipDB['gr75mediumtransport'] = {
 
 masterShipDB['raiderclasscorvette'] = {
     name = 'Raider-class Corvette',
-    xws = 'raiderclasscorvette',
     hull = 20,
     shield = 8,
     energy = 6,
@@ -2498,7 +2409,6 @@ masterShipDB['raiderclasscorvette'] = {
 
 masterShipDB['tridentclassassaultship'] = {
     name = 'Trident-class Assault Ship',
-    xws = 'tridentclassassaultship',
     hull = 10,
     shield = 4,
     energy = 3,
