@@ -2,61 +2,61 @@ xwaUpgradeDb = {}
 
 xwaUpgradeDb['captive-legendsandrelics'] = {
     name = "Captive",
-    XWS = 'captive-legendsandrelics',
+    xws = 'captive-legendsandrelics',
     slot = 'Crew',
     limited = 1,
-    Charge = 1,
-    restriction = { Faction = { ['galacticempire'] = true, ['firstorder'] = true, ['separatistalliance'] = true } }
+    charge = 1,
+    restriction = { faction = { ['galacticempire'] = true, ['firstorder'] = true, ['separatistalliance'] = true } }
 }
 
 xwaUpgradeDb['modifiedr4punit-legendsandrelics'] = {
     name = "Modified R4-P Unit",
-    XWS = 'modifiedr4punit-legendsandrelics',
+    xws = 'modifiedr4punit-legendsandrelics',
     slot = 'Astromech',
-    Charge = 1,
-    restriction = { Faction = { ['rebelalliance'] = true } }
+    charge = 1,
+    restriction = { faction = { ['rebelalliance'] = true } }
 }
 
 xwaUpgradeDb['flightassistastromech-legendsandrelics'] = {
     name = "Flight-Assist Astromech",
-    XWS = 'flightassistastromech-legendsandrelics',
+    xws = 'flightassistastromech-legendsandrelics',
     slot = 'Astromech',
-    Charge = 2,
-    addAction = { '2B', '2BR' },
-    restriction = { Size = { small = true } }
+    charge = 2,
+    add_action = { '2B', '2BR' },
+    restriction = { size = { small = true } }
 }
 
 xwaUpgradeDb['unhingedastromech-legendsandrelics'] = {
     name = "Unhinged Astromech",
-    XWS = 'unhingedastromech-legendsandrelics',
+    xws = 'unhingedastromech-legendsandrelics',
     slot = 'Astromech',
 }
 
 xwaUpgradeDb['r7t1-legendsandrelics'] = {
     name = "R7-T1",
-    XWS = 'r7t1-legendsandrelics',
+    xws = 'r7t1-legendsandrelics',
     slot = 'Astromech',
     limited = 1,
-    addAction = { 'TL', 'B' },
+    add_action = { 'TL', 'B' },
     restriction = {
-        Faction = { ['rebelalliance'] = true, ['resistance'] = true },
-        Size = { small = true }
+        faction = { ['rebelalliance'] = true, ['resistance'] = true },
+        size = { small = true }
     }
 }
 
 xwaUpgradeDb['precisiontunedcannons-legendsandrelics'] = {
     name = "Precision-Tuned Cannons",
-    XWS = 'precisiontunedcannons-legendsandrelics',
+    xws = 'precisiontunedcannons-legendsandrelics',
     slot = 'Cannon',
     arcs = { fixed = { name = 'precision-tuned cannons', range = 3, type = { 'front' } } }
 }
 
 xwaUpgradeDb['wingedreversal-legendsandrelics'] = {
     name = "Winged Reversal",
-    XWS = 'wingedreversal-legendsandrelics',
+    xws = 'wingedreversal-legendsandrelics',
     slot = 'Configuration',
-    Charge = 2,
-    executeOptions = function(moves)
+    charge = 2,
+    execute_options = function(moves)
         return {
             btl1   = { [1] = 'btl1', [2] = 'wtl1t' },
             btl2   = { [1] = 'btl2', [2] = 'wtl2t' },
@@ -83,124 +83,124 @@ xwaUpgradeDb['wingedreversal-legendsandrelics'] = {
 
 xwaUpgradeDb['fennecshand-legendsandrelics'] = {
     name = "Fennec Shand",
-    XWS = 'fennecshand-legendsandrelics',
+    xws = 'fennecshand-legendsandrelics',
     slot = 'Crew',
     limited = 1,
-    Charge = 2,
-    restriction = { Faction = { ['scumandvillainy'] = true } }
+    charge = 2,
+    restriction = { faction = { ['scumandvillainy'] = true } }
 }
 
 xwaUpgradeDb['zoriibliss-legendsandrelics'] = {
     name = "Zorii Bliss",
-    XWS = 'zoriibliss-legendsandrelics',
+    xws = 'zoriibliss-legendsandrelics',
     slot = 'Crew',
     limited = 1,
-    Charge = 1,
-    restriction = { Faction = { ['resistance'] = true } }
+    charge = 1,
+    restriction = { faction = { ['resistance'] = true } }
 }
 
 xwaUpgradeDb['ahsokatano-legendsandrelics'] = {
     name = "Ahsoka Tano",
-    XWS = 'ahsokatano-legendsandrelics',
+    xws = 'ahsokatano-legendsandrelics',
     slot = 'Crew',
     limited = 1,
-    Force = 1,
-    restriction = { Faction = { ['rebelalliance'] = true } }
+    force = 1,
+    restriction = { faction = { ['rebelalliance'] = true } }
 }
 
 xwaUpgradeDb['thrawn-legendsandrelics'] = {
     name = "Thrawn",
-    XWS = 'thrawn-legendsandrelics',
+    xws = 'thrawn-legendsandrelics',
     slot = 'Crew',
     limited = 1,
-    Charge = 2,
-    restriction = { Faction = { ['galacticempire'] = true } }
+    charge = 2,
+    restriction = { faction = { ['galacticempire'] = true } }
 }
 
 xwaUpgradeDb['roilinganger-legendsandrelics'] = {
     name = "Roiling Anger",
-    XWS = 'roilinganger-legendsandrelics',
+    xws = 'roilinganger-legendsandrelics',
     slot = 'Force Power',
     restriction = { keywords = { 'Dark Side' } }
 }
 
 xwaUpgradeDb['wedgeantilles-legendsandrelics'] = {
     name = "Wedge Antilles",
-    XWS = 'wedgeantilles-legendsandrelics',
+    xws = 'wedgeantilles-legendsandrelics',
     slot = 'Gunner',
     limited = 1,
-    restriction = { Faction = { ['resistance'] = true } }
+    restriction = { faction = { ['resistance'] = true } }
 }
 
 xwaUpgradeDb['retrofittedautothrusters-legendsandrelics'] = {
     name = "Retrofitted Autothrusters",
-    XWS = 'retrofittedautothrusters-legendsandrelics',
+    xws = 'retrofittedautothrusters-legendsandrelics',
     slot = 'Modification',
-    Charge = 2,
-    addAction = { 'BR' },
-    restriction = { Size = { small = true } }
+    charge = 2,
+    add_action = { 'BR' },
+    restriction = { size = { small = true } }
 }
 
 xwaUpgradeDb['partinggift-legendsandrelics'] = {
     name = "Parting Gift",
-    XWS = 'partinggift-legendsandrelics',
+    xws = 'partinggift-legendsandrelics',
     slot = 'Talent',
 }
 
 xwaUpgradeDb['automatedloaders-legendsandrelics'] = {
     name = "Automated Loaders",
-    XWS = 'automatedloaders-legendsandrelics',
+    xws = 'automatedloaders-legendsandrelics',
     slot = 'Modification',
-    Charge = 1,
+    charge = 1,
 }
 
 xwaUpgradeDb['targetingmatrix-legendsandrelics'] = {
     name = "Targeting Matrix",
-    XWS = 'targetingmatrix-legendsandrelics',
+    xws = 'targetingmatrix-legendsandrelics',
     slot = 'Modification',
 }
 
 xwaUpgradeDb['blindspottargeter-legendsandrelics'] = {
     name = "Blindspot Targeter",
-    XWS = 'blindspottargeter-legendsandrelics',
+    xws = 'blindspottargeter-legendsandrelics',
     slot = 'Sensor',
 }
 
 xwaUpgradeDb['graviticwell-legendsandrelics'] = {
     name = "Gravitic Well",
-    XWS = 'graviticwell-legendsandrelics',
+    xws = 'graviticwell-legendsandrelics',
     slot = 'Configuration',
     restriction = { ship = { ['nantexclassstarfighter'] = true } }
 }
 
 xwaUpgradeDb['targetingrelay-legendsandrelics'] = {
     name = "Targeting Relay",
-    XWS = 'targetingrelay-legendsandrelics',
+    xws = 'targetingrelay-legendsandrelics',
     slot = 'Tech',
-    Charge = 2,
+    charge = 2,
 }
 
 xwaUpgradeDb['tsj1atargetingcomputer-legendsandrelics'] = {
     name = "T-SJ1A Targeting Computer",
-    XWS = 'tsj1atargetingcomputer-legendsandrelics',
+    xws = 'tsj1atargetingcomputer-legendsandrelics',
     slot = 'Tech',
-    Charge = 1,
-    restriction = { Faction = { ['firstorder'] = true } }
+    charge = 1,
+    restriction = { faction = { ['firstorder'] = true } }
 }
 
 xwaUpgradeDb['burstlaserturret-legendsandrelics'] = {
     name = "Burst Laser Turret",
-    XWS = 'burstlaserturret-legendsandrelics',
+    xws = 'burstlaserturret-legendsandrelics',
     slot = 'Turret',
-    Charge = 2,
+    charge = 2,
     arcs = { turret = { name = 'burst laser turret', range = 2, type = { 'singleturret' } } }
 }
 
 xwaUpgradeDb['seekermissiles-legendsandrelics'] = {
     name = "Seeker Missiles",
-    XWS = 'seekermissiles-legendsandrelics',
+    xws = 'seekermissiles-legendsandrelics',
     slot = 'Missile',
-    Charge = 4,
+    charge = 4,
 }
 
 return xwaUpgradeDb

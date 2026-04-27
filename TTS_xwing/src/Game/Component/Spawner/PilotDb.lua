@@ -1,15 +1,15 @@
 masterPilotDB = {}
 masterPilotDB[''] = {
     ['name'] = '',
-    ['XWS'] = '',
-    ['Faction'] = 'dummy',
+    ['xws'] = '',
+    ['faction'] = 'dummy',
     ['ship_type'] = 0,
-    ['slot'] = {},
-    ['Shield'] = 0,
+    ['slots'] = {},
+    ['shield'] = 0,
     ['card'] = '',
-    ['cardB'] = '',
-    ['init'] = 0,
-    ['actSet'] = {}
+    ['card_back'] = '',
+    ['initiative'] = 0,
+    ['action_set'] = {}
 }
 
 
@@ -17,598 +17,598 @@ masterPilotDB[''] = {
 -- Huge ships
 masterPilotDB['alderaanianguard'] = {
     name = 'Alderaanian Guard',
-    XWS = 'alderaanianguard',
-    Faction = 'rebelalliance',
+    xws = 'alderaanianguard',
+    faction = 'rebelalliance',
     ship_type = 'cr90corvette',
-    init = 8,
-    actSet = { 'F', 'TL', 'R' },
+    initiative = 8,
+    action_set = { 'F', 'TL', 'R' },
     texture = 'red'
 }
 
 masterPilotDB['republicjudiciary'] = {
     name = 'Republic Judiciary',
-    XWS = 'republicjudiciary',
-    Faction = 'galacticrepublic',
+    xws = 'republicjudiciary',
+    faction = 'galacticrepublic',
     ship_type = 'cr90corvette',
-    init = 8,
-    actSet = { 'F', 'TL', 'R' },
+    initiative = 8,
+    action_set = { 'F', 'TL', 'R' },
     texture = 'blue'
 }
 
 masterPilotDB['separatistprivateers'] = {
     name = 'Separatist Privateers',
-    XWS = 'separatistprivateers',
-    Faction = 'separatistalliance',
+    xws = 'separatistprivateers',
+    faction = 'separatistalliance',
     ship_type = 'croccruiser',
-    init = 7,
-    actSet = { 'F', 'TL', 'R' },
+    initiative = 7,
+    action_set = { 'F', 'TL', 'R' },
     texture = 'standard'
 }
 
 masterPilotDB['syndicatesmugglers'] = {
     name = 'Syndicate Smugglers',
-    XWS = 'syndicatesmugglers',
-    Faction = 'scumandvillainy',
+    xws = 'syndicatesmugglers',
+    faction = 'scumandvillainy',
     ship_type = 'croccruiser',
-    init = 7,
-    actSet = { 'F', 'TL', 'R' },
+    initiative = 7,
+    action_set = { 'F', 'TL', 'R' },
     texture = 'standard'
 }
 
 masterPilotDB['firstordersympathizers'] = {
     name = 'First Order Sympathizers',
-    XWS = 'firstordersympathizers',
-    Docking = true,
-    Faction = 'firstorder',
+    xws = 'firstordersympathizers',
+    docking = true,
+    faction = 'firstorder',
     ship_type = 'gozanticlasscruiser',
-    init = 7,
-    actSet = { 'F', 'TL', 'R' },
+    initiative = 7,
+    action_set = { 'F', 'TL', 'R' },
     texture = 'standard'
 }
 
 masterPilotDB['outerrimgarrison'] = {
     name = 'Outer Rim Garrison',
-    XWS = 'outerrimgarrison',
-    Docking = true,
-    Faction = 'galacticempire',
+    xws = 'outerrimgarrison',
+    docking = true,
+    faction = 'galacticempire',
     ship_type = 'gozanticlasscruiser',
-    init = 7,
-    actSet = { 'F', 'TL', 'R' },
+    initiative = 7,
+    action_set = { 'F', 'TL', 'R' },
     texture = 'standard'
 }
 
 masterPilotDB['echobaseevacuees'] = {
     name = 'Echo Base Evacuees',
-    XWS = 'echobaseevacuees',
-    Faction = 'rebelalliance',
+    xws = 'echobaseevacuees',
+    faction = 'rebelalliance',
     ship_type = 'gr75mediumtransport',
-    init = 7,
-    actSet = { 'F', 'TL', 'R' },
+    initiative = 7,
+    action_set = { 'F', 'TL', 'R' },
     texture = 'standard'
 }
 
 masterPilotDB['newrepublicvolunteers'] = {
     name = 'New Republic Volunteers',
-    XWS = 'newrepublicvolunteers',
-    Faction = 'resistance',
+    xws = 'newrepublicvolunteers',
+    faction = 'resistance',
     ship_type = 'gr75mediumtransport',
-    init = 7,
-    actSet = { 'F', 'TL', 'R' },
+    initiative = 7,
+    action_set = { 'F', 'TL', 'R' },
     texture = 'standard'
 }
 
 masterPilotDB['firstordercollaborators'] = {
     name = 'First Order Collaborators',
-    XWS = 'firstordercollaborators',
-    Faction = 'firstorder',
+    xws = 'firstordercollaborators',
+    faction = 'firstorder',
     ship_type = 'raiderclasscorvette',
-    init = 8,
-    actSet = { 'F', 'TL', 'R' },
+    initiative = 8,
+    action_set = { 'F', 'TL', 'R' },
     texture = 'standard'
 }
 
 masterPilotDB['outerrimpatrol'] = {
     name = 'Outer Rim Patrol',
-    XWS = 'outerrimpatrol',
-    Faction = 'galacticempire',
+    xws = 'outerrimpatrol',
+    faction = 'galacticempire',
     ship_type = 'raiderclasscorvette',
-    init = 8,
-    actSet = { 'F', 'TL', 'R' },
+    initiative = 8,
+    action_set = { 'F', 'TL', 'R' },
     texture = 'standard'
 }
 
 masterPilotDB['lawlesspirates'] = {
     name = 'Lawless Pirates',
-    XWS = 'lawlesspirates',
-    Faction = 'scumandvillainy',
+    xws = 'lawlesspirates',
+    faction = 'scumandvillainy',
     ship_type = 'tridentclassassaultship',
-    init = 8,
-    actSet = { 'F', 'E', 'TL', 'R' },
+    initiative = 8,
+    action_set = { 'F', 'E', 'TL', 'R' },
     texture = 'standard'
 }
 
 masterPilotDB['colicoiddestroyer'] = {
     name = 'Colicoid Destroyer',
-    XWS = 'colicoiddestroyer',
-    Faction = 'separatistalliance',
+    xws = 'colicoiddestroyer',
+    faction = 'separatistalliance',
     ship_type = 'tridentclassassaultship',
-    init = 8,
-    actSet = { 'F', 'E', 'TL', 'R' },
+    initiative = 8,
+    action_set = { 'F', 'E', 'TL', 'R' },
     texture = 'standard'
 }
 
 
 masterPilotDB['wedgeantilles'] = {
     name = 'Wedge Antilles',
-    XWS = 'wedgeantilles',
-    Faction = 'rebelalliance',
+    xws = 'wedgeantilles',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
-    init = 6,
+    initiative = 6,
     texture = 'wedge',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['lukeskywalker'] = {
     name = 'Luke Skywalker',
-    XWS = 'lukeskywalker',
+    xws = 'lukeskywalker',
     title = 'Red Five',
-    Faction = 'rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
-    Force = 2,
-    init = 5,
+    force = 2,
+    initiative = 5,
     texture = 'luke',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Light Side' }
 }
 
 masterPilotDB['thanekyrell'] = {
     name = 'Thane Kyrell',
-    XWS = 'thanekyrell',
-    Faction = 'rebelalliance',
+    xws = 'thanekyrell',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
-    init = 5,
+    initiative = 5,
     texture = 'thane',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['garvendreis-t65xwing'] = {
     name = 'Garven Dreis',
-    XWS = 'garvendreis-t65xwing',
-    Faction = 'rebelalliance',
+    xws = 'garvendreis-t65xwing',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
-    init = 4,
+    initiative = 4,
     texture = 'garven',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['jekporkins'] = {
     name = 'Jek Porkins',
-    XWS = 'jekporkins',
-    Faction = 'rebelalliance',
+    xws = 'jekporkins',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
-    init = 4,
+    initiative = 4,
     texture = 'porkins',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['kullbeesperado'] = {
     name = 'Kullbee Sperado',
-    XWS = 'kullbeesperado',
-    Faction = 'rebelalliance',
+    xws = 'kullbeesperado',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
-    init = 4,
+    initiative = 4,
     texture = 'renegade',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Partisan' }
 }
 
 masterPilotDB['biggsdarklighter'] = {
     name = 'Biggs Darklighter',
-    XWS = 'biggsdarklighter',
-    Faction = 'rebelalliance',
+    xws = 'biggsdarklighter',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
-    init = 3,
+    initiative = 3,
     texture = 'biggs',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['leevantenza'] = {
     name = 'Leevan Tenza',
-    XWS = 'leevantenza',
-    Faction = 'rebelalliance',
+    xws = 'leevantenza',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
-    init = 3,
+    initiative = 3,
     texture = 'renegade',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Partisan' }
 }
 
 masterPilotDB['edriotwotubes'] = {
     name = 'Edrio Two Tubes',
-    XWS = 'edriotwotubes',
-    Faction = 'rebelalliance',
+    xws = 'edriotwotubes',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
-    init = 2,
+    initiative = 2,
     texture = 'renegade',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Partisan' }
 }
 
 masterPilotDB['redsquadronveteran'] = {
     name = 'Red Squadron Veteran',
-    XWS = 'redsquadronveteran',
-    Faction = 'rebelalliance',
+    xws = 'redsquadronveteran',
+    faction = 'rebelalliance',
     ship_type = 't65xwing',
-    init = 3,
+    initiative = 3,
     texture = 'red',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['bluesquadronescort'] = {
     name = 'Blue Squadron Escort',
-    XWS = 'bluesquadronescort',
-    Faction = 'rebelalliance',
+    xws = 'bluesquadronescort',
+    faction = 'rebelalliance',
     ship_type = 't65xwing',
-    init = 2,
+    initiative = 2,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['cavernangelszealot'] = {
     name = 'Cavern Angels Zealot',
-    XWS = 'cavernangelszealot',
-    Faction = 'rebelalliance',
+    xws = 'cavernangelszealot',
+    faction = 'rebelalliance',
     ship_type = 't65xwing',
-    init = 1,
+    initiative = 1,
     texture = 'renegade',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Partisan' }
 }
 
 masterPilotDB['norrawexley-btla4ywing'] = {
     name = 'Norra Wexley',
-    XWS = 'norrawexley-btla4ywing',
-    Faction = 'rebelalliance',
+    xws = 'norrawexley-btla4ywing',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'btla4ywing',
-    init = 5,
+    initiative = 5,
     texture = 'norra',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['dutchvander'] = {
     name = '"Dutch" Vander',
-    XWS = 'dutchvander',
-    Faction = 'rebelalliance',
+    xws = 'dutchvander',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'btla4ywing',
-    init = 4,
+    initiative = 4,
     texture = 'gold',
-    addSqdAction = { 'TL' },
-    actSet = { 'F', 'TL', 'BR' }
+    add_squad_action = { 'TL' },
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['hortonsalm'] = {
     name = 'Horton Salm',
-    XWS = 'hortonsalm',
-    Faction = 'rebelalliance',
+    xws = 'hortonsalm',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'btla4ywing',
-    init = 4,
+    initiative = 4,
     texture = 'horton',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['evaanverlaine'] = {
     name = 'Evaan Verlaine',
-    XWS = 'evaanverlaine',
-    Faction = 'rebelalliance',
+    xws = 'evaanverlaine',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'btla4ywing',
-    init = 3,
+    initiative = 3,
     texture = 'gold',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['goldsquadronveteran'] = {
     name = 'Gold Squadron Veteran',
-    XWS = 'goldsquadronveteran',
-    Faction = 'rebelalliance',
+    xws = 'goldsquadronveteran',
+    faction = 'rebelalliance',
     ship_type = 'btla4ywing',
-    init = 3,
+    initiative = 3,
     texture = 'gold',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['graysquadronbomber'] = {
     name = 'Gray Squadron Bomber',
-    XWS = 'graysquadronbomber',
-    Faction = 'rebelalliance',
+    xws = 'graysquadronbomber',
+    faction = 'rebelalliance',
     ship_type = 'btla4ywing',
-    init = 2,
+    initiative = 2,
     texture = 'grey',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['jakefarrell'] = {
     name = 'Jake Farrell',
-    XWS = 'jakefarrell',
-    Faction = 'rebelalliance',
+    xws = 'jakefarrell',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'rz1awing',
-    init = 4,
+    initiative = 4,
     texture = 'jake',
-    actSet = { 'F', 'TL', 'E', 'BR', 'B' }
+    action_set = { 'F', 'TL', 'E', 'BR', 'B' }
 }
 
 masterPilotDB['arvelcrynyd'] = {
     name = 'Arvel Crynyd',
-    XWS = 'arvelcrynyd',
-    Faction = 'rebelalliance',
+    xws = 'arvelcrynyd',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'rz1awing',
-    init = 3,
+    initiative = 3,
     texture = 'arvel',
-    actSet = { 'F', 'TL', 'E', 'Ail', 'BR' }
+    action_set = { 'F', 'TL', 'E', 'Ail', 'BR' }
 }
 
 masterPilotDB['greensquadronpilot'] = {
     name = 'Green Squadron Pilot',
-    XWS = 'greensquadronpilot',
-    Faction = 'rebelalliance',
+    xws = 'greensquadronpilot',
+    faction = 'rebelalliance',
     ship_type = 'rz1awing',
-    init = 3,
+    initiative = 3,
     texture = 'green',
-    actSet = { 'F', 'TL', 'E', 'B', 'BR' }
+    action_set = { 'F', 'TL', 'E', 'B', 'BR' }
 }
 
 masterPilotDB['phoenixsquadronpilot'] = {
     name = 'Phoenix Squadron Pilot',
-    XWS = 'phoenixsquadronpilot',
-    Faction = 'rebelalliance',
+    xws = 'phoenixsquadronpilot',
+    faction = 'rebelalliance',
     ship_type = 'rz1awing',
-    init = 1,
+    initiative = 1,
     texture = 'jake',
-    actSet = { 'F', 'TL', 'E', 'B', 'BR' }
+    action_set = { 'F', 'TL', 'E', 'B', 'BR' }
 }
 
 
 masterPilotDB['herasyndulla-rz1awing'] = {
     name = 'Hera Syndulla',
-    XWS = 'herasyndulla-rz1awing',
-    Faction = 'rebelalliance',
+    xws = 'herasyndulla-rz1awing',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'rz1awing',
-    init = 6,
+    initiative = 6,
     texture = 'hera',
-    actSet = { 'F', 'TL', 'E', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'E', 'BR', 'B' },
     keywords = { 'Spectre' }
 }
 
 masterPilotDB['wedgeantilles-rz1awing'] = {
     name = 'Wedge Antilles',
-    XWS = 'wedgeantilles-rz1awing',
-    Faction = 'rebelalliance',
+    xws = 'wedgeantilles-rz1awing',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'rz1awing',
-    init = 4,
+    initiative = 4,
     texture = 'jake',
-    actSet = { 'F', 'TL', 'E', 'BR', 'B' }
+    action_set = { 'F', 'TL', 'E', 'BR', 'B' }
 }
 
 masterPilotDB['derekklivian'] = {
     name = 'Derek Klivian',
-    XWS = 'derekklivian',
-    Faction = 'rebelalliance',
+    xws = 'derekklivian',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'rz1awing',
-    init = 3,
+    initiative = 3,
     texture = 'jake',
-    actSet = { 'F', 'TL', 'E', 'BR', 'B' }
+    action_set = { 'F', 'TL', 'E', 'BR', 'B' }
 }
 
 masterPilotDB['sharabey-rz1awing'] = {
     name = 'Shara Bey',
-    XWS = 'sharabey-rz1awing',
-    Faction = 'rebelalliance',
+    xws = 'sharabey-rz1awing',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'rz1awing',
-    init = 4,
+    initiative = 4,
     texture = 'shara',
-    actSet = { 'F', 'TL', 'E', 'BR', 'B' }
+    action_set = { 'F', 'TL', 'E', 'BR', 'B' }
 }
 
 masterPilotDB['ahsokatano-rz1awing'] = {
     name = 'Ahsoka Tano',
-    XWS = 'ahsokatano-rz1awing',
-    Faction = 'rebelalliance',
+    xws = 'ahsokatano-rz1awing',
+    faction = 'rebelalliance',
     limited = 1,
-    Force = 3,
+    force = 3,
     ship_type = 'rz1awing',
-    init = 5,
+    initiative = 5,
     texture = 'jake',
-    actSet = { 'F', 'TL', 'E', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'E', 'BR', 'B' },
     keywords = { 'Light Side' }
 }
 
 masterPilotDB['sabinewren-rz1awing'] = {
     name = 'Sabine Wren',
-    XWS = 'sabinewren-rz1awing',
-    Faction = 'rebelalliance',
+    xws = 'sabinewren-rz1awing',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'rz1awing',
-    init = 3,
+    initiative = 3,
     texture = 'sabines',
-    actSet = { 'F', 'TL', 'E', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'E', 'BR', 'B' },
     keywords = { 'Mandalorian' }
 }
 
 masterPilotDB['braylenstramm'] = {
     name = 'Braylen Stramm',
-    XWS = 'braylenstramm',
-    Faction = 'rebelalliance',
+    xws = 'braylenstramm',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'asf01bwing',
-    init = 4,
+    initiative = 4,
     texture = 'braylen',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['tennumb'] = {
     name = 'Ten Numb',
-    XWS = 'tennumb',
-    Faction = 'rebelalliance',
+    xws = 'tennumb',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'asf01bwing',
-    init = 4,
+    initiative = 4,
     texture = 'tennumb',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['bladesquadronveteran'] = {
     name = 'Blade Squadron Veteran',
-    XWS = 'bladesquadronveteran',
-    Faction = 'rebelalliance',
+    xws = 'bladesquadronveteran',
+    faction = 'rebelalliance',
     ship_type = 'asf01bwing',
-    init = 3,
+    initiative = 3,
     texture = 'blade',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['bluesquadronpilot'] = {
     name = 'Blue Squadron Pilot',
-    XWS = 'bluesquadronpilot',
-    Faction = 'rebelalliance',
+    xws = 'bluesquadronpilot',
+    faction = 'rebelalliance',
     ship_type = 'asf01bwing',
-    init = 2,
+    initiative = 2,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['ginamoonsong'] = {
     name = 'Gina Moonsong',
-    XWS = 'ginamoonsong',
-    Faction = 'rebelalliance',
+    xws = 'ginamoonsong',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'asf01bwing',
-    init = 5,
+    initiative = 5,
     texture = 'gina',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['herasyndulla-asf01bwing'] = {
     name = 'Hera Syndulla',
-    XWS = 'herasyndulla-asf01bwing',
-    Faction = 'rebelalliance',
+    xws = 'herasyndulla-asf01bwing',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'asf01bwing',
-    init = 6,
+    initiative = 6,
     texture = 'hera',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Spectre' }
 }
 
 masterPilotDB['netrempollard'] = {
     name = 'Netrem Pollard',
-    XWS = 'netrempollard',
-    Faction = 'rebelalliance',
+    xws = 'netrempollard',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'asf01bwing',
-    init = 3,
+    initiative = 3,
     texture = 'netrem',
-    actSet = { 'F', 'TL', 'BR', 'Piv' }
+    action_set = { 'F', 'TL', 'BR', 'Piv' }
 }
 
 masterPilotDB['airencracken'] = {
     name = 'Airen Cracken',
-    XWS = 'airencracken',
-    Faction = 'rebelalliance',
+    xws = 'airencracken',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'z95af4headhunter',
-    init = 5,
+    initiative = 5,
     texture = 'red',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['lieutenantblount'] = {
     name = 'Lieutenant Blount',
-    XWS = 'lieutenantblount',
-    Faction = 'rebelalliance',
+    xws = 'lieutenantblount',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'z95af4headhunter',
-    init = 4,
+    initiative = 4,
     texture = 'red',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['talasquadronpilot'] = {
     name = 'Tala Squadron Pilot',
-    XWS = 'talasquadronpilot',
-    Faction = 'rebelalliance',
+    xws = 'talasquadronpilot',
+    faction = 'rebelalliance',
     ship_type = 'z95af4headhunter',
-    init = 2,
+    initiative = 2,
     texture = 'tala',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['banditsquadronpilot'] = {
     name = 'Bandit Squadron Pilot',
-    XWS = 'banditsquadronpilot',
-    Faction = 'rebelalliance',
+    xws = 'banditsquadronpilot',
+    faction = 'rebelalliance',
     ship_type = 'z95af4headhunter',
-    init = 1,
+    initiative = 1,
     texture = 'bandit',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['wullffwarro'] = {
     name = 'Wullffwarro',
-    XWS = 'wullffwarro',
-    Faction = 'rebelalliance',
+    xws = 'wullffwarro',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'auzituckgunship',
-    init = 4,
+    initiative = 4,
     texture = 'cream',
-    actSet = { 'F', 'R', 'BR' }
+    action_set = { 'F', 'R', 'BR' }
 }
 
 masterPilotDB['lowhhrick'] = {
     name = 'Lowhhrick',
-    XWS = 'lowhhrick',
-    Faction = 'rebelalliance',
+    xws = 'lowhhrick',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'auzituckgunship',
-    init = 3,
+    initiative = 3,
     texture = 'orange',
-    actSet = { 'F', 'R', 'BR' }
+    action_set = { 'F', 'R', 'BR' }
 }
 
 masterPilotDB['kashyyykdefender'] = {
     name = 'Kashyyyk Defender',
-    XWS = 'kashyyykdefender',
-    Faction = 'rebelalliance',
+    xws = 'kashyyykdefender',
+    faction = 'rebelalliance',
     ship_type = 'auzituckgunship',
-    init = 1,
+    initiative = 1,
     texture = 'cream',
-    actSet = { 'F', 'R', 'BR' }
+    action_set = { 'F', 'R', 'BR' }
 }
 
 masterPilotDB['herasyndulla'] = {
     name = 'Hera Syndulla',
-    XWS = 'herasyndulla',
-    Faction = 'rebelalliance',
+    xws = 'herasyndulla',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'attackshuttle',
-    executeOptions = {
+    execute_options = {
         rtl1 = { [1] = 'rtl1', [2] = 'rtr1', [3] = 'rtl3', [4] = 'rtr3', [5] = 'rk4' },
         rtr1 = { [1] = 'rtl1', [2] = 'rtr1', [3] = 'rtl3', [4] = 'rtr3', [5] = 'rk4' },
         rtl3 = { [1] = 'rtl1', [2] = 'rtr1', [3] = 'rtl3', [4] = 'rtr3', [5] = 'rk4' },
@@ -619,476 +619,476 @@ masterPilotDB['herasyndulla'] = {
         bbr1 = { [1] = 'bs1', [2] = 'bbl1', [3] = 'bbr1', [4] = 'bs2' },
         bs2  = { [1] = 'bs1', [2] = 'bbl1', [3] = 'bbr1', [4] = 'bs2' }
     },
-    init = 5,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'E', 'BR' },
+    action_set = { 'F', 'E', 'BR' },
     keywords = { 'Spectre' }
 }
 
 masterPilotDB['sabinewren'] = {
     name = 'Sabine Wren',
-    XWS = 'sabinewren',
-    Faction = 'rebelalliance',
+    xws = 'sabinewren',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'attackshuttle',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'E', 'B', 'BR' },
+    action_set = { 'F', 'E', 'B', 'BR' },
     keywords = { 'Spectre', 'Mandalorian' }
 }
 
 masterPilotDB['ezrabridger'] = {
     name = 'Ezra Bridger',
-    XWS = 'ezrabridger',
-    Faction = 'rebelalliance',
+    xws = 'ezrabridger',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'attackshuttle',
-    Force = 1,
-    init = 3,
+    force = 1,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'E', 'BR' },
+    action_set = { 'F', 'E', 'BR' },
     keywords = { 'Spectre', 'Light Side' }
 }
 
 masterPilotDB['zeborrelios'] = {
     name = '"Zeb" Orrelios',
-    XWS = 'zeborrelios',
-    Faction = 'rebelalliance',
+    xws = 'zeborrelios',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'attackshuttle',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'E', 'BR' },
+    action_set = { 'F', 'E', 'BR' },
     keywords = { 'Spectre' }
 }
 
 masterPilotDB['fennrau-sheathipedeclassshuttle'] = {
     name = 'Fenn Rau',
-    XWS = 'fennrau-sheathipedeclassshuttle',
-    Faction = 'rebelalliance',
+    xws = 'fennrau-sheathipedeclassshuttle',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'sheathipedeclassshuttle',
-    init = 6,
+    initiative = 6,
     texture = 'standard',
-    actSet = { 'F' },
+    action_set = { 'F' },
     keywords = { 'Spectre', 'Mandalorian' }
 }
 
 masterPilotDB['ezrabridger-sheathipedeclassshuttle'] = {
     name = 'Ezra Bridger',
-    XWS = 'ezrabridger-sheathipedeclassshuttle',
-    Faction = 'rebelalliance',
+    xws = 'ezrabridger-sheathipedeclassshuttle',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'sheathipedeclassshuttle',
-    Force = 1,
-    init = 3,
+    force = 1,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F' },
+    action_set = { 'F' },
     keywords = { 'Spectre', 'Light Side' }
 }
 
 masterPilotDB['zeborrelios-sheathipedeclassshuttle'] = {
     name = '"Zeb" Orrelios',
-    XWS = 'zeborrelios-sheathipedeclassshuttle',
-    Faction = 'rebelalliance',
+    xws = 'zeborrelios-sheathipedeclassshuttle',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'sheathipedeclassshuttle',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F' },
+    action_set = { 'F' },
     keywords = { 'Spectre' }
 }
 
 masterPilotDB['ap5'] = {
     name = 'AP-5',
-    XWS = 'ap5',
-    Faction = 'rebelalliance',
+    xws = 'ap5',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'sheathipedeclassshuttle',
-    init = 1,
+    initiative = 1,
     texture = 'standard',
-    actSet = { 'C' },
+    action_set = { 'C' },
     keywords = { 'Spectre', 'Droid' }
 }
 
 masterPilotDB['janors'] = {
     name = 'Jan Ors',
-    XWS = 'janors',
-    Faction = 'rebelalliance',
+    xws = 'janors',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'hwk290lightfreighter',
-    init = 5,
+    initiative = 5,
     texture = 'brown',
-    actSet = { 'F', 'TL', 'B', 'Rot' }
+    action_set = { 'F', 'TL', 'B', 'Rot' }
 }
 
 masterPilotDB['kylekatarn'] = {
     name = 'Kyle Katarn',
-    XWS = 'kylekatarn',
-    Faction = 'rebelalliance',
+    xws = 'kylekatarn',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'hwk290lightfreighter',
-    init = 3,
+    initiative = 3,
     texture = 'brown',
-    actSet = { 'F', 'TL', 'B', 'Rot' }
+    action_set = { 'F', 'TL', 'B', 'Rot' }
 }
 
 masterPilotDB['roarkgarnet'] = {
     name = 'Roark Garnet',
-    XWS = 'roarkgarnet',
-    Faction = 'rebelalliance',
+    xws = 'roarkgarnet',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'hwk290lightfreighter',
-    init = 4,
+    initiative = 4,
     texture = 'brown',
-    actSet = { 'F', 'TL', 'B', 'Rot' }
+    action_set = { 'F', 'TL', 'B', 'Rot' }
 }
 
 masterPilotDB['rebelscout'] = {
     name = 'Rebel Scout',
-    XWS = 'rebelscout',
-    Faction = 'rebelalliance',
+    xws = 'rebelscout',
+    faction = 'rebelalliance',
     ship_type = 'hwk290lightfreighter',
-    init = 2,
+    initiative = 2,
     texture = 'brown',
-    actSet = { 'F', 'TL', 'B', 'Rot' }
+    action_set = { 'F', 'TL', 'B', 'Rot' }
 }
 
 masterPilotDB['ezrabridger-tielnfighter'] = {
     name = 'Ezra Bridger',
-    XWS = 'ezrabridger-tielnfighter',
-    Faction = 'rebelalliance',
+    xws = 'ezrabridger-tielnfighter',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'tielnfighter',
-    Force = 1,
-    init = 3,
+    force = 1,
+    initiative = 3,
     texture = 'rebel',
-    actSet = { 'F', 'E', 'BR' },
+    action_set = { 'F', 'E', 'BR' },
     keywords = { 'Light Side', 'Spectre' }
 }
 
 masterPilotDB['sabinewren-tielnfighter'] = {
     name = 'Sabine Wren',
-    XWS = 'sabinewren-tielnfighter',
-    Faction = 'rebelalliance',
+    xws = 'sabinewren-tielnfighter',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'tielnfighter',
-    init = 3,
+    initiative = 3,
     texture = 'rebel',
-    actSet = { 'F', 'E', 'B', 'BR' },
+    action_set = { 'F', 'E', 'B', 'BR' },
     keywords = { 'Spectre', 'Mandalorian' }
 }
 
 masterPilotDB['captainrex'] = {
     name = 'Captain Rex',
-    XWS = 'captainrex',
-    Condition = 'Suppressive Fire',
-    Faction = 'rebelalliance',
+    xws = 'captainrex',
+    condition = 'Suppressive Fire',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'tielnfighter',
-    init = 2,
+    initiative = 2,
     texture = 'rebel',
-    actSet = { 'F', 'E', 'BR' },
+    action_set = { 'F', 'E', 'BR' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['zeborrelios-tielnfighter'] = {
     name = '"Zeb" Orrelios',
-    XWS = 'zeborrelios-tielnfighter',
-    Faction = 'rebelalliance',
+    xws = 'zeborrelios-tielnfighter',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'tielnfighter',
-    init = 2,
+    initiative = 2,
     texture = 'rebel',
-    actSet = { 'F', 'E', 'BR' },
+    action_set = { 'F', 'E', 'BR' },
     keywords = { 'Spectre' }
 }
 
 masterPilotDB['corranhorn'] = {
     name = 'Corran Horn',
-    XWS = 'corranhorn',
-    Faction = 'rebelalliance',
+    xws = 'corranhorn',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'ewing',
-    init = 5,
+    initiative = 5,
     texture = 'corran',
-    actSet = { 'F', 'E', 'BR', 'B', 'TL' }
+    action_set = { 'F', 'E', 'BR', 'B', 'TL' }
 }
 
 masterPilotDB['gavindarklighter'] = {
     name = 'Gavin Darklighter',
-    XWS = 'gavindarklighter',
-    Faction = 'rebelalliance',
+    xws = 'gavindarklighter',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'ewing',
-    init = 4,
+    initiative = 4,
     texture = 'gavin',
-    actSet = { 'F', 'E', 'BR', 'B', 'TL' }
+    action_set = { 'F', 'E', 'BR', 'B', 'TL' }
 }
 
 masterPilotDB['roguesquadronescort'] = {
     name = 'Rogue Squadron Escort',
-    XWS = 'roguesquadronescort',
-    Faction = 'rebelalliance',
+    xws = 'roguesquadronescort',
+    faction = 'rebelalliance',
     ship_type = 'ewing',
-    init = 4,
+    initiative = 4,
     texture = 'rogue',
-    actSet = { 'F', 'E', 'BR', 'B', 'TL' }
+    action_set = { 'F', 'E', 'BR', 'B', 'TL' }
 }
 
 masterPilotDB['knavesquadronescort'] = {
     name = 'Knave Squadron Escort',
-    XWS = 'knavesquadronescort',
-    Faction = 'rebelalliance',
+    xws = 'knavesquadronescort',
+    faction = 'rebelalliance',
     ship_type = 'ewing',
-    init = 2,
+    initiative = 2,
     texture = 'knave',
-    actSet = { 'F', 'E', 'BR', 'B', 'TL' }
+    action_set = { 'F', 'E', 'BR', 'B', 'TL' }
 }
 
 masterPilotDB['bodhirook'] = {
     name = 'Bodhi Rook',
-    XWS = 'bodhirook',
-    Faction = 'rebelalliance',
+    xws = 'bodhirook',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'ut60duwing',
-    init = 4,
+    initiative = 4,
     texture = 'captain',
-    actSet = { 'F', 'TL' }
+    action_set = { 'F', 'TL' }
 }
 
 masterPilotDB['sawgerrera'] = {
     name = 'Saw Gerrera',
-    XWS = 'sawgerrera',
-    Faction = 'rebelalliance',
+    xws = 'sawgerrera',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'ut60duwing',
-    init = 4,
+    initiative = 4,
     texture = 'renegade',
-    actSet = { 'F', 'TL' },
+    action_set = { 'F', 'TL' },
     keywords = { 'Partisan' }
 }
 
 masterPilotDB['cassianandor'] = {
     name = 'Cassian Andor',
-    XWS = 'cassianandor',
-    Faction = 'rebelalliance',
+    xws = 'cassianandor',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'ut60duwing',
-    init = 3,
+    initiative = 3,
     texture = 'captain',
-    actSet = { 'F', 'TL' }
+    action_set = { 'F', 'TL' }
 }
 
 masterPilotDB['magvayarro'] = {
     name = 'Magva Yarro',
-    XWS = 'magvayarro',
-    Faction = 'rebelalliance',
+    xws = 'magvayarro',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'ut60duwing',
-    init = 3,
+    initiative = 3,
     texture = 'renegade',
-    actSet = { 'F', 'TL' },
+    action_set = { 'F', 'TL' },
     keywords = { 'Partisan' }
 }
 
 masterPilotDB['benthictwotubes'] = {
     name = 'Benthic Two Tubes',
-    XWS = 'benthictwotubes',
-    Faction = 'rebelalliance',
+    xws = 'benthictwotubes',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'ut60duwing',
-    init = 2,
+    initiative = 2,
     texture = 'renegade',
-    actSet = { 'F', 'TL' },
+    action_set = { 'F', 'TL' },
     keywords = { 'Partisan' }
 }
 
 masterPilotDB['hefftobber'] = {
     name = 'Heff Tobber',
-    XWS = 'hefftobber',
-    Faction = 'rebelalliance',
+    xws = 'hefftobber',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'ut60duwing',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'TL' }
+    action_set = { 'F', 'TL' }
 }
 
 masterPilotDB['bluesquadronscout'] = {
     name = 'Blue Squadron Scout',
-    XWS = 'bluesquadronscout',
-    Faction = 'rebelalliance',
+    xws = 'bluesquadronscout',
+    faction = 'rebelalliance',
     ship_type = 'ut60duwing',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'TL' }
+    action_set = { 'F', 'TL' }
 }
 
 masterPilotDB['partisanrenegade'] = {
     name = 'Partisan Renegade',
-    XWS = 'partisanrenegade',
-    Faction = 'rebelalliance',
+    xws = 'partisanrenegade',
+    faction = 'rebelalliance',
     ship_type = 'ut60duwing',
-    init = 1,
+    initiative = 1,
     texture = 'renegade',
-    actSet = { 'F', 'TL' },
+    action_set = { 'F', 'TL' },
     keywords = { 'Partisan' }
 }
 
 masterPilotDB['k2so'] = {
     name = 'K-2SO',
-    XWS = 'k2so',
-    Faction = 'rebelalliance',
+    xws = 'k2so',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'ut60duwing',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'C', 'TL' },
+    action_set = { 'C', 'TL' },
     keywords = { 'Droid' }
 }
 
 
 masterPilotDB['mirandadoni'] = {
     name = 'Miranda Doni',
-    XWS = 'mirandadoni',
-    Faction = 'rebelalliance',
+    xws = 'mirandadoni',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'btls8kwing',
-    init = 4,
+    initiative = 4,
     texture = 'miranda',
-    actSet = { 'F', 'TL', 'Rot' }
+    action_set = { 'F', 'TL', 'Rot' }
 }
 
 masterPilotDB['esegetuketu'] = {
     name = 'Esege Tuketu',
-    XWS = 'esegetuketu',
-    Faction = 'rebelalliance',
+    xws = 'esegetuketu',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'btls8kwing',
-    init = 3,
+    initiative = 3,
     texture = 'esege',
-    actSet = { 'F', 'TL', 'Rot' }
+    action_set = { 'F', 'TL', 'Rot' }
 }
 
 masterPilotDB['wardensquadronpilot'] = {
     name = 'Warden Squadron Pilot',
-    XWS = 'wardensquadronpilot',
-    Faction = 'rebelalliance',
+    xws = 'wardensquadronpilot',
+    faction = 'rebelalliance',
     ship_type = 'btls8kwing',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'Rot' }
+    action_set = { 'F', 'TL', 'Rot' }
 }
 
 masterPilotDB['norrawexley'] = {
     name = 'Norra Wexley',
-    XWS = 'norrawexley',
-    Faction = 'rebelalliance',
+    xws = 'norrawexley',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'arc170starfighter',
-    init = 5,
+    initiative = 5,
     texture = 'rebel',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['garvendreis'] = {
     name = 'Garven Dreis',
-    XWS = 'garvendreis',
-    Faction = 'rebelalliance',
+    xws = 'garvendreis',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'arc170starfighter',
-    init = 4,
+    initiative = 4,
     texture = 'rebel',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['sharabey'] = {
     name = 'Shara Bey',
-    XWS = 'sharabey',
-    Faction = 'rebelalliance',
+    xws = 'sharabey',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'arc170starfighter',
-    init = 4,
+    initiative = 4,
     texture = 'rebel',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['ibtisam'] = {
     name = 'Ibtisam',
-    XWS = 'ibtisam',
-    Faction = 'rebelalliance',
+    xws = 'ibtisam',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'arc170starfighter',
-    init = 3,
+    initiative = 3,
     texture = 'rebel',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['hansolo-modifiedyt1300lightfreighter'] = {
     name = 'Han Solo',
-    XWS = 'hansolo-modifiedyt1300lightfreighter',
-    Faction = 'rebelalliance',
+    xws = 'hansolo-modifiedyt1300lightfreighter',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'modifiedyt1300lightfreighter',
-    init = 6,
+    initiative = 6,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B' }
+    action_set = { 'F', 'TL', 'B' }
 }
 
 masterPilotDB['landocalrissian-modifiedyt1300lightfreighter'] = {
     name = 'Lando Calrissian',
-    XWS = 'landocalrissian-modifiedyt1300lightfreighter',
-    Faction = 'rebelalliance',
+    xws = 'landocalrissian-modifiedyt1300lightfreighter',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'modifiedyt1300lightfreighter',
-    init = 5,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B' }
+    action_set = { 'F', 'TL', 'B' }
 }
 
 masterPilotDB['chewbacca'] = {
     name = 'Chewbacca',
-    XWS = 'chewbacca',
-    Faction = 'rebelalliance',
+    xws = 'chewbacca',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'modifiedyt1300lightfreighter',
-    Charge = 1,
-    init = 4,
+    charge = 1,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B' }
+    action_set = { 'F', 'TL', 'B' }
 }
 
 masterPilotDB['outerrimsmuggler'] = {
     name = 'Outer Rim Smuggler',
-    XWS = 'outerrimsmuggler',
-    Faction = 'rebelalliance',
+    xws = 'outerrimsmuggler',
+    faction = 'rebelalliance',
     ship_type = 'modifiedyt1300lightfreighter',
-    init = 1,
+    initiative = 1,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B' }
+    action_set = { 'F', 'TL', 'B' }
 }
 
 masterPilotDB['leiaorgana'] = {
     name = 'Leia Organa',
-    XWS = 'leiaorgana',
-    Force = 1,
-    Faction = 'rebelalliance',
+    xws = 'leiaorgana',
+    force = 1,
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'modifiedyt1300lightfreighter',
-    init = 5,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B' },
+    action_set = { 'F', 'TL', 'B' },
     keywords = { 'Light Side' }
 }
 
 masterPilotDB['herasyndulla-vcx100lightfreighter'] = {
     name = 'Hera Syndulla',
-    XWS = 'herasyndulla-vcx100lightfreighter',
-    Faction = 'rebelalliance',
+    xws = 'herasyndulla-vcx100lightfreighter',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'vcx100lightfreighter',
-    executeOptions = {
+    execute_options = {
         rtl1 = { [1] = 'rtl1', [2] = 'rtr1', [3] = 'rtl3', [4] = 'rtr3', [5] = 'rk4' },
         rtr1 = { [1] = 'rtl1', [2] = 'rtr1', [3] = 'rtl3', [4] = 'rtr3', [5] = 'rk4' },
         rtl3 = { [1] = 'rtl1', [2] = 'rtr1', [3] = 'rtl3', [4] = 'rtr3', [5] = 'rk4' },
@@ -1099,267 +1099,267 @@ masterPilotDB['herasyndulla-vcx100lightfreighter'] = {
         bbr2 = { [1] = 'bs1', [2] = 'bbl2', [3] = 'bbr2', [4] = 'bs2' },
         bs2  = { [1] = 'bs1', [2] = 'bbl2', [3] = 'bbr2', [4] = 'bs2' }
     },
-    init = 5,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'R' },
+    action_set = { 'F', 'TL', 'R' },
     keywords = { 'Spectre' }
 }
 
 masterPilotDB['kananjarrus'] = {
     name = 'Kanan Jarrus',
-    XWS = 'kananjarrus',
-    Faction = 'rebelalliance',
+    xws = 'kananjarrus',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'vcx100lightfreighter',
-    Force = 2,
-    init = 3,
+    force = 2,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'R' },
+    action_set = { 'F', 'TL', 'R' },
     keywords = { 'Jedi', 'Light Side', 'Spectre' }
 }
 
 masterPilotDB['chopper'] = {
     name = '"Chopper"',
-    XWS = 'chopper',
-    Faction = 'rebelalliance',
+    xws = 'chopper',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'vcx100lightfreighter',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'C', 'TL', 'R' },
+    action_set = { 'C', 'TL', 'R' },
     keywords = { 'Droid', 'Spectre' }
 }
 
 masterPilotDB['lothalrebel'] = {
     name = 'Lothal Rebel',
-    XWS = 'lothalrebel',
-    Faction = 'rebelalliance',
+    xws = 'lothalrebel',
+    faction = 'rebelalliance',
     ship_type = 'vcx100lightfreighter',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'R' }
+    action_set = { 'F', 'TL', 'R' }
 }
 
 masterPilotDB['alexsandrkallus'] = {
     name = 'Alexsandr Kallus',
-    XWS = 'alexsandrkallus',
-    Faction = 'rebelalliance',
+    xws = 'alexsandrkallus',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'vcx100lightfreighter',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'R' },
+    action_set = { 'F', 'TL', 'R' },
     keywords = { 'Spectre' }
 }
 
 masterPilotDB['dashrendar'] = {
     name = 'Dash Rendar',
-    XWS = 'dashrendar',
-    Faction = 'rebelalliance',
+    xws = 'dashrendar',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'yt2400lightfreighter',
-    init = 5,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR', 'Rot' }
+    action_set = { 'F', 'TL', 'BR', 'Rot' }
 }
 
 masterPilotDB['leebo'] = {
     name = '"Leebo"',
-    XWS = 'leebo',
-    Faction = 'rebelalliance',
+    xws = 'leebo',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'yt2400lightfreighter',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'C', 'TL', 'BR', 'Rot' },
+    action_set = { 'C', 'TL', 'BR', 'Rot' },
     keywords = { 'Droid' }
 }
 
 masterPilotDB['wildspacefringer'] = {
     name = 'Wild Space Fringer',
-    XWS = 'wildspacefringer',
-    Faction = 'rebelalliance',
+    xws = 'wildspacefringer',
+    faction = 'rebelalliance',
     ship_type = 'yt2400lightfreighter',
-    init = 1,
+    initiative = 1,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR', 'Rot' }
+    action_set = { 'F', 'TL', 'BR', 'Rot' }
 }
 
 masterPilotDB['maulermithel'] = {
     name = '"Mauler" Mithel',
-    XWS = 'maulermithel',
-    Faction = 'galacticempire',
+    xws = 'maulermithel',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
-    init = 5,
+    initiative = 5,
     texture = 'blue',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['howlrunner'] = {
     name = '"Howlrunner"',
-    XWS = 'howlrunner',
-    Faction = 'galacticempire',
+    xws = 'howlrunner',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
-    init = 5,
+    initiative = 5,
     texture = 'blue',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['scourgeskutu'] = {
     name = '"Scourge" Skutu',
-    XWS = 'scourgeskutu',
-    Faction = 'galacticempire',
+    xws = 'scourgeskutu',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
-    init = 5,
+    initiative = 5,
     texture = 'blue',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['idenversio'] = {
     name = 'Iden Versio',
-    XWS = 'idenversio',
-    Faction = 'galacticempire',
+    xws = 'idenversio',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
-    Shield = 0,
-    Charge = 1,
-    init = 4,
+    shield = 0,
+    charge = 1,
+    initiative = 4,
     texture = 'inferno',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['gideonhask'] = {
     name = 'Gideon Hask',
-    XWS = 'gideonhask',
-    Faction = 'galacticempire',
+    xws = 'gideonhask',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
-    init = 4,
+    initiative = 4,
     texture = 'inferno',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['delmeeko'] = {
     name = 'Del Meeko',
-    XWS = 'delmeeko',
-    Faction = 'galacticempire',
+    xws = 'delmeeko',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
-    init = 4,
+    initiative = 4,
     texture = 'inferno',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['seynmarana'] = {
     name = 'Seyn Marana',
-    XWS = 'seynmarana',
-    Faction = 'galacticempire',
+    xws = 'seynmarana',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
-    init = 4,
+    initiative = 4,
     texture = 'inferno',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['valenrudor'] = {
     name = 'Valen Rudor',
-    XWS = 'valenrudor',
-    Faction = 'galacticempire',
+    xws = 'valenrudor',
+    faction = 'galacticempire',
     limited = 1,
     limited = 1,
     ship_type = 'tielnfighter',
-    init = 3,
+    initiative = 3,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['nightbeast'] = {
     name = '"Night Beast"',
-    XWS = 'nightbeast',
-    Faction = 'galacticempire',
+    xws = 'nightbeast',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
-    init = 2,
+    initiative = 2,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['wampa'] = {
     name = '"Wampa"',
-    XWS = 'wampa',
-    Faction = 'galacticempire',
+    xws = 'wampa',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
-    Charge = 1,
-    init = 1,
+    charge = 1,
+    initiative = 1,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['blacksquadronace'] = {
     name = 'Black Squadron Ace',
-    XWS = 'blacksquadronace',
-    Faction = 'galacticempire',
+    xws = 'blacksquadronace',
+    faction = 'galacticempire',
     ship_type = 'tielnfighter',
-    init = 3,
+    initiative = 3,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['obsidiansquadronpilot'] = {
     name = 'Obsidian Squadron Pilot',
-    XWS = 'obsidiansquadronpilot',
-    Faction = 'galacticempire',
+    xws = 'obsidiansquadronpilot',
+    faction = 'galacticempire',
     ship_type = 'tielnfighter',
-    init = 2,
+    initiative = 2,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['academypilot'] = {
     name = 'Academy Pilot',
-    XWS = 'academypilot',
-    Faction = 'galacticempire',
+    xws = 'academypilot',
+    faction = 'galacticempire',
     ship_type = 'tielnfighter',
-    init = 1,
+    initiative = 1,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['darthvader'] = {
     name = 'Darth Vader',
-    XWS = 'darthvader',
-    Faction = 'galacticempire',
+    xws = 'darthvader',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieadvancedx1',
-    Force = 3,
-    init = 6,
+    force = 3,
+    initiative = 6,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Dark Side', 'Sith' }
 }
 
 masterPilotDB['maarekstele'] = {
     name = 'Maarek Stele',
-    XWS = 'maarekstele',
-    Faction = 'galacticempire',
+    xws = 'maarekstele',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieadvancedx1',
-    init = 5,
+    initiative = 5,
     texture = 'grey',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['vedfoslo'] = {
     name = 'Ved Foslo',
-    XWS = 'vedfoslo',
-    Faction = 'galacticempire',
+    xws = 'vedfoslo',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieadvancedx1',
-    executeOptions = {
+    execute_options = {
         ws1   = { [1] = 'ws1', [2] = 'ws2' },
         bs2   = { [1] = 'bs1', [2] = 'bs2', [3] = 'bs3' },
         bs3   = { [1] = 'bs2', [2] = 'bs3', [3] = 'bs4' },
@@ -1379,3093 +1379,3093 @@ masterPilotDB['vedfoslo'] = {
         rtr3t = { [1] = 'rtr2t', [2] = 'rtr3t' },
         rk4   = { [1] = 'rk3', [2] = 'rk4', [3] = 'rk5' }
     },
-    init = 4,
+    initiative = 4,
     texture = 'grey',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['zertikstrom'] = {
     name = 'Zertik Strom',
-    XWS = 'zertikstrom',
-    Faction = 'galacticempire',
+    xws = 'zertikstrom',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieadvancedx1',
-    init = 3,
+    initiative = 3,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['stormsquadronace'] = {
     name = 'Storm Squadron Ace',
-    XWS = 'stormsquadronace',
-    Faction = 'galacticempire',
+    xws = 'stormsquadronace',
+    faction = 'galacticempire',
     ship_type = 'tieadvancedx1',
-    init = 3,
+    initiative = 3,
     texture = 'grey',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['tempestsquadronpilot'] = {
     name = 'Tempest Squadron Pilot',
-    XWS = 'tempestsquadronpilot',
-    Faction = 'galacticempire',
+    xws = 'tempestsquadronpilot',
+    faction = 'galacticempire',
     ship_type = 'tieadvancedx1',
-    init = 2,
+    initiative = 2,
     texture = 'grey',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['grandinquisitor'] = {
     name = 'Grand Inquisitor',
-    XWS = 'grandinquisitor',
-    Faction = 'galacticempire',
+    xws = 'grandinquisitor',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieadvancedv1',
-    Force = 2,
-    init = 5,
+    force = 2,
+    initiative = 5,
     texture = 'grey',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Dark Side' }
 }
 
 masterPilotDB['seventhsister'] = {
     name = 'Seventh Sister',
-    XWS = 'seventhsister',
-    Faction = 'galacticempire',
+    xws = 'seventhsister',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieadvancedv1',
-    Force = 2,
-    init = 4,
+    force = 2,
+    initiative = 4,
     texture = 'grey',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' }
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' }
 }
 
 masterPilotDB['baronoftheempire'] = {
     name = 'Baron of the Empire',
-    XWS = 'baronoftheempire',
-    Faction = 'galacticempire',
+    xws = 'baronoftheempire',
+    faction = 'galacticempire',
     ship_type = 'tieadvancedv1',
-    init = 3,
+    initiative = 3,
     texture = 'blue',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' }
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' }
 }
 
 masterPilotDB['inquisitor'] = {
     name = 'Inquisitor',
-    XWS = 'inquisitor',
-    Faction = 'galacticempire',
+    xws = 'inquisitor',
+    faction = 'galacticempire',
     ship_type = 'tieadvancedv1',
-    Force = 1,
-    init = 3,
+    force = 1,
+    initiative = 3,
     texture = 'grey',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' }
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' }
 }
 
 masterPilotDB['fifthbrother'] = {
     name = 'Fifth Brother',
-    XWS = 'fifthbrother',
-    Faction = 'galacticempire',
+    xws = 'fifthbrother',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieadvancedv1',
-    Force = 2,
-    init = 4,
+    force = 2,
+    initiative = 4,
     texture = 'grey',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' }
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' }
 }
 
 
 masterPilotDB['soontirfel'] = {
     name = 'Soontir Fel',
-    XWS = 'soontirfel',
-    Faction = 'galacticempire',
+    xws = 'soontirfel',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieininterceptor',
-    init = 6,
+    initiative = 6,
     texture = 'the181',
-    actSet = { 'F', 'E', 'BR', 'B' }
+    action_set = { 'F', 'E', 'BR', 'B' }
 }
 
 masterPilotDB['turrphennir'] = {
     name = 'Turr Phennir',
-    XWS = 'turrphennir',
-    Faction = 'galacticempire',
+    xws = 'turrphennir',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieininterceptor',
-    init = 4,
+    initiative = 4,
     texture = 'the181',
-    actSet = { 'F', 'E', 'BR', 'B' }
+    action_set = { 'F', 'E', 'BR', 'B' }
 }
 
 masterPilotDB['sabersquadronace'] = {
     name = 'Saber Squadron Ace',
-    XWS = 'sabersquadronace',
-    Faction = 'galacticempire',
+    xws = 'sabersquadronace',
+    faction = 'galacticempire',
     ship_type = 'tieininterceptor',
-    init = 4,
+    initiative = 4,
     texture = 'the181',
-    actSet = { 'F', 'E', 'BR', 'B' }
+    action_set = { 'F', 'E', 'BR', 'B' }
 }
 
 masterPilotDB['alphasquadronpilot'] = {
     name = 'Alpha Squadron Pilot',
-    XWS = 'alphasquadronpilot',
-    Faction = 'galacticempire',
+    xws = 'alphasquadronpilot',
+    faction = 'galacticempire',
     ship_type = 'tieininterceptor',
-    init = 1,
+    initiative = 1,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR', 'B' }
+    action_set = { 'F', 'E', 'BR', 'B' }
 }
 
 masterPilotDB['cienaree'] = {
     name = 'Ciena Ree',
-    XWS = 'cienaree',
-    Faction = 'galacticempire',
+    xws = 'cienaree',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieininterceptor',
-    init = 6,
+    initiative = 6,
     texture = 'blue',
-    actSet = { 'F', 'E', 'BR', 'B' }
+    action_set = { 'F', 'E', 'BR', 'B' }
 }
 
 masterPilotDB['vultskerris-tieininterceptor'] = {
     name = 'Vult Skerris',
-    XWS = 'vultskerris-tieininterceptor',
-    Faction = 'galacticempire',
+    xws = 'vultskerris-tieininterceptor',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieininterceptor',
-    Charge = 1,
-    init = 5,
+    charge = 1,
+    initiative = 5,
     texture = 'skystrike',
-    actSet = { 'F', 'E', 'BR', 'B' }
+    action_set = { 'F', 'E', 'BR', 'B' }
 }
 
 masterPilotDB['commandantgoran'] = {
     name = 'Commandant Goran',
-    XWS = 'commandantgoran',
-    Faction = 'galacticempire',
+    xws = 'commandantgoran',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieininterceptor',
-    init = 4,
+    initiative = 4,
     texture = 'skystrike',
-    actSet = { 'F', 'E', 'BR', 'B' }
+    action_set = { 'F', 'E', 'BR', 'B' }
 }
 
 masterPilotDB['gideonhask-tieininterceptor'] = {
     name = 'Gideon Hask',
-    XWS = 'gideonhask-tieininterceptor',
-    Faction = 'galacticempire',
+    xws = 'gideonhask-tieininterceptor',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieininterceptor',
-    init = 4,
+    initiative = 4,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR', 'B' }
+    action_set = { 'F', 'E', 'BR', 'B' }
 }
 
 masterPilotDB['nashwindrider'] = {
     name = 'Nash Windrider',
-    XWS = 'nashwindrider',
-    Faction = 'galacticempire',
+    xws = 'nashwindrider',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieininterceptor',
-    Charge = 1,
-    init = 2,
+    charge = 1,
+    initiative = 2,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR', 'B' }
+    action_set = { 'F', 'E', 'BR', 'B' }
 }
 
 masterPilotDB['lieutenantlorrir'] = {
     name = 'Lieutenant Lorrir',
-    XWS = 'lieutenantlorrir',
-    Faction = 'galacticempire',
+    xws = 'lieutenantlorrir',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieininterceptor',
-    init = 3,
+    initiative = 3,
     texture = 'the181',
-    actSet = { 'F', 'E', 'VR', 'B' }
+    action_set = { 'F', 'E', 'VR', 'B' }
 }
 
 masterPilotDB['tomaxbren'] = {
     name = 'Tomax Bren',
-    XWS = 'tomaxbren',
-    Faction = 'galacticempire',
+    xws = 'tomaxbren',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiesabomber',
-    init = 5,
+    initiative = 5,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['captainjonus'] = {
     name = 'Captain Jonus',
-    XWS = 'captainjonus',
-    Faction = 'galacticempire',
+    xws = 'captainjonus',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiesabomber',
-    init = 4,
+    initiative = 4,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['majorrhymer'] = {
     name = 'Major Rhymer',
-    XWS = 'majorrhymer',
-    Faction = 'galacticempire',
+    xws = 'majorrhymer',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiesabomber',
-    init = 4,
+    initiative = 4,
     texture = 'grey',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['deathfire'] = {
     name = '"Deathfire"',
-    XWS = 'deathfire',
-    Faction = 'galacticempire',
+    xws = 'deathfire',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiesabomber',
-    init = 2,
+    initiative = 2,
     texture = 'grey',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['gammasquadronace'] = {
     name = 'Gamma Squadron Ace',
-    XWS = 'gammasquadronace',
-    Faction = 'galacticempire',
+    xws = 'gammasquadronace',
+    faction = 'galacticempire',
     ship_type = 'tiesabomber',
-    init = 3,
+    initiative = 3,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['scimitarsquadronpilot'] = {
     name = 'Scimitar Squadron Pilot',
-    XWS = 'scimitarsquadronpilot',
-    Faction = 'galacticempire',
+    xws = 'scimitarsquadronpilot',
+    faction = 'galacticempire',
     ship_type = 'tiesabomber',
-    init = 2,
+    initiative = 2,
     texture = 'grey',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['majorvermeil'] = {
     name = 'Major Vermeil',
-    XWS = 'majorvermeil',
-    Faction = 'galacticempire',
+    xws = 'majorvermeil',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tierereaper',
-    init = 4,
+    initiative = 4,
     texture = 'blue',
-    actSet = { 'F', 'E', 'Ail', 'B' }
+    action_set = { 'F', 'E', 'Ail', 'B' }
 }
 
 masterPilotDB['captainferoph'] = {
     name = 'Captain Feroph',
-    XWS = 'captainferoph',
-    Faction = 'galacticempire',
+    xws = 'captainferoph',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tierereaper',
-    init = 3,
+    initiative = 3,
     texture = 'grey',
-    actSet = { 'F', 'E', 'Ail', 'B' }
+    action_set = { 'F', 'E', 'Ail', 'B' }
 }
 
 masterPilotDB['vizier'] = {
     name = '"Vizier"',
-    XWS = 'vizier',
-    Faction = 'galacticempire',
+    xws = 'vizier',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tierereaper',
-    init = 2,
+    initiative = 2,
     texture = 'grey',
-    actSet = { 'F', 'E', 'Ail', 'B' }
+    action_set = { 'F', 'E', 'Ail', 'B' }
 }
 
 masterPilotDB['scarifbasepilot'] = {
     name = 'Scarif Base Pilot',
-    XWS = 'scarifbasepilot',
-    Faction = 'galacticempire',
+    xws = 'scarifbasepilot',
+    faction = 'galacticempire',
     ship_type = 'tierereaper',
-    init = 1,
+    initiative = 1,
     texture = 'grey',
-    actSet = { 'F', 'E', 'Ail', 'B' }
+    action_set = { 'F', 'E', 'Ail', 'B' }
 }
 
 masterPilotDB['duchess'] = {
     name = '"Duchess"',
-    XWS = 'duchess',
-    Faction = 'galacticempire',
+    xws = 'duchess',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieskstriker',
-    init = 5,
+    initiative = 5,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR', 'Ail', 'B' }
+    action_set = { 'F', 'E', 'BR', 'Ail', 'B' }
 }
 
 masterPilotDB['countdown'] = {
     name = '"Countdown"',
-    XWS = 'countdown',
-    Faction = 'galacticempire',
+    xws = 'countdown',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieskstriker',
-    init = 4,
+    initiative = 4,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR', 'Ail', 'B' }
+    action_set = { 'F', 'E', 'BR', 'Ail', 'B' }
 }
 
 masterPilotDB['puresabacc'] = {
     name = '"Pure Sabacc"',
-    XWS = 'puresabacc',
-    Faction = 'galacticempire',
+    xws = 'puresabacc',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieskstriker',
-    init = 4,
+    initiative = 4,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR', 'Ail', 'B' }
+    action_set = { 'F', 'E', 'BR', 'Ail', 'B' }
 }
 
 masterPilotDB['blacksquadronscout'] = {
     name = 'Black Squadron Scout',
-    XWS = 'blacksquadronscout',
-    Faction = 'galacticempire',
+    xws = 'blacksquadronscout',
+    faction = 'galacticempire',
     ship_type = 'tieskstriker',
-    init = 3,
+    initiative = 3,
     texture = 'blue',
-    actSet = { 'F', 'E', 'BR', 'Ail', 'B' }
+    action_set = { 'F', 'E', 'BR', 'Ail', 'B' }
 }
 
 masterPilotDB['planetarysentinel'] = {
     name = 'Planetary Sentinel',
-    XWS = 'planetarysentinel',
-    Faction = 'galacticempire',
+    xws = 'planetarysentinel',
+    faction = 'galacticempire',
     ship_type = 'tieskstriker',
-    init = 1,
+    initiative = 1,
     texture = 'blue',
-    actSet = { 'F', 'E', 'BR', 'Ail', 'B' }
+    action_set = { 'F', 'E', 'BR', 'Ail', 'B' }
 }
 
 masterPilotDB['vagabond'] = {
     name = '"Vagabond"',
-    XWS = 'vagabond',
-    Faction = 'galacticempire',
+    xws = 'vagabond',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieskstriker',
-    init = 2,
+    initiative = 2,
     texture = 'blue',
-    actSet = { 'F', 'E', 'BR', 'Ail', 'B' }
+    action_set = { 'F', 'E', 'BR', 'Ail', 'B' }
 }
 
 masterPilotDB['rexlerbrath'] = {
     name = 'Rexler Brath',
-    XWS = 'rexlerbrath',
-    Faction = 'galacticempire',
+    xws = 'rexlerbrath',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiededefender',
-    init = 5,
+    initiative = 5,
     texture = 'blue',
-    actSet = { 'F', 'E', 'BR', 'TL', 'B' }
+    action_set = { 'F', 'E', 'BR', 'TL', 'B' }
 }
 
 masterPilotDB['colonelvessery'] = {
     name = 'Colonel Vessery',
-    XWS = 'colonelvessery',
-    Faction = 'galacticempire',
+    xws = 'colonelvessery',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiededefender',
-    init = 4,
+    initiative = 4,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR', 'TL', 'B' }
+    action_set = { 'F', 'E', 'BR', 'TL', 'B' }
 }
 
 masterPilotDB['countessryad'] = {
     name = 'Countess Ryad',
-    XWS = 'countessryad',
-    Faction = 'galacticempire',
+    xws = 'countessryad',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiededefender',
-    init = 4,
-    executeOptions = {
+    initiative = 4,
+    execute_options = {
         bs2 = { [1] = 'bs2', [2] = 'wk2' },
         bs3 = { [1] = 'bs3', [2] = 'wk3' },
         bs4 = { [1] = 'bs4', [2] = 'wk4' },
         bs5 = { [1] = 'bs5', [2] = 'wk5' }
     },
     texture = 'red',
-    actSet = { 'F', 'E', 'BR', 'TL', 'B' }
+    action_set = { 'F', 'E', 'BR', 'TL', 'B' }
 }
 
 masterPilotDB['onyxsquadronace'] = {
     name = 'Onyx Squadron Ace',
-    XWS = 'onyxsquadronace',
-    Faction = 'galacticempire',
+    xws = 'onyxsquadronace',
+    faction = 'galacticempire',
     ship_type = 'tiededefender',
-    init = 4,
+    initiative = 4,
     texture = 'blue',
-    actSet = { 'F', 'E', 'BR', 'TL', 'B' }
+    action_set = { 'F', 'E', 'BR', 'TL', 'B' }
 }
 
 masterPilotDB['deltasquadronpilot'] = {
     name = 'Delta Squadron Pilot',
-    XWS = 'deltasquadronpilot',
-    Faction = 'galacticempire',
+    xws = 'deltasquadronpilot',
+    faction = 'galacticempire',
     ship_type = 'tiededefender',
-    init = 1,
+    initiative = 1,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR', 'TL', 'B' }
+    action_set = { 'F', 'E', 'BR', 'TL', 'B' }
 }
 
 
 masterPilotDB['darthvader-tieddefender'] = {
     name = 'Darth Vader',
-    XWS = 'darthvader-tieddefender',
-    Faction = 'galacticempire',
+    xws = 'darthvader-tieddefender',
+    faction = 'galacticempire',
     ship_type = 'tiededefender',
-    Force = 3,
-    init = 6,
+    force = 3,
+    initiative = 6,
     texture = 'vader',
-    actSet = { 'F', 'E', 'BR', 'TL', 'B' },
+    action_set = { 'F', 'E', 'BR', 'TL', 'B' },
     keywords = { 'Dark Side', 'Sith' }
 }
 
 masterPilotDB['vultskerris'] = {
     name = 'Vult Skerris',
-    XWS = 'vultskerris',
-    Faction = 'galacticempire',
+    xws = 'vultskerris',
+    faction = 'galacticempire',
     ship_type = 'tiededefender',
-    Charge = 1,
-    init = 5,
+    charge = 1,
+    initiative = 5,
     texture = 'skystrike',
-    actSet = { 'F', 'E', 'BR', 'TL', 'B' }
+    action_set = { 'F', 'E', 'BR', 'TL', 'B' }
 }
 
 masterPilotDB['captaindobbs'] = {
     name = 'Captain Dobbs',
-    XWS = 'captaindobbs',
-    Faction = 'galacticempire',
+    xws = 'captaindobbs',
+    faction = 'galacticempire',
     ship_type = 'tiededefender',
-    init = 3,
+    initiative = 3,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR', 'TL', 'B' }
+    action_set = { 'F', 'E', 'BR', 'TL', 'B' }
 }
 
 masterPilotDB['lieutenantkestal'] = {
     name = 'Lieutenant Kestal',
-    XWS = 'lieutenantkestal',
-    Faction = 'galacticempire',
+    xws = 'lieutenantkestal',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieagaggressor',
-    init = 4,
+    initiative = 4,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR', 'TL' }
+    action_set = { 'F', 'E', 'BR', 'TL' }
 }
 
 masterPilotDB['doubleedge'] = {
     name = '"Double Edge"',
-    XWS = 'doubleedge',
-    Faction = 'galacticempire',
+    xws = 'doubleedge',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieagaggressor',
-    init = 2,
+    initiative = 2,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR', 'TL' }
+    action_set = { 'F', 'E', 'BR', 'TL' }
 }
 
 masterPilotDB['onyxsquadronscout'] = {
     name = 'Onyx Squadron Scout',
-    XWS = 'onyxsquadronscout',
-    Faction = 'galacticempire',
+    xws = 'onyxsquadronscout',
+    faction = 'galacticempire',
     ship_type = 'tieagaggressor',
-    init = 3,
+    initiative = 3,
     texture = 'blue',
-    actSet = { 'F', 'E', 'BR', 'TL' }
+    action_set = { 'F', 'E', 'BR', 'TL' }
 }
 
 masterPilotDB['sienarspecialist'] = {
     name = 'Sienar Specialist',
-    XWS = 'sienarspecialist',
-    Faction = 'galacticempire',
+    xws = 'sienarspecialist',
+    faction = 'galacticempire',
     ship_type = 'tieagaggressor',
-    init = 2,
+    initiative = 2,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR', 'TL' }
+    action_set = { 'F', 'E', 'BR', 'TL' }
 }
 
 masterPilotDB['whisper'] = {
     name = '"Whisper"',
     title = 'Soft-Spoken Slayer',
-    XWS = 'whisper',
-    Faction = 'galacticempire',
+    xws = 'whisper',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiephphantom',
-    init = 5,
+    initiative = 5,
     texture = 'blue',
-    actSet = { 'F', 'E', 'BR', 'CL' }
+    action_set = { 'F', 'E', 'BR', 'CL' }
 }
 
 masterPilotDB['echo'] = {
     name = '"Echo"',
     title = 'Slippery Trickster',
-    XWS = 'echo',
-    Faction = 'galacticempire',
+    xws = 'echo',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiephphantom',
-    init = 4,
+    initiative = 4,
     texture = 'echo',
-    actSet = { 'F', 'E', 'BR', 'CL' }
+    action_set = { 'F', 'E', 'BR', 'CL' }
 }
 
 masterPilotDB['sigmasquadronace'] = {
     name = 'Sigma Squadron Ace',
-    XWS = 'sigmasquadronace',
-    Faction = 'galacticempire',
+    xws = 'sigmasquadronace',
+    faction = 'galacticempire',
     ship_type = 'tiephphantom',
-    init = 4,
+    initiative = 4,
     texture = 'sigma',
-    actSet = { 'F', 'E', 'BR', 'CL' }
+    action_set = { 'F', 'E', 'BR', 'CL' }
 }
 
 masterPilotDB['imdaartestpilot'] = {
     name = 'Imdaar Test Pilot',
-    XWS = 'imdaartestpilot',
-    Faction = 'galacticempire',
+    xws = 'imdaartestpilot',
+    faction = 'galacticempire',
     ship_type = 'tiephphantom',
-    init = 3,
+    initiative = 3,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR', 'CL' }
+    action_set = { 'F', 'E', 'BR', 'CL' }
 }
 
 masterPilotDB['majorvynder'] = {
     name = 'Major Vynder',
     title = 'Pragmatic Survivor',
-    XWS = 'majorvynder',
-    Faction = 'galacticempire',
+    xws = 'majorvynder',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'alphaclassstarwing',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL' }
+    action_set = { 'F', 'TL' }
 }
 
 masterPilotDB['lieutenantkarsabi'] = {
     name = 'Lieutenant Karsabi',
     title = 'Brash Noble',
-    XWS = 'lieutenantkarsabi',
-    Faction = 'galacticempire',
+    xws = 'lieutenantkarsabi',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'alphaclassstarwing',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL' }
+    action_set = { 'F', 'TL' }
 }
 
 masterPilotDB['rhosquadronpilot'] = {
     name = 'Rho Squadron Pilot',
-    XWS = 'rhosquadronpilot',
-    Faction = 'galacticempire',
+    xws = 'rhosquadronpilot',
+    faction = 'galacticempire',
     ship_type = 'alphaclassstarwing',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL' }
+    action_set = { 'F', 'TL' }
 }
 
 masterPilotDB['nusquadronpilot'] = {
     name = 'Nu Squadron Pilot',
-    XWS = 'nusquadronpilot',
-    Faction = 'galacticempire',
+    xws = 'nusquadronpilot',
+    faction = 'galacticempire',
     ship_type = 'alphaclassstarwing',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'TL' }
+    action_set = { 'F', 'TL' }
 }
 
 masterPilotDB['redline'] = {
     name = '"Redline"',
-    XWS = 'redline',
-    Faction = 'galacticempire',
+    xws = 'redline',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiecapunisher',
-    init = 5,
+    initiative = 5,
     texture = 'grey',
-    actSet = { 'F', 'TL', 'BR', "B" }
+    action_set = { 'F', 'TL', 'BR', "B" }
 }
 masterPilotDB['deathrain'] = {
     name = '"Deathrain"',
-    XWS = 'deathrain',
-    Faction = 'galacticempire',
+    xws = 'deathrain',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiecapunisher',
-    init = 4,
+    initiative = 4,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'BR', "B" }
+    action_set = { 'F', 'TL', 'BR', "B" }
 }
 
 masterPilotDB['cutlasssquadronpilot'] = {
     name = 'Cutlass Squadron Pilot',
-    XWS = 'cutlasssquadronpilot',
-    Faction = 'galacticempire',
+    xws = 'cutlasssquadronpilot',
+    faction = 'galacticempire',
     ship_type = 'tiecapunisher',
-    init = 2,
+    initiative = 2,
     texture = 'grey',
-    actSet = { 'F', 'TL', 'BR', "B" }
+    action_set = { 'F', 'TL', 'BR', "B" }
 }
 
 masterPilotDB['captainkagi'] = {
     name = 'Captain Kagi',
-    XWS = 'captainkagi',
-    Faction = 'galacticempire',
+    xws = 'captainkagi',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'lambdaclasst4ashuttle',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'R' }
+    action_set = { 'F', 'R' }
 }
 
 masterPilotDB['coloneljendon'] = {
     name = 'Colonel Jendon',
-    XWS = 'coloneljendon',
-    Faction = 'galacticempire',
+    xws = 'coloneljendon',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'lambdaclasst4ashuttle',
-    Charge = 2,
-    init = 3,
+    charge = 2,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'R' }
+    action_set = { 'F', 'R' }
 }
 
 masterPilotDB['lieutenantsai'] = {
     name = 'Lieutenant Sai',
-    XWS = 'lieutenantsai',
-    Faction = 'galacticempire',
+    xws = 'lieutenantsai',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'lambdaclasst4ashuttle',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'R' }
+    action_set = { 'F', 'R' }
 }
 
 masterPilotDB['omicrongrouppilot'] = {
     name = 'Omicron Group Pilot',
-    XWS = 'omicrongrouppilot',
-    Faction = 'galacticempire',
+    xws = 'omicrongrouppilot',
+    faction = 'galacticempire',
     ship_type = 'lambdaclasst4ashuttle',
-    init = 1,
+    initiative = 1,
     texture = 'standard',
-    actSet = { 'F', 'R' }
+    action_set = { 'F', 'R' }
 }
 
 masterPilotDB['captainoicunn'] = {
     name = 'Captain Oicunn',
-    XWS = 'captainoicunn',
-    Faction = 'galacticempire',
+    xws = 'captainoicunn',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'vt49decimator',
-    init = 3,
+    initiative = 3,
     texture = 'grey',
-    actSet = { 'F', 'R', 'TL', 'Rot' }
+    action_set = { 'F', 'R', 'TL', 'Rot' }
 }
 
 masterPilotDB['rearadmiralchiraneau'] = {
     name = 'Rear Admiral Chiraneau',
-    XWS = 'rearadmiralchiraneau',
-    Faction = 'galacticempire',
+    xws = 'rearadmiralchiraneau',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'vt49decimator',
-    init = 5,
+    initiative = 5,
     texture = 'grey',
-    actSet = { 'F', 'R', 'TL', 'Rot' }
+    action_set = { 'F', 'R', 'TL', 'Rot' }
 }
 
 masterPilotDB['patrolleader'] = {
     name = 'Patrol Leader',
-    XWS = 'patrolleader',
-    Faction = 'galacticempire',
+    xws = 'patrolleader',
+    faction = 'galacticempire',
     ship_type = 'vt49decimator',
-    init = 2,
+    initiative = 2,
     texture = 'grey',
-    actSet = { 'F', 'R', 'TL', 'Rot' }
+    action_set = { 'F', 'R', 'TL', 'Rot' }
 }
 
 masterPilotDB['mornakee'] = {
     name = 'Morna Kee',
-    XWS = 'mornakee',
-    Faction = 'galacticempire',
+    xws = 'mornakee',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'vt49decimator',
-    Charge = 3,
-    init = 4,
+    charge = 3,
+    initiative = 4,
     texture = 'grey',
-    actSet = { 'F', 'R', 'TL', 'Rot' }
+    action_set = { 'F', 'R', 'TL', 'Rot' }
 }
 
 masterPilotDB['bobafett'] = {
     name = 'Boba Fett',
-    XWS = 'bobafett',
+    xws = 'bobafett',
     title = 'Notorious Bounty Hunter',
-    Faction = 'scumandvillainy',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'firesprayclasspatrolcraft',
-    init = 5,
+    initiative = 5,
     texture = 'boba',
-    actSet = { 'F', 'R', 'TL', 'B' },
+    action_set = { 'F', 'R', 'TL', 'B' },
     keywords = { 'Bounty Hunter' }
 }
 
 masterPilotDB['emonazzameen'] = {
     name = 'Emon Azzameen',
-    XWS = 'emonazzameen',
-    Faction = 'scumandvillainy',
+    xws = 'emonazzameen',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'firesprayclasspatrolcraft',
-    init = 4,
+    initiative = 4,
     texture = 'emon',
-    actSet = { 'F', 'R', 'TL', 'B' }
+    action_set = { 'F', 'R', 'TL', 'B' }
 }
 
 masterPilotDB['kathscarlet'] = {
     name = 'Kath Scarlet',
-    XWS = 'kathscarlet',
-    Faction = 'scumandvillainy',
+    xws = 'kathscarlet',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'firesprayclasspatrolcraft',
-    init = 4,
+    initiative = 4,
     texture = 'kath',
-    actSet = { 'F', 'R', 'TL', 'B' }
+    action_set = { 'F', 'R', 'TL', 'B' }
 }
 
 masterPilotDB['koshkafrost'] = {
     name = 'Koshka Frost',
-    XWS = 'koshkafrost',
-    Faction = 'scumandvillainy',
+    xws = 'koshkafrost',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'firesprayclasspatrolcraft',
-    init = 3,
+    initiative = 3,
     texture = 'koshka',
-    actSet = { 'F', 'R', 'TL', 'B' },
+    action_set = { 'F', 'R', 'TL', 'B' },
     keywords = { 'Bounty Hunter' }
 }
 
 masterPilotDB['krassistrelix'] = {
     name = 'Krassis Trelix',
-    XWS = 'krassistrelix',
-    Faction = 'scumandvillainy',
+    xws = 'krassistrelix',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'firesprayclasspatrolcraft',
-    init = 3,
+    initiative = 3,
     texture = 'krassis',
-    actSet = { 'F', 'R', 'TL', 'B' }
+    action_set = { 'F', 'R', 'TL', 'B' }
 }
 
 masterPilotDB['bountyhunter'] = {
     name = 'Bounty Hunter',
-    XWS = 'bountyhunter',
-    Faction = 'scumandvillainy',
+    xws = 'bountyhunter',
+    faction = 'scumandvillainy',
     ship_type = 'firesprayclasspatrolcraft',
-    init = 2,
+    initiative = 2,
     texture = 'bountyhunter',
-    actSet = { 'F', 'R', 'TL', 'B' },
+    action_set = { 'F', 'R', 'TL', 'B' },
     keywords = { 'Bounty Hunter' }
 }
 
 masterPilotDB['fennrau'] = {
     name = 'Fenn Rau',
-    XWS = 'fennrau',
-    Faction = 'scumandvillainy',
+    xws = 'fennrau',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'fangfighter',
-    init = 6,
+    initiative = 6,
     texture = 'new',
-    actSet = { 'F', 'TL', 'B', 'BR' },
+    action_set = { 'F', 'TL', 'B', 'BR' },
     keywords = { 'Mandalorian' }
 }
 
 masterPilotDB['oldteroch'] = {
     name = 'Old Teroch',
-    XWS = 'oldteroch',
-    Faction = 'scumandvillainy',
+    xws = 'oldteroch',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'fangfighter',
-    init = 5,
+    initiative = 5,
     texture = 'new',
-    actSet = { 'F', 'TL', 'B', 'BR' },
+    action_set = { 'F', 'TL', 'B', 'BR' },
     keywords = { 'Mandalorian' }
 }
 
 masterPilotDB['joyrekkoff'] = {
     name = 'Joy Rekkoff',
-    XWS = 'joyrekkoff',
-    Faction = 'scumandvillainy',
+    xws = 'joyrekkoff',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'fangfighter',
-    init = 4,
+    initiative = 4,
     texture = 'new',
-    actSet = { 'F', 'TL', 'B', 'BR' },
+    action_set = { 'F', 'TL', 'B', 'BR' },
     keywords = { 'Mandalorian' }
 }
 
 masterPilotDB['kadsolus'] = {
     name = 'Kad Solus',
-    XWS = 'kadsolus',
-    Faction = 'scumandvillainy',
+    xws = 'kadsolus',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'fangfighter',
-    init = 4,
+    initiative = 4,
     texture = 'new',
-    actSet = { 'F', 'TL', 'B', 'BR' },
+    action_set = { 'F', 'TL', 'B', 'BR' },
     keywords = { 'Mandalorian' }
 }
 
 masterPilotDB['skullsquadronpilot'] = {
     name = 'Skull Squadron Pilot',
-    XWS = 'skullsquadronpilot',
-    Faction = 'scumandvillainy',
+    xws = 'skullsquadronpilot',
+    faction = 'scumandvillainy',
     ship_type = 'fangfighter',
-    init = 4,
+    initiative = 4,
     texture = 'new',
-    actSet = { 'F', 'TL', 'B', 'BR' },
+    action_set = { 'F', 'TL', 'B', 'BR' },
     keywords = { 'Mandalorian' }
 }
 
 masterPilotDB['zealousrecruit'] = {
     name = 'Zealous Recruit',
-    XWS = 'zealousrecruit',
-    Faction = 'scumandvillainy',
+    xws = 'zealousrecruit',
+    faction = 'scumandvillainy',
     ship_type = 'fangfighter',
-    init = 1,
+    initiative = 1,
     texture = 'new',
-    actSet = { 'F', 'TL', 'B', 'BR' },
+    action_set = { 'F', 'TL', 'B', 'BR' },
     keywords = { 'Mandalorian' }
 }
 
 masterPilotDB['constablezuvio'] = {
     name = 'Constable Zuvio',
-    XWS = 'constablezuvio',
+    xws = 'constablezuvio',
     limited = 1,
-    Faction = 'scumandvillainy',
+    faction = 'scumandvillainy',
     ship_type = 'quadrijettransferspacetug',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['sarcoplank'] = {
     name = 'Sarco Plank',
-    XWS = 'sarcoplank',
-    Faction = 'scumandvillainy',
+    xws = 'sarcoplank',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'quadrijettransferspacetug',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'E', 'BR' },
+    action_set = { 'F', 'E', 'BR' },
     keywords = { 'Bounty Hunter' }
 }
 
 masterPilotDB['unkarplutt'] = {
     name = 'Unkar Plutt',
-    XWS = 'unkarplutt',
-    Faction = 'scumandvillainy',
+    xws = 'unkarplutt',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'quadrijettransferspacetug',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['jakkugunrunner'] = {
     name = 'Jakku Gunrunner',
-    XWS = 'jakkugunrunner',
-    Faction = 'scumandvillainy',
+    xws = 'jakkugunrunner',
+    faction = 'scumandvillainy',
     ship_type = 'quadrijettransferspacetug',
-    init = 1,
+    initiative = 1,
     texture = 'standard',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['kavil'] = {
     name = 'Kavil',
-    XWS = 'kavil',
-    Faction = 'scumandvillainy',
+    xws = 'kavil',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'btla4ywing',
-    init = 5,
+    initiative = 5,
     texture = 'kavil',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['drearenthal'] = {
     name = 'Drea Renthal',
-    XWS = 'drearenthal',
-    Faction = 'scumandvillainy',
+    xws = 'drearenthal',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'btla4ywing',
-    init = 4,
+    initiative = 4,
     texture = 'drea',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['hiredgun'] = {
     name = 'Hired Gun',
-    XWS = 'hiredgun',
-    Faction = 'scumandvillainy',
+    xws = 'hiredgun',
+    faction = 'scumandvillainy',
     ship_type = 'btla4ywing',
-    init = 2,
+    initiative = 2,
     texture = 'hiredgun',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['crymorahgoon'] = {
     name = 'Crymorah Goon',
-    XWS = 'crymorahgoon',
-    Faction = 'scumandvillainy',
+    xws = 'crymorahgoon',
+    faction = 'scumandvillainy',
     ship_type = 'btla4ywing',
-    init = 1,
+    initiative = 1,
     texture = 'crymorah',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 
 masterPilotDB['arlizhadrassian'] = {
     name = 'Arliz Hadrassian',
-    XWS = 'arlizhadrassian',
-    Faction = 'scumandvillainy',
+    xws = 'arlizhadrassian',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'btla4ywing',
-    init = 4,
+    initiative = 4,
     texture = 'amaxine',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['leemakai'] = {
     name = 'Leema Kai',
-    XWS = 'leemakai',
-    Faction = 'scumandvillainy',
+    xws = 'leemakai',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'btla4ywing',
-    init = 5,
+    initiative = 5,
     texture = 'jinata',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['padric'] = {
     name = 'Padric',
-    XWS = 'padric',
-    Faction = 'scumandvillainy',
+    xws = 'padric',
+    faction = 'scumandvillainy',
     ship_type = 'btla4ywing',
-    init = 3,
+    initiative = 3,
     texture = 'padric',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['amaxinewarrior'] = {
     name = 'Amaxine Warrior',
-    XWS = 'amaxinewarrior',
-    Faction = 'scumandvillainy',
+    xws = 'amaxinewarrior',
+    faction = 'scumandvillainy',
     ship_type = 'btla4ywing',
-    init = 3,
+    initiative = 3,
     texture = 'amaxine',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['jinatasecurityofficer'] = {
     name = 'Jinata Security Officer',
-    XWS = 'jinatasecurityofficer',
-    Faction = 'scumandvillainy',
+    xws = 'jinatasecurityofficer',
+    faction = 'scumandvillainy',
     ship_type = 'btla4ywing',
-    init = 2,
+    initiative = 2,
     texture = 'jinata',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['ndrusuhlak'] = {
     name = "N'dru Suhlak",
-    XWS = 'ndrusuhlak',
-    Faction = 'scumandvillainy',
+    xws = 'ndrusuhlak',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'z95af4headhunter',
-    init = 4,
+    initiative = 4,
     texture = 'ndru',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['kaatoleeachos'] = {
     name = "Kaa'to Leeachos",
-    XWS = 'kaatoleeachos',
-    Faction = 'scumandvillainy',
+    xws = 'kaatoleeachos',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'z95af4headhunter',
-    init = 3,
+    initiative = 3,
     texture = 'orange',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Bounty Hunter' }
 }
 
 masterPilotDB['nashtahpup'] = {
     name = 'Nashtah Pup',
-    XWS = 'nashtahpup',
-    Faction = 'scumandvillainy',
+    xws = 'nashtahpup',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'z95af4headhunter',
-    init = 0,
+    initiative = 0,
     texture = 'nashtah',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['blacksunsoldier'] = {
     name = 'Black Sun Soldier',
-    XWS = 'blacksunsoldier',
-    Faction = 'scumandvillainy',
+    xws = 'blacksunsoldier',
+    faction = 'scumandvillainy',
     ship_type = 'z95af4headhunter',
-    init = 3,
+    initiative = 3,
     texture = 'blacksun',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['binayrepirate'] = {
     name = 'Binayre Pirate',
-    XWS = 'binayrepirate',
-    Faction = 'scumandvillainy',
+    xws = 'binayrepirate',
+    faction = 'scumandvillainy',
     ship_type = 'z95af4headhunter',
-    init = 1,
+    initiative = 1,
     texture = 'pirate',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['bossk-z95af4headhunter'] = {
     name = 'Bossk',
-    XWS = 'bossk-z95af4headhunter',
-    Faction = 'scumandvillainy',
+    xws = 'bossk-z95af4headhunter',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'z95af4headhunter',
-    init = 4,
+    initiative = 4,
     texture = 'bossk',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Bounty Hunter' }
 }
 
 masterPilotDB['dacebonearm'] = {
     name = 'Dace Bonearm',
-    XWS = 'dacebonearm',
-    Faction = 'scumandvillainy',
+    xws = 'dacebonearm',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'hwk290lightfreighter',
-    Charge = 3,
-    init = 4,
+    charge = 3,
+    initiative = 4,
     texture = 'brown',
-    actSet = { 'F', 'TL', 'B', 'Rot' }
+    action_set = { 'F', 'TL', 'B', 'Rot' }
 }
 
 masterPilotDB['palobgodalhi'] = {
     name = 'Palob Godalhi',
-    XWS = 'palobgodalhi',
-    Faction = 'scumandvillainy',
+    xws = 'palobgodalhi',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'hwk290lightfreighter',
-    init = 3,
+    initiative = 3,
     texture = 'brown',
-    actSet = { 'F', 'TL', 'B', 'Rot' }
+    action_set = { 'F', 'TL', 'B', 'Rot' }
 }
 
 masterPilotDB['torkilmux'] = {
     name = 'Torkil Mux',
-    XWS = 'torkilmux',
-    Faction = 'scumandvillainy',
+    xws = 'torkilmux',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'hwk290lightfreighter',
-    init = 2,
+    initiative = 2,
     texture = 'brown',
-    actSet = { 'F', 'TL', 'B', 'Rot' }
+    action_set = { 'F', 'TL', 'B', 'Rot' }
 }
 
 masterPilotDB['spicerunner'] = {
     name = 'Spice Runner',
-    XWS = 'spicerunner',
-    Faction = 'scumandvillainy',
+    xws = 'spicerunner',
+    faction = 'scumandvillainy',
     ship_type = 'hwk290lightfreighter',
-    init = 1,
+    initiative = 1,
     texture = 'brown',
-    actSet = { 'F', 'TL', 'B', 'Rot' }
+    action_set = { 'F', 'TL', 'B', 'Rot' }
 }
 
 
 masterPilotDB['kananjarrus-hwk290lightfreighter'] = {
     name = 'Kanan Jarrus',
-    XWS = 'kananjarrus-hwk290lightfreighter',
-    Faction = 'scumandvillainy',
+    xws = 'kananjarrus-hwk290lightfreighter',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'hwk290lightfreighter',
-    Force = 1,
-    init = 3,
+    force = 1,
+    initiative = 3,
     texture = 'black',
-    actSet = { 'F', 'TL', 'B', 'Rot' },
+    action_set = { 'F', 'TL', 'B', 'Rot' },
     keywords = { 'Jedi', 'Light Side' }
 }
 
 masterPilotDB['gamutkey'] = {
     name = 'Gamut Key',
-    XWS = 'gamutkey',
-    Faction = 'scumandvillainy',
+    xws = 'gamutkey',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'hwk290lightfreighter',
-    Charge = 2,
-    init = 3,
+    charge = 2,
+    initiative = 3,
     texture = 'black',
-    actSet = { 'F', 'TL', 'B', 'Rot' }
+    action_set = { 'F', 'TL', 'B', 'Rot' }
 }
 
 masterPilotDB['tapusk'] = {
     name = 'TÃ¡pusk',
-    XWS = 'tapusk',
-    Faction = 'scumandvillainy',
+    xws = 'tapusk',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'hwk290lightfreighter',
-    Charge = 2,
-    init = 5,
+    charge = 2,
+    initiative = 5,
     texture = 'black',
-    actSet = { 'F', 'TL', 'B', 'Rot' }
+    action_set = { 'F', 'TL', 'B', 'Rot' }
 }
 
 masterPilotDB['guri'] = {
     name = 'Guri',
-    XWS = 'guri',
-    Faction = 'scumandvillainy',
+    xws = 'guri',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'starviperclassattackplatform',
-    init = 5,
+    initiative = 5,
     texture = 'white',
-    actSet = { 'C', 'F', 'TL', 'B', 'VR' },
+    action_set = { 'C', 'F', 'TL', 'B', 'VR' },
     keywords = { 'Droid' }
 }
 
 masterPilotDB['dalanoberos-starviperclassattackplatform'] = {
     name = 'Dalan Oberos',
-    XWS = 'dalanoberos-starviperclassattackplatform',
-    Faction = 'scumandvillainy',
+    xws = 'dalanoberos-starviperclassattackplatform',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'starviperclassattackplatform',
-    init = 4,
+    initiative = 4,
     texture = 'red',
-    actSet = { 'F', 'TL', 'B', 'VR', 'Piv' },
+    action_set = { 'F', 'TL', 'B', 'VR', 'Piv' },
     keywords = { 'Bounty Hunter' }
 }
 
 masterPilotDB['princexizor'] = {
     name = 'Prince Xizor',
-    XWS = 'princexizor',
-    Faction = 'scumandvillainy',
+    xws = 'princexizor',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'starviperclassattackplatform',
-    init = 4,
+    initiative = 4,
     texture = 'white',
-    actSet = { 'F', 'TL', 'B', 'VR' }
+    action_set = { 'F', 'TL', 'B', 'VR' }
 }
 
 masterPilotDB['blacksunassassin'] = {
     name = 'Black Sun Assassin',
-    XWS = 'blacksunassassin',
-    Faction = 'scumandvillainy',
+    xws = 'blacksunassassin',
+    faction = 'scumandvillainy',
     ship_type = 'starviperclassattackplatform',
-    init = 3,
+    initiative = 3,
     texture = 'red',
-    actSet = { 'F', 'TL', 'B', 'VR' }
+    action_set = { 'F', 'TL', 'B', 'VR' }
 }
 
 masterPilotDB['blacksunenforcer'] = {
     name = 'Black Sun Enforcer',
-    XWS = 'blacksunenforcer',
-    Faction = 'scumandvillainy',
+    xws = 'blacksunenforcer',
+    faction = 'scumandvillainy',
     ship_type = 'starviperclassattackplatform',
-    init = 2,
+    initiative = 2,
     texture = 'white',
-    actSet = { 'F', 'TL', 'B', 'VR' }
+    action_set = { 'F', 'TL', 'B', 'VR' }
 }
 
 masterPilotDB['serissu'] = {
     name = 'Serissu',
-    XWS = 'serissu',
-    Faction = 'scumandvillainy',
+    xws = 'serissu',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'm3ainterceptor',
-    addSlot = { 'Weapon Hardpoint' },
-    init = 5,
+    add_slots = { 'Weapon Hardpoint' },
+    initiative = 5,
     texture = 'tansarii',
-    actSet = { 'F', 'E', 'TL', 'BR' }
+    action_set = { 'F', 'E', 'TL', 'BR' }
 }
 
 masterPilotDB['genesisred'] = {
     name = 'Genesis Red',
-    XWS = 'genesisred',
-    Faction = 'scumandvillainy',
+    xws = 'genesisred',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'm3ainterceptor',
-    addSlot = { 'Weapon Hardpoint' },
-    init = 4,
+    add_slots = { 'Weapon Hardpoint' },
+    initiative = 4,
     texture = 'genesis',
-    actSet = { 'F', 'E', 'TL', 'BR' }
+    action_set = { 'F', 'E', 'TL', 'BR' }
 }
 
 masterPilotDB['laetinashera'] = {
     name = "Laetin A'shera",
-    XWS = 'laetinashera',
-    Faction = 'scumandvillainy',
+    xws = 'laetinashera',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'm3ainterceptor',
-    addSlot = { 'Weapon Hardpoint' },
-    init = 3,
+    add_slots = { 'Weapon Hardpoint' },
+    initiative = 3,
     texture = 'cartel',
-    actSet = { 'F', 'E', 'TL', 'BR' }
+    action_set = { 'F', 'E', 'TL', 'BR' }
 }
 
 masterPilotDB['quinnjast'] = {
     name = 'Quinn Jast',
-    XWS = 'quinnjast',
-    Faction = 'scumandvillainy',
+    xws = 'quinnjast',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'm3ainterceptor',
-    addSlot = { 'Weapon Hardpoint' },
-    init = 3,
+    add_slots = { 'Weapon Hardpoint' },
+    initiative = 3,
     texture = 'tansarii',
-    actSet = { 'F', 'E', 'TL', 'BR' },
+    action_set = { 'F', 'E', 'TL', 'BR' },
     keywords = { 'Bounty Hunter' }
 }
 
 masterPilotDB['inaldra'] = {
     name = 'Inaldra',
-    XWS = 'inaldra',
-    Faction = 'scumandvillainy',
+    xws = 'inaldra',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'm3ainterceptor',
-    addSlot = { 'Weapon Hardpoint' },
-    init = 2,
+    add_slots = { 'Weapon Hardpoint' },
+    initiative = 2,
     texture = 'tansarii',
-    actSet = { 'F', 'E', 'TL', 'BR' }
+    action_set = { 'F', 'E', 'TL', 'BR' }
 }
 
 masterPilotDB['sunnybounder'] = {
     name = 'Sunny Bounder',
-    XWS = 'sunnybounder',
-    Faction = 'scumandvillainy',
+    xws = 'sunnybounder',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'm3ainterceptor',
-    addSlot = { 'Weapon Hardpoint' },
-    init = 1,
+    add_slots = { 'Weapon Hardpoint' },
+    initiative = 1,
     texture = 'sunny',
-    actSet = { 'F', 'E', 'TL', 'BR' }
+    action_set = { 'F', 'E', 'TL', 'BR' }
 }
 
 masterPilotDB['tansariipointveteran'] = {
     name = 'Tansarii Point Veteran',
-    XWS = 'tansariipointveteran',
-    Faction = 'scumandvillainy',
+    xws = 'tansariipointveteran',
+    faction = 'scumandvillainy',
     ship_type = 'm3ainterceptor',
-    addSlot = { 'Weapon Hardpoint' },
-    init = 3,
+    add_slots = { 'Weapon Hardpoint' },
+    initiative = 3,
     texture = 'tansarii',
-    actSet = { 'F', 'E', 'TL', 'BR' }
+    action_set = { 'F', 'E', 'TL', 'BR' }
 }
 
 masterPilotDB['cartelspacer'] = {
     name = 'Cartel Spacer',
-    XWS = 'cartelspacer',
-    Faction = 'scumandvillainy',
+    xws = 'cartelspacer',
+    faction = 'scumandvillainy',
     ship_type = 'm3ainterceptor',
-    addSlot = { 'Weapon Hardpoint' },
-    init = 1,
+    add_slots = { 'Weapon Hardpoint' },
+    initiative = 1,
     texture = 'cartel',
-    actSet = { 'F', 'E', 'TL', 'BR' }
+    action_set = { 'F', 'E', 'TL', 'BR' }
 }
 
 masterPilotDB['g4rgorvm'] = {
     name = 'G4R-G0R V/M',
-    XWS = 'g4rgorvm',
-    Faction = 'scumandvillainy',
+    xws = 'g4rgorvm',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'm3ainterceptor',
-    addSlot = { 'Weapon Hardpoint' },
-    init = 0,
+    add_slots = { 'Weapon Hardpoint' },
+    initiative = 0,
     texture = 'gargor',
-    actSet = { 'C', 'E', 'TL', 'BR' },
+    action_set = { 'C', 'E', 'TL', 'BR' },
     keywords = { 'Droid' }
 }
 
 masterPilotDB['talonbanecobra'] = {
     name = 'Talonbane Cobra',
-    XWS = 'talonbanecobra',
-    Faction = 'scumandvillainy',
+    xws = 'talonbanecobra',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'kihraxzfighter',
-    init = 5,
+    initiative = 5,
     texture = 'talonbane',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['graz'] = {
     name = 'Graz',
-    XWS = 'graz',
-    Faction = 'scumandvillainy',
+    xws = 'graz',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'kihraxzfighter',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Bounty Hunter' }
 }
 
 masterPilotDB['viktorhel'] = {
     name = 'Viktor Hel',
-    XWS = 'viktorhel',
-    Faction = 'scumandvillainy',
+    xws = 'viktorhel',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'kihraxzfighter',
-    init = 4,
+    initiative = 4,
     texture = 'green',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Bounty Hunter' }
 }
 
 masterPilotDB['captainjostero'] = {
     name = 'Captain Jostero',
-    XWS = 'captainjostero',
-    Faction = 'scumandvillainy',
+    xws = 'captainjostero',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'kihraxzfighter',
-    init = 3,
+    initiative = 3,
     texture = 'orange',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['blacksunace'] = {
     name = 'Black Sun Ace',
-    XWS = 'blacksunace',
-    Faction = 'scumandvillainy',
+    xws = 'blacksunace',
+    faction = 'scumandvillainy',
     ship_type = 'kihraxzfighter',
-    init = 3,
+    initiative = 3,
     texture = 'blacksun',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['cartelmarauder'] = {
     name = 'Cartel Marauder',
-    XWS = 'cartelmarauder',
-    Faction = 'scumandvillainy',
+    xws = 'cartelmarauder',
+    faction = 'scumandvillainy',
     ship_type = 'kihraxzfighter',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['ig88a'] = {
     name = 'IG-88A',
-    XWS = 'ig88a',
-    Faction = 'scumandvillainy',
+    xws = 'ig88a',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'aggressorassaultfighter',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'C', 'E', 'TL', 'B' },
+    action_set = { 'C', 'E', 'TL', 'B' },
     keywords = { 'Droid', 'Bounty Hunter' }
 }
 
 masterPilotDB['ig88b'] = {
     name = 'IG-88B',
-    XWS = 'ig88b',
-    Faction = 'scumandvillainy',
+    xws = 'ig88b',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'aggressorassaultfighter',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'C', 'E', 'TL', 'B' },
+    action_set = { 'C', 'E', 'TL', 'B' },
     keywords = { 'Droid', 'Bounty Hunter' }
 }
 
 masterPilotDB['ig88c'] = {
     name = 'IG-88C',
-    XWS = 'ig88c',
-    Faction = 'scumandvillainy',
+    xws = 'ig88c',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'aggressorassaultfighter',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'C', 'E', 'TL', 'B' },
+    action_set = { 'C', 'E', 'TL', 'B' },
     keywords = { 'Droid', 'Bounty Hunter' }
 }
 
 masterPilotDB['ig88d'] = {
     name = 'IG-88D',
-    XWS = 'ig88d',
-    Faction = 'scumandvillainy',
+    xws = 'ig88d',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'aggressorassaultfighter',
-    executeOptions = {
+    execute_options = {
         rbl3s = { [1] = 'rtl3s', [2] = 'rbl3s', [3] = 'rk3' },
         rbr3s = { [1] = 'rk3', [2] = 'rbr3s', [3] = 'rtr3s' }
     },
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'C', 'E', 'TL', 'B' },
+    action_set = { 'C', 'E', 'TL', 'B' },
     keywords = { 'Droid', 'Bounty Hunter' }
 }
 
 masterPilotDB['4lom'] = {
     name = '4-LOM',
-    XWS = '4lom',
-    Faction = 'scumandvillainy',
+    xws = '4lom',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'g1astarfighter',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'C', 'TL' },
+    action_set = { 'C', 'TL' },
     keywords = { 'Droid', 'Bounty Hunter' }
 }
 
 masterPilotDB['zuckuss'] = {
     name = 'Zuckuss',
-    XWS = 'zuckuss',
-    Faction = 'scumandvillainy',
+    xws = 'zuckuss',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'g1astarfighter',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL' },
+    action_set = { 'F', 'TL' },
     keywords = { 'Bounty Hunter' }
 }
 
 masterPilotDB['gandfindsman'] = {
     name = 'Gand Findsman',
-    XWS = 'gandfindsman',
-    Faction = 'scumandvillainy',
+    xws = 'gandfindsman',
+    faction = 'scumandvillainy',
     ship_type = 'g1astarfighter',
-    init = 1,
+    initiative = 1,
     texture = 'standard',
-    actSet = { 'F', 'TL' },
+    action_set = { 'F', 'TL' },
     keywords = { 'Bounty Hunter' }
 }
 
 masterPilotDB['captainnym'] = {
     name = 'Captain Nym',
-    XWS = 'captainnym',
-    Faction = 'scumandvillainy',
+    xws = 'captainnym',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'scurrgh6bomber',
-    Charge = 1,
-    init = 5,
+    charge = 1,
+    initiative = 5,
     texture = 'orange',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['solsixxa'] = {
     name = 'Sol Sixxa',
-    XWS = 'solsixxa',
-    Faction = 'scumandvillainy',
+    xws = 'solsixxa',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'scurrgh6bomber',
-    init = 3,
+    initiative = 3,
     texture = 'red',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['lokrevenant'] = {
     name = 'Lok Revenant',
-    XWS = 'lokrevenant',
-    Faction = 'scumandvillainy',
+    xws = 'lokrevenant',
+    faction = 'scumandvillainy',
     ship_type = 'scurrgh6bomber',
-    init = 2,
+    initiative = 2,
     texture = 'red',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['toranikulda'] = {
     name = 'Torani Kulda',
-    XWS = 'toranikulda',
-    Faction = 'scumandvillainy',
+    xws = 'toranikulda',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'm12lkimogilafighter',
-    init = 4,
+    initiative = 4,
     texture = 'torani',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Bounty Hunter' }
 }
 
 masterPilotDB['dalanoberos'] = {
     name = 'Dalan Oberos',
-    XWS = 'dalanoberos',
-    Faction = 'scumandvillainy',
+    xws = 'dalanoberos',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'm12lkimogilafighter',
-    Charge = 2,
-    init = 3,
+    charge = 2,
+    initiative = 3,
     texture = 'dalan',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Bounty Hunter' }
 }
 
 masterPilotDB['cartelexecutioner'] = {
     name = 'Cartel Executioner',
-    XWS = 'cartelexecutioner',
-    Faction = 'scumandvillainy',
+    xws = 'cartelexecutioner',
+    faction = 'scumandvillainy',
     ship_type = 'm12lkimogilafighter',
-    init = 3,
+    initiative = 3,
     texture = 'cartel',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['bossk'] = {
     name = 'Bossk',
-    XWS = 'bossk',
-    Faction = 'scumandvillainy',
+    xws = 'bossk',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'yv666lightfreighter',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'R' },
+    action_set = { 'F', 'TL', 'R' },
     keywords = { 'Bounty Hunter' }
 }
 
 masterPilotDB['moraloeval'] = {
     name = 'Moralo Eval',
-    XWS = 'moraloeval',
-    Faction = 'scumandvillainy',
+    xws = 'moraloeval',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'yv666lightfreighter',
-    Charge = 2,
-    init = 4,
+    charge = 2,
+    initiative = 4,
     texture = 'moralo',
-    actSet = { 'F', 'TL', 'R' }
+    action_set = { 'F', 'TL', 'R' }
 }
 
 masterPilotDB['lattsrazzi'] = {
     name = 'Latts Razzi',
-    XWS = 'lattsrazzi',
-    Faction = 'scumandvillainy',
+    xws = 'lattsrazzi',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'yv666lightfreighter',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'R' },
+    action_set = { 'F', 'TL', 'R' },
     keywords = { 'Bounty Hunter' }
 }
 
 masterPilotDB['trandoshanslaver'] = {
     name = 'Trandoshan Slaver',
-    XWS = 'trandoshanslaver',
-    Faction = 'scumandvillainy',
+    xws = 'trandoshanslaver',
+    faction = 'scumandvillainy',
     ship_type = 'yv666lightfreighter',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'R' }
+    action_set = { 'F', 'TL', 'R' }
 }
 
 masterPilotDB['dengar'] = {
     name = 'Dengar',
-    XWS = 'dengar',
-    Faction = 'scumandvillainy',
+    xws = 'dengar',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'jumpmaster5000',
-    Charge = 1,
-    init = 6,
+    charge = 1,
+    initiative = 6,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR', 'Rot' },
+    action_set = { 'F', 'TL', 'BR', 'Rot' },
     keywords = { 'Bounty Hunter' }
 }
 
 masterPilotDB['manaroo'] = {
     name = 'Manaroo',
-    XWS = 'manaroo',
-    Faction = 'scumandvillainy',
+    xws = 'manaroo',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'jumpmaster5000',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR', 'Rot' },
+    action_set = { 'F', 'TL', 'BR', 'Rot' },
     keywords = { 'Bounty Hunter' }
 }
 
 masterPilotDB['teltrevura'] = {
     name = 'Tel Trevura',
-    XWS = 'teltrevura',
-    Faction = 'scumandvillainy',
+    xws = 'teltrevura',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'jumpmaster5000',
-    Charge = 1,
-    init = 4,
+    charge = 1,
+    initiative = 4,
     texture = 'tel',
-    actSet = { 'F', 'TL', 'BR', 'Rot' }
+    action_set = { 'F', 'TL', 'BR', 'Rot' }
 }
 
 masterPilotDB['contractedscout'] = {
     name = 'Contracted Scout',
-    XWS = 'contractedscout',
-    Faction = 'scumandvillainy',
+    xws = 'contractedscout',
+    faction = 'scumandvillainy',
     ship_type = 'jumpmaster5000',
-    init = 2,
+    initiative = 2,
     texture = 'scout',
-    actSet = { 'F', 'TL', 'BR', 'Rot' }
+    action_set = { 'F', 'TL', 'BR', 'Rot' }
 }
 
 masterPilotDB['nomlumb'] = {
     name = 'Nom Lumb',
-    XWS = 'nomlumb',
-    Faction = 'scumandvillainy',
+    xws = 'nomlumb',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'jumpmaster5000',
-    init = 1,
+    initiative = 1,
     texture = 'nom',
-    actSet = { 'F', 'TL', 'BR', 'Rot' },
+    action_set = { 'F', 'TL', 'BR', 'Rot' },
     keywords = { 'Bounty Hunter' }
 }
 
 masterPilotDB['ketsuonyo'] = {
     name = 'Ketsu Onyo',
-    XWS = 'ketsuonyo',
-    Faction = 'scumandvillainy',
+    xws = 'ketsuonyo',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'lancerclasspursuitcraft',
-    init = 5,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'Rot' },
+    action_set = { 'F', 'TL', 'E', 'Rot' },
     keywords = { 'Bounty Hunter' }
 }
 
 masterPilotDB['asajjventress'] = {
     name = 'Asajj Ventress',
-    XWS = 'asajjventress',
-    Faction = 'scumandvillainy',
+    xws = 'asajjventress',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'lancerclasspursuitcraft',
-    Force = 2,
-    init = 4,
+    force = 2,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'Rot' },
+    action_set = { 'F', 'TL', 'E', 'Rot' },
     keywords = { 'Bounty Hunter', 'Dark Side' }
 }
 
 masterPilotDB['sabinewren-lancerclasspursuitcraft'] = {
     name = 'Sabine Wren',
-    XWS = 'sabinewren-lancerclasspursuitcraft',
-    Faction = 'scumandvillainy',
+    xws = 'sabinewren-lancerclasspursuitcraft',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'lancerclasspursuitcraft',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'Rot' },
+    action_set = { 'F', 'TL', 'E', 'Rot' },
     keywords = { 'Mandalorian' }
 }
 
 masterPilotDB['shadowporthunter'] = {
     name = 'Shadowport Hunter',
-    XWS = 'shadowporthunter',
-    Faction = 'scumandvillainy',
+    xws = 'shadowporthunter',
+    faction = 'scumandvillainy',
     ship_type = 'lancerclasspursuitcraft',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'Rot' },
+    action_set = { 'F', 'TL', 'E', 'Rot' },
     keywords = { 'Bounty Hunter' }
 }
 
 masterPilotDB['hansolo'] = {
     name = 'Han Solo',
-    XWS = 'hansolo',
-    Faction = 'scumandvillainy',
+    xws = 'hansolo',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'customizedyt1300lightfreighter',
-    init = 6,
+    initiative = 6,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B', 'Rot' }
+    action_set = { 'F', 'TL', 'B', 'Rot' }
 }
 
 masterPilotDB['landocalrissian'] = {
     name = 'Lando Calrissian',
-    XWS = 'landocalrissian',
-    Faction = 'scumandvillainy',
+    xws = 'landocalrissian',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'customizedyt1300lightfreighter',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B', 'Rot' }
+    action_set = { 'F', 'TL', 'B', 'Rot' }
 }
 
 masterPilotDB['l337'] = {
     name = 'L3-37',
-    XWS = 'l337',
-    Faction = 'scumandvillainy',
+    xws = 'l337',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'customizedyt1300lightfreighter',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'C', 'TL', 'B', 'Rot' },
+    action_set = { 'C', 'TL', 'B', 'Rot' },
     keywords = { 'Droid' }
 }
 
 masterPilotDB['freightercaptain'] = {
     name = 'Freighter Captain',
-    XWS = 'freightercaptain',
-    Faction = 'scumandvillainy',
+    xws = 'freightercaptain',
+    faction = 'scumandvillainy',
     ship_type = 'customizedyt1300lightfreighter',
-    init = 1,
+    initiative = 1,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B', 'Rot' }
+    action_set = { 'F', 'TL', 'B', 'Rot' }
 }
 
 masterPilotDB['landocalrissian-escapecraft'] = {
     name = 'Lando Calrissian',
-    XWS = 'landocalrissian-escapecraft',
-    Faction = 'scumandvillainy',
+    xws = 'landocalrissian-escapecraft',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'escapecraft',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'BR' }
+    action_set = { 'F', 'BR' }
 }
 
 masterPilotDB['outerrimpioneer'] = {
     name = 'Outer Rim Pioneer',
-    XWS = 'outerrimpioneer',
-    Faction = 'scumandvillainy',
+    xws = 'outerrimpioneer',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'escapecraft',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'BR' }
+    action_set = { 'F', 'BR' }
 }
 
 masterPilotDB['l337-escapecraft'] = {
     name = 'L3-37',
-    XWS = 'l337-escapecraft',
-    Faction = 'scumandvillainy',
+    xws = 'l337-escapecraft',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'escapecraft',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'C', 'BR' },
+    action_set = { 'C', 'BR' },
     keywords = { 'Droid' }
 }
 
 masterPilotDB['autopilotdrone'] = {
     name = 'Autopilot Drone',
-    XWS = 'autopilotdrone',
-    Faction = 'scumandvillainy',
+    xws = 'autopilotdrone',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'escapecraft',
-    Charge = 3,
-    init = 1,
+    charge = 3,
+    initiative = 1,
     texture = 'standard',
-    actSet = { 'C', 'BR' },
+    action_set = { 'C', 'BR' },
     keywords = { 'Droid' }
 }
 
 masterPilotDB['midnight'] = {
     name = '"Midnight"',
-    XWS = 'midnight',
+    xws = 'midnight',
     limited = 1,
-    Faction = 'firstorder',
+    faction = 'firstorder',
     ship_type = 'tiefofighter',
-    Shield = 1,
-    init = 6,
+    shield = 1,
+    initiative = 6,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'BR' }
+    action_set = { 'F', 'TL', 'E', 'BR' }
 }
 
 masterPilotDB['scorch'] = {
     name = '"Scorch"',
-    XWS = 'scorch',
+    xws = 'scorch',
     limited = 1,
-    Faction = 'firstorder',
+    faction = 'firstorder',
     ship_type = 'tiefofighter',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'BR' }
+    action_set = { 'F', 'TL', 'E', 'BR' }
 }
 
 masterPilotDB['static'] = {
     name = '"Static"',
-    XWS = 'static',
-    Faction = 'firstorder',
+    xws = 'static',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'tiefofighter',
-    Shield = 1,
-    init = 4,
+    shield = 1,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'BR' }
+    action_set = { 'F', 'TL', 'E', 'BR' }
 }
 
 masterPilotDB['longshot'] = {
     name = '"Longshot"',
-    XWS = 'longshot',
+    xws = 'longshot',
     limited = 1,
-    Faction = 'firstorder',
+    faction = 'firstorder',
     ship_type = 'tiefofighter',
-    Shield = 1,
-    init = 3,
+    shield = 1,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'BR' }
+    action_set = { 'F', 'TL', 'E', 'BR' }
 }
 
 masterPilotDB['muse'] = {
     limited = 1,
     name = '"Muse"',
-    XWS = 'muse',
-    Faction = 'firstorder',
+    xws = 'muse',
+    faction = 'firstorder',
     ship_type = 'tiefofighter',
-    Shield = 1,
-    init = 2,
+    shield = 1,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'BR' }
+    action_set = { 'F', 'TL', 'E', 'BR' }
 }
 
 masterPilotDB['null'] = {
     limited = 1,
     name = '"Null"',
-    XWS = 'null',
-    Faction = 'firstorder',
+    xws = 'null',
+    faction = 'firstorder',
     ship_type = 'tiefofighter',
-    Shield = 1,
-    init = 0,
+    shield = 1,
+    initiative = 0,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'BR' }
+    action_set = { 'F', 'TL', 'E', 'BR' }
 }
 
 masterPilotDB['omegasquadronace'] = {
     name = 'Omega Squadron Ace',
-    XWS = 'omegasquadronace',
-    Faction = 'firstorder',
+    xws = 'omegasquadronace',
+    faction = 'firstorder',
     ship_type = 'tiefofighter',
-    Shield = 1,
-    init = 3,
+    shield = 1,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'BR' }
+    action_set = { 'F', 'TL', 'E', 'BR' }
 }
 
 masterPilotDB['zetasquadronpilot'] = {
     name = 'Zeta Squadron Pilot',
-    XWS = 'zetasquadronpilot',
-    Faction = 'firstorder',
+    xws = 'zetasquadronpilot',
+    faction = 'firstorder',
     ship_type = 'tiefofighter',
-    Shield = 1,
-    init = 2,
+    shield = 1,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'BR' }
+    action_set = { 'F', 'TL', 'E', 'BR' }
 }
 
 masterPilotDB['epsilonsquadroncadet'] = {
     name = 'Epsilon Squadron Cadet',
-    XWS = 'epsilonsquadroncadet',
-    Faction = 'firstorder',
+    xws = 'epsilonsquadroncadet',
+    faction = 'firstorder',
     ship_type = 'tiefofighter',
-    Shield = 1,
-    init = 1,
+    shield = 1,
+    initiative = 1,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'BR' }
+    action_set = { 'F', 'TL', 'E', 'BR' }
 }
 
 masterPilotDB['quickdraw'] = {
     limited = 1,
     name = '"Quickdraw"',
-    XWS = 'quickdraw',
-    Faction = 'firstorder',
+    xws = 'quickdraw',
+    faction = 'firstorder',
     ship_type = 'tiesffighter',
-    Charge = 1,
-    init = 6,
+    charge = 1,
+    initiative = 6,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'BR', 'Rot' }
+    action_set = { 'F', 'TL', 'E', 'BR', 'Rot' }
 }
 
 masterPilotDB['backdraft'] = {
     limited = 1,
     name = '"Backdraft"',
-    XWS = 'backdraft',
-    Faction = 'firstorder',
+    xws = 'backdraft',
+    faction = 'firstorder',
     ship_type = 'tiesffighter',
-    Shield = 3,
-    init = 4,
+    shield = 3,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'BR', 'Rot' }
+    action_set = { 'F', 'TL', 'E', 'BR', 'Rot' }
 }
 
 masterPilotDB['omegasquadronexpert'] = {
     name = 'Omega Squadron Expert',
-    XWS = 'omegasquadronexpert',
-    Faction = 'firstorder',
+    xws = 'omegasquadronexpert',
+    faction = 'firstorder',
     ship_type = 'tiesffighter',
-    Shield = 3,
-    init = 3,
+    shield = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'BR', 'Rot' }
+    action_set = { 'F', 'TL', 'E', 'BR', 'Rot' }
 }
 
 masterPilotDB['zetasquadronsurvivor'] = {
     name = 'Zeta Squadron Survivor',
-    XWS = 'zetasquadronsurvivor',
-    Faction = 'firstorder',
+    xws = 'zetasquadronsurvivor',
+    faction = 'firstorder',
     ship_type = 'tiesffighter',
-    Shield = 3,
-    init = 2,
+    shield = 3,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'BR', 'Rot' }
+    action_set = { 'F', 'TL', 'E', 'BR', 'Rot' }
 }
 
 masterPilotDB['lieutenantlehuse'] = {
     name = 'Lieutenant LeHuse',
-    XWS = 'lieutenantlehuse',
-    Faction = 'firstorder',
+    xws = 'lieutenantlehuse',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'tiesffighter',
-    init = 5,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'BR', 'Rot' }
+    action_set = { 'F', 'TL', 'E', 'BR', 'Rot' }
 }
 
 masterPilotDB['captainphasma'] = {
     name = 'Captain Phasma',
-    XWS = 'captainphasma',
-    Faction = 'firstorder',
+    xws = 'captainphasma',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'tiesffighter',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'BR', 'Rot' }
+    action_set = { 'F', 'TL', 'E', 'BR', 'Rot' }
 }
 
 masterPilotDB['majorstridan'] = {
     name = 'Major Stridan',
-    XWS = 'majorstridan',
+    xws = 'majorstridan',
     limited = 1,
-    Faction = 'firstorder',
+    faction = 'firstorder',
     ship_type = 'upsilonclasscommandshuttle',
-    Shield = 6,
-    init = 4,
+    shield = 6,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'R' }
+    action_set = { 'F', 'TL', 'R' }
 }
 
 masterPilotDB['lieutenanttavson'] = {
     name = 'Lieutenant Tavson',
-    XWS = 'lieutenanttavson',
-    Faction = 'firstorder',
+    xws = 'lieutenanttavson',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'upsilonclasscommandshuttle',
-    Shield = 6,
-    Charge = 2,
-    init = 3,
+    shield = 6,
+    charge = 2,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'R' }
+    action_set = { 'F', 'TL', 'R' }
 }
 
 masterPilotDB['lieutenantdormitz'] = {
     name = 'Lieutenant Dormitz',
-    XWS = 'lieutenantdormitz',
-    Faction = 'firstorder',
+    xws = 'lieutenantdormitz',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'upsilonclasscommandshuttle',
-    Shield = 6,
-    init = 2,
+    shield = 6,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'R' }
+    action_set = { 'F', 'TL', 'R' }
 }
 
 masterPilotDB['starkillerbasepilot'] = {
     name = 'Starkiller Base Pilot',
-    XWS = 'starkillerbasepilot',
-    Faction = 'firstorder',
+    xws = 'starkillerbasepilot',
+    faction = 'firstorder',
     ship_type = 'upsilonclasscommandshuttle',
-    Shield = 6,
-    init = 2,
+    shield = 6,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'R' }
+    action_set = { 'F', 'TL', 'R' }
 }
 
 masterPilotDB['kyloren'] = {
     name = 'Kylo Ren',
-    XWS = 'kyloren',
-    Condition = "I'll Show You the Dark Side",
-    Faction = 'firstorder',
+    xws = 'kyloren',
+    condition = "I'll Show You the Dark Side",
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'tievnsilencer',
-    Shield = 2,
-    Force = 2,
-    init = 5,
+    shield = 2,
+    force = 2,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'BR', 'B' },
     keywords = { 'Dark Side' }
 }
 
 masterPilotDB['blackout'] = {
     name = '"Blackout"',
-    XWS = 'blackout',
-    Faction = 'firstorder',
+    xws = 'blackout',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'tievnsilencer',
-    Shield = 2,
-    init = 5,
+    shield = 2,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR', 'B' }
+    action_set = { 'F', 'TL', 'BR', 'B' }
 }
 
 masterPilotDB['firstordertestpilot'] = {
     name = 'First Order Test Pilot',
-    XWS = 'firstordertestpilot',
-    Faction = 'firstorder',
+    xws = 'firstordertestpilot',
+    faction = 'firstorder',
     ship_type = 'tievnsilencer',
-    Shield = 2,
-    init = 4,
+    shield = 2,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR', 'B' }
+    action_set = { 'F', 'TL', 'BR', 'B' }
 }
 
 masterPilotDB['sienarjaemusengineer'] = {
     name = 'Sienar-Jaemus Engineer',
-    XWS = 'sienarjaemusengineer',
-    Faction = 'firstorder',
+    xws = 'sienarjaemusengineer',
+    faction = 'firstorder',
     ship_type = 'tievnsilencer',
-    Shield = 2,
-    init = 1,
+    shield = 2,
+    initiative = 1,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR', 'B' }
+    action_set = { 'F', 'TL', 'BR', 'B' }
 }
 
 masterPilotDB['rush'] = {
     name = '"Rush"',
-    XWS = 'rush',
-    Faction = 'firstorder',
+    xws = 'rush',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'tievnsilencer',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'B', 'TL', 'BR' }
+    action_set = { 'F', 'B', 'TL', 'BR' }
 }
 
 masterPilotDB['poedameron'] = {
     name = 'Poe Dameron',
-    XWS = 'poedameron',
+    xws = 'poedameron',
     title = 'Trigger-Happy Flyboy',
     limited = 1,
-    Faction = 'resistance',
+    faction = 'resistance',
     ship_type = 't70xwing',
-    addSlot = { 'Weapon Hardpoint' },
-    Charge = 1,
-    init = 6,
+    add_slots = { 'Weapon Hardpoint' },
+    charge = 1,
+    initiative = 6,
     texture = 'blackone',
-    actSet = { 'F', 'TL', 'B' }
+    action_set = { 'F', 'TL', 'B' }
 }
 
 masterPilotDB['elloasty'] = {
     name = 'Ello Asty',
-    XWS = 'elloasty',
+    xws = 'elloasty',
     limited = 1,
-    Faction = 'resistance',
+    faction = 'resistance',
     ship_type = 't70xwing',
-    addSlot = { 'Weapon Hardpoint' },
-    init = 5,
+    add_slots = { 'Weapon Hardpoint' },
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B' }
+    action_set = { 'F', 'TL', 'B' }
 }
 
 masterPilotDB['niennunb'] = {
     name = 'Nien Nunb',
-    XWS = 'niennunb',
+    xws = 'niennunb',
     limited = 1,
-    Faction = 'resistance',
+    faction = 'resistance',
     ship_type = 't70xwing',
-    addSlot = { 'Weapon Hardpoint' },
-    init = 5,
+    add_slots = { 'Weapon Hardpoint' },
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B' }
+    action_set = { 'F', 'TL', 'B' }
 }
 
 masterPilotDB['karekun'] = {
     name = 'Kare Kun',
-    XWS = 'karekun',
+    xws = 'karekun',
     limited = 1,
-    Faction = 'resistance',
+    faction = 'resistance',
     ship_type = 't70xwing',
-    addSlot = { 'Weapon Hardpoint' },
-    init = 4,
+    add_slots = { 'Weapon Hardpoint' },
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B', 'Dare' }
+    action_set = { 'F', 'TL', 'B', 'Dare' }
 }
 
 masterPilotDB['temminwexley'] = {
     name = 'Temmin Wexley',
-    XWS = 'temminwexley',
+    xws = 'temminwexley',
     title = 'Snap',
     limited = 1,
-    Faction = 'resistance',
+    faction = 'resistance',
     ship_type = 't70xwing',
-    addSlot = { 'Weapon Hardpoint' },
-    init = 4,
+    add_slots = { 'Weapon Hardpoint' },
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B' }
+    action_set = { 'F', 'TL', 'B' }
 }
 
 masterPilotDB['jessikapava'] = {
     name = 'Jessika Pava',
-    XWS = 'jessikapava',
+    xws = 'jessikapava',
     limited = 1,
-    Faction = 'resistance',
+    faction = 'resistance',
     ship_type = 't70xwing',
-    addSlot = { 'Weapon Hardpoint' },
-    Charge = 1,
-    init = 3,
+    add_slots = { 'Weapon Hardpoint' },
+    charge = 1,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B' }
+    action_set = { 'F', 'TL', 'B' }
 }
 
 masterPilotDB['jophseastriker'] = {
     name = 'Joph Seastriker',
-    XWS = 'jophseastriker',
+    xws = 'jophseastriker',
     limited = 1,
-    Faction = 'resistance',
+    faction = 'resistance',
     ship_type = 't70xwing',
-    addSlot = { 'Weapon Hardpoint' },
-    init = 3,
+    add_slots = { 'Weapon Hardpoint' },
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B' }
+    action_set = { 'F', 'TL', 'B' }
 }
 
 masterPilotDB['redsquadronexpert'] = {
     name = 'Red Squadron Expert',
-    XWS = 'redsquadronexpert',
-    Faction = 'resistance',
+    xws = 'redsquadronexpert',
+    faction = 'resistance',
     ship_type = 't70xwing',
-    addSlot = { 'Weapon Hardpoint' },
-    init = 3,
+    add_slots = { 'Weapon Hardpoint' },
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B' }
+    action_set = { 'F', 'TL', 'B' }
 }
 
 masterPilotDB['bluesquadronrookie'] = {
     name = 'Blue Squadron Rookie',
-    XWS = 'bluesquadronrookie',
-    Faction = 'resistance',
+    xws = 'bluesquadronrookie',
+    faction = 'resistance',
     ship_type = 't70xwing',
-    addSlot = { 'Weapon Hardpoint' },
-    init = 1,
+    add_slots = { 'Weapon Hardpoint' },
+    initiative = 1,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B' }
+    action_set = { 'F', 'TL', 'B' }
 }
 
 
 masterPilotDB['nimichireen'] = {
     name = 'Nimi Chireen',
-    XWS = 'nimichireen',
+    xws = 'nimichireen',
     limited = 1,
-    Faction = 'resistance',
+    faction = 'resistance',
     ship_type = 't70xwing',
-    addSlot = { 'Weapon Hardpoint' },
-    init = 2,
+    add_slots = { 'Weapon Hardpoint' },
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B' },
+    action_set = { 'F', 'TL', 'B' },
 }
 
 masterPilotDB['caithrenalli'] = {
     name = "C'ai Threnalli",
-    XWS = 'caithrenalli',
+    xws = 'caithrenalli',
     limited = 1,
-    Faction = 'resistance',
+    faction = 'resistance',
     ship_type = 't70xwing',
-    addSlot = { 'Weapon Hardpoint' },
-    init = 4,
+    add_slots = { 'Weapon Hardpoint' },
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B', 'E' },
+    action_set = { 'F', 'TL', 'B', 'E' },
     movethrough = true
 }
 
 
 masterPilotDB['temminwexley-swz68'] = {
     name = "Temmin Wexley",
-    XWS = 'temminwexley-swz68',
+    xws = 'temminwexley-swz68',
     title = "Black Two",
     limited = 1,
-    Faction = 'resistance',
+    faction = 'resistance',
     ship_type = 't70xwing',
-    addSlot = { 'Weapon Hardpoint' },
-    init = 4,
+    add_slots = { 'Weapon Hardpoint' },
+    initiative = 4,
     texture = 'snap',
-    actSet = { 'F', 'TL', 'B' },
-    addSqdAction = { 'C' }
+    action_set = { 'F', 'TL', 'B' },
+    add_squad_action = { 'C' }
 }
 
 masterPilotDB['poedameron-swz68'] = {
     name = "Poe Dameron",
-    XWS = 'poedameron-swz68',
+    xws = 'poedameron-swz68',
     title = "Resistance Commander",
     limited = 1,
-    Faction = 'resistance',
+    faction = 'resistance',
     ship_type = 't70xwing',
-    addSlot = { 'Weapon Hardpoint' },
-    Charge = 2,
-    init = 6,
+    add_slots = { 'Weapon Hardpoint' },
+    charge = 2,
+    initiative = 6,
     texture = 'commanderpoe',
-    actSet = { 'F', 'TL', 'B' },
+    action_set = { 'F', 'TL', 'B' },
 }
 
 masterPilotDB['hansolo-scavengedyt1300'] = {
     name = "Han Solo",
-    XWS = 'hansolo-scavengedyt1300',
-    Faction = 'resistance',
+    xws = 'hansolo-scavengedyt1300',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'scavengedyt1300lightfreighter',
-    init = 6,
+    initiative = 6,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B', 'Rot' }
+    action_set = { 'F', 'TL', 'B', 'Rot' }
 }
 
 masterPilotDB['rey'] = {
     name = "Rey",
-    XWS = 'rey',
-    Faction = 'resistance',
+    xws = 'rey',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'scavengedyt1300lightfreighter',
-    Force = 2,
-    init = 5,
+    force = 2,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B', 'Rot' },
+    action_set = { 'F', 'TL', 'B', 'Rot' },
     keywords = { 'Light Side' }
 }
 
 masterPilotDB['chewbacca-scavengedyt1300'] = {
     name = "Chewbacca",
-    XWS = 'chewbacca-scavengedyt1300',
-    Faction = 'resistance',
+    xws = 'chewbacca-scavengedyt1300',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'scavengedyt1300lightfreighter',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B', 'Rot' }
+    action_set = { 'F', 'TL', 'B', 'Rot' }
 }
 
 masterPilotDB['resistancesympathizer'] = {
     name = "Resistance Sympathizer",
-    XWS = 'resistancesympathizer',
-    Faction = 'resistance',
+    xws = 'resistancesympathizer',
+    faction = 'resistance',
     ship_type = 'scavengedyt1300lightfreighter',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B', 'Rot' }
+    action_set = { 'F', 'TL', 'B', 'Rot' }
 }
 
 masterPilotDB['finchdallow'] = {
     name = "Finch Dallow",
-    XWS = 'finchdallow',
-    Faction = 'resistance',
+    xws = 'finchdallow',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'mg100starfortress',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'Rot' }
+    action_set = { 'F', 'TL', 'Rot' }
 }
 
 masterPilotDB['benteene'] = {
     name = "Ben Teene",
-    XWS = 'benteene',
-    Condition = "Rattled",
-    Faction = 'resistance',
+    xws = 'benteene',
+    condition = "Rattled",
+    faction = 'resistance',
     limited = 1,
     ship_type = 'mg100starfortress',
-    init = 3,
+    initiative = 3,
     texture = 'vennie',
-    actSet = { 'F', 'TL', 'Rot' }
+    action_set = { 'F', 'TL', 'Rot' }
 }
 
 masterPilotDB['cat'] = {
     name = "Cat",
-    XWS = 'cat',
-    Faction = 'resistance',
+    xws = 'cat',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'mg100starfortress',
-    init = 1,
+    initiative = 1,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'Rot' }
+    action_set = { 'F', 'TL', 'Rot' }
 }
 
 masterPilotDB['cobaltsquadronbomber'] = {
     name = "Cobalt Squadron Bomber",
-    XWS = 'cobaltsquadronbomber',
-    Faction = 'resistance',
+    xws = 'cobaltsquadronbomber',
+    faction = 'resistance',
     ship_type = 'mg100starfortress',
-    init = 1,
+    initiative = 1,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'Rot' }
+    action_set = { 'F', 'TL', 'Rot' }
 }
 
 masterPilotDB['lulolampar'] = {
     name = "L'ulo L'ampar",
-    XWS = 'lulolampar',
-    Faction = 'resistance',
+    xws = 'lulolampar',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'rz2awing',
-    init = 5,
+    initiative = 5,
     texture = 'orange',
-    actSet = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
+    action_set = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
 }
 
 masterPilotDB['tallissanlintra'] = {
     name = "Tallissan Lintra",
-    XWS = 'tallissanlintra',
-    Faction = 'resistance',
+    xws = 'tallissanlintra',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'rz2awing',
-    Charge = 1,
-    init = 5,
+    charge = 1,
+    initiative = 5,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
+    action_set = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
 }
 
 masterPilotDB['greersonnel'] = {
     name = "Greer Sonnel",
-    XWS = 'greersonnel',
-    Faction = 'resistance',
+    xws = 'greersonnel',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'rz2awing',
-    init = 4,
+    initiative = 4,
     texture = 'orange',
-    actSet = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
+    action_set = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
 }
 
 masterPilotDB['zaribangel'] = {
     name = "Zari Bangel",
-    XWS = 'zaribangel',
-    Faction = 'resistance',
+    xws = 'zaribangel',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'rz2awing',
-    init = 3,
+    initiative = 3,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
+    action_set = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
 }
 
 masterPilotDB['greensquadronexpert'] = {
     name = "Green Squadron Expert",
-    XWS = 'greensquadronexpert',
-    Faction = 'resistance',
+    xws = 'greensquadronexpert',
+    faction = 'resistance',
     ship_type = 'rz2awing',
-    init = 3,
+    initiative = 3,
     texture = 'red',
-    actSet = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
+    action_set = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
 }
 
 masterPilotDB['bluesquadronrecruit'] = {
     name = "Blue Squadron Recruit",
-    XWS = 'bluesquadronrecruit',
-    Faction = 'resistance',
+    xws = 'bluesquadronrecruit',
+    faction = 'resistance',
     ship_type = 'rz2awing',
-    init = 1,
+    initiative = 1,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
+    action_set = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
 }
 
 masterPilotDB['zizitlo'] = {
     name = "Zizi Tlo",
-    XWS = 'zizitlo',
-    Faction = 'resistance',
+    xws = 'zizitlo',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'rz2awing',
-    Charge = 1,
-    init = 5,
+    charge = 1,
+    initiative = 5,
     texture = 'red',
-    actSet = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
+    action_set = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
 }
 
 masterPilotDB['ronithblario'] = {
     name = "Ronith Blario",
-    XWS = 'ronithblario',
-    Faction = 'resistance',
+    xws = 'ronithblario',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'rz2awing',
-    init = 2,
+    initiative = 2,
     texture = 'red',
-    actSet = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
+    action_set = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
 }
 
 
 masterPilotDB['seftinvanik'] = {
     name = "Seftin Vanik",
-    XWS = 'seftinvanik',
+    xws = 'seftinvanik',
     limited = 1,
-    Faction = 'resistance',
+    faction = 'resistance',
     ship_type = 'rz2awing',
-    init = 5,
+    initiative = 5,
     texture = 'green',
-    actSet = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
+    action_set = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
 }
 
 masterPilotDB['merlcobben'] = {
     name = "Merl Cobben",
-    XWS = 'merlcobben',
+    xws = 'merlcobben',
     limited = 1,
-    Faction = 'resistance',
+    faction = 'resistance',
     ship_type = 'rz2awing',
-    init = 1,
+    initiative = 1,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
+    action_set = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
 }
 
 masterPilotDB['suralindajavos'] = {
     name = "Suralinda Javos",
-    XWS = 'suralindajavos',
+    xws = 'suralindajavos',
     limited = 1,
-    Faction = 'resistance',
+    faction = 'resistance',
     ship_type = 'rz2awing',
-    init = 3,
+    initiative = 3,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR', 'Piv' }
+    action_set = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR', 'Piv' }
 }
 
 masterPilotDB['wrobietyce'] = {
     name = "Wrobie Tyce",
-    XWS = 'wrobietyce',
+    xws = 'wrobietyce',
     limited = 1,
-    Faction = 'resistance',
+    faction = 'resistance',
     ship_type = 'rz2awing',
-    init = 4,
+    initiative = 4,
     texture = 'green',
-    actSet = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
+    action_set = { 'F', 'TL', 'Rot180', 'E', 'B', 'BR' }
 }
 
 
 masterPilotDB['foremanproach'] = {
     name = 'Foreman Proach',
-    XWS = 'foremanproach',
-    Faction = 'scumandvillainy',
+    xws = 'foremanproach',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'modifiedtielnfighter',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['ahhav'] = {
     name = 'Ahhav',
-    XWS = 'ahhav',
-    Faction = 'scumandvillainy',
+    xws = 'ahhav',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'modifiedtielnfighter',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['captainseevor'] = {
     name = 'Captain Seevor',
-    XWS = 'captainseevor',
-    Faction = 'scumandvillainy',
+    xws = 'captainseevor',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'modifiedtielnfighter',
-    Charge = 1,
-    init = 3,
+    charge = 1,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['overseeryushyn'] = {
     name = 'Overseer Yushyn',
-    XWS = 'overseeryushyn',
-    Faction = 'scumandvillainy',
+    xws = 'overseeryushyn',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'modifiedtielnfighter',
-    Charge = 1,
-    init = 2,
+    charge = 1,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['miningguildsurveyor'] = {
     name = 'Mining Guild Surveyor',
-    XWS = 'miningguildsurveyor',
-    Faction = 'scumandvillainy',
+    xws = 'miningguildsurveyor',
+    faction = 'scumandvillainy',
     ship_type = 'modifiedtielnfighter',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['miningguildsentry'] = {
     name = 'Mining Guild Sentry',
-    XWS = 'miningguildsentry',
-    Faction = 'scumandvillainy',
+    xws = 'miningguildsentry',
+    faction = 'scumandvillainy',
     ship_type = 'modifiedtielnfighter',
-    init = 1,
+    initiative = 1,
     texture = 'standard',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['edonkappehl'] = {
     name = "Edon Kappehl",
-    XWS = 'edonkappehl',
-    Faction = 'resistance',
+    xws = 'edonkappehl',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'mg100starfortress',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'Rot' }
+    action_set = { 'F', 'TL', 'Rot' }
 }
 
 masterPilotDB['vennie'] = {
     name = "Vennie",
-    XWS = 'vennie',
-    Faction = 'resistance',
+    xws = 'vennie',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'mg100starfortress',
-    init = 2,
+    initiative = 2,
     texture = 'vennie',
-    actSet = { 'F', 'TL', 'Rot' }
+    action_set = { 'F', 'TL', 'Rot' }
 }
 
 masterPilotDB['paigetico'] = {
     name = "Paige Tico",
-    XWS = 'paigetico',
-    Faction = 'resistance',
+    xws = 'paigetico',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'mg100starfortress',
-    Charge = 1,
-    init = 5,
+    charge = 1,
+    initiative = 5,
     texture = 'paige',
-    actSet = { 'F', 'TL', 'Rot' }
+    action_set = { 'F', 'TL', 'Rot' }
 }
 
 masterPilotDB['lieutenantbastian'] = {
     name = 'Lieutenant Bastian',
-    XWS = 'lieutenantbastian',
+    xws = 'lieutenantbastian',
     limited = 1,
-    Faction = 'resistance',
+    faction = 'resistance',
     ship_type = 't70xwing',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B' }
+    action_set = { 'F', 'TL', 'B' }
 }
 
 masterPilotDB['jaycristubbs'] = {
     name = 'Jaycris Tubbs',
-    XWS = 'jaycristubbs',
+    xws = 'jaycristubbs',
     limited = 1,
-    Faction = 'resistance',
+    faction = 'resistance',
     ship_type = 't70xwing',
-    init = 1,
+    initiative = 1,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B' }
+    action_set = { 'F', 'TL', 'B' }
 }
 
 masterPilotDB['blacksquadronace-t70xwing'] = {
     name = 'Black Squadron Ace',
-    XWS = 'blacksquadronace-t70xwing',
-    Faction = 'resistance',
+    xws = 'blacksquadronace-t70xwing',
+    faction = 'resistance',
     ship_type = 't70xwing',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B' }
+    action_set = { 'F', 'TL', 'B' }
 }
 
 masterPilotDB['commandermalarus'] = {
     name = 'Commander Malarus',
-    XWS = 'commandermalarus',
-    Faction = 'firstorder',
+    xws = 'commandermalarus',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'tiefofighter',
-    Charge = 2,
-    init = 5,
+    charge = 2,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'E', 'TL', 'BR' }
+    action_set = { 'F', 'E', 'TL', 'BR' }
 }
 
 masterPilotDB['tn3465'] = {
     name = 'TN-3465',
-    XWS = 'tn3465',
-    Faction = 'firstorder',
+    xws = 'tn3465',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'tiefofighter',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'E', 'TL', 'BR' }
+    action_set = { 'F', 'E', 'TL', 'BR' }
 }
 
 masterPilotDB['lieutenantrivas'] = {
     name = 'Lieutenant Rivas',
-    XWS = 'lieutenantrivas',
-    Faction = 'firstorder',
+    xws = 'lieutenantrivas',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'tiefofighter',
-    init = 1,
+    initiative = 1,
     texture = 'standard',
-    actSet = { 'F', 'E', 'TL', 'BR' }
+    action_set = { 'F', 'E', 'TL', 'BR' }
 }
 
 masterPilotDB['recoil'] = {
     name = '"Recoil"',
-    XWS = 'recoil',
-    Faction = 'firstorder',
+    xws = 'recoil',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'tievnsilencer',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'B', 'TL', 'BR' }
+    action_set = { 'F', 'B', 'TL', 'BR' }
 }
 
 masterPilotDB['avenger'] = {
     name = '"Avenger"',
-    XWS = 'avenger',
-    Faction = 'firstorder',
+    xws = 'avenger',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'tievnsilencer',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'B', 'TL', 'BR' }
+    action_set = { 'F', 'B', 'TL', 'BR' }
 }
 
 masterPilotDB['captaincardinal'] = {
     name = 'Captain Cardinal',
-    XWS = 'captaincardinal',
-    Faction = 'firstorder',
+    xws = 'captaincardinal',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'upsilonclasscommandshuttle',
-    Charge = 2,
-    init = 4,
+    charge = 2,
+    initiative = 4,
     texture = 'red',
-    actSet = { 'F', 'TL', 'R' }
+    action_set = { 'F', 'TL', 'R' }
 }
 
 masterPilotDB['pettyofficerthanisson'] = {
     name = 'Petty Officer Thanisson',
-    XWS = 'pettyofficerthanisson',
-    Faction = 'firstorder',
+    xws = 'pettyofficerthanisson',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'upsilonclasscommandshuttle',
-    Charge = 1,
-    init = 1,
+    charge = 1,
+    initiative = 1,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'R' }
+    action_set = { 'F', 'TL', 'R' }
 }
 
 --w3pilot
 
 masterPilotDB['generalgrievous'] = {
     name = 'General Grievous',
-    XWS = 'generalgrievous',
-    Faction = 'separatistalliance',
+    xws = 'generalgrievous',
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'belbulab22starfighter',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B', 'BR' }
+    action_set = { 'F', 'TL', 'B', 'BR' }
 }
 
 masterPilotDB['wattambor'] = {
     name = 'Wat Tambor',
-    XWS = 'wattambor',
-    Faction = 'separatistalliance',
+    xws = 'wattambor',
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'belbulab22starfighter',
-    init = 3,
-    actSet = { 'F', 'TL', 'B', 'BR' },
+    initiative = 3,
+    action_set = { 'F', 'TL', 'B', 'BR' },
     texture = 'wat',
 }
 
 masterPilotDB['captainsear'] = {
     name = 'Captain Sear',
-    XWS = 'captainsear',
-    Faction = 'separatistalliance',
+    xws = 'captainsear',
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'belbulab22starfighter',
-    init = 2,
-    actSet = { 'F', 'TL', 'B', 'BR' },
+    initiative = 2,
+    action_set = { 'F', 'TL', 'B', 'BR' },
     texture = 'standard',
 }
 masterPilotDB['skakoanace'] = {
     name = 'Skakoan Ace',
-    XWS = 'skakoanace',
-    Faction = 'separatistalliance',
+    xws = 'skakoanace',
+    faction = 'separatistalliance',
     ship_type = 'belbulab22starfighter',
-    init = 3,
-    actSet = { 'F', 'TL', 'B', 'BR' },
+    initiative = 3,
+    action_set = { 'F', 'TL', 'B', 'BR' },
     texture = 'standard',
 }
 
 masterPilotDB['feethanottrawautopilot'] = {
     name = 'Feethan Ottraw Autopilot',
-    XWS = 'feethanottrawautopilot',
-    Faction = 'separatistalliance',
+    xws = 'feethanottrawautopilot',
+    faction = 'separatistalliance',
     ship_type = 'belbulab22starfighter',
-    init = 1,
-    actSet = { 'C', 'TL', 'B', 'BR' },
+    initiative = 1,
+    action_set = { 'C', 'TL', 'B', 'BR' },
     texture = 'standard',
     keywords = { 'Droid' }
 }
 
 masterPilotDB['separatistdrone'] = {
     name = 'Separatist Drone',
-    XWS = 'separatistdrone',
-    Faction = 'separatistalliance',
+    xws = 'separatistdrone',
+    faction = 'separatistalliance',
     ship_type = 'vultureclassdroidfighter',
-    init = 3,
-    actSet = { 'C', 'BR', 'TL' },
+    initiative = 3,
+    action_set = { 'C', 'BR', 'TL' },
     texture = 'drone',
 }
 
 masterPilotDB['tradefederationdrone'] = {
     name = 'Trade Federation Drone',
-    XWS = 'tradefederationdrone',
-    Faction = 'separatistalliance',
+    xws = 'tradefederationdrone',
+    faction = 'separatistalliance',
     ship_type = 'vultureclassdroidfighter',
-    init = 1,
-    actSet = { 'C', 'BR', 'TL' },
+    initiative = 1,
+    action_set = { 'C', 'BR', 'TL' },
     texture = 'drone',
 }
 
 masterPilotDB['dfs081'] = {
     name = 'DFS-081',
-    XWS = 'dfs081',
-    Faction = 'separatistalliance',
+    xws = 'dfs081',
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'vultureclassdroidfighter',
-    init = 3,
-    actSet = { 'C', 'BR', 'TL' },
+    initiative = 3,
+    action_set = { 'C', 'BR', 'TL' },
     texture = 'dfs081',
 }
 
 masterPilotDB['precisehunter'] = {
     name = 'Precise Hunter',
-    XWS = 'precisehunter',
-    Faction = 'separatistalliance',
+    xws = 'precisehunter',
+    faction = 'separatistalliance',
     limited = 3,
     ship_type = 'vultureclassdroidfighter',
-    init = 3,
-    actSet = { 'C', 'BR', 'TL' },
+    initiative = 3,
+    action_set = { 'C', 'BR', 'TL' },
     texture = 'hunter',
 }
 
 masterPilotDB['dfs311'] = {
     name = 'DFS-311',
-    XWS = 'dfs311',
-    Faction = 'separatistalliance',
+    xws = 'dfs311',
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'vultureclassdroidfighter',
-    init = 1,
-    actSet = { 'C', 'BR', 'TL' },
+    initiative = 1,
+    action_set = { 'C', 'BR', 'TL' },
     texture = 'dfs311',
 }
 
 masterPilotDB['haorchallprototype'] = {
     name = 'Haor Chall Prototype',
-    XWS = 'haorchallprototype',
-    Faction = 'separatistalliance',
+    xws = 'haorchallprototype',
+    faction = 'separatistalliance',
     limited = 2,
     ship_type = 'vultureclassdroidfighter',
-    init = 1,
-    actSet = { 'C', 'BR', 'TL' },
+    initiative = 1,
+    action_set = { 'C', 'BR', 'TL' },
     texture = 'proto',
 }
 
 masterPilotDB['darthmaul'] = {
     name = 'Darth Maul',
-    XWS = 'darthmaul',
-    Faction = 'separatistalliance',
+    xws = 'darthmaul',
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'sithinfiltrator',
-    Force = 3,
-    init = 5,
-    actSet = { 'F', 'TL', 'BR' },
+    force = 3,
+    initiative = 5,
+    action_set = { 'F', 'TL', 'BR' },
     texture = 'maul',
     keywords = { 'Dark Side', 'Sith' }
 }
 
 masterPilotDB['countdooku'] = {
     name = 'Count Dooku',
-    XWS = 'countdooku',
-    Faction = 'separatistalliance',
+    xws = 'countdooku',
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'sithinfiltrator',
-    Force = 3,
-    init = 3,
-    actSet = { 'F', 'TL', 'BR' },
+    force = 3,
+    initiative = 3,
+    action_set = { 'F', 'TL', 'BR' },
     texture = 'standard',
     keywords = { 'Dark Side', 'Sith' }
 }
 
 masterPilotDB['066'] = {
     name = 'O-66',
-    XWS = '066',
-    Faction = 'separatistalliance',
+    xws = '066',
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'sithinfiltrator',
-    init = 3,
-    actSet = { 'C', 'TL', 'BR' },
+    initiative = 3,
+    action_set = { 'C', 'TL', 'BR' },
     texture = 'standard',
     keywords = { 'Droid' }
 }
 
 masterPilotDB['darkcourier'] = {
     name = 'Dark Courier',
-    XWS = 'darkcourier',
-    Faction = 'separatistalliance',
+    xws = 'darkcourier',
+    faction = 'separatistalliance',
     ship_type = 'sithinfiltrator',
-    init = 2,
-    actSet = { 'F', 'TL', 'BR' },
+    initiative = 2,
+    action_set = { 'F', 'TL', 'BR' },
     texture = 'standard',
 }
 
 masterPilotDB['anakinskywalker'] = {
     name = 'Anakin Skywalker',
-    XWS = 'anakinskywalker',
-    Faction = 'galacticrepublic',
+    xws = 'anakinskywalker',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7aethersprite',
-    Force = 3,
-    init = 6,
+    force = 3,
+    initiative = 6,
     texture = 'anakin',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' }
 }
 
 masterPilotDB['luminaraunduli'] = {
     name = 'Luminara Unduli',
-    XWS = 'luminaraunduli',
-    Faction = 'galacticrepublic',
+    xws = 'luminaraunduli',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7aethersprite',
-    Force = 2,
-    init = 4,
+    force = 2,
+    initiative = 4,
     texture = 'lumi',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' }
 }
 
 masterPilotDB['barrissoffee'] = {
     name = 'Barriss Offee',
-    XWS = 'barrissoffee',
-    Faction = 'galacticrepublic',
+    xws = 'barrissoffee',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7aethersprite',
-    Force = 1,
-    init = 4,
+    force = 1,
+    initiative = 4,
     texture = 'barriss',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' }
 }
 
 masterPilotDB['ahsokatano'] = {
     name = 'Ahsoka Tano',
-    XWS = 'ahsokatano',
-    Faction = 'galacticrepublic',
+    xws = 'ahsokatano',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7aethersprite',
-    Force = 2,
-    init = 3,
+    force = 2,
+    initiative = 3,
     texture = 'ahsoka',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' }
 }
 
 masterPilotDB['obiwankenobi'] = {
     name = 'Obi-Wan Kenobi',
-    XWS = 'obiwankenobi',
-    Faction = 'galacticrepublic',
+    xws = 'obiwankenobi',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7aethersprite',
-    Force = 3,
-    init = 5,
+    force = 3,
+    initiative = 5,
     texture = 'obi',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' }
 }
 
 masterPilotDB['macewindu'] = {
     name = 'Mace Windu',
-    XWS = 'macewindu',
-    Faction = 'galacticrepublic',
+    xws = 'macewindu',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7aethersprite',
-    Force = 3,
-    init = 4,
+    force = 3,
+    initiative = 4,
     texture = 'mace',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' }
 }
 
 masterPilotDB['plokoon'] = {
     name = 'Plo Koon',
-    XWS = 'plokoon',
-    Faction = 'galacticrepublic',
+    xws = 'plokoon',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7aethersprite',
-    Force = 2,
-    init = 5,
+    force = 2,
+    initiative = 5,
     texture = 'plo',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' }
 }
 
 masterPilotDB['saeseetiin'] = {
     name = 'Saesee Tiin',
-    XWS = 'saeseetiin',
-    Faction = 'galacticrepublic',
+    xws = 'saeseetiin',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7aethersprite',
-    Force = 2,
-    init = 4,
+    force = 2,
+    initiative = 4,
     texture = 'saesee',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' }
 }
 
 masterPilotDB['jediknight'] = {
     name = 'Jedi Knight',
-    XWS = 'jediknight',
-    Faction = 'galacticrepublic',
+    xws = 'jediknight',
+    faction = 'galacticrepublic',
     ship_type = 'delta7aethersprite',
-    Force = 1,
-    init = 3,
+    force = 1,
+    initiative = 3,
     texture = 'knight',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' },
-    --tintFriendly = {mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/Small/delta7aethersprite/Jedi_Delta7_tint.obj',
+    --tint_friendly = {mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/Small/delta7aethersprite/Jedi_Delta7_tint.obj',
     --                texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships/Small/GRP_Delta7/JediKnight-tint.png',}
 }
 
 masterPilotDB['oddball'] = {
     name = '"Odd Ball"',
-    XWS = 'oddball',
-    Faction = 'galacticrepublic',
+    xws = 'oddball',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'v19torrentstarfighter',
-    init = 5,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'E', 'TL', 'BR' },
+    action_set = { 'F', 'E', 'TL', 'BR' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['kickback'] = {
     name = '"Kickback"',
-    XWS = 'kickback',
-    Faction = 'galacticrepublic',
+    xws = 'kickback',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'v19torrentstarfighter',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'E', 'TL', 'BR' },
+    action_set = { 'F', 'E', 'TL', 'BR' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['axe'] = {
     name = '"Axe"',
-    XWS = 'axe',
-    Faction = 'galacticrepublic',
+    xws = 'axe',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'v19torrentstarfighter',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'E', 'TL', 'BR' },
+    action_set = { 'F', 'E', 'TL', 'BR' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['swoop'] = {
     name = '"Swoop"',
-    XWS = 'swoop',
-    Faction = 'galacticrepublic',
+    xws = 'swoop',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'v19torrentstarfighter',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'E', 'TL', 'BR' },
+    action_set = { 'F', 'E', 'TL', 'BR' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['tucker'] = {
     name = '"Tucker"',
-    XWS = 'tucker',
-    Faction = 'galacticrepublic',
+    xws = 'tucker',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'v19torrentstarfighter',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'E', 'TL', 'BR' },
+    action_set = { 'F', 'E', 'TL', 'BR' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['bluesquadronprotector'] = {
     name = 'Blue Squadron Protector',
-    XWS = 'bluesquadronprotector',
-    Faction = 'galacticrepublic',
+    xws = 'bluesquadronprotector',
+    faction = 'galacticrepublic',
     ship_type = 'v19torrentstarfighter',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'E', 'TL', 'BR' },
+    action_set = { 'F', 'E', 'TL', 'BR' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['goldsquadrontrooper'] = {
     name = 'Gold Squadron Trooper',
-    XWS = 'goldsquadrontrooper',
-    Faction = 'galacticrepublic',
+    xws = 'goldsquadrontrooper',
+    faction = 'galacticrepublic',
     ship_type = 'v19torrentstarfighter',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'E', 'TL', 'BR' },
+    action_set = { 'F', 'E', 'TL', 'BR' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['oddball-arc170starfighter'] = {
     name = '"Odd Ball"',
-    XWS = 'oddball-arc170starfighter',
-    Faction = 'galacticrepublic',
+    xws = 'oddball-arc170starfighter',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'arc170starfighter',
-    init = 5,
+    initiative = 5,
     texture = 'republic',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['wolffe'] = {
     name = '"Wolffe"',
-    XWS = 'wolffe',
-    Faction = 'galacticrepublic',
+    xws = 'wolffe',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'arc170starfighter',
-    Charge = 1,
-    init = 4,
+    charge = 1,
+    initiative = 4,
     texture = 'republic',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['jag'] = {
     name = '"Jag"',
-    XWS = 'jag',
-    Faction = 'galacticrepublic',
+    xws = 'jag',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'arc170starfighter',
-    init = 3,
+    initiative = 3,
     texture = 'republic',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['sinker'] = {
     name = '"Sinker"',
-    XWS = 'sinker',
-    Faction = 'galacticrepublic',
+    xws = 'sinker',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'arc170starfighter',
-    init = 3,
+    initiative = 3,
     texture = 'republic',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['squadsevenveteran'] = {
     name = 'Squad Seven Veteran',
-    XWS = 'squadsevenveteran',
-    Faction = 'galacticrepublic',
+    xws = 'squadsevenveteran',
+    faction = 'galacticrepublic',
     ship_type = 'arc170starfighter',
-    init = 3,
+    initiative = 3,
     texture = 'republic',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['104thbattalionpilot'] = {
     name = '104th Battalion Pilot',
-    XWS = '104thbattalionpilot',
-    Faction = 'galacticrepublic',
+    xws = '104thbattalionpilot',
+    faction = 'galacticrepublic',
     ship_type = 'arc170starfighter',
-    init = 2,
+    initiative = 2,
     texture = 'republic',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Clone' }
 }
 
@@ -4473,384 +4473,384 @@ masterPilotDB['104thbattalionpilot'] = {
 --N-1
 masterPilotDB['ricolie'] = {
     name = 'Ric OliÃ©',
-    XWS = 'ricolie',
-    Faction = 'galacticrepublic',
+    xws = 'ricolie',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'nabooroyaln1starfighter',
-    init = 5,
+    initiative = 5,
     texture = 'yellow',
-    actSet = { 'F', 'TL', 'B', 'BR', 'E' }
+    action_set = { 'F', 'TL', 'B', 'BR', 'E' }
 }
 
 masterPilotDB['anakinskywalker-nabooroyaln1starfighter'] = {
     name = 'Anakin Skywalker',
-    XWS = 'anakinskywalker-nabooroyaln1starfighter',
-    Faction = 'galacticrepublic',
+    xws = 'anakinskywalker-nabooroyaln1starfighter',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'nabooroyaln1starfighter',
-    Force = 1,
-    init = 4,
+    force = 1,
+    initiative = 4,
     texture = 'yellow',
-    actSet = { 'F', 'TL', 'B', 'BR', 'E' },
+    action_set = { 'F', 'TL', 'B', 'BR', 'E' },
     keywords = { 'Light Side' }
 }
 
 masterPilotDB['padmeamidala'] = {
     name = 'PadmÃ© Amidala',
-    XWS = 'padmeamidala',
-    Faction = 'galacticrepublic',
+    xws = 'padmeamidala',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'nabooroyaln1starfighter',
-    init = 4,
+    initiative = 4,
     texture = 'silver',
-    actSet = { 'F', 'TL', 'B', 'BR', 'E' }
+    action_set = { 'F', 'TL', 'B', 'BR', 'E' }
 }
 
 masterPilotDB['dineeellberger'] = {
     name = 'DineÃ© Ellberger',
-    XWS = 'dineeellberger',
-    Faction = 'galacticrepublic',
+    xws = 'dineeellberger',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'nabooroyaln1starfighter',
-    init = 3,
+    initiative = 3,
     texture = 'yellow',
-    actSet = { 'F', 'TL', 'B', 'BR', 'E' }
+    action_set = { 'F', 'TL', 'B', 'BR', 'E' }
 }
 
 masterPilotDB['naboohandmaiden'] = {
     name = 'Naboo Handmaiden',
-    XWS = 'naboohandmaiden',
-    Faction = 'galacticrepublic',
+    xws = 'naboohandmaiden',
+    faction = 'galacticrepublic',
     limited = 2,
     ship_type = 'nabooroyaln1starfighter',
-    init = 1,
-    Condition = 'Decoyed',
+    initiative = 1,
+    condition = 'Decoyed',
     texture = 'yellow',
-    actSet = { 'F', 'TL', 'B', 'BR', 'E' }
+    action_set = { 'F', 'TL', 'B', 'BR', 'E' }
 }
 
 masterPilotDB['bravoflightofficer'] = {
     name = 'Bravo Flight Officer',
-    XWS = 'bravoflightofficer',
-    Faction = 'galacticrepublic',
+    xws = 'bravoflightofficer',
+    faction = 'galacticrepublic',
     ship_type = 'nabooroyaln1starfighter',
-    init = 2,
+    initiative = 2,
     texture = 'yellow',
-    actSet = { 'F', 'TL', 'B', 'BR', 'E' }
+    action_set = { 'F', 'TL', 'B', 'BR', 'E' }
 }
 
 --Resistance Transport
 masterPilotDB['covanell'] = {
     name = 'Cova Nell',
-    XWS = 'covanell',
-    Faction = 'resistance',
+    xws = 'covanell',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'resistancetransport',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL' }
+    action_set = { 'F', 'TL' }
 }
 
 masterPilotDB['pammichnerrogoode'] = {
     name = 'Pammich Nerro Goode',
-    XWS = 'pammichnerrogoode',
-    Faction = 'resistance',
+    xws = 'pammichnerrogoode',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'resistancetransport',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL' }
+    action_set = { 'F', 'TL' }
 }
 
 masterPilotDB['nodinchavdri'] = {
     name = 'Nodin Chavdri',
-    XWS = 'nodinchavdri',
-    Faction = 'resistance',
+    xws = 'nodinchavdri',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'resistancetransport',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'TL' }
+    action_set = { 'F', 'TL' }
 }
 
 masterPilotDB['logisticsdivisionpilot'] = {
     name = 'Logistics Division Pilot',
-    XWS = 'logisticsdivisionpilot',
-    Faction = 'resistance',
+    xws = 'logisticsdivisionpilot',
+    faction = 'resistance',
     ship_type = 'resistancetransport',
-    init = 1,
+    initiative = 1,
     texture = 'red',
-    actSet = { 'F', 'TL' }
+    action_set = { 'F', 'TL' }
 }
 
 masterPilotDB['rosetico'] = {
     name = 'Rose Tico',
-    XWS = 'rosetico',
-    Faction = 'resistance',
+    xws = 'rosetico',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'resistancetransportpod',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['bb8'] = {
     name = 'BB-8',
-    XWS = 'bb8',
-    Faction = 'resistance',
+    xws = 'bb8',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'resistancetransportpod',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'C', 'TL', 'BR', 'B' },
+    action_set = { 'C', 'TL', 'BR', 'B' },
     keywords = { 'Droid' }
 }
 
 masterPilotDB['finn'] = {
     name = 'Finn',
-    XWS = 'finn',
-    Faction = 'resistance',
+    xws = 'finn',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'resistancetransportpod',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['vimoradi'] = {
     name = 'Vi Moradi',
-    XWS = 'vimoradi',
-    Faction = 'resistance',
+    xws = 'vimoradi',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'resistancetransportpod',
-    init = 1,
-    Condition = "Compromising Intel",
+    initiative = 1,
+    condition = "Compromising Intel",
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR' }
+    action_set = { 'F', 'TL', 'BR' }
 }
 
 masterPilotDB['dbs404'] = {
     name = 'DBS-404',
-    XWS = 'dbs404',
-    Faction = 'separatistalliance',
+    xws = 'dbs404',
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'hyenaclassdroidbomber',
-    init = 4,
-    actSet = { 'C', 'TL', 'BR' },
+    initiative = 4,
+    action_set = { 'C', 'TL', 'BR' },
     texture = 'fourohfour',
 }
 
 masterPilotDB['dbs32c'] = {
     name = 'DBS-32C',
-    XWS = 'dbs32c',
-    Faction = 'separatistalliance',
+    xws = 'dbs32c',
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'hyenaclassdroidbomber',
-    init = 3,
-    actSet = { 'C', 'TL', 'BR' },
+    initiative = 3,
+    action_set = { 'C', 'TL', 'BR' },
     texture = 'standard',
 }
 
 masterPilotDB['bombardmentdrone'] = {
     name = 'Bombardment Drone',
-    XWS = 'bombardmentdrone',
-    Faction = 'separatistalliance',
+    xws = 'bombardmentdrone',
+    faction = 'separatistalliance',
     limited = 3,
     ship_type = 'hyenaclassdroidbomber',
-    init = 3,
-    actSet = { 'C', 'TL', 'BR' },
+    initiative = 3,
+    action_set = { 'C', 'TL', 'BR' },
     texture = 'standard',
 }
 
 masterPilotDB['baktoidprototype'] = {
     name = 'Baktoid Prototype',
-    XWS = 'baktoidprototype',
-    Faction = 'separatistalliance',
+    xws = 'baktoidprototype',
+    faction = 'separatistalliance',
     limited = 2,
     ship_type = 'hyenaclassdroidbomber',
-    init = 1,
-    actSet = { 'C', 'TL', 'BR' },
+    initiative = 1,
+    action_set = { 'C', 'TL', 'BR' },
     texture = 'baktoid',
 }
 
 masterPilotDB['separatistbomber'] = {
     name = 'Separatist Bomber',
-    XWS = 'separatistbomber',
-    Faction = 'separatistalliance',
+    xws = 'separatistbomber',
+    faction = 'separatistalliance',
     ship_type = 'hyenaclassdroidbomber',
-    init = 3,
-    actSet = { 'C', 'TL', 'BR' },
+    initiative = 3,
+    action_set = { 'C', 'TL', 'BR' },
     texture = 'standard',
 }
 
 masterPilotDB['technounionbomber'] = {
     name = 'Techno Union Bomber',
-    XWS = 'technounionbomber',
-    Faction = 'separatistalliance',
+    xws = 'technounionbomber',
+    faction = 'separatistalliance',
     ship_type = 'hyenaclassdroidbomber',
-    init = 1,
-    actSet = { 'C', 'TL', 'BR' },
+    initiative = 1,
+    action_set = { 'C', 'TL', 'BR' },
     texture = 'baktoid',
 }
 
 --Republic Y-Wing
 masterPilotDB['anakinskywalker-btlbywing'] = {
     name = 'Anakin Skywalker',
-    XWS = 'anakinskywalker-btlbywing',
-    Faction = 'galacticrepublic',
+    xws = 'anakinskywalker-btlbywing',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'btlbywing',
-    Force = 3,
-    init = 6,
+    force = 3,
+    initiative = 6,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Light Side', 'Jedi' }
 }
 
 masterPilotDB['oddball-btlbywing'] = {
     name = '"Odd Ball"',
-    XWS = 'oddball-btlbywing',
-    Faction = 'galacticrepublic',
+    xws = 'oddball-btlbywing',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'btlbywing',
-    init = 5,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['matchstick'] = {
     name = '"Matchstick"',
-    XWS = 'matchstick',
-    Faction = 'galacticrepublic',
+    xws = 'matchstick',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'btlbywing',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['broadside'] = {
     name = '"Broadside"',
-    XWS = 'broadside',
-    Faction = 'galacticrepublic',
+    xws = 'broadside',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'btlbywing',
-    init = 3,
+    initiative = 3,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['r2d2'] = {
     name = 'R2-D2',
-    XWS = 'r2d2',
-    Faction = 'galacticrepublic',
+    xws = 'r2d2',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'btlbywing',
-    init = 2,
+    initiative = 2,
     texture = 'green',
-    actSet = { 'C', 'TL', 'BR' },
+    action_set = { 'C', 'TL', 'BR' },
     keywords = { 'Droid' }
 }
 
 masterPilotDB['goji'] = {
     name = '"Goji"',
-    XWS = 'goji',
-    Faction = 'galacticrepublic',
+    xws = 'goji',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'btlbywing',
-    init = 2,
+    initiative = 2,
     texture = 'red',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['shadowsquadronveteran'] = {
     name = 'Shadow Squadron Veteran',
-    XWS = 'shadowsquadronveteran',
-    Faction = 'galacticrepublic',
+    xws = 'shadowsquadronveteran',
+    faction = 'galacticrepublic',
     ship_type = 'btlbywing',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['redsquadronbomber'] = {
     name = 'Red Squadron Bomber',
-    XWS = 'redsquadronbomber',
-    Faction = 'galacticrepublic',
+    xws = 'redsquadronbomber',
+    faction = 'galacticrepublic',
     ship_type = 'btlbywing',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Clone' }
 }
 
 --Nantex
 masterPilotDB['sunfac'] = {
     name = 'Sun Fac',
-    XWS = 'sunfac',
-    Faction = 'separatistalliance',
+    xws = 'sunfac',
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'nantexclassstarfighter',
-    init = 6,
-    actSet = { 'F', 'E', 'Nantex' },
+    initiative = 6,
+    action_set = { 'F', 'E', 'Nantex' },
     texture = 'standard',
 }
 
 masterPilotDB['berwerkret'] = {
     name = 'Berwer Kret',
-    XWS = 'berwerkret',
-    Faction = 'separatistalliance',
+    xws = 'berwerkret',
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'nantexclassstarfighter',
-    init = 5,
-    actSet = { 'F', 'E', 'Nantex' },
+    initiative = 5,
+    action_set = { 'F', 'E', 'Nantex' },
     texture = 'standard',
 }
 
 masterPilotDB['chertek'] = {
     name = 'Chertek',
-    XWS = 'chertek',
-    Faction = 'separatistalliance',
+    xws = 'chertek',
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'nantexclassstarfighter',
-    init = 4,
-    actSet = { 'F', 'E', 'Nantex' },
+    initiative = 4,
+    action_set = { 'F', 'E', 'Nantex' },
     texture = 'standard',
 }
 
 masterPilotDB['gorgol'] = {
     name = 'Gorgol',
-    XWS = 'gorgol',
-    Faction = 'separatistalliance',
+    xws = 'gorgol',
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'nantexclassstarfighter',
-    init = 2,
-    actSet = { 'F', 'E', 'Nantex' },
+    initiative = 2,
+    action_set = { 'F', 'E', 'Nantex' },
     texture = 'standard',
 }
 
 masterPilotDB['petranakiarenaace'] = {
     name = 'Petranaki Arena Ace',
-    XWS = 'petranakiarenaace',
-    Faction = 'separatistalliance',
+    xws = 'petranakiarenaace',
+    faction = 'separatistalliance',
     ship_type = 'nantexclassstarfighter',
-    init = 4,
-    actSet = { 'F', 'E', 'Nantex' },
+    initiative = 4,
+    action_set = { 'F', 'E', 'Nantex' },
     texture = 'standard',
 }
 
 masterPilotDB['stalgasinhiveguard'] = {
     name = 'Stalgasin Hive Guard',
-    XWS = 'stalgasinhiveguard',
-    Faction = 'separatistalliance',
+    xws = 'stalgasinhiveguard',
+    faction = 'separatistalliance',
     ship_type = 'nantexclassstarfighter',
-    init = 3,
-    actSet = { 'F', 'E', 'Nantex' },
+    initiative = 3,
+    action_set = { 'F', 'E', 'Nantex' },
     texture = 'standard',
 }
 
@@ -4858,856 +4858,856 @@ masterPilotDB['stalgasinhiveguard'] = {
 --TIE/ba
 masterPilotDB['firstorderprovocateur'] = {
     name = 'First Order Provocateur',
-    XWS = 'firstorderprovocateur',
-    Faction = 'firstorder',
+    xws = 'firstorderprovocateur',
+    faction = 'firstorder',
     ship_type = 'tiebainterceptor',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'BR', 'B' }
+    action_set = { 'F', 'TL', 'E', 'BR', 'B' }
 }
 
 masterPilotDB['ember'] = {
     name = '"Ember"',
-    XWS = 'ember',
-    Faction = 'firstorder',
+    xws = 'ember',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'tiebainterceptor',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'BR', 'B' }
+    action_set = { 'F', 'TL', 'E', 'BR', 'B' }
 }
 
 masterPilotDB['holo'] = {
     name = '"Holo"',
-    XWS = 'holo',
-    Faction = 'firstorder',
+    xws = 'holo',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'tiebainterceptor',
-    init = 5,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'BR', 'B' }
+    action_set = { 'F', 'TL', 'E', 'BR', 'B' }
 }
 
 masterPilotDB['majorvonreg'] = {
     name = 'Major Vonreg',
-    XWS = 'majorvonreg',
-    Faction = 'firstorder',
+    xws = 'majorvonreg',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'tiebainterceptor',
-    init = 6,
+    initiative = 6,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'BR', 'B' }
+    action_set = { 'F', 'TL', 'E', 'BR', 'B' }
 }
 
 --FireBall
 masterPilotDB['jarekyeager'] = {
     name = 'Jarek Yeager',
-    XWS = 'jarekyeager',
-    Faction = 'resistance',
+    xws = 'jarekyeager',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'fireball',
-    init = 5,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['kazudaxiono'] = {
     name = 'Kazuda Xiono',
-    XWS = 'kazudaxiono',
-    Faction = 'resistance',
+    xws = 'kazudaxiono',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'fireball',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['r1j5'] = {
     name = 'R1-J5',
-    XWS = 'r1j5',
-    Faction = 'resistance',
+    xws = 'r1j5',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'fireball',
-    init = 1,
+    initiative = 1,
     texture = 'standard',
-    actSet = { 'C', 'E', 'BR' },
+    action_set = { 'C', 'E', 'BR' },
     keywords = { 'Droid' }
 }
 
 masterPilotDB['colossusstationmechanic'] = {
     name = 'Colossus Station Mechanic',
-    XWS = 'colossusstationmechanic',
-    Faction = 'resistance',
+    xws = 'colossusstationmechanic',
+    faction = 'resistance',
     ship_type = 'fireball',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['commandermalarus-xiclasslightshuttle'] = {
     name = 'Commander Malarus',
-    XWS = 'commandermalarus-xiclasslightshuttle',
-    Faction = 'firstorder',
+    xws = 'commandermalarus-xiclasslightshuttle',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'xiclasslightshuttle',
-    init = 5,
+    initiative = 5,
     texture = 'light',
-    actSet = { 'F', 'TL' }
+    action_set = { 'F', 'TL' }
 }
 
 masterPilotDB['gideonhask-xiclasslightshuttle'] = {
     name = 'Gideon Hask',
-    XWS = 'gideonhask-xiclasslightshuttle',
-    Faction = 'firstorder',
+    xws = 'gideonhask-xiclasslightshuttle',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'xiclasslightshuttle',
-    init = 4,
+    initiative = 4,
     texture = 'light',
-    actSet = { 'F', 'TL' }
+    action_set = { 'F', 'TL' }
 }
 
 masterPilotDB['agentterex'] = {
     name = 'Agent Terex',
-    XWS = 'agentterex',
-    Faction = 'firstorder',
+    xws = 'agentterex',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'xiclasslightshuttle',
-    init = 3,
+    initiative = 3,
     texture = 'dark',
-    actSet = { 'F', 'TL' }
+    action_set = { 'F', 'TL' }
 }
 
 masterPilotDB['firstordercourier'] = {
     name = 'First Order Courier',
-    XWS = 'firstordercourier',
-    Faction = 'firstorder',
+    xws = 'firstordercourier',
+    faction = 'firstorder',
     ship_type = 'xiclasslightshuttle',
-    init = 2,
+    initiative = 2,
     texture = 'light',
-    actSet = { 'F', 'TL' }
+    action_set = { 'F', 'TL' }
 }
 
 masterPilotDB['hawk'] = {
     name = '"Hawk"',
-    XWS = 'hawk',
+    xws = 'hawk',
     limited = 1,
-    Faction = 'galacticrepublic',
+    faction = 'galacticrepublic',
     ship_type = 'laatigunship',
-    init = 4,
+    initiative = 4,
     texture = 'munilist',
-    actSet = { 'F', 'R', 'TL', 'Rot' },
-    addSqdAction = { 'BR', 'B' },
+    action_set = { 'F', 'R', 'TL', 'Rot' },
+    add_squad_action = { 'BR', 'B' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['warthog'] = {
     name = '"Warthog"',
-    XWS = 'warthog',
+    xws = 'warthog',
     limited = 1,
-    Faction = 'galacticrepublic',
+    faction = 'galacticrepublic',
     ship_type = 'laatigunship',
-    init = 3,
+    initiative = 3,
     texture = 'warthog',
-    actSet = { 'F', 'R', 'TL', 'Rot' },
+    action_set = { 'F', 'R', 'TL', 'Rot' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['hound'] = {
     name = '"Hound"',
-    XWS = 'hound',
+    xws = 'hound',
     limited = 1,
-    Faction = 'galacticrepublic',
+    faction = 'galacticrepublic',
     ship_type = 'laatigunship',
-    init = 2,
+    initiative = 2,
     texture = 'hound1',
-    actSet = { 'F', 'R', 'TL', 'Rot' },
+    action_set = { 'F', 'R', 'TL', 'Rot' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['212thbattalionpilot'] = {
     name = '212th Battalion Pilot',
-    XWS = '212thbattalionpilot',
-    Faction = 'galacticrepublic',
+    xws = '212thbattalionpilot',
+    faction = 'galacticrepublic',
     ship_type = 'laatigunship',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'R', 'TL', 'Rot' },
+    action_set = { 'F', 'R', 'TL', 'Rot' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['onderonoppressor'] = {
     name = 'Onderon Oppressor',
-    XWS = 'onderonoppressor',
+    xws = 'onderonoppressor',
     limited = 2,
-    Faction = 'separatistalliance',
+    faction = 'separatistalliance',
     ship_type = 'hmpdroidgunship',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'C', 'TL', 'BR' },
+    action_set = { 'C', 'TL', 'BR' },
 }
 
 masterPilotDB['geonosianprototype'] = {
     name = 'Geonosian Prototype',
-    XWS = 'geonosianprototype',
+    xws = 'geonosianprototype',
     limited = 2,
-    Faction = 'separatistalliance',
+    faction = 'separatistalliance',
     ship_type = 'hmpdroidgunship',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'C', 'TL', 'BR' },
+    action_set = { 'C', 'TL', 'BR' },
 }
 
 masterPilotDB['dgs047'] = {
     name = 'DGS-047',
-    XWS = 'dgs047',
+    xws = 'dgs047',
     limited = 1,
-    Faction = 'separatistalliance',
+    faction = 'separatistalliance',
     ship_type = 'hmpdroidgunship',
-    init = 1,
+    initiative = 1,
     texture = 'standard',
-    actSet = { 'C', 'TL', 'BR' },
+    action_set = { 'C', 'TL', 'BR' },
 }
 
 masterPilotDB['dgs286'] = {
     name = 'DGS-286',
-    XWS = 'dgs286',
+    xws = 'dgs286',
     limited = 1,
-    Faction = 'separatistalliance',
+    faction = 'separatistalliance',
     ship_type = 'hmpdroidgunship',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'C', 'TL', 'BR' },
+    action_set = { 'C', 'TL', 'BR' },
 }
 
 masterPilotDB['separatistpredator'] = {
     name = 'Separatist Predator',
-    XWS = 'separatistpredator',
-    Faction = 'separatistalliance',
+    xws = 'separatistpredator',
+    faction = 'separatistalliance',
     ship_type = 'hmpdroidgunship',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'C', 'TL', 'BR' },
+    action_set = { 'C', 'TL', 'BR' },
 }
 
 masterPilotDB['baktoiddrone'] = {
     name = 'Baktoid Drone',
-    XWS = 'baktoiddrone',
-    Faction = 'separatistalliance',
+    xws = 'baktoiddrone',
+    faction = 'separatistalliance',
     ship_type = 'hmpdroidgunship',
-    init = 1,
+    initiative = 1,
     texture = 'standard',
-    actSet = { 'C', 'TL', 'BR' },
+    action_set = { 'C', 'TL', 'BR' },
 }
 
 masterPilotDB['rampage'] = {
     name = '"Rampage"',
-    XWS = 'rampage',
+    xws = 'rampage',
     limited = 1,
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     ship_type = 'tierbheavy',
-    init = 4,
+    initiative = 4,
     texture = 'grey',
-    actSet = { 'F', 'C', 'TL', 'BR', 'R', 'Rot' },
+    action_set = { 'F', 'C', 'TL', 'BR', 'R', 'Rot' },
 }
 
 masterPilotDB['lyttandree'] = {
     name = 'Lyttan Dree',
-    XWS = 'lyttandree',
+    xws = 'lyttandree',
     limited = 1,
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     ship_type = 'tierbheavy',
-    init = 3,
+    initiative = 3,
     texture = 'blue',
-    actSet = { 'F', 'C', 'TL', 'BR', 'R', 'Rot' },
+    action_set = { 'F', 'C', 'TL', 'BR', 'R', 'Rot' },
 }
 
 masterPilotDB['onyxsquadronsentry'] = {
     name = 'Onyx Squadron Sentry',
-    XWS = 'onyxsquadronsentry',
-    Faction = 'galacticempire',
+    xws = 'onyxsquadronsentry',
+    faction = 'galacticempire',
     ship_type = 'tierbheavy',
-    init = 3,
+    initiative = 3,
     texture = 'blue',
-    actSet = { 'F', 'C', 'TL', 'BR', 'R', 'Rot' },
+    action_set = { 'F', 'C', 'TL', 'BR', 'R', 'Rot' },
 }
 
 masterPilotDB['caridaacademycadet'] = {
     name = 'Carida Academy Cadet',
-    XWS = 'caridaacademycadet',
-    Faction = 'galacticempire',
+    xws = 'caridaacademycadet',
+    faction = 'galacticempire',
     ship_type = 'tierbheavy',
-    init = 1,
+    initiative = 1,
     texture = 'grey',
-    actSet = { 'F', 'C', 'TL', 'BR', 'R', 'Rot' },
+    action_set = { 'F', 'C', 'TL', 'BR', 'R', 'Rot' },
 }
 
 masterPilotDB['anakinskywalker-eta2actis'] = {
     name = 'Anakin Skywalker',
-    XWS = 'anakinskywalker-eta2actis',
+    xws = 'anakinskywalker-eta2actis',
     limited = 1,
-    Faction = 'galacticrepublic',
-    Force = 3,
+    faction = 'galacticrepublic',
+    force = 3,
     ship_type = 'eta2actis',
-    init = 6,
+    initiative = 6,
     texture = 'anakin',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Dark Side', 'Light Side', 'Jedi' }
 }
 
 masterPilotDB['obiwankenobi-eta2actis'] = {
     name = 'Obi-Wan Kenobi',
-    XWS = 'obiwankenobi-eta2actis',
+    xws = 'obiwankenobi-eta2actis',
     limited = 1,
-    Faction = 'galacticrepublic',
-    Force = 3,
+    faction = 'galacticrepublic',
+    force = 3,
     ship_type = 'eta2actis',
-    init = 5,
+    initiative = 5,
     texture = 'obi',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' }
 }
 
 masterPilotDB['aaylasecura'] = {
     name = 'Aayla Secura',
-    XWS = 'aaylasecura',
+    xws = 'aaylasecura',
     limited = 1,
-    Faction = 'galacticrepublic',
-    Force = 2,
+    faction = 'galacticrepublic',
+    force = 2,
     ship_type = 'eta2actis',
-    init = 5,
+    initiative = 5,
     texture = 'aayla',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' }
 }
 
 masterPilotDB['shaakti'] = {
     name = 'Shaak Ti',
-    XWS = 'shaakti',
+    xws = 'shaakti',
     limited = 1,
-    Faction = 'galacticrepublic',
-    Force = 2,
+    faction = 'galacticrepublic',
+    force = 2,
     ship_type = 'eta2actis',
-    init = 4,
+    initiative = 4,
     texture = 'shaak',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' }
 }
 
 masterPilotDB['yoda'] = {
     name = 'Yoda',
-    XWS = 'yoda',
+    xws = 'yoda',
     limited = 1,
-    Faction = 'galacticrepublic',
-    Force = 3,
+    faction = 'galacticrepublic',
+    force = 3,
     ship_type = 'eta2actis',
-    init = 3,
+    initiative = 3,
     texture = 'yoda',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' },
     mesh = "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/eta2actis/eta2actis-Yoda.obj"
 }
 
 masterPilotDB['jedigeneral'] = {
     name = 'Jedi General',
-    XWS = 'jedigeneral',
-    Faction = 'galacticrepublic',
-    Force = 2,
+    xws = 'jedigeneral',
+    faction = 'galacticrepublic',
+    force = 2,
     ship_type = 'eta2actis',
-    init = 4,
+    initiative = 4,
     texture = 'jedi',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' }
 }
 
 masterPilotDB['oddball-nimbusclassvwing'] = {
     name = '"Odd Ball"',
-    XWS = 'oddball-nimbusclassvwing',
+    xws = 'oddball-nimbusclassvwing',
     limited = 1,
-    Faction = 'galacticrepublic',
+    faction = 'galacticrepublic',
     ship_type = 'nimbusclassvwing',
-    init = 5,
+    initiative = 5,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'BR', 'B' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['contrail'] = {
     name = '"Contrail"',
-    XWS = 'contrail',
+    xws = 'contrail',
     limited = 1,
-    Faction = 'galacticrepublic',
+    faction = 'galacticrepublic',
     ship_type = 'nimbusclassvwing',
-    init = 5,
+    initiative = 5,
     texture = 'contrail',
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'BR', 'B' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['klick'] = {
     name = '"Klick"',
-    XWS = 'klick',
+    xws = 'klick',
     limited = 1,
-    Faction = 'galacticrepublic',
+    faction = 'galacticrepublic',
     ship_type = 'nimbusclassvwing',
-    Charge = 1,
-    init = 4,
+    charge = 1,
+    initiative = 4,
     texture = 'red',
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'BR', 'B' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['wilhufftarkin'] = {
     name = 'Wilhuff Tarkin',
-    XWS = 'wilhufftarkin',
+    xws = 'wilhufftarkin',
     limited = 1,
-    Faction = 'galacticrepublic',
+    faction = 'galacticrepublic',
     ship_type = 'nimbusclassvwing',
-    init = 3,
+    initiative = 3,
     texture = 'red',
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'BR', 'B' },
 }
 
 masterPilotDB['shadowsquadronescort'] = {
     name = 'Shadow Squadron Escort',
-    XWS = 'shadowsquadronescort',
-    Faction = 'galacticrepublic',
+    xws = 'shadowsquadronescort',
+    faction = 'galacticrepublic',
     ship_type = 'nimbusclassvwing',
-    init = 3,
+    initiative = 3,
     texture = 'red',
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'BR', 'B' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['loyalistvolunteer'] = {
     name = 'Loyalist Volunteer',
-    XWS = 'loyalistvolunteer',
-    Faction = 'galacticrepublic',
+    xws = 'loyalistvolunteer',
+    faction = 'galacticrepublic',
     ship_type = 'nimbusclassvwing',
-    init = 2,
+    initiative = 2,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'BR', 'B' },
 }
 
 masterPilotDB['phlacarphoccprototype'] = {
     name = "Phlac-Arphocc Prototype",
-    XWS = 'phlacarphoccprototype',
+    xws = 'phlacarphoccprototype',
     limited = 2,
-    Faction = 'separatistalliance',
+    faction = 'separatistalliance',
     ship_type = 'droidtrifighter',
-    init = 5,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'C', 'E', 'TL', 'BR', 'B' }
+    action_set = { 'C', 'E', 'TL', 'BR', 'B' }
 }
 
 masterPilotDB['dist81'] = {
     name = "DIS-T81",
-    XWS = 'dist81',
+    xws = 'dist81',
     limited = 1,
-    Faction = 'separatistalliance',
+    faction = 'separatistalliance',
     ship_type = 'droidtrifighter',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'C', 'E', 'TL', 'BR', 'B' }
+    action_set = { 'C', 'E', 'TL', 'BR', 'B' }
 }
 
 masterPilotDB['dis347'] = {
     name = "DIS-347",
-    XWS = 'dis347',
+    xws = 'dis347',
     limited = 1,
-    Faction = 'separatistalliance',
+    faction = 'separatistalliance',
     ship_type = 'droidtrifighter',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'C', 'E', 'TL', 'BR', 'B' }
+    action_set = { 'C', 'E', 'TL', 'BR', 'B' }
 }
 
 masterPilotDB['fearsomepredator'] = {
     name = "Fearsome Predator",
-    XWS = 'fearsomepredator',
+    xws = 'fearsomepredator',
     limited = 3,
-    Faction = 'separatistalliance',
+    faction = 'separatistalliance',
     ship_type = 'droidtrifighter',
-    Condition = "Fearful Prey",
-    init = 3,
+    condition = "Fearful Prey",
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'C', 'E', 'TL', 'BR', 'B' }
+    action_set = { 'C', 'E', 'TL', 'BR', 'B' }
 }
 
 masterPilotDB['separatistinterceptor'] = {
     name = "Separatist Interceptor",
-    XWS = 'separatistinterceptor',
-    Faction = 'separatistalliance',
+    xws = 'separatistinterceptor',
+    faction = 'separatistalliance',
     ship_type = 'droidtrifighter',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'C', 'E', 'TL', 'BR', 'B' }
+    action_set = { 'C', 'E', 'TL', 'BR', 'B' }
 }
 
 masterPilotDB['colicoidinterceptor'] = {
     name = "Colicoid Interceptor",
-    XWS = 'colicoidinterceptor',
-    Faction = 'separatistalliance',
+    xws = 'colicoidinterceptor',
+    faction = 'separatistalliance',
     ship_type = 'droidtrifighter',
-    init = 1,
+    initiative = 1,
     texture = 'standard',
-    actSet = { 'C', 'E', 'TL', 'BR', 'B' }
+    action_set = { 'C', 'E', 'TL', 'BR', 'B' }
 }
 
 masterPilotDB['jangofett'] = {
     name = 'Jango Fett',
-    XWS = 'jangofett',
+    xws = 'jangofett',
     limited = 1,
-    Faction = 'separatistalliance',
+    faction = 'separatistalliance',
     ship_type = 'firesprayclasspatrolcraft',
-    init = 6,
+    initiative = 6,
     texture = 'jango',
-    actSet = { 'F', 'R', 'TL', 'B' },
+    action_set = { 'F', 'R', 'TL', 'B' },
     keywords = { 'Bounty Hunter' }
 }
 
 masterPilotDB['zamwesell'] = {
     name = 'Zam Wesell',
-    XWS = 'zamwesell',
+    xws = 'zamwesell',
     limited = 1,
-    Faction = 'separatistalliance',
-    Condition = 'Zam Wesell',
-    Charge = 4,
+    faction = 'separatistalliance',
+    condition = 'Zam Wesell',
+    charge = 4,
     ship_type = 'firesprayclasspatrolcraft',
-    init = 5,
+    initiative = 5,
     texture = 'zam',
-    actSet = { 'F', 'R', 'TL', 'B' },
+    action_set = { 'F', 'R', 'TL', 'B' },
     keywords = { 'Bounty Hunter' }
 }
 
 masterPilotDB['bobafett-firesprayclasspatrolcraft'] = {
     name = 'Boba Fett',
-    XWS = 'bobafett-firesprayclasspatrolcraft',
+    xws = 'bobafett-firesprayclasspatrolcraft',
     title = 'Survivor',
     limited = 1,
-    Faction = 'separatistalliance',
+    faction = 'separatistalliance',
     ship_type = 'firesprayclasspatrolcraft',
-    init = 3,
+    initiative = 3,
     texture = 'jango',
-    actSet = { 'F', 'R', 'TL', 'B' },
+    action_set = { 'F', 'R', 'TL', 'B' },
     keywords = { 'Bounty Hunter' }
 }
 
 masterPilotDB['separatistracketeer'] = {
     name = 'Separatist Racketeer',
-    XWS = 'separatistracketeer',
-    Faction = 'separatistalliance',
+    xws = 'separatistracketeer',
+    faction = 'separatistalliance',
     ship_type = 'firesprayclasspatrolcraft',
-    init = 2,
+    initiative = 2,
     texture = 'zam',
-    actSet = { 'F', 'R', 'TL', 'B' }
+    action_set = { 'F', 'R', 'TL', 'B' }
 }
 
 -- Tie Whisper
 
 masterPilotDB['709thlegionace'] = {
     name = '709th Legion Ace',
-    XWS = '709thlegionace',
-    Faction = 'firstorder',
+    xws = '709thlegionace',
+    faction = 'firstorder',
     ship_type = 'tiewiwhispermodifiedinterceptor',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'Rot', 'E', 'TL', 'BR', 'B' }
+    action_set = { 'F', 'Rot', 'E', 'TL', 'BR', 'B' }
 }
 
 masterPilotDB['wrath'] = {
     name = '"Wrath"',
-    XWS = 'wrath',
-    Faction = 'firstorder',
+    xws = 'wrath',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'tiewiwhispermodifiedinterceptor',
-    init = 5,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'Rot', 'E', 'TL', 'BR', 'B' }
+    action_set = { 'F', 'Rot', 'E', 'TL', 'BR', 'B' }
 }
 
 masterPilotDB['whirlwind'] = {
     name = '"Whirlwind"',
-    XWS = 'whirlwind',
-    Faction = 'firstorder',
+    xws = 'whirlwind',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'tiewiwhispermodifiedinterceptor',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'Rot', 'E', 'TL', 'BR', 'B' }
+    action_set = { 'F', 'Rot', 'E', 'TL', 'BR', 'B' }
 }
 
 masterPilotDB['nightfall'] = {
     name = '"Nightfall"',
-    XWS = 'nightfall',
-    Faction = 'firstorder',
+    xws = 'nightfall',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'tiewiwhispermodifiedinterceptor',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'Rot', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'Rot', 'E', 'TL', 'BR', 'B' },
     movethrough = true
 }
 
 masterPilotDB['kyloren-tiewiwhispermodifiedinterceptor'] = {
     name = 'Kylo Ren',
-    XWS = 'kyloren-tiewiwhispermodifiedinterceptor',
-    Faction = 'firstorder',
+    xws = 'kyloren-tiewiwhispermodifiedinterceptor',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'tiewiwhispermodifiedinterceptor',
-    init = 5,
-    Force = 3,
+    initiative = 5,
+    force = 3,
     texture = 'standard',
-    actSet = { 'F', 'Rot', 'E', 'TL', 'BR', 'B' }
+    action_set = { 'F', 'Rot', 'E', 'TL', 'BR', 'B' }
 }
 
 masterPilotDB['redfuryzealot'] = {
     name = 'Red Fury Zealot',
-    XWS = 'redfuryzealot',
-    Faction = 'firstorder',
+    xws = 'redfuryzealot',
+    faction = 'firstorder',
     ship_type = 'tiewiwhispermodifiedinterceptor',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'Rot', 'E', 'TL', 'BR', 'B' }
+    action_set = { 'F', 'Rot', 'E', 'TL', 'BR', 'B' }
 }
 
 -- First Order Bomber
 
 masterPilotDB['firstordercadet'] = {
     name = 'First Order Cadet',
-    XWS = 'firstordercadet',
-    Faction = 'firstorder',
+    xws = 'firstordercadet',
+    faction = 'firstorder',
     ship_type = 'tiesebomber',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR', 'B', 'E' }
+    action_set = { 'F', 'TL', 'BR', 'B', 'E' }
 }
 
 masterPilotDB['sienarjaemustestpilot'] = {
     name = 'Sienar-Jaemus Test Pilot',
-    XWS = 'sienarjaemustestpilot',
-    Faction = 'firstorder',
+    xws = 'sienarjaemustestpilot',
+    faction = 'firstorder',
     ship_type = 'tiesebomber',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR', 'B', 'E' }
+    action_set = { 'F', 'TL', 'BR', 'B', 'E' }
 }
 
 masterPilotDB['grudge'] = {
     name = '"Grudge"',
-    XWS = 'grudge',
-    Faction = 'firstorder',
+    xws = 'grudge',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'tiesebomber',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR', 'B', 'E' }
+    action_set = { 'F', 'TL', 'BR', 'B', 'E' }
 }
 
 masterPilotDB['scorch-tiesebomber'] = {
     name = '"Scorch"',
-    XWS = 'scorch-tiesebomber',
-    Faction = 'firstorder',
+    xws = 'scorch-tiesebomber',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'tiesebomber',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR', 'B', 'E' }
+    action_set = { 'F', 'TL', 'BR', 'B', 'E' }
 }
 
 masterPilotDB['breach'] = {
     name = '"Breach"',
-    XWS = 'breach',
-    Faction = 'firstorder',
+    xws = 'breach',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'tiesebomber',
-    init = 5,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR', 'B', 'E' }
+    action_set = { 'F', 'TL', 'BR', 'B', 'E' }
 }
 
 masterPilotDB['dread'] = {
     name = '"Dread"',
-    XWS = 'dread',
-    Faction = 'firstorder',
+    xws = 'dread',
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'tiesebomber',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR', 'B', 'E' }
+    action_set = { 'F', 'TL', 'BR', 'B', 'E' }
 }
 
 -- Resistance Y-Wing
 
 masterPilotDB['newrepublicpatrol'] = {
     name = 'New Republic Patrol',
-    XWS = 'newrepublicpatrol',
-    Faction = 'resistance',
+    xws = 'newrepublicpatrol',
+    faction = 'resistance',
     ship_type = 'btanr2ywing',
-    init = 3,
+    initiative = 3,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+    action_set = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
 masterPilotDB['kijimispicerunner'] = {
     name = 'Kijimi Spice Runner',
-    XWS = 'kijimispicerunner',
-    Faction = 'resistance',
+    xws = 'kijimispicerunner',
+    faction = 'resistance',
     ship_type = 'btanr2ywing',
-    init = 2,
+    initiative = 2,
     texture = 'plain',
-    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+    action_set = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
 masterPilotDB['tezanasz'] = {
     name = 'Teza Nasz',
-    XWS = 'tezanasz',
-    Faction = 'resistance',
+    xws = 'tezanasz',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing',
-    init = 4,
+    initiative = 4,
     texture = 'teza',
-    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+    action_set = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
 masterPilotDB['shasazaro'] = {
     name = 'Shasa Zaro',
-    XWS = 'shasazaro',
-    Faction = 'resistance',
+    xws = 'shasazaro',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing',
-    init = 3,
+    initiative = 3,
     texture = 'red',
-    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+    action_set = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
 masterPilotDB['coruskapellim'] = {
     name = 'Corus Kapellim',
-    XWS = 'coruskapellim',
-    Faction = 'resistance',
+    xws = 'coruskapellim',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing',
-    init = 1,
+    initiative = 1,
     texture = 'corus',
-    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+    action_set = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
 masterPilotDB['caithrenalli-btanr2ywing'] = {
     name = "C'ai Threnalli",
-    XWS = 'caithrenalli-btanr2ywing',
-    Faction = 'resistance',
+    xws = 'caithrenalli-btanr2ywing',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing',
-    init = 2,
+    initiative = 2,
     texture = 'cai',
-    actSet = { 'F', 'TL', 'BR', 'B', 'C', 'E' },
+    action_set = { 'F', 'TL', 'BR', 'B', 'C', 'E' },
     movethrough = true
 }
 
 masterPilotDB['wilsateshlo'] = {
     name = 'Wilsa Teshlo',
-    XWS = 'wilsateshlo',
-    Faction = 'resistance',
+    xws = 'wilsateshlo',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing',
-    init = 4,
+    initiative = 4,
     texture = 'wilsa',
-    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+    action_set = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
 masterPilotDB['zoriibliss'] = {
     name = 'Zorii Bliss',
-    XWS = 'zoriibliss',
-    Charge = 1,
-    Faction = 'resistance',
+    xws = 'zoriibliss',
+    charge = 1,
+    faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing',
-    init = 5,
+    initiative = 5,
     texture = 'red',
-    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+    action_set = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
 masterPilotDB['aftabackbar'] = {
     name = 'Aftab Ackbar',
-    XWS = 'aftabackbar',
-    Faction = 'resistance',
+    xws = 'aftabackbar',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing',
-    init = 2,
+    initiative = 2,
     texture = 'cai',
-    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+    action_set = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
 masterPilotDB['legafossang'] = {
     name = 'Lega Fossang',
-    XWS = 'legafossang',
-    Faction = 'resistance',
+    xws = 'legafossang',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing',
-    init = 3,
+    initiative = 3,
     texture = 'lega',
-    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+    action_set = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
 
 --- NEW SHIT:
 masterPilotDB['fennrau-fangfighter'] = {
     name = 'Fenn Rau',
-    XWS = 'fennrau-fangfighter',
-    Faction = 'rebelalliance',
+    xws = 'fennrau-fangfighter',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'fangfighter',
-    init = 6,
+    initiative = 6,
     texture = 'rebelfenn',
-    actSet = { 'F', 'TL', 'B', 'BR' },
+    action_set = { 'F', 'TL', 'B', 'BR' },
     keywords = { 'Mandalorian' }
 }
 
 masterPilotDB['bodicavenj'] = {
     name = 'Bodica Venj',
-    XWS = 'bodicavenj',
-    Faction = 'rebelalliance',
+    xws = 'bodicavenj',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'fangfighter',
-    init = 4,
+    initiative = 4,
     texture = 'bodica',
-    actSet = { 'F', 'TL', 'B', 'BR' },
+    action_set = { 'F', 'TL', 'B', 'BR' },
     keywords = { 'Mandalorian' }
 }
 
 masterPilotDB['dirkullodin'] = {
     name = 'Dirk Ullodin',
-    XWS = 'dirkullodin',
-    Faction = 'rebelalliance',
+    xws = 'dirkullodin',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'fangfighter',
-    init = 3,
-    init = 3,
+    initiative = 3,
+    initiative = 3,
     texture = 'dirk',
-    actSet = { 'F', 'TL', 'B', 'BR' },
+    action_set = { 'F', 'TL', 'B', 'BR' },
     keywords = { 'Mandalorian' }
 }
 
 masterPilotDB['clanwrenvolunteer'] = {
     name = 'Clan Wren Volunteer',
-    XWS = 'clanwrenvolunteer',
-    Faction = 'rebelalliance',
+    xws = 'clanwrenvolunteer',
+    faction = 'rebelalliance',
     limited = 2,
     ship_type = 'fangfighter',
-    init = 3,
+    initiative = 3,
     texture = 'volunteer',
-    actSet = { 'F', 'TL', 'B', 'BR' },
+    action_set = { 'F', 'TL', 'B', 'BR' },
     keywords = { 'Mandalorian' }
 }
 
 masterPilotDB['mandalorianroyalguard'] = {
     name = 'Mandalorian Royal Guard',
-    XWS = 'mandalorianroyalguard',
-    Faction = 'scumandvillainy',
+    xws = 'mandalorianroyalguard',
+    faction = 'scumandvillainy',
     limited = 2,
     ship_type = 'fangfighter',
-    init = 4,
+    initiative = 4,
     texture = 'original',
-    actSet = { 'F', 'TL', 'B', 'BR' },
+    action_set = { 'F', 'TL', 'B', 'BR' },
     keywords = { 'Mandalorian' }
 }
 
@@ -5715,179 +5715,179 @@ masterPilotDB['mandalorianroyalguard'] = {
 
 masterPilotDB['moffgideon'] = {
     name = 'Moff Gideon',
-    XWS = 'moffgideon',
-    Faction = 'galacticempire',
+    xws = 'moffgideon',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
-    Charge = 2,
-    init = 4,
+    charge = 2,
+    initiative = 4,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['isbjingoist'] = {
     name = 'ISB Jingoist',
-    XWS = 'isbjingoist',
-    Faction = 'galacticempire',
+    xws = 'isbjingoist',
+    faction = 'galacticempire',
     limited = 2,
     ship_type = 'tielnfighter',
-    init = 4,
+    initiative = 4,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 
 -- Gauntlet fighter:
 masterPilotDB['maul'] = {
     name = 'Maul',
-    XWS = 'maul',
-    Faction = 'scumandvillainy',
+    xws = 'maul',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'gauntletfighter',
-    Force = 3,
-    init = 5,
+    force = 3,
+    initiative = 5,
     texture = 'maul',
-    actSet = { 'F', 'TL', 'R', 'Piv' },
+    action_set = { 'F', 'TL', 'R', 'Piv' },
 }
 
 masterPilotDB['bokatankryze'] = {
     name = 'Bo-Katan Kryze',
     title = 'Nite Owl Commander',
-    XWS = 'bokatankryze',
-    Faction = 'galacticrepublic',
+    xws = 'bokatankryze',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'gauntletfighter',
-    init = 4,
+    initiative = 4,
     texture = 'bokatan',
-    actSet = { 'F', 'TL', 'R', 'Piv' },
+    action_set = { 'F', 'TL', 'R', 'Piv' },
 }
 
 masterPilotDB['bokatankryze-separatistalliance'] = {
     name = 'Bo-Katan Kryze',
     title = "Vizsla's Lieutenant",
-    XWS = 'bokatankryze-separatistalliance',
-    Faction = 'separatistalliance',
+    xws = 'bokatankryze-separatistalliance',
+    faction = 'separatistalliance',
     limited = 1,
-    Charge = 1,
+    charge = 1,
     ship_type = 'gauntletfighter',
-    init = 4,
+    initiative = 4,
     texture = 'bokatancis',
-    actSet = { 'F', 'TL', 'R', 'Piv' },
+    action_set = { 'F', 'TL', 'R', 'Piv' },
 }
 
 masterPilotDB['previzsla'] = {
     name = 'Pre Vizsla',
-    XWS = 'previzsla',
-    Faction = 'separatistalliance',
+    xws = 'previzsla',
+    faction = 'separatistalliance',
     limited = 1,
-    Charge = 2,
+    charge = 2,
     ship_type = 'gauntletfighter',
-    init = 3,
+    initiative = 3,
     texture = 'previzsla',
-    actSet = { 'F', 'TL', 'R', 'Piv' },
+    action_set = { 'F', 'TL', 'R', 'Piv' },
 }
 
 masterPilotDB['rookkast'] = {
     name = 'Rook Kast',
-    XWS = 'rookkast',
-    Faction = 'scumandvillainy',
+    xws = 'rookkast',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'gauntletfighter',
-    init = 3,
+    initiative = 3,
     texture = 'scum',
-    actSet = { 'F', 'TL', 'R', 'Piv' },
+    action_set = { 'F', 'TL', 'R', 'Piv' },
 }
 
 masterPilotDB['deathwatchwarrior'] = {
     name = 'Death Watch Warrior',
-    XWS = 'deathwatchwarrior',
-    Faction = 'separatistalliance',
+    xws = 'deathwatchwarrior',
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'gauntletfighter',
-    init = 2,
+    initiative = 2,
     texture = 'deathwatch',
-    actSet = { 'F', 'TL', 'R', 'Piv' },
+    action_set = { 'F', 'TL', 'R', 'Piv' },
 }
 
 masterPilotDB['niteowlliberator'] = {
     name = 'Nite Owl Liberator',
-    XWS = 'niteowlliberator',
-    Faction = 'galacticrepublic',
+    xws = 'niteowlliberator',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'gauntletfighter',
-    init = 2,
+    initiative = 2,
     texture = 'default',
-    actSet = { 'F', 'TL', 'R', 'Piv' },
+    action_set = { 'F', 'TL', 'R', 'Piv' },
 }
 
 masterPilotDB['shadowcollectiveoperator'] = {
     name = 'Shadow Collective Operator',
-    XWS = 'shadowcollectiveoperator',
-    Faction = 'scumandvillainy',
+    xws = 'shadowcollectiveoperator',
+    faction = 'scumandvillainy',
     ship_type = 'gauntletfighter',
-    init = 1,
+    initiative = 1,
     texture = 'scum',
-    actSet = { 'F', 'TL', 'R', 'Piv' },
+    action_set = { 'F', 'TL', 'R', 'Piv' },
 }
 
 masterPilotDB['ezrabridger-gauntletfighter'] = {
     name = 'Ezra Bridger',
-    XWS = 'ezrabridger-gauntletfighter',
-    Faction = 'rebelalliance',
+    xws = 'ezrabridger-gauntletfighter',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'gauntletfighter',
-    Force = 1,
-    init = 3,
+    force = 1,
+    initiative = 3,
     texture = 'scum',
-    actSet = { 'F', 'TL', 'R', 'Piv' },
+    action_set = { 'F', 'TL', 'R', 'Piv' },
 }
 
 masterPilotDB['chopper-gauntletfighter'] = {
     name = '"Chopper"',
-    XWS = 'chopper-gauntletfighter',
-    Faction = 'rebelalliance',
+    xws = 'chopper-gauntletfighter',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'gauntletfighter',
-    init = 2,
+    initiative = 2,
     texture = 'scum',
-    actSet = { 'C', 'TL', 'R', 'Piv' },
+    action_set = { 'C', 'TL', 'R', 'Piv' },
 }
 
 masterPilotDB['mandalorianresistancepilot'] = {
     name = 'Mandalorian Resistance Pilot',
-    XWS = 'mandalorianresistancepilot',
-    Faction = 'rebelalliance',
+    xws = 'mandalorianresistancepilot',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'gauntletfighter',
-    init = 2,
+    initiative = 2,
     texture = 'default',
-    actSet = { 'F', 'TL', 'R', 'Piv' },
+    action_set = { 'F', 'TL', 'R', 'Piv' },
 }
 
 masterPilotDB['captainhark'] = {
     name = 'Captain Hark',
-    XWS = 'captainhark',
-    Faction = 'galacticempire',
+    xws = 'captainhark',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'gauntletfighter',
-    init = 3,
+    initiative = 3,
     texture = 'imperial',
-    actSet = { 'F', 'TL', 'R' },
-    executeOptions = {
+    action_set = { 'F', 'TL', 'R' },
+    execute_options = {
         rs0 = { 'rbl1z', 'rs0', 'rbr1z' }
     },
 }
 
 masterPilotDB['garsaxon'] = {
     name = 'Gar Saxon',
-    XWS = 'garsaxon',
-    Charge = 2,
-    Faction = 'galacticempire',
+    xws = 'garsaxon',
+    charge = 2,
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'gauntletfighter',
-    init = 3,
+    initiative = 3,
     texture = 'deathwatch',
-    actSet = { 'F', 'TL', 'R', 'Piv' },
+    action_set = { 'F', 'TL', 'R', 'Piv' },
 }
 
 
@@ -5895,154 +5895,154 @@ masterPilotDB['garsaxon'] = {
 
 masterPilotDB['themandalorian'] = {
     name = 'The Mandalorian',
-    XWS = 'themandalorian',
-    Faction = 'scumandvillainy',
+    xws = 'themandalorian',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'st70assaultship',
-    init = 5,
+    initiative = 5,
     texture = 'mandalorian',
-    actSet = { 'F', 'TL', 'E', 'BR' },
+    action_set = { 'F', 'TL', 'E', 'BR' },
 }
 
 masterPilotDB['q90'] = {
     name = 'Q9-0',
-    XWS = 'q90',
-    Faction = 'scumandvillainy',
+    xws = 'q90',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'st70assaultship',
-    init = 5,
+    initiative = 5,
     texture = 'guildbountyhunter',
-    actSet = { 'C', 'TL', 'E', 'BR' },
+    action_set = { 'C', 'TL', 'E', 'BR' },
 }
 
 masterPilotDB['guildbountyhunter'] = {
     name = 'Guild Bounty Hunter',
-    XWS = 'guildbountyhunter',
-    Faction = 'scumandvillainy',
+    xws = 'guildbountyhunter',
+    faction = 'scumandvillainy',
     limited = 2,
     ship_type = 'st70assaultship',
-    init = 3,
+    initiative = 3,
     texture = 'guildbountyhunter',
-    actSet = { 'F', 'TL', 'E', 'BR' },
+    action_set = { 'F', 'TL', 'E', 'BR' },
 }
 
 
 
 masterPilotDB['anakinskywalker-delta7baethersprite'] = {
     name = 'Anakin Skywalker',
-    XWS = 'anakinskywalker-delta7baethersprite',
-    Faction = 'galacticrepublic',
+    xws = 'anakinskywalker-delta7baethersprite',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7baethersprite',
-    Force = 3,
-    init = 6,
+    force = 3,
+    initiative = 6,
     texture = 'anakin',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' }
 }
 
 masterPilotDB['luminaraunduli-delta7baethersprite'] = {
     name = 'Luminara Unduli',
-    XWS = 'luminaraunduli-delta7baethersprite',
-    Faction = 'galacticrepublic',
+    xws = 'luminaraunduli-delta7baethersprite',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7baethersprite',
-    Force = 2,
-    init = 4,
+    force = 2,
+    initiative = 4,
     texture = 'lumi',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' }
 }
 
 masterPilotDB['barrissoffee-delta7baethersprite'] = {
     name = 'Barriss Offee',
-    XWS = 'barrissoffee-delta7baethersprite',
-    Faction = 'galacticrepublic',
+    xws = 'barrissoffee-delta7baethersprite',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7baethersprite',
-    Force = 1,
-    init = 4,
+    force = 1,
+    initiative = 4,
     texture = 'barriss',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' }
 }
 
 masterPilotDB['ahsokatano-delta7baethersprite'] = {
     name = 'Ahsoka Tano',
-    XWS = 'ahsokatano-delta7baethersprite',
-    Faction = 'galacticrepublic',
+    xws = 'ahsokatano-delta7baethersprite',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7baethersprite',
-    Force = 2,
-    init = 3,
+    force = 2,
+    initiative = 3,
     texture = 'ahsoka',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' }
 }
 
 masterPilotDB['obiwankenobi-delta7baethersprite'] = {
     name = 'Obi-Wan Kenobi',
-    XWS = 'obiwankenobi-delta7baethersprite',
-    Faction = 'galacticrepublic',
+    xws = 'obiwankenobi-delta7baethersprite',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7baethersprite',
-    Force = 3,
-    init = 5,
+    force = 3,
+    initiative = 5,
     texture = 'obi',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' }
 }
 
 masterPilotDB['macewindu-delta7baethersprite'] = {
     name = 'Mace Windu',
-    XWS = 'macewindu-delta7baethersprite',
-    Faction = 'galacticrepublic',
+    xws = 'macewindu-delta7baethersprite',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7baethersprite',
-    Force = 3,
-    init = 4,
+    force = 3,
+    initiative = 4,
     texture = 'mace',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' }
 }
 
 masterPilotDB['plokoon-delta7baethersprite'] = {
     name = 'Plo Koon',
-    XWS = 'plokoon-delta7baethersprite',
-    Faction = 'galacticrepublic',
+    xws = 'plokoon-delta7baethersprite',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7baethersprite',
-    Force = 2,
-    init = 5,
+    force = 2,
+    initiative = 5,
     texture = 'plo',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' }
 }
 
 masterPilotDB['saeseetiin-delta7baethersprite'] = {
     name = 'Saesee Tiin',
-    XWS = 'saeseetiin-delta7baethersprite',
-    Faction = 'galacticrepublic',
+    xws = 'saeseetiin-delta7baethersprite',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7baethersprite',
-    Force = 2,
-    init = 4,
+    force = 2,
+    initiative = 4,
     texture = 'saesee',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' }
 }
 
 masterPilotDB['jediknight-delta7baethersprite'] = {
     name = 'Jedi Knight',
-    XWS = 'jediknight-delta7baethersprite',
-    Faction = 'galacticrepublic',
+    xws = 'jediknight-delta7baethersprite',
+    faction = 'galacticrepublic',
     ship_type = 'delta7baethersprite',
-    Force = 1,
-    init = 3,
+    force = 1,
+    initiative = 3,
     texture = 'knight',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' },
-    --tintFriendly = {mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/Small/delta7baethersprite/Jedi_Delta7_tint.obj',
+    --tint_friendly = {mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/Small/delta7baethersprite/Jedi_Delta7_tint.obj',
     --                texture = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/Small/delta7baethersprite/JediKnight-tint.png',}
 }
 
@@ -6050,140 +6050,140 @@ masterPilotDB['jediknight-delta7baethersprite'] = {
 
 masterPilotDB['cadbane-separatistalliance'] = {
     name = 'Cad Bane',
-    XWS = 'cadbane-separatistalliance',
-    Faction = 'separatistalliance',
-    Charge = 1,
+    xws = 'cadbane-separatistalliance',
+    faction = 'separatistalliance',
+    charge = 1,
     limited = 1,
     ship_type = 'rogueclassstarfighter',
-    init = 4,
+    initiative = 4,
     texture = 'grey',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
 }
 
 masterPilotDB['ig101'] = {
     name = 'IG-101',
-    XWS = 'ig101',
-    Faction = 'separatistalliance',
+    xws = 'ig101',
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'rogueclassstarfighter',
-    init = 4,
+    initiative = 4,
     texture = 'grey',
-    actSet = { 'C', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'C', 'E', 'TL', 'BR', 'B' },
 }
 
 masterPilotDB['ig102'] = {
     name = 'IG-102',
-    XWS = 'ig102',
-    Faction = 'separatistalliance',
+    xws = 'ig102',
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'rogueclassstarfighter',
-    init = 4,
+    initiative = 4,
     texture = 'grey',
-    actSet = { 'C', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'C', 'E', 'TL', 'BR', 'B' },
 }
 
 masterPilotDB['ig111'] = {
     name = 'IG-111',
-    XWS = 'ig111',
-    Faction = 'separatistalliance',
+    xws = 'ig111',
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'rogueclassstarfighter',
-    init = 1,
+    initiative = 1,
     texture = 'grey',
-    actSet = { 'C', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'C', 'E', 'TL', 'BR', 'B' },
 }
 
 masterPilotDB['magnaguardprotector'] = {
     name = 'MagnaGuard Protector',
-    XWS = 'magnaguardprotector',
-    Faction = 'separatistalliance',
+    xws = 'magnaguardprotector',
+    faction = 'separatistalliance',
     limited = 2,
     ship_type = 'rogueclassstarfighter',
-    Condition = 'Guarded',
-    init = 4,
+    condition = 'Guarded',
+    initiative = 4,
     texture = 'grey',
-    actSet = { 'C', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'C', 'E', 'TL', 'BR', 'B' },
 }
 
 masterPilotDB['magnaguardexecutioner'] = {
     name = 'MagnaGuard Executioner',
-    XWS = 'magnaguardexecutioner',
-    Faction = 'separatistalliance',
+    xws = 'magnaguardexecutioner',
+    faction = 'separatistalliance',
     ship_type = 'rogueclassstarfighter',
-    init = 3,
+    initiative = 3,
     texture = 'grey',
-    actSet = { 'C', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'C', 'E', 'TL', 'BR', 'B' },
 }
 
 masterPilotDB['cadbane'] = {
     name = 'Cad Bane',
-    XWS = 'cadbane',
-    Faction = 'scumandvillainy',
-    Charge = 2,
+    xws = 'cadbane',
+    faction = 'scumandvillainy',
+    charge = 2,
     limited = 1,
     ship_type = 'rogueclassstarfighter',
-    init = 4,
+    initiative = 4,
     texture = 'green',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
 }
 
 masterPilotDB['viktorhel-rogueclassstarfighter'] = {
     name = 'Viktor Hel',
-    XWS = 'viktorhel-rogueclassstarfighter',
-    Faction = 'scumandvillainy',
+    xws = 'viktorhel-rogueclassstarfighter',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'rogueclassstarfighter',
-    init = 4,
+    initiative = 4,
     texture = 'green',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
 }
 
 masterPilotDB['nomlumb-rogueclassstarfighter'] = {
     name = 'Nom Lumb',
-    XWS = 'nomlumb-rogueclassstarfighter',
-    Faction = 'scumandvillainy',
+    xws = 'nomlumb-rogueclassstarfighter',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'rogueclassstarfighter',
-    init = 1,
+    initiative = 1,
     texture = 'green',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
 }
 
 masterPilotDB['outerrimhunter'] = {
     name = 'Outer Rim Hunter',
-    XWS = 'outerrimhunter',
-    Faction = 'scumandvillainy',
+    xws = 'outerrimhunter',
+    faction = 'scumandvillainy',
     ship_type = 'rogueclassstarfighter',
-    init = 3,
+    initiative = 3,
     texture = 'green',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
 }
 
 -- Clone Z-95
 
 masterPilotDB['hawk-clonez95headhunter'] = {
     name = '"Hawk"',
-    XWS = 'hawk-clonez95headhunter',
-    Faction = 'galacticrepublic',
+    xws = 'hawk-clonez95headhunter',
+    faction = 'galacticrepublic',
     ship_type = 'clonez95headhunter',
-    init = 4,
+    initiative = 4,
     limited = 1,
     texture = 'standard',
-    addSqdAction = { 'BR', 'B' },
-    actSet = { 'F', 'BR', 'TL', 'B' },
+    add_squad_action = { 'BR', 'B' },
+    action_set = { 'F', 'BR', 'TL', 'B' },
 }
 
 masterPilotDB['slider'] = {
     name = '"Slider"',
-    XWS = 'slider',
-    Faction = 'galacticrepublic',
+    xws = 'slider',
+    faction = 'galacticrepublic',
     ship_type = 'clonez95headhunter',
-    Charge = 2,
-    init = 4,
+    charge = 2,
+    initiative = 4,
     limited = 1,
     texture = 'standard',
-    actSet = { 'F', 'BR', 'TL', 'B' },
-    executeOptions = {
+    action_set = { 'F', 'BR', 'TL', 'B' },
+    execute_options = {
         bbl2 = { 'bbl2', 'bbl2z' },
         bbr2 = { 'bbr2', 'bbr2z' },
     },
@@ -6191,124 +6191,124 @@ masterPilotDB['slider'] = {
 
 masterPilotDB['boost'] = {
     name = '"Boost"',
-    XWS = 'boost',
-    Faction = 'galacticrepublic',
+    xws = 'boost',
+    faction = 'galacticrepublic',
     ship_type = 'clonez95headhunter',
-    init = 3,
+    initiative = 3,
     limited = 1,
     texture = 'standard',
-    actSet = { 'F', 'BR', 'B', 'TL' },
+    action_set = { 'F', 'BR', 'B', 'TL' },
 }
 
 masterPilotDB['drift'] = {
     name = '"Drift"',
-    XWS = 'drift',
-    Faction = 'galacticrepublic',
+    xws = 'drift',
+    faction = 'galacticrepublic',
     ship_type = 'clonez95headhunter',
-    init = 3,
+    initiative = 3,
     limited = 1,
     texture = 'standard',
-    actSet = { 'F', 'BR', 'TL', 'B' },
+    action_set = { 'F', 'BR', 'TL', 'B' },
 }
 
 masterPilotDB['stub'] = {
     name = '"Stub"',
-    XWS = 'stub',
-    Faction = 'galacticrepublic',
+    xws = 'stub',
+    faction = 'galacticrepublic',
     ship_type = 'clonez95headhunter',
-    init = 3,
+    initiative = 3,
     limited = 1,
     texture = 'standard',
-    actSet = { 'F', 'BR', 'TL', 'B' },
+    action_set = { 'F', 'BR', 'TL', 'B' },
 }
 
 masterPilotDB['warthog-clonez95headhunter'] = {
     name = '"Warthog"',
-    XWS = 'warthog-clonez95headhunter',
-    Faction = 'galacticrepublic',
+    xws = 'warthog-clonez95headhunter',
+    faction = 'galacticrepublic',
     ship_type = 'clonez95headhunter',
-    init = 3,
+    initiative = 3,
     limited = 1,
     texture = 'standard',
-    actSet = { 'F', 'BR', 'TL', 'B' },
+    action_set = { 'F', 'BR', 'TL', 'B' },
 }
 
 masterPilotDB['killer'] = {
     name = '"Killer"',
-    XWS = 'killer',
-    Faction = 'galacticrepublic',
+    xws = 'killer',
+    faction = 'galacticrepublic',
     ship_type = 'clonez95headhunter',
-    init = 2,
+    initiative = 2,
     limited = 1,
     texture = 'standard',
-    actSet = { 'F', 'BR', 'TL', 'B' },
+    action_set = { 'F', 'BR', 'TL', 'B' },
 }
 
 masterPilotDB['knack'] = {
     name = '"Knack"',
-    XWS = 'knack',
-    Faction = 'galacticrepublic',
+    xws = 'knack',
+    faction = 'galacticrepublic',
     ship_type = 'clonez95headhunter',
-    init = 5,
+    initiative = 5,
     limited = 1,
     texture = 'standard',
-    actSet = { 'F', 'BR', 'TL', 'B' },
+    action_set = { 'F', 'BR', 'TL', 'B' },
 }
 
 masterPilotDB['reapersquadronscout'] = {
     name = 'Reaper Squadron Scout',
-    XWS = 'reapersquadronscout',
-    Faction = 'galacticrepublic',
+    xws = 'reapersquadronscout',
+    faction = 'galacticrepublic',
     ship_type = 'clonez95headhunter',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'BR', 'TL', 'B' },
+    action_set = { 'F', 'BR', 'TL', 'B' },
 }
 
 masterPilotDB['7thskycorpspilot'] = {
     name = '7th Sky Corps Pilot',
-    XWS = '7thskycorpspilot',
-    Faction = 'galacticrepublic',
+    xws = '7thskycorpspilot',
+    faction = 'galacticrepublic',
     ship_type = 'clonez95headhunter',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'BR', 'TL', 'B' },
+    action_set = { 'F', 'BR', 'TL', 'B' },
 }
 
 -- Missing ships
 masterPilotDB['imperialsupercommando'] = {
     name = 'Imperial Super Commando',
-    XWS = 'imperialsupercommando',
-    Faction = 'galacticempire',
+    xws = 'imperialsupercommando',
+    faction = 'galacticempire',
     ship_type = 'gauntletfighter',
-    init = 2,
+    initiative = 2,
     texture = 'imperial',
-    actSet = { 'F', 'TL', 'R', 'Piv' },
+    action_set = { 'F', 'TL', 'R', 'Piv' },
 }
 
 masterPilotDB['outerrimenforcer'] = {
     name = 'Outer Rim Enforcer',
-    XWS = 'outerrimenforcer',
-    Faction = 'scumandvillainy',
+    xws = 'outerrimenforcer',
+    faction = 'scumandvillainy',
     ship_type = 'st70assaultship',
-    init = 2,
+    initiative = 2,
     texture = 'guildbountyhunter',
-    actSet = { 'F', 'TL', 'E', 'BR' },
+    action_set = { 'F', 'TL', 'E', 'BR' },
 }
 
 -- Battle of Yavin standardized pilots
 
 masterPilotDB['lukeskywalker-battleofyavin'] = {
     name = 'Luke Skywalker',
-    XWS = 'lukeskywalker-battleofyavin',
+    xws = 'lukeskywalker-battleofyavin',
     title = 'Battle of Yavin',
-    Faction = 'rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
-    Force = 2,
-    init = 5,
+    force = 2,
+    initiative = 5,
     texture = 'luke',
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'BR', 'B' },
     keywords = { 'Light Side' },
     standardized_loadout = true,
     standardized_upgrades = {
@@ -6321,14 +6321,14 @@ masterPilotDB['lukeskywalker-battleofyavin'] = {
 
 masterPilotDB['wedgeantilles-battleofyavin'] = {
     name = 'Wedge Antilles',
-    XWS = 'wedgeantilles-battleofyavin',
+    xws = 'wedgeantilles-battleofyavin',
     title = 'Battle of Yavin',
-    Faction = 'rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
-    init = 5,
+    initiative = 5,
     texture = 'wedge',
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'BR', 'B' },
 
     standardized_loadout = true,
     standardized_upgrades = {
@@ -6341,14 +6341,14 @@ masterPilotDB['wedgeantilles-battleofyavin'] = {
 
 masterPilotDB['jekporkins-battleofyavin'] = {
     name = 'Jek Porkins',
-    XWS = 'jekporkins-battleofyavin',
+    xws = 'jekporkins-battleofyavin',
     title = 'Battle of Yavin',
-    Faction = 'rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
-    init = 4,
+    initiative = 4,
     texture = 'porkins',
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'BR', 'B' },
 
     standardized_loadout = true,
     standardized_upgrades = {
@@ -6360,15 +6360,15 @@ masterPilotDB['jekporkins-battleofyavin'] = {
 
 masterPilotDB['garvendreis-battleofyavin'] = {
     name = 'Garven Dreis',
-    XWS = 'garvendreis-battleofyavin',
+    xws = 'garvendreis-battleofyavin',
     title = 'Battle of Yavin',
-    Faction = 'rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
-    init = 4,
+    initiative = 4,
     texture = 'garven',
-    actSet = { 'F', 'TL', 'BR', 'B' },
-    addSqdAction = { 'F' },
+    action_set = { 'F', 'TL', 'BR', 'B' },
+    add_squad_action = { 'F' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Adv. Proton Torpedoes', charge = 1 },
@@ -6378,14 +6378,14 @@ masterPilotDB['garvendreis-battleofyavin'] = {
 
 masterPilotDB['biggsdarklighter-battleofyavin'] = {
     name = 'Biggs Darklighter',
-    XWS = 'biggsdarklighter-battleofyavin',
+    xws = 'biggsdarklighter-battleofyavin',
     title = 'Battle of Yavin',
-    Faction = 'rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
-    init = 3,
+    initiative = 3,
     texture = 'biggs',
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'BR', 'B' },
 
     standardized_loadout = true,
     standardized_upgrades = {
@@ -6398,14 +6398,14 @@ masterPilotDB['biggsdarklighter-battleofyavin'] = {
 
 masterPilotDB['dextiree-battleofyavin'] = {
     name = 'Dex Tiree',
-    XWS = 'dextiree-battleofyavin',
+    xws = 'dextiree-battleofyavin',
     title = 'Battle of Yavin',
-    Faction = 'rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'btla4ywing',
-    init = 2,
+    initiative = 2,
     texture = 'gold',
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'BR', 'B' },
     arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'dorsal turret', range = 2, type = { 'singleturret' } } } },
     standardized_loadout = true,
     standardized_upgrades = {
@@ -6417,14 +6417,14 @@ masterPilotDB['dextiree-battleofyavin'] = {
 
 masterPilotDB['holokand-battleofyavin'] = {
     name = 'Hol Okand',
-    XWS = 'holokand-battleofyavin',
+    xws = 'holokand-battleofyavin',
     title = 'Battle of Yavin',
-    Faction = 'rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'btla4ywing',
-    init = 4,
+    initiative = 4,
     texture = 'gold',
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'BR', 'B' },
     arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'dorsal turret', range = 2, type = { 'singleturret' } } } },
     standardized_loadout = true,
     standardized_upgrades = {
@@ -6436,14 +6436,14 @@ masterPilotDB['holokand-battleofyavin'] = {
 
 masterPilotDB['popskrail-battleofyavin'] = {
     name = '"Pops" Krail',
-    XWS = 'popskrail-battleofyavin',
+    xws = 'popskrail-battleofyavin',
     title = 'Battle of Yavin',
-    Faction = 'rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'btla4ywing',
-    init = 4,
+    initiative = 4,
     texture = 'gold',
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'BR', 'B' },
     arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'ion cannon turret', range = 2, type = { 'singleturret' }, ion = true } } },
     standardized_loadout = true,
     standardized_upgrades = {
@@ -6455,15 +6455,15 @@ masterPilotDB['popskrail-battleofyavin'] = {
 
 masterPilotDB['hansolo-battleofyavin'] = {
     name = 'Han Solo',
-    XWS = 'hansolo-battleofyavin',
+    xws = 'hansolo-battleofyavin',
     title = 'Battle of Yavin',
-    Faction = 'rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'modifiedyt1300lightfreighter',
-    Charge = 4,
-    init = 6,
+    charge = 4,
+    initiative = 6,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B', 'E' },
+    action_set = { 'F', 'TL', 'B', 'E' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Chewbacca',           charge = 0 },
@@ -6476,16 +6476,16 @@ masterPilotDB['hansolo-battleofyavin'] = {
 
 masterPilotDB['darthvader-battleofyavin'] = {
     name = 'Darth Vader',
-    XWS = 'darthvader-battleofyavin',
+    xws = 'darthvader-battleofyavin',
     title = 'Battle of Yavin',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieadvancedx1',
-    Force = 3,
-    init = 6,
-    Shield = 3,
+    force = 3,
+    initiative = 6,
+    shield = 3,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'BR', 'B' },
     keywords = { 'Dark Side', 'Sith' },
     standardized_loadout = true,
     standardized_upgrades = {
@@ -6497,14 +6497,14 @@ masterPilotDB['darthvader-battleofyavin'] = {
 
 masterPilotDB['maulermithel-battleofyavin'] = {
     name = '"Mauler" Mithel',
-    XWS = 'maulermithel-battleofyavin',
+    xws = 'maulermithel-battleofyavin',
     title = 'Battle of Yavin',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
-    init = 5,
+    initiative = 5,
     texture = 'blue',
-    actSet = { 'F', 'E', 'BR', 'B' },
+    action_set = { 'F', 'E', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Predator',     charge = 0 },
@@ -6514,15 +6514,15 @@ masterPilotDB['maulermithel-battleofyavin'] = {
 
 masterPilotDB['wampa-battleofyavin'] = {
     name = '"Wampa"',
-    XWS = 'wampa-battleofyavin',
+    xws = 'wampa-battleofyavin',
     title = 'Battle of Yavin',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
-    Charge = 1,
-    init = 1,
+    charge = 1,
+    initiative = 1,
     texture = 'blue',
-    actSet = { 'F', 'E', 'BR' },
+    action_set = { 'F', 'E', 'BR' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Elusive',  charge = 1 },
@@ -6532,16 +6532,16 @@ masterPilotDB['wampa-battleofyavin'] = {
 
 masterPilotDB['darkcurse-battleofyavin'] = {
     name = '"Dark Curse"',
-    XWS = 'darkcurse-battleofyavin',
+    xws = 'darkcurse-battleofyavin',
     title = 'Battle of Yavin',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
-    init = 6,
+    initiative = 6,
     texture = 'blue',
-    actSet = { 'F', 'E', 'BR' },
+    action_set = { 'F', 'E', 'BR' },
     standardized_loadout = true,
-    executeOptions = {
+    execute_options = {
         rk3 = { [1] = 'rk3', [2] = 'rbl3s', [3] = 'rbr3s' },
     },
     standardized_upgrades = {
@@ -6552,14 +6552,14 @@ masterPilotDB['darkcurse-battleofyavin'] = {
 
 masterPilotDB['backstabber-battleofyavin'] = {
     name = '"Backstabber"',
-    XWS = 'backstabber-battleofyavin',
+    xws = 'backstabber-battleofyavin',
     title = 'Battle of Yavin',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
-    init = 5,
+    initiative = 5,
     texture = 'blue',
-    actSet = { 'F', 'E', 'BR', 'B', 'TL' },
+    action_set = { 'F', 'E', 'BR', 'B', 'TL' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Crackshot',    charge = 1 },
@@ -6570,16 +6570,16 @@ masterPilotDB['backstabber-battleofyavin'] = {
 
 masterPilotDB['idenversio-battleofyavin'] = {
     name = 'Iden Versio',
-    XWS = 'idenversio-battleofyavin',
+    xws = 'idenversio-battleofyavin',
     title = 'Battle of Yavin',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
-    Shield = 1,
+    shield = 1,
     ship_type = 'tieininterceptor',
-    Charge = 2,
-    init = 4,
+    charge = 2,
+    initiative = 4,
     texture = 'the181',
-    actSet = { 'F', 'E', 'BR', 'B' },
+    action_set = { 'F', 'E', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Predator', charge = 0 },
@@ -6589,15 +6589,15 @@ masterPilotDB['idenversio-battleofyavin'] = {
 
 masterPilotDB['sigma4-battleofyavin'] = {
     name = 'Sigma 4',
-    XWS = 'sigma4-battleofyavin',
+    xws = 'sigma4-battleofyavin',
     title = 'Battle of Yavin',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieininterceptor',
-    Charge = 2,
-    init = 4,
+    charge = 2,
+    initiative = 4,
     texture = 'the181',
-    actSet = { 'F', 'E', 'BR', 'B', 'TL' },
+    action_set = { 'F', 'E', 'BR', 'B', 'TL' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Disciplined',      charge = 0 },
@@ -6607,15 +6607,15 @@ masterPilotDB['sigma4-battleofyavin'] = {
 
 masterPilotDB['sigma5-battleofyavin'] = {
     name = 'Sigma 5',
-    XWS = 'sigma5-battleofyavin',
+    xws = 'sigma5-battleofyavin',
     title = 'Battle of Yavin',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieininterceptor',
-    Charge = 2,
-    init = 4,
+    charge = 2,
+    initiative = 4,
     texture = 'the181',
-    actSet = { 'F', 'E', 'BR', 'B' },
+    action_set = { 'F', 'E', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Sensor Jammer', charge = 0 },
@@ -6625,15 +6625,15 @@ masterPilotDB['sigma5-battleofyavin'] = {
 
 masterPilotDB['sigma6-battleofyavin'] = {
     name = 'Sigma 6',
-    XWS = 'sigma6-battleofyavin',
+    xws = 'sigma6-battleofyavin',
     title = 'Battle of Yavin',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieininterceptor',
-    Charge = 2,
-    init = 4,
+    charge = 2,
+    initiative = 4,
     texture = 'the181',
-    actSet = { 'F', 'E', 'BR', 'B' },
+    action_set = { 'F', 'E', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Daredevil',    charge = 0 },
@@ -6643,15 +6643,15 @@ masterPilotDB['sigma6-battleofyavin'] = {
 
 masterPilotDB['sigma7-battleofyavin'] = {
     name = 'Sigma 7',
-    XWS = 'sigma7-battleofyavin',
+    xws = 'sigma7-battleofyavin',
     title = 'Battle of Yavin',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieininterceptor',
-    Charge = 2,
-    init = 4,
+    charge = 2,
+    initiative = 4,
     texture = 'the181',
-    actSet = { 'F', 'E', 'BR', 'B', 'TL' },
+    action_set = { 'F', 'E', 'BR', 'B', 'TL' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Marksmanship',        charge = 0 },
@@ -6661,15 +6661,15 @@ masterPilotDB['sigma7-battleofyavin'] = {
 
 masterPilotDB['dutchvander-battleofyavin'] = {
     name = '"Dutch" Vander',
-    XWS = 'dutchvander-battleofyavin',
+    xws = 'dutchvander-battleofyavin',
     title = 'Battle of Yavin',
-    Faction = 'rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'btla4ywing',
-    init = 4,
+    initiative = 4,
     texture = 'gold',
-    actSet = { 'F', 'TL', 'BR', 'B' },
-    addSqdAction = { 'TL' },
+    action_set = { 'F', 'TL', 'BR', 'B' },
+    add_squad_action = { 'TL' },
     arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'ion cannon turret', range = 2, type = { 'singleturret' }, ion = true } } },
     standardized_loadout = true,
     standardized_upgrades = {
@@ -6682,15 +6682,15 @@ masterPilotDB['dutchvander-battleofyavin'] = {
 
 masterPilotDB['anakinskywalker-siegeofcoruscant'] = {
     name = 'Anakin Skywalker',
-    XWS = 'anakinskywalker-siegeofcoruscant',
+    xws = 'anakinskywalker-siegeofcoruscant',
     title = 'Siege of Coruscant',
     limited = 1,
-    Faction = 'galacticrepublic',
-    Force = 3,
+    faction = 'galacticrepublic',
+    force = 3,
     ship_type = 'eta2actis',
-    init = 6,
+    initiative = 6,
     texture = 'anakin',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Dark Side', 'Light Side', 'Jedi' },
     standardized_loadout = true,
     standardized_upgrades = {
@@ -6702,15 +6702,15 @@ masterPilotDB['anakinskywalker-siegeofcoruscant'] = {
 
 masterPilotDB['obiwankenobi-siegeofcoruscant'] = {
     name = 'Obi-Wan Kenobi',
-    XWS = 'obiwankenobi-siegeofcoruscant',
+    xws = 'obiwankenobi-siegeofcoruscant',
     title = 'Siege of Coruscant',
     limited = 1,
-    Faction = 'galacticrepublic',
-    Force = 3,
+    faction = 'galacticrepublic',
+    force = 3,
     ship_type = 'eta2actis',
-    init = 5,
+    initiative = 5,
     texture = 'obi',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' },
     standardized_loadout = true,
     standardized_upgrades = {
@@ -6722,15 +6722,15 @@ masterPilotDB['obiwankenobi-siegeofcoruscant'] = {
 
 masterPilotDB['shaakti-siegeofcoruscant'] = {
     name = 'Shaak Ti',
-    XWS = 'shaakti-siegeofcoruscant',
+    xws = 'shaakti-siegeofcoruscant',
     title = 'Siege of Coruscant',
     limited = 1,
-    Faction = 'galacticrepublic',
-    Force = 2,
+    faction = 'galacticrepublic',
+    force = 2,
     ship_type = 'eta2actis',
-    init = 4,
+    initiative = 4,
     texture = 'shaak',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' },
     standardized_loadout = true,
     standardized_upgrades = {
@@ -6743,16 +6743,16 @@ masterPilotDB['shaakti-siegeofcoruscant'] = {
 
 masterPilotDB['axe-siegeofcoruscant'] = {
     name = '"Axe"',
-    XWS = 'axe-siegeofcoruscant',
-    Faction = 'galacticrepublic',
+    xws = 'axe-siegeofcoruscant',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'v19torrentstarfighter',
     title = 'Siege of Coruscant',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'E', 'TL', 'BR' },
+    action_set = { 'F', 'E', 'TL', 'BR' },
     keywords = { 'Clone' },
-    addSqdAction = { 'TL' },
+    add_squad_action = { 'TL' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Deadeye Shot',    charge = 0 },
@@ -6762,14 +6762,14 @@ masterPilotDB['axe-siegeofcoruscant'] = {
 
 masterPilotDB['kickback-siegeofcoruscant'] = {
     name = '"Kickback"',
-    XWS = 'kickback-siegeofcoruscant',
+    xws = 'kickback-siegeofcoruscant',
     title = 'Siege of Coruscant',
-    Faction = 'galacticrepublic',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'v19torrentstarfighter',
-    init = 5,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'E', 'TL', 'BR' },
+    action_set = { 'F', 'E', 'TL', 'BR' },
     keywords = { 'Clone' },
     standardized_loadout = true,
     standardized_upgrades = {
@@ -6780,14 +6780,14 @@ masterPilotDB['kickback-siegeofcoruscant'] = {
 
 masterPilotDB['contrail-siegeofcoruscant'] = {
     name = '"Contrail"',
-    XWS = 'contrail-siegeofcoruscant',
+    xws = 'contrail-siegeofcoruscant',
     title = 'Siege of Coruscant',
     limited = 1,
-    Faction = 'galacticrepublic',
+    faction = 'galacticrepublic',
     ship_type = 'nimbusclassvwing',
-    init = 5,
+    initiative = 5,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'BR', 'B' },
     keywords = { 'Clone' },
     standardized_loadout = true,
     standardized_upgrades = {
@@ -6800,15 +6800,15 @@ masterPilotDB['contrail-siegeofcoruscant'] = {
 
 masterPilotDB['jag-siegeofcoruscant'] = {
     name = '"Jag"',
-    XWS = 'jag-siegeofcoruscant',
+    xws = 'jag-siegeofcoruscant',
     title = 'Siege of Coruscant',
-    Faction = 'galacticrepublic',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'arc170starfighter',
-    init = 3,
+    initiative = 3,
     texture = 'republic',
-    actSet = { 'F', 'TL', 'BR' },
-    addSqdAction = { 'TL' },
+    action_set = { 'F', 'TL', 'BR' },
+    add_squad_action = { 'TL' },
     keywords = { 'Clone' },
     standardized_loadout = true,
     standardized_upgrades = {
@@ -6820,15 +6820,15 @@ masterPilotDB['jag-siegeofcoruscant'] = {
 
 masterPilotDB['wolffe-siegeofcoruscant'] = {
     name = '"Wolffe"',
-    XWS = 'wolffe-siegeofcoruscant',
+    xws = 'wolffe-siegeofcoruscant',
     title = 'Siege of Coruscant',
-    Faction = 'galacticrepublic',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'arc170starfighter',
-    Charge = 1,
-    init = 4,
+    charge = 1,
+    initiative = 4,
     texture = 'republic',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Clone' },
     standardized_loadout = true,
     standardized_upgrades = {
@@ -6840,16 +6840,16 @@ masterPilotDB['wolffe-siegeofcoruscant'] = {
 
 masterPilotDB['oddball-siegeofcoruscant'] = {
     name = '"Odd Ball"',
-    XWS = 'oddball-siegeofcoruscant',
+    xws = 'oddball-siegeofcoruscant',
     title = 'Siege of Coruscant',
-    Faction = 'galacticrepublic',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'arc170starfighter',
-    init = 5,
-    Shield = 4,
+    initiative = 5,
+    shield = 4,
     texture = 'republic',
-    actSet = { 'F', 'TL', 'BR' },
-    addSqdAction = { 'TL' },
+    action_set = { 'F', 'TL', 'BR' },
+    add_squad_action = { 'TL' },
     keywords = { 'Clone' },
     standardized_loadout = true,
     standardized_upgrades = {
@@ -6861,14 +6861,14 @@ masterPilotDB['oddball-siegeofcoruscant'] = {
 
 masterPilotDB['countdooku-siegeofcoruscant'] = {
     name = 'Count Dooku',
-    XWS = 'countdooku-siegeofcoruscant',
+    xws = 'countdooku-siegeofcoruscant',
     title = 'Siege of Coruscant',
-    Faction = 'separatistalliance',
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'sithinfiltrator',
-    Force = 3,
-    init = 5,
-    actSet = { 'F', 'TL', 'BR' },
+    force = 3,
+    initiative = 5,
+    action_set = { 'F', 'TL', 'BR' },
     texture = 'standard',
     keywords = { 'Dark Side', 'Sith' },
     standardized_loadout = true,
@@ -6881,14 +6881,14 @@ masterPilotDB['countdooku-siegeofcoruscant'] = {
 
 masterPilotDB['dfs081-siegeofcoruscant'] = {
     name = 'DFS-081',
-    XWS = 'dfs081-siegeofcoruscant',
+    xws = 'dfs081-siegeofcoruscant',
     title = 'Siege of Coruscant',
-    Faction = 'separatistalliance',
-    Charge = 2,
+    faction = 'separatistalliance',
+    charge = 2,
     limited = 1,
     ship_type = 'vultureclassdroidfighter',
-    init = 3,
-    actSet = { 'C', 'BR', 'TL' },
+    initiative = 3,
+    action_set = { 'C', 'BR', 'TL' },
     texture = 'dfs081',
     standardized_loadout = true,
     standardized_upgrades = {
@@ -6901,13 +6901,13 @@ masterPilotDB['dfs081-siegeofcoruscant'] = {
 
 masterPilotDB['dfs311-siegeofcoruscant'] = {
     name = 'DFS-311',
-    XWS = 'dfs311-siegeofcoruscant',
+    xws = 'dfs311-siegeofcoruscant',
     title = 'Siege of Coruscant',
-    Faction = 'separatistalliance',
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'vultureclassdroidfighter',
-    init = 1,
-    actSet = { 'C', 'BR', 'TL' },
+    initiative = 1,
+    action_set = { 'C', 'BR', 'TL' },
     texture = 'dfs311',
     standardized_loadout = true,
     standardized_upgrades = {
@@ -6919,13 +6919,13 @@ masterPilotDB['dfs311-siegeofcoruscant'] = {
 
 masterPilotDB['haorchallprototype-siegeofcoruscant'] = {
     name = 'Haor Chall Prototype',
-    XWS = 'haorchallprototype-siegeofcoruscant',
+    xws = 'haorchallprototype-siegeofcoruscant',
     title = 'Siege of Coruscant',
-    Faction = 'separatistalliance',
+    faction = 'separatistalliance',
     limited = 2,
     ship_type = 'vultureclassdroidfighter',
-    init = 1,
-    actSet = { 'C', 'BR', 'TL' },
+    initiative = 1,
+    action_set = { 'C', 'BR', 'TL' },
     texture = 'proto',
     standardized_loadout = true,
     standardized_upgrades = {
@@ -6940,120 +6940,120 @@ masterPilotDB['haorchallprototype-siegeofcoruscant'] = {
 
 masterPilotDB['adigallia'] = {
     name = 'Adi Gallia',
-    XWS = 'adigallia',
-    Faction = 'galacticrepublic',
+    xws = 'adigallia',
+    faction = 'galacticrepublic',
     ship_type = 'delta7aethersprite',
-    Force = 2,
-    init = 5,
+    force = 2,
+    initiative = 5,
     texture = 'plo',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' },
 }
 
 masterPilotDB['adigallia-delta7baethersprite'] = {
     name = 'Adi Gallia',
-    XWS = 'adigallia-delta7baethersprite',
-    Faction = 'galacticrepublic',
+    xws = 'adigallia-delta7baethersprite',
+    faction = 'galacticrepublic',
     ship_type = 'delta7baethersprite',
     limited = 1,
-    Force = 2,
-    init = 5,
+    force = 2,
+    initiative = 5,
     texture = 'plo',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' },
 }
 
 masterPilotDB['corranhorn-t65xwing'] = {
     name = 'Corran Horn',
-    XWS = 'corranhorn-t65xwing',
-    Faction = 'rebelalliance',
+    xws = 'corranhorn-t65xwing',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
-    init = 5,
+    initiative = 5,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'BR' },
-    addSqdAction = { 'TL' }
+    action_set = { 'F', 'TL', 'BR' },
+    add_squad_action = { 'TL' }
 }
 
 masterPilotDB['doctoraphra'] = {
     name = 'Doctor Aphra',
-    XWS = 'doctoraphra',
-    Faction = 'scumandvillainy',
+    xws = 'doctoraphra',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'yv666lightfreighter',
-    init = 3,
-    Charge = 3,
+    initiative = 3,
+    charge = 3,
     texture = 'aphra',
-    actSet = { 'F', 'TL', 'R' },
+    action_set = { 'F', 'TL', 'R' },
 }
 
 masterPilotDB['durge'] = {
     name = 'Durge',
-    XWS = 'durge',
-    Faction = 'scumandvillainy',
+    xws = 'durge',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'rogueclassstarfighter',
-    init = 5,
+    initiative = 5,
     texture = 'durge',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
 }
 
 masterPilotDB['flightleaderubbel'] = {
     name = 'Flight Leader Ubbel',
-    XWS = 'flightleaderubbel',
+    xws = 'flightleaderubbel',
     limited = 1,
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     ship_type = 'tierbheavy',
-    init = 5,
+    initiative = 5,
     texture = 'blue',
-    actSet = { 'F', 'C', 'TL', 'BR', 'R', 'Rot' },
+    action_set = { 'F', 'C', 'TL', 'BR', 'R', 'Rot' },
 }
 
 masterPilotDB['gavynsykes'] = {
     name = 'Gavyn Sykes',
-    XWS = 'gavynsykes',
-    Faction = 'galacticrepublic',
+    xws = 'gavynsykes',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'nabooroyaln1starfighter',
-    init = 3,
+    initiative = 3,
     texture = 'yellow',
-    actSet = { 'F', 'TL', 'B', 'BR', 'E' }
+    action_set = { 'F', 'TL', 'B', 'BR', 'E' }
 }
 
 masterPilotDB['hondoohnaka'] = {
     name = 'Hondo Ohnaka',
-    XWS = 'hondoohnaka',
-    Faction = 'scumandvillainy',
+    xws = 'hondoohnaka',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'firesprayclasspatrolcraft',
-    init = 1,
+    initiative = 1,
     texture = 'blue',
-    actSet = { 'F', 'R', 'TL', 'B', 'C' },
-    addSqdAction = { 'F', 'R', 'TL', 'B' },
+    action_set = { 'F', 'R', 'TL', 'B', 'C' },
+    add_squad_action = { 'F', 'R', 'TL', 'B' },
 }
 
 masterPilotDB['junoeclipse'] = {
     name = 'Juno Eclipse',
-    XWS = 'junoeclipse',
-    Faction = 'galacticempire',
+    xws = 'junoeclipse',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieadvancedx1',
-    init = 5,
+    initiative = 5,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'BR', 'B' }
+    action_set = { 'F', 'TL', 'BR', 'B' }
 }
 
 masterPilotDB['keovenzee'] = {
     name = 'Keo Venzee',
-    XWS = 'keovenzee',
-    Faction = 'rebelalliance',
+    xws = 'keovenzee',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'rz1awing',
-    init = 3,
-    Force = 1,
+    initiative = 3,
+    force = 1,
     texture = 'keo',
-    actSet = { 'F', 'TL', 'E', 'BR', 'B' },
-    executeOptions = {
+    action_set = { 'F', 'TL', 'E', 'BR', 'B' },
+    execute_options = {
         wtl1 = { 'wtl1', 'rtl1z' },
         wtr1 = { 'wtr1', 'rtr1z' },
         btl2 = { 'btl2', 'wtl2z' },
@@ -7069,74 +7069,74 @@ masterPilotDB['keovenzee'] = {
 
 masterPilotDB['kitfisto'] = {
     name = 'Kit Fisto',
-    XWS = 'kitfisto',
+    xws = 'kitfisto',
     limited = 1,
-    Faction = 'galacticrepublic',
-    Force = 2,
+    faction = 'galacticrepublic',
+    force = 2,
     ship_type = 'eta2actis',
-    init = 4,
+    initiative = 4,
     texture = 'kit',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Light Side', 'Jedi' }
 }
 
 masterPilotDB['lapin'] = {
     name = 'Lapin',
-    XWS = 'lapin',
-    Faction = 'scumandvillainy',
+    xws = 'lapin',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'modifiedtielnfighter',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['magnatolvan'] = {
     name = 'Magna Tolvan',
-    XWS = 'magnatolvan',
-    Faction = 'galacticempire',
+    xws = 'magnatolvan',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
-    init = 3,
+    initiative = 3,
     texture = 'blue',
-    actSet = { 'F', 'E', 'BR' }
+    action_set = { 'F', 'E', 'BR' }
 }
 
 masterPilotDB['popskrail'] = {
     name = '"Pops" Krail',
-    XWS = 'popskrail',
-    Faction = 'rebelalliance',
+    xws = 'popskrail',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'btla4ywing',
-    init = 3,
+    initiative = 3,
     texture = 'gold',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
 }
 
 masterPilotDB['secondsister'] = {
     name = 'Second Sister',
-    XWS = 'secondsister',
-    Faction = 'galacticempire',
+    xws = 'secondsister',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieininterceptor',
-    Force = 2,
-    init = 4,
+    force = 2,
+    initiative = 4,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR', 'B' }
+    action_set = { 'F', 'E', 'BR', 'B' }
 }
 
 masterPilotDB['sicko'] = {
     name = '"Sicko"',
-    XWS = 'sicko',
+    xws = 'sicko',
     limited = 1,
-    Faction = 'galacticrepublic',
+    faction = 'galacticrepublic',
     ship_type = 'laatigunship',
-    Condition = 'Sickening Maneuver',
-    init = 2,
+    condition = 'Sickening Maneuver',
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'R', 'TL', 'Rot' },
+    action_set = { 'F', 'R', 'TL', 'Rot' },
     keywords = { 'Clone' },
-    executeOptions = {
+    execute_options = {
         wbl1 = { [1] = 'wbl1', [2] = 'wbl1z' },
         wbr1 = { [1] = 'wbr1', [2] = 'wbr1z' },
         wtl2 = { [1] = 'wtl2', [2] = 'wtl2z' },
@@ -7156,214 +7156,214 @@ masterPilotDB['sicko'] = {
 
 masterPilotDB['slammer'] = {
     name = '"Slammer"',
-    XWS = 'slammer',
-    Faction = 'galacticrepublic',
+    xws = 'slammer',
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'v19torrentstarfighter',
-    init = 1,
-    Charge = 2,
+    initiative = 1,
+    charge = 2,
     texture = 'standard',
-    actSet = { 'F', 'E', 'TL', 'BR' },
+    action_set = { 'F', 'E', 'TL', 'BR' },
     keywords = { 'Clone' }
 }
 
 masterPilotDB['torphun'] = {
     name = 'Tor Phun',
-    XWS = 'torphun',
-    Faction = 'scumandvillainy',
+    xws = 'torphun',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'fangfighter',
-    init = 3,
+    initiative = 3,
     texture = 'new',
-    actSet = { 'F', 'TL', 'B', 'BR' },
+    action_set = { 'F', 'TL', 'B', 'BR' },
     keywords = { 'Mandalorian' }
 }
 
 masterPilotDB['tychocelchu'] = {
     name = 'Tycho Celchu',
-    XWS = 'tychocelchu',
-    Faction = 'rebelalliance',
+    xws = 'tychocelchu',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'rz1awing',
-    init = 5,
+    initiative = 5,
     texture = 'arvel',
-    actSet = { 'F', 'TL', 'E', 'BR', 'B' }
+    action_set = { 'F', 'TL', 'E', 'BR', 'B' }
 }
 
 masterPilotDB['wesjanson'] = {
     name = 'Wes Janson',
-    XWS = 'wesjanson',
-    Faction = 'rebelalliance',
+    xws = 'wesjanson',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
-    init = 5,
-    Charge = 1,
+    initiative = 5,
+    charge = 1,
     texture = 'wes',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
 }
 
 masterPilotDB['yricaquell'] = {
     name = 'Yrica Quell',
-    XWS = 'yricaquell',
-    Faction = 'galacticempire',
+    xws = 'yricaquell',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
-    init = 3,
+    initiative = 3,
     texture = 'blue',
-    actSet = { 'F', 'E', 'BR', 'TL' }
+    action_set = { 'F', 'E', 'BR', 'TL' }
 }
 
 masterPilotDB['takajamoreesa'] = {
     name = 'Taka Jamoreesa',
-    XWS = 'takajamoreesa',
-    Faction = 'resistance',
+    xws = 'takajamoreesa',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'resistancetransport',
-    init = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'TL' }
+    action_set = { 'F', 'TL' }
 }
 
 masterPilotDB['zayversio'] = {
     name = 'Zay Versio',
-    XWS = 'zayversio',
+    xws = 'zayversio',
     limited = 1,
-    Faction = 'resistance',
+    faction = 'resistance',
     ship_type = 't70xwing',
-    addSlot = { 'Weapon Hardpoint' },
-    init = 3,
+    add_slots = { 'Weapon Hardpoint' },
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B' }
+    action_set = { 'F', 'TL', 'B' }
 }
 
 masterPilotDB['venisadoza'] = {
     name = 'Venisa Doza',
-    XWS = 'venisadoza',
+    xws = 'venisadoza',
     limited = 1,
-    Faction = 'resistance',
+    faction = 'resistance',
     ship_type = 't70xwing',
-    addSlot = { 'Weapon Hardpoint' },
-    init = 4,
+    add_slots = { 'Weapon Hardpoint' },
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B' },
+    action_set = { 'F', 'TL', 'B' },
     arcs = { fixed = { range = 3, type = { 'front', 'back' } } },
 }
 
 masterPilotDB['landocalrissian-scavengedyt1300'] = {
     name = "Lando Calrissian",
-    XWS = 'landocalrissian-scavengedyt1300',
-    Faction = 'resistance',
+    xws = 'landocalrissian-scavengedyt1300',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'scavengedyt1300lightfreighter',
-    init = 5,
-    Charge = 3,
+    initiative = 5,
+    charge = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B', 'Rot' }
+    action_set = { 'F', 'TL', 'B', 'Rot' }
 }
 
 masterPilotDB['poedameron-scavengedyt1300'] = {
     name = "Poe Dameron",
-    XWS = 'poedameron-scavengedyt1300',
-    Faction = 'resistance',
+    xws = 'poedameron-scavengedyt1300',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'scavengedyt1300lightfreighter',
-    init = 6,
-    Charge = 2,
+    initiative = 6,
+    charge = 2,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B', 'BR', 'Rot' }
+    action_set = { 'F', 'TL', 'B', 'BR', 'Rot' }
 }
 
 masterPilotDB['theironassembler'] = {
     name = 'The Iron Assembler',
-    XWS = 'theironassembler',
-    Faction = 'separatistalliance',
+    xws = 'theironassembler',
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'vultureclassdroidfighter',
-    Charge = 3,
-    init = 1,
-    actSet = { 'C', 'BR', 'TL' },
+    charge = 3,
+    initiative = 1,
+    action_set = { 'C', 'BR', 'TL' },
     texture = 'proto',
 }
 
 masterPilotDB['kelrodoaiholdout'] = {
     name = 'Kelrodo-Ai Holdout',
-    XWS = 'kelrodoaiholdout',
-    Faction = 'separatistalliance',
+    xws = 'kelrodoaiholdout',
+    faction = 'separatistalliance',
     limited = 3,
     ship_type = 'vultureclassdroidfighter',
-    init = 1,
-    actSet = { 'F', 'BR', 'TL', 'C' },
+    initiative = 1,
+    action_set = { 'F', 'BR', 'TL', 'C' },
     texture = 'proto',
 }
 
 masterPilotDB['aurrasing'] = {
     name = 'Aurra Sing',
-    XWS = 'aurrasing',
+    xws = 'aurrasing',
     limited = 1,
-    Faction = 'separatistalliance',
-    Force = 1,
+    faction = 'separatistalliance',
+    force = 1,
     ship_type = 'firesprayclasspatrolcraft',
-    init = 4,
+    initiative = 4,
     texture = 'zam',
-    actSet = { 'F', 'R', 'TL', 'B' },
+    action_set = { 'F', 'R', 'TL', 'B' },
 }
 
 masterPilotDB['agenttierny'] = {
     name = 'Agent Tierny',
-    XWS = 'agenttierny',
-    Faction = 'firstorder',
+    xws = 'agenttierny',
+    faction = 'firstorder',
     limited = 1,
-    Condition = 'Broken Trust',
+    condition = 'Broken Trust',
     ship_type = 'xiclasslightshuttle',
-    init = 3,
+    initiative = 3,
     texture = 'light',
-    actSet = { 'F', 'TL' }
+    action_set = { 'F', 'TL' }
 }
 
 masterPilotDB['lingaava'] = {
     name = 'Lin Gaava',
-    XWS = 'lingaava',
+    xws = 'lingaava',
     limited = 1,
-    Faction = 'firstorder',
+    faction = 'firstorder',
     ship_type = 'tiefofighter',
-    Condition = 'Primed for Speed',
-    init = 3,
+    condition = 'Primed for Speed',
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'BR' }
+    action_set = { 'F', 'TL', 'E', 'BR' }
 }
 
 masterPilotDB['lieutenantgalek'] = {
     name = 'Lieutenant Galek',
-    XWS = 'lieutenantgalek',
+    xws = 'lieutenantgalek',
     limited = 1,
-    Faction = 'firstorder',
+    faction = 'firstorder',
     ship_type = 'tiefofighter',
-    init = 5,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'BR' }
+    action_set = { 'F', 'TL', 'E', 'BR' }
 }
 
 masterPilotDB['dt798'] = {
     name = 'DT-798',
-    XWS = 'dt798',
+    xws = 'dt798',
     limited = 1,
-    Faction = 'firstorder',
+    faction = 'firstorder',
     ship_type = 'tiefofighter',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'BR' }
+    action_set = { 'F', 'TL', 'E', 'BR' }
 }
 
 masterPilotDB['phlacarphoccprototype-siegeofcoruscant'] = {
     name = "Phlac-Arphocc Prototype",
-    XWS = 'phlacarphoccprototype-siegeofcoruscant',
+    xws = 'phlacarphoccprototype-siegeofcoruscant',
     title = "Siege of Coruscant",
     limited = 2,
-    Faction = 'separatistalliance',
+    faction = 'separatistalliance',
     ship_type = 'droidtrifighter',
-    init = 5,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'C', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'C', 'E', 'TL', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Afterburners',         charge = 2 },
@@ -7374,14 +7374,14 @@ masterPilotDB['phlacarphoccprototype-siegeofcoruscant'] = {
 
 masterPilotDB['dist81-siegeofcoruscant'] = {
     name = "DIS-T81",
-    XWS = 'dist81-siegeofcoruscant',
+    xws = 'dist81-siegeofcoruscant',
     title = "Siege of Coruscant",
     limited = 1,
-    Faction = 'separatistalliance',
+    faction = 'separatistalliance',
     ship_type = 'droidtrifighter',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'C', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'C', 'E', 'TL', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Outmaneuver',          charge = 0 },
@@ -7392,14 +7392,14 @@ masterPilotDB['dist81-siegeofcoruscant'] = {
 
 masterPilotDB['dis347-siegeofcoruscant'] = {
     name = "DIS-347",
-    XWS = 'dis347-siegeofcoruscant',
+    xws = 'dis347-siegeofcoruscant',
     title = "Siege of Coruscant",
     limited = 1,
-    Faction = 'separatistalliance',
+    faction = 'separatistalliance',
     ship_type = 'droidtrifighter',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'C', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'C', 'E', 'TL', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Marksmanship',         charge = 0 },
@@ -7410,13 +7410,13 @@ masterPilotDB['dis347-siegeofcoruscant'] = {
 
 masterPilotDB['baktoidprototype-siegeofcoruscant'] = {
     name = 'Baktoid Prototype',
-    XWS = 'baktoidprototype-siegeofcoruscant',
+    xws = 'baktoidprototype-siegeofcoruscant',
     title = "Siege of Coruscant",
-    Faction = 'separatistalliance',
+    faction = 'separatistalliance',
     limited = 2,
     ship_type = 'hyenaclassdroidbomber',
-    init = 1,
-    actSet = { 'C', 'TL', 'BR' },
+    initiative = 1,
+    action_set = { 'C', 'TL', 'BR' },
     texture = 'baktoid',
     standardized_loadout = true,
     standardized_upgrades = {
@@ -7428,13 +7428,13 @@ masterPilotDB['baktoidprototype-siegeofcoruscant'] = {
 
 masterPilotDB['dbs404-siegeofcoruscant'] = {
     name = 'DBS-404',
-    XWS = 'dbs404-siegeofcoruscant',
+    xws = 'dbs404-siegeofcoruscant',
     title = "Siege of Coruscant",
-    Faction = 'separatistalliance',
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'hyenaclassdroidbomber',
-    init = 4,
-    actSet = { 'C', 'TL', 'BR' },
+    initiative = 4,
+    action_set = { 'C', 'TL', 'BR' },
     texture = 'fourohfour',
     standardized_loadout = true,
     standardized_upgrades = {
@@ -7446,14 +7446,14 @@ masterPilotDB['dbs404-siegeofcoruscant'] = {
 
 masterPilotDB['dbs32c-siegeofcoruscant'] = {
     name = 'DBS-32C',
-    XWS = 'dbs32c-siegeofcoruscant',
+    xws = 'dbs32c-siegeofcoruscant',
     title = "Siege of Coruscant",
-    Faction = 'separatistalliance',
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'hyenaclassdroidbomber',
-    init = 3,
-    actSet = { 'C', 'TL', 'BR' },
-    Charge = 2,
+    initiative = 3,
+    action_set = { 'C', 'TL', 'BR' },
+    charge = 2,
     texture = 'standard',
     standardized_loadout = true,
     standardized_upgrades = {
@@ -7465,42 +7465,42 @@ masterPilotDB['dbs32c-siegeofcoruscant'] = {
 
 masterPilotDB['volandas'] = {
     name = "Volan Das",
-    XWS = 'volandas',
+    xws = 'volandas',
     limited = 1,
-    Faction = 'separatistalliance',
+    faction = 'separatistalliance',
     ship_type = 'droidtrifighter',
-    init = 5,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' }
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' }
 }
 
 masterPilotDB['durge-separatistalliance'] = {
     name = 'Durge',
-    XWS = 'durge-separatistalliance',
-    Faction = 'separatistalliance',
+    xws = 'durge-separatistalliance',
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'rogueclassstarfighter',
-    Charge = 1,
-    init = 5,
+    charge = 1,
+    initiative = 5,
     texture = 'durge',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
 }
 
 masterPilotDB['klick-siegeofcoruscant'] = {
     name = '"Klick"',
-    XWS = 'klick-siegeofcoruscant',
+    xws = 'klick-siegeofcoruscant',
     title = "Siege of Coruscant",
     limited = 1,
-    Faction = 'galacticrepublic',
+    faction = 'galacticrepublic',
     ship_type = 'nimbusclassvwing',
-    Charge = 1,
-    init = 4,
+    charge = 1,
+    initiative = 4,
     texture = 'red',
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'BR', 'B' },
     keywords = { 'Clone' },
-    Shield = 3,
+    shield = 3,
     standardized_loadout = true,
-    executeOptions = {
+    execute_options = {
         rk2 = { [1] = 'rk2', [2] = 'rbl2s', [3] = 'rbr2s' },
     },
     standardized_upgrades = {
@@ -7513,27 +7513,27 @@ masterPilotDB['klick-siegeofcoruscant'] = {
 
 masterPilotDB['juljerjerrod'] = {
     name = 'Jul Jerjerrod',
-    XWS = 'juljerjerrod',
-    Faction = 'firstorder',
+    xws = 'juljerjerrod',
+    faction = 'firstorder',
     limited = 1,
-    Charge = 3,
+    charge = 3,
     ship_type = 'tiesebomber',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR', 'B', 'E' }
+    action_set = { 'F', 'TL', 'BR', 'B', 'E' }
 }
 
 masterPilotDB['lukeskywalker-swz106'] = {
     name = 'Luke Skywalker',
-    XWS = 'lukeskywalker-swz106',
+    xws = 'lukeskywalker-swz106',
     title = 'Squadron Starter Pack',
-    Faction = 'rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
-    Force = 2,
-    init = 5,
+    force = 2,
+    initiative = 5,
     texture = 'luke',
-    actSet = { 'F', 'TL', 'BR', },
+    action_set = { 'F', 'TL', 'BR', },
     keywords = { 'Light Side' },
     standardized_loadout = true,
     standardized_upgrades = {
@@ -7545,14 +7545,14 @@ masterPilotDB['lukeskywalker-swz106'] = {
 
 masterPilotDB['jekporkins-swz106'] = {
     name = 'Jek Porkins',
-    XWS = 'jekporkins-swz106',
+    xws = 'jekporkins-swz106',
     title = 'Squadron Starter Pack',
-    Faction = 'rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
-    init = 4,
+    initiative = 4,
     texture = 'porkins',
-    actSet = { 'F', 'TL', 'BR', },
+    action_set = { 'F', 'TL', 'BR', },
 
     standardized_loadout = true,
     standardized_upgrades = {
@@ -7564,15 +7564,15 @@ masterPilotDB['jekporkins-swz106'] = {
 
 masterPilotDB['dutchvander-swz106'] = {
     name = '"Dutch" Vander',
-    XWS = 'dutchvander-swz106',
+    xws = 'dutchvander-swz106',
     title = 'Squadron Starter Pack',
-    Faction = 'rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'btla4ywing',
-    init = 4,
+    initiative = 4,
     texture = 'gold',
-    actSet = { 'F', 'TL', 'BR', 'B' },
-    addSqdAction = { 'TL' },
+    action_set = { 'F', 'TL', 'BR', 'B' },
+    add_squad_action = { 'TL' },
     arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'ion cannon turret', range = 2, type = { 'singleturret' }, ion = true } } },
     standardized_loadout = true,
     standardized_upgrades = {
@@ -7583,14 +7583,14 @@ masterPilotDB['dutchvander-swz106'] = {
 
 masterPilotDB['hortonsalm-swz106'] = {
     name = 'Horton Salm',
-    XWS = 'hortonsalm-swz106',
+    xws = 'hortonsalm-swz106',
     title = 'Squadron Starter Pack',
-    Faction = 'rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'btla4ywing',
-    init = 4,
+    initiative = 4,
     texture = 'horton',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'ion cannon turret', range = 2, type = { 'singleturret' }, ion = true } } },
     standardized_loadout = true,
     standardized_upgrades = {
@@ -7601,14 +7601,14 @@ masterPilotDB['hortonsalm-swz106'] = {
 
 masterPilotDB['arvelcrynyd-swz106'] = {
     name = 'Arvel Crynyd',
-    XWS = 'arvelcrynyd-swz106',
+    xws = 'arvelcrynyd-swz106',
     title = 'Squadron Starter Pack',
-    Faction = 'rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'rz1awing',
-    init = 3,
+    initiative = 3,
     texture = 'arvel',
-    actSet = { 'F', 'TL', 'E', 'Ail', 'BR' },
+    action_set = { 'F', 'TL', 'E', 'Ail', 'BR' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Predator',     charge = 0 },
@@ -7618,14 +7618,14 @@ masterPilotDB['arvelcrynyd-swz106'] = {
 
 masterPilotDB['jakefarrell-swz106'] = {
     name = 'Jake Farrell',
-    XWS = 'jakefarrell-swz106',
+    xws = 'jakefarrell-swz106',
     title = 'Squadron Starter Pack',
-    Faction = 'rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'rz1awing',
-    init = 4,
+    initiative = 4,
     texture = 'jake',
-    actSet = { 'F', 'TL', 'E', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'E', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Elusive',      charge = 1 },
@@ -7636,14 +7636,14 @@ masterPilotDB['jakefarrell-swz106'] = {
 
 masterPilotDB['sharabey-swz106'] = {
     name = 'Shara Bey',
-    XWS = 'sharabey-swz106',
+    xws = 'sharabey-swz106',
     title = 'Squadron Starter Pack',
-    Faction = 'rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'rz1awing',
-    init = 4,
+    initiative = 4,
     texture = 'shara',
-    actSet = { 'F', 'TL', 'E', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'E', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Hopeful',             charge = 0 },
@@ -7653,16 +7653,16 @@ masterPilotDB['sharabey-swz106'] = {
 
 masterPilotDB['darthvader-swz105'] = {
     name = 'Darth Vader',
-    XWS = 'darthvader-swz105',
+    xws = 'darthvader-swz105',
     title = 'Squadron Starter Pack',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieadvancedx1',
-    Force = 3,
-    init = 6,
-    Shield = 3,
+    force = 3,
+    initiative = 6,
+    shield = 3,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'BR', 'B' },
     keywords = { 'Dark Side', 'Sith' },
     standardized_loadout = true,
     standardized_upgrades = {
@@ -7674,15 +7674,15 @@ masterPilotDB['darthvader-swz105'] = {
 
 masterPilotDB['maarekstele-swz105'] = {
     name = 'Maarek Stele',
-    XWS = 'maarekstele-swz105',
+    xws = 'maarekstele-swz105',
     title = 'Squadron Starter Pack',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieadvancedx1',
-    init = 6,
-    Shield = 2,
+    initiative = 6,
+    shield = 2,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'BR', 'B' },
     keywords = { 'Dark Side', 'Sith' },
     standardized_loadout = true,
     standardized_upgrades = {
@@ -7694,15 +7694,15 @@ masterPilotDB['maarekstele-swz105'] = {
 
 masterPilotDB['captainjonus-swz105'] = {
     name = 'Captain Jonus',
-    XWS = 'captainjonus-swz105',
+    xws = 'captainjonus-swz105',
     title = 'Squadron Starter Pack',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiesabomber',
-    Bomb = true,
-    init = 4,
+    bomb = true,
+    initiative = 4,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Feedback Ping',    charge = 0 },
@@ -7713,15 +7713,15 @@ masterPilotDB['captainjonus-swz105'] = {
 
 masterPilotDB['tomaxbren-swz105'] = {
     name = 'Tomax Bren',
-    XWS = 'tomaxbren-swz105',
+    xws = 'tomaxbren-swz105',
     title = 'Squadron Starter Pack',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiesabomber',
-    Bomb = true,
-    init = 5,
+    bomb = true,
+    initiative = 5,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Elusive',         charge = 1 },
@@ -7732,14 +7732,14 @@ masterPilotDB['tomaxbren-swz105'] = {
 
 masterPilotDB['nightbeast-swz105'] = {
     name = '"Night Beast"',
-    XWS = 'nightbeast-swz105',
+    xws = 'nightbeast-swz105',
     title = 'Squadron Starter Pack',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
-    init = 2,
+    initiative = 2,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR' },
+    action_set = { 'F', 'E', 'BR' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Disciplined', charge = 0 },
@@ -7749,14 +7749,14 @@ masterPilotDB['nightbeast-swz105'] = {
 
 masterPilotDB['valenrudor-swz105'] = {
     name = 'Valen Rudor',
-    XWS = 'valenrudor-swz105',
+    xws = 'valenrudor-swz105',
     title = 'Squadron Starter Pack',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
-    init = 3,
+    initiative = 3,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR' },
+    action_set = { 'F', 'E', 'BR' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Disciplined',           charge = 0 },
@@ -7766,16 +7766,16 @@ masterPilotDB['valenrudor-swz105'] = {
 
 masterPilotDB['idenversio-swz105'] = {
     name = 'Iden Versio',
-    XWS = 'idenversio-swz105',
+    xws = 'idenversio-swz105',
     title = 'Squadron Starter Pack',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
-    Shield = 0,
-    Charge = 1,
-    init = 4,
+    shield = 0,
+    charge = 1,
+    initiative = 4,
     texture = 'inferno',
-    actSet = { 'F', 'E', 'BR' },
+    action_set = { 'F', 'E', 'BR' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Disciplined', charge = 0 },
@@ -7786,15 +7786,15 @@ masterPilotDB['idenversio-swz105'] = {
 masterPilotDB['deathfire-swz98'] = {
     name = '"Deathfire"',
     title = 'SL',
-    XWS = 'deathfire-swz98',
-    Faction = 'galacticempire',
+    xws = 'deathfire-swz98',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiesabomber',
-    Bomb = true,
-    Charge = 2,
-    init = 2,
+    bomb = true,
+    charge = 2,
+    initiative = 2,
     texture = 'grey',
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Swift Approach', charge = 0 },
@@ -7806,14 +7806,14 @@ masterPilotDB['deathfire-swz98'] = {
 masterPilotDB['captainjonus-swz98'] = {
     name = 'Captain Jonus',
     title = 'SL',
-    XWS = 'captainjonus-swz98',
-    Faction = 'galacticempire',
+    xws = 'captainjonus-swz98',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiesabomber',
-    Bomb = true,
-    init = 4,
+    bomb = true,
+    initiative = 4,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'E', 'BR' },
+    action_set = { 'F', 'TL', 'E', 'BR' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Top Cover',       charge = 0 },
@@ -7825,15 +7825,15 @@ masterPilotDB['captainjonus-swz98'] = {
 masterPilotDB['tomaxbren-swz98'] = {
     name = 'Tomax Bren',
     title = 'SL',
-    XWS = 'tomaxbren-swz98',
-    Faction = 'galacticempire',
+    xws = 'tomaxbren-swz98',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiesabomber',
-    Bomb = true,
-    init = 5,
-    Charge = 2,
+    bomb = true,
+    initiative = 5,
+    charge = 2,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'True Grit',        charge = 0 },
@@ -7846,13 +7846,13 @@ masterPilotDB['tomaxbren-swz98'] = {
 masterPilotDB['majorrhymer-swz98'] = {
     name = 'Major Rhymer',
     title = 'SL',
-    XWS = 'majorrhymer-swz98',
-    Faction = 'galacticempire',
+    xws = 'majorrhymer-swz98',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiesabomber',
-    init = 4,
+    initiative = 4,
     texture = 'grey',
-    actSet = { 'F', 'TL', 'B', 'BR' },
+    action_set = { 'F', 'TL', 'B', 'BR' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Adv. Proton Torpedoes', charge = 1 },
@@ -7864,13 +7864,13 @@ masterPilotDB['majorrhymer-swz98'] = {
 masterPilotDB['dashrendar-swz103-sl-rebelalliance'] = {
     name = 'Dash Rendar',
     title = 'Rebel (SL)',
-    XWS = 'dashrendar-swz103-sl-rebelalliance',
-    Faction = 'rebelalliance',
+    xws = 'dashrendar-swz103-sl-rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'yt2400lightfreighter',
-    init = 5,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR', 'Rot' },
+    action_set = { 'F', 'TL', 'BR', 'Rot' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Mercenary',       charge = 0 },
@@ -7883,13 +7883,13 @@ masterPilotDB['dashrendar-swz103-sl-rebelalliance'] = {
 masterPilotDB['dashrendar-swz103-sl-scumandvillainy'] = {
     name = 'Dash Rendar',
     title = 'Scum (SL)',
-    XWS = 'dashrendar-swz103-sl-scumandvillainy',
-    Faction = 'scumandvillainy',
+    xws = 'dashrendar-swz103-sl-scumandvillainy',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'yt2400lightfreighter',
-    init = 5,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR', 'Rot' },
+    action_set = { 'F', 'TL', 'BR', 'Rot' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Mercenary',       charge = 0 },
@@ -7902,13 +7902,13 @@ masterPilotDB['dashrendar-swz103-sl-scumandvillainy'] = {
 masterPilotDB['leebo-swz103-sl-scumandvillainy'] = {
     name = '"Leebo"',
     title = 'Scum (SL)',
-    XWS = 'leebo-swz103-sl-scumandvillainy',
-    Faction = 'scumandvillainy',
+    xws = 'leebo-swz103-sl-scumandvillainy',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'yt2400lightfreighter',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'C', 'TL', 'BR', 'Rot' },
+    action_set = { 'C', 'TL', 'BR', 'Rot' },
     keywords = { 'Droid' },
     standardized_loadout = true,
     standardized_upgrades = {
@@ -7921,13 +7921,13 @@ masterPilotDB['leebo-swz103-sl-scumandvillainy'] = {
 masterPilotDB['leebo-swz103-sl-rebelalliance'] = {
     name = '"Leebo"',
     title = 'Rebel (SL)',
-    XWS = 'leebo-swz103-sl-rebelalliance',
-    Faction = 'rebelalliance',
+    xws = 'leebo-swz103-sl-rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'yt2400lightfreighter',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'C', 'TL', 'BR', 'Rot' },
+    action_set = { 'C', 'TL', 'BR', 'Rot' },
     keywords = { 'Droid' },
     standardized_loadout = true,
     standardized_upgrades = {
@@ -7940,50 +7940,50 @@ masterPilotDB['leebo-swz103-sl-rebelalliance'] = {
 masterPilotDB['dashrendar-swz103-rebelalliance'] = {
     name = 'Dash Rendar',
     title = 'Rebel',
-    XWS = 'dashrendar-swz103-rebelalliance',
-    Faction = 'rebelalliance',
+    xws = 'dashrendar-swz103-rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'yt2400lightfreighter',
-    init = 5,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR', 'Rot' }
+    action_set = { 'F', 'TL', 'BR', 'Rot' }
 }
 
 masterPilotDB['dashrendar-swz103-scumandvillainy'] = {
     name = 'Dash Rendar',
     title = 'Scum',
-    XWS = 'dashrendar-swz103-scumandvillainy',
-    Faction = 'scumandvillainy',
+    xws = 'dashrendar-swz103-scumandvillainy',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'yt2400lightfreighter',
-    init = 5,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'BR', 'Rot' }
+    action_set = { 'F', 'TL', 'BR', 'Rot' }
 }
 
 masterPilotDB['leebo-swz103-rebelalliance'] = {
     name = '"Leebo"',
-    XWS = 'leebo-swz103-rebelalliance',
+    xws = 'leebo-swz103-rebelalliance',
     title = 'Rebel',
-    Faction = 'rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'yt2400lightfreighter',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'C', 'TL', 'BR', 'Rot' },
+    action_set = { 'C', 'TL', 'BR', 'Rot' },
     keywords = { 'Droid' }
 }
 
 masterPilotDB['leebo-swz103-scumandvillainy'] = {
     name = '"Leebo"',
     title = 'Scum',
-    XWS = 'leebo-swz103-scumandvillainy',
-    Faction = 'scumandvillainy',
+    xws = 'leebo-swz103-scumandvillainy',
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'yt2400lightfreighter',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'C', 'TL', 'BR', 'Rot' },
+    action_set = { 'C', 'TL', 'BR', 'Rot' },
     keywords = { 'Droid' }
 }
 
@@ -7991,15 +7991,15 @@ masterPilotDB['leebo-swz103-scumandvillainy'] = {
 
 masterPilotDB['captainyorr-battleoverendor'] = {
     name = 'Captain Yorr',
-    XWS = 'captainyorr-battleoverendor',
+    xws = 'captainyorr-battleoverendor',
     title = 'Battle over Endor',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
-    Charge = 2,
+    charge = 2,
     ship_type = 'tiededefender',
-    init = 4,
+    initiative = 4,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR', 'TL', 'B' },
+    action_set = { 'F', 'E', 'BR', 'TL', 'B' },
     arcs = { fixed = { range = 3, type = { 'front' } }, weapon = { { name = 'Ion Cannon', range = 3, type = { 'front' }, ion = true } } },
     standardized_loadout = true,
     standardized_upgrades = {
@@ -8012,14 +8012,14 @@ masterPilotDB['captainyorr-battleoverendor'] = {
 
 masterPilotDB['coloneljendon-battleoverendor'] = {
     name = 'Colonel Jendon',
-    XWS = 'coloneljendon-battleoverendor',
+    xws = 'coloneljendon-battleoverendor',
     title = 'Battle over Endor',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiededefender',
-    init = 6,
+    initiative = 6,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR', 'TL', 'B' },
+    action_set = { 'F', 'E', 'BR', 'TL', 'B' },
     arcs = { fixed = { range = 3, type = { 'front' } }, weapon = { { name = 'Proton Cannons', range = 2, type = { 'front' } } } },
     standardized_loadout = true,
     standardized_upgrades = {
@@ -8032,14 +8032,14 @@ masterPilotDB['coloneljendon-battleoverendor'] = {
 
 masterPilotDB['lieutenanthebsly-battleoverendor'] = {
     name = 'Lieutenant Hebsly',
-    XWS = 'lieutenanthebsly-battleoverendor',
+    xws = 'lieutenanthebsly-battleoverendor',
     title = 'Battle over Endor',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
-    init = 3,
+    initiative = 3,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR', 'B' },
+    action_set = { 'F', 'E', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Collected', charge = 0 },
@@ -8050,16 +8050,16 @@ masterPilotDB['lieutenanthebsly-battleoverendor'] = {
 
 masterPilotDB['majormianda-battleoverendor'] = {
     name = 'Major Mianda',
-    XWS = 'majormianda-battleoverendor',
+    xws = 'majormianda-battleoverendor',
     title = 'Battle over Endor',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
-    init = 5,
-    Shield = 1,
+    initiative = 5,
+    shield = 1,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR' },
-    addSqdAction = { 'BR', 'B' },
+    action_set = { 'F', 'E', 'BR' },
+    add_squad_action = { 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'No Escape',     charge = 0 },
@@ -8070,14 +8070,14 @@ masterPilotDB['majormianda-battleoverendor'] = {
 
 masterPilotDB['scythe6-battleoverendor'] = {
     name = 'Scythe 6',
-    XWS = 'scythe6-battleoverendor',
+    xws = 'scythe6-battleoverendor',
     title = 'Battle over Endor',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tielnfighter',
-    init = 2,
+    initiative = 2,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR' },
+    action_set = { 'F', 'E', 'BR' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'No Escape',           charge = 0 },
@@ -8089,15 +8089,15 @@ masterPilotDB['scythe6-battleoverendor'] = {
 
 masterPilotDB['mausmonare-battleoverendor'] = {
     name = 'Maus Monare',
-    XWS = 'mausmonare-battleoverendor',
+    xws = 'mausmonare-battleoverendor',
     title = 'Battle over Endor',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieininterceptor',
-    init = 3,
-    Shield = 1,
+    initiative = 3,
+    shield = 1,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR', 'B', '2B', '2BR', 'C' },
+    action_set = { 'F', 'E', 'BR', 'B', '2B', '2BR', 'C' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'No Escape',               charge = 0 },
@@ -8108,14 +8108,14 @@ masterPilotDB['mausmonare-battleoverendor'] = {
 
 masterPilotDB['sapphire2-battleoverendor'] = {
     name = 'Sapphire 2',
-    XWS = 'sapphire2-battleoverendor',
+    xws = 'sapphire2-battleoverendor',
     title = 'Battle over Endor',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieininterceptor',
-    init = 1,
+    initiative = 1,
     texture = 'grey',
-    actSet = { 'F', 'E', 'BR', 'TR', 'B', 'Dare' },
+    action_set = { 'F', 'E', 'BR', 'TR', 'B', 'Dare' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'No Escape',        charge = 0 },
@@ -8127,15 +8127,15 @@ masterPilotDB['sapphire2-battleoverendor'] = {
 
 masterPilotDB['soontirfel-battleoverendor'] = {
     name = 'Soontir Fel',
-    XWS = 'soontirfel-battleoverendor',
+    xws = 'soontirfel-battleoverendor',
     title = 'Battle over Endor',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
-    Charge = 2,
+    charge = 2,
     ship_type = 'tieininterceptor',
-    init = 6,
+    initiative = 6,
     texture = 'the181',
-    actSet = { 'F', 'E', 'BR', 'B' },
+    action_set = { 'F', 'E', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Apex Predator',    charge = 0 },
@@ -8147,16 +8147,16 @@ masterPilotDB['soontirfel-battleoverendor'] = {
 
 masterPilotDB['scimitar1-battleoverendor'] = {
     name = 'Scimitar 1',
-    XWS = 'scimitar1-battleoverendor',
+    xws = 'scimitar1-battleoverendor',
     title = 'Battle over Endor',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiesabomber',
-    Bomb = true,
-    init = 3,
-    Charge = 2,
+    bomb = true,
+    initiative = 3,
+    charge = 2,
     texture = 'grey',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Marksmanship',     charge = 0 },
@@ -8168,16 +8168,16 @@ masterPilotDB['scimitar1-battleoverendor'] = {
 
 masterPilotDB['scimitar3-battleoverendor'] = {
     name = 'Scimitar 3',
-    XWS = 'scimitar3-battleoverendor',
+    xws = 'scimitar3-battleoverendor',
     title = 'Battle over Endor',
-    Faction = 'galacticempire',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiesabomber',
-    Bomb = true,
-    init = 4,
-    Charge = 2,
+    bomb = true,
+    initiative = 4,
+    charge = 2,
     texture = 'grey',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'No Escape',        charge = 0 },
@@ -8189,14 +8189,14 @@ masterPilotDB['scimitar3-battleoverendor'] = {
 
 masterPilotDB['kendyidele-battleoverendor'] = {
     name = 'Kendy Idele',
-    XWS = 'kendyidele-battleoverendor',
+    xws = 'kendyidele-battleoverendor',
     title = 'Battle over Endor',
-    Faction = 'rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
-    init = 4,
+    initiative = 4,
     texture = 'redder',
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = "It's a Trap",        charge = 0 },
@@ -8208,15 +8208,15 @@ masterPilotDB['kendyidele-battleoverendor'] = {
 
 masterPilotDB['wedgeantilles-battleoverendor'] = {
     name = 'Wedge Antilles',
-    XWS = 'wedgeantilles-battleoverendor',
-    Faction = 'rebelalliance',
+    xws = 'wedgeantilles-battleoverendor',
+    faction = 'rebelalliance',
     limited = 1,
     title = 'Battle over Endor',
     ship_type = 't65xwing',
-    init = 6,
-    Shield = 3,
+    initiative = 6,
+    shield = 3,
     texture = 'wedge',
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = "It's a Trap",           charge = 0 },
@@ -8228,14 +8228,14 @@ masterPilotDB['wedgeantilles-battleoverendor'] = {
 
 masterPilotDB['yendor-battleoverendor'] = {
     name = 'Yendor',
-    XWS = 'yendor-battleoverendor',
+    xws = 'yendor-battleoverendor',
     title = 'Battle over Endor',
-    Faction = 'rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
-    init = 5,
+    initiative = 5,
     texture = 'redder',
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = "It's a Trap",           charge = 0 },
@@ -8246,16 +8246,16 @@ masterPilotDB['yendor-battleoverendor'] = {
 
 masterPilotDB['arvelcrynyd-battleoverendor'] = {
     name = 'Arvel Crynyd',
-    XWS = 'arvelcrynyd-battleoverendor',
+    xws = 'arvelcrynyd-battleoverendor',
     title = 'Battle over Endor',
-    Faction = 'rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'rz1awing',
     arcs = { turret = { main = { name = 'primary', type = { 'front', 'back' } } } },
-    init = 3,
-    Shield = 3,
+    initiative = 3,
+    shield = 3,
     texture = 'arvel',
-    actSet = { 'F', 'TL', 'E', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'E', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Heroic Sacrifice', charge = 0 },
@@ -8266,18 +8266,18 @@ masterPilotDB['arvelcrynyd-battleoverendor'] = {
 
 masterPilotDB['gemmersojan-battleoverendor'] = {
     name = 'Gemmer Sojan',
-    XWS = 'gemmersojan-battleoverendor',
+    xws = 'gemmersojan-battleoverendor',
     title = 'Battle over Endor',
-    Faction = 'rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'rz1awing',
     arcs = {
         turret = { main = { name = 'primary', type = { 'front', 'back' } } },
         weapon = { { name = 'Precision-Tuned Cannons', range = 3, type = { 'front' } } }
     },
-    init = 2,
+    initiative = 2,
     texture = 'arvel',
-    actSet = { 'F', 'TL', 'E', 'BR', 'B', 'C' },
+    action_set = { 'F', 'TL', 'E', 'BR', 'B', 'C' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = "It's a Trap",             charge = 0 },
@@ -8289,17 +8289,17 @@ masterPilotDB['gemmersojan-battleoverendor'] = {
 
 masterPilotDB['braylenstramm-battleoverendor'] = {
     name = 'Braylen Stramm',
-    XWS = 'braylenstramm-battleoverendor',
+    xws = 'braylenstramm-battleoverendor',
     title = 'Battle over Endor',
-    Faction = 'rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
-    Charge = 2,
-    Shield = 5,
+    charge = 2,
+    shield = 5,
     ship_type = 'asf01bwing',
-    Bomb = true,
-    init = 4,
+    bomb = true,
+    initiative = 4,
     texture = 'braylen',
-    actSet = { 'F', 'TL', 'BR', 'E' },
+    action_set = { 'F', 'TL', 'BR', 'E' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = "It's a Trap",     charge = 0 },
@@ -8311,16 +8311,16 @@ masterPilotDB['braylenstramm-battleoverendor'] = {
 
 masterPilotDB['adonfox-battleoverendor'] = {
     name = 'Adon Fox',
-    XWS = 'adonfox-battleoverendor',
+    xws = 'adonfox-battleoverendor',
     title = 'Battle over Endor',
-    Faction = 'rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
-    Charge = 2,
+    charge = 2,
     ship_type = 'asf01bwing',
-    Bomb = true,
-    init = 1,
+    bomb = true,
+    initiative = 1,
     texture = 'blade',
-    actSet = { 'F', 'TL', 'BR', 'E' },
+    action_set = { 'F', 'TL', 'BR', 'E' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = "It's a Trap",    charge = 0 },
@@ -8333,17 +8333,17 @@ masterPilotDB['adonfox-battleoverendor'] = {
 
 masterPilotDB['ginamoonsong-battleoverendor'] = {
     name = 'Gina Moonsong',
-    XWS = 'ginamoonsong-battleoverendor',
-    Faction = 'rebelalliance',
+    xws = 'ginamoonsong-battleoverendor',
+    faction = 'rebelalliance',
     limited = 1,
     title = 'Battle over Endor',
-    Shield = 5,
-    Charge = 2,
+    shield = 5,
+    charge = 2,
     ship_type = 'asf01bwing',
-    Bomb = true,
-    init = 5,
+    bomb = true,
+    initiative = 5,
     texture = 'gina',
-    actSet = { 'F', 'TL', 'BR', 'E' },
+    action_set = { 'F', 'TL', 'BR', 'E' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = "It's a Trap",      charge = 0 },
@@ -8355,16 +8355,16 @@ masterPilotDB['ginamoonsong-battleoverendor'] = {
 
 masterPilotDB['tychocelchu-battleoverendor'] = {
     name = 'Tycho Celchu',
-    XWS = 'tychocelchu-battleoverendor',
-    Faction = 'rebelalliance',
+    xws = 'tychocelchu-battleoverendor',
+    faction = 'rebelalliance',
     limited = 1,
     title = 'Battle over Endor',
-    Shield = 3,
+    shield = 3,
     ship_type = 'rz1awing',
     arcs = { turret = { main = { name = 'primary', type = { 'front', 'back' } } } },
-    init = 5,
+    initiative = 5,
     texture = 'arvel',
-    actSet = { 'F', 'TL', 'E', 'BR', 'B' },
+    action_set = { 'F', 'TL', 'E', 'BR', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = "It's a Trap",     charge = 0 },
@@ -8376,15 +8376,15 @@ masterPilotDB['tychocelchu-battleoverendor'] = {
 
 masterPilotDB['landocalrissian-battleoverendor'] = {
     name = 'Lando Calrissian',
-    XWS = 'landocalrissian-battleoverendor',
+    xws = 'landocalrissian-battleoverendor',
     title = 'Battle over Endor',
-    Faction = 'rebelalliance',
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'modifiedyt1300lightfreighter',
-    Charge = 2,
-    init = 5,
+    charge = 2,
+    initiative = 5,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B', 'BR', 'E' },
+    action_set = { 'F', 'TL', 'B', 'BR', 'E' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Ace inthe Hole',    charge = 2 },
@@ -8398,14 +8398,14 @@ masterPilotDB['landocalrissian-battleoverendor'] = {
 masterPilotDB['echo-ssl'] = {
     name = '"Echo"',
     title = 'Copycat',
-    XWS = 'echo-ssl',
-    Faction = 'galacticempire',
+    xws = 'echo-ssl',
+    faction = 'galacticempire',
     limited = 1,
-    Charge = 1,
+    charge = 1,
     ship_type = 'tiephphantom',
-    init = 4,
+    initiative = 4,
     texture = 'echo',
-    actSet = { 'F', 'E', 'BR', 'CL' },
+    action_set = { 'F', 'E', 'BR', 'CL' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Silent Hunter',     charge = 0 },
@@ -8417,14 +8417,14 @@ masterPilotDB['echo-ssl'] = {
 masterPilotDB['whisper-ssl'] = {
     name = '"Whisper"',
     title = 'Unseen Assailant',
-    XWS = 'whisper-ssl',
-    Faction = 'galacticempire',
+    xws = 'whisper-ssl',
+    faction = 'galacticempire',
     limited = 1,
-    Charge = 2,
+    charge = 2,
     ship_type = 'tiephphantom',
-    init = 5,
+    initiative = 5,
     texture = 'blue',
-    actSet = { 'F', 'E', 'BR', 'CL', 'B' },
+    action_set = { 'F', 'E', 'BR', 'CL', 'B' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Without a Trace',  charge = 0 },
@@ -8436,13 +8436,13 @@ masterPilotDB['whisper-ssl'] = {
 masterPilotDB['majorvynder-ssl'] = {
     name = 'Major Vynder',
     title = 'Helping Hand',
-    XWS = 'majorvynder-ssl',
-    Faction = 'galacticempire',
+    xws = 'majorvynder-ssl',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'alphaclassstarwing',
-    init = 4,
+    initiative = 4,
     texture = 'standard',
-    actSet = { 'F', 'TL' },
+    action_set = { 'F', 'TL' },
     arcs = { fixed = { range = 3, type = { 'front' } }, weapon = { { name = 'Ion Cannon', range = 3, type = { 'front' }, ion = true } } },
     standardized_loadout = true,
     standardized_upgrades = {
@@ -8455,13 +8455,13 @@ masterPilotDB['majorvynder-ssl'] = {
 masterPilotDB['lieutenantkarsabi-ssl'] = {
     name = 'Lieutenant Karsabi',
     title = 'Payload Courier',
-    XWS = 'lieutenantkarsabi-ssl',
-    Faction = 'galacticempire',
+    xws = 'lieutenantkarsabi-ssl',
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'alphaclassstarwing',
-    init = 3,
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL' },
+    action_set = { 'F', 'TL' },
     standardized_loadout = true,
     standardized_upgrades = {
         { name = 'Proton Torpedoes',  charge = 2 },
@@ -8473,112 +8473,112 @@ masterPilotDB['lieutenantkarsabi-ssl'] = {
 
 masterPilotDB['newrepublicpatrol-wartime'] = {
     name = 'New Republic Patrol',
-    XWS = 'newrepublicpatrol-wartime',
-    Faction = 'resistance',
+    xws = 'newrepublicpatrol-wartime',
+    faction = 'resistance',
     ship_type = 'btanr2ywing-wartime',
-    init = 3,
+    initiative = 3,
     texture = 'blue',
-    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+    action_set = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
 masterPilotDB['kijimispicerunner-wartime'] = {
     name = 'Kijimi Spice Runner',
-    XWS = 'kijimispicerunner-wartime',
-    Faction = 'resistance',
+    xws = 'kijimispicerunner-wartime',
+    faction = 'resistance',
     ship_type = 'btanr2ywing-wartime',
-    init = 2,
+    initiative = 2,
     texture = 'plain',
-    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+    action_set = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
 masterPilotDB['tezanasz-wartime'] = {
     name = 'Teza Nasz',
-    XWS = 'tezanasz-wartime',
-    Faction = 'resistance',
+    xws = 'tezanasz-wartime',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing-wartime',
-    init = 4,
+    initiative = 4,
     texture = 'teza',
-    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+    action_set = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
 masterPilotDB['shasazaro-wartime'] = {
     name = 'Shasa Zaro',
-    XWS = 'shasazaro-wartime',
-    Faction = 'resistance',
+    xws = 'shasazaro-wartime',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing-wartime',
-    init = 3,
+    initiative = 3,
     texture = 'red',
-    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+    action_set = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
 masterPilotDB['coruskapellim-wartime'] = {
     name = 'Corus Kapellim',
-    XWS = 'coruskapellim-wartime',
-    Faction = 'resistance',
+    xws = 'coruskapellim-wartime',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing-wartime',
-    init = 1,
+    initiative = 1,
     texture = 'corus',
-    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+    action_set = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
 masterPilotDB['caithrenalli-wartime'] = {
     name = "C'ai Threnalli",
-    XWS = 'caithrenalli-wartime',
-    Faction = 'resistance',
+    xws = 'caithrenalli-wartime',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing-wartime',
-    init = 2,
+    initiative = 2,
     texture = 'cai',
-    actSet = { 'F', 'TL', 'BR', 'B', 'C', 'E' },
+    action_set = { 'F', 'TL', 'BR', 'B', 'C', 'E' },
     movethrough = true
 }
 
 masterPilotDB['wilsateshlo-wartime'] = {
     name = 'Wilsa Teshlo',
-    XWS = 'wilsateshlo-wartime',
-    Faction = 'resistance',
+    xws = 'wilsateshlo-wartime',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing-wartime',
-    init = 4,
+    initiative = 4,
     texture = 'wilsa',
-    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+    action_set = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
 masterPilotDB['zoriibliss-wartime'] = {
     name = 'Zorii Bliss',
-    XWS = 'zoriibliss-wartime',
-    Charge = 1,
-    Faction = 'resistance',
+    xws = 'zoriibliss-wartime',
+    charge = 1,
+    faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing-wartime',
-    init = 5,
+    initiative = 5,
     texture = 'red',
-    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+    action_set = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
 masterPilotDB['aftabackbar-wartime'] = {
     name = 'Aftab Ackbar',
-    XWS = 'aftabackbar-wartime',
-    Faction = 'resistance',
+    xws = 'aftabackbar-wartime',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing-wartime',
-    init = 2,
+    initiative = 2,
     texture = 'cai',
-    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+    action_set = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
 masterPilotDB['legafossang-wartime'] = {
     name = 'Lega Fossang',
-    XWS = 'legafossang-wartime',
-    Faction = 'resistance',
+    xws = 'legafossang-wartime',
+    faction = 'resistance',
     limited = 1,
     ship_type = 'btanr2ywing-wartime',
-    init = 3,
+    initiative = 3,
     texture = 'lega',
-    actSet = { 'F', 'TL', 'BR', 'B', 'C' }
+    action_set = { 'F', 'TL', 'BR', 'B', 'C' }
 }
 
 return masterPilotDB
