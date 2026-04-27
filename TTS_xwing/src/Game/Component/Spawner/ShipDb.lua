@@ -8,7 +8,7 @@ masterShipDB[0] = {
     ['agi'] = 1,
     ['Energy'] = 0,
     ['XWS'] = '',
-    ['Fac'] = { [0] = true },
+    ['Fac'] = { ['dummy'] = true },
     ['arcs'] = { fixed = { range = 3, type = { 'front' } } }
 }
 
@@ -42,7 +42,7 @@ masterShipDB['modifiedyt1300lightfreighter'] = {
         brown =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/modifiedyt1300lightfreighter/Textures/1/brown.jpg',
     },
-    Fac = { [1] = true },
+    Fac = { ['rebelalliance'] = true },
     arcs = { turret = { main = { name = 'primary', type = { 'doubleturret' } } } },
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/modifiedyt1300lightfreighter/yt1300modified.obj',
@@ -63,7 +63,7 @@ masterShipDB['starviperclassattackplatform'] = {
         white =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/starviperclassattackplatform/Textures/blacksunenforcer.jpg',
     },
-    Fac = { [3] = true },
+    Fac = { ['scumandvillainy'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/starviperclassattackplatform/starviper2.obj',
@@ -83,7 +83,7 @@ masterShipDB['scurrgh6bomber'] = {
         red =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/scurrgh6bomber/Textures/red.png',
     },
-    Fac = { [3] = true },
+    Fac = { ['scumandvillainy'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/scurrgh6bomber/scurrg.obj',
@@ -102,7 +102,7 @@ masterShipDB['yt2400lightfreighter'] = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/yt2400lightfreighter/Textures/standard.jpg',
     },
-    Fac = { [1] = true, [3] = true },
+    Fac = { ['rebelalliance'] = true, ['scumandvillainy'] = true },
     arcs = { turret = { main = { name = 'primary', type = { 'doubleturret' } } } },
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/yt2400lightfreighter/yt2400.obj',
@@ -125,7 +125,7 @@ masterShipDB['auzituckgunship'] = {
         tarfful =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/auzituckgunship/Textures/tarfful.png',
     },
-    Fac = { [1] = true },
+    Fac = { ['rebelalliance'] = true },
     arcs = { fixed = { range = 3, type = { 'fullfront' } } },
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/auzituckgunship/auzituck.obj',
@@ -153,7 +153,7 @@ masterShipDB['kihraxzfighter'] = {
         vaksai =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/kihraxzfighter/Textures/vaksai.png',
     },
-    Fac = { [3] = true },
+    Fac = { ['scumandvillainy'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/kihraxzfighter/khiraxz.obj',
@@ -171,7 +171,7 @@ masterShipDB['sheathipedeclassshuttle'] = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/sheathipedeclassshuttle/Textures/standard.jpg',
     },
-    Fac = { [1] = true },
+    Fac = { ['rebelalliance'] = true },
     arcs = { fixed = { range = 3, type = { 'frontback' } } },
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/sheathipedeclassshuttle/Sheathipede2.obj',
@@ -191,7 +191,7 @@ masterShipDB['quadrijettransferspacetug'] = {
         mining =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/quadrijettransferspacetug/Textures/mining.jpg',
     },
-    Fac = { [3] = true },
+    Fac = { ['scumandvillainy'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/quadrijettransferspacetug/quadjumper.obj',
@@ -235,7 +235,7 @@ masterShipDB['firesprayclasspatrolcraft'] = {
         skull =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/firesprayclasspatrolcraft/Textures/1/skull.jpg',
     },
-    Fac = { [3] = true, [7] = true },
+    Fac = { ['scumandvillainy'] = true, ['separatistalliance'] = true },
     arcs = { fixed = { range = 3, type = { 'frontback' } } },
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/firesprayclasspatrolcraft/firesprayV2.obj',
@@ -268,7 +268,7 @@ masterShipDB['tielnfighter'] = {
         rebel =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tielnfighter/textures/Tie-Fighter-Rebel.jpg',
     },
-    Fac = { [1] = true, [2] = true },
+    Fac = { ['rebelalliance'] = true, ['galacticempire'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tielnfighter/TIE_LN.obj',
@@ -309,7 +309,7 @@ masterShipDB['btla4ywing'] = {
         blank =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/btla4ywing/Textures/blank.png',
     },
-    Fac = { [1] = true, [3] = true },
+    Fac = { ['rebelalliance'] = true, ['scumandvillainy'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/btla4ywing/btla4_ywingv2.obj',
@@ -330,7 +330,7 @@ masterShipDB['tieadvancedx1'] = {
         grey =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tieadvancedx1/textures/1/tieadvancedx1grey.jpg',
     },
-    Fac = { [2] = true },
+    Fac = { ['galacticempire'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tieadvancedx1/tieadvancedx1v2.obj',
@@ -349,7 +349,7 @@ masterShipDB['alphaclassstarwing'] = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/alphaclassstarwing/textures/standard.png',
     },
-    Fac = { [2] = true },
+    Fac = { ['galacticempire'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/alphaclassstarwing/Alpha%20Class2.obj',
@@ -377,7 +377,7 @@ masterShipDB['ut60duwing'] = {
         rebel =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/ut60duwing/Textures/rebel.jpg',
     },
-    Fac = { [1] = true },
+    Fac = { ['rebelalliance'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'bbl1', 'bs1', 'bbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'wbl3', 'ws3', 'wbr3', 'ws4', 'rs0' },
     --mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/ut60duwing/UWing_Base.obj',
@@ -416,7 +416,7 @@ masterShipDB['tieskstriker'] = {
         grey =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tieskstriker/textures/tieskstrikergrey.jpg',
     },
-    Fac = { [2] = true },
+    Fac = { ['galacticempire'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'wtl1', 'bbl1', 'bs1', 'bbr1', 'wtr1', 'rk1', 'rbl2s', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'rbr2s', 'wbl3', 'bs3', 'wbr3' },
     mesh =
@@ -431,7 +431,7 @@ masterShipDB['asf01bwing'] = {
     size = 'small',
     agi = 1,
     XWS = 'asf01bwing',
-    Fac = { [1] = true },
+    Fac = { ['rebelalliance'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'rtl1t', 'rtl1', 'bbl1', 'bs1', 'bbr1', 'rtr1', 'rtr1t', 'wtl2', 'wbl2', 'bs2', 'wbr2', 'wtr2', 'rk2', 'rbl3', 'bs3', 'rbr3', 'rs4' },
     mesh =
@@ -503,7 +503,7 @@ masterShipDB['tiededefender'] = {
         kyber =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiededefender/textures/Kyber.jpg',
     },
-    Fac = { [2] = true },
+    Fac = { ['galacticempire'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'rtl1', 'bbl1', 'bbr1', 'rtr1', 'rtl2', 'wbl2', 'bs2', 'wbr2', 'rtr2', 'rk2', 'wtl3', 'wbl3', 'bs3', 'wbr3', 'wtr3', 'bs4', 'wk4', 'bs5' },
     mesh =
@@ -524,7 +524,7 @@ masterShipDB['tiesabomber'] = {
         grey =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiesabomber/textures/tiesabombergrey.jpg',
     },
-    Fac = { [2] = true },
+    Fac = { ['galacticempire'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'wbl1', 'bs1', 'wbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'wtl3', 'wbl3', 'bs3', 'wbr3', 'wtr3', 'rk3', 'ws4', 'rk5' },
     mesh =
@@ -545,7 +545,7 @@ masterShipDB['tiecapunisher'] = {
         grey =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/tiecapunisher/textures/tiecapunishergrey.jpg',
     },
-    Fac = { [2] = true },
+    Fac = { ['galacticempire'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'bbl1', 'bs1', 'bbr1', 'wtl2', 'wbl2', 'bs2', 'wbr2', 'wtr2', 'rtl3', 'wbl3', 'ws3', 'wbr3', 'rtr3', 'rk4', 'rs0' },
     mesh =
@@ -564,7 +564,7 @@ masterShipDB['aggressorassaultfighter'] = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/aggressorassaultfighter/Textures/standard.jpg',
     },
-    Fac = { [3] = true },
+    Fac = { ['scumandvillainy'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'wtl1', 'bbl1', 'bs1', 'bbr1', 'wtr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'rbl3s', 'bbl3', 'bs3', 'bbr3', 'rbr3s', 'ws4', 'rk4' },
     mesh =
@@ -582,7 +582,7 @@ masterShipDB['g1astarfighter'] = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/g1astarfighter/Textures/standard.png',
     },
-    Fac = { [3] = true },
+    Fac = { ['scumandvillainy'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'rtl1', 'bbl1', 'bs1', 'bbr1', 'rtr1', 'wtl2', 'wbl2', 'bs2', 'wbr2', 'wtr2', 'rk2', 'rbl3', 'ws3', 'rbr3', 'rs4', 'rk4', 'rs0' },
     mesh =
@@ -601,7 +601,7 @@ masterShipDB['vcx100lightfreighter'] = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/vcx100lightfreighter/Textures/standard.jpg',
     },
-    Fac = { [1] = true },
+    Fac = { ['rebelalliance'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     Docking = true,
     moveSet = { 'rtl1', 'wbl1', 'bs1', 'wbr1', 'rtr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'rtl3', 'wbl3', 'ws3', 'wbr3', 'rtr3', 'ws4', 'rk4' },
@@ -632,7 +632,7 @@ masterShipDB['yv666lightfreighter'] = {
         mytho =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/yv666lightfreighter/Textures/1/mytho.jpg',
     },
-    Fac = { [3] = true },
+    Fac = { ['scumandvillainy'] = true },
     arcs = { fixed = { range = 3, type = { 'fullfront' } } },
     moveSet = { 'bbl1', 'bs1', 'bbr1', 'rtl2', 'wbl2', 'bs2', 'wbr2', 'rtr2', 'wtl3', 'wbl3', 'bs3', 'wbr3', 'wtr3', 'ws4', 'rs0' },
     mesh =
@@ -653,7 +653,7 @@ masterShipDB['tieadvancedv1'] = {
         grey =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tieadvancedv1/textures/1/tieadvancedv1grey.jpg',
     },
-    Fac = { [2] = true },
+    Fac = { ['galacticempire'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'btl1', 'bbl1', 'bbr1', 'btr1', 'wtl2', 'wbl2', 'bs2', 'wbr2', 'wtr2', 'rtl2t', 'rtr2t', 'wtl3', 'wbl3', 'bs3', 'wbr3', 'wtr3', 'ws4', 'rk4', 'ws5' },
     mesh =
@@ -672,7 +672,7 @@ masterShipDB['lambdaclasst4ashuttle'] = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/lambdaclasst4ashuttle/textures/standard.png',
     },
-    Fac = { [2] = true },
+    Fac = { ['galacticempire'] = true },
     arcs = { fixed = { range = 3, type = { 'frontback' } } },
     moveSet = { 'bbl1', 'bs1', 'bbr1', 'rtl2', 'wbl2', 'bs2', 'wbr2', 'rtr2', 'rbl3', 'ws3', 'rbr3', 'rs0' },
     mesh =
@@ -696,7 +696,7 @@ masterShipDB['tiephphantom'] = {
         echo =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiephphantom/textures/tiephphantomwhite.jpg',
     },
-    Fac = { [2] = true },
+    Fac = { ['galacticempire'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'wtl1', 'wbl1', 'wbr1', 'wtr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'wtl3', 'wbl3', 'bs3', 'wbr3', 'wtr3', 'rk3', 'ws4', 'rk4' },
     mesh =
@@ -718,7 +718,7 @@ masterShipDB['vt49decimator'] = {
         black =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/vt49decimator/textures/black.jpg',
     },
-    Fac = { [2] = true },
+    Fac = { ['galacticempire'] = true },
     arcs = { turret = { main = { name = 'primary', type = { 'doubleturret' } } } },
     moveSet = { 'rtl1', 'bbl1', 'bs1', 'bbr1', 'rtr1', 'wtl2', 'wbl2', 'bs2', 'wbr2', 'wtr2', 'wtl3', 'wbl3', 'ws3', 'wbr3', 'wtr3', 'ws4' },
     mesh =
@@ -738,7 +738,7 @@ masterShipDB['tieagaggressor'] = {
         grey =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tieagaggressor/textures/tieagaggressorgrey.jpg',
     },
-    Fac = { [2] = true },
+    Fac = { ['galacticempire'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'wbl1', 'bs1', 'wbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'wtl3', 'wbl3', 'bs3', 'wbr3', 'wtr3', 'ws4', 'rk4' },
     mesh =
@@ -761,7 +761,7 @@ masterShipDB['btls8kwing'] = {
         esege =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/btls8kwing/Textures/EsegeTuketu.png',
     },
-    Fac = { [1] = true },
+    Fac = { ['rebelalliance'] = true },
     arcs = { turret = { main = { name = 'primary', type = { 'doubleturret' } } } },
     moveSet = { 'bbl1', 'bs1', 'bbr1', 'wtl2', 'wbl2', 'bs2', 'wbr2', 'wtr2', 'wbl3', 'ws3', 'wbr3' },
     mesh =
@@ -785,7 +785,7 @@ masterShipDB['arc170starfighter'] = {
         black =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/arc170starfighter/Textures/black.jpg',
     },
-    Fac = { [1] = true, [6] = true },
+    Fac = { ['rebelalliance'] = true, ['galacticrepublic'] = true },
     arcs = { fixed = { range = 3, type = { 'frontback' } } },
     moveSet = { 'bbl1', 'bs1', 'bbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'rtl3', 'wbl3', 'ws3', 'wbr3', 'rtr3', 'rs4', 'rk4' },
     mesh =
@@ -803,7 +803,7 @@ masterShipDB['attackshuttle'] = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/attackshuttle/Textures/standard.jpg',
     },
-    Fac = { [1] = true },
+    Fac = { ['rebelalliance'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'rtl1', 'bbl1', 'bs1', 'bbr1', 'rtr1', 'wtl2', 'wbl2', 'bs2', 'wbr2', 'wtr2', 'rtl3', 'wbl3', 'ws3', 'wbr3', 'rtr3', 'ws4', 'rk4' },
     mesh =
@@ -843,7 +843,7 @@ masterShipDB['t65xwing'] = {
         merrick =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t65xwing/Textures/2/merrick.png',
     },
-    Fac = { [1] = true },
+    Fac = { ['rebelalliance'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'bbl1', 'bs1', 'bbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'wtl3', 'wbl3', 'ws3', 'wbr3', 'wtr3', 'ws4', 'rtl3t', 'rtr3t', 'rk4' },
     mesh =
@@ -894,7 +894,7 @@ masterShipDB['hwk290lightfreighter'] = {
         kasmir =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/hwk290lightfreighter/Textures/1/kasmir.png',
     },
-    Fac = { [1] = true, [3] = true },
+    Fac = { ['rebelalliance'] = true, ['scumandvillainy'] = true },
     arcs = { turret = { main = { name = 'primary', type = { 'singleturret' } } } },
     moveSet = { 'bbl1', 'bs1', 'bbr1', 'wtl2', 'wbl2', 'bs2', 'wbr2', 'wtr2', 'rtl3', 'wbl3', 'bs3', 'wbr3', 'rtr3', 'ws4', 'rs0' },
     mesh =
@@ -929,7 +929,7 @@ masterShipDB['rz1awing'] = {
         keo =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/rz1awing/Textures/keo.jpg',
     },
-    Fac = { [1] = true },
+    Fac = { ['rebelalliance'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'wtl1', 'wtr1', 'btl2', 'bbl2', 'bs2', 'bbr2', 'btr2', 'rbl3s', 'wtl3', 'wbl3', 'bs3', 'wbr3', 'wtr3', 'rbr3s', 'bs4', 'bs5', 'rk5' },
     mesh =
@@ -964,7 +964,7 @@ masterShipDB['fangfighter'] = {
     size = 'small',
     agi = 3,
     XWS = 'fangfighter',
-    Fac = { [3] = true },
+    Fac = { ['scumandvillainy'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'wtl1', 'wtr1', 'rtl2t', 'btl2', 'bbl2', 'bs2', 'bbr2', 'btr2', 'rtr2t', 'wtl3', 'wbl3', 'bs3', 'wbr3', 'wtr3', 'ws4', 'rk4', 'ws5' },
     mesh =
@@ -1002,7 +1002,7 @@ masterShipDB['z95af4headhunter'] = {
         orange =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/z95af4headhunter/Textures/1/orange.jpg',
     },
-    Fac = { [1] = true, [3] = true },
+    Fac = { ['rebelalliance'] = true, ['scumandvillainy'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'wbl1', 'bs1', 'wbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'wtl3', 'wbl3', 'bs3', 'wbr3', 'wtr3', 'rk3', 'ws4', 'rk4' },
     mesh =
@@ -1024,7 +1024,7 @@ masterShipDB['m12lkimogilafighter'] = {
         torani =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/m12lkimogilafighter/Textures/ToraniKulda.png',
     },
-    Fac = { [3] = true },
+    Fac = { ['scumandvillainy'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'rtl1', 'wbl1', 'bs1', 'wbr1', 'rtr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'wtl3', 'wbl3', 'bs3', 'wbr3', 'wtr3', 'rk4' },
     mesh =
@@ -1048,7 +1048,7 @@ masterShipDB['ewing'] = {
         corran =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/ewing/Textures/CorranHorn.jpg',
     },
-    Fac = { [1] = true },
+    Fac = { ['rebelalliance'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'rtl1', 'bbl1', 'bs1', 'bbr1', 'rtr1', 'wtl2', 'wbl2', 'bs2', 'wbr2', 'wtr2', 'rbl3s', 'wtl3', 'wbl3', 'bs3', 'wbr3', 'wtr3', 'rbr3s', 'bs4', 'rk4', 'ws5' },
     mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/ewing/ewing.obj'
@@ -1073,7 +1073,7 @@ masterShipDB['tieininterceptor'] = {
         the181 =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tieininterceptor/textures/tieinterceptor181.jpg',
     },
-    Fac = { [2] = true },
+    Fac = { ['galacticempire'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'wtl1', 'wtr1', 'btl2', 'bbl2', 'bs2', 'bbr2', 'btr2', 'rbl3s', 'wtl3', 'wbl3', 'bs3', 'wbr3', 'wtr3', 'rbr3s', 'bs4', 'rk4', 'ws5' },
     mesh =
@@ -1093,7 +1093,7 @@ masterShipDB['lancerclasspursuitcraft'] = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/lancerclasspursuitcraft/Textures/Standard.jpg',
     },
-    Fac = { [3] = true },
+    Fac = { ['scumandvillainy'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'primary', type = { 'singleturret' } } } },
     moveSet = { 'wbl1', 'ws1', 'wbr1', 'wtl2', 'wbl2', 'bs2', 'wbr2', 'wtr2', 'btl3', 'bbl3', 'bs3', 'bbr3', 'btr3', 'bs4', 'ws5', 'rk5' },
     mesh =
@@ -1113,7 +1113,7 @@ masterShipDB['tierereaper'] = {
         grey =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/tierereaper/textures/tierereapergrey.jpg',
     },
-    Fac = { [2] = true },
+    Fac = { ['galacticempire'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'rbl1s', 'rtl1', 'bbl1', 'bs1', 'bbr1', 'rtr1', 'rbr1s', 'rtl2', 'wbl2', 'bs2', 'wbr2', 'rtr2', 'wbl3', 'bs3', 'wbr3', 'rs0' },
     mesh =
@@ -1140,7 +1140,7 @@ masterShipDB['m3ainterceptor'] = {
         genesis =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/m3ainterceptor/Textures/GenesisRed.jpg',
     },
-    Fac = { [3] = true },
+    Fac = { ['scumandvillainy'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'wtl1', 'bbl1', 'bbr1', 'wtr1', 'wtl2', 'wbl2', 'bs2', 'wbr2', 'wtr2', 'wbl3', 'bs3', 'wbr3', 'rk3', 'ws4', 'ws5', 'rk5' },
     mesh =
@@ -1166,7 +1166,7 @@ masterShipDB['jumpmaster5000'] = {
         nom =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/jumpmaster5000/Textures/nomlumb.jpg',
     },
-    Fac = { [3] = true },
+    Fac = { ['scumandvillainy'] = true },
     arcs = { turret = { main = { name = 'primary', type = { 'singleturret' } } } },
     moveSet = { 'wtl1', 'bbl1', 'bs1', 'wbr1', 'rtr1', 'wtl2', 'bbl2', 'bs2', 'wbr2', 'rtr2', 'rbl3s', 'bbl3', 'bs3', 'wbr3', 'ws4', 'rk4' },
     mesh =
@@ -1203,7 +1203,7 @@ masterShipDB['customizedyt1300lightfreighter'] = {
         plain =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/customizedyt1300lightfreighter/Textures/1/plain.jpg',
     },
-    Fac = { [3] = true },
+    Fac = { ['scumandvillainy'] = true },
     arcs = { turret = { main = { name = 'primary', type = { 'doubleturret' } } } },
     Docking = true,
     moveSet = { 'bbl1', 'bs1', 'bbr1', 'wtl2', 'wbl2', 'bs2', 'wbr2', 'wtr2', 'wtl3', 'wbl3', 'bs3', 'wbr3', 'wtr3', 'rbl3s', 'rbr3s', 'ws4', 'rk4' },
@@ -1223,7 +1223,7 @@ masterShipDB['escapecraft'] = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/escapecraft/Textures/standard.jpg',
     },
-    Fac = { [3] = true },
+    Fac = { ['scumandvillainy'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'bbl1', 'bs1', 'bbr1', 'rtl2', 'wbl2', 'bs2', 'wbr2', 'rtr2', 'wbl3', 'ws3', 'wbr3', 'rk3', 'rs0' },
     mesh =
@@ -1243,7 +1243,7 @@ masterShipDB['tiefofighter'] = {
         fn2187 =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiefofighter/Textures/2/fn2187.png',
     },
-    Fac = { [5] = true },
+    Fac = { ['firstorder'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'wtl1', 'wtr1', 'rbl2s', 'btl2', 'bbl2', 'bs2', 'bbr2', 'btr2', 'rbr2s', 'wtl3', 'wbl3', 'bs3', 'wbr3', 'wtr3', 'ws4', 'rk4', 'ws5' },
     mesh =
@@ -1264,7 +1264,7 @@ masterShipDB['tiesffighter'] = {
         strife =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiesffighter/Textures/1/strife.png',
     },
-    Fac = { [5] = true },
+    Fac = { ['firstorder'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'primary', type = { 'front', 'back' } } } },
     moveSet = { 'rtl1', 'bbl1', 'bs1', 'bbr1', 'rtr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'rbl3s', 'wtl3', 'wbl3', 'bs3', 'wbr3', 'wtr3', 'rbr3s', 'ws4', 'ws5' },
     mesh =
@@ -1286,7 +1286,7 @@ masterShipDB['upsilonclasscommandshuttle'] = {
         red =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/upsilonclasscommandshuttle/Textures/red.jpg',
     },
-    Fac = { [5] = true },
+    Fac = { ['firstorder'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'rtl1', 'wbl1', 'bs1', 'wbr1', 'rtr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'rtl3', 'wbl3', 'ws3', 'wbr3', 'rtr3', 'rs0' },
     mesh =
@@ -1303,7 +1303,7 @@ masterShipDB['tievnsilencer'] = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tievnsilencer/Textures/1/standard.jpg',
     },
-    Fac = { [5] = true },
+    Fac = { ['firstorder'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'wtl1', 'wtr1', 'btl2', 'bbl2', 'bs2', 'bbr2', 'btr2', 'rtl3t', 'wtl3', 'wbl3', 'bs3', 'wbr3', 'wtr3', 'rtr3t', 'bs4', 'rk4', 'bs5' },
     mesh =
@@ -1330,7 +1330,7 @@ masterShipDB['t70xwing'] = {
         plain =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/t70xwing/Textures/1/plain.jpg',
     },
-    Fac = { [4] = true },
+    Fac = { ['resistance'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'bbl1', 'bs1', 'bbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'rtl3t', 'wtl3', 'wbl3', 'bs3', 'wbr3', 'wtr3', 'rtr3t', 'ws4', 'rk4' },
     keywords = { 'X-Wing' },
@@ -1375,7 +1375,7 @@ masterShipDB['rz2awing'] = {
         blue =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/rz2awing/Textures/blue.png',
     },
-    Fac = { [4] = true },
+    Fac = { ['resistance'] = true },
     arcs = { turret = { main = { name = 'primary', type = { 'front', 'back' } } } },
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/rz2awing/res_awing.obj',
@@ -1398,7 +1398,7 @@ masterShipDB['mg100starfortress'] = {
         paige =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/mg100starfortress/Textures/PaigeTico.jpg',
     },
-    Fac = { [4] = true },
+    Fac = { ['resistance'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'primary', type = { 'doubleturret' } } } },
     moveSet = { 'rs0', 'rtl1', 'bbl1', 'bs1', 'bbr1', 'rtr1', 'wtl2', 'wbl2', 'bs2', 'wbr2', 'wtr2', 'rbl3', 'ws3', 'rbr3' },
     mesh =
@@ -1416,7 +1416,7 @@ masterShipDB['modifiedtielnfighter'] = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/modifiedtielnfighter/Textures/standard.png',
     },
-    Fac = { [3] = true },
+    Fac = { ['scumandvillainy'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'wtl1', 'wtr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'wtl3', 'wbl3', 'bs3', 'wbr3', 'wtr3', 'rk3', 'ws4', 'rs5' },
     mesh =
@@ -1456,7 +1456,7 @@ masterShipDB['scavengedyt1300lightfreighter'] = {
         brown =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/scavengedyt1300lightfreighter/Textures/1/brown.jpg',
     },
-    Fac = { [4] = true },
+    Fac = { ['resistance'] = true },
     arcs = { turret = { main = { name = 'primary', type = { 'doubleturret' } } } },
     moveSet = { 'wbl1', 'bs1', 'wbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'wtl3', 'wbl3', 'ws3', 'wbr3', 'wtr3', 'rbl3s', 'rbr3s', 'rs4' },
     mesh =
@@ -1494,7 +1494,7 @@ masterShipDB['delta7aethersprite'] = {
         depa =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/delta7aethersprite/Textures/depa.png',
     },
-    Fac = { [6] = true },
+    Fac = { ['galacticrepublic'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'wtl1', 'bbl1', 'bbr1', 'wtr1', 'rbl2s', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'rbr2s', 'wbl3', 'bs3', 'wbr3', 'ws4', 'rk4', 'ws5', 'rk5' },
     mesh =
@@ -1552,7 +1552,7 @@ masterShipDB['delta7baethersprite'] = {
         depa =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/delta7aethersprite/Textures/depa.png',
     },
-    Fac = { [6] = true },
+    Fac = { ['galacticrepublic'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'wtl1', 'bbl1', 'bbr1', 'wtr1', 'rbl2s', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'rbr2s', 'wbl3', 'bs3', 'wbr3', 'ws4', 'rk4', 'ws5', 'rk5' },
     mesh =
@@ -1596,7 +1596,7 @@ masterShipDB['v19torrentstarfighter'] = {
         black =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/v19torrentstarfighter/Textures/1/black.jpg',
     },
-    Fac = { [6] = true },
+    Fac = { ['galacticrepublic'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'rtl1', 'bbl1', 'bs1', 'bbr1', 'rtr1', 'rtl2t', 'wtl2', 'wbl2', 'bs2', 'wbr2', 'wtr2', 'rtr2t', 'rbl3', 'bs3', 'rbr3', 'rk3', 'ws4' },
     mesh =
@@ -1627,7 +1627,7 @@ masterShipDB['vultureclassdroidfighter'] = {
         p00m =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/vultureclassdroidfighter/Textures/00m.png',
     },
-    Fac = { [7] = true },
+    Fac = { ['separatistalliance'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'wtl1', 'wtr1', 'rk1', 'rtl2t', 'btl2', 'wbl2', 'bs2', 'wbr2', 'btr2', 'rtr2t', 'wtl3', 'rbl3', 'bs3', 'rbr3', 'wtr3', 'bs4', 'ws5' },
     keywords = { 'Droid' },
@@ -1671,7 +1671,7 @@ masterShipDB['belbulab22starfighter'] = {
         bas =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/belbulab22starfighter/Textures/bas.png',
     },
-    Fac = { [7] = true },
+    Fac = { ['separatistalliance'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'wtl1', 'wbl1', 'wbr1', 'wtr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'rbl3s', 'rtl3', 'wbl3', 'bs3', 'wbr3', 'rtr3', 'rbr3s', 'ws4', 'ws5' },
     mesh =
@@ -1695,7 +1695,7 @@ masterShipDB['sithinfiltrator'] = {
         white =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/large/sithinfiltrator/Textures/white.jpg',
     },
-    Fac = { [7] = true },
+    Fac = { ['separatistalliance'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'rtl1', 'bbl1', 'bs1', 'bbr1', 'rtr1', 'rbl2s', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'rbr2s', 'wtl3', 'wbl3', 'bs3', 'wbr3', 'wtr3', 'ws4', 'rk5' },
     mesh =
@@ -1719,7 +1719,7 @@ masterShipDB['resistancetransport'] = {
         jannah =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/resistancetransport/Textures/jannah.png',
     },
-    Fac = { [4] = true },
+    Fac = { ['resistance'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/resistancetransport/transport2.obj',
@@ -1743,7 +1743,7 @@ masterShipDB['resistancetransportpod'] = {
         dj =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/resistancetransportpod/Textures/dj.png',
     },
-    Fac = { [4] = true },
+    Fac = { ['resistance'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/resistancetransportpod/pod2.obj',
@@ -1769,7 +1769,7 @@ masterShipDB['hyenaclassdroidbomber'] = {
         plain =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/hyenaclassdroidbomber/Textures/1/plain.jpg',
     },
-    Fac = { [7] = true },
+    Fac = { ['separatistalliance'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'wtl1', 'rbl1', 'ws1', 'rbr1', 'wtr1', 'btl2', 'wbl2', 'bs2', 'wbr2', 'btr2', 'rk2', 'rtl2t', 'rtr2t', 'wtl3', 'bs3', 'wtr3', 'ws4', 'rs5' },
     keywords = { 'Droid' },
@@ -1819,7 +1819,7 @@ masterShipDB['nabooroyaln1starfighter'] = {
         mandalorian =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nabooroyaln1starfighter/Textures/mandalorian.jpg',
     },
-    Fac = { [3] = true, [6] = true },
+    Fac = { ['scumandvillainy'] = true, ['galacticrepublic'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'wbl1', 'ws1', 'wbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'wtl3', 'bbl3', 'bs3', 'bbr3', 'wtr3', 'rtl3t', 'rtr3t', 'ws4', 'ws5' },
     mesh =
@@ -1841,7 +1841,7 @@ masterShipDB['nantexclassstarfighter'] = {
         blue =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nantexclassstarfighter/Textures/blue.png',
     },
-    Fac = { [7] = true },
+    Fac = { ['separatistalliance'] = true },
     arcs = { fixed = { range = 3, type = { 'bullseye' } }, turret = { main = { name = 'primary', type = { 'left', 'front', 'right' } } } },
     moveSet = { 'wtl1', 'bbl1', 'bbr1', 'wtr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'wtl3', 'bbl3', 'bs3', 'bbr3', 'wtr3', 'rbl3s', 'rbr3s', 'ws4', 'ws5', 'rk5' },
     mesh =
@@ -1869,7 +1869,7 @@ masterShipDB['btlbywing'] = {
         plain =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/btlbywing/Textures/1/plain.jpg',
     },
-    Fac = { [6] = true },
+    Fac = { ['galacticrepublic'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'wbl1', 'bs1', 'wbr1', 'wtl2', 'wbl2', 'bs2', 'wbr2', 'wtr2', 'rtl3', 'wbl3', 'ws3', 'wbr3', 'rtr3', 'rs4', 'rk4' },
     mesh =
@@ -1890,7 +1890,7 @@ masterShipDB['fireball'] = {
         doza =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/fireball/Textures/doza.png',
     },
-    Fac = { [4] = true },
+    Fac = { ['resistance'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'wtl1', 'bbl1', 'bs1', 'bbr1', 'wtr1', 'wtl2', 'wbl2', 'bs2', 'wbr2', 'wtr2', 'rtl3', 'wbl3', 'ws3', 'wbr3', 'rtr3', 'rtl3t', 'rtr3t', 'rs4' },
     mesh =
@@ -1915,7 +1915,7 @@ masterShipDB['tiebainterceptor'] = {
         jank =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiebainterceptor/Textures/jank.jpg',
     },
-    Fac = { [5] = true },
+    Fac = { ['firstorder'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiebainterceptor/TieBaron.obj',
@@ -1944,7 +1944,7 @@ masterShipDB['nimbusclassvwing'] = {
         black =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nimbusclassvwing/Textures/black.jpg',
     },
-    Fac = { [6] = true },
+    Fac = { ['galacticrepublic'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/nimbusclassvwing/vwing.obj',
@@ -1984,7 +1984,7 @@ masterShipDB['tierbheavy'] = {
         grey =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/tierbheavy/textures/tierbheavygrey.jpg',
     },
-    Fac = { [2] = true },
+    Fac = { ['galacticempire'] = true },
     arcs = { turret = { main = { name = 'primary', type = { 'front', 'back' } } } },
     cannon_follow_turret = 'main',
     mesh =
@@ -2006,7 +2006,7 @@ masterShipDB['xiclasslightshuttle'] = {
         dark =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/xiclasslightshuttle/Textures/Dark.jpg',
     },
-    Fac = { [5] = true },
+    Fac = { ['firstorder'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/xiclasslightshuttle/XiClassLightShuttle.obj',
@@ -2045,7 +2045,7 @@ masterShipDB['laatigunship'] = {
         black =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/laatigunship/Textures/1/black.jpg',
     },
-    Fac = { [6] = true },
+    Fac = { ['galacticrepublic'] = true },
     arcs = { turret = { main = { name = 'primary', type = { 'doubleturret' } } } },
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/medium/laatigunship/LAATv2.obj',
@@ -2063,7 +2063,7 @@ masterShipDB['hmpdroidgunship'] = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/hmpdroidgunship/Textures/standard.png',
     },
-    Fac = { [7] = true },
+    Fac = { ['separatistalliance'] = true },
     arcs = { fixed = { range = 3, type = { 'fullfront' } } },
     moveSet = { 'rs0', 'rbl1', 'bs1', 'rbr1', 'btl2', 'wbl2', 'bs2', 'wbr2', 'btr2', 'wtl3', 'rbl3', 'ws3', 'rbr3', 'wtr3', 'rs4', 'rs5' },
     keywords = { 'Droid' },
@@ -2112,7 +2112,7 @@ masterShipDB['eta2actis'] = {
         yoda =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/eta2actis/Textures/Yoda.jpg',
     },
-    Fac = { [6] = true },
+    Fac = { ['galacticrepublic'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/eta2actis/eta2actis.obj',
@@ -2148,7 +2148,7 @@ masterShipDB['droidtrifighter'] = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/droidtrifighter/Textures/standard.png',
     },
-    Fac = { [7] = true },
+    Fac = { ['separatistalliance'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/droidtrifighter/CIS_Tri-Fighter.obj',
@@ -2167,7 +2167,7 @@ masterShipDB['tiewiwhispermodifiedinterceptor'] = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiewiwhispermodifiedinterceptor/Textures/1/standard.jpg',
     },
-    Fac = { [5] = true },
+    Fac = { ['firstorder'] = true },
     arcs = { fixed = { range = 3, type = { 'bullseye' } }, turret = { main = { name = 'primary', type = { 'front', 'back' } } } },
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiewiwhispermodifiedinterceptor/TIE_Wiv2.obj',
@@ -2186,7 +2186,7 @@ masterShipDB['tiesebomber'] = {
         standard =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiesebomber/Textures/1/standard.jpg',
     },
-    Fac = { [5] = true },
+    Fac = { ['firstorder'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/tiesebomber/tie_sev2.obj',
@@ -2219,7 +2219,7 @@ masterShipDB['btanr2ywing'] = {
         wilsa =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/btanr2ywing/Textures/wilsateshlo.png',
     },
-    Fac = { [4] = true },
+    Fac = { ['resistance'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/btanr2ywing/RIS_Y-Wing.obj',
@@ -2252,7 +2252,7 @@ masterShipDB['btanr2ywing-wartime'] = {
         wilsa =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/btanr2ywing/Textures/wilsateshlo.png',
     },
-    Fac = { [4] = true },
+    Fac = { ['resistance'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     mesh =
     'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/btanr2ywing/RIS_Y-Wing.obj',
@@ -2268,7 +2268,7 @@ masterShipDB['gauntletfighter'] = {
     agi = 2,
     XWS = 'gauntletfighter',
     ProximityHider = true,
-    Fac = { [1] = true, [2] = true, [3] = true, [6] = true, [7] = true },
+    Fac = { ['rebelalliance'] = true, ['galacticempire'] = true, ['scumandvillainy'] = true, ['galacticrepublic'] = true, ['separatistalliance'] = true },
     arcs = { fixed = { range = 3, type = { 'frontback' } } },
     textures = {
         bokatan =
@@ -2334,7 +2334,7 @@ masterShipDB['st70assaultship'] = {
     size = 'medium',
     agi = 2,
     XWS = 'st70assaultship',
-    Fac = { [3] = true },
+    Fac = { ['scumandvillainy'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'rtl1', 'wbl1', 'bs1', 'wbr1', 'rtr1', 'rtl2t', 'wtl2', 'wbl2', 'bs2', 'wbr2', 'wtr2', 'rtr2t', 'rtl3', 'wbl3', 'bs3', 'wbr3', 'rtr3', 'bs4', 'rk5', 'rs0' },
     mesh =
@@ -2362,7 +2362,7 @@ masterShipDB['rogueclassstarfighter'] = {
     size = 'small',
     agi = 2,
     XWS = 'rogueclassstarfighter',
-    Fac = { [3] = true, [7] = true },
+    Fac = { ['scumandvillainy'] = true, ['separatistalliance'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'wtl1', 'bbl1', 'bbr1', 'wtr1', 'rtl2t', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'rtr2t', 'rtl3', 'wbl3', 'bs3', 'wbr3', 'rtr3', 'bs4', 'ws5', 'rk5' },
     mesh =
@@ -2386,7 +2386,7 @@ masterShipDB['clonez95headhunter'] = {
         black =
         'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/small/clonez95headhunter/textures/black.jpg',
     },
-    Fac = { [6] = true },
+    Fac = { ['galacticrepublic'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'wbl1', 'bs1', 'wbr1', 'wtl2', 'bbl2', 'bs2', 'bbr2', 'wtr2', 'wtl3', 'wbl3', 'bs3', 'wbr3', 'wtr3', 'rk3', 'ws4', 'rk4' },
     mesh =
@@ -2403,7 +2403,7 @@ masterShipDB['cr90corvette'] = {
     size = 'huge',
     agi = 0,
     mountingPoints = { front = { 0, -2.63 }, rear = { 0, 2.63 } },
-    Fac = { [1] = true, [4] = true, [6] = true },
+    Fac = { ['rebelalliance'] = true, ['resistance'] = true, ['galacticrepublic'] = true },
     arcs = { fixed = { range = 4, type = { 'leftright' } } },
     moveSet = { 'rbl0', 'rs0', 'rbr0', 'wbl1', 'ws1', 'wbr1', 'bbl2', 'bs2', 'bbr2', 'rbl3', 'bs3', 'rbr3', 'rs4', 'rs5' },
     mesh =
@@ -2426,7 +2426,7 @@ masterShipDB['croccruiser'] = {
     size = 'huge',
     agi = 0,
     mountingPoints = { front = { 0, -2.63 }, rear = { 0, 2.63 } },
-    Fac = { [3] = true, [7] = true },
+    Fac = { ['scumandvillainy'] = true, ['separatistalliance'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'rbl0', 'rs0', 'rbr0', 'wbl1', 'bs1', 'wbr1', 'wbl2', 'bs2', 'wbr2', 'rbl3', 'ws3', 'rbr3', 'rs4', 'rs5' },
     mesh =
@@ -2447,7 +2447,7 @@ masterShipDB['gozanticlasscruiser'] = {
     size = 'huge',
     agi = 0,
     mountingPoints = { front = { 0, -2.63 }, rear = { 0, 2.63 } },
-    Fac = { [2] = true, [5] = true , [6] = true, [7] = true},
+    Fac = { ['galacticempire'] = true, ['firstorder'] = true , ['galacticrepublic'] = true, ['separatistalliance'] = true},
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'rbl0', 'rs0', 'rbr0', 'wbl1', 'bs1', 'wbr1', 'rbl2', 'bs2', 'rbr2', 'bs3', 'rs4' },
     mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/huge/gozanticlasscruiser/gozanti.obj',
@@ -2466,7 +2466,7 @@ masterShipDB['gr75mediumtransport'] = {
     size = 'huge',
     agi = 0,
     mountingPoints = { front = { 0, -2.05 }, rear = { 0, 2.05 } },
-    Fac = { [1] = true, [4] = true },
+    Fac = { ['rebelalliance'] = true, ['resistance'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'rbl0', 'rs0', 'rbr0', 'bbl1', 'bs1', 'bbr1', 'wbl2', 'ws2', 'wbr2', 'rs3', 'rs4' },
     mesh = 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/huge/gr75mediumtransport/gr75.obj',
@@ -2485,7 +2485,7 @@ masterShipDB['raiderclasscorvette'] = {
     size = 'huge',
     agi = 0,
     mountingPoints = { front = { 0, -2.63 }, rear = { 0, 2.63 } },
-    Fac = { [2] = true, [5] = true },
+    Fac = { ['galacticempire'] = true, ['firstorder'] = true },
     arcs = { fixed = { range = 3, type = { 'fullfront' } } },
     moveSet = { 'rbl0', 'rs0', 'rbr0', 'bbl1', 'ws1', 'bbr1', 'wbl2', 'bs2', 'wbr2', 'rbl3', 'bs3', 'rbr3', 'ws4', 'rs5' },
     mesh =
@@ -2505,7 +2505,7 @@ masterShipDB['tridentclassassaultship'] = {
     size = 'huge',
     agi = 0,
     mountingPoints = { front = { 0, -2.63 }, rear = { 0, 2.63 } },
-    Fac = { [3] = true, [7] = true },
+    Fac = { ['scumandvillainy'] = true, ['separatistalliance'] = true },
     arcs = { fixed = { range = 3, type = { 'front' } } },
     moveSet = { 'rs0', 'rbl0', 'rbr0', 'bbl2', 'bs2', 'bbr2', 'wbl3', 'bs3', 'wbr3', 'bs4', 'rk4', 'ws5', 'ws1r', 'rs2r' },
     mesh =

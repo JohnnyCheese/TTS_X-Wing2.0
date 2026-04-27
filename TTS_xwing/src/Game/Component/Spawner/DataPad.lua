@@ -31,31 +31,24 @@ tintColors[6] = Color(0.5, 0.25, 0.1, 1.0) -- Brown
 tintColors[7] = Color(1, 1, 1, 1.0)        -- White
 tintColors[8] = Color(0.5, 0.5, 0.5, 1.0)  -- Gray
 
--- FFG uses full name on factions, so a conversion is needed
-ffgFaction = {}
-ffgFaction[0] = 'Dum'
-ffgFaction[1] = 'Reb'
-ffgFaction[2] = 'Imp'
-ffgFaction[3] = 'Scu'
-ffgFaction[4] = 'Res'
-ffgFaction[5] = 'For'
-ffgFaction[6] = 'Rep'
-ffgFaction[7] = 'Cis'
+validFactions = {
+    dummy = true
+}
 
 cardBackDB = {}
-cardBackDB.Dum = ''
-cardBackDB.Reb =
+cardBackDB.dummy = ''
+cardBackDB.rebelalliance =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Rebelback.png'
-cardBackDB.Imp =
+cardBackDB.galacticempire =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Empireback.png'
-cardBackDB.Scu =
+cardBackDB.scumandvillainy =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Scumback.png'
-cardBackDB.Res =
+cardBackDB.resistance =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Resback.jpg'
-cardBackDB.For = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/FOback.png'
-cardBackDB.Rep =
+cardBackDB.firstorder = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/FOback.png'
+cardBackDB.galacticrepublic =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/REPback.jpg'
-cardBackDB.Cis =
+cardBackDB.separatistalliance =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/CISback.jpg'
 cardBackDB['Talent'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Eptupgrade.png'  -- EPT
@@ -613,6 +606,19 @@ function validatePilotIds(idTable)
     return true
 end
 
+function validateFaction(faction)
+    if validFactions[faction] ~= true and (factions == nil or factions[faction] ~= true) then
+        local message = 'Invalid faction key: ' .. tostring(faction)
+        if printToAll ~= nil then
+            printToAll(message, { 1, 0, 0 })
+        else
+            print(message)
+        end
+        return false
+    end
+    return true
+end
+
 function listToFormat(ruleset, version, vendor)
     if version and string.find(version, '2.0.') then
         return "2.0-legacy"
@@ -623,13 +629,13 @@ end
 
 factions =
 {
-    rebelalliance = 1,
-    galacticempire = 2,
-    scumandvillainy = 3,
-    resistance = 4,
-    firstorder = 5,
-    galacticrepublic = 6,
-    separatistalliance = 7
+    rebelalliance = true,
+    galacticempire = true,
+    scumandvillainy = true,
+    resistance = true,
+    firstorder = true,
+    galacticrepublic = true,
+    separatistalliance = true
 }
 
 --Takes the XWS JSON and the xws <-> FFG ID map and constructs a parts list to pass to idSpawner
@@ -639,13 +645,10 @@ function xwsSpawn(list, playerColor)
         parts.Pilots = {}
         parts.Upgrades = {}
         parts.spawnCard = self
-        parts.Faction = 0
-        parts.Faction = factions[list.faction]
-        --[[for _, faction in pairs(XWS_DATA.factions) do
-         if faction.xws == list.faction then
-           parts.Faction = faction.ffg
-         end
-       end]]
+        parts.Faction = list.faction
+        if not validateFaction(parts.Faction) then
+            return
+        end
         parts.Obstacles = {}
         parts.Format = listToFormat(list.ruleset, list.version, list.vendor)
 
@@ -1003,7 +1006,7 @@ function singlePilotSpawn(Id)
     partList.Pilots[1] = Id
     partList.Upgrades = {}
     partList.Upgrades[1] = {}
-    partList.Faction = masterPilotDB[Id].Faction 
+    partList.Faction = masterPilotDB[Id].Faction
     partList.Format = "2.5"
     if VERSION_DATA.ruleset == "X2PO" then
         partList.Format = "2.0-legacy"
@@ -1020,7 +1023,7 @@ function singleUpSpawn(upId)
     partList.Upgrades = {}
     partList.Upgrades[1] = {}
     partList.Upgrades[1][1] = upId
-    partList.Faction = ffgFaction[0]
+    partList.Faction = 'dummy'
     partList.Format = "2.5"
     if VERSION_DATA.ruleset == "X2PO" then
         partList.Format = "2.0-legacy"
@@ -1038,13 +1041,13 @@ end
 ]]
 
 dialSkin = {
-    [1] = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/Rebel.png',
-    [2] = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/Empire.png',
-    [3] = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/Scum.png',
-    [4] = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/Resistance.png',
-    [5] = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/FO.png',
-    [6] = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/Republic.png',
-    [7] = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/CIS.png',
+    rebelalliance = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/Rebel.png',
+    galacticempire = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/Empire.png',
+    scumandvillainy = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/Scum.png',
+    resistance = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/Resistance.png',
+    firstorder = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/FO.png',
+    galacticrepublic = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/Republic.png',
+    separatistalliance = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/CIS.png',
 }
 
 function calculateShipIndicators(idTable)
@@ -1092,6 +1095,9 @@ function idSpawner(idTable)
     else
         fList.Faction = idTable.Faction
     end
+    if not validateFaction(fList.Faction) then
+        return
+    end
     fList.factionDial = dialSkin[fList.Faction]
     fList.sqdAction = {}
     local Format = idTable.Format or "2.5"
@@ -1128,7 +1134,7 @@ function idSpawner(idTable)
         fList.Pilots[k].card = "{verifycache}https://raw.githubusercontent.com/" ..
             repo .. "/x-wing2.0-project-goldenrod/" ..
             Format .. "/src/images/En/pilots/" .. masterPilotDB[v].XWS .. ".png"
-        fList.Pilots[k].cardB = cardBackDB[ffgFaction[fList.Faction]]
+        fList.Pilots[k].cardB = cardBackDB[fList.Faction]
         fList.Pilots[k].standardized_loadout = masterPilotDB[v].standardized_loadout
         fList.Pilots[k].standardized_upgrades = masterPilotDB[v].standardized_upgrades
         local Ship = masterPilotDB[v].ship_type
@@ -1562,37 +1568,37 @@ end
 
 -- One function for each faction, forwards to main menu.
 function buiReb()
-    partList.Faction = 1
+    partList.Faction = 'rebelalliance'
     mainMenu()
 end
 
 function buiImp()
-    partList.Faction = 2
+    partList.Faction = 'galacticempire'
     mainMenu()
 end
 
 function buiScu()
-    partList.Faction = 3
+    partList.Faction = 'scumandvillainy'
     mainMenu()
 end
 
 function buiRes()
-    partList.Faction = 4
+    partList.Faction = 'resistance'
     mainMenu()
 end
 
 function buiFor()
-    partList.Faction = 5
+    partList.Faction = 'firstorder'
     mainMenu()
 end
 
 function buiRep()
-    partList.Faction = 6
+    partList.Faction = 'galacticrepublic'
     mainMenu()
 end
 
 function buiCis()
-    partList.Faction = 7
+    partList.Faction = 'separatistalliance'
     mainMenu()
 end
 
@@ -2618,7 +2624,7 @@ function spawnerStart()
     finalList = {}
     finalList.Pilots = {}
     finalList.Upgrades = {}
-    finalList.Faction = 0
+    finalList.Faction = 'dummy'
     finalList.Aux = {}
     finalList.AuxU = {}
     finalList.spawnCard = self
@@ -2637,37 +2643,37 @@ end
 
 --Set up faction in the table
 function Reb()
-    finalList.Faction = 1
+    finalList.Faction = 'rebelalliance'
     inputList()
 end
 
 function Imp()
-    finalList.Faction = 2
+    finalList.Faction = 'galacticempire'
     inputList()
 end
 
 function Scu()
-    finalList.Faction = 3
+    finalList.Faction = 'scumandvillainy'
     inputList()
 end
 
 function Res()
-    finalList.Faction = 4
+    finalList.Faction = 'resistance'
     inputList()
 end
 
 function For()
-    finalList.Faction = 5
+    finalList.Faction = 'firstorder'
     inputList()
 end
 
 function Rep()
-    finalList.Faction = 6
+    finalList.Faction = 'galacticrepublic'
     inputList()
 end
 
 function CIS()
-    finalList.Faction = 7
+    finalList.Faction = 'separatistalliance'
     inputList()
 end
 

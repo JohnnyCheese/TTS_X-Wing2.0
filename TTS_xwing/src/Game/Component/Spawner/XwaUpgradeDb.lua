@@ -6,7 +6,7 @@ xwaUpgradeDb['captive-legendsandrelics'] = {
     slot = 'Crew',
     limited = 1,
     Charge = 1,
-    restriction = { Faction = { [2] = true, [5] = true, [7] = true } }
+    restriction = { Faction = { ['galacticempire'] = true, ['firstorder'] = true, ['separatistalliance'] = true } }
 }
 
 xwaUpgradeDb['modifiedr4punit-legendsandrelics'] = {
@@ -14,7 +14,7 @@ xwaUpgradeDb['modifiedr4punit-legendsandrelics'] = {
     XWS = 'modifiedr4punit-legendsandrelics',
     slot = 'Astromech',
     Charge = 1,
-    restriction = { Faction = { [1] = true } }
+    restriction = { Faction = { ['rebelalliance'] = true } }
 }
 
 xwaUpgradeDb['flightassistastromech-legendsandrelics'] = {
@@ -39,7 +39,7 @@ xwaUpgradeDb['r7t1-legendsandrelics'] = {
     limited = 1,
     addAction = { 'TL', 'B' },
     restriction = {
-        Faction = { [1] = true, [4] = true },
+        Faction = { ['rebelalliance'] = true, ['resistance'] = true },
         Size = { small = true }
     }
 }
@@ -87,7 +87,7 @@ xwaUpgradeDb['fennecshand-legendsandrelics'] = {
     slot = 'Crew',
     limited = 1,
     Charge = 2,
-    restriction = { Faction = { [3] = true } }
+    restriction = { Faction = { ['scumandvillainy'] = true } }
 }
 
 xwaUpgradeDb['zoriibliss-legendsandrelics'] = {
@@ -96,7 +96,7 @@ xwaUpgradeDb['zoriibliss-legendsandrelics'] = {
     slot = 'Crew',
     limited = 1,
     Charge = 1,
-    restriction = { Faction = { [4] = true } }
+    restriction = { Faction = { ['resistance'] = true } }
 }
 
 xwaUpgradeDb['ahsokatano-legendsandrelics'] = {
@@ -105,7 +105,7 @@ xwaUpgradeDb['ahsokatano-legendsandrelics'] = {
     slot = 'Crew',
     limited = 1,
     Force = 1,
-    restriction = { Faction = { [1] = true } }
+    restriction = { Faction = { ['rebelalliance'] = true } }
 }
 
 xwaUpgradeDb['thrawn-legendsandrelics'] = {
@@ -114,7 +114,7 @@ xwaUpgradeDb['thrawn-legendsandrelics'] = {
     slot = 'Crew',
     limited = 1,
     Charge = 2,
-    restriction = { Faction = { [2] = true } }
+    restriction = { Faction = { ['galacticempire'] = true } }
 }
 
 xwaUpgradeDb['roilinganger-legendsandrelics'] = {
@@ -129,7 +129,7 @@ xwaUpgradeDb['wedgeantilles-legendsandrelics'] = {
     XWS = 'wedgeantilles-legendsandrelics',
     slot = 'Gunner',
     limited = 1,
-    restriction = { Faction = { [4] = true } }
+    restriction = { Faction = { ['resistance'] = true } }
 }
 
 xwaUpgradeDb['retrofittedautothrusters-legendsandrelics'] = {
@@ -185,7 +185,7 @@ xwaUpgradeDb['tsj1atargetingcomputer-legendsandrelics'] = {
     XWS = 'tsj1atargetingcomputer-legendsandrelics',
     slot = 'Tech',
     Charge = 1,
-    restriction = { Faction = { [5] = true } }
+    restriction = { Faction = { ['firstorder'] = true } }
 }
 
 xwaUpgradeDb['burstlaserturret-legendsandrelics'] = {

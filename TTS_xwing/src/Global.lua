@@ -6666,7 +6666,15 @@ function newSpawner(listTable)
     spawnedPilotList = {}
     local spawnPrefix =
     "{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/"
-    local factionnames = { "rebel", "empire", "scum", "resistance", "first-order", "republic", "separatists" }
+    local factionnames = {
+        rebelalliance = "rebel",
+        galacticempire = "empire",
+        scumandvillainy = "scum",
+        resistance = "resistance",
+        firstorder = "first-order",
+        galacticrepublic = "republic",
+        separatistalliance = "separatists"
+    }
 
     PosBag1 = { 5, 5, 0 }
     PosBag2 = { 10, 10, 0 }
