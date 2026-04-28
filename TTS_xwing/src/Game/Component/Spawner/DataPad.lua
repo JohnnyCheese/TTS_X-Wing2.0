@@ -1258,6 +1258,7 @@ function idSpawner(idTable)
             else
                 fList.Upgrades[k][key].Charge = 0
             end
+            fList.Upgrades[k][key].extended_width = masterUpgradesDB[upgrade_xws_id].extended_width == true
             if masterUpgradesDB[upgrade_xws_id].arcs then
                 if masterUpgradesDB[upgrade_xws_id].arcs.fixed then
                     fList.Pilots[k].Data.arcs.fixed = fList.Pilots[k].Data.arcs.fixed or { name = 'primary', type = {} }

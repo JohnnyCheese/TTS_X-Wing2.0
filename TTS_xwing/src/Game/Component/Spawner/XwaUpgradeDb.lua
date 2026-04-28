@@ -5,6 +5,7 @@ xwaUpgradeDb['captive-legendsandrelics'] = {
     slot = 'Crew',
     limited = 1,
     charge = 1,
+    extended_width = true,
     restriction = { faction = { ['galacticempire'] = true, ['firstorder'] = true, ['separatistalliance'] = true } }
 }
 
@@ -12,6 +13,7 @@ xwaUpgradeDb['modifiedr4punit-legendsandrelics'] = {
     name = "Modified R4-P Unit",
     slot = 'Astromech',
     charge = 1,
+    extended_width = true,
     restriction = { faction = { ['rebelalliance'] = true } }
 }
 
@@ -20,12 +22,14 @@ xwaUpgradeDb['flightassistastromech-legendsandrelics'] = {
     slot = 'Astromech',
     charge = 2,
     add_action = { '2B', '2BR' },
+    extended_width = true,
     restriction = { size = { small = true } }
 }
 
 xwaUpgradeDb['unhingedastromech-legendsandrelics'] = {
     name = "Unhinged Astromech",
     slot = 'Astromech',
+    extended_width = true,
 }
 
 xwaUpgradeDb['r7t1-legendsandrelics'] = {
@@ -33,6 +37,7 @@ xwaUpgradeDb['r7t1-legendsandrelics'] = {
     slot = 'Astromech',
     limited = 1,
     add_action = { 'TL', 'B' },
+    extended_width = true,
     restriction = {
         faction = { ['rebelalliance'] = true, ['resistance'] = true },
         size = { small = true }
@@ -42,6 +47,7 @@ xwaUpgradeDb['r7t1-legendsandrelics'] = {
 xwaUpgradeDb['precisiontunedcannons-legendsandrelics'] = {
     name = "Precision-Tuned Cannons",
     slot = 'Cannon',
+    extended_width = true,
     arcs = { fixed = { name = 'precision-tuned cannons', range = 3, type = { 'front' } } }
 }
 
@@ -71,6 +77,7 @@ xwaUpgradeDb['wingedreversal-legendsandrelics'] = {
             rtr3   = { [1] = 'rtr3', [2] = 'rtr3t' },
         }
     end,
+    extended_width = true,
     restriction = { ship = { ['gauntletfighter'] = true, ['ut60duwing'] = true } }
 }
 
@@ -79,6 +86,7 @@ xwaUpgradeDb['fennecshand-legendsandrelics'] = {
     slot = 'Crew',
     limited = 1,
     charge = 2,
+    extended_width = true,
     restriction = { faction = { ['scumandvillainy'] = true } }
 }
 
@@ -87,6 +95,7 @@ xwaUpgradeDb['zoriibliss-legendsandrelics'] = {
     slot = 'Crew',
     limited = 1,
     charge = 1,
+    extended_width = true,
     restriction = { faction = { ['resistance'] = true } }
 }
 
@@ -95,6 +104,7 @@ xwaUpgradeDb['ahsokatano-legendsandrelics'] = {
     slot = 'Crew',
     limited = 1,
     force = 1,
+    extended_width = true,
     restriction = { faction = { ['rebelalliance'] = true } }
 }
 
@@ -103,12 +113,14 @@ xwaUpgradeDb['thrawn-legendsandrelics'] = {
     slot = 'Crew',
     limited = 1,
     charge = 2,
+    extended_width = true,
     restriction = { faction = { ['galacticempire'] = true } }
 }
 
 xwaUpgradeDb['roilinganger-legendsandrelics'] = {
     name = "Roiling Anger",
     slot = 'Force Power',
+    extended_width = true,
     restriction = { keywords = { 'Dark Side' } }
 }
 
@@ -116,6 +128,7 @@ xwaUpgradeDb['wedgeantilles-legendsandrelics'] = {
     name = "Wedge Antilles",
     slot = 'Gunner',
     limited = 1,
+    extended_width = true,
     restriction = { faction = { ['resistance'] = true } }
 }
 
@@ -124,60 +137,70 @@ xwaUpgradeDb['retrofittedautothrusters-legendsandrelics'] = {
     slot = 'Modification',
     charge = 2,
     add_action = { 'BR' },
+    extended_width = true,
     restriction = { size = { small = true } }
 }
 
 xwaUpgradeDb['partinggift-legendsandrelics'] = {
     name = "Parting Gift",
     slot = 'Talent',
+    extended_width = true,
 }
 
 xwaUpgradeDb['automatedloaders-legendsandrelics'] = {
     name = "Automated Loaders",
     slot = 'Modification',
     charge = 1,
+    extended_width = true,
 }
 
 xwaUpgradeDb['targetingmatrix-legendsandrelics'] = {
     name = "Targeting Matrix",
     slot = 'Modification',
+    extended_width = true,
 }
 
 xwaUpgradeDb['blindspottargeter-legendsandrelics'] = {
     name = "Blindspot Targeter",
     slot = 'Sensor',
+    extended_width = true,
 }
 
 xwaUpgradeDb['graviticwell-legendsandrelics'] = {
     name = "Gravitic Well",
     slot = 'Configuration',
-    restriction = { ship = { ['nantexclassstarfighter'] = true } }
+    restriction = { ship = { ['nantexclassstarfighter'] = true } },
+    extended_width = true,
 }
 
 xwaUpgradeDb['targetingrelay-legendsandrelics'] = {
     name = "Targeting Relay",
     slot = 'Tech',
     charge = 2,
+    extended_width = true,
 }
 
 xwaUpgradeDb['tsj1atargetingcomputer-legendsandrelics'] = {
     name = "T-SJ1A Targeting Computer",
     slot = 'Tech',
     charge = 1,
-    restriction = { faction = { ['firstorder'] = true } }
+    restriction = { faction = { ['firstorder'] = true } },
+    extended_width = true,
 }
 
 xwaUpgradeDb['burstlaserturret-legendsandrelics'] = {
     name = "Burst Laser Turret",
     slot = 'Turret',
     charge = 2,
-    arcs = { turret = { name = 'burst laser turret', range = 2, type = { 'singleturret' } } }
+    arcs = { turret = { name = 'burst laser turret', range = 2, type = { 'singleturret' } } },
+    extended_width = true,
 }
 
 xwaUpgradeDb['seekermissiles-legendsandrelics'] = {
     name = "Seeker Missiles",
     slot = 'Missile',
     charge = 4,
+    extended_width = true,
 }
 
 return xwaUpgradeDb

@@ -6703,6 +6703,57 @@ function newSpawner(listTable)
     storePos = spawnCard.getPosition()
     storeRot = spawnCard.getRotation()
 
+    local UPGRADE_STEP_X = 1.78
+    local UPGRADE_STEP_Y = 0.2
+    local UPGRADE_EXTENDED_WIDTH_TUCK = 0.6
+    local UPGRADE_EXTENDED_WIDTH_STEP = UPGRADE_STEP_X + UPGRADE_EXTENDED_WIDTH_TUCK
+    local CONFIG_CARD_ANCHOR_X = 1.42
+    local CONFIG_CARD_SHIFT_X = -1.9
+
+    local function isExtendedWidthUpgrade(upgrade)
+        return upgrade.extended_width == true
+    end
+
+    local function extendedWidthOffset(upgrade, direction)
+        if isExtendedWidthUpgrade(upgrade) then
+            return UPGRADE_EXTENDED_WIDTH_TUCK * direction
+        end
+        return 0
+    end
+
+    local function upgradeCardLayout(cursor, upgrade)
+        local widthOffset = extendedWidthOffset(upgrade, -1)
+        local layout = {
+            x = cursor.x + widthOffset,
+            y = cursor.y,
+            z = cursor.z,
+        }
+        if isExtendedWidthUpgrade(upgrade) then
+            cursor.x = cursor.x - UPGRADE_EXTENDED_WIDTH_STEP
+        else
+            cursor.x = cursor.x - UPGRADE_STEP_X
+        end
+        cursor.y = cursor.y - UPGRADE_STEP_Y
+        return layout
+    end
+
+    local function configCardLayout(upgrade)
+        local layout = {
+            x = CONFIG_CARD_ANCHOR_X + extendedWidthOffset(upgrade, 1),
+            y = 0,
+            z = 5.5,
+        }
+        return layout
+    end
+
+    local function localLayoutPos(layout, dx, dy, dz)
+        return LocalPos(spawnCard, {
+            layout.x + (dx or 0),
+            layout.y + (dy or 0),
+            layout.z + (dz or 0),
+        })
+    end
+
     shipIndex = 1 --Sets index of ship being spawned
 
     while Pilots[shipIndex] ~= nil do
@@ -6722,9 +6773,10 @@ function newSpawner(listTable)
         -- Spawn Mobile Upgrades
         for j, Up in pairs(Upgrades[shipIndex]) do
             if Up.Config == true then
-                finalPos = LocalPos(spawnCard, { -1.9, 0, 0 }) --Layout adjustment
+                local configLayout = configCardLayout(Up)
+                finalPos = LocalPos(spawnCard, { CONFIG_CARD_SHIFT_X, 0, 0 }) --Layout adjustment
                 spawnCard.setPosition(finalPos)
-                pos = LocalPos(spawnCard, { 1.42, 0, 5.5 })
+                pos = localLayoutPos(configLayout)
                 rot = spawnCard.getRotation()
                 rot.y = rot.y
                 cardLink = Up.card
@@ -6743,15 +6795,15 @@ function newSpawner(listTable)
                 charges = Up.Charge
                 while charges > 0 do
                     if charges == 5 then
-                        pos = LocalPos(spawnCard, { -1.7 + 4, 0, 1.9 })
+                        pos = localLayoutPos(configLayout, 0.88, 0, -3.6)
                     elseif charges == 4 then
-                        pos = LocalPos(spawnCard, { -1.7 + 4, 0, 2.8 })
+                        pos = localLayoutPos(configLayout, 0.88, 0, -2.7)
                     elseif charges == 3 then
-                        pos = LocalPos(spawnCard, { -2.6 + 4, 0, 2.8 })
+                        pos = localLayoutPos(configLayout, -0.02, 0, -2.7)
                     elseif charges == 2 then
-                        pos = LocalPos(spawnCard, { -1.7 + 4, 0, 3.7 })
+                        pos = localLayoutPos(configLayout, 0.88, 0, -1.8)
                     elseif charges == 1 then
-                        pos = LocalPos(spawnCard, { -2.6 + 4, 0, 3.7 })
+                        pos = localLayoutPos(configLayout, -0.02, 0, -1.8)
                     else
                         charges = 0
                     end
@@ -6763,10 +6815,12 @@ function newSpawner(listTable)
                 end
             end
         end
+        local upgradeLayoutCursor = { x = -1.42, y = 1, z = 5.5 }
         for j, Up in pairs(Upgrades[shipIndex]) do
             if Up.Config ~= true then
                 --Indicates there's a card left of the pilot card, for layout purposes
-                pos = LocalPos(spawnCard, { -1.42 - 1.78 * UpNum, 1 - 0.2 * UpNum, 5.5 })
+                local upgradeLayout = upgradeCardLayout(upgradeLayoutCursor, Up)
+                pos = localLayoutPos(upgradeLayout)
                 rot = spawnCard.getRotation()
                 rot.y = rot.y - 90
                 cardLink = Up.card
@@ -6785,7 +6839,7 @@ function newSpawner(listTable)
                     --Checks and spawn conditions associated to pilots
                     for k, acc in ipairs(listaAcc) do
                         if acc.name == Up.Condition then
-                            pos = LocalPos(spawnCard, { -2 - 1.78 * UpNum, 1 - 0.2 * UpNum, 8 })
+                            pos = localLayoutPos(upgradeLayout, -0.58, 0, 2.5)
                             rot = spawnCard.getRotation()
                             newAsset = tempBagAcc.takeObject({ position = pos, rotation = rot, guid = acc.guid, smooth = false })
                             assetClone = newAsset.clone()
@@ -6800,15 +6854,15 @@ function newSpawner(listTable)
                 if charges > 0 then
                     while charges > 0 do
                         if charges == 5 then
-                            pos = LocalPos(spawnCard, { -1.7 - 1.78 * UpNum, 1, 1.9 })
+                            pos = localLayoutPos(upgradeLayout, -0.28, 1 - upgradeLayout.y, -3.6)
                         elseif charges == 4 then
-                            pos = LocalPos(spawnCard, { -1.7 - 1.78 * UpNum, 1, 2.8 })
+                            pos = localLayoutPos(upgradeLayout, -0.28, 1 - upgradeLayout.y, -2.7)
                         elseif charges == 3 then
-                            pos = LocalPos(spawnCard, { -2.6 - 1.78 * UpNum, 1, 2.8 })
+                            pos = localLayoutPos(upgradeLayout, -1.18, 1 - upgradeLayout.y, -2.7)
                         elseif charges == 2 then
-                            pos = LocalPos(spawnCard, { -1.7 - 1.78 * UpNum, 1, 3.7 })
+                            pos = localLayoutPos(upgradeLayout, -0.28, 1 - upgradeLayout.y, -1.8)
                         elseif charges == 1 then
-                            pos = LocalPos(spawnCard, { -2.6 - 1.78 * UpNum, 1, 3.7 })
+                            pos = localLayoutPos(upgradeLayout, -1.18, 1 - upgradeLayout.y, -1.8)
                         else
                             charges = 0
                         end
@@ -6823,7 +6877,7 @@ function newSpawner(listTable)
             end
         end
 
-        if Pilots[shipIndex].id ~= 0 then
+        if Pilots[shipIndex].id ~= '' then
             --Pilot and Ship Spawn
             pilotName = Pilots[shipIndex].name
             card = Pilots[shipIndex].card
@@ -7414,7 +7468,7 @@ function newSpawner(listTable)
             end
             finalPos = LocalPos(spawnCard, { -(5.5 + charges * 0.7), 0, 0 })
         else
-            finalPos = LocalPos(spawnCard, { -4 - 1.78 * UpNum, 0, 0 })
+            finalPos = LocalPos(spawnCard, { upgradeLayoutCursor.x - 2.58, 0, 0 })
         end
         spawnCard.setPosition(finalPos)
         shipIndex = shipIndex + 1
