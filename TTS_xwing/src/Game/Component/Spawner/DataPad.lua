@@ -142,21 +142,6 @@ ffgSpecial[473] = 'Resist. Crew' --chewRes
 ffgSpecial[472] = 'Resist. Crew' --3po Res
 ffgSpecial[304] = 'Rebel Crew'   --3po Reb
 
-dualUpgradeList = {}
-dualUpgradeList[538] = 556 -- Chancellor Palp / Darth Sidious
-dualUpgradeList[332] = 331 -- Pivot wing
-dualUpgradeList[334] = 333 -- Servomotor S-foils
-dualUpgradeList[384] = 383 -- L3-37
-dualUpgradeList[487] = 486 -- Integrated S-foils
-dualUpgradeList[535] = 555 -- Grappling Struts
-dualUpgradeList[595] = 594 -- Landing Struts
-dualUpgradeList[646] = 645 -- Stabilized S-Foils
-dualUpgradeList[652] = 653 -- Proud tradition
-dualUpgradeList[683] = 684 -- Commander Malarus
-dualUpgradeList[685] = 686 -- Agent terex
-dualUpgradeList[691] = 692 -- Repulsorlift Stabilizers
-dualUpgradeList[617] = 618 -- C1-10P
-
 VERSION_DATA = {
     ruleset = "none",
     pilots = {},
@@ -1190,6 +1175,8 @@ function idSpawner(idTable)
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':be3:br3:s3:s3r'
         elseif pilot_xws_id == 'finchdallow-evacuationofdqar' then
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':be1:br1:s2:be2:br2'
+        elseif pilot_xws_id == 'vennie-evacuationofdqar' then -- Vennie sideways drops
+            fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':ss1:ps1'
         elseif pilot_xws_id == 'captainjonus-swz98' then
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s3r:be3r:br3r'
         elseif pilot_xws_id == 'braylenstramm-battleoverendor' or pilot_xws_id == 'ginamoonsong-battleoverendor' then -- BoE B-Wings sideways drops
@@ -1219,7 +1206,6 @@ function idSpawner(idTable)
         local loadout = 0
         for key, upgrade_xws_id in pairs(idTable.Upgrades[k]) do
             --print("Upg[" .. tostring(k) .. "] = ".. tostring(upgrade_xws_id))
-            upgrade_xws_id = dualUpgradeList[upgrade_xws_id] or upgrade_xws_id
             local name = masterUpgradesDB[upgrade_xws_id].name
             local upSlot = masterUpgradesDB[upgrade_xws_id].slot
             fList.Upgrades[k][key] = {}
