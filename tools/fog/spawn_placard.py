@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-Spawn a Custom_Tile placard into save 19 displaying the fog rules image.
-Idempotent — removes any previous FogPlacardAuto spawn first.
+Spawn a Custom_Tile placard into save 19 displaying the fog rules image,
+plus a clickable Fog of War toggle button just above the placard.
+Idempotent — removes any previous auto-spawned placard / button first.
 """
 import json
 import shutil
@@ -13,18 +14,41 @@ SAVE = Path.home() / "Library" / "Tabletop Simulator" / "Saves" / "TS_Save_19.js
 BACKUP = SAVE.with_suffix(".json.placard_bak")
 IMAGE = "http://178.156.226.194/rules-1MAY.png"
 MARKER = "FogPlacardAuto"
+BUTTON_MARKER = "FogToggleButtonAuto"
 
-# Image is 2816x1536 (aspect ~1.833). Natural rectangular tile in TTS has a
-# 4:3 ratio by default; WidthScale lets us override. We'll set WidthScale = 0
-# (default) and scale X bigger than Z to match the aspect ratio.
-# Size on table ~ 8 igu wide, 4.36 igu tall → readable without blocking play.
+# Placard position (where the user moved it to).
 SCALE_X = 5.0
 SCALE_Z = 5.0
 SCALE_Y = 1.0
+POS = (-63.6343079, -0.05887509, 29.10424)
+ROT_Y = 90.02352
 
-# Position: above and slightly back of the playmat edge, lifted off the table.
-POS = (-76.72316, -0.0588750541, 26.24882)
-ROT_Y = 90.01019
+# Toggle button sits above the placard. With placard rotY=90, "above" in screen
+# space corresponds to smaller world X. Place it well clear of the placard top.
+# Captured from save 19 after manual placement.
+BUTTON_POS = (-69.40262, -0.0338752642, 28.847847)
+BUTTON_ROT_Y = 90.02872
+
+BUTTON_LUA = """\
+function onLoad()
+    self.createButton({
+        click_function = "toggleFog",
+        function_owner = self,
+        label          = "FOG OF WAR",
+        position       = { 0, 0.3, 0 },
+        rotation       = { 0, 0, 0 },
+        width          = 1909,
+        height         = 600,
+        font_size      = 200,
+        color          = { 0.10, 0.10, 0.13, 1 },
+        font_color     = { 1.0, 0.55, 0.15, 1 },
+    })
+end
+
+function toggleFog()
+    Global.call("API_ToggleFogOfWar")
+end
+"""
 
 
 def make_placard():
@@ -69,20 +93,57 @@ def make_placard():
     }
 
 
+def make_button():
+    x, y, z = BUTTON_POS
+    return {
+        "GUID": uuid.uuid4().hex[:6],
+        "Name": "BlockSquare",
+        "Transform": {
+            "posX": x, "posY": y, "posZ": z,
+            "rotX": 0, "rotY": BUTTON_ROT_Y, "rotZ": 0,
+            # Wide along the button's local X (where the label reads), thin Y,
+            # narrow local Z. After rotY=90 this puts width along world Z.
+            "scaleX": 1.6, "scaleY": 0.05, "scaleZ": 0.5,
+        },
+        "Nickname": "Fog of War Toggle",
+        "Description": "Click to toggle Fog of War mode.",
+        "GMNotes": BUTTON_MARKER,
+        "ColorDiffuse": {"r": 0.18, "g": 0.18, "b": 0.22, "a": 0.85},
+        "Tags": ["FogToggleButton", "DoNotHide"],
+        "LuaScript": BUTTON_LUA,
+        "LuaScriptState": "",
+        "Locked": True,
+        "Grid": True,
+        "Snap": True,
+        "IgnoreFoW": False,
+        "MeasureMovement": False,
+        "DragSelectable": True,
+        "Autoraise": True,
+        "Sticky": True,
+        "Tooltip": True,
+        "GridProjection": False,
+        "HideWhenFaceDown": False,
+        "Hands": False,
+    }
+
+
 def main() -> int:
     data = json.loads(SAVE.read_text())
     states = data.get("ObjectStates", [])
     before = len(states)
-    states = [o for o in states if o.get("GMNotes") != MARKER]
+    states = [o for o in states
+              if o.get("GMNotes") != MARKER and o.get("GMNotes") != BUTTON_MARKER]
     removed = before - len(states)
     states.append(make_placard())
+    states.append(make_button())
     data["ObjectStates"] = states
 
     if not BACKUP.exists():
         shutil.copy(SAVE, BACKUP)
         print(f"Backup: {BACKUP}", file=sys.stderr)
     SAVE.write_text(json.dumps(data, indent=2, ensure_ascii=False))
-    print(f"OK: removed {removed} old placard(s), added 1 at {POS}", file=sys.stderr)
+    print(f"OK: removed {removed} old auto-spawn(s); placard at {POS}, "
+          f"button at {BUTTON_POS}", file=sys.stderr)
     return 0
 
 
