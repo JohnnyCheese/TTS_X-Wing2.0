@@ -5596,9 +5596,7 @@ function removeCheckRange()
 end
 
 function onLoad(save_state)
-    print("Test")
     self.addContextMenuItem("Check Range 1", function() checkRange(1) end, false)
-    print("Test2")
 end
 
 function checkRange(range)
