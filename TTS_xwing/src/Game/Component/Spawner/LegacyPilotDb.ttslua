@@ -2,1335 +2,1139 @@
 masterPilotDB = {}
 
 -- Battle of Yavin
-masterPilotDB[5000] = {
+masterPilotDB['darthvader-battleofyavin-lsl'] = {
     name = 'Darth Vader',
     title = 'Battle of Yavin',
-    XWS = 'darthvader-battleofyavin-lsl',
-    Faction = 2,
+    faction = 'galacticempire',
     ship_type = 'tieadvancedx1',
-    cost = 73,
-    slot = { 2, 6, 17 },
-    Shield = 3,
-    init = 6,
-    Force = 3,
-    actSet = { 'F', 'TL', 'BR' },
+    slots = { 'Sensor', 'Missile', 'Force Power' },
+    shield = 3,
+    initiative = 6,
+    force = 3,
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Dark Side', 'Sith', 'TIE' }
 }
 
-masterPilotDB[5001] = {
+masterPilotDB['idenversio-battleofyavin-lsl'] = {
     name = 'Iden Versio',
     title = 'Battle of Yavin',
-    XWS = 'idenversio-battleofyavin-lsl',
-    Faction = 2,
+    faction = 'galacticempire',
     ship_type = 'tieininterceptor',
-    cost = 64,
-    slot = { 1, 14 },
-    Shield = 1,
-    init = 4,
-    Charge = 2,
-    actSet = { 'F', 'E', 'BR', 'B' },
+    slots = { 'Talent', 'Modification' },
+    shield = 1,
+    initiative = 4,
+    charge = 2,
+    action_set = { 'F', 'E', 'BR', 'B' },
     keywords = { 'TIE' }
 }
 
-masterPilotDB[5002] = {
+masterPilotDB['sigma4-battleofyavin-lsl'] = {
     name = 'Sigma 4',
     title = 'Battle of Yavin',
-    XWS = 'sigma4-battleofyavin-lsl',
-    Faction = 2,
+    faction = 'galacticempire',
     ship_type = 'tieininterceptor',
-    cost = 40,
-    slot = { 1, 14 },
-    init = 4,
-    Charge = 2,
-    actSet = { 'F', 'E', 'BR', 'B' },
+    slots = { 'Talent', 'Modification' },
+    initiative = 4,
+    charge = 2,
+    action_set = { 'F', 'E', 'BR', 'B' },
     keywords = { 'TIE' }
 }
 
-masterPilotDB[5003] = {
+masterPilotDB['sigma5-battleofyavin-lsl'] = {
     name = 'Sigma 5',
     title = 'Battle of Yavin',
-    XWS = 'sigma5-battleofyavin-lsl',
-    Faction = 2,
+    faction = 'galacticempire',
     ship_type = 'tieininterceptor',
-    cost = 41,
-    slot = { 1, 14 },
-    init = 4,
-    Charge = 2,
-    actSet = { 'F', 'E', 'BR', 'B' },
+    slots = { 'Talent', 'Modification' },
+    initiative = 4,
+    charge = 2,
+    action_set = { 'F', 'E', 'BR', 'B' },
     keywords = { 'TIE' }
 }
 
-masterPilotDB[5004] = {
+masterPilotDB['sigma6-battleofyavin-lsl'] = {
     name = 'Sigma 6',
     title = 'Battle of Yavin',
-    XWS = 'sigma6-battleofyavin-lsl',
-    Faction = 2,
+    faction = 'galacticempire',
     ship_type = 'tieininterceptor',
-    cost = 41,
-    slot = { 1, 14 },
-    init = 4,
-    Charge = 2,
-    actSet = { 'F', 'E', 'BR', 'B' },
+    slots = { 'Talent', 'Modification' },
+    initiative = 4,
+    charge = 2,
+    action_set = { 'F', 'E', 'BR', 'B' },
     keywords = { 'TIE' }
 }
 
-masterPilotDB[5005] = {
+masterPilotDB['sigma7-battleofyavin-lsl'] = {
     name = 'Sigma 7',
     title = 'Battle of Yavin',
-    XWS = 'sigma7-battleofyavin-lsl',
-    Faction = 2,
+    faction = 'galacticempire',
     ship_type = 'tieininterceptor',
-    cost = 43,
-    slot = { 1 },
-    init = 4,
-    Charge = 2,
-    actSet = { 'F', 'E', 'BR', 'B', 'TL' },
+    slots = { 'Talent' },
+    initiative = 4,
+    charge = 2,
+    action_set = { 'F', 'E', 'BR', 'B', 'TL' },
     keywords = { 'TIE' }
 }
 
-masterPilotDB[5006] = {
-    name = '“Backstabber”',
+masterPilotDB['backstabber-battleofyavin-lsl'] = {
+    name = 'â€œBackstabberâ€',
     title = 'Battle of Yavin',
-    XWS = 'backstabber-battleofyavin-lsl',
-    Faction = 2,
+    faction = 'galacticempire',
     ship_type = 'tielnfighter',
-    cost = 36,
-    slot = { 1 },
-    init = 5,
-    actSet = { 'F', 'E', 'BR' },
+    slots = { 'Talent' },
+    initiative = 5,
+    action_set = { 'F', 'E', 'BR' },
     keywords = { 'TIE' }
 }
 
-masterPilotDB[5007] = {
-    name = '“Dark Curse”',
+masterPilotDB['darkcurse-battleofyavin-lsl'] = {
+    name = 'â€œDark Curseâ€',
     title = 'Battle of Yavin',
-    XWS = 'darkcurse-battleofyavin-lsl',
-    Faction = 2,
+    faction = 'galacticempire',
     ship_type = 'tielnfighter',
-    cost = 34,
-    slot = { 1 },
-    init = 6,
-    actSet = { 'F', 'E', 'BR' },
+    slots = { 'Talent' },
+    initiative = 6,
+    action_set = { 'F', 'E', 'BR' },
     keywords = { 'TIE' }
 }
 
-masterPilotDB[5008] = {
-    name = '“Mauler” Mithel',
+masterPilotDB['maulermithel-battleofyavin-lsl'] = {
+    name = 'â€œMaulerâ€ Mithel',
     title = 'Battle of Yavin',
-    XWS = 'maulermithel-battleofyavin-lsl',
-    Faction = 2,
+    faction = 'galacticempire',
     ship_type = 'tielnfighter',
-    cost = 36,
-    slot = { 1 },
-    init = 5,
-    actSet = { 'F', 'E', 'BR' },
+    slots = { 'Talent' },
+    initiative = 5,
+    action_set = { 'F', 'E', 'BR' },
     keywords = { 'TIE' }
 }
 
-masterPilotDB[5009] = {
-    name = '“Wampa”',
+masterPilotDB['wampa-battleofyavin-lsl'] = {
+    name = 'â€œWampaâ€',
     title = 'Battle of Yavin',
-    XWS = 'wampa-battleofyavin-lsl',
-    Faction = 2,
+    faction = 'galacticempire',
     ship_type = 'tielnfighter',
-    cost = 31,
-    slot = {},
-    init = 1,
-    Charge = 1,
-    actSet = { 'F', 'E', 'BR' },
+    slots = {  },
+    initiative = 1,
+    charge = 1,
+    action_set = { 'F', 'E', 'BR' },
     keywords = { 'TIE' }
 }
 
-masterPilotDB[5010] = {
+masterPilotDB['dextiree-battleofyavin-lsl'] = {
     name = 'Dex Tiree',
     title = 'Battle of Yavin',
-    XWS = 'dextiree-battleofyavin-lsl',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 'btla4ywing',
-    cost = 31,
-    slot = { 4, 5, 10, 12, 14, 6 },
-    init = 2,
-    actSet = { 'F', 'TL', 'BR' },
+    slots = { 'Turret', 'Torpedo', 'Astromech', 'Payload', 'Modification', 'Missile' },
+    initiative = 2,
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Y-wing' }
 }
 
-masterPilotDB[5011] = {
-    name = '“Dutch” Vander',
+masterPilotDB['dutchvander-battleofyavin-lsl'] = {
+    name = 'â€œDutchâ€ Vander',
     title = 'Battle of Yavin',
-    XWS = 'dutchvander-battleofyavin-lsl',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 'btla4ywing',
-    cost = 44,
-    slot = { 4, 5, 10, 12, 14, 6 },
-    init = 4,
-    actSet = { 'F', 'TL', 'BR' },
+    slots = { 'Turret', 'Torpedo', 'Astromech', 'Payload', 'Modification', 'Missile' },
+    initiative = 4,
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Y-wing' }
 }
 
-masterPilotDB[5012] = {
+masterPilotDB['holokand-battleofyavin-lsl'] = {
     name = 'Hol Okand',
     title = 'Battle of Yavin',
-    XWS = 'holokand-battleofyavin-lsl',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 'btla4ywing',
-    cost = 34,
-    slot = { 4, 5, 10, 12, 14, 6 },
-    init = 4,
-    actSet = { 'F', 'TL', 'BR' },
+    slots = { 'Turret', 'Torpedo', 'Astromech', 'Payload', 'Modification', 'Missile' },
+    initiative = 4,
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Y-wing' }
 }
 
-masterPilotDB[5013] = {
-    name = '“Pops” Krail',
+masterPilotDB['popskrail-battleofyavin-lsl'] = {
+    name = 'â€œPopsâ€ Krail',
     title = 'Battle of Yavin',
-    XWS = 'popskrail-battleofyavin-lsl',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 'btla4ywing',
-    cost = 35,
-    slot = { 4, 5, 10, 12, 14, 6 },
-    init = 4,
-    actSet = { 'F', 'TL', 'BR' },
+    slots = { 'Turret', 'Torpedo', 'Astromech', 'Payload', 'Modification', 'Missile' },
+    initiative = 4,
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Y-wing' }
 }
 
-masterPilotDB[5014] = {
+masterPilotDB['hansolo-battleofyavin-lsl'] = {
     name = 'Han Solo',
     title = 'Battle of Yavin',
-    XWS = 'hansolo-battleofyavin-lsl',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 'modifiedyt1300lightfreighter',
-    cost = 84,
-    slot = { 1, 6, 8, 8, 14, 14, 15, 16 },
-    init = 6,
-    Charge = 4,
-    actSet = { 'F', 'TL', 'B' },
+    slots = { 'Talent', 'Missile', 'Crew', 'Crew', 'Modification', 'Modification', 'Title', 'Gunner' },
+    initiative = 6,
+    charge = 4,
+    action_set = { 'F', 'TL', 'B' },
     keywords = { 'Freighter', 'YT-1300' }
 }
 
-masterPilotDB[5015] = {
+masterPilotDB['biggsdarklighter-battleofyavin-lsl'] = {
     name = 'Biggs Darklighter',
     title = 'Battle of Yavin',
-    XWS = 'biggsdarklighter-battleofyavin-lsl',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 't65xwing',
-    cost = 44,
-    slot = { 5, 10, 14, 18 },
-    init = 3,
-    actSet = { 'F', 'TL', 'BR' },
+    slots = { 'Torpedo', 'Astromech', 'Modification', 'Configuration' },
+    initiative = 3,
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'X-wing' }
 }
 
-masterPilotDB[5016] = {
+masterPilotDB['garvendreis-battleofyavin-lsl'] = {
     name = 'Garven Dreis',
     title = 'Battle of Yavin',
-    XWS = 'garvendreis-battleofyavin-lsl',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 't65xwing',
-    cost = 47,
-    slot = { 5, 10, 14, 18 },
-    init = 4,
-    actSet = { 'F', 'TL', 'BR' },
+    slots = { 'Torpedo', 'Astromech', 'Modification', 'Configuration' },
+    initiative = 4,
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'X-wing' }
 }
 
-masterPilotDB[5017] = {
+masterPilotDB['jekporkins-battleofyavin-lsl'] = {
     name = 'Jek Porkins',
     title = 'Battle of Yavin',
-    XWS = 'jekporkins-battleofyavin-lsl',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 't65xwing',
-    cost = 42,
-    slot = { 5, 10, 14, 18 },
-    init = 4,
-    actSet = { 'F', 'TL', 'BR' },
+    slots = { 'Torpedo', 'Astromech', 'Modification', 'Configuration' },
+    initiative = 4,
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'X-wing' }
 }
 
-masterPilotDB[5018] = {
+masterPilotDB['lukeskywalker-battleofyavin-lsl'] = {
     name = 'Luke Skywalker',
     title = 'Battle of Yavin',
-    XWS = 'lukeskywalker-battleofyavin-lsl',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 't65xwing',
-    cost = 60,
-    slot = { 17, 5, 10, 14, 18 },
-    init = 5,
-    Force = 2,
-    actSet = { 'F', 'TL', 'BR' },
+    slots = { 'Force Power', 'Torpedo', 'Astromech', 'Modification', 'Configuration' },
+    initiative = 5,
+    force = 2,
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'X-wing' }
 }
 
-masterPilotDB[5019] = {
+masterPilotDB['wedgeantilles-battleofyavin-lsl'] = {
     name = 'Wedge Antilles',
     title = 'Battle of Yavin',
-    XWS = 'wedgeantilles-battleofyavin-lsl',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 't65xwing',
-    cost = 49,
-    slot = { 5, 10, 14, 18 },
-    init = 5,
-    actSet = { 'F', 'TL', 'BR' },
+    slots = { 'Torpedo', 'Astromech', 'Modification', 'Configuration' },
+    initiative = 5,
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'X-wing' }
 }
 
 -- Battle Over Endor
-masterPilotDB[5020] = {
+masterPilotDB['captainyorr-battleoverendor-lsl'] = {
     name = 'Captain Yorr',
     title = 'Battle Over Endor',
-    XWS = 'captainyorr-battleoverendor-lsl',
-    Faction = 2,
+    faction = 'galacticempire',
     ship_type = 'tiededefender',
-    cost = 72,
-    slot = { 1, 2, 3, 6 },
-    init = 4,
-    Charge = 2,
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    slots = { 'Talent', 'Sensor', 'Cannon', 'Missile' },
+    initiative = 4,
+    charge = 2,
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
 }
 
-masterPilotDB[5021] = {
+masterPilotDB['coloneljendon-battleoverendor-lsl'] = {
     name = 'Colonel Jendon',
     title = 'Battle Over Endor',
-    XWS = 'coloneljendon-battleoverendor-lsl',
-    Faction = 2,
+    faction = 'galacticempire',
     ship_type = 'tiededefender',
-    cost = 80,
-    slot = { 1, 2, 3, 6 },
-    init = 6,
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    slots = { 'Talent', 'Sensor', 'Cannon', 'Missile' },
+    initiative = 6,
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
 }
 
-masterPilotDB[5022] = {
+masterPilotDB['sapphire2-battleoverendor-lsl'] = {
     name = 'Sapphire 2',
     title = 'Battle Over Endor',
-    XWS = 'sapphire2-battleoverendor-lsl',
-    Faction = 2,
+    faction = 'galacticempire',
     ship_type = 'tieininterceptor',
-    cost = 38,
-    slot = { 14, 14 },
-    init = 1,
-    actSet = { 'F', 'E', 'BR', 'B' },
+    slots = { 'Modification', 'Modification' },
+    initiative = 1,
+    action_set = { 'F', 'E', 'BR', 'B' },
     keywords = { 'TIE' }
 }
 
-masterPilotDB[5023] = {
+masterPilotDB['soontirfel-battleoverendor-lsl'] = {
     name = 'Soontir Fel',
     title = 'Battle Over Endor',
-    XWS = 'soontirfel-battleoverendor-lsl',
-    Faction = 2,
+    faction = 'galacticempire',
     ship_type = 'tieininterceptor',
-    cost = 49,
-    slot = { 1, 14, 14 },
-    init = 6,
-    Charge = 2,
-    actSet = { 'F', 'E', 'BR', 'B' },
+    slots = { 'Talent', 'Modification', 'Modification' },
+    initiative = 6,
+    charge = 2,
+    action_set = { 'F', 'E', 'BR', 'B' },
     keywords = { 'TIE' }
 }
 
-masterPilotDB[5024] = {
+masterPilotDB['mausmonare-battleoverendor-lsl'] = {
     name = 'Maus Monare',
     title = 'Battle Over Endor',
-    XWS = 'mausmonare-battleoverendor-lsl',
-    Faction = 2,
+    faction = 'galacticempire',
     ship_type = 'tieininterceptor',
-    cost = 42,
-    slot = { 1, 14, 14 },
-    Shield = 1,
-    init = 3,
-    actSet = { 'F', 'E', 'BR', 'B' },
+    slots = { 'Talent', 'Modification', 'Modification' },
+    shield = 1,
+    initiative = 3,
+    action_set = { 'F', 'E', 'BR', 'B' },
     keywords = { 'TIE' }
 }
 
-masterPilotDB[5025] = {
+masterPilotDB['lieutenanthebsly-battleoverendor-lsl'] = {
     name = 'Lieutenant Hebsly',
     title = 'Battle Over Endor',
-    XWS = 'lieutenanthebsly-battleoverendor-lsl',
-    Faction = 2,
+    faction = 'galacticempire',
     ship_type = 'tielnfighter',
-    cost = 38,
-    slot = { 1 },
-    init = 3,
-    actSet = { 'F', 'E', 'BR', 'B' },
+    slots = { 'Talent' },
+    initiative = 3,
+    action_set = { 'F', 'E', 'BR', 'B' },
     keywords = { 'TIE' }
 }
 
-masterPilotDB[5026] = {
+masterPilotDB['scythe6-battleoverendor-lsl'] = {
     name = 'Scythe 6',
     title = 'Battle Over Endor',
-    XWS = 'scythe6-battleoverendor-lsl',
-    Faction = 2,
+    faction = 'galacticempire',
     ship_type = 'tielnfighter',
-    cost = 42,
-    slot = {},
-    init = 2,
-    actSet = { 'F', 'E', 'BR' },
+    slots = {  },
+    initiative = 2,
+    action_set = { 'F', 'E', 'BR' },
     keywords = { 'TIE' }
 }
 
-masterPilotDB[5027] = {
+masterPilotDB['majormianda-battleoverendor-lsl'] = {
     name = 'Major Mianda',
     title = 'Battle Over Endor',
-    XWS = 'majormianda-battleoverendor-lsl',
-    Faction = 2,
+    faction = 'galacticempire',
     ship_type = 'tielnfighter',
-    cost = 41,
-    slot = { 1 },
-    Shield = 1,
-    init = 5,
-    actSet = { 'F', 'E', 'BR' },
+    slots = { 'Talent' },
+    shield = 1,
+    initiative = 5,
+    action_set = { 'F', 'E', 'BR' },
     keywords = { 'TIE' }
 }
 
-masterPilotDB[5028] = {
+masterPilotDB['scimitar1-battleoverendor-lsl'] = {
     name = 'Scimitar 1',
     title = 'Battle Over Endor',
-    XWS = 'scimitar1-battleoverendor-lsl',
-    Faction = 2,
+    faction = 'galacticempire',
     ship_type = 'tiesabomber',
-    cost = 36,
-    slot = { 1, 5, 6, 6, 12, 12, 14, 16 },
-    init = 3,
-    Charge = 2,
-    actSet = { 'F', 'TL', 'BR' },
+    slots = { 'Talent', 'Torpedo', 'Missile', 'Missile', 'Payload', 'Payload', 'Modification', 'Gunner' },
+    initiative = 3,
+    charge = 2,
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'TIE' }
 }
 
-masterPilotDB[5029] = {
+masterPilotDB['scimitar3-battleoverendor-lsl'] = {
     name = 'Scimitar 3',
     title = 'Battle Over Endor',
-    XWS = 'scimitar3-battleoverendor-lsl',
-    Faction = 2,
+    faction = 'galacticempire',
     ship_type = 'tiesabomber',
-    cost = 34,
-    slot = { 1, 5, 6, 6, 12, 12, 14, 16 },
-    init = 4,
-    Charge = 2,
-    actSet = { 'F', 'TL', 'BR' },
+    slots = { 'Talent', 'Torpedo', 'Missile', 'Missile', 'Payload', 'Payload', 'Modification', 'Gunner' },
+    initiative = 4,
+    charge = 2,
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'TIE' }
 }
 
-masterPilotDB[5030] = {
+masterPilotDB['adonfox-battleoverendor-lsl'] = {
     name = 'Adon Fox',
     title = 'Battle Over Endor',
-    XWS = 'adonfox-battleoverendor-lsl',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 'asf01bwing',
-    cost = 46,
-    slot = { 2, 3, 3, 5, 14, 15, 18 },
-    init = 1,
-    Charge = 2,
-    actSet = { 'F', 'TL', 'BR' },
+    slots = { 'Sensor', 'Cannon', 'Cannon', 'Torpedo', 'Modification', 'Title', 'Configuration' },
+    initiative = 1,
+    charge = 2,
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'B-wing' }
 }
 
-masterPilotDB[5031] = {
+masterPilotDB['ginamoonsong-battleoverendor-lsl'] = {
     name = 'Gina Moonsong',
     title = 'Battle Over Endor',
-    XWS = 'ginamoonsong-battleoverendor-lsl',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 'asf01bwing',
-    cost = 55,
-    slot = { 1, 2, 3, 3, 5, 15, 18 },
-    Shield = 5,
-    init = 5,
-    Charge = 2,
-    actSet = { 'F', 'TL', 'BR' },
+    slots = { 'Talent', 'Sensor', 'Cannon', 'Cannon', 'Torpedo', 'Title', 'Configuration' },
+    shield = 5,
+    initiative = 5,
+    charge = 2,
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'B-wing' }
 }
 
-masterPilotDB[5032] = {
+masterPilotDB['braylenstramm-battleoverendor-lsl'] = {
     name = 'Braylen Stramm',
     title = 'Battle Over Endor',
-    XWS = 'braylenstramm-battleoverendor-lsl',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 'asf01bwing',
-    cost = 53,
-    slot = { 1, 2, 3, 3, 5, 15, 18 },
-    Shield = 5,
-    init = 4,
-    Charge = 2,
-    actSet = { 'F', 'TL', 'BR' },
+    slots = { 'Talent', 'Sensor', 'Cannon', 'Cannon', 'Torpedo', 'Title', 'Configuration' },
+    shield = 5,
+    initiative = 4,
+    charge = 2,
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'B-wing' }
 }
 
-masterPilotDB[5033] = {
+masterPilotDB['landocalrissian-battleoverendor-lsl'] = {
     name = 'Lando Calrissian',
     title = 'Battle Over Endor',
-    XWS = 'landocalrissian-battleoverendor-lsl',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 'modifiedyt1300lightfreighter',
-    cost = 75,
-    slot = { 1, 6, 8, 8, 14, 14, 15, 16 },
-    init = 5,
-    Charge = 2,
-    actSet = { 'F', 'TL', 'E', 'B', 'Rot' },
+    slots = { 'Talent', 'Missile', 'Crew', 'Crew', 'Modification', 'Modification', 'Title', 'Gunner' },
+    initiative = 5,
+    charge = 2,
+    action_set = { 'F', 'TL', 'E', 'B', 'Rot' },
     keywords = { 'Freighter', 'YT-1300' }
 }
 
-masterPilotDB[5034] = {
+masterPilotDB['arvelcrynyd-battleoverendor-lsl'] = {
     name = 'Arvel Crynyd',
     title = 'Battle Over Endor',
-    XWS = 'arvelcrynyd-battleoverendor-lsl',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 'rz1awing',
-    cost = 38,
-    slot = { 1, 1, 6 },
-    Shield = 3,
-    init = 3,
-    actSet = { 'F', 'TL', 'E', 'BR', 'B' },
+    slots = { 'Talent', 'Talent', 'Missile' },
+    shield = 3,
+    initiative = 3,
+    action_set = { 'F', 'TL', 'E', 'BR', 'B' },
     keywords = { 'A-wing' }
 }
 
-masterPilotDB[5035] = {
+masterPilotDB['tychocelchu-battleoverendor-lsl'] = {
     name = 'Tycho Celchu',
     title = 'Battle Over Endor',
-    XWS = 'tychocelchu-battleoverendor-lsl',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 'rz1awing',
-    cost = 41,
-    slot = { 1, 1, 6 },
-    Shield = 3,
-    init = 5,
-    actSet = { 'F', 'TL', 'E', 'BR', 'B' },
+    slots = { 'Talent', 'Talent', 'Missile' },
+    shield = 3,
+    initiative = 5,
+    action_set = { 'F', 'TL', 'E', 'BR', 'B' },
     keywords = { 'A-wing' }
 }
 
-masterPilotDB[5036] = {
+masterPilotDB['gemmersojan-battleoverendor-lsl'] = {
     name = 'Gemmer Sojan',
     title = 'Battle Over Endor',
-    XWS = 'gemmersojan-battleoverendor-lsl',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 'rz1awing',
-    cost = 33,
-    slot = { 1, 6 },
-    Shield = 2,
-    init = 2,
-    actSet = { 'F', 'TL', 'E', 'BR', 'B' },
+    slots = { 'Talent', 'Missile' },
+    shield = 2,
+    initiative = 2,
+    action_set = { 'F', 'TL', 'E', 'BR', 'B' },
     keywords = { 'A-wing' }
 }
 
-masterPilotDB[5037] = {
+masterPilotDB['wedgeantilles-battleoverendor-lsl'] = {
     name = 'Wedge Antilles',
     title = 'Battle Over Endor',
-    XWS = 'wedgeantilles-battleoverendor-lsl',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 't70xwing',
-    cost = 55,
-    slot = { 1, 5, 10 },
-    Shield = 3,
-    init = 6,
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    slots = { 'Talent', 'Torpedo', 'Astromech' },
+    shield = 3,
+    initiative = 6,
+    action_set = { 'F', 'TL', 'BR', 'B' },
     keywords = { 'X-wing' }
 }
 
-masterPilotDB[5038] = {
+masterPilotDB['yendor-battleoverendor-lsl'] = {
     name = 'Yendor',
     title = 'Battle Over Endor',
-    XWS = 'yendor-battleoverendor-lsl',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 't70xwing',
-    cost = 50,
-    slot = { 1, 5, 10, 14 },
-    init = 5,
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    slots = { 'Talent', 'Torpedo', 'Astromech', 'Modification' },
+    initiative = 5,
+    action_set = { 'F', 'TL', 'BR', 'B' },
     keywords = { 'X-wing' }
 }
 
-masterPilotDB[5039] = {
+masterPilotDB['kendyidele-battleoverendor-lsl'] = {
     name = 'Kendy Idele',
     title = 'Battle Over Endor',
-    XWS = 'kendyidele-battleoverendor-lsl',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 't70xwing',
-    cost = 48,
-    slot = { 1, 5, 10, 14 },
-    init = 4,
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    slots = { 'Talent', 'Torpedo', 'Astromech', 'Modification' },
+    initiative = 4,
+    action_set = { 'F', 'TL', 'BR', 'B' },
     keywords = { 'X-wing' }
 }
 
 -- TIE/sa expansion pack
-masterPilotDB[5040] = {
-    name = '“Deathfire”',
+masterPilotDB['deathfire-swz98-lsl'] = {
+    name = 'â€œDeathfireâ€',
     title = 'Obstinate Bombardier',
-    XWS = 'deathfire-swz98-lsl',
-    Faction = 2,
+    faction = 'galacticempire',
     ship_type = 'tiesabomber',
-    cost = 33,
-    slot = { 5, 6, 6, 12, 12, 14, 16 },
-    init = 2,
-    Charge = 2,
-    actSet = { 'F', 'TL', 'BR' },
+    slots = { 'Torpedo', 'Missile', 'Missile', 'Payload', 'Payload', 'Modification', 'Gunner' },
+    initiative = 2,
+    charge = 2,
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'TIE' }
 }
 
-masterPilotDB[5041] = {
+masterPilotDB['captainjonus-swz98-lsl'] = {
     name = 'Captain Jonus',
     title = 'Top Cover',
-    XWS = 'captainjonus-swz98-lsl',
-    Faction = 2,
+    faction = 'galacticempire',
     ship_type = 'tiesabomber',
-    cost = 36,
-    slot = { 1, 5, 6, 6, 12, 12, 14, 16 },
-    init = 4,
-    actSet = { 'F', 'TL', 'BR' },
+    slots = { 'Talent', 'Torpedo', 'Missile', 'Missile', 'Payload', 'Payload', 'Modification', 'Gunner' },
+    initiative = 4,
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'TIE' }
 }
 
-masterPilotDB[5042] = {
+masterPilotDB['tomaxbren-swz98-lsl'] = {
     name = 'Tomax Bren',
     title = 'Scimitar Veteran',
-    XWS = 'tomaxbren-swz98-lsl',
-    Faction = 2,
+    faction = 'galacticempire',
     ship_type = 'tiesabomber',
-    cost = 38,
-    slot = { 1, 5, 6, 6, 12, 12, 14, 16 },
-    init = 5,
-    Charge = 2,
-    actSet = { 'F', 'TL', 'BR' },
+    slots = { 'Talent', 'Torpedo', 'Missile', 'Missile', 'Payload', 'Payload', 'Modification', 'Gunner' },
+    initiative = 5,
+    charge = 2,
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'TIE' }
 }
 
-masterPilotDB[5043] = {
+masterPilotDB['majorrhymer-swz98-lsl'] = {
     name = 'Major Rhymer',
     title = 'Precision Destruction',
-    XWS = 'majorrhymer-swz98-lsl',
-    Faction = 2,
+    faction = 'galacticempire',
     ship_type = 'tiesabomber',
-    cost = 33,
-    slot = { 1, 5, 6, 6, 12, 12, 14, 16 },
-    init = 4,
-    actSet = { 'F', 'TL', 'BR' },
+    slots = { 'Talent', 'Torpedo', 'Missile', 'Missile', 'Payload', 'Payload', 'Modification', 'Gunner' },
+    initiative = 4,
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'TIE' }
 }
 
 -- Siege of Coruscant
-masterPilotDB[5044] = {
-    name = '“Odd Ball”',
+masterPilotDB['oddball-siegeofcoruscant-lsl'] = {
+    name = 'â€œOdd Ballâ€',
     title = 'Siege of Coruscant',
-    XWS = 'oddball-siegeofcoruscant-lsl',
-    Faction = 6,
+    faction = 'galacticrepublic',
     ship_type = 'arc170starfighter',
-    cost = 50,
-    slot = { 1, 5, 8, 10, 16 },
-    Shield = 4,
-    init = 5,
-    actSet = { 'F', 'TL', 'BR' },
+    slots = { 'Talent', 'Torpedo', 'Crew', 'Astromech', 'Gunner' },
+    shield = 4,
+    initiative = 5,
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Clone' }
 }
 
-masterPilotDB[5045] = {
-    name = '“Wolffe”',
+masterPilotDB['wolffe-siegeofcoruscant-lsl'] = {
+    name = 'â€œWolffeâ€',
     title = 'Siege of Coruscant',
-    XWS = 'wolffe-siegeofcoruscant-lsl',
-    Faction = 6,
+    faction = 'galacticrepublic',
     ship_type = 'arc170starfighter',
-    cost = 50,
-    slot = { 1, 5, 8, 10, 14, 16 },
-    init = 4,
-    Charge = 1,
-    actSet = { 'F', 'TL', 'BR' },
+    slots = { 'Talent', 'Torpedo', 'Crew', 'Astromech', 'Modification', 'Gunner' },
+    initiative = 4,
+    charge = 1,
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Clone' }
 }
 
-masterPilotDB[5046] = {
-    name = '“Jag”',
+masterPilotDB['jag-siegeofcoruscant-lsl'] = {
+    name = 'â€œJagâ€',
     title = 'Siege of Coruscant',
-    XWS = 'jag-siegeofcoruscant-lsl',
-    Faction = 6,
+    faction = 'galacticrepublic',
     ship_type = 'arc170starfighter',
-    cost = 47,
-    slot = { 5, 8, 10, 14, 16 },
-    init = 3,
-    actSet = { 'F', 'TL', 'BR' },
+    slots = { 'Torpedo', 'Crew', 'Astromech', 'Modification', 'Gunner' },
+    initiative = 3,
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'Clone' }
 }
 
-masterPilotDB[5047] = {
+masterPilotDB['anakinskywalker-siegeofcoruscant-lsl'] = {
     name = 'Anakin Skywalker',
     title = 'Siege of Coruscant',
-    XWS = 'anakinskywalker-siegeofcoruscant-lsl',
-    Faction = 6,
+    faction = 'galacticrepublic',
     ship_type = 'delta7aethersprite',
-    cost = 51,
-    slot = { 1, 17, 10, 14 },
-    init = 6,
-    Force = 3,
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    slots = { 'Talent', 'Force Power', 'Astromech', 'Modification' },
+    initiative = 6,
+    force = 3,
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Dark Side', 'Jedi', 'Light Side' }
 }
 
-masterPilotDB[5048] = {
+masterPilotDB['obiwankenobi-siegeofcoruscant-lsl'] = {
     name = 'Obi-Wan Kenobi',
     title = 'Siege of Coruscant',
-    XWS = 'obiwankenobi-siegeofcoruscant-lsl',
-    Faction = 6,
+    faction = 'galacticrepublic',
     ship_type = 'delta7aethersprite',
-    cost = 47,
-    slot = { 1, 17, 10, 14 },
-    init = 5,
-    Force = 3,
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    slots = { 'Talent', 'Force Power', 'Astromech', 'Modification' },
+    initiative = 5,
+    force = 3,
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Jedi', 'Light Side' }
 }
 
-masterPilotDB[5049] = {
+masterPilotDB['shaakti-siegeofcoruscant-lsl'] = {
     name = 'Shaak Ti',
     title = 'Siege of Coruscant',
-    XWS = 'shaakti-siegeofcoruscant-lsl',
-    Faction = 6,
+    faction = 'galacticrepublic',
     ship_type = 'delta7aethersprite',
-    cost = 42,
-    slot = { 1, 17, 10, 14 },
-    init = 4,
-    Force = 2,
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    slots = { 'Talent', 'Force Power', 'Astromech', 'Modification' },
+    initiative = 4,
+    force = 2,
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Jedi', 'Light Side' }
 }
 
-masterPilotDB[5050] = {
-    name = '“Klick”',
+masterPilotDB['klick-siegeofcoruscant-lsl'] = {
+    name = 'â€œKlickâ€',
     title = 'Siege of Coruscant',
-    XWS = 'klick-siegeofcoruscant-lsl',
-    Faction = 6,
+    faction = 'galacticrepublic',
     ship_type = 'nimbusclassvwing',
-    cost = 36,
-    slot = { 1, 10, 14, 18 },
-    Shield = 3,
-    init = 4,
-    Charge = 1,
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    slots = { 'Talent', 'Astromech', 'Modification', 'Configuration' },
+    shield = 3,
+    initiative = 4,
+    charge = 1,
+    action_set = { 'F', 'TL', 'BR', 'B' },
     keywords = { 'Clone', 'TIE' }
 }
 
-masterPilotDB[5051] = {
-    name = '“Contrail”',
+masterPilotDB['contrail-siegeofcoruscant-lsl'] = {
+    name = 'â€œContrailâ€',
     title = 'Siege of Coruscant',
-    XWS = 'contrail-siegeofcoruscant-lsl',
-    Faction = 6,
+    faction = 'galacticrepublic',
     ship_type = 'nimbusclassvwing',
-    cost = 32,
-    slot = { 1, 10, 14, 18 },
-    init = 5,
-    actSet = { 'F', 'TL', 'BR', 'B' },
+    slots = { 'Talent', 'Astromech', 'Modification', 'Configuration' },
+    initiative = 5,
+    action_set = { 'F', 'TL', 'BR', 'B' },
     keywords = { 'Clone', 'TIE' }
 }
 
-masterPilotDB[5052] = {
-    name = '“Kickback”',
+masterPilotDB['kickback-siegeofcoruscant-lsl'] = {
+    name = 'â€œKickbackâ€',
     title = 'Siege of Coruscant',
-    XWS = 'kickback-siegeofcoruscant-lsl',
-    Faction = 6,
+    faction = 'galacticrepublic',
     ship_type = 'v19torrentstarfighter',
-    cost = 32,
-    slot = { 1, 6 },
-    init = 5,
-    actSet = { 'F', 'E', 'TL', 'BR' },
+    slots = { 'Talent', 'Missile' },
+    initiative = 5,
+    action_set = { 'F', 'E', 'TL', 'BR' },
     keywords = { 'Clone' }
 }
 
-masterPilotDB[5053] = {
-    name = '“Axe”',
+masterPilotDB['axe-siegeofcoruscant-lsl'] = {
+    name = 'â€œAxeâ€',
     title = 'Siege of Coruscant',
-    XWS = 'axe-siegeofcoruscant-lsl',
-    Faction = 6,
+    faction = 'galacticrepublic',
     ship_type = 'v19torrentstarfighter',
-    cost = 30,
-    slot = { 1, 6 },
-    init = 3,
-    actSet = { 'F', 'E', 'TL', 'BR' },
+    slots = { 'Talent', 'Missile' },
+    initiative = 3,
+    action_set = { 'F', 'E', 'TL', 'BR' },
     keywords = { 'Clone' }
 }
 
-masterPilotDB[5054] = {
+masterPilotDB['dis347-siegeofcoruscant-lsl'] = {
     name = 'DIS-347',
     title = 'Siege of Coruscant',
-    XWS = 'dis347-siegeofcoruscant-lsl',
-    Faction = 7,
+    faction = 'separatistalliance',
     ship_type = 'droidtrifighter',
-    cost = 36,
-    slot = { 1, 2, 6, 14, 18 },
-    init = 3,
-    actSet = { 'C', 'E', 'TL', 'BR', 'B' },
+    slots = { 'Talent', 'Sensor', 'Missile', 'Modification', 'Configuration' },
+    initiative = 3,
+    action_set = { 'C', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Droid' }
 }
 
-masterPilotDB[5055] = {
+masterPilotDB['dist81-siegeofcoruscant-lsl'] = {
     name = 'DIS-T81',
     title = 'Siege of Coruscant',
-    XWS = 'dist81-siegeofcoruscant-lsl',
-    Faction = 7,
+    faction = 'separatistalliance',
     ship_type = 'droidtrifighter',
-    cost = 38,
-    slot = { 1, 2, 6, 14, 18 },
-    init = 4,
-    actSet = { 'C', 'E', 'TL', 'BR', 'B' },
+    slots = { 'Talent', 'Sensor', 'Missile', 'Modification', 'Configuration' },
+    initiative = 4,
+    action_set = { 'C', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Droid' }
 }
 
-masterPilotDB[5056] = {
+masterPilotDB['phlacarphoccprototype-siegeofcoruscant-lsl'] = {
     name = 'Phlac-Arphocc Prototype',
     title = 'Siege of Coruscant',
-    XWS = 'phlacarphoccprototype-siegeofcoruscant-lsl',
-    Faction = 7,
+    faction = 'separatistalliance',
     ship_type = 'droidtrifighter',
-    cost = 41,
-    slot = { 1, 2, 6, 14, 18 },
-    init = 5,
-    actSet = { 'C', 'E', 'TL', 'BR', 'B' },
+    slots = { 'Talent', 'Sensor', 'Missile', 'Modification', 'Configuration' },
+    initiative = 5,
+    action_set = { 'C', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Droid' }
 }
 
-masterPilotDB[5057] = {
+masterPilotDB['dbs32c-siegeofcoruscant-lsl'] = {
     name = 'DBS-32C',
     title = 'Siege of Coruscant',
-    XWS = 'dbs32c-siegeofcoruscant-lsl',
-    Faction = 7,
+    faction = 'separatistalliance',
     ship_type = 'hyenaclassdroidbomber',
-    cost = 30,
-    slot = { 2, 20, 14, 18 },
-    init = 3,
-    Charge = 2,
-    actSet = { 'C', 'TL', 'BR' },
+    slots = { 'Sensor', 'Relay', 'Modification', 'Configuration' },
+    initiative = 3,
+    charge = 2,
+    action_set = { 'C', 'TL', 'BR' },
     keywords = { 'Droid' }
 }
 
-masterPilotDB[5058] = {
+masterPilotDB['dbs404-siegeofcoruscant-lsl'] = {
     name = 'DBS-404',
     title = 'Siege of Coruscant',
-    XWS = 'dbs404-siegeofcoruscant-lsl',
-    Faction = 7,
+    faction = 'separatistalliance',
     ship_type = 'hyenaclassdroidbomber',
-    cost = 30,
-    slot = { 5, 6, 12, 14, 18 },
-    init = 4,
-    actSet = { 'C', 'TL', 'BR' },
+    slots = { 'Torpedo', 'Missile', 'Payload', 'Modification', 'Configuration' },
+    initiative = 4,
+    action_set = { 'C', 'TL', 'BR' },
     keywords = { 'Droid' }
 }
 
-masterPilotDB[5059] = {
+masterPilotDB['baktoidprototype-siegeofcoruscant-lsl'] = {
     name = 'Baktoid Prototype',
     title = 'Siege of Coruscant',
-    XWS = 'baktoidprototype-siegeofcoruscant-lsl',
-    Faction = 7,
+    faction = 'separatistalliance',
     ship_type = 'hyenaclassdroidbomber',
-    cost = 25,
-    slot = { 2, 6, 6, 14, 18 },
-    init = 1,
-    actSet = { 'C', 'TL', 'BR' },
+    slots = { 'Sensor', 'Missile', 'Missile', 'Modification', 'Configuration' },
+    initiative = 1,
+    action_set = { 'C', 'TL', 'BR' },
     keywords = { 'Droid' }
 }
 
-masterPilotDB[5060] = {
+masterPilotDB['countdooku-siegeofcoruscant-lsl'] = {
     name = 'Count Dooku',
     title = 'Siege of Coruscant',
-    XWS = 'countdooku-siegeofcoruscant-lsl',
-    Faction = 7,
+    faction = 'separatistalliance',
     ship_type = 'sithinfiltrator',
-    cost = 64,
-    slot = { 3, 5, 8, 8, 12, 14, 15, 17, 20 },
-    init = 5,
-    Force = 3,
-    actSet = { 'F', 'TL', 'BR', 'CL' },
+    slots = { 'Cannon', 'Torpedo', 'Crew', 'Crew', 'Payload', 'Modification', 'Title', 'Force Power', 'Relay' },
+    initiative = 5,
+    force = 3,
+    action_set = { 'F', 'TL', 'BR', 'CL' },
     keywords = { 'Dark Side', 'Sith' }
 }
 
-masterPilotDB[5061] = {
+masterPilotDB['dfs081-siegeofcoruscant-lsl'] = {
     name = 'DFS-081',
     title = 'Siege of Coruscant',
-    XWS = 'dfs081-siegeofcoruscant-lsl',
-    Faction = 7,
+    faction = 'separatistalliance',
     ship_type = 'vultureclassdroidfighter',
-    cost = 23,
-    slot = { 6, 14, 18 },
-    init = 3,
-    Charge = 2,
-    actSet = { 'C', 'BR', 'TL' },
+    slots = { 'Missile', 'Modification', 'Configuration' },
+    initiative = 3,
+    charge = 2,
+    action_set = { 'C', 'BR', 'TL' },
     keywords = { 'Droid' }
 }
 
-masterPilotDB[5062] = {
+masterPilotDB['dfs311-siegeofcoruscant-lsl'] = {
     name = 'DFS-311',
     title = 'Siege of Coruscant',
-    XWS = 'dfs311-siegeofcoruscant-lsl',
-    Faction = 7,
+    faction = 'separatistalliance',
     ship_type = 'vultureclassdroidfighter',
-    cost = 23,
-    slot = { 6, 14, 18 },
-    init = 1,
-    actSet = { 'C', 'BR', 'TL' },
+    slots = { 'Missile', 'Modification', 'Configuration' },
+    initiative = 1,
+    action_set = { 'C', 'BR', 'TL' },
     keywords = { 'Droid' }
 }
 
-masterPilotDB[5063] = {
+masterPilotDB['haorchallprototype-siegeofcoruscant-lsl'] = {
     name = 'Haor Chall Prototype',
     title = 'Siege of Coruscant',
-    XWS = 'haorchallprototype-siegeofcoruscant-lsl',
-    Faction = 7,
+    faction = 'separatistalliance',
     ship_type = 'vultureclassdroidfighter',
-    cost = 22,
-    slot = { 6, 14, 18 },
-    init = 1,
-    actSet = { 'C', 'BR', 'TL' },
+    slots = { 'Missile', 'Modification', 'Configuration' },
+    initiative = 1,
+    action_set = { 'C', 'BR', 'TL' },
     keywords = { 'Droid' }
 }
 
 -- YT-2400 (2018)
-masterPilotDB[5064] = {
-    name = '“Leebo”',
+masterPilotDB['leebo'] = {
+    name = 'â€œLeeboâ€',
     title = 'Dry-Witted Droid',
-    XWS = 'leebo',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 'yt2400lightfreighter',
-    cost = 75,
-    slot = { 1, 6, 13, 13, 14, 15 },
-    init = 3,
-    actSet = { 'C', 'TL', 'BR', 'Rot' },
+    slots = { 'Talent', 'Missile', 'Illicit', 'Illicit', 'Modification', 'Title' },
+    initiative = 3,
+    action_set = { 'C', 'TL', 'BR', 'Rot' },
     keywords = { 'Droid', 'Freighter' }
 }
 
-masterPilotDB[5065] = {
+masterPilotDB['dashrendar'] = {
     name = 'Dash Rendar',
     title = 'Hotshot Mercenary',
-    XWS = 'dashrendar',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 'yt2400lightfreighter',
-    cost = 83,
-    slot = { 1, 6, 8, 8, 13, 14, 15 },
-    init = 5,
-    actSet = { 'F', 'TL', 'BR', 'Rot' },
+    slots = { 'Talent', 'Missile', 'Crew', 'Crew', 'Illicit', 'Modification', 'Title' },
+    initiative = 5,
+    action_set = { 'F', 'TL', 'BR', 'Rot' },
     keywords = { 'Freighter' }
 }
 
-masterPilotDB[5066] = {
+masterPilotDB['wildspacefringer'] = {
     name = 'Wild Space Fringer',
-    XWS = 'wildspacefringer',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 'yt2400lightfreighter',
-    cost = 69,
-    slot = { 6, 8, 8, 13, 14, 15 },
-    init = 1,
-    actSet = { 'F', 'TL', 'BR', 'Rot' },
+    slots = { 'Missile', 'Crew', 'Crew', 'Illicit', 'Modification', 'Title' },
+    initiative = 1,
+    action_set = { 'F', 'TL', 'BR', 'Rot' },
     keywords = { 'Freighter' }
 }
 
 -- YT-2400 (2023)
-masterPilotDB[5067] = {
+masterPilotDB['dashrendar-swz103-rebelalliance'] = {
     name = 'Dash Rendar',
     title = 'Freighter for Hire',
-    XWS = 'dashrendar-swz103-rebelalliance',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 'yt2400lightfreighter2023',
-    cost = 77,
-    slot = { 1, 6, 8, 8, 13, 14, 15 },
-    init = 5,
-    actSet = { 'F', 'TL', 'BR', 'Rot' },
+    slots = { 'Talent', 'Missile', 'Crew', 'Crew', 'Illicit', 'Modification', 'Title' },
+    initiative = 5,
+    action_set = { 'F', 'TL', 'BR', 'Rot' },
     keywords = { 'Freighter' }
 }
 
-masterPilotDB[5068] = {
+masterPilotDB['dashrendar-swz103-lsl-rebelalliance'] = {
     name = 'Dash Rendar',
     title = 'In it for Himself',
-    XWS = 'dashrendar-swz103-lsl-rebelalliance',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 'yt2400lightfreighter2023',
-    cost = 74,
-    slot = { 1, 6, 8, 8, 13, 14, 15 },
-    init = 5,
-    actSet = { 'F', 'TL', 'BR', 'Rot' },
+    slots = { 'Talent', 'Missile', 'Crew', 'Crew', 'Illicit', 'Modification', 'Title' },
+    initiative = 5,
+    action_set = { 'F', 'TL', 'BR', 'Rot' },
     keywords = { 'Droid', 'Freighter' }
 }
 
-masterPilotDB[5069] = {
-    name = '“Leebo”',
+masterPilotDB['leebo-swz103-rebelalliance'] = {
+    name = 'â€œLeeboâ€',
     title = 'Wisdom of Ages',
-    XWS = 'leebo-swz103-rebelalliance',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 'yt2400lightfreighter2023',
-    cost = 71,
-    slot = { 1, 6, 13, 13, 14, 15 },
-    init = 3,
-    actSet = { 'C', 'TL', 'BR', 'Rot' },
+    slots = { 'Talent', 'Missile', 'Illicit', 'Illicit', 'Modification', 'Title' },
+    initiative = 3,
+    action_set = { 'C', 'TL', 'BR', 'Rot' },
     keywords = { 'Droid', 'Freighter' }
 }
 
-masterPilotDB[5070] = {
-    name = '“Leebo”',
+masterPilotDB['leebo-swz103-lsl-rebelalliance'] = {
+    name = 'â€œLeeboâ€',
     title = 'He Thinks He\'s Funny',
-    XWS = 'leebo-swz103-lsl-rebelalliance',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 'yt2400lightfreighter2023',
-    cost = 69,
-    slot = { 1, 8, 6, 13, 14, 15 },
-    init = 3,
-    actSet = { 'C', 'TL', 'BR', 'Rot' },
+    slots = { 'Talent', 'Crew', 'Missile', 'Illicit', 'Modification', 'Title' },
+    initiative = 3,
+    action_set = { 'C', 'TL', 'BR', 'Rot' },
     keywords = { 'Droid', 'Freighter' }
 }
 
-masterPilotDB[5071] = {
+masterPilotDB['dashrendar-swz103-lsl-scumandvillainy'] = {
     name = 'Dash Rendar',
     title = 'In it for Himself',
-    XWS = 'dashrendar-swz103-lsl-scumandvillainy',
-    Faction = 3,
+    faction = 'scumandvillainy',
     ship_type = 'yt2400lightfreighter2023',
-    cost = 74,
-    slot = { 1, 6, 8, 8, 13, 14, 15 },
-    init = 5,
-    actSet = { 'F', 'TL', 'BR', 'Rot' },
+    slots = { 'Talent', 'Missile', 'Crew', 'Crew', 'Illicit', 'Modification', 'Title' },
+    initiative = 5,
+    action_set = { 'F', 'TL', 'BR', 'Rot' },
     keywords = { 'Droid', 'Freighter' }
 }
 
-masterPilotDB[5072] = {
-    name = '“Leebo”',
+masterPilotDB['leebo-swz103-lsl-scumandvillainy'] = {
+    name = 'â€œLeeboâ€',
     title = 'He Thinks He\'s Funny',
-    XWS = 'leebo-swz103-lsl-scumandvillainy',
-    Faction = 3,
+    faction = 'scumandvillainy',
     ship_type = 'yt2400lightfreighter2023',
-    cost = 69,
-    slot = { 1, 8, 6, 13, 14, 15 },
-    init = 3,
-    actSet = { 'C', 'TL', 'BR', 'Rot' },
+    slots = { 'Talent', 'Crew', 'Missile', 'Illicit', 'Modification', 'Title' },
+    initiative = 3,
+    action_set = { 'C', 'TL', 'BR', 'Rot' },
     keywords = { 'Droid', 'Freighter' }
 }
 
 -- Standard Loadout Pilots from YT-2400 (2023)
-masterPilotDB[5073] = {
+masterPilotDB['dashrendar-swz103-sl-rebelalliance'] = {
     name = 'Dash Rendar',
-    XWS = 'dashrendar-swz103-sl-rebelalliance',
-    Faction = 1,
+    faction = 'rebelalliance',
     ship_type = 'yt2400lightfreighter2023',
-    cost = 90,
-    init = 5,
+    initiative = 5,
     standardized_loadout = true,
-    actSet = {'F', 'TL', 'BR', 'Rot'},
+    action_set = {'F', 'TL', 'BR', 'Rot'},
     keywords = {'Droid', 'Freighter'}
 }
 
-masterPilotDB[5074] = {
-    name = '“Leebo”',
-    XWS = 'leebo-swz103-sl-rebelalliance',
-    Faction = 1,
+masterPilotDB['leebo-swz103-sl-rebelalliance'] = {
+    name = 'â€œLeeboâ€',
+    faction = 'rebelalliance',
     ship_type = 'yt2400lightfreighter2023',
-    cost = 83,
-    init = 3,
+    initiative = 3,
     standardized_loadout = true,
-    actSet = {'C', 'TL', 'BR', 'Rot'},
+    action_set = {'C', 'TL', 'BR', 'Rot'},
     keywords = {'Droid', 'Freighter'}
 }
 
-masterPilotDB[5075] = {
+masterPilotDB['dashrendar-swz103-sl-scumandvillainy'] = {
     name = 'Dash Rendar',
-    XWS = 'dashrendar-swz103-sl-scumandvillainy',
-    Faction = 3,
+    faction = 'scumandvillainy',
     ship_type = 'yt2400lightfreighter2023',
-    cost = 88,
-    init = 5,
+    initiative = 5,
     standardized_loadout = true,
-   actSet = {'F', 'TL', 'BR', 'Rot'},
+   action_set = {'F', 'TL', 'BR', 'Rot'},
     keywords = {'Droid', 'Freighter'}
 }
 
-masterPilotDB[5076] = {
-    name = '“Leebo”',
-    XWS = 'leebo-swz103-sl-scumandvillainy',
-    Faction = 3,
+masterPilotDB['leebo-swz103-sl-scumandvillainy'] = {
+    name = 'â€œLeeboâ€',
+    faction = 'scumandvillainy',
     ship_type = 'yt2400lightfreighter2023',
-    cost = 83,
-    init = 3,
+    initiative = 3,
     standardized_loadout = true,
-    actSet = {'C', 'TL', 'BR', 'Rot'},
+    action_set = {'C', 'TL', 'BR', 'Rot'},
     keywords = {'Droid', 'Freighter'}
 }
 -- Warriors and Turncoats Reinforcements Pack (2025)
-masterPilotDB[5077] = {
+masterPilotDB['00muplinkprototype-wat1'] = {
     name = '00M Uplink Prototype',
-    XWS = '00muplinkprototype-wat1',
-    Faction = 7,
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'vultureclassdroidfighter',
-    cost = 23,
-    slot = { 21, 6, 14, 18 },
-    init = 1,
+    slots = { 'Command', 'Missile', 'Modification', 'Configuration' },
+    initiative = 1,
     texture = 'p00m',
-    actSet = { 'C', 'BR', 'TL' },
+    action_set = { 'C', 'BR', 'TL' },
     keywords = { 'Droid' },
 }
 
-masterPilotDB[5078] = {
+masterPilotDB['dfs420-wat1'] = {
     name = 'DFS-420',
-    XWS = 'dfs420-wat1',
-    Faction = 7,
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'vultureclassdroidfighter',
-    cost = 25,
-    slot = { 21, 1, 6, 14, 18 },
-    init = 4,
+    slots = { 'Command', 'Talent', 'Missile', 'Modification', 'Configuration' },
+    initiative = 4,
     texture = 'dfs420',
-    actSet = { 'C', 'BR', 'TL' },
+    action_set = { 'C', 'BR', 'TL' },
     keywords = { 'Droid' },
 }
 
-masterPilotDB[5079] = {
+masterPilotDB['halliobas-wat1'] = {
     name = 'Hallio Bas',
-    XWS = 'halliobas-wat1',
-    Faction = 7,
+    faction = 'separatistalliance',
     limited = 1,
     ship_type = 'belbulab22starfighter',
-    cost = 39,
-    slot = { 21, 1, 14, 15, 20 },
-    Charge = 2,
-    init = 5,
+    slots = { 'Command', 'Talent', 'Modification', 'Title', 'Relay' },
+    charge = 1,
+    initiative = 5,
     texture = 'bas',
-    actSet = { 'F', 'TL', 'B', 'BR' },
+    action_set = { 'F', 'TL', 'B', 'BR' },
 }
 
-masterPilotDB[5080] = {
+masterPilotDB['blacksunbodyguard-wat1'] = {
     name = 'Black Sun Bodyguard',
-    XWS = 'blacksunbodyguard-wat1',
-    Faction = 3,
+    faction = 'scumandvillainy',
     limited = 2,
     ship_type = 'kihraxzfighter',
-    cost = 42,
-    slot = { 21, 1, 6, 13, 13, 14, 14 },
-    Charge = 2,
-    init = 4,
+    slots = { 'Command', 'Talent', 'Missile', 'Illicit', 'Illicit', 'Modification', 'Modification' },
+    charge = 2,
+    initiative = 4,
     texture = 'vaksai',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
 }
 
-masterPilotDB[5081] = {
+masterPilotDB['januskasmir-wat1'] = {
     name = 'Janus Kasmir',
-    XWS = 'januskasmir-wat1',
-    Faction = 3,
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'hwk290lightfreighter',
-    cost = 34,
-    slot = { 21, 1, 8, 12, 13, 14, 14, 15 },
-    init = 4,
+    slots = { 'Command', 'Talent', 'Crew', 'Payload', 'Illicit', 'Modification', 'Modification', 'Title' },
+    initiative = 4,
     texture = 'kasmir',
-    actSet = { 'F', 'TL', 'B', 'Rot' },
+    action_set = { 'F', 'TL', 'B', 'Rot' },
     keywords = { 'Freighter' },
 }
 
-masterPilotDB[5082] = {
+masterPilotDB['riodurant-wat1'] = {
     name = 'Rio Durant',
-    XWS = 'riodurant-wat1',
-    Faction = 3,
+    faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'customizedyt1300lightfreighter',
-    cost = 42,
-    slot = { 21, 1, 6, 8, 8, 16, 13, 14, 15 },
-    init = 3,
+    slots = { 'Command', 'Talent', 'Missile', 'Crew', 'Crew', 'Gunner', 'Illicit', 'Modification', 'Title' },
+    initiative = 3,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'B', 'Rot' },
+    action_set = { 'F', 'TL', 'B', 'Rot' },
     keywords = { 'Freighter', 'YT-1300' },
 }
 
-masterPilotDB[5083] = {
+masterPilotDB['jannah-wat1'] = {
     name = 'Jannah',
-    XWS = 'jannah-wat1',
-    Faction = 4,
+    faction = 'resistance',
     limited = 1,
     ship_type = 'resistancetransport',
-    cost = 42,
-    slot = { 21, 1, 19, 3, 3, 5, 8, 8, 10, 14 },
-    init = 5,
+    slots = { 'Command', 'Talent', 'Tech', 'Cannon', 'Cannon', 'Torpedo', 'Crew', 'Crew', 'Astromech', 'Modification' },
+    initiative = 5,
     texture = 'jannah',
-    actSet = { 'F', 'TL' },
+    action_set = { 'F', 'TL' },
 }
 
-masterPilotDB[5084] = {
+masterPilotDB['dj-wat1'] = {
     name = 'DJ',
-    XWS = 'dj-wat1',
-    Faction = 4,
+    faction = 'resistance',
     limited = 1,
     ship_type = 'resistancetransportpod',
-    cost = 26,
-    slot = { 21, 19, 8, 13, 14 },
-    init = 2,
+    slots = { 'Command', 'Tech', 'Crew', 'Illicit', 'Modification' },
+    initiative = 2,
     texture = 'dj',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
 }
 
-masterPilotDB[5085] = {
+masterPilotDB['torradoza-wat1'] = {
     name = 'Torra Doza',
-    XWS = 'torradoza-wat1',
-    Faction = 4,
+    faction = 'resistance',
     limited = 1,
     ship_type = 'fireball',
-    cost = 27,
-    slot = { 21, 1, 6, 10, 13, 14, 14, 15 },
-    init = 3,
+    slots = { 'Command', 'Talent', 'Missile', 'Astromech', 'Illicit', 'Modification', 'Modification', 'Title' },
+    initiative = 3,
     texture = 'doza',
-    actSet = { 'F', 'E', 'BR' },
+    action_set = { 'F', 'E', 'BR' },
 }
 
-masterPilotDB[5086] = {
+masterPilotDB['neradantels-wat1'] = {
     name = 'Nera Dantels',
-    XWS = 'neradantels-wat1',
-    Faction = 1,
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'asf01bwing',
-    cost = 44,
-    slot = { 21, 1, 2, 3, 3, 5, 14, 15, 18 },
-    init = 3,
+    slots = { 'Command', 'Talent', 'Sensor', 'Cannon', 'Cannon', 'Torpedo', 'Modification', 'Title', 'Configuration' },
+    initiative = 3,
     texture = 'nera',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     arcs = { fixed = { range = 3, type = { 'front' } }, turret = { main = { name = 'Turret', type = { 'singleturret' } } } },
     keywords = { 'B-wing' },
 }
 
-masterPilotDB[5087] = {
+masterPilotDB['antocmerrick-wat1'] = {
     name = 'Antoc Merrick',
-    XWS = 'antocmerrick-wat1',
-    Faction = 1,
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 't65xwing',
-    cost = 47,
-    slot = { 21, 1, 5, 10, 14, 18 },
-    init = 4,
+    slots = { 'Command', 'Talent', 'Torpedo', 'Astromech', 'Modification', 'Configuration' },
+    initiative = 4,
     texture = 'merrick',
-    actSet = { 'F', 'TL', 'BR' },
+    action_set = { 'F', 'TL', 'BR' },
     keywords = { 'X-wing' },
 }
 
-masterPilotDB[5088] = {
+masterPilotDB['tarfful-wat1'] = {
     name = 'Tarfful',
-    XWS = 'tarfful-wat1',
-    Faction = 1,
+    faction = 'rebelalliance',
     limited = 1,
     ship_type = 'auzituckgunship',
-    cost = 59,
-    slot = { 21, 1, 8, 8, 14 },
-    init = 5,
+    slots = { 'Command', 'Talent', 'Crew', 'Crew', 'Modification' },
+    initiative = 5,
     texture = 'tarfful',
-    actSet = { 'F', 'R', 'BR' },
+    action_set = { 'F', 'R', 'BR' },
     keywords = { 'Wookiee' },
-    Condition = 'Liberated',
+    condition = 'Liberated',
 }
 
-masterPilotDB[5089] = {
+masterPilotDB['rhysdallows-wat1'] = {
     name = 'Rhys Dallows',
-    XWS = 'rhysdallows-wat1',
-    Faction = 6,
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'nabooroyaln1starfighter',
-    cost = 45,
-    slot = { 21, 1, 2, 5, 10, 13 },
-    init = 6,
+    slots = { 'Command', 'Talent', 'Sensor', 'Torpedo', 'Astromech', 'Illicit' },
+    initiative = 6,
     texture = 'yellow',
-    actSet = { 'F', 'TL', 'B', 'BR', 'E' },
+    action_set = { 'F', 'TL', 'B', 'BR', 'E' },
 }
 
-masterPilotDB[5090] = {
+masterPilotDB['essaratill-wat1'] = {
     name = 'Essara Till',
-    XWS = 'essaratill-wat1',
-    Faction = 6,
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'nabooroyaln1starfighter',
-    cost = 37,
-    slot = { 21, 1, 1, 2, 5, 10 },
-    init = 4,
+    slots = { 'Command', 'Talent', 'Talent', 'Sensor', 'Torpedo', 'Astromech' },
+    initiative = 4,
     texture = 'yellow',
-    actSet = { 'F', 'TL', 'B', 'BR', 'E' },
+    action_set = { 'F', 'TL', 'B', 'BR', 'E' },
 }
 
-masterPilotDB[5091] = {
+masterPilotDB['depabillaba-wat1'] = {
     name = 'Depa Billaba',
-    XWS = 'depabillaba-wat1',
-    Faction = 6,
+    faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'delta7aethersprite',
-    cost = 38,
-    slot = { 21, 17, 10, 18, 14 },
-    Force = 2,
-    init = 3,
+    slots = { 'Command', 'Force Power', 'Astromech', 'Configuration', 'Modification' },
+    force = 2,
+    initiative = 3,
     texture = 'depa',
-    actSet = { 'F', 'E', 'TL', 'BR', 'B' },
+    action_set = { 'F', 'E', 'TL', 'BR', 'B' },
     keywords = { 'Jedi', 'Light Side' },
 }
 
-masterPilotDB[5092] = {
+masterPilotDB['captainsaxton-wat1'] = {
     name = 'Captain Saxton',
-    XWS = 'captainsaxton-wat1',
-    Faction = 2,
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tiephphantom',
-    Condition = 'Saxton Cloak',
-    cost = 43,
-    slot = { 21, 1, 2, 16, 14 },
-    Charge = 2,
-    init = 4,
+    condition = 'Saxton Cloak',
+    slots = { 'Command', 'Talent', 'Sensor', 'Gunner', 'Modification' },
+    charge = 2,
+    initiative = 4,
     texture = 'blue',
-    actSet = { 'F', 'E', 'BR', 'CL' },
+    action_set = { 'F', 'E', 'BR', 'CL' },
     keywords = { 'TIE' },
 }
 
-masterPilotDB[5093] = {
+masterPilotDB['carnorjax-wat1'] = {
     name = 'Carnor Jax',
-    XWS = 'carnorjax-wat1',
-    Faction = 2,
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'tieininterceptor',
-    cost = 49,
-    slot = { 21, 1, 14, 14, 18 },
-    init = 5,
+    slots = { 'Command', 'Talent', 'Modification', 'Modification', 'Configuration' },
+    initiative = 5,
     texture = 'red',
-    actSet = { 'F', 'E', 'BR', 'B' },
+    action_set = { 'F', 'E', 'BR', 'B' },
     keywords = { 'TIE' },
 }
 
-masterPilotDB[5094] = {
+masterPilotDB['captainyorr-wat1'] = {
     name = 'Captain Yorr',
-    XWS = 'captainyorr-wat1',
-    Faction = 2,
+    faction = 'galacticempire',
     limited = 1,
     ship_type = 'lambdaclasst4ashuttle',
-    cost = 47,
-    slot = { 21, 2, 3, 8, 8, 14, 15 },
-    Charge = 2,
-    init = 2,
+    slots = { 'Command', 'Sensor', 'Cannon', 'Crew', 'Crew', 'Modification', 'Title' },
+    charge = 2,
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'R' },
+    action_set = { 'F', 'R' },
 }
 
-masterPilotDB[5095] = {
+masterPilotDB['enricpryde-wat1'] = {
     name = 'Enric Pryde',
-    XWS = 'enricpryde-wat1',
-    Faction = 5,
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'upsilonclasscommandshuttle',
-    cost = 62,
-    slot = { 21, 2, 19, 19, 3, 8, 8, 8, 14 },
-    init = 2,
+    slots = { 'Command', 'Sensor', 'Tech', 'Tech', 'Cannon', 'Crew', 'Crew', 'Crew', 'Modification' },
+    initiative = 2,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'R' },
+    action_set = { 'F', 'TL', 'R' },
 }
 
-masterPilotDB[5096] = {
+masterPilotDB['strife-wat1'] = {
     name = '"Strife"',
-    XWS = 'strife-wat1',
-    Faction = 5,
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'tiesffighter',
-    cost = 34,
-    slot = { 21, 1, 2, 19, 6, 16, 14 },
-    init = 3,
+    slots = { 'Command', 'Talent', 'Sensor', 'Tech', 'Missile', 'Gunner', 'Modification' },
+    initiative = 3,
     texture = 'strife',
-    actSet = { 'F', 'TL', 'E', 'BR', 'Rot' },
+    action_set = { 'F', 'TL', 'E', 'BR', 'Rot' },
     keywords = { 'TIE' },
 }
 
-masterPilotDB[5097] = {
+masterPilotDB['fn2187-wat1'] = {
     name = 'FN-2187',
-    XWS = 'fn2187-wat1',
-    Faction = 5,
+    faction = 'firstorder',
     limited = 1,
     ship_type = 'tiefofighter',
-    cost = 30,
-    slot = { 21, 19, 14 },
-    init = 1,
+    slots = { 'Command', 'Tech', 'Modification' },
+    initiative = 1,
     texture = 'standard',
-    actSet = { 'F', 'TL', 'E', 'BR' },
+    action_set = { 'F', 'TL', 'E', 'BR' },
     keywords = { 'TIE' },
 }
 

@@ -34,7 +34,10 @@ TODO: TargetLocks have an owner and an assigned ship. Perhaps we can handle thes
 -- Save self state
 function onSave()
     if set then
-        local state = { set = set, text = self.UI.getAttribute("IdLabel", "text") }
+        local state = {
+            set = set,
+            text = self.UI.getAttribute("IdLabel", "text"),
+        }
         return JSON.encode(state)
     end
 end
@@ -52,15 +55,24 @@ end
 
 function onFlip(args)
     if set then
-        player = args.player
+        local player = args.player
         local target = Global.call("getShipTokenIsAssignedTo", { token = self })
-        if target then
+            if target then
             printToAll("[" .. Color.fromString(player.color):toHex() .. "]" .. player.steam_name .. " spent " .. self.getName() .. "s target lock on " .. target.getName() .. "[-]")
         else
             printToAll("[" .. Color.fromString(player.color):toHex() .. "]" .. player.steam_name .. " spent " .. self.getName() .. "s target lock[-]")
         end
 
         self.destruct()
+    end
+end
+
+function onUpdate()
+    if self.resting then
+        if self.is_face_down then
+            local current = self.getRotation()
+            self.setRotationSmooth(vector(0, current.y, 0), false, true)
+        end
     end
 end
 

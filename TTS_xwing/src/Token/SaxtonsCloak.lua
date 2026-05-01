@@ -17,6 +17,60 @@ assignedShip = nil
 -- The current decload direction
 decloakCode = nil
 
+local function clearDecloakProxies()
+    if assignedShip ~= nil then
+        Global.call("DeleteShipProxies", { ship_guid = assignedShip.getGUID() })
+    end
+end
+
+local function startDecloakProxySelection(move_code_prefix)
+    if assignedShip == nil then
+        return false
+    end
+
+    __XW_TokenIdle = false
+    clearDecloakProxies()
+    self.clearButtons()
+    self.createButton({
+        ['function_owner'] = self,
+        ['click_function'] = 'selfDestruct',
+        ['label'] = 'Delete',
+        ['position'] = { 0, 0.25, 2 },
+        ['rotation'] = { 0, 0, 0 },
+        ['width'] = 750,
+        ['height'] = 500,
+        ['font_size'] = 250
+    })
+    self.createButton({
+        ['function_owner'] = self,
+        ['click_function'] = 'spawnDecloakButtons',
+        ['label'] = 'Back',
+        ['position'] = { 0, 0.25, 1 },
+        ['rotation'] = { 0, 0, 0 },
+        ['width'] = 750,
+        ['height'] = 500,
+        ['font_size'] = 250
+    })
+
+    local _, success = Global.call("SpawnProxyOptions", {
+        ship_guid = assignedShip.getGUID(),
+        move_codes = {
+            front = move_code_prefix .. '1',
+            center = move_code_prefix .. '2',
+            back = move_code_prefix .. '3',
+        },
+        callback_guid = self.getGUID(),
+        callback_function = "spawnFinalButtons",
+    })
+
+    if not success then
+        spawnDecloakButtons()
+        return false
+    end
+
+    return true
+end
+
 -- Save self state
 function onSave()
     if assignedShip ~= nil then
@@ -39,6 +93,7 @@ end
 -- Spawn initial decloak/delete buttons
 function spawnFirstButtons()
     __XW_TokenIdle = true
+    clearDecloakProxies()
     self.clearButtons()
     self.createButton({
         ['function_owner'] = self,
@@ -78,6 +133,7 @@ end
 -- Spawn undo/delete/slide buttons (after a move)
 function spawnFinalButtons()
     undoToBackCount = 1
+    clearDecloakProxies()
     self.clearButtons()
     self.createButton({
         ['function_owner'] = self,
@@ -434,6 +490,7 @@ end
 -- Spawn back/delete/moves buttons (regular or Echo)
 function spawnDecloakButtons()
     __XW_TokenIdle = false
+    clearDecloakProxies()
     self.clearButtons()
     if assignedShip.getTable('Data').xws ~= "echo" then
         spawnNormalDecloakOptions()
@@ -465,33 +522,27 @@ end
 
 
 function decloakL()
-    decloakCode = "cl"
-    spawnDecloakAllignmentSet()
+    startDecloakProxySelection("cl")
 end
 
 function decloakR()
-    decloakCode = "cr"
-    spawnDecloakAllignmentSet()
+    startDecloakProxySelection("cr")
 end
 
 function decloakLF()
-    decloakCode = "elf"
-    spawnDecloakAllignmentSet()
+    startDecloakProxySelection("elf")
 end
 
 function decloakLB()
-    decloakCode = "elb"
-    spawnDecloakAllignmentSet()
+    startDecloakProxySelection("elb")
 end
 
 function decloakRF()
-    decloakCode = "erf"
-    spawnDecloakAllignmentSet()
+    startDecloakProxySelection("erf")
 end
 
 function decloakRB()
-    decloakCode = "erb"
-    spawnDecloakAllignmentSet()
+    startDecloakProxySelection("erb")
 end
 
 
@@ -505,48 +556,7 @@ end
 -- DECLOAK LeftForward -1
 
 function decloakLFDec()
-    __XW_TokenIdle = false
-    self.clearButtons()
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakLFDecForwardAligned',
-        ['label'] = 'Forward',
-        ['position'] = { 0, 0.25, -1.1 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakLFDecMiddleAligned',
-        ['label'] = 'Middle',
-        ['position'] = { 0, 0.25, 0 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakLFDecBackAligned',
-        ['label'] = 'Backward',
-        ['position'] = { 0, 0.25, 1.1 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'resetToFirst',
-        ['label'] = 'Back',
-        ['position'] = { 0, 0.25, 2.5 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 500,
-        ['font_size'] = 250
-    })
+    startDecloakProxySelection("v1lf")
 end
 
 function decloakLFDecForwardAligned()
@@ -574,48 +584,7 @@ end
 -- DECLOAK LeftForward +1
 
 function decloakLFInc()
-    __XW_TokenIdle = false
-    self.clearButtons()
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakLFIncForwardAligned',
-        ['label'] = 'Forward',
-        ['position'] = { 0, 0.25, -1.1 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakLFIncMiddleAligned',
-        ['label'] = 'Middle',
-        ['position'] = { 0, 0.25, 0 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakLFIncBackAligned',
-        ['label'] = 'Backward',
-        ['position'] = { 0, 0.25, 1.1 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'resetToFirst',
-        ['label'] = 'Back',
-        ['position'] = { 0, 0.25, 2.5 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 500,
-        ['font_size'] = 250
-    })
+    startDecloakProxySelection("v3lf")
 end
 
 function decloakLFIncForwardAligned()
@@ -641,48 +610,7 @@ end
 -- DECLOAK LeftBackward -1
 
 function decloakLBDec()
-    __XW_TokenIdle = false
-    self.clearButtons()
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakLBDecForwardAligned',
-        ['label'] = 'Forward',
-        ['position'] = { 0, 0.25, -1.1 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakLBDecMiddleAligned',
-        ['label'] = 'Middle',
-        ['position'] = { 0, 0.25, 0 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakLBDecBackAligned',
-        ['label'] = 'Backward',
-        ['position'] = { 0, 0.25, 1.1 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'resetToFirst',
-        ['label'] = 'Back',
-        ['position'] = { 0, 0.25, 2.5 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 500,
-        ['font_size'] = 250
-    })
+    startDecloakProxySelection("v1lb")
 end
 
 function decloakLBDecForwardAligned()
@@ -708,48 +636,7 @@ end
 -- DECLOAK LeftBackward +1
 
 function decloakLBInc()
-    __XW_TokenIdle = false
-    self.clearButtons()
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakLBIncForwardAligned',
-        ['label'] = 'Forward',
-        ['position'] = { 0, 0.25, -1.1 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakLBIncMiddleAligned',
-        ['label'] = 'Middle',
-        ['position'] = { 0, 0.25, 0 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakLBIncBackAligned',
-        ['label'] = 'Backward',
-        ['position'] = { 0, 0.25, 1.1 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'resetToFirst',
-        ['label'] = 'Back',
-        ['position'] = { 0, 0.25, 2.5 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 500,
-        ['font_size'] = 250
-    })
+    startDecloakProxySelection("v3lb")
 end
 
 function decloakLBIncForwardAligned()
@@ -780,48 +667,7 @@ end
 -- DECLOAK RightForward -1
 
 function decloakRFDec()
-    __XW_TokenIdle = false
-    self.clearButtons()
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakRFDecForwardAligned',
-        ['label'] = 'Forward',
-        ['position'] = { 0, 0.25, -1.1 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakRFDecMiddleAligned',
-        ['label'] = 'Middle',
-        ['position'] = { 0, 0.25, 0 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakRFDecBackAligned',
-        ['label'] = 'Backward',
-        ['position'] = { 0, 0.25, 1.1 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'resetToFirst',
-        ['label'] = 'Back',
-        ['position'] = { 0, 0.25, 2.5 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 500,
-        ['font_size'] = 250
-    })
+    startDecloakProxySelection("v1rf")
 end
 
 function decloakRFDecForwardAligned()
@@ -848,48 +694,7 @@ end
 -- DECLOAK RightForward +1
 
 function decloakRFInc()
-    __XW_TokenIdle = false
-    self.clearButtons()
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakRFIncForwardAligned',
-        ['label'] = 'Forward',
-        ['position'] = { 0, 0.25, -1.1 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakRFIncMiddleAligned',
-        ['label'] = 'Middle',
-        ['position'] = { 0, 0.25, 0 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakRFIncBackAligned',
-        ['label'] = 'Backward',
-        ['position'] = { 0, 0.25, 1.1 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'resetToFirst',
-        ['label'] = 'Back',
-        ['position'] = { 0, 0.25, 2.5 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 500,
-        ['font_size'] = 250
-    })
+    startDecloakProxySelection("v3rf")
 end
 
 function decloakRFIncForwardAligned()
@@ -915,48 +720,7 @@ end
 -- DECLOAK RightBackward -1
 
 function decloakRBDec()
-    __XW_TokenIdle = false
-    self.clearButtons()
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakRBDecForwardAligned',
-        ['label'] = 'Forward',
-        ['position'] = { 0, 0.25, -1.1 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakRBDecMiddleAligned',
-        ['label'] = 'Middle',
-        ['position'] = { 0, 0.25, 0 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakRBDecBackAligned',
-        ['label'] = 'Backward',
-        ['position'] = { 0, 0.25, 1.1 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'resetToFirst',
-        ['label'] = 'Back',
-        ['position'] = { 0, 0.25, 2.5 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 500,
-        ['font_size'] = 250
-    })
+    startDecloakProxySelection("v1rb")
 end
 
 function decloakRBDecForwardAligned()
@@ -982,48 +746,7 @@ end
 -- DECLOAK RightBackward +1
 
 function decloakRBInc()
-    __XW_TokenIdle = false
-    self.clearButtons()
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakRBIncForwardAligned',
-        ['label'] = 'Forward',
-        ['position'] = { 0, 0.25, -1.1 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakRBIncMiddleAligned',
-        ['label'] = 'Middle',
-        ['position'] = { 0, 0.25, 0 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakRBIncBackAligned',
-        ['label'] = 'Backward',
-        ['position'] = { 0, 0.25, 1.1 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'resetToFirst',
-        ['label'] = 'Back',
-        ['position'] = { 0, 0.25, 2.5 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 500,
-        ['font_size'] = 250
-    })
+    startDecloakProxySelection("v3rb")
 end
 
 function decloakRBIncForwardAligned()
@@ -1054,48 +777,7 @@ end
 -- DECLOAK Left -1
 
 function decloakLDec()
-    __XW_TokenIdle = false
-    self.clearButtons()
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakLDecForwardAligned',
-        ['label'] = 'Forward',
-        ['position'] = { 0, 0.25, -1.1 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakLDecMiddleAligned',
-        ['label'] = 'Middle',
-        ['position'] = { 0, 0.25, 0 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakLDecBackAligned',
-        ['label'] = 'Backward',
-        ['position'] = { 0, 0.25, 1.1 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'resetToFirst',
-        ['label'] = 'Back',
-        ['position'] = { 0, 0.25, 2.5 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 500,
-        ['font_size'] = 250
-    })
+    startDecloakProxySelection("r1l")
 end
 
 function decloakLDecForwardAligned()
@@ -1123,48 +805,7 @@ end
 -- DECLOAK Left +1
 
 function decloakLInc()
-    __XW_TokenIdle = false
-    self.clearButtons()
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakLIncForwardAligned',
-        ['label'] = 'Forward',
-        ['position'] = { 0, 0.25, -1.1 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakLIncMiddleAligned',
-        ['label'] = 'Middle',
-        ['position'] = { 0, 0.25, 0 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakLIncBackAligned',
-        ['label'] = 'Backward',
-        ['position'] = { 0, 0.25, 1.1 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'resetToFirst',
-        ['label'] = 'Back',
-        ['position'] = { 0, 0.25, 2.5 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 500,
-        ['font_size'] = 250
-    })
+    startDecloakProxySelection("r3l")
 end
 
 function decloakLIncForwardAligned()
@@ -1191,48 +832,7 @@ end
 -- DECLOAK Right -1
 
 function decloakRDec()
-    __XW_TokenIdle = false
-    self.clearButtons()
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakRDecForwardAligned',
-        ['label'] = 'Forward',
-        ['position'] = { 0, 0.25, -1.1 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakRDecMiddleAligned',
-        ['label'] = 'Middle',
-        ['position'] = { 0, 0.25, 0 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakRDecBackAligned',
-        ['label'] = 'Backward',
-        ['position'] = { 0, 0.25, 1.1 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'resetToFirst',
-        ['label'] = 'Back',
-        ['position'] = { 0, 0.25, 2.5 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 500,
-        ['font_size'] = 250
-    })
+    startDecloakProxySelection("r1r")
 end
 
 function decloakRDecForwardAligned()
@@ -1260,48 +860,7 @@ end
 -- DECLOAK Right +1
 
 function decloakRInc()
-    __XW_TokenIdle = false
-    self.clearButtons()
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakRIncForwardAligned',
-        ['label'] = 'Forward',
-        ['position'] = { 0, 0.25, -1.1 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakRIncMiddleAligned',
-        ['label'] = 'Middle',
-        ['position'] = { 0, 0.25, 0 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'decloakRIncBackAligned',
-        ['label'] = 'Backward',
-        ['position'] = { 0, 0.25, 1.1 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 520,
-        ['font_size'] = 250
-    })
-    self.createButton({
-        ['function_owner'] = self,
-        ['click_function'] = 'resetToFirst',
-        ['label'] = 'Back',
-        ['position'] = { 0, 0.25, 2.5 },
-        ['rotation'] = { 0, 0, 0 },
-        ['width'] = 1200,
-        ['height'] = 500,
-        ['font_size'] = 250
-    })
+    startDecloakProxySelection("r3r")
 end
 
 function decloakRIncForwardAligned()
@@ -1415,11 +974,13 @@ end
 
 -- Destroy self
 function selfDestruct()
+    clearDecloakProxies()
     self.destruct()
 end
 
 -- Back to first buttons
 function resetToFirst()
+    clearDecloakProxies()
     spawnFirstButtons()
 end
 

@@ -95,11 +95,23 @@ butPos['br3'] = { 1 * sp, 3 * sp }
 butPos['tr1'] = { 2 * sp, 1 * sp }
 butPos['tr2'] = { 2 * sp, 2 * sp }
 butPos['tr3'] = { 2 * sp, 3 * sp }
+-- Port/starboard (sideways) drop positions
+butPos['ss1'] = { 3 * sp, 0 }
+butPos['ss2'] = { 3 * sp, 1 * sp }
+butPos['ps1'] = { -3 * sp, 0 }
+butPos['ps2'] = { -3 * sp, 1 * sp }
 
 -- Get a drop buttons position (left/front variant included)
 function ButtonPos(butCode)
     local rev = false
     local left = false
+    -- Port/starboard codes (ss1, ps1, etc.) are looked up directly
+    if butCode:sub(1, 2) == 'ss' or butCode:sub(1, 2) == 'ps' then
+        local height = 0.3
+        local src = butPos[butCode]
+        if src == nil then return nil end
+        return { src[1], height, src[2] }
+    end
     if butCode:sub(-1, -1) == 'r' then
         rev = true
         butCode = butCode:sub(1, -2)

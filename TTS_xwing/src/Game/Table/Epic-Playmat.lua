@@ -10,11 +10,11 @@
 
 -- Table of all images to be cycled through with NextImage()
 imageSet = {
-    'https://i.imgur.com/aCxRouI.jpg',
-    'https://i.imgur.com/X3luGQr.jpg',
-    'https://i.imgur.com/hGzGwY3.jpg',
-    'https://i.imgur.com/W5AuCVd.jpg',
-    'https://steamusercontent-a.akamaihd.net/ugc/16526075817900791097/B15B809BEA393E68315A24444C5061CD87139050/',
+    'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/Mats/epic-01-blue-planet-moons.jpg',
+    'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/Mats/epic-02-death-star-orbit.jpg',
+    'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/Mats/epic-03-scarif-shield-gate.jpg',
+    'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/Mats/epic-04-death-star-red-moon-sunrise.jpg',
+    'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/Mats/epic-05-star-destroyer.jpg',
 }
 
 -- Mat flag for layouts

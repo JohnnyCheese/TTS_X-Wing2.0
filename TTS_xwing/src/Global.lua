@@ -348,6 +348,8 @@ XW_cmd.Process = function(obj, cmd)
         DialModule.RotateArc(obj, cmd)
     elseif type == 'turretarc' then
         DialModule.TurretArc(obj, cmd)
+    elseif type == 'weaponarc' then
+        DialModule.WeaponArc(obj, cmd)
     elseif type == 'fixedarc' then
         DialModule.FixedArc(obj, cmd)
     elseif type == 'renameShip' then
@@ -4342,7 +4344,10 @@ TokenModule.ClearPosition = function(pos, dist, ignoreShip)
     local clearDist = dist + Dim.Convert_mm_igu(20)
     local posTokenInfo = TokenModule.GetNearTokensInfo(pos, clearDist)
     for k, tokenInfo in pairs(posTokenInfo) do
-        if tokenInfo.token.getButtons() == nil then
+        -- Leave objective charges alone; they're pinned to their objective.
+        if ObjectiveChargeTokens[tokenInfo.token.getGUID()] ~= nil then
+            -- skip
+        elseif tokenInfo.token.getButtons() == nil then
             if tokenInfo.owner ~= nil and tokenInfo.owner ~= ignoreShip then
                 local visPos = TokenModule.VisiblePosition(tokenInfo.token.getName(), tokenInfo.owner)
                 if Vect.Distance(visPos, pos) <= clearDist then
@@ -4544,12 +4549,13 @@ DialModule.TurretArcCmd = {
 DialModule.TurretArc = function(ship, cmd)
     local arc = ship.call("GetTurretArc", DialModule.TurretArcCmd[cmd])
     local range = ship.call("GetTurretRange", DialModule.TurretArcCmd[cmd])
+    local turret_data = ship.getTable('Data').arcs.turret[DialModule.TurretArcCmd[cmd].mount]
     if arc then
         command = string.upper(arcToCmnd[arc])
         if range then
             command = command .. tostring(range)
         end
-        RulerModule.ToggleRuler(ship, command)
+        RulerModule.ToggleRuler(ship, command, false, turret_data and turret_data.ion)
     end
 end
 
@@ -4560,7 +4566,25 @@ DialModule.FixedArc = function(ship, cmd)
         if arc.range then
             command = command .. tostring(arc.range)
         end
-        RulerModule.ToggleRuler(ship, command)
+        RulerModule.ToggleRuler(ship, command, false, arc.ion)
+    end
+end
+
+DialModule.WeaponArc = function(ship, cmd)
+    local idx = tonumber(cmd:match("weapon(%d+)"))
+    if idx == nil then
+        return
+    end
+
+    local weapon = ship.call("GetWeaponData", { idx = idx })
+    local arc = ship.call("GetWeaponArc", { idx = idx })
+    local range = ship.call("GetWeaponRange", { idx = idx })
+    if weapon and arc then
+        command = string.upper(arcToCmnd[arc])
+        if range then
+            command = command .. tostring(range)
+        end
+        RulerModule.ToggleRuler(ship, command, false, weapon.ion)
     end
 end
 
@@ -4684,6 +4708,31 @@ DialModule.PlaceTemplate = function(ship, speed, type, position, dir, extra)
 
     local finPos = MoveModule.EntryToPos(tempEntry, ref)
     local src = TokenModule.tokenSources[type:sub(1, 1) .. speed]
+    local newTemplate = src.takeObject({ position = finPos.pos, rotation = finPos.rot })
+    newTemplate.lock()
+    newTemplate.setPosition(finPos.pos)
+    newTemplate.setRotation(finPos.rot)
+    table.insert(DialModule.SpawnedTemplates, { template = newTemplate, ship = ship })
+    return newTemplate
+end
+
+-- Spawn a template rotated sideways for port/starboard bomb drops
+-- rotAngle: -90 for starboard (right), 90 for port (left)
+DialModule.SpawnSideTemplate = function(ship, speed, rotAngle)
+    if speed == 0 then return nil end
+    local baseSize = ship.getTable("Data").Size or 'small'
+    local sideOffset = DialModule.TemplateData.baseOffset[baseSize][3]
+    local templateLen = DialModule.TemplateData.straight[speed][3]
+    local xOffset = sideOffset + templateLen
+    local yOffset = DialModule.TemplateData.straight[speed][2]
+    local entry
+    if rotAngle < 0 then
+        entry = { xOffset, yOffset, 0, rotAngle }
+    else
+        entry = { -xOffset, yOffset, 0, rotAngle }
+    end
+    local finPos = MoveModule.EntryToPos(entry, ship)
+    local src = TokenModule.tokenSources['s' .. speed]
     local newTemplate = src.takeObject({ position = finPos.pos, rotation = finPos.rot })
     newTemplate.lock()
     newTemplate.setPosition(finPos.pos)
@@ -5094,6 +5143,15 @@ RulerModule.typeToArc.LEFTRIGHT = 'leftright'
 RulerModule.typeToArc.BULL = 'bullseye'
 
 RulerModule.CachedRulers = {}
+RulerModule.defaultTint = color(1.0, 0.0, 0.0, 0.5)
+RulerModule.ionTint = color(0.2, 0.45, 1.0, 0.5)
+
+RulerModule.GetVisualizerTint = function(isIon)
+    if isIon then
+        return RulerModule.ionTint
+    end
+    return RulerModule.defaultTint
+end
 
 
 -- Get ruler spawn tables for some ship and some ruler code
@@ -5175,7 +5233,7 @@ end
 
 -- Spawn a ruler for a ship
 -- Returns new ruler reference
-RulerModule.SpawnRuler = function(ship, rulerType, beQuiet, include_friendly_ships, range)
+RulerModule.SpawnRuler = function(ship, rulerType, beQuiet, include_friendly_ships, range, isIon)
     local rulerData = RulerModule.CreateCustomTables(ship, rulerType, range)
     if rulerData.custom.mesh == nil then
         return nil
@@ -5192,11 +5250,12 @@ RulerModule.SpawnRuler = function(ship, rulerType, beQuiet, include_friendly_shi
         RulerModule.CachedRulers[rulerId].addTag('TempLayoutElement')
         RulerModule.CachedRulers[rulerId].interactable = false
         RulerModule.CachedRulers[rulerId].setLock(true)
-        RulerModule.CachedRulers[rulerId].setColorTint(color(1.0, 0.0, 0.0, 0.5))
+        RulerModule.CachedRulers[rulerId].setColorTint(RulerModule.defaultTint)
     end
     local newRuler = RulerModule.CachedRulers[rulerId].clone()
     newRuler.setPosition(ship.getPosition())
     newRuler.setRotation(rulerData.params.rotation)
+    newRuler.setColorTint(RulerModule.GetVisualizerTint(isIon))
 
     local arclines = {}
     if RulerModule.typeToArc[rulerType] then
@@ -5237,7 +5296,7 @@ end
 -- Toggle ruler for a ship
 -- If a ruler of queried type exists, just delete it and return nil
 -- If any other ruler exists, delete it (and spawn queried one), return new ruler ref
-RulerModule.ToggleRuler = function(ship, rulerType, beQuiet)
+RulerModule.ToggleRuler = function(ship, rulerType, beQuiet, isIon)
     local destType = RulerModule.DeleteRuler(ship)
 
     if destType ~= rulerType then
@@ -5265,7 +5324,7 @@ RulerModule.ToggleRuler = function(ship, rulerType, beQuiet)
         end
         ship.setLock(true)
         Wait.frames(function()
-            RulerModule.SpawnRuler(ship, spawnType, beQuiet, includeFriendlies, range)
+            RulerModule.SpawnRuler(ship, spawnType, beQuiet, includeFriendlies, range, isIon)
         end, 1)
     end
 end
@@ -5291,6 +5350,7 @@ BombModule.dropTable = {}
 XW_cmd.AddCommand('b:s[1-5][r]?', 'bombDrop')
 XW_cmd.AddCommand('b:b[rle][1-3][r]?', 'bombDrop')
 XW_cmd.AddCommand('b:t[rle][1-3][r]?', 'bombDrop')
+XW_cmd.AddCommand('b:[ps]s[1-3]', 'bombDrop')
 
 -- Spawn a bomb drop, delete old ones
 -- If that exact one existed, just delete
@@ -5307,7 +5367,27 @@ BombModule.SpawnDrop = function(ship, dropCode)
     DialModule.DeleteTemplate(ship)
     local dropPos = nil
     local temp = nil
-    if dropCode:sub(-1, -1) == 'r' then
+    -- PORT/STARBOARD sideways drops (ps1, ss1, etc.)
+    local sideDir = templateCode:sub(1, 2)
+    if sideDir == 'ss' or sideDir == 'ps' then
+        local speed = tonumber(templateCode:sub(3, 3))
+        local rotAngle = (sideDir == 'ss') and -90 or 90
+        temp = DialModule.SpawnSideTemplate(ship, speed, rotAngle)
+        if temp ~= nil then
+            temp.createButton(BombModule.deleteButton)
+            -- Get template position and offset to the far end (away from ship)
+            local tempPos = temp.getPosition()
+            local tempRot = temp.getRotation()
+            local templateLen = Dim.Convert_mm_igu(35)
+            local rad = math.rad(tempRot[2])
+            local farEnd = {
+                tempPos[1] + templateLen * math.sin(rad),
+                tempPos[2],
+                tempPos[3] + templateLen * math.cos(rad)
+            }
+            dropPos = { finPos = { pos = farEnd, rot = { tempRot[1], tempRot[2], tempRot[3] } } }
+        end
+    elseif dropCode:sub(-1, -1) == 'r' then
         -- FRONT drops
         temp = DialModule.SpawnTemplate(ship, templateCode:sub(1, -2) .. '_B')
         temp.createButton(BombModule.deleteButton)
@@ -5398,13 +5478,19 @@ BombModule.OnTokenDrop = function(token)
     if closest.pointKey ~= nil then
         -- Move the token to the snap points
         local drop = BombModule.dropTable[closest.pointKey]
-        local destPos = Vect.Sum(drop.dest.pos, Vect.RotateDeg(offset.pos, drop.dest.rot[2]))
-
-        local size = drop.ship.getTable("Data").Size or 'small'
-        if size == 'large' then
-            destPos = Vect.Sum(destPos, Vect.RotateDeg({ 0, 0, Dim.Convert_mm_igu(-20) }, drop.dest.rot[2]))
-        elseif size == 'medium' then
-            destPos = Vect.Sum(destPos, Vect.RotateDeg({ 0, 0, Dim.Convert_mm_igu(-10) }, drop.dest.rot[2]))
+        local isSideDrop = drop.code and (drop.code:find(':ss') or drop.code:find(':ps'))
+        local destPos
+        if isSideDrop then
+            -- Sideways drops: place bomb directly at the drop point
+            destPos = { drop.dest.pos[1], drop.dest.pos[2], drop.dest.pos[3] }
+        else
+            destPos = Vect.Sum(drop.dest.pos, Vect.RotateDeg(offset.pos, drop.dest.rot[2]))
+            local size = drop.ship.getTable("Data").Size or 'small'
+            if size == 'large' then
+                destPos = Vect.Sum(destPos, Vect.RotateDeg({ 0, 0, Dim.Convert_mm_igu(-20) }, drop.dest.rot[2]))
+            elseif size == 'medium' then
+                destPos = Vect.Sum(destPos, Vect.RotateDeg({ 0, 0, Dim.Convert_mm_igu(-10) }, drop.dest.rot[2]))
+            end
         end
         local destRot = Vect.Sum(drop.dest.rot, offset.rot)
         destPos[2] = drop.ship.getPosition()[2] + offset.pos[2]
@@ -5478,14 +5564,6 @@ end
 
 -- TODO: try to move or integrate this with Bomb Code
 clusterScript = [[
--- Convert argument from IN-GAME UNITS to MILIMETERS
-local Dim = require("Dim")
-Dim.mm_igu_ratio = 0.03637
---function Convert_igu_mm(in_game_units)
---    return in_game_units/Dim.mm_igu_ratio
---end
-
-
 checkingRange = nil
 scale = 1/self.getScale().x
 
@@ -5518,47 +5596,20 @@ function removeCheckRange()
 end
 
 function onLoad(save_state)
-    print("Test")
     self.addContextMenuItem("Check Range 1", function() checkRange(1) end, false)
-    print("Test2")
 end
 
 function checkRange(range)
-    if range and checkingRange ~= range then
-      printToAll("Checking for ships within range ".. range .. " of " .. self.getName(), color(1.0,1.0,0))
-      vector_lines = {}
-      for k,obj in pairs(getObjectsWithAnyTags({'Ship'})) do
-          my_pos = self.getNearestPointFromObject(obj)
-          closest = Global.call("API_GetClosestPointToShip", {ship=obj,point=my_pos})
-          distance = Dim.Convert_igu_mm(closest.length)
-          if distance < 100*range then
-              printToAll(obj.getName() .. " is within range ".. range .. " of ".. self.getName(), color(1.0,1.0,0))
-              table.insert(vector_lines, {
-                  points = {self.positionToLocal(closest.A), self.positionToLocal(closest.B)},
-                  color = {1,1,1},
-                  thickness = 0.05*scale,
-                  rotation = vector(0,0,0)
-              })
-          end
-      end
-      self.clearButtons()
-      self.setVectorLines(vector_lines)
-      if #vector_lines > 0 then
-        checkingRange = range
-        if self.is_face_down then
-          self.createButton(removeButtonDown)
-        else
-          self.createButton(removeButtonUp)
-        end
-      else
-        checkingRange = nil
-        printToAll("No ships is within range ".. range .." of " .. self.getName(), color(1.0,1.0,0))
-      end
-    else
-      checkingRange = nil
-      self.clearButtons()
-      self.setVectorLines({})
-    end
+    checkingRange = Global.call("API_CheckObjectRange", {
+      owner = self,
+      range = range,
+      currentRange = checkingRange,
+      removeButtonUp = removeButtonUp,
+      removeButtonDown = removeButtonDown,
+      options = {
+        thickness = 0.05*scale
+      }
+    })
 end
 ]]
 
@@ -5838,8 +5889,70 @@ function onObjectSpawned(obj)
     obj.hide_when_face_down = false
 end
 
+local LAYOUT_CONTROLLER_GUID = "b3992e"
+local HOTAC_LAYOUT_INDEXES = {
+    [3] = true,
+    [4] = true,
+}
+
+function IsHotACLayout(layout)
+    if type(layout) == "table" then
+        layout = layout.index or layout.layout or layout.name
+    end
+
+    if type(layout) == "number" then
+        return HOTAC_LAYOUT_INDEXES[layout] == true
+    end
+
+    if type(layout) == "string" then
+        local layoutIndex = tonumber(layout)
+        if layoutIndex ~= nil then
+            return HOTAC_LAYOUT_INDEXES[layoutIndex] == true
+        end
+        return layout:lower():find("hotac", 1, true) ~= nil
+    end
+
+    local layoutController = getObjectFromGUID(LAYOUT_CONTROLLER_GUID)
+    if layoutController ~= nil then
+        local currentLayout = layoutController.call("getLayoutState")
+        return HOTAC_LAYOUT_INDEXES[currentLayout] == true
+    end
+
+    return false
+end
+
+function ShouldShowShipPointsTrackerForCurrentLayout()
+    return not IsHotACLayout()
+end
+
+function SetShipPointsTrackersVisible(params)
+    local visible = true
+    if type(params) == "table" and params.visible ~= nil then
+        visible = params.visible == true
+    elseif params == false then
+        visible = false
+    end
+
+    local functionName = visible and "ShowPointsTracker" or "HidePointsTracker"
+    for _, obj in ipairs(getAllObjects()) do
+        local ok, hasPointsTracker = pcall(function()
+            return obj.getVar("points_tracker_visible") ~= nil and obj.getVar("current_state") ~= nil
+        end)
+        if ok and hasPointsTracker then
+            pcall(function()
+                obj.call(functionName)
+            end)
+        end
+    end
+end
+
+function SetShipPointsTrackersForLayout(params)
+    SetShipPointsTrackersVisible({ visible = not IsHotACLayout(params) })
+end
+
 XW_cmd.AddCommand('rot[lr]?[12]?', 'rotate')
 XW_cmd.AddCommand('turret[12]?', 'turretarc')
+XW_cmd.AddCommand('weapon%d+', 'weaponarc')
 XW_cmd.AddCommand('a', 'fixedarc')
 
 mountRotations = {
@@ -5914,12 +6027,459 @@ pilotCardScript =
 [[
 dial = nil
 ship = nil
+dial_guid = nil
+ship_guid = nil
+current_state = "healthy"
+points_tracker_visible = true
+points_tracker_landscape = false
+cached_ship_name = nil
+cached_ship_points = 0
+cached_ship_half_points = 0
+cached_owning_player = nil
+loaded = false
+ui_initialized = false
+ui_face_down = false
+
+local STATE_HEALTHY = "healthy"
+local STATE_DAMAGED = "damaged"
+local STATE_DESTROYED = "destroyed"
+local GAME_CONSOLE_GUID = "c9a2a0"
+
+local panel_colors = {
+  total = {
+    healthy = "#FFFFFFFF",
+    damaged = "#FFB6C1FF",
+    destroyed = "#FF0000FF",
+  },
+  half = {
+    healthy = "#FFFFFFFF",
+    damaged = "#FF0000FF",
+    destroyed = "#FF0000FF",
+  },
+  remaining = {
+    healthy = "#FFFFFFFF",
+    damaged = "#FFFFFFFF",
+    destroyed = "#FF0000FF",
+  }
+}
+
+local points_tracker_xml = [=[
+<Defaults>
+    <Button class="PointsTile" colors="#FFFFFFFF|#FFFFFFFF|#FFFFFFFF|#FFFFFFFF" color="#FFFFFFFF" outline="#00000055" outlineSize="2 2" textColor="#00000000" fontStyle="Bold" />
+    <Text class="PointsValue" color="#111111FF" fontStyle="Bold" alignment="MiddleCenter" raycastTarget="false" />
+</Defaults>
+
+<Panel id="PointsRoot" width="320" height="190" position="0 250 0" rotation="0 0 180" color="#00000000" allowDragging="false" raycastTarget="false">
+    <Button id="TotalPanel" class="PointsTile" width="154" height="78" offsetXY="0 46" color="#FFFFFFFF" text="0" fontSize="66" textColor="#111111FF" alignment="MiddleCenter" onClick="CyclePointsState" />
+
+    <Panel id="BottomRow" width="260" height="78" offsetXY="0 -38" color="#00000000" raycastTarget="false">
+        <Button id="HalfPanel" class="PointsTile" width="108" height="78" offsetXY="-58 0" color="#FFFFFFFF" onClick="CyclePointsState">
+            <Text id="HalfPoints" class="PointsValue" text="0" width="108" height="78" offsetXY="0 0" fontSize="64" color="#111111FF" alignment="MiddleCenter" raycastTarget="false" />
+        </Button>
+
+        <Button id="RemainingPanel" class="PointsTile" width="108" height="78" offsetXY="58 0" color="#FFFFFFFF" onClick="CyclePointsState">
+            <Text id="RemainingPoints" class="PointsValue" text="0" width="108" height="78" offsetXY="0 0" fontSize="64" color="#111111FF" alignment="MiddleCenter" raycastTarget="false" />
+        </Button>
+    </Panel>
+</Panel>
+]=]
+
+local function getPointsTrackerAspectScale()
+  local aspect_scale = 1
+  if points_tracker_landscape then
+    aspect_scale = 2.1
+  end
+  if aspect_scale < 0.8 then
+    aspect_scale = 0.8
+  elseif aspect_scale > 2.0 then
+    aspect_scale = 2.0
+  end
+  return aspect_scale
+end
+
+local function applyPointsTrackerScale()
+  if not loaded or not ui_initialized then
+    return
+  end
+
+  local aspect_scale = getPointsTrackerAspectScale()
+  pcall(function()
+    self.UI.setAttribute("PointsRoot", "scale", string.format("%.3f 1.000", 1 / aspect_scale))
+  end)
+end
+
+local function updatePointsLayout()
+  if not loaded or not ui_initialized then
+    return
+  end
+
+  local face_down = self.is_face_down == true
+  if ui_face_down == face_down then
+    return
+  end
+
+  ui_face_down = face_down
+  if face_down then
+    self.UI.setAttribute("PointsRoot", "rotation", "0 180 180")
+  else
+    self.UI.setAttribute("PointsRoot", "rotation", "0 0 180")
+  end
+end
+
+local function resolveLinkedObjects()
+  if dial == nil and dial_guid ~= nil then
+    dial = getObjectFromGUID(dial_guid)
+  end
+  if ship == nil and ship_guid ~= nil then
+    ship = getObjectFromGUID(ship_guid)
+  end
+end
+
+local function initializeShipTrackerData()
+  if cached_ship_name ~= nil then
+    return true
+  end
+
+  resolveLinkedObjects()
+  if ship == nil then
+    return false
+  end
+
+  local data = ship.getTable("Data") or {}
+  local points = data.points or 0
+  cached_ship_name = data.name or ship.getName() or self.getName()
+  cached_ship_points = points
+  cached_ship_half_points = data.half_points or math.floor(points / 2)
+  cached_owning_player = ship.getVar("owningPlayer")
+  return true
+end
+
+local function getShipPointData()
+  if initializeShipTrackerData() then
+    local remaining_points = math.max((cached_ship_points or 0) - (cached_ship_half_points or 0), 0)
+    log({
+      card = self.getName(),
+      ship_guid = ship_guid,
+      data_name = cached_ship_name,
+      data_points = cached_ship_points,
+      data_half_points = cached_ship_half_points,
+      resolved_points = cached_ship_points,
+      resolved_half_points = cached_ship_half_points,
+      resolved_remaining_points = remaining_points,
+      using_cached_data = true,
+    }, "Pilot card points")
+    return cached_ship_points or 0, cached_ship_half_points or 0, remaining_points
+  end
+
+  log("Pilot card points: no linked ship or cached data", self.getName())
+  return nil
+end
+
+local function refreshPointsUI()
+  if not loaded or not ui_initialized then
+    return
+  end
+
+  applyPointsTrackerScale()
+  updatePointsLayout()
+  self.UI.setAttribute("PointsRoot", "active", points_tracker_visible and "true" or "false")
+  if not points_tracker_visible then
+    return
+  end
+
+  local points, half_points, remaining_points = getShipPointData()
+  if points == nil then
+    return
+  end
+  self.UI.setAttribute("TotalPanel", "text", tostring(points))
+  self.UI.setAttribute("HalfPoints", "text", tostring(half_points))
+  self.UI.setAttribute("RemainingPoints", "text", tostring(remaining_points))
+  self.UI.setAttribute("TotalPanel", "color", panel_colors.total[current_state] or panel_colors.total[STATE_HEALTHY])
+  self.UI.setAttribute("HalfPanel", "color", panel_colors.half[current_state] or panel_colors.half[STATE_HEALTHY])
+  self.UI.setAttribute("RemainingPanel", "color",
+    panel_colors.remaining[current_state] or panel_colors.remaining[STATE_HEALTHY])
+end
+
+local function refreshPointsUIWhenReady(attempts_left)
+  if attempts_left == nil then
+    attempts_left = 10
+  end
+
+  if not loaded or not ui_initialized then
+    if attempts_left > 0 then
+      Wait.frames(function()
+        refreshPointsUIWhenReady(attempts_left - 1)
+      end, 1)
+    end
+    return
+  end
+
+  refreshPointsUI()
+end
+
+local function schedulePointsUIRefreshes()
+  local refresh_frames = { 1, 5, 15, 30 }
+  for _, frame_count in ipairs(refresh_frames) do
+    Wait.frames(function()
+      refreshPointsUIWhenReady()
+    end, frame_count)
+  end
+end
+
+local getPlayerLabel
+local getShipLabel
+
+local function normalizePlayerColor(playerRef)
+  if playerRef == nil then
+    return nil
+  end
+  if type(playerRef) == "string" then
+    return playerRef
+  end
+
+  local ok, color_value = pcall(function()
+    return playerRef.color
+  end)
+  if ok then
+    return color_value
+  end
+
+  return nil
+end
+
+local function getOwningPlayerColor()
+  initializeShipTrackerData()
+  return cached_owning_player
+end
+
+local function canModifyPointsState(playerColor)
+  local owning_player = getOwningPlayerColor()
+  if owning_player == nil or owning_player == "" or owning_player == "Black" then
+    return true
+  end
+  return playerColor == owning_player
+end
+
+local function notifyUnauthorizedPointsChange(playerColor)
+  local owning_player = getOwningPlayerColor() or "the controlling player"
+  local actor = getPlayerLabel(playerColor)
+  local ship_name = getShipLabel()
+  local message = actor .. " cannot change " .. ship_name .. " points. Controlled by " .. owning_player .. "."
+  if playerColor ~= nil and Player[playerColor] ~= nil then
+    printToColor(message, playerColor, { 1, 0.2, 0.2 })
+  else
+    printToAll(message, { 1, 0.2, 0.2 })
+  end
+end
+
+local function rebuildPointsContextMenu()
+  if not loaded then
+    return
+  end
+
+  self.clearContextMenu()
+
+  if points_tracker_visible then
+    if current_state ~= STATE_HEALTHY then
+      self.addContextMenuItem("Set to Healthy", function(playerColor)
+        MarkHealthy(playerColor)
+      end, false)
+    end
+    if current_state ~= STATE_DAMAGED then
+      self.addContextMenuItem("Set to Damaged", function(playerColor)
+        MarkDamaged(playerColor)
+      end, false)
+    end
+    if current_state ~= STATE_DESTROYED then
+      self.addContextMenuItem("Set to Destroyed", function(playerColor)
+        MarkDestroyed(playerColor)
+      end, false)
+    end
+    self.addContextMenuItem("Disable Points", function()
+      HidePointsTracker()
+    end, false)
+  else
+    self.addContextMenuItem("Enable Points", function()
+      ShowPointsTracker()
+    end, false)
+  end
+end
+
+getPlayerLabel = function(playerColor)
+  playerColor = normalizePlayerColor(playerColor)
+  if playerColor ~= nil and Player[playerColor] ~= nil then
+    return Player[playerColor].steam_name or playerColor
+  end
+  return "A player"
+end
+
+getShipLabel = function()
+  if initializeShipTrackerData() then
+    return cached_ship_name
+  end
+  return self.getName()
+end
+
+local function getConcededPointsForState(state)
+  local points, half_points = getShipPointData()
+  if points == nil then
+    return 0
+  end
+
+  if state == STATE_HEALTHY then
+    return 0
+  elseif state == STATE_DAMAGED then
+    return half_points
+  elseif state == STATE_DESTROYED then
+    return points
+  end
+
+  return 0
+end
+
+local function announcePointsStateChange(from_state, new_state, playerColor)
+  local state_labels = {
+    healthy = "Healthy",
+    damaged = "Damaged",
+    destroyed = "Destroyed",
+  }
+  local actor = getPlayerLabel(playerColor)
+  local ship_name = getShipLabel()
+  local from_label = state_labels[from_state] or from_state
+  local state_label = state_labels[new_state] or new_state
+  local delta = getConcededPointsForState(new_state) - getConcededPointsForState(from_state)
+  local delta_label = string.format("%+d", delta)
+  printToAll(actor .. " changed " .. ship_name .. " points from " .. from_label .. " to " .. state_label ..
+    " (" .. delta_label .. " points)", { 1, 1, 1 })
+end
+
+local function updateGameConsoleConcededPoints(from_state, new_state, playerColor)
+  local delta = getConcededPointsForState(new_state) - getConcededPointsForState(from_state)
+  if delta == 0 then
+    return
+  end
+
+  local owning_player = getOwningPlayerColor() or playerColor
+  if owning_player == nil then
+    return
+  end
+
+  local game_console = getObjectFromGUID(GAME_CONSOLE_GUID)
+  if game_console == nil then
+    return
+  end
+
+  pcall(function()
+    game_console.call("AddConcededShipPoints", {
+      playerColor = owning_player,
+      delta = delta,
+      ship = getShipLabel(),
+      from_state = from_state,
+      to_state = new_state,
+    })
+  end)
+end
+
+local function setPointsState(new_state, playerColor)
+  playerColor = normalizePlayerColor(playerColor)
+  if current_state == new_state then
+    return
+  end
+
+  if playerColor ~= nil and not canModifyPointsState(playerColor) then
+    notifyUnauthorizedPointsChange(playerColor)
+    return
+  end
+
+  local previous_state = current_state
+  current_state = new_state
+  refreshPointsUI()
+  rebuildPointsContextMenu()
+  updateGameConsoleConcededPoints(previous_state, new_state, playerColor)
+  announcePointsStateChange(previous_state, new_state, playerColor)
+end
+
+function HandlePointsNumberTyped(params)
+  if not points_tracker_visible then
+    return
+  end
+
+  local number = params
+  local playerColor = nil
+  if type(params) == "table" then
+    number = params.number
+    playerColor = normalizePlayerColor(params.playerColor)
+  end
+
+  log({
+    card = self.getName(),
+    playerColor = playerColor,
+    number = number,
+  }, "Pilot card HandlePointsNumberTyped")
+
+  if number == 1 then
+    MarkHealthy(playerColor)
+  elseif number == 2 then
+    MarkDamaged(playerColor)
+  elseif number == 3 then
+    MarkDestroyed(playerColor)
+  end
+end
+
+function MarkHealthy(playerColor)
+  setPointsState(STATE_HEALTHY, playerColor)
+end
+
+function MarkDamaged(playerColor)
+  setPointsState(STATE_DAMAGED, playerColor)
+end
+
+function MarkDestroyed(playerColor)
+  setPointsState(STATE_DESTROYED, playerColor)
+end
+
+function CyclePointsState(player, value, id)
+  if not points_tracker_visible then
+    return
+  end
+
+  local playerColor = normalizePlayerColor(player)
+
+  if current_state == STATE_HEALTHY then
+    MarkDamaged(playerColor)
+  elseif current_state == STATE_DAMAGED then
+    MarkDestroyed(playerColor)
+  else
+    MarkHealthy(playerColor)
+  end
+end
+
+function ShowPointsTracker()
+  points_tracker_visible = true
+  refreshPointsUI()
+  rebuildPointsContextMenu()
+end
+
+function HidePointsTracker()
+  points_tracker_visible = false
+  refreshPointsUI()
+  rebuildPointsContextMenu()
+end
+
 function addTintObject(params)
     if params[1] == "ship" then
       ship = params[2]
+      ship_guid = ship and ship.getGUID() or nil
+      initializeShipTrackerData()
+      schedulePointsUIRefreshes()
     elseif params[1] == "dial" then
       dial = params[2]
+      dial_guid = dial and dial.getGUID() or nil
     end
+end
+
+function configurePointsTracker(params)
+  refreshPointsUIWhenReady()
 end
 
 function DisableAttachedColliders()
@@ -5932,7 +6492,9 @@ function DisableAttachedColliders()
   end
 end
 
-function tint_check()
+function pilotCardUpdate()
+    resolveLinkedObjects()
+    updatePointsLayout()
     local tint = self.getColorTint()
     if tint ~= color(1,1,1,1) then
       self.setColorTint(color(1,1,1,1))
@@ -5968,11 +6530,79 @@ function tint_check()
     end
 end
 
-loaded = false
-
 function onLoad(savestate)
+  if savestate ~= nil and savestate ~= "" then
+    local decoded = JSON.decode(savestate)
+    if decoded then
+      current_state = decoded.current_state or STATE_HEALTHY
+      ship_guid = decoded.ship_guid
+      dial_guid = decoded.dial_guid
+      cached_ship_name = decoded.cached_ship_name
+      cached_ship_points = decoded.cached_ship_points or 0
+      cached_ship_half_points = decoded.cached_ship_half_points or math.floor((cached_ship_points or 0) / 2)
+      cached_owning_player = decoded.cached_owning_player
+      if decoded.points_tracker_visible ~= nil then
+        points_tracker_visible = decoded.points_tracker_visible
+      end
+    end
+  end
+
+  local tracker_config = self.getTable("PointsTrackerConfig") or {}
+  if tracker_config.visible ~= nil then
+    points_tracker_visible = tracker_config.visible == true
+  end
+  local ok, layout_visible = pcall(function()
+    return Global.call("ShouldShowShipPointsTrackerForCurrentLayout")
+  end)
+  if ok and layout_visible ~= nil then
+    points_tracker_visible = layout_visible == true
+  end
+  points_tracker_landscape = tracker_config.landscape == true
+  resolveLinkedObjects()
+  initializeShipTrackerData()
+  self.max_typed_number = 3
   loaded = true
-  Wait.time(tint_check, 0.5, -1)
+  rebuildPointsContextMenu()
+  Wait.frames(function()
+    if self == nil then
+      return
+    end
+    local ok = pcall(function()
+      self.UI.setXml(points_tracker_xml)
+    end)
+    if ok then
+      ui_initialized = true
+      ui_face_down = not (self.is_face_down == true)
+      Wait.frames(function()
+        applyPointsTrackerScale()
+      end, 1)
+      schedulePointsUIRefreshes()
+    end
+  end, 1)
+  Wait.time(pilotCardUpdate, 0.5, -1)
+end
+
+function onNumberTyped(playerColor, number)
+  log({
+    card = self.getName(),
+    playerColor = playerColor,
+    number = number,
+  }, "Pilot card onNumberTyped")
+  HandlePointsNumberTyped({ number = number, playerColor = playerColor })
+end
+
+function onSave()
+  initializeShipTrackerData()
+  return JSON.encode({
+    current_state = current_state,
+    ship_guid = ship_guid,
+    dial_guid = dial_guid,
+    points_tracker_visible = points_tracker_visible,
+    cached_ship_name = cached_ship_name,
+    cached_ship_points = cached_ship_points,
+    cached_ship_half_points = cached_ship_half_points,
+    cached_owning_player = cached_owning_player,
+  })
 end
 
 function isLoadedAndStill()
@@ -6001,7 +6631,15 @@ function newSpawner(listTable)
     spawnedPilotList = {}
     local spawnPrefix =
     "{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/"
-    local factionnames = { "rebel", "empire", "scum", "resistance", "first-order", "republic", "separatists" }
+    local factionnames = {
+        rebelalliance = "rebel",
+        galacticempire = "empire",
+        scumandvillainy = "scum",
+        resistance = "resistance",
+        firstorder = "first-order",
+        galacticrepublic = "republic",
+        separatistalliance = "separatists"
+    }
 
     PosBag1 = { 5, 5, 0 }
     PosBag2 = { 10, 10, 0 }
@@ -6030,6 +6668,57 @@ function newSpawner(listTable)
     storePos = spawnCard.getPosition()
     storeRot = spawnCard.getRotation()
 
+    local UPGRADE_STEP_X = 1.78
+    local UPGRADE_STEP_Y = 0.2
+    local UPGRADE_EXTENDED_WIDTH_TUCK = 0.6
+    local UPGRADE_EXTENDED_WIDTH_STEP = UPGRADE_STEP_X + UPGRADE_EXTENDED_WIDTH_TUCK
+    local CONFIG_CARD_ANCHOR_X = 1.42
+    local CONFIG_CARD_SHIFT_X = -1.9
+
+    local function isExtendedWidthUpgrade(upgrade)
+        return upgrade.extended_width == true
+    end
+
+    local function extendedWidthOffset(upgrade, direction)
+        if isExtendedWidthUpgrade(upgrade) then
+            return UPGRADE_EXTENDED_WIDTH_TUCK * direction
+        end
+        return 0
+    end
+
+    local function upgradeCardLayout(cursor, upgrade)
+        local widthOffset = extendedWidthOffset(upgrade, -1)
+        local layout = {
+            x = cursor.x + widthOffset,
+            y = cursor.y,
+            z = cursor.z,
+        }
+        if isExtendedWidthUpgrade(upgrade) then
+            cursor.x = cursor.x - UPGRADE_EXTENDED_WIDTH_STEP
+        else
+            cursor.x = cursor.x - UPGRADE_STEP_X
+        end
+        cursor.y = cursor.y - UPGRADE_STEP_Y
+        return layout
+    end
+
+    local function configCardLayout(upgrade)
+        local layout = {
+            x = CONFIG_CARD_ANCHOR_X + extendedWidthOffset(upgrade, 1),
+            y = 0,
+            z = 5.5,
+        }
+        return layout
+    end
+
+    local function localLayoutPos(layout, dx, dy, dz)
+        return LocalPos(spawnCard, {
+            layout.x + (dx or 0),
+            layout.y + (dy or 0),
+            layout.z + (dz or 0),
+        })
+    end
+
     shipIndex = 1 --Sets index of ship being spawned
 
     while Pilots[shipIndex] ~= nil do
@@ -6049,9 +6738,10 @@ function newSpawner(listTable)
         -- Spawn Mobile Upgrades
         for j, Up in pairs(Upgrades[shipIndex]) do
             if Up.Config == true then
-                finalPos = LocalPos(spawnCard, { -1.9, 0, 0 }) --Layout adjustment
+                local configLayout = configCardLayout(Up)
+                finalPos = LocalPos(spawnCard, { CONFIG_CARD_SHIFT_X, 0, 0 }) --Layout adjustment
                 spawnCard.setPosition(finalPos)
-                pos = LocalPos(spawnCard, { 1.42, 0, 5.5 })
+                pos = localLayoutPos(configLayout)
                 rot = spawnCard.getRotation()
                 rot.y = rot.y
                 cardLink = Up.card
@@ -6070,15 +6760,15 @@ function newSpawner(listTable)
                 charges = Up.Charge
                 while charges > 0 do
                     if charges == 5 then
-                        pos = LocalPos(spawnCard, { -1.7 + 4, 0, 1.9 })
+                        pos = localLayoutPos(configLayout, 0.88, 0, -3.6)
                     elseif charges == 4 then
-                        pos = LocalPos(spawnCard, { -1.7 + 4, 0, 2.8 })
+                        pos = localLayoutPos(configLayout, 0.88, 0, -2.7)
                     elseif charges == 3 then
-                        pos = LocalPos(spawnCard, { -2.6 + 4, 0, 2.8 })
+                        pos = localLayoutPos(configLayout, -0.02, 0, -2.7)
                     elseif charges == 2 then
-                        pos = LocalPos(spawnCard, { -1.7 + 4, 0, 3.7 })
+                        pos = localLayoutPos(configLayout, 0.88, 0, -1.8)
                     elseif charges == 1 then
-                        pos = LocalPos(spawnCard, { -2.6 + 4, 0, 3.7 })
+                        pos = localLayoutPos(configLayout, -0.02, 0, -1.8)
                     else
                         charges = 0
                     end
@@ -6090,10 +6780,12 @@ function newSpawner(listTable)
                 end
             end
         end
+        local upgradeLayoutCursor = { x = -1.42, y = 1, z = 5.5 }
         for j, Up in pairs(Upgrades[shipIndex]) do
             if Up.Config ~= true then
                 --Indicates there's a card left of the pilot card, for layout purposes
-                pos = LocalPos(spawnCard, { -1.42 - 1.78 * UpNum, 1 - 0.2 * UpNum, 5.5 })
+                local upgradeLayout = upgradeCardLayout(upgradeLayoutCursor, Up)
+                pos = localLayoutPos(upgradeLayout)
                 rot = spawnCard.getRotation()
                 rot.y = rot.y - 90
                 cardLink = Up.card
@@ -6112,11 +6804,12 @@ function newSpawner(listTable)
                     --Checks and spawn conditions associated to pilots
                     for k, acc in ipairs(listaAcc) do
                         if acc.name == Up.Condition then
-                            pos = LocalPos(spawnCard, { -2 - 1.78 * UpNum, 1 - 0.2 * UpNum, 8 })
+                            pos = localLayoutPos(upgradeLayout, -0.58, 0, 2.5)
                             rot = spawnCard.getRotation()
                             newAsset = tempBagAcc.takeObject({ position = pos, rotation = rot, guid = acc.guid, smooth = false })
                             assetClone = newAsset.clone()
                             assetClone.setPosition(pos)
+                            assetClone.addTag("Assignable")
                             tempBagAcc.putObject(newAsset)
                         end
                     end
@@ -6126,15 +6819,15 @@ function newSpawner(listTable)
                 if charges > 0 then
                     while charges > 0 do
                         if charges == 5 then
-                            pos = LocalPos(spawnCard, { -1.7 - 1.78 * UpNum, 1, 1.9 })
+                            pos = localLayoutPos(upgradeLayout, -0.28, 1 - upgradeLayout.y, -3.6)
                         elseif charges == 4 then
-                            pos = LocalPos(spawnCard, { -1.7 - 1.78 * UpNum, 1, 2.8 })
+                            pos = localLayoutPos(upgradeLayout, -0.28, 1 - upgradeLayout.y, -2.7)
                         elseif charges == 3 then
-                            pos = LocalPos(spawnCard, { -2.6 - 1.78 * UpNum, 1, 2.8 })
+                            pos = localLayoutPos(upgradeLayout, -1.18, 1 - upgradeLayout.y, -2.7)
                         elseif charges == 2 then
-                            pos = LocalPos(spawnCard, { -1.7 - 1.78 * UpNum, 1, 3.7 })
+                            pos = localLayoutPos(upgradeLayout, -0.28, 1 - upgradeLayout.y, -1.8)
                         elseif charges == 1 then
-                            pos = LocalPos(spawnCard, { -2.6 - 1.78 * UpNum, 1, 3.7 })
+                            pos = localLayoutPos(upgradeLayout, -1.18, 1 - upgradeLayout.y, -1.8)
                         else
                             charges = 0
                         end
@@ -6149,7 +6842,7 @@ function newSpawner(listTable)
             end
         end
 
-        if Pilots[shipIndex].id ~= 0 then
+        if Pilots[shipIndex].id ~= '' then
             --Pilot and Ship Spawn
             pilotName = Pilots[shipIndex].name
             card = Pilots[shipIndex].card
@@ -6174,6 +6867,10 @@ function newSpawner(listTable)
                     newPil.setName(pilotName)
                     newPil.setDescription(Pilots[shipIndex].list)
                     newPil.setLuaScript(pilotCardScript)
+                    newPil.setTable("PointsTrackerConfig", {
+                        landscape = Pilots[shipIndex].standardized_loadout == true,
+                        visible = ShouldShowShipPointsTrackerForCurrentLayout()
+                    })
                     newPil.setLock(true)
 
                     -- Spawn Pilot Identifier
@@ -6202,7 +6899,7 @@ function newSpawner(listTable)
                         card.setLock(false)
                     end
                     Wait.condition(pilotIdSpawnFunc, function()
-                        return (not card.spawning)
+                        return card ~= nil and (not card.spawning)
                     end)
                 end
             end
@@ -6210,7 +6907,7 @@ function newSpawner(listTable)
                 for k, acc in pairs(listaAcc) do
                     local card = newPil
                     if acc.name == 'Unassigned Dial' then
-                        local dialpos = LocalPos(spawnCard, { 0, 1, 12 })
+                        local dialpos = LocalPos(spawnCard, { 0, 1, 13.2 })
                         local dialrot = rot
                         local dial = tempBagAcc.takeObject(
                             {
@@ -6222,7 +6919,7 @@ function newSpawner(listTable)
                         newDial.setPosition(pos)
                         tempBagAcc.putObject(dial)
                         local conditionFunc = function()
-                            return (not card.spawning) and (not newDial.spawning)
+                            return card ~= nil and (not card.spawning) and (not newDial.spawning)
                         end
                         local executeFunc = function()
                             newDial.setCustomObject({ ['diffuse'] = dialSkin })
@@ -6230,7 +6927,9 @@ function newSpawner(listTable)
                             newDial.setColorTint(tint)
                             newDial.setPosition(dialpos)
                             newDial.setRotation(dialrot)
-                            card.call('addTintObject', { 'dial', newDial })
+                            if card ~= nil then
+                                card.call('addTintObject', { 'dial', newDial })
+                            end
                         end
                         Wait.condition(executeFunc, conditionFunc)
                     end
@@ -6245,6 +6944,7 @@ function newSpawner(listTable)
                         newAsset = tempBagAcc.takeObject({ position = pos, rotation = rot, guid = acc.guid })
                         assetClone = newAsset.clone()
                         assetClone.setPosition(pos)
+                        assetClone.addTag("Assignable")
                         tempBagAcc.putObject(newAsset)
                     end
                 end
@@ -6252,11 +6952,6 @@ function newSpawner(listTable)
 
             local newShip = nil
             local texture = nil
-            if Customization[pilotName].texture ~= nil then
-                texture = Customization[pilotName].texture
-            elseif Pilots[shipIndex].Data.texture ~= nil then
-                texture = '{verifycache}' .. Pilots[shipIndex].Data.texture
-            end
             local shipoffset = vector(0, 0, 0)
             Pilots[shipIndex].Data.ColorId = tint
             if Pilots[shipIndex].Data.Config then
@@ -6265,8 +6960,18 @@ function newSpawner(listTable)
 
             if Customization[pilotName].texture ~= nil then
                 texture = Customization[pilotName].texture
-            elseif Pilots[shipIndex].Data.texture ~= nil then
-                texture = '{verifycache}' .. Pilots[shipIndex].Data.textures[Pilots[shipIndex].Data.texture]
+            else
+                local textureKey = Pilots[shipIndex].Data.texture
+                local textureUrl = nil
+                if textureKey ~= nil and Pilots[shipIndex].Data.textures ~= nil then
+                    textureUrl = Pilots[shipIndex].Data.textures[textureKey]
+                end
+                if textureUrl ~= nil then
+                    texture = '{verifycache}' .. textureUrl
+                elseif textureKey ~= nil then
+                    print("Missing ship texture '" .. tostring(textureKey) .. "' for " .. tostring(pilotName) ..
+                        " (" .. tostring(Pilots[shipIndex].Data.shipId) .. ")")
+                end
             end
             shipoffset = vector(0, 2.2, 0)
             local size = Pilots[shipIndex].Size
@@ -6276,12 +6981,18 @@ function newSpawner(listTable)
                 fixedarc = arcs.fixed.type[1] or "none"
             end
             if size == "huge" then
-                pos = LocalPos(spawnCard, { 0, 0, 12 })
+                pos = LocalPos(spawnCard, { 0, 0, 13.2 })
             else
-                pos = LocalPos(spawnCard, { 0, 0, 9 })
+                pos = LocalPos(spawnCard, { 0, 0, 10.2 })
             end
             rot = spawnCard.getRotation()
             local base_prototype = getObjectFromGUID(CompositeBase_GUID)
+            local factionName = factionnames[Faction]
+            if factionName == nil then
+                print("Missing faction base texture for faction " .. tostring(Faction) .. " on " .. tostring(pilotName))
+                factionName = factionnames[1]
+            end
+            local baseDiffuse = spawnPrefix .. "bases/" .. size .. "/" .. fixedarc .. "/" .. factionName .. ".png"
             newShip = base_prototype.clone()
             newShip.setPositionSmooth(pos, false, true)
             newShip.setRotationSmooth(rot, false, true)
@@ -6290,8 +7001,7 @@ function newSpawner(listTable)
             newShip.setCustomObject({
                 mesh = spawnPrefix .. "bases/" .. size .. "/base.obj?1",
                 collider = ShipVerification.colliders[size],
-                diffuse = spawnPrefix ..
-                    "bases/" .. size .. "/" .. fixedarc .. "/" .. factionnames[Faction] .. ".png",
+                diffuse = baseDiffuse,
                 convex = true,
                 material = 1,
                 type = 1
@@ -6315,7 +7025,7 @@ function newSpawner(listTable)
             local pegtype = Pilots[shipIndex].peg or size
             local pegCustomObject = {
                 mesh = spawnPrefix .. "bases/pegs/" .. pegtype .. ".obj",
-                diffuse = spawnPrefix .. "bases/" .. size .. "/" .. fixedarc .. "/" .. factionnames[Faction] .. ".png",
+                diffuse = baseDiffuse,
                 collider =
                 '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/minisculebox.obj',
                 convex = true,
@@ -6410,7 +7120,9 @@ function newSpawner(listTable)
                     ship.drag_selectable = true
                     ship.interactable = true
 
-                    card.call('addTintObject', { 'ship', ship })
+                    if card ~= nil then
+                        card.call('addTintObject', { 'ship', ship })
+                    end
                     ship.call('initContextMenu')
                 end
                 if Pilots[shipIndex].Data.ProximityHider then
@@ -6418,7 +7130,7 @@ function newSpawner(listTable)
                 end
                 Wait.condition(shipIdSpawnFunc,
                     function()
-                        return (not ship.spawning) and (not ship.isSmoothMoving()) and (not card.spawning)
+                        return (not ship.spawning) and (not ship.isSmoothMoving()) and (card == nil or not card.spawning)
                     end)
 
                 if Pilots[shipIndex].Data.Config and Pilots[shipIndex].Data.Config.States then
@@ -6721,7 +7433,7 @@ function newSpawner(listTable)
             end
             finalPos = LocalPos(spawnCard, { -(5.5 + charges * 0.7), 0, 0 })
         else
-            finalPos = LocalPos(spawnCard, { -4 - 1.78 * UpNum, 0, 0 })
+            finalPos = LocalPos(spawnCard, { upgradeLayoutCursor.x - 2.58, 0, 0 })
         end
         spawnCard.setPosition(finalPos)
         shipIndex = shipIndex + 1
@@ -6731,9 +7443,11 @@ function newSpawner(listTable)
     spawnCard.setPosition(finalPos)
 
     for i, remote in pairs(listTable.Remotes or {}) do
-        print("Spawning remote:" .. remote)
+        local remoteName = type(remote) == 'table' and remote.name or remote
+        local remoteCharge = type(remote) == 'table' and (remote.Charge or 0) or 0
+        print("Spawning remote:" .. remoteName)
         for k, acc in ipairs(listaAcc) do
-            if acc.name == remote then
+            if acc.name == remoteName then
                 pos = LocalPos(spawnCard, { 1, 1, 0 })
                 print("Found remote, spawning pos: " .. tostring(pos[1]) .. "," ..
                     tostring(pos[2]) .. "," .. tostring(pos[3]))
@@ -6741,6 +7455,23 @@ function newSpawner(listTable)
                 remoteClone = remObj.clone()
                 remoteClone.setPosition(pos)
                 tempBagAcc.putObject(remObj)
+                -- Spawn charge tokens for remotes that have charges
+                if remoteCharge > 0 then
+                    local ch = remoteCharge
+                    while ch > 0 do
+                        local chargePos
+                        if ch == 2 then
+                            chargePos = LocalPos(spawnCard, { 1.45, 1, -2.2 })
+                        elseif ch == 1 then
+                            chargePos = LocalPos(spawnCard, { 0.55, 1, -2.2 })
+                        end
+                        ch = ch - 1
+                        chargeClone = tokens.Charge.clone()
+                        chargeClone.setPosition(chargePos)
+                        chargeClone.setVar("charge_owner", remoteName)
+                        chargeClone.setVar("charge_name", remoteName)
+                    end
+                end
                 finalpos = LocalPos(spawnCard, { -3, 0, 0 })
                 spawnCard.setPosition(finalpos)
                 break
@@ -7370,6 +8101,56 @@ function IsInFrontOfShip(object, ship)
     -- Check if the object is in front (dotProduct > 0) and within a reasonable margin
     return dotProduct > 0.01 -- Adjust the threshold for precision if needed
 end
+
+-- GUID of the infinite Charge token bag.
+CHARGE_BAG_GUID = '224816'
+
+-- Map of charge-token GUID -> objective-marker GUID. Populated when a charge
+-- is enabled on an objective; read by the onObjectDropped handler below to
+-- snap the token back if the player moves it (so the token is flippable but
+-- effectively pinned to its objective).
+ObjectiveChargeTokens = ObjectiveChargeTokens or {}
+
+-- Spawn a charge token on an objective marker (context-menu opt-in).
+function ObjectiveSpawnCharge(params)
+    local objective = params.objective
+    if objective == nil then return nil end
+
+    local chargeBag = getObjectFromGUID(CHARGE_BAG_GUID)
+    if chargeBag == nil then return nil end
+
+    local objPos = objective.getPosition()
+    local objRot = objective.getRotation()
+    local token = chargeBag.takeObject({
+        position = { objPos.x, objPos.y + 0.3, objPos.z },
+        rotation = { 0, objRot.y, 0 },
+        smooth = false
+    })
+
+    ObjectiveChargeTokens[token.getGUID()] = objective.getGUID()
+    return token.getGUID()
+end
+
+-- Re-register on save/load so the snap-back map survives reloads.
+function ObjectiveRegisterCharge(params)
+    ObjectiveChargeTokens[params.tokenGuid] = params.objectiveGuid
+end
+
+function ObjectiveUnregisterCharge(params)
+    ObjectiveChargeTokens[params.tokenGuid] = nil
+end
+
+-- If the player drops a charge that belongs to an objective, snap it back.
+TokenModule.onObjectiveChargeDropped = function(player_color, object)
+    local objectiveGuid = ObjectiveChargeTokens[object.getGUID()]
+    if objectiveGuid == nil then return end
+    local objective = getObjectFromGUID(objectiveGuid)
+    if objective == nil then return end
+    local objPos = objective.getPosition()
+    object.setPositionSmooth({ objPos.x, objPos.y + 0.3, objPos.z }, false, true)
+end
+
+EventSub.Register('onObjectDropped', TokenModule.onObjectiveChargeDropped)
 
 function FindNearestShip(object, max_distance, filter_function)
     filter_function = filter_function or function(obj, ship) return true end

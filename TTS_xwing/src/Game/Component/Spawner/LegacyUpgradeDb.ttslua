@@ -2,19 +2,15 @@ masterUpgradesDB = {}
 
 masterUpgradesDB['outrider2023'] = {
     name = 'Outrider (2023)',
-    XWS = 'outrider2023',
-    slot = 15,
-    cost = 7,
+    slot = 'Title',
     restriction = { ship = { ['yt2400lightfreighter2023'] = true } }
 }
 
 masterUpgradesDB['tiedefenderelite'] = {
     name = "TIE Defender Elite",
-    XWS = 'tiedefenderelite',
-    slot = 18,
-    cost = -8,
+    slot = 'Configuration',
     restriction = {
-        Faction = { [2] = true },
+        faction = { ['galacticempire'] = true },
         ship = { ['tiededefender'] = true }
     }
 }
@@ -23,20 +19,16 @@ masterUpgradesDB['tiedefenderelite'] = {
 
 masterUpgradesDB['leebo-rsl'] = {
     name = 'Leebo',
-    XWS = 'leebo-rsl',
-    slot = 8,
-    cost = 1,
+    slot = 'Crew',
     limited = 1,
     restriction = {
-        Faction = { [3] = true, [1] = true }
+        faction = { ['scumandvillainy'] = true, ['rebelalliance'] = true }
     }
 }
 
 masterUpgradesDB['roilinganger-rsl'] = {
     name = 'Roiling Anger',
-    XWS = 'roilinganger-rsl',
-    slot = 17,
-    cost = 3,
+    slot = 'Force Power',
     restriction = {
         keywords = { 'Dark Side' }
     }
@@ -44,37 +36,29 @@ masterUpgradesDB['roilinganger-rsl'] = {
 
 masterUpgradesDB['chaffparticles-rsl'] = {
     name = 'Chaff Particles',
-    XWS = 'chaffparticles-rsl',
-    slot = 13,
-    cost = 3,
-    Charge = 1,
-    restriction = { Size = { small = true } }
+    slot = 'Illicit',
+    charge = 1,
+    restriction = { size = { small = true } }
 }
 
 masterUpgradesDB['fuelinjectionoverride-rsl'] = {
     name = 'Fuel Injection Override',
-    XWS = 'fuelinjectionoverride-rsl',
-    slot = 13,
-    cost = 2,
-    Charge = 1,
+    slot = 'Illicit',
+    charge = 1,
 }
 
 masterUpgradesDB['seekermissiles-rsl'] = {
     name = 'Seeker Missiles',
-    XWS = 'seekermissiles-rsl',
-    slot = 6,
-    cost = 5,
+    slot = 'Missile',
     limited = 2,
-    Charge = 2
+    charge = 2
 }
 
 masterUpgradesDB['contingencyprotocol-rsl'] = {
     name = 'Contingency Protocol',
-    XWS = 'contingencyprotocol-rsl',
-    slot = 14,
-    cost = 's',
+    slot = 'Modification',
     restriction = {
-        Faction = { [7] = true },
+        faction = { ['separatistalliance'] = true },
         keywords = { 'Droid' },
         equipped = { 'Tactical Relay' }
     }
@@ -82,34 +66,26 @@ masterUpgradesDB['contingencyprotocol-rsl'] = {
 
 masterUpgradesDB['noescape-rsl'] = {
     name = 'No Escape',
-    XWS = 'noescape-rsl',
-    slot = 1,
-    cost = 1,
+    slot = 'Talent',
     restriction = {
-        Faction = { [2] = true },
+        faction = { ['galacticempire'] = true },
         ship = { ['tielnfighter'] = true }
     }
 }
 
 masterUpgradesDB['silenthunter-rsl'] = {
     name = 'Silent Hunter',
-    XWS = 'silenthunter-rsl',
-    slot = 1,
-    cost = 2
+    slot = 'Talent',
 }
 
 masterUpgradesDB['partinggift-rsl'] = {
     name = 'Parting Gift',
-    XWS = 'partinggift-rsl',
-    slot = 1,
-    cost = 1
+    slot = 'Talent',
 }
 
 masterUpgradesDB['formedup-rsl'] = {
     name = 'Formed Up',
-    XWS = 'formedup-rsl',
-    slot = 1,
-    cost = 1,
+    slot = 'Talent',
     limited = 3,
     restriction = {
         ship = { ['tielnfighter'] = true }

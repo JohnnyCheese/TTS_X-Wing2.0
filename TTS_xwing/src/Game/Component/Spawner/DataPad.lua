@@ -31,88 +31,81 @@ tintColors[6] = Color(0.5, 0.25, 0.1, 1.0) -- Brown
 tintColors[7] = Color(1, 1, 1, 1.0)        -- White
 tintColors[8] = Color(0.5, 0.5, 0.5, 1.0)  -- Gray
 
--- FFG uses full name on factions, so a conversion is needed
-ffgFaction = {}
-ffgFaction[0] = 'Dum'
-ffgFaction[1] = 'Reb'
-ffgFaction[2] = 'Imp'
-ffgFaction[3] = 'Scu'
-ffgFaction[4] = 'Res'
-ffgFaction[5] = 'For'
-ffgFaction[6] = 'Rep'
-ffgFaction[7] = 'Cis'
+validFactions = {
+    dummy = true
+}
 
 cardBackDB = {}
-cardBackDB.Dum = ''
-cardBackDB.Reb =
+cardBackDB.dummy = ''
+cardBackDB.rebelalliance =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Rebelback.png'
-cardBackDB.Imp =
+cardBackDB.galacticempire =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Empireback.png'
-cardBackDB.Scu =
+cardBackDB.scumandvillainy =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Scumback.png'
-cardBackDB.Res =
+cardBackDB.resistance =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Resback.jpg'
-cardBackDB.For = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/FOback.png'
-cardBackDB.Rep =
+cardBackDB.firstorder = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/FOback.png'
+cardBackDB.galacticrepublic =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/REPback.jpg'
-cardBackDB.Cis =
+cardBackDB.separatistalliance =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/CISback.jpg'
-cardBackDB['1'] =
+cardBackDB['Talent'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Eptupgrade.png'  -- EPT
-cardBackDB['2'] =
+cardBackDB['Sensor'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/systemupg.png'   -- Sensor
-cardBackDB['3'] =
+cardBackDB['Cannon'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Cannonup.png'    -- Cannon
-cardBackDB['3b'] =
+cardBackDB['Cannon Dual'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Cannonup.png'    -- Dule Cannon NEEDS ART
-cardBackDB['4'] =
+cardBackDB['Turret'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/turrups.png'     -- Turret
-cardBackDB['5'] =
+cardBackDB['Torpedo'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/torpups.png'     -- Torpedo
-cardBackDB['6'] =
+cardBackDB['Missile'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/missileupg.png'  -- Missile
-cardBackDB['6b'] =
+cardBackDB['Missile Dual'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/DualMissile.png' -- Dual Missile
-cardBackDB['7'] =
+cardBackDB[''] =
 ''                                                                                                            --
-cardBackDB['8'] =
+cardBackDB['Crew'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Crew.png'        -- Crew
-cardBackDB['8b'] =
+cardBackDB['Crew Dual'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/DualCrew.png'    -- Dual Crew
-cardBackDB['9'] = ''
-cardBackDB['10'] =
+cardBackDB['Astromech'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Astro.png' --Astromech
-cardBackDB['11'] = ''
-cardBackDB['12'] =
+cardBackDB['Payload'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Device.png'       -- Device
-cardBackDB['12b'] =
+cardBackDB['Payload Dual'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/DualDevice.png'   -- DualDevice
-cardBackDB['13'] =
+cardBackDB['Illicit'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Illicit.png'      -- Ilicit
-cardBackDB['14'] =
+cardBackDB['Modification'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Modification.png' -- Modification
-cardBackDB['15'] =
+cardBackDB['Title'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Title.png'        -- Title
-cardBackDB['16'] =
+cardBackDB['Gunner'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Gunner.png'       -- Gunner
-cardBackDB['17'] =
+cardBackDB['Force Power'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Force.png'        -- Force Power
-cardBackDB['18'] =
+cardBackDB['Configuration'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Config.png'       -- Configuration
-cardBackDB['19'] =
+cardBackDB['Tech'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Tech.jpg'         -- Tech
-cardBackDB['20'] =
+cardBackDB['Relay'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Relay.jpg'        -- Droid (PLACEHOLDER - TO DO)
-cardBackDB['21'] =
+cardBackDB['Command'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Epic.png'    -- Command
-cardBackDB['22'] =
+cardBackDB['Cargo'] =
 'https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Cargo.png'  -- Cargo
-cardBackDB['23'] =
+cardBackDB['Team'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Staff.png'   -- Team
-cardBackDB['24'] =
+cardBackDB['Hardpoint'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Staff.png'   -- Hardpoint (PlACEHOLDER - TODO)
-cardBackDB['25'] =
+cardBackDB['Hyperdrive'] =
 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/textures/cardback/Back_Staff.png'   -- Hyperspace ring (PlACEHOLDER - TODO)
+
+cardBackDB['Weapon Hardpoint'] = cardBackDB['Hardpoint']
 
 
 cardBackDB.mc =
@@ -123,11 +116,12 @@ masterShipDB = require("Game.Component.Spawner.ShipDb")
 amgPilotDB = require("Game.Component.Spawner.PilotDb")
 amgUpgradesDB = require("Game.Component.Spawner.UpgradeDb")
 xwaPilotDB = require("Game.Component.Spawner.XwaPilotDb")
+xwaUpgradesDB = require("Game.Component.Spawner.XwaUpgradeDb")
 legacyPilotDB = require("Game.Component.Spawner.LegacyPilotDb")
 legacyUpgradesDB = require("Game.Component.Spawner.LegacyUpgradeDb")
 
 xwaMasterPilotDB = table.join_sparse(amgPilotDB, xwaPilotDB)
-xwaMasterUpgradesDB = amgUpgradesDB
+xwaMasterUpgradesDB = table.join_sparse(amgUpgradesDB, xwaUpgradesDB)
 legacyMasterPilotDB = table.join_sparse(amgPilotDB, legacyPilotDB)
 legacyMasterUpgradesDB = table.join_sparse(amgUpgradesDB, legacyUpgradesDB)
 
@@ -147,21 +141,6 @@ ffgSpecial[382] = 'Scum Crew'    --chewScu
 ffgSpecial[473] = 'Resist. Crew' --chewRes
 ffgSpecial[472] = 'Resist. Crew' --3po Res
 ffgSpecial[304] = 'Rebel Crew'   --3po Reb
-
-dualUpgradeList = {}
-dualUpgradeList[538] = 556 -- Chancellor Palp / Darth Sidious
-dualUpgradeList[332] = 331 -- Pivot wing
-dualUpgradeList[334] = 333 -- Servomotor S-foils
-dualUpgradeList[384] = 383 -- L3-37
-dualUpgradeList[487] = 486 -- Integrated S-foils
-dualUpgradeList[535] = 555 -- Grappling Struts
-dualUpgradeList[595] = 594 -- Landing Struts
-dualUpgradeList[646] = 645 -- Stabilized S-Foils
-dualUpgradeList[652] = 653 -- Proud tradition
-dualUpgradeList[683] = 684 -- Commander Malarus
-dualUpgradeList[685] = 686 -- Agent terex
-dualUpgradeList[691] = 692 -- Repulsorlift Stabilizers
-dualUpgradeList[617] = 618 -- C1-10P
 
 VERSION_DATA = {
     ruleset = "none",
@@ -487,9 +466,7 @@ function loadPoints(ruleset)
         upgrades = {},
         ruleset = ruleset
     }
-    if ruleset ~= "X2PO" then
-        loadVersion(ruleset)
-    end
+    loadVersion(ruleset)
 end
 
 function loadVersion(ruleset)
@@ -544,40 +521,84 @@ function loadVersionRevision(ruleset, version_revision)
                     print("Failed to " .. file .. " points data for " .. ruleset .. " points version")
                 elseif request.is_done then
                     if file == "upgrades" then
-                        loadUpgrades(json.parse(request.text))
+                        loadUpgrades(ruleset, json.parse(request.text))
                     else
-                        loadPilots(json.parse(request.text))
+                        loadPilots(ruleset, json.parse(request.text))
                     end
                 end
             end)
     end
 end
 
-function loadUpgrades(upgrades)
-    for xws, upgrade in pairs(upgrades) do
-        if upgrade.cost then
-            VERSION_DATA.upgrades[xws] = upgrade
+function normalizePointsValue(cost)
+    if type(cost) == "table" then
+        return tonumber(cost.value)
+    end
+    return tonumber(cost)
+end
+
+function loadUpgrades(ruleset, upgrades)
+    for upgrade_xws_id, upgrade in pairs(upgrades) do
+        local cost = normalizePointsValue(upgrade.cost)
+        if cost ~= nil then
+            upgrade.cost = cost
+            VERSION_DATA.upgrades[upgrade_xws_id] = upgrade
         end
     end
 end
 
-function loadPilots(ships)
-    for ship_xws, ship in pairs(ships) do
-        for pilot_xws, pilot in pairs(ship) do
-            if pilot.cost then
-                VERSION_DATA.pilots[pilot_xws] = pilot
+function loadPilots(ruleset, ships)
+    for ship_xws_id, ship in pairs(ships) do
+        for pilot_xws_id, pilot in pairs(ship) do
+            local cost = normalizePointsValue(pilot.cost)
+            if cost ~= nil then
+                pilot.cost = cost
+                VERSION_DATA.pilots[pilot_xws_id] = pilot
             end
         end
     end
 end
 
 function findByXws(table, xws_id)
-    for i, record in pairs(table) do
-        if record.XWS and record.XWS == xws_id then
-            return i
-        end
+    if table[xws_id] ~= nil then
+        return xws_id
     end
     return nil
+end
+
+function validatePilotId(pilot_xws_id)
+    local valid = (type(pilot_xws_id) == 'string') and (masterPilotDB[pilot_xws_id] ~= nil)
+    if not valid then
+        local message = 'Invalid pilot id key: ' .. tostring(pilot_xws_id)
+        if printToAll ~= nil then
+            printToAll(message, { 1, 0, 0 })
+        else
+            print(message)
+        end
+    end
+    return valid
+end
+
+function validatePilotIds(idTable)
+    for _, pilot_xws_id in pairs(idTable.Pilots or {}) do
+        if not validatePilotId(pilot_xws_id) then
+            return false
+        end
+    end
+    return true
+end
+
+function validateFaction(faction)
+    if validFactions[faction] ~= true and (factions == nil or factions[faction] ~= true) then
+        local message = 'Invalid faction key: ' .. tostring(faction)
+        if printToAll ~= nil then
+            printToAll(message, { 1, 0, 0 })
+        else
+            print(message)
+        end
+        return false
+    end
+    return true
 end
 
 function listToFormat(ruleset, version, vendor)
@@ -590,13 +611,13 @@ end
 
 factions =
 {
-    rebelalliance = 1,
-    galacticempire = 2,
-    scumandvillainy = 3,
-    resistance = 4,
-    firstorder = 5,
-    galacticrepublic = 6,
-    separatistalliance = 7
+    rebelalliance = true,
+    galacticempire = true,
+    scumandvillainy = true,
+    resistance = true,
+    firstorder = true,
+    galacticrepublic = true,
+    separatistalliance = true
 }
 
 --Takes the XWS JSON and the xws <-> FFG ID map and constructs a parts list to pass to idSpawner
@@ -606,34 +627,31 @@ function xwsSpawn(list, playerColor)
         parts.Pilots = {}
         parts.Upgrades = {}
         parts.spawnCard = self
-        parts.Faction = 0
-        parts.Faction = factions[list.faction]
-        --[[for _, faction in pairs(XWS_DATA.factions) do
-         if faction.xws == list.faction then
-           parts.Faction = faction.ffg
-         end
-       end]]
+        parts.Faction = list.faction
+        if not validateFaction(parts.Faction) then
+            return
+        end
         parts.Obstacles = {}
         parts.Format = listToFormat(list.ruleset, list.version, list.vendor)
 
-        for k, v in pairs(list.pilots) do
-            local pilotId = findByXws(masterPilotDB, v.id)
-            if pilotId == nil then
-                printToAll("Unable to find pilot with xws value: " .. v.id, { 1, 0, 0 })
+        for k, pilot in pairs(list.pilots) do
+            local pilot_xws_id = findByXws(masterPilotDB, pilot.id)
+            if pilot_xws_id == nil then
+                printToAll("Unable to find pilot with xws value: " .. pilot.id, { 1, 0, 0 })
                 break;
             end
-            parts.Pilots[k] = tonumber(pilotId)
+            parts.Pilots[k] = pilot_xws_id
             parts.Upgrades[k] = {}
 
-            if v.upgrades then
+            if pilot.upgrades then
                 local upgradeCount = 1
-                for slot, upgrades in pairs(v.upgrades) do
-                    for i, upgrade in pairs(upgrades) do
-                        if masterUpgradesDB[upgrade] == nil then
-                            printToAll("Unable to find upgrade with xws value: " .. upgrade, { 1, 0, 0 })
+                for slot, upgrades in pairs(pilot.upgrades) do
+                    for i, upgrade_xws_id in pairs(upgrades) do
+                        if masterUpgradesDB[upgrade_xws_id] == nil then
+                            printToAll("Unable to find upgrade with xws value: " .. upgrade_xws_id, { 1, 0, 0 })
                             break;
                         end
-                        parts.Upgrades[k][upgradeCount] = upgrade
+                        parts.Upgrades[k][upgradeCount] = upgrade_xws_id
                         upgradeCount = upgradeCount + 1
                     end
                 end
@@ -816,6 +834,12 @@ end
 
 -- Single Spawner: Receives a string, then goes across all card names and spawns that card with its appropriate components.
 function singleSpawner()
+    if VERSION_DATA.ruleset == "none" then
+        masterPilotDB = xwaMasterPilotDB
+        masterUpgradesDB = xwaMasterUpgradesDB
+        loadPoints("XWA")
+    end
+
     self.clearInputs()
     self.clearButtons()
     self.createButton({ click_function = 'DummyFFG', function_owner = self, label = 'Type a card name', position = { 0, 0.45, -0.37 }, width = 1800, height = 280, font_size = 200, scale = { 0.25, 0.25, 0.25 } })
@@ -836,44 +860,44 @@ function singleSearch()
     butUpCount = 0
     butUpData = {}
     if single ~= nil then
-        for k, v in pairs(masterPilotDB) do
-            if string.find(string.lower(v.name), string.lower(single), 1, true) then
+        for pilot_xws_id, pilot in pairs(masterPilotDB) do
+            if string.find(string.lower(pilot.name), string.lower(single), 1, true) then
                 if butPilCount < 7 then
                     butPilCount = butPilCount + 1
                     local title = ''
-                    if v.title ~= nil then
-                        title = ' - ' .. v.title
+                    if pilot.title ~= nil then
+                        title = ' - ' .. pilot.title
                     end
                     self.createButton({
                         click_function = 'singlePil' .. butPilCount,
                         function_owner = self,
-                        label = v
-                            .name .. title .. ' (' .. masterShipDB[v.ship_type].name .. ')',
+                        label = pilot
+                            .name .. title .. ' (' .. masterShipDB[pilot.ship_type].name .. ')',
                         position = { -0.45, 0.45, 0 + butPilCount * 0.09 },
                         width = 2800,
                         height = 230,
                         font_size = 120,
                         scale = { 0.15, 0.15, 0.15 }
                     })
-                    butPilData[butPilCount] = k
+                    butPilData[butPilCount] = pilot_xws_id
                 end
             end
         end
-        for k, v in pairs(masterUpgradesDB) do
-            if string.find(string.lower(v.name), string.lower(single), 1, true) then
+        for upgrade_xws_id, upgrade in pairs(masterUpgradesDB) do
+            if string.find(string.lower(upgrade.name), string.lower(single), 1, true) then
                 if butUpCount < 7 then
                     butUpCount = butUpCount + 1
 
                     local title = ''
-                    if v.title ~= nil then
-                        title = ' - ' .. v.title
+                    if upgrade.title ~= nil then
+                        title = ' - ' .. upgrade.title
                     end
-                    local upName = v.name .. title
-                    if ffgSpecial[k] ~= nil then
-                        upName = upName .. title .. ' (' .. ffgSpecial[k] .. ')'
+                    local upName = upgrade.name .. title
+                    if ffgSpecial[upgrade_xws_id] ~= nil then
+                        upName = upName .. title .. ' (' .. ffgSpecial[upgrade_xws_id] .. ')'
                     end
 
-                    butUpData[butUpCount] = k
+                    butUpData[butUpCount] = upgrade_xws_id
                     self.createButton({ click_function = 'singleUp' .. butUpCount, function_owner = self, label = upName, position = { 0.45, 0.45, 0 + butUpCount * 0.09 }, width = 2800, height = 230, font_size = 120, scale = { 0.15, 0.15, 0.15 } })
                 end
             end
@@ -955,13 +979,16 @@ function singleUp7()
 end
 
 function singlePilotSpawn(Id)
+    if not validatePilotId(Id) then
+        return
+    end
     partList = {}
     partList.spawnCard = self
     partList.Pilots = {}
     partList.Pilots[1] = Id
     partList.Upgrades = {}
     partList.Upgrades[1] = {}
-    partList.Faction = masterPilotDB[Id].Faction 
+    partList.Faction = masterPilotDB[Id].faction
     partList.Format = "2.5"
     if VERSION_DATA.ruleset == "X2PO" then
         partList.Format = "2.0-legacy"
@@ -974,11 +1001,11 @@ function singleUpSpawn(upId)
     partList = {}
     partList.spawnCard = self
     partList.Pilots = {}
-    partList.Pilots[1] = 0
+    partList.Pilots[1] = ''
     partList.Upgrades = {}
     partList.Upgrades[1] = {}
     partList.Upgrades[1][1] = upId
-    partList.Faction = ffgFaction[0]
+    partList.Faction = 'dummy'
     partList.Format = "2.5"
     if VERSION_DATA.ruleset == "X2PO" then
         partList.Format = "2.0-legacy"
@@ -992,23 +1019,26 @@ end
    idTable.Pilots = {[1]=id1, [2]=id2}
    idTable.Upgrades = {[1] = {[1]=upId1, [2]=upId2},
                        [2]={[1]=upId3, [2]=upId3}}
-   idTable.Faction = masterPilotDB[id1].Faction
+   idTable.Faction = masterPilotDB[id1].faction
 ]]
 
 dialSkin = {
-    [1] = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/Rebel.png',
-    [2] = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/Empire.png',
-    [3] = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/Scum.png',
-    [4] = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/Resistance.png',
-    [5] = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/FO.png',
-    [6] = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/Republic.png',
-    [7] = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/CIS.png',
+    rebelalliance = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/Rebel.png',
+    galacticempire = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/Empire.png',
+    scumandvillainy = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/Scum.png',
+    resistance = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/Resistance.png',
+    firstorder = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/FO.png',
+    galacticrepublic = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/Republic.png',
+    separatistalliance = 'http://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/dial/skin/1/CIS.png',
 }
 
 function calculateShipIndicators(idTable)
+    if not validatePilotIds(idTable) then
+        return {}
+    end
     shipTable = {}
-    for k, v in pairs(idTable.Pilots) do
-        local ship = masterPilotDB[v].ship_type
+    for k, pilot_xws_id in pairs(idTable.Pilots) do
+        local ship = masterPilotDB[pilot_xws_id].ship_type
         if shipTable[ship] == nil then
             shipTable[ship] = { k }
         else
@@ -1031,6 +1061,9 @@ function calculateShipIndicators(idTable)
 end
 
 function idSpawner(idTable)
+    if not validatePilotIds(idTable) then
+        return
+    end
     spawnedPilotList = {}
     fList = {}
     fList.SqdExecOptions = {}
@@ -1040,9 +1073,12 @@ function idSpawner(idTable)
     fList.Obstacles = idTable.Obstacles
     fList.Customization = {}
     if idTable.Faction == nil then
-        fList.Faction = masterPilotDB[idTable.Pilots[1]].Faction
+        fList.Faction = masterPilotDB[idTable.Pilots[1]].faction
     else
         fList.Faction = idTable.Faction
+    end
+    if not validateFaction(fList.Faction) then
+        return
     end
     fList.factionDial = dialSkin[fList.Faction]
     fList.sqdAction = {}
@@ -1052,161 +1088,171 @@ function idSpawner(idTable)
         repo = "SogeMoge"
     end
     pilotIndicators = calculateShipIndicators(idTable)
-    for k, v in pairs(idTable.Pilots) do
-        --print(tostring(k) .. " " .. v  )
-        local pilotName = masterPilotDB[v].name
+    for k, pilot_xws_id in pairs(idTable.Pilots) do
+        --print(tostring(k) .. " " .. pilot_xws_id  )
+        local pilotName = masterPilotDB[pilot_xws_id].name
         spawnedPilotList[pilotName] = spawnedPilotList[pilotName] or 0
         spawnedPilotList[pilotName] = spawnedPilotList[pilotName] + 1
         if spawnedPilotList[pilotName] > 1 then
             pilotName = pilotName .. ' ' .. tostring(spawnedPilotList[pilotName])
         end
         fList.Pilots[k] = {}
-        fList.Pilots[k].id = v
+        fList.Pilots[k].id = pilot_xws_id
         fList.Pilots[k].name = pilotName
-        local cost = 20
-        if VERSION_DATA.pilots[masterPilotDB[v].XWS] then
-            cost = VERSION_DATA.pilots[masterPilotDB[v].XWS].cost
+        local cost = 50
+        if VERSION_DATA.pilots[pilot_xws_id] then
+            cost = VERSION_DATA.pilots[pilot_xws_id].cost
         end
         fList.Pilots[k].cost = cost
-        fList.Customization[pilotName] = masterPilotDB[v].Customization or {}
+        fList.Customization[pilotName] = masterPilotDB[pilot_xws_id].customization or {}
         fList.Customization[pilotName].tint = tintColors[pilotIndicators[k]]
-        if (masterPilotDB[v].tintFriendly ~= nil) and (pilotIndicators[k] > 0) then
+        if (masterPilotDB[pilot_xws_id].tint_friendly ~= nil) and (pilotIndicators[k] > 0) then
             fList.Customization[pilotName].modeltint = tintColors[pilotIndicators[k]]
-            fList.Customization[pilotName].texture = masterPilotDB[v].tintFriendly.texture
-            fList.Customization[pilotName].model = masterPilotDB[v].tintFriendly.mesh
+            fList.Customization[pilotName].texture = masterPilotDB[pilot_xws_id].tint_friendly.texture
+            fList.Customization[pilotName].model = masterPilotDB[pilot_xws_id].tint_friendly.mesh
         end
         --fList.Pilots[k].tint = tintColors[pilotIndicators[k]]
-        --fList.Pilots[k].card = masterPilotDB[v].card
+        --fList.Pilots[k].card = masterPilotDB[pilot_xws_id].card
         fList.Pilots[k].card = "{verifycache}https://raw.githubusercontent.com/" ..
             repo .. "/x-wing2.0-project-goldenrod/" ..
-            Format .. "/src/images/En/pilots/" .. masterPilotDB[v].XWS .. ".png"
-        fList.Pilots[k].cardB = cardBackDB[ffgFaction[fList.Faction]]
-        fList.Pilots[k].standardized_loadout = masterPilotDB[v].standardized_loadout
-        fList.Pilots[k].standardized_upgrades = masterPilotDB[v].standardized_upgrades
-        local Ship = masterPilotDB[v].ship_type
+            Format .. "/src/images/En/pilots/" .. pilot_xws_id .. ".png"
+        fList.Pilots[k].cardB = cardBackDB[fList.Faction]
+        fList.Pilots[k].standardized_loadout = masterPilotDB[pilot_xws_id].standardized_loadout
+        fList.Pilots[k].standardized_upgrades = masterPilotDB[pilot_xws_id].standardized_upgrades
+        local Ship = masterPilotDB[pilot_xws_id].ship_type
         fList.Pilots[k].Ship = Ship
         fList.Pilots[k].peg = masterShipDB[Ship].peg
         fList.Pilots[k].Size = masterShipDB[Ship].size
-        fList.Pilots[k].Shield = masterPilotDB[v].Shield or masterShipDB[Ship].Shield
-        fList.Pilots[k].Hull = masterShipDB[Ship].Hull
+        fList.Pilots[k].Shield = masterPilotDB[pilot_xws_id].shield or masterShipDB[Ship].shield
+        fList.Pilots[k].Hull = masterShipDB[Ship].hull
         fList.Pilots[k].list = pilotName .. ' - ' .. masterShipDB[Ship].name .. '\n'
-        fList.Pilots[k].newSpawner = masterShipDB[Ship].newSpawner or false
+        fList.Pilots[k].newSpawner = masterShipDB[Ship].new_spawner or false
         fList.Pilots[k].bombD = 's1'
-        fList.Pilots[k].Docking = masterShipDB[Ship].Docking
+        fList.Pilots[k].Docking = masterShipDB[Ship].docking
         fList.Pilots[k].Data = {}
         fList.Pilots[k].Data.name = pilotName
-        fList.Pilots[k].Data.xws = masterPilotDB[v].XWS
-        fList.Pilots[k].Data.mesh = masterPilotDB[v].mesh or masterShipDB[Ship].mesh
-        fList.Pilots[k].Data.texture = masterPilotDB[v].texture
+        fList.Pilots[k].Data.xws = pilot_xws_id
+        fList.Pilots[k].Data.mesh = masterPilotDB[pilot_xws_id].mesh or masterShipDB[Ship].mesh
+        fList.Pilots[k].Data.texture = masterPilotDB[pilot_xws_id].texture
         fList.Pilots[k].Data.textures = masterShipDB[Ship].textures
-        fList.Pilots[k].Data.limited = masterPilotDB[v].limited
+        fList.Pilots[k].Data.limited = masterPilotDB[pilot_xws_id].limited
         fList.Pilots[k].Data.shipId = Ship
-        fList.Pilots[k].Data.initiative = masterPilotDB[v].init
-        fList.Pilots[k].Data.moveSet = masterPilotDB[v].moveSet or masterShipDB[Ship].moveSet
-        fList.Pilots[k].Data.Config = masterShipDB[Ship].Config
+        fList.Pilots[k].Data.initiative = masterPilotDB[pilot_xws_id].initiative
+        fList.Pilots[k].Data.moveSet = masterPilotDB[pilot_xws_id].move_set or masterShipDB[Ship].move_set
+        fList.Pilots[k].Data.Config = masterShipDB[Ship].config
         fList.Pilots[k].Data.customization_parts = masterShipDB[Ship].customization_parts
-        fList.Pilots[k].Data.mountingPoints = masterShipDB[Ship].mountingPoints or { main = { 0, 0 } }
+        fList.Pilots[k].Data.mountingPoints = masterShipDB[Ship].mounting_points or { main = { 0, 0 } }
 
-        if masterPilotDB[v].arcs then
-            fList.Pilots[k].Data.arcs = table.deepcopy(masterPilotDB[v].arcs)
+        if masterPilotDB[pilot_xws_id].arcs then
+            fList.Pilots[k].Data.arcs = table.deepcopy(masterPilotDB[pilot_xws_id].arcs)
         else
             fList.Pilots[k].Data.arcs = table.deepcopy(masterShipDB[Ship].arcs)
         end
-        fList.Pilots[k].Data.actSet = table.deepcopy(masterPilotDB[v].actSet)
-        fList.Pilots[k].Data.executeOptions = masterPilotDB[v].executeOptions or {}
-        fList.Pilots[k].Data.movethrough = masterPilotDB[v].movethrough or false
-        fList.Pilots[k].Data.ProximityHider = masterShipDB[Ship].ProximityHider or false
+        fList.Pilots[k].Data.actSet = table.deepcopy(masterPilotDB[pilot_xws_id].action_set)
+        fList.Pilots[k].Data.executeOptions = masterPilotDB[pilot_xws_id].execute_options or {}
+        fList.Pilots[k].Data.movethrough = masterPilotDB[pilot_xws_id].movethrough or false
+        fList.Pilots[k].Data.ProximityHider = masterShipDB[Ship].proximity_hider or false
 
-        if masterPilotDB[v].sqdExecuteOptions ~= nil then
-            table.insert(fList.SqdExecOptions, masterPilotDB[v].sqdExecuteOptions)
+        if masterPilotDB[pilot_xws_id].squad_execute_options ~= nil then
+            table.insert(fList.SqdExecOptions, masterPilotDB[pilot_xws_id].squad_execute_options)
         end
 
         fList.Pilots[k].Data.Faction = fList.Faction
         fList.Pilots[k].Data.Size = fList.Pilots[k].Size
-        if v == 150 then                   -- Emon Azzameen special drops
+        if pilot_xws_id == 'emonazzameen' then        -- Emon Azzameen special drops
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s3:tr3:te3'
-        elseif v == 205 then               -- Sol Sixxa special drops
+        elseif pilot_xws_id == 'solsixxa' then        -- Sol Sixxa special drops
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':te1:be1:br1:tr1'
-        elseif v == 1068 or v == 1075 then -- Partin gift upgrade special drop
+        elseif pilot_xws_id == 'scimitar3-battleoverendor' then -- Parting Gift upgrade special drop
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r:br1r:bl1r'
-        elseif v == 161 then               -- Constable Zuvio
+        elseif pilot_xws_id == 'adonfox-battleoverendor' then   -- Adon Fox BoE (Parting Gift + sideways)
+            fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r:br1r:bl1r:be1:br1:ss1:ps1'
+        elseif pilot_xws_id == 'constablezuvio' then  -- Constable Zuvio
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r'
-        elseif v == 565 then               -- Bombardment Drone
+        elseif pilot_xws_id == 'bombardmentdrone' then -- Bombardment Drone
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1r'
-        elseif v == 1047 then              -- SL Deathfire
+        elseif pilot_xws_id == 'deathfire-swz98' then -- SL Deathfire
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':be3:br3:s3:s3r'
-        elseif v == 10022 then
+        elseif pilot_xws_id == 'finchdallow-evacuationofdqar' then
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':be1:br1:s2:be2:br2'
-        elseif v == 1048 then 
+        elseif pilot_xws_id == 'vennie-evacuationofdqar' then -- Vennie sideways drops
+            fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':ss1:ps1'
+        elseif pilot_xws_id == 'captainjonus-swz98' then
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s3r:be3r:br3r'
+        elseif pilot_xws_id == 'braylenstramm-battleoverendor' or pilot_xws_id == 'ginamoonsong-battleoverendor' then -- BoE B-Wings sideways drops
+            fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':ss1:ps1'
         end
 
         if Ship == 'tiesabomber' then -- TIE Bomber special drops
             fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':be1:br1'
         end
 
-        if masterPilotDB[v].Bomb then
+        if masterPilotDB[pilot_xws_id].bomb then
             fList.Pilots[k].Bomb = true
         end
 
-        id = v
-        if masterPilotDB[id].Condition ~= nil then
-            fList.Pilots[k].Condition = masterPilotDB[id].Condition
+        if masterPilotDB[pilot_xws_id].condition ~= nil then
+            fList.Pilots[k].Condition = masterPilotDB[pilot_xws_id].condition
         end
-        for K, V in pairs(masterPilotDB[id].addSqdAction or {}) do
+        for K, V in pairs(masterPilotDB[pilot_xws_id].add_squad_action or {}) do
             table.insert(fList.sqdAction, V)
         end
 
-        fList.Pilots[k].Charge = (masterShipDB[Ship].Charge or 0) + (masterPilotDB[id].Charge or 0)
-        fList.Pilots[k].Force = masterPilotDB[id].Force or 0
-        fList.Pilots[k].Energy = masterShipDB[Ship].Energy or 0
+        fList.Pilots[k].Charge = (masterShipDB[Ship].charge or 0) + (masterPilotDB[pilot_xws_id].charge or 0)
+        fList.Pilots[k].Force = masterPilotDB[pilot_xws_id].force or 0
+        fList.Pilots[k].Energy = masterShipDB[Ship].energy or 0
         fList.Upgrades[k] = {}
         local skilled_bombardier = false
         local loadout = 0
-        for key, value in pairs(idTable.Upgrades[k]) do
-            --print("Upg[" .. tostring(k) .. "] = ".. tostring(value))
-            value = dualUpgradeList[value] or value
-            local name = masterUpgradesDB[value].name
-            local upSlot = masterUpgradesDB[value].slot
+        for key, upgrade_xws_id in pairs(idTable.Upgrades[k]) do
+            --print("Upg[" .. tostring(k) .. "] = ".. tostring(upgrade_xws_id))
+            local name = masterUpgradesDB[upgrade_xws_id].name
+            local upSlot = masterUpgradesDB[upgrade_xws_id].slot
             fList.Upgrades[k][key] = {}
             fList.Upgrades[k][key].name = name
-            local cost = 0
-            local xws_data = VERSION_DATA.upgrades[masterUpgradesDB[value].XWS]
-            if xws_data and xws_data.cost and tonumber(VERSION_DATA.upgrades[masterUpgradesDB[value].XWS].cost) then
-                cost = VERSION_DATA.upgrades[masterUpgradesDB[value].XWS].cost
+            local cost = 50
+            local xws_data = VERSION_DATA.upgrades[upgrade_xws_id]
+            local resolved_cost = xws_data and normalizePointsValue(xws_data.cost)
+            if resolved_cost ~= nil then
+                cost = resolved_cost
             end
             fList.Pilots[k].list = fList.Pilots[k].list .. '   ' .. name .. ' (' .. tostring(cost) .. ')\n'
             loadout = loadout + cost
 
-            --fList.Upgrades[k][key].card = masterUpgradesDB[value].card
-            fList.Upgrades[k][key].card = "https://raw.githubusercontent.com/" ..
+            --fList.Upgrades[k][key].card = masterUpgradesDB[upgrade_xws_id].card
+            fList.Upgrades[k][key].card = "{verifycache}https://raw.githubusercontent.com/" ..
                 repo .. "/x-wing2.0-project-goldenrod/" ..
-                Format .. "/src/images/En/upgrades/" .. masterUpgradesDB[value].XWS .. ".png"
-            if masterUpgradesDB[value].dual == true then
-                fList.Upgrades[k][key].cardB = "https://raw.githubusercontent.com/" ..
+                Format .. "/src/images/En/upgrades/" .. upgrade_xws_id .. ".png"
+            if masterUpgradesDB[upgrade_xws_id].dual == true then
+                fList.Upgrades[k][key].cardB = "{verifycache}https://raw.githubusercontent.com/" ..
                     repo .. "/x-wing2.0-project-goldenrod/" ..
-                    Format .. "/src/images/En/upgrades/" .. masterUpgradesDB[value].XWS .. "-sideb.png"
-            elseif masterUpgradesDB[value].cardB == nil then
-                fList.Upgrades[k][key].cardB = cardBackDB[tostring(upSlot)]
+                    Format .. "/src/images/En/upgrades/" .. upgrade_xws_id .. "-sideb.png"
+            elseif masterUpgradesDB[upgrade_xws_id].card_back == nil then
+                fList.Upgrades[k][key].cardB = cardBackDB[verifySlotName(upSlot)]
             else
-                fList.Upgrades[k][key].cardB = masterUpgradesDB[value].cardB
+                fList.Upgrades[k][key].cardB = masterUpgradesDB[upgrade_xws_id].card_back
             end
-            for K, V in pairs(masterUpgradesDB[value].addAction or {}) do --Upgrades that adds an action to a ship
+            for K, V in pairs(masterUpgradesDB[upgrade_xws_id].add_action or {}) do --Upgrades that adds an action to a ship
                 table.insert(fList.Pilots[k].Data.actSet, V)
             end
-            for K, V in pairs(masterUpgradesDB[value].addSqdAction or {}) do --upgrades that adds an action to the whole squad, sets up a list of actions that will be added later
+            for K, V in pairs(masterUpgradesDB[upgrade_xws_id].add_squad_action or {}) do --upgrades that adds an action to the whole squad, sets up a list of actions that will be added later
                 table.insert(fList.sqdAction, V)
             end
 
-            if masterUpgradesDB[value].Charge ~= nil then
-                fList.Upgrades[k][key].Charge = masterUpgradesDB[value].Charge
+            if masterUpgradesDB[upgrade_xws_id].charge ~= nil then
+                fList.Upgrades[k][key].Charge = masterUpgradesDB[upgrade_xws_id].charge
             else
                 fList.Upgrades[k][key].Charge = 0
             end
-            if masterUpgradesDB[value].arcs then
-                if masterUpgradesDB[value].arcs.fixed then
+            fList.Upgrades[k][key].extended_width = masterUpgradesDB[upgrade_xws_id].extended_width == true
+            if masterUpgradesDB[upgrade_xws_id].arcs then
+                if masterUpgradesDB[upgrade_xws_id].arcs.fixed then
                     fList.Pilots[k].Data.arcs.fixed = fList.Pilots[k].Data.arcs.fixed or { name = 'primary', type = {} }
-                    for new_arc_idx, new_arc in pairs(masterUpgradesDB[value].arcs.fixed.type) do
+                    if masterUpgradesDB[upgrade_xws_id].arcs.fixed.ion ~= nil then
+                        fList.Pilots[k].Data.arcs.fixed.ion = fList.Pilots[k].Data.arcs.fixed.ion or
+                            masterUpgradesDB[upgrade_xws_id].arcs.fixed.ion
+                    end
+                    for new_arc_idx, new_arc in pairs(masterUpgradesDB[upgrade_xws_id].arcs.fixed.type) do
                         local found = false
                         for arc_idx, arc in pairs(fList.Pilots[k].Data.arcs.fixed.type) do
                             -- check if new arc allready in arc list
@@ -1220,74 +1266,84 @@ function idSpawner(idTable)
                         end
                     end
                 end
-                if masterUpgradesDB[value].arcs.turret then
+                if masterUpgradesDB[upgrade_xws_id].arcs.turret then
                     local mounting_point = nil
                     local found = false
                     fList.Pilots[k].Data.arcs.turret = fList.Pilots[k].Data.arcs.turret or {}
                     for mount, pos in pairs(fList.Pilots[k].Data.mountingPoints) do
                         -- Find next available mounting point
                         if not found and not fList.Pilots[k].Data.arcs.turret[mount] then
-                            --print("Found mounting point " .. mount .. " for " .. masterUpgradesDB[value].arcs.turret.name )
+                            --print("Found mounting point " .. mount .. " for " .. masterUpgradesDB[upgrade_xws_id].arcs.turret.name )
                             mounting_point = mount
                             found = true
                         end
                     end
                     if found then
                         -- Add the turret to the available mounting point
-                        fList.Pilots[k].Data.arcs.turret[mounting_point] = masterUpgradesDB[value].arcs.turret
+                        fList.Pilots[k].Data.arcs.turret[mounting_point] = masterUpgradesDB[upgrade_xws_id].arcs.turret
                     end
                 end
+                if masterUpgradesDB[upgrade_xws_id].arcs.weapon and not fList.Pilots[k].standardized_loadout then
+                    fList.Pilots[k].Data.arcs.weapon = fList.Pilots[k].Data.arcs.weapon or {}
+                    local weapon_arc = table.deepcopy(masterUpgradesDB[upgrade_xws_id].arcs.weapon)
+                    if weapon_arc.follow_turret == nil and masterShipDB[Ship].cannon_follow_turret then
+                        weapon_arc.follow_turret = masterShipDB[Ship].cannon_follow_turret
+                    end
+                    table.insert(fList.Pilots[k].Data.arcs.weapon, weapon_arc)
+                end
             end
-            if masterUpgradesDB[value].Force ~= nil then
-                fList.Pilots[k].Force = fList.Pilots[k].Force + masterUpgradesDB[value].Force
+            if masterUpgradesDB[upgrade_xws_id].force ~= nil then
+                fList.Pilots[k].Force = fList.Pilots[k].Force + masterUpgradesDB[upgrade_xws_id].force
             end
-            if masterUpgradesDB[value].shd ~= nil then
-                fList.Pilots[k].Shield = fList.Pilots[k].Shield + masterUpgradesDB[value].shd
+            if masterUpgradesDB[upgrade_xws_id].shd ~= nil then
+                fList.Pilots[k].Shield = fList.Pilots[k].Shield + masterUpgradesDB[upgrade_xws_id].shd
             end
-            if masterUpgradesDB[value].Energy ~= nil then
-                fList.Pilots[k].Energy = fList.Pilots[k].Energy + masterUpgradesDB[value].Energy
+            if masterUpgradesDB[upgrade_xws_id].energy ~= nil then
+                fList.Pilots[k].Energy = fList.Pilots[k].Energy + masterUpgradesDB[upgrade_xws_id].energy
             end
-            if masterUpgradesDB[value].Hull ~= nil then
-                fList.Pilots[k].Hull = fList.Pilots[k].Hull + masterUpgradesDB[value].Hull
+            if masterUpgradesDB[upgrade_xws_id].hull ~= nil then
+                fList.Pilots[k].Hull = fList.Pilots[k].Hull + masterUpgradesDB[upgrade_xws_id].hull
             end
 
-            fList.Upgrades[k][key].Condition = masterUpgradesDB[value].Condition or nil
-            for i, r in pairs(masterUpgradesDB[value].remotes or {}) do
-                table.insert(fList.Remotes, r)
+            fList.Upgrades[k][key].Condition = masterUpgradesDB[upgrade_xws_id].condition or nil
+            for i, r in pairs(masterUpgradesDB[upgrade_xws_id].remotes or {}) do
+                table.insert(fList.Remotes, { name = r, Charge = masterUpgradesDB[upgrade_xws_id].remote_charge or 0 })
             end
 
-            if masterUpgradesDB[value].Bomb then
+            if masterUpgradesDB[upgrade_xws_id].bomb then
                 fList.Pilots[k].Bomb = true
-            elseif upSlot == 18 then
+            elseif verifySlotName(upSlot) == 'Configuration' then
                 fList.Upgrades[k][key].Config = true
             end
-            if masterUpgradesDB[value].Docking ~= nil then
-                fList.Pilots[k].Docking = masterUpgradesDB[value].Docking
+            if masterUpgradesDB[upgrade_xws_id].docking ~= nil then
+                fList.Pilots[k].Docking = masterUpgradesDB[upgrade_xws_id].docking
             end
-            fList.Pilots[k].Data.movethrough = masterUpgradesDB[value].movethrough or fList.Pilots[k].Data.movethrough
-            if masterUpgradesDB[value].wingleader ~= nil then
-                fList.Pilots[k].wingleader = masterUpgradesDB[value].wingleader
+            fList.Pilots[k].Data.movethrough = masterUpgradesDB[upgrade_xws_id].movethrough or fList.Pilots[k].Data.movethrough
+            if masterUpgradesDB[upgrade_xws_id].wingleader ~= nil then
+                fList.Pilots[k].wingleader = masterUpgradesDB[upgrade_xws_id].wingleader
             end
-            --print("Test value:".. tostring(value) .. " name:" .. masterUpgradesDB[value].name .. tostring(masterUpgradesDB[value].executeOptions))
-            if masterUpgradesDB[value].executeOptions ~= nil then
+            --print("Test value:".. tostring(upgrade_xws_id) .. " name:" .. masterUpgradesDB[upgrade_xws_id].name .. tostring(masterUpgradesDB[upgrade_xws_id].execute_options))
+            if masterUpgradesDB[upgrade_xws_id].execute_options ~= nil then
                 --print("Got upgrade execute options")
-                local newexecuteoptions = masterUpgradesDB[value].executeOptions(idTable, idTable.Pilots[k])
-                --print("Test " .. masterUpgradesDB[value].name)
+                local newexecuteoptions = masterUpgradesDB[upgrade_xws_id].execute_options(idTable, idTable.Pilots[k])
+                --print("Test " .. masterUpgradesDB[upgrade_xws_id].name)
                 combineExecuteOptions(fList.Pilots[k].Data.executeOptions, newexecuteoptions)
             end
 
-            if masterUpgradesDB[value].sqdExecuteOptions ~= nil then
-                table.insert(fList.SqdExecOptions, masterUpgradesDB[value].sqdExecuteOptions)
+            if masterUpgradesDB[upgrade_xws_id].squad_execute_options ~= nil then
+                table.insert(fList.SqdExecOptions, masterUpgradesDB[upgrade_xws_id].squad_execute_options)
             end
 
-            if value == 'skilledbombardier' then -- Skilled Bombardier special drops
+            if upgrade_xws_id == 'skilledbombardier' then -- Skilled Bombardier special drops
                 skilled_bombardier = true
                 --fList.Pilots[k].bombD = fList.Pilots[k].bombD ..  ':s2:tr2:te2:be2:br2'
-            elseif value == 'trajectorysimulator' then  -- Trajectory Simulator special drop
+            elseif upgrade_xws_id == 'trajectorysimulator' then  -- Trajectory Simulator special drop
                 fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s5r'
-            elseif value == 'electrochaffmissiles' then -- Electro-Chaff Missiles
+            elseif upgrade_xws_id == 'electrochaffmissiles' then -- Electro-Chaff Missiles
                 fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s4r:be3r:br3r'
-            elseif value == 'thermaldetonators' then    -- Thermal Detinators
+            elseif upgrade_xws_id == 'partinggift-legendsandrelics' then -- Parting Gift (Legends and Relics)
+                fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':s1:br1:be1:be1r:s1r:br1r'
+            elseif upgrade_xws_id == 'thermaldetonators' then    -- Thermal Detinators
                 if Ship == 'tiesabomber' then           -- TIE Bomber special drops
                     fList.Pilots[k].bombD = fList.Pilots[k].bombD .. ':be2:s2:br2'
                 else
@@ -1310,13 +1366,17 @@ function idSpawner(idTable)
             end
             fList.Pilots[k].bombD = bombD
         end
-        local loadout_string = ''
-        if VERSION_DATA.pilots[masterPilotDB[v].XWS] then
-            loadout_string = '\nLoadout: ' ..
-                tostring(loadout) .. '/' .. tostring(VERSION_DATA.pilots[masterPilotDB[v].XWS].loadout)
+        local list_summary = ''
+        if Format == "2.0-legacy" then
+            cost = cost + loadout
+        elseif VERSION_DATA.pilots[pilot_xws_id] then
+            list_summary = '\nLoadout: ' ..
+                tostring(loadout) .. '/' .. tostring(VERSION_DATA.pilots[pilot_xws_id].loadout)
         end
+        fList.Pilots[k].Data.points = cost
+        fList.Pilots[k].Data.half_points = math.floor(cost / 2)
         fList.Pilots[k].list = fList.Pilots[k].list ..
-            loadout_string ..
+            list_summary ..
             '\nShip Points: ' ..
             cost ..
             ' (' ..
@@ -1491,37 +1551,37 @@ end
 
 -- One function for each faction, forwards to main menu.
 function buiReb()
-    partList.Faction = 1
+    partList.Faction = 'rebelalliance'
     mainMenu()
 end
 
 function buiImp()
-    partList.Faction = 2
+    partList.Faction = 'galacticempire'
     mainMenu()
 end
 
 function buiScu()
-    partList.Faction = 3
+    partList.Faction = 'scumandvillainy'
     mainMenu()
 end
 
 function buiRes()
-    partList.Faction = 4
+    partList.Faction = 'resistance'
     mainMenu()
 end
 
 function buiFor()
-    partList.Faction = 5
+    partList.Faction = 'firstorder'
     mainMenu()
 end
 
 function buiRep()
-    partList.Faction = 6
+    partList.Faction = 'galacticrepublic'
     mainMenu()
 end
 
 function buiCis()
-    partList.Faction = 7
+    partList.Faction = 'separatistalliance'
     mainMenu()
 end
 
@@ -1575,7 +1635,7 @@ function addShip()
     local auxB = 0
     availableShips = {}
     for i, shipModel in pairs(masterShipDB) do
-        for k, fac in pairs(shipModel.Fac) do
+        for k, fac in pairs(shipModel.factions) do
             if k == partList.Faction then
                 Font = 100
                 availableShips[modelIndex] = i
@@ -1611,33 +1671,33 @@ function selectModelGeneric(arg)
     local aux = 0
     local auxB = 0
     local index = 1
-    for k, v in pairs(masterPilotDB) do
-        if v.ship_type == chosenModel then
+    for pilot_xws_id, pilot in pairs(masterPilotDB) do
+        if pilot.ship_type == chosenModel then
             local validOption = true
-            if v.limited ~= nil then
-                if v.limited <= (partList.nameCounts[v.name] or 0) then
+            if pilot.limited ~= nil then
+                if pilot.limited <= (partList.nameCounts[pilot.name] or 0) then
                     validOption = false
                 end
             end
-            if validOption and v.Faction == partList.Faction then
-                local cost = v.cost or 0
+            if validOption and pilot.faction == partList.Faction then
+                local cost = pilot.cost or 50
                 local loadout = 0
-                if VERSION_DATA.pilots[v.XWS] then
-                    cost = VERSION_DATA.pilots[v.XWS].cost
-                    loadout = VERSION_DATA.pilots[v.XWS].loadout
+                if VERSION_DATA.pilots[pilot_xws_id] then
+                    cost = VERSION_DATA.pilots[pilot_xws_id].cost
+                    loadout = VERSION_DATA.pilots[pilot_xws_id].loadout
                 end
-                availablePilots[index] = { id = k, name = v.name, cost = cost, loadout = loadout, keywords = {}, upgrades = {} }
+                availablePilots[index] = { id = pilot_xws_id, name = pilot.name, cost = cost, loadout = loadout, keywords = {}, upgrades = {} }
                 for _, keyword in pairs(masterShipDB[chosenModel].keywords or {}) do
                     table.insert(availablePilots[index].keywords, keyword)
                 end
                 local title = ''
-                if v.title ~= nil then
-                    title = '\n' .. v.title
+                if pilot.title ~= nil then
+                    title = '\n' .. pilot.title
                 end
                 self.createButton({
                     click_function = 'setPilot' .. index,
                     function_owner = self,
-                    label = v.name ..
+                    label = pilot.name ..
                         title .. ' (' .. cost .. ')',
                     position = { -0.615 + auxB * 0.65, 0.45, aux * 0.13 - 0.4 },
                     width = 1200,
@@ -1974,19 +2034,25 @@ end
 function selectShipGeneric(arg)
     self.clearButtons()
     shipIndex = arg
-    local pilot = masterPilotDB[partList.Pilots[shipIndex].id]
+    local pilot_id = partList.Pilots[shipIndex].id
+    local pilot = masterPilotDB[pilot_id]
     local free_slots = {}
     local loadout_value = 0
-    local cost = 0
+    local cost = 50
     -- print("Slots for " .. pilot.name)
     free_slots['Command'] = 1
-    if VERSION_DATA.pilots[pilot.XWS] then
-        loadout_value = VERSION_DATA.pilots[pilot.XWS].loadout
-        cost = VERSION_DATA.pilots[pilot.XWS].cost
-        for _, slot in pairs(VERSION_DATA.pilots[pilot.XWS].slots) do
+    if VERSION_DATA.pilots[pilot_id] then
+        loadout_value = VERSION_DATA.pilots[pilot_id].loadout
+        cost = VERSION_DATA.pilots[pilot_id].cost
+        for _, slot in pairs(VERSION_DATA.pilots[pilot_id].slots) do
+            slot = verifySlotName(slot)
             free_slots[slot] = (free_slots[slot] or 0) + 1
             --   print(i .. ":" .. slot  )
         end
+    end
+    for _, slot_id in pairs(pilot.add_slots or {}) do
+        local slot = verifySlotName(slot_id)
+        free_slots[slot] = (free_slots[slot] or 0) + 1
     end
 
     local loadout_cost = 0
@@ -1996,19 +2062,19 @@ function selectShipGeneric(arg)
     for i, upgrade in pairs(partList.Pilots[shipIndex].upgrades) do
         --print("Upgrade " .. tostring(upgrade.name))
         local upgrade_entry = masterUpgradesDB[upgrade.id]
-        table.insert(slot_buttons, { slot_name = slotName[upgrade_entry.slot], upgrade = upgrade })
+        table.insert(slot_buttons, { slot_name = verifySlotName(upgrade_entry.slot), upgrade = upgrade })
         loadout_cost = loadout_cost + upgrade.cost
         loadout_value = loadout_value + upgrade.loadout_modifier
         cost = cost + upgrade.point_modifier
-        for _, slot_id in pairs(upgrade_entry.addSlot or {}) do
-            local slot = slotName[slot_id]
+        for _, slot_id in pairs(upgrade_entry.add_slots or {}) do
+            local slot = verifySlotName(slot_id)
             free_slots[slot] = (free_slots[slot] or 0) + 1
         end
-        for _, slot_id in pairs(upgrade_entry.remSlot or {}) do
-            local slot = slotName[slot_id]
+        for _, slot_id in pairs(upgrade_entry.remove_slots or {}) do
+            local slot = verifySlotName(slot_id)
             free_slots[slot] = (free_slots[slot] or 0) - 1
         end
-        local slot = slotName[upgrade_entry.slot]
+        local slot = verifySlotName(upgrade_entry.slot)
         free_slots[slot] = (free_slots[slot] or 0) - 1
     end
 
@@ -2185,31 +2251,31 @@ function selectSlotGeneric(slotIndex)
     end
     local loadout_remaining = loadout_value - loadout_cost
 
-    slotId = slot_to_id[slot_buttons[slotIndex].slot_name]
+    slotId = verifySlotName(slot_buttons[slotIndex].slot_name)
     --slotId = partList.Upgrades[shipIndex][slotIndex].slot             -- Value tied for this function!
     currSlotInd = slotIndex
     local index = 1
     local row = 1
     local column = 0
     self.createButton({ click_function = 'selectUpNone', label = 'None (0)', function_owner = self, position = { -0.45, 0.45, -0.2 }, width = 1500, height = 220, font_size = 120, scale = { 0.25, 0.25, 0.25 } })
-    for id, up in pairs(masterUpgradesDB) do
-        if up.slot == slotId then
-            local up_cost = up.cost or 0
-            if VERSION_DATA.upgrades[up.XWS] and VERSION_DATA.upgrades[up.XWS].cost then
-                up_cost = tonumber(VERSION_DATA.upgrades[up.XWS].cost) or up_cost
-            end
+    for upgrade_xws_id, up in pairs(masterUpgradesDB) do
+        local up_cost = up.cost or 50
+        if VERSION_DATA.upgrades[upgrade_xws_id] then
+            up_cost = normalizePointsValue(VERSION_DATA.upgrades[upgrade_xws_id].cost) or up_cost
+        end
+        if verifySlotName(up.slot) == slotId then
             local validUp = true
             if up_cost > loadout_remaining then
                 validUp = false
             end
             if up.restriction ~= nil then
-                if up.restriction.Faction ~= nil then
-                    if up.restriction.Faction[partList.Faction] ~= true then
+                if up.restriction.faction ~= nil then
+                    if up.restriction.faction[partList.Faction] ~= true then
                         validUp = false
                     end
                 end
-                if up.restriction.Size ~= nil then
-                    if up.restriction.Size[masterShipDB[masterPilotDB[partList.Pilots[shipIndex].id].ship_type].size] ~= true then
+                if up.restriction.size ~= nil then
+                    if up.restriction.size[masterShipDB[masterPilotDB[partList.Pilots[shipIndex].id].ship_type].size] ~= true then
                         validUp = false
                     end
                 end
@@ -2218,18 +2284,18 @@ function selectSlotGeneric(slotIndex)
                         validUp = false
                     end
                 end
-                if up.restriction.InitiativeGreaterThan ~= nil then
-                    if masterPilotDB[partList.Pilots[shipIndex].id].init <= up.restriction.InitiativeGreaterThan then
+                if up.restriction.initiative_greater_than ~= nil then
+                    if masterPilotDB[partList.Pilots[shipIndex].id].initiative <= up.restriction.initiative_greater_than then
                         validUp = false
                     end
                 end
-                if up.restriction.IsLimited ~= nil then
-                    if up.restriction.IsLimited ~= ((masterPilotDB[partList.Pilots[shipIndex].id].limited or 0) > 0) then
+                if up.restriction.is_limited ~= nil then
+                    if up.restriction.is_limited ~= ((masterPilotDB[partList.Pilots[shipIndex].id].limited or 0) > 0) then
                         validUp = false
                     end
                 end
-                if up.restriction.HasForce ~= nil then
-                    if up.restriction.HasForce ~= ((masterPilotDB[partList.Pilots[shipIndex].id].Force or 0) > 0) then
+                if up.restriction.has_force ~= nil then
+                    if up.restriction.has_force ~= ((masterPilotDB[partList.Pilots[shipIndex].id].force or 0) > 0) then
                         validUp = false
                     end
                 end
@@ -2260,12 +2326,12 @@ function selectSlotGeneric(slotIndex)
                     title = '\n' .. up.title
                 end
                 availableUps[index] = {
-                    id = id,
+                    id = upgrade_xws_id,
                     name = up.name,
                     cost = up_cost,
-                    loadout_modifier = up.LoadoutModifier,
+                    loadout_modifier = up.loadout_modifier,
                     point_modifier =
-                        up.PointModifier
+                        up.point_modifier
                 }
                 self.createButton({
                     click_function = 'selectUp' .. index,
@@ -2285,16 +2351,16 @@ function selectSlotGeneric(slotIndex)
                     column = column + 1
                 end
             end
-        elseif slotId == 99 then
-            local hpCheck = { [3] = true, [5] = true, [6] = true }
-            if hpCheck[up.slot] == true then
+        elseif slotId == 'Weapon Hardpoint' then
+            local hpCheck = { Cannon = true, Torpedo = true, Missile = true }
+            if hpCheck[verifySlotName(up.slot)] == true then
                 availableUps[index] = {
-                    id = id,
+                    id = upgrade_xws_id,
                     name = up.name,
                     cost = up_cost,
-                    loadout_modifier = up.LoadoutModifier,
+                    loadout_modifier = up.loadout_modifier,
                     point_modifier =
-                        up.PointModifier
+                        up.point_modifier
                 }
                 self.createButton({
                     click_function = 'selectUp' .. index,
@@ -2542,7 +2608,7 @@ function spawnerStart()
     finalList = {}
     finalList.Pilots = {}
     finalList.Upgrades = {}
-    finalList.Faction = 0
+    finalList.Faction = 'dummy'
     finalList.Aux = {}
     finalList.AuxU = {}
     finalList.spawnCard = self
@@ -2561,37 +2627,37 @@ end
 
 --Set up faction in the table
 function Reb()
-    finalList.Faction = 1
+    finalList.Faction = 'rebelalliance'
     inputList()
 end
 
 function Imp()
-    finalList.Faction = 2
+    finalList.Faction = 'galacticempire'
     inputList()
 end
 
 function Scu()
-    finalList.Faction = 3
+    finalList.Faction = 'scumandvillainy'
     inputList()
 end
 
 function Res()
-    finalList.Faction = 4
+    finalList.Faction = 'resistance'
     inputList()
 end
 
 function For()
-    finalList.Faction = 5
+    finalList.Faction = 'firstorder'
     inputList()
 end
 
 function Rep()
-    finalList.Faction = 6
+    finalList.Faction = 'galacticrepublic'
     inputList()
 end
 
 function CIS()
-    finalList.Faction = 7
+    finalList.Faction = 'separatistalliance'
     inputList()
 end
 
@@ -2792,10 +2858,10 @@ function parseList()
                     finalList.Aux[pilotIndex] = {}
                     finalList.AuxU[pilotIndex] = {}
                     local found = false
-                    for id, pilot in pairs(masterPilotDB) do
-                        if (string.lower(pilot.name) == string.lower(cardN)) and (pilot.Faction == finalList.Faction) then
+                    for pilot_xws_id, pilot in pairs(masterPilotDB) do
+                        if (string.lower(pilot.name) == string.lower(cardN)) and (pilot.faction == finalList.Faction) then
                             Aux = Aux + 1
-                            finalList.Aux[pilotIndex][Aux] = id
+                            finalList.Aux[pilotIndex][Aux] = pilot_xws_id
                             finalList.Upgrades[pilotIndex] = {}
                             found = true
                         end
@@ -2814,11 +2880,11 @@ function parseList()
                     finalList.AuxU[pilotIndex][k] = {}
                     local found = false
                     local restricted = false
-                    for id, upg in pairs(masterUpgradesDB) do
+                    for upgrade_xws_id, upg in pairs(masterUpgradesDB) do
                         if string.lower(upg.name) == string.lower(cardN) then
-                            if (upg.restriction == nil) or (upg.restriction.Faction == nil) or (upg.restriction.Faction[finalList.Faction] == true) then
+                            if (upg.restriction == nil) or (upg.restriction.faction == nil) or (upg.restriction.faction[finalList.Faction] == true) then
                                 Aux = Aux + 1
-                                finalList.AuxU[pilotIndex][k][Aux] = id
+                                finalList.AuxU[pilotIndex][k][Aux] = upgrade_xws_id
                                 found = true
                             else
                                 restricted = true
@@ -3014,58 +3080,43 @@ function setShip8()
     pChecker()
 end
 
-slotName = {}
-slotName[1] = 'Talent'         -- EPT
-slotName[2] = 'Sensors'        -- Sensor
-slotName[3] = 'Cannon'         -- Cannon
-slotName[4] = 'Turret'         -- Turret
-slotName[5] = 'Torpedo'        -- Torpedo
-slotName[6] = 'Missile'        -- Missile
-slotName[7] = ''               --
-slotName[8] = 'Crew'           -- Crew
-slotName[9] = ''
-slotName[10] = 'Astromech'     --Astromech
-slotName[11] = ''
-slotName[12] = 'Device'        -- Device
-slotName[13] = 'Illicit'       -- Ilicit
-slotName[14] = 'Modification'  -- Modification
-slotName[15] = 'Title'         -- Title
-slotName[16] = 'Gunner'        -- Gunner
-slotName[17] = 'Force Power'   -- Force Power
-slotName[18] = 'Configuration' -- Configuration
-slotName[19] = 'Tech'          -- Tech
-slotName[20] = 'Relay'         -- Relay
-slotName[21] = 'Command'       -- Command
-slotName[22] = 'Cargo'         -- Cargo
-slotName[23] = 'Team'          -- Team
-slotName[24] = 'Hardpoint'
-slotName[25] = 'Hyperdrive'
-slotName[99] = 'Weapon HardPoint' -- Hardpoint
+validSlotNames = {
+    Talent = true,
+    Sensor = true,
+    Cannon = true,
+    Turret = true,
+    Torpedo = true,
+    Missile = true,
+    Crew = true,
+    Astromech = true,
+    Payload = true,
+    Illicit = true,
+    Modification = true,
+    Title = true,
+    Gunner = true,
+    ['Force Power'] = true,
+    Configuration = true,
+    Tech = true,
+    Relay = true,
+    Command = true,
+    Cargo = true,
+    Team = true,
+    Hardpoint = true,
+    Hyperdrive = true,
+    ['Weapon Hardpoint'] = true
+}
 
-slot_to_id = {}
-slot_to_id['Talent'] = 1
-slot_to_id['Sensors'] = 2
-slot_to_id['Cannon'] = 3
-slot_to_id['Turret'] = 4
-slot_to_id['Torpedo'] = 5
-slot_to_id['Missile'] = 6
-slot_to_id['Crew'] = 8
-slot_to_id['Astromech'] = 10
-slot_to_id['Device'] = 12
-slot_to_id['Illicit'] = 13
-slot_to_id['Modification'] = 14
-slot_to_id['Title'] = 15
-slot_to_id['Gunner'] = 16
-slot_to_id['Force Power'] = 17
-slot_to_id['Configuration'] = 18
-slot_to_id['Tech'] = 19
-slot_to_id['Relay'] = 20
-slot_to_id['Command'] = 21
-slot_to_id['Cargo'] = 22
-slot_to_id['Team'] = 23
-slot_to_id['Hardpoint'] = 24
-slot_to_id['Hyperdrive'] = 25
-slot_to_id['Weapon HardPoint'] = 99
+function verifySlotName(slot)
+    if validSlotNames[slot] ~= true then
+        local message = 'Invalid upgrade slot key: ' .. tostring(slot)
+        if printToAll ~= nil then
+            printToAll(message, { 1, 0, 0 })
+        else
+            print(message)
+        end
+    end
+    return slot
+end
 
 
 
@@ -3077,12 +3128,12 @@ function upChoice(options)
     if masterUpgradesDB[options[currIndex][currSlot][1]].title then
         title1 = masterUpgradesDB[options[currIndex][currSlot][1]].title .. " - "
     end
-    local Up1 = title1 .. slotName[masterUpgradesDB[options[currIndex][currSlot][1]].slot]
+    local Up1 = title1 .. verifySlotName(masterUpgradesDB[options[currIndex][currSlot][1]].slot)
     local title2 = ''
     if masterUpgradesDB[options[currIndex][currSlot][2]].title then
         title2 = masterUpgradesDB[options[currIndex][currSlot][2]].title .. " - "
     end
-    local Up2 = title2 .. slotName[masterUpgradesDB[options[currIndex][currSlot][2]].slot]
+    local Up2 = title2 .. verifySlotName(masterUpgradesDB[options[currIndex][currSlot][2]].slot)
     self.clearButtons()
     self.createButton({
         click_function = 'Dummy4',
@@ -3099,7 +3150,7 @@ function upChoice(options)
     self.createButton({ click_function = 'setUp1', function_owner = self, label = Up1, position = { 0, 0.45, 0.1 }, width = 1800, height = 380, font_size = 180, scale = { 0.25, 0.25, 0.25 } })
     self.createButton({ click_function = 'setUp2', function_owner = self, label = Up2, position = { 0, 0.45, 0.3 }, width = 1800, height = 380, font_size = 180, scale = { 0.25, 0.25, 0.25 } })
     if options == 3 then
-        local Up3 = slotName[masterUpgradesDB[options[currIndex][currSlot][3]].slot]
+        local Up3 = verifySlotName(masterUpgradesDB[options[currIndex][currSlot][3]].slot)
         self.createButton({ click_function = 'setUp3', function_owner = self, label = Up3, position = { 0, 0.45, 0.8 }, width = 1200, height = 380, font_size = 180, scale = { 0.25, 0.25, 0.25 } })
     end
 end

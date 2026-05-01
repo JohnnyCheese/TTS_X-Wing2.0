@@ -37,6 +37,11 @@ function initContextMenu()
                                 function(argument) self.setDescription('rotr' .. idx) end, false)
                         end
                     end
+                elseif type == 'weapon' then
+                    for idx, weapon in pairs(arc) do
+                        self.addContextMenuItem("FireArc - " .. weapon.name,
+                            function(argument) self.setDescription('weapon' .. tostring(idx)) end, false)
+                    end
                 end
             end
             local config = self.getTable("Data").Config
@@ -277,6 +282,37 @@ end
 function GetFixedArcs(args)
     local fixed = self.getTable("Data").arcs.fixed or {}
     return fixed.type or {}
+end
+
+function GetWeaponArc(args)
+    local idx = args.idx
+    local weapons = self.getTable("Data").arcs.weapon or {}
+    local weapon = weapons[idx]
+    if weapon == nil then
+        return nil
+    end
+
+    if weapon.follow_turret then
+        return GetTurretArc({ mount = weapon.follow_turret })
+    end
+
+    return (weapon.type or {})[1]
+end
+
+function GetWeaponRange(args)
+    local idx = args.idx
+    local weapons = self.getTable("Data").arcs.weapon or {}
+    local weapon = weapons[idx]
+    if weapon and weapon.range then
+        return weapon.range
+    end
+    return nil
+end
+
+function GetWeaponData(args)
+    local idx = args.idx
+    local weapons = self.getTable("Data").arcs.weapon or {}
+    return weapons[idx]
 end
 
 function GetAllTurretArcs(args)
