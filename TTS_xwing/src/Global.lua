@@ -5564,14 +5564,6 @@ end
 
 -- TODO: try to move or integrate this with Bomb Code
 clusterScript = [[
--- Convert argument from IN-GAME UNITS to MILIMETERS
-local Dim = require("Dim")
-Dim.mm_igu_ratio = 0.03637
---function Convert_igu_mm(in_game_units)
---    return in_game_units/Dim.mm_igu_ratio
---end
-
-
 checkingRange = nil
 scale = 1/self.getScale().x
 
@@ -5604,47 +5596,20 @@ function removeCheckRange()
 end
 
 function onLoad(save_state)
-    print("Test")
     self.addContextMenuItem("Check Range 1", function() checkRange(1) end, false)
-    print("Test2")
 end
 
 function checkRange(range)
-    if range and checkingRange ~= range then
-      printToAll("Checking for ships within range ".. range .. " of " .. self.getName(), color(1.0,1.0,0))
-      vector_lines = {}
-      for k,obj in pairs(getObjectsWithAnyTags({'Ship'})) do
-          my_pos = self.getNearestPointFromObject(obj)
-          closest = Global.call("API_GetClosestPointToShip", {ship=obj,point=my_pos})
-          distance = Dim.Convert_igu_mm(closest.length)
-          if distance < 100*range then
-              printToAll(obj.getName() .. " is within range ".. range .. " of ".. self.getName(), color(1.0,1.0,0))
-              table.insert(vector_lines, {
-                  points = {self.positionToLocal(closest.A), self.positionToLocal(closest.B)},
-                  color = {1,1,1},
-                  thickness = 0.05*scale,
-                  rotation = vector(0,0,0)
-              })
-          end
-      end
-      self.clearButtons()
-      self.setVectorLines(vector_lines)
-      if #vector_lines > 0 then
-        checkingRange = range
-        if self.is_face_down then
-          self.createButton(removeButtonDown)
-        else
-          self.createButton(removeButtonUp)
-        end
-      else
-        checkingRange = nil
-        printToAll("No ships is within range ".. range .." of " .. self.getName(), color(1.0,1.0,0))
-      end
-    else
-      checkingRange = nil
-      self.clearButtons()
-      self.setVectorLines({})
-    end
+    checkingRange = Global.call("API_CheckObjectRange", {
+      owner = self,
+      range = range,
+      currentRange = checkingRange,
+      removeButtonUp = removeButtonUp,
+      removeButtonDown = removeButtonDown,
+      options = {
+        thickness = 0.05*scale
+      }
+    })
 end
 ]]
 

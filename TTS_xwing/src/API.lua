@@ -11,6 +11,8 @@
 -- Cannot receive/return function or thread type values
 -- Have to be called after callee loads (its onLoad triggers)
 
+local RangeCheck = require("Device.RangeCheck")
+
 
 -- Perform a move using a standard move command
 -- Argument: { code = moveCode, ship = shipReference, ignoreCollisions = [true/false] }
@@ -109,6 +111,17 @@ function API_GetClosestPointToShip(argTable)
         end
     end
     return closestDistance
+end
+
+function API_CheckObjectRange(argTable)
+    return RangeCheck.checkObjectRange(
+        argTable.owner,
+        argTable.range,
+        argTable.currentRange,
+        argTable.removeButtonUp,
+        argTable.removeButtonDown,
+        argTable.options
+    )
 end
 
 function API_AssignDial(argTable)
