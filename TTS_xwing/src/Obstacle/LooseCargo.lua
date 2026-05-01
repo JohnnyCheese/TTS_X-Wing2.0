@@ -68,7 +68,7 @@ function checkRange(range)
             end
         else
             checkingRange = nil
-            printToAll("No ships is within range " .. range .. " of " .. self.getName(), color(1.0, 1.0, 0))
+            printToAll("No ships within range " .. range .. " of " .. self.getName(), color(1.0, 1.0, 0))
         end
     else
         checkingRange = nil

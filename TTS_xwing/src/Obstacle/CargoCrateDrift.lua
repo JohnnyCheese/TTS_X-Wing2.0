@@ -40,12 +40,13 @@ function checkRange(range)
     if range and checkingRange ~= range then
         printToAll("Checking for ships within range " .. range .. " of " .. self.getName(), color(1.0, 1.0, 0))
         vector_lines = {}
+        local ship_names = {}
         for _, obj in pairs(getObjectsWithAnyTags({ 'Ship' })) do
             my_pos = self.getNearestPointFromObject(obj)
             closest = Global.call("API_GetClosestPointToShip", { ship = obj, point = my_pos })
             distance = Dim.Convert_igu_mm(closest.length)
             if distance < 100 * range then
-                printToAll(obj.getName() .. " is within range " .. range .. " of " .. self.getName(), color(1.0, 1.0, 0))
+                table.insert(ship_names, obj.getName())
                 table.insert(vector_lines, {
                     points = { self.positionToLocal(closest.A), self.positionToLocal(closest.B) },
                     color = { 1, 1, 1 },
@@ -57,6 +58,8 @@ function checkRange(range)
         self.clearButtons()
         self.setVectorLines(vector_lines)
         if #vector_lines > 0 then
+            printToAll("Ships within range " .. range .. " of " .. self.getName() .. ": " ..
+                table.concat(ship_names, ", "), color(1.0, 1.0, 0))
             checkingRange = range
             if self.is_face_down then
                 self.createButton(removeButtonDown)
@@ -65,7 +68,7 @@ function checkRange(range)
             end
         else
             checkingRange = nil
-            printToAll("No ships is within range " .. range .. " of " .. self.getName(), color(1.0, 1.0, 0))
+            printToAll("No ships within range " .. range .. " of " .. self.getName(), color(1.0, 1.0, 0))
         end
     else
         checkingRange = nil

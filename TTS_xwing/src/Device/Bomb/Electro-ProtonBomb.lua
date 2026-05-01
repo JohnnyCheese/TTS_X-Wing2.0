@@ -68,6 +68,7 @@ function ToggleRuler(range)
     spawnedRuler.setCustomObject(custom)
     spawnedRuler.setColorTint(color(1, 1, 0, 0.2))
     vector_lines = {}
+    local ship_names = {}
     for _, obj in pairs(getAllObjects()) do
         if obj ~= nil and obj.type == 'Figurine' and obj.getVar('__XW_Ship') == true then
             my_pos = self.getNearestPointFromObject(obj)
@@ -75,6 +76,7 @@ function ToggleRuler(range)
             closest = Global.call('API_GetClosestPointToShip', { ship = obj, point = my_pos })
             distance = Dim.Convert_igu_mm(closest.length)
             if distance < 100 * range then
+                table.insert(ship_names, obj.getName())
                 table.insert(vector_lines, {
                     points = { self.positionToLocal(closest.A), self.positionToLocal(closest.B) },
                     color = { 1, 1, 1 },
@@ -83,6 +85,12 @@ function ToggleRuler(range)
                 })
             end
         end
+    end
+    if #ship_names > 0 then
+        printToAll("Ships within range " .. tostring(range) .. " of " .. self.getName() .. ": " ..
+            table.concat(ship_names, ", "), color(1.0, 1.0, 0))
+    else
+        printToAll("No ships within range " .. tostring(range) .. " of " .. self.getName(), color(1.0, 1.0, 0))
     end
     spawnedRuler.setVectorLines(vector_lines)
     spawnedRuler.createButton(removeButton)
