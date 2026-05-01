@@ -1,6 +1,6 @@
 -- Fog of War Module
 FogOfWar = {}
-FogOfWar.BUILD = "fog-0.26-directpoll"
+FogOfWar.BUILD = "fog-0.45-r2-filter"
 FogOfWar.enabled = false
 FogOfWar.debug = false
 FogOfWar.rangeMm      = 300
@@ -1186,6 +1186,239 @@ FogOfWar.startActivityPoller = function()
 end
 -- Start immediately on module load (top-level call)
 FogOfWar.startActivityPoller()
+
+-- =========================================================================
+-- MOVE HIDING: suppress TTS's smooth-move destination hologram for enemies
+-- by making the moving ship invisible to them during its scripted maneuver.
+-- Fog re-evaluates on its own poll/triggers shortly after MoveShip returns.
+-- =========================================================================
+local _ALL_SEATS = { "Red", "Blue", "Green", "Yellow",
+                     "Orange", "Purple", "Pink", "Brown", "Teal" }
+
+local function fow_enemiesOf(owner)
+    local out = {}
+    if not owner then return out end
+    for _, pc in ipairs(_ALL_SEATS) do
+        if not fow_sameTeam(pc, owner) then table.insert(out, pc) end
+    end
+    return out
+end
+
+-- Hide the roll/boost adjustment proxy from enemies. Boost and barrel
+-- roll setup spawns a tinted ghost ship via ShipProxyModule.spawnProxy
+-- to let the player adjust the destination before committing — with no
+-- mask it leaks the planned endpoint to opponents.
+
+-- Suppress the wireframe "hologram" proxy ghosts. We don't destruct them
+-- (that breaks TTS's own DeleteShipProxies cleanup path) — instead we move
+-- them far below the table, shrink them, and mark them non-interactable.
+-- Re-applied every poll in case something resets them.
+local _ALL_COLORS = {
+    'Red','Blue','Green','Yellow','Orange','Purple','Pink','Brown','Teal',
+    'Grey','Black','White'
+}
+local function fow_hideProxy(obj)
+    if not obj then return end
+    pcall(function() obj.setLock(false) end)
+    pcall(function() obj.interactable = false end)
+    pcall(function() obj.setInvisibleTo(_ALL_COLORS) end)
+    pcall(function() obj.setColorTint({ r = 0, g = 0, b = 0, a = 0 }) end)
+    pcall(function() obj.setScale({ 0.0001, 0.0001, 0.0001 }) end)
+    pcall(function() obj.setPositionSmooth({ 0, -500, 0 }, false, true) end)
+    pcall(function() obj.setPosition({ 0, -500, 0 }) end)
+    pcall(function() obj.tooltip = false end)
+    pcall(function() obj.setLock(true) end)
+end
+
+local function fow_sweepProxies()
+    if not FogOfWar.enabled then return end
+    for _, obj in ipairs(getObjectsWithTag('ProxyInstance') or {}) do
+        fow_hideProxy(obj)
+    end
+end
+
+Wait.time(fow_sweepProxies, 0.1, -1)
+
+-- Catch new spawns one frame after creation (tag is applied by then).
+EventSub.Register('onObjectSpawned', function(obj)
+    Wait.frames(function()
+        if FogOfWar.enabled and obj and obj.hasTag and obj.hasTag('ProxyInstance') then
+            fow_hideProxy(obj)
+        end
+    end, 1)
+end)
+
+local _orig_fogToggle = FogOfWar.toggle
+FogOfWar.toggle = function()
+    _orig_fogToggle()
+    if FogOfWar.enabled then fow_sweepProxies() end
+end
+
+local _orig_MoveShip = MoveModule.MoveShip
+MoveModule.MoveShip = function(ship, finData, saveName, finFun, waitForTokens)
+    if not FogOfWar.enabled then
+        return _orig_MoveShip(ship, finData, saveName, finFun, waitForTokens)
+    end
+    -- Fog is ON: pre-hide ship from enemies so the destination-preview ghost
+    -- doesn't leak the planned endpoint, then run the normal smooth move so
+    -- the owner / teammates still see the maneuver animation.
+    local owner = ship.getVar('owningPlayer')
+    if owner then
+        local enemies = fow_enemiesOf(owner)
+        pcall(function() ship.setInvisibleTo(enemies) end)
+    end
+    return _orig_MoveShip(ship, finData, saveName, finFun, waitForTokens)
+end
+
+-- =========================================================================
+-- CHAT FILTERING: movement announcements (type = move / stationary / overlap)
+-- normally broadcast to 'all'. When fog is on, route them only to the ship
+-- owner's team (plus spectators, who always see everything anyway).
+-- =========================================================================
+local _MOVE_TYPES = { move = true, stationary = true, overlap = true }
+local _SPECTATORS = { "Grey", "Black", "White" }
+
+-- Build the announcement string without going through AnnModule's own
+-- printToColor path, which has a latent reversed-arg bug that never fired
+-- before (all existing callers used target='all' → printToAll). We format
+-- and dispatch ourselves using the correct printToColor signature.
+local function fow_buildMoveString(info, shipPrefix)
+    local shipName = ''
+    if type(shipPrefix) == 'userdata' then
+        shipName = shipPrefix.getName() .. ' '
+    elseif type(shipPrefix) == 'string' then
+        shipName = shipPrefix .. ' '
+    end
+    local note = info.note or ''
+    local code = info.code and (' (' .. info.code .. ')') or ''
+    if info.type == 'overlap' then
+        return shipName .. note .. code .. ' but there was no space to complete the move'
+    elseif info.collidedShip then
+        local coltype = info.friendlyCollission and '[ff2222]friendly[ffb219]'
+                                                 or  '[2222ff]only enemy[ffb219]'
+        return shipName .. note .. code .. ' but it ended overlapping ' ..
+               coltype .. ' ship(s) and is now touching ' .. info.collidedShip.getName()
+    else
+        return shipName .. note .. code
+    end
+end
+
+local function fow_moveColor(info)
+    if info.type == 'overlap' or info.collidedShip then
+        return AnnModule.announceColor.moveCollision
+    end
+    return AnnModule.announceColor.moveClear
+end
+
+local _orig_Announce = AnnModule.Announce
+AnnModule.Announce = function(info, target, shipPrefix)
+    if FogOfWar.enabled and target == 'all' and info and _MOVE_TYPES[info.type] then
+        local ship = (type(shipPrefix) == 'userdata') and shipPrefix or nil
+        local owner = ship and ship.getVar('owningPlayer') or nil
+        if owner then
+            local str = fow_buildMoveString(info, shipPrefix)
+            local col = fow_moveColor(info)
+            -- Only dispatch to seated players — printToColor errors on unseated
+            -- seats (e.g. "Player Yellow does not exist").
+            for _, player in ipairs(getSeatedPlayers() or {}) do
+                local pc = player
+                if type(pc) == 'table' then pc = pc.color end
+                if type(pc) == 'string' then
+                    if fow_sameTeam(pc, owner) or fow_isSpectator(pc) then
+                        printToColor(str, pc, col)
+                    end
+                end
+            end
+            return
+        end
+    end
+    return _orig_Announce(info, target, shipPrefix)
+end
+
+-- =========================================================================
+-- MANUAL PICKUP HIDING: when any player picks up a ship (e.g. to do a manual
+-- barrel roll or reposition), TTS shows a wireframe ghost of the held ship
+-- to all other players. Hide it from enemies of the ship's owner. Fog
+-- re-evaluates on drop so visibility goes back to range-based rules.
+-- =========================================================================
+local function fow_onShipPickedUp(player_color, obj)
+    if not FogOfWar.enabled then return end
+    if not obj or not obj.hasTag or not obj.hasTag('Ship') then return end
+    local owner = obj.getVar('owningPlayer')
+    if not owner then return end
+    local enemies = fow_enemiesOf(owner)
+    pcall(function() obj.setInvisibleTo(enemies) end)
+end
+
+local function fow_onShipDroppedRecheck(player_color, obj)
+    if not FogOfWar.enabled then return end
+    if not obj or not obj.hasTag or not obj.hasTag('Ship') then return end
+    -- Force the next fog tick to re-evaluate from scratch.
+    FogOfWar._forceNext = true
+end
+
+EventSub.Register('onObjectPickUp', fow_onShipPickedUp)
+EventSub.Register('onObjectDropped', fow_onShipDroppedRecheck)
+
+-- =========================================================================
+-- RANGE-CHECK FILTER: at Range 2 (close-combat range), hide targets that
+-- are obstructed by LOS or fog-hidden from the checking ship's owner. At
+-- Range 3 the normal broad-scan behavior still applies — you can see the
+-- blip even if the target is in cover.
+-- =========================================================================
+local _orig_GetTargetsInRelationToArc = ArcCheck.GetTargetsInRelationToArc
+ArcCheck.GetTargetsInRelationToArc = function(ship, arc, fixed_targets, range, incl)
+    local targets = _orig_GetTargetsInRelationToArc(ship, arc, fixed_targets, range, incl)
+    if not FogOfWar.enabled then return targets end
+    if (range or 3) ~= 2 then return targets end
+
+    local viewer = ship and ship.getVar('owningPlayer') or nil
+    local filtered = {}
+    for _, t in ipairs(targets) do
+        local keep = true
+        -- Skip LOS-obstructed targets (behind asteroid/debris/gas cloud etc.)
+        if t.obstructed == 'obstructed' or t.obstructed == 'likely_obstructed' then
+            keep = false
+        end
+        -- Also skip targets currently fog-hidden from the viewer's team.
+        if keep and viewer and t.ship and FogOfWar._shipHide then
+            local hideList = FogOfWar._shipHide[t.ship.getGUID()]
+            if hideList then
+                for _, c in ipairs(hideList) do
+                    if c == viewer then keep = false; break end
+                end
+            end
+        end
+        if keep then table.insert(filtered, t) end
+    end
+    return filtered
+end
+
+-- Belt-and-suspenders: every activity tick, sweep ProxyInstance objects on
+-- the table and re-apply enemy-invisibility based on each proxy's source
+-- ship (read from proxy.getVar('shipGUID')). Catches proxies whose hide
+-- raced their spawn or whose invisibility somehow got cleared.
+local function fow_hideStrayProxies()
+    if not FogOfWar.enabled then return end
+    for _, obj in ipairs(getObjectsWithTag('ProxyInstance') or {}) do
+        local sg = obj.getVar('shipGUID')
+        if sg then
+            local ship = getObjectFromGUID(sg)
+            if ship then
+                local owner = ship.getVar('owningPlayer')
+                if owner then
+                    pcall(function() obj.setInvisibleTo(fow_enemiesOf(owner)) end)
+                end
+            end
+        end
+    end
+end
+
+local _orig_activityPoll = FogOfWar.activityPoll
+FogOfWar.activityPoll = function()
+    _orig_activityPoll()
+    fow_hideStrayProxies()
+end
 
 FogOfWar.toggle = function()
     FogOfWar.enabled = not FogOfWar.enabled
