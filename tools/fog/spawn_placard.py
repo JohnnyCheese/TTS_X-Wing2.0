@@ -12,7 +12,10 @@ from pathlib import Path
 
 SAVE = Path.home() / "Library" / "Tabletop Simulator" / "Saves" / "TS_Save_19.json"
 BACKUP = SAVE.with_suffix(".json.placard_bak")
-IMAGE = "http://178.156.226.194/rules-1MAY.png"
+# Bundled with the repo and served via GitHub raw HTTPS so multiplayer clients
+# can pull it without local-file warnings or insecure HTTP.
+IMAGE = ("https://raw.githubusercontent.com/charlie-n-hill/TTS_X-Wing2.0/"
+         "feature/fog-of-war/tools/fog/assets/rules-1MAY.png")
 MARKER = "FogPlacardAuto"
 BUTTON_MARKER = "FogToggleButtonAuto"
 

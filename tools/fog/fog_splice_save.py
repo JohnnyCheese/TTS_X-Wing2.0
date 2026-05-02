@@ -7,7 +7,7 @@ from pathlib import Path
 
 SAVE = Path.home() / "Library" / "Tabletop Simulator" / "Saves" / "TS_Save_19.json"
 BACKUP = SAVE.with_suffix(".json.fogbak")
-NEW_BLOCK = Path("/tmp/fog_replacement.lua").read_text()
+NEW_BLOCK = (Path(__file__).parent / "fog_inline.lua").read_text()
 
 END_PATTERN = re.compile(
     r"--\s*Fog of War Module.*?function\s+API_ToggleFogOfWar\s*\(\s*\).*?\bend\b",
