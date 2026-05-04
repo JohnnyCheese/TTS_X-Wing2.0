@@ -2252,6 +2252,13 @@ MoveModule.GetPartMove = function(move, ship, part)
     return MoveModule.EntryToPos(entry, ship)
 end
 
+MoveModule.UnsupportedManeuverReason = function(info)
+    if info.type == 'bank' and info.speed == 0 and info.size ~= 'huge' then
+        return 'could not perform speed 0 bank because speed 0 banks are only valid for huge ships'
+    end
+    return nil
+end
+
 
 -- HISTORY HANDLING:
 -- Lets us undo, redo and save positions a ship was seen at
@@ -3340,6 +3347,13 @@ end
 MoveModule.GetFinalPosData = function(move_code, ship, ignoreCollisions)
     local out = { finPos = nil, collObj = nil, finType = nil, finPart = nil, friendlyCollission = false }
     local info = MoveData.DecodeInfo(move_code, ship)
+    local unsupportedReason = MoveModule.UnsupportedManeuverReason(info)
+    if unsupportedReason ~= nil then
+        out.finType = 'invalid'
+        out.invalidReason = unsupportedReason
+        out.finPos = { pos = ship.getPosition(), rot = ship.getRotation() }
+        return out
+    end
 
     -- Don't bother with collisions if it's stationary
     if info.size ~= 'huge' and info.speed == 0 then
@@ -3543,11 +3557,16 @@ end
 -- and whether we have to wait for the tokens to come to a rest before calling
 -- it.
 MoveModule.PerformMove = function(move_code, ship, ignoreCollisions, finishFunction, waitForTokens)
-    ship.lock()
     local originalPos = ship.getPosition()
     local origionalRot = ship.getRotation()
     local info = MoveData.DecodeInfo(move_code, ship)
     local finData = MoveModule.GetFinalPosData(move_code, ship, ignoreCollisions)
+    if finData.finType == 'invalid' then
+        AnnModule.Announce({ type = 'error', note = finData.invalidReason }, 'all', ship)
+        return false
+    end
+
+    ship.lock()
     local annInfo = {
         type = finData.finType,
         note = info.note,

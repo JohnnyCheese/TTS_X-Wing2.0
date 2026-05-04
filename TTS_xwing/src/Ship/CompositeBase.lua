@@ -514,6 +514,12 @@ function NextTexture()
     setCustomization({ texture = texture_url })
 end
 
+function setMoveSet(args)
+    local data = self.getTable("Data")
+    data.moveSet = args.moveSet or {}
+    self.setTable("Data", data)
+end
+
 function TogglePeg()
     local attachments = self.getAttachments()
     for i = #attachments, 1, -1 do
