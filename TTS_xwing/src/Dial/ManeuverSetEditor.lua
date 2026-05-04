@@ -386,6 +386,7 @@ function editManeuver(player, _, id)
     local base = slotBase[id]
     editState[base] = nextColor(editState[base])
     rebuildMoveSet()
+    initialized = true
     renderSlot(id, base, slotSpeed[id])
 end
 
@@ -419,8 +420,8 @@ function onLoad(savedData)
     if savedData and savedData ~= "" then
         local state = JSON.decode(savedData)
         editMode = state.editMode or false
-        initialized = state.initialized or false
         buildEditStateFromMoveSet(state.moveSet or {})
+        initialized = state.initialized or #moveSet > 0
     end
 
     render()
