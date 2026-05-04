@@ -2290,7 +2290,7 @@ masterPilotDB['gamutkey'] = {
 }
 
 masterPilotDB['tapusk'] = {
-    name = 'TÃ¡pusk',
+    name = 'Tápusk',
     faction = 'scumandvillainy',
     limited = 1,
     ship_type = 'hwk290lightfreighter',
@@ -4082,7 +4082,7 @@ masterPilotDB['104thbattalionpilot'] = {
 --w4 Pilots
 --N-1
 masterPilotDB['ricolie'] = {
-    name = 'Ric OliÃ©',
+    name = 'Ric Olié',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'nabooroyaln1starfighter',
@@ -4104,7 +4104,7 @@ masterPilotDB['anakinskywalker-nabooroyaln1starfighter'] = {
 }
 
 masterPilotDB['padmeamidala'] = {
-    name = 'PadmÃ© Amidala',
+    name = 'Padmé Amidala',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'nabooroyaln1starfighter',
@@ -4114,7 +4114,7 @@ masterPilotDB['padmeamidala'] = {
 }
 
 masterPilotDB['dineeellberger'] = {
-    name = 'DineÃ© Ellberger',
+    name = 'Dineé Ellberger',
     faction = 'galacticrepublic',
     limited = 1,
     ship_type = 'nabooroyaln1starfighter',
