@@ -1,0 +1,85 @@
+<Defaults>
+    <Button class="ManBtn" height="31" width="31" active="false" outline="#BBBBBB" outlineSize="1 1"/>
+    <Image class="MIcon" preserveAspect="true"/>
+    <Image class="SpeedImg" height="35" width="35" preserveAspect="true"/>
+</Defaults>
+
+<Panel id="NamePanel"
+    active="false"
+    width="220"
+    height="80"
+    position="0 0 -35"
+    rotation="180 180 180"
+    color="#aaffaa00">
+    <Text id="NameLabel"
+        resizeTextForBestFit="true"
+        resizeTextMinSize="18"
+        resizeTextMaxSize="44"
+        color="#FFFFFF"
+        rotation="180 180 0"
+        fontSize="34"
+        fontStyle="Bold"></Text>
+</Panel>
+
+<Panel id="MoveSetEditor"
+    width="600"
+    height="260"
+    position="0 -190 -100"
+    rotation="180 180 0"
+    color="#222222ee"
+    raycastTarget="true">
+
+    <Image id="Spd0" class="SpeedImg" image="Speed0" offsetXY="-245 -74" color="#ffffff"></Image>
+    <Image id="Spd1" class="SpeedImg" image="Speed1" offsetXY="-245 -40" color="#ffffff"></Image>
+    <Image id="Spd2" class="SpeedImg" image="Speed2" offsetXY="-245 -6" color="#ffffff"></Image>
+    <Image id="Spd3" class="SpeedImg" image="Speed3" offsetXY="-245 27" color="#ffffff"></Image>
+    <Image id="Spd4" class="SpeedImg" image="Speed4" offsetXY="-245 61" color="#ffffff"></Image>
+    <Image id="Spd5" class="SpeedImg" image="Speed5" offsetXY="-245 95" color="#ffffff"></Image>
+
+    <Button id="M0_1" class="ManBtn" onClick="editManeuver"><Image id="M0_1Icon" class="MIcon"></Image></Button>
+    <Button id="M0_2" class="ManBtn" onClick="editManeuver"><Image id="M0_2Icon" class="MIcon"></Image></Button>
+    <Button id="M0_3" class="ManBtn" onClick="editManeuver"><Image id="M0_3Icon" class="MIcon"></Image></Button>
+
+    <Button id="M1_1" class="ManBtn" onClick="editManeuver"><Image id="M1_1Icon" class="MIcon"></Image></Button>
+    <Button id="M1_2" class="ManBtn" onClick="editManeuver"><Image id="M1_2Icon" class="MIcon"></Image></Button>
+    <Button id="M1_3" class="ManBtn" onClick="editManeuver"><Image id="M1_3Icon" class="MIcon"></Image></Button>
+    <Button id="M1_4" class="ManBtn" onClick="editManeuver"><Image id="M1_4Icon" class="MIcon"></Image></Button>
+    <Button id="M1_5" class="ManBtn" onClick="editManeuver"><Image id="M1_5Icon" class="MIcon"></Image></Button>
+    <Button id="M1_6" class="ManBtn" onClick="editManeuver"><Image id="M1_6Icon" class="MIcon"></Image></Button>
+    <Button id="M1_7" class="ManBtn" onClick="editManeuver"><Image id="M1_7Icon" class="MIcon"></Image></Button>
+    <Button id="M1_8" class="ManBtn" onClick="editManeuver"><Image id="M1_8Icon" class="MIcon"></Image></Button>
+    <Button id="M1_9" class="ManBtn" onClick="editManeuver"><Image id="M1_9Icon" class="MIcon"></Image></Button>
+    <Button id="M1_10" class="ManBtn" onClick="editManeuver"><Image id="M1_10Icon" class="MIcon"></Image></Button>
+    <Button id="M1_11" class="ManBtn" onClick="editManeuver"><Image id="M1_11Icon" class="MIcon"></Image></Button>
+    <Button id="M1_12" class="ManBtn" onClick="editManeuver"><Image id="M1_12Icon" class="MIcon"></Image></Button>
+    <Button id="M1_13" class="ManBtn" onClick="editManeuver"><Image id="M1_13Icon" class="MIcon"></Image></Button>
+
+    <Button id="M2_1" class="ManBtn" onClick="editManeuver"><Image id="M2_1Icon" class="MIcon"></Image></Button>
+    <Button id="M2_2" class="ManBtn" onClick="editManeuver"><Image id="M2_2Icon" class="MIcon"></Image></Button>
+    <Button id="M2_3" class="ManBtn" onClick="editManeuver"><Image id="M2_3Icon" class="MIcon"></Image></Button>
+    <Button id="M2_4" class="ManBtn" onClick="editManeuver"><Image id="M2_4Icon" class="MIcon"></Image></Button>
+    <Button id="M2_5" class="ManBtn" onClick="editManeuver"><Image id="M2_5Icon" class="MIcon"></Image></Button>
+    <Button id="M2_6" class="ManBtn" onClick="editManeuver"><Image id="M2_6Icon" class="MIcon"></Image></Button>
+    <Button id="M2_7" class="ManBtn" onClick="editManeuver"><Image id="M2_7Icon" class="MIcon"></Image></Button>
+    <Button id="M2_8" class="ManBtn" onClick="editManeuver"><Image id="M2_8Icon" class="MIcon"></Image></Button>
+    <Button id="M2_9" class="ManBtn" onClick="editManeuver"><Image id="M2_9Icon" class="MIcon"></Image></Button>
+    <Button id="M2_10" class="ManBtn" onClick="editManeuver"><Image id="M2_10Icon" class="MIcon"></Image></Button>
+    <Button id="M2_11" class="ManBtn" onClick="editManeuver"><Image id="M2_11Icon" class="MIcon"></Image></Button>
+
+    <Button id="M3_1" class="ManBtn" onClick="editManeuver"><Image id="M3_1Icon" class="MIcon"></Image></Button>
+    <Button id="M3_2" class="ManBtn" onClick="editManeuver"><Image id="M3_2Icon" class="MIcon"></Image></Button>
+    <Button id="M3_3" class="ManBtn" onClick="editManeuver"><Image id="M3_3Icon" class="MIcon"></Image></Button>
+    <Button id="M3_4" class="ManBtn" onClick="editManeuver"><Image id="M3_4Icon" class="MIcon"></Image></Button>
+    <Button id="M3_5" class="ManBtn" onClick="editManeuver"><Image id="M3_5Icon" class="MIcon"></Image></Button>
+    <Button id="M3_6" class="ManBtn" onClick="editManeuver"><Image id="M3_6Icon" class="MIcon"></Image></Button>
+    <Button id="M3_7" class="ManBtn" onClick="editManeuver"><Image id="M3_7Icon" class="MIcon"></Image></Button>
+    <Button id="M3_8" class="ManBtn" onClick="editManeuver"><Image id="M3_8Icon" class="MIcon"></Image></Button>
+    <Button id="M3_9" class="ManBtn" onClick="editManeuver"><Image id="M3_9Icon" class="MIcon"></Image></Button>
+    <Button id="M3_10" class="ManBtn" onClick="editManeuver"><Image id="M3_10Icon" class="MIcon"></Image></Button>
+
+    <Button id="M4_1" class="ManBtn" onClick="editManeuver"><Image id="M4_1Icon" class="MIcon"></Image></Button>
+    <Button id="M4_2" class="ManBtn" onClick="editManeuver"><Image id="M4_2Icon" class="MIcon"></Image></Button>
+
+    <Button id="M5_1" class="ManBtn" onClick="editManeuver"><Image id="M5_1Icon" class="MIcon"></Image></Button>
+    <Button id="M5_2" class="ManBtn" onClick="editManeuver"><Image id="M5_2Icon" class="MIcon"></Image></Button>
+</Panel>
