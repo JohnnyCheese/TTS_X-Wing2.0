@@ -6632,7 +6632,40 @@ end
 -------
 --spawner function, checks for Pilots and Upgrades lists and spawn the respective objects
 
+local legacyFactionKeys = {
+    [0] = "dummy",
+    [1] = "rebelalliance",
+    [2] = "galacticempire",
+    [3] = "scumandvillainy",
+    [4] = "resistance",
+    [5] = "firstorder",
+    [6] = "galacticrepublic",
+    [7] = "separatistalliance",
+    Dum = "dummy",
+    Reb = "rebelalliance",
+    Imp = "galacticempire",
+    Scu = "scumandvillainy",
+    Res = "resistance",
+    For = "firstorder",
+    Rep = "galacticrepublic",
+    Cis = "separatistalliance",
+}
+
+local function normalizeLegacySpawnerList(listTable)
+    if listTable == nil then
+        return
+    end
+
+    listTable.Faction = legacyFactionKeys[listTable.Faction] or listTable.Faction
+    for _, pilot in pairs(listTable.Pilots or {}) do
+        if pilot.Data ~= nil then
+            pilot.Data.Faction = legacyFactionKeys[pilot.Data.Faction] or pilot.Data.Faction
+        end
+    end
+end
+
 function newSpawner(listTable)
+    normalizeLegacySpawnerList(listTable)
     --listTable contains :
 
     --Pilots[x] = table
