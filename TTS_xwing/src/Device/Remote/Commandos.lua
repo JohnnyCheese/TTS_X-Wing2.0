@@ -148,7 +148,7 @@ function hideBtn()
 end
 
 function arc()
-    checkArc("front", 2, false)
+    checkArc("front", 3, false)
 end
 
 function checkRange1()
@@ -172,7 +172,11 @@ function checkArc(type, range, friendly)
             printToAll("Checking for ships at range " .. tostring(range) .. " from " .. self.getName(),
                 color(1.0, 1.0, 0.2, 0.9))
         end
-        rulers = Global.call("CheckArc", { ship = self, arctype = type, range = range, include_friendly_ships = friendly })
+        local visualizer = spawnArcVisualizer(type, range)
+        rulers = Global.call("CheckArc", { ship = self, arctype = type, range = range, include_friendly_ships = friendly }) or {}
+        if visualizer ~= nil then
+            table.insert(rulers, visualizer)
+        end
     end
     if rulers and #rulers > 0 then
         rulersType = type .. range
@@ -199,6 +203,37 @@ function checkArc(type, range, friendly)
         rulersType = nil
         arcsOpen = false
     end
+end
+
+function spawnArcVisualizer(type, range)
+    if type ~= "front" or range ~= 3 then
+        return nil
+    end
+
+    local up = self.getTransformUp()
+    if self.is_face_down then
+        up = -1 * up
+    end
+
+    local visualizer = spawnObject({
+        type = "Custom_Model",
+        position = self.getPosition() + up * 0.03,
+        rotation = self.getRotation() + vector(0, -90, 0),
+        scale = { 0.629, 0.629, 0.629 },
+        sound = false,
+        snap_to_grid = false
+    })
+    visualizer.setCustomObject({
+        mesh = "{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/new/objective_front_range_3.obj",
+        collider = "{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/colliders/minicollider.obj",
+        diffuse = "{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/arcranges/new/arctexture.png",
+        material = 3
+    })
+    visualizer.setColorTint(color(1.0, 0.0, 0.0, 0.5))
+    visualizer.addTag("TempLayoutElement")
+    visualizer.interactable = false
+    visualizer.setLock(true)
+    return visualizer
 end
 
 function removeArcs()
