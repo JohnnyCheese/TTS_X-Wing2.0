@@ -211,14 +211,16 @@ function spawnArcVisualizer(type, range)
     end
 
     local up = self.getTransformUp()
+    local visualizerRotation = self.getRotation() + vector(0, -90, 0)
     if self.is_face_down then
         up = -1 * up
+        visualizerRotation = visualizerRotation + vector(0, 0, 180)
     end
 
     local visualizer = spawnObject({
         type = "Custom_Model",
         position = self.getPosition() + up * 0.03,
-        rotation = self.getRotation() + vector(0, -90, 0),
+        rotation = visualizerRotation,
         scale = { 0.629, 0.629, 0.629 },
         sound = false,
         snap_to_grid = false
