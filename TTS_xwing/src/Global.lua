@@ -5914,6 +5914,18 @@ local HOTAC_LAYOUT_INDEXES = {
     [4] = true,
 }
 
+local function ForwardObjectStateChangeToLayoutController(object, old_guid)
+    local layoutController = getObjectFromGUID(LAYOUT_CONTROLLER_GUID)
+    if layoutController ~= nil then
+        layoutController.call("onObjectStateChangeFromGlobal", {
+            object = object,
+            old_guid = old_guid,
+        })
+    end
+end
+
+EventSub.Register('onObjectStateChange', ForwardObjectStateChangeToLayoutController)
+
 function IsHotACLayout(layout)
     if type(layout) == "table" then
         layout = layout.index or layout.layout or layout.name

@@ -57,11 +57,128 @@ end
 Layout.extIndex = 1
 
 Layout.required = {}
+Layout.requiredGuids = {}
+Layout.requiredRoles = {}
+Layout.requiredRoleObjects = {}
+Layout.pendingStateChanges = {}
+
+local layoutDebug = false
+local function debugLayout(message)
+    if layoutDebug then
+        printToAll("[LayoutDebug] " .. message, { 0.4, 0.8, 1 })
+        log("[LayoutDebug] " .. message)
+    end
+end
+
+local function describeObject(obj)
+    if not obj then
+        return "<nil>"
+    end
+    local name = obj.getName and obj.getName() or ""
+    local gmNotes = obj.getGMNotes and obj.getGMNotes() or ""
+    local guid = obj.getGUID and obj.getGUID() or "no-guid"
+    local stateId = obj.getStateId and obj.getStateId() or "no-state"
+    return tostring(name) .. " gmnotes=" .. tostring(gmNotes) .. " [" .. tostring(guid) .. "] state=" .. tostring(stateId)
+end
+
+local function dicePlatformPrefix(role)
+    if role == 'Attack Dice changer' then
+        return 'atkPlat'
+    elseif role == 'Defence Dice changer' then
+        return 'defPlat'
+    end
+end
+
+local function findReplacementForRequired(role, oldGuid, oldName, oldGMNotes)
+    local platformPrefix = dicePlatformPrefix(role)
+
+    for _, candidate in pairs(getAllObjects()) do
+        if candidate and candidate.getGUID then
+            local candidateGuid = candidate.getGUID()
+            if candidateGuid and candidateGuid ~= oldGuid then
+                local gmNotes = candidate.getGMNotes and candidate.getGMNotes() or ""
+                if platformPrefix and gmNotes:match("^" .. platformPrefix .. "%d+") then
+                    return candidate
+                end
+                if not platformPrefix and oldGMNotes ~= "" and gmNotes == oldGMNotes then
+                    return candidate
+                end
+                if not platformPrefix and oldName ~= "" and candidate.getName and candidate.getName() == oldName then
+                    return candidate
+                end
+            end
+        end
+    end
+end
+
+Layout.ReplaceRequiredObject = function(oldGuid, object, reason)
+    local newGuid = object.getGUID()
+    local role = Layout.requiredRoles[oldGuid]
+    local oldObject = role and Layout.requiredRoleObjects[role] or nil
+
+    if oldObject then
+        Layout.required[oldObject] = nil
+    end
+
+    Layout.pendingStateChanges[oldGuid] = nil
+    Layout.requiredGuids[oldGuid] = nil
+    Layout.requiredRoles[oldGuid] = nil
+    Layout.required[object] = true
+    Layout.requiredGuids[newGuid] = true
+
+    if role then
+        Layout.requiredRoles[newGuid] = role
+        Layout.requiredRoleObjects[role] = object
+        if Layout.elements then
+            Layout.elements[role] = object
+        end
+    end
+
+    debugLayout("updated required object" ..
+        (role and " for " .. role or "") .. ": " .. tostring(oldGuid) .. " -> " .. tostring(newGuid) ..
+        " via " .. tostring(reason))
+end
+
+Layout.RegisterRequiredRoles = function()
+    for role, obj in pairs(Layout.elements or {}) do
+        if obj and Layout.required[obj] and obj.getGUID then
+            local guid = obj.getGUID()
+            Layout.requiredRoles[guid] = role
+            Layout.requiredRoleObjects[role] = obj
+            if dicePlatformPrefix(role) then
+                debugLayout("registered required role " .. tostring(role) .. " for " .. describeObject(obj))
+            end
+        end
+    end
+end
+
 function onObjectDestroyed(obj)
     if state.active and Layout.required[obj] then
-        --broadcastToAll('An object that was part of layout system was destroyed, disabling layouts', {1, 0.4, 0})
-        broadcastToAll('You\'re breaking the game, please don\'t', { 1, 0.4, 0 })
-        state.active = false
+        local guid = obj.getGUID()
+        local role = Layout.requiredRoles[guid]
+        local oldName = obj.getName and obj.getName() or ""
+        local oldGMNotes = obj.getGMNotes and obj.getGMNotes() or ""
+        debugLayout("required object destroyed event: " .. describeObject(obj) ..
+            " role=" .. tostring(role) .. "; deferring guard check")
+        Wait.frames(function()
+            if Layout.pendingStateChanges[guid] then
+                debugLayout("accepted as state change replacement for old guid " .. tostring(guid))
+                Layout.pendingStateChanges[guid] = nil
+                return
+            end
+            if state.active and Layout.requiredGuids[guid] then
+                local replacement = findReplacementForRequired(role, guid, oldName, oldGMNotes)
+                if replacement then
+                    Layout.ReplaceRequiredObject(guid, replacement, "deferred replacement scan")
+                    return
+                end
+                --broadcastToAll('An object that was part of layout system was destroyed, disabling layouts', {1, 0.4, 0})
+                debugLayout("no replacement detected; disabling layout for destroyed guid " .. tostring(guid) ..
+                    " role=" .. tostring(role) .. " gmnotes=" .. tostring(oldGMNotes))
+                broadcastToAll('You\'re breaking the game, please don\'t', { 1, 0.4, 0 })
+                state.active = false
+            end
+        end, 5)
     end
     if state.dialZones[obj.getGUID()] then
         state.dialZones[obj.getGUID()] = nil
@@ -72,7 +189,23 @@ end
 Layout.RequireFromGUID = function(guid)
     local obj = (getObjectFromGUID(guid) or error('Layout.RequireFromGUID: object with \'' .. guid .. '\' GUID not found'))
     Layout.required[obj] = true
+    Layout.requiredGuids[guid] = true
     return obj
+end
+
+function onObjectStateChange(object, old_guid)
+    debugLayout("state change event: old=" .. tostring(old_guid) .. " new=" .. describeObject(object) ..
+        " oldRequired=" .. tostring(Layout.requiredGuids[old_guid] == true))
+    if state.active and Layout.requiredGuids[old_guid] then
+        Layout.pendingStateChanges[old_guid] = true
+        Layout.ReplaceRequiredObject(old_guid, object, "state change event")
+    end
+end
+
+function onObjectStateChangeFromGlobal(params)
+    if params then
+        onObjectStateChange(params.object, params.old_guid)
+    end
 end
 
 Layout.GetTableRef = function()
@@ -265,6 +398,7 @@ function onLoad(saveState)
     state.active = load.active or state.active
     state.index = load.index
     Layout.FillElements()
+    Layout.RegisterRequiredRoles()
     Layout.CreateControls(load.index)
     local sPos = self.getPosition()
     self.setPosition({ sPos[1], 0, sPos[3] })
