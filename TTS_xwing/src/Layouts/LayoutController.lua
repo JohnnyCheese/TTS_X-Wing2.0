@@ -25,8 +25,8 @@ self.setPosition({ 0, 3, 0 })
 state = {
     active = true,
     index = 1,
-    dialZones = {},
-    tempObjs = {}
+    tempObjs = {},
+    requiredObjectGuids = {}
 }
 
 Layout.AddTempObj = function(obj)
@@ -60,6 +60,7 @@ Layout.required = {}
 Layout.requiredGuids = {}
 Layout.requiredRoles = {}
 Layout.requiredRoleObjects = {}
+Layout.requiredOriginalGuids = {}
 Layout.pendingStateChanges = {}
 
 local layoutDebug = false
@@ -80,6 +81,11 @@ local function describeObject(obj)
     local stateId = obj.getStateId and obj.getStateId() or "no-state"
     return tostring(name) .. " gmnotes=" .. tostring(gmNotes) .. " [" .. tostring(guid) .. "] state=" .. tostring(stateId)
 end
+
+local defaultRequiredRoles = {
+    e51a16 = 'Attack Dice changer',
+    d9a9fa = 'Defence Dice changer',
+}
 
 local function dicePlatformPrefix(role)
     if role == 'Attack Dice changer' then
@@ -115,6 +121,7 @@ Layout.ReplaceRequiredObject = function(oldGuid, object, reason)
     local newGuid = object.getGUID()
     local role = Layout.requiredRoles[oldGuid]
     local oldObject = role and Layout.requiredRoleObjects[role] or nil
+    local originalGuid = Layout.requiredOriginalGuids[oldGuid] or oldGuid
 
     if oldObject then
         Layout.required[oldObject] = nil
@@ -123,8 +130,12 @@ Layout.ReplaceRequiredObject = function(oldGuid, object, reason)
     Layout.pendingStateChanges[oldGuid] = nil
     Layout.requiredGuids[oldGuid] = nil
     Layout.requiredRoles[oldGuid] = nil
+    Layout.requiredOriginalGuids[oldGuid] = nil
     Layout.required[object] = true
     Layout.requiredGuids[newGuid] = true
+    Layout.requiredOriginalGuids[newGuid] = originalGuid
+    state.requiredObjectGuids[originalGuid] = newGuid
+    SaveState()
 
     if role then
         Layout.requiredRoles[newGuid] = role
@@ -145,6 +156,7 @@ Layout.RegisterRequiredRoles = function()
             local guid = obj.getGUID()
             Layout.requiredRoles[guid] = role
             Layout.requiredRoleObjects[role] = obj
+            Layout.requiredOriginalGuids[guid] = Layout.requiredOriginalGuids[guid] or guid
             if dicePlatformPrefix(role) then
                 debugLayout("registered required role " .. tostring(role) .. " for " .. describeObject(obj))
             end
@@ -180,16 +192,29 @@ function onObjectDestroyed(obj)
             end
         end, 5)
     end
-    if state.dialZones[obj.getGUID()] then
-        state.dialZones[obj.getGUID()] = nil
-        SaveState()
-    end
 end
 
 Layout.RequireFromGUID = function(guid)
-    local obj = (getObjectFromGUID(guid) or error('Layout.RequireFromGUID: object with \'' .. guid .. '\' GUID not found'))
+    state.requiredObjectGuids = state.requiredObjectGuids or {}
+    local currentGuid = state.requiredObjectGuids[guid] or guid
+    local obj = getObjectFromGUID(currentGuid)
+    if not obj and currentGuid ~= guid then
+        state.requiredObjectGuids[guid] = nil
+        currentGuid = guid
+        obj = getObjectFromGUID(currentGuid)
+    end
+    if not obj then
+        obj = findReplacementForRequired(defaultRequiredRoles[guid], guid, "", "")
+        if obj then
+            currentGuid = obj.getGUID()
+            state.requiredObjectGuids[guid] = currentGuid
+            SaveState()
+        end
+    end
+    obj = (obj or error('Layout.RequireFromGUID: object with \'' .. currentGuid .. '\' GUID not found'))
     Layout.required[obj] = true
-    Layout.requiredGuids[guid] = true
+    Layout.requiredGuids[currentGuid] = true
+    Layout.requiredOriginalGuids[currentGuid] = guid
     return obj
 end
 
@@ -394,12 +419,16 @@ function onChat(message, player)
 end
 
 function onLoad(saveState)
-    local load = JSON.decode(saveState)
-    state.active = load.active or state.active
-    state.index = load.index
+    local load = JSON.decode(saveState) or {}
+    if load.active ~= nil then
+        state.active = load.active
+    end
+    state.index = load.index or state.index
+    state.tempObjs = load.tempObjs or state.tempObjs
+    state.requiredObjectGuids = load.requiredObjectGuids or state.requiredObjectGuids or {}
     Layout.FillElements()
     Layout.RegisterRequiredRoles()
-    Layout.CreateControls(load.index)
+    Layout.CreateControls(state.index)
     local sPos = self.getPosition()
     self.setPosition({ sPos[1], 0, sPos[3] })
     self.interactable = false
