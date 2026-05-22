@@ -540,14 +540,15 @@ function TogglePeg()
 end
 
 function SpawnCustomizer()
-    local sizemod = { small = 1.0, medium = 0.75, large = 0.5 }
+    local sizemod = { small = 1.0, medium = 0.75, large = 0.5, huge = 0.25 }
     local data = self.getTable('Data')
+    local scaleMod = sizemod[data.Size] or 1.0
     local customizer = nil
     customizer = spawnObject({
         type         = "Custom_Model",
         position     = self.getPosition() - self.getTransformRight() * 3.5,
         rotation     = self.getRotation(),
-        scale        = self.getScale() * sizemod[data.Size],
+        scale        = self.getScale() * scaleMod,
         sound        = false,
         snap_to_grid = false,
     })
