@@ -103,6 +103,38 @@ exOptValue = {}
 exOptButtons = { "ExOpt1", "ExOpt2", "ExOpt3", "ExOpt4", "ExOpt5", "ExOpt6", "ExOpt7", "ExOpt8", "ExOpt9", "ExOpt10",
     "ExOpt11", "ExOpt12", "ExOpt13" }
 
+local maneuverButtonIds = {
+    "BBL0", "BS0", "BBR0", "WBL0", "WS0", "WBR0", "RBL0", "RS0",
+    "RBR0", "PBL0", "PS0", "PBR0",
+    "BTL1", "BBL1", "BS1", "BBR1", "BTR1", "BBL1R", "BBR1R", "BTL1T",
+    "BTR1T", "BBL1S", "BBR1S", "BS1R", "BK1", "WTL1", "WBL1", "WS1",
+    "WBR1", "WTR1", "WBL1R", "WBR1R", "WTL1T", "WTR1T", "WBL1S", "WBR1S",
+    "WS1R", "WK1", "RTL1", "RBL1", "RS1", "RBR1", "RTR1", "RBL1R",
+    "RBR1R", "RTL1T", "RTR1T", "RBL1S", "RBR1S", "RS1R", "RK1", "PTL1",
+    "PBL1", "PS1", "PBR1", "PTR1", "PBL1R", "PBR1R", "PTL1T", "PTR1T",
+    "PBL1S", "PBR1S", "PS1R", "PK1",
+    "BTL2", "BBL2", "BS2", "BBR2", "BTR2", "BTL2T", "BTR2T", "BBL2S",
+    "BBR2S", "BS2R", "BK2", "WTL2", "WBL2", "WS2", "WBR2", "WTR2",
+    "WTL2T", "WTR2T", "WBL2S", "WBR2S", "WS2R", "WK2", "RTL2", "RBL2",
+    "RS2", "RBR2", "RTR2", "RTL2T", "RTR2T", "RBL2S", "RBR2S", "RS2R",
+    "RK2", "PTL2", "PBL2", "PS2", "PBR2", "PTR2", "PTL2T", "PTR2T",
+    "PBL2S", "PBR2S", "PS2R", "PK2",
+    "BTL3", "BBL3", "BS3", "BBR3", "BTR3", "BTL3T", "BTR3T", "BBL3S",
+    "BBR3S", "BK3", "WTL3", "WBL3", "WS3", "WBR3", "WTR3", "WTL3T",
+    "WTR3T", "WBL3S", "WBR3S", "WK3", "RTL3", "RBL3", "RS3", "RBR3",
+    "RTR3", "RTL3T", "RTR3T", "RBL3S", "RBR3S", "RK3", "PTL3", "PBL3",
+    "PS3", "PBR3", "PTR3", "PTL3T", "PTR3T", "PBL3S", "PBR3S", "PK3",
+    "BS4", "BK4", "WS4", "WK4", "RS4", "RK4", "PS4", "PK4",
+    "BS5", "BK5", "WS5", "WK5", "RS5", "RK5", "PS5", "PK5",
+}
+
+local function clearManeuverButtons()
+    for _, id in ipairs(maneuverButtonIds) do
+        self.UI.setAttribute(id, "active", "false")
+        self.UI.setAttribute(id, "isOn", "false")
+    end
+end
+
 
 -- Restore self state
 function onLoad(savedData)
@@ -556,7 +588,8 @@ function assignShip(args)
 
     exOptions = shipData.executeOptions or {}
     self.UI.setAttribute("BackGround", "image", tostring(shipData['Faction']) .. "BG")
-    for _, v in pairs(shipData['moveSet']) do
+    clearManeuverButtons()
+    for _, v in pairs(shipData['moveSet'] or {}) do
         self.UI.setAttribute(string.upper(v), "active", "true")
     end
     setMan = ""
