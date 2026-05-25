@@ -7037,6 +7037,121 @@ function newSpawner(listTable)
         })
     end
 
+    local function spawnUpgradeCharges(upgrade, pilot, layout, isConfiguration)
+        local charges = upgrade.Charge
+        while charges > 0 do
+            local position
+            if isConfiguration then
+                if charges == 5 then
+                    position = localLayoutPos(layout, 0.88, 0, -3.6)
+                elseif charges == 4 then
+                    position = localLayoutPos(layout, 0.88, 0, -2.7)
+                elseif charges == 3 then
+                    position = localLayoutPos(layout, -0.02, 0, -2.7)
+                elseif charges == 2 then
+                    position = localLayoutPos(layout, 0.88, 0, -1.8)
+                elseif charges == 1 then
+                    position = localLayoutPos(layout, -0.02, 0, -1.8)
+                end
+            else
+                if charges == 5 then
+                    position = localLayoutPos(layout, -0.28, 1 - layout.y, -3.6)
+                elseif charges == 4 then
+                    position = localLayoutPos(layout, -0.28, 1 - layout.y, -2.7)
+                elseif charges == 3 then
+                    position = localLayoutPos(layout, -1.18, 1 - layout.y, -2.7)
+                elseif charges == 2 then
+                    position = localLayoutPos(layout, -0.28, 1 - layout.y, -1.8)
+                elseif charges == 1 then
+                    position = localLayoutPos(layout, -1.18, 1 - layout.y, -1.8)
+                end
+            end
+            if position == nil then
+                break
+            end
+            charges = charges - 1
+            cloneSpawnerToken(tokens.Charge, position, "charge_owner", pilot.name, upgrade.name)
+        end
+    end
+
+    local function spawnUpgradeConditionAccessories(conditionName, position)
+        for _, accessory in ipairs(listaAcc) do
+            if accessory.name == conditionName then
+                local source = tempBagAcc.takeObject({
+                    position = position,
+                    rotation = spawnCard.getRotation(),
+                    guid = accessory.guid,
+                    smooth = false
+                })
+                local clone = source.clone()
+                clone.setPosition(position)
+                clone.addTag("Assignable")
+                tempBagAcc.putObject(source)
+            end
+        end
+    end
+
+    local function spawnPilotUpgrades(pilot, upgrades)
+        local result = {
+            configCardGUID = nil,
+            hasMobileUpgrade = 0,
+            count = 0,
+            layoutCursor = { x = -1.42, y = 1, z = 5.5 }
+        }
+
+        for _, upgrade in pairs(upgrades) do
+            if upgrade.Config == true then
+                local layout = configCardLayout(upgrade)
+                spawnCard.setPosition(LocalPos(spawnCard, { CONFIG_CARD_SHIFT_X, 0, 0 }))
+                local position = localLayoutPos(layout)
+                local rotation = spawnCard.getRotation()
+                local cardLink = upgrade.card
+                local cardBackLink = upgrade.cardB
+                if Customization[upgrade.name] ~= nil then
+                    cardLink = Customization[upgrade.name].face or upgrade.card
+                    cardBackLink = Customization[upgrade.name].back or upgrade.cardB
+                end
+                local deck = Decker.Asset(cardLink, cardBackLink)
+                local card = Decker.Card(deck, 1, 1)
+                local spawnedUpgrade = card:spawn({ position = position, rotation = rotation, scale = { 0.68, 0.68, 0.68 } })
+                spawnedUpgrade.setName(upgrade.name)
+                spawnedUpgrade.addTag("ConfigCard")
+                result.configCardGUID = spawnedUpgrade.getGUID()
+                result.hasMobileUpgrade = 1
+                spawnUpgradeCharges(upgrade, pilot, layout, true)
+            end
+        end
+
+        for _, upgrade in pairs(upgrades) do
+            if upgrade.Config ~= true then
+                local layout = upgradeCardLayout(result.layoutCursor, upgrade)
+                local position = localLayoutPos(layout)
+                local rotation = spawnCard.getRotation()
+                local cardLink = upgrade.card
+                local cardBackLink = upgrade.cardB
+                if Customization[upgrade.name] ~= nil then
+                    cardLink = Customization[upgrade.name].face or upgrade.card
+                    cardBackLink = Customization[upgrade.name].back or upgrade.cardB
+                end
+                local deck = Decker.Asset(cardLink, cardBackLink)
+                local card = Decker.Card(deck, 1, 1)
+                local spawnedUpgrade = card:spawn({
+                    position = position,
+                    rotation = rotation,
+                    scale = { 0.68, 0.68, 0.68 }
+                })
+                spawnedUpgrade.setName(upgrade.name)
+                if upgrade.Condition ~= nil then
+                    spawnUpgradeConditionAccessories(upgrade.Condition, localLayoutPos(layout, -0.58, 0, 2.5))
+                end
+                spawnUpgradeCharges(upgrade, pilot, layout, false)
+                result.count = result.count + 1
+            end
+        end
+
+        return result
+    end
+
     shipIndex = 1 --Sets index of ship being spawned
 
     while Pilots[shipIndex] ~= nil do
@@ -7053,106 +7168,11 @@ function newSpawner(listTable)
             spawnCard.setPosition(LocalPos(spawnCard, { -1.1, 0, 0 }))
         end
 
-        -- Spawn Mobile Upgrades
-        for j, Up in pairs(Upgrades[shipIndex]) do
-            if Up.Config == true then
-                local configLayout = configCardLayout(Up)
-                finalPos = LocalPos(spawnCard, { CONFIG_CARD_SHIFT_X, 0, 0 }) --Layout adjustment
-                spawnCard.setPosition(finalPos)
-                pos = localLayoutPos(configLayout)
-                rot = spawnCard.getRotation()
-                rot.y = rot.y
-                cardLink = Up.card
-                cardBackLink = Up.cardB
-                if Customization[Up.name] ~= nil then
-                    cardLink = Customization[Up.name].face or Up.card
-                    cardBackLink = Customization[Up.name].back or Up.cardB
-                end
-                deck = Decker.Asset(cardLink, cardBackLink)
-                card = Decker.Card(deck, 1, 1)
-                newUp = card:spawn({ position = pos, rotation = rot, scale = { 0.68, 0.68, 0.68 } })
-                newUp.setName(Up.name)
-                newUp.addTag("ConfigCard")
-                configCardGUID = newUp.getGUID()
-                hasMob = 1
-                charges = Up.Charge
-                while charges > 0 do
-                    if charges == 5 then
-                        pos = localLayoutPos(configLayout, 0.88, 0, -3.6)
-                    elseif charges == 4 then
-                        pos = localLayoutPos(configLayout, 0.88, 0, -2.7)
-                    elseif charges == 3 then
-                        pos = localLayoutPos(configLayout, -0.02, 0, -2.7)
-                    elseif charges == 2 then
-                        pos = localLayoutPos(configLayout, 0.88, 0, -1.8)
-                    elseif charges == 1 then
-                        pos = localLayoutPos(configLayout, -0.02, 0, -1.8)
-                    else
-                        charges = 0
-                    end
-                    charges = charges - 1
-                    cloneSpawnerToken(tokens.Charge, pos, "charge_owner", Pilots[shipIndex].name, Up.name)
-                end
-            end
-        end
-        local upgradeLayoutCursor = { x = -1.42, y = 1, z = 5.5 }
-        for j, Up in pairs(Upgrades[shipIndex]) do
-            if Up.Config ~= true then
-                --Indicates there's a card left of the pilot card, for layout purposes
-                local upgradeLayout = upgradeCardLayout(upgradeLayoutCursor, Up)
-                pos = localLayoutPos(upgradeLayout)
-                rot = spawnCard.getRotation()
-                rot.y = rot.y - 90
-                cardLink = Up.card
-                cardBackLink = Up.cardB
-                if Customization[Up.name] ~= nil then
-                    cardLink = Customization[Up.name].face or Up.card
-                    cardBackLink = Customization[Up.name].back or Up.cardB
-                end
-                deck = Decker.Asset(cardLink, cardBackLink)
-                card = Decker.Card(deck, 1, 1)
-                local rotUp = rot
-                rotUp.y = rotUp.y + 90
-                newUp = card:spawn({ position = pos, rotation = rotUp, scale = { 0.68, 0.68, 0.68 } })
-                newUp.setName(Up.name)
-                if Up.Condition ~= nil then
-                    --Checks and spawn conditions associated to pilots
-                    for k, acc in ipairs(listaAcc) do
-                        if acc.name == Up.Condition then
-                            pos = localLayoutPos(upgradeLayout, -0.58, 0, 2.5)
-                            rot = spawnCard.getRotation()
-                            newAsset = tempBagAcc.takeObject({ position = pos, rotation = rot, guid = acc.guid, smooth = false })
-                            assetClone = newAsset.clone()
-                            assetClone.setPosition(pos)
-                            assetClone.addTag("Assignable")
-                            tempBagAcc.putObject(newAsset)
-                        end
-                    end
-                end
-                --Checks and spawns Charge Tokens with appropriate layout (up to 4 tokens)
-                charges = Up.Charge
-                if charges > 0 then
-                    while charges > 0 do
-                        if charges == 5 then
-                            pos = localLayoutPos(upgradeLayout, -0.28, 1 - upgradeLayout.y, -3.6)
-                        elseif charges == 4 then
-                            pos = localLayoutPos(upgradeLayout, -0.28, 1 - upgradeLayout.y, -2.7)
-                        elseif charges == 3 then
-                            pos = localLayoutPos(upgradeLayout, -1.18, 1 - upgradeLayout.y, -2.7)
-                        elseif charges == 2 then
-                            pos = localLayoutPos(upgradeLayout, -0.28, 1 - upgradeLayout.y, -1.8)
-                        elseif charges == 1 then
-                            pos = localLayoutPos(upgradeLayout, -1.18, 1 - upgradeLayout.y, -1.8)
-                        else
-                            charges = 0
-                        end
-                        charges = charges - 1
-                        cloneSpawnerToken(tokens.Charge, pos, "charge_owner", Pilots[shipIndex].name, Up.name)
-                    end
-                end
-                UpNum = UpNum + 1 --Update number of upgrade being spawned
-            end
-        end
+        local upgradeResult = spawnPilotUpgrades(Pilots[shipIndex], Upgrades[shipIndex])
+        configCardGUID = upgradeResult.configCardGUID
+        hasMob = upgradeResult.hasMobileUpgrade
+        UpNum = upgradeResult.count
+        local upgradeLayoutCursor = upgradeResult.layoutCursor
 
         if Pilots[shipIndex].id ~= '' then
             --Pilot and Ship Spawn
