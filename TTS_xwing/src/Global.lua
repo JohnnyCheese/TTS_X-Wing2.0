@@ -6821,6 +6821,79 @@ local function spawnPilotResourceTokens(pilot, spawnCard, tokens, hasMobileUpgra
     end
 end
 
+local function spawnSpawnerRemotes(remotes, spawnCard, accessoryContext)
+    for _, remote in pairs(remotes or {}) do
+        local remoteName = type(remote) == 'table' and remote.name or remote
+        local remoteCharge = type(remote) == 'table' and (remote.Charge or 0) or 0
+        print("Spawning remote:" .. remoteName)
+        for _, accessory in ipairs(accessoryContext.accessories) do
+            if accessory.name == remoteName then
+                local position = LocalPos(spawnCard, { 1, 1, 0 })
+                print("Found remote, spawning pos: " .. tostring(position[1]) .. "," ..
+                    tostring(position[2]) .. "," .. tostring(position[3]))
+                local remoteObject = accessoryContext.bag.takeObject({
+                    rotation = spawnCard.getRotation(),
+                    guid = accessory.guid,
+                    smooth = false
+                })
+                local remoteClone = remoteObject.clone()
+                remoteClone.setPosition(position)
+                accessoryContext.bag.putObject(remoteObject)
+
+                local charge = remoteCharge
+                while charge > 0 do
+                    local chargePosition
+                    if charge == 2 then
+                        chargePosition = LocalPos(spawnCard, { 1.45, 1, -2.2 })
+                    elseif charge == 1 then
+                        chargePosition = LocalPos(spawnCard, { 0.55, 1, -2.2 })
+                    end
+                    charge = charge - 1
+                    cloneSpawnerToken(accessoryContext.tokens.Charge, chargePosition, "charge_owner", remoteName,
+                        remoteName)
+                end
+
+                spawnCard.setPosition(LocalPos(spawnCard, { -3, 0, 0 }))
+                break
+            end
+        end
+    end
+end
+
+local function spawnSpawnerObstacles(obstacles, spawnCard, bagPosition)
+    if obstacles == nil then
+        return
+    end
+
+    local obstacleBag = getObjectFromGUID(bagGuids['Obstacles']).clone({ position = bagPosition })
+    local availableObstacles = obstacleBag.getObjects()
+    for _, obstacleName in ipairs(obstacles) do
+        local found = false
+        for _, obstacle in ipairs(availableObstacles) do
+            if obstacle.name == obstacleName then
+                print("Found obstacle: " .. obstacle.name .. " - " .. obstacleName)
+                local position = LocalPos(spawnCard, { 0, 1, 0 })
+                local obstacleToken = obstacleBag.takeObject({
+                    rotation = spawnCard.getRotation(),
+                    guid = obstacle.guid,
+                    smooth = false
+                })
+                local obstacleClone = obstacleToken.clone()
+                obstacleClone.setPosition(position)
+                obstacleBag.putObject(obstacleToken)
+                found = true
+                break
+            end
+        end
+        if not found then
+            print("Couldnt find obstacle: " .. obstacleName)
+        else
+            spawnCard.setPosition(LocalPos(spawnCard, { -4, 0, 0 }))
+        end
+    end
+    obstacleBag.destruct()
+end
+
 function newSpawner(listTable)
     normalizeLegacySpawnerList(listTable)
     --listTable contains :
@@ -7520,73 +7593,12 @@ function newSpawner(listTable)
     finalPos = LocalPos(spawnCard, { 0, 0, 5.5 })
     spawnCard.setPosition(finalPos)
 
-    for i, remote in pairs(listTable.Remotes or {}) do
-        local remoteName = type(remote) == 'table' and remote.name or remote
-        local remoteCharge = type(remote) == 'table' and (remote.Charge or 0) or 0
-        print("Spawning remote:" .. remoteName)
-        for k, acc in ipairs(listaAcc) do
-            if acc.name == remoteName then
-                pos = LocalPos(spawnCard, { 1, 1, 0 })
-                print("Found remote, spawning pos: " .. tostring(pos[1]) .. "," ..
-                    tostring(pos[2]) .. "," .. tostring(pos[3]))
-                remObj = tempBagAcc.takeObject({ rotation = spawnCard.getRotation(), guid = acc.guid, smooth = false })
-                remoteClone = remObj.clone()
-                remoteClone.setPosition(pos)
-                tempBagAcc.putObject(remObj)
-                -- Spawn charge tokens for remotes that have charges
-                if remoteCharge > 0 then
-                    local ch = remoteCharge
-                    while ch > 0 do
-                        local chargePos
-                        if ch == 2 then
-                            chargePos = LocalPos(spawnCard, { 1.45, 1, -2.2 })
-                        elseif ch == 1 then
-                            chargePos = LocalPos(spawnCard, { 0.55, 1, -2.2 })
-                        end
-                        ch = ch - 1
-                        cloneSpawnerToken(tokens.Charge, chargePos, "charge_owner", remoteName, remoteName)
-                    end
-                end
-                finalpos = LocalPos(spawnCard, { -3, 0, 0 })
-                spawnCard.setPosition(finalpos)
-                break
-            end
-        end
-    end
+    spawnSpawnerRemotes(listTable.Remotes, spawnCard, accessoryContext)
 
     -- Delete cloned bags
     destroySpawnerAccessoryContext(accessoryContext)
 
-    if listTable.Obstacles ~= nil then
-        tempObstacleBag = getObjectFromGUID(bagGuids['Obstacles']).clone({ position = PosBag3 }) -- Obstacles bag
-        obstacleAcc = tempObstacleBag.getObjects()
-        for i, obstacleName in ipairs(listTable.Obstacles) do
-            local found = false
-            for j, obstacle in ipairs(obstacleAcc) do
-                if obstacle.name == obstacleName then
-                    print("Found obstacle: " .. obstacle.name .. " - " .. obstacleName)
-                    pos = LocalPos(spawnCard, { 0, 1, 0 })
-                    obstacleToken = tempObstacleBag.takeObject({
-                        rotation = spawnCard.getRotation(),
-                        guid = obstacle.guid,
-                        smooth = false
-                    })
-                    obstacleClone = obstacleToken.clone()
-                    obstacleClone.setPosition(pos)
-                    tempObstacleBag.putObject(obstacleToken)
-                    found = true
-                    break
-                end
-            end
-            if not found then
-                print("Couldnt find obstacle: " .. obstacleName)
-            else
-                finalPos = LocalPos(spawnCard, { -4, 0, 0 })
-                spawnCard.setPosition(finalPos)
-            end
-        end
-        tempObstacleBag.destruct()
-    end
+    spawnSpawnerObstacles(listTable.Obstacles, spawnCard, PosBag3)
 
     --returns Quick Build Card to initial position
     spawnCard.setPosition(storePos)
