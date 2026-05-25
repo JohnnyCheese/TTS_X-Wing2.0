@@ -6821,6 +6821,55 @@ local function spawnPilotResourceTokens(pilot, spawnCard, tokens, hasMobileUpgra
     end
 end
 
+local function cloneSpawnerAccessories(accessoryContext, accessoryName, position, rotation, smooth)
+    local clones = {}
+    for _, accessory in pairs(accessoryContext.accessories) do
+        if accessory.name == accessoryName then
+            local source = accessoryContext.bag.takeObject({
+                position = position,
+                rotation = rotation,
+                guid = accessory.guid,
+                smooth = smooth
+            })
+            local clone = source.clone()
+            clone.setPosition(position)
+            accessoryContext.bag.putObject(source)
+            table.insert(clones, clone)
+        end
+    end
+    return clones
+end
+
+local function spawnPilotAccessories(pilot, spawnCard, accessoryContext, faction, rotation, arcPosition)
+    for mount, turret in pairs(pilot.Data.arcs.turret or {}) do
+        local indicatorName = 'Arc Indicator' .. tostring(faction)
+        if turret.type[1] == 'doubleturret' then
+            indicatorName = 'Dual Arc Indicator' .. tostring(faction)
+        end
+        local mountingPoint = pilot.Data.mountingPoints[mount]
+        local offset = LocalPos(spawnCard, { mountingPoint[1], 0, mountingPoint[2] + 9 })
+        for _, indicator in ipairs(cloneSpawnerAccessories(accessoryContext, indicatorName, offset, rotation, false)) do
+            indicator.setPosition(arcPosition)
+            indicator.setName(string.gsub(indicator.getName(), faction, ''))
+        end
+    end
+
+    local markerPosition = LocalPos(spawnCard, { -1.5, 1, 8.7 })
+    if pilot.Bomb == true then
+        for _, bombDrop in ipairs(cloneSpawnerAccessories(accessoryContext, 'Bomb drop token (unassigned)',
+            markerPosition, rotation, false)) do
+            bombDrop.setDescription(pilot.bombD)
+        end
+    end
+    if pilot.Docking == true then
+        cloneSpawnerAccessories(accessoryContext, 'Shuttle Launcher (assigned to mothership)', markerPosition,
+            rotation, false)
+    end
+    if pilot.wingleader == true then
+        cloneSpawnerAccessories(accessoryContext, 'Epic Wing Token', markerPosition, rotation, false)
+    end
+end
+
 local function spawnSpawnerRemotes(remotes, spawnCard, accessoryContext)
     for _, remote in pairs(remotes or {}) do
         local remoteName = type(remote) == 'table' and remote.name or remote
@@ -7520,60 +7569,7 @@ function newSpawner(listTable)
             ]]
             end
 
-            for mount, turret in pairs(Pilots[shipIndex].Data.arcs.turret or {}) do
-                local indicator_name = 'Arc Indicator' .. tostring(Faction)
-                if turret.type[1] == 'doubleturret' then
-                    indicator_name = 'Dual Arc Indicator' .. tostring(Faction)
-                end
-                local mount_pos = Pilots[shipIndex].Data.mountingPoints[mount]
-                local offset = LocalPos(spawnCard, { mount_pos[1], 0, mount_pos[2] + 9 })
-                for k, acc in pairs(listaAcc) do
-                    if acc.name == indicator_name then
-                        arcInd = tempBagAcc.takeObject({ position = offset, rotation = rot, guid = acc.guid, smooth = false })
-                        newInd = arcInd.clone()
-                        newInd.setPosition(pos)
-                        tempBagAcc.putObject(arcInd)
-                        newInd.setName(string.gsub(newInd.getName(), Faction, ''))
-                    end
-                end
-            end
-
-            if Pilots[shipIndex].Bomb == true then
-                --Checks and spawn bomb drop token if needed
-                for k, acc in ipairs(listaAcc) do
-                    if acc.name == 'Bomb drop token (unassigned)' then
-                        pos = LocalPos(spawnCard, { -1.5, 1, 8.7 })
-                        bombDrop = tempBagAcc.takeObject({ position = pos, rotation = rot, guid = acc.guid, smooth = false })
-                        dropClone = bombDrop.clone()
-                        dropClone.setPosition(pos)
-                        tempBagAcc.putObject(bombDrop)
-                        dropClone.setDescription(Pilots[shipIndex].bombD)
-                    end
-                end
-            end
-            if Pilots[shipIndex].Docking == true then
-                for k, acc in ipairs(listaAcc) do
-                    if acc.name == 'Shuttle Launcher (assigned to mothership)' then
-                        pos = LocalPos(spawnCard, { -1.5, 1, 8.7 })
-                        shuttleDrop = tempBagAcc.takeObject({ position = pos, rotation = rot, guid = acc.guid, smooth = false })
-                        dropClone = shuttleDrop.clone()
-                        dropClone.setPosition(pos)
-                        tempBagAcc.putObject(shuttleDrop)
-                    end
-                end
-            end
-            if Pilots[shipIndex].wingleader == true then
-                for k, acc in ipairs(listaAcc) do
-                    if acc.name == 'Epic Wing Token' then
-                        pos = LocalPos(spawnCard, { -1.5, 1, 8.7 })
-                        wingtoken = tempBagAcc.takeObject({ position = pos, rotation = rot, guid = acc.guid, smooth = false })
-                        wingtokenclone = wingtoken.clone()
-                        wingtokenclone.setPosition(pos)
-                        tempBagAcc.putObject(wingtoken)
-                    end
-                end
-            end
-
+            spawnPilotAccessories(Pilots[shipIndex], spawnCard, accessoryContext, Faction, rot, pos)
             spawnPilotResourceTokens(Pilots[shipIndex], spawnCard, tokens, hasMob)
         end
 
