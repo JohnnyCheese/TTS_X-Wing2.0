@@ -7074,9 +7074,9 @@ function newSpawner(listTable)
         end
     end
 
-    local function spawnUpgradeConditionAccessories(conditionName, position)
+    local function spawnAssignableAccessories(accessoryName, position)
         for _, accessory in ipairs(listaAcc) do
-            if accessory.name == conditionName then
+            if accessory.name == accessoryName then
                 local source = tempBagAcc.takeObject({
                     position = position,
                     rotation = spawnCard.getRotation(),
@@ -7142,7 +7142,7 @@ function newSpawner(listTable)
                 })
                 spawnedUpgrade.setName(upgrade.name)
                 if upgrade.Condition ~= nil then
-                    spawnUpgradeConditionAccessories(upgrade.Condition, localLayoutPos(layout, -0.58, 0, 2.5))
+                    spawnAssignableAccessories(upgrade.Condition, localLayoutPos(layout, -0.58, 0, 2.5))
                 end
                 spawnUpgradeCharges(upgrade, pilot, layout, false)
                 result.count = result.count + 1
@@ -7268,18 +7268,7 @@ function newSpawner(listTable)
                 end
             end
             if Pilots[shipIndex].Condition ~= nil then
-                --Checks and spawn conditions associated to pilots
-                for k, acc in ipairs(listaAcc) do
-                    if acc.name == Pilots[shipIndex].Condition then
-                        pos = LocalPos(spawnCard, { -2 - 1.78 * UpNum, 1, 8 })
-                        rot = spawnCard.getRotation()
-                        newAsset = tempBagAcc.takeObject({ position = pos, rotation = rot, guid = acc.guid })
-                        assetClone = newAsset.clone()
-                        assetClone.setPosition(pos)
-                        assetClone.addTag("Assignable")
-                        tempBagAcc.putObject(newAsset)
-                    end
-                end
+                spawnAssignableAccessories(Pilots[shipIndex].Condition, LocalPos(spawnCard, { -2 - 1.78 * UpNum, 1, 8 }))
             end
 
             local newShip = nil
