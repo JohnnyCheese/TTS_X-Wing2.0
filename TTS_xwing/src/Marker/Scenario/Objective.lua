@@ -11,6 +11,7 @@ rulersType = nil
 
 boardLength = nil
 
+claimedBy = nil
 chargeTokenGuid = nil
 
 Data = { Size = "objective" }
@@ -18,12 +19,14 @@ Data = { Size = "objective" }
 function claim(player)
     local color = Color.fromString(player)
     self.setColorTint(color)
+    claimedBy = player
     self.highlightOn(color)
     printToAll(player .. " claimed an objective", Color(1.0, 1.0, 0))
 end
 
 function unclaim(player)
     self.setColorTint(Color(1, 1, 1, 0.00))
+    claimedBy = nil
     self.highlightOff()
     printToAll(player .. " removed claim of an objective", Color(1.0, 1.0, 0))
 end
@@ -32,6 +35,10 @@ function onLoad(save_state)
     local state = JSON.decode(save_state)
     if state then
         lineDrawing = state.linedrawing or true
+        claimedBy = state.claimedBy
+        if claimedBy then
+            self.setColorTint(Color.fromString(claimedBy))
+        end
         chargeTokenGuid = state.chargeTokenGuid
     end
     if chargeTokenGuid then
@@ -42,7 +49,7 @@ function onLoad(save_state)
 end
 
 function onSave()
-    return JSON.encode({ linedrawing = lineDrawing, chargeTokenGuid = chargeTokenGuid })
+    return JSON.encode({ linedrawing = lineDrawing, claimedBy = claimedBy, chargeTokenGuid = chargeTokenGuid })
 end
 
 function SetupContextMenu()
