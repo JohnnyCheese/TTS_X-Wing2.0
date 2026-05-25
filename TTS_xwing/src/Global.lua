@@ -6676,6 +6676,151 @@ local function normalizeLegacySpawnerList(listTable)
     end
 end
 
+local function createSpawnerAccessoryContext(spawnCard, bagPosition)
+    local context = {
+        bag = getObjectFromGUID(bagGuids['Accessories']).clone({ position = bagPosition }),
+        tokens = {}
+    }
+    context.accessories = context.bag.getObjects()
+
+    for _, accessory in ipairs(context.accessories) do
+        if accessory.name == 'Charge' or accessory.name == 'Force' or accessory.name == 'Shield' or
+            accessory.name == 'Energy' then
+            context.tokens[accessory.name] = context.bag.takeObject({
+                rotation = spawnCard.getRotation(),
+                guid = accessory.guid,
+                smooth = false
+            })
+        end
+    end
+
+    return context
+end
+
+local function destroySpawnerAccessoryContext(context)
+    context.bag.destruct()
+    for _, token in pairs(context.tokens) do
+        token.destruct()
+    end
+end
+
+local function cloneSpawnerToken(template, position, ownerVar, owner, tokenName)
+    local token = template.clone()
+    token.setPosition(position)
+    token.setVar(ownerVar, owner)
+    if tokenName ~= nil then
+        token.setVar("charge_name", tokenName)
+    end
+    return token
+end
+
+local function spawnPilotResourceTokens(pilot, spawnCard, tokens, hasMobileUpgrade)
+    -- Spawn pilot and standardized-loadout charge tokens.
+    if pilot.Charge > 0 or pilot.standardized_loadout then
+        local chargeValue = pilot.Charge
+        while chargeValue > 0 do
+            chargeValue = chargeValue - 1
+            local position
+            if pilot.standardized_loadout then
+                position = LocalPos(spawnCard, { 0.5 + 0.9 * chargeValue, 1, 3.4 })
+                if chargeValue > 2 then
+                    position = LocalPos(spawnCard, { 0.5 + 0.9 * (chargeValue - 3), 1, 2.5 })
+                end
+            elseif chargeValue == 3 then
+                position = LocalPos(spawnCard, { -0.9, 1, 0.6 })
+            elseif chargeValue == 2 then
+                position = LocalPos(spawnCard, { 0.9, 1, 1.6 })
+            elseif chargeValue == 1 then
+                position = LocalPos(spawnCard, { 0, 1, 1.6 })
+            elseif chargeValue == 0 then
+                position = LocalPos(spawnCard, { -0.9, 1, 1.6 })
+            else
+                position = vector(0, 0, 0)
+            end
+            cloneSpawnerToken(tokens.Charge, position, "charge_owner", pilot.name)
+        end
+
+        if pilot.standardized_loadout and pilot.standardized_upgrades then
+            local totalHeight = 3.0
+            local step = totalHeight / #pilot.standardized_upgrades
+            for index, upgrade in pairs(pilot.standardized_upgrades) do
+                if upgrade.charge > 0 then
+                    for chargeIndex = 1, upgrade.charge, 1 do
+                        local token = cloneSpawnerToken(
+                            tokens.Charge,
+                            LocalPos(spawnCard, { -2.7 - chargeIndex * 0.6, 1, 4 + step * (index - 1) + step / 2 }),
+                            "charge_owner",
+                            pilot.name,
+                            upgrade.name
+                        )
+                        token.setScale(token.getScale() * 0.75)
+                    end
+                end
+            end
+        end
+    end
+
+    if pilot.Force > 0 then
+        local forceValue = pilot.Force
+        while forceValue > 0 do
+            forceValue = forceValue - 1
+            local position
+            if pilot.standardized_loadout then
+                position = LocalPos(spawnCard, { 3.2, 1, 4.5 + 0.9 * forceValue })
+            elseif hasMobileUpgrade == 1 then
+                position = LocalPos(spawnCard, { 1.7 + 0.9 * forceValue, 1, 3.4 })
+                if forceValue > 2 then
+                    position = LocalPos(spawnCard, { 1.7 + 0.9 * (forceValue - 3), 1, 2.5 })
+                end
+            else
+                position = LocalPos(spawnCard, { 1.7, 1, 3.7 + 0.9 * forceValue })
+            end
+            cloneSpawnerToken(tokens.Force, position, "force_owner", pilot.name)
+        end
+    end
+
+    if pilot.Energy > 0 then
+        local energyValue = pilot.Energy
+        while energyValue > 0 do
+            energyValue = energyValue - 1
+            local position
+            if pilot.standardized_loadout then
+                position = LocalPos(spawnCard, { 0.5 + 0.9 * energyValue, 1, 3.4 })
+                if energyValue > 2 then
+                    position = LocalPos(spawnCard, { 0.5 + 0.9 * (energyValue - 3), 1, 2.5 })
+                end
+            else
+                position = LocalPos(spawnCard, { 1.7, 1, 3.7 + 0.9 * energyValue })
+            end
+            cloneSpawnerToken(tokens.Energy, position, "energy_owner", pilot.name)
+        end
+    end
+
+    if pilot.Shield > 0 then
+        local shieldValue = pilot.Shield
+        while shieldValue > 0 do
+            shieldValue = shieldValue - 1
+            local position
+            if pilot.standardized_loadout then
+                position = LocalPos(spawnCard, { -2.2 + 0.9 * shieldValue, 1, 3.4 })
+                if shieldValue > 5 then
+                    position = LocalPos(spawnCard, { -2.2 + 0.9 * (shieldValue - 6), 1, 1.6 })
+                elseif shieldValue > 2 then
+                    position = LocalPos(spawnCard, { -2.2 + 0.9 * (shieldValue - 3), 1, 2.5 })
+                end
+            else
+                position = LocalPos(spawnCard, { -1 + 0.9 * shieldValue, 1, 3.4 })
+                if shieldValue > 5 then
+                    position = LocalPos(spawnCard, { -1 + 0.9 * (shieldValue - 6), 1, 1.6 })
+                elseif shieldValue > 2 then
+                    position = LocalPos(spawnCard, { -1 + 0.9 * (shieldValue - 3), 1, 2.5 })
+                end
+            end
+            cloneSpawnerToken(tokens.Shield, position, "shield_owner", pilot.name)
+        end
+    end
+end
+
 function newSpawner(listTable)
     normalizeLegacySpawnerList(listTable)
     --listTable contains :
@@ -6710,23 +6855,10 @@ function newSpawner(listTable)
     PosBag3 = { 15, 15, 0 }
     PosBag4 = { 20, 20, 0 }
     PoaBag5 = { 25, 25, 0 }
-    tempBagAcc = getObjectFromGUID(bagGuids['Accessories']).clone({ position = PosBag3 })
-
-    --Stablishes lists of available upgrades, pilots, accessories, ships and mobile upgrades
-    listaAcc = tempBagAcc.getObjects()
-
-    tokens = {}
-    for k, acc in ipairs(listaAcc) do
-        if acc.name == 'Charge' then
-            tokens.Charge = tempBagAcc.takeObject({ rotation = spawnCard.getRotation(), guid = acc.guid, smooth = false })
-        elseif acc.name == 'Force' then
-            tokens.Force = tempBagAcc.takeObject({ rotation = spawnCard.getRotation(), guid = acc.guid, smooth = false })
-        elseif acc.name == 'Shield' then
-            tokens.Shield = tempBagAcc.takeObject({ rotation = spawnCard.getRotation(), guid = acc.guid, smooth = false })
-        elseif acc.name == 'Energy' then
-            tokens.Energy = tempBagAcc.takeObject({ rotation = spawnCard.getRotation(), guid = acc.guid, smooth = false })
-        end
-    end
+    local accessoryContext = createSpawnerAccessoryContext(spawnCard, PosBag3)
+    local tempBagAcc = accessoryContext.bag
+    local listaAcc = accessoryContext.accessories
+    local tokens = accessoryContext.tokens
 
     --Store the initial position of the Quick Build Card
     storePos = spawnCard.getPosition()
@@ -6837,10 +6969,7 @@ function newSpawner(listTable)
                         charges = 0
                     end
                     charges = charges - 1
-                    chargeClone = tokens.Charge.clone()
-                    chargeClone.setPosition(pos)
-                    chargeClone.setVar("charge_owner", Pilots[shipIndex].name)
-                    chargeClone.setVar("charge_name", Up.name)
+                    cloneSpawnerToken(tokens.Charge, pos, "charge_owner", Pilots[shipIndex].name, Up.name)
                 end
             end
         end
@@ -6896,10 +7025,7 @@ function newSpawner(listTable)
                             charges = 0
                         end
                         charges = charges - 1
-                        chargeClone = tokens.Charge.clone()
-                        chargeClone.setPosition(pos)
-                        chargeClone.setVar("charge_owner", Pilots[shipIndex].name)
-                        chargeClone.setVar("charge_name", Up.name)
+                        cloneSpawnerToken(tokens.Charge, pos, "charge_owner", Pilots[shipIndex].name, Up.name)
                     end
                 end
                 UpNum = UpNum + 1 --Update number of upgrade being spawned
@@ -7375,119 +7501,7 @@ function newSpawner(listTable)
                 end
             end
 
-            --spawn pilot charge tokens
-            if Pilots[shipIndex].Charge > 0 or Pilots[shipIndex].standardized_loadout then
-                local chargeValue = Pilots[shipIndex].Charge
-                while chargeValue > 0 do
-                    chargeValue = chargeValue - 1
-                    if Pilots[shipIndex].standardized_loadout then
-                        pos = LocalPos(spawnCard, { 0.5 + 0.9 * chargeValue, 1, 3.4 })
-                        if chargeValue > 2 then
-                            pos = LocalPos(spawnCard, { 0.5 + 0.9 * (chargeValue - 3), 1, 2.5 })
-                        end
-                    elseif chargeValue == 3 then
-                        pos = LocalPos(spawnCard, { -0.9, 1, 0.6 })
-                    elseif chargeValue == 2 then
-                        pos = LocalPos(spawnCard, { 0.9, 1, 1.6 })
-                    elseif chargeValue == 1 then
-                        pos = LocalPos(spawnCard, { 0, 1, 1.6 })
-                    elseif chargeValue == 0 then
-                        pos = LocalPos(spawnCard, { -0.9, 1, 1.6 })
-                    else
-                        charges = 0
-                        pos = vector(0, 0, 0)
-                    end
-                    chargeClone = tokens.Charge.clone()
-                    chargeClone.setPosition(pos)
-                    chargeClone.setVar("charge_owner", Pilots[shipIndex].name)
-                end
-                if Pilots[shipIndex].standardized_loadout and Pilots[shipIndex].standardized_upgrades then
-                    local total_height = 3.0
-                    local step = total_height / #Pilots[shipIndex].standardized_upgrades
-                    for k, upg in pairs(Pilots[shipIndex].standardized_upgrades) do
-                        if upg.charge > 0 then
-                            for i = 1, upg.charge, 1 do
-                                chargeClone = tokens.Charge.clone()
-                                chargeClone.setPosition(LocalPos(spawnCard,
-                                    { -2.7 - i * 0.6, 1, 4 + step * (k - 1) + step /
-                                    2 }))
-                                chargeClone.setVar("charge_owner", Pilots[shipIndex].name)
-                                chargeClone.setVar("charge_name", upg.name)
-                                chargeClone.setScale(chargeClone.getScale() * 0.75)
-                            end
-                        end
-                    end
-                end
-            end
-
-            -- spawn force
-            if Pilots[shipIndex].Force > 0 then
-                local forceValue = Pilots[shipIndex].Force
-                while forceValue > 0 do
-                    forceValue = forceValue - 1
-                    if Pilots[shipIndex].standardized_loadout then
-                        pos = LocalPos(spawnCard, { 3.2, 1, 4.5 + 0.9 * forceValue })
-                    elseif hasMob == 1 then
-                        --adjusts layout if Mobile Upgrade is present
-                        pos = LocalPos(spawnCard, { 1.7 + 0.9 * forceValue, 1, 3.4 })
-                        if forceValue > 2 then
-                            pos = LocalPos(spawnCard, { 1.7 + 0.9 * (forceValue - 3), 1, 2.5 })
-                        end
-                    else
-                        pos = LocalPos(spawnCard, { 1.7, 1, 3.7 + 0.9 * forceValue })
-                    end
-                    forceClone = tokens.Force.clone()
-                    forceClone.setPosition(pos)
-                    forceClone.setVar("force_owner", Pilots[shipIndex].name)
-                end
-            end
-
-            -- spawn energy
-            if Pilots[shipIndex].Energy > 0 then
-                local energyValue = Pilots[shipIndex].Energy
-                while energyValue > 0 do
-                    energyValue = energyValue - 1
-                    if Pilots[shipIndex].standardized_loadout then
-                        --pos = LocalPos(spawnCard, {3.3, 1, 5 + 0.9*Pilots[shipIndex].Force})
-                        pos = LocalPos(spawnCard, { 0.5 + 0.9 * energyValue, 1, 3.4 })
-                        if energyValue > 2 then
-                            pos = LocalPos(spawnCard, { 0.5 + 0.9 * (energyValue - 3), 1, 2.5 })
-                        end
-                    else
-                        pos = LocalPos(spawnCard, { 1.7, 1, 3.7 + 0.9 * energyValue })
-                    end
-                    energyClone = tokens.Energy.clone()
-                    energyClone.setPosition(pos)
-                    energyClone.setVar("energy_owner", Pilots[shipIndex].name)
-                end
-            end
-
-            --Spawns Shields
-            if Pilots[shipIndex].Shield > 0 then
-                local shieldValue = Pilots[shipIndex].Shield
-                --spawn shield tokens, layout good for up to 9 shields
-                while shieldValue > 0 do
-                    shieldValue = shieldValue - 1
-                    if Pilots[shipIndex].standardized_loadout then
-                        pos = LocalPos(spawnCard, { -2.2 + 0.9 * shieldValue, 1, 3.4 })
-                        if shieldValue > 5 then
-                            pos = LocalPos(spawnCard, { -2.2 + 0.9 * (shieldValue - 6), 1, 1.6 })
-                        elseif shieldValue > 2 then
-                            pos = LocalPos(spawnCard, { -2.2 + 0.9 * (shieldValue - 3), 1, 2.5 })
-                        end
-                    else
-                        pos = LocalPos(spawnCard, { -1 + 0.9 * shieldValue, 1, 3.4 })
-                        if shieldValue > 5 then
-                            pos = LocalPos(spawnCard, { -1 + 0.9 * (shieldValue - 6), 1, 1.6 })
-                        elseif shieldValue > 2 then
-                            pos = LocalPos(spawnCard, { -1 + 0.9 * (shieldValue - 3), 1, 2.5 })
-                        end
-                    end
-                    shieldClone = tokens.Shield.clone()
-                    shieldClone.setPosition(pos)
-                    shieldClone.setVar("shield_owner", Pilots[shipIndex].name)
-                end
-            end
+            spawnPilotResourceTokens(Pilots[shipIndex], spawnCard, tokens, hasMob)
         end
 
         if Pilots[shipIndex].standardized_loadout then
@@ -7530,10 +7544,7 @@ function newSpawner(listTable)
                             chargePos = LocalPos(spawnCard, { 0.55, 1, -2.2 })
                         end
                         ch = ch - 1
-                        chargeClone = tokens.Charge.clone()
-                        chargeClone.setPosition(chargePos)
-                        chargeClone.setVar("charge_owner", remoteName)
-                        chargeClone.setVar("charge_name", remoteName)
+                        cloneSpawnerToken(tokens.Charge, chargePos, "charge_owner", remoteName, remoteName)
                     end
                 end
                 finalpos = LocalPos(spawnCard, { -3, 0, 0 })
@@ -7544,10 +7555,7 @@ function newSpawner(listTable)
     end
 
     -- Delete cloned bags
-    tempBagAcc.destruct()
-    for k, token in pairs(tokens) do
-        token.destruct()
-    end
+    destroySpawnerAccessoryContext(accessoryContext)
 
     if listTable.Obstacles ~= nil then
         tempObstacleBag = getObjectFromGUID(bagGuids['Obstacles']).clone({ position = PosBag3 }) -- Obstacles bag
