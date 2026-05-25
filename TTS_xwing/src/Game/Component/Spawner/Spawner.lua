@@ -509,9 +509,154 @@ local function normalizeLegacySpawnerList(listTable)
     end
 end
 
+local function createSpawnSession(spawnCard, anchorPosition, anchorRotation)
+    local session = {
+        spawnCard = spawnCard,
+        anchorPosition = anchorPosition,
+        anchorRotation = anchorRotation,
+        spawnedGUIDs = {},
+        spawnedGUIDLookup = {},
+        waitIDs = {},
+        pendingWaits = 0,
+        synchronousPhaseComplete = false,
+        failed = false,
+        complete = false
+    }
+
+    function session:track(object)
+        if object == nil then
+            return object
+        end
+
+        local guid = object.getGUID()
+        if guid ~= nil and not self.spawnedGUIDLookup[guid] then
+            self.spawnedGUIDLookup[guid] = true
+            table.insert(self.spawnedGUIDs, guid)
+        end
+        return object
+    end
+
+    function session:restoreAnchor()
+        self.spawnCard.setPosition(self.anchorPosition)
+        self.spawnCard.setRotation(self.anchorRotation)
+    end
+
+    function session:stopPendingWaits()
+        for waitID, _ in pairs(self.waitIDs) do
+            Wait.stop(waitID)
+        end
+        self.waitIDs = {}
+        self.pendingWaits = 0
+    end
+
+    function session:destroySpawnedObjects()
+        for index = #self.spawnedGUIDs, 1, -1 do
+            local object = getObjectFromGUID(self.spawnedGUIDs[index])
+            if object ~= nil then
+                object.destruct()
+            end
+        end
+        self.spawnedGUIDs = {}
+        self.spawnedGUIDLookup = {}
+    end
+
+    function session:fail(spawnError)
+        if self.failed or self.complete then
+            return
+        end
+
+        self.failed = true
+        self:stopPendingWaits()
+        self:destroySpawnedObjects()
+        self:restoreAnchor()
+        printToAll("Spawner failed; created squad objects were removed.", { 1, 0.2, 0.2 })
+        print("Spawner failure: " .. tostring(spawnError))
+    end
+
+    function session:tryComplete()
+        if not self.failed and self.synchronousPhaseComplete and self.pendingWaits == 0 then
+            self.complete = true
+            self.spawnedGUIDs = {}
+            self.spawnedGUIDLookup = {}
+        end
+    end
+
+    function session:finishSynchronousPhase()
+        self.synchronousPhaseComplete = true
+        self:tryComplete()
+    end
+
+    function session:waitCondition(action, condition)
+        if self.failed then
+            return
+        end
+
+        self.pendingWaits = self.pendingWaits + 1
+        local waitID
+        local function executeAction()
+            self.waitIDs[waitID] = nil
+            self.pendingWaits = self.pendingWaits - 1
+            if self.failed then
+                return
+            end
+
+            local success, actionError = pcall(action)
+            if not success then
+                self:fail(actionError)
+                return
+            end
+            self:tryComplete()
+        end
+        local function evaluateCondition()
+            if self.failed then
+                return false
+            end
+
+            local success, isReady = pcall(condition)
+            if not success then
+                self:fail(isReady)
+                return false
+            end
+            return isReady
+        end
+
+        waitID = Wait.condition(executeAction, evaluateCondition)
+        self.waitIDs[waitID] = true
+    end
+
+    function session:waitFrames(action, frameCount)
+        if self.failed then
+            return
+        end
+
+        self.pendingWaits = self.pendingWaits + 1
+        local waitID
+        local function executeAction()
+            self.waitIDs[waitID] = nil
+            self.pendingWaits = self.pendingWaits - 1
+            if self.failed then
+                return
+            end
+
+            local success, actionError = pcall(action)
+            if not success then
+                self:fail(actionError)
+                return
+            end
+            self:tryComplete()
+        end
+
+        waitID = Wait.frames(executeAction, frameCount)
+        self.waitIDs[waitID] = true
+    end
+
+    return session
+end
+
 local function initializeSpawnerAccessoryContext(context, spawnCard, bagPosition)
     context.bag = getObjectFromGUID(bagGuids['Accessories']).clone({ position = bagPosition })
     context.tokens = {}
+    context.borrowedSources = {}
     context.accessories = context.bag.getObjects()
 
     for _, accessory in ipairs(context.accessories) do
@@ -527,9 +672,27 @@ local function initializeSpawnerAccessoryContext(context, spawnCard, bagPosition
 
 end
 
+local function takeSpawnerAccessorySource(context, parameters)
+    local source = context.bag.takeObject(parameters)
+    context.borrowedSources[source.getGUID()] = true
+    return source
+end
+
+local function returnSpawnerAccessorySource(context, source)
+    local guid = source.getGUID()
+    context.bag.putObject(source)
+    context.borrowedSources[guid] = nil
+end
+
 local function destroySpawnerAccessoryContext(context)
     if context == nil then
         return
+    end
+    for guid, _ in pairs(context.borrowedSources or {}) do
+        local source = getObjectFromGUID(guid)
+        if source ~= nil then
+            source.destruct()
+        end
     end
     if context.bag ~= nil then
         context.bag.destruct()
@@ -539,8 +702,8 @@ local function destroySpawnerAccessoryContext(context)
     end
 end
 
-local function cloneSpawnerToken(template, position, ownerVar, owner, tokenName)
-    local token = template.clone()
+local function cloneSpawnerToken(session, template, position, ownerVar, owner, tokenName)
+    local token = session:track(template.clone())
     token.setPosition(position)
     token.setVar(ownerVar, owner)
     if tokenName ~= nil then
@@ -549,7 +712,7 @@ local function cloneSpawnerToken(template, position, ownerVar, owner, tokenName)
     return token
 end
 
-local function spawnPilotResourceTokens(pilot, spawnCard, tokens, hasMobileUpgrade)
+local function spawnPilotResourceTokens(session, pilot, spawnCard, tokens, hasMobileUpgrade)
     -- Spawn pilot and standardized-loadout charge tokens.
     if pilot.Charge > 0 or pilot.standardized_loadout then
         local chargeValue = pilot.Charge
@@ -572,7 +735,7 @@ local function spawnPilotResourceTokens(pilot, spawnCard, tokens, hasMobileUpgra
             else
                 position = vector(0, 0, 0)
             end
-            cloneSpawnerToken(tokens.Charge, position, "charge_owner", pilot.name)
+            cloneSpawnerToken(session, tokens.Charge, position, "charge_owner", pilot.name)
         end
 
         if pilot.standardized_loadout and pilot.standardized_upgrades then
@@ -582,6 +745,7 @@ local function spawnPilotResourceTokens(pilot, spawnCard, tokens, hasMobileUpgra
                 if upgrade.charge > 0 then
                     for chargeIndex = 1, upgrade.charge, 1 do
                         local token = cloneSpawnerToken(
+                            session,
                             tokens.Charge,
                             LocalPos(spawnCard, { -2.7 - chargeIndex * 0.6, 1, 4 + step * (index - 1) + step / 2 }),
                             "charge_owner",
@@ -610,7 +774,7 @@ local function spawnPilotResourceTokens(pilot, spawnCard, tokens, hasMobileUpgra
             else
                 position = LocalPos(spawnCard, { 1.7, 1, 3.7 + 0.9 * forceValue })
             end
-            cloneSpawnerToken(tokens.Force, position, "force_owner", pilot.name)
+            cloneSpawnerToken(session, tokens.Force, position, "force_owner", pilot.name)
         end
     end
 
@@ -627,7 +791,7 @@ local function spawnPilotResourceTokens(pilot, spawnCard, tokens, hasMobileUpgra
             else
                 position = LocalPos(spawnCard, { 1.7, 1, 3.7 + 0.9 * energyValue })
             end
-            cloneSpawnerToken(tokens.Energy, position, "energy_owner", pilot.name)
+            cloneSpawnerToken(session, tokens.Energy, position, "energy_owner", pilot.name)
         end
     end
 
@@ -651,31 +815,31 @@ local function spawnPilotResourceTokens(pilot, spawnCard, tokens, hasMobileUpgra
                     position = LocalPos(spawnCard, { -1 + 0.9 * (shieldValue - 3), 1, 2.5 })
                 end
             end
-            cloneSpawnerToken(tokens.Shield, position, "shield_owner", pilot.name)
+            cloneSpawnerToken(session, tokens.Shield, position, "shield_owner", pilot.name)
         end
     end
 end
 
-local function cloneSpawnerAccessories(accessoryContext, accessoryName, position, rotation)
+local function cloneSpawnerAccessories(session, accessoryContext, accessoryName, position, rotation)
     local clones = {}
     for _, accessory in pairs(accessoryContext.accessories) do
         if accessory.name == accessoryName then
-            local source = accessoryContext.bag.takeObject({
+            local source = takeSpawnerAccessorySource(accessoryContext, {
                 position = position,
                 rotation = rotation,
                 guid = accessory.guid,
                 smooth = false
             })
-            local clone = source.clone()
+            local clone = session:track(source.clone())
             clone.setPosition(position)
-            accessoryContext.bag.putObject(source)
+            returnSpawnerAccessorySource(accessoryContext, source)
             table.insert(clones, clone)
         end
     end
     return clones
 end
 
-local function spawnPilotAccessories(pilot, spawnCard, accessoryContext, faction, rotation, arcPosition)
+local function spawnPilotAccessories(session, pilot, spawnCard, accessoryContext, faction, rotation, arcPosition)
     for mount, turret in pairs(pilot.Data.arcs.turret or {}) do
         local indicatorName = 'Arc Indicator' .. tostring(faction)
         if turret.type[1] == 'doubleturret' then
@@ -683,7 +847,7 @@ local function spawnPilotAccessories(pilot, spawnCard, accessoryContext, faction
         end
         local mountingPoint = pilot.Data.mountingPoints[mount]
         local offset = LocalPos(spawnCard, { mountingPoint[1], 0, mountingPoint[2] + 9 })
-        for _, indicator in ipairs(cloneSpawnerAccessories(accessoryContext, indicatorName, offset, rotation)) do
+        for _, indicator in ipairs(cloneSpawnerAccessories(session, accessoryContext, indicatorName, offset, rotation)) do
             indicator.setPosition(arcPosition)
             indicator.setName(string.gsub(indicator.getName(), faction, ''))
         end
@@ -691,21 +855,21 @@ local function spawnPilotAccessories(pilot, spawnCard, accessoryContext, faction
 
     local markerPosition = LocalPos(spawnCard, { -1.5, 1, 8.7 })
     if pilot.Bomb == true then
-        for _, bombDrop in ipairs(cloneSpawnerAccessories(accessoryContext, 'Bomb drop token (unassigned)',
+        for _, bombDrop in ipairs(cloneSpawnerAccessories(session, accessoryContext, 'Bomb drop token (unassigned)',
             markerPosition, rotation)) do
             bombDrop.setDescription(pilot.bombD)
         end
     end
     if pilot.Docking == true then
-        cloneSpawnerAccessories(accessoryContext, 'Shuttle Launcher (assigned to mothership)', markerPosition,
+        cloneSpawnerAccessories(session, accessoryContext, 'Shuttle Launcher (assigned to mothership)', markerPosition,
             rotation)
     end
     if pilot.wingleader == true then
-        cloneSpawnerAccessories(accessoryContext, 'Epic Wing Token', markerPosition, rotation)
+        cloneSpawnerAccessories(session, accessoryContext, 'Epic Wing Token', markerPosition, rotation)
     end
 end
 
-local function spawnSpawnerRemotes(remotes, spawnCard, accessoryContext)
+local function spawnSpawnerRemotes(session, remotes, spawnCard, accessoryContext)
     for _, remote in pairs(remotes or {}) do
         local remoteName = type(remote) == 'table' and remote.name or remote
         local remoteCharge = type(remote) == 'table' and (remote.Charge or 0) or 0
@@ -715,14 +879,14 @@ local function spawnSpawnerRemotes(remotes, spawnCard, accessoryContext)
                 local position = LocalPos(spawnCard, { 1, 1, 0 })
                 print("Found remote, spawning pos: " .. tostring(position[1]) .. "," ..
                     tostring(position[2]) .. "," .. tostring(position[3]))
-                local remoteObject = accessoryContext.bag.takeObject({
+                local remoteObject = takeSpawnerAccessorySource(accessoryContext, {
                     rotation = spawnCard.getRotation(),
                     guid = accessory.guid,
                     smooth = false
                 })
-                local remoteClone = remoteObject.clone()
+                local remoteClone = session:track(remoteObject.clone())
                 remoteClone.setPosition(position)
-                accessoryContext.bag.putObject(remoteObject)
+                returnSpawnerAccessorySource(accessoryContext, remoteObject)
 
                 local charge = remoteCharge
                 while charge > 0 do
@@ -733,7 +897,7 @@ local function spawnSpawnerRemotes(remotes, spawnCard, accessoryContext)
                         chargePosition = LocalPos(spawnCard, { 0.55, 1, -2.2 })
                     end
                     charge = charge - 1
-                    cloneSpawnerToken(accessoryContext.tokens.Charge, chargePosition, "charge_owner", remoteName,
+                    cloneSpawnerToken(session, accessoryContext.tokens.Charge, chargePosition, "charge_owner", remoteName,
                         remoteName)
                 end
 
@@ -744,12 +908,13 @@ local function spawnSpawnerRemotes(remotes, spawnCard, accessoryContext)
     end
 end
 
-local function spawnSpawnerObstacles(obstacles, spawnCard, bagPosition)
+local function spawnSpawnerObstacles(session, obstacles, spawnCard, bagPosition)
     if obstacles == nil then
         return
     end
 
     local obstacleBag = getObjectFromGUID(bagGuids['Obstacles']).clone({ position = bagPosition })
+    local borrowedObstacles = {}
     local success, spawnError = pcall(function()
         local availableObstacles = obstacleBag.getObjects()
         for _, obstacleName in ipairs(obstacles) do
@@ -763,9 +928,12 @@ local function spawnSpawnerObstacles(obstacles, spawnCard, bagPosition)
                         guid = obstacle.guid,
                         smooth = false
                     })
-                    local obstacleClone = obstacleToken.clone()
+                    local obstacleGuid = obstacleToken.getGUID()
+                    borrowedObstacles[obstacleGuid] = true
+                    local obstacleClone = session:track(obstacleToken.clone())
                     obstacleClone.setPosition(position)
                     obstacleBag.putObject(obstacleToken)
+                    borrowedObstacles[obstacleGuid] = nil
                     found = true
                     break
                 end
@@ -778,6 +946,12 @@ local function spawnSpawnerObstacles(obstacles, spawnCard, bagPosition)
         end
     end)
     obstacleBag.destruct()
+    for guid, _ in pairs(borrowedObstacles) do
+        local source = getObjectFromGUID(guid)
+        if source ~= nil then
+            source.destruct()
+        end
+    end
 
     if not success then
         error(spawnError)
@@ -825,6 +999,7 @@ local function spawnSquad(request, pilotCardScript)
     local bagPosition = { 15, 15, 0 }
     local storePos = request.anchorPosition
     local storeRot = request.anchorRotation
+    local session = createSpawnSession(spawnCard, storePos, storeRot)
     local accessoryContext = { tokens = {} }
 
     local spawnSuccess, spawnError = pcall(function()
@@ -832,7 +1007,6 @@ local function spawnSquad(request, pilotCardScript)
         spawnCard.setPosition(storePos)
         spawnCard.setRotation(storeRot)
         initializeSpawnerAccessoryContext(accessoryContext, spawnCard, bagPosition)
-        local tempBagAcc = accessoryContext.bag
         local listaAcc = accessoryContext.accessories
         local tokens = accessoryContext.tokens
 
@@ -920,23 +1094,23 @@ local function spawnSquad(request, pilotCardScript)
                     break
                 end
                 charges = charges - 1
-                cloneSpawnerToken(tokens.Charge, position, "charge_owner", pilot.name, upgrade.name)
+                cloneSpawnerToken(session, tokens.Charge, position, "charge_owner", pilot.name, upgrade.name)
             end
         end
 
         local function spawnAssignableAccessories(accessoryName, position)
             for _, accessory in ipairs(listaAcc) do
                 if accessory.name == accessoryName then
-                    local source = tempBagAcc.takeObject({
+                    local source = takeSpawnerAccessorySource(accessoryContext, {
                         position = position,
                         rotation = spawnCard.getRotation(),
                         guid = accessory.guid,
                         smooth = false
                     })
-                    local clone = source.clone()
+                    local clone = session:track(source.clone())
                     clone.setPosition(position)
                     clone.addTag("Assignable")
-                    tempBagAcc.putObject(source)
+                    returnSpawnerAccessorySource(accessoryContext, source)
                 end
             end
         end
@@ -963,7 +1137,7 @@ local function spawnSquad(request, pilotCardScript)
                     end
                     local deck = Decker.Asset(cardLink, cardBackLink)
                     local card = Decker.Card(deck, 1, 1)
-                    local spawnedUpgrade = card:spawn({ position = position, rotation = rotation, scale = { 0.68, 0.68, 0.68 } })
+                    local spawnedUpgrade = session:track(card:spawn({ position = position, rotation = rotation, scale = { 0.68, 0.68, 0.68 } }))
                     spawnedUpgrade.setName(upgrade.name)
                     spawnedUpgrade.addTag("ConfigCard")
                     result.configCardGUID = spawnedUpgrade.getGUID()
@@ -985,11 +1159,11 @@ local function spawnSquad(request, pilotCardScript)
                     end
                     local deck = Decker.Asset(cardLink, cardBackLink)
                     local card = Decker.Card(deck, 1, 1)
-                    local spawnedUpgrade = card:spawn({
+                    local spawnedUpgrade = session:track(card:spawn({
                         position = position,
                         rotation = rotation,
                         scale = { 0.68, 0.68, 0.68 }
-                    })
+                    }))
                     spawnedUpgrade.setName(upgrade.name)
                     if upgrade.Condition ~= nil then
                         spawnAssignableAccessories(upgrade.Condition, localLayoutPos(layout, -0.58, 0, 2.5))
@@ -1033,7 +1207,7 @@ local function spawnSquad(request, pilotCardScript)
                     if cardB ~= nil then
                         local deck = Decker.Asset(card, cardB)
                         card = Decker.Card(deck, 1, 1)
-                        newPil = card:spawn({ position = pos, rotation = rot })
+                        newPil = session:track(card:spawn({ position = pos, rotation = rot }))
                         newPil.setName(pilotName)
                         newPil.setDescription(Pilots[shipIndex].list)
                         newPil.setLuaScript(pilotCardScript)
@@ -1049,14 +1223,14 @@ local function spawnSquad(request, pilotCardScript)
                         local idrot = rot
 
                         local pilotIdSpawnFunc = function()
-                            local pilotId = spawnObject({
+                            local pilotId = session:track(spawnObject({
                                 type = "Custom_Model",
                                 position = idpos,
                                 rotation = idrot,
                                 scale = Dim.mm_ship_scale,
                                 sound = false,
                                 snap_to_grid = false,
-                            })
+                            }))
                             pilotId.setCustomObject({
                                 mesh =
                                 '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/cardid.obj',
@@ -1068,7 +1242,7 @@ local function spawnSquad(request, pilotCardScript)
                             card.addAttachment(pilotId)
                             card.setLock(false)
                         end
-                        Wait.condition(pilotIdSpawnFunc, function()
+                        session:waitCondition(pilotIdSpawnFunc, function()
                             return card ~= nil and (not card.spawning)
                         end)
                     end
@@ -1079,21 +1253,21 @@ local function spawnSquad(request, pilotCardScript)
                         if acc.name == 'Unassigned Dial' then
                             local dialpos = LocalPos(spawnCard, { 0, 1, 13.2 })
                             local dialrot = rot
-                            local dial = tempBagAcc.takeObject(
+                            local dial = takeSpawnerAccessorySource(accessoryContext,
                                 {
                                     position = dialpos,
                                     rotation = dialrot,
                                     guid = acc.guid
                                 })
-                            local newDial = dial.clone()
+                            local newDial = session:track(dial.clone())
                             newDial.setPosition(pos)
-                            tempBagAcc.putObject(dial)
+                            returnSpawnerAccessorySource(accessoryContext, dial)
                             local conditionFunc = function()
                                 return card ~= nil and (not card.spawning) and (not newDial.spawning)
                             end
                             local executeFunc = function()
                                 newDial.setCustomObject({ ['diffuse'] = dialSkin })
-                                newDial = newDial.reload()
+                                newDial = session:track(newDial.reload())
                                 newDial.setColorTint(tint)
                                 newDial.setPosition(dialpos)
                                 newDial.setRotation(dialrot)
@@ -1101,7 +1275,7 @@ local function spawnSquad(request, pilotCardScript)
                                     card.call('addTintObject', { 'dial', newDial })
                                 end
                             end
-                            Wait.condition(executeFunc, conditionFunc)
+                            session:waitCondition(executeFunc, conditionFunc)
                         end
                     end
                 end
@@ -1150,7 +1324,7 @@ local function spawnSquad(request, pilotCardScript)
                     factionName = factionnames[1]
                 end
                 local baseDiffuse = spawnPrefix .. "bases/" .. size .. "/" .. fixedarc .. "/" .. factionName .. ".png"
-                local newShip = base_prototype.clone()
+                local newShip = session:track(base_prototype.clone())
                 -- Move without collisions; dependent attachments wait until the fast smooth move completes.
                 newShip.setPositionSmooth(pos, false, true)
                 newShip.setRotationSmooth(rot, false, true)
@@ -1207,33 +1381,33 @@ local function spawnSquad(request, pilotCardScript)
                 end
 
                 local pegAndShipSpawnFunction = function()
-                    local pegModel = spawnObject({
+                    local pegModel = session:track(spawnObject({
                         type         = "Custom_Model",
                         position     = shippos,
                         rotation     = shiprot,
                         scale        = Dim.mm_ship_scale,
                         sound        = false,
                         snap_to_grid = false,
-                    })
+                    }))
                     pegModel.setName("Peg")
                     pegModel.setCustomObject(pegCustomObject)
                     ship.addAttachment(pegModel)
                     if shipCustomObject then
-                        local shipModel = spawnObject({
+                        local shipModel = session:track(spawnObject({
                             type         = "Custom_Model",
                             position     = vector(shippos[1], shippos[2], shippos[3]) + shipoffset,
                             rotation     = shiprot,
                             scale        = Dim.mm_ship_scale,
                             sound        = false,
                             snap_to_grid = false,
-                        })
+                        }))
                         shipModel.setName("Ship")
                         shipModel.setCustomObject(shipCustomObject)
                         shipModel.setColorTint(modeltint)
                         ship.addAttachment(shipModel)
                     end
                 end
-                Wait.condition(pegAndShipSpawnFunction,
+                session:waitCondition(pegAndShipSpawnFunction,
                     function() return (not ship.spawning) and (not ship.isSmoothMoving()) end)
                 if newShip ~= nil then
                     local ship = newShip
@@ -1261,14 +1435,14 @@ local function spawnSquad(request, pilotCardScript)
                         '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base_ID_HUGE.obj'
                     end
                     local shipIdSpawnFunc = function()
-                        local shipId = spawnObject({
+                        local shipId = session:track(spawnObject({
                             type = "Custom_Model",
                             position = idpos,
                             rotation = idrot,
                             scale = Dim.mm_ship_scale * 0.99,
                             sound = false,
                             snap_to_grid = false,
-                        })
+                        }))
                         shipId.setCustomObject(customObj)
                         shipId.setColorTint(tint)
                         shipId.setName("ColorId")
@@ -1286,7 +1460,7 @@ local function spawnSquad(request, pilotCardScript)
                     if Pilots[shipIndex].Data.ProximityHider then
                         ship.addTag("ProximityHider")
                     end
-                    Wait.condition(shipIdSpawnFunc,
+                    session:waitCondition(shipIdSpawnFunc,
                         function()
                             return (not ship.spawning) and (not ship.isSmoothMoving()) and (card == nil or not card.spawning)
                         end)
@@ -1298,14 +1472,14 @@ local function spawnSquad(request, pilotCardScript)
                                 customObject.mesh = config.Model
                                 customObject.diffuse = texture
                                 local configSpawnFunction = function()
-                                    local configModel = spawnObject({
+                                    local configModel = session:track(spawnObject({
                                         type = "Custom_Model",
                                         position = vector(idpos[1], idpos[2], idpos[3]) + shipoffset,
                                         rotation = idrot,
                                         scale = Dim.mm_ship_scale,
                                         sound = false,
                                         snap_to_grid = false,
-                                    })
+                                    }))
                                     configModel.setName("Config")
                                     configModel.setDescription(tostring(k))
                                     configModel.setCustomObject(customObject)
@@ -1314,17 +1488,17 @@ local function spawnSquad(request, pilotCardScript)
                                         configModel.setScale(vector(0.0001, 0.0001, 0.0001))
                                     end
                                     ship.addAttachment(configModel)
-                                    Wait.frames(function()
+                                    session:waitFrames(function()
                                         ship.call("DisableAttachedColliders")
                                     end, 2)
-                                    Wait.frames(function()
+                                    session:waitFrames(function()
                                         ship.call("DisableAttachedColliders")
                                     end, 10)
-                                    Wait.frames(function()
+                                    session:waitFrames(function()
                                         ship.call("DisableAttachedColliders")
                                     end, 30)
                                 end
-                                Wait.condition(configSpawnFunction,
+                                session:waitCondition(configSpawnFunction,
                                     function()
                                         return (not ship.spawning) and (not ship.isSmoothMoving())
                                     end)
@@ -1332,12 +1506,12 @@ local function spawnSquad(request, pilotCardScript)
                         end     -- for Data.Config
                         if Pilots[shipIndex].Data.Config and Pilots[shipIndex].Data.Config.Token then
                             pos = LocalPos(spawnCard, { -1.5, 1, 8.7 })
-                            local configToken = spawnObject({
+                            local configToken = session:track(spawnObject({
                                 type = "Custom_Model",
                                 scale = { 0.38, 0.38, 0.38 },
                                 rotation = { 0, 270, 0 },
                                 position = pos,
-                            })
+                            }))
                             configToken.setCustomObject({
                                 mesh =
                                 "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/tokens/flip/flipToken.obj",
@@ -1351,8 +1525,8 @@ local function spawnSquad(request, pilotCardScript)
                     end     -- config
                 end
 
-                spawnPilotAccessories(Pilots[shipIndex], spawnCard, accessoryContext, Faction, rot, pos)
-                spawnPilotResourceTokens(Pilots[shipIndex], spawnCard, tokens, hasMob)
+                spawnPilotAccessories(session, Pilots[shipIndex], spawnCard, accessoryContext, Faction, rot, pos)
+                spawnPilotResourceTokens(session, Pilots[shipIndex], spawnCard, tokens, hasMob)
             end
 
             if Pilots[shipIndex].standardized_loadout then
@@ -1369,19 +1543,26 @@ local function spawnSquad(request, pilotCardScript)
 
         spawnCard.setPosition(LocalPos(spawnCard, { 0, 0, 5.5 }))
 
-        spawnSpawnerRemotes(listTable.Remotes, spawnCard, accessoryContext)
+        spawnSpawnerRemotes(session, listTable.Remotes, spawnCard, accessoryContext)
 
-        spawnSpawnerObstacles(listTable.Obstacles, spawnCard, bagPosition)
+        spawnSpawnerObstacles(session, listTable.Obstacles, spawnCard, bagPosition)
     end)
 
     -- Temporary source objects and the spawn anchor must be released on success or failure.
-    destroySpawnerAccessoryContext(accessoryContext)
-    spawnCard.setPosition(storePos)
-    spawnCard.setRotation(storeRot)
+    local cleanupSuccess, cleanupError = pcall(function()
+        destroySpawnerAccessoryContext(accessoryContext)
+        session:restoreAnchor()
+    end)
 
     if not spawnSuccess then
+        session:fail(spawnError)
         error(spawnError)
     end
+    if not cleanupSuccess then
+        session:fail(cleanupError)
+        error(cleanupError)
+    end
+    session:finishSynchronousPhase()
 end
 
 local function loadPilotCardScript()
