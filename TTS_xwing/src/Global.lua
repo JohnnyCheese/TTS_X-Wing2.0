@@ -7585,6 +7585,26 @@ function newSpawner(listTable)
     spawnCard.setRotation(storeRot)
 end
 
+-- newSpawner clones the Accessories bag at PosBag3 = { 15, 15, 0 } and pulls
+-- out Charge/Force/Shield/Energy as clone sources. They're normally destroyed
+-- at the end of newSpawner; if it errors mid-flow, the originals leak and end
+-- up persisted in saves. Clean up any stranded copies on load.
+local function cleanupLeakedSpawnerTokens()
+    local LEAK_NAMES = { Energy = true, Force = true, Shield = true, Charge = true }
+    for _, obj in pairs(getAllObjects()) do
+        if obj ~= nil and obj.tag ~= 'Infinite' and LEAK_NAMES[obj.getName() or ''] then
+            if obj.getDescription() == 'Unassigned' then
+                local pos = obj.getPosition()
+                local dx, dz = pos.x - 15, pos.z
+                if dx * dx + dz * dz <= 25 then
+                    obj.destruct()
+                end
+            end
+        end
+    end
+end
+EventSub.Register('onLoad', cleanupLeakedSpawnerTokens)
+
 function RotMatrix(axis, angDeg)
     local ang = math.rad(angDeg)
     local cs = math.cos
