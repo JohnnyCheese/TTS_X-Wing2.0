@@ -6821,7 +6821,7 @@ local function spawnPilotResourceTokens(pilot, spawnCard, tokens, hasMobileUpgra
     end
 end
 
-local function cloneSpawnerAccessories(accessoryContext, accessoryName, position, rotation, smooth)
+local function cloneSpawnerAccessories(accessoryContext, accessoryName, position, rotation)
     local clones = {}
     for _, accessory in pairs(accessoryContext.accessories) do
         if accessory.name == accessoryName then
@@ -6829,7 +6829,7 @@ local function cloneSpawnerAccessories(accessoryContext, accessoryName, position
                 position = position,
                 rotation = rotation,
                 guid = accessory.guid,
-                smooth = smooth
+                smooth = false
             })
             local clone = source.clone()
             clone.setPosition(position)
@@ -6848,7 +6848,7 @@ local function spawnPilotAccessories(pilot, spawnCard, accessoryContext, faction
         end
         local mountingPoint = pilot.Data.mountingPoints[mount]
         local offset = LocalPos(spawnCard, { mountingPoint[1], 0, mountingPoint[2] + 9 })
-        for _, indicator in ipairs(cloneSpawnerAccessories(accessoryContext, indicatorName, offset, rotation, false)) do
+        for _, indicator in ipairs(cloneSpawnerAccessories(accessoryContext, indicatorName, offset, rotation)) do
             indicator.setPosition(arcPosition)
             indicator.setName(string.gsub(indicator.getName(), faction, ''))
         end
@@ -6857,16 +6857,16 @@ local function spawnPilotAccessories(pilot, spawnCard, accessoryContext, faction
     local markerPosition = LocalPos(spawnCard, { -1.5, 1, 8.7 })
     if pilot.Bomb == true then
         for _, bombDrop in ipairs(cloneSpawnerAccessories(accessoryContext, 'Bomb drop token (unassigned)',
-            markerPosition, rotation, false)) do
+            markerPosition, rotation)) do
             bombDrop.setDescription(pilot.bombD)
         end
     end
     if pilot.Docking == true then
         cloneSpawnerAccessories(accessoryContext, 'Shuttle Launcher (assigned to mothership)', markerPosition,
-            rotation, false)
+            rotation)
     end
     if pilot.wingleader == true then
-        cloneSpawnerAccessories(accessoryContext, 'Epic Wing Token', markerPosition, rotation, false)
+        cloneSpawnerAccessories(accessoryContext, 'Epic Wing Token', markerPosition, rotation)
     end
 end
 
@@ -6959,7 +6959,6 @@ function newSpawner(listTable)
     Faction = listTable.Faction
     Customization = listTable.Customization or {}
     local dialSkin = listTable.factionDial
-    spawnedPilotList = {}
     local spawnPrefix =
     "{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/ships-v2/"
     local factionnames = {
@@ -6972,19 +6971,15 @@ function newSpawner(listTable)
         separatistalliance = "separatists"
     }
 
-    PosBag1 = { 5, 5, 0 }
-    PosBag2 = { 10, 10, 0 }
-    PosBag3 = { 15, 15, 0 }
-    PosBag4 = { 20, 20, 0 }
-    PoaBag5 = { 25, 25, 0 }
-    local accessoryContext = createSpawnerAccessoryContext(spawnCard, PosBag3)
+    local bagPosition = { 15, 15, 0 }
+    local accessoryContext = createSpawnerAccessoryContext(spawnCard, bagPosition)
     local tempBagAcc = accessoryContext.bag
     local listaAcc = accessoryContext.accessories
     local tokens = accessoryContext.tokens
 
     --Store the initial position of the Quick Build Card
-    storePos = spawnCard.getPosition()
-    storeRot = spawnCard.getRotation()
+    local storePos = spawnCard.getPosition()
+    local storeRot = spawnCard.getRotation()
 
     local UPGRADE_STEP_X = 1.78
     local UPGRADE_STEP_Y = 0.2
@@ -7152,26 +7147,17 @@ function newSpawner(listTable)
         return result
     end
 
-    shipIndex = 1 --Sets index of ship being spawned
+    local shipIndex = 1 --Sets index of ship being spawned
 
     while Pilots[shipIndex] ~= nil do
-        --Values used for accessories spawn and layout
-        UpNum = 0
-        Turret = 0
-        dualTurret = 0
-        Bombs = 0
-        hasMob = 0
-        bombTokenDescription = ''
-        local configCardGUID = nil
-
         if Pilots[shipIndex].standardized_loadout then
             spawnCard.setPosition(LocalPos(spawnCard, { -1.1, 0, 0 }))
         end
 
         local upgradeResult = spawnPilotUpgrades(Pilots[shipIndex], Upgrades[shipIndex])
-        configCardGUID = upgradeResult.configCardGUID
-        hasMob = upgradeResult.hasMobileUpgrade
-        UpNum = upgradeResult.count
+        local configCardGUID = upgradeResult.configCardGUID
+        local hasMob = upgradeResult.hasMobileUpgrade
+        local upNum = upgradeResult.count
         local upgradeLayoutCursor = upgradeResult.layoutCursor
 
         if Pilots[shipIndex].id ~= '' then
@@ -7268,12 +7254,10 @@ function newSpawner(listTable)
                 end
             end
             if Pilots[shipIndex].Condition ~= nil then
-                spawnAssignableAccessories(Pilots[shipIndex].Condition, LocalPos(spawnCard, { -2 - 1.78 * UpNum, 1, 8 }))
+                spawnAssignableAccessories(Pilots[shipIndex].Condition, LocalPos(spawnCard, { -2 - 1.78 * upNum, 1, 8 }))
             end
 
-            local newShip = nil
             local texture = nil
-            local shipoffset = vector(0, 0, 0)
             Pilots[shipIndex].Data.ColorId = tint
             if Pilots[shipIndex].Data.Config then
                 Pilots[shipIndex].Data.Config.CardGUID = configCardGUID
@@ -7294,7 +7278,7 @@ function newSpawner(listTable)
                         " (" .. tostring(Pilots[shipIndex].Data.shipId) .. ")")
                 end
             end
-            shipoffset = vector(0, 2.2, 0)
+            local shipoffset = vector(0, 2.2, 0)
             local size = Pilots[shipIndex].Size
             local arcs = Pilots[shipIndex].Data.arcs
             local fixedarc = "none"
@@ -7314,7 +7298,7 @@ function newSpawner(listTable)
                 factionName = factionnames[1]
             end
             local baseDiffuse = spawnPrefix .. "bases/" .. size .. "/" .. fixedarc .. "/" .. factionName .. ".png"
-            newShip = base_prototype.clone()
+            local newShip = base_prototype.clone()
             newShip.setPositionSmooth(pos, false, true)
             newShip.setRotationSmooth(rot, false, true)
             newShip.setScale(Dim.mm_ship_scale)
@@ -7583,27 +7567,25 @@ function newSpawner(listTable)
         end
 
         if Pilots[shipIndex].standardized_loadout then
-            charges = 0
+            local charges = 0
             for _, upgrade in pairs(Pilots[shipIndex].standardized_upgrades) do
                 charges = math.max(charges, upgrade.charge)
             end
-            finalPos = LocalPos(spawnCard, { -(5.5 + charges * 0.7), 0, 0 })
+            spawnCard.setPosition(LocalPos(spawnCard, { -(5.5 + charges * 0.7), 0, 0 }))
         else
-            finalPos = LocalPos(spawnCard, { upgradeLayoutCursor.x - 2.58, 0, 0 })
+            spawnCard.setPosition(LocalPos(spawnCard, { upgradeLayoutCursor.x - 2.58, 0, 0 }))
         end
-        spawnCard.setPosition(finalPos)
         shipIndex = shipIndex + 1
     end
 
-    finalPos = LocalPos(spawnCard, { 0, 0, 5.5 })
-    spawnCard.setPosition(finalPos)
+    spawnCard.setPosition(LocalPos(spawnCard, { 0, 0, 5.5 }))
 
     spawnSpawnerRemotes(listTable.Remotes, spawnCard, accessoryContext)
 
     -- Delete cloned bags
     destroySpawnerAccessoryContext(accessoryContext)
 
-    spawnSpawnerObstacles(listTable.Obstacles, spawnCard, PosBag3)
+    spawnSpawnerObstacles(listTable.Obstacles, spawnCard, bagPosition)
 
     --returns Quick Build Card to initial position
     spawnCard.setPosition(storePos)
