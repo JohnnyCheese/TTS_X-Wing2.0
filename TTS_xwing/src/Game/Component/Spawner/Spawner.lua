@@ -820,23 +820,34 @@ local function spawnPilotResourceTokens(session, pilot, spawnCard, tokens, hasMo
     end
 end
 
-local function cloneSpawnerAccessories(session, accessoryContext, accessoryName, position, rotation)
+local function cloneSpawnerAccessory(session, accessoryContext, accessory, position, rotation)
+    local source = takeSpawnerAccessorySource(accessoryContext, {
+        position = position,
+        rotation = rotation,
+        guid = accessory.guid,
+        smooth = false
+    })
+    local clone = session:track(source.clone())
+    clone.setPosition(position)
+    returnSpawnerAccessorySource(accessoryContext, source)
+    return clone
+end
+
+local function cloneAllMatchingSpawnerAccessories(session, accessoryContext, accessoryName, position, rotation)
     local clones = {}
     for _, accessory in pairs(accessoryContext.accessories) do
         if accessory.name == accessoryName then
-            local source = takeSpawnerAccessorySource(accessoryContext, {
-                position = position,
-                rotation = rotation,
-                guid = accessory.guid,
-                smooth = false
-            })
-            local clone = session:track(source.clone())
-            clone.setPosition(position)
-            returnSpawnerAccessorySource(accessoryContext, source)
-            table.insert(clones, clone)
+            table.insert(clones, cloneSpawnerAccessory(session, accessoryContext, accessory, position, rotation))
         end
     end
     return clones
+end
+
+local function spawnAssignableAccessories(session, accessoryContext, accessoryName, position, rotation)
+    for _, clone in ipairs(cloneAllMatchingSpawnerAccessories(session, accessoryContext, accessoryName, position,
+        rotation)) do
+        clone.addTag("Assignable")
+    end
 end
 
 local function spawnPilotAccessories(session, pilot, spawnCard, accessoryContext, faction, rotation, arcPosition)
@@ -847,7 +858,8 @@ local function spawnPilotAccessories(session, pilot, spawnCard, accessoryContext
         end
         local mountingPoint = pilot.Data.mountingPoints[mount]
         local offset = LocalPos(spawnCard, { mountingPoint[1], 0, mountingPoint[2] + 9 })
-        for _, indicator in ipairs(cloneSpawnerAccessories(session, accessoryContext, indicatorName, offset, rotation)) do
+        for _, indicator in ipairs(cloneAllMatchingSpawnerAccessories(session, accessoryContext, indicatorName, offset,
+            rotation)) do
             indicator.setPosition(arcPosition)
             indicator.setName(string.gsub(indicator.getName(), faction, ''))
         end
@@ -855,17 +867,18 @@ local function spawnPilotAccessories(session, pilot, spawnCard, accessoryContext
 
     local markerPosition = LocalPos(spawnCard, { -1.5, 1, 8.7 })
     if pilot.Bomb == true then
-        for _, bombDrop in ipairs(cloneSpawnerAccessories(session, accessoryContext, 'Bomb drop token (unassigned)',
+        for _, bombDrop in ipairs(cloneAllMatchingSpawnerAccessories(session, accessoryContext, 'Bomb drop token (unassigned)',
             markerPosition, rotation)) do
             bombDrop.setDescription(pilot.bombD)
         end
     end
     if pilot.Docking == true then
-        cloneSpawnerAccessories(session, accessoryContext, 'Shuttle Launcher (assigned to mothership)', markerPosition,
+        cloneAllMatchingSpawnerAccessories(session, accessoryContext, 'Shuttle Launcher (assigned to mothership)',
+            markerPosition,
             rotation)
     end
     if pilot.wingleader == true then
-        cloneSpawnerAccessories(session, accessoryContext, 'Epic Wing Token', markerPosition, rotation)
+        cloneAllMatchingSpawnerAccessories(session, accessoryContext, 'Epic Wing Token', markerPosition, rotation)
     end
 end
 
@@ -879,14 +892,7 @@ local function spawnSpawnerRemotes(session, remotes, spawnCard, accessoryContext
                 local position = LocalPos(spawnCard, { 1, 1, 0 })
                 print("Found remote, spawning pos: " .. tostring(position[1]) .. "," ..
                     tostring(position[2]) .. "," .. tostring(position[3]))
-                local remoteObject = takeSpawnerAccessorySource(accessoryContext, {
-                    rotation = spawnCard.getRotation(),
-                    guid = accessory.guid,
-                    smooth = false
-                })
-                local remoteClone = session:track(remoteObject.clone())
-                remoteClone.setPosition(position)
-                returnSpawnerAccessorySource(accessoryContext, remoteObject)
+                cloneSpawnerAccessory(session, accessoryContext, accessory, position, spawnCard.getRotation())
 
                 local charge = remoteCharge
                 while charge > 0 do
@@ -1098,23 +1104,6 @@ local function spawnSquad(request, pilotCardScript)
             end
         end
 
-        local function spawnAssignableAccessories(accessoryName, position)
-            for _, accessory in ipairs(listaAcc) do
-                if accessory.name == accessoryName then
-                    local source = takeSpawnerAccessorySource(accessoryContext, {
-                        position = position,
-                        rotation = spawnCard.getRotation(),
-                        guid = accessory.guid,
-                        smooth = false
-                    })
-                    local clone = session:track(source.clone())
-                    clone.setPosition(position)
-                    clone.addTag("Assignable")
-                    returnSpawnerAccessorySource(accessoryContext, source)
-                end
-            end
-        end
-
         local function spawnPilotUpgrades(pilot, upgrades)
             local result = {
                 configCardGUID = nil,
@@ -1166,7 +1155,8 @@ local function spawnSquad(request, pilotCardScript)
                     }))
                     spawnedUpgrade.setName(upgrade.name)
                     if upgrade.Condition ~= nil then
-                        spawnAssignableAccessories(upgrade.Condition, localLayoutPos(layout, -0.58, 0, 2.5))
+                        spawnAssignableAccessories(session, accessoryContext, upgrade.Condition,
+                            localLayoutPos(layout, -0.58, 0, 2.5), spawnCard.getRotation())
                     end
                     spawnUpgradeCharges(upgrade, pilot, layout, false)
                     result.count = result.count + 1
@@ -1280,7 +1270,8 @@ local function spawnSquad(request, pilotCardScript)
                     end
                 end
                 if Pilots[shipIndex].Condition ~= nil then
-                    spawnAssignableAccessories(Pilots[shipIndex].Condition, LocalPos(spawnCard, { -2 - 1.78 * upNum, 1, 8 }))
+                    spawnAssignableAccessories(session, accessoryContext, Pilots[shipIndex].Condition,
+                        LocalPos(spawnCard, { -2 - 1.78 * upNum, 1, 8 }), spawnCard.getRotation())
                 end
 
                 local texture = nil
