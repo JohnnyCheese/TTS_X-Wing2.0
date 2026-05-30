@@ -232,11 +232,11 @@ end
 
 local function canModifyPointsState(playerColor)
   local owning_player = getOwningPlayerColor()
+  if playerColor == "Black" then
+    return true
+  end
   if owning_player == nil or owning_player == "" then
     return false
-  end
-  if owning_player == "Black" then
-    return true
   end
   return playerColor == owning_player
 end
