@@ -397,10 +397,9 @@ end
 
 
 DiceControlModule.getObjectInContainerByGMNote = function(container, gmnoteToFind) -- most of the script here to find out if, and if so which, item is in the container
-    local takenObject = nil                                                        -- keep the scope local outside of the loop
     for _, c in ipairs(container.getObjects()) do
         if c.gm_notes == gmnoteToFind then
-            takenObject = container.takeObject({ -- correct call syntax, use .takeObject() on your container
+            local takenObject = container.takeObject({ -- correct call syntax, use .takeObject() on your container
                 index = c.index,                 -- c.index to get the correct index always
                 position = Vector(0, 0, 0),
                 smooth = false,
@@ -409,9 +408,9 @@ DiceControlModule.getObjectInContainerByGMNote = function(container, gmnoteToFin
                 end
             })                                           -- position correctly spelled and correct case
             takenObject.setLock(true)                    -- locks it
+            return takenObject
         end
     end
-    return takenObject
 end
 
 DiceControlModule.findByGMNotes = function(gmnotes) -- finds an object in the game whose .getGMNotes9) matches the gmnotes parameter
@@ -420,26 +419,34 @@ DiceControlModule.findByGMNotes = function(gmnotes) -- finds an object in the ga
     end
 end
 
-DiceControlModule.onObjectStateChange = function(object, old_guid)    -- object is the _new_ state
-    -- clear the bag on top
-    for _, foundObject in ipairs(DiceControlModule.upCast(object)) do -- for each object in the platform scripting zone..
-        if foundObject.tag == "Infinite" then                         -- if an infinite bag
-            local gmnotes = foundObject.getGMNotes()
-            if gmnotes and gmnotes ~= "" then
-                DiceControlModule.dicecontainer.putObject(foundObject)
-                local lastNumber = tonumber(string.sub(gmnotes, -1)) or
-                    0                                                                      -- gives us the very last character in our gmnotes - in our example "Platform 1" would give "1"
-                foundObject.setPosition(Vector(-24, 1, 10) + Vector(lastNumber * 4, 0, 0)) -- sets the bag starting at 0,2,10, and adding 4 to x, multiplied by the lastNumber - so they all line up.
-            end
-        end
+DiceControlModule.diceBagFamily = function(gmnotes)
+    if gmnotes and gmnotes:sub(1, 3) == "atk" then
+        return "atk"
+    elseif gmnotes and gmnotes:sub(1, 3) == "def" then
+        return "def"
     end
+end
+
+DiceControlModule.onObjectStateChange = function(object, old_guid)    -- object is the _new_ state
     -- figure out which is the new bag
     local gmnotes = object.getGMNotes()                                                                               -- get the gm notes of the new state
     local infiniteBagString = DiceControlModule.platformToBag
         [gmnotes]                                                                                                     -- get the infiniteBagString from platformToBag e.g. "Platform 1" will give us "InfiniteBag 1"
     if not infiniteBagString then return end                                                                          -- if the object's gm notes is not a key in platformToBag then we don't want to run any more code
 
+    local diceFamily = DiceControlModule.diceBagFamily(infiniteBagString)
+    -- clear the bag on top
+    for _, foundObject in ipairs(DiceControlModule.upCast(object)) do -- for each object in the platform scripting zone..
+        if foundObject.tag == "Infinite" then                         -- if an infinite bag
+            local foundGMNotes = foundObject.getGMNotes()
+            if foundGMNotes and foundGMNotes ~= "" and DiceControlModule.diceBagFamily(foundGMNotes) == diceFamily then
+                DiceControlModule.dicecontainer.putObject(foundObject)
+            end
+        end
+    end
+
     local newBag = DiceControlModule.getObjectInContainerByGMNote(DiceControlModule.dicecontainer, infiniteBagString) -- a simple function to find an object that matches the infiniteBagString (see below)
+        or DiceControlModule.findByGMNotes(infiniteBagString)
 
     if not newBag then
         log("Error: No associated bag found - has it been deleted?")
