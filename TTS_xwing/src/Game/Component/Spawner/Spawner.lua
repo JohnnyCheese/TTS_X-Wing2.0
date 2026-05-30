@@ -5,7 +5,7 @@ local Decker = require("Game.Component.Spawner.Decker")
 
 local Spawner = {}
 local PILOT_CARD_SCRIPT_URL =
-    "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/fix-pilot-card-points-owner/TTS_xwing/src/Game/Component/Spawner/PilotCard.lua"
+    "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/TTS_xwing/src/Game/Component/Spawner/PilotCard.lua"
 local LIMITED_PILOT_BULLET = "•"
 local cachedPilotCardScript = nil
 local pendingSpawnRequests = {}
