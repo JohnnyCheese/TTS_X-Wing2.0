@@ -964,6 +964,364 @@ local function spawnSpawnerObstacles(session, obstacles, spawnCard, bagPosition)
     end
 end
 
+local function spawnPilotBundle(context, pilot, upgradeResult)
+    if pilot.id == '' then
+        return
+    end
+
+    local session = context.session
+    local accessoryContext = context.accessoryContext
+    local spawnCard = context.spawnCard
+    local faction = context.faction
+    local customization = context.customization
+    local dialSkin = context.dialSkin
+    local pilotCardScript = context.pilotCardScript
+    local spawnPrefix = context.spawnPrefix
+    local factionnames = context.factionnames
+    local tokens = context.tokens
+
+    local configCardGUID = upgradeResult.configCardGUID
+    local hasMob = upgradeResult.hasMobileUpgrade
+    local upNum = upgradeResult.count
+
+    local pilotName = pilot.name
+    local pilotCustomization = customization[pilotName] or {}
+    local card = pilotCustomization.face or pilot.card
+    local cardB = pilotCustomization.back or pilot.cardB
+    local tint = color(0, 0, 0, 0)
+    local modeltint = color(1, 1, 1, 1)
+    tint = pilotCustomization.tint or tint
+    modeltint = pilotCustomization.modeltint or modeltint
+
+    local pos = LocalPos(spawnCard, { 0, 1.2, 5.5 })
+    local rot = spawnCard.getRotation()
+    local newPil = nil
+    if card ~= '' and cardB ~= nil then
+        local deck = Decker.Asset(card, cardB)
+        card = Decker.Card(deck, 1, 1)
+        newPil = session:track(card:spawn({ position = pos, rotation = rot }))
+        newPil.setName(pilotName)
+        newPil.setDescription(pilot.list)
+        newPil.setLuaScript(pilotCardScript)
+        newPil.setTable("PointsTrackerConfig", {
+            landscape = pilot.standardized_loadout == true,
+            visible = ShouldShowShipPointsTrackerForCurrentLayout()
+        })
+        newPil.setLock(true)
+
+        local pilotCard = newPil
+        local idpos = pos
+        local idrot = rot
+
+        local pilotIdSpawnFunc = function()
+            local pilotId = session:track(spawnObject({
+                type = "Custom_Model",
+                position = idpos,
+                rotation = idrot,
+                scale = Dim.mm_ship_scale,
+                sound = false,
+                snap_to_grid = false,
+            }))
+            pilotId.setCustomObject({
+                mesh =
+                '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/cardid.obj',
+                convex = true,
+                material = 1,
+                type = 0
+            })
+            pilotId.setColorTint(tint)
+            pilotCard.addAttachment(pilotId)
+            pilotCard.setLock(false)
+        end
+        session:waitCondition(pilotIdSpawnFunc, function()
+            return pilotCard ~= nil and (not pilotCard.spawning)
+        end)
+    end
+
+    if pilotName ~= '' then
+        for _, acc in pairs(accessoryContext.accessories) do
+            local pilotCard = newPil
+            if acc.name == 'Unassigned Dial' then
+                local dialpos = LocalPos(spawnCard, { 0, 1, 13.2 })
+                local dialrot = rot
+                local dial = takeSpawnerAccessorySource(accessoryContext,
+                    {
+                        position = dialpos,
+                        rotation = dialrot,
+                        guid = acc.guid
+                    })
+                local newDial = session:track(dial.clone())
+                newDial.setPosition(pos)
+                returnSpawnerAccessorySource(accessoryContext, dial)
+                local conditionFunc = function()
+                    return pilotCard ~= nil and (not pilotCard.spawning) and (not newDial.spawning)
+                end
+                local executeFunc = function()
+                    newDial.setCustomObject({ ['diffuse'] = dialSkin })
+                    newDial = session:track(newDial.reload())
+                    newDial.setColorTint(tint)
+                    newDial.setPosition(dialpos)
+                    newDial.setRotation(dialrot)
+                    if pilotCard ~= nil then
+                        pilotCard.call('addTintObject', { 'dial', newDial })
+                    end
+                end
+                session:waitCondition(executeFunc, conditionFunc)
+            end
+        end
+    end
+
+    if pilot.Condition ~= nil then
+        spawnAssignableAccessories(session, accessoryContext, pilot.Condition,
+            LocalPos(spawnCard, { -2 - 1.78 * upNum, 1, 8 }), spawnCard.getRotation())
+    end
+
+    local texture = nil
+    pilot.Data.ColorId = tint
+    if pilot.Data.Config then
+        pilot.Data.Config.CardGUID = configCardGUID
+    end
+
+    if pilotCustomization.texture ~= nil then
+        texture = pilotCustomization.texture
+    else
+        local textureKey = pilot.Data.texture
+        local textureUrl = nil
+        if textureKey ~= nil and pilot.Data.textures ~= nil then
+            textureUrl = pilot.Data.textures[textureKey]
+        end
+        if textureUrl ~= nil then
+            texture = '{verifycache}' .. textureUrl
+        elseif textureKey ~= nil then
+            print("Missing ship texture '" .. tostring(textureKey) .. "' for " .. tostring(pilotName) ..
+                " (" .. tostring(pilot.Data.shipId) .. ")")
+        end
+    end
+
+    local shipoffset = vector(0, 2.2, 0)
+    local size = pilot.Size
+    local arcs = pilot.Data.arcs
+    local fixedarc = "none"
+    if arcs.fixed then
+        fixedarc = arcs.fixed.type[1] or "none"
+    end
+    if size == "huge" then
+        pos = LocalPos(spawnCard, { 0, 0, 13.2 })
+    else
+        pos = LocalPos(spawnCard, { 0, 0, 10.2 })
+    end
+    rot = spawnCard.getRotation()
+    local base_prototype = getObjectFromGUID(CompositeBase_GUID)
+    local factionName = factionnames[faction]
+    if factionName == nil then
+        print("Missing faction base texture for faction " .. tostring(faction) .. " on " .. tostring(pilotName))
+        factionName = factionnames[1]
+    end
+    local baseDiffuse = spawnPrefix .. "bases/" .. size .. "/" .. fixedarc .. "/" .. factionName .. ".png"
+    local newShip = session:track(base_prototype.clone())
+    -- Move without collisions; dependent attachments wait until the fast smooth move completes.
+    newShip.setPositionSmooth(pos, false, true)
+    newShip.setRotationSmooth(rot, false, true)
+    newShip.setScale(Dim.mm_ship_scale)
+
+    newShip.setCustomObject({
+        mesh = spawnPrefix .. "bases/" .. size .. "/base.obj?1",
+        collider = ShipVerification.colliders[size],
+        diffuse = baseDiffuse,
+        convex = true,
+        material = 1,
+        type = 1
+    })
+    newShip.setTable("Data", pilot.Data)
+    newShip.setLock(true)
+    if pilot.Data.ProximityHider then
+        newShip.addTag("ProximityHider")
+    end
+
+    local base_name_str = pilotName
+    if pilot.Data.limited and pilot.Data.limited > 0 then
+        base_name_str = string.rep("â€¢", pilot.Data.limited) .. " " .. pilotName
+    end
+    newShip.setTable("UiData", {
+        name = base_name_str,
+        icon = pilot.Ship,
+        init = "init" .. pilot.Data.initiative
+    })
+
+    local pegtype = pilot.peg or size
+    local pegCustomObject = {
+        mesh = spawnPrefix .. "bases/pegs/" .. pegtype .. ".obj",
+        diffuse = baseDiffuse,
+        collider =
+        '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/minisculebox.obj',
+        convex = true,
+        material = 1,
+        type = 1
+    }
+    local shippos = pos
+    local shiprot = rot
+    local ship = newShip
+    local shipCustomObject = nil
+    if pilot.Data.mesh then
+        shipCustomObject = {
+            mesh = '{verifycache}' .. pilot.Data.mesh,
+            diffuse = texture,
+            collider =
+            '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/minisculebox.obj',
+            convex = true,
+            material = 1,
+            type = 1
+        }
+    end
+
+    local pegAndShipSpawnFunction = function()
+        local pegModel = session:track(spawnObject({
+            type         = "Custom_Model",
+            position     = shippos,
+            rotation     = shiprot,
+            scale        = Dim.mm_ship_scale,
+            sound        = false,
+            snap_to_grid = false,
+        }))
+        pegModel.setName("Peg")
+        pegModel.setCustomObject(pegCustomObject)
+        ship.addAttachment(pegModel)
+        if shipCustomObject then
+            local shipModel = session:track(spawnObject({
+                type         = "Custom_Model",
+                position     = vector(shippos[1], shippos[2], shippos[3]) + shipoffset,
+                rotation     = shiprot,
+                scale        = Dim.mm_ship_scale,
+                sound        = false,
+                snap_to_grid = false,
+            }))
+            shipModel.setName("Ship")
+            shipModel.setCustomObject(shipCustomObject)
+            shipModel.setColorTint(modeltint)
+            ship.addAttachment(shipModel)
+        end
+    end
+    session:waitCondition(pegAndShipSpawnFunction,
+        function() return (not ship.spawning) and (not ship.isSmoothMoving()) end)
+    if newShip ~= nil then
+        local shipCard = newPil
+        local idpos = pos
+        local idrot = rot
+        local customObj = {
+            convex = true,
+            material = 1,
+            type = 1,
+            collider =
+            '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/minisculebox.obj',
+        }
+        if pilot.Size == "small" then
+            customObj.mesh =
+            '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base_ID_Marker.obj'
+        elseif pilot.Size == "medium" then
+            customObj.mesh =
+            '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base%20ID%20MED.obj'
+        elseif pilot.Size == "large" then
+            customObj.mesh =
+            '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base%20ID%20LAR.obj'
+        elseif pilot.Size == "huge" then
+            customObj.mesh =
+            '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base_ID_HUGE.obj'
+        end
+        local shipIdSpawnFunc = function()
+            local shipId = session:track(spawnObject({
+                type = "Custom_Model",
+                position = idpos,
+                rotation = idrot,
+                scale = Dim.mm_ship_scale * 0.99,
+                sound = false,
+                snap_to_grid = false,
+            }))
+            shipId.setCustomObject(customObj)
+            shipId.setColorTint(tint)
+            shipId.setName("ColorId")
+            ship.addAttachment(shipId)
+            ship.setLock(false)
+            ship.addTag("Ship")
+            ship.drag_selectable = true
+            ship.interactable = true
+
+            if shipCard ~= nil then
+                shipCard.call('addTintObject', { 'ship', ship })
+            end
+            ship.call('initContextMenu')
+        end
+        if pilot.Data.ProximityHider then
+            ship.addTag("ProximityHider")
+        end
+        session:waitCondition(shipIdSpawnFunc,
+            function()
+                return (not ship.spawning) and (not ship.isSmoothMoving()) and (shipCard == nil or not shipCard.spawning)
+            end)
+
+        if pilot.Data.Config and pilot.Data.Config.States then
+            for k, config in pairs(pilot.Data.Config.States) do
+                if config.Model then
+                    local customObject = ship.getCustomObject()
+                    customObject.mesh = config.Model
+                    customObject.diffuse = texture
+                    local configSpawnFunction = function()
+                        local configModel = session:track(spawnObject({
+                            type = "Custom_Model",
+                            position = vector(idpos[1], idpos[2], idpos[3]) + shipoffset,
+                            rotation = idrot,
+                            scale = Dim.mm_ship_scale,
+                            sound = false,
+                            snap_to_grid = false,
+                        }))
+                        configModel.setName("Config")
+                        configModel.setDescription(tostring(k))
+                        configModel.setCustomObject(customObject)
+                        configModel.setColorTint(modeltint)
+                        if k ~= 1 then
+                            configModel.setScale(vector(0.0001, 0.0001, 0.0001))
+                        end
+                        ship.addAttachment(configModel)
+                        session:waitFrames(function()
+                            ship.call("DisableAttachedColliders")
+                        end, 2)
+                        session:waitFrames(function()
+                            ship.call("DisableAttachedColliders")
+                        end, 10)
+                        session:waitFrames(function()
+                            ship.call("DisableAttachedColliders")
+                        end, 30)
+                    end
+                    session:waitCondition(configSpawnFunction,
+                        function()
+                            return (not ship.spawning) and (not ship.isSmoothMoving())
+                        end)
+                end
+            end
+            if pilot.Data.Config and pilot.Data.Config.Token then
+                pos = LocalPos(spawnCard, { -1.5, 1, 8.7 })
+                local configToken = session:track(spawnObject({
+                    type = "Custom_Model",
+                    scale = { 0.38, 0.38, 0.38 },
+                    rotation = { 0, 270, 0 },
+                    position = pos,
+                }))
+                configToken.setCustomObject({
+                    mesh =
+                    "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/tokens/flip/flipToken.obj",
+                    diffuse = pilot.Data.Config.Token,
+                    type = 5,
+                    material = 1,
+                    specular_intensity = 0
+                })
+                configToken.setLuaScript(configTokenScript)
+            end
+        end
+    end
+
+    spawnPilotAccessories(session, pilot, spawnCard, accessoryContext, faction, rot, pos)
+    spawnPilotResourceTokens(session, pilot, spawnCard, tokens, hasMob)
+end
+
 local function createSpawnRequest(listTable)
     local spawnCard = listTable.spawnCard
     return {
@@ -1013,7 +1371,6 @@ local function spawnSquad(request, pilotCardScript)
         spawnCard.setPosition(storePos)
         spawnCard.setRotation(storeRot)
         initializeSpawnerAccessoryContext(accessoryContext, spawnCard, bagPosition)
-        local listaAcc = accessoryContext.accessories
         local tokens = accessoryContext.tokens
 
         local UPGRADE_STEP_X = 1.78
@@ -1169,360 +1526,31 @@ local function spawnSquad(request, pilotCardScript)
         local shipIndex = 1 --Sets index of ship being spawned
 
         while Pilots[shipIndex] ~= nil do
-            if Pilots[shipIndex].standardized_loadout then
+            local pilot = Pilots[shipIndex]
+            if pilot.standardized_loadout then
                 spawnCard.setPosition(LocalPos(spawnCard, { -1.1, 0, 0 }))
             end
 
-            local upgradeResult = spawnPilotUpgrades(Pilots[shipIndex], Upgrades[shipIndex])
-            local configCardGUID = upgradeResult.configCardGUID
-            local hasMob = upgradeResult.hasMobileUpgrade
-            local upNum = upgradeResult.count
+            local upgradeResult = spawnPilotUpgrades(pilot, Upgrades[shipIndex])
             local upgradeLayoutCursor = upgradeResult.layoutCursor
 
-            if Pilots[shipIndex].id ~= '' then
-                --Pilot and Ship Spawn
-                local pilotName = Pilots[shipIndex].name
-                local pilotCustomization = Customization[pilotName] or {}
-                local card = pilotCustomization.face or Pilots[shipIndex].card
-                local cardB = pilotCustomization.back or Pilots[shipIndex].cardB
-                local tint = color(0, 0, 0, 0)
-                local modeltint = color(1, 1, 1, 1)
-                tint = pilotCustomization.tint or tint
-                modeltint = pilotCustomization.modeltint or modeltint
+            spawnPilotBundle({
+                session = session,
+                accessoryContext = accessoryContext,
+                spawnCard = spawnCard,
+                faction = Faction,
+                customization = Customization,
+                dialSkin = dialSkin,
+                pilotCardScript = pilotCardScript,
+                spawnPrefix = spawnPrefix,
+                factionnames = factionnames,
+                tokens = tokens,
+            }, pilot, upgradeResult)
 
-                local pos = LocalPos(spawnCard, { 0, 1.2, 5.5 })
-                local rot = spawnCard.getRotation()
-                local newPil = nil
-                if card ~= '' then
-                    if cardB ~= nil then
-                        local deck = Decker.Asset(card, cardB)
-                        card = Decker.Card(deck, 1, 1)
-                        newPil = session:track(card:spawn({ position = pos, rotation = rot }))
-                        newPil.setName(pilotName)
-                        newPil.setDescription(Pilots[shipIndex].list)
-                        newPil.setLuaScript(pilotCardScript)
-                        newPil.setTable("PointsTrackerConfig", {
-                            landscape = Pilots[shipIndex].standardized_loadout == true,
-                            visible = ShouldShowShipPointsTrackerForCurrentLayout()
-                        })
-                        newPil.setLock(true)
 
-                        -- Spawn Pilot Identifier
-                        local card = newPil
-                        local idpos = pos
-                        local idrot = rot
-
-                        local pilotIdSpawnFunc = function()
-                            local pilotId = session:track(spawnObject({
-                                type = "Custom_Model",
-                                position = idpos,
-                                rotation = idrot,
-                                scale = Dim.mm_ship_scale,
-                                sound = false,
-                                snap_to_grid = false,
-                            }))
-                            pilotId.setCustomObject({
-                                mesh =
-                                '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/cardid.obj',
-                                convex = true,
-                                material = 1,
-                                type = 0
-                            })
-                            pilotId.setColorTint(tint)
-                            card.addAttachment(pilotId)
-                            card.setLock(false)
-                        end
-                        session:waitCondition(pilotIdSpawnFunc, function()
-                            return card ~= nil and (not card.spawning)
-                        end)
-                    end
-                end
-                if pilotName ~= '' then
-                    for _, acc in pairs(listaAcc) do
-                        local card = newPil
-                        if acc.name == 'Unassigned Dial' then
-                            local dialpos = LocalPos(spawnCard, { 0, 1, 13.2 })
-                            local dialrot = rot
-                            local dial = takeSpawnerAccessorySource(accessoryContext,
-                                {
-                                    position = dialpos,
-                                    rotation = dialrot,
-                                    guid = acc.guid
-                                })
-                            local newDial = session:track(dial.clone())
-                            newDial.setPosition(pos)
-                            returnSpawnerAccessorySource(accessoryContext, dial)
-                            local conditionFunc = function()
-                                return card ~= nil and (not card.spawning) and (not newDial.spawning)
-                            end
-                            local executeFunc = function()
-                                newDial.setCustomObject({ ['diffuse'] = dialSkin })
-                                newDial = session:track(newDial.reload())
-                                newDial.setColorTint(tint)
-                                newDial.setPosition(dialpos)
-                                newDial.setRotation(dialrot)
-                                if card ~= nil then
-                                    card.call('addTintObject', { 'dial', newDial })
-                                end
-                            end
-                            session:waitCondition(executeFunc, conditionFunc)
-                        end
-                    end
-                end
-                if Pilots[shipIndex].Condition ~= nil then
-                    spawnAssignableAccessories(session, accessoryContext, Pilots[shipIndex].Condition,
-                        LocalPos(spawnCard, { -2 - 1.78 * upNum, 1, 8 }), spawnCard.getRotation())
-                end
-
-                local texture = nil
-                Pilots[shipIndex].Data.ColorId = tint
-                if Pilots[shipIndex].Data.Config then
-                    Pilots[shipIndex].Data.Config.CardGUID = configCardGUID
-                end
-
-                if pilotCustomization.texture ~= nil then
-                    texture = pilotCustomization.texture
-                else
-                    local textureKey = Pilots[shipIndex].Data.texture
-                    local textureUrl = nil
-                    if textureKey ~= nil and Pilots[shipIndex].Data.textures ~= nil then
-                        textureUrl = Pilots[shipIndex].Data.textures[textureKey]
-                    end
-                    if textureUrl ~= nil then
-                        texture = '{verifycache}' .. textureUrl
-                    elseif textureKey ~= nil then
-                        print("Missing ship texture '" .. tostring(textureKey) .. "' for " .. tostring(pilotName) ..
-                            " (" .. tostring(Pilots[shipIndex].Data.shipId) .. ")")
-                    end
-                end
-                local shipoffset = vector(0, 2.2, 0)
-                local size = Pilots[shipIndex].Size
-                local arcs = Pilots[shipIndex].Data.arcs
-                local fixedarc = "none"
-                if arcs.fixed then
-                    fixedarc = arcs.fixed.type[1] or "none"
-                end
-                if size == "huge" then
-                    pos = LocalPos(spawnCard, { 0, 0, 13.2 })
-                else
-                    pos = LocalPos(spawnCard, { 0, 0, 10.2 })
-                end
-                rot = spawnCard.getRotation()
-                local base_prototype = getObjectFromGUID(CompositeBase_GUID)
-                local factionName = factionnames[Faction]
-                if factionName == nil then
-                    print("Missing faction base texture for faction " .. tostring(Faction) .. " on " .. tostring(pilotName))
-                    factionName = factionnames[1]
-                end
-                local baseDiffuse = spawnPrefix .. "bases/" .. size .. "/" .. fixedarc .. "/" .. factionName .. ".png"
-                local newShip = session:track(base_prototype.clone())
-                -- Move without collisions; dependent attachments wait until the fast smooth move completes.
-                newShip.setPositionSmooth(pos, false, true)
-                newShip.setRotationSmooth(rot, false, true)
-                newShip.setScale(Dim.mm_ship_scale)
-
-                newShip.setCustomObject({
-                    mesh = spawnPrefix .. "bases/" .. size .. "/base.obj?1",
-                    collider = ShipVerification.colliders[size],
-                    diffuse = baseDiffuse,
-                    convex = true,
-                    material = 1,
-                    type = 1
-                })
-                newShip.setTable("Data", Pilots[shipIndex].Data)
-                newShip.setLock(true)
-                if Pilots[shipIndex].Data.ProximityHider then
-                    newShip.addTag("ProximityHider")
-                end
-
-                local base_name_str = pilotName
-                if Pilots[shipIndex].Data.limited and Pilots[shipIndex].Data.limited > 0 then
-                    base_name_str = string.rep("•", Pilots[shipIndex].Data.limited) .. " " .. pilotName
-                end
-                newShip.setTable("UiData", {
-                    name = base_name_str,
-                    icon = Pilots[shipIndex].Ship,
-                    init = "init" .. Pilots[shipIndex].Data.initiative
-                })
-
-                local pegtype = Pilots[shipIndex].peg or size
-                local pegCustomObject = {
-                    mesh = spawnPrefix .. "bases/pegs/" .. pegtype .. ".obj",
-                    diffuse = baseDiffuse,
-                    collider =
-                    '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/minisculebox.obj',
-                    convex = true,
-                    material = 1,
-                    type = 1
-                }
-                local shippos = pos
-                local shiprot = rot
-                local ship = newShip
-                local shipCustomObject = nil
-                if Pilots[shipIndex].Data.mesh then
-                    shipCustomObject = {
-                        mesh = '{verifycache}' .. Pilots[shipIndex].Data.mesh,
-                        diffuse = texture,
-                        collider =
-                        '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/minisculebox.obj',
-                        convex = true,
-                        material = 1,
-                        type = 1
-                    }
-                end
-
-                local pegAndShipSpawnFunction = function()
-                    local pegModel = session:track(spawnObject({
-                        type         = "Custom_Model",
-                        position     = shippos,
-                        rotation     = shiprot,
-                        scale        = Dim.mm_ship_scale,
-                        sound        = false,
-                        snap_to_grid = false,
-                    }))
-                    pegModel.setName("Peg")
-                    pegModel.setCustomObject(pegCustomObject)
-                    ship.addAttachment(pegModel)
-                    if shipCustomObject then
-                        local shipModel = session:track(spawnObject({
-                            type         = "Custom_Model",
-                            position     = vector(shippos[1], shippos[2], shippos[3]) + shipoffset,
-                            rotation     = shiprot,
-                            scale        = Dim.mm_ship_scale,
-                            sound        = false,
-                            snap_to_grid = false,
-                        }))
-                        shipModel.setName("Ship")
-                        shipModel.setCustomObject(shipCustomObject)
-                        shipModel.setColorTint(modeltint)
-                        ship.addAttachment(shipModel)
-                    end
-                end
-                session:waitCondition(pegAndShipSpawnFunction,
-                    function() return (not ship.spawning) and (not ship.isSmoothMoving()) end)
-                if newShip ~= nil then
-                    local ship = newShip
-                    local card = newPil
-                    local idpos = pos
-                    local idrot = rot
-                    local customObj = {
-                        convex = true,
-                        material = 1,
-                        type = 1,
-                        collider =
-                        '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/minisculebox.obj',
-                    }
-                    if Pilots[shipIndex].Size == "small" then
-                        customObj.mesh =
-                        '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base_ID_Marker.obj'
-                    elseif Pilots[shipIndex].Size == "medium" then
-                        customObj.mesh =
-                        '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base%20ID%20MED.obj'
-                    elseif Pilots[shipIndex].Size == "large" then
-                        customObj.mesh =
-                        '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base%20ID%20LAR.obj'
-                    elseif Pilots[shipIndex].Size == "huge" then
-                        customObj.mesh =
-                        '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base_ID_HUGE.obj'
-                    end
-                    local shipIdSpawnFunc = function()
-                        local shipId = session:track(spawnObject({
-                            type = "Custom_Model",
-                            position = idpos,
-                            rotation = idrot,
-                            scale = Dim.mm_ship_scale * 0.99,
-                            sound = false,
-                            snap_to_grid = false,
-                        }))
-                        shipId.setCustomObject(customObj)
-                        shipId.setColorTint(tint)
-                        shipId.setName("ColorId")
-                        ship.addAttachment(shipId)
-                        ship.setLock(false)
-                        ship.addTag("Ship")
-                        ship.drag_selectable = true
-                        ship.interactable = true
-
-                        if card ~= nil then
-                            card.call('addTintObject', { 'ship', ship })
-                        end
-                        ship.call('initContextMenu')
-                    end
-                    if Pilots[shipIndex].Data.ProximityHider then
-                        ship.addTag("ProximityHider")
-                    end
-                    session:waitCondition(shipIdSpawnFunc,
-                        function()
-                            return (not ship.spawning) and (not ship.isSmoothMoving()) and (card == nil or not card.spawning)
-                        end)
-
-                    if Pilots[shipIndex].Data.Config and Pilots[shipIndex].Data.Config.States then
-                        for k, config in pairs(Pilots[shipIndex].Data.Config.States) do
-                            if config.Model then
-                                local customObject = ship.getCustomObject()
-                                customObject.mesh = config.Model
-                                customObject.diffuse = texture
-                                local configSpawnFunction = function()
-                                    local configModel = session:track(spawnObject({
-                                        type = "Custom_Model",
-                                        position = vector(idpos[1], idpos[2], idpos[3]) + shipoffset,
-                                        rotation = idrot,
-                                        scale = Dim.mm_ship_scale,
-                                        sound = false,
-                                        snap_to_grid = false,
-                                    }))
-                                    configModel.setName("Config")
-                                    configModel.setDescription(tostring(k))
-                                    configModel.setCustomObject(customObject)
-                                    configModel.setColorTint(modeltint)
-                                    if k ~= 1 then
-                                        configModel.setScale(vector(0.0001, 0.0001, 0.0001))
-                                    end
-                                    ship.addAttachment(configModel)
-                                    session:waitFrames(function()
-                                        ship.call("DisableAttachedColliders")
-                                    end, 2)
-                                    session:waitFrames(function()
-                                        ship.call("DisableAttachedColliders")
-                                    end, 10)
-                                    session:waitFrames(function()
-                                        ship.call("DisableAttachedColliders")
-                                    end, 30)
-                                end
-                                session:waitCondition(configSpawnFunction,
-                                    function()
-                                        return (not ship.spawning) and (not ship.isSmoothMoving())
-                                    end)
-                            end -- if Config.Model
-                        end     -- for Data.Config
-                        if Pilots[shipIndex].Data.Config and Pilots[shipIndex].Data.Config.Token then
-                            pos = LocalPos(spawnCard, { -1.5, 1, 8.7 })
-                            local configToken = session:track(spawnObject({
-                                type = "Custom_Model",
-                                scale = { 0.38, 0.38, 0.38 },
-                                rotation = { 0, 270, 0 },
-                                position = pos,
-                            }))
-                            configToken.setCustomObject({
-                                mesh =
-                                "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/Items/tokens/flip/flipToken.obj",
-                                diffuse = Pilots[shipIndex].Data.Config.Token,
-                                type = 5,
-                                material = 1,
-                                specular_intensity = 0
-                            })
-                            configToken.setLuaScript(configTokenScript)
-                        end -- token
-                    end     -- config
-                end
-
-                spawnPilotAccessories(session, Pilots[shipIndex], spawnCard, accessoryContext, Faction, rot, pos)
-                spawnPilotResourceTokens(session, Pilots[shipIndex], spawnCard, tokens, hasMob)
-            end
-
-            if Pilots[shipIndex].standardized_loadout then
+            if pilot.standardized_loadout then
                 local charges = 0
-                for _, upgrade in pairs(Pilots[shipIndex].standardized_upgrades) do
+                for _, upgrade in pairs(pilot.standardized_upgrades) do
                     charges = math.max(charges, upgrade.charge)
                 end
                 spawnCard.setPosition(LocalPos(spawnCard, { -(5.5 + charges * 0.7), 0, 0 }))
