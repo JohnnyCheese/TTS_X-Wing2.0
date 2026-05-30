@@ -232,17 +232,25 @@ end
 
 local function canModifyPointsState(playerColor)
   local owning_player = getOwningPlayerColor()
-  if owning_player == nil or owning_player == "" or owning_player == "Black" then
+  if owning_player == nil or owning_player == "" then
+    return false
+  end
+  if owning_player == "Black" then
     return true
   end
   return playerColor == owning_player
 end
 
 local function notifyUnauthorizedPointsChange(playerColor)
-  local owning_player = getOwningPlayerColor() or "the controlling player"
+  local owning_player = getOwningPlayerColor()
   local actor = getPlayerLabel(playerColor)
   local ship_name = getShipLabel()
-  local message = actor .. " cannot change " .. ship_name .. " points. Controlled by " .. owning_player .. "."
+  local message
+  if owning_player == nil or owning_player == "" then
+    message = actor .. " cannot change " .. ship_name .. " points because it has no owner."
+  else
+    message = actor .. " cannot change " .. ship_name .. " points. Controlled by " .. owning_player .. "."
+  end
   if playerColor ~= nil and Player[playerColor] ~= nil then
     printToColor(message, playerColor, { 1, 0.2, 0.2 })
   else
@@ -366,20 +374,12 @@ local function setPointsState(new_state, playerColor)
   end
 
   if playerColor ~= nil and not canModifyPointsState(playerColor) then
-    printToAll("[PointsDebug] blocked: clicker=" .. tostring(playerColor) .. ", owner=" .. tostring(owning_player) ..
-      ", ship=" .. tostring(getShipLabel()) .. ", state=" .. tostring(current_state) .. "->" .. tostring(new_state),
-      { 1, 0.2, 0.2 })
     notifyUnauthorizedPointsChange(playerColor)
     return
   end
 
   local previous_state = current_state
   current_state = new_state
-  if playerColor ~= nil then
-    printToAll("[PointsDebug] applied: clicker=" .. tostring(playerColor) .. ", owner=" .. tostring(owning_player) ..
-      ", ship=" .. tostring(getShipLabel()) .. ", state=" .. tostring(previous_state) .. "->" .. tostring(new_state),
-      { 0.6, 0.9, 1 })
-  end
   refreshPointsUI()
   rebuildPointsContextMenu()
   updateGameConsoleConcededPoints(previous_state, new_state, playerColor)
