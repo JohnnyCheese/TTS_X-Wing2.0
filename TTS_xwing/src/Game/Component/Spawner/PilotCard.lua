@@ -221,7 +221,12 @@ local function normalizePlayerColor(playerRef)
 end
 
 local function getOwningPlayerColor()
-  initializeShipTrackerData()
+  resolveLinkedObjects()
+  if ship ~= nil then
+    cached_owning_player = ship.getVar("owningPlayer")
+  elseif cached_owning_player == nil then
+    initializeShipTrackerData()
+  end
   return cached_owning_player
 end
 
@@ -355,17 +360,26 @@ end
 
 local function setPointsState(new_state, playerColor)
   playerColor = normalizePlayerColor(playerColor)
+  local owning_player = getOwningPlayerColor()
   if current_state == new_state then
     return
   end
 
   if playerColor ~= nil and not canModifyPointsState(playerColor) then
+    printToAll("[PointsDebug] blocked: clicker=" .. tostring(playerColor) .. ", owner=" .. tostring(owning_player) ..
+      ", ship=" .. tostring(getShipLabel()) .. ", state=" .. tostring(current_state) .. "->" .. tostring(new_state),
+      { 1, 0.2, 0.2 })
     notifyUnauthorizedPointsChange(playerColor)
     return
   end
 
   local previous_state = current_state
   current_state = new_state
+  if playerColor ~= nil then
+    printToAll("[PointsDebug] applied: clicker=" .. tostring(playerColor) .. ", owner=" .. tostring(owning_player) ..
+      ", ship=" .. tostring(getShipLabel()) .. ", state=" .. tostring(previous_state) .. "->" .. tostring(new_state),
+      { 0.6, 0.9, 1 })
+  end
   refreshPointsUI()
   rebuildPointsContextMenu()
   updateGameConsoleConcededPoints(previous_state, new_state, playerColor)
@@ -383,12 +397,6 @@ function HandlePointsNumberTyped(params)
     number = params.number
     playerColor = normalizePlayerColor(params.playerColor)
   end
-
-  log({
-    card = self.getName(),
-    playerColor = playerColor,
-    number = number,
-  }, "Pilot card HandlePointsNumberTyped")
 
   if number == 1 then
     MarkHealthy(playerColor)
@@ -556,11 +564,6 @@ function onLoad(savestate)
 end
 
 function onNumberTyped(playerColor, number)
-  log({
-    card = self.getName(),
-    playerColor = playerColor,
-    number = number,
-  }, "Pilot card onNumberTyped")
   HandlePointsNumberTyped({ number = number, playerColor = playerColor })
 end
 
