@@ -1322,6 +1322,177 @@ local function spawnPilotBundle(context, pilot, upgradeResult)
     spawnPilotResourceTokens(session, pilot, spawnCard, tokens, hasMob)
 end
 
+local function isExtendedWidthUpgrade(upgrade)
+    return upgrade.extended_width == true
+end
+
+local function extendedWidthOffset(upgrade, direction, extendedWidthTuck)
+    if isExtendedWidthUpgrade(upgrade) then
+        return extendedWidthTuck * direction
+    end
+    return 0
+end
+
+local function upgradeCardLayout(cursor, upgrade, upgradeStepX, upgradeStepY, extendedWidthTuck, extendedWidthStep)
+    local widthOffset = extendedWidthOffset(upgrade, -1, extendedWidthTuck)
+    local layout = {
+        x = cursor.x + widthOffset,
+        y = cursor.y,
+        z = cursor.z,
+    }
+    if isExtendedWidthUpgrade(upgrade) then
+        cursor.x = cursor.x - extendedWidthStep
+    else
+        cursor.x = cursor.x - upgradeStepX
+    end
+    cursor.y = cursor.y - upgradeStepY
+    return layout
+end
+
+local function configCardLayout(upgrade, configCardAnchorX, extendedWidthTuck)
+    local layout = {
+        x = configCardAnchorX + extendedWidthOffset(upgrade, 1, extendedWidthTuck),
+        y = 0,
+        z = 5.5,
+    }
+    return layout
+end
+
+local function localLayoutPos(spawnCard, layout, dx, dy, dz)
+    return LocalPos(spawnCard, {
+        layout.x + (dx or 0),
+        layout.y + (dy or 0),
+        layout.z + (dz or 0),
+    })
+end
+
+local function spawnUpgradeCharges(session, tokenTemplate, spawnCard, upgrade, pilot, layout, isConfiguration)
+    local charges = upgrade.Charge
+    while charges > 0 do
+        local position
+        if isConfiguration then
+            if charges == 5 then
+                position = localLayoutPos(spawnCard, layout, 0.88, 0, -3.6)
+            elseif charges == 4 then
+                position = localLayoutPos(spawnCard, layout, 0.88, 0, -2.7)
+            elseif charges == 3 then
+                position = localLayoutPos(spawnCard, layout, -0.02, 0, -2.7)
+            elseif charges == 2 then
+                position = localLayoutPos(spawnCard, layout, 0.88, 0, -1.8)
+            elseif charges == 1 then
+                position = localLayoutPos(spawnCard, layout, -0.02, 0, -1.8)
+            end
+        else
+            if charges == 5 then
+                position = localLayoutPos(spawnCard, layout, -0.28, 1 - layout.y, -3.6)
+            elseif charges == 4 then
+                position = localLayoutPos(spawnCard, layout, -0.28, 1 - layout.y, -2.7)
+            elseif charges == 3 then
+                position = localLayoutPos(spawnCard, layout, -1.18, 1 - layout.y, -2.7)
+            elseif charges == 2 then
+                position = localLayoutPos(spawnCard, layout, -0.28, 1 - layout.y, -1.8)
+            elseif charges == 1 then
+                position = localLayoutPos(spawnCard, layout, -1.18, 1 - layout.y, -1.8)
+            end
+        end
+        if position == nil then
+            break
+        end
+        charges = charges - 1
+        cloneSpawnerToken(session, tokenTemplate, position, "charge_owner", pilot.name, upgrade.name)
+    end
+end
+
+local function spawnPilotUpgrades(context, pilot, upgrades)
+    local session = context.session
+    local accessoryContext = context.accessoryContext
+    local spawnCard = context.spawnCard
+    local customization = context.customization
+    local upgradeStepX = context.upgradeStepX
+    local upgradeStepY = context.upgradeStepY
+    local extendedWidthTuck = context.extendedWidthTuck
+    local extendedWidthStep = context.extendedWidthStep
+    local configCardAnchorX = context.configCardAnchorX
+    local configCardShiftX = context.configCardShiftX
+
+    local result = {
+        configCardGUID = nil,
+        hasMobileUpgrade = 0,
+        count = 0,
+        layoutCursor = { x = -1.42, y = 1, z = 5.5 }
+    }
+
+    for _, upgrade in pairs(upgrades) do
+        if upgrade.Config == true then
+            local layout = configCardLayout(upgrade, configCardAnchorX, extendedWidthTuck)
+            spawnCard.setPosition(LocalPos(spawnCard, { configCardShiftX, 0, 0 }))
+            local position = localLayoutPos(spawnCard, layout)
+            local rotation = spawnCard.getRotation()
+            local cardLink = upgrade.card
+            local cardBackLink = upgrade.cardB
+            if customization[upgrade.name] ~= nil then
+                cardLink = customization[upgrade.name].face or upgrade.card
+                cardBackLink = customization[upgrade.name].back or upgrade.cardB
+            end
+            local deck = Decker.Asset(cardLink, cardBackLink)
+            local card = Decker.Card(deck, 1, 1)
+            local spawnedUpgrade = session:track(card:spawn({
+                position = position,
+                rotation = rotation,
+                scale = { 0.68, 0.68, 0.68 }
+            }))
+            spawnedUpgrade.setName(upgrade.name)
+            spawnedUpgrade.addTag("ConfigCard")
+            result.configCardGUID = spawnedUpgrade.getGUID()
+            result.hasMobileUpgrade = 1
+            spawnUpgradeCharges(session, accessoryContext.tokens.Charge, spawnCard, upgrade, pilot, layout, true)
+        end
+    end
+
+    for _, upgrade in pairs(upgrades) do
+        if upgrade.Config ~= true then
+            local layout = upgradeCardLayout(result.layoutCursor, upgrade, upgradeStepX, upgradeStepY,
+                extendedWidthTuck, extendedWidthStep)
+            local position = localLayoutPos(spawnCard, layout)
+            local rotation = spawnCard.getRotation()
+            local cardLink = upgrade.card
+            local cardBackLink = upgrade.cardB
+            if customization[upgrade.name] ~= nil then
+                cardLink = customization[upgrade.name].face or upgrade.card
+                cardBackLink = customization[upgrade.name].back or upgrade.cardB
+            end
+            local deck = Decker.Asset(cardLink, cardBackLink)
+            local card = Decker.Card(deck, 1, 1)
+            local spawnedUpgrade = session:track(card:spawn({
+                position = position,
+                rotation = rotation,
+                scale = { 0.68, 0.68, 0.68 }
+            }))
+            spawnedUpgrade.setName(upgrade.name)
+            if upgrade.Condition ~= nil then
+                spawnAssignableAccessories(session, accessoryContext, upgrade.Condition,
+                    localLayoutPos(spawnCard, layout, -0.58, 0, 2.5), spawnCard.getRotation())
+            end
+            spawnUpgradeCharges(session, accessoryContext.tokens.Charge, spawnCard, upgrade, pilot, layout, false)
+            result.count = result.count + 1
+        end
+    end
+
+    return result
+end
+
+local function advancePilotSpawnCursor(spawnCard, pilot, upgradeLayoutCursor)
+    if pilot.standardized_loadout then
+        local charges = 0
+        for _, upgrade in pairs(pilot.standardized_upgrades) do
+            charges = math.max(charges, upgrade.charge)
+        end
+        spawnCard.setPosition(LocalPos(spawnCard, { -(5.5 + charges * 0.7), 0, 0 }))
+    else
+        spawnCard.setPosition(LocalPos(spawnCard, { upgradeLayoutCursor.x - 2.58, 0, 0 }))
+    end
+end
+
 local function createSpawnRequest(listTable)
     local spawnCard = listTable.spawnCard
     return {
@@ -1380,149 +1551,6 @@ local function spawnSquad(request, pilotCardScript)
         local CONFIG_CARD_ANCHOR_X = 1.42
         local CONFIG_CARD_SHIFT_X = -1.9
 
-        local function isExtendedWidthUpgrade(upgrade)
-            return upgrade.extended_width == true
-        end
-
-        local function extendedWidthOffset(upgrade, direction)
-            if isExtendedWidthUpgrade(upgrade) then
-                return UPGRADE_EXTENDED_WIDTH_TUCK * direction
-            end
-            return 0
-        end
-
-        local function upgradeCardLayout(cursor, upgrade)
-            local widthOffset = extendedWidthOffset(upgrade, -1)
-            local layout = {
-                x = cursor.x + widthOffset,
-                y = cursor.y,
-                z = cursor.z,
-            }
-            if isExtendedWidthUpgrade(upgrade) then
-                cursor.x = cursor.x - UPGRADE_EXTENDED_WIDTH_STEP
-            else
-                cursor.x = cursor.x - UPGRADE_STEP_X
-            end
-            cursor.y = cursor.y - UPGRADE_STEP_Y
-            return layout
-        end
-
-        local function configCardLayout(upgrade)
-            local layout = {
-                x = CONFIG_CARD_ANCHOR_X + extendedWidthOffset(upgrade, 1),
-                y = 0,
-                z = 5.5,
-            }
-            return layout
-        end
-
-        local function localLayoutPos(layout, dx, dy, dz)
-            return LocalPos(spawnCard, {
-                layout.x + (dx or 0),
-                layout.y + (dy or 0),
-                layout.z + (dz or 0),
-            })
-        end
-
-        local function spawnUpgradeCharges(upgrade, pilot, layout, isConfiguration)
-            local charges = upgrade.Charge
-            while charges > 0 do
-                local position
-                if isConfiguration then
-                    if charges == 5 then
-                        position = localLayoutPos(layout, 0.88, 0, -3.6)
-                    elseif charges == 4 then
-                        position = localLayoutPos(layout, 0.88, 0, -2.7)
-                    elseif charges == 3 then
-                        position = localLayoutPos(layout, -0.02, 0, -2.7)
-                    elseif charges == 2 then
-                        position = localLayoutPos(layout, 0.88, 0, -1.8)
-                    elseif charges == 1 then
-                        position = localLayoutPos(layout, -0.02, 0, -1.8)
-                    end
-                else
-                    if charges == 5 then
-                        position = localLayoutPos(layout, -0.28, 1 - layout.y, -3.6)
-                    elseif charges == 4 then
-                        position = localLayoutPos(layout, -0.28, 1 - layout.y, -2.7)
-                    elseif charges == 3 then
-                        position = localLayoutPos(layout, -1.18, 1 - layout.y, -2.7)
-                    elseif charges == 2 then
-                        position = localLayoutPos(layout, -0.28, 1 - layout.y, -1.8)
-                    elseif charges == 1 then
-                        position = localLayoutPos(layout, -1.18, 1 - layout.y, -1.8)
-                    end
-                end
-                if position == nil then
-                    break
-                end
-                charges = charges - 1
-                cloneSpawnerToken(session, tokens.Charge, position, "charge_owner", pilot.name, upgrade.name)
-            end
-        end
-
-        local function spawnPilotUpgrades(pilot, upgrades)
-            local result = {
-                configCardGUID = nil,
-                hasMobileUpgrade = 0,
-                count = 0,
-                layoutCursor = { x = -1.42, y = 1, z = 5.5 }
-            }
-
-            for _, upgrade in pairs(upgrades) do
-                if upgrade.Config == true then
-                    local layout = configCardLayout(upgrade)
-                    spawnCard.setPosition(LocalPos(spawnCard, { CONFIG_CARD_SHIFT_X, 0, 0 }))
-                    local position = localLayoutPos(layout)
-                    local rotation = spawnCard.getRotation()
-                    local cardLink = upgrade.card
-                    local cardBackLink = upgrade.cardB
-                    if Customization[upgrade.name] ~= nil then
-                        cardLink = Customization[upgrade.name].face or upgrade.card
-                        cardBackLink = Customization[upgrade.name].back or upgrade.cardB
-                    end
-                    local deck = Decker.Asset(cardLink, cardBackLink)
-                    local card = Decker.Card(deck, 1, 1)
-                    local spawnedUpgrade = session:track(card:spawn({ position = position, rotation = rotation, scale = { 0.68, 0.68, 0.68 } }))
-                    spawnedUpgrade.setName(upgrade.name)
-                    spawnedUpgrade.addTag("ConfigCard")
-                    result.configCardGUID = spawnedUpgrade.getGUID()
-                    result.hasMobileUpgrade = 1
-                    spawnUpgradeCharges(upgrade, pilot, layout, true)
-                end
-            end
-
-            for _, upgrade in pairs(upgrades) do
-                if upgrade.Config ~= true then
-                    local layout = upgradeCardLayout(result.layoutCursor, upgrade)
-                    local position = localLayoutPos(layout)
-                    local rotation = spawnCard.getRotation()
-                    local cardLink = upgrade.card
-                    local cardBackLink = upgrade.cardB
-                    if Customization[upgrade.name] ~= nil then
-                        cardLink = Customization[upgrade.name].face or upgrade.card
-                        cardBackLink = Customization[upgrade.name].back or upgrade.cardB
-                    end
-                    local deck = Decker.Asset(cardLink, cardBackLink)
-                    local card = Decker.Card(deck, 1, 1)
-                    local spawnedUpgrade = session:track(card:spawn({
-                        position = position,
-                        rotation = rotation,
-                        scale = { 0.68, 0.68, 0.68 }
-                    }))
-                    spawnedUpgrade.setName(upgrade.name)
-                    if upgrade.Condition ~= nil then
-                        spawnAssignableAccessories(session, accessoryContext, upgrade.Condition,
-                            localLayoutPos(layout, -0.58, 0, 2.5), spawnCard.getRotation())
-                    end
-                    spawnUpgradeCharges(upgrade, pilot, layout, false)
-                    result.count = result.count + 1
-                end
-            end
-
-            return result
-        end
-
         local shipIndex = 1 --Sets index of ship being spawned
 
         while Pilots[shipIndex] ~= nil do
@@ -1531,7 +1559,18 @@ local function spawnSquad(request, pilotCardScript)
                 spawnCard.setPosition(LocalPos(spawnCard, { -1.1, 0, 0 }))
             end
 
-            local upgradeResult = spawnPilotUpgrades(pilot, Upgrades[shipIndex])
+            local upgradeResult = spawnPilotUpgrades({
+                session = session,
+                accessoryContext = accessoryContext,
+                spawnCard = spawnCard,
+                customization = Customization,
+                upgradeStepX = UPGRADE_STEP_X,
+                upgradeStepY = UPGRADE_STEP_Y,
+                extendedWidthTuck = UPGRADE_EXTENDED_WIDTH_TUCK,
+                extendedWidthStep = UPGRADE_EXTENDED_WIDTH_STEP,
+                configCardAnchorX = CONFIG_CARD_ANCHOR_X,
+                configCardShiftX = CONFIG_CARD_SHIFT_X,
+            }, pilot, Upgrades[shipIndex])
             local upgradeLayoutCursor = upgradeResult.layoutCursor
 
             spawnPilotBundle({
@@ -1548,15 +1587,7 @@ local function spawnSquad(request, pilotCardScript)
             }, pilot, upgradeResult)
 
 
-            if pilot.standardized_loadout then
-                local charges = 0
-                for _, upgrade in pairs(pilot.standardized_upgrades) do
-                    charges = math.max(charges, upgrade.charge)
-                end
-                spawnCard.setPosition(LocalPos(spawnCard, { -(5.5 + charges * 0.7), 0, 0 }))
-            else
-                spawnCard.setPosition(LocalPos(spawnCard, { upgradeLayoutCursor.x - 2.58, 0, 0 }))
-            end
+            advancePilotSpawnCursor(spawnCard, pilot, upgradeLayoutCursor)
             shipIndex = shipIndex + 1
         end
 
