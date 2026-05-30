@@ -677,20 +677,12 @@ local function resolvePilotTexture(pilot, pilotCustomization, pilotName)
     return nil
 end
 
-local function spawnPilotShipBundle(context, pilot, upgradeResult, pilotName, pilotCustomization, tint, modeltint, pilotCard)
+local function spawnCompositeShipBase(context, pilot, pilotName, texture, modeltint)
     local session = context.session
     local spawnCard = context.spawnCard
     local faction = context.faction
     local spawnPrefix = context.spawnPrefix
     local factionnames = context.factionnames
-
-    local configCardGUID = upgradeResult.configCardGUID
-    local texture = resolvePilotTexture(pilot, pilotCustomization, pilotName)
-
-    pilot.Data.ColorId = tint
-    if pilot.Data.Config then
-        pilot.Data.Config.CardGUID = configCardGUID
-    end
 
     local shipoffset = vector(0, 2.2, 0)
     local size = pilot.Size
@@ -800,9 +792,15 @@ local function spawnPilotShipBundle(context, pilot, upgradeResult, pilotName, pi
     session:waitCondition(pegAndShipSpawnFunction,
         function() return (not ship.spawning) and (not ship.isSmoothMoving()) end)
 
-    local shipCard = pilotCard
-    local idpos = pos
-    local idrot = rot
+    return {
+        ship = ship,
+        shipOffset = shipoffset,
+        shipPosition = pos,
+        shipRotation = rot,
+    }
+end
+
+local function shipIdCustomObjectForSize(size)
     local customObj = {
         convex = true,
         material = 1,
@@ -810,19 +808,35 @@ local function spawnPilotShipBundle(context, pilot, upgradeResult, pilotName, pi
         collider =
         '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/minisculebox.obj',
     }
-    if pilot.Size == "small" then
+    if size == "small" then
         customObj.mesh =
         '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base_ID_Marker.obj'
-    elseif pilot.Size == "medium" then
+    elseif size == "medium" then
         customObj.mesh =
         '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base%20ID%20MED.obj'
-    elseif pilot.Size == "large" then
+    elseif size == "large" then
         customObj.mesh =
         '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base%20ID%20LAR.obj'
-    elseif pilot.Size == "huge" then
+    elseif size == "huge" then
         customObj.mesh =
         '{verifycache}https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/assets/models/Base_ID_HUGE.obj'
     end
+    return customObj
+end
+
+local function spawnShipIdentifiersAndConfig(context, pilot, pilotCard, tint, modeltint, texture, shipSpawnResult)
+    local session = context.session
+    local spawnCard = context.spawnCard
+
+    local ship = shipSpawnResult.ship
+    local shipoffset = shipSpawnResult.shipOffset
+    local pos = shipSpawnResult.shipPosition
+    local rot = shipSpawnResult.shipRotation
+
+    local shipCard = pilotCard
+    local idpos = pos
+    local idrot = rot
+    local customObj = shipIdCustomObjectForSize(pilot.Size)
 
     local shipIdSpawnFunc = function()
         local shipId = session:track(spawnObject({
@@ -915,9 +929,23 @@ local function spawnPilotShipBundle(context, pilot, upgradeResult, pilotName, pi
     end
 
     return {
-        shipPosition = pos,
-        shipRotation = rot,
+        shipPosition = shipSpawnResult.shipPosition,
+        shipRotation = shipSpawnResult.shipRotation,
     }
+end
+
+local function spawnPilotShipBundle(context, pilot, upgradeResult, pilotName, pilotCustomization, tint, modeltint, pilotCard)
+    local configCardGUID = upgradeResult.configCardGUID
+    local texture = resolvePilotTexture(pilot, pilotCustomization, pilotName)
+
+    pilot.Data.ColorId = tint
+    if pilot.Data.Config then
+        pilot.Data.Config.CardGUID = configCardGUID
+    end
+
+    local shipSpawnResult = spawnCompositeShipBase(context, pilot, pilotName, texture, modeltint)
+
+    return spawnShipIdentifiersAndConfig(context, pilot, pilotCard, tint, modeltint, texture, shipSpawnResult)
 end
 
 local function spawnPilotBundle(context, pilot, upgradeResult)
