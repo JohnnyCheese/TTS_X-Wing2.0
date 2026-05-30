@@ -221,23 +221,36 @@ local function normalizePlayerColor(playerRef)
 end
 
 local function getOwningPlayerColor()
-  initializeShipTrackerData()
+  resolveLinkedObjects()
+  if ship ~= nil then
+    cached_owning_player = ship.getVar("owningPlayer")
+  elseif cached_owning_player == nil then
+    initializeShipTrackerData()
+  end
   return cached_owning_player
 end
 
 local function canModifyPointsState(playerColor)
   local owning_player = getOwningPlayerColor()
-  if owning_player == nil or owning_player == "" or owning_player == "Black" then
+  if playerColor == "Black" then
     return true
+  end
+  if owning_player == nil or owning_player == "" then
+    return false
   end
   return playerColor == owning_player
 end
 
 local function notifyUnauthorizedPointsChange(playerColor)
-  local owning_player = getOwningPlayerColor() or "the controlling player"
+  local owning_player = getOwningPlayerColor()
   local actor = getPlayerLabel(playerColor)
   local ship_name = getShipLabel()
-  local message = actor .. " cannot change " .. ship_name .. " points. Controlled by " .. owning_player .. "."
+  local message
+  if owning_player == nil or owning_player == "" then
+    message = actor .. " cannot change " .. ship_name .. " points because it has no owner."
+  else
+    message = actor .. " cannot change " .. ship_name .. " points. Controlled by " .. owning_player .. "."
+  end
   if playerColor ~= nil and Player[playerColor] ~= nil then
     printToColor(message, playerColor, { 1, 0.2, 0.2 })
   else
@@ -355,6 +368,7 @@ end
 
 local function setPointsState(new_state, playerColor)
   playerColor = normalizePlayerColor(playerColor)
+  local owning_player = getOwningPlayerColor()
   if current_state == new_state then
     return
   end
@@ -383,12 +397,6 @@ function HandlePointsNumberTyped(params)
     number = params.number
     playerColor = normalizePlayerColor(params.playerColor)
   end
-
-  log({
-    card = self.getName(),
-    playerColor = playerColor,
-    number = number,
-  }, "Pilot card HandlePointsNumberTyped")
 
   if number == 1 then
     MarkHealthy(playerColor)
@@ -556,11 +564,6 @@ function onLoad(savestate)
 end
 
 function onNumberTyped(playerColor, number)
-  log({
-    card = self.getName(),
-    playerColor = playerColor,
-    number = number,
-  }, "Pilot card onNumberTyped")
   HandlePointsNumberTyped({ number = number, playerColor = playerColor })
 end
 
