@@ -6,6 +6,7 @@ local Decker = require("Game.Component.Spawner.Decker")
 local Spawner = {}
 local PILOT_CARD_SCRIPT_URL =
     "https://raw.githubusercontent.com/JohnnyCheese/TTS_X-Wing2.0/master/TTS_xwing/src/Game/Component/Spawner/PilotCard.lua"
+local LIMITED_PILOT_BULLET = "•"
 local cachedPilotCardScript = nil
 local pendingSpawnRequests = {}
 local isLoadingPilotCardScript = false
@@ -615,7 +616,7 @@ local function spawnPilotCardAndDial(context, pilot, pilotName, pilotCustomizati
             trackedCard.setLock(false)
         end
         session:waitCondition(pilotIdSpawnFunc, function()
-            return trackedCard ~= nil and (not trackedCard.spawning)
+            return not trackedCard.spawning
         end)
     end
 
@@ -650,11 +651,7 @@ local function spawnPilotCardAndDial(context, pilot, pilotName, pilotCustomizati
         end
     end
 
-    return {
-        pilotCard = pilotCard,
-        position = pos,
-        rotation = rot,
-    }
+    return pilotCard
 end
 
 local function resolvePilotTexture(pilot, pilotCustomization, pilotName)
@@ -663,7 +660,7 @@ local function resolvePilotTexture(pilot, pilotCustomization, pilotName)
     end
 
     local textureKey = pilot.Data.texture
-    local textureUrl = nil
+    local textureUrl
     if textureKey ~= nil and pilot.Data.textures ~= nil then
         textureUrl = pilot.Data.textures[textureKey]
     end
@@ -728,7 +725,7 @@ local function spawnCompositeShipBase(context, pilot, pilotName, texture, modelt
 
     local base_name_str = pilotName
     if pilot.Data.limited and pilot.Data.limited > 0 then
-        base_name_str = string.rep("•", pilot.Data.limited) .. " " .. pilotName
+        base_name_str = string.rep(LIMITED_PILOT_BULLET, pilot.Data.limited) .. " " .. pilotName
     end
     newShip.setTable("UiData", {
         name = base_name_str,
@@ -749,7 +746,7 @@ local function spawnCompositeShipBase(context, pilot, pilotName, texture, modelt
     local shippos = pos
     local shiprot = rot
     local ship = newShip
-    local shipCustomObject = nil
+    local shipCustomObject
     if pilot.Data.mesh then
         shipCustomObject = {
             mesh = '{verifycache}' .. pilot.Data.mesh,
@@ -833,7 +830,6 @@ local function spawnShipIdentifiersAndConfig(context, pilot, pilotCard, tint, mo
     local pos = shipSpawnResult.shipPosition
     local rot = shipSpawnResult.shipRotation
 
-    local shipCard = pilotCard
     local idpos = pos
     local idrot = rot
     local customObj = shipIdCustomObjectForSize(pilot.Size)
@@ -856,17 +852,14 @@ local function spawnShipIdentifiersAndConfig(context, pilot, pilotCard, tint, mo
         ship.drag_selectable = true
         ship.interactable = true
 
-        if shipCard ~= nil then
-            shipCard.call('addTintObject', { 'ship', ship })
+        if pilotCard ~= nil then
+            pilotCard.call('addTintObject', { 'ship', ship })
         end
         ship.call('initContextMenu')
     end
-    if pilot.Data.ProximityHider then
-        ship.addTag("ProximityHider")
-    end
     session:waitCondition(shipIdSpawnFunc,
         function()
-            return (not ship.spawning) and (not ship.isSmoothMoving()) and (shipCard == nil or not shipCard.spawning)
+            return (not ship.spawning) and (not ship.isSmoothMoving()) and (pilotCard == nil or not pilotCard.spawning)
         end)
 
     if pilot.Data.Config and pilot.Data.Config.States then
@@ -970,8 +963,7 @@ local function spawnPilotBundle(context, pilot, upgradeResult)
     tint = pilotCustomization.tint or tint
     modeltint = pilotCustomization.modeltint or modeltint
 
-    local cardAndDialResult = spawnPilotCardAndDial(context, pilot, pilotName, pilotCustomization, tint)
-    local pilotCard = cardAndDialResult.pilotCard
+    local pilotCard = spawnPilotCardAndDial(context, pilot, pilotName, pilotCustomization, tint)
 
     if pilot.Condition ~= nil then
         spawnAssignableAccessories(session, accessoryContext, pilot.Condition,
