@@ -1421,13 +1421,13 @@ BehaviourDB.rule_sets[1].ships['gauntletfighter'].action_selection = {
 -- have slightly different tables.
 BehaviourDB.rule_sets[1].ships['z95af4headhunter'] = {}
 BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions = {}
-BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[1] = {}
-BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[1].target_selection = {
+BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions['rebelalliance'] = {}
+BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions['rebelalliance'].target_selection = {
     [1] = 'LockedInRange',
     [2] = 'ClosestInArc',
     [3] = 'Closest'
 }
-BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[1].move_table = {
+BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions['rebelalliance'].move_table = {
     bullseye = {
         near = { [1] = 'k3', [3] = 's1', [5] = 's2' },
         far = { [1] = 's1', [2] = 's2', [5] = 's3' },
@@ -1459,11 +1459,11 @@ BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[1].move_table = {
         stress = { [1] = 's1', [3] = 'br2', [6] = 'tr3' },
     },
 }
-BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[1].flee_table = {
+BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions['rebelalliance'].flee_table = {
     edge = { bullseye = 's4' },
     hyper = { [1] = 'bl2', [2] = 'br2', [3] = 's2', [5] = 's3' }
 }
-BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[1].action_selection = {
+BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions['rebelalliance'].action_selection = {
     [1] = { -- Target lock if not in enemy's arc
         description = { text = "%s target locked %s outside target's arc.", strings = { 'ship', 'target' } },
         preconditions = { targetLocked = false, inEnemyArc = false, targetWithinRange = true, hasShot = true },
@@ -2590,13 +2590,13 @@ BehaviourDB.rule_sets[1].ships['btls8kwing'].action_selection = {
 -- The Z-95 Scum has slightly different AI from the Rebel one (less self-preservation)
 -- Z-95-AF4 Headhunter. This is already defined in the Rebel section, so we have
 -- to add a new faction to the existing one.
-BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[3] = {}
-BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[3].target_selection = {
+BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions['scumandvillainy'] = {}
+BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions['scumandvillainy'].target_selection = {
     [1] = 'LockedInRange',
     [2] = 'ClosestInArc',
     [3] = 'Closest'
 }
-BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[3].move_table = {
+BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions['scumandvillainy'].move_table = {
     bullseye = {
         near = { [1] = 'k3', [3] = 's1', [5] = 's2' },
         far = { [1] = 's1', [2] = 's2', [5] = 's3' },
@@ -2628,11 +2628,11 @@ BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[3].move_table = {
         stress = { [1] = 's1', [3] = 'br2', [6] = 'tr3' },
     },
 }
-BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[3].flee_table = {
+BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions['scumandvillainy'].flee_table = {
     edge = { bullseye = 's4' },
     hyper = { [1] = 'bl2', [2] = 'br2', [3] = 's2', [5] = 's3' }
 }
-BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions[3].action_selection = {
+BehaviourDB.rule_sets[1].ships['z95af4headhunter'].factions['scumandvillainy'].action_selection = {
     [1] = { -- Target lock if not in enemy's arc
         description = { text = "%s target locked %s outside target's arc.", strings = { 'ship', 'target' } },
         preconditions = { targetLocked = false, inEnemyArc = false, targetWithinRange = true, hasShot = true },
