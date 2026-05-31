@@ -162,6 +162,38 @@ Relocator = Maneuver:new()
 -- Modules API, must be loaded last
 require("API")
 
+-- [STREAM HOOK] BEGIN dispatcher
+StreamHooks = StreamHooks or {}
+
+function registerStreamHook(p)
+    if p and p.guid then StreamHooks[p.guid] = true end
+end
+
+function unregisterStreamHook(p)
+    if p and p.guid then StreamHooks[p.guid] = nil end
+end
+
+function fireStreamEvent(event, payload)
+    for guid, _ in pairs(StreamHooks) do
+        local obj = getObjectFromGUID(guid)
+        if obj then obj.call("onStreamEvent", { event = event, payload = payload }) end
+    end
+end
+
+function onObjectNumberTyped(obj, player_color, number)
+    if not obj or not obj.getVar then return false end
+    local dieColor = obj.getVar("dicecolor")
+    if not dieColor or dieColor == "" or dieColor == "PlayerOrder" then return false end
+    fireStreamEvent("dice_face_change", {
+        guid         = obj.getGUID(),
+        die_color    = dieColor,
+        new_face_num = number,
+        player_color = player_color,
+    })
+    return false
+end
+-- [STREAM HOOK] END dispatcher
+
 function onSave()
     return SaveManager.onSave()
 end
@@ -3566,6 +3598,19 @@ MoveModule.PerformMove = function(move_code, ship, ignoreCollisions, finishFunct
     local finData = MoveModule.GetFinalPosData(move_code, ship, ignoreCollisions)
     if finData.finType == 'invalid' then
         AnnModule.Announce({ type = 'error', note = finData.invalidReason }, 'all', ship)
+        fireStreamEvent("maneuver", {
+            ship_name          = ship.getName(),
+            ship_guid          = ship.getGUID(),
+            ship_size          = info.size or "",
+            move_code          = move_code,
+            move_type          = info.type or "",
+            move_dir           = info.dir or "",
+            move_speed         = info.speed or "",
+            move_extra         = info.extra or "",
+            result_type        = "invalid",
+            collided_ship      = "",
+            note               = finData.invalidReason or info.note or "",
+        })
         return false
     end
 
@@ -3595,6 +3640,19 @@ MoveModule.PerformMove = function(move_code, ship, ignoreCollisions, finishFunct
         end
     end
     AnnModule.Announce(annInfo, 'all', ship)
+    fireStreamEvent("maneuver", {
+        ship_name          = ship.getName(),
+        ship_guid          = ship.getGUID(),
+        ship_size          = info.size or "",
+        move_code          = move_code,
+        move_type          = info.type or "",
+        move_dir           = info.dir or "",
+        move_speed         = info.speed or "",
+        move_extra         = info.extra or "",
+        result_type        = finData.finType or "",
+        collided_ship      = (annInfo.collidedShip and annInfo.collidedShip.getName()) or "",
+        note               = annInfo.note or "",
+    })
 
     local templateData = {
         origin = originalPos,
@@ -3890,6 +3948,7 @@ end
 EventSub.Register('onObjectDropped', TokenModule.onObjectDropped)
 
 TokenModule.removeOnFlip = function(object, player)
+    local seatColor = player.color
     local ship = Global.call("getShipTokenIsAssignedTo", { token = object })
     local color = Color.fromString(player.color):toHex()
     local player = player.steam_name
@@ -3899,6 +3958,17 @@ TokenModule.removeOnFlip = function(object, player)
         printToAll(string.format("[%s]%s spent %s's %s token[-]", color, player, ship.getName(), token))
     else
         printToAll(string.format("[%s]%s spent a %s token[-]", color, player, token))
+    end
+
+    local tokLower = string.lower(token or "")
+    if tokLower == "focus" or tokLower == "calculate" or tokLower == "evade" or tokLower == "reinforce" then
+        local gc = getObjectFromGUID("c9a2a0")
+        fireStreamEvent("dice_modify", {
+            player       = player,
+            player_color = seatColor or "",
+            side         = gc and gc.call("getSideForColor", { color = seatColor }) or nil,
+            token        = tokLower,
+        })
     end
 
     object.destruct()

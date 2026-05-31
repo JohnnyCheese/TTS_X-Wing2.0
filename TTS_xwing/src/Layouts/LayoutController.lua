@@ -87,68 +87,18 @@ local defaultRequiredRoles = {
     d9a9fa = 'Defence Dice changer',
 }
 
+local staticDiceBagGuids = {
+    ['8a49f4'] = true,
+    ['edbe72'] = true,
+    ['3d426e'] = true,
+}
+
 local function dicePlatformPrefix(role)
     if role == 'Attack Dice changer' then
         return 'atkPlat'
     elseif role == 'Defence Dice changer' then
         return 'defPlat'
     end
-end
-
-local function diceBagFamily(gmNotes)
-    if gmNotes and gmNotes:sub(1, 3) == "atk" then
-        return "atk"
-    elseif gmNotes and gmNotes:sub(1, 3) == "def" then
-        return "def"
-    end
-end
-
-local function getGMNotes(obj)
-    return obj and obj.getGMNotes and obj.getGMNotes() or ""
-end
-
-local function castAround(obj)
-    local pos = obj.getPosition()
-    local bounds = obj.getBoundsNormalized()
-    return Physics.cast({
-        origin       = { pos[1], pos[2] + 0.5, pos[3] },
-        direction    = { 0, -1, 0 },
-        type         = 3,
-        size         = { bounds.size.x * 3, 2, bounds.size.z * 3 },
-        orientation  = obj.getRotation(),
-        max_distance = 0,
-        debug        = false,
-    })
-end
-
-local function getDiceBagOnPlatform(platform, family)
-    for _, hit in pairs(castAround(platform)) do
-        local obj = hit.hit_object
-        local gmNotes = getGMNotes(obj)
-        if obj ~= platform and obj.tag == "Infinite" and diceBagFamily(gmNotes) == family and gmNotes ~= "atkOG1" and gmNotes ~= "defOG1" then
-            return obj
-        end
-    end
-end
-
-local function activeDiceSkinBag(family)
-    local role = family == "atk" and "Attack Dice changer" or "Defence Dice changer"
-    local platform = Layout.elements and Layout.elements[role] or nil
-    return platform and getDiceBagOnPlatform(platform, family) or nil
-end
-
-local function diceSlotData(lay, family)
-    local platform = family == "atk" and lay.elements['Attack Dice changer'] or lay.elements['Defence Dice changer']
-    if not platform then
-        return nil
-    end
-
-    local offset = family == "atk" and Vector(-0.03, 0.07, 0.05) or Vector(0.03, 0.07, 0.04)
-    return {
-        pos   = Vector(platform.pos) + offset,
-        rot   = family == "atk" and { 0.00, 90.00, 90.00 } or { 90.00, 90.00, 0.00 },
-        scale = { 3.00, 3.00, 3.00 },
-    }
 end
 
 local function findReplacementForRequired(role, oldGuid, oldName, oldGMNotes)
@@ -253,6 +203,11 @@ end
 Layout.RequireFromGUID = function(guid)
     state.requiredObjectGuids = state.requiredObjectGuids or {}
     local currentGuid = state.requiredObjectGuids[guid] or guid
+    if staticDiceBagGuids[guid] and currentGuid ~= guid then
+        state.requiredObjectGuids[guid] = nil
+        currentGuid = guid
+        SaveState()
+    end
     local obj = getObjectFromGUID(currentGuid)
     if not obj and currentGuid ~= guid then
         state.requiredObjectGuids[guid] = nil
@@ -278,6 +233,10 @@ function onObjectStateChange(object, old_guid)
     debugLayout("state change event: old=" .. tostring(old_guid) .. " new=" .. describeObject(object) ..
         " oldRequired=" .. tostring(Layout.requiredGuids[old_guid] == true))
     if state.active and Layout.requiredGuids[old_guid] then
+        if staticDiceBagGuids[Layout.requiredOriginalGuids[old_guid] or old_guid] then
+            debugLayout("ignoring state change replacement for static dice bag guid " .. tostring(old_guid))
+            return
+        end
         Layout.pendingStateChanges[old_guid] = true
         Layout.ReplaceRequiredObject(old_guid, object, "state change event")
     end
@@ -320,7 +279,7 @@ Layout.Hide = function(obj)
     obj.setScale(Vect.Scale(obj.getScale(), 0.1))
 end
 
-Layout.Put = function(obj, data, activeDiceBags)
+Layout.Put = function(obj, data)
     obj.setLock(data.lock ~= false)
     local int = data.int
     if int == nil then int = true end
@@ -329,27 +288,6 @@ Layout.Put = function(obj, data, activeDiceBags)
     obj.setPositionSmooth(data.pos, false, true)
     obj.setRotationSmooth(data.rot, false, true)
     obj.setScale(data.scale)
-    if activeDiceBags and obj == Layout.elements['Attack Dice changer'] and activeDiceBags.atk then
-        local bag = activeDiceBags.atk
-        local bagData = activeDiceBags.atkData
-        Wait.frames(function()
-            if bag and bagData then
-                bag.setPositionSmooth(bagData.pos, false, true)
-                bag.setRotationSmooth(bagData.rot, false, true)
-                bag.setScale(bagData.scale)
-            end
-        end, 1)
-    elseif activeDiceBags and obj == Layout.elements['Defence Dice changer'] and activeDiceBags.def then
-        local bag = activeDiceBags.def
-        local bagData = activeDiceBags.defData
-        Wait.frames(function()
-            if bag and bagData then
-                bag.setPositionSmooth(bagData.pos, false, true)
-                bag.setRotationSmooth(bagData.rot, false, true)
-                bag.setScale(bagData.scale)
-            end
-        end, 1)
-    end
     if data.set then
         data.set(obj)
     end
@@ -399,16 +337,10 @@ function Layout.Switch(newIndex)
     cust.image = lay.tableImage
     tabRef.setCustomObject(cust)
     tabRef.reload()
-    local activeDiceBags = {
-        atk     = activeDiceSkinBag("atk"),
-        def     = activeDiceSkinBag("def"),
-        atkData = diceSlotData(lay, "atk"),
-        defData = diceSlotData(lay, "def"),
-    }
     for name, el in pairs(Layout.elements) do
         if lay.elements[name] then
             el.highlightOn({ 0, 0, 1 }, 2)
-            Layout.Put(el, lay.elements[name], activeDiceBags)
+            Layout.Put(el, lay.elements[name])
         else
             Layout.Hide(el)
         end

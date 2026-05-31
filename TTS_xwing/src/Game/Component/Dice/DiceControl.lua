@@ -305,6 +305,31 @@ DiceControlModule.PresentDiceRollerResult = function(player)
     DiceControlModule.CheckFirstPlayerRoll(player)
     DiceControlModule.dice_roller_state[player] = "idle"
 
+    if fireStreamEvent then
+        local pc = DiceControlModule.player_colors[player]
+        local gc = getObjectFromGUID and getObjectFromGUID("c9a2a0")
+        local side = gc and gc.call("getSideForColor", { color = pc }) or nil
+        local rollDice = {}
+        local rollGuids = {}
+        for _, dice in pairs(DiceControlModule.rolled_dice[player]) do
+            local guid = dice.getGUID()
+            table.insert(rollDice, {
+                guid = guid,
+                color = dice.getVar("dicecolor") or "Default",
+                face = dice.getRotationValue(),
+            })
+            table.insert(rollGuids, guid)
+        end
+        fireStreamEvent("dice_roll", {
+            rolling_player   = player,
+            player_color     = pc or "",
+            side             = side,
+            roll_guids       = rollGuids,
+            roll_dice        = rollDice,
+            cumulative_stats = DiceControlModule.dice_statistics[player] or {},
+        })
+    end
+
     if DiceControlModule.test_mode then
         for _, dice in pairs(DiceControlModule.rolled_dice[player]) do
             dice.setRotation(vector(326.26, 179.99, 90.00))

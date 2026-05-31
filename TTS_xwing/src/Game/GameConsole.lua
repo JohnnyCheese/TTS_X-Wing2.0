@@ -293,6 +293,57 @@ local function getScoreCategoryLabel(side)
     return "score"
 end
 
+-- [STREAM HOOK] BEGIN dispatcher
+StreamHooks = StreamHooks or {}
+
+function registerStreamHook(p)
+    if p and p.guid then StreamHooks[p.guid] = true end
+end
+
+function unregisterStreamHook(p)
+    if p and p.guid then StreamHooks[p.guid] = nil end
+end
+
+function fireStreamEvent(event, payload)
+    for guid, _ in pairs(StreamHooks) do
+        local obj = getObjectFromGUID(guid)
+        if obj then obj.call("onStreamEvent", { event = event, payload = payload }) end
+    end
+end
+
+function getSideForColor(params)
+    local p = params and params.color and players[params.color]
+    return p and p.side or nil
+end
+
+function pushPointsToStreamerbot(side)
+    if side ~= "Left" and side ~= "Right" then return end
+    local p = sided_players[side]
+    fireStreamEvent("points_change", {
+        side          = side,
+        player_color  = (p and p.color) or "",
+        registered    = (p ~= nil),
+        scoring_mode  = scoring_mode or "classic",
+        total_points  = (p and p.points) or 0,
+        ship_points   = (p and p.ship_points) or 0,
+        obj_points    = (p and p.scenario_points) or 0,
+    })
+end
+
+function pushPointsBothSides()
+    pushPointsToStreamerbot("Left")
+    pushPointsToStreamerbot("Right")
+end
+
+function pushRoundInitToStreamerbot()
+    fireStreamEvent("round_change", {
+        round         = round,
+        display_round = math.max(0, round - 1),
+        init_color    = history[round] or "",
+    })
+end
+-- [STREAM HOOK] END dispatcher
+
 local function announceScoreChange(args)
     if not args or not args.side or args.delta == nil then
         return
@@ -469,6 +520,7 @@ function updateScoreDisplay(side)
   self.UI.setAttribute(side .. "PointText", "text", tostring(p.points))
   self.UI.setAttribute(side .. "ShipPointsText", "text", "S:" .. tostring(p.ship_points or 0))
   self.UI.setAttribute(side .. "ScenPointsText", "text", "O:" .. tostring(p.scenario_points or 0))
+  pushPointsToStreamerbot(side)
 end
 
 function AddConcededShipPoints(args)
@@ -711,6 +763,7 @@ function reset()
     recreateIndicators()
     setContextMenu()
     applyScoringModeUI()
+    pushPointsBothSides()
 end
 
 function start()
@@ -887,6 +940,7 @@ function randomizeNext(verbose)
     if verbose then
         printToAll( "[" .. Color.fromString(color):toHex() .. "]" .. color .. "[-] player is first in round " .. tostring(round - 1), { 1, 0.4, 0 })
     end
+    pushRoundInitToStreamerbot()
     return color
 end
 
@@ -980,6 +1034,8 @@ function goBack()
             recreateStoneBag()
         end
         recreateIndicators()
+        pushRoundInitToStreamerbot()
+        pushPointsBothSides()
     end -- if round > 0
 end
 
@@ -994,6 +1050,7 @@ function changePrevious()
             if choose_next then
                 history[round] = color
                 recreateIndicators()
+                pushRoundInitToStreamerbot()
                 return
             end
             if color == history[round] then
@@ -1002,6 +1059,7 @@ function changePrevious()
         end -- for pair(players)
         history[round] = first_color
         recreateIndicators()
+        pushRoundInitToStreamerbot()
     end -- if round > 0
 end
 
@@ -1075,6 +1133,7 @@ function firstPlayerRoll(args)
                 end
                 printToAll( "[" .. Color.fromString(color):toHex() .. "]" .. color .. "[-] player is first in round " .. tostring(round - 1), { 1, 0.4, 0 })
                 Global.call("API_StreamAnnounce", { text = "First Player", player = color })
+                pushRoundInitToStreamerbot()
                 dice_roll_scores = {}
             end
         else
