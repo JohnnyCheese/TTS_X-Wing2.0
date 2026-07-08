@@ -1311,6 +1311,20 @@ local function loadPilotCardScript()
 end
 
 function Spawner.newSpawner(listTable)
+    local compositeBase = nil
+    if CompositeBase_GUID ~= nil then
+        compositeBase = getObjectFromGUID(CompositeBase_GUID)
+    end
+    if compositeBase == nil then
+        printToAll(
+            "Unable to spawn squad: the composite ship base object is missing from this save. " ..
+            "Restore the deleted object or load a save that still contains it.",
+            { 1, 0.2, 0.2 }
+        )
+        print("Spawner aborted: no object found for CompositeBase_GUID " .. tostring(CompositeBase_GUID))
+        return
+    end
+
     local request = createSpawnRequest(listTable)
     if cachedPilotCardScript ~= nil then
         spawnSquad(request, cachedPilotCardScript)
